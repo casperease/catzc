@@ -48,4 +48,5 @@ Rename-CodeName @{ 'Get-WidgetSet' = 'Get-GadgetSet'; 'WidgetConfig' = 'GadgetCo
 ## Matching
 
 The names are tried longest first, so a name that contains another is replaced whole, and a name matches only as a token, never inside a
-longer one. The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design and each is reported, so the caller decides.
+longer one. The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design and each is reported, so the caller
+decides.

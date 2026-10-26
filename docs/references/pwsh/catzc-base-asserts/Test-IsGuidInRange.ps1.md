@@ -1,6 +1,7 @@
 # pwsh/Base.Asserts/Test-IsGuidInRange.ps1
 
-The query form that answers whether a GUID lies inside an inclusive GUID range and defines the ordering; `Assert-IsGuidInRange` is its throwing form.
+The query form that answers whether a GUID lies inside an inclusive GUID range and defines the ordering; `Assert-IsGuidInRange` is its
+throwing form.
 
 ## help
 

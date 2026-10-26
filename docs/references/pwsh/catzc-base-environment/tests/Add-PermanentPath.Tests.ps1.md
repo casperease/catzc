@@ -11,5 +11,5 @@ context, so the mocks are global.
 ## Skipping a present entry
 
 A case seeds the in-memory PATH with the entry already there, and `Add-PermanentPath` must skip the registry write entirely. The case
-asserts that `Set-EnvironmentPath` is never called, so it never leans on state passed between two mocks, which hits a Pester `$script:` scope
-surprise.
+asserts that `Set-EnvironmentPath` is never called, so it never leans on state passed between two mocks, which hits a Pester `$script:`
+scope surprise.

@@ -3,17 +3,17 @@
 The two glossary checks that read every in-scope file's prose ([GlossaryProse](GlossaryProse.cs.md)):
 
 - **Phrasing (G4)** — an avoided phrasing of a concept, as a whole word sequence, in a surface its source checks.
-- **Forms (G6)** — a qualified use of a concept's head word whose qualifier the concept does not list as a form, and, unless the concept takes
-  verb forms, its -ed and -ing verb forms.
+- **Forms (G6)** — a qualified use of a concept's head word whose qualifier the concept does not list as a form, and, unless the concept
+  takes verb forms, its -ed and -ing verb forms.
 
-Each source is checked over the tracked files its options' scope selects and its exclude does not, in the surfaces its options list. A file's
-prose is read once per run into the caller's surface cache, however many sources and checks scan it. The result is one message per hit,
-sorted by file, line and message, duplicates removed.
+Each source is checked over the tracked files its options' scope selects and its exclude does not, in the surfaces its options list. A
+file's prose is read once per run into the caller's surface cache, however many sources and checks scan it. The result is one message per
+hit, sorted by file, line and message, duplicates removed.
 
 ## Segments
 
-`Segments` yields every segment, in a surface the source checks, of every tracked Markdown or PowerShell file the source's scope selects and its
-exclude does not; a file's prose is read into the surface cache on first use.
+`Segments` yields every segment, in a surface the source checks, of every tracked Markdown or PowerShell file the source's scope selects and
+its exclude does not; a file's prose is read into the surface cache on first use.
 
 ## What is a qualifier
 

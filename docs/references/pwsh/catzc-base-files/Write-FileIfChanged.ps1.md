@@ -55,8 +55,8 @@ Write-FileIfChanged -Path $settingsPath -Content $composed -DryRun
 
 ## Delete, then write
 
-An in-place write through a linked target would tunnel the composed content into the link's source of truth. Deleting first severs any
-link, so the write is always a fresh, independent file.
+An in-place write through a linked target would tunnel the composed content into the link's source of truth. Deleting first severs any link,
+so the write is always a fresh, independent file.
 
 ## Inside a staged burst
 

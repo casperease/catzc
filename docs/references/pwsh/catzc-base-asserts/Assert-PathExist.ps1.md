@@ -1,7 +1,7 @@
 # pwsh/Base.Asserts/Assert-PathExist.ps1
 
-The throwing check that a filesystem path exists, of the kind `Any`, `Container` or `Leaf`. It throws the caller's `-ErrorText`, or a default
-message naming the path.
+The throwing check that a filesystem path exists, of the kind `Any`, `Container` or `Leaf`. It throws the caller's `-ErrorText`, or a
+default message naming the path.
 
 ## help
 

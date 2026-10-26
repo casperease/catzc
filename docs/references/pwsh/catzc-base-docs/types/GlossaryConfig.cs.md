@@ -17,6 +17,7 @@ The rules are self-contained, this one source only, with no filesystem, git or o
   ([ADR-REPO-VOCAB-SOURCESINREPOSITORY](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)).
 
 Cross-source and cross-file facts are the glossary checks' job (`Test-Glossary`), not load's: term and key uniqueness across all sources,
-reciprocal contrasts, a `defined_by` that names a real rule, a domain that `drs.yml` declares, a tracked source file. Loading stays hermetic (the
+reciprocal contrasts, a `defined_by` that names a real rule, a domain that `drs.yml` declares, a tracked source file. Loading stays hermetic
+(the
 [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
 pattern).

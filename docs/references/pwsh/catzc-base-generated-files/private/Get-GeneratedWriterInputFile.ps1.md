@@ -35,6 +35,6 @@ Get-GeneratedWriterInputFile -InputGlob 'widget/**', 'gadget/*.yml' -RepositoryR
 
 ## Why the walks are bounded
 
-Only a glob with no literal folder needs the repository root walked. Every other glob walks its own folder, so a narrow writer pays only
-for the folders its globs reach, and a folder an ancestor's walk already reaches is not walked twice. One walk per folder lists its files
-and folders apart, already relative to the root, so nothing is cut per path afterwards.
+Only a glob with no literal folder needs the repository root walked. Every other glob walks its own folder, so a narrow writer pays only for
+the folders its globs reach, and a folder an ancestor's walk already reaches is not walked twice. One walk per folder lists its files and
+folders apart, already relative to the root, so nothing is cut per path afterwards.

@@ -1,21 +1,23 @@
 # pwsh/Base.Config/configs/configs.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The config registry `Get-Config` reads: it binds every shipped config name to the C# config type that constructs it.
 
-## comment:1
+## Entries
 
-Above `configs:`, written with `#`.
+`Test-ShippedConfigs` checks that each shipped `configs/<name>.yml` has an entry and loads, and that each entry names a shipped config. An
+entry is:
 
-```text
-Config registry for Get-Config: every shipped config's C# config type (Test-ShippedConfigs checks that each
-shipped configs/<name>.yml has an entry and loads, and that each entry names a shipped config).
-
-  <config-name>:
-    type: <C# FQN>         # construct [FQN]::new($dict) — maps + validates
-    overridable: false     # optional; a consumer overlay may not change this config (default: true). Only the
-                           # engine-intrinsic configs are sealed ([ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)).
-
-The registry validates ITSELF: the 'configs' config (this file) is validated by the C# type below.
-Get-ConfigRegistry constructs it on load.
+```yaml
+<config-name>:
+  type: <C# FQN>
+  overridable: false
 ```
+
+- **`type`** — the type `Get-Config` constructs as `[FQN]::new($dict)`, which maps and validates the parsed file.
+- **`overridable`** — optional; `false` seals the config against a consumer overlay (default `true`). Only the engine-intrinsic configs are
+  sealed ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).
+
+## Self-validation
+
+The registry validates itself: the `configs` config, this file, is validated by the C# type `ConfigsConfig`, which `Get-ConfigRegistry`
+constructs on load.

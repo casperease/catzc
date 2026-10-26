@@ -5,8 +5,8 @@ The copy carries the article, not the source's meta block, and opens with its ti
 
 ## Long lines
 
-The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; `Format-LongMarkdownLines`
-wraps those blocks again.
+The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; `Format-LongMarkdownLines` wraps
+those blocks again.
 
 ## help
 

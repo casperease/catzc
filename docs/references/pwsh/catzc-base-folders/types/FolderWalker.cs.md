@@ -5,5 +5,5 @@ and never follows a link.
 
 ## Walking files and folders in one pass
 
-`WalkRelative` lists the files and the folders apart in one pass, each relative to `relativeTo` with `/` separators. A caller that needs both
-would otherwise make the walk twice, then cut the paths one by one.
+`WalkRelative` lists the files and the folders apart in one pass, each relative to `relativeTo` with `/` separators. A caller that needs
+both would otherwise make the walk twice, then cut the paths one by one.

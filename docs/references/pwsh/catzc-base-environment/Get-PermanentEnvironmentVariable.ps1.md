@@ -1,6 +1,7 @@
 # pwsh/Base.Environment/Get-PermanentEnvironmentVariable.ps1
 
-The read half of the seam for persistent environment variables other than PATH: a thin reader of one variable at one scope, which tests mock.
+The read half of the seam for persistent environment variables other than PATH: a thin reader of one variable at one scope, which tests
+mock.
 
 ## help
 

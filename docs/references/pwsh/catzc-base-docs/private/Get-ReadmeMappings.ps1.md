@@ -14,8 +14,8 @@ track's join form, as a Python package's is.
 
 ## A missing article
 
-A folder with no authored source yet is skipped, so `Build-Readme` never makes the importer throw; `-Missing` hands the skipped folders to the
-gate.
+A folder with no authored source yet is skipped, so `Build-Readme` never makes the importer throw; `-Missing` hands the skipped folders to
+the gate.
 
 ## help
 

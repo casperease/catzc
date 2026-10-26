@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Get-Glossary.ps1
 
-The reader of the controlled vocabulary: it merges every glossary source into one sorted list of `GlossaryEntry` and caches it for the session
-per repository root. The cache entry is read with the strict-clean probe
+The reader of the controlled vocabulary: it merges every glossary source into one sorted list of `GlossaryEntry` and caches it for the
+session per repository root. The cache entry is read with the strict-clean probe
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
 ## help

@@ -48,5 +48,5 @@ ConvertTo-RepoRelativePath 'D:\a\1\ws\sample\main.json'                   # outs
 
 ## Why the output anchor wins first
 
-The reserved `out/` anchor is tried before the repository root. An output artifact stays portable as `out/...` even when the output root sits
-outside the repository, as a pipeline's staging area does, where no repository-relative form exists.
+The reserved `out/` anchor is tried before the repository root. An output artifact stays portable as `out/...` even when the output root
+sits outside the repository, as a pipeline's staging area does, where no repository-relative form exists.

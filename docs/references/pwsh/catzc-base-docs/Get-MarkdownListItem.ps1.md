@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Get-MarkdownListItem.ps1
 
-A small reader that turns markdown lines into list items. An item is a `-` or `N.` line together with the indented lines that continue it, as
-the markdown formatter wraps it; a blank line, an unindented line or the next item ends it.
+A small reader that turns markdown lines into list items. An item is a `-` or `N.` line together with the indented lines that continue it,
+as the markdown formatter wraps it; a blank line, an unindented line or the next item ends it.
 
 ## help
 

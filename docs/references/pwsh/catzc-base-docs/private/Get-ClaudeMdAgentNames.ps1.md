@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-ClaudeMdAgentNames.ps1
 
-The private list reader of `Test-AgentDefinitions`: it returns the agent names bulleted in the `## Sub-agents` section of CLAUDE.md, so the gate
-can compare them with the registry.
+The private list reader of `Test-AgentDefinitions`: it returns the agent names bulleted in the `## Sub-agents` section of CLAUDE.md, so the
+gate can compare them with the registry.
 
 ## help
 

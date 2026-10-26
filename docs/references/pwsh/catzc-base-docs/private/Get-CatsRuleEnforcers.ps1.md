@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-CatsRuleEnforcers.ps1
 
-The private enforcer index of `Show-Cats` and the glossary enforcement check: for each rule citation it lists the analyzer rules and the tests
-that enforce it.
+The private enforcer index of `Show-Cats` and the glossary enforcement check: for each rule citation it lists the analyzer rules and the
+tests that enforce it.
 
 ## Test enforcers
 

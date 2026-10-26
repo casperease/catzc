@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-GlossaryAnchorViolations.ps1
 
-Check G2 of the glossary: every defined term is anchored, bolded in the normative summary of the rule its concept names in `defined_by`. It is
-called by `Test-Glossary` and returns one message per term that is not.
+Check G2 of the glossary: every defined term is anchored, bolded in the normative summary of the rule its concept names in `defined_by`. It
+is called by `Test-Glossary` and returns one message per term that is not.
 
 ## help
 

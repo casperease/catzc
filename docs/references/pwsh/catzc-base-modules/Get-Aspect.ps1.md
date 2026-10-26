@@ -1,7 +1,6 @@
 # pwsh/Base.Modules/Get-Aspect.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The command that returns the ordered aspect classification of a track or container: the named parts its units partition into.
 
 ## help
 
@@ -37,11 +36,6 @@ Get-Aspect -Track automation      # -> live (closed, from the layout), tests (ca
 (Get-Aspect -Track infrastructure)[-1].Name   # -> 'live' (a deployment's catch-all is live)
 ```
 
-## comment:1
+## Declared and built-in conventions
 
-Above `$aspects = Get-AspectDeclaration`, written with `#`.
-
-```text
-The type holds the declared conventions over its built-in ones (VariantsConfig.DefaultAspects), so one lookup
-covers both.
-```
+The variants type holds the declared conventions over its built-in ones (`VariantsConfig.DefaultAspects`), so one lookup covers both.

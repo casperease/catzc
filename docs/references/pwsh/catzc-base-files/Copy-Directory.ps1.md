@@ -32,9 +32,9 @@ Copy-Directory $fixtureTemplates $sandbox
 
 ## How the copy walks
 
-The directory structure is recreated first, so empty directories survive, and then the files are copied. Each enumerated path starts with the
-source, so cutting off that prefix and appending the rest to the target rebases it; this is safer than `String.Replace`, which would rewrite
-any other occurrence of the prefix inside a path.
+The directory structure is recreated first, so empty directories survive, and then the files are copied. Each enumerated path starts with
+the source, so cutting off that prefix and appending the rest to the target rebases it; this is safer than `String.Replace`, which would
+rewrite any other occurrence of the prefix inside a path.
 
 The walk is a named whole-tree walk
 ([ADR-PWSH-ENUM-ALWAYSBOUNDED](../../../drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a copy takes

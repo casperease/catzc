@@ -1,7 +1,7 @@
 # pwsh/Base.Config/Get-Config.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one reader of every module's internal config: it discovers the config by its global name, merges a consumer overlay fragment in build
+mode, validates through the registered C# type and caches the result for the session.
 
 ## help
 
@@ -59,60 +59,29 @@ Get-Config -Config tools
 Get-Config -Config glossary -ListOwners | ForEach-Object { Get-Config -Config glossary -Module $_.Module }
 ```
 
-## comment:1
+## One reader, discovered names
 
-Above `$fragmentPath = $null`, written with `#`.
+Get-Config is the one reader of every config
+([ADR-CONF-LOADING-ONEREADER](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)). The name is discovered,
+and an unknown one throws
+([ADR-CONF-LOADING-EXISTENCEDISCOVERED](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
+[ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](../../../drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
 
-```text
-A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only
-([ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)). The cache key carries the fragment's stamp,
-so an edited fragment is never served from a stale merge.
-```
+## Cache
 
-## comment:2
+The cache is keyed by the resolved file path
+([ADR-CONF-LOADING-CACHEBYPATH](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)), and its entry is
+probed strict-clean
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)). In build mode
+the key also carries the stamp of the consumer overlay's fragment
+([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)), so an edited fragment is never served from a stale merge.
 
-Above `$script:configCache = @{}`, written with `#`.
+## Typed construction
 
-```text
-strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
-```
-
-## comment:3
-
-Above `$entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name;...`, written with `#`.
-
-```text
-The one reader
-([ADR-CONF-LOADING-ONEREADER](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader));
-the name is discovered and an unknown one throws
-([ADR-CONF-LOADING-EXISTENCEDISCOVERED](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
-[ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](/docs/drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
-```
-
-## comment:4
-
-Above `if ($null -eq...`, written with `#`.
-
-```text
-Cached by the resolved file path
-([ADR-CONF-LOADING-CACHEBYPATH](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)).
-```
-
-## comment:5
-
-Above `$type = [type] $registered['type']`, written with `#`.
-
-```text
 The registered C# type maps and validates the parsed dictionary at construction
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
-```
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
 
-## comment:6
+## Overlay folder
 
-Above `$folder = if ($entry['Folder']) {`, written with `#`.
-
-```text
-An overlay folder is named like the bundled module's folder, which drops the namespace its full name carries; a
-registered type with no shipped file finds its folder through its loaded module.
-```
+An overlay folder is named like the bundled module's folder, which drops the namespace the module's full name carries. A registered type with
+no shipped file finds its folder through its loaded module.

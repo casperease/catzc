@@ -11,11 +11,11 @@ It produces [GlossarySegment](GlossarySegment.cs.md)s, which [GlossaryScan](Glos
   ([ADR-REPO-FORMAT-MARKDOWNTITLE](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle)).
 - **PowerShell** — the real parser's tokens and AST: `help` (a block comment holding `.SYNOPSIS` or `.DESCRIPTION`), `comments` (every other
   comment), and `messages`, the strings passed to `throw`, `Write-Message`, `Write-Warning`, `Write-Error` or `Write-Host`, and the value of
-  any `-ErrorText` or `-Because` parameter. A constant string gives its value; an expandable string its value with every embedded variable or
-  sub-expression removed. A string several of those contexts hold is read once.
+  any `-ErrorText` or `-Because` parameter. A constant string gives its value; an expandable string its value with every embedded variable
+  or sub-expression removed. A string several of those contexts hold is read once.
 
-Every segment's mentions, `code`, "quoted" and “curly-quoted” spans that do not cross a blank line, are blanked to spaces (`RemoveMentions`),
-and it carries the line it starts on, so a match's offset maps to its line.
+Every segment's mentions, `code`, "quoted" and “curly-quoted” spans that do not cross a blank line, are blanked to spaces
+(`RemoveMentions`), and it carries the line it starts on, so a match's offset maps to its line.
 
 ## Message carriers
 
@@ -25,5 +25,5 @@ string drops it with the rest of the sub-expression.
 
 ## Code heads
 
-A code head's `immutable:` block holds facts the engine computed from the file (its name, kind, module), not prose. Its lines are blanked, as
-the Markdown reader blanks the meta block, and the line count is kept so later lines keep their numbers.
+A code head's `immutable:` block holds facts the engine computed from the file (its name, kind, module), not prose. Its lines are blanked,
+as the Markdown reader blanks the meta block, and the line count is kept so later lines keep their numbers.

@@ -5,9 +5,8 @@ knows.
 
 ## The ADR area
 
-The ADR index getter returns a comma-wrapped array
-([ADR-AUTO-CACHE](../../../drs/automation/caching.md) exemplar), so the entries are taken by plain assignment: wrapping them again in `@()`
-would nest the array one level too deep.
+The ADR index getter returns a comma-wrapped array ([ADR-AUTO-CACHE](../../../drs/automation/caching.md) exemplar), so the entries are taken
+by plain assignment: wrapping them again in `@()` would nest the array one level too deep.
 
 For each rule it also shows what mechanically enforces it, the tests and the analyzer rules, keyed by the rule's code, which both sides use
 (see the [index](../../../drs/index.md)).

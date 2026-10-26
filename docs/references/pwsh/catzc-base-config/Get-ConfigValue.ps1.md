@@ -1,7 +1,6 @@
 # pwsh/Base.Config/Get-ConfigValue.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The resolver of a global config address, `global.<config>.<key>...`, to the node it names, as a view over what Get-Config already loaded.
 
 ## help
 

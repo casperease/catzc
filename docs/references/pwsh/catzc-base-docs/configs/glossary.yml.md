@@ -8,5 +8,6 @@ The glossary source of `Catzc.Base.Docs`: the repository-wide vocabulary this mo
 
 ## Forms
 
-A concept's `forms` lists the words allowed to qualify its head word. The `language zone` concept lists `language`, `design`, `test` and `live`; `landing`, `dns`
-and `availability` are Azure's own terms (a CAF landing zone, a private DNS zone, an availability zone), not language zones.
+A concept's `forms` lists the words allowed to qualify its head word. The `language zone` concept lists `language`, `design`, `test` and
+`live`; `landing`, `dns` and `availability` are Azure's own terms (a CAF landing zone, a private DNS zone, an availability zone), not
+language zones.

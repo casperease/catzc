@@ -5,7 +5,8 @@ collects every disagreement into one report; the list of what it checks is in th
 
 ## Kinds of skill
 
-A user skill is invoked by the user and a brief skill is named in a brief. Neither is preloaded by an agent, and the registry says which are.
+A user skill is invoked by the user and a brief skill is named in a brief. Neither is preloaded by an agent, and the registry says which
+are.
 
 ## The catzc head of a capability
 
