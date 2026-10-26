@@ -22,6 +22,7 @@ function Test-LinkDirections {
 
     Assert-SourceTree
 
+    # The same walk as Test-Links, so the two gates agree on what a link is.
     $settings = Get-Config -Config links
     $result = Invoke-LinkEngine -RepositoryRoot $RepositoryRoot -Path $Path -Kind Both -Wrap $settings.wrap -IncludeEdge
     $written = @($result.Edges)

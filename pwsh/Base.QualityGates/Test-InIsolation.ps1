@@ -83,6 +83,7 @@ function Test-InIsolation {
             Write-Message "Test-InIsolation: no test folders in the '$(if ($ModuleProfile) { $ModuleProfile } else { 'custom' })' sandbox — nothing to run."
         }
         elseif ($Isolation -eq 'Process') {
+            # A generated runner in a clean child pwsh, whose exit code is the failed-test count.
             $pathLiteral = ($testPaths | ForEach-Object { "'$_'" }) -join ', '
             $tagLiteral = ($excludeTags | ForEach-Object { "'$_'" }) -join ', '
             $runner = Join-Path $sandbox '.isolation-run.ps1'
@@ -113,6 +114,7 @@ exit `$r.FailedCount
             }
         }
         else {
+            # In this session, with the repository root pointed at the sandbox until the run ends.
             $savedRoot = $env:RepositoryRoot
             try {
                 $env:RepositoryRoot = $sandbox

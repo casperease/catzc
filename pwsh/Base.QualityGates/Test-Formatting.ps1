@@ -58,6 +58,7 @@ function Test-Formatting {
         }
     }
 
+    # Unless a language narrows the run, a file no formatter, no_formatter reason or carrier class covers is a finding.
     if (-not $Language) {
         $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), $config)
         # Get-FormatScope returns its paths as one array: assign it, so foreach walks the paths, not the array.

@@ -19,6 +19,7 @@ function Test-IdiomaticNames {
 
     $tracked = @(Get-GitTrackedPath '.')
     $config = Get-Config -Config languages
+    # Every misnamed folder and file, then every defined name that breaks its case or round trip.
     $definitions = @(Get-DefinedName -Path $tracked)
     $issues = @($config.MisnamedPaths([string[]] $tracked)) + @(foreach ($definition in $definitions) {
             $finding = $config.MisnamedDefinition($definition.Path, $definition.Kind, $definition.Name)

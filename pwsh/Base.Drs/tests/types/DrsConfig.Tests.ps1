@@ -18,7 +18,7 @@ Describe 'DrsConfig.IndexPath' -Tag 'L0', 'logic' {
 
 Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
-        # Invented domains and codes, never real record vocabulary, defined here so the run phase sees the helper.
+        # Invented names and codes, never real record vocabulary, defined here so the run phase sees the helper.
         function New-ValidRaw {
             [ordered]@{
                 domains = [ordered]@{

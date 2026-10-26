@@ -66,7 +66,7 @@ function Sync-GeneratedFile {
         }
     }
 
-    # The build is named for the working-tree sources' hash, so while any differs from HEAD it is held back, never committed.
+    # The build is named for the hash of the type files on disk, so while any differs from HEAD it is held back, never committed.
     if ($changed -contains $compiled -and (Test-GitPathChanged "$modulesFolder/*/types/*.cs")) {
         Write-Message "Skipped ${compiled}: type sources (types/*.cs) differ from HEAD, so this build is not the one HEAD produces. Commit the type sources, then re-import." -ForegroundColor Yellow
         $changed = @($changed | Where-Object { $_ -ne $compiled })

@@ -24,6 +24,7 @@ function Measure-QualityGates {
     try {
         if ($AnalyzerRules) {
             if (-not (Get-Module PSScriptAnalyzer)) {
+                # The first use pays several seconds of vendored-module import, so it is announced.
                 Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
                 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
             }

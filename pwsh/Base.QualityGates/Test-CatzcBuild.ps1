@@ -56,6 +56,7 @@ function Test-CatzcBuild {
         throw 'Build-Modules resolved the selection to no modules — nothing to build or test.'
     }
 
+    # The harness module rides in every build for its scope; its own tests run only when selected.
     $harnessModule = $MyInvocation.MyCommand.Module.Name
     $buildSelection = $selection
     if ($harnessModule -notin $testedModules) {

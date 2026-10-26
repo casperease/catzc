@@ -28,7 +28,7 @@ function Get-DrsCitationGraphViolations {
     }
     $ruleHeading = "^###\s+Rule\s+(?<code>$($Adrs.CodeForm.Rule))\s*$"
     $citation = "(?<![A-Za-z0-9-])$($Adrs.CodeForm.Cited)"
-    # A link's domain is the one with the longest folder that holds its target, so a nested domain folder keeps its own links.
+    # A link's domain is the one with the longest folder that holds its target, so a folder inside another keeps its own links.
     $folders =@($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
     $ret = foreach ($domain in $Adrs.Domains) {

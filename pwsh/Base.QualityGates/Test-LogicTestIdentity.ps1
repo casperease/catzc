@@ -30,10 +30,12 @@ function Test-LogicTestIdentity {
         # The default set is every test file of the catzc source tree — tests never ship in a build.
         Assert-SourceTree
         $modulesRoot = Get-CatzcModulesRoot
+        # Test files reach four levels below pwsh/ (module, tests, types, file).
         $files = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object
     }
 
+    # Only files that could carry a finding are parsed: a provable superset, so no leak is skipped.
     $exactTokens = @($live.Values | Where-Object { $_.MatchMode -eq 'exact' } | ForEach-Object { $_.Token })
     $tokenRegex = if ($exactTokens.Count) {
         [regex]::new('\b(' + (($exactTokens | ForEach-Object { [regex]::Escape($_) }) -join '|') + ')\b',

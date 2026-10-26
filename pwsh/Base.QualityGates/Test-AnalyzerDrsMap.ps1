@@ -17,6 +17,7 @@ function Test-AnalyzerDrsMap {
 
     Assert-SourceTree
     $map = Get-Config -Config analyzer-drs-map
+    # A typed assignment keeps the comma-wrapped result intact, where @() would nest it.
     [string[]] $ruleIds = Get-CatsDrsRuleIds
     $validIds = [System.Collections.Generic.HashSet[string]]::new($ruleIds, [System.StringComparer]::Ordinal)
 

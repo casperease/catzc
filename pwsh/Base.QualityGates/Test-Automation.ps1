@@ -58,6 +58,7 @@ function Test-Automation {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
     }
 
+    # -Suite resolves the named globset's verify scope to its module list and tier.
     if ($Suite) {
         if ($Modules.Count -gt 0) {
             throw 'Pass -Suite or -Modules, not both — a test suite resolves its own module scope.'
@@ -67,6 +68,7 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
+    # The harness both runs share: discovery, tag checks, sharding, workers, rows and reports.
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `

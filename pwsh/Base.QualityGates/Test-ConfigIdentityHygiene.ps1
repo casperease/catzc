@@ -28,7 +28,9 @@ function Test-ConfigIdentityHygiene {
     # The default set lives in its own variable: -Path's ValidatePathGiven would refuse an empty set on assignment.
     $files = $Path
     if (-not $Path) {
+        # A config is one file or a folder of parts; the terminology parts declare the fixture tokens.
         $terminology = 'configs/terminology/*'
+        # Module configs sit three levels below pwsh/; an infrastructure place's ymls reach four.
         $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 4 -PruneVendor $true |
             Where-Object { $_ -match '[\\/]configs[\\/]([^\\/]+[\\/])?[^\\/]+\.yml$' -and ($_ -replace '\\',
                     '/') -notlike "*$terminology" }
