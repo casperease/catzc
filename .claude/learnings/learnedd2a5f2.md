@@ -79,3 +79,23 @@ Started 2026-10-25T23:52:39.8581500+01:00.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: putting a multi-step pwsh run in one out/ script from the start.
 - 2026-10-26 Cats: In hindsight I wish I knew this fact: each open step of a plan is a numbered checkbox line, '1. [ ] …'
   (ADR-REPO-PLANS-OPENSTEP).
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a burst step that is a bare *.Tests.ps1 path now runs through Invoke-TestFile;
+  before that fix such a step printed Pester red and still counted as passed.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: the types stamp memo (%LOCALAPPDATA%\catzc\types\stamp-*.json) is written with form
+  body even when no block form was applied, so a stale memo makes every compile throw sources changed during the import; deleting the stamp
+  is the safe unblock.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a contract group is \<track>.\<module folder in the normal form>
+  (pwsh.base.contracts), resolved by Get-ContractGroup and Get-ContractCommandRoot through Base.Contracts configs/contracts.yml; catzc.x.y
+  strings that remain are normal-form type names.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Export-Comments works only on tracked paths, so a staged .cs is exported by calling
+  CommentEngine.Export on the staged text and writing the page straight to docs.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a new .cs needs its meta head (docs plus header generated) before Test-FileMeta
+  passes, and a new .internal asset needs its entry in Catzc.Internal.Builder.psm1 and in the Invoke-ModuleBuild fixture.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: rebuild-hash tests build twice from the live tree, so a peer burst between the two
+  builds makes them fail without any code fault.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: reading a test run verdict from its results-shard-0.xml totals in one grep instead
+  of listing rows.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: grepping a test file for every spelling of a renamed token (plain, backticked,
+  regex-escaped) before the first edit, so one pass fixes it.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: catzc is a namespace declared once per track (pwsh Catzc ".", js/bash catzc "-",
+  python "_", go ""); disk folders never spell it, and VariantTrack.FullNameOf/FolderNameOf convert both ways.

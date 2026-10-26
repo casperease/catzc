@@ -50,3 +50,14 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 - Should the `Show-EditReminder` hook text add one line that `Format-Code -Path` on a plan also re-wraps `plan-master.md`? Recommended: yes,
   one clause in the hook text instead of a lesson every session relearns. Check if decided: `Test-Plans`.
+- Should `catzc-run` gain one line, "a burst step is an Invoke-TestFile call or a named gate, staged with -Stage, its verdict read from the
+  results XML", and should `.claude/CLAUDE.md`'s Project structure say module folders carry no catzc prefix (the track declares the
+  namespace)? Recommended: yes to both, as they replace three of 2026-10-26's learnings; the CLAUDE.md line is the user's edit. Check if
+  decided: `Test-AgentDefinitions` and `Test-Plans`.
+- Should `catzc-check` gain one line, "a dot folder (`pwsh/.internal`) is passed to Invoke-TestFile or Test-Parsing as its file list, never
+  as a folder", so no session relearns that both reject a dot-folder path? Recommended: yes, one clause in a capability already read for
+  every check. Check if decided: `Test-AgentDefinitions` and `Test-Plans`.
+- Should the folder-move path rewrite become a how-to page (`docs/how-to/pwsh/rewrite-paths-after-a-move.md`): the `Update-DrsCitation` code
+  map built from a moves list, folder rows naming a child path (a row maps its path's parent), never a one-segment folder row, and the
+  default exclusions (`.claude/CLAUDE.md`, learnings, hindsight; overlay paths stay)? Recommended: yes, it replaces rediscovery from
+  `out/ns5/after-move.md` and `docs-rewrite.md` at the next move. Check if decided: `Test-Links` on the page and `Test-Plans`.

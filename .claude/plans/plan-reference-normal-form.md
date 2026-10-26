@@ -27,6 +27,11 @@ A reference page's path is derived from its source file, so no code head carries
 
 - A module's reference article is `docs/references/<language>/<module>/index.md`, so a module is one shallow folder.
 - A collision (two files of one module and aspect with the same normal form) is a finding of the gate below, never resolved silently.
+- Pages with no source: authored articles go in a declared `articles:` list in comment-pages.yml; the six internal module articles merge
+  into their `.psm1` pages; the python map becomes `python/*` (`python/diagrams/index.md`); stale config pages re-point or go; the obj/
+  build-artifact page goes.
+- Steps 1 and 2 are staged in `out/drone-2f-refnf/staged` and swap together with step 4, after the user's run of step 3's script; that
+  script reads `out/ns5/ref-map.csv`, which is refreshed from the committed tree before the run.
 
 ## Open steps
 
