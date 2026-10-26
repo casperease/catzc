@@ -26,21 +26,24 @@ Binds to [FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion
 Treat continuous delivery as comprehensive in scope — it applies to distributed systems, infrastructure changes, database changes, firmware,
 and mobile releases alike, not only to the application code path that is easiest to automate.
 
-- [Summary](#summary)
+Source: [DORA, Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery)
+
+Binds to [FDR-CD-CDCONTAINSCI](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdcontainsci) and
+[FDR-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-type-oneciengine).
 
 ### Rule EDR-DORA-CD-NOTJUSTMOREOFTEN
 
 Never mistake running the existing deployment process more often for continuous delivery. Raising deployment frequency without improving the
 underlying test automation, architecture, and process first raises the failure rate and the team's burnout, not its performance.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery)
 
 ### Rule EDR-DORA-CD-TOOLSARENOTPRACTICES
 
 Adopting deployment-pipeline tooling does not substitute for the technical practices and process change it is meant to carry — comprehensive
 test automation, loosely coupled architecture, and trunk-based development are the capabilities that make the pipeline trustworthy.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery)
 
 ## Context
 

@@ -1,4 +1,4 @@
-# Research: DORA — Continuous integration
+# EDR: DORA — Continuous integration
 
 ## Rules: EDR-DORA-CI
 
@@ -7,35 +7,46 @@
 Every commit to the mainline triggers an automated build and an automated test suite, and both report back within minutes — the developer
 who made the change learns the outcome before moving on to something else, not hours or a day later.
 
-- [Summary](#summary)
+Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
+
+Binds to [FDR-CD-DISCIPLINEBEFOREPIPELINE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-disciplinebeforepipeline).
 
 ### Rule EDR-DORA-CI-DAILYINTEGRATION
 
 Developers integrate their work into the mainline at least daily, in small increments. A large, infrequent merge is not continuous
 integration behind a slow gate; it is batching, and the gate is not the part to fix.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
+
+Binds to [FDR-CD-SHORTINTEGRATIONCYCLE](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle).
 
 ### Rule EDR-DORA-CI-FIXBROKENBUILDFIRST
 
 A broken build is fixed before other work continues. Treat a red mainline as the team's top priority, not a queued item, because every
 commit layered on a broken build compounds on unverified ground.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
+
+Binds to [WDR-ANDON-NOBROKENBASELINE](../../process/holding-the-line.md#rule-wdr-andon-nobrokenbaseline).
 
 ### Rule EDR-DORA-CI-BUILDISSCRIPT
 
 The automated build is itself a script, checked into version control and repeatable on demand — never a manual, undocumented sequence of
 steps that a person remembers to run in a particular order.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
+
+Binds to [FDR-RUNNER-DEVELOPERREPRODUCIBLE](../../flow/pipeline-runner-pattern.md#rule-fdr-runner-developerreproducible).
 
 ### Rule EDR-DORA-CI-FASTGATE
 
 Keep the per-commit gate fast: the build-and-test cycle that runs on every check-in stays inside a small number of minutes. Slower
 verification — exhaustive suites, system-level checks — runs somewhere else, never inside that gate.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
+
+Binds to [FDR-TYPE-PRECOMMITBUDGET](../../flow/pipeline-types.md#rule-fdr-type-precommitbudget) and
+[ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../automation/test-automation.md#rule-adr-auto-test-buildverificationtest).
 
 ## Context
 
@@ -71,15 +82,6 @@ fast.
 
 Without daily integration, changes accumulate outside the mainline, and the diff a merge finally faces grows large enough that resolving it
 — and finding what broke — becomes its own project. Fast, automated feedback on every commit is what keeps that from happening.
-
-## How to apply
-
-This platform's CI discipline states the same practice directly: continuous integration is a discipline before it is a pipeline, bound by a
-5–10 minute integration budget on every merge into main so the fast gate never degrades into a queue, with the Build Verification Test as
-the aggregate pass/fail signal a commit must clear. The pipeline taxonomy carries the mechanics that budget depends on — CI and CD share one
-build-and-verify engine, and anything slower than the budget is pushed into the post-commit path rather than the pre-commit gate. Test
-automation supplies the tiered suite the fast gate runs: L0–L1 unit tests and L2 CLI-tool tests execute on every change and self-skip only
-when a tool is genuinely absent, while L3 cloud tests stay opt-in and out of the inner loop.
 
 ## Common pitfalls
 

@@ -1,4 +1,4 @@
-# Research: DORA — Database change management
+# EDR: DORA — Database change management
 
 ## Rules: EDR-DORA-DBCHANGE
 
@@ -7,7 +7,9 @@
 Database changes are captured as migration scripts in version control and managed the same way as application code changes — not applied ad
 hoc against a live schema outside the tracked history.
 
-- [Summary](#summary)
+Source: [DORA, Database change management](../../../references/dora/capabilities.md#database-change-management)
+
+Binds to [PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted).
 
 ### Rule EDR-DORA-DBCHANGE-SEQUENCEDSCRIPTS
 
@@ -70,16 +72,6 @@ into pending changes lets the people who manage the production database catch a 
 than after. Without that structure, database work becomes a bottleneck outside the pipeline's normal feedback loops: a change nobody
 reviewed until deploy day, a migration nobody can safely re-run, a schema edit that forces a maintenance window because there was no other
 way to make it safe.
-
-## How to apply
-
-This platform's general artifact-and-versioning discipline covers the shape database change management asks for: every artifact needed to
-build, test, deploy, or operate a system — explicitly including "database schemas and migration scripts" — lives in version control, so a
-migration script is diffed, reviewed, and rolled back exactly like any other change. Where a schema change cannot land atomically — the
-zero-downtime case DORA describes as adding new structures alongside old ones — the platform's branch-by-abstraction pattern is the
-sanctioned, temporary-coexistence route to it: a seam that lets old and new structures coexist for a bounded migration window, with a
-built-in deletion plan, rather than an indefinite compatibility shim. A database migration follows the same rule as every other contract
-change: it and its callers move together, with no lingering dual-read fallback left behind once the cutover completes.
 
 ## Common pitfalls
 

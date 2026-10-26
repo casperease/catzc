@@ -1,4 +1,4 @@
-# Research: DORA — Customer feedback
+# EDR: DORA — Customer feedback
 
 ## Rules: EDR-DORA-FEEDBACK
 
@@ -7,35 +7,39 @@
 Gather feedback from the customer before defining any candidate feature, and use it to validate that the problem is real before a solution
 is designed for it. A feature justified by an assumption about the customer, not by evidence from the customer, has not cleared the bar.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Customer feedback](../../../references/dora/capabilities.md#customer-feedback)
+
+Binds to [WDR-KAIZEN-ADAPTFROMEVIDENCE](../../process/inspect-and-adapt.md#rule-wdr-kaizen-adaptfromevidence).
 
 ### Rule EDR-DORA-FEEDBACK-ITERATETOWARDSOLUTION
 
 Once a real problem is confirmed, iterate toward a solution that solves that problem and nothing more, and check its business viability
 before committing further work to it. Scope grows from validated need, not from the size of the idea.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Customer feedback](../../../references/dora/capabilities.md#customer-feedback)
+
+Binds to [WDR-KAIZEN-AGILEFROMMANIFESTO](../../process/inspect-and-adapt.md#rule-wdr-kaizen-agilefrommanifesto).
 
 ### Rule EDR-DORA-FEEDBACK-OUTCOMEMETRICS
 
 Judge success by outcome metrics — for example acquisition, activation, retention, referral, and revenue (AARRR) — never by whether a
 feature shipped. Shipping is an input to the outcome, not the outcome itself.
 
-- [Summary](#summary)
+Source: [DORA, Customer feedback](../../../references/dora/capabilities.md#customer-feedback)
 
 ### Rule EDR-DORA-FEEDBACK-REGULARSATISFACTION
 
 Collect customer satisfaction metrics on a regular cadence, and keep them updated and broadcast rather than gathered once and filed away. A
 metric nobody sees cannot inform a design decision.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Customer feedback](../../../references/dora/capabilities.md#customer-feedback)
 
 ### Rule EDR-DORA-FEEDBACK-ACTONFEEDBACK
 
 Act on feedback even when it is inconvenient, and never structure a team so that it is blocked from acting on what it learns. Feedback that
 cannot change a decision is a ritual, not a capability.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Customer feedback](../../../references/dora/capabilities.md#customer-feedback)
 
 ## Context
 
@@ -69,15 +73,6 @@ The mechanism is that feedback collected early and acted on continuously catches
 whereas feedback collected late — or not acted on — lets a team build fully, ship, and only then discover that the assumption was wrong.
 Regular, visible satisfaction metrics are what make the signal available in time to act on it, rather than after the decision it should have
 informed.
-
-## How to apply
-
-catzc treats the teams that consume the platform as its customers — a platform team building a product for other teams, not a project
-delivered once and left alone. The evidence-first stance this capability calls for is the one the platform's own inspect-and-adapt loop
-applies: a change rests on signals observed in the real system, not on an assumption or on seniority, which is the "gather feedback,
-validate the problem" sequence this capability describes, applied to the platform's own process. The agile value of customer collaboration
-over contract negotiation is the standing commitment behind it: a continuing relationship with consuming teams, not a fixed specification
-agreed once, is what is allowed to steer what the platform builds next.
 
 ## Common pitfalls
 

@@ -21,6 +21,7 @@ messages). It is not a general git or `gh` wrapper, and it drives every external
 | responsibility:3 | preflight | [Purge preflight](#responsibility3--purge-preflight)                       |
 | responsibility:4 | verify    | [Token-absence verification](#responsibility4--token-absence-verification) |
 | responsibility:5 | contracts | [GitHub-facing contracts](#responsibility5--github-facing-contracts)       |
+| responsibility:6 | flow | [Workflow flow reading](#responsibility6--workflow-flow-reading) |
 
 ### responsibility:1 — Remote purge and publish
 
@@ -70,6 +71,13 @@ what GitHub reads, never an internal value
 `jobs`. The contract mechanism in `Catzc.Base.Contracts` generates one test per bound file, so a change GitHub would reject fails CI here
 first. A platform change edits the schema in `0.1.0` in place, never an old shape kept beside the new one.
 
+### responsibility:6 — Workflow flow reading
+
+Reading the workflow files GitHub runs into the one row a flow diagram draws
+([DDR-VISUAL-FLOWISALENS](../../../drs/design/visual-design.md#rule-ddr-visual-flowisalens)): a lane per workflow, its pipeline type from
+the file name's prefix, its triggers from the `on` events, and its jobs, steps and environments. The row has the same shape the Azure
+DevOps reader returns, so the renderer lays out either engine's lanes the same way.
+
 ## What the module does
 
 The module faces GitHub in both of GitHub's roles. As a platform, GitHub reads the repository's workflow files and its landing page; the
@@ -103,3 +111,4 @@ The module's public functions and contract assets, sorted into the responsibilit
 | responsibility:3 — Purge preflight            | `Assert-GitHubPurgeReady`  |
 | responsibility:4 — Token-absence verification | `Test-GitHistoryClean`     |
 | responsibility:5 — GitHub-facing contracts    | `workflow.yml.schema.json` |
+| responsibility:6 — Workflow flow reading | `Get-GithubFlowRows` |
