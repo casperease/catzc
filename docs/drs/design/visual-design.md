@@ -330,11 +330,12 @@ exception, an arrow labelled `calls` whose head is the code it runs, and a feed 
 code that takes in what the tail supplies (its tail still initiates). Only a word says otherwise: an arrow whose label names another meaning
 (`reads`, `writes`, `feeds`, `failed`) means that, and a diagram that gives its plain arrows one other meaning states it as its `relation`,
 which every plain arrow then carries and which opts the diagram out of the check. The `relation` opt-out is for state and commit diagrams
-only, where an arrow is a step between states rather than a dependency: `commit-promotion-states` declares "advances one rung", and
-`sync-point` declares "points at"; any other diagram's plain arrows keep the default meaning. The default meaning, the code kinds, the
-labels that may end on code and each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's
-`drawio.yml`; the legend entry of a plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the
-rule is refused naming the edge.
+only, where an arrow is a step between states rather than a dependency, and such a diagram says so with `states: true`: the validator
+refuses a `relation` without it and `states: true` without a relation. `commit-promotion-states` declares "advances one rung", and
+`sync-point` "points at"; any other diagram's plain arrows keep the default meaning. The default meaning, the code
+kinds, the labels that may end on code and each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the
+kit's `drawio.yml`; the legend entry of a plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that
+breaks the rule is refused naming the edge.
 
 The kind of each end orders the arrow. The kit's `edge-rank` lists the ranks, lowest first (actor, code, file or config, store or set,
 result or failure), each with its glyph kinds, and the lower rank acts on the higher: an edge between cells of different rank runs from the

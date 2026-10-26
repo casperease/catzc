@@ -85,7 +85,9 @@ layout:
   g-with-timeout: { x: 1020, y: 322, w: 200, h: 44 }
 ```
 
-![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](.assets/resolve-one-limit-in-code-order.drawio.png)
+![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling][diagram]
+
+[diagram]: .assets/resolve-one-limit-in-code-order.drawio.png
 
 ## Walkthrough
 

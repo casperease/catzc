@@ -69,7 +69,9 @@ layout:
   g-slot: { x: 680, y: 164, w: 200, h: 52 }
 ```
 
-![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together](.assets/three-kinds-of-infrastructure-code.drawio.png)
+![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together][diagram]
+
+[diagram]: .assets/three-kinds-of-infrastructure-code.drawio.png
 
 ## Walkthrough
 

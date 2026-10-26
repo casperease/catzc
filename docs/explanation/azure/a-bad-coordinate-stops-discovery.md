@@ -76,7 +76,9 @@ layout:
   f-not-customer: { x: 670, y: 360, w: 270, h: 44 }
 ```
 
-![A config file that resolves to no subscription, or to two, stops discovery with one line](.assets/a-bad-coordinate-stops-discovery.drawio.png)
+![A config file that resolves to no subscription, or to two, stops discovery with one line][diagram]
+
+[diagram]: .assets/a-bad-coordinate-stops-discovery.drawio.png
 
 ## Walkthrough
 

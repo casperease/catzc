@@ -122,14 +122,14 @@ convention: a validator whose name maps to no shipped config of its module is ne
 
 ### Poka-yoke
 
-| Situation                                         | What `Get-Config` does                                                                        |
-| ------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `configs.yml` entry (`type:`)                     | Constructs the C# type — maps and validates, every violation in one exception                 |
-| No registry entry                                 | Returns the **raw** ordered dict; `Test-ShippedConfigs` flags a shipped config without a type |
-| Registry entry with no shipped config             | `Test-ShippedConfigs` flags it                                                                |
-| `Assert-…Config` with no matching config name     | Never invoked by `Invoke-ConfigValidator`; `Test-ConfigValidators` flags it                   |
-| Unknown name (no `<name>.yml` anywhere)           | `Resolve-ConfigEntry` **throws** — fail-fast, no silent empty read                            |
-| Ambiguous name (same `<name>.yml` in two modules) | `Resolve-ConfigEntry` **throws**, asking for `-Module` — no accidental wrong file             |
+| Situation                                     | What `Get-Config` does                                                                  |
+| --------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `configs.yml` entry (`type:`)                 | Constructs the C# type — maps and validates, every violation in one exception           |
+| No registry entry                             | Returns the **raw** ordered dict; `Test-ShippedConfigs` flags a typeless shipped config |
+| Registry entry with no shipped config         | `Test-ShippedConfigs` flags it                                                          |
+| `Assert-…Config` with no matching config name | Never invoked by `Invoke-ConfigValidator`; `Test-ConfigValidators` flags it             |
+| Unknown name (no `<name>.yml` anywhere)       | `Resolve-ConfigEntry` **throws** — fail-fast, no silent empty read                      |
+| Ambiguous name (`<name>.yml` in two modules)  | `Resolve-ConfigEntry` **throws**, asking for `-Module` — no accidental wrong file       |
 
 ## Consequences
 

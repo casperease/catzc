@@ -58,7 +58,9 @@ layout:
   e-group: { x: 1060, y: 160, w: 180, h: 60 }
 ```
 
-![A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group](.assets/add-an-environment-slot.drawio.png)
+![A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group][d]
+
+[d]: .assets/add-an-environment-slot.drawio.png
 
 ## Walkthrough
 

@@ -50,6 +50,6 @@ pwsh-to-extension boundary checked instead of implied.
 - [ ] Strict types for `catzc-track-lamps`, one part per change: strict is per module, so the module stays out of `strict:` until every part
       is clean, and each part is measured by a local run with the lamps listed (391 findings on 2026-10-26: glob 24, language 16, status 16,
       host 16, facts 37, tree 34, apply 12, engine 126, extension 11, tests 99). Order: glob, language, status, host, facts, tree, apply,
-      extension, engine, tests; then `catzc-track-lamps` joins `strict:`. Check after each part: its findings at zero in the local run,
+      extension, engine, tests; then `catzc-track-lamps` joins `strict:`. Check: after each part, its findings at zero in the local run,
       `Invoke-JavaScriptTest catzc-track-lamps`, and `catzc-track-lamps.Tests.ps1` (lamp vectors); at the end `Test-JavaScriptTypes` green
       with the lamps strict.

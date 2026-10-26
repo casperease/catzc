@@ -161,6 +161,7 @@ content:
   kind: reference
   flow: left-to-right
   relation: advances one rung
+  states: true
   theme: dark
   bands:
     - { id: band-superseded, label: SUPERSEDED }
@@ -332,6 +333,7 @@ content:
   kind: reference
   flow: left-to-right
   relation: points at
+  states: true
   theme: dark
   bands:
     - { id: band-consumers, label: UPSTREAM }

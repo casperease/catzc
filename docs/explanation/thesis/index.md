@@ -54,4 +54,6 @@ layout:
   k-code: { x: 1040, y: 150, w: 150, h: 44 }
 ```
 
-![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from.drawio.png)
+![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code][diagram]
+
+[diagram]: .assets/where-truth-comes-from.drawio.png

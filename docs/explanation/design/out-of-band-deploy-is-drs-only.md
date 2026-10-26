@@ -35,6 +35,7 @@ content:
   kind: explanation
   flow: left-to-right
   relation: lands, then climbs
+  states: true
   theme: dark
   bands:
     - { id: band-topic, label: TOPIC }

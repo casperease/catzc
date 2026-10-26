@@ -36,6 +36,7 @@ content:
   kind: explanation
   flow: left-to-right
   relation: the artifact moves on
+  states: true
   theme: dark
   bands:
     - { id: band-automated, label: AUTOMATED }

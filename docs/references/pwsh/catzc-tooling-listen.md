@@ -106,7 +106,9 @@ layout:
   r-plans: { x: 1000, y: 150, w: 140, h: 44 }
 ```
 
-![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone](.assets/listen-mode-flow.drawio.png)
+![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone][diagram]
+
+[diagram]: .assets/listen-mode-flow.drawio.png
 
 Detection compares the disk with the session's copies and their indexes, hashing only the files whose length or write time moved; git is
 read once, at the start, to pin the reference, which is the repository at HEAD with committed files only. Every wait is bounded

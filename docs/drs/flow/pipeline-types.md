@@ -154,14 +154,18 @@ to publish (see CI-automation below).
 
 There are exactly six pipeline types: **CRON**, **CI**, **CD**, **CDe**, **DEPLOY**, and **INPUT**.
 
-| Type       | What it actually is                            | Trigger                                  | Components                                   | Produces                                    |
-| ---------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------------- | ------------------------------------------- |
-| **CRON**   | Automation job on a timer (not a pipeline)     | Schedule                                 | One automation invocation                    | A side effect (e.g. rotated cert)           |
-| **CI**     | A CD pipeline with the deploy removed          | PR build validation + post-commit master | The CI engine only                           | A pass/fail signal (no artifact, no deploy) |
-| **CD**     | CI + CD: the CI engine, then deploy + verify   | PR build validation + post-commit master | The CI engine, then deploy & system tests    | A verified artifact, then a deployment      |
-| **CDe**    | CD with the prod roll internalized & automated | PR build validation + post-commit master | The CI engine, then deploy + verify to prod  | An automated production deployment          |
-| **DEPLOY** | CD's deploy tail, extracted and human-governed | Manual/chained, pinned to a commit       | Deploy & system tests over a pinned artifact | A governed, audited deployment              |
-| **INPUT**  | Self-service input turned into a config change | Manual, with ADO pipeline parameters     | Param intake → checkout → write config files | A version-controlled change (a commit)      |
+- **CRON**: an automation job on a timer (not a pipeline). Trigger: a schedule. Components: one automation invocation. Produces: a side
+  effect (e.g. a rotated cert).
+- **CI**: a CD pipeline with the deploy removed. Trigger: PR build validation + post-commit master. Components: the CI engine only.
+  Produces: a pass/fail signal (no artifact, no deploy).
+- **CD**: CI + CD, the CI engine then deploy + verify. Trigger: PR build validation + post-commit master. Components: the CI engine, then
+  deploy & system tests. Produces: a verified artifact, then a deployment.
+- **CDe**: CD with the prod roll internalized & automated. Trigger: PR build validation + post-commit master. Components: the CI engine,
+  then deploy + verify to prod. Produces: an automated production deployment.
+- **DEPLOY**: CD's deploy tail, extracted and human-governed. Trigger: manual or chained, pinned to a commit. Components: deploy & system
+  tests over a pinned artifact. Produces: a governed, audited deployment.
+- **INPUT**: self-service input turned into a config change. Trigger: manual, with ADO pipeline parameters. Components: param intake →
+  checkout → write config files. Produces: a version-controlled change (a commit).
 
 CDe is the fullest — the CI engine, then deploy-and-verify across non-prod and prod, automated end to end; CD is CDe with the production
 roll left to a separately-governed step; CI is CD with the deploy and system-test stages amputated; and DEPLOY is exactly those amputated

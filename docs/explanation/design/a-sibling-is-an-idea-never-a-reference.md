@@ -116,15 +116,55 @@ names for its two CLIs, so a reader of either repository meets the same habit: o
 
 ## Where the models meet
 
-| Aspect           | Catzc                                                                                                                                                                                                                                                                                                                                                                                                                                | Eac                                                                                                                                                                                                                                    | Meeting point                                                                                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Structure        | A [track](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster) is a cluster of module contents with one tech-stack; a module is placed in a track and resolved through it ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)); every track has one [track type](../../drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes) with one role | A module has a contract file with its metadata and dependencies, a component type that sets its build, test and deployment behaviour, and a module identifier; specifications keep the module hierarchy valid and the modules isolated | A module is a placement with a kind. Eac's component type is the nearest thing to a catzc track type. Catzc's track above the module is the newer idea. |
-| Delivery         | A [deployable-unit](../../drs/design/tracks.md#rule-ddr-track-deployableunit) is what ships, one pipeline each; contracts freeze unit by unit, never repository-wide ([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout))                                                                                                                                                               | One CI workflow and one release workflow per module; a module's changelog under `release/<module>/` drives its calendar version and its tag                                                                                            | Mono repository, not monolith, in both: each unit versions and releases on its own.                                                                     |
-| Contracts        | A [contract](../../drs/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface) is the only public API; a [command contract](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract) states one command's call interface as data, and a check proves the command matches it                                                                                                                 | `contracts/<unit>/<version>/` holds versioned Go packages with their schemas; a specification validates every module contract and another proves every command is documented                                                           | Public is what a contract names, versioned with its unit. Catzc contracts the signature; eac contracts the documentation.                               |
-| Configuration    | Every setting has one default declared on its config type ([PDR-CONFIG-DEFAULTDECLAREDONCE](../../drs/principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)) and resolves in one order ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); an analyzer rule forbids a literal default elsewhere                                          | A defaults package and a config-defaults specification                                                                                                                                                                                 | The same doctrine; catzc adds the analyzer that keeps it.                                                                                               |
-| Change and cache | A generated tracked file carries the key of the inputs it was built from; a cache is a tool's copy inside a session, and a guard is a control whose verdict is never cached                                                                                                                                                                                                                                                          | A change-detection package decides which modules a push touched and triggers only their workflows; a cache-invalidation specification; evidence kept as artifacts                                                                      | The same key, the scoped hash of a unit's files. Catzc names the axis, on demand or committed, as a rule; eac has the mechanics without the word.       |
-| Output           | Every output path resolves under one root ([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)) and belongs to one format with an area that sets its retention ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat))                                                       | Intermediate and planning files live under `out/` only; a specification forbids scattered scripts                                                                                                                                      | Nothing lands outside the output root unsorted. Catzc adds retention by area.                                                                           |
-| Agents           | One agent contract every robot reads first; the user is the only actor who mutates git ([ADR-REPO-AI-NEVERMUTATEGIT](../../drs/repository/ai-agent-contract.md#rule-adr-repo-ai-nevermutategit)); robots and capabilities have line roofs and a named model                                                                                                                                                                          | One agent file loaded at session start; git read-only by default; a handful of agents and skills                                                                                                                                       | Short contracts and read-only git in both.                                                                                                              |
+- **Structure**
+  - Catzc: A [track](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster) is a cluster of module contents with one tech-stack; a
+    module is placed in a track and resolved through it
+    ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule)); every track
+    has one [track type](../../drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes) with one role
+  - Eac: A module has a contract file with its metadata and dependencies, a component type that sets its build, test and deployment
+    behaviour, and a module identifier; specifications keep the module hierarchy valid and the modules isolated
+  - Meeting point: A module is a placement with a kind. Eac's component type is the nearest thing to a catzc track type. Catzc's track above
+    the module is the newer idea.
+- **Delivery**
+  - Catzc: A [deployable-unit](../../drs/design/tracks.md#rule-ddr-track-deployableunit) is what ships, one pipeline each; contracts freeze
+    unit by unit, never repository-wide ([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout))
+  - Eac: One CI workflow and one release workflow per module; a module's changelog under `release/<module>/` drives its calendar version and
+    its tag
+  - Meeting point: Mono repository, not monolith, in both: each unit versions and releases on its own.
+- **Contracts**
+  - Catzc: A [contract](../../drs/repository/api-contracts.md#rule-adr-repo-contract-bindinginterface) is the only public API; a
+    [command contract](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract) states one command's call
+    interface as data, and a check proves the command matches it
+  - Eac: `contracts/<unit>/<version>/` holds versioned Go packages with their schemas; a specification validates every module contract and
+    another proves every command is documented
+  - Meeting point: Public is what a contract names, versioned with its unit. Catzc contracts the signature; eac contracts the documentation.
+- **Configuration**
+  - Catzc: Every setting has one default declared on its config type
+    ([PDR-CONFIG-DEFAULTDECLAREDONCE](../../drs/principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)) and resolves in
+    one order ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder));
+    an analyzer rule forbids a literal default elsewhere
+  - Eac: A defaults package and a config-defaults specification
+  - Meeting point: The same doctrine; catzc adds the analyzer that keeps it.
+- **Change and cache**
+  - Catzc: A generated tracked file carries the key of the inputs it was built from; a cache is a tool's copy inside a session, and a guard
+    is a control whose verdict is never cached
+  - Eac: A change-detection package decides which modules a push touched and triggers only their workflows; a cache-invalidation
+    specification; evidence kept as artifacts
+  - Meeting point: The same key, the scoped hash of a unit's files. Catzc names the axis, on demand or committed, as a rule; eac has the
+    mechanics without the word.
+- **Output**
+  - Catzc: Every output path resolves under one root
+    ([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)) and
+    belongs to one format with an area that sets its retention
+    ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat))
+  - Eac: Intermediate and planning files live under `out/` only; a specification forbids scattered scripts
+  - Meeting point: Nothing lands outside the output root unsorted. Catzc adds retention by area.
+- **Agents**
+  - Catzc: One agent contract every robot reads first; the user is the only actor who mutates git
+    ([ADR-REPO-AI-NEVERMUTATEGIT](../../drs/repository/ai-agent-contract.md#rule-adr-repo-ai-nevermutategit)); robots and capabilities have
+    line roofs and a named model
+  - Eac: One agent file loaded at session start; git read-only by default; a handful of agents and skills
+  - Meeting point: Short contracts and read-only git in both.
 
 ## Where the models part, on purpose
 

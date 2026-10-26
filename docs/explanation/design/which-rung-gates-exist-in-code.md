@@ -46,6 +46,7 @@ content:
   kind: explanation
   flow: left-to-right
   relation: next rung
+  states: true
   theme: dark
   bands:
     - { id: band-all, label: ALL RUNGS }

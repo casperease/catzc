@@ -75,7 +75,9 @@ layout:
   f-wrong: { x: 840, y: 350, w: 240, h: 44 }
 ```
 
-![A pipeline pins the subscription it expects; a devbox picks the target with az account set](.assets/pipeline-pins-devbox-picks-the-target.drawio.png)
+![A pipeline pins the subscription it expects; a devbox picks the target with az account set][diagram]
+
+[diagram]: .assets/pipeline-pins-devbox-picks-the-target.drawio.png
 
 ## Walkthrough
 

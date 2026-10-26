@@ -57,7 +57,9 @@ layout:
   e-group: { x: 960, y: 132, w: 220, h: 60 }
 ```
 
-![Changing one configuration slot runs only its owner's pipeline and reaches only its resource group](.assets/change-one-configuration-slot.drawio.png)
+![Changing one configuration slot runs only its owner's pipeline and reaches only its resource group][diagram]
+
+[diagram]: .assets/change-one-configuration-slot.drawio.png
 
 ## Walkthrough
 

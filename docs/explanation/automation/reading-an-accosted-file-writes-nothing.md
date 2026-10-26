@@ -16,7 +16,9 @@ An author asks cats for the accosted file of the contracts module. The call is o
 before and after it, show that the file is the same, and a third shows that the contract check results are the same. The drawing is the
 action and its effects; the runs under it prove each effect.
 
-![Reading an accosted file writes nothing and leaves the contract checks as they were](.assets/reading-an-accosted-file-writes-nothing.drawio.png)
+![Reading an accosted file writes nothing and leaves the contract checks as they were][diagram]
+
+[diagram]: .assets/reading-an-accosted-file-writes-nothing.drawio.png
 
 ## What the drawing shows
 

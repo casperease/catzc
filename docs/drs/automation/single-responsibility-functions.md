@@ -88,15 +88,20 @@ part they need because they cannot use the function without the part they do not
 
 `Patterns that violate single responsibility`
 
-| Pattern                                                    | Problem                                          | Fix                                                                  |
-| ---------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------- |
-| `Invoke-Foo` installs Foo if missing                       | Side effect the caller did not ask for           | `Assert-Command Foo` at the top; separate `Install-Foo`              |
-| Function changes the current directory to do its work      | Leaks state to the caller                        | Restore it in a `finally`, or use absolute paths                     |
-| Function sets the engine's error preference globally       | Changes error handling for everything downstream | Set it on the individual calls, or scope it with a `try`/`catch`     |
-| Function validates input, transforms it, and writes output | Three reasons to change                          | Separate `Assert-*`, `ConvertTo-*`, and `Write-*` functions          |
-| Function retries on failure with backoff                   | Retry logic tangles with business logic          | Separate `Invoke-WithRetry` that takes the operation as an argument  |
-| Function creates a resource, then configures it            | Partial failure leaves orphaned resource         | Separate `New-*` and `Set-*`; caller composes them                   |
-| Function logs before/after its work                        | Logging concerns change independently            | Use the engine's verbose and debug streams, or wrap at the call site |
+- **`Invoke-Foo` installs Foo if missing**: a side effect the caller did not ask for. Fix: `Assert-Command Foo` at the top; a separate
+  `Install-Foo`.
+- **The function changes the current directory to do its work**: it leaks state to the caller. Fix: restore it in a `finally`, or use
+  absolute paths.
+- **The function sets the engine's error preference globally**: it changes error handling for everything downstream. Fix: set it on the
+  individual calls, or scope it with a `try`/`catch`.
+- **The function validates input, transforms it, and writes output**: three reasons to change. Fix: separate `Assert-*`, `ConvertTo-*`, and
+  `Write-*` functions.
+- **The function retries on failure with backoff**: retry logic tangles with business logic. Fix: a separate `Invoke-WithRetry` that takes
+  the operation as an argument.
+- **The function creates a resource, then configures it**: a partial failure leaves an orphaned resource. Fix: separate `New-*` and `Set-*`;
+  the caller composes them.
+- **The function logs before and after its work**: logging concerns change independently. Fix: use the engine's verbose and debug streams,
+  or wrap at the call site.
 
 The pwsh forms of a temporary state change and of a retry wrapper are in the pwsh twin.
 

@@ -345,6 +345,7 @@ def get(model, kind=None):
             if edge["kind"] == "flow" and not edge["label"]:
                 edge["label"] = content["relation"]
         content["relation"] = ""
+        content["states"] = False  # the word is each edge's label, never a state diagram's relation
     about = {"adrs": adrs, "lens": lens}
     if "zoom-badge" in cells:  # the zoom badge prints the level, so the drawing carries it back
         about["zoom"] = plain(cells["zoom-badge"].get("value"))

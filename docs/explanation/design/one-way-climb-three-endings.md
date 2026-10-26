@@ -33,6 +33,7 @@ content:
   kind: explanation
   flow: left-to-right
   relation: climbs one rung
+  states: true
   theme: dark
   bands:
     - { id: band-climb, label: THE CLIMB }

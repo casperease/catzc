@@ -37,6 +37,7 @@ content:
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
+  states: true
   theme: dark
   bands:
     - { id: band-clone, label: LOCAL CLONE }

@@ -61,7 +61,9 @@ layout:
   r-cd: { x: 960, y: 194, w: 220, h: 40 }
 ```
 
-![A change to one module fans out to every template that references it and every pipeline that deploys one](.assets/a-module-change-fans-out-to-its-templates.drawio.png)
+![A change to one module fans out to every template that references it and every pipeline that deploys one][diagram]
+
+[diagram]: .assets/a-module-change-fans-out-to-its-templates.drawio.png
 
 ## Walkthrough
 

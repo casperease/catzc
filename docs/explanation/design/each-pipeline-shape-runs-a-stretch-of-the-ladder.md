@@ -27,6 +27,7 @@ content:
   kind: explanation
   flow: top-to-bottom
   relation: moved by the stage
+  states: true
   theme: dark
   bands:
     - { id: band-shapes, label: PIPELINE SHAPES }

@@ -7,14 +7,16 @@ their resources must carry, builds them into deployable artifacts, and deploys t
 
 ## Responsibilities
 
-| Responsibility   | Area           | Name                                                                                                               |
-| ---------------- | -------------- | ------------------------------------------------------------------------------------------------------------------ |
-| responsibility:1 | discovery      | [Template discovery and the configuration model](#responsibility1--template-discovery-and-the-configuration-model) |
-| responsibility:2 | naming         | [Deterministic resource naming](#responsibility2--deterministic-resource-naming)                                   |
-| responsibility:3 | classification | [Deployment classification](#responsibility3--deployment-classification)                                           |
-| responsibility:4 | build          | [Build](#responsibility4--build)                                                                                   |
-| responsibility:5 | deploy         | [Deploy and resource-group provisioning](#responsibility5--deploy-and-resource-group-provisioning)                 |
-| responsibility:6 | integrity      | [Template integrity validation](#responsibility6--template-integrity-validation)                                   |
+| Responsibility   | Area      | Name                                                                                               |
+| ---------------- | --------- | -------------------------------------------------------------------------------------------------- |
+| responsibility:1 | discovery | [Template discovery and the configuration model][r1]                                               |
+| responsibility:2 | naming    | [Deterministic resource naming](#responsibility2--deterministic-resource-naming)                   |
+| responsibility:3 | classify  | [Deployment classification](#responsibility3--deployment-classification)                           |
+| responsibility:4 | build     | [Build](#responsibility4--build)                                                                   |
+| responsibility:5 | deploy    | [Deploy and resource-group provisioning](#responsibility5--deploy-and-resource-group-provisioning) |
+| responsibility:6 | integrity | [Template integrity validation](#responsibility6--template-integrity-validation)                   |
+
+[r1]: #responsibility1--template-discovery-and-the-configuration-model
 
 ### responsibility:1 — Template discovery and the configuration model
 

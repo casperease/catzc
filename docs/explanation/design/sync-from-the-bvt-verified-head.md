@@ -27,6 +27,7 @@ content:
   kind: explanation
   flow: left-to-right
   relation: takes its commit from
+  states: true
   theme: dark
   bands:
     - { id: band-mainline, label: MAINLINE }

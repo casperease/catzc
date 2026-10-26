@@ -42,6 +42,7 @@ content:
   kind: explanation
   flow: top-to-bottom
   relation: a commit climbs to
+  states: true
   theme: dark
   bands:
     - { id: band-external, label: EXTERNAL }

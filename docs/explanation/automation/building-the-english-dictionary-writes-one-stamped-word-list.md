@@ -17,7 +17,9 @@ English word list of the pinned cspell. The English half is not read live from a
 that one command builds. This diagram is that command and what it leaves in the tree. The two files land together in the first zone; the
 drift check in the second zone is what keeps them honest afterwards.
 
-![Building the English dictionary writes one stamped word list](.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png)
+![Building the English dictionary writes one stamped word list][diagram]
+
+[diagram]: .assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
 
 ## What the drawing shows
 

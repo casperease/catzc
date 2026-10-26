@@ -74,7 +74,9 @@ layout:
   r-filters: { x: 1110, y: 170, w: 150, h: 44 }
 ```
 
-![A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it](.assets/add-a-template.drawio.png)
+![A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it][diagram]
+
+[diagram]: .assets/add-a-template.drawio.png
 
 ## Walkthrough
 

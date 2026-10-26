@@ -34,6 +34,7 @@ content:
   kind: explanation
   flow: top-to-bottom
   relation: advances to
+  states: true
   bands:
     - { id: band-pipeline, label: PIPELINE GATES }
     - { id: band-candidates, label: CANDIDATES }

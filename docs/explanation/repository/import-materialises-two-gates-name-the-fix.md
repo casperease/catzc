@@ -75,7 +75,9 @@ layout:
   f-disagree: { x: 1050, y: 359, w: 200, h: 44 }
 ```
 
-![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix.drawio.png)
+![The import materialises every root file; two gates catch drift and name the fix][diagram]
+
+[diagram]: .assets/import-materialises-two-gates-name-the-fix.drawio.png
 
 ## Walkthrough
 
