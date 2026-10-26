@@ -3,7 +3,7 @@ Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:folder 'lib') -Force
-        Set-Content -LiteralPath (Join-Path $script:folder 'package.json') -Value '{ "name": "widget-ext", "version": "1.2.3", "publisher": "acme", "displayName": "Widget <ext>", "engines": { "vscode": "^1.90.0" } }'
+        Set-Content -LiteralPath (Join-Path $script:folder 'package.json') -Value '{ "name": "widget-ext", "displayName": "Widget <ext>", "description": "A widget.", "version": "1.2.3", "publisher": "acme", "engines": { "vscode": "^1.90.0" }, "main": "./extension.js", "activationEvents": ["onStartupFinished"] }'
         Set-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Value 'module.exports = {};'
         Set-Content -LiteralPath (Join-Path $script:folder 'lib/gadget.js') -Value 'module.exports = 1;'
         $script:out = Join-Path $TestDrive 'vsix'
@@ -50,10 +50,11 @@ Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
         @(Get-ChildPath $script:out -Depth 1 -File -Filter '*.vsix').Count | Should -Be 1
     }
 
-    It 'refuses a folder whose package.json has no publisher' {
+    It 'refuses a package.json that breaks the extension manifest contract, naming what breaks it, and packs nothing' {
         $broken = Join-Path $TestDrive 'gadget-ext'
         $null = New-Item -ItemType Directory -Path $broken -Force
         Set-Content -LiteralPath (Join-Path $broken 'package.json') -Value '{ "name": "gadget-ext", "version": "1.0.0" }'
-        { Build-VsCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw "*no 'publisher'*"
+        { Build-VsCodeExtension -Path $broken -OutputDirectory $script:out } | Should -Throw '*breaks the extension manifest contract*publisher*'
+        Test-Path -LiteralPath (Join-Path $script:out 'gadget-ext-1.0.0.vsix') | Should -BeFalse
     }
 }

@@ -45,11 +45,12 @@ They look interchangeable. They are not.
 The `ForEach-Object` body is a **scriptblock**, not a loop body. The keywords `return`, `break`, and `continue` behave completely
 differently inside a scriptblock than inside a loop:
 
-| Keyword    | In `foreach` (expected)             | In `ForEach-Object` (surprise)                                                                                                                                  |
-| ---------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `return`   | Returns from the enclosing function | Exits the current scriptblock iteration only — like `continue` in a loop. The pipeline keeps running. The enclosing function does **not** return.               |
-| `break`    | Exits the `foreach` loop            | Breaks the nearest **enclosing loop or switch**. If there is no enclosing loop, **terminates the entire script**. Does not "break out of ForEach-Object."       |
-| `continue` | Skips to the next iteration         | Acts on the nearest **enclosing loop**. If there is no enclosing loop, behaves like `break` — terminates the script. Does not "skip to the next pipeline item." |
+- **`return`**: in `foreach` it returns from the enclosing function. In `ForEach-Object` it exits the current scriptblock iteration only,
+  like `continue` in a loop: the pipeline keeps running, and the enclosing function does **not** return.
+- **`break`**: in `foreach` it exits the loop. In `ForEach-Object` it breaks the nearest **enclosing loop or switch**; if there is no
+  enclosing loop, it **terminates the entire script**. It does not "break out of ForEach-Object."
+- **`continue`**: in `foreach` it skips to the next iteration. In `ForEach-Object` it acts on the nearest **enclosing loop**; if there is no
+  enclosing loop, it behaves like `break` and terminates the script. It does not "skip to the next pipeline item."
 
 These are not edge cases — they are the designed semantics of scriptblocks. But they violate the expectations of anyone who reads
 `ForEach-Object` as "a loop."

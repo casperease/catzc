@@ -61,13 +61,16 @@ Every row follows the same pattern: the extension is a new file or folder, and t
 
 `Patterns that violate open/closed`
 
-| Pattern                                                         | Problem                                                    | Fix                                                                        |
-| --------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Adding an `if` branch in the importer for a special module      | Infrastructure now has module-specific knowledge           | Make the module conform to the convention, or add a general-purpose hook   |
-| Hand-maintaining a module manifest with an explicit export list | Second source of truth that drifts from the filesystem     | Let `New-DynamicManifest` generate it                                      |
-| A loader script that lists modules in a specific order          | Adding a module requires editing the loader                | If ordering matters, encode it in naming convention or dependency metadata |
-| A central registry map from names to functions                  | Every new function requires editing the registry           | Use the engine's command lookup by module, or a convention-based lookup    |
-| Checking module names in conditionals (`if module == "Foo"`)    | Infrastructure is coupled to a specific module's existence | Use a capability check or convention instead of a name check               |
+- **Adding an `if` branch in the importer for a special module**: infrastructure now has module-specific knowledge. Fix: make the module
+  conform to the convention, or add a general-purpose hook.
+- **Hand-maintaining a module manifest with an explicit export list**: a second source of truth that drifts from the filesystem. Fix: let
+  `New-DynamicManifest` generate it.
+- **A loader script that lists modules in a specific order**: adding a module requires editing the loader. Fix: if ordering matters, encode
+  it in naming convention or dependency metadata.
+- **A central registry map from names to functions**: every new function requires editing the registry. Fix: use the engine's command lookup
+  by module, or a convention-based lookup.
+- **Checking module names in conditionals (`if module == "Foo"`)**: infrastructure is coupled to a specific module's existence. Fix: use a
+  capability check or convention instead of a name check.
 
 ### Convention over configuration
 

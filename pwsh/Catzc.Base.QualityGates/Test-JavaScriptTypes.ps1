@@ -33,6 +33,11 @@ function Test-JavaScriptTypes {
     foreach ($name in $projects) {
         $project = Join-Path $repositoryRoot $name
         $check = Invoke-Executable "`"$($tsc.Path)`" --noEmit --pretty false -p `"$project`"" -WorkingDirectory $repositoryRoot -PassThru -NoAssert -Silent
+        # A project left with no files (every module raised out of the lenient one) has nothing to check, which tsc reports as TS18003.
+        $lines = @($check.Output -split '\r?\n')
+        if ($check.ExitCode -ne 0 -and @($lines -match 'error TS18003:').Count -gt 0 -and @($lines -match $pattern).Count -eq 0) {
+            continue
+        }
         $found = 0
         foreach ($line in @($check.Output -split '\r?\n')) {
             if ($line -match $pattern) {

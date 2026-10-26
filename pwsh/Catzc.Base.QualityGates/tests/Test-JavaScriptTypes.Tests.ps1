@@ -48,6 +48,12 @@ Describe 'Test-JavaScriptTypes' -Tag 'L0', 'logic' {
         $script:commands[1] | Should -BeLike '*-p "*jsconfig.strict.json"'
     }
 
+    It 'takes a project left with no files, every module raised out of it, as nothing to check' {
+        $script:exit = 2
+        $script:output = "error TS18003: No inputs were found in config file 'C:/repo/jsconfig.json'."
+        (Test-JavaScriptTypes -OutputFolder (Join-Path $TestDrive 'empty') -PassThru).Issues | Should -HaveCount 0
+    }
+
     It 'refuses a tsc that fails without an error line, and a missing jsconfig.json' {
         $script:exit = 1
         $script:output = 'error TS5058: The specified path does not exist.'

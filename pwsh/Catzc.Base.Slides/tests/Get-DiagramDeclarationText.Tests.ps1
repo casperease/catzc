@@ -33,6 +33,16 @@ Describe 'Get-DiagramDeclarationText' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLA
         & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeExactly "content: { title: Gadgets }`n"
     }
 
+    It 'reads the article carrier above a reference-style image, whose definition names the png, whatever the label''s case' {
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets][Diagram]`n`n[diagram]: .assets/gadget-flow.drawio.png`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeExactly "content: { title: Gadgets }`n"
+    }
+
+    It 'gives nothing above a reference image whose definition names another png' {
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets][d]`n`n[d]: .assets/sprocket-flow.drawio.png`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeNullOrEmpty
+    }
+
     It 'gives nothing when a sentence stands between the block and the image, or when two blocks declare it' {
         [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`nA sentence.`n`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
         & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeNullOrEmpty

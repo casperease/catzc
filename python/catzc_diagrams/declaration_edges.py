@@ -41,6 +41,22 @@ def between_edge(e, out, where):
     return {**{k: v for k, v in e.items() if k != "between"}, "from": low, "to": high}
 
 
+def relation_pairing(out, where):
+    """A diagram's own `relation` and `states: true` come together (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON): only a state diagram, whose
+    arrows are steps of one thing between states, gives its plain arrows another single meaning, and a state diagram names it."""
+    relation, states = out.get("relation", ""), out.get("states", False)
+    if relation and not states:
+        raise DeclarationError(
+            f"{where}: content.relation '{relation}' is only for a state diagram; declare states: true if the arrows are steps of one thing "
+            f"between states, or drop the relation and label the arrows (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+        )
+    if states and not relation:
+        raise DeclarationError(
+            f"{where}: content.states is true but names no relation; a state diagram says what its arrows mean in its relation "
+            f"(DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+        )
+
+
 def orient_edges(out, content, where):
     """The rank of an edge's ends against its direction (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON): a flow edge that carries no label of
     the arrow vocabulary runs from the lower rank to the higher, so one declared against its rank is refused naming the edge, and one

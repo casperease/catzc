@@ -38,6 +38,7 @@ def _edge_declaration(glyphs, edges, **content):
     raw["content"].pop("markers", None)
     raw["content"].pop("chips", None)
     raw["content"].pop("relation", None)
+    raw["content"].pop("states", None)
     raw["content"].update(content)
     for g in glyphs:
         g["in"] = "band-widgets"
@@ -69,8 +70,37 @@ def test_an_arrow_onto_a_file_or_a_store_needs_neither():
     assert declaration.normalise(reads)["content"]["edges"]
 
 
+def test_a_relation_without_states_is_refused_naming_the_rule():
+    plain = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}], relation="feeds")
+    with pytest.raises(
+        declaration.DeclarationError, match=r"content.relation 'feeds' is only for a state diagram.*DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON"
+    ):
+        declaration.normalise(plain)
+
+
+def test_states_without_a_relation_is_refused_naming_the_rule():
+    bare = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}], states=True)
+    with pytest.raises(declaration.DeclarationError, match=r"content.states is true but names no relation.*DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON"):
+        declaration.normalise(bare)
+
+
+def test_a_state_diagram_keeps_its_relation_and_states_round_trips_while_false_is_never_written():
+    steps = _edge_declaration(
+        CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": ""}], relation="advances one rung", states=True
+    )
+    normalised = declaration.normalise(steps)
+    assert normalised["content"]["states"] is True and normalised["content"]["relation"] == "advances one rung"
+    assert "states: true" in declaration.dump(normalised)
+    labelled = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}])
+    assert "states:" not in declaration.dump(declaration.normalise(labelled))
+    with pytest.raises(declaration.DeclarationError, match="content.states is true or false"):
+        declaration.normalise(_edge_declaration(CODE_GLYPHS, [], relation="moves on", states="yes"))
+
+
 def test_a_diagram_with_its_own_relation_is_not_judged_by_the_default_meaning():
-    own = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": ""}], relation="feeds the next")
+    own = _edge_declaration(
+        CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": ""}], relation="feeds the next", states=True
+    )
     assert declaration.normalise(own)["content"]["edges"]
 
 
@@ -132,6 +162,7 @@ def test_the_label_presentation_is_one_of_the_two_the_renderer_names():
 def ranked(*edges):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"].pop("relation")  # a diagram without its own relation: the arrow rule's ranks apply
+    raw["content"].pop("states")
     raw["content"]["edges"] += list(edges)
     return raw
 

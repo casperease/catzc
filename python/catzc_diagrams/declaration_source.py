@@ -54,15 +54,26 @@ def carrier_of(diagram):
     return DEFAULTS["renderer"]["carrier"]
 
 
+REFERENCE = re.compile(r"^ {0,3}\[([^\]]+)\]:\s*(?:\./)?\.assets/([^/\s]+)\.drawio\.png\s*$", re.MULTILINE)
+
+
+def references(text):
+    """A page's reference definitions that point at a diagram beside it: label, case-folded as Markdown folds it, to the diagram's name."""
+    return {label.lower(): name for label, name in REFERENCE.findall(text)}
+
+
+def image_of(text, name):
+    """The pattern of an image of `.assets/<name>.drawio.png` in a page: inline, or a reference whose definition names the same png."""
+    labels = [re.escape(label) for label, target in references(text).items() if target == name]
+    inline = r"\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)"
+    return r"!\[[^\]]*\](?:" + inline + (r"|\[(?i:" + "|".join(labels) + r")\]" if labels else "") + ")"
+
+
 def blocks_in(text, name):
-    """The `yml drawio` blocks of a page that sit directly above an image embedding `.assets/<name>.drawio.png`, only blank lines
-    between, each as the (start, end) of its body in the text."""
+    """The `yml drawio` blocks of a page that sit directly above an image of `.assets/<name>.drawio.png`, inline or by reference, only
+    blank lines between, each as the (start, end) of its body in the text."""
     pattern = re.compile(
-        r"^```"
-        + re.escape(FENCE)
-        + r"[ \t]*\n((?:(?!```).*\n)*)```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/"
-        + re.escape(name)
-        + r"\.drawio\.png\)",
+        r"^```" + re.escape(FENCE) + r"[ \t]*\n((?:(?!```).*\n)*)```[ \t]*\n(?:[ \t]*\n)*" + image_of(text, name),
         re.MULTILINE,
     )
     return [(m.start(1), m.end(1)) for m in pattern.finditer(text)]
@@ -135,21 +146,26 @@ def article_stems(root):
     pattern = re.compile(
         r"^```"
         + re.escape(FENCE)
-        + r"[ \t]*\n(?:(?!```).*\n)*```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)",
+        + r"[ \t]*\n(?:(?!```).*\n)*```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\](?:\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)|\[([^\]]+)\])",
         re.MULTILINE,
     )
-    return {
-        page.parent / ".assets" / name
-        for page in Path(root).rglob("*.md")
-        if not page.name.endswith(".slide.md")
-        for name in pattern.findall(page.read_text(encoding="utf-8"))
-    }
+    stems = set()
+    for page in Path(root).rglob("*.md"):
+        if page.name.endswith(".slide.md"):
+            continue
+        text = page.read_text(encoding="utf-8")
+        labels = references(text)
+        for inline, label in pattern.findall(text):
+            name = inline or labels.get(label.lower())  # a reference naming no diagram's png is no stem
+            if name:
+                stems.add(page.parent / ".assets" / name)
+    return stems
 
 
 def image_in(page, name):
-    """The spans of the images in a page's text that embed `.assets/<name>.drawio.png`."""
-    pattern = re.compile(r"^!\[[^\]]*\]\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)", re.MULTILINE)
-    return [m.start() for m in pattern.finditer(page.read_text(encoding="utf-8"))]
+    """The spans of the images in a page's text that embed `.assets/<name>.drawio.png`, inline or by reference."""
+    text = page.read_text(encoding="utf-8")
+    return [m.start() for m in re.compile(r"^" + image_of(text, name), re.MULTILINE).finditer(text)]
 
 
 def rekeyed(text, old, new):

@@ -27,7 +27,7 @@ from declaration_constants import (
     TOP_KEYS,
 )
 from declaration_dump import entry, legend_phrases
-from declaration_edges import EDGE_COUNT, between_edge, edge_semantics_findings, orient_edges
+from declaration_edges import EDGE_COUNT, between_edge, edge_semantics_findings, orient_edges, relation_pairing
 from declaration_expand import expand_lanes, expand_rows, shown_minimaps
 from declaration_vocabulary import EDGE_KINDS, GLYPH_KINDS, DeclarationError, choices, span_vocabulary
 from drawio_png import DEFAULTS
@@ -107,7 +107,7 @@ def normalise(raw, where="the declaration"):
     # The action lens draws its cause, its action and its effects, and the renderer draws every edge; the proof lens draws the action's
     # statement alone; every other lens draws bands.
     if lens in (ACTION_LENS, PROOF_LENS):
-        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "thick", "ladders") + SHORTHAND:
+        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "states", "thick", "ladders") + SHORTHAND:
             if content.get(key):
                 raise DeclarationError(
                     f"{where}: content.{key} is the band grammar; the {lens} lens draws an action, and the renderer draws the rest"
@@ -310,6 +310,12 @@ def normalise(raw, where="the declaration"):
     out["legend"] = legend
     # The one relationship the flow edges mean on this diagram, named in the legend as `flow: <relation>`.
     out["relation"] = str(content.get("relation", "") or "").strip()
+    # Whether the diagram's arrows are steps of one thing between states, the only diagram that may name its own relation.
+    states = content.get("states", False)
+    if not isinstance(states, bool):
+        raise DeclarationError(f"{where}: content.states is true or false, not {states!r}")
+    out["states"] = states
+    relation_pairing(out, where)
     # What the thick edges reach on this diagram, the legend's phrase for them; empty keeps the library's `to a named set`.
     out["thick"] = str(content.get("thick", "") or "").strip()
     # The three minimaps: the ones the declaration names, or, when it names none, the kind's defaults maps.yml declares, which reach

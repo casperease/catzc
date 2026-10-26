@@ -109,9 +109,19 @@ function Move-Diagram {
     $toArticles = $to.Substring(0, [Math]::Max(0, $to.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     if ($articleCarried -and $fromArticles -cne $toArticles) {
         # The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
+        # An image of the png is inline, or a reference whose definition on the same page names it.
+        $imageOf = {
+            param([string] $Name, [string] $Text)
+            $labels = @((Get-DiagramImageReference -Text $Text).GetEnumerator() | Where-Object { $_.Value -ceq $Name } | ForEach-Object { [regex]::Escape($_.Key) })
+            $reference = ''
+            if ($labels.Count) {
+                $reference = '|\[(?i:' + ($labels -join '|') + ')\]'
+            }
+            '!\[[^\]]*\](?:\((?:\./)?\.assets/' + [regex]::Escape($Name) + '\.drawio\.png\)' + $reference + ')'
+        }
         $blockOf = {
-            param([string] $Name)
-            '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*(?=!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($Name) + '\.drawio\.png\))'
+            param([string] $Name, [string] $Text)
+            '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*(?=' + (& $imageOf $Name $Text) + ')'
         }
         $textOf = {
             param([string] $Page)
@@ -132,15 +142,16 @@ function Move-Diagram {
         $fromName = $from.Substring($from.LastIndexOf('/') + 1)
         $toName = $to.Substring($to.LastIndexOf('/') + 1)
         $holders = @(foreach ($page in & $pagesIn $fromArticles) {
-                $found = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $root $page)), (& $blockOf $fromName))
+                $pageText = [System.IO.File]::ReadAllText((Join-Path $root $page))
+                $found = [regex]::Match($pageText, (& $blockOf $fromName $pageText))
                 if ($found.Success) {
                     [pscustomobject]@{ Page = $page; Block = $found.Value }
                 }
             })
         Assert-True ($holders.Count -eq 1) -ErrorText "Move-Diagram: '$from' is article-carried but $($holders.Count) page(s) beside its .assets hold its block; Test-Diagrams names the fault."
-        $image = '(?m)^!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($toName) + '\.drawio\.png\)'
         $targets = @(foreach ($page in & $pagesIn $toArticles) {
-                foreach ($match in [regex]::Matches((& $textOf $page), $image)) {
+                $pageText = & $textOf $page
+                foreach ($match in [regex]::Matches($pageText, '(?m)^' + (& $imageOf $toName $pageText))) {
                     [pscustomobject]@{ Page = $page; At = $match.Index }
                 }
             })
@@ -154,7 +165,7 @@ function Move-Diagram {
         else {
             & $textOf $targets[0].Page
         }
-        $placed = $target.Insert([regex]::Match($target, $image).Index, $holders[0].Block)
+        $placed = $target.Insert([regex]::Match($target, '(?m)^' + (& $imageOf $toName $target)).Index, $holders[0].Block)
         foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
             # A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with none is simply added.
             $prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object -First 1

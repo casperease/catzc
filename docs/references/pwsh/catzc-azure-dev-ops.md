@@ -6,12 +6,12 @@ organization identity is configured, not guessed.
 
 ## Responsibilities
 
-| Responsibility   | Area      | Name                                                                                                       |
-| ---------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
-| responsibility:1 | auth      | [Organization identity and authentication](#responsibility1--organization-identity-and-authentication)     |
-| responsibility:2 | rest      | [Azure DevOps REST operations](#responsibility2--azure-devops-rest-operations)                             |
-| responsibility:3 | discovery | [Pipeline YAML discovery and classification](#responsibility3--pipeline-yaml-discovery-and-classification) |
-| responsibility:4 | runtime   | [Pipeline runtime bridge](#responsibility4--pipeline-runtime-bridge)                                       |
+| Responsibility   | Area    | Name                                                                                                       |
+| ---------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| responsibility:1 | auth    | [Organization identity and authentication](#responsibility1--organization-identity-and-authentication)     |
+| responsibility:2 | rest    | [Azure DevOps REST operations](#responsibility2--azure-devops-rest-operations)                             |
+| responsibility:3 | yaml    | [Pipeline YAML discovery and classification](#responsibility3--pipeline-yaml-discovery-and-classification) |
+| responsibility:4 | runtime | [Pipeline runtime bridge](#responsibility4--pipeline-runtime-bridge)                                       |
 
 ### responsibility:1 — Organization identity and authentication
 

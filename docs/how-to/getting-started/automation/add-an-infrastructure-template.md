@@ -77,12 +77,12 @@ ParametersFile:
 
 ## options.yml classification
 
-| Key                 | Default               | Meaning                                                                                     |
-| ------------------- | --------------------- | ------------------------------------------------------------------------------------------- |
-| `short_name`        | _derived from folder_ | 2–5 lowercase-alnum, globally unique across templates — the Azure id segment. Override only |
-| `environment_kind`  | `standard`            | `standard` = ordinary envs (dev/test/…); `subscription` = per-subscription env (nsub/psub)  |
-| `deployment_mode`   | _optional_            | `Incremental` / `Complete` / …                                                              |
-| `deployment_target` | _optional_            | `ResourceGroup` / `Subscription`                                                            |
+| Key                 | Default               | Meaning                                                                                  |
+| ------------------- | --------------------- | ---------------------------------------------------------------------------------------- |
+| `short_name`        | _derived from folder_ | 2–5 lowercase-alnum, unique across templates: the Azure id segment. Override only        |
+| `environment_kind`  | `standard`            | `standard`: ordinary envs (dev/test/…); `subscription`: one per subscription (nsub/psub) |
+| `deployment_mode`   | _optional_            | `Incremental` / `Complete` / …                                                           |
+| `deployment_target` | _optional_            | `ResourceGroup` / `Subscription`                                                         |
 
 Every config's environment must match `environment_kind`. The shipped `foundation` template (Log Analytics + Key Vault, once per
 subscription) sets `environment_kind: subscription`; data templates leave it at `standard`.

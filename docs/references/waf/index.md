@@ -12,13 +12,19 @@ WAF describes a workload's quality as five pillars and gives each pillar a desig
 (RE:01, SE:04, …), each linked to a guide page that explains it. A team reviews its design against the checklists, decides what to adopt,
 and records the trade-offs between pillars.
 
-| Pillar                 | Checklist codes | Microsoft's checklist                                                                                                         |
-| ---------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Reliability            | RE:01–RE:10     | [reliability checklist](https://learn.microsoft.com/en-us/azure/well-architected/reliability/checklist)                       |
-| Security               | SE:01–SE:12     | [security checklist](https://learn.microsoft.com/en-us/azure/well-architected/security/checklist)                             |
-| Cost Optimization      | CO:01–CO:14     | [cost optimization checklist](https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/checklist)           |
-| Operational Excellence | OE:01–OE:11     | [operational excellence checklist](https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist) |
-| Performance Efficiency | PE:01–PE:12     | [performance efficiency checklist](https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist) |
+| Pillar                 | Checklist codes | Microsoft's checklist                  |
+| ---------------------- | --------------- | -------------------------------------- |
+| Reliability            | RE:01–RE:10     | [reliability checklist][re]            |
+| Security               | SE:01–SE:12     | [security checklist][se]               |
+| Cost Optimization      | CO:01–CO:14     | [cost optimization checklist][co]      |
+| Operational Excellence | OE:01–OE:11     | [operational excellence checklist][oe] |
+| Performance Efficiency | PE:01–PE:12     | [performance efficiency checklist][pe] |
+
+[re]: https://learn.microsoft.com/en-us/azure/well-architected/reliability/checklist
+[se]: https://learn.microsoft.com/en-us/azure/well-architected/security/checklist
+[co]: https://learn.microsoft.com/en-us/azure/well-architected/cost-optimization/checklist
+[oe]: https://learn.microsoft.com/en-us/azure/well-architected/operational-excellence/checklist
+[pe]: https://learn.microsoft.com/en-us/azure/well-architected/performance-efficiency/checklist
 
 ## How the repository answers it
 

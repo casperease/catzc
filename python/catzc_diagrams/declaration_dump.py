@@ -72,7 +72,7 @@ def dump(declaration):
         content["edges"] = [e for e in content["edges"] if e["from"] not in generated or e["to"] not in generated]
         content["chips"] = [c for c in content.get("chips") or [] if c["at"] not in generated]
     content["edges"] = [minimal_edge(e, content) for e in content.get("edges", [])]
-    ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "")}
+    ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "", False)}
     out = {"description": declaration["description"]} if declaration.get("description") else {}
     about = declaration.get("about") or {}
     out["about"] = {key: about[key] for key in ABOUT_KEYS if about.get(key)}

@@ -2,13 +2,13 @@
 
 The repository has five kinds of prose, each with a home and a format:
 
-| Kind                | Lives in                              | For                                                                              |
-| ------------------- | ------------------------------------- | -------------------------------------------------------------------------------- |
-| **Decision record** | `docs/drs/<area>/`                    | A durable design decision and its rationale (the _why_)                          |
-| **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and the common jobs (the _how_, like this)   |
-| **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)             |
-| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/explanation/.assets/` |
-| **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                   |
+| Kind                | Lives in                              | For                                                                        |
+| ------------------- | ------------------------------------- | -------------------------------------------------------------------------- |
+| **Decision record** | `docs/drs/<area>/`                    | A durable design decision and its rationale (the _why_)                    |
+| **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and common jobs (the _how_, like this) |
+| **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)       |
+| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, around one diagram in `explanation/.assets/`   |
+| **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                             |
 
 All of `docs/` is **markdown only**, except the `.assets/` folders, which hold each diagram as two flat files, its `<name>.drawio.yml`
 source and its `<name>.drawio.png` render ([conventional-folders](../../../drs/repository/conventional-folders.md)). Decide which kind

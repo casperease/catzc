@@ -69,6 +69,8 @@ def get(model, kind=None):
     content["relation"] = (
         flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") and flow_phrase != LIB["edges"]["flow"]["phrase"] else ""
     )
+    # Put draws a relation only for a state diagram, so a drawing whose legend names one is a state diagram.
+    content["states"] = bool(content["relation"])
     thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
     content["thick"] = thick_phrase if thick_phrase and thick_phrase != brief(LIB["edges"]["thick"]["phrase"]) else ""
     layout = {}

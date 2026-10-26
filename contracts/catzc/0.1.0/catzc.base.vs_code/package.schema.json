@@ -8,12 +8,12 @@
     "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
     "displayName": { "type": "string" },
     "description": { "type": "string" },
-    "version": { "type": "string", "pattern": "^\d+\.\d+\.\d+$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "publisher": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*$" },
     "engines": {
       "type": "object",
       "required": ["vscode"],
-      "properties": { "vscode": { "type": "string", "pattern": "^\^\d+\.\d+\.\d+$" } },
+      "properties": { "vscode": { "type": "string", "pattern": "^\\^\\d+\\.\\d+\\.\\d+$" } },
       "additionalProperties": false
     },
     "main": { "const": "./extension.js" },

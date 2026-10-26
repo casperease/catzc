@@ -41,6 +41,7 @@ content:
   title: Widgets flow into gadgets
   flow: left-to-right
   relation: feeds
+  states: true
   bands:
     - { id: band-widgets, label: Widgets }
     - { id: band-gadgets, label: Gadgets }

@@ -23,6 +23,13 @@ Describe 'Get-DiagramArticleStem' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLARATI
         & $script:stems 'docs/widgets/gadget-flow.md' | Should -Be @('docs/widgets/.assets/gadget-flow')
     }
 
+    It 'names the diagram a block sits above when the image is a reference, through its definition, and nothing for an undefined label' {
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget-flow.md'), "# Gadgets`n`n$($script:block)`n![Gadgets][d]`n`n[d]: .assets/gadget-flow.drawio.png`n")
+        & $script:stems 'docs/widgets/gadget-flow.md' | Should -Be @('docs/widgets/.assets/gadget-flow')
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget-flow.md'), "# Gadgets`n`n$($script:block)`n![Gadgets][nowhere]`n")
+        & $script:stems 'docs/widgets/gadget-flow.md' | Should -BeNullOrEmpty
+    }
+
     It 'names nothing for a block with a sentence between it and the image, or an image of no png' {
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget-flow.md'), "# Gadgets`n`n$($script:block)`nA sentence.`n`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
         & $script:stems 'docs/widgets/gadget-flow.md' | Should -BeNullOrEmpty

@@ -31,7 +31,10 @@ function Get-DiagramDeclarationText {
             $text = [System.IO.File]::ReadAllText($page)
             # The image is inline, or a reference whose definition names the same png.
             $labels = @((Get-DiagramImageReference -Text $text).GetEnumerator() | Where-Object { $_.Value -ceq $name } | ForEach-Object { [regex]::Escape($_.Key) })
-            $image = '\((?:\./)?\.assets/' + [regex]::Escape($name) + '\.drawio\.png\)' + $(if ($labels.Count) { '|\[(?i:' + ($labels -join '|') + ')\]' })
+            $image = '\((?:\./)?\.assets/' + [regex]::Escape($name) + '\.drawio\.png\)'
+            if ($labels.Count) {
+                $image += '|\[(?i:' + ($labels -join '|') + ')\]'
+            }
             $pattern = '(?m)^```yml drawio[ \t]*\r?\n((?:(?!```)[^\r\n]*\r?\n)*)```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\](?:' + $image + ')'
             foreach ($match in [regex]::Matches($text, $pattern)) {
                 $match.Groups[1].Value

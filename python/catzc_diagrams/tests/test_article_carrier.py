@@ -67,6 +67,32 @@ def test_get_writes_back_into_the_block_and_leaves_the_rest_of_the_page_as_it_wa
     assert {k: v for k, v in back["content"].items() if k != "minimaps"} == {k: v for k, v in first["content"].items() if k != "minimaps"}
 
 
+REFERENCE_PAGE = (
+    "# Widgets flow into gadgets\n\n```yml drawio\n{body}```\n\n![Widgets flow into gadgets][D]\n\nA paragraph after it.\n\n"
+    "[d]: .assets/widget-flow.drawio.png\n"
+)
+
+
+def test_a_reference_style_image_is_an_equal_carrier_read_and_written_back_in_place(article):
+    stem, page = article
+    page.write_text(REFERENCE_PAGE.format(body=BODY), encoding="utf-8")
+    assert declaration.carrier_of(stem) == "article"
+    loaded = declaration.load(stem)
+    assert loaded["description"] == "Widgets flow into gadgets through a gate."
+    declaration.put_png(stem, loaded)
+    declaration.save(stem, declaration.get(declaration.model_of(stem), kind="explanation"))
+    text = page.read_text(encoding="utf-8")
+    assert text.endswith("```\n\n![Widgets flow into gadgets][D]\n\nA paragraph after it.\n\n[d]: .assets/widget-flow.drawio.png\n")
+    assert declaration.article_stems(stem.parent.parent) == {stem}
+
+
+def test_a_reference_whose_definition_names_another_png_declares_nothing(article):
+    stem, page = article
+    page.write_text(REFERENCE_PAGE.format(body=BODY).replace("widget-flow.drawio.png", "gadget-flow.drawio.png"), encoding="utf-8")
+    assert declaration.carrier_of(stem) != "article" or not declaration.declared(stem)
+    assert declaration.article_stems(stem.parent.parent) == {stem.with_name("gadget-flow")}
+
+
 def test_declare_minimaps_writes_the_inputs_into_the_block_in_place(article):
     stem, page = article
     # A block that lists the shown ids as a block list: the rewrite prints them as save does, in the block, in place.

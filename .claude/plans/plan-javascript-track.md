@@ -47,8 +47,9 @@ pwsh-to-extension boundary checked instead of implied.
 
 ## Open steps
 
-- [ ] Strict types for `catzc-track-lamps`, last, one part per change with its node tests and the lamp vectors after each. Check:
-      `Test-JavaScriptTypes` green, `Invoke-JavaScriptTest catzc-track-lamps`, `catzc-track-lamps.Tests.ps1`.
-- [ ] Phase 5, contract (after `plan-contracts-layout.md`'s move): `contracts/vscode/0.1.0/extensions/package.schema.json`, the trimmed
-      manifest schema, bound in its `contract.yml`; `Build-VsCodeExtension` refuses a rendered `package.json` that breaks it. Check:
-      `Build-VsCodeExtension.Tests.ps1` with one passing and one broken manifest, then `Test-Contracts`.
+- [ ] Strict types for `catzc-track-lamps`, one part per change: strict is per module, so the module stays out of `strict:` until every part
+      is clean, and each part is measured by a local run with the lamps listed (391 findings on 2026-10-26: glob 24, language 16, status 16,
+      host 16, facts 37, tree 34, apply 12, engine 126, extension 11, tests 99). Order: glob, language, status, host, facts, tree, apply,
+      extension, engine, tests; then `catzc-track-lamps` joins `strict:`. Check after each part: its findings at zero in the local run,
+      `Invoke-JavaScriptTest catzc-track-lamps`, and `catzc-track-lamps.Tests.ps1` (lamp vectors); at the end `Test-JavaScriptTypes` green
+      with the lamps strict.

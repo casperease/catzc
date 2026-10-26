@@ -19,14 +19,19 @@ function Build-VsCodeExtension {
     $folder = [System.IO.Path]::GetFullPath($Path, (Get-RepositoryRoot))
     $manifestPath = Join-Path $folder 'package.json'
     Assert-PathExist $manifestPath
-    $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+    $text = Get-Content -LiteralPath $manifestPath -Raw
+    # Every rendered manifest is held against the extension manifest contract before it is packed; a mismatch stops the build.
+    $repositoryRoot = Get-RepositoryRoot
+    $contract = @(Get-Contract catzc -Group catzc.base.vs_code -Path package.schema.json -RepositoryRoot $repositoryRoot)
+    Assert-True ($contract.Count -eq 1) -ErrorText 'Build-VsCodeExtension: the extension manifest contract (contracts/catzc/0.1.0/catzc.base.vs_code/package.schema.json) is missing.'
+    $schema = ConvertTo-BclValue ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $contract[0].AssetPath)) | ConvertFrom-Json -AsHashtable -NoEnumerate)
+    $findings = @([Catzc.Base.Contracts.ContractSchema]::Validate($schema, (ConvertTo-BclValue ($text | ConvertFrom-Json -AsHashtable -NoEnumerate))))
+    Assert-True ($findings.Count -eq 0) -ErrorText "Build-VsCodeExtension: '$manifestPath' breaks the extension manifest contract:`n$($findings -join "`n")"
+    $manifest = $text | ConvertFrom-Json
     # The manifest is read under strict mode, so an absent field is looked up, never dotted.
     $read = { param($Node, [string] $Field) if ($null -ne $Node -and $Node.PSObject.Properties[$Field]) {
             $Node.$Field
         } }
-    foreach ($field in 'name', 'version', 'publisher') {
-        Assert-NotNull (& $read $manifest $field) -ErrorText "Build-VsCodeExtension: '$manifestPath' has no '$field'."
-    }
     $engine = (& $read (& $read $manifest 'engines') 'vscode') ?? '*'
     $displayName = (& $read $manifest 'displayName') ?? $manifest.name
     $description = (& $read $manifest 'description') ?? ''

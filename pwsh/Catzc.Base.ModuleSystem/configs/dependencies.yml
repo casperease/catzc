@@ -190,6 +190,7 @@ groups:
       ]
     Catzc.Base.VSCode:
       [
+        Catzc.Base.Contracts,
         Catzc.Base.GeneratedFiles,
         Catzc.Base.Config,
         Catzc.Base.Objects,

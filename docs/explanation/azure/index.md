@@ -28,10 +28,16 @@ An Azure name is a pure function of its components, and it is never truncated
 Infrastructure code is of three kinds, each placed by the infrastructure track
 ([infrastructure-kinds](../../drs/azure/infrastructure-kinds.md)).
 
-| Lens       | Article                                                                                                                                                       |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| meta       | [Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together](three-kinds-of-infrastructure-code.md)         |
-| operations | [Changing one configuration slot runs only its owner's pipeline and reaches only its resource group](change-one-configuration-slot.md)                        |
-| operations | [A change to one module fans out to every template that references it and every pipeline that deploys one](a-module-change-fans-out-to-its-templates.md)      |
-| operations | [A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it](add-a-template.md)                   |
-| operations | [A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group](add-an-environment-slot.md) |
+- **meta**: [Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together][kinds]
+- **operations**: [Changing one configuration slot runs only its owner's pipeline and reaches only its resource group][one-slot]
+- **operations**: [A change to one module fans out to every template that references it and every pipeline that deploys one][fan-out]
+- **operations**: [A new template is one folder in the templates place, found through the track and named in the pipelines that deploy
+  it][add-template]
+- **operations**: [A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource
+  group][add-slot]
+
+[kinds]: three-kinds-of-infrastructure-code.md
+[one-slot]: change-one-configuration-slot.md
+[fan-out]: a-module-change-fans-out-to-its-templates.md
+[add-template]: add-a-template.md
+[add-slot]: add-an-environment-slot.md

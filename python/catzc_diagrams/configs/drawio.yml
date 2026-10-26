@@ -91,6 +91,7 @@ lane: # a lane's commits and glyphs, placed by step and row (lanes: in a diagram
   slot-gap: 56 # px between the centres of a left and a right slot of one step, each standing half of it from the step's centre
 span: # a span bar's place over what it covers
   row: auto # auto | 0, 1, 2 ...: auto stacks a span one row above every span it overlaps, the narrow ones first; a number puts it on that row, 0 the row beside its bands
+states: a state diagram, whose plain arrows are steps of one thing between states; only it declares a relation, the one meaning of those arrows, and it declares one (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/drs

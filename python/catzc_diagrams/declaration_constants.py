@@ -73,6 +73,7 @@ CONTENT_KEYS = (
     "kind",
     "flow",
     "relation",
+    "states",
     "thick",
     "theme",
     "cause",
@@ -179,7 +180,7 @@ BADGE = "rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;font
 TOP_KEYS = ("description", "about", "content", "layout")
 # Content the drawing cannot carry exactly: the kind is never drawn, a layout can place the bands against the flow, and the legend
 # prints the relation without its parenthesis or not at all. get guesses each for a drawing without a source; a source keeps its own.
-SOURCE_ONLY = ("kind", "flow", "relation", "thick")
+SOURCE_ONLY = ("kind", "flow", "relation", "states", "thick")
 
 # the subject's ADR codes, its lens, its optional zoom level, a C3/C4 slide's point of the tree, an action diagram's proof file
 ABOUT_KEYS = ("adrs", "lens", "zoom", "point", "proves")
