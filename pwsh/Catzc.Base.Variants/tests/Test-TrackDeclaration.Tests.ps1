@@ -25,6 +25,25 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:variants }
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'track-types' } { $script:trackTypes }
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'module-types' } { $script:moduleTypes }
+        # The index tracks one file under every member unless a case says otherwise.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Variants { "$Path/widget.txt" }
+    }
+
+    It 'passes a committed member git tracks and a not-committed member git does not, and names each that disagrees' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
+        $script:moduleTypes = [Catzc.Base.Variants.ModuleTypesConfig]::new([ordered]@{
+                module_types = [ordered]@{ 'widget-folder' = [ordered]@{ definition = 'A widget folder.'; places = @(@{ root = 'widget'; name = 'folder' }) } }
+            })
+        Use-Variants ([ordered]@{
+                widget = [ordered]@{ members = @('widget', [ordered]@{ path = 'widget.cache'; generated = $true; committed = $false }); type = 'widget-works' }
+            })
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Variants -ParameterFilter { $Path -eq 'widget.cache' } { }
+        { Test-TrackDeclaration } | Should -Not -Throw
+
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Variants -ParameterFilter { $Path -eq 'widget.cache' } { 'widget.cache/stray.txt' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Variants -ParameterFilter { $Path -eq 'widget' } { }
+        $err = { Test-TrackDeclaration } | Should -Throw -PassThru
+        $err.Exception.Message | Should -BeLike "*member 'widget' is declared committed, but git tracks none of it*"
+        $err.Exception.Message | Should -BeLike "*member 'widget.cache' is declared not committed, but git tracks 1 file(s) of it, e.g. 'widget.cache/stray.txt'*"
     }
 
     It 'passes when every type and vendor is declared and every module place lies in a track that admits it' {

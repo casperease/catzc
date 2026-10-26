@@ -15,10 +15,14 @@ Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
         [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/sprocket.txt'), 'new')
         $script:importer = Join-Path $script:root 'importer.ps1'
+        $script:doomed = Join-Path $script:root 'widgets/cog.txt'
+        [System.IO.File]::WriteAllText($script:doomed, 'cog')
         $gadget = $script:target.Replace("'", "''")
+        $cog = $script:doomed.Replace("'", "''")
         [System.IO.File]::WriteAllText($script:importer, @"
 function Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }
 function Test-Swapped { if ((Get-Content -LiteralPath '$gadget' -Raw) -ne 'staged') { throw 'the staged gadget is not in place' } }
+function Test-Deleted { if (Test-Path -LiteralPath '$cog') { throw 'the cog is still there' } }
 function Test-Broken { throw 'broken gadget' }
 "@)
     }

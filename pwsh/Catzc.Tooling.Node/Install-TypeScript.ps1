@@ -10,7 +10,9 @@ function Install-TypeScript {
     # The compiler and the declarations it checks against, each at its tools.yml pin, into npm's global root; never into the repository.
     foreach ($tool in 'typescript', 'types_node', 'types_vscode') {
         $config = Get-ToolConfig -Tool $tool
-        $installed = Get-ToolVersion -Config $config
+        $installed = if (Test-Command $config.command) {
+            Get-ToolVersion -Config $config
+        }
         if ($installed -and $installed.StartsWith($config.version) -and -not $Force) {
             Write-Message "$($config.npm_package) $($config.version) is already installed"
             continue

@@ -1,7 +1,0 @@
-# Depended-on fragment of .ado/pipelines/cd-shared.yaml
-# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines reads at the
-# pipeline root — the `trigger` and `pr` blocks, and the `stages` root. A null value pins only that the key exists.
-# Source: https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline
-trigger:
-pr:
-stages:
