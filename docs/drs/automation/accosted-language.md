@@ -60,9 +60,10 @@ engine.
 
 ### Rule ADR-AUTO-ACCOSTED-ARTICLERENDERING
 
-A PowerShell fragment in an article is a **rendering** of the contract form, produced from the one reader's record by one function in
-`Catzc.Base.Docs`, never written by hand: `Get-FileLanguage -Path README.md` is the rendering of `get_file_language: { path: README.md }`.
-The accosted file is the one living version of the runs; a `.ps1` asset holding the same runs would be a second version of them
+A fragment in an engine's own language in an article is a **rendering** of the contract form, produced from the one reader's record by one
+function in `Catzc.Base.Docs`, never written by hand: `Get-FileLanguage -Path README.md` is the rendering of
+`get_file_language: { path: README.md }`. The accosted file is the one living version of the runs; a script asset in any engine's language
+holding the same runs would be a second version of them
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)). The named consumers are the articles and the
 diagrams that prove themselves through an accosted file (DDR-VISUAL-PROOFISTHEACCOSTEDFILE).
 

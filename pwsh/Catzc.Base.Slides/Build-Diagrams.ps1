@@ -48,6 +48,7 @@ function Build-Diagrams {
         $Path = $stalePaths
     }
 
+    # A diagram is found by its tracked png or its yml, never listed, so a new one gets its first put.
     $tracked = @(Get-GitTrackedPath '.')
     $candidates = @($tracked) + @(Get-GitChangedPath 'docs')
     # A diagram is the pair <article-folder>/.assets/<name>.drawio.png and .yml, named by its stem <article-folder>/.assets/<name>.
@@ -109,6 +110,7 @@ function Build-Diagrams {
             $step.Restart()
         }
     }
+    # Sync runs get then put per diagram, stops on a conflict, and ends in the drift gate; the renderer never runs.
     if ($FromDrawing) {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the diagrams it is given; pass -Path.'
         $declaration = $diagramKit.Declaration
@@ -136,8 +138,10 @@ function Build-Diagrams {
         $render = $false
     }
     if ($render -and $folders.Count -gt 0) {
+        # One renderer call for every folder: each worker pays the imports once, and each folder ends with its JSON row.
         $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
-        $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
+        # The query rows go to an address named here, never a default (DDR-VISUAL-ZOOMISANAXIS).
+        $rowsPath =Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         if (-not $DryRun) {
             $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath
         }

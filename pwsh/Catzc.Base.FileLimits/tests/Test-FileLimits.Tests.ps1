@@ -5,7 +5,7 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
         Mock Get-GeneratedTarget -ModuleName Catzc.Base.FileLimits {}
         $script:long = Join-Path $TestDrive 'widget.ps1'
         [System.IO.File]::WriteAllLines($script:long, [string[]](1..401 | ForEach-Object { 'x' * 130 }))
-        $script:unknown = Join-Path $TestDrive 'gadget.nolanguage'
+        $script:unknown = Join-Path $TestDrive 'gadget.unclassified'
         [System.IO.File]::WriteAllText($script:unknown, "a`n")
     }
 
@@ -17,11 +17,11 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
 
     It 'fails a file no language or extension declares, naming it' {
         $result = Test-FileLimits -Path $script:unknown -OutputFolder (Join-Path $TestDrive 'out2') -PassThru
-        @($result.Issues)[0] | Should -BeLike '*gadget.nolanguage: unclassified*'
+        @($result.Issues)[0] | Should -BeLike '*gadget.unclassified: unclassified*'
     }
 
     It 'leaves the vendor folder out of scope' {
-        $result = Test-FileLimits -Path 'pwsh/.vendor/widget/gadget.nolanguage' -OutputFolder (Join-Path $TestDrive 'out3') -PassThru
+        $result = Test-FileLimits -Path 'pwsh/.vendor/widget/gadget.unclassified' -OutputFolder (Join-Path $TestDrive 'out3') -PassThru
         @($result.Issues).Count | Should -Be 0
     }
 }

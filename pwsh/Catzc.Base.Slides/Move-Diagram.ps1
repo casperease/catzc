@@ -33,6 +33,7 @@ function Move-Diagram {
     $from = & $relative $Path
     $to = & $relative $Destination
     Assert-False ($from -eq '.' -or $from.StartsWith('../') -or $to -eq '.' -or $to.StartsWith('../')) -ErrorText "Move-Diagram: '$Path' and '$Destination' must both lie inside the repository '$root'."
+    # A diagram pair moves whole, named by either file or its stem; any other path moves as it is.
     $pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -LiteralPath (Join-Path $root $from))
     if ($pair) {
         $from = $from -creplace '\.drawio\.(png|yml)$', ''
@@ -98,6 +99,7 @@ function Move-Diagram {
         }
     }
 
+    # Roles are keyed by stem in the kit's drawio.yml; a png with no yml beside it is article-carried.
     $kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config
     $configText = if ([System.IO.File]::Exists($kitConfig)) {
         [System.IO.File]::ReadAllText($kitConfig)

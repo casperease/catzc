@@ -19,7 +19,7 @@ Describe 'Get-FileLimit' -Tag 'L0', 'logic' {
     }
 
     It 'fails on a file no language declares' {
-        { Get-FileLimit -Path 'widget/gadget.nolanguage' } | Should -Throw '*gadget.nolanguage*is unclassified*'
+        { Get-FileLimit -Path 'widget/gadget.unclassified' } | Should -Throw '*gadget.unclassified*is unclassified*'
     }
 }
 

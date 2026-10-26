@@ -17,6 +17,7 @@ function Get-DiagramCodeRows {
         [string] $RepositoryRoot
     )
 
+    # C4: tracked files only, tests out, so build output and test diamonds never crowd the slide.
     $languages = Get-Config -Config languages
     $point = $Point.Trim('/')
     $folder = [System.IO.Path]::GetFullPath((Join-Path $RepositoryRoot $point))

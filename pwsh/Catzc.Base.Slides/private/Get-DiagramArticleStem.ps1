@@ -19,6 +19,7 @@ function Get-DiagramArticleStem {
         [string[]] $Candidate
     )
 
+    # A `yml drawio` block directly above its png's image names one stem; a slide is never a carrier.
     $pattern = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)'
     foreach ($page in @($Candidate | Where-Object { $_ -cmatch '^docs/.+\.md$' -and -not $_.EndsWith('.slide.md') } | Select-Object -Unique)) {
         $full = Join-Path $RepositoryRoot $page

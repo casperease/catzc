@@ -17,6 +17,7 @@ function Get-DiagramComponentRows {
         [string] $RepositoryRoot
     )
 
+    # C3 by what the point is: the record domains, one module and its neighbours, a container, or a dot folder's psm1s.
     $point = $Point.Trim('/')
     $idOf = { param([string] $Name) ($Name.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-') }
     $nodes = [System.Collections.Generic.List[object]]::new()

@@ -72,6 +72,12 @@ step 4's `exempt:` map starts empty.
 
 ## Open steps
 
-6. [ ] Flip `width_mode` to `fail` per class once its width count reaches 0 (today every class is `report`), and in the same step move
-       `Get-LinkLineLimit` from the rendered `.editorconfig` to `Get-FileLimit` per extension, which changes the link-wrap width of `.cs`,
-       `.go`, `.js` and `.psd1` (catzc-f2, 2026-10-26). Check: `Test-FileLimits`, and `Test-Links` over the tree after the move.
+No class has a width count of 0 yet (2026-10-26, catzc-5c, `out/catzc-5c-widths/count.ps1`: one breach per file), so every class stays
+`report`. Each step below flips its class's `width_mode` to `fail` once its count reaches 0 and, in the same step, moves `Get-LinkLineLimit`
+from the rendered `.editorconfig` to `Get-FileLimit` for that class's extensions (catzc-f2, 2026-10-26).
+
+6. [ ] **prose**: 175 files over 140 columns (plans, docs pages). Check: the class's width count is 0, `Test-FileLimits` passes with
+       `width_mode.prose: fail`, and `Test-Links` passes over the tree after the move.
+7. [ ] **config**: 155 files over 140 columns (pipeline YAML, configs). Check: as for prose, with `width_mode.config: fail`.
+8. [ ] **code**: 1830 files over 120 columns (the `.cs`, `.go` and `.js` link-wrap widths change with the move, from 140 to 120). Check: as
+       for prose, with `width_mode.code: fail`.
