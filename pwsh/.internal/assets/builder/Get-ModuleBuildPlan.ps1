@@ -36,9 +36,11 @@ function Get-ModuleBuildPlan {
     $allPublics = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
 
     foreach ($name in $Module) {
-        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
+        # The source folder drops the namespace; the built folder keeps the full name, which PowerShell's module path needs.
+        $folderName = (Resolve-ModuleName -FullName $name -Namespace (Get-ModuleNamespace -ModulesRoot $SourceRoot))
+        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $folderName)
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
-            $violations.Add("$sourceFolder/${name}: the module folder does not exist")
+            $violations.Add("$sourceFolder/${folderName}: the module folder does not exist")
             continue
         }
         $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index -ParsedScripts $ParsedScripts

@@ -19,7 +19,7 @@ function Get-MergedModule {
     )
 
     $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
-    $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $Name)
+    $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, (Resolve-ModuleName -FullName $Name -Namespace (Get-ModuleNamespace -ModulesRoot $SourceRoot)))
     $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
     $privateDirectory = [System.IO.Path]::Combine($moduleDirectory, $privateFolderName)
 

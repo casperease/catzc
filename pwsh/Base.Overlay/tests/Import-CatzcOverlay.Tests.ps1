@@ -20,7 +20,7 @@ Describe 'Import-CatzcOverlay' -Tag 'L0', 'logic' {
     }
 
     It 'replaces a public and a private function for every caller' {
-        Set-OverlayFile 'Catzc.Base.Widget/Get-Widget.ps1' @'
+        Set-OverlayFile 'Base.Widget/Get-Widget.ps1' @'
 function Get-Widget {
     [OutputType([string])]
     param(
@@ -32,7 +32,7 @@ function Get-Widget {
     "overridden:$(Get-WidgetCore)"
 }
 '@
-        Set-OverlayFile 'Catzc.Base.Widget/private/Get-WidgetCore.ps1' "function Get-WidgetCore {`n    [OutputType([string])]`n    param()`n    'core2'`n}"
+        Set-OverlayFile 'Base.Widget/private/Get-WidgetCore.ps1' "function Get-WidgetCore {`n    [OutputType([string])]`n    param()`n    'core2'`n}"
 
         $applied = @(Import-CatzcOverlay)
 
@@ -44,7 +44,7 @@ function Get-Widget {
     }
 
     It 'applies nothing when the overlay breaks a rule' {
-        Set-OverlayFile 'Catzc.Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param()`n    'overridden'`n}"
+        Set-OverlayFile 'Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param()`n    'overridden'`n}"
         $before = (Get-Command Get-Widget).Definition
         { Import-CatzcOverlay } | Should -Throw -ExpectedMessage '*drops parameter -Name*'
         (Get-Command Get-Widget).Definition | Should -Be $before
@@ -62,7 +62,7 @@ function Get-Widget {
         }
 
         It 'loads after the overrides, exporting its public functions only, with its config and folder found in the overlay' {
-            Set-OverlayFile 'Catzc.Base.Widget/Get-Widget.ps1' @'
+            Set-OverlayFile 'Base.Widget/Get-Widget.ps1' @'
 function Get-Widget {
     [OutputType([string])]
     param(

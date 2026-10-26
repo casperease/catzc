@@ -35,9 +35,18 @@ function Resolve-ConfigEntry {
             }
         }
         foreach ($moduleDir in $moduleDirs) {
-            $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-            if ($moduleName.StartsWith('.')) {
+            $folderName = [System.IO.Path]::GetFileName($moduleDir)
+            if ($folderName.StartsWith('.')) {
                 continue
+            }
+            # The folder drops the namespace its module's full name carries; the manifest the bootstrap wrote from the resolver
+            # spells it, and a local overlay module, which carries no namespace, has its folder name.
+            $manifests = @([System.IO.Directory]::EnumerateFiles($moduleDir, '*.psd1'))
+            $moduleName = if ($manifests.Count -eq 1) {
+                [System.IO.Path]::GetFileNameWithoutExtension($manifests[0])
+            }
+            else {
+                $folderName
             }
             $configsDir = Join-Path $moduleDir 'configs'
             if (-not [System.IO.Directory]::Exists($configsDir)) {
@@ -55,7 +64,7 @@ function Resolve-ConfigEntry {
                 if (-not $script:configIndex.ContainsKey($configName)) {
                     $script:configIndex[$configName] = [System.Collections.Generic.List[hashtable]]::new()
                 }
-                $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Path = $file })
+                $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Folder = $folderName; Path = $file })
             }
         }
         $registry = Get-ConfigRegistry

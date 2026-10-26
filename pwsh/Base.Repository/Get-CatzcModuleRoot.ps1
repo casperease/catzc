@@ -16,21 +16,20 @@ function Get-CatzcModuleRoot {
         [string] $Module
     )
 
-    $moduleName = $Module
-    if (-not $moduleName) {
-        $callerModule = $PSCmdlet.SessionState.Module
-        Assert-NotNull $callerModule -ErrorText 'Get-CatzcModuleRoot was called from outside a module; pass -Module <name>.'
-        $moduleName = $callerModule.Name
+    # The module's folder comes from the loaded module, never from its name: the folder drops the namespace the name carries
+    # (DDR-TRACK-MODULENAMESPACE).
+    $loaded = if ($Module) {
+        Get-Module -Name $Module | Select-Object -First 1
     }
-
-    $moduleRoot = Join-Path (Get-CatzcModulesRoot) $moduleName
-    $isBundled = [System.IO.Directory]::Exists($moduleRoot)
+    else {
+        $PSCmdlet.SessionState.Module
+    }
+    Assert-NotNull $loaded -ErrorText "Get-CatzcModuleRoot found no loaded module$(if ($Module) { " '$Module'" } else { '; called from outside a module, pass -Module <name>' })."
+    $moduleRoot = $loaded.ModuleBase
+    $folderName = [System.IO.Path]::GetFileName($moduleRoot)
+    $modulesRoot = Get-CatzcModulesRoot
+    $isBundled = [System.IO.Path]::GetFullPath([System.IO.Path]::GetDirectoryName($moduleRoot)) -eq [System.IO.Path]::GetFullPath($modulesRoot)
     $overlayRoot = Get-CatzcOverlayRoot
-    if (-not $isBundled -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot,
-                $moduleName))) {
-        # A consumer's local module: its folder is the overlay's, and nothing there overrides it.
-        $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $moduleName)
-    }
     Assert-PathExist $moduleRoot -PathType Container
 
     if (-not $ChildPath) {
@@ -38,7 +37,7 @@ function Get-CatzcModuleRoot {
     }
     if ($isBundled -and $overlayRoot -and $ChildPath.Replace('\', '/').StartsWith('assets/',
             [System.StringComparison]::Ordinal)) {
-        $override = [System.IO.Path]::Combine($overlayRoot, $moduleName, $ChildPath)
+        $override = [System.IO.Path]::Combine($overlayRoot, $folderName, $ChildPath)
         if ([System.IO.File]::Exists($override)) {
             return $override
         }

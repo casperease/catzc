@@ -18,7 +18,7 @@ files:
     optIn: true
   # The POSIX-shell entry that defines `cats`; committed because a fresh clone needs it before any import.
   - target: importer.sh
-    source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
+    source: pwsh/Base.RootConfig/assets/root/importer.sh
     committed: true
     optIn: true
   - target: pwsh/.internal/assets/importer-commands.sh
@@ -32,19 +32,19 @@ files:
   - target: .editorconfig
     generator: Build-WidthConfigs
     sources:
-      - pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig
-      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
+      - pwsh/Base.RootConfig/assets/root/.editorconfig
+      - pwsh/Base.FileLimits/configs/file-limits.yml
     carrier: dotfile
     optIn: true
   # The three .vscode files are gitignored copies of the Catzc.Base.VSCode registries.
   - target: .vscode/settings.json
     generator: New-VsCodeSettings
     sources:
-      - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
-      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-      - pwsh/Catzc.Base.Languages/configs/languages.yml
-      - pwsh/Catzc.Base.Variants/configs/variants.yml
-      - pwsh/Catzc.Base.Globs/configs/filters.yml
+      - pwsh/Base.VSCode/configs/vscode-settings.yml
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Base.Languages/configs/languages.yml
+      - pwsh/Base.Variants/configs/variants.yml
+      - pwsh/Base.Globs/configs/filters.yml
     carrier: jsonc
     optIn: true
   # The project the editor and the js track's types gate read; its type root is the repository-relative folder Install-TypeScript fills, so
@@ -52,8 +52,8 @@ files:
   - target: jsconfig.json
     generator: New-JsConfig
     sources:
-      - pwsh/Catzc.Base.Languages/configs/javascript.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/javascript.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: jsonc
     optIn: true
   # The modules javascript.yml's strict list does not raise yet, checked leniently; it extends jsconfig.json, and holds no file once every
@@ -61,115 +61,115 @@ files:
   - target: jsconfig.lenient.json
     generator: New-JsConfig
     sources:
-      - pwsh/Catzc.Base.Languages/configs/javascript.yml
+      - pwsh/Base.Languages/configs/javascript.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/extensions.json
     generator: New-VsCodeExtensions
     sources:
-      - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
-      - pwsh/Catzc.Base.Languages/configs/languages.yml
+      - pwsh/Base.VSCode/configs/vscode-extensions.yml
+      - pwsh/Base.Languages/configs/languages.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/launch.json
     generator: New-VsCodeLaunch
     sources:
-      - pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
+      - pwsh/Base.VSCode/configs/vscode-launch.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/tasks.json
     generator: New-VsCodeTasks
     sources:
-      - pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml
+      - pwsh/Base.VSCode/configs/vscode-tasks.yml
     carrier: jsonc
     optIn: true
   # The Go test workspace: go.work here, one go.mod per Go test module under go.yml's root.
   - target: go.work
     generator: New-GoWorkspace
     sources:
-      - pwsh/Catzc.Base.Languages/configs/go.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/go.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
   - target: "*/tests/*/go.mod"
     generator: New-GoWorkspace
     sources:
-      - pwsh/Catzc.Base.Languages/configs/go.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/go.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
   # A module of the go track is a go.work member with its own go.mod at the module root.
   - target: "*/*/go.mod"
     generator: New-GoWorkspace
     sources:
-      - pwsh/Catzc.Base.Languages/configs/go.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/go.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: go-workspace
     optIn: true
   # The uv workspace: a root pyproject.toml plus one member per Python test folder; uv owns .venv and uv.lock.
   - target: "*/pyproject.toml"
     generator: New-PythonProject
     sources:
-      - pwsh/Catzc.Base.Languages/configs/python.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/python.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: toml
     optIn: true
   - target: "*/tests/*/pyproject.toml"
     generator: New-PythonProject
     sources:
-      - pwsh/Catzc.Base.Languages/configs/python.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/python.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: toml
     optIn: true
   # A module of the python track is a workspace member with its own pyproject.toml at the module root.
   - target: "*/*/pyproject.toml"
     generator: New-PythonProject
     sources:
-      - pwsh/Catzc.Base.Languages/configs/python.yml
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Languages/configs/python.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: toml
     optIn: true
   - target: .vscode/markdown-preview-dark.css
-    source: pwsh/Catzc.Base.VSCode/assets/markdown-preview-dark.css
+    source: pwsh/Base.VSCode/assets/markdown-preview-dark.css
     optIn: true
   # The other width-bearing tool configs: their asset templates with every width filled from file-limits.yml.
   - target: .markdownlint.yml
     generator: Build-WidthConfigs
     sources:
-      - pwsh/Catzc.Base.RootConfig/assets/root/.markdownlint.yml
-      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
+      - pwsh/Base.RootConfig/assets/root/.markdownlint.yml
+      - pwsh/Base.FileLimits/configs/file-limits.yml
     optIn: true
   - target: .markdownlintignore
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.markdownlintignore
+    source: pwsh/Base.RootConfig/assets/root/.markdownlintignore
     carrier: dotfile
     optIn: true
   - target: .prettierrc.yml
     generator: Build-WidthConfigs
     sources:
-      - pwsh/Catzc.Base.RootConfig/assets/root/.prettierrc.yml
-      - pwsh/Catzc.Base.FileLimits/configs/file-limits.yml
+      - pwsh/Base.RootConfig/assets/root/.prettierrc.yml
+      - pwsh/Base.FileLimits/configs/file-limits.yml
     optIn: true
   - target: .prettierignore
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.prettierignore
+    source: pwsh/Base.RootConfig/assets/root/.prettierignore
     carrier: dotfile
     optIn: true
   - target: .cspell/.gitignore
-    source: pwsh/Catzc.Base.RootConfig/assets/root/.cspell/.gitignore
+    source: pwsh/Base.RootConfig/assets/root/.cspell/.gitignore
     carrier: dotfile
     optIn: true
   - target: cspell.yml
     generator: New-Cspell
     sources:
-      - pwsh/Catzc.Base.RootConfig/assets/root/cspell-template.yml
-      - pwsh/Catzc.Base.Globs/configs/globs/globs.yml
-      - pwsh/Catzc.Base.Globs/configs/globs/track-sets.yml
+      - pwsh/Base.RootConfig/assets/root/cspell-template.yml
+      - pwsh/Base.Globs/configs/globs/globs.yml
+      - pwsh/Base.Globs/configs/globs/track-sets.yml
     optIn: true
   # JSON has no comments, so the managed-file marker is an ignored "//" property in the source.
   - target: dotnet-tools.json
-    source: pwsh/Catzc.Base.RootConfig/assets/root/dotnet-tools.json
+    source: pwsh/Base.RootConfig/assets/root/dotnet-tools.json
     optIn: true
   - target: pwsh/.internal/assets/Catzc.Types.csproj
-    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+    source: pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml
     carrier: msbuild-project
     committed: true
     optIn: true
@@ -177,14 +177,14 @@ files:
   - target: nuget.config
     generator: New-NuGetConfig
     sources:
-      - pwsh/Catzc.Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Base.Languages/New-NuGetConfig.ps1
     carrier: nuget-config
     committed: true
     optIn: true
   - target: Directory.Build.props
     generator: New-DotnetBuildProps
     sources:
-      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Base.Execution/configs/tools.yml
     carrier: msbuild-project
     committed: true
     optIn: true
@@ -192,21 +192,21 @@ files:
   - target: catzc.sln
     generator: New-Solution
     sources:
-      - pwsh/Catzc.Base.TypesSystem/New-Solution.ps1
+      - pwsh/Base.TypesSystem/New-Solution.ps1
     optIn: true
   - target: .gitattributes
     generator: New-GitAttributes
     sources:
-      - pwsh/Catzc.Base.RootConfig/assets/root/.gitattributes-template
-      - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+      - pwsh/Base.RootConfig/assets/root/.gitattributes-template
+      - pwsh/Base.Globs/configs/file-kinds.yml
     carrier: dotfile
     committed: true
     optIn: true
   - target: .gitignore
     generator: New-GitIgnore
     sources:
-      - pwsh/Catzc.Base.Git/configs/gitignore.yml
-      - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Base.Git/configs/gitignore.yml
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
     carrier: dotfile
     committed: true
     optIn: true

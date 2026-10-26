@@ -22,20 +22,25 @@ function Get-CatzcOverlay {
     # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
     $folders = [string[]] @(Get-ChildPath $overlayRoot -Directory -Depth 1 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
+    # An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name
+    # the resolver gives it (DDR-TRACK-MODULENAMESPACE). A local module's name is its folder's.
+    $namespace = (Get-Track -Name pwsh).namespace
     foreach ($folder in $folders) {
-        $moduleName = [System.IO.Path]::GetFileName($folder)
-        $isBundled = -not $moduleName.StartsWith('.') -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot, $moduleName))
+        $folderName = [System.IO.Path]::GetFileName($folder)
+        $isBundled = -not $folderName.StartsWith('.') -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($modulesRoot, $folderName))
         if (-not $isBundled) {
             [pscustomobject]@{
                 Kind         = 'LocalModule'
-                Module       = $moduleName
-                Target       = $moduleName
+                Module       = $folderName
+                Folder       = $folderName
+                Target       = $folderName
                 Visibility   = $null
                 File         = $folder
-                RelativePath = "$prefix/$moduleName"
+                RelativePath = "$prefix/$folderName"
             }
             continue
         }
+        $moduleName = [Catzc.Base.Variants.VariantTrack]::FullNameIn($namespace, $folderName)
 
         $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
@@ -70,10 +75,11 @@ function Get-CatzcOverlay {
             [pscustomobject]@{
                 Kind         = $kind
                 Module       = $moduleName
+                Folder       = $folderName
                 Target       = $target
                 Visibility   = $visibility
                 File         = $file
-                RelativePath = "$prefix/$moduleName/$relative"
+                RelativePath = "$prefix/$folderName/$relative"
             }
         }
     }

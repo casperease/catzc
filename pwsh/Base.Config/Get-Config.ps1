@@ -37,7 +37,15 @@ function Get-Config {
     }
     $overlayRoot = Get-ConfigOverlayRoot
     if ($overlayRoot) {
-        $candidate = [System.IO.Path]::Combine($overlayRoot, $entry.Module, 'configs', "$($entry.Name).yml")
+        # An overlay folder is named like the bundled module's folder, which drops the namespace its full name carries; a
+        # registered type with no shipped file finds its folder through its loaded module.
+        $folder = if ($entry['Folder']) {
+            $entry['Folder']
+        }
+        else {
+            [System.IO.Path]::GetFileName((Get-CatzcModuleRoot -Module $entry.Module))
+        }
+        $candidate = [System.IO.Path]::Combine($overlayRoot, $folder, 'configs', "$($entry.Name).yml")
         if ([System.IO.File]::Exists($candidate)) {
             $fragmentPath = $candidate
             $stamp = [System.IO.FileInfo]::new($candidate)

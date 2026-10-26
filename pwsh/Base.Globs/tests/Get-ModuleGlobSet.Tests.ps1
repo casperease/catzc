@@ -10,8 +10,8 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
         $script:fake = New-FakeRepositoryRoot -Modules @{
-            'Catzc.Base.Alpha' = @{ Public = 'Get-Alpha' }
-            'Catzc.Fake.Beta'  = @{ Public = 'Get-Beta' }
+            'Base.Alpha' = @{ Public = 'Get-Alpha' }
+            'Fake.Beta'  = @{ Public = 'Get-Beta' }
         } -Files @{
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') = 'function Test-InternalAlpha {}'
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Beta.psm1')  = 'function Test-InternalBeta {}'
@@ -52,24 +52,26 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
         # live claims the runtime surface, not the tests folder; tests is the non-live catch-all
-        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
-        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeFalse
-        $tests.Matches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
-        $live.Matches((Get-CatzcModulesFolder) + '/Catzc.Fake.Beta/Get-Beta.ps1') | Should -BeFalse
+        $live.Matches((Get-CatzcModulesFolder) + '/Base.Alpha/Get-Alpha.ps1') | Should -BeTrue
+        $live.Matches((Get-CatzcModulesFolder) + '/Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeFalse
+        $tests.Matches((Get-CatzcModulesFolder) + '/Base.Alpha/tests/Get-Alpha.Tests.ps1') | Should -BeTrue
+        $live.Matches((Get-CatzcModulesFolder) + '/Fake.Beta/Get-Beta.ps1') | Should -BeFalse
     }
 
     It 'puts the module''s Go, Python and Bash test folders in its tests aspect, each in its language''s folder case, never in live (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'
         $tests = $aspects | Where-Object Name -eq 'catzc-base-alpha-tests'
-        $tests.Matches('go/tests/catzcbasealpha/alpha_test.go') | Should -BeTrue
-        $live.Matches('go/tests/catzcbasealpha/alpha_test.go') | Should -BeFalse
-        $tests.Matches('python/tests/catzc_base_alpha/test_alpha.py') | Should -BeTrue
-        $live.Matches('python/tests/catzc_base_alpha/test_alpha.py') | Should -BeFalse
-        $tests.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeTrue
-        $live.Matches('bash/tests/catzc-base-alpha/alpha.bats') | Should -BeFalse
-        $tests.Matches('go/tests/catzcfakebeta/beta_test.go') | Should -BeFalse
-        $tests.Matches('python/tests/catzc-base-alpha/test_alpha.py') | Should -BeFalse
+        # A test folder is named from the module's folder, which drops the namespace, in its language's folder case.
+        $tests.Matches('go/tests/basealpha/alpha_test.go') | Should -BeTrue
+        $live.Matches('go/tests/basealpha/alpha_test.go') | Should -BeFalse
+        $tests.Matches('python/tests/base_alpha/test_alpha.py') | Should -BeTrue
+        $live.Matches('python/tests/base_alpha/test_alpha.py') | Should -BeFalse
+        $tests.Matches('bash/tests/base-alpha/alpha.bats') | Should -BeTrue
+        $live.Matches('bash/tests/base-alpha/alpha.bats') | Should -BeFalse
+        $tests.Matches('go/tests/fakebeta/beta_test.go') | Should -BeFalse
+        $tests.Matches('python/tests/base-alpha/test_alpha.py') | Should -BeFalse
+        $tests.Matches('go/tests/catzcbasealpha/alpha_test.go') | Should -BeFalse -Because 'the namespace is never spelled on disk'
     }
 
     It 'resolves a set by folder name and by kebab name to the same instance' {
@@ -126,7 +128,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         $leftovers = Get-ModuleGlobSet -Name module-leftovers
         $leftovers.Layer | Should -Be 'module'
         # a file inside a real module folder is owned by that module, never the catch-all
-        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/Catzc.Base.Alpha/Get-Alpha.ps1') | Should -BeFalse
+        $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/Base.Alpha/Get-Alpha.ps1') | Should -BeFalse
         # dot-folder infrastructure is the umbrellas' territory, not the catch-all's
         $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
         $leftovers.OwnMatches((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') | Should -BeFalse

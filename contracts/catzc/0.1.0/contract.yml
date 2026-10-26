@@ -4,8 +4,8 @@ applies_to:
   catzc.azure.dev_ops/pipeline.yaml.schema.json:
     - ".ado/pipelines/**/*.yaml"
   catzc.azure.templates/main.json.schema.json:
-    - "pwsh/Catzc.Azure.Templates/tests/assets/parameter-model/main.json"
+    - "pwsh/Azure.Templates/tests/assets/parameter-model/main.json"
   catzc.tooling.github/workflow.yml.schema.json:
     - ".github/workflows/*.yml"
   catzc.base.globs/file-kinds.yml:
-    - "pwsh/Catzc.Base.Globs/configs/file-kinds.yml"
+    - "pwsh/Base.Globs/configs/file-kinds.yml"

@@ -19,7 +19,12 @@ function Get-ModuleNamespace {
     # The bootstrap reads the declaration as text, one level, like the folder walk (ADR-PWSH-ENUM-EARLYLOADINGCODE): the track's entry
     # under tracks:, in its flow or block form, and its namespace key; none found means no namespace.
     $namespace = ''
-    $track = [System.IO.Path]::GetFileName($root.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar))
+    # A built bundle is no track place: its folders carry the full names PowerShell's module path needs, so it has no namespace.
+    if ([System.IO.File]::Exists([System.IO.Path]::Combine($root, 'Import-Catzc.ps1'))) {
+        $script:moduleNamespaces[$root] = $namespace
+        return $namespace
+    }
+    $track =[System.IO.Path]::GetFileName($root.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar))
     $configs = @(foreach ($module in [System.IO.Directory]::GetDirectories($root)) {
             $path = [System.IO.Path]::Combine($module, 'configs', 'variants.yml')
             if ([System.IO.File]::Exists($path)) {

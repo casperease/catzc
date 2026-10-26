@@ -25,7 +25,12 @@ function Get-FunctionBodyLength {
         $versions = [System.IO.Directory]::GetDirectories((Join-Path $modulesRoot '.vendor/powershell-yaml'))
         Import-Module (Join-Path ($versions | Sort-Object | Select-Object -Last 1) 'powershell-yaml.psd1')
     }
-    $limits = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.FileLimits/configs/file-limits.yml')))
+    # Module folders resolve from their full names under the track's namespace, read before any import (DDR-TRACK-MODULENAMESPACE).
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Get-ModuleNamespace.ps1')
+    $moduleNamespace = Get-ModuleNamespace -ModulesRoot $modulesRoot
+    $fileLimitsFolder = Resolve-ModuleName -FullName 'Catzc.Base.FileLimits' -Namespace $moduleNamespace
+    $limits = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot "$fileLimitsFolder/configs/file-limits.yml")))
     $script:functionBodyLength = if ($limits -and $limits.Contains('function_body_length')) {
         [int] $limits['function_body_length']
     }

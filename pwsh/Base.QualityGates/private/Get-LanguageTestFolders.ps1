@@ -14,12 +14,16 @@ function Get-LanguageTestFolders {
     $repositoryRoot = Get-RepositoryRoot
     $languagesConfig = Get-Config -Config languages
     $testFolderName = $languagesConfig.FolderOf('test')
-    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
+    $engineModules = @(Get-CatzcModule -EngineTrack)
+    $moduleNames = @($engineModules.name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
+    # A test folder is named for its module's folder, which drops the track's namespace (DDR-TRACK-MODULENAMESPACE).
+    $engineTrack = $engineModules.Count -gt 0 ? (Get-Track -Name $engineModules[0].track) : $null
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
                 $modulesByFolder = @{}
                 foreach ($module in $moduleNames) {
-                    $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $module)] = $module
+                    $folderName = $null -ne $engineTrack ? $engineTrack.FolderNameOf($module) : $module
+                    $modulesByFolder[$languagesConfig.TestFolderOf($entry.name, $folderName)] = $module
                 }
                 [pscustomobject]@{
                     Language = $entry.name
@@ -83,7 +87,7 @@ function Get-LanguageTestFolders {
     }
 
     if ($unmatched.Count -gt 0) {
-        throw "Test folder(s) matching no catzc module: $($unmatched -join ', '). A test folder is named for its catzc module in its language's folder case (Catzc.Base.Repository is catzc_base_repository in snake, catzcbaserepository in flat, catzc-base-repository in kebab)."
+        throw "Test folder(s) matching no catzc module: $($unmatched -join ', '). A test folder is named for its catzc module's folder in its language's folder case (Catzc.Base.Repository, folder Base.Repository, is base_repository in snake, baserepository in flat, base-repository in kebab)."
     }
     $records
 }

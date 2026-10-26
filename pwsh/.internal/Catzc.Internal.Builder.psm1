@@ -17,8 +17,10 @@ $script:runtimeInternalFiles = @(
     'Catzc.Internal.Types.psm1'
     'Catzc.Internal.Vendor.psm1'
     'assets/ErrorView.format.ps1xml'
+    'assets/bootstrap/Get-ModuleNamespace.ps1'
     'assets/bootstrap/Import-AllModules.ps1'
     'assets/bootstrap/Import-CSharpTypes.ps1'
+    'assets/bootstrap/Resolve-ModuleName.ps1'
     'assets/importer/Get-DueWriterRow.ps1'
     'assets/importer/Invoke-ImporterJanitors.ps1'
     'assets/importer/Test-WriterDue.ps1'
@@ -39,6 +41,8 @@ $script:fullPolicyInternalFiles = @(
 $script:mergedFileSuffix = '.functions.ps1'
 
 # The build functions that outgrew this file live one per file beside it; they share its scope.
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildClosureViolation.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-MergedModule.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-ModuleBuildPlan.ps1')

@@ -28,7 +28,12 @@ function Initialize-TrackRootLiteralData {
         $versions = [System.IO.Directory]::GetDirectories((Join-Path $modulesRoot '.vendor/powershell-yaml'))
         Import-Module (Join-Path ($versions | Sort-Object | Select-Object -Last 1) 'powershell-yaml.psd1')
     }
-    $variants = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.Variants/configs/variants.yml')))
+    # Module folders resolve from their full names under the track's namespace, read before any import (DDR-TRACK-MODULENAMESPACE).
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Resolve-ModuleName.ps1')
+    . (Join-Path $modulesRoot '.internal/assets/bootstrap/Get-ModuleNamespace.ps1')
+    $moduleNamespace = Get-ModuleNamespace -ModulesRoot $modulesRoot
+    $variantsFolder = Resolve-ModuleName -FullName 'Catzc.Base.Variants' -Namespace $moduleNamespace
+    $variants = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot "$variantsFolder/configs/variants.yml")))
     $script:roots = @(foreach ($track in $variants['tracks'].Values) {
             if (@($track['execution_engines']) -ccontains 'pwsh') {
                 # A member is a plain path or a map whose path it names.
@@ -42,7 +47,7 @@ function Initialize-TrackRootLiteralData {
                 }
             }
         })
-    $conventions = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Catzc.Base.QualityGates/configs/source-conventions.yml')))
+    $conventions = ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $modulesRoot "$(Resolve-ModuleName -FullName 'Catzc.Base.QualityGates' -Namespace $moduleNamespace)/configs/source-conventions.yml")))
     $section = $conventions['track_root_literal']
     $script:exempt = @(if ($section -and $section['exempt']) {
             @($section['exempt'].Keys | ForEach-Object {

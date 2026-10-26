@@ -81,7 +81,9 @@ function Get-CatzcModule {
                 }
 
                 foreach ($entry in Get-PlaceModuleEntry -Place $place -Directory $directory) {
-                    if ($Name -and $Name -cnotcontains $entry.Name) {
+                    # A module is named by its full name, its folder joined to the track's namespace (DDR-TRACK-MODULENAMESPACE).
+                    $fullName = $trackEntry.FullNameOf($entry.Name)
+                    if ($Name -and $Name -cnotcontains $fullName) {
                         continue
                     }
 
@@ -126,8 +128,8 @@ function Get-CatzcModule {
                     }
 
                     $found.Add([Catzc.Base.Modules.Module]::new(
-                            $entry.Name, $trackEntry.name, $moduleType.id, $place.root, $entry.Root, $entry.Shape,
-                            $files.ToArray(), [string[]]$languageNames, [string[]]$trackEntry.EnginesOf($entry.Name),
+                            $fullName, $trackEntry.name, $moduleType.id, $place.root, $entry.Root, $entry.Shape,
+                            $files.ToArray(), [string[]]$languageNames, [string[]]$trackEntry.EnginesOf($fullName),
                             $unplaced.ToArray()))
                 }
             }

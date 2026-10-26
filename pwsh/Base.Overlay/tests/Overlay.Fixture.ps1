@@ -9,11 +9,11 @@ catzc:
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
 $script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/pwsh'
-foreach ($folder in 'Catzc.Base.Widget/configs', 'Catzc.Base.Widget/assets') {
+foreach ($folder in 'Base.Widget/configs', 'Base.Widget/assets') {
     [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot $folder)) | Out-Null
 }
-Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/configs/widget.yml') -Value 'limit: 3'
-Set-Content -Path (Join-Path $modulesRoot 'Catzc.Base.Widget/assets/lever.txt') -Value 'bundled'
+Set-Content -Path (Join-Path $modulesRoot 'Base.Widget/configs/widget.yml') -Value 'limit: 3'
+Set-Content -Path (Join-Path $modulesRoot 'Base.Widget/assets/lever.txt') -Value 'bundled'
 
 function script:New-OverlayFixtureModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',

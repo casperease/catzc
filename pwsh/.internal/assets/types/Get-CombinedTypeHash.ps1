@@ -30,7 +30,11 @@ function Get-CombinedTypeHash {
         # not read again, and
         # the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor
         # and the gates ask.
-        [string] $StampPath
+        [string] $StampPath,
+
+        # The modules track's namespace, for a copy of the root whose folder names no track; omitted, read from the root.
+        [AllowEmptyString()]
+        [string] $ModuleNamespace
     )
 
     # Assigned directly, never through an if-expression: an empty HashSet emitted from a statement enumerates to
@@ -96,12 +100,23 @@ function Get-CombinedTypeHash {
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a,
                 $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })
 
+    if (-not $PSBoundParameters.ContainsKey('ModuleNamespace')) {
+        $ModuleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
+    }
+    $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace $ModuleNamespace
+    $carriers = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'file-carriers.yml')
+    $block = $null
+    if ([System.IO.File]::Exists($carriers)) {
+        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText($carriers)))['carriers']['bcl']
+        $block = [string[]] @($declared['block'])
+    }
+    # The form this run hashes: the body when the bcl carrier is known, else the whole file; a memo of the other form is no memo.
+    $form = $null -ne $block ? 'body' : 'whole'
     $stamped = @{}
     if ($StampPath -and [System.IO.File]::Exists($StampPath)) {
         try {
             $document = [System.IO.File]::ReadAllText($StampPath) | ConvertFrom-Json -AsHashtable
-            # A memo of whole-file hashes, from before the head was left out, is read as no memo.
-            if ($document -is [hashtable] -and $document['form'] -ceq 'body' -and $document['files'] -is [hashtable]) {
+            if ($document -is [hashtable] -and $document['form'] -ceq $form -and $document['files'] -is [hashtable]) {
                 $stamped = $document['files']
             }
         }
@@ -121,13 +136,6 @@ function Get-CombinedTypeHash {
     # The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a
     # comment. The head's form is
     # the bcl carrier's in file-carriers.yml; a modules root without the Languages module hashes whole files.
-    $languagesFolder = Resolve-ModuleName -FullName 'Catzc.Base.Languages' -Namespace (Get-ModuleNamespace -ModulesRoot $ModulesRoot)
-    $carriers = [System.IO.Path]::Combine($ModulesRoot, $languagesFolder, 'configs', 'file-carriers.yml')
-    $block = $null
-    if ([System.IO.File]::Exists($carriers)) {
-        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText($carriers)))['carriers']['bcl']
-        $block = [string[]] @($declared['block'])
-    }
     $snapshot = [ordered]@{}
     $memo = [ordered]@{}
     $rehashed = 0
@@ -166,7 +174,7 @@ function Get-CombinedTypeHash {
         if ($folder) {
             [System.IO.Directory]::CreateDirectory($folder) | Out-Null
         }
-        $json = [ordered]@{ form = 'body'; combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
+        $json = [ordered]@{ form = $form; combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
         $temporary = "$StampPath.$([guid]::NewGuid().ToString('N')).tmp"
         [System.IO.File]::WriteAllText($temporary, $json)
         # The stamp is a cache that parallel imports share: a replace that loses to another process's read or replace

@@ -17,8 +17,11 @@ namespace Catzc.Base.Variants;
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
-    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace" };
-    private static readonly System.Text.RegularExpressions.Regex NamespaceName = new System.Text.RegularExpressions.Regex(@"^[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)*$");
+    private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace", "join" };
+    // A namespace in the casing its track's language spells: dotted PascalCase (Catzc) or one lower-case word (catzc).
+    private static readonly System.Text.RegularExpressions.Regex NamespaceName = new System.Text.RegularExpressions.Regex(@"^(?:[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)*|[a-z][a-z0-9]*)$");
+    // The joins a track's language spells between its namespace and a folder name.
+    private static readonly string[] AllowedJoins = { ".", "-", "_", "" };
     private static readonly Regex CustomerName = new Regex("^[a-z][a-z0-9]+$");
     private static readonly Regex AspectName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -356,11 +359,27 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             string moduleNamespace = Has(entry, "namespace") ? Text(entry["namespace"]) : "";
             if (Has(entry, "namespace") && !NamespaceName.IsMatch(moduleNamespace))
             {
-                errors.Add(string.Format("tracks['{0}']: invalid namespace '{1}' (dotted PascalCase segments, e.g. Catzc)", name, moduleNamespace));
+                errors.Add(string.Format("tracks['{0}']: invalid namespace '{1}' (dotted PascalCase segments, e.g. Catzc, or one lower-case word, e.g. catzc)", name, moduleNamespace));
                 moduleNamespace = "";
             }
 
-            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds, moduleNamespace));
+            string moduleJoin = null;
+            if (Has(entry, "join"))
+            {
+                moduleJoin = Text(entry["join"]);
+                if (!AllowedJoins.Contains(moduleJoin))
+                {
+                    errors.Add(string.Format("tracks['{0}']: invalid join '{1}' (one of '.', '-', '_' or '')", name, moduleJoin));
+                    moduleJoin = null;
+                }
+                else if (!Has(entry, "namespace"))
+                {
+                    errors.Add(string.Format("tracks['{0}']: a join needs a namespace to join", name));
+                    moduleJoin = null;
+                }
+            }
+
+            result.Add(new VariantTrack(name, members.ToArray(), trackType, vendor, languages.ToArray(), engines.ToArray(), moduleEngines, kinds, moduleNamespace, moduleJoin));
         }
         return result;
     }

@@ -27,20 +27,33 @@ Describe 'Resolve-ModuleName' -Tag 'L0', 'logic', 'DDR-TRACK-MODULENAMESPACE' {
         & $script:resolve @{ FullName = 'Gadgets.Base.Widget' } | Should -BeExactly 'Gadgets.Base.Widget'
     }
 
-    It 'takes a folder that already spells its full name as it is, and leaves a full name outside the namespace whole' {
-        & $script:resolve @{ Folder = 'Gadgets.Base.Widget'; Namespace = 'Gadgets' } | Should -BeExactly 'Gadgets.Base.Widget'
+    It 'joins the namespace to any folder, one that spells it included, and leaves a full name outside the namespace whole' {
+        & $script:resolve @{ Folder = 'Gadgets.Base.Widget'; Namespace = 'Gadgets' } | Should -BeExactly 'Gadgets.Gadgets.Base.Widget' -Because 'a folder never carries the namespace, so nothing is taken as already full'
         & $script:resolve @{ FullName = 'Sprockets.Base.Widget'; Namespace = 'Gadgets' } | Should -BeExactly 'Sprockets.Base.Widget'
         & $script:resolve @{ FullName = 'Gadgets.'; Namespace = 'Gadgets' } | Should -BeExactly 'Gadgets.' -Because 'a bare namespace names no module'
     }
 
-    It 'agrees with its C# twin on the track type for every case' {
-        $track = [Catzc.Base.Variants.VariantTrack]::new('widgets', @([Catzc.Base.Variants.VariantMember]::new('widgets')), 'modules', $null, @(),
-            $null, $null, $null, 'Gadgets')
-        foreach ($folder in 'Base.Widget', 'Gadgets.Base.Widget', 'Widget') {
-            $track.FullNameOf($folder) | Should -BeExactly (& $script:resolve @{ Folder = $folder; Namespace = 'Gadgets' })
-        }
-        foreach ($full in 'Gadgets.Base.Widget', 'Sprockets.Widget') {
-            $track.FolderNameOf($full) | Should -BeExactly (& $script:resolve @{ FullName = $full; Namespace = 'Gadgets' })
+    It 'joins by the track''s join: <Join> between <Namespace> and the folder' -ForEach @(
+        @{ Namespace = 'gadgets'; Join = '-'; Folder = 'spin-lamps'; Full = 'gadgets-spin-lamps' }
+        @{ Namespace = 'gadgets'; Join = '_'; Folder = 'spin'; Full = 'gadgets_spin' }
+        @{ Namespace = 'gadgets'; Join = ''; Folder = 'spin'; Full = 'gadgetsspin' }
+    ) {
+        & $script:resolve @{ Folder = $Folder; Namespace = $Namespace; Join = $Join } | Should -BeExactly $Full
+        & $script:resolve @{ FullName = $Full; Namespace = $Namespace; Join = $Join } | Should -BeExactly $Folder
+    }
+
+    It 'agrees with its C# twin on the track type for every case and every join' {
+        foreach ($case in @(@{ Namespace = 'Gadgets'; Join = '.' }, @{ Namespace = 'gadgets'; Join = '-' }, @{ Namespace = 'gadgets'; Join = '_' },
+                @{ Namespace = 'gadgets'; Join = '' })) {
+            $track = [Catzc.Base.Variants.VariantTrack]::new('widgets', @([Catzc.Base.Variants.VariantMember]::new('widgets')), 'modules', $null,
+                @(), $null, $null, $null, $case.Namespace, $case.Join)
+            $joined = "$($case.Namespace)$($case.Join)"
+            foreach ($folder in 'Base.Widget', "${joined}Base.Widget", 'Widget') {
+                $track.FullNameOf($folder) | Should -BeExactly (& $script:resolve @{ Folder = $folder; Namespace = $case.Namespace; Join = $case.Join })
+            }
+            foreach ($full in "${joined}Base.Widget", 'Sprockets.Widget') {
+                $track.FolderNameOf($full) | Should -BeExactly (& $script:resolve @{ FullName = $full; Namespace = $case.Namespace; Join = $case.Join })
+            }
         }
     }
 }
@@ -54,7 +67,7 @@ Describe 'Resolve-ModuleName — the real pwsh track' -Tag 'L1', 'integrity' {
         Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
     }
 
-    It 'resolves every module folder of the tree to its own name, under the namespace the pwsh track declares' {
+    It 'resolves every module folder of the tree, short on disk, to its full name under the namespace the pwsh track declares, and back' {
         $track = Get-Track -Name pwsh
         $track.namespace | Should -BeExactly 'Catzc'
         $root = Join-Path (Get-RepositoryRoot) (Get-CatzcModulesFolder)
@@ -67,8 +80,10 @@ Describe 'Resolve-ModuleName — the real pwsh track' -Tag 'L1', 'integrity' {
                 param($Folder, $Namespace)
                 Resolve-ModuleName -Folder $Folder -Namespace $Namespace
             }
-            $full | Should -BeExactly $folder -Because "every folder carries the namespace today, so $folder is its own full name"
-            $track.FullNameOf($folder) | Should -BeExactly $folder
+            $folder | Should -Not -BeLike "$($track.namespace)$($track.join)*" -Because 'no folder spells the namespace on disk'
+            $full | Should -BeExactly "$($track.namespace)$($track.join)$folder"
+            $track.FullNameOf($folder) | Should -BeExactly $full
+            $track.FolderNameOf($full) | Should -BeExactly $folder
         }
     }
 }

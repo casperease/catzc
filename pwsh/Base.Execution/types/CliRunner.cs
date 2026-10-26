@@ -172,7 +172,7 @@ public class CliRunner
             throw new TimeoutException(
                 $"Killed '{commandLine}' after {timeoutSeconds}s: it did not finish within its time limit. " +
                 "Make it faster, or raise the limit: pass -TimeoutSeconds, or tune the executable's entry in " +
-                "Catzc.Base.Timeouts/configs/timeouts.yml.");
+                "the timeouts.yml config of the Catzc.Base.Timeouts module.");
         }
 
         process.WaitForExit();

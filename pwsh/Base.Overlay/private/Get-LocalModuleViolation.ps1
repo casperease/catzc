@@ -17,9 +17,19 @@ function Get-LocalModuleViolation {
         [string] $RelativePath
     )
 
+    # A folder never spells the modules track's namespace (DDR-TRACK-MODULENAMESPACE): the folder resolves to its full name, the bundle
+    # names the fix.
     $name = [System.IO.Path]::GetFileName($Path)
-    if ($name.StartsWith('Catzc.', [System.StringComparison]::OrdinalIgnoreCase)) {
-        "${RelativePath}: the Catzc. prefix is reserved, and the bundle has no module $name; is it a missing bundle module, or a typo?"
+    $namespace = (Get-Track -Name pwsh).namespace
+    if ($namespace -and $name.StartsWith("$namespace.", [System.StringComparison]::OrdinalIgnoreCase)) {
+        $short = $name.Substring($namespace.Length + 1)
+        $full = [Catzc.Base.Variants.VariantTrack]::FullNameIn($namespace, $short)
+        if (Get-Module -Name $full) {
+            "${RelativePath}: a folder never spells the $namespace namespace; spell it $short to override $full"
+        }
+        else {
+            "${RelativePath}: the $namespace namespace is reserved, and the bundle has no module $full; is it a missing bundle module, or a typo?"
+        }
         return
     }
 

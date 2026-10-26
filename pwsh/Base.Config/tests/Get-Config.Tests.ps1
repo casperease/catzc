@@ -85,7 +85,7 @@ Describe 'Get-Config' -Tag 'L0' {
             $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path $bundled | Out-Null
-            New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Base.Widget/configs') | Out-Null
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }
             }
@@ -93,12 +93,16 @@ Describe 'Get-Config' -Tag 'L0' {
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
                 [ordered]@{ 'widget-sealed' = [ordered]@{ type = 'System.Collections.Hashtable'; overridable = $false } }
             }
+            # The overlay folder is the bundled module's folder, without the namespace its full name carries.
+            Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Config -ParameterFilter { $Module -eq 'Catzc.Base.Widget' } -MockWith {
+                Join-Path $TestDrive 'modules/Base.Widget'
+            }
         }
 
         It 'merges the fragment onto the bundled config before it is returned' {
             Set-Content -Path (Join-Path $bundled 'widget-merged.yml') -Value @('owner: widget', 'limit: 3', 'gadgets:',
                 '  lever: 1', '  sprung: 2')
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-merged.yml') -Value @('limit: 5',
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-merged.yml') -Value @('limit: 5',
                 'gadgets:', '  sprung: null')
             $configuration = Get-Config -Config widget-merged
             $configuration.owner | Should -Be 'widget'
@@ -114,7 +118,7 @@ Describe 'Get-Config' -Tag 'L0' {
 
         It 'serves an edited fragment, never a stale merge' {
             Set-Content -Path (Join-Path $bundled 'widget-edited.yml') -Value 'limit: 3'
-            $fragment = Join-Path $overlay 'Catzc.Base.Widget/configs/widget-edited.yml'
+            $fragment = Join-Path $overlay 'Base.Widget/configs/widget-edited.yml'
             Set-Content -Path $fragment -Value 'limit: 5'
             (Get-Config -Config widget-edited).limit | Should -Be 5
             Set-Content -Path $fragment -Value 'limit: 70'
@@ -124,14 +128,14 @@ Describe 'Get-Config' -Tag 'L0' {
 
         It 'refuses a fragment of a sealed config' {
             Set-Content -Path (Join-Path $bundled 'widget-sealed.yml') -Value 'limit: 3'
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-sealed.yml') -Value 'limit: 5'
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-sealed.yml') -Value 'limit: 5'
             { Get-Config -Config widget-sealed } |
                 Should -Throw "*Config 'widget-sealed' is sealed*remove*widget-sealed.yml*"
         }
 
         It 'refuses a fragment that is not a map' {
             Set-Content -Path (Join-Path $bundled 'widget-list.yml') -Value 'limit: 3'
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-list.yml') -Value @('- gadget',
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-list.yml') -Value @('- gadget',
                 '- gizmo')
             { Get-Config -Config widget-list } | Should -Throw '*must both be maps*'
         }
@@ -217,7 +221,7 @@ namespace CatzcGetConfigTest {
 
         It 'builds a registered type with no shipped file from an empty map, and merges the repository''s fragment onto it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-            New-Item -ItemType Directory -Path (Join-Path $overlay 'Catzc.Base.Widget/configs') | Out-Null
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Base.Widget/configs') | Out-Null
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -like 'widget-bare*' } -MockWith {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = $null }
             }
@@ -225,9 +229,12 @@ namespace CatzcGetConfigTest {
                 [ordered]@{ 'widget-bare' = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'widget-bare-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
             }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
+            Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Config -ParameterFilter { $Module -eq 'Catzc.Base.Widget' } -MockWith {
+                Join-Path $TestDrive 'modules/Base.Widget'
+            }
 
             (Get-Config -Config widget-bare).Raw.Count | Should -Be 0
-            Set-Content -Path (Join-Path $overlay 'Catzc.Base.Widget/configs/widget-bare-merged.yml') -Value 'limit: 5'
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-bare-merged.yml') -Value 'limit: 5'
             (Get-Config -Config widget-bare-merged).Raw['limit'] | Should -Be 5
         }
     }
@@ -235,7 +242,7 @@ namespace CatzcGetConfigTest {
     Context 'a registered type with no shipped file (Resolve-ConfigEntry)' -Tag 'logic' {
         It 'lists it under the module its type''s namespace names, with no path' {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-            New-Item -ItemType Directory -Path (Join-Path $root 'Catzc.Base.Widget') | Out-Null
+            New-Item -ItemType Directory -Path (Join-Path $root 'Base.Widget') | Out-Null
             Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $root }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{ gadgetry = @{ type = 'Catzc.Base.Widget.GadgetryConfig' } } }
@@ -246,6 +253,26 @@ namespace CatzcGetConfigTest {
             InModuleScope Catzc.Base.Config { $script:configIndex = $null }
             $entry.Module | Should -Be 'Catzc.Base.Widget'
             $entry.Path | Should -BeNullOrEmpty
+        }
+
+        It 'names a shipped config''s module by its manifest, and keeps the folder that drops the namespace' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $root 'Base.Widget/configs') | Out-Null
+            Set-Content -LiteralPath (Join-Path $root 'Base.Widget/Catzc.Base.Widget.psd1') -Value '@{}'
+            Set-Content -LiteralPath (Join-Path $root 'Base.Widget/configs/sprocket.yml') -Value 'teeth: 12'
+            New-Item -ItemType Directory -Path (Join-Path $root 'Gadget/configs') | Out-Null
+            Set-Content -LiteralPath (Join-Path $root 'Gadget/configs/cog.yml') -Value 'teeth: 8'
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $root }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
+            $entries = InModuleScope Catzc.Base.Config {
+                $script:configIndex = $null
+                Resolve-ConfigEntry -Config sprocket
+                Resolve-ConfigEntry -Config cog
+            }
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            @($entries[0].Module, $entries[0].Folder) | Should -Be @('Catzc.Base.Widget', 'Base.Widget')
+            $entries[1].Module | Should -BeExactly 'Gadget' -Because 'a folder with no manifest, such as a local module, is its own name'
         }
     }
 

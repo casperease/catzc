@@ -24,10 +24,6 @@ Describe 'Get-TypesContractDrift' -Tag 'L0', 'logic' {
         }
     }
 
-    AfterAll {
-        Remove-Module Catzc.Internal.Types -Force -ErrorAction SilentlyContinue
-    }
-
     It 'reports nothing while the committed contract is the build''s surface' {
         & $script:writeContract $script:surface
         @(& $script:drift) | Should -BeNullOrEmpty

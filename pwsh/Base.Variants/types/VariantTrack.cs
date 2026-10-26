@@ -44,11 +44,19 @@ public sealed class VariantTrack
     // The module namespace ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)): joined to a folder name, it gives the module's full name; empty when undeclared.
     public string @namespace { get; }
 
+    // The join a track's language spells between its namespace and a folder name: catzc + "-" + track-lamps on the js track; empty for one
+    // that joins with nothing, as go does.
+    public string join { get; }
+
+    // The join a track declares none of: the dot of a PowerShell module's full name.
+    public const string DefaultJoin = ".";
+
     public VariantTrack(string name, VariantMember[] members, string type, string vendor, string[] languages, string[] executionEngines = null,
         IDictionary<string, string[]> moduleExecutionEngines = null, IDictionary<string, string> kinds = null,
-        string moduleNamespace = null)
+        string moduleNamespace = null, string moduleJoin = null)
     {
         this.@namespace = moduleNamespace ?? string.Empty;
+        this.join = moduleJoin ?? DefaultJoin;
         this.kinds = kinds == null
             ? new Dictionary<string, string>(StringComparer.Ordinal)
             : new Dictionary<string, string>(kinds, StringComparer.Ordinal);
@@ -70,21 +78,22 @@ public sealed class VariantTrack
     }
 
     // A module's full name from its folder name; a folder already spelling it, or a track without a namespace, keeps the folder name.
-    public string FullNameOf(string folder) => FullNameIn(@namespace, folder);
+    public string FullNameOf(string folder) => FullNameIn(@namespace, folder, join);
 
-    // A module's full name from its folder name under a namespace, for a reader that holds the namespace but not the track.
-    public static string FullNameIn(string moduleNamespace, string folder)
+    // A module's full name from its folder name under a namespace and its join, for a reader that holds the namespace but not the track.
+    public static string FullNameIn(string moduleNamespace, string folder, string moduleJoin = DefaultJoin)
     {
         if (string.IsNullOrEmpty(folder)) { throw new ArgumentException("FullNameOf needs a module folder name"); }
-        if (string.IsNullOrEmpty(moduleNamespace) || folder.StartsWith(moduleNamespace + ".", StringComparison.Ordinal)) { return folder; }
-        return moduleNamespace + "." + folder;
+        string prefix = moduleNamespace + (moduleJoin ?? DefaultJoin);
+        if (string.IsNullOrEmpty(moduleNamespace)) { return folder; }
+        return prefix + folder;
     }
 
-    // A module's folder name from its full name: the name without the namespace and its dot, else the full name unchanged.
+    // A module's folder name from its full name: the name without the namespace and its join, else the full name unchanged.
     public string FolderNameOf(string fullName)
     {
         if (string.IsNullOrEmpty(fullName)) { throw new ArgumentException("FolderNameOf needs a module's full name"); }
-        string prefix = @namespace + ".";
+        string prefix = @namespace + join;
         return @namespace.Length > 0 && fullName.StartsWith(prefix, StringComparison.Ordinal) && fullName.Length > prefix.Length
             ? fullName.Substring(prefix.Length)
             : fullName;

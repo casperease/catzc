@@ -31,7 +31,7 @@ function Get-BuildClosureViolation {
     }
 
     foreach ($name in $Module) {
-        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
+        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, (Resolve-ModuleName -FullName $name -Namespace (Get-ModuleNamespace -ModulesRoot $SourceRoot)))
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
             continue
         }

@@ -58,13 +58,13 @@ tracks:
   github-workflows: { members: [.github/workflows], type: pipelines, vendor: github, languages: [yaml] }
   docs: { members: [docs], type: documentation, languages: [markdown, asset, yaml] }
   contracts: { members: [contracts], type: contracts, languages: [markdown, pipeline-yaml, yaml, json] }
-  go: { members: [go], type: modules, languages: [go] }
-  python: { members: [python], type: modules, languages: [python, html, markdown, xml, yaml] }
-  bash: { members: [bash], type: modules, languages: [bash] }
+  go: { members: [go], type: modules, languages: [go], namespace: catzc, join: "" }
+  python: { members: [python], type: modules, languages: [python, html, markdown, xml, yaml], namespace: catzc, join: _ }
+  bash: { members: [bash], type: modules, languages: [bash], namespace: catzc, join: "-" }
   bash-vendor: { members: [bash/.vendor], type: vendored-code }
   # The type declarations Install-TypeScript installs for the js track's types gate: downloaded third-party code, never committed.
   .typescript: { members: [{ path: .typescript, committed: false }], type: vendored-code }
-  js: { members: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js } }
+  js: { members: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js }, namespace: catzc, join: "-" }
   .github: { members: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { members: [.cspell], type: vendor-settings, vendor: cspell }
   .claude: { members: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }

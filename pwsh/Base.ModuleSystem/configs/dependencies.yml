@@ -124,7 +124,8 @@ groups:
       ]
     Catzc.Base.Files:
       [Catzc.Base.Git, Catzc.Base.Execution, Catzc.Base.Objects, Catzc.Base.Repository, Catzc.Base.Asserts, Catzc.Base.Folders]
-    Catzc.Base.Overlay: [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders]
+    Catzc.Base.Overlay:
+      [Catzc.Base.Config, Catzc.Base.Repository, Catzc.Base.Writers, Catzc.Base.Asserts, Catzc.Base.Folders, Catzc.Base.Variants]
     Catzc.Base.Globs:
       [
         Catzc.Base.Languages,

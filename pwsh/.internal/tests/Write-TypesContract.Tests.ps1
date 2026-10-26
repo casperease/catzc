@@ -18,10 +18,6 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         )
     }
 
-    AfterAll {
-        Remove-Module Catzc.Internal.Types -Force -ErrorAction SilentlyContinue
-    }
-
     It 'writes the surface, sorted by name, with no hash, to the contract under the catzc root' {
         $first = & $script:write $script:surface
         $first.Written | Should -BeTrue

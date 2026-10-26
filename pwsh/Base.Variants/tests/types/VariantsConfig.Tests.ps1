@@ -45,14 +45,42 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.aspects['infrastructure'].Name | Should -Be @('tests', 'live')
         }
 
-        It 'reads a track''s namespace, empty by default, and refuses one that is not dotted PascalCase' {
+        It 'reads a track''s namespace, empty by default, in its language''s casing, and refuses a malformed one' {
             (& $script:make ([ordered]@{})).tracks[0].namespace | Should -BeExactly ''
             $named = & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'Gadgets.Kit' } } })
             $named.tracks[0].namespace | Should -BeExactly 'Gadgets.Kit'
-            foreach ($bad in 'gadgets', 'Gadgets.', '.Gadgets', 'Gad gets') {
+            $lower = & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'gadgets' } } })
+            $lower.tracks[0].namespace | Should -BeExactly 'gadgets'
+            foreach ($bad in 'Gadgets.', '.Gadgets', 'Gad gets', 'gadgets.kit', 'gadGets') {
                 { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = $bad } } }) } |
-                    Should -Throw "*invalid namespace '$bad'*" -Because "'$bad' is no dotted PascalCase namespace"
+                    Should -Throw "*invalid namespace '$bad'*" -Because "'$bad' is neither dotted PascalCase nor one lower-case word"
             }
+        }
+
+        It 'joins the namespace to a folder by the track''s join, the dot when it declares none' -Tag 'DDR-TRACK-MODULENAMESPACE' {
+            $track = { param($namespace, $join)
+                $entry = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = $namespace }
+                if ($PSBoundParameters.ContainsKey('join')) { $entry['join'] = $join }
+                (& $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $entry } })).tracks[0]
+            }
+            foreach ($case in @(
+                    @{ Namespace = 'Gadgets'; Join = $null; Folder = 'Base.Spin'; Full = 'Gadgets.Base.Spin' }
+                    @{ Namespace = 'gadgets'; Join = '-'; Folder = 'spin-lamps'; Full = 'gadgets-spin-lamps' }
+                    @{ Namespace = 'gadgets'; Join = '_'; Folder = 'spin'; Full = 'gadgets_spin' }
+                    @{ Namespace = 'gadgets'; Join = ''; Folder = 'spin'; Full = 'gadgetsspin' }
+                )) {
+                $widgets = if ($null -eq $case.Join) { & $track $case.Namespace } else { & $track $case.Namespace $case.Join }
+                $widgets.join | Should -BeExactly $(if ($null -eq $case.Join) { '.' } else { $case.Join })
+                $widgets.FullNameOf($case.Folder) | Should -BeExactly $case.Full
+                $widgets.FolderNameOf($case.Full) | Should -BeExactly $case.Folder
+            }
+        }
+
+        It 'refuses a join outside the closed set, and a join with no namespace to join' {
+            $entry = [ordered]@{ members = @('widgetry'); type = 'modules'; namespace = 'gadgets'; join = '+' }
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $entry } }) } | Should -Throw "*invalid join '+'*"
+            $bare = [ordered]@{ members = @('widgetry'); type = 'modules'; join = '-' }
+            { & $script:make ([ordered]@{ tracks = [ordered]@{ widgets = $bare } }) } | Should -Throw '*a join needs a namespace*'
         }
 
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

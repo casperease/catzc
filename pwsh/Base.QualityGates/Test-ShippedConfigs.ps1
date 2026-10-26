@@ -22,10 +22,19 @@ function Test-ShippedConfigs {
     $shipped = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $configCount = 0
     $modulesRoot = Get-CatzcModulesRoot
+    # A config is looked up under its module's full name, which the folder drops the namespace of; the loaded module names it.
+    $loadedByFolder = @{}
+    foreach ($loaded in Get-Module) {
+        $loadedByFolder[[System.IO.Path]::GetFullPath($loaded.ModuleBase)] = $loaded.Name
+    }
     foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory) {
-        $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)
-        if ($moduleName -match '^\.') {
+        $folderName = [System.IO.Path]::GetFileName($moduleDirectory)
+        if ($folderName -match '^\.') {
             continue
+        }
+        $moduleName = $loadedByFolder[[System.IO.Path]::GetFullPath($moduleDirectory)]
+        if (-not $moduleName) {
+            $moduleName = $folderName
         }
         $configsDirectory = Join-Path $moduleDirectory 'configs'
         # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml).
@@ -44,14 +53,14 @@ function Test-ShippedConfigs {
             $configCount++
             [void]$shipped.Add($name)
             if (-not $registry.ContainsKey($name)) {
-                $issues.Add("$moduleName/configs/$name.yml: no type registered in configs.yml — add a C# config type and its entry")
+                $issues.Add("$folderName/configs/$name.yml: no type registered in configs.yml — add a C# config type and its entry")
                 continue
             }
             try {
                 $null = Get-Config -Config $name -Module $moduleName
             }
             catch {
-                $issues.Add("$moduleName/configs/$name.yml: does not load — $($_.Exception.Message)")
+                $issues.Add("$folderName/configs/$name.yml: does not load — $($_.Exception.Message)")
                 continue
             }
             $raw = if ($isFolder) {
@@ -77,7 +86,7 @@ function Test-ShippedConfigs {
                 })
             foreach ($difference in $differing) {
                 if (-not ($reasons -and $reasons.ContainsKey($difference.key))) {
-                    $issues.Add("$moduleName/configs/$name.yml: '$($difference.key)' ships '$($difference.shipped)' where its type's default is '$($difference.declared)' — match them, or give the reason under differs in configs.yml")
+                    $issues.Add("$folderName/configs/$name.yml: '$($difference.key)' ships '$($difference.shipped)' where its type's default is '$($difference.declared)' — match them, or give the reason under differs in configs.yml")
                 }
             }
             $differingKeys = @($differing | ForEach-Object { $_.key })
