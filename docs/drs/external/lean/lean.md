@@ -1,183 +1,76 @@
-# Process: Lean — the Toyota Production System, mapped to software by the Poppendiecks
+# EDR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
 
 ## Rules: EDR-LEAN
 
+Each rule is one claim of the lean sources: Ohno's Toyota Production System, the Poppendiecks' mapping of it to software, and the two laws
+that make flow quantitative. The sentence is the repository's own summary, never a quotation.
+
 ### Rule EDR-LEAN-TOYOTAPRODUCTIONSYSTEM
 
-Lean is here the Toyota Production System applied to software delivery: its two pillars are just-in-time flow (make value move without
-waiting) and jidoka (build quality in, stop the line on a defect). Its goal is the fastest _sustainable_ flow from concept to cash with
-quality built in, never inspected in.
+The Toyota Production System rests on two pillars: just-in-time flow (value moves, pulled by downstream demand, without waiting) and jidoka
+(build quality in; on a defect the line stops and the defect is fixed at its source). The goal is the fastest sustainable flow from concept
+to cash, with quality built in rather than inspected in.
 
-- [Decision](#decision)
+Source: Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988)
+
+Binds to [WDR-PULLWORK-PULLNOTPUSH](../../process/pull-work.md#rule-wdr-pullwork-pullnotpush) and
+[WDR-ANDON-FAILINGGATESTOPSLINE](../../process/holding-the-line.md#rule-wdr-andon-failinggatestopsline).
 
 ### Rule EDR-LEAN-POPPENDIECKPRINCIPLES
 
-The seven Poppendieck principles are authoritative here — eliminate waste, build quality in, create knowledge, defer commitment, deliver
-fast, respect people, and optimise the whole — and each is realised by concrete rules elsewhere in this repository rather than left as
-slogans.
+The Poppendiecks map the Toyota Production System to software as seven principles: eliminate waste, build quality in, create knowledge,
+defer commitment, deliver fast, respect people, and optimise the whole.
 
-- [The seven principles](#the-seven-principles)
+Source: Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003)
+
+Binds to [PDR-NOWASTE-DROPUNNEEDEDSTEPS](../../principles/reduce-waste.md#rule-pdr-nowaste-dropunneededsteps),
+[WDR-BUILTIN-QUALITYBUILTIN](../../process/build-quality-in.md#rule-wdr-builtin-qualitybuiltin),
+[WDR-KAIZEN-AMPLIFYLEARNING](../../process/inspect-and-adapt.md#rule-wdr-kaizen-amplifylearning),
+[WDR-PULLWORK-DEFERCOMMITMENT](../../process/pull-work.md#rule-wdr-pullwork-defercommitment),
+[WDR-QUEUECOST-QUEUETIMEDOMINATES](../../process/queues-cost-money.md#rule-wdr-queuecost-queuetimedominates), and
+[WDR-LEANTERMS-OPTIMISETHEWHOLE](../../process/process-terms.md#rule-wdr-leanterms-optimisethewhole).
 
 ### Rule EDR-LEAN-SEVENWASTES
 
-Lean names seven wastes, work that does not contribute to the outcome: partially done work, extra features, relearning, handoffs, task
-switching, delays, and defects. Read here as the Poppendiecks adapt them to software, they are the taxonomy the repository's rules cite to
-identify and eliminate such work.
+Lean names seven wastes, work that does not contribute to the outcome; the Poppendiecks adapt them to software as partially done work, extra
+features, relearning, handoffs, task switching, delays, and defects.
 
-- [The seven wastes](#the-seven-wastes)
+Source: Mary and Tom Poppendieck, _Implementing Lean Software Development: From Concept to Cash_ (2006)
+
+Binds to [PDR-NOWASTE-SEVENWASTESCITED](../../principles/reduce-waste.md#rule-pdr-nowaste-sevenwastescited).
 
 ### Rule EDR-LEAN-ISQUANTITATIVE
 
-Lean is quantitative, not merely cultural: Little's Law makes flow time a function of work-in-progress and throughput, and cost of delay
-makes queue time money. The platform manages batch size and work-in-progress on that basis, not by intuition
-([WDR-QUEUECOST](../../process/queues-cost-money.md)).
+Little's Law makes flow quantitative: for a stable system, average flow time equals average work-in-progress divided by average throughput,
+whatever the arrival or service distribution. With throughput near-fixed, work-in-progress is the lever on lead time.
 
-- [The two laws](#the-two-laws)
+Source: John D. C. Little, "A Proof for the Queuing Formula: L = λW", _Operations Research_ 9 (1961)
+
+Binds to [WDR-QUEUECOST-LITTLESLAW](../../process/queues-cost-money.md#rule-wdr-queuecost-littleslaw),
+[WDR-QUEUECOST-DELAYHASAPRICE](../../process/queues-cost-money.md#rule-wdr-queuecost-delayhasaprice), and
+[WDR-LEANTERMS-FLOWISMEASURED](../../process/process-terms.md#rule-wdr-leanterms-flowismeasured).
 
 ### Rule EDR-LEAN-COMPUTEOVERATTENTION
 
-Machine time is cheap and falls on a Moore's-law cadence while human attention is the scarce constraint, so the platform spends compute
-freely — parallel quality gates, eager caches, ephemeral environments — to drain the human queue. A minute of CPU is cheaper than a minute
-of a person blocked ([WDR-QUEUECOST](../../process/queues-cost-money.md)).
+Moore's observation is that compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends towards free while
+human attention stays scarce and expensive.
 
-- [The two laws](#the-two-laws)
+Source: Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965)
+
+Binds to [WDR-QUEUECOST-ATTENTIONISTHECONSTRAINT](../../process/queues-cost-money.md#rule-wdr-queuecost-attentionistheconstraint) and
+[WDR-LEANTERMS-AUTOMATEDORMANUAL](../../process/process-terms.md#rule-wdr-leanterms-automatedormanual).
 
 ### Rule EDR-LEAN-LEANANDAGILE
 
-Lean and agile ([EDR-AGILE](../agile/agile.md)) describe the same responsiveness from two directions — flow of value and response to change
-— and reinforce rather than compete; where a lean rule and an agile principle meet, they say the same thing in different words.
+The Poppendiecks present lean software development as an agile toolkit: the Toyota Production System's flow discipline supplies the
+mechanism by which an agile process keeps the cost of change low.
 
-- [Why](#why)
+Source: Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003)
+
+Binds to [WDR-KAIZEN-LEANISPOPPENDIECK](../../process/inspect-and-adapt.md#rule-wdr-kaizen-leanispoppendieck).
 
 ## Context
 
-Agile ([EDR-AGILE](../agile/agile.md)) fixes _what responsiveness is_ and measures it by the cost of change. Lean supplies the other half: a
-mechanical account of _how work flows_ and _where it stalls_. The two grew up together — the Agile Manifesto's authors drew directly on lean
-manufacturing — but they answer different questions, and this repository needs both. Where the agile articles define the values and
-principles, the lean articles define the flow discipline the pipeline and promotion rules specialise. Both draw on one shared vocabulary —
-constraint, throughput, lead time, work-in-progress — fixed once in [WDR-LEANTERMS](../../process/process-terms.md).
-
-"Lean" is as overloaded as "agile": it names Toyota's production system, a startup methodology, a family of consultancies, and a
-cost-cutting euphemism. This article fixes the one meaning that grounds decisions here — Taiichi Ohno's Toyota Production System [^1] as
-mapped to software by Mary and Tom Poppendieck [^2] — so that a claim of "this is leaner" can be checked against flow, waste, and queues
-rather than asserted.
-
-## Decision
-
-Adopt lean as defined by the Toyota Production System's two pillars and the Poppendiecks' translation of them to software:
-
-- **Just-in-time flow.** Value moves through the system pulled by downstream demand, in the smallest batches that make sense, with the
-  shortest possible wait between steps. The enemy is not slow work but idle work — items sitting in queues.
-- **Jidoka — "automation with a human touch".** The moment a defect appears, the line stops, the defect is fixed at its source, and only
-  then does production resume. Quality is a property of the process, not a phase bolted on at the end.
-
-These two pillars specialise, for CI/CD, into the six companion articles below. Everything lean-flavoured in this repository is one of them,
-and each is anchored to concrete rules — the seven wastes ([PDR-NOWASTE](../../principles/reduce-waste.md)), fail-fast jidoka
-([PDR-POKAYOKE](../../principles/poka-yoke.md)), and the promotion flow that carries one release candidate from integration to production —
-so lean here is enacted, not merely admired.
-
-## The seven principles
-
-The Poppendiecks map the Toyota Production System to software as seven principles [^2]. Each is authoritative here, and each has a home in
-this repository's rules:
-
-1. **Eliminate waste.** Remove any work that does not contribute to the outcome — the seven wastes
-   ([PDR-NOWASTE](../../principles/reduce-waste.md)).
-2. **Build quality in.** Make each step produce already-correct output; do not inspect quality in afterwards
-   ([WDR-BUILTIN](../../process/build-quality-in.md)).
-3. **Create knowledge.** Development is a knowledge-creating process; capture what is learned so it is not relearned
-   ([WDR-KAIZEN](../../process/inspect-and-adapt.md)).
-4. **Defer commitment.** Decide at the last responsible moment, when the most is known ([WDR-PULLWORK](../../process/pull-work.md)).
-5. **Deliver fast.** Short lead time is a competitive advantage and a prerequisite for deferring commitment; speed comes from draining
-   queues ([WDR-QUEUECOST](../../process/queues-cost-money.md)).
-6. **Respect people.** The people doing the work design the work; the system supports them ([EDR-VALUES](../agile/agile-values.md),
-   [EDR-AGILEPRINCIPLES](../agile/agile-principles.md)).
-7. **Optimise the whole.** Improve the end-to-end value stream, not a local step; a local optimum that starves the whole is a loss
-   ([WDR-OBSERVEWIP](../../process/observe-work.md)).
-
-## The seven wastes
-
-Lean manufacturing identified seven categories of waste. Adapted to software [^2], they are:
-
-1. **Partially done work.** Unfinished features, branches not merged, work in progress that delivers no value. Partially done work ties up
-   capacity, creates merge risk, and decays as the codebase moves on.
-
-2. **Extra features.** Functionality nobody asked for or needs. Every feature carries ongoing cost — maintenance, testing, documentation,
-   cognitive load. Code that is not needed is not an asset; it is a liability.
-
-3. **Relearning.** Rediscovering something that was already known but not captured or communicated. When knowledge exists only in someone's
-   head, every absence triggers relearning. When conventions are implicit, every new contributor relearns them through trial and error.
-
-4. **Handoffs.** Transferring work between people or teams, losing context at each boundary. Each handoff is a lossy compression —
-   assumptions are dropped, intent is simplified, and the receiving side fills the gaps with guesses.
-
-5. **Task switching.** Context-switching between multiple concurrent tasks. The cost is not the switch itself but the reload time —
-   rebuilding the mental model of the work that was interrupted. Small tasks interleaved with large tasks destroy throughput on the large
-   tasks.
-
-6. **Delays.** Waiting for decisions, approvals, reviews, dependencies, environments. Delays are the most common waste and the hardest to
-   see because they look like idle time, not active cost. But every delay extends the feedback loop, and long feedback loops produce stale
-   assumptions.
-
-7. **Defects.** Bugs and errors, especially those that travel far from their point of origin before detection. The cost of a defect is
-   proportional to the distance it travels — a typo caught by a linter costs nothing; the same typo discovered in production costs an
-   incident.
-
-The repository's principle of eliminating waste ([PDR-NOWASTE](../../principles/reduce-waste.md)) cites this taxonomy.
-
-## The two laws
-
-Lean's flow claims are not metaphors; two laws make them quantitative, and both are used directly in
-[WDR-QUEUECOST](../../process/queues-cost-money.md):
-
-- **Little's Law** [^3]. For any stable system, average flow time equals average work-in-progress divided by average throughput
-  (`flow time = WIP ÷ throughput`). Throughput is near-fixed in the short run, so the practical lever on lead time is work-in-progress: cut
-  the queue and lead time falls, arithmetically, with no one working faster. This is why the platform limits work-in-progress and shrinks
-  batch size rather than exhorting people to hurry.
-- **Moore's Law** [^4]. Compute capacity per unit cost roughly doubles on a regular cadence, so machine time trends towards free while human
-  attention stays the scarce, expensive constraint. The lean move is therefore to spend the cheap resource to save the dear one: run quality
-  gates in parallel, cache aggressively, stand up ephemeral environments, rebuild rather than wait. Buying down a human queue with machine
-  time is almost always the right trade.
-
-## Why
-
-**Agile says why; lean says how work flows.** "Respond to change cheaply" ([EDR-AGILE](../agile/agile.md)) is the goal; lean's flow, waste,
-and queue discipline is the mechanism that makes change cheap. Holding both keeps the repository's process rules anchored to a purpose _and_
-a mechanism.
-
-**A mechanical model beats intuition.** Little's Law and cost of delay turn "we feel slow" into "our work-in-progress is too high and our
-queues are expensive" — a checkable claim with a known remedy. Decisions about batch size, parallelism, and where each gate sits rest on the
-model, not on taste.
-
-**The lineage keeps the rules honest.** Anchoring to Ohno and the Poppendiecks means an adaptation can be tested against the source rather
-than against whatever "lean" has come to mean in a given team. When a practice cannot be traced to eliminating waste, building quality in,
-or shortening flow, it is ceremony ([PDR-NOWASTE](../../principles/reduce-waste.md)).
-
-## How to apply
-
-Treat this article as the umbrella and the six companions as the detail. When a flow or process decision is in question, name which lean
-principle it serves and which companion article governs it: is this holding the line ([WDR-ANDON](../../process/holding-the-line.md)),
-building quality in ([WDR-BUILTIN](../../process/build-quality-in.md)), observing the work
-([WDR-OBSERVEWIP](../../process/observe-work.md)), pulling work ([WDR-PULLWORK](../../process/pull-work.md)), draining a queue
-([WDR-QUEUECOST](../../process/queues-cost-money.md)), or inspecting and adapting ([WDR-KAIZEN](../../process/inspect-and-adapt.md))? A
-change that serves none of the seven principles is waste. When a repository rule specialises a lean principle, cite it so the lineage stays
-visible.
-
-## References
-
-[^1]:
-    Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988). The origin of just-in-time and jidoka — the two pillars
-    — and of the seven wastes (muda). Ohno's insight is that visible waste hides in the waiting between steps, not in the steps themselves.
-
-[^2]:
-    Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003) and _Implementing Lean Software Development: From Concept
-    to Cash_ (2006). The canonical mapping of the Toyota Production System to software, including the seven principles and the seven wastes
-    used throughout these decision records.
-
-[^3]:
-    John D. C. Little, "A Proof for the Queuing Formula: L = λW", _Operations Research_ 9 (1961). The relationship holds for any stable
-    system regardless of arrival or service distribution, which is what makes it a dependable lever on lead time.
-
-[^4]:
-    Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965). Used here for its economic consequence —
-    compute grows cheap relative to human time — rather than as a claim about transistor counts.
+Lean is as overloaded as agile ([EDR-AGILE](../agile/agile.md)): it names Toyota's production system, a startup methodology, a family of
+consultancies, and a cost-cutting euphemism. This record fixes the one meaning the repository draws on, Ohno's Toyota Production System as
+mapped to software by Mary and Tom Poppendieck. The sources are published books and papers; this record summarises them and quotes none.

@@ -80,6 +80,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 | config                                                        | `environment-approvals.yml`      |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |
+|                                                               | `Get-AdoFlowRows`                |
 |                                                               | `Test-Pipelines`                 |
 | responsibility:4 — Pipeline runtime bridge                    | `Set-AdoPipelineVariable`        |
 |                                                               | `ConvertFrom-AdoPipelineCommand` |

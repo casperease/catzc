@@ -282,6 +282,21 @@ concepts:
       A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells
       a decision record sits in.
     realized_by: { kind: prose-only }
+  flow lens:
+    key: flow_lens
+    domain: design
+    defined_by: DDR-VISUAL-FLOWISALENS
+    short:
+      The value `flow` of a diagram's `lenses:`, beside `source` and `action` — a diagram under it draws how a commit flows through the
+      pipelines and workflows, one lane per pipeline or workflow, time left to right.
+    realized_by: { kind: prose-only }
+  spanner:
+    key: spanner
+    domain: design
+    defined_by: DDR-VISUAL-SPANNERSNAMETAXONOMY
+    short:
+      A span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
+    realized_by: { kind: prose-only }
   importer:
     key: importer
     domain: automation

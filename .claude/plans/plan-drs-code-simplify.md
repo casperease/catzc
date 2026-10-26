@@ -38,19 +38,8 @@ and external guidance (CAF, WAF, DORA, the Agile Manifesto, lean theory, Pester)
   `ConvertTo-DrsCode`; a word is dropped only where cspell's English dictionary proves the boundary. The map is applied once and deleted;
   the tree keeps only the future names.
 
-## Open questions
-
-- Should the `catzc-run` capability say that cspell skips any file under the ignored `out/` and takes a scratch word list on `stdin`, so the
-  next word check costs one call, not four probes?
-
 ## Open steps
 
-- [ ] one burst, because `DrsConfig` rejects a code that does not start with its domain's prefix, so an `EDR` code cannot stand in the
-      azure, process or research domain: in `out/drs-rename-map-fd7758d1.ps1` set each EDR record's `new_path` to `docs/drs/external/` (CAF
-      and WAF under `external/azure/caf/` and `external/azure/waf/`, DORA under `external/dora/`); in `drs.yml` replace the `research`
-      domain with an `external` domain owning `EDR`, move the CAF, WAF, agile, values, agile-principles and lean rulesets into it, and
-      delete the `RDR` kind; move the files; then apply the map once with `Update-DrsCitation` while no peer edits DRS files (check:
-      `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`)
 - [ ] each EDR record under `docs/drs/external/`: rewrite its rules to how catzc reads the source, with a `source:` line, moving catzc's
       decisions into the ADR or PDR that cites it, one record at a time (check: `Test-DrsRegistry`)
 - [ ] `pwsh/Base.Drs/private/Get-DrsCodeLanguageViolations.ps1`: hold every rule heading to `Test-DrsCode -Rule` and every rule name to
@@ -60,4 +49,3 @@ and external guidance (CAF, WAF, DORA, the Agile Manifesto, lean theory, Pester)
 
 - `docs/drs/repository/drs-code-language.md` (`ADR-REPO-DRSCODE`)
 - `pwsh/Base.Drs/` (`Test-DrsCode`, `Assert-DrsCode`, `Format-DrsCode`, `ConvertTo-DrsCode`)
-- `out/drs-rename-review.md` (26 dropped-word renames to read)

@@ -1,4 +1,4 @@
-# Research: DORA — AI-accessible internal data
+# EDR: DORA — AI-accessible internal data
 
 ## Rules: EDR-DORA-AIDATA
 
@@ -8,7 +8,7 @@ AI-accessible internal data means securely connecting AI systems to an organizat
 diagrams, wikis, documentation, style guides, operational metrics, and logs — so responses are context-aware rather than generic. Treat this
 as context engineering, a discipline in its own right, not as a refinement of prompt wording.
 
-- [Summary](#summary)
+Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
 
 ### Rule EDR-DORA-AIDATA-AMPLIFIESADOPTION
 
@@ -16,7 +16,7 @@ Internal-data access amplifies whatever AI adoption is already doing to individu
 underlying data is good, for worse when it is not. The capability is a multiplier on the existing signal, not a source of new signal by
 itself.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
 
 ### Rule EDR-DORA-AIDATA-BUILDINPHASES
 
@@ -24,21 +24,27 @@ Build the capability in phases: start with manual context engineering and a shar
 templates; pilot automated retrieval (RAG or MCP) on a single high-impact use case before scaling; only then invest in secure internal APIs
 that expose data systematically.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
+
+Binds to [ADR-REPO-README-AUTHOREDSOURCES](../../repository/generated-readmes.md#rule-adr-repo-readme-authoredsources),
+[PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted) and
+[ADR-CONF-ADDRESSING-GLOBALADDRESSFORM](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-globaladdressform).
 
 ### Rule EDR-DORA-AIDATA-DATAQUALITYFIRST
 
 An AI connected to bad data produces bad answers — treat data quality, curation of gold-standard (not deprecated) examples, and deliberate
 context retrieval as prerequisites, not cleanup work done after the fact.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
 
 ### Rule EDR-DORA-AIDATA-NOBLANKETACCESS
 
 Never grant an AI system blanket or shared-account access to internal data. Access travels through the same least-privilege, per-user
 credentials a human would use, so an AI query can only ever reach what its requester could already see.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, AI-accessible internal data](../../../references/dora/capabilities.md#ai-accessible-internal-data)
+
+Binds to [ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly).
 
 ## Context
 
@@ -76,20 +82,16 @@ Build the capability in three phases rather than attempting automated retrieval 
 In the foundational phase, engineers do context engineering manually — assembling the specific internal information (a relevant file, an
 architecture doc, a style guide) an AI needs to answer a question accurately — and that assembled context is captured in a shared,
 version-controlled library of reusable templates rather than re-created ad hoc each time. High-quality documentation is a primary driver of
-successful AI adoption at this stage, which is also where it is cheapest to fix: `docs/references/` as the one authored source per folder,
-linked out to `README.md` rather than duplicated, keeps that documentation current at no ongoing maintenance cost — an AI reading a
-generated README reads the same, never-stale content a person does.
+successful AI adoption at this stage, which is also where it is cheapest to fix.
 
 In the pilot phase, automate retrieval for a single high-impact use case, choosing between a custom retrieval-augmented-generation (RAG)
 pipeline for precise, up-to-date retrieval and a Model Context Protocol (MCP) integration that selects and feeds only relevant context
-rather than raw documents. Either approach only has something worth retrieving because the codebase, configuration, pipelines, and governing
-docs are comprehensively kept in version control in the first place — an artifact that exists only in a UI, a wiki, or someone's head is not
-retrievable by either pattern.
+rather than raw documents. Either approach only has something worth retrieving when the codebase, configuration, pipelines, and governing
+docs are comprehensively kept in version control — an artifact that exists only in a UI, a wiki, or someone's head is not retrievable by
+either pattern.
 
 In the scale phase, secure leadership sponsorship, address foundational data-quality gaps, and build secure internal APIs that expose data
-systematically rather than through one-off pipelines. A structured, non-secret-only address grammar over version-controlled config is the
-same shape this phase needs at the platform layer: a uniform, fail-fast way to name and resolve exactly one piece of internal data, with
-secrets excluded by construction rather than filtered after the fact.
+systematically rather than through one-off pipelines.
 
 ## Common pitfalls
 

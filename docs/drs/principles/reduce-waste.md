@@ -16,6 +16,13 @@ over deferred validation.
 
 - [How to apply](#how-to-apply)
 
+### Rule PDR-NOWASTE-SEVENWASTESCITED
+
+The seven wastes of lean ([EDR-LEAN-SEVENWASTES](../external/lean/lean.md#rule-edr-lean-sevenwastes)) are the taxonomy the repository's
+rules cite to identify waste; each is read as described under Principle.
+
+- [Principle](#principle)
+
 ## Context
 
 Work that does not deliver value to the end result is waste. It consumes time, attention, and capacity without contributing to the outcome.
@@ -27,7 +34,20 @@ but each of these is a symptom of a system that could be designed better.
 Identify and eliminate work that does not contribute to the desired outcome.
 
 The categories of waste are the seven wastes of lean, adapted to software: partially done work, extra features, relearning, handoffs, task
-switching, delays, and defects ([EDR-LEAN-SEVENWASTES](../external/lean/lean.md#rule-edr-lean-sevenwastes)).
+switching, delays, and defects ([EDR-LEAN-SEVENWASTES](../external/lean/lean.md#rule-edr-lean-sevenwastes)). Read here:
+
+- **Partially done work.** Unfinished features and unmerged branches tie up capacity, create merge risk, and decay as the codebase moves on.
+- **Extra features.** Functionality nobody needs carries ongoing cost (maintenance, testing, documentation, cognitive load); unneeded code
+  is a liability, not an asset.
+- **Relearning.** Knowledge that lives only in someone's head is rediscovered at every absence; implicit conventions are relearned by every
+  new contributor.
+- **Handoffs.** Each transfer between people or teams is a lossy compression: assumptions drop, intent simplifies, the receiver guesses.
+- **Task switching.** The cost is the reload time of the interrupted mental model; small tasks interleaved with large ones destroy the large
+  tasks' throughput.
+- **Delays.** Waiting for decisions, approvals, reviews, dependencies or environments is the most common waste and the hardest to see, since
+  it looks like idle time; each delay lengthens the feedback loop and stales assumptions.
+- **Defects.** The cost of a defect is proportional to the distance it travels before detection: a typo a linter catches costs nothing, the
+  same typo found in production costs an incident.
 
 ## Why
 

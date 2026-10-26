@@ -40,8 +40,8 @@ function Get-GeneratedStampDrift {
     foreach ($file in $generated) {
         $relative = $file -replace '\\', '/'
         $carrier = $Resolver.For($relative)
-        # A binary has no head of its own to stamp.
-        if ($null -eq $carrier -or $carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::None) {
+        # A binary has no head of its own to stamp, and a banner holds no body hash.
+        if ($null -eq $carrier -or $carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner) {
             continue
         }
         $full = Join-Path $root $relative

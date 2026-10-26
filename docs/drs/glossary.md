@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d7219ee6bfd1
+    with_body_sha: c0fe629683cc
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -298,6 +298,15 @@ set of them.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
     language is a registered kind of text, named by its extensions.
 
+### flow lens
+
+The value `flow` of a diagram's `lenses:`, beside `source` and `action` — a diagram under it draws how a commit flows through the pipelines
+and workflows, one lane per pipeline or workflow, time left to right.
+
+- **Defined by:** [DDR-VISUAL-FLOWISALENS](design/visual-design.md#rule-ddr-visual-flowisalens)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
+
 ### holder track
 
 A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
@@ -437,6 +446,14 @@ How the toolset is loaded, source mode from a repository root or build mode from
 Moving a file from its landing address to its module or track with `git mv`, so its history follows.
 
 - **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
+
+### spanner
+
+A span bar on the `spans` layer, capped with its taxonomy glyph, in one row of words over the lanes of a flow diagram.
+
+- **Defined by:** [DDR-VISUAL-SPANNERSNAMETAXONOMY](design/visual-design.md#rule-ddr-visual-spannersnametaxonomy)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 

@@ -28,6 +28,16 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
+    # A banner is the language's own one-line marker: it replaces a banner already there and holds no body hash, so it suits an untracked file only.
+    if ($entry.carrier -eq [Catzc.Base.Languages.CarrierKind]::Banner) {
+        Assert-True (@(Get-GitTrackedPath $relative) -notcontains $relative) -ErrorText "Format-GeneratedFileHead: '$relative' is tracked, and its banner carrier '$id' holds no body hash; give it a carrier with a meta block."
+        $body = $Text -replace '\r\n', "`n"
+        if ($body.StartsWith("$($entry.banner)`n", [System.StringComparison]::Ordinal)) {
+            $body = $body.Substring($entry.banner.Length + 1).TrimStart("`n")
+        }
+        return "$($entry.banner)`n`n$body"
+    }
+
     # The head says what not to touch; every other fact about the file is derived on demand.
     $values = @{ warning = $Head.warning }
     # A tracked file's head also carries its body's hash; an untracked one carries the warning only.

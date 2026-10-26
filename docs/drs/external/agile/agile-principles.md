@@ -1,130 +1,99 @@
-# Process: Agile principles — the twelve principles behind the manifesto
+# EDR: Agile Manifesto — the twelve principles, as the repository reads them
 
 ## Rules: EDR-AGILEPRINCIPLES
 
+Each rule is one of the twelve principles behind the manifesto, in the order the principles page lists them. Every source line names the
+principles page; the sentence is the repository's own summary, never a quotation.
+
 ### Rule EDR-AGILEPRINCIPLES-EARLYCONTINUOUSDELIVERY
 
-Satisfy the customer through early and continuous delivery of valuable software — the highest priority, and the reason every other principle
-exists.
+The highest priority is to satisfy the customer through early and continuous delivery of valuable software (principle 1).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 1
+
+Binds to [WDR-PULLWORK-SMALLESTBATCH](../../process/pull-work.md#rule-wdr-pullwork-smallestbatch).
 
 ### Rule EDR-AGILEPRINCIPLES-WELCOMECHANGE
 
-Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it
-as a failure of planning.
+Changing requirements are welcome, even late; an agile process turns change into the customer's advantage (principle 2).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 2
+
+Binds to [WDR-KAIZEN-ADAPTFROMEVIDENCE](../../process/inspect-and-adapt.md#rule-wdr-kaizen-adaptfromevidence).
 
 ### Rule EDR-AGILEPRINCIPLES-DELIVERFREQUENTLY
 
-Deliver working software frequently — on a cadence of weeks rather than months, preferring the shorter interval.
+Working software is delivered frequently, on a cadence of weeks rather than months, preferring the shorter interval (principle 3).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 3
+
+Binds to [WDR-PULLWORK-SMALLESTBATCH](../../process/pull-work.md#rule-wdr-pullwork-smallestbatch).
 
 ### Rule EDR-AGILEPRINCIPLES-BUSINESSDEVELOPERSDAILY
 
-Business people and developers work together daily throughout the project — collaboration is continuous, not a hand-off at the boundaries.
+Business people and developers work together daily throughout the project (principle 4).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 4
 
 ### Rule EDR-AGILEPRINCIPLES-MOTIVATEDINDIVIDUALS
 
-Build projects around motivated individuals — give them the environment and support they need, and trust them to get the job done.
+Projects are built around motivated individuals, given the environment and support they need and trusted to get the job done (principle 5).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 5
 
 ### Rule EDR-AGILEPRINCIPLES-DIRECTCONVERSATION
 
-Favour direct conversation — the most efficient and effective way to convey information to and within a team is face-to-face.
+The most efficient and effective way to convey information to and within a team is face-to-face conversation (principle 6).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 6
 
 ### Rule EDR-AGILEPRINCIPLES-SOFTWAREMEASURESPROGRESS
 
-Working software is the primary measure of progress — not documents produced, hours spent, or tasks marked done.
+Working software is the primary measure of progress, not documents produced, hours spent, or tasks marked done (principle 7).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 7
+
+Binds to [WDR-OBSERVEWIP-WORKSTATEVISIBLE](../../process/observe-work.md#rule-wdr-observewip-workstatevisible).
 
 ### Rule EDR-AGILEPRINCIPLES-SUSTAINABLEPACE
 
-Sustain a constant pace indefinitely — sponsors, developers, and users should be able to maintain the pace without burning out; agile is a
-sustainable process, not a sprint to exhaustion.
+Sponsors, developers, and users should be able to maintain a constant pace indefinitely (principle 8).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 8
 
 ### Rule EDR-AGILEPRINCIPLES-TECHNICALEXCELLENCE
 
-Attend continuously to technical excellence and good design — quality is what keeps the cost of change low and so enhances agility.
+Continuous attention to technical excellence and good design enhances agility, since quality keeps the cost of change low (principle 9).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 9
+
+Binds to [WDR-BUILTIN-QUALITYBUILTIN](../../process/build-quality-in.md#rule-wdr-builtin-qualitybuiltin).
 
 ### Rule EDR-AGILEPRINCIPLES-SIMPLICITY
 
-Maximise the work not done — simplicity is essential; the cheapest, most responsive system is the one that does no more than it must.
+Simplicity, the art of maximising the work not done, is essential (principle 10).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 10
+
+Binds to [PDR-NOWASTE-DROPUNNEEDEDSTEPS](../../principles/reduce-waste.md#rule-pdr-nowaste-dropunneededsteps).
 
 ### Rule EDR-AGILEPRINCIPLES-SELFORGANISINGTEAMS
 
-Let architectures, requirements, and designs emerge from self-organising teams — the best solutions come from the people doing the work, not
-from an authority above them.
+The best architectures, requirements, and designs emerge from self-organising teams (principle 11).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 11
 
 ### Rule EDR-AGILEPRINCIPLES-REFLECTANDADJUST
 
-Reflect and adjust at regular intervals — the team periodically tunes its own behaviour to become more effective; continuous improvement is
-built into the process.
+At regular intervals the team reflects on how to become more effective, then tunes and adjusts its behaviour (principle 12).
 
-- [The twelve principles](#the-twelve-principles)
+Source: [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html) (2001), principle 12
+
+Binds to [WDR-KAIZEN-CONTINUOUSIMPROVEMENT](../../process/inspect-and-adapt.md#rule-wdr-kaizen-continuousimprovement) and
+[WDR-KAIZEN-COMMITCADENCEFEEDBACK](../../process/inspect-and-adapt.md#rule-wdr-kaizen-commitcadencefeedback).
 
 ## Context
 
-Behind the four values ([EDR-VALUES](agile-values.md)) the Agile Manifesto ([EDR-AGILE](agile.md)) sets out twelve principles that make the
-values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process actually does.
-The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in this repository
-(flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
-
-## The twelve principles
-
-The principles group into a few themes, though the manifesto lists them as a flat set:
-
-- **Deliver value early and often** (principles 1, 3, 7). The purpose is valuable software in the customer's hands; frequent delivery of
-  working software, measured by that software rather than by proxies, is how the purpose is served.
-- **Embrace change** (principles 2, 10). Late change is welcomed and turned to advantage, and simplicity — maximising the work _not_ done —
-  keeps the system cheap to change.
-- **Build around people** (principles 4, 5, 6, 11). Motivated individuals, trusted and supported, collaborating daily and face-to-face, and
-  self-organising around the work, produce the best architectures and designs.
-- **Sustain and improve** (principles 8, 9, 12). A constant, indefinitely maintainable pace; continuous attention to technical excellence;
-  and regular reflection that tunes the team's own behaviour keep the process healthy over the long run.
-
-Each principle is a rule above; the grouping is only a reading aid. Together they define an agile process as one that delivers working
-software continuously, absorbs change cheaply, is built around trusted people, and improves itself.
-
-## Why
-
-**The principles operationalise the values.** A value states a preference; a principle says what to do about it. "Responding to change over
-following a plan" becomes "welcome changing requirements, even late" and "reflect and adjust at regular intervals" — statements a team can
-act on and check itself against.
-
-**They are the source the repository's process rules specialise.** Rules such as small batches, continuous integration, and short feedback
-loops are this platform's concrete expression of principles 1, 3, and 12. Holding the twelve as the source keeps those specific rules
-anchored to something durable rather than to a framework's current fashion.
-
-**Quality and sustainability are first-class, not afterthoughts.** Principles 8, 9, and 10 make technical excellence, a sustainable pace,
-and simplicity part of the definition of agile — not optional extras a team gets to once the features are done. Low change-cost depends on
-them.
-
-## How to apply
-
-When shaping or judging a process, check it against the twelve: does it deliver working software frequently, welcome late change, keep the
-team sustainable, and reflect to improve? A practice that serves one of the principles has a place; a practice that serves none is ceremony
-and can be dropped ([PDR-NOWASTE](../../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this
-platform, cite the principle it specialises so the lineage stays visible.
-
-## References
-
-[^1]:
-    _Principles behind the Agile Manifesto_ (2001), <https://agilemanifesto.org/principles.html>. The twelve principles that accompany and
-    elaborate the four values of the [Manifesto for Agile Software Development](https://agilemanifesto.org).
+Behind the four values ([EDR-VALUES](agile-values.md)) the manifesto ([EDR-AGILE](agile.md)) publishes twelve principles that make the
+values operational: a value is a preference, a principle a working instruction. The principles page is published on its own site; this
+record summarises it and quotes nothing beyond the names of the principles.

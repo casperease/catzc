@@ -9,13 +9,13 @@ from .declaration_constants import (
     ABOUT_KEYS,
     ACTION_KEYS,
     ACTION_LENS,
-    FLOW_KEYS,
-    FLOW_LENS,
     CHIP_CORNER,
     COMMIT_SHAPES,
     COMMIT_STATES,
     CONTENT_KEYS,
     CORNERS,
+    FLOW_KEYS,
+    FLOW_LENS,
     FLOWS,
     KINDS,
     LADDER_KEYS,
@@ -67,7 +67,9 @@ def normalise(raw, where="the declaration"):
     if isinstance(raw.get("about"), dict) and raw["about"].get("lens") == FLOW_LENS:
         extra = [key for key in content if key not in FLOW_KEYS]
         if extra:
-            raise DeclarationError(f"{where}: a {FLOW_LENS} declaration holds only {' and '.join(FLOW_KEYS)}; it also holds {', '.join(extra)}")
+            raise DeclarationError(
+                f"{where}: a {FLOW_LENS} declaration holds only {' and '.join(FLOW_KEYS)}; it also holds {', '.join(extra)}"
+            )
     content, generated = expand_rows(content, where)
     content, lane_generated = expand_lanes(content, where)
     generated |= lane_generated
@@ -102,7 +104,7 @@ def normalise(raw, where="the declaration"):
         choices(f"{where}: about.zoom", str(zoom), tuple(DEFAULTS["zooms"]))
     out["zoom"] = None if zoom is None else str(zoom)
     out["point"] = point
-    kind =content.get("kind", KINDS[0])
+    kind = content.get("kind", KINDS[0])
     if kind not in KINDS:
         choices(f"{where}: kind", kind, KINDS)
     out["kind"] = kind
@@ -118,7 +120,20 @@ def normalise(raw, where="the declaration"):
     # The action lens draws its cause, its action and its effects, and the renderer draws every edge; the proof lens draws the action's
     # statement alone; every other lens draws bands.
     if lens in (ACTION_LENS, PROOF_LENS):
-        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "states", "thick", "ladders") + SHORTHAND:
+        for key in (
+            "bands",
+            "groups",
+            "glyphs",
+            "notes",
+            "edges",
+            "spans",
+            "markers",
+            "chips",
+            "relation",
+            "states",
+            "thick",
+            "ladders",
+        ) + SHORTHAND:
             if content.get(key):
                 raise DeclarationError(
                     f"{where}: content.{key} is the band grammar; the {lens} lens draws an action, and the renderer draws the rest"

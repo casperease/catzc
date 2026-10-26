@@ -16,7 +16,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
 
     private const string Failed = "file-carriers config validation failed:\n";
     private static readonly string[] AllowedKeys = { "carriers" };
-    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "key", "line", "block", "anchor", "preamble_lines", "property", "reason", "exclude", "strip" };
+    private static readonly string[] AllowedEntryKeys = { "files", "carrier", "key", "line", "block", "anchor", "preamble_lines", "property", "reason", "exclude", "strip", "banner" };
     private static readonly Regex EntryId = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The file classes in declared order. Empty when the file declares none.
@@ -124,6 +124,7 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         string keyPath = Has(entry, "key") ? Text(entry["key"]) : (carrier == CarrierKind.FrontMatter ? DefaultKey : null);
         string property = Has(entry, "property") ? Text(entry["property"]) : null;
         string reason = Has(entry, "reason") ? Text(entry["reason"]).Trim() : null;
+        string banner = Has(entry, "banner") ? Text(entry["banner"]) : null;
         int preambleLines = 0;
         if (Has(entry, "preamble_lines") && !int.TryParse(Text(entry["preamble_lines"]), NumberStyles.None, CultureInfo.InvariantCulture, out preambleLines))
         {
@@ -146,9 +147,11 @@ public sealed class FileCarriersConfig : Catzc.Base.Objects.DictionaryRecord
         Require(errors, id, keyPath == null || Catzc.Base.MarkdownMeta.MarkdownDocument.IsKeyPath(keyPath), "key is a dotted path of plain keys ending in " + DefaultKey + " (e.g. metadata." + DefaultKey + ")");
         Require(errors, id, carrier == CarrierKind.Property ? !string.IsNullOrEmpty(property) : property == null, "property is required, and only allowed, for a property carrier");
         Require(errors, id, carrier == CarrierKind.None ? !string.IsNullOrEmpty(reason) : reason == null, "reason is required, and only allowed, when the carrier is none");
+        Require(errors, id, carrier == CarrierKind.Banner ? !string.IsNullOrWhiteSpace(banner) : banner == null, "banner is required, and only allowed, for a banner carrier");
+        Require(errors, id, banner == null || (banner.Trim() == banner && banner.IndexOfAny(new[] { '\r', '\n' }) < 0), "banner is one line, without surrounding spaces");
         if (errors.Count > before) { return null; }
 
-        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, reason, exclude, strip, keyPath);
+        return new FileCarrier(id, files, carrier, line, block, anchor, preambleLines, property, reason, exclude, strip, keyPath, banner);
     }
 
     // A map of glob to the reason its files carry no block, so a gap in the coverage is a visible, reviewed entry.

@@ -42,6 +42,7 @@ The module's public functions, sorted into the responsibilities above.
 | Responsibility                               | Function           |
 | -------------------------------------------- | ------------------ |
 | responsibility:1 — The rungs registry        | `Get-Rung`         |
+|                                              | `Get-PipelineType` |
 | config                                       | `rungs.yml`        |
 | responsibility:2 — The truth-stores registry | `Get-TruthStore`   |
 | config                                       | `truth-stores.yml` |

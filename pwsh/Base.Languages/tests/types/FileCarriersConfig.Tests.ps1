@@ -122,6 +122,15 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.Find('missing') | Should -BeNullOrEmpty
         }
 
+        It 'reads a banner carrier''s one line, which only a banner carrier takes and needs' {
+            $config = & $script:make ([ordered]@{ carriers = [ordered]@{ cog = [ordered]@{ files = @('**/cog.mod'); carrier = 'banner'; banner = '// widget. DO NOT EDIT.' } } })
+            $config.Find('cog').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Banner)
+            $config.Find('cog').banner | Should -BeExactly '// widget. DO NOT EDIT.'
+            { & $script:one ([ordered]@{ carrier = 'banner' }) } | Should -Throw '*banner is required, and only allowed, for a banner carrier*'
+            { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; banner = '# widget' }) } | Should -Throw '*banner is required, and only allowed*'
+            { & $script:one ([ordered]@{ carrier = 'banner'; banner = " // widget`n" }) } | Should -Throw '*banner is one line*'
+        }
+
         It 'is empty when the file declares nothing' {
             (& $script:make @{}).carriers | Should -BeNullOrEmpty
         }
@@ -130,8 +139,8 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:make @{ other = 1 } } | Should -Throw "*unknown key 'other' (allowed: carriers)*"
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; shade = 1 }) } |
                 Should -Throw "*unknown key 'shade'*"
-            { & $script:one ([ordered]@{ carrier = 'banner' }) } |
-                Should -Throw "*unknown carrier 'banner' (one of: front-matter, comment-head, property, none)*"
+            { & $script:one ([ordered]@{ carrier = 'gizmo' }) } |
+                Should -Throw "*unknown carrier 'gizmo' (one of: front-matter, comment-head, property, banner, none)*"
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'middle' }) } |
                 Should -Throw "*unknown anchor 'middle' (one of: start, after-shebang, after-prolog, after-preamble)*"
             { & $script:one ([ordered]@{ carrier = '0' }) } | Should -Throw '*unknown carrier*'
@@ -139,7 +148,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
 
         It 'needs a carrier' {
             { & $script:one ([ordered]@{ line = '#' }) } |
-                Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, none)*'
+                Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, banner, none)*'
         }
 
         It 'needs exactly one of line and block for a comment head, and rejects a bad delimiter' {

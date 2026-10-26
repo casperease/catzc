@@ -30,6 +30,22 @@ every change, not only at a sprint boundary.
 
 - [How to apply](#how-to-apply)
 
+### Rule WDR-KAIZEN-AGILEFROMMANIFESTO
+
+Agile in this repository means the Agile Manifesto's four values and twelve principles ([EDR-AGILE](../external/agile/agile.md)), nothing
+else. Agility is the ability to respond to change, proven by outcomes (working software delivered frequently, direction changed cheaply),
+never by conformance to a process; a framework is one implementation of the values and yields to them on conflict.
+
+- [Agile and lean grounding](#agile-and-lean-grounding)
+
+### Rule WDR-KAIZEN-LEANISPOPPENDIECK
+
+Lean in this repository means the Toyota Production System as the Poppendiecks map it to software ([EDR-LEAN](../external/lean/lean.md)):
+just-in-time flow and jidoka, the seven principles and the seven wastes. Lean and agile are one responsiveness seen from two directions, and
+a rule that serves neither is ceremony.
+
+- [Agile and lean grounding](#agile-and-lean-grounding)
+
 ## Context
 
 Kaizen — continuous, incremental improvement — is the engine of the Toyota Production System ([EDR-LEAN][r1]). The stopped line
@@ -75,6 +91,19 @@ adjustments driven by observed signals ([WDR-OBSERVEWIP](observe-work.md)) over 
 worth keeping, capture it as a convention, a gate, or a decision record so it is not relearned. Treat the per-push gates as the platform's
 built-in learning loop and let them run on every change, not only at a milestone: the same gates run on the devbox and in the pipeline, and
 every push recomputes the flow state.
+
+## Agile and lean grounding
+
+A shared definition is a prerequisite for reasoning: without one, "more agile" or "leaner" is taste, and no design argument settles.
+Anchored to the manifesto and to the Toyota Production System, each becomes checkable. Does this change lower the cost of responding to
+change, and which value or principle does it serve? Does it shorten flow, build quality in, or remove waste
+([PDR-NOWASTE](../principles/reduce-waste.md))?
+
+When a practice contradicts a value, the practice changes, not the value. A practice that serves none of the values, principles, or lean
+principles is ceremony and is dropped. Each lean principle has its home in a rule here: build quality in
+([WDR-BUILTIN](build-quality-in.md)), create knowledge ([WDR-KAIZEN](inspect-and-adapt.md)), defer commitment and deliver fast
+([WDR-PULLWORK](pull-work.md), [WDR-QUEUECOST](queues-cost-money.md)), optimise the whole ([WDR-OBSERVEWIP](observe-work.md)), and stop the
+line ([WDR-ANDON](holding-the-line.md)). A repository rule that specialises a principle cites it so the lineage stays visible.
 
 ## References
 

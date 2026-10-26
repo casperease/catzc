@@ -33,6 +33,9 @@ public sealed class FileCarrier
     // The ignored top-level key that holds a property carrier's block (e.g. //). Null for any other carrier.
     public string property { get; }
 
+    // The whole first line a banner carrier writes into a generated file. Null for any other carrier.
+    public string banner { get; }
+
     // Why a file class carries no meta block. Null unless the carrier is None, which needs one.
     public string reason { get; }
 
@@ -43,8 +46,9 @@ public sealed class FileCarrier
     public IReadOnlyList<string> strip { get; }
 
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
-        int preambleLines, string property, string reason, IDictionary<string, string> exclude, string[] strip = null, string key = null)
+        int preambleLines, string property, string reason, IDictionary<string, string> exclude, string[] strip = null, string key = null, string banner = null)
     {
+        this.banner = banner;
         this.key = key;
         this.strip = strip == null ? Array.Empty<string>() : (string[])strip.Clone();
         this.exclude = exclude == null ? new Dictionary<string, string>() : new Dictionary<string, string>(exclude);

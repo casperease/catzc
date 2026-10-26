@@ -25,7 +25,8 @@ function Get-FileMetaScope {
         if ($null -eq $carrier) {
             continue
         }
-        if ($carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::None) {
+        # A banner is written whole by its generator and holds no meta block.
+        if ($carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner) {
             continue
         }
         if ($Resolver.IsExcluded($carrier, $tracked)) {
