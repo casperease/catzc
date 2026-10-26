@@ -59,3 +59,5 @@ A reference page's path is derived from its source file, so no code head carries
        reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.
 5. [ ] The rule text: the derived path (language, module, aspect path, file) and the no-link rule in the comments ADR
        (`docs/drs/repository/comments-in-docs.md`) and the file-meta head policy. Check: `Test-DrsRegistry` and `Test-Links` on both pages.
+6. [ ] Split the Importer article (`docs/references/pwsh/internal/catzc-internal-importer.md`, 473 lines after the step 4a merge) into a
+       folder of linked pages, then drop its file-limits.yml exception. Check: `Test-FileLimits` on the page passes without the exception.
