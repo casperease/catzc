@@ -1,4 +1,4 @@
-# Research: DORA — Streamlining change approval
+# EDR: DORA — Streamlining change approval
 
 ## Rules: EDR-DORA-APPROVAL
 
@@ -8,7 +8,9 @@ Approve changes through peer review captured in the development platform during 
 (CAB) that reviews after the fact. The review and its approval live where the change was made, as part of making it, not as a separate
 downstream ceremony.
 
-- [Summary](#summary)
+Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
+
+Binds to [DDR-SELFSERV-TRUNKWITHGUARDRAILS](../../design/self-service.md#rule-ddr-selfserv-trunkwithguardrails).
 
 ### Rule EDR-DORA-APPROVAL-AUTOMATIONREPLACESREVIEW
 
@@ -16,28 +18,32 @@ Automation — continuous testing, continuous integration, and comprehensive mon
 approval is not the last line of defense against defects. A gate a human reads late is a weaker check than one a pipeline runs continuously
 from the first commit.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
+
+Binds to [WDR-BUILTIN-GATESAREPARTOFWORK](../../process/build-quality-in.md#rule-wdr-builtin-gatesarepartofwork).
 
 ### Rule EDR-DORA-APPROVAL-RISKBASEDWEIGHT
 
 Approval weight scales with a change's risk profile; low-risk changes carry lightweight, mostly automated approval, and only genuinely
 high-risk changes draw heavier scrutiny. Treating every change as equally risky wastes review capacity on the changes that need it least.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
 
 ### Rule EDR-DORA-APPROVAL-CENTRALBODYCOORDINATES
 
 A centralized review body's role is cross-team coordination, process improvement, and business-level trade-off decisions — never detailed
 code-level gatekeeping. A distant reviewer without the change's context is a poor substitute for the peer who wrote and reviewed it.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
+
+Binds to [FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates).
 
 ### Rule EDR-DORA-APPROVAL-ONEPROCESSFOREMERGENCIES
 
 Regular change management is made fast and reliable enough to also serve emergency changes, rather than keeping a separate, less-controlled
 fast path that bypasses approval under pressure. One well-built path beats two paths of different quality.
 
-- [Summary](#summary)
+Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
 
 ## Context
 
@@ -78,13 +84,6 @@ Development platforms are themselves treated as products, giving fast feedback o
 people making the change. A centralized review body, where one still exists, is redesigned toward cross-team coordination, process
 improvement, and business-level trade-off decisions rather than line-by-line code review. Regular change management, built to this standard,
 is fast and reliable enough to also serve emergency changes.
-
-On this platform, the pull request is exactly this shift made concrete: it is the authenticated ingress that captures peer review as a merge
-precondition, not a separate external gate a change waits behind. Self-service delivery rests on that same PR as its change-approval control
-— reviewable, reproducible, and audited by construction, with no ticket to a central gatekeeper. Where a human certification gate does
-exist, it sits at the release boundary — RC and RBC — scoped to the business decision of certifying a release candidate, not to re-reviewing
-code the PR already gated.
-
 ## Common pitfalls
 
 - **Over-reliance on centralized CABs for error detection.** A reviewer distant from the change lacks the context to catch what the change

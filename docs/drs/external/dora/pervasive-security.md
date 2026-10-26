@@ -23,20 +23,24 @@ Binds to [PDR-POKAYOKE-DETECTEARLIEST](../../principles/poka-yoke.md#rule-pdr-po
 Make the secure path the automated path — preapproved libraries and toolchains, and security tests embedded in continuous integration — so
 verification scales without a manual review on every change.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
+
+Binds to [PDR-POKAYOKE-PREVENTBYSTRUCTURE](../../principles/poka-yoke.md#rule-pdr-pokayoke-preventbystructure),
+[ADR-AUTO-PKGMGR-VERIFYDOWNLOADS](../../automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-verifydownloads) and
+[ADR-AZ-SESSION-VERIFYISNOTCONNECT](../../azure/az-session-verification.md#rule-adr-az-session-verifyisnotconnect).
 
 ### Rule EDR-DORA-SECURITY-WHOLELIFECYCLE
 
 Keep InfoSec engaged across the whole lifecycle — design, demos, code review, test, and release — not at a single checkpoint near delivery.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
 
 ### Rule EDR-DORA-SECURITY-MEASUREDLIKEDELIVERY
 
 Measure security integration the same way delivery performance is measured — review coverage, lifecycle involvement, automated test
 coverage, and approved-tool adoption — rather than treating a passed audit as proof the capability exists.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
 
 ## Context
 

@@ -1,4 +1,4 @@
-# RDR: DORA — Team experimentation
+# EDR: DORA — Team experimentation
 
 ## Rules: EDR-DORA-EXPERIMENT
 
@@ -7,28 +7,32 @@
 Teams work on new ideas and test solutions with real users to achieve business outcomes without asking permission from outside the team —
 treat that freedom as the capability itself, not a side effect of trust granted for other reasons.
 
-- [Summary](#summary)
+Source: [DORA, Team experimentation](../../../references/dora/capabilities.md#team-experimentation)
 
 ### Rule EDR-DORA-EXPERIMENT-STORYCARDCONVERSATION
 
 A story card is a reminder of an ongoing conversation between the customer and the team, not a fixed contract; teams write and change
 specifications during development as they learn, rather than executing a specification handed down before work started.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Team experimentation](../../../references/dora/capabilities.md#team-experimentation)
+
+Binds to [WDR-KAIZEN-AGILEFROMMANIFESTO](../../process/inspect-and-adapt.md#rule-wdr-kaizen-agilefrommanifesto).
 
 ### Rule EDR-DORA-EXPERIMENT-STAFFAREEXPERTS
 
 Treat technical staff as the experts on implementation details. Giving specific direction on how the work is done, rather than what outcome
 it must reach, removes the judgment the capability depends on.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Team experimentation](../../../references/dora/capabilities.md#team-experimentation)
+
+Binds to [DDR-SELFSERV-CONSUMERSPROVISION](../../design/self-service.md#rule-ddr-selfserv-consumersprovision).
 
 ### Rule EDR-DORA-EXPERIMENT-TIMEANDCONTEXT
 
 Provide the information, context, and dedicated time for a team to design and run its own experiments; withholding any of the three
 forecloses the capability even where permission to experiment exists in principle.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Team experimentation](../../../references/dora/capabilities.md#team-experimentation)
 
 ## Context
 
@@ -60,15 +64,6 @@ ideas with real users ship features that add value, and ship them more frequentl
 and the code is best placed to judge whether an idea works, and every hand-off to an outside approver adds latency without adding insight.
 Without the ability to experiment, a team can only execute someone else's specification, and any defect in that specification surfaces only
 after the fact, when it is most expensive to fix.
-
-## How to apply
-
-This platform realizes the capability by removing the outside gate a team would otherwise wait behind. Self-service lets a consumer
-provision and change managed infrastructure directly, through the CLI, without filing a ticket to a central gatekeeper — the same freedom
-DORA measures as working on new ideas without permission from outside the team. The thin platform gives consumers a CLI surface where they
-edit configuration and compose functions themselves, trusting them as the experts on their own implementation rather than routing every
-change through the platform team. Agile's customer-collaboration value treats a story as an ongoing conversation to be revised as
-understanding grows, not a contract executed as originally written — the same posture that lets specifications change during development.
 
 ## Common pitfalls
 

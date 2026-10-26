@@ -1,4 +1,4 @@
-# Research: DORA — Platform engineering
+# EDR: DORA — Platform engineering
 
 ## Rules: EDR-DORA-PLATFORM
 
@@ -7,7 +7,9 @@
 Design the internal platform as a product for developers, with a named owner accountable for developer experience, rather than as an
 infrastructure ticket queue; map the critical user journeys developers actually take through it and remove the friction points in them.
 
-- [Summary](#summary)
+Source: [DORA, Platform engineering](../../../references/dora/capabilities.md#platform-engineering)
+
+Binds to [DDR-THINPLAT-THINPLATFORM](../../design/thin-platforms.md#rule-ddr-thinplat-thinplatform).
 
 ### Rule EDR-DORA-PLATFORM-REDUCECOGNITIVELOAD
 
@@ -15,7 +17,9 @@ Reduce a developer's cognitive load by abstracting the underlying complexity —
 simple, opinionated "golden paths"; a developer who ships without needing to master the substrate is the capability working, not a stretch
 goal.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Platform engineering](../../../references/dora/capabilities.md#platform-engineering)
+
+Binds to [DDR-THINPLAT-PLATFORMASCLI](../../design/thin-platforms.md#rule-ddr-thinplat-platformascli).
 
 ### Rule EDR-DORA-PLATFORM-QUALITYBEFOREAI
 
@@ -23,14 +27,16 @@ Treat platform quality as a precondition for AI to help rather than harm deliver
 organizational performance is strong and positive; on a low-quality one, the same AI-generated throughput piles up as downstream disorder in
 testing, security, and deployment.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Platform engineering](../../../references/dora/capabilities.md#platform-engineering)
 
 ### Rule EDR-DORA-PLATFORM-MINIMUMVIABLEPLATFORM
 
 Grow the platform from its minimum viable form — the golden path for the single most common workflow — rather than building comprehensive
 coverage upfront on assumption; earn the next capability from observed usage, not from a roadmap drawn in advance.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Platform engineering](../../../references/dora/capabilities.md#platform-engineering)
+
+Binds to [DDR-THINPLAT-DELEGATENOTREIMPLEMENT](../../design/thin-platforms.md#rule-ddr-thinplat-delegatenotreimplement).
 
 ### Rule EDR-DORA-PLATFORM-AVOIDANTIPATTERNS
 
@@ -38,7 +44,9 @@ Avoid the five antipatterns that stall adoption: building on assumption instead 
 collaboration, running the platform as reactive ticket-ops, delaying release in pursuit of a "big bang" launch, and forcing
 one-size-fits-all requirements onto teams whose needs genuinely differ.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Platform engineering](../../../references/dora/capabilities.md#platform-engineering)
+
+Binds to [DDR-SELFSERV-REGULATEDREPRODUCIBLE](../../design/self-service.md#rule-ddr-selfserv-regulatedreproducible).
 
 ## Context
 
@@ -78,14 +86,11 @@ understand its full substrate has simply relocated the cognitive load rather tha
 
 ## How to apply
 
-DORA's guidance groups into four approaches, and this platform maps to two of them directly. The thin CLI abstraction over the vendor
-substrate is the golden path: consumers call `Verb-Noun` functions and edit configuration, never touching the vendor wiring directly, which
-is exactly the cognitive-load shift DORA measures — and it is deliberately held to the smallest set of APIs, tooling, and docs that
-accelerates delivery, the same minimum-viable-platform discipline DORA recommends over building comprehensively upfront. Self-service as the
-platform's mode of use is the other half: every self-service action is a reviewable, reproducible change to a single source of truth, which
-is what makes self-service safe to offer widely rather than gated behind a queue.
+DORA's guidance groups into four approaches. The first is a golden path held to the smallest set of APIs, tooling, and docs that
+accelerates delivery, which shifts cognitive load off developers and is the minimum-viable-platform discipline DORA recommends over
+building comprehensively upfront. The second is self-service as the platform's mode of use, so a developer never waits behind a queue.
 
-Beyond what this platform does, DORA's guidance calls for a product management mindset — a named owner for developer experience who maps the
+The guidance also calls for a product management mindset — a named owner for developer experience who maps the
 critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined contribution
 model, plus clear feedback on the outcome of a developer's task, which DORA identifies as the platform trait most correlated with a positive
 platform experience.
