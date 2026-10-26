@@ -1,4 +1,4 @@
-# Research: DORA — Continuous delivery
+# EDR: DORA — Continuous delivery
 
 ## Rules: EDR-DORA-CD
 
@@ -7,14 +7,19 @@
 Continuous delivery means the software stays releasable on demand throughout its lifecycle, not that every change deploys automatically —
 treat "deployable at any time" as the property to sustain and leave the decision to deploy as a separate, later question.
 
-- [Summary](#summary)
+Source: [DORA, Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery)
+
+Binds to [FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod).
 
 ### Rule EDR-DORA-CD-DEPLOYABILITYFIRST
 
 Deployability is the default state to protect, not an event to schedule: prioritize fixing whatever makes the system non-deployable over new
 feature work, and keep fast quality feedback available to everyone building toward the release, not only to a release team.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Continuous delivery](../../../references/dora/capabilities.md#continuous-delivery)
+
+Binds to [FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy) and
+[FDR-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-type-deployispinned).
 
 ### Rule EDR-DORA-CD-CDSCOPE
 
@@ -73,19 +78,6 @@ The research also links continuous delivery to lower rework and unplanned work, 
 doing the work: lower burnout, higher job satisfaction, and a healthier organizational culture. The mechanism is that a system kept
 continuously deployable removes the friction and dread around releases — deployment stops being a disruptive event and becomes a routine,
 low-risk action any time it is needed.
-
-## How to apply
-
-This platform's pipeline design realizes the delivery/deployment distinction DORA draws directly: its CD discipline names Continuous
-Delivery (CD) as the automated promotion of a build-once, tagged artifact through non-prod, left ready for production but handed to a
-separately governed DEPLOY step for the human-owned production cutover — and names Continuous Deployment (CDe) as the same flow with that
-last step internalized and automated. Keeping deployability as the property CD protects, and the production decision as a distinct
-governance question, is exactly the "deployable on demand, deploy is a separate choice" framing this capability describes.
-
-Its pipeline types are the taxonomy underneath: one CI engine shared by CI and CD, a bounded pre-commit budget so slow verification is
-pushed into the deploy path rather than skipped, and a DEPLOY pipeline that never rebuilds, only promotes a pinned, already-verified
-artifact. That build-once discipline is what keeps a continuously delivered system's non-prod certification meaningful when it reaches
-production.
 
 ## Common pitfalls
 

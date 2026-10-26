@@ -1,4 +1,4 @@
-# Research: DORA — Clear and communicated AI stance
+# EDR: DORA — Clear and communicated AI stance
 
 ## Rules: EDR-DORA-AISTANCE
 
@@ -7,7 +7,9 @@
 An AI stance is a living, actionable framework, not a static legal document — it tells developers how the organization expects them to use
 AI, which tools are sanctioned, and how the organization supports that use.
 
-- [Summary](#summary)
+Source: [DORA, Clear and communicated AI stance](../../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
+
+Binds to [ADR-REPO-AI-READCONTRACTFIRST](../../repository/ai-agent-contract.md#rule-adr-repo-ai-readcontractfirst).
 
 ### Rule EDR-DORA-AISTANCE-FOURQUESTIONS
 
@@ -15,28 +17,28 @@ A stance only works when a developer can answer four questions from it: whether 
 which tools are permitted, and how the policy applies to their own role — ambiguity in any one of these pushes developers toward hiding
 their AI use or avoiding it altogether.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Clear and communicated AI stance](../../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
 
 ### Rule EDR-DORA-AISTANCE-THREEBUCKETS
 
 Classify every tool and use case into one of three buckets — prohibited, permitted with guardrails, or allowed — and publish that
 classification as a living document with a working feedback loop, not a policy issued once and left to go stale.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Clear and communicated AI stance](../../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
 
 ### Rule EDR-DORA-AISTANCE-REVISIONCADENCE
 
 Revise the stance on a cadence that matches how fast AI tooling actually changes; treating it as fixed lets it fall behind, but revising it
 faster than developers can absorb produces policy whiplash that is just as damaging.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Clear and communicated AI stance](../../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
 
 ### Rule EDR-DORA-AISTANCE-CROSSFUNCTIONALOWNERS
 
 Draft and own the stance with a cross-functional group — engineering, legal, security, IT, and product — so the result is practical for the
 engineering work it governs, rather than a single department's policy applied to engineering from outside.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Clear and communicated AI stance](../../../references/dora/capabilities.md#clear-and-communicated-ai-stance)
 
 ## Context
 

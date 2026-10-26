@@ -1,4 +1,4 @@
-# Research: DORA — Code maintainability
+# EDR: DORA — Code maintainability
 
 ## Rules: EDR-DORA-MAINTAIN
 
@@ -7,7 +7,9 @@
 Keep the codebase reusable across team boundaries: it is easy for any team to find examples, reuse code another team owns, and propose a
 change to code it does not maintain, without waiting on that team to act first.
 
-- [Summary](#summary)
+Source: [DORA, Code maintainability](../../../references/dora/capabilities.md#code-maintainability)
+
+Binds to [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](../../thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository).
 
 ### Rule EDR-DORA-MAINTAIN-TRACEABLEDEPENDENCIES
 
@@ -15,28 +17,34 @@ Every dependency, internal or external, is traceable to an exact version and res
 version is in a given build) and reproducibility (the build process is deterministic) are the two properties dependency management exists to
 serve.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Code maintainability](../../../references/dora/capabilities.md#code-maintainability)
+
+Binds to [ADR-AUTO-DEPM-EXACTVERSIONPINS](../../automation/controlling-module-dependencies.md#rule-adr-auto-depm-exactversionpins),
+[ADR-AUTO-DEPM-INTERNALVENDORED](../../automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) and
+[ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions).
 
 ### Rule EDR-DORA-MAINTAIN-ROUTINEUPGRADES
 
 Treat dependency upgrades as a routine, automated activity, not a rare, manual one: run continuous integration and testing against
 dependency changes, and keep a fast, low-friction path to pull in a new version.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Code maintainability](../../../references/dora/capabilities.md#code-maintainability)
 
 ### Rule EDR-DORA-MAINTAIN-MAINTAINSCOPE
 
 Comprehensive dependency management is the scope, not partial coverage — code that is searchable and reusable but whose dependencies drift
 unpatched and unversioned is only partly maintainable, and the untracked dependency is where the next vulnerability surfaces.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Code maintainability](../../../references/dora/capabilities.md#code-maintainability)
 
 ### Rule EDR-DORA-MAINTAIN-ONEAPPROACH
 
 Apply one consistent dependency-management approach across the organization rather than leaving it to team-by-team discretion — a uniform,
 declared strategy is what keeps dependencies traceable and upgrades tractable at scale.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Code maintainability](../../../references/dora/capabilities.md#code-maintainability)
+
+Binds to [PDR-ONELIVE-ONEVERSION](../../principles/one-living-version.md#rule-pdr-onelive-oneversion).
 
 ## Context
 
@@ -74,16 +82,6 @@ exposed. Code maintainability is what keeps both the codebase and its dependency
 against each other.
 
 ## How to apply
-
-This platform realizes the source-code half of the capability through the mono-repo itself: every module lives in one searchable repository,
-and the audited server remote is the single place a pull request can propose a change to code another team maintains.
-
-The dependency half is realized through explicit, checked-in declaration rather than ambient install state. Internal module edges are
-declared once and gated against the code so the graph stays acyclic and legible. Third-party PowerShell modules are vendored into the
-repository so loading is a path read with no network call and no version drift, and an upgrade is a deliberate, reviewed diff. External
-tools are installed through the platform-native package manager, chosen for the security and traceability of its supply chain rather than
-convenience, at the version locked in `tools.yml`. Together these keep every dependency, internal or external, traceable from a build back
-to an exact, pinned version.
 
 Measuring the capability follows the same three concerns DORA highlights: how much of the codebase is searchable and how much is duplicate
 or dead; how long it takes to land a change in code the requesting team does not own; and how many distinct versions of a given library are

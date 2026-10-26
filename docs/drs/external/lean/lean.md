@@ -2,8 +2,8 @@
 
 ## Rules: EDR-LEAN
 
-Each rule is one claim of the lean sources: Ohno's Toyota Production System, the Poppendiecks' mapping of it to software, and the two laws
-that make flow quantitative. The sentence is the repository's own summary, never a quotation.
+Each rule is one claim of the lean literature: Ohno's Toyota Production System, the Poppendiecks' mapping of it to software, and the two
+laws that make flow quantitative. The sentence is the repository's own summary, never a quotation.
 
 ### Rule EDR-LEAN-TOYOTAPRODUCTIONSYSTEM
 
