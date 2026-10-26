@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-PlanOpenStepCount.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PlanOpenStepCount {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

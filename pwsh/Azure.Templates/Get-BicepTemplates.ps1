@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore etlco
 function Get-BicepTemplates {
     param()

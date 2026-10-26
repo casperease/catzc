@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/plans.yml.md"
-#   header: "generated"
-# ---
-
 folder: .claude/plans
 statuses: [active, blocked]
 ranks: [highest, high, medium-high, medium, low-medium, low]

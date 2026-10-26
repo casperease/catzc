@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Format-LongMarkdownLines.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-LongMarkdownLines {
     [CmdletBinding()]
     [OutputType([string])]

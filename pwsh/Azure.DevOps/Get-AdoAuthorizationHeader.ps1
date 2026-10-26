@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdoAuthorizationHeader {
     [CmdletBinding()]
     [OutputType([hashtable])]

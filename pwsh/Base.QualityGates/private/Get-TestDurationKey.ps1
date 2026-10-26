@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestDurationKey.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestDurationKey {
     [CmdletBinding()]
     [OutputType([string])]

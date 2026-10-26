@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-AdrRuleText.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdrRuleText {
     [CmdletBinding()]
     [OutputType([string])]

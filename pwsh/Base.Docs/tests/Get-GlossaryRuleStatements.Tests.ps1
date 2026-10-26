@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryRuleStatements.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrRoot = Join-Path $TestDrive 'adr'

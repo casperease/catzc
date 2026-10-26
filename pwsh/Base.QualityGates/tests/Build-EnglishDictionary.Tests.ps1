@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Build-EnglishDictionary.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
     It 'refuses to run outside the source tree before touching node (Assert-SourceTree)' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }

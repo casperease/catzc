@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-file-limits/tests/Measure-FileShape.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # One streaming pass reports the line count and the widest line with its number, the same lines the gate and the linters see.
 Describe 'Measure-FileShape' -Tag 'L0', 'logic' {
     It 'counts every line and names the widest one' {

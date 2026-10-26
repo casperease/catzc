@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-writers/Write-Message.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-Message {
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     param(

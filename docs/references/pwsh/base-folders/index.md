@@ -2,7 +2,7 @@
 
 The folder-listing module. It owns the one way to list the files and folders below a folder, to a bounded depth, without loading the tree: a
 compiled walker, the config that holds its defaults, and the function that reads them. It deliberately does **not** own copying a tree (that
-is [Catzc.Base.Files](catzc-base-files.md)) or reading git's view of the tree (that is [Catzc.Base.Git](catzc-base-git.md)).
+is [Catzc.Base.Files](../base-files/index.md)) or reading git's view of the tree (that is [Catzc.Base.Git](../base-git/index.md)).
 
 ## Responsibilities
 

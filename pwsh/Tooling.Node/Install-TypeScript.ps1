@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Install-TypeScript.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-TypeScript {
     [CmdletBinding()]
     param(

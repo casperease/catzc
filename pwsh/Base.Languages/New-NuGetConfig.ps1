@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/New-NuGetConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function New-NuGetConfig {
     [CmdletBinding()]
     [OutputType([string])]

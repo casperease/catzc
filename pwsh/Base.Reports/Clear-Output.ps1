@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-reports/Clear-Output.ps1.md"
-  header: "generated"
----
-#>
-
 function Clear-Output {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/Expand-VsCodeCommandState.ps1.md"
-  header: "generated"
----
-#>
-
 function Expand-VsCodeCommandState {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Get-AzCliSubscriptionAccessState.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzCliSubscriptionAccessState {
     [CmdletBinding()]
     param(

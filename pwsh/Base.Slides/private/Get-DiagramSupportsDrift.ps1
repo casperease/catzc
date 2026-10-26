@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramSupportsDrift {
     [CmdletBinding()]
     [OutputType([string])]

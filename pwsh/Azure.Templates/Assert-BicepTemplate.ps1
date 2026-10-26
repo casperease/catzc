@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-BicepTemplate {
     [CmdletBinding()]
     param(

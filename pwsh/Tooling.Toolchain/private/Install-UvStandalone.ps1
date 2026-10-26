@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Install-UvStandalone.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-UvStandalone {
     [CmdletBinding()]
     param(

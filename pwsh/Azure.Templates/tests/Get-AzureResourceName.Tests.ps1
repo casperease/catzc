@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceName.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore alweutstsmplst weuwkspvm sttstsmplalweu alweusmplvm vmsmplalweu weutstsmplst
 Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     BeforeEach {

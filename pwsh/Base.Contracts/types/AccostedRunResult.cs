@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/types/AccostedRunResult.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Contracts;
 
 // One run's outcome under one engine: passed exactly when the engine exits 0.

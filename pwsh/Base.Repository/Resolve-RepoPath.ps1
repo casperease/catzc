@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-RepoPath {
     [CmdletBinding()]
     [OutputType([string])]

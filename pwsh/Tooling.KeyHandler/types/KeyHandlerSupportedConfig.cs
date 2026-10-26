@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerSupportedConfig.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

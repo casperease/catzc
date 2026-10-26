@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkEngineResult.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections.Generic;
 
 namespace Catzc.Base.QualityGates;

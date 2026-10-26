@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Resolve-InspirationRoot.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The root is fed in both shells' views of the same folder, so an anchor that resolved differently per shell would fail here.
 Describe 'Resolve-InspirationRoot' -Tag 'L0', 'logic' {
     BeforeAll {

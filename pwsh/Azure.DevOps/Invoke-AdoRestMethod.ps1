@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Invoke-AdoRestMethod.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-AdoRestMethod {
     [CmdletBinding()]
     param(

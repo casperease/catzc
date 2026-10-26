@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/New-TestAutomationShardScript.ps1.md"
-  header: "generated"
----
-#>
-
 function New-TestAutomationShardScript {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

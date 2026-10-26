@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Manual test plan covers every integrity check' -Tag 'L1', 'integrity', 'source-only' {
     BeforeAll {
         $script:result = Test-ManualTestPlan -PassThru -OutputFolder (Join-Path $TestDrive 'manual-test-plan')

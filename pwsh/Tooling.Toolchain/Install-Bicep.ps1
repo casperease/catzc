@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Bicep.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Bicep {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Assert-IsNotTimeoutExempt.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-IsNotTimeoutExempt {
     [CmdletBinding()]
     param(

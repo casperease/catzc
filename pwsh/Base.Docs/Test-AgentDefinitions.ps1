@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AgentDefinitions {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

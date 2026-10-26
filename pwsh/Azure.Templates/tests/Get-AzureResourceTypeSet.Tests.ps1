@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceTypeSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
     It 'exposes the starter resource types' {
         $types = Get-AzureResourceTypeSet

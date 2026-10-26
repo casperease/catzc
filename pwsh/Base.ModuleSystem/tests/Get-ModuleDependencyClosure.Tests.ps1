@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleDependencyClosure.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ModuleDependencyClosure' -Tag 'L0', 'logic' {
     BeforeAll {
         # A -> B, C ; B -> C ; C -> (none) ; D -> (none)

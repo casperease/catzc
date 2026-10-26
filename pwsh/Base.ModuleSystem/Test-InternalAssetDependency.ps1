@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Test-InternalAssetDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Read-BicepTemplateOptions.ps1.md"
-  header: "generated"
----
-#>
-
 function Read-BicepTemplateOptions {
     [CmdletBinding()]
     param(

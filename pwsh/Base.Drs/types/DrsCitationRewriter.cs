@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsCitationRewriter.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-AnalyzerDrsCoverage.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AnalyzerDrsCoverage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

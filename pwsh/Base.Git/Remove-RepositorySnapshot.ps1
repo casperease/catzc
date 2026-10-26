@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Remove-RepositorySnapshot.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-RepositorySnapshot {
     [CmdletBinding()]
     param(

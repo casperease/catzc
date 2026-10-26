@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlobSetHash {
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     [OutputType([string])]

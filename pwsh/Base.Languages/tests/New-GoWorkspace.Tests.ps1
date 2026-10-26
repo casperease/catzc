@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-GoWorkspace' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the seams: a fixture config, a fixture go pin and a fixture root.

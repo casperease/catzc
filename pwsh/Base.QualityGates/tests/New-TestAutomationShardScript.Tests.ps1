@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/New-TestAutomationShardScript.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-TestAutomationShardScript' {
     Context 'script generation' -Tag 'L0', 'logic' {
         BeforeAll {

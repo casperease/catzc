@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-MarkdownTitle.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

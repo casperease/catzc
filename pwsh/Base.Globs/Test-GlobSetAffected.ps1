@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GlobSetAffected {
     [CmdletBinding()]
     [OutputType([bool])]

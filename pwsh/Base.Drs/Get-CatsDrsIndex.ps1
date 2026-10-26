@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Get-CatsDrsIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatsDrsIndex {
     [OutputType([object[]])]
     [CmdletBinding()]

@@ -2,8 +2,8 @@
 
 The abstract base of one publish target of `artifacts.yml` (`ado:`, `github:`, `artifactory:`): a feed a CI build promotes the gold
 module-manifest artifact to. It holds the shape every target shares, an `enabled` switch plus the target's own string coordinates, which
-[AdoArtifactsTarget](AdoArtifactsTarget.cs.md), [GithubArtifactsTarget](GithubArtifactsTarget.cs.md) and
-[ArtifactoryArtifactsTarget](ArtifactoryArtifactsTarget.cs.md) declare. Its properties mirror the YAML keys
+[AdoArtifactsTarget](ado-artifacts-target.md), [GithubArtifactsTarget](github-artifacts-target.md) and
+[ArtifactoryArtifactsTarget](artifactory-artifacts-target.md) declare. Its properties mirror the YAML keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 ## Validation

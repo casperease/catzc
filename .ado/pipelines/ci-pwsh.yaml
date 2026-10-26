@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../docs/references/ado/pipelines/ci-pwsh.yaml.md"
-#   header: "generated"
-# ---
-
 trigger:
   branches:
     include: [main]

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/FileSelector.cs.md"
-  header: "generated"
----
-*/
-
 // A file is picked by its class and its language, never by a glob: the globs live once, in the registry's ordered classes.
 
 using System;

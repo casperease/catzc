@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-LastExitCodeWasZero.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-LastExitCodeWasZero {
     param(
         [switch] $DoNotReset

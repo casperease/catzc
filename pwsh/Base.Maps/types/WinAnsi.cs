@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/WinAnsi.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;

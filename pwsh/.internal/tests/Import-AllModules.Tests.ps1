@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Import-AllModules.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     $sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "bootstrap-test-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $sandbox (Get-CatzcModulesFolder)

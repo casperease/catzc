@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-file-limits/private/Get-StringOverflowLine.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-StringOverflowLine {
     [CmdletBinding()]
     [OutputType([int[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ScriptAnalyzerDiagnostics.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Get-ScriptAnalyzerDiagnostics is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
     It 'returns empty for an empty file list (no shards spawned)' {

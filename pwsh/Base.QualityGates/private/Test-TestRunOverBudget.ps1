@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-TestRunOverBudget {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure/tests/Get-AzureSubscriptionEnvironment.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AzureSubscriptionEnvironment' -Tag 'L0', 'logic' {
     # A read-only resolver: the config mock and cache reset run once, not per test.
     BeforeAll {

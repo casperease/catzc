@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Resolve-EngineExecutable.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-EngineExecutable' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('bash', 'C:\widget\bin\bash.exe', 'probe', '5.2.37',

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractDotFolderFindings.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractDotFolderFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

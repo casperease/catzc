@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md"
-  header: "generated"
----
-#>
-
 function Clear-TempFolders {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

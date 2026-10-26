@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-ExecutableParallel.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-ExecutableParallel' -Tag 'L0', 'logic' {
     It 'returns nothing for an empty command list, and starts nothing' {
         @(Invoke-ExecutableParallel -Command @()) | Should -HaveCount 0

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-variants/configs/variants.yml.md"
-#   header: "generated"
-# ---
-
 # Flipping this re-spells every resource name, so every typed name in each template's configuration must be edited to match.
 ado_naming: standard
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Copy-CatzcModule {
     [CmdletBinding(DefaultParameterSetName = 'Modules')]
     [OutputType([string[]])]

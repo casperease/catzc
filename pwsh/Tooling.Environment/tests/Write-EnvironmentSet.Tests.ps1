@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Write-EnvironmentSet' -Tag 'L0' {
     BeforeEach {
         # Mock the I/O boundary so tests never mutate the real process environment.

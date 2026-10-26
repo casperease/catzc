@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-TypeIs.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-TypeIs {
     [CmdletBinding()]
     param(

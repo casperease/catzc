@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-execution/tests/types/CliRunner.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'CliRunner.ExecutableName' -Tag 'L0', 'logic' {
 
     # The name a time limit is looked up by: a wrong parse gives the command another executable's limit.

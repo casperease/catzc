@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Set-BicepTrackingTagSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
     BeforeEach {
         # Discover from the test fixtures, never the shipped infrastructure/templates.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-DrsEngineNeutrality {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

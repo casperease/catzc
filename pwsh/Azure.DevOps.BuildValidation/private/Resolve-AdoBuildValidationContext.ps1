@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Resolve-AdoBuildValidationContext.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-AdoBuildValidationContext {
     [CmdletBinding()]
     [OutputType([hashtable])]

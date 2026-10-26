@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-DevBoxTools.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-DevBoxTools {
     [CmdletBinding()]
     param()

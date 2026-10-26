@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/tests/Build-RootConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore nbeta nmodule  -- the escape-sequence artifacts in the "alpha`nbeta" and "`nmodule …" fixture strings
 Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     BeforeAll {

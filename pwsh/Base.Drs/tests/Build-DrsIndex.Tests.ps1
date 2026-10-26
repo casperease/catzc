@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Build-DrsIndex.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-CatsDrsIndex }

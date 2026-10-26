@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-DrsDefinedRule.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-DrsDefinedRule' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {
         function script:Get-Defined {

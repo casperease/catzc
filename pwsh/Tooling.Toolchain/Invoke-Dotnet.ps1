@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Dotnet.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Dotnet {
     [CmdletBinding()]
     param(

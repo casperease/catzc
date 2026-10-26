@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Test-CheckedInBinaries.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-CheckedInBinaries {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

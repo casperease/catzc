@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Remove-Dotnet.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-Dotnet {
     [CmdletBinding()]
     param(

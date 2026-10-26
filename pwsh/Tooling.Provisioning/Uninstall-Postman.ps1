@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Postman.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Postman {
     [CmdletBinding()]
     param()

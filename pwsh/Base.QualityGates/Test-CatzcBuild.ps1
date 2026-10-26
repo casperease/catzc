@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-CatzcBuild.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-CatzcBuild {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.TestRunResult])]

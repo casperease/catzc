@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-EnabledCustomers.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-EnabledCustomers {
     [CmdletBinding()]
     param()

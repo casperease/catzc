@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Test-ModuleCycles.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ModuleCycles {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Wait-CatzcRunLock.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     $script:waiter = Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1'
     . $script:waiter

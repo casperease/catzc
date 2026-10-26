@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/RepoRelativePath.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'RepoRelativePath' -Tag 'L0', 'logic' {
     It 'strips a leading ./ from a relative path' {
         [Catzc.Base.Objects.RepoRelativePath]::new('./widgets/mod/file.ps1').Relative |

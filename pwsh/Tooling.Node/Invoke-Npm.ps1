@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Invoke-Npm.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Npm {
     [CmdletBinding()]
     param(

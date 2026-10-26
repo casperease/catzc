@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsDoraCoverageViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsDoraCoverageViolations {
     [OutputType([string[]])]
     [CmdletBinding()]

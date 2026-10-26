@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoRawInformationStream.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoRawInformationStream' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawInformationStream.psm1') -Force

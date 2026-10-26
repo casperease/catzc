@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vs-code/Get-VsCodeSession.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-VsCodeSession {
     [CmdletBinding()]
     [OutputType([Catzc.Base.VSCode.VscodeSession])]

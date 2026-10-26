@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractFragmentFindings.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractFragmentFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

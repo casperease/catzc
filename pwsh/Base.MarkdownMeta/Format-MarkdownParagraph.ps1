@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-markdown-meta/Format-MarkdownParagraph.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-MarkdownParagraph {
     [CmdletBinding()]
     [OutputType([string[]])]

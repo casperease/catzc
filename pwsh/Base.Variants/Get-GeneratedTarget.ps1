@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-GeneratedTarget.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GeneratedTarget {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.GeneratedTarget])]

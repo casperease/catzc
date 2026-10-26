@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-generated-files/tests/Get-GeneratedWriterDue.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'

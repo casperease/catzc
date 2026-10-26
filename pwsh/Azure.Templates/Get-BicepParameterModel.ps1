@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepParameterModel.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepParameterModel {
     [CmdletBinding()]
     [OutputType([Catzc.Azure.Templates.BicepParameterModel])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/Install-VsCodeExtension.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'extensions'

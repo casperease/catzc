@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Push-Topic.ps1.md"
-  header: "generated"
----
-#>
-
 function Push-Topic {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

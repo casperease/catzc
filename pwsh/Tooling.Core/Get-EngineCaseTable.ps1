@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-EngineCaseTable.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-EngineCaseTable {
     [CmdletBinding()]
     [OutputType([hashtable])]

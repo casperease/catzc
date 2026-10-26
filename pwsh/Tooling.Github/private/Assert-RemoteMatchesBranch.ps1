@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-github/private/Assert-RemoteMatchesBranch.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-RemoteMatchesBranch {
     [OutputType([string])]
     param(

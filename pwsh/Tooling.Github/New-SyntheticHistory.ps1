@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-github/New-SyntheticHistory.ps1.md"
-  header: "generated"
----
-#>
-
 function New-SyntheticHistory {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

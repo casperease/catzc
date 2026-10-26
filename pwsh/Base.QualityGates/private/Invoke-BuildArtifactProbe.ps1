@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BuildArtifactProbe.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-BuildArtifactProbe {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

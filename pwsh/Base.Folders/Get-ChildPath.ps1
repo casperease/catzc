@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-folders/Get-ChildPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ChildPath {
     [CmdletBinding()]
     [OutputType([string[]])]

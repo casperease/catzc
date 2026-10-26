@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ParameterTypeConflict.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ParameterTypeConflict {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

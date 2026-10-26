@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-EngineSetFinding.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:check = [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{

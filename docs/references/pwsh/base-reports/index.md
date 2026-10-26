@@ -1,7 +1,7 @@
 # Catzc.Base.Reports
 
 Owns the one output shape every quality gate shares: a report written under the output root, the issues printed, and a single verdict — a
-throw listing every issue, or a result object under `-PassThru` (see [test-automation](../../drs/automation/test-automation.md), the
+throw listing every issue, or a result object under `-PassThru` (see [test-automation](../../../drs/automation/test-automation.md), the
 quality-gate rule). A gate collects its issues and hands them here last, so no gate writes its own report or invents its own message. It
 deliberately does **not** decide what a gate checks — that stays with each gate's module.
 

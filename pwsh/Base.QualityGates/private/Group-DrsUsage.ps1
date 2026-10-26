@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Group-DrsUsage.ps1.md"
-  header: "generated"
----
-#>
-
 function Group-DrsUsage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

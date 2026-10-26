@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-claude/Start-ClaudeDrone.ps1.md"
-  header: "generated"
----
-#>
-
 function Start-ClaudeDrone {
     [CmdletBinding()]
     [OutputType([string[]])]

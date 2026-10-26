@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-LayerStackMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

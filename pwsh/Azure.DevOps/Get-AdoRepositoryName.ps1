@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoRepositoryName.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdoRepositoryName {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryRuleStatements.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossaryRuleStatements {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.Dictionary[string, string]])]

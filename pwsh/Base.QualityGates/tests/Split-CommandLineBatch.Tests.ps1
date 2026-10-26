@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Split-CommandLineBatch.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Split-CommandLineBatch' -Tag 'L0', 'logic' {
     It 'keeps every batch under the limit, counting the quotes and the separator, in order' {
         $batches = InModuleScope Catzc.Base.QualityGates {

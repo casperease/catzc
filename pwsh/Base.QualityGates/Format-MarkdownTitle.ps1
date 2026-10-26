@@ -1,12 +1,5 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Format-MarkdownTitle.ps1.md"
-  header: "generated"
----
-#>
-
-# -DryRun, never ShouldProcess/-WhatIf (ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT).
+# -DryRun, never ShouldProcess/-WhatIf
+# ([ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)).
 function Format-MarkdownTitle {
     [CmdletBinding()]
     [OutputType([string[]])]

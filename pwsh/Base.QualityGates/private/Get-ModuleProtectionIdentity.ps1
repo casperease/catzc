@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleProtectionIdentity {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'HashCache',
         Justification = 'Read and written inside the $setHash closure — the analyzer cannot see through the scriptblock.')]

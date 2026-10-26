@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Invoke-BicepParamsBuild.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-BicepParamsBuild {
     [CmdletBinding()]
     param(

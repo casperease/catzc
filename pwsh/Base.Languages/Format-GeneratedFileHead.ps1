@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-GeneratedFileHead {
     [CmdletBinding()]
     [OutputType([string])]

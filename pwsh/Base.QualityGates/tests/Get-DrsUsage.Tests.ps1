@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-DrsUsage.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)

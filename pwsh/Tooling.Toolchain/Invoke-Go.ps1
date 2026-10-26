@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Go.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Go {
     [CmdletBinding()]
     param(

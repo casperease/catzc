@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-PythonWorkspaceTool.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-PythonWorkspaceTool {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Execution.CliResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Add-MinimapHit.ps1.md"
-  header: "generated"
----
-#>
-
 function Add-MinimapHit {
     [CmdletBinding()]
     param(

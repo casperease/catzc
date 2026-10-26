@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-AdoBuildValidations {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

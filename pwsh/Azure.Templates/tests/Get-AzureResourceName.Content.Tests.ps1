@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-AzureResourceName.Content.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AzureResourceName (tests/assets/Get-AzureResourceName.Content.yml)' -Tag 'L0', 'logic' {
     BeforeDiscovery {
         $contentFile = Join-Path $PSScriptRoot 'assets/Get-AzureResourceName.Content.yml'

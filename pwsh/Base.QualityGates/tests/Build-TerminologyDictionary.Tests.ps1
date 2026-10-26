@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Build-TerminologyDictionary.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

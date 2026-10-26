@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/types/DrawioKit.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.IO;
 using System.Text.RegularExpressions;

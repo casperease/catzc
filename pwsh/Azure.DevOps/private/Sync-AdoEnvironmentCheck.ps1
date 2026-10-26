@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/private/Sync-AdoEnvironmentCheck.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-AdoEnvironmentCheck {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

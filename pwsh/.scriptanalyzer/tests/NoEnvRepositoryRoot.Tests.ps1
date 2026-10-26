@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoEnvRepositoryRoot.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoEnvRepositoryRoot' -Tag 'L0', 'logic', 'ADR-AUTO-NOPWD-ONEROOTACCESSOR' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoEnvRepositoryRoot.psm1') -Force

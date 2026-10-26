@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/FormatResult.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 

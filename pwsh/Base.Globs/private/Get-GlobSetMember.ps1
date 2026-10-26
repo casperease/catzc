@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlobSetMember {
     [CmdletBinding()]
     [OutputType([string[]])]

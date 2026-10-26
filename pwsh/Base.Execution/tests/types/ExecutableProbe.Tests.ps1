@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-execution/tests/types/ExecutableProbe.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ExecutableProbe' -Tag 'L0', 'logic' {
 
     It 'reads a found executable as Found with its path' {

@@ -57,7 +57,7 @@ Test-FunctionDependency
 
 Every source `.ps1` is listed and parsed once, and the definition map and the call-resolution walk reuse those parses
 ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). The walk
-itself is [FunctionCallCollector](types/FunctionCallCollector.cs.md), one C# pass per function. Each collected call that resolves to nothing
+itself is [FunctionCallCollector](types/function-call-collector.md), one C# pass per function. Each collected call that resolves to nothing
 is flagged. `Get-Command` runs once per distinct external name, memoised, because a whole-session snapshot measures slower than the few
 dozen lookups the memo leaves.
 

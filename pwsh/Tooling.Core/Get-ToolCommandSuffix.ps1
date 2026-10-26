@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-ToolCommandSuffix.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ToolCommandSuffix {
     [OutputType([string])]
     [CmdletBinding()]

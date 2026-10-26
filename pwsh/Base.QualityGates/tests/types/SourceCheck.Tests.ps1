@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/SourceCheck.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'SourceCheck' -Tag 'L0', 'logic' {
     It 'takes gate mode and no exemptions when nothing is given' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', $null)

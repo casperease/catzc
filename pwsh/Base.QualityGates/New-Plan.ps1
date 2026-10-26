@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/New-Plan.ps1.md"
-  header: "generated"
----
-#>
-
 function New-Plan {
     [CmdletBinding()]
     [OutputType([string])]

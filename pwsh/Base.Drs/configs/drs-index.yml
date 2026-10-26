@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-drs/configs/drs-index.yml.md"
-#   header: "generated"
-# ---
-
 # The authored text of the DRS index around its generated code tables; Build-DrsIndex reflows it, and its links resolve from docs/drs.
 preamble: |
   # DRS index and rule-citation registry

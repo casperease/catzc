@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-module-system/configs/glossary.yml.md"
-#   header: "generated"
-# ---
-
 # The vocabulary of what ships and how it advances: deployable units, their release candidates, and the environments' occupants.
 concepts:
   deployable-unit:

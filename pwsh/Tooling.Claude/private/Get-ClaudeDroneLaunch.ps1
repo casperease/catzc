@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-claude/private/Get-ClaudeDroneLaunch.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ClaudeDroneLaunch {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

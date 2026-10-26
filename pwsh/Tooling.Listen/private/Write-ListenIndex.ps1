@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Write-ListenIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-ListenIndex {
     [CmdletBinding()]
     param(

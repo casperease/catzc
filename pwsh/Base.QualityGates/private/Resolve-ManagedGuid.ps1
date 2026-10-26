@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-ManagedGuid.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ManagedGuid {
     [CmdletBinding()]
     param(

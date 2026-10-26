@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/PesterRunner.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore nexit  -- the escape-sequence artifact in the "`nexit" fixture strings
 Describe 'PesterRunner' -Tag 'logic' {
     Context 'argument validation' -Tag 'L0' {

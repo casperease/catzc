@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     # where.exe or which, real executables everywhere: echo is a shell builtin on Windows.
     BeforeAll {

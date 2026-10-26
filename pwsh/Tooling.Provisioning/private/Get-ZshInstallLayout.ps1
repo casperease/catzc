@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ZshInstallLayout {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

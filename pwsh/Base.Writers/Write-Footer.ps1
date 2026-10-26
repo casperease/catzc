@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-writers/Write-Footer.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-Footer {
     [CmdletBinding()]
     param(

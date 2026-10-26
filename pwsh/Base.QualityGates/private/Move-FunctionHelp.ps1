@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Move-FunctionHelp.ps1.md"
-  header: "generated"
----
-#>
-
 function Move-FunctionHelp {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

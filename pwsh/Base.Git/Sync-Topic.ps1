@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Sync-Topic.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-Topic {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

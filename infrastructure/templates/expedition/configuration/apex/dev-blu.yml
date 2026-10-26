@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../../docs/references/infrastructure/templates/expedition/configuration/apex/dev-blu.yml.md"
-#   header: "generated"
-# ---
-
 ParametersFile:
   parameters:
     tags:

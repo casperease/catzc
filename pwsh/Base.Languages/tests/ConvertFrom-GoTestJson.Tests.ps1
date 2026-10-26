@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-GoTestJson.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertFrom-GoTestJson' -Tag 'L0', 'logic' {
     BeforeAll {
         # Recorded go test -json streams: a widget package with pass, fail, skip and subtests, and a gadget that does not compile.

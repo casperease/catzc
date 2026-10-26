@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md"
-  header: "generated"
----
-#>
-
 function Clear-ModuleTypeCache {
     param(
         [string] $ModulesRoot = (Get-CatzcModulesRoot),

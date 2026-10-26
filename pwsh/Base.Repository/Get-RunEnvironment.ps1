@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Get-RunEnvironment.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RunEnvironment {
     [CmdletBinding()]
     [OutputType([string])]

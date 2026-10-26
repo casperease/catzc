@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Test-InternalAssetDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-InternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

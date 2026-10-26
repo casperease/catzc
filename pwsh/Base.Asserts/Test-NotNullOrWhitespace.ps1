@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Test-NotNullOrWhitespace.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-NotNullOrWhitespace {
     [OutputType([bool])]
     [CmdletBinding()]

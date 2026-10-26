@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/types/AdoArtifactsTarget.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.ModuleSystem;
 
 // The Azure DevOps Artifacts target: the organization, project and feed the gold module-manifest artifact is promoted to.

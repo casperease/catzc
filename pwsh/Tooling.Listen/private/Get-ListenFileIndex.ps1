@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenFileIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ListenFileIndex {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.SortedDictionary[string, object]])]

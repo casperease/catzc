@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/types/ArtifactoryArtifactsTarget.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.ModuleSystem;
 
 // The JFrog Artifactory target: the server URL and repository the gold module-manifest artifact is promoted to.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FunctionDependency {
     param(
         [string] $ModulesRoot = (Get-CatzcModulesRoot),

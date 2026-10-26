@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/EngineSetCheck.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:names = [string[]] @('widget', 'gadget', 'sprocket')

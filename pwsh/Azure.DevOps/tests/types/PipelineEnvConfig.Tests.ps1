@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-azure-dev-ops/tests/types/PipelineEnvConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Catzc.Azure.DevOps.PipelineEnvConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

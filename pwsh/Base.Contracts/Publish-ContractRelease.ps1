@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md"
-  header: "generated"
----
-#>
-
 function Publish-ContractRelease {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([string])]

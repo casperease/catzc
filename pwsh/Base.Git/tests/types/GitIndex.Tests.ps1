@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-git/tests/types/GitIndex.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore blåbær  -- the non-ASCII fixture path
 Describe 'GitIndex' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepParametersFileName {
     [CmdletBinding()]
     param(

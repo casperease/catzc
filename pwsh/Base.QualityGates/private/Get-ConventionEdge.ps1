@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ConventionEdge.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ConventionEdge {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEdge[]])]

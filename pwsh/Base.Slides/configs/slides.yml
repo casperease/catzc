@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-slides/configs/slides.yml.md"
-#   header: "generated"
-# ---
-
 # Only a deviation from SlidesConfig's default; the kit's patterns and style guide are read from this folder.
 kit: python/diagrams/assets/slides
 

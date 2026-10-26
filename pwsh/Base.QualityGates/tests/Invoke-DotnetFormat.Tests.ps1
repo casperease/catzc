@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-DotnetFormat.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-DotnetFormat' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))

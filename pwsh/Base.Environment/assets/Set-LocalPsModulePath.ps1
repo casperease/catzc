@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-environment/assets/Set-LocalPsModulePath.ps1.md"
-  header: "generated"
----
-#>
-
 # catzc's writers are not loaded here, so the one standalone chokepoint, the Loader's Write-ImporterMessage, is imported
 # by its path.
 if (-not (Get-Command Write-ImporterMessage -ErrorAction Ignore)) {

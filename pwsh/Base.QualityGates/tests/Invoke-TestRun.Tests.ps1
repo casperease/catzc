@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-TestRun.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         # Widget mixes a source-only test with a runnable one; gadget is source-only throughout.

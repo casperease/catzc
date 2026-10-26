@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/PipelineWatchdog.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'PipelineWatchdog' -Tag 'L0', 'logic' {
     It 'stops a pipeline that outlives its limit, and says it fired' {
         $pipeline = [PowerShell]::Create([System.Management.Automation.RunspaceMode]::CurrentRunspace).AddScript('Start-Sleep -Seconds 5')

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

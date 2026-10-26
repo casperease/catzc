@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BuildValidationPathFilter {
     [CmdletBinding()]
     [OutputType([string[]])]

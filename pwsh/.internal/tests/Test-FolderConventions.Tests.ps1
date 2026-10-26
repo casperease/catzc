@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {
     BeforeAll {
         $script:result = Test-FolderConventions -PassThru -OutputFolder (Join-Path $TestDrive 'folder-conventions')

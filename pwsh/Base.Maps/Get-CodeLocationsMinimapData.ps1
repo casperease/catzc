@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-CodeLocationsMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CodeLocationsMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

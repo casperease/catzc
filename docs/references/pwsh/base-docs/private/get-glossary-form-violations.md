@@ -5,8 +5,8 @@ message per use outside the declared forms.
 
 ## The scan
 
-The scan runs compiled ([GlossaryScan](../types/GlossaryScan.cs.md)): it reads each file's prose through
-[GlossaryProse](../types/GlossaryProse.cs.md) into the surface cache once, and matches every concept with forms over the files each glossary
+The scan runs compiled ([GlossaryScan](../types/glossary-scan.md)): it reads each file's prose through
+[GlossaryProse](../types/glossary-prose.md) into the surface cache once, and matches every concept with forms over the files each glossary
 source's scope selects.
 
 ## help

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-FileMeta {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

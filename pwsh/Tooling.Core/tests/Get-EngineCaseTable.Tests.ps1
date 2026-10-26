@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Get-EngineCaseTable.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-EngineCaseTable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:table = Join-Path $TestDrive 'widget-cases.yml'

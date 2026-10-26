@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-AccostedCallText.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-AccostedCallText {
     [CmdletBinding()]
     [OutputType([string])]

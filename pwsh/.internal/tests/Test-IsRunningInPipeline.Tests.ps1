@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Test-IsRunningInPipeline.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-IsRunningInPipeline' -Tag 'L0', 'logic' {
     It 'detects Azure DevOps via TF_BUILD' {
         $original = $env:TF_BUILD

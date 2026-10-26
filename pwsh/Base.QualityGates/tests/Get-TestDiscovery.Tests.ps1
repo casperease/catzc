@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestDiscovery.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestDiscovery' -Tag 'L1', 'logic' {
     It 'discovers every test in the given folders without running any' {
         $testsFolder = Join-Path $TestDrive 'tests'

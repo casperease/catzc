@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigTargets.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RootConfigTargets {
     [OutputType([object[]])]
     param(

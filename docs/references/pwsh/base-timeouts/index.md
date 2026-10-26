@@ -30,7 +30,7 @@ one test of it may take, and a whole run up to L3 its budget. The tier list itse
 Running a script block inside its limit, in an invoking form that returns the block's output, an asserting form that only passes or throws,
 and a testing form that answers whether it finished in time. The block runs in the caller's runspace, so it sees what it would see when
 called directly; a timer outside the pipeline stops it at the limit, including a native command it is waiting on, and the call then throws a
-timeout error. The external-process counterpart is [Catzc.Base.Execution](catzc-base-execution.md)'s streamed `Invoke-Executable`, which
+timeout error. The external-process counterpart is [Catzc.Base.Execution](../base-execution/index.md)'s streamed `Invoke-Executable`, which
 kills a child process tree at the executable's limit.
 
 ### responsibility:3 — Budget exemptions
@@ -53,9 +53,9 @@ The hook compiles this module's own config and verdict types, so it cannot drift
 
 The first two responsibilities are a value and its enforcement: the configured limits say how long, and the stop-at-the-limit functions and
 the process runner make it so. Exemptions loosen a limit for named work without ever lifting it, and the agent shell safeguard applies the
-same limits to the shell calls an agent makes. The module sits above [Catzc.Base.Config](catzc-base-config.md) (for its configs),
-[Catzc.Base.Objects](catzc-base-objects.md) (the config types' record base) and [Catzc.Base.Repository](catzc-base-repository.md) (the run
-environment), and below [Catzc.Base.Execution](catzc-base-execution.md), which asks it for each process's limit.
+same limits to the shell calls an agent makes. The module sits above [Catzc.Base.Config](../base-config/index.md) (for its configs),
+[Catzc.Base.Objects](../base-objects/index.md) (the config types' record base) and [Catzc.Base.Repository](../base-repository/index.md) (the run
+environment), and below [Catzc.Base.Execution](../base-execution/index.md), which asks it for each process's limit.
 
 ## Division
 

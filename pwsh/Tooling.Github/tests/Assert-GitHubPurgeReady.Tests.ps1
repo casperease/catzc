@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Assert-GitHubPurgeReady' -Tag 'L1', 'logic' {
     BeforeAll {
         # Calls the function under test with the standard-good arguments, plus any override.

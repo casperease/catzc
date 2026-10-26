@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # One case per binding asset, generated at discovery, so every contract is proven with no hand-written test.
 BeforeDiscovery {
     $script:assetCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.1.0 -RepositoryRoot (Get-RepositoryRoot) }) {

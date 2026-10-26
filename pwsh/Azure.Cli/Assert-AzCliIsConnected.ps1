@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AzCliIsConnected {
     [CmdletBinding()]
     param(

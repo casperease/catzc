@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleFunction {
     param(
         [switch] $NotUsedInternally,

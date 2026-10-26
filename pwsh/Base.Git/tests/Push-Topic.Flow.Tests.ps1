@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/tests/Push-Topic.Flow.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
         $script:skip = if (Get-Command git -ErrorAction Ignore) {

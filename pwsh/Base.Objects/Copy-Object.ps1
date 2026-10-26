@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-objects/Copy-Object.ps1.md"
-  header: "generated"
----
-#>
-
 function Copy-Object {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
         Justification = '$AcceptWarnings is consumed inside the nested Copy-Node function (it gates the note-properties verbose message), which this rule does not trace across the nested-function boundary')]

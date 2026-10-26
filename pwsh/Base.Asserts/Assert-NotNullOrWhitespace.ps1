@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-NotNullOrWhitespace.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-NotNullOrWhitespace {
     [CmdletBinding()]
     param(

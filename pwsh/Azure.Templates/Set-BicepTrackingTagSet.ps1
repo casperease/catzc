@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Set-BicepTrackingTagSet {
     # A state-changing command that previews with -DryRun, not ShouldProcess.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',

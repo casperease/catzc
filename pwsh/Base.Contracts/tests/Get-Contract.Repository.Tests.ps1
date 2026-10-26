@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Get-Contract.Repository.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-Contract on the repository' -Tag 'L1', 'integrity', 'ADR-REPO-CONTRACT-LAYOUT' {
     It 'lists every version of every unit without error' {
         $assets = @(Get-Contract -Version *)

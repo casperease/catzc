@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Sync-AdoBuildValidations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

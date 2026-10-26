@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ValueChainMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.ValueChainMap], [string])]

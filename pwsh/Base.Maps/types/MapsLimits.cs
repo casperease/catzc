@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/MapsLimits.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 // The limits section: the page size in points, the smallest label font, and the longest header before it is shortened.

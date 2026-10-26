@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/pwsh/catzc-base-globs/configs/globs/globs.yml.md"
-#   header: "generated"
-# ---
-
 # A unit whose tests set may stay empty, each with its reason; plan-javascript-track.md holds the step that gives each its tests.
 tests_optional:
   catzc-file-icons-tests: an icon theme rendered by pwsh, tested there; the script itself only registers the theme

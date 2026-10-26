@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
     # git status is the boundary: the mock prints the -z porcelain, so a NUL in a fixture is the separator, not data.
     BeforeEach {

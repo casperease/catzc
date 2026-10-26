@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-flow/types/TruthStore.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 

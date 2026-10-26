@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-vendor/configs/vendor.yml.md"
-#   header: "generated"
-# ---
-
 # The registered repository vendored modules come from and are checked against; PSGallery needs no url.
 source: PSGallery
 # Set sourceUrl to a private feed to vendor from it; the feed is registered under the source name on first use.

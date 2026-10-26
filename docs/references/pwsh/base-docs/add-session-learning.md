@@ -2,7 +2,7 @@
 
 The one writer of the rolling logs: it appends dated one-line sentences to the newest file of a log's folder and starts a new file when the
 newest is full, so a log stays a few markdown files of bounded length. Each log is a `LearningsConfig` instance, see
-[LearningsConfig](types/LearningsConfig.cs.md).
+[LearningsConfig](types/learnings-config.md).
 
 ## Line shape
 

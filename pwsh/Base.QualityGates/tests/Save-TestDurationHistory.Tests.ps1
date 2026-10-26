@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Save-TestDurationHistory.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Save-TestDurationHistory' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:path = Join-Path $TestDrive "history-$([guid]::NewGuid().ToString('N'))/durations.json"

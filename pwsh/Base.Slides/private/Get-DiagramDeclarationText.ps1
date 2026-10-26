@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramDeclarationText.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramDeclarationText {
     [CmdletBinding()]
     [OutputType([string])]

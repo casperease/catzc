@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Assert-HaveCustomers.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-HaveCustomers {
     [CmdletBinding()]
     param(

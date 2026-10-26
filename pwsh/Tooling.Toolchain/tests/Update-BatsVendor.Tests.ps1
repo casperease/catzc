@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Update-BatsVendor.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive "repo-$([guid]::NewGuid().ToString('N'))"

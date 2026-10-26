@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-SlidesKit.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-SlidesKit {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-IdiomaticNames.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IdiomaticNames {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Clear-TempFolders.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Clear-TempFolders' -Tag 'L0', 'logic' {
     # Always target a fixture folder under $TestDrive via -Path — never the real temp.
 

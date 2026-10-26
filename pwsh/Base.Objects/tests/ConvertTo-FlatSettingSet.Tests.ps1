@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/tests/ConvertTo-FlatSettingSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 class CatzcFlatSettingSetDb {
     [string] $Host
     [int] $Port

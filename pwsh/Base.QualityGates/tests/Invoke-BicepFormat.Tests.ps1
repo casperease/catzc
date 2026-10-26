@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-BicepFormat.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-BicepFormat' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widget = Join-Path $TestDrive 'widget.bicep'

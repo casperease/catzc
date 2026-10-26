@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

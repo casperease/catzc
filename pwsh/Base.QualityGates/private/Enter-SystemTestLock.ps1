@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Enter-SystemTestLock.ps1.md"
-  header: "generated"
----
-#>
-
 function Enter-SystemTestLock {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Get-PipelineTemplateReference.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-PipelineTemplateReference' -Tag 'L0', 'logic' {
     # The function is private, so it is exercised through the module.
     BeforeAll {

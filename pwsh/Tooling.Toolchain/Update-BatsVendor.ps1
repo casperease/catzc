@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Update-BatsVendor.ps1.md"
-  header: "generated"
----
-#>
-
 function Update-BatsVendor {
     [CmdletBinding()]
     param()

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsDanglingCodeViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsDanglingCodeViolations {
     [OutputType([string[]])]
     [CmdletBinding()]

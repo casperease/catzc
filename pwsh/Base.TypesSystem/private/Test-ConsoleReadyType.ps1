@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/private/Test-ConsoleReadyType.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ConsoleReadyType {
     [CmdletBinding()]
     [OutputType([bool])]

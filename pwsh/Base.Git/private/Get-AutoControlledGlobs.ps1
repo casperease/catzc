@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AutoControlledGlobs {
     [CmdletBinding()]
     [OutputType([string[]])]

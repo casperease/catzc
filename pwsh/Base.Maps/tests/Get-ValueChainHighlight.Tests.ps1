@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
     BeforeAll {
         $adr = {

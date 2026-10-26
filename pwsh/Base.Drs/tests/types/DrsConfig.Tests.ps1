@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-drs/tests/types/DrsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DrsConfig.IndexPath' -Tag 'L0', 'logic' {
     It 'names index.md in the records folder under the repository root, and refuses an empty root' {
         $config = Get-Config -Config drs

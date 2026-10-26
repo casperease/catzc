@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AspectDeclaration {
     [CmdletBinding()]
     [OutputType([bool])]

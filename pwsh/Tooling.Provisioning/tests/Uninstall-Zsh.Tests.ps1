@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Zsh.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Uninstall-Zsh' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:gitHome = Join-Path $TestDrive 'git'

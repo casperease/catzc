@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-writers/types/RainbowColor.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Text;
 

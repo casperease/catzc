@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-LogicTestIdentity.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-LogicTestIdentity {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

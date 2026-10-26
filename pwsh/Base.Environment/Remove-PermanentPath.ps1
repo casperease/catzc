@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-environment/Remove-PermanentPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-PermanentPath {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Does not use ShouldProcess by design — see ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS')]

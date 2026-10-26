@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentContext.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     # Mocked and reset once: Get-Config caches on the resolved fixture path, so a per-test reset would re-derive it cold (~80 ms) every test.
     BeforeAll {

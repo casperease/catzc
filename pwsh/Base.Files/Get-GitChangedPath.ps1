@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Get-GitChangedPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GitChangedPath {
     [CmdletBinding()]
     [OutputType([string])]

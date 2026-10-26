@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoScriptRootAnchor' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoScriptRootAnchor.psm1') -Force

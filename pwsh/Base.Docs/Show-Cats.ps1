@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md"
-  header: "generated"
----
-#>
-
 function Show-Cats {
     [CmdletBinding()]
     [OutputType([void])]

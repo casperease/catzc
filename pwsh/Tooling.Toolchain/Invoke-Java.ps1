@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Java.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Java {
     [CmdletBinding()]
     param(

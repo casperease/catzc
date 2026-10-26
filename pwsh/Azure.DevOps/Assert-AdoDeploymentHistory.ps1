@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Assert-AdoDeploymentHistory.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AdoDeploymentHistory {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

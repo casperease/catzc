@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-RootConfig {
     [CmdletBinding()]
     [OutputType([string[]])]

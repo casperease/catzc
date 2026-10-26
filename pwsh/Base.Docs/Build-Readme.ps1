@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-Readme {
     [CmdletBinding()]
     [OutputType([string[]])]

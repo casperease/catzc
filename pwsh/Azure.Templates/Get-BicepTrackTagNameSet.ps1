@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepTrackTagNameSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepTrackTagNameSet {
     [CmdletBinding()]
     param(

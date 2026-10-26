@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/guids.yml.md"
-#   header: "generated"
-# ---
-
 # cspell:ignore oilzstgq
 
 denied:

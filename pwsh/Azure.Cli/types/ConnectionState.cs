@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-cli/types/ConnectionState.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Cli;

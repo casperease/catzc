@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Get-SyncPoint.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-SyncPoint {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

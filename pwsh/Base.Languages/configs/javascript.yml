@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/javascript.yml.md"
-#   header: "generated"
-# ---
-
 strict:
   - catzc-save-ledger
   - catzc-git-changes

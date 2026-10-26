@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/configs/dependencies.yml
 
 The declared, allowed module dependency graph ([ADR-AUTO-DEPM](../../../../drs/automation/controlling-module-dependencies.md)). The graph is
-validated at load by the typed record ([DependenciesConfig](../types/DependenciesConfig.cs.md)) and enforced against the real code, function
+validated at load by the typed record ([DependenciesConfig](../types/dependencies-config.md)) and enforced against the real code, function
 calls and C# type references alike, by `Test-ModuleDependency`.
 
 ## Two sections

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md"
-#   header: "generated"
-# ---
-
 # One source of truth per root file; optIn and committed both default to false.
 files:
   - target: PSScriptAnalyzerSettings.psd1

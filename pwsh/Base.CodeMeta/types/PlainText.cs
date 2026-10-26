@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/PlainText.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

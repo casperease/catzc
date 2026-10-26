@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ValueChainMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Save-VerifiedDownload.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Save-VerifiedDownload' -Tag 'L0', 'logic' {
 
     # The mocked download writes exactly the three bytes of 'abc' with no newline, whose SHA-256 is the NIST test vector.

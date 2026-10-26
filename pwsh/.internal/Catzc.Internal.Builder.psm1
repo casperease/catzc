@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md"
-  header: "generated"
----
-#>
-
 Set-StrictMode -Version Latest
 
 $script:testToolVendorModules = @('Pester', 'PSScriptAnalyzer')

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/types/ImprintStep.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 

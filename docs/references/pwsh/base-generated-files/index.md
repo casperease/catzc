@@ -18,9 +18,9 @@ gate).
 `generated-files.yml` lists every generated-file writer in the order they re-render in, each with the inputs it reads and the outputs it
 writes. The config type `GeneratedFilesConfig` holds the list and `input_depth`, how deep the walk for a `**` input glob goes below the
 glob's literal folder; its default is declared once, on the type. See
-[the config page](catzc-base-generated-files/configs/generated-files.yml.md) and the type pages
-[GeneratedWriter](catzc-base-generated-files/types/GeneratedWriter.cs.md) and
-[GeneratedWriterDue](catzc-base-generated-files/types/GeneratedWriterDue.cs.md).
+[the config page](configs/generated-files.md) and the type pages
+[GeneratedWriter](types/generated-writer.md) and
+[GeneratedWriterDue](types/generated-writer-due.md).
 
 ### responsibility:2 — Judging which writers are due
 
@@ -28,13 +28,13 @@ A writer is due when an output named without a wildcard is missing, or when the 
 folders its wildcard inputs could write into, differs from the stamp stored after its last run. A dirty tree alone is not a stale output. A
 missing or unreadable memo makes every writer due, and a writer with neither list is due whenever git reports anything changed.
 `Get-GeneratedWriterDue` returns one result per writer; its private helpers walk the input files, compute the stamps and read the memo. See
-[Get-GeneratedWriterDue](catzc-base-generated-files/Get-GeneratedWriterDue.ps1.md).
+[Get-GeneratedWriterDue](get-generated-writer-due.md).
 
 ### responsibility:3 — Storing the input stamp
 
 After a writer has run, its input stamp is stored in the memo under `out/cache/generated-writers.json`, so the writer is not due again until
 one of its inputs changes. A name that is not a writer of `generated-files.yml` fails at once. See
-[Save-GeneratedWriterStamp](catzc-base-generated-files/Save-GeneratedWriterStamp.ps1.md).
+[Save-GeneratedWriterStamp](save-generated-writer-stamp.md).
 
 ## What the module does
 

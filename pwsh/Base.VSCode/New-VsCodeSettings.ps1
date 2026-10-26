@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vs-code/New-VsCodeSettings.ps1.md"
-  header: "generated"
----
-#>
-
 function New-VsCodeSettings {
     [CmdletBinding()]
     [OutputType([string])]

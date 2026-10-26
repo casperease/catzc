@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-AzCliBicep {
     [CmdletBinding()]
     param(

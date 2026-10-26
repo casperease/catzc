@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/WorldMapPdfDrawing.cs.md"
-  header: "generated"
----
-*/
-
 // The drawing steps of the world-map PDF: a page, its labels, the violation and highlight marks, and the legend.
 
 using System;

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

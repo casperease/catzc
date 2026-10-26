@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Format-Types' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeType = {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ConfigOverlayRoot {
     [CmdletBinding()]
     [OutputType([string])]

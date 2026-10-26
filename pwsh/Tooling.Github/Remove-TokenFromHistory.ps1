@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-github/Remove-TokenFromHistory.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-TokenFromHistory {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

@@ -2,10 +2,10 @@
 
 The build-validation policy module. It owns the server-side pre-commit half of a deployable unit's CI binding: the ADO build-validation
 branch policies that queue a unit's pipeline on the guarded branch, each tied to its globset by path-filtering on the globset's native
-projection (see [pipeline-types](../../drs/flow/pipeline-types.md) and [durable-sha-globs](../../drs/flow/durable-sha-globs.md)). The local
+projection (see [pipeline-types](../../../drs/flow/pipeline-types.md) and [durable-sha-globs](../../../drs/flow/durable-sha-globs.md)). The local
 `build-validation.yml` is the source of truth and the module converges the ADO project to it
-([everything-as-code](../../drs/principles/everything-as-code.md)). What it deliberately does **not** own is the globsets themselves
-([Catzc.Base.Globs](catzc-base-globs.md)) or the pipelines the policies queue — it binds the two together on the server, nothing more.
+([everything-as-code](../../../drs/principles/everything-as-code.md)). What it deliberately does **not** own is the globsets themselves
+([Catzc.Base.Globs](../base-globs/index.md)) or the pipelines the policies queue — it binds the two together on the server, nothing more.
 
 ## Responsibilities
 
@@ -19,7 +19,7 @@ projection (see [pipeline-types](../../drs/flow/pipeline-types.md) and [durable-
 Converging the ADO project's build-validation policies to the local config. Registering binds a declared globset's native projection
 (`Get-GlobSetTrigger`) as the path filter of a policy that queues the resolved pipeline on the guarded branch — creating a missing policy,
 updating a drifted one in place (matched by pipeline definition + branch, so a path-filter or display-name change never duplicates), and
-leaving a current one alone ([idempotent-state-functions](../../drs/automation/idempotent-state-functions.md)). Everything defaults from
+leaving a current one alone ([idempotent-state-functions](../../../drs/automation/idempotent-state-functions.md)). Everything defaults from
 config: the pipeline resolves from the entry, then the globset's own `pipeline:` annotation in `globs.yml`; the branch and the
 blocking/display-name bits from `build-validation.yml`. The sync form runs the whole registry in one idempotent pass, and unregistering
 removes a globset's policy — a reported no-op when none exists. Every mutation supports `-DryRun`, returning the planned
@@ -37,14 +37,14 @@ The module makes the server-side pre-commit gate a function of version control. 
 must build green before it merges", and which policies exist — for which units, queuing which pipelines, on which branch — is exactly the
 kind of state that drifts when it lives only in the ADO UI. Here it lives in `build-validation.yml`: each entry names a declared globset,
 and the policy's path filter is that globset's native projection, so the policy fires precisely when the unit's files change — the same
-native-projection trigger discipline of [durable-sha-globs](../../drs/flow/durable-sha-globs.md), applied to the one trigger surface that
+native-projection trigger discipline of [durable-sha-globs](../../../drs/flow/durable-sha-globs.md), applied to the one trigger surface that
 lives server-side rather than in the repository.
 
 Reconciliation is idempotent end to end: `Sync-AdoBuildValidations` can run on a schedule or after any registry edit, and a converged
 project is a no-op pass. Globset existence is checked at runtime and by an integrity test — never at config load, so reading the registry
 stays hermetic (the same pattern as the customer catalogue,
-[customer-model](../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)). The REST calls authenticate
-through the dual-authentication precedence ([dual-authentication](../../drs/ado/dual-authentication.md)) like the rest of the ADO surface.
+[customer-model](../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)). The REST calls authenticate
+through the dual-authentication precedence ([dual-authentication](../../../drs/ado/dual-authentication.md)) like the rest of the ADO surface.
 
 ## Division
 

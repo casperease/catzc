@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Get-AzureCustomer.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureCustomer {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-ManagedGuids.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         # Built at runtime, so the real guid scan never reads these fixture values as unregistered guids.

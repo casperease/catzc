@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-generated-files/configs/generated-files.yml.md"
-#   header: "generated"
-# ---
-
 # The one list of generated-file writers and what each reads and writes; their order here is the order they re-render in.
 writers:
   # First, since every reader of the globs config needs the derived part it writes.

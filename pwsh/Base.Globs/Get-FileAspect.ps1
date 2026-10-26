@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-FileAspect.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileAspect {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

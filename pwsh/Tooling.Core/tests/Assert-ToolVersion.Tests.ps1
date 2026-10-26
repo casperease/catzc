@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Assert-ToolVersion.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore lockedtool
 Describe 'Assert-ToolVersion' -Tag 'L0', 'logic' {
     # Every collaborator is mocked in module scope, so the assertions bind to the version-check logic, never the shipped tools.yml.

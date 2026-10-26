@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/Test-AnalyzedFileIsTest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-AnalyzedFileIsTest' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/Test-AnalyzedFileIsTest.ps1')

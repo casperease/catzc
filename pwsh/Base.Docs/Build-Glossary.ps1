@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Build-Glossary.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-Glossary {
     [CmdletBinding()]
     [OutputType([string], [pscustomobject])]

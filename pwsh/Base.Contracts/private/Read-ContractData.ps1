@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Read-ContractData.ps1.md"
-  header: "generated"
----
-#>
-
 function Read-ContractData {
     [CmdletBinding()]
     [OutputType([object])]

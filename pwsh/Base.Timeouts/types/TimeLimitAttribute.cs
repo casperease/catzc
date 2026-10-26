@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Timeouts;

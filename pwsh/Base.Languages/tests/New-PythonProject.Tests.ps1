@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/New-PythonProject.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-PythonProject' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

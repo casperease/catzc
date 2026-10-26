@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Resolve-ImportMix.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-ImportMix' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'importer' } {

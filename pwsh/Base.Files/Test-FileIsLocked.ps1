@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Test-FileIsLocked.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-FileIsLocked {
     [CmdletBinding()]
     [OutputType([bool])]

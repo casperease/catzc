@@ -1,6 +1,6 @@
 # pwsh/Base.ModuleSystem/Get-ImportMix.ps1
 
-Returns the session's one [ImportMix](types/ImportMix.cs.md) record. The importer sets it once after loading; a session the importer did not
+Returns the session's one [ImportMix](types/import-mix.md) record. The importer sets it once after loading; a session the importer did not
 finish resolves it once from the configuration and keeps it.
 
 ## help

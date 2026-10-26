@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-LinuxToolInstall.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Remove-LinuxToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
         $script:config = [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib' }

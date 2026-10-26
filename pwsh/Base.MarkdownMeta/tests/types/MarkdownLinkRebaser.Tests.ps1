@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-markdown-meta/tests/types/MarkdownLinkRebaser.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # A copied article's relative links must still resolve from the copy's folder, or the copy ships broken links.
 Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS' {
     BeforeAll {

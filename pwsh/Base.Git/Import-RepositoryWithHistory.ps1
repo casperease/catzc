@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md"
-  header: "generated"
----
-#>
-
 function Import-RepositoryWithHistory {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

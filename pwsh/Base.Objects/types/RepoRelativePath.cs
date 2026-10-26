@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

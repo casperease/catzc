@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Convert-TestRunLocationPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Convert-TestRunLocationPath {
     [CmdletBinding()]
     [OutputType([string])]

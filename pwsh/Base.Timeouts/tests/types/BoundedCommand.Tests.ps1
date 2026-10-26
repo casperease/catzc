@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/BoundedCommand.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'BoundedCommand' -Tag 'L0', 'logic' {
     BeforeDiscovery {
         # Every case under every engine; one that does not apply says why ("n/a: <reason>"), so engine parity reads side by side.

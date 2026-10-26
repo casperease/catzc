@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-overlay/Import-CatzcOverlay.ps1.md"
-  header: "generated"
----
-#>
-
 function Import-CatzcOverlay {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

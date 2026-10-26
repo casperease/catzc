@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
         # A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture below.

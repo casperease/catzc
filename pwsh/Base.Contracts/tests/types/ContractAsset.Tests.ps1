@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractAsset' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fragment = [Catzc.Base.Contracts.ContractAssetKind]::Fragment

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Get-AzureBicepMinVersion.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureBicepMinVersion {
     [OutputType([version])]
     param()

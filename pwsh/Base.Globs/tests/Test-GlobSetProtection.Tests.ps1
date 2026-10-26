@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Clear-GlobSetProtection

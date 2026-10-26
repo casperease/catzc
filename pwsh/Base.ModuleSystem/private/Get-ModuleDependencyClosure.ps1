@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyClosure.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependencyClosure {
     [OutputType([string[]])]
     param(

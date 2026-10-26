@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Import-CatzcOverlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')

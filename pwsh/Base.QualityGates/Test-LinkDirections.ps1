@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-LinkDirections.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-LinkDirections {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

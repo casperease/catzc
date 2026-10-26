@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkFinding.cs.md"
-  header: "generated"
----
-*/
-
 using System.Globalization;
 
 namespace Catzc.Base.QualityGates;

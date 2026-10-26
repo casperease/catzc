@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Get-MinimapPlace.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-MinimapPlace {
     [CmdletBinding()]
     [OutputType([string[]])]

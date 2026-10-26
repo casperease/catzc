@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md"
-#   header: "generated"
-# ---
-
 # Publish targets for versioned module manifests; not yet implemented, so these keys load and validate but nothing reads them.
 ado: { enabled: false, organization: "", project: "", feed: "" }
 github: { enabled: false, owner: "", repository: "", feed: "" }

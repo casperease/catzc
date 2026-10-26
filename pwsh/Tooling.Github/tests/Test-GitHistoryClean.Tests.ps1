@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     BeforeAll {
         # The token is planted in a blob, a path and a commit message, so each surface a history scan reads is proven.

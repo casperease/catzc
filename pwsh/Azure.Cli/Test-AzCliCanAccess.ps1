@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AzCliCanAccess {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-execution/tests/types/ToolsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ToolsConfig' -Tag 'L0' {
     # Reads the shipped tools.yml, so it guards real repository content.
     Context 'integrity (shipped tools.yml)' -Tag 'integrity' {

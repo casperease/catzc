@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/New-VsCodeExtensionFolder.ps1.md"
-  header: "generated"
----
-#>
-
 function New-VsCodeExtensionFolder {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
         Justification = 'Writes generated output under the output root; the folder is replaced on every render')]

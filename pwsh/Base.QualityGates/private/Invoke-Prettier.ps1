@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Prettier.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Prettier {
     [CmdletBinding()]
     [OutputType([string[]])]

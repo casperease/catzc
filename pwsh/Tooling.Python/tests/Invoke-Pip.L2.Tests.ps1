@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-python/tests/Invoke-Pip.L2.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The pip subcommand group has no version flag of its own, so the end-to-end contract is carried by a real subcommand.
 Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
     BeforeAll {

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlClassificationResult.cs.md"
-  header: "generated"
----
-*/
-
 // The outcome of classifying one ADO YAML file: the coarse kind plus, for templates, the body sub-kind.
 
 using System;

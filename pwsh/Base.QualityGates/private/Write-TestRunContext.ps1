@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestRunContext.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-TestRunContext {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-TestAutomationRowSet.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-TestAutomationRowSet {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

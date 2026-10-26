@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Export-Comments.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore ngadget  -- the escape-sequence artifact in the "`ngadget" fixture strings
 Describe 'Export-Comments' -Tag 'L0', 'logic' {
     BeforeAll {

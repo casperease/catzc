@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Get-ExecutableVersion.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ExecutableVersion' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable { [Catzc.Base.Execution.CliResult]::new('widget version 5.2.37', '',

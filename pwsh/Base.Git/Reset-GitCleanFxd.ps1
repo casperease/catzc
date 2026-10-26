@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md"
-  header: "generated"
----
-#>
-
 # -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Reset-GitCleanFxd {
     [CmdletBinding()]

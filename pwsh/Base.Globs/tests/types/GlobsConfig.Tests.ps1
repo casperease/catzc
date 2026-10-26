@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore dedupe
 Describe 'GlobsConfig' -Tag 'L0', 'logic' {
     BeforeAll {

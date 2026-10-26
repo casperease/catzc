@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-folders/configs/folder-walk.yml.md"
-#   header: "generated"
-# ---
-
 # Every key is optional: an omitted key takes the default declared once on FolderWalkConfig, and a Get-ChildPath parameter overrides it.
 
 # Read anywhere as global.folder-walk.prune_vendor_in_searches. When true, a search never enters the .vendor folder.

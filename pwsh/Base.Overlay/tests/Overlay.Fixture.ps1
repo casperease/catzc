@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md"
-  header: "generated"
----
-#>
-
 # A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming a real one.
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'

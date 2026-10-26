@@ -3,14 +3,14 @@
 The repository's GitHub integration: everything that faces GitHub, as a platform that reads our files and as a remote that stores our
 history. Two jobs make it up. It holds the GitHub-facing contracts — what GitHub requires of the files it reads, kept under
 `contracts/catzc/0.1.0/catzc.tooling.github/`
-([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). And it erases a token — a leaked secret,
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). And it erases a token — a leaked secret,
 or a name being scrubbed — from a GitHub repository's entire history and its remote object store, then proves it is gone. Erasure needs a
 module of its own because an ordinary force-push erases nothing: the old commits become unreachable but stay stored on the server until
 GitHub garbage-collects them, so a fetch of a known old SHA keeps resolving. Deleting and recreating the repository is the only way to
 destroy those remote objects. It owns that whole workflow — rewrite the local history token-free, assert the irreversible step is safe,
 purge and republish on GitHub, and verify the result across every surface a token can hide in (file content, file paths, and commit
 messages). It is not a general git or `gh` wrapper, and it drives every external command through the process boundary in
-[Catzc.Base.Execution](catzc-base-execution.md).
+[Catzc.Base.Execution](../base-execution/index.md).
 
 ## Responsibilities
 
@@ -54,7 +54,7 @@ specific, actionable error for whichever check fails first.
 The read-only primitive behind every purge: proving a token is absent across all three surfaces it can survive in — file content (blobs),
 file paths, and commit messages — over a ref's whole reachable history, not just the working tree. It returns a structured result naming any
 residual hits so a caller can act on path-name residue a content scrub could not reach. The scan is one pass by the history scan in
-[Catzc.Base.Git](catzc-base-git.md): every object is read once from a single git stream, and each distinct file content is searched once,
+[Catzc.Base.Git](../base-git/index.md): every object is read once from a single git stream, and each distinct file content is searched once,
 however many revisions hold it. Run it on the local ref that is pushed; the purge then proves the remote holds that same commit. Never run
 it against a ref whose upstream still tracks un-purged history, which would false-alarm.
 
@@ -62,11 +62,11 @@ it against a ref whose upstream still tracks un-purged history, which would fals
 
 Owning our schema of the workflow files GitHub reads, an inner contract in the module's group,
 `contracts/catzc/0.1.0/catzc.tooling.github/workflow.yml.schema.json`
-([ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), bound to every `.github/workflows/*.yml`
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)), bound to every `.github/workflows/*.yml`
 by the version's `applies_to`
-([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It pins only
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). It pins only
 what GitHub reads, never an internal value
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a workflow's `on` and
 `jobs`. The contract mechanism in `Catzc.Base.Contracts` generates one test per bound file, so a change GitHub would reject fails CI here
 first. A platform change edits the schema in `0.1.0` in place, never an old shape kept beside the new one.
 
@@ -88,7 +88,7 @@ Safe-by-default is the through-line across the mutating surfaces. Every destruct
 explicitly armed with a confirmation value matching its target, and the remote purge keeps the local clone and the verified backup bundle
 intact throughout, so any failure after deletion is recoverable from the exact commands it prints. The module holds no state and no config
 of its own beyond its contract assets: it is a thin, ordered set of operations over `git`, `gh`, and git-filter-repo, each invoked through
-[Catzc.Base.Execution](catzc-base-execution.md), returning structured results rather than writing to the console.
+[Catzc.Base.Execution](../base-execution/index.md), returning structured results rather than writing to the console.
 
 ## Division
 

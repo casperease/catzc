@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/types/BashTestResult.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

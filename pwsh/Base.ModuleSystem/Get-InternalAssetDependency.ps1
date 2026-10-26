@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-InternalAssetDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-InternalAssetDependency {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

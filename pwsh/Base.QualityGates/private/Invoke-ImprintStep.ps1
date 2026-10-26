@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ImprintStep.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-ImprintStep {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

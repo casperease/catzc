@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-TrackMember.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TrackMember {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.TrackMember])]

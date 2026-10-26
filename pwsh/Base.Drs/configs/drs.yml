@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-drs/configs/drs.yml.md"
-#   header: "generated"
-# ---
-
 # Each kind is a code's first segment: a shared kind's domains each add their code, and a kind one domain owns stands for it.
 kinds:
   ADR: { name: Architecture Decision Record, shared: true }

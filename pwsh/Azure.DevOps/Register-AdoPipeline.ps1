@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Register-AdoPipeline.ps1.md"
-  header: "generated"
----
-#>
-
 function Register-AdoPipeline {
     [CmdletBinding(DefaultParameterSetName = 'AzureRepos')]
     param(

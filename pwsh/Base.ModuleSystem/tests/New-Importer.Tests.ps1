@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/New-Importer.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
     BeforeAll {
         $script:realOverlay = Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependencyConfig {
     param()
 

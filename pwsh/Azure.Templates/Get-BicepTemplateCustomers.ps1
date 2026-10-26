@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateCustomers.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepTemplateCustomers {
     [CmdletBinding()]
     [OutputType([string[]])]

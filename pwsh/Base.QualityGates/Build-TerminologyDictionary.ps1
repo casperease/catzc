@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-TerminologyDictionary {
     [CmdletBinding()]
     [OutputType([string[]])]

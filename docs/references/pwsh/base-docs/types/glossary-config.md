@@ -2,8 +2,8 @@
 
 One glossary source (a module's glossary config): the controlled vocabulary that module opts into
 ([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)). Constructing an instance maps and validates the parsed YAML,
-collecting every violation into one throw, and exposes the defaulted `options` ([GlossaryOptions](GlossaryOptions.cs.md)) and the `concepts`
-([GlossaryConcept](GlossaryConcept.cs.md), in source order). It is registered in `Catzc.Base.Config/configs/configs.yml`, so
+collecting every violation into one throw, and exposes the defaulted `options` ([GlossaryOptions](glossary-options.md)) and the `concepts`
+([GlossaryConcept](glossary-concept.md), in source order). It is registered in `Catzc.Base.Config/configs/configs.yml`, so
 `Get-Config -Config glossary -Module <owner>` returns this typed model.
 
 ## Load-time rules

@@ -18,10 +18,10 @@ organization identity is configured, not guessed.
 Knowing which organization and tenant the automation targets, and producing an authorization header proven to point at that organization.
 The credential is selected by a fixed precedence — an in-pipeline agent token, then a personal access token, then the Azure CLI session —
 and each source must prove it targets the configured organization before a header is returned. The organization identity lives in `ado.yml`.
-See [dual-authentication](../../drs/ado/dual-authentication.md). The repository is known the same way: the agent's own repository in a
+See [dual-authentication](../../../drs/ado/dual-authentication.md). The repository is known the same way: the agent's own repository in a
 pipeline, the checkout folder's name on a devbox, the default every command taking a repository name falls back to. The live project name
 `ado.yml` carries is declared in `identity-tokens.yml`, so a hermetic logic test that names it is found
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 ### responsibility:2 — Azure DevOps REST operations
 
@@ -35,7 +35,7 @@ state-changing surface.
 Reading the repository's own pipeline YAML: finding the YAML files and classifying each as a pipeline or a template (and which kind) from
 its structure and the organization's registration data. This answers "what pipelines and templates does this repo define?" without deploying
 anything. On top of that classification sits the naming-and-placement quality gate — `Test-Pipelines` collects every violation of the layout
-contract ([pipeline-naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md)), writes its report, and throws once listing them
+contract ([pipeline-naming-and-placement](../../../drs/ado/pipeline-naming-and-placement.md)), writes its report, and throws once listing them
 all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
 
 ### responsibility:4 — Pipeline runtime bridge
@@ -43,7 +43,7 @@ all, offline; an L1 integrity test runs it over the real `pipelines/` tree.
 The thin interface a job uses while it is running inside a pipeline: setting an output variable through the validated wrapper (never a raw
 logging command), normalising a command string handed in by the YAML layer, and emitting an environment diagnostic. These are no-ops or
 pass-through's outside a pipeline. The environment diagnostic prints the environment variables named in `pipeline-env.yml`. See
-[pipeline-variables](../../drs/ado/pipeline-variables.md).
+[pipeline-variables](../../../drs/ado/pipeline-variables.md).
 
 ## What the module does
 

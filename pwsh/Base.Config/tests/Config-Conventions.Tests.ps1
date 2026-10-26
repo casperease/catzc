@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # A backstop for the registry: every shipped config must have a registered type and load through it, or the run fails here.
 Describe 'Config conventions' -Tag 'L0', 'integrity' {
     It 'every shipped config has a registered type and loads through it' {

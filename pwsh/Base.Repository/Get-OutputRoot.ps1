@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Get-OutputRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-OutputRoot {
     [OutputType([string])]
     param(

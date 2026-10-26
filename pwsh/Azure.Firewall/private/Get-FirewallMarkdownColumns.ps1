@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FirewallMarkdownColumns {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.List[object]])]

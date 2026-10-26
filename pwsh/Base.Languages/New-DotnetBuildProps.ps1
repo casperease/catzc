@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/New-DotnetBuildProps.ps1.md"
-  header: "generated"
----
-#>
-
 function New-DotnetBuildProps {
     [CmdletBinding()]
     [OutputType([string])]

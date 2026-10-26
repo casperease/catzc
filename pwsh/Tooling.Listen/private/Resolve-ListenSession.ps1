@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Resolve-ListenSession.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ListenSession {
     [CmdletBinding()]
     [OutputType([string])]

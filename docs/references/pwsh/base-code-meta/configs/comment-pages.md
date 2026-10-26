@@ -1,7 +1,7 @@
 # pwsh/Base.CodeMeta/configs/comment-pages.yml
 
 The map from a source folder to the docs folder that holds its comment pages. A comment page is the one living copy of a file's long
-comments, and this file says where each file's page lives; `Get-CommentPage` reads it and [CommentPageMap](../types/CommentPageMap.cs.md) is
+comments, and this file says where each file's page lives; `Get-CommentPage` reads it and [CommentPageMap](../types/comment-page-map.md) is
 its typed record.
 
 ## Entries

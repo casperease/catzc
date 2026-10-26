@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-writers/private/Write-FramedLine.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-FramedLine {
     [CmdletBinding()]
     param(

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../docs/references/ado/pipelines/deploy-shared.yaml.md"
-#   header: "generated"
-# ---
-
 trigger: none
 pr: none
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Install-Markdownlint.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Markdownlint {
     [CmdletBinding()]
     param(

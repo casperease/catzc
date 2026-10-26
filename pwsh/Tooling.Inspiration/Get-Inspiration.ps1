@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Inspiration {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Tooling.Inspiration.Inspiration])]

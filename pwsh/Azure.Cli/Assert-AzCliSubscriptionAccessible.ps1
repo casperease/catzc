@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AzCliSubscriptionAccessible {
     [CmdletBinding()]
     param(

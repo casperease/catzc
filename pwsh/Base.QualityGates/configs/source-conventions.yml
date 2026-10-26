@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/source-conventions.yml.md"
-#   header: "generated"
-# ---
-
 engine_set:
   exempt:
     pwsh/Base.Engines/types/**: the model itself, the one place the engines are declared

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Get-ToolConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ToolConfig' -Tag 'L0' {
     # Discovery-time, so -ForEach data exists before tests run; tools.yml is found through its registered owner, which is another module.
     $script:configPath = (Get-Config -Config tools -ListOwners).Path

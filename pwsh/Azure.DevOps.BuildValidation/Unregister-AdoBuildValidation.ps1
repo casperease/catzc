@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md"
-  header: "generated"
----
-#>
-
 function Unregister-AdoBuildValidation {
     [CmdletBinding()]
     param(

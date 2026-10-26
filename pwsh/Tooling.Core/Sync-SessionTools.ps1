@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Sync-SessionTools.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-SessionTools {
     [CmdletBinding()]
     param(

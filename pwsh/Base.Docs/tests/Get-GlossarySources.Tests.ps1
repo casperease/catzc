@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySources.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
     BeforeAll {
         $assets = "$(ConvertTo-RepoRelativePath (Get-CatzcModuleRoot -Module Catzc.Base.Docs))/tests/assets/glossary"

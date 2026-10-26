@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Get-CSharpTypeDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
 Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {

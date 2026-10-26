@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-types-system/New-Solution.ps1.md"
-  header: "generated"
----
-#>
-
 function New-Solution {
     [CmdletBinding()]
     [OutputType([string])]

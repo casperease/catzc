@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AzCliBicep {
     param(
         [string] $ErrorText

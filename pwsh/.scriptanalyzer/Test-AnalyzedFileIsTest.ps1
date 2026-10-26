@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AnalyzedFileIsTest {
     [CmdletBinding()]
     [OutputType([bool])]

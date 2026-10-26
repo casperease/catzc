@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-firewall/Get-FirewallIpgsYaml.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FirewallIpgsYaml {
     [CmdletBinding()]
     [OutputType([string])]

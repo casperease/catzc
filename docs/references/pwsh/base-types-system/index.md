@@ -1,12 +1,12 @@
 # Catzc.Base.TypesSystem
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `pwsh/.compiled/` clean, computes the
-cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](catzc-base-module-system.md) folds into its dependency integrity check.
+cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](../base-module-system/index.md) folds into its dependency integrity check.
 It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
 `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks it
-live in [Catzc.Base.QualityGates](catzc-base-quality-gates.md). The one build it does drive is the editor-facing MSBuild of those same
+live in [Catzc.Base.QualityGates](../base-quality-gates/index.md). The one build it does drive is the editor-facing MSBuild of those same
 sources (`Invoke-BuildForVsCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The
-full type-system contract is [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md).
+full type-system contract is [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
 
@@ -30,16 +30,16 @@ never plan the live build for deletion.
 
 The other half of the cache is the copy in the running process, which cannot be swapped once loaded. A test/assert pair asks whether the
 types this process loaded are still those its sources declare, from the one measurement the loader and the importer use
-([ADR-BCL-TYPES-ONEDRIFTMEASURE](../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)); the assert names
+([ADR-BCL-TYPES-ONEDRIFTMEASURE](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)); the assert names
 every drifted type and the one remedy, a new PowerShell.
 
 ### responsibility:2 — Cross-module type dependency analysis
 
 Recovering, for the dependency graph, the C# type edges the compiler no longer enforces. Because every module's `types/*.cs` compile into
-one assembly (see [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)), a type in one module may reference a type in
+one assembly (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)), a type in one module may reference a type in
 another; `Get-CSharpTypeDependency` scans each module's sources and reports a `From → To` edge for every cross-module fully-qualified
 reference, stripping comments, string literals, and each file's own namespace so only real references count.
-[Catzc.Base.ModuleSystem](catzc-base-module-system.md) folds these edges into its integrity assertion, so the one declared graph in
+[Catzc.Base.ModuleSystem](../base-module-system/index.md) folds these edges into its integrity assertion, so the one declared graph in
 `dependencies.yml` governs C# type layering as well as PowerShell calls.
 
 ### responsibility:3 — Editor type-project build
@@ -64,9 +64,9 @@ so after import that full name must resolve. The quality gate lists every type t
 ### responsibility:5 — Agent hook build
 
 Publishing the C# programs the platform runs outside PowerShell: the Claude Code hooks under `.claude/hooks/`, one folder each. One holds
-every agent Bash call to the time safeguard ([fail-fast-with-asserts](../../drs/automation/fail-fast-with-asserts.md),
+every agent Bash call to the time safeguard ([fail-fast-with-asserts](../../../drs/automation/fail-fast-with-asserts.md),
 `ADR-AUTO-FAILFAST-BOUNDEVERYWAIT`); another records what each agent session writes, so the listen mode tells it from the editor's changes
-([ai-agent-contract](../../drs/repository/ai-agent-contract.md)). They run around every such call, so they are compiled rather than
+([ai-agent-contract](../../../drs/repository/ai-agent-contract.md)). They run around every such call, so they are compiled rather than
 scripted. The importer asks for them on every import; each publishes with `dotnet` only when its sources' hash differs from the one recorded
 beside its published program, is found by its project's own assembly name, and is asserted to exist after the publish.
 

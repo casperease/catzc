@@ -10,7 +10,7 @@ repository-root-relative file artifacts it owns beyond its own folder. It is reg
 Constructing the record maps and validates the parsed YAML and gathers every violation into one `ArgumentException`:
 
 - only the top-level key `modules` is allowed, and it is a required, non-empty map;
-- every module entry is well-formed ([ModuleFiles](ModuleFiles.cs.md));
+- every module entry is well-formed ([ModuleFiles](module-files.md));
 - each package name is globally unique across all modules, because it is the `-ExcludePackages` unit.
 
 Module keys are module folder names such as `Catzc.Base.Repository` and `.internal`, so they are not checked for snake_case.

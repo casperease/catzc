@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-VendorModuleAvailable {
     [CmdletBinding()]
     param(

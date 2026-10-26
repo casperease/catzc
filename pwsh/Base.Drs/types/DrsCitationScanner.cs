@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsCitationScanner.cs.md"
-  header: "generated"
----
-*/
-
 // Finds the DRS codes a text cites and the rules it defines; one scanner serves a whole run, its patterns compiled once from the code form.
 
 using System;

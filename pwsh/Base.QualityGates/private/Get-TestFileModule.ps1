@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestFileModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestFileModule {
     [CmdletBinding()]
     [OutputType([string])]

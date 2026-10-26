@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeDiscovery {
     $script:templateNames = @(Get-BicepTemplateNames)
 }

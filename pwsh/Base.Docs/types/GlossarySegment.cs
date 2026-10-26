@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/types/GlossarySegment.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Docs;
 
 public sealed class GlossarySegment

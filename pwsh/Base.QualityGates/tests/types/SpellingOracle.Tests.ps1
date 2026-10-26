@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/SpellingOracle.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'SpellingOracle.Tokenize' -Tag 'L0', 'logic' {
     # Tokenize is a pure function of its input — no dictionary, no Initialize required.
     It 'splits camelCase into lower-cased fragments' {

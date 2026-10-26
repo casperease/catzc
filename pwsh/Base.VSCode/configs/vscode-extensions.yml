@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-extensions.yml.md"
-#   header: "generated"
-# ---
-
 # cspell:ignore azuretools streetsidesoftware hediet esbenp tomoki redhat Anson gopls
 recommendations:
   # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.

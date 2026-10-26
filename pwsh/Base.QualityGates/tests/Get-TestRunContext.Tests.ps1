@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestRunContext.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-FixtureLocation {

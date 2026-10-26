@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Uv.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Uv {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-PythonTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonTestResult])]

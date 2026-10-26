@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Test-AdoNaming.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AdoNaming {
     [CmdletBinding()]
     [OutputType([bool])]

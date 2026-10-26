@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-GoTest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the seams: a fixture root, a managed go at a path with a space, and canned streams.

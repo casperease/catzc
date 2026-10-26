@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoRawPipelineDetection' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawPipelineDetection.psm1') -Force

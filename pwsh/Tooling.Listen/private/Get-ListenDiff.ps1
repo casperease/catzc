@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenDiff.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ListenDiff {
     [CmdletBinding()]
     [OutputType([string])]

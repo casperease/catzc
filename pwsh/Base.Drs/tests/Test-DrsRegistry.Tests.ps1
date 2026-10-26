@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{

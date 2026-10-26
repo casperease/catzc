@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenSource.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ListenSource {
     [CmdletBinding()]
     [OutputType([Catzc.Tooling.Listen.WriteSource])]

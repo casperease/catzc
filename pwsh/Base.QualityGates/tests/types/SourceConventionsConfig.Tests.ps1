@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/SourceConventionsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'SourceConventionsConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'gives every check its defaults when the file is empty' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

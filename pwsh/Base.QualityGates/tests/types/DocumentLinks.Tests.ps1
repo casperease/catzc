@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/DocumentLinks.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DocumentLinks' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     BeforeAll {
         function script:Get-Links {

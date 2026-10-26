@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/types/BuildValidationConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Shape only at load; each entry's tie to a declared globset and a pipeline is asserted here instead.
 Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {

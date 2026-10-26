@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Java.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Java {
     [CmdletBinding()]
     param(

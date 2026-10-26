@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections;
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-python/Install-PySpark.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-PySpark {
     [CmdletBinding()]
     param(

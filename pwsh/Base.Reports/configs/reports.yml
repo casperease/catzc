@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-reports/configs/reports.yml.md"
-#   header: "generated"
-# ---
-
 # Empty on purpose: every key takes the default its type declares, so a repository sets only what it means to change.
 {}

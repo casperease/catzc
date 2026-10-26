@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Test-IsAdministrator.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IsAdministrator {
     [OutputType([bool])]
     param()

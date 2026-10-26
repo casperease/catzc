@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TrackPlace {
     [CmdletBinding()]
     [OutputType([string])]

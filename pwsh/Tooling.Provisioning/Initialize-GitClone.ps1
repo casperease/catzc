@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md"
-  header: "generated"
----
-#>
-
 # Branches on -DryRun, not ShouldProcess, so the dry run is a plain report.
 function Initialize-GitClone {
     [CmdletBinding()]

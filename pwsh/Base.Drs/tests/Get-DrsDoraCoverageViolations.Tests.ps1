@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{

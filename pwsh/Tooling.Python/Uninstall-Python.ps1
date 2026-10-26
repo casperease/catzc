@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-python/Uninstall-Python.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Python {
     [CmdletBinding()]
     param(

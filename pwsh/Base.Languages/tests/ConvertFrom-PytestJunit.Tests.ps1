@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/ConvertFrom-PytestJunit.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertFrom-PytestJunit' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:report = Get-Content -Raw -LiteralPath (Join-Path $PSScriptRoot 'assets/pytest-widget.xml')

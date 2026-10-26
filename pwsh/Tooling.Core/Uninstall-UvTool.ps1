@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Uninstall-UvTool.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-UvTool {
     [CmdletBinding()]
     param(

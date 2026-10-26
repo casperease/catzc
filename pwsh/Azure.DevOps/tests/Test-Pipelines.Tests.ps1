@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Test-Pipelines.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a classifier record like Get-AdoYamlFiles emits (string props stand in for the C# record).

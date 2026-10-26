@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-DevBoxToolsStatus {
     [CmdletBinding()]
     param()

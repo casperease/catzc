@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Automation.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Source & test file conventions' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)

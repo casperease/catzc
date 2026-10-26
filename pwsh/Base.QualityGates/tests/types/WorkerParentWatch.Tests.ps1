@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/WorkerParentWatch.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'WorkerParentWatch' -Tag 'logic' {
     Context 'liveness check' -Tag 'L0' {
         It 'reports this process alive at its own start time' {

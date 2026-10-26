@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Remove-LinuxToolInstall.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-LinuxToolInstall {
     [CmdletBinding()]
     [OutputType([bool])]

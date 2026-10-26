@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VsCodeSettings.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore gopls  -- the Go language server and its VS Code settings key
 Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
     BeforeAll {

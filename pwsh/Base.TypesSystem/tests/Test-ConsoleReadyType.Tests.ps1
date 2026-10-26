@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Test-ConsoleReadyType.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {
     BeforeAll {
         if (-not ([System.Management.Automation.PSTypeName]'ConsoleReadyWidgetProbe').Type) {

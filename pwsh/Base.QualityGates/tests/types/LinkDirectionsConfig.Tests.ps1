@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/LinkDirectionsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROWS', 'ADR-REPO-LINKS-EXCEPTIONSAREENTRIES' {
     It 'takes no rows and no exemptions when nothing is given' {
         $config = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new(@{})

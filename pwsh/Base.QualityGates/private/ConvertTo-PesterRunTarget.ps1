@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-PesterRunTarget.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-PesterRunTarget {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

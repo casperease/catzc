@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Get-ModuleFullName.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleFullName {
     [CmdletBinding()]
     [OutputType([string])]

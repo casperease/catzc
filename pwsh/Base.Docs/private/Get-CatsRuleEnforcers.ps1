@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatsRuleEnforcers {
     [OutputType([hashtable])]
     [CmdletBinding()]
@@ -14,7 +6,8 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    # The strict-clean probe of a lazy cache entry (ADR-PWSH-CACHE-STRICTSAFEPROBE).
+    # The strict-clean probe of a lazy cache entry
+    # ([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
     if ($null -ne $cached) {
         return $cached

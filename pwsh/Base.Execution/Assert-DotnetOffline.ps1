@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Assert-DotnetOffline.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-DotnetOffline {
     [CmdletBinding()]
     param(

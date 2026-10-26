@@ -10,5 +10,5 @@ An empty seed means everything, the full repository.
 
 ## Validation
 
-The file loads through `Get-Config -Config profiles` into the typed record ([ProfilesConfig](../types/ProfilesConfig.cs.md)): profile names
+The file loads through `Get-Config -Config profiles` into the typed record ([ProfilesConfig](../types/profiles-config.md)): profile names
 are snake_case, and each profile is a list of module names, possibly empty.

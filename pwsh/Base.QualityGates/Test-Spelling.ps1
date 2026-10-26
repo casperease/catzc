@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Spelling {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

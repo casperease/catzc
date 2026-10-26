@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-Code {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.FormatResult])]

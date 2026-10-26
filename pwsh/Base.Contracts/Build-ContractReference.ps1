@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-ContractReference {
     [CmdletBinding()]
     [OutputType([string[]], [pscustomobject[]])]

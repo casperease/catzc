@@ -2,9 +2,9 @@
 
 The pure core of the code meta head: the leading comment of a C# type file, a PowerShell function file or any other code file whose carrier
 is a comment head, holding the file's derived facts as the same front matter a Markdown file carries
-([code-file-meta](../../drs/repository/code-file-meta.md)). The module reads no config and no file: every text, and the comment syntax of
-the head, reaches it as a parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md) on top of
-[Catzc.Base.MarkdownMeta](catzc-base-markdown-meta.md), whose block reader and writer it reuses. The registry of meta kinds, the
+([code-file-meta](../../../drs/repository/code-file-meta.md)). The module reads no config and no file: every text, and the comment syntax of
+the head, reaches it as a parameter, so it sits below [Catzc.Base.Config](../base-config/index.md) on top of
+[Catzc.Base.MarkdownMeta](../base-markdown-meta/index.md), whose block reader and writer it reuses. The registry of meta kinds, the
 file-carrier registry that names each file class's comment syntax, and the commands that read them live above `Catzc.Base.Config`.
 
 ## Responsibilities
@@ -35,7 +35,7 @@ whole comment run before the head is written. A property carrier is imprinted th
 Which page under docs/ holds a file's long comments, from the ordered source-folder to docs-folder maps of the comment-pages settings; the
 first map that covers the file wins, and a file no map covers has no page. The settings reach it as a parameter, so every head writer and
 every quality gate over comments finds the same page with the same call
-([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-commentpageplace)).
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](../../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-commentpageplace)).
 
 ## What the module does
 

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/glossary.yml.md"
-#   header: "generated"
-# ---
-
 concepts:
   accosted:
     key: accosted

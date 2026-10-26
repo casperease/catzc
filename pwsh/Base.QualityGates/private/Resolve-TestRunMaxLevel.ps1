@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestRunMaxLevel.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-TestRunMaxLevel {
     [CmdletBinding()]
     [OutputType([int])]

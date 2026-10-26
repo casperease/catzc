@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Invoke-Accosted.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Accosted {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.AccostedRunResult[]])]

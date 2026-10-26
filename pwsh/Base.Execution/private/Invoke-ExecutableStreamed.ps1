@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-ExecutableStreamed {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '',
         Justification = 'By design — executes CLI commands')]

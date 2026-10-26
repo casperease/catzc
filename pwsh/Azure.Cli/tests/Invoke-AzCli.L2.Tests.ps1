@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-AzCli' -Tag 'L2', 'logic' {
     It 'returns version as JSON with accessible properties' {
         # Gated on presence, not the pinned version: this proves a working az is reached, not that its version matches.

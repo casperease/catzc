@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-modules/tests/types/Module.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Module' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     It 'holds the identity it was given and copies its lists, so a caller''s array cannot change it' {
         $files = [string[]]@('Gadget.wdg', 'inner/Cog.wdg')

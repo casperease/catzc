@@ -16,7 +16,7 @@ produces, so generated markdown (the ADR index, the glossary, the contract refer
 ([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
 The first line carries FirstPrefix (a list marker such as '- '), every later line ContinuationPrefix (the marker's indent).
 
-Prettier never breaks inside an inline code span or a link, so a `code span` and a `[text](target)` link each count as part of one
+Prettier never breaks inside an inline code span or a link, so a `code span` and a `[text](../catzc-base-markdown-meta/target)` link each count as part of one
 unbreakable word, spaces included. A word longer than the width stays whole on its own line.
 
 ### parameter `Text`

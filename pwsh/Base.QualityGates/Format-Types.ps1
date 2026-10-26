@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Format-Types.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-Types {
     [CmdletBinding()]
     [OutputType([string[]])]

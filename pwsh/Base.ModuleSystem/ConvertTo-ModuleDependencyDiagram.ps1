@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/ConvertTo-ModuleDependencyDiagram.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-ModuleDependencyDiagram {
     [CmdletBinding()]
     [OutputType([string])]

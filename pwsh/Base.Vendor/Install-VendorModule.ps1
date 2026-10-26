@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-VendorModule {
     [CmdletBinding()]
     param(

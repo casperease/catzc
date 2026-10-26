@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Test-IsTimeoutExempt.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IsTimeoutExempt {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationTimingReport.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-TestAutomationTimingReport {
     [CmdletBinding()]
     [OutputType([bool])]

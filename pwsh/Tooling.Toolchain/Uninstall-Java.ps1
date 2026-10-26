@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-Java.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Java {
     [CmdletBinding()]
     param(

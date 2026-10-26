@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeContent.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ReadmeContent {
     [CmdletBinding()]
     [OutputType([string])]

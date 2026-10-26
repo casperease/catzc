@@ -40,9 +40,9 @@ that binds without its row. A value that only crosses from pwsh, such as a `PSOb
 
 - [The type system](types-system.md) — the combined assembly, the shared `DictionaryRecord` base, and the type-accelerator aliases.
 
-The modules most involved are [`Catzc.Base.Languages`](../pwsh/catzc-base-languages.md) (`bcl.yml` and `BclConfig`),
-[`Catzc.Base.Objects`](../pwsh/catzc-base-objects.md) (the `DictionaryRecord` base, shared records and `ConvertTo-BclValue`) and
-[`Catzc.Base.TypesSystem`](../pwsh/catzc-base-types-system.md) (the IDE project build).
+The modules most involved are [`Catzc.Base.Languages`](../pwsh/base-languages/index.md) (`bcl.yml` and `BclConfig`),
+[`Catzc.Base.Objects`](../pwsh/base-objects/index.md) (the `DictionaryRecord` base, shared records and `ConvertTo-BclValue`) and
+[`Catzc.Base.TypesSystem`](../pwsh/base-types-system/index.md) (the IDE project build).
 
 ## Microsoft references
 

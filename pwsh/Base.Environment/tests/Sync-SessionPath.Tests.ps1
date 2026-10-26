@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-environment/tests/Sync-SessionPath.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore machinebin userbin
 Describe 'Sync-SessionPath' -Tag 'L0', 'logic' {
     BeforeEach {

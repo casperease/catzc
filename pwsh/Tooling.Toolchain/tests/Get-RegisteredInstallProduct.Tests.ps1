@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-RegisteredInstallProduct' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLATFORMCORES' {
     BeforeEach {
         # The bundle registers only in the 32-bit view and its MSI in the 64-bit one under the same display name, as the .NET installers leave it.

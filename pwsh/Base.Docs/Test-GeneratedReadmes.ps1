@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GeneratedReadmes {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

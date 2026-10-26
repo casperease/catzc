@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/sql-database.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Name of the existing SQL logical server that hosts this database.')
 param serverName string
 

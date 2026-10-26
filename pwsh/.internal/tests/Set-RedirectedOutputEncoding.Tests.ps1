@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Set-RedirectedOutputEncoding.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     $script:sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "redirected-encoding-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $script:sandbox (Get-CatzcModulesFolder)

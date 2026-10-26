@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Initialize-GitClone.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Initialize-GitClone' -Tag 'L0', 'logic' {
     # Every git call goes through Invoke-Executable, so one mock covers the boundary; the config writes are what the tests count.
     BeforeEach {

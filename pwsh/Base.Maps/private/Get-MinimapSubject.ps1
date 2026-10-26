@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Get-MinimapSubject.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-MinimapSubject {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

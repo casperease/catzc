@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-code-meta/Get-CodeMetaState.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CodeMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

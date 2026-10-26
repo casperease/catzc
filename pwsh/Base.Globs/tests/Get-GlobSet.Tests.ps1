@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The typed read of globs.yml: all sets in registry order, named lookup, throwing on an unknown name.
 Describe 'Get-GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {

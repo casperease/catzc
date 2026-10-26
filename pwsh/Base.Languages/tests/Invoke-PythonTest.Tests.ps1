@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the seams: a fixture root, a managed uv at a path with a space, and a canned JUnit report.

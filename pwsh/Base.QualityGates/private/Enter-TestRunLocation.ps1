@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Enter-TestRunLocation.ps1.md"
-  header: "generated"
----
-#>
-
 function Enter-TestRunLocation {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

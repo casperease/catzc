@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md"
-#   header: "generated"
-# ---
-
 # Empty on purpose: the default inspiration is declared once on its type, so a fresh checkout and an empty file read the same.
 {}

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FunctionFileViolation {
     [CmdletBinding()]
     [OutputType([string])]

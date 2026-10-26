@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/CommentEngine.cs.md"
-  header: "generated"
----
-*/
-
 // Pure functions over text, so the move and its inverse are provable on fixtures and each comment keeps one living copy.
 
 using System;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-FunctionDependencyTree.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FunctionDependencyTree {
     [CmdletBinding()]
     param(

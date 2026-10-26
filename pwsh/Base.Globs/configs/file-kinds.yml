@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md"
-#   header: "generated"
-# ---
-
 kinds:
   comment-page:
     definition: The page that holds the long comments moved out of one code or config file.

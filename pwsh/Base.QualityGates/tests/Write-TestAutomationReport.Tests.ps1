@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationReport.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Write-TestAutomationReport' -Tag 'L0', 'logic' {
     BeforeAll {
         # Rows are the plain per-test shape the reducer produces; the report never sees a live Pester object.

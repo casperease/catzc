@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Get-PathFileType.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PathFileType {
     [CmdletBinding()]
     [OutputType([string])]

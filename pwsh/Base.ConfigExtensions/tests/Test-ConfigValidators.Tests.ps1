@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config-extensions/tests/Test-ConfigValidators.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The gate lists private validators from each module's own scope, so the fixtures are modules, not loose functions.
 Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     BeforeAll {

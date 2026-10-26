@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore deweuzctsmplst
 function Get-BicepResourceName {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',

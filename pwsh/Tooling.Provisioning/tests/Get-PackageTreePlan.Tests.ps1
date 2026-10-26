@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-PackageTreePlan.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-PackageTreePlan' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-FixtureFile {

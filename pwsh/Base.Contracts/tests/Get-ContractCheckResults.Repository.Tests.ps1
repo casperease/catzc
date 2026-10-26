@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Repository.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ContractCheckResults on the repository' -Tag 'L1', 'integrity', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     It 'checks every asset of every unit''s draft without error' {
         $assets = @(Get-Contract)

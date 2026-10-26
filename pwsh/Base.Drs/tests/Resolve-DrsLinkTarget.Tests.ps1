@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Resolve-DrsLinkTarget.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-DrsLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'adr'

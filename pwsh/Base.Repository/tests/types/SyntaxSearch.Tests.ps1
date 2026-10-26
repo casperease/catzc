@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Each compiled search returns exactly what a PowerShell predicate over FindAll returns, so swapping one for the other changes nothing.
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {
     BeforeAll {

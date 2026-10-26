@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../docs/references/github/workflows/release-automation.yml.md"
-#   header: "generated"
-# ---
-
 name: Release
 
 on:

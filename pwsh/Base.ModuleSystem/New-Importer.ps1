@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/New-Importer.ps1.md"
-  header: "generated"
----
-#>
-
 function New-Importer {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-ChangedGlobSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         # Neutral names, so the shipped globs.yml never changes this test; 'report' overlaps 'widget' to prove registry order.

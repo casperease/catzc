@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-drs/tests/types/DrsChecksConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     Context 'defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         It 'gives every check the gate mode and empty lists when the file states nothing' {

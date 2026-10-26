@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-RootConfigFiles {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

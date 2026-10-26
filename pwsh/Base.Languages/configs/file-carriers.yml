@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md"
-#   header: "generated"
-# ---
-
 carriers:
   # Front matter is the Markdown convention, and the reserved catzc key is the block.
   markdown: { carrier: front-matter }

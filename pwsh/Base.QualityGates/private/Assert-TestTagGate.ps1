@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Assert-TestTagGate.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-TestTagGate {
     [CmdletBinding()]
     param(

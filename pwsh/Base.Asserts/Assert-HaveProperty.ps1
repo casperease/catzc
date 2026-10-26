@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-HaveProperty.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-HaveProperty {
     [CmdletBinding()]
     param(

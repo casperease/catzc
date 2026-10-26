@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoUnboundedEnumeration.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoUnboundedEnumeration' -Tag 'L0', 'logic', 'ADR-PWSH-ENUM-RAWDOTNETENUMERATION', 'ADR-PWSH-ENUM-ALWAYSBOUNDED' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoUnboundedEnumeration.psm1') -Force

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-MarkdownTitleEngine.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-MarkdownTitleEngine {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

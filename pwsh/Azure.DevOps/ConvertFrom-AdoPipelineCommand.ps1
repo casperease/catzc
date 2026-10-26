@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/ConvertFrom-AdoPipelineCommand.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertFrom-AdoPipelineCommand {
     [CmdletBinding()]
     [OutputType([string])]

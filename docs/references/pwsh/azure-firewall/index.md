@@ -34,7 +34,7 @@ Responsibility 1 is the one place the authored source is parsed, so every projec
 is a set of pure renderers over those rules — none of them feeds back into the source, and adding a new output shape means adding another
 projection, not another source of truth. The result is the everything-as-code discipline applied to a network artifact: the spreadsheet is
 the source people edit, version control holds it, and the YAML and Markdown are generated, never hand-maintained (see
-[everything-as-code](../../drs/principles/everything-as-code.md)).
+[everything-as-code](../../../drs/principles/everything-as-code.md)).
 
 ## Division
 

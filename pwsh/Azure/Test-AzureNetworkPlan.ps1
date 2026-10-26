@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AzureNetworkPlan {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

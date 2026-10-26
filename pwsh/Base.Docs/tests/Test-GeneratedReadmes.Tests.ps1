@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Test-GeneratedReadmes.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterInputFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GeneratedWriterInputFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

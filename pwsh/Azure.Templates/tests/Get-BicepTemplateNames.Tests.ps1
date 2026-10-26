@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplateNames.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-BicepTemplateNames' -Tag 'L0', 'logic' {
     # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {

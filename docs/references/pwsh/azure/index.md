@@ -3,7 +3,7 @@
 The Azure identity module. It owns the _model_ behind every Azure deployment — the tenants, customers, environments, and subscriptions the
 platform deploys into, and the network plan that overlays them — and the resolution logic that turns a name into the full identity the rest
 of the Azure stack needs. It holds the source-of-truth configuration; the templating module
-([Catzc.Azure.Templates](catzc-azure-templates.md)) consumes it.
+([Catzc.Azure.Templates](../azure-templates/index.md)) consumes it.
 
 ## Responsibilities
 
@@ -23,8 +23,8 @@ subscription, a spoke in each customer subscription, with no two networks overla
 configuration assets, `azure.yml`, `customer.yml` (the customers) and `network.yml`, and is the single source of truth the whole Azure stack
 resolves against; a quality gate keeps the IP plan in step with the environments and subscriptions. The live identities these files carry
 are declared in `identity-tokens.yml`, so a hermetic logic test that names one is found
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). See
-[data-model](../../drs/azure/azure-data-model.md) and [network-model](../../drs/azure/azure-network-model.md).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). See
+[data-model](../../../drs/azure/azure-data-model.md) and [network-model](../../../drs/azure/azure-network-model.md).
 
 ### responsibility:2 — Subscription resolution
 
@@ -141,7 +141,7 @@ layout:
   g-azure-env: { x: 950, y: 346, w: 200, h: 40 }
 ```
 
-![Azure identities resolve from config; session must match one](.assets/azure-identity-resolves-from-config.drawio.png)
+![Azure identities resolve from config; session must match one](../.assets/azure-identity-resolves-from-config.drawio.png)
 
 ## Division
 

@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/vnet-peering.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Name of the existing local virtual network (in the deployment resource group).')
 param virtualNetworkName string
 

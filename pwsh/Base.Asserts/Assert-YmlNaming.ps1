@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-YmlNaming.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-YmlNaming {
     [CmdletBinding()]
     param(

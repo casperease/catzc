@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Repository.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Repository code links (automation comments)' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)

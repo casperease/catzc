@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-drs/tests/types/DrsDomainEdge.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DrsDomainEdge' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'carries its From and To domains' {
         $edge = [Catzc.Base.Drs.DrsDomainEdge]::new('widget', 'gadget')

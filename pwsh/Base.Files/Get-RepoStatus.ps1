@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Get-RepoStatus.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RepoStatus {
     [CmdletBinding()]
     [OutputType([string])]

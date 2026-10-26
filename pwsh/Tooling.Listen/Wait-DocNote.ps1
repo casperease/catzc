@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Wait-DocNote.ps1.md"
-  header: "generated"
----
-#>
-
 function Wait-DocNote {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

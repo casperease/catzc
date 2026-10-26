@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-root-config/New-GitAttributes.ps1.md"
-  header: "generated"
----
-#>
-
 function New-GitAttributes {
     [CmdletBinding()]
     [OutputType([string])]

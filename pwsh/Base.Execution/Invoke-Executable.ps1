@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md"
-  header: "generated"
----
-#>
-
 # -DryRun, not -WhatIf; the result splits Output (stdout), Errors (stderr), Full (merged in order), ExitCode and Raw.
 function Invoke-Executable {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingInvokeExpression', '',

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Save-FileMetaResult.ps1.md"
-  header: "generated"
----
-#>
-
 function Save-FileMetaResult {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

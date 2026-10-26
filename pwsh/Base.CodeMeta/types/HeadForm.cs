@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/HeadForm.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Generic;
 

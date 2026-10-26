@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore mispeld
 Describe 'Test-Spelling' -Tag 'L0', 'logic' {
     BeforeEach {

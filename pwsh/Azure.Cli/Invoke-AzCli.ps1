@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Invoke-AzCli.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-AzCli {
     [CmdletBinding()]
     param(

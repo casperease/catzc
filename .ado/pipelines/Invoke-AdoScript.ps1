@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/ado/pipelines/Invoke-AdoScript.ps1.md"
-  header: "generated"
----
-#>
-
 param(
     [Parameter(Mandatory)]
     [string] $Command,

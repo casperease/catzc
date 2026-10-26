@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-file-limits/tests/Get-FileLimit.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # A file's limits come from its language in the one registry, so a file no language declares fails instead of escaping unlimited.
 Describe 'Get-FileLimit' -Tag 'L0', 'logic' {
     It 'resolves a file by the language that declares it' {

@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/key-vault.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')
 param name string
 

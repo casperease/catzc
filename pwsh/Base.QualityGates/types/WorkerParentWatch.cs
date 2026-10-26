@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/WorkerParentWatch.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.QualityGates;
 
 using System;

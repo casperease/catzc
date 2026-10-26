@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-InIsolation.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-InIsolation' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates {

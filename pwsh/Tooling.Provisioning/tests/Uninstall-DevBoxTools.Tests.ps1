@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-DevBoxTools.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Uninstall-DevBoxTools' -Tag 'L0', 'logic' {
     # The multi-word key (node_js) is the regression guard: unmapped to its PascalCase suffix it silently never dispatches.
     BeforeEach {

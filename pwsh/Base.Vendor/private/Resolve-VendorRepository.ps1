@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vendor/private/Resolve-VendorRepository.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-VendorRepository {
     [CmdletBinding()]
     [OutputType([string])]

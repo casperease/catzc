@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatus.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Tooling.Provisioning;

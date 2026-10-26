@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/subnet.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Name of the existing virtual network (in the deployment resource group).')
 param virtualNetworkName string
 

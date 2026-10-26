@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Import-VendoredPester.ps1.md"
-  header: "generated"
----
-#>
-
 function Import-VendoredPester {
     [CmdletBinding()]
     param()

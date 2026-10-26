@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-AdoEnvironmentApprovals {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

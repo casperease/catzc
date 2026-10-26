@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-GitKeep {
     [CmdletBinding()]
     [OutputType([string[]])]

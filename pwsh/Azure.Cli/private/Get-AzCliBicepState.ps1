@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-cli/private/Get-AzCliBicepState.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzCliBicepState {
     param()
 

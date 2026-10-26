@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Convert-FirewallCsvToYaml' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Firewall) 'tests/assets'

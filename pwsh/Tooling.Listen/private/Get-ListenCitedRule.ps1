@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenCitedRule.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ListenCitedRule {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestAutomationRuleCoverage.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
     BeforeAll {
         # A fake rule universe keeps the writer a pure function of its inputs.

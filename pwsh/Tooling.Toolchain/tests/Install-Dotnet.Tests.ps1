@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Dotnet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Dotnet — shipped install scripts' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         $script:installDirectory = Join-Path $TestDrive 'dotnet-widget'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Set-CurrentAzSubscription.ps1.md"
-  header: "generated"
----
-#>
-
 function Set-CurrentAzSubscription {
     [CmdletBinding()]
     param(

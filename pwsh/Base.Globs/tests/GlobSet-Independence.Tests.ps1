@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'GlobSet independence' -Tag 'L2', 'integrity', 'source-only' {
     It 'every non-loose layer is pairwise-disjoint on OWN membership (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER)' {
         $result = Test-GlobSetIndependence -PassThru -OutputFolder (Join-Path $TestDrive 'globset-independence')

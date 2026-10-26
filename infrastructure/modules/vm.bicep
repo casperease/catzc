@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/vm.bicep.md"
-//   header: "generated"
-// ---
-
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')
 param name string
 

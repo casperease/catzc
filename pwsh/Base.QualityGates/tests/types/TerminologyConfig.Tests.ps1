@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/TerminologyConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:cats = @{

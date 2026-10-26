@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Invoke-WithTimeout.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-WithTimeout {
     [CmdletBinding()]
     param(

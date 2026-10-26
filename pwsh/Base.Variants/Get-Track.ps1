@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Track {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Base.Variants.VariantTrack])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/BicepParams.Fixture.ps1.md"
-  header: "generated"
----
-#>
-
 # A strict stand-in for `bicep build-params` that reads only the forms BicepParamWriter writes and throws on any other line; the real compile is proven at L2.
 $script:readBicepParams = {
     param([string[]] $Lines, [string] $Source)

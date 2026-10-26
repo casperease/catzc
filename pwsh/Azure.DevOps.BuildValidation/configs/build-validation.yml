@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md"
-#   header: "generated"
-# ---
-
 # One build validation per entry, filtered to its globset's paths; a globset is checked when applied, never at load.
 branch: main
 validations:

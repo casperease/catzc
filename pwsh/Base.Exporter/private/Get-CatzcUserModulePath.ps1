@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-exporter/private/Get-CatzcUserModulePath.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatzcUserModulePath {
     [CmdletBinding()]
     [OutputType([string])]

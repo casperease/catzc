@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Get-UvVenvDir.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-UvVenvDir {
     [OutputType([string])]
     [CmdletBinding()]

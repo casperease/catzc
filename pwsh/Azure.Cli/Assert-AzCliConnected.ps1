@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliConnected.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AzCliConnected {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]
     param(

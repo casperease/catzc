@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestBlockTag.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestBlockTag {
     [CmdletBinding()]
     [OutputType([string[]])]

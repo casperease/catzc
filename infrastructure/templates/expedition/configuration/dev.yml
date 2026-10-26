@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/infrastructure/templates/expedition/configuration/dev.yml.md"
-#   header: "generated"
-# ---
-
 ParametersFile:
   parameters:
     tags:

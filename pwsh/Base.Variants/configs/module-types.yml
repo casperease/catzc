@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-variants/configs/module-types.yml.md"
-#   header: "generated"
-# ---
-
 module_types:
   pwsh-folder:
     definition: A PowerShell module that is a folder of function files under the track folder, named by the folder.

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsDomain.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections.Generic;
 
 namespace Catzc.Base.Drs;

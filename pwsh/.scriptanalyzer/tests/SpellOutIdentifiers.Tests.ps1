@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/SpellOutIdentifiers.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-SpellOutIdentifiers' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/SpellOutIdentifiers.psm1') -Force

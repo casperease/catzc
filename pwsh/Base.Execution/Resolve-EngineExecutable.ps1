@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Resolve-EngineExecutable.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-EngineExecutable {
     [CmdletBinding()]
     [OutputType([string])]

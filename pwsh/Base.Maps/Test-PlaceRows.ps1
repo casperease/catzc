@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Test-PlaceRows.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-PlaceRows {
     [CmdletBinding()]
     [OutputType([string])]

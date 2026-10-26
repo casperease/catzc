@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/link-directions.yml.md"
-#   header: "generated"
-# ---
-
 rows:
   - relations: [convention]
     to: { classes: [comment-page] }

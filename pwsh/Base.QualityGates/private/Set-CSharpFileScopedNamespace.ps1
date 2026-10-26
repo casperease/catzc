@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Set-CSharpFileScopedNamespace.ps1.md"
-  header: "generated"
----
-#>
-
 function Set-CSharpFileScopedNamespace {
     [CmdletBinding()]
     [OutputType([string])]

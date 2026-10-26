@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         # Each row: path, track, file language, stack violation; every file is live.

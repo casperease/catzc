@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-EngineContract {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

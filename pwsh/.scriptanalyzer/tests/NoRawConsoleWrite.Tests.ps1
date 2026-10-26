@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoRawConsoleWrite.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoRawConsoleWrite' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoRawConsoleWrite.psm1') -Force

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.Integrity.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Shipped template integrity' -Tag 'L0', 'integrity' {
     BeforeAll {
         # Discovery throws on a naming, schema or identity violation; capturing the outcome lets each facet report cleanly instead of aborting the block.

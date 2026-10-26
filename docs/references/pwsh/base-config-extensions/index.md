@@ -1,9 +1,9 @@
 # Catzc.Base.ConfigExtensions
 
 The PowerShell extension point for config validation. Core configs validate through their C# config type when `Get-Config` loads them (see
-[Catzc.Base.Config](catzc-base-config.md)). A config whose owner cannot ship a C# type validates here instead: through a PowerShell
+[Catzc.Base.Config](../base-config/index.md)). A config whose owner cannot ship a C# type validates here instead: through a PowerShell
 validator that receives the parsed dictionary and throws on a violation. This is the form for tracks and deployable-units that carry their
-own configuration on PowerShell extension points (see [module-config-loading](../../drs/configuration/module-config-loading.md), the
+own configuration on PowerShell extension points (see [module-config-loading](../../../drs/configuration/module-config-loading.md), the
 PowerShell extension point). The module deliberately does **not** load configs, and core configs never use it.
 
 ## Responsibilities

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/infrastructure/templates/discovery/options.yml.md"
-#   header: "generated"
-# ---
-
 short_name: disco
 deployment_target: Subscription
 environment_kind: subscription

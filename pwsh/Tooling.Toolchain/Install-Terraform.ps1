@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Terraform.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Terraform {
     [CmdletBinding()]
     param(

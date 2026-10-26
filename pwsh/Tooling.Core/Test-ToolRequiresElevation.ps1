@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Test-ToolRequiresElevation.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ToolRequiresElevation {
     [CmdletBinding()]
     [OutputType([bool])]

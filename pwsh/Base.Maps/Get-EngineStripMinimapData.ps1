@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-EngineStripMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

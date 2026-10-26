@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-modules/tests/Get-CatzcModule.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Rests on [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     BeforeAll {

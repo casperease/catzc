@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.IO;
 using System.Security.Cryptography;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md"
-  header: "generated"
----
-#>
-
 function Export-SpellingTriage {
     [CmdletBinding()]
     [OutputType([string[]])]

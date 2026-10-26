@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Read-CommandSignature.ps1.md"
-  header: "generated"
----
-#>
-
 function Read-CommandSignature {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractCommand])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractSchema.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     BeforeAll {
         function Get-SchemaFinding {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-PythonTypes.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-PythonTypes {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

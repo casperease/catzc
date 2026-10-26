@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md"
-  header: "generated"
----
-#>
-
 # -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Build-Modules {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',

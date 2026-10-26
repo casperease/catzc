@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryFormViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = {

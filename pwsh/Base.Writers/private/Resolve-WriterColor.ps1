@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-writers/private/Resolve-WriterColor.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-WriterColor {
     [CmdletBinding()]
     [OutputType([hashtable])]

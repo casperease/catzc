@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Update-DocSnapshot.ps1.md"
-  header: "generated"
----
-#>
-
 function Update-DocSnapshot {
     [CmdletBinding()]
     param(

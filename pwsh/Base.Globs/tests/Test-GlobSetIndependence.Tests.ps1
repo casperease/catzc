@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-GlobSetIndependence' -Tag 'L0', 'logic' {
     BeforeAll {
         # A globset fixture: Name, Layer, and SelectOwnMembers over the tracked files by path prefix.

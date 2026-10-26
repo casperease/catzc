@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md"
-#   header: "generated"
-# ---
-
 # The one source of the root .gitignore: each section renders as a titled, explained block; an inject section takes its patterns from the caller.
 sections:
   - id: local

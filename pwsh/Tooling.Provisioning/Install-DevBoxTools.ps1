@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Install-DevBoxTools.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-DevBoxTools {
     [CmdletBinding()]
     param(

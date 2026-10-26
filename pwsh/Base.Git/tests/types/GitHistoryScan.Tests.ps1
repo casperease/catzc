@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'GitHistoryScan' -Tag 'L0', 'logic' {
     BeforeAll {
         # A hand-built cat-file --batch stream; ids are made up, since the scan indexes by id and never re-hashes.

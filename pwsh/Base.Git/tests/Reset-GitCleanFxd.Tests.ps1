@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/tests/Reset-GitCleanFxd.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Reset-GitCleanFxd' -Tag 'L0', 'logic' {
     # git's dry-run listing is the one boundary; the whitelist is mocked, so only classification is exercised.
     BeforeEach {

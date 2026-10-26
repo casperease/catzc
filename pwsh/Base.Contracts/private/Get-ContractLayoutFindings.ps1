@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractLayoutFindings.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractLayoutFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../../docs/references/infrastructure/templates/foundation/main.bicep.md"
-//   header: "generated"
-// ---
-
 param location string = resourceGroup().location
 
 param logAnalyticsName string

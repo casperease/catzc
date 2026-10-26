@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Build-TrackGlobSets.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-TrackGlobSets {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

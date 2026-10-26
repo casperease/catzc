@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/resource-group.bicep.md"
-//   header: "generated"
-// ---
-
 targetScope = 'subscription'
 
 @description('Resource group name (1-90 characters, unique within the subscription).')

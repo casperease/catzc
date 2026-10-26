@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestRunFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestRunFile' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

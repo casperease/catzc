@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-RuffFormat.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-RuffFormat {
     [CmdletBinding()]
     [OutputType([string[]])]

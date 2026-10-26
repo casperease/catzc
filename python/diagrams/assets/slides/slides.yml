@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../docs/references/python/diagrams/assets/slides/slides.yml.md"
-#   header: "generated"
-# ---
-
 token:
   bg: "#1B2A41" # the deck's base dark tone
   bg_deep: "#14213A" # the second dark tone; patterns alternate the two so neighbouring slides read as different pages

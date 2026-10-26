@@ -2,7 +2,7 @@
 
 The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text
 ([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
-It produces [GlossarySegment](GlossarySegment.cs.md)s, which [GlossaryScan](GlossaryScan.cs.md) reads.
+It produces [GlossarySegment](glossary-segment.md)s, which [GlossaryScan](glossary-scan.md) reads.
 
 ## What a file yields
 

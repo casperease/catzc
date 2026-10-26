@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Get-DrsCitationGraphViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{

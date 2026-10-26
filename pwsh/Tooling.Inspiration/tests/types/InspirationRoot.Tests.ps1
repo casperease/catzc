@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationRoot.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The platform is a parameter, so the Windows and the Unix branches both run on whichever system runs the tests.
 Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
     Context 'ToNative' {

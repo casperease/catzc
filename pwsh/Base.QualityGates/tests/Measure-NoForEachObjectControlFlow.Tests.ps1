@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Measure-NoForEachObjectControlFlow.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     $rulePath = Join-Path -Path $PSScriptRoot -ChildPath '..\..' -AdditionalChildPath '.scriptanalyzer', 'NoForEachObjectControlFlow.psm1' | Resolve-Path
     Import-Module $rulePath -Force

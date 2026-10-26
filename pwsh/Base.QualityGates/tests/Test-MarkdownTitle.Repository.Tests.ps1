@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-MarkdownTitle.Repository.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Repository Markdown titles' -Tag 'L2', 'integrity', 'source-only' {
     It 'every in-scope Markdown file is titled with its repository path' -Tag 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
         if (-not (Get-Command git -ErrorAction Ignore)) {

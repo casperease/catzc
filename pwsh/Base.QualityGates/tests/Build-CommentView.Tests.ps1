@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Build-CommentView.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-CommentView' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

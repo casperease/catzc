@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-LogicTestIdentity.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-LogicTestIdentity' -Tag 'L1', 'integrity', 'source-only' {
     It 'the automation test tree is free of live-identity leaks in logic tests' {
         $result = Test-LogicTestIdentity -PassThru -OutputFolder (Join-Path $TestDrive 'logic-test-identity')

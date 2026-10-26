@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractValue.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     It 'reads <Text> as <Kind>' -ForEach @(
         @{ Text = 'null'; Kind = 'null' }

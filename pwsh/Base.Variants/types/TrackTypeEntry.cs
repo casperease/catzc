@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;

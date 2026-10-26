@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Test-AzCliConnected.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AzCliConnected {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]
     [OutputType([bool])]

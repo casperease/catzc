@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore weuzctsmplst
 function Get-AzureResourceName {
     [CmdletBinding()]

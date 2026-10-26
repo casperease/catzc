@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md"
-#   header: "generated"
-# ---
-
 carried:
   # The track lamps add files.exclude rows at workspace scope and list them under their own key; the render keeps both as they are.
   files.exclude: catzc.trackLamps.owned

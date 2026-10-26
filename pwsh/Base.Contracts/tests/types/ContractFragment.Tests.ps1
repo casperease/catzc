@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractFragment.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractFragment' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     Context 'a key subset of JSON and YAML' {
         BeforeAll {

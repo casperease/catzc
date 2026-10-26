@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-DrsRegistry {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

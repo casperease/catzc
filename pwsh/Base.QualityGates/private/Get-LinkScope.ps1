@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkScope.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-LinkScope {
     [CmdletBinding()]
     [OutputType([string[]])]

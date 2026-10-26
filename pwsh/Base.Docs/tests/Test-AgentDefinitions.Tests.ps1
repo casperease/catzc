@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:out = Join-Path $TestDrive 'out'

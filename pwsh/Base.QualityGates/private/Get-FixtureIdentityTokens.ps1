@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FixtureIdentityTokens.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FixtureIdentityTokens {
     [CmdletBinding()]
     [OutputType([string[]])]

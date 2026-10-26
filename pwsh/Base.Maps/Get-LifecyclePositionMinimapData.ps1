@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-LifecyclePositionMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

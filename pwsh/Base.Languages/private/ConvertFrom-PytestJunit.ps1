@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-PytestJunit.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertFrom-PytestJunit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonTestResult])]

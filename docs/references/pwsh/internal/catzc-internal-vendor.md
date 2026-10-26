@@ -6,7 +6,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 The shared vendored-module loader. It imports the third-party modules under `pwsh/.vendor/<Name>/<Version>/` into the session, and it lives
 in `.internal` for the same reason the other shared libraries do: vendored modules are loaded **before** any `Catzc` module exists (the
 importer loads dependencies first), so the loader cannot live in a `Catzc` module — yet it must also be callable **after** import, by the
-[Catzc.Base.Vendor](../catzc-base-vendor.md) cover functions that delegate to it. One implementation, two callers (see
+[Catzc.Base.Vendor](../base-vendor/index.md) cover functions that delegate to it. One implementation, two callers (see
 [one-living-version](../../../drs/principles/one-living-version.md)). Like Types and the Loader, it is **resident** — kept in the session,
 not removed with the transient bootstrap — and is loaded on demand through `Import-InternalModule Vendor`.
 
@@ -39,7 +39,7 @@ loaded without a gallery restore — is the subject of the
 - ADR: [vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step.
 - ADR: [one-living-version](../../../drs/principles/one-living-version.md) — why the loader is shared by both layers.
 - ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
-- Reference: [Catzc.Base.Vendor](../catzc-base-vendor.md) — the post-import cover functions that add, remove, and validate vendored modules
+- Reference: [Catzc.Base.Vendor](../base-vendor/index.md) — the post-import cover functions that add, remove, and validate vendored modules
   and delegate here; the [internal area overview](index.md).
 
 ## comment:1

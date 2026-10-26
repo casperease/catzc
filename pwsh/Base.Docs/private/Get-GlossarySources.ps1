@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossarySources {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

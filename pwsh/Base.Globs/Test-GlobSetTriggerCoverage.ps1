@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GlobSetTriggerCoverage {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

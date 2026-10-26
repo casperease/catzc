@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractCheckResult.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractCheckResult' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'gadget.md',

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/tests/Test-RootAnalyzerSettings.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-RootAnalyzerSettings' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:settingsPath = Join-Path $TestDrive 'repo/PSScriptAnalyzerSettings.psd1'

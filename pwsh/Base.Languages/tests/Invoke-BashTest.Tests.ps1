@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-BashTest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the seams: a fixture root with a stub bats, a mocked engine probe and a mocked bash.

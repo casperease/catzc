@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryFormViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossaryFormViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

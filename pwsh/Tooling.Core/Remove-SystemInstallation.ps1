@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Remove-SystemInstallation.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-SystemInstallation {
     [CmdletBinding()]
     param(

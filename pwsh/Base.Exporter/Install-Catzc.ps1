@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md"
-  header: "generated"
----
-#>
-
 # -DryRun, not ShouldProcess or -WhatIf: the branch comes before any side effect.
 function Install-Catzc {
     [CmdletBinding(DefaultParameterSetName = 'Root')]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestExcludeTag.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestExcludeTag' -Tag 'L0', 'logic' {
     It 'a Logic L0/L1 run excludes the higher tiers and integrity' {
         InModuleScope Catzc.Base.QualityGates {

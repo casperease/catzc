@@ -4,9 +4,9 @@ Owns the test languages beside PowerShell: Go, Python and Bash, whose code in th
 declares the generated workspace once (`go.yml`, `python.yml`) and renders the generated files from it (`go.work` and a `go.mod` per module;
 a uv workspace root and a member `pyproject.toml` per module); for Bash it declares the vendored test runner's pin (`bash.yml`); and for
 each it runs a catzc module's tests, returning one result per test. It does not install the tools (that is
-[Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
-[Catzc.Base.RootConfig](catzc-base-root-config.md)'s, per [ADR-REPO-ROOTCFG](../../drs/repository/generated-root-configs.md)), or turn the
-results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-quality-gates.md)). It also
+[Catzc.Tooling.Toolchain](../tooling-toolchain/index.md)'s and the uv tooling's), write the rendered files (that is
+[Catzc.Base.RootConfig](../base-root-config/index.md)'s, per [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md)), or turn the
+results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](../base-quality-gates/index.md)). It also
 holds the file-language registry every tracked file is placed by, a name's form in each language's idiom, and the head that says which
 generator wrote a generated file.
 
@@ -32,14 +32,14 @@ path from the tool's `tools.yml` entry, never a bare `go` off `PATH`; when none 
 stops and names `Install-Go`. A run fetches the declared dependencies (which records `go.sum`), vets the test packages, and runs every test
 uncached as a `go test -json` event stream, each command inside its time safeguard. The tests are black-box: they start the engine and
 assert on its output, and how to start it reaches them through the environment, from the execution engine model
-([ADR-AUTO-ENGINE](../../drs/automation/execution-engines.md)) — `CATZC_ENGINE_EXECUTABLE` names the engine's executable and
+([ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)) — `CATZC_ENGINE_EXECUTABLE` names the engine's executable and
 `CATZC_ENGINE_START` its start arguments, which load the repository's `importer.ps1` for the source run or the build's `Import-Catzc.ps1`
 for the build run and end in the test's command; `CATZC_REPOSITORY_ROOT` names the repository root. They are set for the run only and
 restored afterwards.
 
 The event stream becomes one result per top-level Go test: its package, name, outcome (`pass`, `fail`, or `skip`), duration, everything it
 printed, and its category. Subtests fold into their parent. The category comes from the name, in one place, the result type: a
-`TestIntegrity*` test is `integrity`, every other test is `logic` ([ADR-AUTO-TEST-ONECATEGORY](../../drs/automation/test-automation.md)). A
+`TestIntegrity*` test is `integrity`, every other test is `logic` ([ADR-AUTO-TEST-ONECATEGORY](../../../drs/automation/test-automation.md)). A
 failing Go test is a result, not an error; a run throws, with the go output, only when `go vet` fails, when a test package does not build,
 or when a package fails outside any test.
 
@@ -47,11 +47,11 @@ or when a package fails outside any test.
 
 The one declared definition of the Go test workspace and its rendering. `go.yml` holds the Go root, the module-path prefix, and the test
 dependencies. The Go root defaults to `go` when the repository has a `go/` folder (a Go root track), else to `.go`, the dot-prefixed tooling
-folder ([ADR-REPO-FOLDERS](../../drs/repository/conventional-folders.md)); a declared `root` places it anywhere else. `go.work` always stays
+folder ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-folders.md)); a declared `root` places it anywhere else. `go.work` always stays
 at the repository root, the idiomatic workspace place that an editor's Go language server finds with no setting, and its `use` entries name
 every test module explicitly, so both layouts load the same in every editor. The go directive is the `go` tool's pin in `tools.yml`, the one
 Go version, so the workspace never asks for a newer toolchain than the managed one. Each `go.yml` key is optional, and its sensible default
-is declared once on the config type ([ADR-AUTO-DEFAULT](../../drs/automation/sensible-defaults.md)), which also validates the file at load
+is declared once on the config type ([ADR-AUTO-DEFAULT](../../../drs/automation/sensible-defaults.md)), which also validates the file at load
 and reports every violation at once. The renderer discovers the Go test folders and composes `go.work` (the go directive and one sorted
 `use` entry per folder) and each folder's `go.mod` (the module path `<module_root>/<folder>`, the go directive, and the sorted requires).
 Rendering is pure text — offline, with no go call — and byte-stable, so the generated files are drift-checked like every other managed file.
@@ -60,7 +60,7 @@ generated and gitignored.
 
 ### responsibility:3 — Python test runs
 
-Running one catzc module's Python tests and reporting each one ([ADR-AUTO-PY](../../drs/automation/python/python-test-artifacts.md)). The
+Running one catzc module's Python tests and reporting each one ([ADR-AUTO-PY](../../../drs/automation/python/python-test-artifacts.md)). The
 tests live in `<root>/tests/<module-in-kebab>/` under the Python root, and every test folder is a member of the one generated uv workspace
 there, with one environment for all of them. A run uses the managed `uv`, located by its path from the tool's `tools.yml` entry, and the
 uv-managed interpreter at the `python` pin; uv never downloads an interpreter during a run, so a missing one stops the run with the remedy
@@ -77,7 +77,7 @@ without a failing test (a collection error, or no tests).
 
 The one declared definition of the Python test workspace and its rendering. `python.yml` holds the Python root and the test dependencies,
 pinned exactly — `pytest` and `ruff` are required. The Python root defaults, by the convention every test language's root follows, to
-`python` when the repository has a `python/` folder, else to `.python` ([ADR-REPO-FOLDERS](../../drs/repository/conventional-folders.md)); a
+`python` when the repository has a `python/` folder, else to `.python` ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-folders.md)); a
 declared `root` places it anywhere else. The renderer composes uv's monorepo layout: the workspace root `<root>/pyproject.toml`, virtual (no
 project of its own), naming every member explicitly and carrying the ruff settings that match the repository (a 140-column line, the pinned
 Python as target); and one member `<root>/tests/<folder>/pyproject.toml` per Python test folder, a virtual project named for the folder
@@ -87,7 +87,7 @@ lock; both, and the workspace files, are generated and gitignored.
 
 ### responsibility:5 — Bash test runs
 
-Running one catzc module's Bash tests and reporting each one ([ADR-AUTO-BASH](../../drs/automation/bash/bash-test-artifacts.md)). The tests
+Running one catzc module's Bash tests and reporting each one ([ADR-AUTO-BASH](../../../drs/automation/bash/bash-test-artifacts.md)). The tests
 are `.bats` files in `<root>/tests/<module-in-kebab>/` under the Bash root, which defaults, by the convention every test language's root
 follows, to `bash` when the repository has a `bash/` folder, else to `.bash`. They run on the bats-core runner vendored under the Bash root
 at `.vendor/bats-core/`, whose release and archive digest `bash.yml` pins, under the bash engine only, from the Bash root, with a JUnit
@@ -103,9 +103,9 @@ test.
 ### responsibility:6 — File-language registry
 
 Which file language every tracked file is written in. `languages.yml` names each language by its extensions, every extension in exactly one
-language ([DDR-TRACK-FILELANGUAGE](../../drs/design/tracks.md#rule-ddr-track-filelanguage)), and configures each language's formatter and
+language ([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), and configures each language's formatter and
 checks; a path's file type is its extension, the sort of file inside its language. `file-carriers.yml` says where each class of file keeps
-its meta block, or why it has none ([file-meta](../../drs/repository/file-meta.md)). `bcl.yml` is the C# language's own settings: its one
+its meta block, or why it has none ([file-meta](../../../drs/repository/file-meta.md)). `bcl.yml` is the C# language's own settings: its one
 build configuration and platform, and the type sources that bind to a host, each with its reason.
 
 ### responsibility:7 — Names across languages
@@ -126,12 +126,12 @@ folder per catzc module — which is also how the test harness maps the Go tests
 folder name has one source: `TestFolderOf` on the `LanguagesConfig` type (the languages registry's naming case), which `Invoke-GoTest`,
 `Invoke-PythonTest` and `Invoke-BashTest` each call, so no run derives a test folder name of its own.
 
-The module sits on [Catzc.Base.Config](catzc-base-config.md) for `go.yml` and the `tools.yml` pin (read by address, as global config
-access), [Catzc.Base.Objects](catzc-base-objects.md) for the config type's record base, [Catzc.Base.Repository](catzc-base-repository.md)
-for the repository root, and [Catzc.Base.Execution](catzc-base-execution.md) for locating the managed `go` and running the go commands,
-whose time limit is the `go` entry of [Catzc.Base.Timeouts](catzc-base-timeouts.md)' `timeouts.yml`. The root-config registry names the
+The module sits on [Catzc.Base.Config](../base-config/index.md) for `go.yml` and the `tools.yml` pin (read by address, as global config
+access), [Catzc.Base.Objects](../base-objects/index.md) for the config type's record base, [Catzc.Base.Repository](../base-repository/index.md)
+for the repository root, and [Catzc.Base.Execution](../base-execution/index.md) for locating the managed `go` and running the go commands,
+whose time limit is the `go` entry of [Catzc.Base.Timeouts](../base-timeouts/index.md)' `timeouts.yml`. The root-config registry names the
 renderer as the generator of the `go.work` and `go.mod` targets — one record per file, written by
-[Catzc.Base.RootConfig](catzc-base-root-config.md) — and the harness's language bridge calls the run once per mapped module, tagging every
+[Catzc.Base.RootConfig](../base-root-config/index.md) — and the harness's language bridge calls the run once per mapped module, tagging every
 result `L2` with its category. Python follows the same shape — a uv workspace root in place of `go.work`, a member `pyproject.toml` in place
 of each `go.mod` — with one environment and one lock for the whole workspace; the renderer is the generator of the workspace targets, and
 the same bridge calls the Python run. Bash needs no workspace: its runner is vendored, and the same bridge calls the Bash run under the bash

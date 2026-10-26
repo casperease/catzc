@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-types-system/configs/generated.yml.md"
-#   header: "generated"
-# ---
-
 # What the types system writes: the combined types manifest, the IDE-only project's output, and the compiled agent hooks.
 targets:
   - { path: pwsh/.compiled/**, generator: Catzc.Internal.Loader }

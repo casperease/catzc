@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Write-DiagramQueryRows.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-DiagramQueryRows {
     [CmdletBinding()]
     [OutputType([string])]

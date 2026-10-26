@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/configs/glossary.yml.md"
-#   header: "generated"
-# ---
-
 # Every option takes its default, so this source declares only the inspiration vocabulary and never narrows what the checks read.
 concepts:
   inspiration:

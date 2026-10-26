@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Shellcheck.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Shellcheck {
     [CmdletBinding()]
     param(

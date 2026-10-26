@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/CitationSite.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 // One place a file cites a record: the file, the 1-based line, the canonical citation, and the kind of text it sits in.

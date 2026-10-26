@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure/configs/network.yml.md"
-#   header: "generated"
-# ---
-
 # The single source of vnet and subnet ranges, keyed by azure.yml environment name.
 environments:
   dev:

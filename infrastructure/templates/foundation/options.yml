@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/infrastructure/templates/foundation/options.yml.md"
-#   header: "generated"
-# ---
-
 short_name: fnd
 environment_kind: subscription

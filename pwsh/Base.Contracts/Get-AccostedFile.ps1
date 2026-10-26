@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Get-AccostedFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AccostedFile {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.AccostedFile])]

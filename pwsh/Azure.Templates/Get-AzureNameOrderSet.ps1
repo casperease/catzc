@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-AzureNameOrderSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureNameOrderSet {
     param()
 

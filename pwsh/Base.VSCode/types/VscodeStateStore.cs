@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/types/VscodeStateStore.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Runtime.InteropServices;
 using System.Text;

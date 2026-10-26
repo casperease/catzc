@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/types/FunctionCall.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.ModuleSystem;

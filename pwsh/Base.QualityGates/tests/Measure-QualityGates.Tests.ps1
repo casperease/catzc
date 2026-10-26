@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Measure-QualityGates.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The fixture gates declare the parameters a real quality gate takes; what they return does not depend on them')]
 param()

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-PlanStepCount.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-PlanStepCount {
     [CmdletBinding(DefaultParameterSetName = 'Text')]
     [OutputType([pscustomobject], ParameterSetName = 'Text')]

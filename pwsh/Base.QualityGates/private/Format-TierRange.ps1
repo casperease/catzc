@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Format-TierRange.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-TierRange {
     [OutputType([string])]
     param(

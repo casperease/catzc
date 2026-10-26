@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Assert-BicepParamSlot.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-BicepParamSlot {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Save-VerifiedDownload.ps1.md"
-  header: "generated"
----
-#>
-
 function Save-VerifiedDownload {
     [CmdletBinding()]
     [OutputType([string])]

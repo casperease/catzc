@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md"
-  header: "generated"
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 function Import-VendorModules {

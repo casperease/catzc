@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-RootAnalyzerSettings {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

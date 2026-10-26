@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRuleTags.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestRuleTags {
     [CmdletBinding()]
     [OutputType([string[]])]

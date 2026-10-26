@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-MapLabelTerm {
     [CmdletBinding()]
     [OutputType([string])]

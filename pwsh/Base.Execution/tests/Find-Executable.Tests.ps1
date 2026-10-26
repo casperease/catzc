@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Find-Executable.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Find-Executable' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'executables'

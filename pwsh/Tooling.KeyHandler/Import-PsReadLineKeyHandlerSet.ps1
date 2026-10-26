@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-key-handler/Import-PsReadLineKeyHandlerSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Import-PsReadLineKeyHandlerSet {
     [CmdletBinding()]
     param(

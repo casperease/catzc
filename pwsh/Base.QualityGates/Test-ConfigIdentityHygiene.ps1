@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ConfigIdentityHygiene.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ConfigIdentityHygiene {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

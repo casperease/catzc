@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/TestTiers.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Timeouts;
 
 // The test tiers, once: the tier tags a test may carry and the top tier a run includes by default.

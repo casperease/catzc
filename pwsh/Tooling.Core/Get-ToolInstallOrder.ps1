@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-ToolInstallOrder.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ToolInstallOrder {
     [OutputType([string[]])]
     param()

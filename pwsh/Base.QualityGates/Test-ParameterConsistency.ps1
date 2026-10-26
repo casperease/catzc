@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ParameterConsistency {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

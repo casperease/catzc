@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/PdfDocument.cs.md"
-  header: "generated"
----
-*/
-
 // cspell:ignore startxref endstream nendobj
 
 using System;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-JavaScriptTypes.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-JavaScriptTypes {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestTagViolations {
     [CmdletBinding()]
     [OutputType([System.Object[]])]

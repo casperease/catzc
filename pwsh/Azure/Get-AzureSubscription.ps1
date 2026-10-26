@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureSubscription {
     [CmdletBinding()]
     param(

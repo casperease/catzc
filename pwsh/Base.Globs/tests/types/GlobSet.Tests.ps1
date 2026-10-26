@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'GlobSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/LanguageNaming.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
     BeforeAll {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Languages.LanguagesConfig]::new($raw) }

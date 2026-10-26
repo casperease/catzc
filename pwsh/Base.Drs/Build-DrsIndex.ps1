@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-DrsIndex {
     [CmdletBinding()]
     [OutputType([string])]

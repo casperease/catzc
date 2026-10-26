@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Shellcheck.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Shellcheck' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Install-Tool -ModuleName Catzc.Tooling.Toolchain { }

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adr = {

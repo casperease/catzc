@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AspectDeclaration {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.IReadOnlyDictionary[string,

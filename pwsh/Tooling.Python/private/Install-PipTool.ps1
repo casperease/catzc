@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-python/private/Install-PipTool.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-PipTool {
     [CmdletBinding()]
     param(

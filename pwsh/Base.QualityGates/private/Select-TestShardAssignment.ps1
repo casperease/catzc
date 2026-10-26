@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Select-TestShardAssignment.ps1.md"
-  header: "generated"
----
-#>
-
 function Select-TestShardAssignment {
     [CmdletBinding()]
     [OutputType([string[]])]

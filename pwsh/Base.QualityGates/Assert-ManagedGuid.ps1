@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Assert-ManagedGuid.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-ManagedGuid {
     [CmdletBinding()]
     param(

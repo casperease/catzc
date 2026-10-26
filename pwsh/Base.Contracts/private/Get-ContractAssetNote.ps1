@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetNote.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractAssetNote {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/ParameterDesign.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/ParameterDesign.psm1') -Force
     if (-not (Get-Module PSScriptAnalyzer)) {

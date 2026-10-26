@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/subscription-diagnostic-setting.bicep.md"
-//   header: "generated"
-// ---
-
 targetScope = 'subscription'
 
 @description('Resource id of the Log Analytics workspace that receives the activity log.')

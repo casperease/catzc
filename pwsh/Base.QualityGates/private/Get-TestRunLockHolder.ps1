@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunLockHolder.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestRunLockHolder {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Import-DrsCitationMapFile {
     [CmdletBinding()]
     [OutputType([hashtable[]])]

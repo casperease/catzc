@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ChangeTestFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ChangeTestFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/New-MinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function New-MinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData])]

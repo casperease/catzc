@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Invoke-Uv.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Uv {
     [CmdletBinding()]
     param(

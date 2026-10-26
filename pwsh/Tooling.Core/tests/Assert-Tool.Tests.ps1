@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Assert-Tool.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Assert-Tool' -Tag 'L0', 'logic' {
     # The probe is mocked whole, so a tool with candidate paths is asserted from the probe record, never by its bare name on PATH.
     BeforeEach {

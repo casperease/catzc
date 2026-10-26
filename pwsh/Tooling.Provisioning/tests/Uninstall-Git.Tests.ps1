@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Git.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Uninstall-Git' -Tag 'L0', 'logic' {
     # The L0 tripwire throws on a real Invoke-Executable, so every filesystem, PATH and CLI boundary is mocked.
     BeforeEach {

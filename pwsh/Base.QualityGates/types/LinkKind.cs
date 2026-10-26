@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkKind.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.QualityGates;

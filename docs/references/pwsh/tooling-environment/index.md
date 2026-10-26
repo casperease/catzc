@@ -4,10 +4,10 @@ The seam that prepares a process's environment before launching a child or exter
 an external consumer through the environment (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS) and to expose committed config values as environment
 variables, so that scattered ad-hoc `$env:TOKEN = $plaintext` writes are replaced by a single disciplined boundary. It owns
 `Write-EnvironmentSet` and the private process-env write seam; it does **not** own config reading or addressing (that is
-[Catzc.Base.Config](catzc-base-config.md)'s `Get-ConfigValue`) or the flattening of a config subtree (that is
-[Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
-[environment-variables](../../drs/automation/environment-variables.md) and
-[config-value-addressing](../../drs/configuration/config-value-addressing.md).
+[Catzc.Base.Config](../base-config/index.md)'s `Get-ConfigValue`) or the flattening of a config subtree (that is
+[Catzc.Base.Objects](../base-objects/index.md)). The design is governed by
+[environment-variables](../../../drs/automation/environment-variables.md) and
+[config-value-addressing](../../../drs/configuration/config-value-addressing.md).
 
 ## Responsibilities
 
@@ -47,7 +47,7 @@ actual `$env:` writes go through a private seam (`Set-ProcessEnvironmentVariable
 process environment (mirroring `Set-EnvironmentPath`).
 
 One cross-platform caveat travels with the contract: `[SecureString]` is DPAPI-encrypted only on Windows; on Linux and macOS .NET stores it
-obfuscated, not encrypted (see [cross-platform](../../drs/automation/cross-platform.md)). The plaintext also necessarily lands in `$env:`
+obfuscated, not encrypted (see [cross-platform](../../../drs/automation/cross-platform.md)). The plaintext also necessarily lands in `$env:`
 for the instant the external tool reads it. The value the seam guarantees is therefore the _contract_ — don't-log, don't-internalize,
 decrypt-only-at-the-boundary, scoped-by-default — not at-rest cryptography.
 

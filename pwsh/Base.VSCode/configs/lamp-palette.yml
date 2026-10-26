@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/lamp-palette.yml.md"
-#   header: "generated"
-# ---
-
 # Every shade of each range has its default on LampPaletteConfig; a shade set here overrides it.
 ranges: {}

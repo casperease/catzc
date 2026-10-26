@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/PSTypeAliasAttribute.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Objects;

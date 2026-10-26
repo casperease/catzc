@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Protect-GlobSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Protect-GlobSet {
     [CmdletBinding()]
     param(

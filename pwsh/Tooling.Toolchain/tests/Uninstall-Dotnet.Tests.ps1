@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Dotnet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Uninstall-Dotnet' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock Get-ToolConfig { [pscustomobject]@{ command = 'dotnet' } } -ModuleName Catzc.Tooling.Toolchain

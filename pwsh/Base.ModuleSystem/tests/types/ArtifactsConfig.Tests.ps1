@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-module-system/tests/types/ArtifactsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Catzc.Base.ModuleSystem.ArtifactsConfig' -Tag 'L0' {
     BeforeAll {
         $script:valid = {

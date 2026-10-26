@@ -2,10 +2,10 @@
 
 The Azure CLI module. It **encapsulates every interaction with the `az` CLI** — issuing commands, establishing and selecting the session,
 and verifying that the session points where configuration says it should. It is the single boundary the whole platform runs `az` through.
-What it deliberately does **not** own is the az _binary_: installing it lives in [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)
-(`Install-AzCli`) and locking its version in [Catzc.Tooling.Core](catzc-tooling-core.md) (`Assert-Tool`, against the `tools.yml` lock that
-[Catzc.Base.Execution](catzc-base-execution.md) owns). This module owns everything you _do_ with `az` once it is installed. The
-verify-vs-connect split is the subject of [az-session-verification](../../drs/azure/az-session-verification.md).
+What it deliberately does **not** own is the az _binary_: installing it lives in [Catzc.Tooling.Toolchain](../tooling-toolchain/index.md)
+(`Install-AzCli`) and locking its version in [Catzc.Tooling.Core](../tooling-core/index.md) (`Assert-Tool`, against the `tools.yml` lock that
+[Catzc.Base.Execution](../base-execution/index.md) owns). This module owns everything you _do_ with `az` once it is installed. The
+verify-vs-connect split is the subject of [az-session-verification](../../../drs/azure/az-session-verification.md).
 
 ## Responsibilities
 
@@ -39,7 +39,7 @@ below.
 
 Choosing which subscription the session acts against, and running work pinned to a chosen one. This responsibility reads the active
 subscription, switches it, and runs a scriptblock against a selected subscription with the surrounding context restored afterward. It also
-resolves the active subscription back to its declared identity in `azure.yml` (through [Catzc.Azure](catzc-azure.md)), so the session itself
+resolves the active subscription back to its declared identity in `azure.yml` (through [Catzc.Azure](../azure/index.md)), so the session itself
 selects the deploy target. It changes session _selection_ only — never credentials.
 
 ### responsibility:4 — Connection-state inspection
@@ -56,7 +56,7 @@ Confirming the session matches a subscription and/or tenant supplied as raw GUID
 ### responsibility:6 — Config-aware session verification
 
 Confirming the session matches the subscription _named_ in the identity model — it resolves that name to its GUIDs (through
-[Catzc.Azure](catzc-azure.md)) and then delegates to the by-args check. This is the verification a deployment uses, because it checks
+[Catzc.Azure](../azure/index.md)) and then delegates to the by-args check. This is the verification a deployment uses, because it checks
 against what configuration says is correct.
 
 ### responsibility:7 — Subscription access checks
@@ -85,10 +85,10 @@ same check — responsibility 5 compares against GUIDs a caller supplies, respon
 name — and responsibility 6 is literally responsibility 5 with the names looked up first. Keeping them separate is what lets a module with
 no business reading `azure.yml` still verify a session by GUID.
 
-The split with the Tooling group is the deliberate counterpart to all of this: [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md) owns
-the az **binary** (install and uninstall) and [Catzc.Tooling.Core](catzc-tooling-core.md) the version lock asserted by `Assert-Tool` (the
-`tools.yml` entry, owned by [Catzc.Base.Execution](catzc-base-execution.md)), while this module owns the az **session**. The one tie back is
-that `Invoke-AzCli` and the connect functions call `Assert-Tool 'az_cli'` (from [Catzc.Tooling.Core](catzc-tooling-core.md)) — a single,
+The split with the Tooling group is the deliberate counterpart to all of this: [Catzc.Tooling.Toolchain](../tooling-toolchain/index.md) owns
+the az **binary** (install and uninstall) and [Catzc.Tooling.Core](../tooling-core/index.md) the version lock asserted by `Assert-Tool` (the
+`tools.yml` entry, owned by [Catzc.Base.Execution](../base-execution/index.md)), while this module owns the az **session**. The one tie back is
+that `Invoke-AzCli` and the connect functions call `Assert-Tool 'az_cli'` (from [Catzc.Tooling.Core](../tooling-core/index.md)) — a single,
 version-locking dependency, not a reimplementation of tool management.
 
 The diagram below draws session verification from the source. Each of the three az checks (connection, subscription access and Bicep) has
@@ -172,7 +172,7 @@ layout:
   g-az: { x: 680, y: 640, w: 120, h: 44 }
 ```
 
-![Three az checks: Test and Assert share one state call](.assets/az-cli-test-assert-share-one-state.drawio.png)
+![Three az checks: Test and Assert share one state call](../.assets/az-cli-test-assert-share-one-state.drawio.png)
 
 ## Division
 

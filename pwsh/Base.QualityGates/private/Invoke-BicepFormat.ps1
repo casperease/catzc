@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-BicepFormat.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-BicepFormat {
     [CmdletBinding()]
     [OutputType([string[]])]

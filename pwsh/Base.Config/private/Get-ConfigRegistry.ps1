@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()

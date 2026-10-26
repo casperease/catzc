@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-ToolConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ToolConfig {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Execution.ToolConfig])]

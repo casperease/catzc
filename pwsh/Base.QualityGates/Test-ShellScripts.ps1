@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ShellScripts.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ShellScripts {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

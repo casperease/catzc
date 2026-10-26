@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GeneratedFiles {
     [CmdletBinding(DefaultParameterSetName = 'Writers')]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

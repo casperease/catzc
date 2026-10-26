@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Terraform.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Terraform {
     [CmdletBinding()]
     param(

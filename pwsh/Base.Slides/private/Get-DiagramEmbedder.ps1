@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramEmbedder.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramEmbedder {
     [CmdletBinding()]
     [OutputType([hashtable])]

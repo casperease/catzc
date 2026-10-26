@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-drs-map.yml.md"
-#   header: "generated"
-# ---
-
 analyzers:
   # Custom rules (pwsh/.scriptanalyzer)
   Measure-VariableCasing: [ADR-PWSH-FORMAT-VARIABLECASING]

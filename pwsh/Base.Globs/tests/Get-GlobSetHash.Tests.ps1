@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore ntwo  -- the escape-sequence artifact in the "one`ntwo" CRLF/LF fixture strings
 Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
     BeforeAll {

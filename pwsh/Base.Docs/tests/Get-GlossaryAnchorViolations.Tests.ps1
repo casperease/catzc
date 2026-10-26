@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryAnchorViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrRoot = Join-Path $TestDrive 'adr'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Read-ListenIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Read-ListenIndex {
     [CmdletBinding()]
     [OutputType([hashtable])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-GoTestJson.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertFrom-GoTestJson {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoTestResult])]

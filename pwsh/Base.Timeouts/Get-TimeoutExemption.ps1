@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Get-TimeoutExemption.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TimeoutExemption {
     [CmdletBinding()]
     [OutputType([hashtable])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuids.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ManagedGuids {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

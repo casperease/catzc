@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/private/Sync-AdoGraphGroup.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-AdoGraphGroup {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

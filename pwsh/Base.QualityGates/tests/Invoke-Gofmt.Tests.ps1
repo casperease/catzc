@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-Gofmt.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-Gofmt' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:bin = Join-Path $TestDrive 'managed go/bin'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-exporter/tests/Build-Modules.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-Modules' -Tag 'L0', 'logic' {
     BeforeAll {
         # The engine loads on demand and is a mocked boundary here; a stub makes the command exist for Mock when it is not loaded.

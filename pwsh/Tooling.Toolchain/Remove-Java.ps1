@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Remove-Java.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-Java {
     [CmdletBinding()]
     param(

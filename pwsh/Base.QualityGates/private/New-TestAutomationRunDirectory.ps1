@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/New-TestAutomationRunDirectory.ps1.md"
-  header: "generated"
----
-#>
-
 function New-TestAutomationRunDirectory {
     [CmdletBinding()]
     [OutputType([string])]

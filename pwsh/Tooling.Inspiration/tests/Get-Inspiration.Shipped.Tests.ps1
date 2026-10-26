@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Shipped.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Consistency, never presence: with no sibling checkout the default inspiration is reported unavailable and the test still passes.
 Describe 'Get-Inspiration over the shipped inspiration.yml' -Tag 'L1', 'integrity' {
     It 'loads the shipped config as its typed model' {

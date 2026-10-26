@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Private, so reached through the module; the session's cache entry is reset around each case, so a fixture registry never leaks.
 Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     BeforeAll {

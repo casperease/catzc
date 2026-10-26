@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
         # A minimal index is enough here: the seam, the pathspec and the content-keyed cache are what this file proves.

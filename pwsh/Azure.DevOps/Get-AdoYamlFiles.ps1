@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoYamlFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdoYamlFiles {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependencyViolations {
     [OutputType([string[]])]
     param()

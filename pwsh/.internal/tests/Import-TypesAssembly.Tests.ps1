@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Import-TypesAssembly.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)

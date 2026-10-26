@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Format-GeneratedFileHead.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
     BeforeAll {
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{

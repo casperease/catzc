@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Find-DocPattern.ps1.md"
-  header: "generated"
----
-#>
-
 function Find-DocPattern {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

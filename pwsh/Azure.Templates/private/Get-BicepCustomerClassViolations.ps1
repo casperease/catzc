@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepCustomerClassViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepCustomerClassViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

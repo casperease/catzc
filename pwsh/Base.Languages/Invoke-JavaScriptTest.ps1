@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Invoke-JavaScriptTest.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-JavaScriptTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.JavaScriptTestResult])]

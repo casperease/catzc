@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Test-HaveProperty.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-HaveProperty {
     [OutputType([bool])]
     [CmdletBinding()]

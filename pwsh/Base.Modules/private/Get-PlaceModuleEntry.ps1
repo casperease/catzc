@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-modules/private/Get-PlaceModuleEntry.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PlaceModuleEntry {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

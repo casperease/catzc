@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Install-Tool.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Tool {
     [CmdletBinding()]
     param(

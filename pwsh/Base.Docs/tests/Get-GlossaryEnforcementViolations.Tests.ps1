@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossaryEnforcementViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlossaryEnforcementViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # One merged glossary entry from the widget's source: realized as a tag unless said otherwise.

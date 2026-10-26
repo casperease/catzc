@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Resolve-ToolExecutable.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:windows = [bool]$IsWindows

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepDeploymentName.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-BicepDeploymentName' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-BicepTemplatesRoot {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md"
-  header: "generated"
----
-#>
-
 function New-GitIgnore {
     [CmdletBinding()]
     [OutputType([string])]

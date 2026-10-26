@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-languages/tests/types/BclConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'BclConfig' -Tag 'L0' {
 
     Context 'integrity (shipped bcl.yml and the tracked solutions and projects)' -Tag 'integrity' {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-CommandLineText.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-CommandLineText {
     [CmdletBinding()]
     [OutputType([string])]

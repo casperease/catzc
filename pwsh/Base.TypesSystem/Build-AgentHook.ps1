@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-AgentHook {
     [CmdletBinding()]
     [OutputType([string])]

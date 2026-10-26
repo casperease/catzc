@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md"
-  header: "generated"
----
-#>
-
 function Export-WorldMapPdf {
     [CmdletBinding(DefaultParameterSetName = 'Plain')]
     [OutputType([string])]

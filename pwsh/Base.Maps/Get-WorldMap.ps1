@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-WorldMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.WorldMap], [string])]

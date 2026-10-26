@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/configs/environment-approvals.yml.md"
-#   header: "generated"
-# ---
-
 approver_group:
   name: Prod Approvers
   members:

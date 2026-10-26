@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatzcContentHash {
     [CmdletBinding()]
     [OutputType([string])]

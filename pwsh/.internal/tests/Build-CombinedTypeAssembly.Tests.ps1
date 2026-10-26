@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Build-CombinedTypeAssembly.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore npublic  -- the escape-sequence artifact in the "namespace X;`npublic class" fixture strings
 Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
     BeforeAll {

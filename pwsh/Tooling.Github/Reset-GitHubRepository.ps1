@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-github/Reset-GitHubRepository.ps1.md"
-  header: "generated"
----
-#>
-
 function Reset-GitHubRepository {
     [CmdletBinding()]
     [Catzc.Base.Timeouts.TimeLimit(600, Pipeline = 3600)]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore tpols
 Describe 'Test-ModuleDependency' {
     Context 'logic (mocked boundaries)' -Tag 'L0', 'logic' {

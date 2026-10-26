@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Test-ModuleDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ModuleDependency {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

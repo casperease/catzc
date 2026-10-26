@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-Terminology.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Terminology {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Test-AzCliIsConnected.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AzCliIsConnected {
     [CmdletBinding()]
     [OutputType([bool])]

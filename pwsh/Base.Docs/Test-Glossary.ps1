@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Glossary {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

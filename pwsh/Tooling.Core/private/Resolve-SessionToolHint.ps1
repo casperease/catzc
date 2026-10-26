@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Resolve-SessionToolHint.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-SessionToolHint {
     [OutputType([System.Management.Automation.CommandInfo])]
     [CmdletBinding()]

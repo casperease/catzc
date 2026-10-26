@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/New-CatsCommandLookup.ps1.md"
-  header: "generated"
----
-#>
-
 function New-CatsCommandLookup {
     [CmdletBinding()]
     [OutputType([string])]

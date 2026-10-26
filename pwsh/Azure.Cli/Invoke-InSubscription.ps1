@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Invoke-InSubscription.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-InSubscription {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/New-TestRunFinalManifest.ps1.md"
-  header: "generated"
----
-#>
-
 function New-TestRunFinalManifest {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

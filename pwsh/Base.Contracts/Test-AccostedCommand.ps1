@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Test-AccostedCommand.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AccostedCommand {
     [CmdletBinding()]
     [OutputType([string[]])]

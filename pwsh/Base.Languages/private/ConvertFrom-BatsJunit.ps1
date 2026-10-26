@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/private/ConvertFrom-BatsJunit.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertFrom-BatsJunit {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.BashTestResult])]

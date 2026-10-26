@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-ShippedConfigs.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'widget-modules'

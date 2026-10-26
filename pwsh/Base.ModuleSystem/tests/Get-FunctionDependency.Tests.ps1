@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-FunctionDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-FunctionDependency' -Tag 'L0', 'integrity', 'source-only' {
     BeforeAll {
         $script:dependencies = Get-FunctionDependency

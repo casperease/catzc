@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramComponentRows.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramComponentRows {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

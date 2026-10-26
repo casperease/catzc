@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlClassification.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Azure.DevOps;
 
 // The coarse kind from a file's top-level keys; a Template is refined by YamlTemplateType.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Remove-MacToolInstall.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-MacToolInstall {
     [CmdletBinding()]
     [OutputType([bool])]

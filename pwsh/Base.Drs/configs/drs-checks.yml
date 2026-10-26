@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md"
-#   header: "generated"
-# ---
-
 # Every key is optional and takes the default declared once on DrsChecksConfig.
 engine_neutrality:
   domains: [automation]

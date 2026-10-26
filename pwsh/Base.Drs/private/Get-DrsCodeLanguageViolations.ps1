@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsCodeLanguageViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsCodeLanguageViolations {
     [OutputType([string[]])]
     [CmdletBinding()]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-docs/tests/types/AgentsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @('Test-Widget') }

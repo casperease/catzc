@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationVerdict.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestAutomationVerdict {
     [CmdletBinding()]
     [OutputType([hashtable])]

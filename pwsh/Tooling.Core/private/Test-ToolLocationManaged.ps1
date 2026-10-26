@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ToolLocationManaged {
     [OutputType([bool])]
     [CmdletBinding()]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-AgentFrontMatter.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AgentFrontMatter {
     [CmdletBinding()]
     [OutputType([System.Collections.IDictionary])]

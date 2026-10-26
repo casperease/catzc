@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Assert-CompletesWithin.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-CompletesWithin {
     [CmdletBinding()]
     param(

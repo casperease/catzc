@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure/configs/azure.yml.md"
-#   header: "generated"
-# ---
-
 # yaml-language-server: $schema=.not-azure-schema.json
 
 # The <org> segment of every Azure resource name; the segment order is the ado_naming variant.

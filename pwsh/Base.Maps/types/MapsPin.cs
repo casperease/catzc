@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/MapsPin.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 // One reviewed pin or exception: a record code, optionally one rule of it, and the cell it names.

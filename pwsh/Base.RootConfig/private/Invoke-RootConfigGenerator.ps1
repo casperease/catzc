@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/private/Invoke-RootConfigGenerator.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-RootConfigGenerator {
     [OutputType([string], [object[]])]
     param(

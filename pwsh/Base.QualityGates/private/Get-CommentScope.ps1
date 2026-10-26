@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-CommentScope.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CommentScope {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

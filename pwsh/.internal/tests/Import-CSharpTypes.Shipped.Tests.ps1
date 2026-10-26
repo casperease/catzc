@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Import-CSharpTypes.Shipped.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'shipped C# types' -Tag 'L0', 'integrity' {
     It 'every shipped C# type resolves after import (Test-ShippedTypes quality gate)' {
         $result = Test-ShippedTypes -PassThru -OutputFolder (Join-Path $TestDrive 'shipped-types')

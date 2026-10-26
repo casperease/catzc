@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/ConvertTo-TestAutomationRowSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
     BeforeAll {
         # Builds a Pester-shaped result with only the members the reducer reads, so Pester never runs.

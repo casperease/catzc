@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-RepositoryGuids.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-RepositoryGuids' -Tag 'L0', 'logic' {
     BeforeAll {
         # The mocked seam returns absolute fixture paths, which Resolve-RepoPath passes through unchanged.

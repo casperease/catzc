@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-VendorModules {
     [CmdletBinding()]
     param(

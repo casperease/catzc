@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-file-limits/Measure-FileShape.ps1.md"
-  header: "generated"
----
-#>
-
 function Measure-FileShape {
     [CmdletBinding()]
     [OutputType([Catzc.Base.FileLimits.FileShape])]

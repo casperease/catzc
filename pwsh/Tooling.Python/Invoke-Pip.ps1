@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-python/Invoke-Pip.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Pip {
     [CmdletBinding()]
     param(

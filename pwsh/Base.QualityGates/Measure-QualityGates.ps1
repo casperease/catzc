@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Measure-QualityGates.ps1.md"
-  header: "generated"
----
-#>
-
 function Measure-QualityGates {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

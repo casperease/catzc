@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Build-AgentHook.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {

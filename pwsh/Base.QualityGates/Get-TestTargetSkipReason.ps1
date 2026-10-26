@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Get-TestTargetSkipReason.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestTargetSkipReason {
     [CmdletBinding()]
     [OutputType([string])]

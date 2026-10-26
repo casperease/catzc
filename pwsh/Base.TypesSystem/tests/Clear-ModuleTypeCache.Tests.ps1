@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Clear-ModuleTypeCache.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
 
     # The fixture names its DLL with the same shared hash the janitor uses, so there is no mirror to drift from it.

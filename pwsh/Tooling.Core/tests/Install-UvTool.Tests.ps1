@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Install-UvTool.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-UvTool' -Tag 'L0', 'logic' {
     BeforeAll {
         # Get-ToolConfig returns the typed record, so the mocks do too: an optional key the entry omits reads as its default, as in production.

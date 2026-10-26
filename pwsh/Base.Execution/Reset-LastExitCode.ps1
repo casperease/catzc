@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Reset-LastExitCode.ps1.md"
-  header: "generated"
----
-#>
-
 function Reset-LastExitCode {
     param()
 

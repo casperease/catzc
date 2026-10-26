@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.StdinPipe.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     # A child whose stdin is an open pipe never written: inheriting it would leave a stdin reader waiting forever.
     function script:Start-InputPipeChild {

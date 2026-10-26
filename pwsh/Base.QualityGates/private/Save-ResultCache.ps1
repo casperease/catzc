@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Save-ResultCache.ps1.md"
-  header: "generated"
----
-#>
-
 function Save-ResultCache {
     [CmdletBinding()]
     param(

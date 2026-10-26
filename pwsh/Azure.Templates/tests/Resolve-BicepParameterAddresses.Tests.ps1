@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Resolve-BicepParameterAddresses.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
     BeforeAll {
         # Runs the private function in the module scope, with the config reader mocked at its boundary using neutral widget and gadget addresses.

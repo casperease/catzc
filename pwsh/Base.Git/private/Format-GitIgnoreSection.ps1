@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/private/Format-GitIgnoreSection.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-GitIgnoreSection {
     [OutputType([string[]])]
     param(

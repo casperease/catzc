@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Build-EnglishDictionary.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-EnglishDictionary {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-Links' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:writeFile = {

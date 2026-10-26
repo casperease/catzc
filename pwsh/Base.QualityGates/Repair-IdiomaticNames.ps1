@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Repair-IdiomaticNames.ps1.md"
-  header: "generated"
----
-#>
-
 function Repair-IdiomaticNames {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

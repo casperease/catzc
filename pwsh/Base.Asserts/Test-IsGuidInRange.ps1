@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Test-IsGuidInRange.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IsGuidInRange {
     [OutputType([bool])]
     [CmdletBinding()]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Save-Topic.ps1.md"
-  header: "generated"
----
-#>
-
 function Save-Topic {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

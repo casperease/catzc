@@ -2,7 +2,7 @@
 
 Owns the vendored third-party PowerShell modules under `pwsh/.vendor/` — adding them, removing them, and proving they can be restored from
 the network. Vendoring checks each dependency's exact version straight into the repository so a load needs no gallery query (deterministic,
-fast, offline; see [vendor-toolset-dependencies](../../drs/automation/pwsh/vendor-toolset-dependencies.md)); this module is the lifecycle
+fast, offline; see [vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md)); this module is the lifecycle
 around that committed set. It deliberately does **not** load them at import time — that is the internal, pre-module-system loader
 (`Import-VendorModules`); this module is the post-import surface for managing what is committed. Every operation targets a configured source
 (`vendor.yml` — the PowerShell Gallery by default, a custom feed when set), reached through the bundled `Microsoft.PowerShell.PSResourceGet`
@@ -46,8 +46,8 @@ gate between them — the check that turns an irreversible delete into a safe on
 the network, is the source of truth: installing writes an exact version into the tree to be committed, and removing refuses to touch
 anything the network cannot give back, so the tree is always reconstructable.
 
-The module sits above [Catzc.Base.Config](catzc-base-config.md) (for `vendor.yml`), [Catzc.Base.Repository](catzc-base-repository.md) (to
-anchor the vendor root), and [Catzc.Base.Writers](catzc-base-writers.md) (for its reporting), and it leans on the bundled
+The module sits above [Catzc.Base.Config](../base-config/index.md) (for `vendor.yml`), [Catzc.Base.Repository](../base-repository/index.md) (to
+anchor the vendor root), and [Catzc.Base.Writers](../base-writers/index.md) (for its reporting), and it leans on the bundled
 `Microsoft.PowerShell.PSResourceGet` rather than adding a vendored dependency of its own. It is the post-import counterpart to the internal
 `Import-VendorModules` loader that the importer runs before any module exists: that one gets the committed modules into the session; this
 one governs which modules are committed in the first place.

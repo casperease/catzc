@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/private/Get-ExecutableVersion.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ExecutableVersion {
     [OutputType([string])]
     [CmdletBinding()]

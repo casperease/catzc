@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-vs-code/tests/types/VscodeSettingsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
     BeforeAll {
         function Get-ViolationMessage {

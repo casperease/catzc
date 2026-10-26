@@ -2,8 +2,8 @@
 
 The pure core of the Markdown meta block: the one reserved `catzc` front-matter key of a tracked Markdown file, at the top level or nested
 at the key path its carrier declares, its derived facts and its authored config contributions
-([file-meta](../../drs/repository/file-meta.md)). The module reads no config and no file: every text and every declaration reaches it as a
-parameter, so it sits below [Catzc.Base.Config](catzc-base-config.md), which can then call it when it gathers config contributions. The
+([file-meta](../../../drs/repository/file-meta.md)). The module reads no config and no file: every text and every declaration reaches it as a
+parameter, so it sits below [Catzc.Base.Config](../base-config/index.md), which can then call it when it gathers config contributions. The
 registry of meta kinds, the processors and the `Format-FileMeta` and `Test-FileMeta` commands live above `Catzc.Base.Config`, in the module
 that reads the registry.
 
@@ -37,7 +37,7 @@ Returning a text without its front matter, for a copy that carries the content b
 
 The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
 page a generator writes is the page the formatter leaves alone
-([uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
+([uniform-formatting](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
 writes markdown wraps through it, in any module.
 
 ## What the module does

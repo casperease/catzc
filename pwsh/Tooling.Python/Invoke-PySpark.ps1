@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-python/Invoke-PySpark.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-PySpark {
     [CmdletBinding()]
     param(

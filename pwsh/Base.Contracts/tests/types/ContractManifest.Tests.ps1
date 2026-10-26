@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-contracts/tests/types/ContractManifest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
     It 'is empty for an absent or empty file' {
         [Catzc.Base.Contracts.ContractManifest]::new($null).applies_to.Count | Should -Be 0

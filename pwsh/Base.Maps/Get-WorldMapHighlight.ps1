@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-WorldMapHighlight {
     [CmdletBinding(DefaultParameterSetName = 'Changes')]
     [OutputType([Catzc.Base.Maps.WorldMapHighlight], [string])]

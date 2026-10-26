@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-files/types/FileLockingProcess.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Globalization;
 

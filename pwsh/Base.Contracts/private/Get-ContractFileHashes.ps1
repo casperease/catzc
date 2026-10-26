@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractFileHashes {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

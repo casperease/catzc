@@ -6,7 +6,7 @@ comment text and reports what it found at comment-relative offsets, and the link
 
 ## Canonical forms
 
-A whole decision record becomes `[ADR-<CODE>](<path>.md)` and one rule becomes `[ADR-<CODE>-<NAME>](<path>.md#rule-adr-<code>-<name>)`.
+A whole decision record becomes `[ADR-<CODE>](../../catzc-base-quality-gates/types/<path>.md)` and one rule becomes `[ADR-<CODE>-<NAME>](../../catzc-base-quality-gates/types/<path>.md#rule-adr-<code>-<name>)`.
 Every other spelling is recognised: a bare, `./`, `../` or rooted `docs/drs` path, an ADR file name alone, a bare citation, a path followed
 by its own citation, and a markdown link in another shape. A numbered citation is reported, since it names no rule.
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/scriptanalyzer/ParameterDesign.psm1.md"
-  header: "generated"
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: the rules run strict inside the analyzer engine
 
 function Test-ModuleFunctionFile {

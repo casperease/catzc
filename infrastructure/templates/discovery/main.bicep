@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../../docs/references/infrastructure/templates/discovery/main.bicep.md"
-//   header: "generated"
-// ---
-
 targetScope = 'subscription'
 
 @description('A virtual network on the far side of a peering, in its own subscription.')

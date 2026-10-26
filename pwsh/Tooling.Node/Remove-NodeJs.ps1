@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Remove-NodeJs.ps1.md"
-  header: "generated"
----
-#>
-
 function Remove-NodeJs {
     [CmdletBinding()]
     param(

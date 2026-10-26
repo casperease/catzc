@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TimeoutSeconds {
     [CmdletBinding(DefaultParameterSetName = 'Shell')]
     [OutputType([int])]

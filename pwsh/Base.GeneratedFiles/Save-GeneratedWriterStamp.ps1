@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-generated-files/Save-GeneratedWriterStamp.ps1.md"
-  header: "generated"
----
-#>
-
 function Save-GeneratedWriterStamp {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-LocalModuleViolation {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/ConvertTo-DrsDomainDiagram.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-DrsDomainDiagram {
     [OutputType([string])]
     [CmdletBinding()]

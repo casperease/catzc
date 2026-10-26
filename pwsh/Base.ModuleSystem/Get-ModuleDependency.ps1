@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-ModuleDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependency {
     [CmdletBinding()]
     param(

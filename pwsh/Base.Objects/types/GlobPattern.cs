@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/GlobPattern.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Management.Automation;
 

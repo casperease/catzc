@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

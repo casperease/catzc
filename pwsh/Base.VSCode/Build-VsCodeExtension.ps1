@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vs-code/Build-VsCodeExtension.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-VsCodeExtension {
     [CmdletBinding()]
     [OutputType([string])]

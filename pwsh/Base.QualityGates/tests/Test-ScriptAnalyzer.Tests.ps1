@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-ScriptAnalyzer.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
     BeforeAll {
         # A real file so Resolve-Path resolves; the helper is mocked, so its contents are irrelevant.

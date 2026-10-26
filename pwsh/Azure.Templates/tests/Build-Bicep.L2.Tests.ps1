@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.L2.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
         # Redirects build output to this file's TestDrive, so the real-az builds never share out/template/<name> with the L0 sample files.

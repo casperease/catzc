@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-SourceTree {
     [CmdletBinding()]
     param(

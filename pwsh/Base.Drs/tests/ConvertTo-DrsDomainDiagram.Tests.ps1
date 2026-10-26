@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/ConvertTo-DrsDomainDiagram.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertTo-DrsDomainDiagram' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{

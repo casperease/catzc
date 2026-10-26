@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-True.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-True {
     [CmdletBinding()]
     param(

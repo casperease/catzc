@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Get-AzCliConnectionState.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzCliConnectionState {
     [CmdletBinding(DefaultParameterSetName = 'Tenant')]
     param(

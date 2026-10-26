@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-flow/Get-Rung.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Rung {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Flow.Rung])]

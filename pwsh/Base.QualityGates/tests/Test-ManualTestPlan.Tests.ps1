@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-ManualTestPlan.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ManualTestPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         function Set-FixtureFile {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-Diagrams {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

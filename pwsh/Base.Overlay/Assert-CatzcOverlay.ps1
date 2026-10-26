@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-overlay/Assert-CatzcOverlay.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-CatzcOverlay {
     [CmdletBinding()]
     param(

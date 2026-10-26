@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/budget.bicep.md"
-//   header: "generated"
-// ---
-
 targetScope = 'subscription'
 
 @description('Budget name (1-63 characters: letters, digits, underscores, and hyphens; unique within the subscription).')

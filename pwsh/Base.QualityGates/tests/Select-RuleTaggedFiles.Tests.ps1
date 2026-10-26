@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Select-RuleTaggedFiles.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Select-RuleTaggedFiles' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
         # Built here as plain data with a block chain the resolver walks, then passed into module scope.

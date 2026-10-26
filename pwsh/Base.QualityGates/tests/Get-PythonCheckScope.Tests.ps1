@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-PythonCheckScope.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-PythonCheckScope' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))

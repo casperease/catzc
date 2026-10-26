@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md"
-#   header: "generated"
-# ---
-
 languages: [powershell, yaml, pipeline-yaml, bcl, bicep]
 
 # A comment block with fewer prose lines than this stays in the file. Default: 2.

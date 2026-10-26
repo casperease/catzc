@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-PlaceRow.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PlaceRow {
     [CmdletBinding()]
     [OutputType([string])]

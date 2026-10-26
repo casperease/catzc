@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Assert-AccostedArgument.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AccostedArgument {
     [CmdletBinding()]
     param(

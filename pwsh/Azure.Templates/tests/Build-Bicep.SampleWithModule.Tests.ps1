@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Build-Bicep.SampleWithModule.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore alweutstsmodst
 Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
     # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.

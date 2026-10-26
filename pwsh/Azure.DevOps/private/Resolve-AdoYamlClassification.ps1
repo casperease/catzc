@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/private/Resolve-AdoYamlClassification.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-AdoYamlClassification {
     [OutputType([PSCustomObject])]
     param(

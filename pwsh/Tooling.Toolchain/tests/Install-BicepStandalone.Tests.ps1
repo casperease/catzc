@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-BicepStandalone.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-BicepStandalone' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:fakeHome = Join-Path $TestDrive "home-$([guid]::NewGuid().ToString('N'))"

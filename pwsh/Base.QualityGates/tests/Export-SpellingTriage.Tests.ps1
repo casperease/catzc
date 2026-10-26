@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Export-SpellingTriage.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:queuePath = Join-Path $TestDrive 'terminology-triage.yml'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Resolve-ImportMix.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ImportMix {
     [CmdletBinding()]
     [OutputType([Catzc.Base.ModuleSystem.ImportMix])]

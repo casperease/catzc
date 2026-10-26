@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/python/diagrams/configs/drawio.yml.md"
-#   header: "generated"
-# ---
-
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given

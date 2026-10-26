@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsCheck.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections;
 using System.Collections.Generic;
 

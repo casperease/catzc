@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vs-code/New-VsCodeLaunch.ps1.md"
-  header: "generated"
----
-#>
-
 function New-VsCodeLaunch {
     [CmdletBinding()]
     [OutputType([string])]

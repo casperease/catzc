@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore tmain tforeground tbackground tsleep tsubagent tpipeline  -- "`t" escape artifacts in the tab-separated
 # log lines
 Describe 'BashSafeguard' -Tag 'L0', 'logic' {

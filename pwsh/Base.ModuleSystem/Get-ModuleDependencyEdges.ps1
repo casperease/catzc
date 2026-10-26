@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-ModuleDependencyEdges.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependencyEdges {
     [OutputType([Catzc.Base.ModuleSystem.ModuleDependencyEdge[]])]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/catzc-track-lamps.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
         # The extension's folder, resolved from its name through the js track.

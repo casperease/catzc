@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlobSetChangeRange {
     [CmdletBinding()]
     [OutputType([string])]

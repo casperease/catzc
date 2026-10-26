@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vendor/private/Get-VendoredModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-VendoredModule {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

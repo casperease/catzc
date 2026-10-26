@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-LinkEngine.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-LinkEngine {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEngineResult])]

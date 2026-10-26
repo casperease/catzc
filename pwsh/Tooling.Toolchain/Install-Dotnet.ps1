@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Dotnet.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Dotnet {
     [CmdletBinding()]
     param(

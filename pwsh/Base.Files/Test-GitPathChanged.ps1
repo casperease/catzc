@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Test-GitPathChanged.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GitPathChanged {
     [CmdletBinding()]
     [OutputType([bool])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore inittypes enabletypes FIXTUREWIDGET  -- fixture folder prefixes and an upper-cased fixture command name,
 # data
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',

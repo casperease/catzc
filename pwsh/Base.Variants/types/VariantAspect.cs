@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Variants;
 
 // One aspect: a single-key {name: [patterns]} entry, patterns relative to the unit root.

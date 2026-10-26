@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-BuildArtifact {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

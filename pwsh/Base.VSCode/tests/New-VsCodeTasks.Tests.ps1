@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VsCodeTasks.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-VsCodeTasks' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

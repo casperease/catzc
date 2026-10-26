@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatusKind.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Tooling.Provisioning;
 
 // Verdict of a tool against its tools.yml lock: Missing and WrongVersion are hard failures, Usable is only a migrate-me hint.

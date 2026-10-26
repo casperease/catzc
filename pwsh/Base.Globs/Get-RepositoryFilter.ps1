@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-RepositoryFilter.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RepositoryFilter {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

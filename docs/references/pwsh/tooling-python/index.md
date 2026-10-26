@@ -2,9 +2,9 @@
 
 The Python ecosystem module of the Tooling group. It owns the Python interpreter — provisioned by uv — and the Python tooling layered on it:
 installing, invoking, and removing python and its uv-pip layer, and the tools Poetry and PySpark, each pinned to its locked version through
-the generic engine in [Catzc.Tooling.Core](catzc-tooling-core.md). It carries no engine of its own; it is the thin, Python-specific surface
-over Core, and it installs through uv per [uv-python-handler](../../drs/automation/uv-python-handler.md) and
-[controlling-systemwide-deps](../../drs/automation/controlling-systemwide-deps.md).
+the generic engine in [Catzc.Tooling.Core](../tooling-core/index.md). It carries no engine of its own; it is the thin, Python-specific surface
+over Core, and it installs through uv per [uv-python-handler](../../../drs/automation/uv-python-handler.md) and
+[controlling-systemwide-deps](../../../drs/automation/controlling-systemwide-deps.md).
 
 ## Responsibilities
 
@@ -28,14 +28,14 @@ time).
 
 ## What the module does
 
-The module depends on [Catzc.Tooling.Core](catzc-tooling-core.md) and only that module within the group. Every per-tool function is a thin
+The module depends on [Catzc.Tooling.Core](../tooling-core/index.md) and only that module within the group. Every per-tool function is a thin
 wrapper that hands its tool name to Core's engine, which reads `tools.yml` to find the locked version and the uv/pip identifier and then
 installs, asserts, or removes idempotently. There is no Python-specific install logic outside that delegation.
 
 The two responsibilities are the runtime and what rides on it. Responsibility 1 owns the interpreter and its `uv pip` layer — the package
 manager responsibility 2 needs; responsibility 2 owns the tools, whether an isolated uv tool (Poetry) or a library installed into the
 interpreter (PySpark). Splitting them keeps the dependency obvious: PySpark and Poetry presume python and uv are already converged. The same
-functions run locally and in CI, with no separate provisioning path (see [cross-platform](../../drs/automation/cross-platform.md)).
+functions run locally and in CI, with no separate provisioning path (see [cross-platform](../../../drs/automation/cross-platform.md)).
 
 ## Division
 

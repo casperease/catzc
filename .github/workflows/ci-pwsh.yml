@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../docs/references/github/workflows/ci-pwsh.yml.md"
-#   header: "generated"
-# ---
-
 name: CI
 
 on:

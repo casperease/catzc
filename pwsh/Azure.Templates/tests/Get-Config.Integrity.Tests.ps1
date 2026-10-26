@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-Config.Integrity.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Shipped asset integrity' -Tag 'L0', 'integrity' {
 
     It 'the shipped azure.yml loads and passes its AzureConfig type' {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractCommandRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractCommandRoot {
     [CmdletBinding()]
     [OutputType([string])]

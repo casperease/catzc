@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-exporter/tests/Install-Catzc.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Catzc' -Tag 'L0', 'logic' {
     BeforeEach {
         # A fixture build with neutral names; its integrity guard is a boundary here, tested on its own.

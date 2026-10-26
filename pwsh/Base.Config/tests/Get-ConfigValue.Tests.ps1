@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ConfigValue' -Tag 'L0' {
     Context 'address resolution over a raw dictionary' -Tag 'logic' {
         BeforeAll {

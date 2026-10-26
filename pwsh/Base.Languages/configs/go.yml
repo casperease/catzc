@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/go.yml.md"
-#   header: "generated"
-# ---
-
 module_root: catzc/go
 
 dependencies: {}

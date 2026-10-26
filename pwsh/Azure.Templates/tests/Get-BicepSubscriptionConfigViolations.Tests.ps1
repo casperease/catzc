@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-BicepSubscriptionConfigViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # A shared pair, a customer pair (acme), and a rogue non-customer subscription that overlaps core_lower on beta (the root-ambiguity case).

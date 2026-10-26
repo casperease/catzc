@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Zsh.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Zsh {
     [CmdletBinding()]
     param()

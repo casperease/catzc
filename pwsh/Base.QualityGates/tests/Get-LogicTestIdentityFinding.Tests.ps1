@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LogicTestIdentityFinding.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-LogicTestIdentityFinding' -Tag 'L0', 'logic' {
     BeforeAll {
         # Synthetic identities, so this file's own tokens are not flagged by Test-LogicTestIdentity.

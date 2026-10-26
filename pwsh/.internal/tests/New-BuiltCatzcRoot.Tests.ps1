@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/New-BuiltCatzcRoot.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
         Import-InternalModule TestKit

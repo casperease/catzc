@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoYamlInventory.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdoYamlInventory {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

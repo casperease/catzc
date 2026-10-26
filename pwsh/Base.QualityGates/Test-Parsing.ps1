@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-Parsing.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Parsing {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

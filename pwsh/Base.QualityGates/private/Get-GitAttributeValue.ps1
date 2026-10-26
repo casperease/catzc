@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GitAttributeValue.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GitAttributeValue {
     [CmdletBinding()]
     [OutputType([hashtable])]

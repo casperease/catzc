@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ConfigEntry {
     [CmdletBinding(DefaultParameterSetName = 'One')]
     [OutputType([hashtable])]

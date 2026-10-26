@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/virtual-network.bicep.md"
-//   header: "generated"
-// ---
-
 @description('A subnet of the virtual network.')
 type subnetSpec = {
   @description('Subnet name (1-80 characters, unique within the VNet).')

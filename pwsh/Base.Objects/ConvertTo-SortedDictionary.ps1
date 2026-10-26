@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-objects/ConvertTo-SortedDictionary.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-SortedDictionary {
     [CmdletBinding()]
     param(

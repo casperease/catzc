@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Install-Java.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Java' -Tag 'L1', 'logic' {
     BeforeAll {
         # The managed body sets the session JAVA_HOME — restore it so the test leaves the process as it found it.

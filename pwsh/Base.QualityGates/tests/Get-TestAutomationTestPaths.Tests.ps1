@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestAutomationTestPaths.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:modulesRoot = Join-Path $TestDrive 'repo/pwsh'

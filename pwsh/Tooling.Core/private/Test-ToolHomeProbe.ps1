@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Test-ToolHomeProbe.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ToolHomeProbe {
     [OutputType([bool])]
     [CmdletBinding()]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/tests/Get-Inspiration.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # A scratch workspace where one inspiration is missing, so an absent one is proven reported and never thrown on.
 Describe 'Get-Inspiration' -Tag 'L0', 'logic' {
     BeforeAll {

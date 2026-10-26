@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-ReportModeFinding.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:printed = [System.Collections.Generic.List[string]]::new()

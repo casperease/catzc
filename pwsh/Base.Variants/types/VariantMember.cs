@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-variants/types/VariantMember.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Variants;

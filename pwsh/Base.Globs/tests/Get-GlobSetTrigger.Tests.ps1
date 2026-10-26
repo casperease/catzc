@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetTrigger.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {
     It 'projects a simple single-include set to both dialects' {
         $t = & (Get-Module Catzc.Base.Globs) {

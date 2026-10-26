@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Get-ContractCheckResults.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractCheckResults {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractCheckResult[]])]

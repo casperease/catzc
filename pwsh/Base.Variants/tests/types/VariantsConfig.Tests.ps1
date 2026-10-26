@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-variants/tests/types/VariantsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
         # tracks is required, so a fixture about another key gets one neutral track.

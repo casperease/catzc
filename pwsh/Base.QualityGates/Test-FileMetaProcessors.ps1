@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-FileMetaProcessors.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-FileMetaProcessors {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

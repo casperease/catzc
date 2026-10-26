@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure/configs/identity-tokens.yml.md"
-#   header: "generated"
-# ---
-
 # The live identities in this module's configs, which a hermetic logic test must never name.
 tokens:
   - config: customer

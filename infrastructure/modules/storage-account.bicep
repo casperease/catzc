@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/storage-account.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')
 param name string
 

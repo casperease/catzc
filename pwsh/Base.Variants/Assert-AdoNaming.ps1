@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Assert-AdoNaming.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AdoNaming {
     [CmdletBinding()]
     param(

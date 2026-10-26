@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Get-ToolsStatus.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ToolsStatus {
     [CmdletBinding()]
     param()

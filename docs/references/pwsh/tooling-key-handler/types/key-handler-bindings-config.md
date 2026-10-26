@@ -1,7 +1,7 @@
 # pwsh/Tooling.KeyHandler/types/KeyHandlerBindingsConfig.cs
 
 The typed model of `configs/key-handler-bindings.yml`: the captured Windows PSReadLine bindings, a top-level sequence of
-[KeyHandlerBinding](KeyHandlerBinding.cs.md) entries. The YAML has no top-level key, so the sequence is exposed as `bindings`.
+[KeyHandlerBinding](key-handler-binding.md) entries. The YAML has no top-level key, so the sequence is exposed as `bindings`.
 
 ## Validation
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestLevelTag.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestLevelTag {
     [CmdletBinding()]
     [OutputType([string])]

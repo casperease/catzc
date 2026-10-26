@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/policy-assignment.bicep.md"
-//   header: "generated"
-// ---
-
 targetScope = 'subscription'
 
 @description('Assignment name (1-64 characters, unique within the subscription; no < > * % & : \\ ? . + / and not ending in a space).')

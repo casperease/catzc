@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-execution/tests/types/ToolConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ToolConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:required = @{ version = '1.0'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'; winget_id = 'Widget.Widget' }

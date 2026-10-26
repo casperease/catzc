@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/ado/pipelines/steps/invoke-automation.yaml.md"
-#   header: "generated"
-# ---
-
 parameters:
   - name: RunCommand
     type: string

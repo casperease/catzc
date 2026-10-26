@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md"
-  header: "generated"
----
-#>
-
 function Find-Executable {
     [OutputType([Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     BeforeAll {
         function ConvertTo-Markdown {

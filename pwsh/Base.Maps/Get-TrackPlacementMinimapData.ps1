@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TrackPlacementMinimapData {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]

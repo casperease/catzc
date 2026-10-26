@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-AgentFrontMatter.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-ONEFILEPERAGENT' {
     BeforeAll {
         function Write-AgentFixture {

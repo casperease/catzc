@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LanguageTestOutcomes.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:package = 'catzc/go/tests/catzc-widget'

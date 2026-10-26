@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Resolve-SessionToolHost.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-SessionToolHost {
     [OutputType([System.Management.Automation.CommandInfo])]
     [CmdletBinding()]

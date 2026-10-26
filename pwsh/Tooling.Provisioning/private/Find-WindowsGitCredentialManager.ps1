@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/private/Find-WindowsGitCredentialManager.ps1.md"
-  header: "generated"
----
-#>
-
 function Find-WindowsGitCredentialManager {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/New-AdoPullRequest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-AdoPullRequest' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'ado' } -MockWith {

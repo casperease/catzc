@@ -42,7 +42,7 @@ and its committed prebuild is the [native-csharp-types](../../../drs/automation/
 - ADR: [caching](../../../drs/automation/caching.md) — the committed compiled-type prebuild this hash names.
 - ADR: [one-living-version](../../../drs/principles/one-living-version.md) — why the algorithm lives here once.
 - Reference: [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) — the loader (`Import-CSharpTypes`) that consumes this hash;
-  [Catzc.Base.TypesSystem](../catzc-base-types-system.md) — the module whose `Clear-ModuleTypeCache` janitor also calls it; the
+  [Catzc.Base.TypesSystem](../base-types-system/index.md) — the module whose `Clear-ModuleTypeCache` janitor also calls it; the
   [BCL type-system reference](../../BCL/types-system.md) and the [internal area overview](index.md).
 
 ## comment:1

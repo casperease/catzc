@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-slides/Build-SlideDeck.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-SlideDeck {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

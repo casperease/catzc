@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-ToolVersion.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ToolVersion {
     [OutputType([string])]
     [CmdletBinding()]

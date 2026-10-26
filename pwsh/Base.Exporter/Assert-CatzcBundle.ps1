@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-CatzcBundle {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-InspirationRoot {
     [CmdletBinding()]
     [OutputType([string])]

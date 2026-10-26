@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Get-AdoPipelineDefinitions.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AdoPipelineDefinitions {
     [CmdletBinding()]
     [OutputType([PSCustomObject[]])]

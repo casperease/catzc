@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-timeouts/configs/timeout-exemptions.yml.md"
-#   header: "generated"
-# ---
-
 # Work that may run past its normal limit while it is being tuned; empty is the healthy state.
 exempt: []

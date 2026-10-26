@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-engines/Get-ExecutionEngine.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ExecutionEngine {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Engines.ExecutionEngine])]

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 // One rectangle of a treemap layout: the item it stands for and where it sits, from its bottom-left corner in PDF user space.

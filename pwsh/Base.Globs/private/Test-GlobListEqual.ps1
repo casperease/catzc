@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GlobListEqual {
     [CmdletBinding()]
     [OutputType([bool])]

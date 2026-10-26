@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsRuleSummaryLines.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsRuleSummaryLines {
     [OutputType([pscustomobject[]])]
     [CmdletBinding()]

@@ -1,6 +1,6 @@
 # pwsh/Tooling.Inspiration/types/InspirationConfig.cs
 
-The typed model of `configs/inspiration.yml`: an `inspirations` list of [InspirationEntry](InspirationEntry.cs.md)
+The typed model of `configs/inspiration.yml`: an `inspirations` list of [InspirationEntry](inspiration-entry.md)
 ([ADR-REPO-INSPIRE](../../../../drs/repository/inspiration.md)). It mirrors the YAML mapping with snake_case keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 

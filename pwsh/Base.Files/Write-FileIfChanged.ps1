@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-FileIfChanged {
     [CmdletBinding()]
     [OutputType([bool])]

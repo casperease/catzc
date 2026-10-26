@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Install-Cspell.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Cspell {
     [CmdletBinding()]
     param(

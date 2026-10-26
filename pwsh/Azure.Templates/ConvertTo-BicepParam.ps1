@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/ConvertTo-BicepParam.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-BicepParam {
     [CmdletBinding()]
     [OutputType([string])]

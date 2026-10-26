@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore nsrc  -- the escape-sequence artifact in the "a.txt`nsrc/b.cs" fixture strings
 Describe 'Get-ChangedFile' -Tag 'L0', 'logic' {
     It 'splits git diff output into paths and drops empty lines' {

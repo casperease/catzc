@@ -2,7 +2,7 @@
 
 The one place a file's path is turned into its comment page's path. It walks the `pages:` entries of `comment-pages.yml` in order and the
 first entry that covers the path decides, so the export, the view and the gates all agree on where a page lives. See
-[comment-pages.yml](configs/comment-pages.yml.md) for the entries.
+[comment-pages.yml](configs/comment-pages.md) for the entries.
 
 ## help
 

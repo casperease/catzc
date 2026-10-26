@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md"
-  header: "generated"
----
-#>
-
 function New-CatzcNuGetPackage {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

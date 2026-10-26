@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/private/Merge-ConfigFragment.ps1.md"
-  header: "generated"
----
-#>
-
 function Merge-ConfigFragment {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

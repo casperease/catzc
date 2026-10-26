@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/LinkSelector.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'LinkSelector' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROWS', 'ADR-REPO-LINKS-ENDPOINTSAREFACETS' {
     BeforeAll {
         $script:end = {

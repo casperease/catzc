@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-writers/types/Ansi.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Writers;

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-reports/configs/output-formats.yml.md"
-#   header: "generated"
-# ---
-
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.
 
 # Every kind of file under the output root is declared here once, and no two patterns may overlap, so each file has one format.

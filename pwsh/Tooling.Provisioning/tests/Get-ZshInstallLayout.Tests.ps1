@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ZshInstallLayout.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ZshInstallLayout' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = [pscustomobject]@{

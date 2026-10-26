@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-WorldMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

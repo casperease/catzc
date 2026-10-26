@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Test-GitWorkspace.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GitWorkspace {
     [CmdletBinding()]
     [OutputType([bool])]

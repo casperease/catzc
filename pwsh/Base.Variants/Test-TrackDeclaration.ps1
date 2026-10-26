@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Test-TrackDeclaration.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-TrackDeclaration {
     [CmdletBinding()]
     [OutputType([void])]

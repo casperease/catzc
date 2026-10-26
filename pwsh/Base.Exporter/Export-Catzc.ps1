@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md"
-  header: "generated"
----
-#>
-
 function Export-Catzc {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

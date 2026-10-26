@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-file-limits/Build-WidthConfigs.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-WidthConfigs {
     [CmdletBinding()]
     [OutputType([string])]

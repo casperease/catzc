@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/types/ContractLayout.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.IO;
 using Catzc.Base.Folders;

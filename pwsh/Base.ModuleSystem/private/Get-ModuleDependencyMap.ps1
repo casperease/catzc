@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/private/Get-ModuleDependencyMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleDependencyMap {
     [OutputType([hashtable])]
     param(

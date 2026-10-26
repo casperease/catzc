@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-RepositoryWebUrl.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RepositoryWebUrl {
     [CmdletBinding()]
     [OutputType([string])]

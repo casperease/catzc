@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/SentenceGuid.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore oilzstgq
 Describe 'SentenceGuid' -Tag 'L0', 'logic' {
     It 'is deterministic — the same sentence yields the same GUID' {

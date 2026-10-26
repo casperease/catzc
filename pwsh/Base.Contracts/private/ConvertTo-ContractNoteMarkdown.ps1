@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-ContractNoteMarkdown.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-ContractNoteMarkdown {
     [CmdletBinding()]
     [OutputType([string])]

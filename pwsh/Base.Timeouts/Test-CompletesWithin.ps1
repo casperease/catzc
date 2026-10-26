@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Test-CompletesWithin.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-CompletesWithin {
     [CmdletBinding()]
     [OutputType([bool])]

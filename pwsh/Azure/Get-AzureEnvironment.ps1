@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureEnvironment {
     [CmdletBinding()]
     param(

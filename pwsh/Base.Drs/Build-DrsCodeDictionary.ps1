@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-DrsCodeDictionary {
     [CmdletBinding()]
     [OutputType([string])]

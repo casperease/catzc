@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Get-CodeCaller.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CodeCaller {
     [CmdletBinding()]
     [OutputType([string])]

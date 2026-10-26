@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepCustomerClassViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-BicepCustomerClassViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         # Runs the private function in the module scope; a config's customer is its subfolder name, empty for a root config.

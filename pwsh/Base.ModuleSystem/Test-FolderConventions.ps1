@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Test-FolderConventions.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-FolderConventions {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

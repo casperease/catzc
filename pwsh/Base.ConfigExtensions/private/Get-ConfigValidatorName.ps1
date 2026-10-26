@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config-extensions/private/Get-ConfigValidatorName.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ConfigValidatorName {
     [OutputType([string])]
     param(

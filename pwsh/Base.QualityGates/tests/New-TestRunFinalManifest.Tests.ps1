@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/New-TestRunFinalManifest.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-TestRunFinalManifest' -Tag 'L0', 'logic' {
     It 'records the run, its context, and the opt-out exclusion' {
         InModuleScope Catzc.Base.QualityGates {

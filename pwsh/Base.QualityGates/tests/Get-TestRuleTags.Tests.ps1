@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestRuleTags.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
     BeforeAll {
         # The test's .Block is the inner block, the same shape Get-TestBlockTag.Tests.ps1 uses.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/New-JsConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function New-JsConfig {
     [CmdletBinding()]
     [OutputType([string])]

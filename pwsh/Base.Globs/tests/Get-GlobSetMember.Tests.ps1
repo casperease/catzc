@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {
     It 'returns tracked files the set matches, ordinal-sorted (case-sensitive)' {
         Mock Get-TrackedFile { @('src/b.cs', 'src/a.cs', 'other/x.cs', 'src/B.cs') } -ModuleName Catzc.Base.Globs

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-globs/configs/filters.yml.md"
-#   header: "generated"
-# ---
-
 filters:
   # The live aspect splits in two lamps: code, the executable part of it, and live, all of it (assets, contract bytes, kits, configs).
   - name: code

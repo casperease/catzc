@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-RobotLineCount.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RobotLineCount {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

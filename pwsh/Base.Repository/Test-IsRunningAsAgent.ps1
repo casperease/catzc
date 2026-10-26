@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Test-IsRunningAsAgent.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IsRunningAsAgent {
     [CmdletBinding()]
     [OutputType([bool])]

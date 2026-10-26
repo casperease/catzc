@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Pipelines {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

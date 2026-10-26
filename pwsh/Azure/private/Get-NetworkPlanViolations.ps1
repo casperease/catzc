@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-NetworkPlanViolations {
     [OutputType([string])]
     param(

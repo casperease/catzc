@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkEndpoint.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-LinkEndpoint {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]])]

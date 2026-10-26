@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-TrackNamespace.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-TrackNamespace {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

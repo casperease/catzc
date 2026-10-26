@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md"
-  header: "generated"
----
-#>
-
 function Export-Comments {
     [CmdletBinding()]
     [OutputType([string[]], [Catzc.Base.QualityGates.CommentFileResult])]

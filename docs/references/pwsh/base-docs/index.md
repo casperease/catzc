@@ -1,12 +1,12 @@
 # Catzc.Base.Docs
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs
-source, never a hand-kept one (see [generated-readmes](../../drs/repository/generated-readmes.md)): the source's relative links are rebased
+source, never a hand-kept one (see [generated-readmes](../../../drs/repository/generated-readmes.md)): the source's relative links are rebased
 to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place to
 edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
-primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)); the importer keeps every README current on every load.
+primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every load.
 The module also generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the ADRs,
-modules, and verbs. The ADR registry, and the index generated from it, are [Catzc.Base.Drs](catzc-base-drs.md).
+modules, and verbs. The ADR registry, and the index generated from it, are [Catzc.Base.Drs](../base-drs/index.md).
 
 ## Responsibilities
 
@@ -25,11 +25,11 @@ modules, and verbs. The ADR registry, and the index generated from it, are [Catz
 
 Keeping each mapped folder's README a current copy of its authored source. This responsibility composes the README — the source's text with
 every relative link rebased from the source's folder to the README's (`MarkdownLinkRebaser`), under a line naming the source — and writes it
-through `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)): a current README is a no-op, and a stale one is rewritten by
+through `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)): a current README is a no-op, and a stale one is rewritten by
 delete-then-write, so a README that is still a filesystem link is severed, never written through into its source. That idempotence is what
 lets the importer regenerate every README on each load at no steady-state cost (see
-[generated-readmes](../../drs/repository/generated-readmes.md)). A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the
+[generated-readmes](../../../drs/repository/generated-readmes.md)). A quality gate
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the
 result: every generated README is gitignored, untracked, and current with its source.
 
 ### responsibility:2 — README map
@@ -38,7 +38,7 @@ Which folder is generated from which source. The map is `readme.yml`: a glob `pa
 by convention (the folder's leaf name, kebab-cased — `pwsh/*` → `docs/references/pwsh/<kebab>.md`), plus explicit `mappings` for the folders
 that follow no convention (an explicit mapping wins over a pattern). It is validated when it loads so a malformed or duplicated entry can
 never produce a run, and its patterns are expanded against the filesystem to the concrete folder-to-source list before generation. The map
-is the single place the folder-to-source pairing is stated; the generator reads it through [Catzc.Base.Config](catzc-base-config.md) and
+is the single place the folder-to-source pairing is stated; the generator reads it through [Catzc.Base.Config](../base-config/index.md) and
 never hard-codes a path.
 
 The map is also the **opt-in switch** for the generated README. Listing a folder here opts it in: its `README.md` becomes a derived copy of
@@ -60,7 +60,7 @@ readme-mapped target (responsibility:2), so dropping a `.gitkeep` anywhere deman
 ### responsibility:4 — Controlled vocabulary
 
 The glossary: every defined term, merged from the modules' `configs/glossary.yml` sources (see
-[controlled-vocabulary](../../drs/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
+[controlled-vocabulary](../../../drs/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
 glossary page from it, and checks it — every term anchored on its one defining rule, and no avoided phrasing used within a source's scope.
 
 ### responsibility:5 — Ask cats
@@ -70,7 +70,7 @@ functions, and the approved verbs in use. It prints only; it returns nothing.
 
 ### responsibility:6 — Sub-agent registry
 
-Which sub-agents exist and why (see [agent-definitions](../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
+Which sub-agents exist and why (see [agent-definitions](../../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
 per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
 guards, plus the one standard agent for delegated work. Beside it, `capabilities.yml` registers the capabilities the agents load, each with
 its model floor. Both are validated when they load. A quality gate, `Test-AgentDefinitions`, keeps the agent and capability files, the
@@ -81,8 +81,8 @@ existing command.
 
 Reading wrapped markdown back: a list item with the continuation lines the formatter wrapped it onto is read back whole by one command,
 which every checker that reads list items calls. The writing side, a paragraph filled at the 140-column width the way the formatter fills it
-(see [uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)), is
-[Catzc.Base.MarkdownMeta](catzc-base-markdown-meta.md).
+(see [uniform-formatting](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)), is
+[Catzc.Base.MarkdownMeta](../base-markdown-meta/index.md).
 
 ### responsibility:8 — Rolling logs
 
@@ -105,7 +105,7 @@ stale one is rewritten through the shared `Write-FileIfChanged` primitive. The m
 bad entry fails fast rather than producing a broken README.
 
 The glossary follows the same pattern: an authored source (the modules' glossary sources) and a generated page reproduced from it, which
-`Test-GeneratedFiles` ([Catzc.Base.QualityGates](catzc-base-quality-gates.md)) checks for drift.
+`Test-GeneratedFiles` ([Catzc.Base.QualityGates](../base-quality-gates/index.md)) checks for drift.
 
 ## Division
 

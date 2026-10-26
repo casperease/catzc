@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTimingViolation.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestTimingViolation {
     [CmdletBinding()]
     [OutputType([string[]])]

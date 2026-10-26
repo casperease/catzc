@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Update-PlanStepCount.ps1.md"
-  header: "generated"
----
-#>
-
 function Update-PlanStepCount {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-AnalyzerDrsMap.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $rules = Join-Path $TestDrive '.scriptanalyzer'

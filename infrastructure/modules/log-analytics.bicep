@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/log-analytics.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Log Analytics workspace name.')
 param name string
 

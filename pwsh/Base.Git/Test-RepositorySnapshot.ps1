@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/Test-RepositorySnapshot.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-RepositorySnapshot {
     [CmdletBinding()]
     [OutputType([bool])]

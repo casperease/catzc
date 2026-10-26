@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-github/Assert-GitHubPurgeReady.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-GitHubPurgeReady {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-PipelineCount.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-PipelineCount {
     [CmdletBinding(DefaultParameterSetName = 'Equals')]
     param(

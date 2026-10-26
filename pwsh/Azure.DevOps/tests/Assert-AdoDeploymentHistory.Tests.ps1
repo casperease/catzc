@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Assert-AdoDeploymentHistory.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Assert-AdoDeploymentHistory' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assert = {

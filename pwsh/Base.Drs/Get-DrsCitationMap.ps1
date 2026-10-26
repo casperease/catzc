@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsCitationMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Drs.DrsCitationMap])]

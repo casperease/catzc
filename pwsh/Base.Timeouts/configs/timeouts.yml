@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md"
-#   header: "generated"
-# ---
-
 # Per-executable limits keyed by the bare name (dotnet, not C:\...\dotnet.exe): the tools whose ordinary runs outlast the default.
 executables:
   pwsh: 360 # isolated test runs (Test-InIsolation) and snapshot imports — a full snapshot run takes about 250 s

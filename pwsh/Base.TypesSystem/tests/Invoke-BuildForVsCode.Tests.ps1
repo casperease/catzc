@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/tests/Invoke-BuildForVsCode.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.

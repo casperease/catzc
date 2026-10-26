@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Get-RepositoryGuids.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-RepositoryGuids {
     [CmdletBinding()]
     param()

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/types/PathParts.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Globalization;
 using System.Linq;

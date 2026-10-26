@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md"
-  header: "generated"
----
-#>
-
 function Select-SupportedKeyHandler {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

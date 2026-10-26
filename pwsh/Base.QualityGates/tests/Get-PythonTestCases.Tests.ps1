@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-PythonTestCases.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-PythonTestCases' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

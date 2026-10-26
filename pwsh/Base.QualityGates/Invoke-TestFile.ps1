@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Invoke-TestFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-TestFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

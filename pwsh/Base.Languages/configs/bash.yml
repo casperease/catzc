@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/bash.yml.md"
-#   header: "generated"
-# ---
-
 bats_version: "1.14.0"
 bats_sha256: "bb537b70b15b732f6d8827dd6578e3d8ce166636ce1f18ea9a074184fcce9177"

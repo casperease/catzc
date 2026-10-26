@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Assert-CatzcRunModeExclusive.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     # The transient importer modules are removed after every import, so this test file loads its own copies.
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force

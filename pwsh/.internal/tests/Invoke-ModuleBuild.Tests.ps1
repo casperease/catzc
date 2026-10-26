@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Invoke-ModuleBuild.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
 # cspell:ignore dependenc  -- the stem a message match shares between "dependency" and "dependencies"
 BeforeAll {

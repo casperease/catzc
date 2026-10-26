@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-BuildArtifact.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
     BeforeAll {
         # A clean observation of a two-module build at <root>: every facet passes.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-InternalAssetDependency' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

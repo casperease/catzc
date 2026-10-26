@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-MacToolInstall.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Remove-MacToolInstall' -Tag 'L1', 'logic' {
     BeforeEach {
         $script:config = [pscustomobject]@{ command = 'widget'; pip_package = 'widgetlib' }

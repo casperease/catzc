@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Get-WorldMapOutputRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-WorldMapOutputRoot {
     [CmdletBinding()]
     [OutputType([string])]

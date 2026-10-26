@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkFindingType.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.QualityGates;
 
 // Fixable types are rewritten by Format-Links and reported by Test-Links until they are.

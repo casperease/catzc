@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Assert-BicepTemplate.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore brkn
 Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
     BeforeAll {

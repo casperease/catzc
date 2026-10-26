@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.Git

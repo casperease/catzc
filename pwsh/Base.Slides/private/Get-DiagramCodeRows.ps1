@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramCodeRows.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramCodeRows {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

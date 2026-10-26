@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleSourceFunctions.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleSourceFunctions {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

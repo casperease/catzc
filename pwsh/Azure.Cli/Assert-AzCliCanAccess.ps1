@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-AzCliCanAccess {
     [CmdletBinding()]
     param(

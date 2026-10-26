@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/PipelineWatchdog.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Management.Automation;
 using System.Threading;

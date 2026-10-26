@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Invoke-GoTest.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-GoTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoTestResult])]

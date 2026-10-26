@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ValueChainHighlight {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.ValueChainHighlight], [string])]

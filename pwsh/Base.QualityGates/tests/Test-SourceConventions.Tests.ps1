@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-SourceConventions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

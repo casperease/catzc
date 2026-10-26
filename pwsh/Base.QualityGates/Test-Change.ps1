@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Change {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

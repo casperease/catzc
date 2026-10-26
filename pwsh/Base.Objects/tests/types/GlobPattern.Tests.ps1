@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/GlobPattern.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'GlobPattern' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:match = {

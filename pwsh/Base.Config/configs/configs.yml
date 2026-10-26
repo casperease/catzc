@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-config/configs/configs.yml.md"
-#   header: "generated"
-# ---
-
 # The registry validates itself: its own entry is first, so a malformed registry fails before any other config is read.
 configs:
   configs:

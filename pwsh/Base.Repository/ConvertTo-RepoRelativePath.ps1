@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-RepoRelativePath {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md"
-  header: "generated"
----
-#>
-
 function New-RepositorySnapshot {
     [Catzc.Base.Timeouts.TimeLimit(120)]
     [CmdletBinding()]

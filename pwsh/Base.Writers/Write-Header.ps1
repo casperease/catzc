@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-writers/Write-Header.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-Header {
     [CmdletBinding()]
     param(

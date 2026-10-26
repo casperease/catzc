@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-ToolVersion {
     [CmdletBinding()]
     param(

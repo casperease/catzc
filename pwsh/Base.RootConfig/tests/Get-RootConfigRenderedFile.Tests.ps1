@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-root-config/tests/Get-RootConfigRenderedFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:render = {

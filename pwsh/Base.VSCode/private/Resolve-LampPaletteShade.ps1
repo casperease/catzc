@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/Resolve-LampPaletteShade.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-LampPaletteShade {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
         Justification = 'The palette loads on the first palette reference only, so a tree without one never reads it (ADR-PWSH-PARAM-RESOLUTIONORDER)')]

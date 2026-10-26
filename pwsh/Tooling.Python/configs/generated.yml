@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-tooling-python/configs/generated.yml.md"
-#   header: "generated"
-# ---
-
 # The toolchain's own output, declared as generated so a tool's environment and caches are never taken for authored files.
 targets:
   - { path: python/.venv/**, generator: uv }

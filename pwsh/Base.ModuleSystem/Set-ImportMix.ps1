@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Set-ImportMix.ps1.md"
-  header: "generated"
----
-#>
-
 function Set-ImportMix {
     [CmdletBinding()]
     [OutputType([Catzc.Base.ModuleSystem.ImportMix])]

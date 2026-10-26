@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Import-VendoredPester.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Import-VendoredPester' -Tag 'L0', 'logic', 'ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE' {
     BeforeEach {
         # Every module operation is mocked, so the Pester running this test is never touched.

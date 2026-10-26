@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ShippedConfigs {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

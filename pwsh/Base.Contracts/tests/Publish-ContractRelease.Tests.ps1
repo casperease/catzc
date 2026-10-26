@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Publish-ContractRelease.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEASEDIMMUTABLE' {
     BeforeAll {
         function Add-File {

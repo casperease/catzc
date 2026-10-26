@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-generated-files/Get-GeneratedWriterDue.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GeneratedWriterDue {
     [CmdletBinding()]
     [OutputType([Catzc.Base.GeneratedFiles.GeneratedWriterDue])]

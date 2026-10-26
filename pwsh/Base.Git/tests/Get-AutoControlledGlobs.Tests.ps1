@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     BeforeEach {
         # One gitignored managed target (whitelisted), one committed one (never whitelisted), one not opted in.

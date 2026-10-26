@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md"
-#   header: "generated"
-# ---
-
 # The placeholder every devbox build carries, obviously no real number; a rebuild overwrites it in place, and a pipeline never uses it.
 direct_install_version: 6.6.666
 

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepParameterEntryViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

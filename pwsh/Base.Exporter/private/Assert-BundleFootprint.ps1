@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-BundleFootprint {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

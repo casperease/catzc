@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramImageReference.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramImageReference {
     [CmdletBinding()]
     [OutputType([hashtable])]

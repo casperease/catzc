@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/ConvertTo-NormalName.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-NormalName {
     [CmdletBinding()]
     [OutputType([string])]

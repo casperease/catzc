@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-environment/Sync-SessionPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-SessionPath {
     param()
 

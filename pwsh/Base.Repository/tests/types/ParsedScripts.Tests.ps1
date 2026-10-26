@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # One holder parses a file once, so every reader of the same script shares one syntax tree and one set of parse errors.
 Describe 'ParsedScripts' -Tag 'L0', 'logic' {
     BeforeAll {

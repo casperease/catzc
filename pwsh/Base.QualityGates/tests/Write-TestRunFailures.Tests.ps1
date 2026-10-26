@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Write-TestRunFailures.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:lines = [System.Collections.Generic.List[string]]::new()

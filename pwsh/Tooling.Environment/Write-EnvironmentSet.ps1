@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-EnvironmentSet {
     [CmdletBinding(DefaultParameterSetName = 'Scoped')]
     param(

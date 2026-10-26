@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/SpellingOracle.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.QualityGates;
 
 using System;

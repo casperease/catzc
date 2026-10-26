@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/sql-server.bicep.md"
-//   header: "generated"
-// ---
-
 @description('SQL logical server name (1-63 lowercase, globally unique).')
 param name string
 

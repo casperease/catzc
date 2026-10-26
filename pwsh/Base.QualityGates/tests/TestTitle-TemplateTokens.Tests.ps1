@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/TestTitle-TemplateTokens.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test titles use angle-bracket templates only on data-driven tests' -Tag 'L1', 'integrity', 'source-only' {
     It 'finds no template-shaped token in a title without -ForEach data' {
         $result = Test-TestTitles -PassThru -OutputFolder (Join-Path $TestDrive 'test-titles')

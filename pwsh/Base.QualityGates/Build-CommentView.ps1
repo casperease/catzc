@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md"
-  header: "generated"
----
-#>
-
 function Build-CommentView {
     [CmdletBinding()]
     [OutputType([string[]])]

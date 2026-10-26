@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md"
-#   header: "generated"
-# ---
-
 concepts:
   slot:
     key: slot

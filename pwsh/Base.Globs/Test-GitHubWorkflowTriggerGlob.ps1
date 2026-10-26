@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GitHubWorkflowTriggerGlob {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

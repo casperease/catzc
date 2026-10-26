@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Disconnect-AzCli.ps1.md"
-  header: "generated"
----
-#>
-
 function Disconnect-AzCli {
     [CmdletBinding()]
     param()

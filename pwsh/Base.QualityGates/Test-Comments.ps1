@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Comments {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

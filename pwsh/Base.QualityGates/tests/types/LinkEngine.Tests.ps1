@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/LinkEngine.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIRECTION', 'ADR-REPO-LINKS-CHECKEDBYONEGATE' {
     BeforeAll {
         $script:writeFile = {

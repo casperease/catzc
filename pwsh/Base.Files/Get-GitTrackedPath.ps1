@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GitTrackedPath {
     [CmdletBinding()]
     [OutputType([string])]

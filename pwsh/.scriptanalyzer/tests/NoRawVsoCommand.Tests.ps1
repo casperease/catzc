@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoRawVsoCommand.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoRawVsoCommand', '',
     Justification = 'Test fixtures intentionally contain raw ##vso[task.*] strings to prove the rule flags them.')]
 param()

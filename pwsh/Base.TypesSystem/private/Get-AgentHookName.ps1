@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/private/Get-AgentHookName.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AgentHookName {
     [CmdletBinding()]
     [OutputType([string[]])]

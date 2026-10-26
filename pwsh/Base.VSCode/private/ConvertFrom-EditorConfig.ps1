@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/ConvertFrom-EditorConfig.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertFrom-EditorConfig {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

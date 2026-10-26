@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore sampl deriv
 Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
     # Mocks and the cache reset run once; the cache-behavior tests invalidate bicepTemplatesCache inside their own It.

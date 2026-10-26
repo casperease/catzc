@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Uninstall-AzCli.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-AzCli {
     [CmdletBinding()]
     param(

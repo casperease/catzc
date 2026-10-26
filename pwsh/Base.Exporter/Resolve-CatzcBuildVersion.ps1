@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-CatzcBuildVersion {
     [CmdletBinding()]
     [OutputType([string])]

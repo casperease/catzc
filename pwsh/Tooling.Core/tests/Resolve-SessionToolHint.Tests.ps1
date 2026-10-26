@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Resolve-SessionToolHint.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Resolve-SessionToolHint' -Tag 'L0', 'logic' {
     # Set-ItResult is legal only per test, so the non-Windows skip lives here, not in BeforeAll, which would fail the whole Describe off-Windows.
     BeforeEach {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/New-DocSnapshot.ps1.md"
-  header: "generated"
----
-#>
-
 function New-DocSnapshot {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

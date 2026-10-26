@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ModuleDependency' -Tag 'integrity', 'source-only' {
     BeforeAll {
         $script:edges = Get-ModuleDependency

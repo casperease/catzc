@@ -63,7 +63,7 @@ The module-internal engine `Import-AllModules` drives (not exported):
   combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
 - ADR: [uniform-formatting](../../../drs/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
 - Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../../BCL/types-system.md);
-  [Catzc.Base.ModuleSystem](../catzc-base-module-system.md) — the post-import dependency-graph check over the same modules; the
+  [Catzc.Base.ModuleSystem](../base-module-system/index.md) — the post-import dependency-graph check over the same modules; the
   [internal area overview](index.md).
 
 ## comment:1

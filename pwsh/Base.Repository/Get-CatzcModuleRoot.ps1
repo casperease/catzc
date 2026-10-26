@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Get-CatzcModuleRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatzcModuleRoot {
     [CmdletBinding()]
     [OutputType([string])]

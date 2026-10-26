@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestOptOutExclusion.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestOptOutExclusion {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

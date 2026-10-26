@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-docs/configs/agents.yml.md"
-#   header: "generated"
-# ---
-
 # The roofs Test-AgentDefinitions holds every robot and capability under; the defaults are declared once on AgentsConfig.
 roofs:
   agent_body_lines: 20
@@ -11,7 +5,8 @@ roofs:
 # The contracts every robot and capability names under `contracts` in its front matter and reads first.
 contracts: [ADR-REPO-AI]
 
-# One entry per .claude/agents/<name>.md (ADR-REPO-AGENTS), checked against the files and CLAUDE.md by Test-AgentDefinitions.
+# One entry per .claude/agents/<name>.md
+# ([ADR-REPO-AGENTS](/docs/drs/repository/agent-definitions.md)), checked against the files and CLAUDE.md by Test-AgentDefinitions.
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-drone

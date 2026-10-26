@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRunContext.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestRunContext {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

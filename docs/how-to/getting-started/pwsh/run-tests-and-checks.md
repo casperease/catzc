@@ -32,7 +32,7 @@ A test suite is a named selection declared in `globs.yml`: a globset's `verify:`
 `Test-Automation -Suite infrastructure` runs the `Catzc.Azure.Templates` tests up to L2, including the L2 tests that build every shipped
 template with `az bicep build` and check its rendered parameters files against the compiled parameter model; without `az` those tests skip.
 
-Useful parameters (the rest on [Test-Automation's comment page](../../../references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md)):
+Useful parameters (the rest on [Test-Automation's comment page](../../../references/pwsh/base-quality-gates/test-automation.md)):
 
 | Parameter              | Effect                                                                                             |
 | ---------------------- | -------------------------------------------------------------------------------------------------- |

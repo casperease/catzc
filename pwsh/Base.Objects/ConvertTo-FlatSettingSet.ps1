@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-objects/ConvertTo-FlatSettingSet.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-FlatSettingSet {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

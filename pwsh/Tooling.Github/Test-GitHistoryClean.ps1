@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-github/Test-GitHistoryClean.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GitHistoryClean {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-git/tests/New-GitIgnore.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-GitIgnore' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the config seam: one static section (a noted and a bare pattern) and one injected section.

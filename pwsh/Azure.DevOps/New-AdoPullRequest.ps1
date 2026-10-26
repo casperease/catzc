@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md"
-  header: "generated"
----
-#>
-
 function New-AdoPullRequest {
     [CmdletBinding()]
     param(

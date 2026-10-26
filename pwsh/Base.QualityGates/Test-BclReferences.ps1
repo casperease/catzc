@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-BclReferences.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-BclReferences {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepTemplatesRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepTemplatesRoot {
     [OutputType([string])]
     param()

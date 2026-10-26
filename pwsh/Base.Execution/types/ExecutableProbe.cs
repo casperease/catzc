@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Execution;

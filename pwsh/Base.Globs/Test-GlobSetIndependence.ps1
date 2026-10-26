@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GlobSetIndependence {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

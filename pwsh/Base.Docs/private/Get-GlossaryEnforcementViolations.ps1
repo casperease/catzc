@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossaryEnforcementViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convention = {

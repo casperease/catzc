@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Install-Postman.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Postman {
     [CmdletBinding()]
     param(

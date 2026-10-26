@@ -1,7 +1,1 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/test-policy.yml.md"
-#   header: "generated"
-# ---
-
 l4_mutation: {}

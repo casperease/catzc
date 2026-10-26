@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestResultMarker.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-TestResultMarker {
     [CmdletBinding()]
     [OutputType([string[]])]

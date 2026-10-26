@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ConfigKeyPath {
     [CmdletBinding()]
     param(

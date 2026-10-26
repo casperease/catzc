@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCitation.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsCitation {
     [CmdletBinding()]
     [OutputType([string[]])]

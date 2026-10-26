@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/types/BicepDeploymentContext.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Templates;

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PathModule {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.PathModule])]

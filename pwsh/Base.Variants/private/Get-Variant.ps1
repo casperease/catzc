@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Variant {
     [CmdletBinding()]
     param(

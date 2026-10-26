@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-firewall/types/CsvExportRef.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Azure.Firewall;

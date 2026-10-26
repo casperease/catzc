@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestAutomationTestFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TestAutomationTestFiles {
     [CmdletBinding()]
     [OutputType([string[]])]

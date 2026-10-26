@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-GitCommit {
     [CmdletBinding()]
     [OutputType([string])]

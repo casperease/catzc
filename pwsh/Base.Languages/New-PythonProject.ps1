@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md"
-  header: "generated"
----
-#>
-
 function New-PythonProject {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.PythonWorkspaceFile])]

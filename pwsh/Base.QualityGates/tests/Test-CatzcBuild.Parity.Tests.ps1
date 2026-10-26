@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Parity.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Built modules match their source folders' -Tag 'L2', 'integrity', 'greedy', 'source-only', 'DDR-RUNMODE-SAMEMODULEINBOTH' {
     It 'every built module exports exactly its public functions and carries exactly its private ones (Test-BuildArtifact)' {
         # The default selection — the exporter's default profile — so every module it ships is compared.

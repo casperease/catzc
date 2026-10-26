@@ -3,9 +3,9 @@
 The console output module. It owns the **one colour-aware writer family** the entire platform logs through — every status line, header,
 table, and object dump flows through this module's stream — and the diagnostic renderers that surface exceptions, call stacks, bound
 parameters, and the environment when something goes wrong. It is a member of the `Base` group alongside
-[Catzc.Base.Asserts](catzc-base-asserts.md) and depends on [Catzc.Base.Objects](catzc-base-objects.md) for the object-shaping helpers that
+[Catzc.Base.Asserts](../base-asserts/index.md) and depends on [Catzc.Base.Objects](../base-objects/index.md) for the object-shaping helpers that
 `Write-Object` delegates to. The design contract that governs these writers is the subject of
-[console-output-matters](../../drs/automation/console-output-matters.md).
+[console-output-matters](../../../drs/automation/console-output-matters.md).
 
 ## Responsibilities
 
@@ -21,8 +21,8 @@ coloured text, structured headers and footers, and object dumps to the console, 
 pipe, and never intermixes with raw `Write-Host` calls. `Write-Message` is the primitive writer, routing every line through the module's
 private information-stream chokepoint (`Write-InformationColored`), which owns the colour mapping and the suppression of output during a
 Pester run; `Write-Object` serialises a structured value through the same stream, delegating the object-shaping work to
-[Catzc.Base.Objects](catzc-base-objects.md) before writing; `Write-Header` and `Write-Footer` bracket sections of output with consistent
-framing. This is the concrete implementation of [console-output-matters](../../drs/automation/console-output-matters.md).
+[Catzc.Base.Objects](../base-objects/index.md) before writing; `Write-Header` and `Write-Footer` bracket sections of output with consistent
+framing. This is the concrete implementation of [console-output-matters](../../../drs/automation/console-output-matters.md).
 
 ### responsibility:2 — Diagnostics
 
@@ -46,8 +46,8 @@ failure self-diagnosable without requiring a debugger. Both responsibilities wri
 the rest of the run's output rather than a raw error wall.
 
 `Write-Object` is the one function in this module that crosses a module boundary by design. The writing belongs here; the object-shaping
-work — sorting dictionary keys, converting to YAML-safe form — belongs to [Catzc.Base.Objects](catzc-base-objects.md), and that is where it
-lives. Beyond that dependency and the shared `Base`-group membership with [Catzc.Base.Asserts](catzc-base-asserts.md), this module has no
+work — sorting dictionary keys, converting to YAML-safe form — belongs to [Catzc.Base.Objects](../base-objects/index.md), and that is where it
+lives. Beyond that dependency and the shared `Base`-group membership with [Catzc.Base.Asserts](../base-asserts/index.md), this module has no
 outbound dependencies: its writers know nothing about configuration, external processes, or any feature module above them.
 
 ## Division

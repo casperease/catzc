@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PackageTreePlan {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

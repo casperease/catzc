@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-module-system/Get-ModuleProfile.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleProfile {
     [CmdletBinding(DefaultParameterSetName = 'Profile')]
     [OutputType([string[]])]

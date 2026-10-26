@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-DotnetInstallHolder.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DotnetInstallHolder {
     [CmdletBinding()]
     param(

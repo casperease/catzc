@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Split-CommandLineBatch.ps1.md"
-  header: "generated"
----
-#>
-
 function Split-CommandLineBatch {
     [CmdletBinding()]
     [OutputType([string[]])]

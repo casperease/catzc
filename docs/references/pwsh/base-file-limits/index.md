@@ -4,7 +4,7 @@ The file-limits module. It owns the one declaration of how long and how wide a t
 measure a file against it: a config type that holds the defaults and their bounds, a compiled measure that reads a file in one pass, and the
 functions that resolve and check a file's limits. It also declares the limit on one function's body, which the analyzer rule
 `FunctionLength` reads from the same config. It deliberately does **not** own which language a file is (that is
-[Catzc.Base.Languages](catzc-base-languages.md)) or the check of a function's body (that is the analyzer rule).
+[Catzc.Base.Languages](../base-languages/index.md)) or the check of a function's body (that is the analyzer rule).
 
 ## Responsibilities
 

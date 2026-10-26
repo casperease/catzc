@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ChangedFile {
     [CmdletBinding()]
     [OutputType([string[]])]

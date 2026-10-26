@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-Contracts' -Tag 'L0', 'logic' {
     BeforeAll {
         function Add-File {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-environment/Add-PermanentPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Add-PermanentPath {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Assert-DevBoxToolsStatus.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Assert-DevBoxToolsStatus' -Tag 'L0', 'logic' {
     # Get-ToolsStatus is the only boundary, mocked to fabricated rows with non-production tool names.
     BeforeAll {

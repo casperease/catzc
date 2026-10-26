@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-TrackMemberCommitted.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-TrackMemberCommitted {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

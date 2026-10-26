@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-FixtureIdentityTokens.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:config = Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/tests/assets/config'

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Globalization;
 using System.IO;

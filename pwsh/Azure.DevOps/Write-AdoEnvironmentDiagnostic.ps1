@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Write-AdoEnvironmentDiagnostic.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-AdoEnvironmentDiagnostic {
     [CmdletBinding()]
     param()

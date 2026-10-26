@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GuidScanFiles {
     [CmdletBinding()]
     param()

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Postman.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Postman' -Tag 'L0', 'logic' {
     # The live download is proved by an L2 or manual run; L0 covers only the idempotent skip, with every boundary mocked.
     BeforeEach {

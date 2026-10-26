@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Test-PrePost.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Production never loads the PrePost starter, so these tests import it explicitly to prove it is a working no-op baseline.
 BeforeAll {
     Import-Module (Join-Path $PSScriptRoot '../assets/PrePost.psm1') -Force

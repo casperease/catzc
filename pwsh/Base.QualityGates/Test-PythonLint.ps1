@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-PythonLint.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-PythonLint {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

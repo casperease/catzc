@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-PathExist.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-PathExist {
     [CmdletBinding()]
     param(

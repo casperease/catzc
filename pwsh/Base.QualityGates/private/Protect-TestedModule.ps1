@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Protect-TestedModule.ps1.md"
-  header: "generated"
----
-#>
-
 function Protect-TestedModule {
     [CmdletBinding()]
     param(

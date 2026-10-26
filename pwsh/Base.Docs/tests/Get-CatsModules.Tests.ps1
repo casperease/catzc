@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Get-CatsModules.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:modulesRoot = Join-Path $TestDrive 'modules'

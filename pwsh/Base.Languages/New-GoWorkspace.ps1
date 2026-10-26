@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md"
-  header: "generated"
----
-#>
-
 function New-GoWorkspace {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.GoWorkspaceFile])]

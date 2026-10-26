@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-ModuleProfile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ModuleProfile' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem {

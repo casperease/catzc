@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Get-DocChange.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DocChange {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Install-UvVenvTool.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-UvVenvTool {
     [CmdletBinding()]
     param(

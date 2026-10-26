@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-ScriptAnalyzer.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ScriptAnalyzer {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

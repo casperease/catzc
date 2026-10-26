@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/diagnostic-setting.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Kind of the target resource.')
 @allowed([
   'storageAccount'

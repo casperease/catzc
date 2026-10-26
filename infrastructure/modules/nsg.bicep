@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   docs: "../../docs/references/infrastructure/modules/nsg.bicep.md"
-//   header: "generated"
-// ---
-
 @description('Network security group name (1-80 characters, unique within the resource group).')
 param name string
 

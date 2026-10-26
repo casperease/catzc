@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/ado/pipelines/steps/cache-types.yaml.md"
-#   header: "generated"
-# ---
-
 steps:
   - pwsh: |
       Set-StrictMode -Version Latest

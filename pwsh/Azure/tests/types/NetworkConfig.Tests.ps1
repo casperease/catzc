@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-azure/tests/types/NetworkConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'NetworkConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture environments and subscriptions distinct from the shipped ones, so editing azure.yml never changes these outcomes.

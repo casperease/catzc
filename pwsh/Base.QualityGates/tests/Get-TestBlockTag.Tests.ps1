@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestBlockTag.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestBlockTag' -Tag 'L0', 'logic' {
     BeforeAll {
         # Explicit [string[]] parameters avoid array-of-array flattening.

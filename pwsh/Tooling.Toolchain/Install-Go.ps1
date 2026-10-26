@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Install-Go.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Go {
     [CmdletBinding()]
     param(

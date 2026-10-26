@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-PythonLint.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-PythonLint' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:repo = Join-Path $TestDrive 'repo'

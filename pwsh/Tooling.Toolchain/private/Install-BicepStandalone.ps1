@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Install-BicepStandalone.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-BicepStandalone {
     [CmdletBinding()]
     param(

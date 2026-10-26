@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Install-Git.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Git {
     [CmdletBinding()]
     param(

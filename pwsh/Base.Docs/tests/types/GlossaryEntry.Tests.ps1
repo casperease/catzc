@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-docs/tests/types/GlossaryEntry.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'GlossaryEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:source = [Catzc.Base.Docs.GlossaryConfig]::new([ordered]@{

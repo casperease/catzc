@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractNormalFormFindings.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractNormalFormFindings {
     [CmdletBinding()]
     [OutputType([string[]])]

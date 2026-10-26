@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatEngineAdapter.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FormatEngineAdapter {
     [CmdletBinding()]
     [OutputType([string])]

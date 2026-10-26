@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-DiagramMinimapData {
     [CmdletBinding()]
     [OutputType([string])]

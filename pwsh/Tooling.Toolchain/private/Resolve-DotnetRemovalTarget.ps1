@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Resolve-DotnetRemovalTarget.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-DotnetRemovalTarget {
     [CmdletBinding()]
     [OutputType([string])]

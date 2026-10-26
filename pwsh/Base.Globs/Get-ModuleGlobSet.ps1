@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ModuleGlobSet {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Globs.GlobSet])]

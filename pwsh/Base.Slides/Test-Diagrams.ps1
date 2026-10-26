@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Diagrams {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

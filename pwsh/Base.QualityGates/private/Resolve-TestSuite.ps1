@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-TestSuite {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

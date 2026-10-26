@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Uninstall-NodeJs.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-NodeJs {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenTier.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ListenTier {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

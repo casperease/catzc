@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
     BeforeAll {
         # Build-Modules is the mocked boundary, so the wiring is proved without a real build.

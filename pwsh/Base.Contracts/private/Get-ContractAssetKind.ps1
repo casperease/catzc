@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractAssetKind.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ContractAssetKind {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAssetKind])]

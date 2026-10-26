@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureSubscriptionEnvironment {
     [CmdletBinding()]
     [OutputType([string])]

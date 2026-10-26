@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Copy-Directory.ps1.md"
-  header: "generated"
----
-#>
-
 function Copy-Directory {
     [CmdletBinding()]
     param(

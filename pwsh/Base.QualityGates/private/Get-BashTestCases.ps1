@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-BashTestCases.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BashTestCases {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

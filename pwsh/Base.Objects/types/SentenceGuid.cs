@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/SentenceGuid.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Objects;
 
 using System;

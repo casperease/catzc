@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/ConvertTo-PesterRunTarget.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

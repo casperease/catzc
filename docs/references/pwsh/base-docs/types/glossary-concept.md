@@ -13,10 +13,10 @@ snake_case keys
   ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
   [FDR-CD-SHORTINTEGRATIONCYCLE](../../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
 - **`short`** — a one-line definition.
-- **`realized_by`** — how the concept exists in the repository ([GlossaryRealization](GlossaryRealization.cs.md)).
+- **`realized_by`** — how the concept exists in the repository ([GlossaryRealization](glossary-realization.md)).
 - **relations** and **contrasts** — related terms, and similar terms each with one sentence on how they differ
   ([ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)).
-- **`avoid`** — the avoided phrasings ([GlossaryAvoid](GlossaryAvoid.cs.md),
+- **`avoid`** — the avoided phrasings ([GlossaryAvoid](glossary-avoid.md),
   [ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
 - **`forms`** — the words allowed to qualify the term's head word ('quality' in 'quality gate'), in entry order
   ([ADR-REPO-VOCAB-FAMILYFORMS](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Empty when the entry

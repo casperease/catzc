@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepKeyVaultReferenceViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-BicepKeyVaultReferenceViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

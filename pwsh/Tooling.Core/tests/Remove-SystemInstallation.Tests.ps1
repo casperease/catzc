@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Remove-SystemInstallation' -Tag 'L1', 'logic', 'ADR-AUTO-TEST-SYSTEMTESTSATLTHREE' {
     BeforeAll {
         $script:installDir = if ($IsWindows) {

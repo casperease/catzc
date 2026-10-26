@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-execution/configs/tools.yml.md"
-#   header: "generated"
-# ---
-
 winget:
   version: "1"
   command: winget

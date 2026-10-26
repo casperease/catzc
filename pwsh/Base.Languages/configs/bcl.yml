@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/bcl.yml.md"
-#   header: "generated"
-# ---
-
 host_bindings:
   - file: Base.Asserts/types/ValidatePathGivenAttribute.cs
     host: pwsh

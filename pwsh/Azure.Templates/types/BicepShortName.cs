@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Text;
 

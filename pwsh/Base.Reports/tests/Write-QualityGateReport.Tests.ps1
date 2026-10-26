@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The real settings type over a mocked file, so every gate's report shape is pinned without writing outside the test drive.
 Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {
     BeforeEach {

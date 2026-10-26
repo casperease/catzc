@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ConfigValidators {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

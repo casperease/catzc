@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Aspect {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Variants.VariantAspect])]

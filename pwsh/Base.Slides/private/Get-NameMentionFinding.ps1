@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-NameMentionFinding.ps1.md"
-  header: "generated"
----
-#>
-
 # The lines of a diagram declaration or a slide that name the system by its code name or its conversational name, as a word.
 function Get-NameMentionFinding {
     [CmdletBinding()]

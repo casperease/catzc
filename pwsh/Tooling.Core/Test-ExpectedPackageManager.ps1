@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Test-ExpectedPackageManager.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-ExpectedPackageManager {
     [OutputType([bool])]
     [CmdletBinding()]

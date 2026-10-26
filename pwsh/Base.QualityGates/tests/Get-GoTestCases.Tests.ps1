@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-GoTestCases.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore Testlowercase  -- a Go function name that is not a test (lowercase after Test), on purpose
 Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {
     BeforeAll {

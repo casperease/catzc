@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-config/Get-Config.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-Config {
     [CmdletBinding(DefaultParameterSetName = 'Load')]
     param(

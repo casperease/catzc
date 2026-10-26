@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Test-ToolRequiresElevation.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-ToolRequiresElevation' -Tag 'L0', 'logic' {
     BeforeAll {
         # The production input is the typed record Get-ToolConfig returns, so a flag the record does not map is absent here exactly as in production.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Test-FolderConventions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FixtureFile {

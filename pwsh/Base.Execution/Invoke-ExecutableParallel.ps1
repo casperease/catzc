@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-execution/Invoke-ExecutableParallel.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-ExecutableParallel {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Execution.CliResult])]

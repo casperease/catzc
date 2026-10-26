@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ScriptAnalyzerShards.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-ScriptAnalyzerShards {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
         Justification = 'The analyzer import runs inside each background Start-Job shard process, never in this session')]

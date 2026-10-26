@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Get-FileLanguage.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileLanguage {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     [OutputType([Catzc.Base.Languages.FileLanguage])]

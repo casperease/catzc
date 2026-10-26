@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/New-DocNote.ps1.md"
-  header: "generated"
----
-#>
-
 function New-DocNote {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

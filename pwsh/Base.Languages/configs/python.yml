@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/python.yml.md"
-#   header: "generated"
-# ---
-
 dependencies:
   jsonschema: "4.26.0"
   pillow: "12.3.0"

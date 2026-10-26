@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Deploy-AzureResourceGroup.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore nproperties
 Describe 'Deploy-AzureResourceGroup' -Tag 'L0', 'logic' {
     BeforeAll {

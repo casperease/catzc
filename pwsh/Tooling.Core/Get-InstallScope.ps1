@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-InstallScope.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-InstallScope {
     [OutputType([string])]
     [CmdletBinding()]

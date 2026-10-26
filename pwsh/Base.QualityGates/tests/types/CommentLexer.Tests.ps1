@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentLexer.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'CommentLexer' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:commentTexts = {

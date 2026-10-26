@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Test-Tool.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Tool {
     [OutputType([bool], [Catzc.Base.Execution.ExecutableProbe])]
     [CmdletBinding()]

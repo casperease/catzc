@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/Expand-VsCodeRepeat.ps1.md"
-  header: "generated"
----
-#>
-
 function Expand-VsCodeRepeat {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

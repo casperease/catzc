@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Uninstall-Markdownlint.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Markdownlint {
     [CmdletBinding()]
     param()

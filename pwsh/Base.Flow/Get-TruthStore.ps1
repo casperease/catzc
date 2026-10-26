@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-flow/Get-TruthStore.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-TruthStore {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Flow.TruthStore])]

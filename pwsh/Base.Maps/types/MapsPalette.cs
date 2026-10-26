@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/MapsPalette.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 // The palette section: the background, row and column fills, empty and fullest cell, grid, text and marks.

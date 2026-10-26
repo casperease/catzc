@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramProofFinding.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramProofFinding {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Chocolatey.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Uninstall-Chocolatey' -Tag 'L0', 'logic' {
     # The seams' real registry round trips are their own L3 system tests, so every outside boundary is mocked here.
     BeforeEach {

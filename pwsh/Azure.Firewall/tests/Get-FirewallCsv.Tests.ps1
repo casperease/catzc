@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-firewall/tests/Get-FirewallCsv.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore etwork
 Describe 'Get-FirewallCsv' -Tag 'L2', 'logic' {
     BeforeAll {

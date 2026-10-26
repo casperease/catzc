@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Get-LoadedTypeDrift.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 BeforeAll {
     Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Types.psm1') -Force
 }

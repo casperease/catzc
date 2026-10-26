@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Get-DrsFileIndex.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{

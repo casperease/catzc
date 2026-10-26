@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-cli/tests/Get-AzCliSessionSubscription.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
     # The session read is mocked whole and config resolves to fixture identities, so nothing production is in play.
     BeforeAll {

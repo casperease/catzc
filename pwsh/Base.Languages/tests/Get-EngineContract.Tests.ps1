@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/tests/Get-EngineContract.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive "widget's repo"

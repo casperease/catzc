@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Get-ToolCommandSuffix.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ToolCommandSuffix' -Tag 'L0', 'logic' {
     It 'maps snake_case key <Tool> to PascalCase suffix <Expected>' -ForEach @(
         @{ Tool = 'python'; Expected = 'Python' }

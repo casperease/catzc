@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/parameter-consistency.yml.md"
-#   header: "generated"
-# ---
-
 exempt:
   As: the output format of a diagram converter, typed per diagram (an enum where the format set is closed, text where it is open)
   Committed:

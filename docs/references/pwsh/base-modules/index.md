@@ -2,12 +2,12 @@
 
 The one resolver of a module: for every deployable track it finds the modules the track's places hold, and returns each as one
 `Catzc.Base.Modules.Module` with its name, track, module type, place, root, shape, files, languages, engines and the files its layout does
-not place ([module-model](../../drs/automation/module-model.md), ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE and ADR-AUTO-MODULE-EXISTSBYLAYOUT).
+not place ([module-model](../../../drs/automation/module-model.md), ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE and ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 It also owns the aspect convention of a track, the ordered first-match classification that says which of a unit's files are live and which
-are not ([module-aspects](../../drs/design/module-aspects.md)). It does not hold the dependency graph, the module order or the integrity
-tests; those read its module list and live in [Catzc.Base.ModuleSystem](catzc-base-module-system.md). It does not declare the tracks, the
-layout or the module types either; it reads them from [Catzc.Base.Variants](catzc-base-variants.md) and
-[Catzc.Base.Languages](catzc-base-languages.md).
+are not ([module-aspects](../../../drs/design/module-aspects.md)). It does not hold the dependency graph, the module order or the integrity
+tests; those read its module list and live in [Catzc.Base.ModuleSystem](../base-module-system/index.md). It does not declare the tracks, the
+layout or the module types either; it reads them from [Catzc.Base.Variants](../base-variants/index.md) and
+[Catzc.Base.Languages](../base-languages/index.md).
 
 ## Responsibilities
 
@@ -30,7 +30,7 @@ logic test.
 Saying which part of a unit each file belongs to. An aspect convention is an ordered list of named patterns, matched first to last, whose
 last entry is the catch-all. A code track derives its convention from the layout: `live` is the layout's live rows, kept closed so a stray
 file falls to the `tests` catch-all and never ships. Any other track takes the convention its `aspects` entry in `variants.yml` declares,
-read through [Catzc.Base.Variants](catzc-base-variants.md), else the built-in one for its track type: a deployment makes `live` the
+read through [Catzc.Base.Variants](../base-variants/index.md), else the built-in one for its track type: a deployment makes `live` the
 catch-all, so everything under a template ships and only an explicit tests folder is non-live.
 
 ## What the module does

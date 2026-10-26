@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Get-BicepResourceName.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # cspell:ignore alweutstsmplst alweutstsmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     # Read-only resolver: mocks and the cache reset run once, since a per-test reset would re-derive the fixture config cold (~80 ms) every test.

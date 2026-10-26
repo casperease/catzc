@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md"
-  header: "generated"
----
-#>
-
 # The shared listen fixture: a watched docs folder in TestDrive with short timings, so no test touches the real tree or waits.
 function Write-ListenFixtureFile {
     param(

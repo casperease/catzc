@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Chocolatey.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Chocolatey {
     [CmdletBinding()]
     param()

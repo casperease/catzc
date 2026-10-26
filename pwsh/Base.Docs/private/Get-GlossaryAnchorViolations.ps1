@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossaryAnchorViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-ModuleProtectionIdentity.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ModuleProtectionIdentity' -Tag 'L0', 'logic' {
     BeforeEach {
         # Catzc.Unknown appears nowhere, so it stays unconstrained.

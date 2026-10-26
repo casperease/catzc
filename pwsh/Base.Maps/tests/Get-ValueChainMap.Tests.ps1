@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)

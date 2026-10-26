@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AdoPipelineTriggerGlob {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsCitationGraphViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsCitationGraphViolations {
     [OutputType([string[]])]
     [CmdletBinding()]

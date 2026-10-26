@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-SlideOrderFinding.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-SlideOrderFinding {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Slides.SlideFault])]

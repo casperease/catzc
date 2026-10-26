@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure/tests/Get-AzureCustomer.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-AzureCustomer' -Tag 'L0', 'logic' {
     # The customer config points at the fixture catalogue; a read-only resolver, so the setup runs once.
     BeforeAll {

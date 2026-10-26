@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Install-Git.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-Git' -Tag 'L0', 'logic' {
     # The live download earns its confidence from an L2 or manual run; L0 covers only the idempotent skip and platform delegation.
     BeforeEach {

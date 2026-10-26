@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GoRelease {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

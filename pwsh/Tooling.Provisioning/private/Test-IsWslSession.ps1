@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/private/Test-IsWslSession.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-IsWslSession {
     [CmdletBinding()]
     [OutputType([bool])]

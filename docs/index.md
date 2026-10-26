@@ -41,20 +41,20 @@ the diagrams. By ADR domain:
 Per-module reference, written responsibilities-first — each [article](references/pwsh/index.md) declares the module's responsibilities,
 describes it in those terms, and sorts its functions and configs into them:
 
-- [Catzc.Base.Asserts](references/pwsh/catzc-base-asserts.md), [Catzc.Base.Repository](references/pwsh/catzc-base-repository.md),
-  [Catzc.Base.Environment](references/pwsh/catzc-base-environment.md), [Catzc.Base.Objects](references/pwsh/catzc-base-objects.md),
-  [Catzc.Base.Writers](references/pwsh/catzc-base-writers.md), [Catzc.Base.Config](references/pwsh/catzc-base-config.md),
-  [Catzc.Base.Execution](references/pwsh/catzc-base-execution.md), [Catzc.Base.Files](references/pwsh/catzc-base-files.md),
-  [Catzc.Base.TypesSystem](references/pwsh/catzc-base-types-system.md),
-  [Catzc.Base.ModuleSystem](references/pwsh/catzc-base-module-system.md),
-  [Catzc.Base.QualityGates](references/pwsh/catzc-base-quality-gates.md), [Catzc.Base.Git](references/pwsh/catzc-base-git.md),
-  [Catzc.Base.VSCode](references/pwsh/catzc-base-vs-code.md), [Catzc.Base.RootConfig](references/pwsh/catzc-base-root-config.md)
-- [Catzc.Tooling.Core](references/pwsh/catzc-tooling-core.md), [Catzc.Tooling.Python](references/pwsh/catzc-tooling-python.md),
-  [Catzc.Tooling.Node](references/pwsh/catzc-tooling-node.md), [Catzc.Tooling.Toolchain](references/pwsh/catzc-tooling-toolchain.md),
-  [Catzc.Tooling.Provisioning](references/pwsh/catzc-tooling-provisioning.md)
-- [Catzc.Azure](references/pwsh/catzc-azure.md), [Catzc.Azure.Cli](references/pwsh/catzc-azure-cli.md),
-  [Catzc.Azure.DevOps](references/pwsh/catzc-azure-dev-ops.md), [Catzc.Azure.Firewall](references/pwsh/catzc-azure-firewall.md),
-  [Catzc.Azure.Templates](references/pwsh/catzc-azure-templates.md)
+- [Catzc.Base.Asserts](references/pwsh/base-asserts/index.md), [Catzc.Base.Repository](references/pwsh/base-repository/index.md),
+  [Catzc.Base.Environment](references/pwsh/base-environment/index.md), [Catzc.Base.Objects](references/pwsh/base-objects/index.md),
+  [Catzc.Base.Writers](references/pwsh/base-writers/index.md), [Catzc.Base.Config](references/pwsh/base-config/index.md),
+  [Catzc.Base.Execution](references/pwsh/base-execution/index.md), [Catzc.Base.Files](references/pwsh/base-files/index.md),
+  [Catzc.Base.TypesSystem](references/pwsh/base-types-system/index.md),
+  [Catzc.Base.ModuleSystem](references/pwsh/base-module-system/index.md),
+  [Catzc.Base.QualityGates](references/pwsh/base-quality-gates/index.md), [Catzc.Base.Git](references/pwsh/base-git/index.md),
+  [Catzc.Base.VSCode](references/pwsh/base-vs-code/index.md), [Catzc.Base.RootConfig](references/pwsh/base-root-config/index.md)
+- [Catzc.Tooling.Core](references/pwsh/tooling-core/index.md), [Catzc.Tooling.Python](references/pwsh/tooling-python/index.md),
+  [Catzc.Tooling.Node](references/pwsh/tooling-node/index.md), [Catzc.Tooling.Toolchain](references/pwsh/tooling-toolchain/index.md),
+  [Catzc.Tooling.Provisioning](references/pwsh/tooling-provisioning/index.md)
+- [Catzc.Azure](references/pwsh/azure/index.md), [Catzc.Azure.Cli](references/pwsh/azure-cli/index.md),
+  [Catzc.Azure.DevOps](references/pwsh/azure-dev-ops/index.md), [Catzc.Azure.Firewall](references/pwsh/azure-firewall/index.md),
+  [Catzc.Azure.Templates](references/pwsh/azure-templates/index.md)
 
 ## Automation ADRs
 

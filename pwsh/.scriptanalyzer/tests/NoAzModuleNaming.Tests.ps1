@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/scriptanalyzer/tests/NoAzModuleNaming.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoAzModuleNaming.psm1') -Force

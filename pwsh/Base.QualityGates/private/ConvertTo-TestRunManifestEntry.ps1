@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-TestRunManifestEntry.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-TestRunManifestEntry {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

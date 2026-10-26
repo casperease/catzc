@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Tooling.Inspiration;

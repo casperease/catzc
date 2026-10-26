@@ -14,7 +14,7 @@ Constructing an entry maps and validates it and gathers every violation into one
 - each package is a non-empty list of non-empty paths, not a single string;
 - each path is repository-root-relative and forward-slashed: no `\`, no leading `/`, no `:` and no `..` segment.
 
-Package-name uniqueness spans modules, so [FilesConfig](FilesConfig.cs.md) checks it.
+Package-name uniqueness spans modules, so [FilesConfig](files-config.md) checks it.
 
 ## Properties
 

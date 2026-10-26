@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md"
-#   header: "generated"
-# ---
-
 groups:
   form: track_module
   # Module full name -> group, only where the form names a module's group wrongly.

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-folders/tests/types/PathSet.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The files a type owns, named under a base or found by a pattern through the bounded walker: full paths, sorted, unique.
 Describe 'PathSet' -Tag 'L0', 'logic' {
     BeforeAll {

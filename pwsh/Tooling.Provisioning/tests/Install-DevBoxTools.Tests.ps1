@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Install-DevBoxTools.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-DevBoxTools' -Tag 'L0', 'logic' {
     BeforeAll {
         # The mocks return the typed record like Get-ToolConfig, so every flag an entry omits reads as its default.

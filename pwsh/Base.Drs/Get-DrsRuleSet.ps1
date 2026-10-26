@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Get-DrsRuleSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsRuleSet {
     [OutputType([Catzc.Base.Drs.DrsRuleSet[]])]
     [CmdletBinding()]

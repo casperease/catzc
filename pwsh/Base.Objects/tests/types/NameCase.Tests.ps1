@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/NameCase.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'NameCase' -Tag 'L0', 'logic' {
     It 'renders DevOps in kebab case as dev-ops' {
         [Catzc.Base.Objects.NameCase]::Render('DevOps', 'kebab') | Should -BeExactly 'dev-ops'

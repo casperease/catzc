@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkRelation.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.QualityGates;
 
 // The three ways one tracked file points at another.

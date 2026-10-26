@@ -2,13 +2,13 @@
 
 The maps module. It **computes the world map**: every tracked file placed in exactly one cell of the repository's tracks crossed with its
 file languages, built from the repository's own registries and the git index, never drawn by hand
-([tracks](../../drs/design/tracks.md#rule-ddr-track-worldmap)). On that map it lights the cells an ADR code or a set of files concerns,
+([tracks](../../../drs/design/tracks.md#rule-ddr-track-worldmap)). On that map it lights the cells an ADR code or a set of files concerns,
 checks that no track carries a second tech-stack, and draws the map as deterministic PDFs. Beside it, it computes the value-chain map, the
 ADRs placed on the value-chain stack crossed with the value-chain concerns
-([tracks](../../drs/design/tracks.md#rule-ddr-track-valuechainmap)). It does **not** declare the axes: the tracks come from
-[Catzc.Base.Variants](catzc-base-variants.md), the file languages from [Catzc.Base.Languages](catzc-base-languages.md), and the value-chain
-stack and concerns from the ADR registry of [Catzc.Base.Docs](catzc-base-docs.md); this module only reads them. The concepts it draws are
-the subject of [tracks](../../drs/design/tracks.md).
+([tracks](../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)). It does **not** declare the axes: the tracks come from
+[Catzc.Base.Variants](../base-variants/index.md), the file languages from [Catzc.Base.Languages](../base-languages/index.md), and the value-chain
+stack and concerns from the ADR registry of [Catzc.Base.Docs](../base-docs/index.md); this module only reads them. The concepts it draws are
+the subject of [tracks](../../../drs/design/tracks.md).
 
 ## Responsibilities
 
@@ -71,22 +71,22 @@ all agree on where a file sits. Placement is exact rather than heuristic — the
 the map the same on every run of the same commit and lets a consumer, such as the small maps on the diagram slides, read it instead of
 guessing.
 
-Two rules from [tracks](../../drs/design/tracks.md) shape the checking half. A track owns one tech-stack
-([DDR-TRACK-ONETECHSTACK](../../drs/design/tracks.md#rule-ddr-track-onetechstack)), so the map marks the cell that breaks it and
+Two rules from [tracks](../../../drs/design/tracks.md) shape the checking half. A track owns one tech-stack
+([DDR-TRACK-ONETECHSTACK](../../../drs/design/tracks.md#rule-ddr-track-onetechstack)), so the map marks the cell that breaks it and
 responsibility 3 turns that mark into an issue. And every label the map prints names a defined term
-([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also holds the
+([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also holds the
 configured labels to the glossary: the renderer of responsibility 5 prints nothing the vocabulary does not define.
 
 Responsibility 2 joins the map to the ADRs. It reads citations from the files' own text, so a file lights for an ADR when it cites it, and
 the configuration records the reviewed cases where a citation is a passing mention or a drawing needs a cell its files do not cite. The
-module reads the ADR index through [Catzc.Base.Docs](catzc-base-docs.md), the tracked files through [Catzc.Base.Files](catzc-base-files.md),
-and the globsets through [Catzc.Base.Globs](catzc-base-globs.md); it writes its PDFs under the output root
-([dedicated-output-directory](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)) and draws
+module reads the ADR index through [Catzc.Base.Docs](../base-docs/index.md), the tracked files through [Catzc.Base.Files](../base-files/index.md),
+and the globsets through [Catzc.Base.Globs](../base-globs/index.md); it writes its PDFs under the output root
+([dedicated-output-directory](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)) and draws
 them with its own BCL-only PDF writer.
 
 Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the ADR registry,
 where each ADR domain declares its row and a default set of value-chain concerns and an ADR declares its own only when it differs
-([DDR-TRACK-VALUECHAINCONCERN](../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), so its picture is declared, never guessed. Its
+([DDR-TRACK-VALUECHAINCONCERN](../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), so its picture is declared, never guessed. Its
 quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check different
 properties; the labels of both maps share one configuration section and one glossary check.
 

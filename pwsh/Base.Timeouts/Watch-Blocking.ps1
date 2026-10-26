@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md"
-  header: "generated"
----
-#>
-
 function Watch-Blocking {
     [CmdletBinding()]
     param(

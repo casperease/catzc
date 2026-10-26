@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-variants/Test-HaveCustomers.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-HaveCustomers {
     [CmdletBinding()]
     [OutputType([bool])]

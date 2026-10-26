@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlFileRecord.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Azure.DevOps;

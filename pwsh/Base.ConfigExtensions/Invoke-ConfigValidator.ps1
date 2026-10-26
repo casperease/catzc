@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-config-extensions/Invoke-ConfigValidator.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-ConfigValidator {
     [CmdletBinding()]
     [OutputType([string])]

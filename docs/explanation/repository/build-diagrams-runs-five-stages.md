@@ -93,5 +93,5 @@ Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFR
 ## See also
 
 - [Slides as markdown](../../drs/repository/slides-as-markdown.md) — the decision this article explains.
-- [The `Build-Diagrams` help](../../references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md) — its parameters and journeys.
+- [The `Build-Diagrams` help](../../references/pwsh/base-slides/build-diagrams.md) — its parameters and journeys.
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/infrastructure/templates/expedition/options.yml.md"
-#   header: "generated"
-# ---
-
 short_name: exped
 environment_kind: standard

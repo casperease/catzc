@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramArticleStem.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DiagramArticleStem {
     [CmdletBinding()]
     [OutputType([string])]

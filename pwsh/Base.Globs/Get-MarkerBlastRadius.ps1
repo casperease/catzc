@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-MarkerBlastRadius {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

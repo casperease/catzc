@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Install-PipTool' -Tag 'L1', 'logic' {
     BeforeEach {
         # A neutral library-shaped tool, so the case covers a package with no launcher of its own without naming a real one.

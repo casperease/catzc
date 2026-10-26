@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-docs/tests/types/DocMapping.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'DocMapping' -Tag 'L0', 'logic' {
     It 'constructs and exposes folder + source' {
         $m = [Catzc.Base.Docs.DocMapping]::new(@{ folder = 'widgets/Catzc.Fixture'; source = 'docs/readme/foo.md' })

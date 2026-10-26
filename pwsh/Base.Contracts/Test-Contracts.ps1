@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Contracts {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

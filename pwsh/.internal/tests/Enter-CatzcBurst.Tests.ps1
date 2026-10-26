@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Enter-CatzcBurst.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-MarkdownMetaState {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

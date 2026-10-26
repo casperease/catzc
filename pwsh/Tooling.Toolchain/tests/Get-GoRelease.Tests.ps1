@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Get-GoRelease.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GoRelease' -Tag 'L0', 'logic' {
     BeforeAll {
         # Get-GoRelease is private: reach it in the module's scope.

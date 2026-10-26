@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-module-system/tests/types/FunctionCallCollector.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'FunctionCallCollector' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:collect = {

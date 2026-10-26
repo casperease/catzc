@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-timeouts/tests/Get-TimeoutSeconds.Repository.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # A function bounds its long work through Get-TimeoutSeconds and its [TimeLimit] decoration, never a number literal default.
 Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1', 'integrity', 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
     It 'no function defaults a TimeoutSeconds parameter to a number literal above zero' {

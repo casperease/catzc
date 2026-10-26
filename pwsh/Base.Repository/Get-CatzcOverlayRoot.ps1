@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-repository/Get-CatzcOverlayRoot.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatzcOverlayRoot {
     [CmdletBinding()]
     [OutputType([string])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vs-code/Set-VsCodeHiddenAction.ps1.md"
-  header: "generated"
----
-#>
-
 function Set-VsCodeHiddenAction {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([hashtable])]

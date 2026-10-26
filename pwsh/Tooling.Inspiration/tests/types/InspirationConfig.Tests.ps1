@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # Every load-time rejection is pinned, so a root outside the portable stored form can never slip into a loaded config.
 Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic', 'ADR-REPO-INSPIRE-DECLAREDINSPIRATION' {
     BeforeAll {

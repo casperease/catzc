@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-vendor/Test-VendorModuleAvailable.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-VendorModuleAvailable {
     [CmdletBinding()]
     [OutputType([bool])]

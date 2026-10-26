@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md"
-  header: "generated"
----
-#>
-
 function Read-SlideFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

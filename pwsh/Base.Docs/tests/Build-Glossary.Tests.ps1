@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     BeforeAll {
         # A rule whose link is longer than a line is wrapped the way Prettier does, so the formatter leaves the page unchanged.

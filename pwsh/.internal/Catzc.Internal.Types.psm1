@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md"
-  header: "generated"
----
-#>
-
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
 # The type-assembly build functions live one per file beside this module; they share its scope.

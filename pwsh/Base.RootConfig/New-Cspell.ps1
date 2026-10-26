@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-root-config/New-Cspell.ps1.md"
-  header: "generated"
----
-#>
-
 function New-Cspell {
     [CmdletBinding()]
     [OutputType([string])]

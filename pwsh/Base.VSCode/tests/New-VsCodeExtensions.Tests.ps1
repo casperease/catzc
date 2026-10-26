@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-vs-code/tests/New-VsCodeExtensions.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'New-VsCodeExtensions' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolated through the config seam: a small fixture registry.

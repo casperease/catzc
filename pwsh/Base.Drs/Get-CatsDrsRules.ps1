@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/Get-CatsDrsRules.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CatsDrsRules {
     [OutputType([object[]])]
     [CmdletBinding()]

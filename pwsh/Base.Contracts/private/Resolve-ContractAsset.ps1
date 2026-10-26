@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Resolve-ContractAsset.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-ContractAsset {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Contracts.ContractAsset[]])]

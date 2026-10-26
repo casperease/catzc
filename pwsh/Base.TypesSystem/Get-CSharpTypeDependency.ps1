@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-types-system/Get-CSharpTypeDependency.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CSharpTypeDependency {
     param(
         [string] $ModulesRoot = (Get-CatzcModulesRoot)

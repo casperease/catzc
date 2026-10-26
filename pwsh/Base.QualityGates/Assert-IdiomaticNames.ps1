@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Assert-IdiomaticNames.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-IdiomaticNames {
     [CmdletBinding()]
     param()

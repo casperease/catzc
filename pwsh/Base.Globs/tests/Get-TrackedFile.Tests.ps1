@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {
     It "returns the whole repository's tracked set from Get-GitTrackedPath" {
         Mock Get-GitTrackedPath { @('a.txt', 'src/b.cs') } -ModuleName Catzc.Base.Globs

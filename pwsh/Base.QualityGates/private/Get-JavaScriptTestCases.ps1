@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-JavaScriptTestCases.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-JavaScriptTestCases {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

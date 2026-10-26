@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Test-ScriptAnalyzer.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'PSScriptAnalyzer' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'

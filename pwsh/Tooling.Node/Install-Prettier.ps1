@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-node/Install-Prettier.ps1.md"
-  header: "generated"
----
-#>
-
 function Install-Prettier {
     [CmdletBinding()]
     param(

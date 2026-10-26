@@ -11,7 +11,7 @@ Bicep for the templating system, in two folders:
 - **`modules/`** — reusable bicep modules shared across templates. Referenced from a template's `main.bicep` via a relative `module`
   declaration (`../../modules/<x>.bicep`) and inlined by `az bicep build`. Not discovered as templates.
 
-The system is documented in [the Catzc.Azure.Templates reference](../pwsh/catzc-azure-templates.md); the design rationale lives in
+The system is documented in [the Catzc.Azure.Templates reference](../pwsh/azure-templates/index.md); the design rationale lives in
 [`docs/drs/azure/`](../../drs/azure/).
 
 ## The templates and their order

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-GlobSetChangeRange' -Tag 'L0', 'logic' {
     BeforeEach {
         # A clean, deterministic env regardless of where the tests run (a real pipeline sets some of these).

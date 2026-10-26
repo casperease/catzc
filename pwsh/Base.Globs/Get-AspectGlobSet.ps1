@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Get-AspectGlobSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AspectGlobSet {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

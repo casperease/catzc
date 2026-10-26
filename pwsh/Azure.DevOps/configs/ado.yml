@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/configs/ado.yml.md"
-#   header: "generated"
-# ---
-
 # Azure DevOps organization URL (the REST API host).
 organization: "https://dev.azure.com/Catzc"
 

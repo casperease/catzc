@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/internal/tests/Invoke-StagedBurst.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:burst = Join-Path $PSScriptRoot '../assets/Invoke-StagedBurst.ps1'

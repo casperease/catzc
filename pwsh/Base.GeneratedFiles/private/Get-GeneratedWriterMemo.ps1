@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterMemo.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GeneratedWriterMemo {
     [CmdletBinding()]
     [OutputType([hashtable])]

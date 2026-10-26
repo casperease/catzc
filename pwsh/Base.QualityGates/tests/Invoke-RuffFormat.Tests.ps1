@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-RuffFormat.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-RuffFormat' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'

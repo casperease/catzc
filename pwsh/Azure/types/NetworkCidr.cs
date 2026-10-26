@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure/types/NetworkCidr.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Net;
 using System.Net.Sockets;

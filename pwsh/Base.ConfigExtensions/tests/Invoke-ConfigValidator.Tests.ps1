@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-config-extensions/tests/Invoke-ConfigValidator.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 # The validators are private, so each fixture module must prove they are found and run in that module's own scope.
 Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {
     BeforeAll {

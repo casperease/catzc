@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-cli/Get-CurrentAzSubscription.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-CurrentAzSubscription {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

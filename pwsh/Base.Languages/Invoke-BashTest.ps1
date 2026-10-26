@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-languages/Invoke-BashTest.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-BashTest {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Languages.BashTestResult])]

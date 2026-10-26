@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsFileIndex.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsFileIndex {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

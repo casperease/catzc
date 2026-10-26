@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Assert-FileIsLocked.ps1.md"
-  header: "generated"
----
-#>
-
 function Assert-FileIsLocked {
     [CmdletBinding()]
     param(

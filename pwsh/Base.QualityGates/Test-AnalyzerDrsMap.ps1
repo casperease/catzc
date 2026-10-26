@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerDrsMap.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-AnalyzerDrsMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]

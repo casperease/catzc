@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Test-FunctionDependency.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-FunctionDependency' -Tag 'L1', 'integrity', 'source-only' {
     It 'the real repository dependency graph is satisfied' {
         $result = Test-FunctionDependency -PassThru -OutputFolder (Join-Path $TestDrive 'function-dependency')

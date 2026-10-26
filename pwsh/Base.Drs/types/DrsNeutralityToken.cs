@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsNeutralityToken.cs.md"
-  header: "generated"
----
-*/
-
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 

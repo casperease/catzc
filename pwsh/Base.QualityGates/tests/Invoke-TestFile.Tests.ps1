@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-TestFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Invoke-TestFile' -Tag 'L0', 'logic' {
     BeforeAll {
         # The seams every case below shares, mocked once; a case that differs re-mocks its own.

@@ -2,12 +2,12 @@
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the
-`Get-Config` cache boundary, see [caching](../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
+`Get-Config` cache boundary, see [caching](../../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
 component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track
 aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a
-repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../drs/repository/repo-variants.md)). It is a member
-of the `Base` group and depends on [Catzc.Base.Config](catzc-base-config.md) (to read the config),
-[Catzc.Base.Objects](catzc-base-objects.md) (the base of its config type), and [Catzc.Base.Asserts](catzc-base-asserts.md).
+repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../../drs/repository/repo-variants.md)). It is a member
+of the `Base` group and depends on [Catzc.Base.Config](../base-config/index.md) (to read the config),
+[Catzc.Base.Objects](../base-objects/index.md) (the base of its config type), and [Catzc.Base.Asserts](../base-asserts/index.md).
 
 ## Responsibilities
 
@@ -24,7 +24,7 @@ of the `Base` group and depends on [Catzc.Base.Config](catzc-base-config.md) (to
 Which Azure resource-name component order the repo uses — `standard` (env/slot first) or `classic` (type first, CAF-style). `Get-AdoNaming`
 returns the value that `Get-BicepResourceName` passes to the name assembler (a key of `Get-AzureNameOrderSet`); `Test-AdoNaming` and
 `Assert-AdoNaming` guard a code path that only holds under one convention. Changing this variant re-spells every generated resource name, so
-it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../drs/azure/azure-naming-standard.md)).
+it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../../drs/azure/azure-naming-standard.md)).
 
 ### responsibility:2 — Enabled-customer set variant
 
@@ -44,15 +44,15 @@ is the one named; the canonical consumer is the stop condition for automated com
 ### responsibility:4 — Aspect classification variant
 
 Each track's ordered, first-match classification of a unit's files into named aspects (see
-[module-aspects](../../drs/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
+[module-aspects](../../../drs/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
 typed records of a name and its glob patterns, the last the `**` catch-all remainder, and whether a track has an entry at all. The code
-track's convention is derived from the layout instead, by [Catzc.Base.Modules](catzc-base-modules.md), which reads this variant through the
+track's convention is derived from the layout instead, by [Catzc.Base.Modules](../base-modules/index.md), which reads this variant through the
 module and never the file.
 
 ### responsibility:5 — Track and module-type variant
 
 The repository's tracks, each a placed cluster of one track type
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
 track types of `track-types.yml` and the module types of `module-types.yml`. `Get-Track` returns all tracks, the named ones, or the one that
 owns a path; `Get-TrackMember` returns the tracks' members with their generated and committed facts, filtered on either, or the one member
 that holds a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed
@@ -75,7 +75,7 @@ variant (rather than reading `customer.yml`) is what lets these primitives live 
 Azure-layer concern.
 
 The git workspace (responsibility 3) gates automation that commits, and the aspect classification (responsibility 4) is the data the
-[Catzc.Base.Globs](catzc-base-globs.md) aspect engine compiles into scan programs.
+[Catzc.Base.Globs](../base-globs/index.md) aspect engine compiles into scan programs.
 
 ## Division
 

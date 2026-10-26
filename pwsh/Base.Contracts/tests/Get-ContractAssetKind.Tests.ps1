@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractAssetKind.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' {
     It 'reads <Name> (empty: <IsEmpty>) as <Kind>' -ForEach @(
         @{ Name = 'widget.yml'; IsEmpty = $false; Kind = 'Fragment' }

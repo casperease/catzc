@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Sync-GeneratedFile.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
     BeforeEach {
         # Source mode unless a test flips it, so the cases run the same in the source and build runs.

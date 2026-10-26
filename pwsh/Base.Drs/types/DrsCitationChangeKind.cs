@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsCitationChangeKind.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.Drs;
 
 // The closed set of reference forms Update-DrsCitation recognises, plus the one form it found and could not rewrite mechanically.

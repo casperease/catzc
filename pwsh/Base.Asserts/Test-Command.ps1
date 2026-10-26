@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-asserts/Test-Command.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-Command {
     [OutputType([bool])]
     [CmdletBinding()]

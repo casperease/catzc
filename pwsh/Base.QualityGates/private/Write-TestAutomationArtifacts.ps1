@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationArtifacts.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-TestAutomationArtifacts {
     [CmdletBinding()]
     param(

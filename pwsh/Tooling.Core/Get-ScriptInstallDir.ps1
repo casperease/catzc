@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-core/Get-ScriptInstallDir.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-ScriptInstallDir {
     [OutputType([string])]
     [CmdletBinding()]

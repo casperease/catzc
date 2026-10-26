@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../docs/references/ado/pipelines/stages/deploy-unit.yaml.md"
-#   header: "generated"
-# ---
-
 parameters:
   - name: Unit
     type: string

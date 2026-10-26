@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-files/Get-FileLockingProcess.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-FileLockingProcess {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Files.FileLockingProcess])]

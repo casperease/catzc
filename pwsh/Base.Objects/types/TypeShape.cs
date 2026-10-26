@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/TypeShape.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

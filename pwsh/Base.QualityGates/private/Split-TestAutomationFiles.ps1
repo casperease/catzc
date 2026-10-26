@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Split-TestAutomationFiles.ps1.md"
-  header: "generated"
----
-#>
-
 function Split-TestAutomationFiles {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

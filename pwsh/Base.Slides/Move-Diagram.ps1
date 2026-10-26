@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md"
-  header: "generated"
----
-#>
-
 function Move-Diagram {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

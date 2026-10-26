@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Gofmt.ps1.md"
-  header: "generated"
----
-#>
-
 function Invoke-Gofmt {
     [CmdletBinding()]
     [OutputType([string[]])]

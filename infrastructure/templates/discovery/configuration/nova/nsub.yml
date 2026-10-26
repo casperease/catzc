@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   docs: "../../../../../docs/references/infrastructure/templates/discovery/configuration/nova/nsub.yml.md"
-#   header: "generated"
-# ---
-
 ParametersFile:
   parameters:
     tags:

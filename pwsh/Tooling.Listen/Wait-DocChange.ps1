@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Wait-DocChange.ps1.md"
-  header: "generated"
----
-#>
-
 function Wait-DocChange {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

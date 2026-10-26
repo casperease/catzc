@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-module-system/types/GithubArtifactsTarget.cs.md"
-  header: "generated"
----
-*/
-
 namespace Catzc.Base.ModuleSystem;
 
 // The GitHub Packages target: the owner, repository and feed the gold module-manifest artifact is promoted to.

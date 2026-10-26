@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-azure-templates/Get-AzureNamePatternSet.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AzureNamePatternSet {
     param()
 

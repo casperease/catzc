@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-globs/Test-GlobSetProtection.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-GlobSetProtection {
     [CmdletBinding()]
     [OutputType([bool])]

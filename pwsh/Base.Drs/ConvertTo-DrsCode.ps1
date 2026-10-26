@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-drs/ConvertTo-DrsCode.ps1.md"
-  header: "generated"
----
-#>
-
 function ConvertTo-DrsCode {
     [OutputType([pscustomobject])]
     [CmdletBinding()]

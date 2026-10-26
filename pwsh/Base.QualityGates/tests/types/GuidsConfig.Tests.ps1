@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/GuidsConfig.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         # Built at runtime, since the all-zeros GUID is denied as a tracked literal.

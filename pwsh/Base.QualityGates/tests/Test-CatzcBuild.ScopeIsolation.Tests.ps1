@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOPE' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'

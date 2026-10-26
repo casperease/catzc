@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-LiveIdentityTokens.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-LiveIdentityTokens' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = { & (Get-Module Catzc.Base.QualityGates) { Get-LiveIdentityTokens } }

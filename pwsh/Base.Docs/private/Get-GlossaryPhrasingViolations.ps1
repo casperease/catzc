@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryPhrasingViolations.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-GlossaryPhrasingViolations {
     [CmdletBinding()]
     [OutputType([string[]])]

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Get-ToolsStatus.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-ToolsStatus' -Tag 'L0', 'logic' {
     # A tool with candidate paths takes its location and version from the probe record and never starts a version job.
     BeforeAll {

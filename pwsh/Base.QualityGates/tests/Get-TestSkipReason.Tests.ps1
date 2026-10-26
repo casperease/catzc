@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestSkipReason.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
         # A discovery It -Skip records nothing, so -NoRecord builds that shape.

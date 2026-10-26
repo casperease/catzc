@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsCitationPath.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-DrsCitationPath {
     [CmdletBinding()]
     [OutputType([hashtable])]

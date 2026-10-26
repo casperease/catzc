@@ -1,6 +1,6 @@
 # pwsh/Base.Docs/types/GlossaryScan.cs
 
-The two glossary checks that read every in-scope file's prose ([GlossaryProse](GlossaryProse.cs.md)):
+The two glossary checks that read every in-scope file's prose ([GlossaryProse](glossary-prose.md)):
 
 - **Phrasing (G4)** — an avoided phrasing of a concept, as a whole word sequence, in a surface its source checks.
 - **Forms (G6)** — a qualified use of a concept's head word whose qualifier the concept does not list as a form, and, unless the concept

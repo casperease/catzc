@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Sync-FileMeta.ps1.md"
-  header: "generated"
----
-#>
-
 function Sync-FileMeta {
     [CmdletBinding()]
     [OutputType([string])]

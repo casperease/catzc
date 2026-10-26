@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-types-system/private/Format-FileLockingProcess.ps1.md"
-  header: "generated"
----
-#>
-
 function Format-FileLockingProcess {
     [OutputType([string])]
     param(

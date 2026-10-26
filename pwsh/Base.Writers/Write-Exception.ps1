@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-writers/Write-Exception.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-Exception {
     [CmdletBinding()]
     param(

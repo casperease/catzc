@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-LinkDirections.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEGATE', 'ADR-REPO-LINKS-DIRECTIONSAREROWS', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
         $script:writeFile = {

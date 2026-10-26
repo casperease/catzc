@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Uninstall-Git.ps1.md"
-  header: "generated"
----
-#>
-
 function Uninstall-Git {
     [CmdletBinding()]
     param()

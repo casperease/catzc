@@ -2,8 +2,8 @@
 
 Owns the model of the repository's three execution engines, pwsh, bash and zsh: the one declaration of everything that differs between them,
 from how each is started and how it quotes a literal to its strict mode and importer entry
-([ADR-AUTO-ENGINE](../../drs/automation/execution-engines.md)). It does not locate an engine's executable on a machine (that is
-[Catzc.Base.Execution](catzc-base-execution.md)'s `Resolve-EngineExecutable`) or run anything; it is the data the code that does reads.
+([ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)). It does not locate an engine's executable on a machine (that is
+[Catzc.Base.Execution](../base-execution/index.md)'s `Resolve-EngineExecutable`) or run anything; it is the data the code that does reads.
 
 ## Responsibilities
 

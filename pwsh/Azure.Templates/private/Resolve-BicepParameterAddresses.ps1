@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md"
-  header: "generated"
----
-#>
-
 function Resolve-BicepParameterAddresses {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

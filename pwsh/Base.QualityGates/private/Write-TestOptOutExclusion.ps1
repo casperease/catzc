@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestOptOutExclusion.ps1.md"
-  header: "generated"
----
-#>
-
 function Write-TestOptOutExclusion {
     [CmdletBinding()]
     param(

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Test-TestInRunScope.ps1.md"
-  header: "generated"
----
-#>
-
 function Test-TestInRunScope {
     [CmdletBinding()]
     [OutputType([bool])]

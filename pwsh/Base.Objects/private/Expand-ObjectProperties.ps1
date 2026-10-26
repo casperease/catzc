@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/private/Expand-ObjectProperties.ps1.md"
-  header: "generated"
----
-#>
-
 function Expand-ObjectProperties {
     [CmdletBinding()]
     param(

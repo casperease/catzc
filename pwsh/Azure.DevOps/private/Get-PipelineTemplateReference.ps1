@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/private/Get-PipelineTemplateReference.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-PipelineTemplateReference {
     [CmdletBinding()]
     [OutputType([string[]])]

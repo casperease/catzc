@@ -5,7 +5,7 @@ YAML-serializable forms the rest of the platform needs — the object-shaping he
 dictionary's keys, and deep-clone a structure, together with the recursive reflector the output writers rely on for clean YAML emission. It
 also owns `DictionaryRecord` (`Catzc.Base.Objects.DictionaryRecord`), the shared C# base class that typed records across the codebase derive
 from, giving each record a dictionary view and constructor-level extraction helpers without per-module boilerplate. The module belongs to
-the `Base` group and depends on [Catzc.Base.Asserts](catzc-base-asserts.md); the vendored `powershell-yaml` is used by the serialization
+the `Base` group and depends on [Catzc.Base.Asserts](../base-asserts/index.md); the vendored `powershell-yaml` is used by the serialization
 layer.
 
 ## Responsibilities
@@ -45,7 +45,7 @@ form is the mutation helper — deep-clone before modifying so the original reco
 tree of nested dictionaries and arrays.
 
 The module also owns `DictionaryRecord` (full name `Catzc.Base.Objects.DictionaryRecord`), the shared C# base class typed records across the
-codebase derive from (see [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)). Every module's types compile into one
+codebase derive from (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). Every module's types compile into one
 assembly, so a record in any module can inherit from this single class without a per-module copy. `DictionaryRecord` supplies two things
 every record used to hand-roll: a dictionary _view_ over its own public, readable, non-indexed properties (`Contains`, the `[key]` indexer,
 `Keys`, `ToHashtable()`), and the protected extraction helpers (`Req`, `OptStr`, `StrArr`, `Flag`) that constructors called when reading

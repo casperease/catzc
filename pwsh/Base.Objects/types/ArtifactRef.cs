@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.IO;
 

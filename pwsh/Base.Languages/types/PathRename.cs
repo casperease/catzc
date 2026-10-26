@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-languages/types/PathRename.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 
 namespace Catzc.Base.Languages;

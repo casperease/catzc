@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-base-contracts/Get-AccostedFragment.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-AccostedFragment {
     [CmdletBinding()]
     [OutputType([string])]

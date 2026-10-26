@@ -4,8 +4,8 @@ The consumer overlay module. It **applies a consumer's changes to a built bundle
 working root, where every file sits at the path of what it changes in the bundle — and checks them as a whole first, so nothing applies
 unless all of it is valid. It owns the function overrides and the one check of a function file's shape; it deliberately does **not** own
 config fragments or asset overrides, which `Get-Config` and `Get-CatzcModuleRoot` read on demand. The rules are in
-[consumer-overlay](../../drs/automation/consumer-overlay.md); the bundle it changes is
-[platform-bundle](../../drs/automation/platform-bundle.md).
+[consumer-overlay](../../../drs/automation/consumer-overlay.md); the bundle it changes is
+[platform-bundle](../../../drs/automation/platform-bundle.md).
 
 ## Responsibilities
 
@@ -48,7 +48,7 @@ applied change: it inventories the overlay, checks it as a whole, and only then 
 overrides take effect where they are read, so this module only checks them.
 
 The overlay applies in build mode only; in source mode the catzc tree is changed directly. The overlay root itself is derived in
-[Catzc.Base.Repository](catzc-base-repository.md), below this module, because [Catzc.Base.Config](catzc-base-config.md) merges config
+[Catzc.Base.Repository](../base-repository/index.md), below this module, because [Catzc.Base.Config](../base-config/index.md) merges config
 fragments and must find the overlay without depending on it.
 
 ## Division

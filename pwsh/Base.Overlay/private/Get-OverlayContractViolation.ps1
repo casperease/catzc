@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-overlay/private/Get-OverlayContractViolation.ps1.md"
-  header: "generated"
----
-#>
-
 function Get-OverlayContractViolation {
     [CmdletBinding()]
     [OutputType([string])]

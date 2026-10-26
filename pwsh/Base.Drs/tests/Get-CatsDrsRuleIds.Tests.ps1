@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Get-CatsDrsRuleIds.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-CatsDrsRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         # An index beside two records it lists, plus a third it does not, so only listed records may contribute.

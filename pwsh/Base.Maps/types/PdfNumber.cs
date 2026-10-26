@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-maps/types/PdfNumber.cs.md"
-  header: "generated"
----
-*/
-
 using System;
 using System.Globalization;
 

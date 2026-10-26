@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../docs/references/pwsh/catzc-tooling-listen/Start-DocListener.ps1.md"
-  header: "generated"
----
-#>
-
 function Start-DocListener {
     [CmdletBinding()]
     param(

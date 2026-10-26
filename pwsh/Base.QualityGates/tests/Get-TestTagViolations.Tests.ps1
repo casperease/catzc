@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md"
-  header: "generated"
----
-#>
-
 Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
     It 'flags tests missing or ambiguous on either axis, and passes fully-tagged tests' -Tag 'ADR-AUTO-TEST-ONECATEGORY', 'ADR-AUTO-TEST-TWOMANDATORYTAGS' {
         InModuleScope Catzc.Base.QualityGates {
