@@ -1,13 +1,9 @@
 # pwsh/Base.Flow/types/RungsConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for `rungs.yml`, the promotion ladder, and the one declaration of its default ladder.
 
-## comment:1
+## The default ladder
 
-Above `public static readonly IReadOnlyList<Rung> DefaultRungs = Array.AsReadOnly(new[]`, written with `//`.
-
-```text
-The ladder when the file names none: main-uat, release-uat behind RC, pre-prod behind RBC, prod behind the prod approval gate.
-This is the one place a rung's environment is mapped, so remapping one (main-uat from dev to its own) is a one-line edit here.
-```
+When the file names no rungs, the ladder is `DefaultRungs`: main-uat, release-uat behind RC, pre-prod behind RBC, and prod behind the prod
+approval gate. It is the one place a rung's environment is mapped, so remapping one, such as main-uat from dev to its own environment, is a
+one-line edit there.

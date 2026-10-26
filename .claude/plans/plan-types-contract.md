@@ -24,12 +24,6 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 - One living version (PDR-ONELIVE): no file under `pwsh/.compiled` is tracked; the copy-into-`.compiled` code and the old tracked manifest
   go in the same change, no fallback read.
 
-## Open steps
-
-1. [ ] Supersedes the untrack-and-commit step of `plan-types-build-local.md` ("commit the current manifest"); strike it there once that file
-       is clean. The untracking of `pwsh/.compiled/Catzc.Types.*.json` is the user's git step (`git rm --cached`), in
-       task-user-runs-and-commits. Check: `git ls-files pwsh/.compiled` prints nothing.
-
 ## Open questions
 
 - Should `Test-Plans` accept a new plan's missing master chunk line while `plan-master.md` is dirty in a peer session, reporting it as a

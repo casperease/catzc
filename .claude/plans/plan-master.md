@@ -45,42 +45,30 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- types-build-local -> plan-types-build-local.md: landed; blocked_on the user's untrack (task-user-runs-and-commits item 27)
-- types-contract -> plan-types-contract.md: landed as pwsh.internal.types; blocked_on the user's untrack (task-user-runs-and-commits
-  item 27)
-- language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
-- vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 23)
+- types-build-local -> plan-types-build-local.md: the untrack landed; one step left, an agent's: the shadow-cache prune keeps any build a
+  live process loads or is about to load
+- types-contract -> plan-types-contract.md: the untrack landed; two open questions left (Test-Plans with a peer-dirty master, a
+  `js/file-icons` README)
+- language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
+- vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
-- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
-  (task-user-runs-and-commits).
-- listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
-  (task-user-runs-and-commits); the plan closes when it lands.
-- agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
-- bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
-- agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
-- claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit (Sub-agents and Inspiration cuts, the pwsh index named;
-  task-user-runs-and-commits), then the capability lines (catzc-run, catzc-verify, git-readonly, devbox-diagnose).
+- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user's commit lands the folder
+  moves (task-user-runs-and-commits item 1).
+- agent-friction -> plan-agent-friction.md: the CLAUDE.md trims landed; one step left, an agent's: the gate pages' `-Path` notes
+  (`Test-ScriptAnalyzer` folder and glob; `Test-Spelling` already says it takes globs).
+- claude-diet -> plan-claude-diet.md: the Sub-agents cut and the pwsh index landed; one step left, the user's Inspiration cut in
+  `.claude/CLAUDE.md` (task-user-runs-and-commits), plus four open questions.
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
-- drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; blocked_on the user's case-only staging (task-user-runs-and-commits item 18), then the
-  ConvertTo-NormalName.Tests.ps1 L1 rerun
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); blocked_on the user (task-user-runs-and-commits
-  item 17)
-- debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
-  the user's full run; one step (the rename)
+  one-line reports, pre-approved rule edits, derived step counts, an automatic log); the drone line and the registered hook landed; one
+  step left, an agent's: the `plans-orchestrate` skill names the hook as the log writer
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; one step
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section
-  names, below the export threshold
-- comment-articles -> plan-comment-articles.md: every comment page pruned into a small reference article on its source file, gold back in
-  source as one line, ready for the next export
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - flow-lens -> plan-flow-lens.md: flow lens: CI/CD flow diagrams of the ADO and GitHub pipelines, drawn with a three-symbol glyph set
 - drs-code-simplify -> plan-drs-code-simplify.md: Every decision record code is short, unique and names its source; external guidance moves

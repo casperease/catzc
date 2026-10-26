@@ -51,8 +51,8 @@ Describe 'Remove-Dotnet' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-REMOVEREFUSESMANAG
             [pscustomobject]@{ DisplayName = 'Microsoft .NET Widget 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{widget}'; Kind = 'Msi'; UninstallCommand = 'msiexec /x {widget} /qn /norestart' }
             [pscustomobject]@{ DisplayName = 'Microsoft .NET Gadget 6.0 (x64)'; DisplayVersion = '6.0'; ProductCode = '{gadget}'; Kind = 'Other'; UninstallCommand = '"C:\gadget\setup.exe" /uninstall /quiet' }
         } -ModuleName Catzc.Tooling.Toolchain
-        # Registered products are reported whether or not the folder is still there.
-        Remove-Dotnet -InstallDir 'C:\Program Files\dotnet' -Force
+        # Registered products are reported whether or not the folder is still there; the dry run only names their commands.
+        Remove-Dotnet -InstallDir 'C:\Program Files\dotnet'
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 0
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  msiexec /x {widget} /qn /norestart*`[Msi`]' }
         Should -Invoke Write-Message -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $Message -like '  "C:\gadget\setup.exe" /uninstall /quiet*`[Other`]' }

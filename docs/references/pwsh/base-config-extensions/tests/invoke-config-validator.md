@@ -1,13 +1,9 @@
 # pwsh/Base.ConfigExtensions/tests/Invoke-ConfigValidator.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The logic tests of `Invoke-ConfigValidator`: it must find a module's private validator by convention and run it in that module's own scope.
 
-## comment:1
+## What it proves
 
-Above `Describe 'Invoke-ConfigValidator'`, written with `#`.
-
-```text
-Invoke-ConfigValidator over in-memory fixture modules whose private validators it must find and run in their
-own scope. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The tests build in-memory fixture modules whose validators are private, so a validator found and run from the caller's scope would fail; the
+fixtures use neutral names
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

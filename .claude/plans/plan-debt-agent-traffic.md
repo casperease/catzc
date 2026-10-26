@@ -31,11 +31,5 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 ## Open steps
 
-- [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
-      `.claude/agents/catzc-drone.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
-      inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20
-      lines. Check: `Test-AgentDefinitions`.
-- [ ] The `Record-SessionMessage` hook is built and tested (catzc-a0, 2026-10-22); left: the user registers it in `.claude/settings.json`
-      (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
-- [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
-      above). Check: `Test-AgentDefinitions`.
+- [ ] `.claude/skills/plans-orchestrate/SKILL.md` step 4: the log line is written by the `Record-SessionMessage` hook (registered and
+      logging), so the skill says the hook writes it instead of the orchestrator. Check: `Test-AgentDefinitions`.

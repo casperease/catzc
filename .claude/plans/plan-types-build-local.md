@@ -32,9 +32,7 @@ cell keeps its behaviour. Nothing spawns a process.
 
 ## Open steps
 
-1. [ ] Untrack the committed `pwsh/.compiled/*.dll` and commit the current manifest: the user's git step. Check: the user's commit
-       (task-user-runs-and-commits), then `Import-CSharpTypes.Shipped.Tests.ps1` green.
-2. [ ] The shadow-cache prune can remove a build another process is about to load: an import in a second tree threw "Cannot verify the types
+1. [ ] The shadow-cache prune can remove a build another process is about to load: an import in a second tree threw "Cannot verify the types
        assembly: '…\catzc\types\Catzc.Types.4024ccd6.dll' does not exist" (2026-10-26). The prune never removes a DLL whose hash a live
        process loaded or is about to load, through a hold file or lock per hash. Check: two processes importing while a third prunes, with
        no missing-assembly error.

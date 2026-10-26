@@ -1,8 +1,8 @@
 # Catzc.Base.Flow
 
 Owns the promotion ladder a commit climbs: the rungs in climbing order, each with the gate a commit clears to enter it and the configuration
-environment it deploys ([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)), and the truth
-stores the delivery reads, drives or reports to, each classified by its kind
+environment it deploys ([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)), and the
+truth stores the delivery reads, drives or reports to, each classified by its kind
 ([TDR-STORES-THREEKINDS](../../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). It does not run a gate, deploy anything or call a
 store; it is the data the pipelines and the registration code read.
 

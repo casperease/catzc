@@ -24,15 +24,7 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
 
 ## Open steps
 
-1. [ ] After plan-agent-shortcuts' CLAUDE.md line (its step 1): `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, including
-       the git-topic clause, when no peer has the file dirty. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
-2. [ ] Susan from HR: In step 1's trim, `.claude/CLAUDE.md` (hindsight 226bbf, "which grep"): the probe line names the Grep tool for a
-       recursive search and bash `grep` only for one file, since a recursive bash grep cannot finish inside the 3 s roof, and Read with an
-       offset for a large or persisted file, never `cat` (hindsight d7c207, "CLAUDE.md had ranked its readers"); the multi-step "script
-       under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one clause
-       that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by failure),
-       paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
-3. [ ] The gate path forms a worker rediscovers go in the gates' own pages, not in `catzc-run`, which stays at its 10-line roof (the user,
+1. [ ] The gate path forms a worker rediscovers go in the gates' own pages, not in `catzc-run`, which stays at its 10-line roof (the user,
        2026-10-25): the `Test-ScriptAnalyzer` page says `-Path` takes a folder and a glob `pwsh/m/**/*.ps1` analyzes one file; the
        `Test-Spelling` page says `-Path` takes globs and spells every extension, wider than its default scope. The
        `Invoke-TestFile     -MaxLevel` fact is dropped, since plan-claude-diet makes it accept 0 and 1. Check: `Test-Links` on the pages and

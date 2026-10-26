@@ -30,17 +30,8 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Open steps
 
-1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (5167 bytes of a 14734-byte file, 2026-10-23): each bullet cut to the agent
-       name and one clause, the full purpose left to the agent's `description` and `agents.yml`; target 2400 bytes, saving about 2700 bytes
-       (about 675 tokens) per session. The step waits until no peer has the file dirty, and it is the user's step in
-       task-user-runs-and-commits.md. Check: `Test-AgentDefinitions` (it still finds every registered name listed, and none unregistered),
-       `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` at most 12100.
-2. [ ] Susan from HR: Hindsight d7c207 "If only one capability pointed at the index": in the same edit, the `docs/references/` line of
-       Project structure names `docs/references/pwsh/index.md` as where a design round starts (about 70 bytes added, paid for by step 1's
-       cut; no new line, no new file). Cost today: no robot, capability or CLAUDE.md line names the index. Check:
-       `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` still at most 12100.
-3. [ ] Susan from HR: `.claude/CLAUDE.md`, section Inspiration (1989 bytes, 2026-10-23), in the same edit as step 1 (hindsight rule: merge
-       beats add, delete beats merge): the six pointer bullets Module and command design, Docs and ADR structure, Contracts, Testing,
+1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Inspiration (1989 bytes, 2026-10-23), the user's edit (hindsight rule: merge beats add,
+       delete beats merge): the six pointer bullets Module and command design, Docs and ADR structure, Contracts, Testing,
        Pipelines and Tooling (about 900 bytes, each only a link to a record `docs/drs/index.md` already lists) become one clause, "the
        domain rules in `docs/drs/index.md` decide each aspect"; the Go bullet (its scope rule) and the copying bullet (PDR-ONELIVE) stay.
        Saves about 830 bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and

@@ -123,6 +123,7 @@ public sealed class CommentPagesConfig
     public bool IsInScope(string page) =>
         !string.IsNullOrEmpty(page) && pages.Any(map => page.StartsWith(map.docs + "/", StringComparison.Ordinal));
 
+    // Page to source: the files map forward once and invert, since the normal form reads back to no name; two on a page collide.
     public IReadOnlyDictionary<string, IReadOnlyList<string>> PageIndex(IEnumerable<string> repoRelativePaths)
     {
         var index = new SortedDictionary<string, List<string>>(StringComparer.Ordinal);
@@ -146,7 +147,7 @@ public sealed class CommentPagesConfig
                 Add(index, map.ModulePageFor(module), module);
             }
         }
-        return index.ToDictionary(e => e.Key, e => (IReadOnlyList<string>) e.Value, StringComparer.Ordinal);
+        return index.ToDictionary(e => e.Key, e => (IReadOnlyList<string>)e.Value, StringComparer.Ordinal);
     }
 
     static void Add(SortedDictionary<string, List<string>> index, string page, string source)

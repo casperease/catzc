@@ -1,4 +1,5 @@
 function Remove-OffConfigInstall {
+    [Catzc.Base.Timeouts.TimeLimit(600)]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -61,20 +62,49 @@ function Remove-OffConfigInstall {
     if ($ProductPattern -and $resolvedDir -in $MachineFolders) {
         $products = @(Get-RegisteredInstallProduct $ProductPattern)
     }
-    if ($products.Count -gt 0) {
+    if ($products.Count -gt 0 -and -not $Force) {
         # Removing a bundle's MSI product directly reports success and removes nothing, so only bundles are named while any is registered.
         [object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')
         $toRemove = $bundles.Count -gt 0 ? $bundles : $products
         Write-Message ("'$resolvedDir' is owned by $($products.Count) Windows-registered $Label product(s); deleting it by hand would " +
-            'orphan them. Remove them by their own installer, from an elevated shell:') -ForegroundColor Yellow
+            "orphan them. From an elevated shell, Remove-$Tool -Force runs their own uninstallers:") -ForegroundColor Yellow
         if ($bundles.Count -gt 0) {
             Write-Message "  $($bundles.Count) of them are installer bundles, which remove the products they installed:"
         }
         foreach ($product in $toRemove) {
             Write-Message "  $($product.UninstallCommand)   # $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]"
         }
-        Write-Message "Then re-run Remove-${Tool}: it names any product still registered, then removes what is left."
+        Write-Message "It runs them one at a time, re-reads the registrations, then removes what is left."
         return
+    }
+
+    if ($products.Count -gt 0) {
+        # A machine installer's uninstall needs Administrator, asserted for this step.
+        Assert-IsAdministrator
+        $seconds = Get-TimeoutSeconds -Command 'Remove-OffConfigInstall'
+        $transcript = Join-Path (Get-OutputRoot) "remove-$($Tool.ToLowerInvariant())/$((Get-Date).ToString('yyyyMMdd-HHmmss')).log"
+        [System.IO.Directory]::CreateDirectory((Split-Path $transcript -Parent)) | Out-Null
+        # Each uninstaller is a child process with its output in the transcript, bundles first; 1605 is gone already, 1641 and 3010 want a reboot.
+        for ($round = 1; $products.Count -gt 0; $round++) {
+            if ($round -gt 3) {
+                throw ("Remove-${Tool}: still registered after 3 rounds: $(($products | ForEach-Object { $_.DisplayName }) -join '; '). " +
+                    "Transcript: $transcript")
+            }
+            [object[]] $bundles = @($products | Where-Object Kind -EQ 'Bundle')
+            foreach ($product in ($bundles.Count -gt 0 ? $bundles : $products)) {
+                Write-Message "Uninstalling $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]: $($product.UninstallCommand)"
+                $result = Invoke-Executable $product.UninstallCommand -PassThru -NoAssert -Silent -TimeoutSeconds $seconds
+                [System.IO.File]::AppendAllText($transcript, "> $($product.UninstallCommand)`n$($result.Full)`nexit $($result.ExitCode)`n")
+                if ($result.ExitCode -notin 0, 1605, 1641, 3010) {
+                    throw "Remove-${Tool}: the uninstaller of $($product.DisplayName) exited $($result.ExitCode). Transcript: $transcript"
+                }
+                if ($result.ExitCode -in 1641, 3010) {
+                    Write-Message "$($product.DisplayName) is removed; Windows wants a restart to finish." -ForegroundColor Yellow
+                }
+            }
+            $products = @(Get-RegisteredInstallProduct $ProductPattern)
+        }
+        Write-Message "Registered $Label products removed. Transcript: $transcript"
     }
 
     if (-not [System.IO.Directory]::Exists($resolvedDir)) {

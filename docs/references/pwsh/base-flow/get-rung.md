@@ -1,7 +1,6 @@
 # pwsh/Base.Flow/Get-Rung.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The reader of the rungs registry: it returns the rungs of the promotion ladder, in climbing order, as typed records.
 
 ## help
 
