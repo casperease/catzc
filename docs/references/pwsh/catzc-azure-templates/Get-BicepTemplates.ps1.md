@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+# pwsh/Azure.Templates/Get-BicepTemplates.ps1
 
 <!-- cspell:ignore etlco -->
 

@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
+# pwsh/Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
 
 <!-- cspell:ignore alweutstscusacst alweutstscusst -->
 

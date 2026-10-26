@@ -1,4 +1,4 @@
-# pwsh/Catzc.Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
+# pwsh/Azure.Templates/tests/Deploy-AzureResourceGroup.Tests.ps1
 
 <!-- cspell:ignore nproperties -->
 
