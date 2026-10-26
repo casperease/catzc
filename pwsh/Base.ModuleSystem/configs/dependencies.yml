@@ -29,6 +29,7 @@ groups:
       [
         Catzc.Base.Drs,
         Catzc.Base.Execution,
+        Catzc.Base.Variants,
         Catzc.Base.Files,
         Catzc.Base.MarkdownMeta,
         Catzc.Base.Config,

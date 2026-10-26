@@ -1,4 +1,4 @@
-# RDR: DORA — Test automation
+# EDR: DORA — Test automation
 
 ## Rules: EDR-DORA-TESTAUTO
 
@@ -7,7 +7,9 @@
 Automated tests run continuously across the whole delivery lifecycle, not as a separate late-stage phase, and the suite returns a result in
 minutes — the developer who made a change learns the outcome before moving on to something else, not hours or days later.
 
-- [Summary](#summary)
+Source: [DORA, Test automation](../../../references/dora/capabilities.md#test-automation)
+
+Binds to [ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../automation/test-automation.md#rule-adr-auto-test-buildverificationtest).
 
 ### Rule EDR-DORA-TESTAUTO-DEVELOPERSOWNTESTS
 
@@ -15,28 +17,36 @@ Developers write and own the automated suite — practicing test-driven developm
 while testers shift their effort toward continuous exploratory and usability testing and toward curating the suite, not toward manually
 re-verifying every change by hand.
 
-- [Why it matters](#why-it-matters)
+Source: [DORA, Test automation](../../../references/dora/capabilities.md#test-automation)
+
+Binds to [ADR-PWSH-ONEFUNC-PAIREDTESTFILE](../../automation/pwsh/one-function-per-file.md#rule-adr-pwsh-onefunc-pairedtestfile).
 
 ### Rule EDR-DORA-TESTAUTO-TESTPYRAMID
 
 Follow the test pyramid: most defects are caught by fast, isolated unit tests, and a pipeline runs them before the slower acceptance and
 nonfunctional tests that follow. A suite inverted toward slow, broad tests catches the same defects later and at higher cost.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Test automation](../../../references/dora/capabilities.md#test-automation)
+
+Binds to [ADR-AUTO-TEST-FEWINTEGRATIONTESTS](../../automation/test-automation.md#rule-adr-auto-test-fewintegrationtests).
 
 ### Rule EDR-DORA-TESTAUTO-SUITEINPIPELINE
 
 Integrate the suite into the deployment pipeline so every change triggers a build, the unit tests, then acceptance and nonfunctional tests
 against the running software — a change does not pass until all of them do, and the result is visible to the whole team.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Test automation](../../../references/dora/capabilities.md#test-automation)
+
+Binds to [FDR-TYPE-PRECOMMITBUDGET](../../flow/pipeline-types.md#rule-fdr-type-precommitbudget).
 
 ### Rule EDR-DORA-TESTAUTO-FAILINGTESTISDEFECT
 
 Treat a failing test as evidence of a real defect, never as noise. Eliminate flaky tests and keep the whole suite fast enough to run locally
 and in CI — bloated, over-mocked, or slow suites get curated down, not tolerated, because a suite nobody trusts stops giving signal.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Test automation](../../../references/dora/capabilities.md#test-automation)
+
+Binds to [WDR-ANDON-FAILINGGATESTOPSLINE](../../process/holding-the-line.md#rule-wdr-andon-failinggatestopsline).
 
 ## Context
 
@@ -73,18 +83,6 @@ reconstruct context before they can even start.
 The practice also changes how code gets written. Developers who own the automated suite and practice test-driven development learn, as a
 byproduct, how to write quality, testable code — the suite's existence bends the design toward smaller units with clear boundaries, because
 those are the units that are cheap to test.
-
-## How to apply
-
-This platform separates every test into a **logic** test (isolated from shipped configuration through mockable seams, hermetic and fast) or
-an **integrity** test (bound deliberately to the real, shipped files) — never both at once — and tags every test with one of four
-integration tiers, `L0`–`L3`, so a suite runs unit-speed by default and only reaches a real CLI tool or the cloud when a test opts in. Slow,
-duplicated integration coverage is pushed left into fast L0 logic tests, leaving only a thin walking skeleton at the integration tier — one
-test per distinct integration concern, never one per input case. The aggregate Build Verification Test is the one pass/fail verdict a commit
-must clear before it reaches master, the pipeline-level version of "a change does not pass until its tests do."
-
-The concrete authoring idioms — mocking at module boundaries, isolating through seams rather than editing production data, and the
-per-function test-file convention — are the Pester-specific layer under that doctrine.
 
 ## Common pitfalls
 

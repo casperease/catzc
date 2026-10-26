@@ -1,4 +1,4 @@
-# RDR: DORA — Empowering teams to choose tools
+# EDR: DORA — Empowering teams to choose tools
 
 ## Rules: EDR-DORA-TOOLCHOICE
 
@@ -7,7 +7,7 @@
 Tool choice is delegated, not mandated and not unconstrained. A team picks the languages, libraries, and tools that fit how it works and
 what it builds, within an organization-wide baseline that exists to bound sprawl, not to override the team's judgment.
 
-- [Summary](#summary)
+Source: [DORA, Empowering teams to choose tools](../../../references/dora/capabilities.md#teams-empowered-to-choose-tools)
 
 ### Rule EDR-DORA-TOOLCHOICE-CROSSFUNCTIONALBASELINE
 
@@ -15,21 +15,25 @@ The baseline is set by cross-functional representatives — covering languages, 
 — and revisited periodically, in retrospectives or an equivalent forum, so it reflects how teams actually work rather than a decision frozen
 at one point in time.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Empowering teams to choose tools](../../../references/dora/capabilities.md#teams-empowered-to-choose-tools)
+
+Binds to [ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions).
 
 ### Rule EDR-DORA-TOOLCHOICE-EXCEPTIONPROCESS
 
 A team that needs a tool outside the baseline follows a documented exception process: the tool and the reason for it are written down, so
 the choice is discoverable for troubleshooting and can inform a future baseline revision, rather than living only in one team's head.
 
-- [How to apply](#how-to-apply)
+Source: [DORA, Empowering teams to choose tools](../../../references/dora/capabilities.md#teams-empowered-to-choose-tools)
+
+Binds to [ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](../../automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions).
 
 ### Rule EDR-DORA-TOOLCHOICE-MEASUREEMPOWERMENT
 
 Empowerment is measured by asking teams whether they feel empowered to choose their tools, not by counting the number of tools in use or how
 often they change — neither count distinguishes a genuine choice from a mandate or from directionless sprawl.
 
-- [Common pitfalls](#common-pitfalls)
+Source: [DORA, Empowering teams to choose tools](../../../references/dora/capabilities.md#teams-empowered-to-choose-tools)
 
 ## Context
 
@@ -63,17 +67,6 @@ expected result of removing a recurring, avoidable source of friction from a tea
 The same mechanism explains why the capability is bounded rather than unlimited. Autonomy without any shared baseline shifts the cost
 elsewhere: a proliferation of one-off tools becomes technical debt, fragility, and rising maintenance cost that can outweigh whatever the
 new tool gained. The baseline-plus-exception shape is what keeps the benefit of fit without paying for uncoordinated sprawl.
-
-## How to apply
-
-catzc is itself an internal platform in the Team Topologies sense — a product a platform team develops and manages for the teams that build
-on it — and DORA's baseline-tooling guidance describes exactly what that platform maintains: a pinned, reviewed set of tools (`tools.yml`)
-that most consumers use by default, with the platform surfacing the vendor decisions behind it rather than hiding them.
-
-The platform's devbox-version lever is the closest analog to DORA's exception process: outside a pipeline, a tool may run at a declared
-`devbox_version` instead of the locked baseline version, a bounded, declared deviation rather than an ungoverned one — while a pipeline run
-always enforces the locked baseline, so the exception never weakens what actually ships. Reviewing and re-pinning `tools.yml` itself is the
-periodic-review half of the guidance: a version change is a pull request, not a standing debate.
 
 ## Common pitfalls
 

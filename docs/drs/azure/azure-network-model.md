@@ -56,6 +56,15 @@ checks all of it when the file loads.
 
 - [Validation (`NetworkConfig`)](#validation)
 
+### Rule ADR-AZ-NETWORK-CAFPRIVATEACCESS
+
+Data services are reached only through private endpoints, with public network access off. The `privatelink` zones live once per tier, in the
+hub, linked to the hub and every spoke it lists, and every record is written by the template that deploys the endpoint, never by a
+deploy-if-not-exists policy. Name resolution is Azure-only; service endpoints, network injection, forced tunnelling, and any DNS service of
+a workload's own are not used.
+
+- [CAF private access](#caf-private-access)
+
 ## Context
 
 A template that creates a virtual network needs an address space and subnet ranges. Those ranges are **global, cross-cutting state**: every
@@ -180,6 +189,33 @@ requires an entry for every subscription of the shipped `azure.yml`.
   cross-asset join over the two loaded configs and lists every violation; its integrity test runs it over the shipped files.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).
+
+### CAF private access
+
+Private-only access to data is the default. `storage-account.bicep` and `sql-server.bicep` default `publicNetworkAccess` to `'Disabled'`, the
+storage network rules deny by default, and `private-endpoint.bicep` gives each service a private endpoint with a DNS zone group that
+registers its address in the hub's zone ([ADR-AZ-LZ-WORKLOADOWNSNONE](landing-zones.md#rule-adr-az-lz-workloadownsnone)). A private
+endpoint maps one resource, not a whole service, into the network, so a breached workload reaches its own storage account and database and
+nothing else of the service. Every private endpoint targets a resource the same template deploys, so a connection to a foreign tenant's
+resource is a template change that review sees; no policy in Azure denies it. The hub deploys the zones and the subnets the endpoints sit
+in, `private-endpoints` in every spoke and `shared-services` in the hub, and `privateEndpointNetworkPolicies` defaults to `Enabled`, so each
+subnet's network security group applies to its endpoints. `expedition` reads the hub's zones and its subnet as `existing` resources, so a
+deploy against a missing zone or subnet fails naming it. `foundation`'s Key Vault and Log Analytics workspace accept public network traffic
+today; the vault's private endpoint would make `foundation` depend on a subnet of `discovery` and on a zone in the hub.
+
+No template deploys a service that is injected into a subnet, so network injection is not used, and `virtual-network.bicep` offers no service
+endpoint or custom DNS server field, so no subnet carries a service endpoint: every data service takes a private endpoint, one way of
+reaching data for every workload, at Private Link's per-gigabyte charge. The repository has no on-premises connectivity, so there is no
+access to PaaS services from on-premises, and the spoke route tables carry no default route, so nothing forces internet traffic back
+through a gateway.
+
+Every private DNS zone, the `privatelink` zones included, is linked to the hub and to every spoke the hub lists, and the zones live in the hub
+of each tier's shared subscription, one set per tier rather than one global set. Each spoke depends on its hub's zones to resolve its own data
+services. Name resolution is Azure-provided DNS plus those zones; a custom zone with automatic registration is unused because no template
+deploys a virtual machine, and no workload runs a DNS service of its own. Hybrid resolution, a DNS Private Resolver with its two dedicated
+subnets and a forwarding ruleset, and Azure Firewall as a DNS proxy are unused because there is no on-premises network and the hub deploys no
+firewall; the hub's address space leaves room for a resolver. Nothing in Azure guards against a workload that creates its own `privatelink`
+zone outside a template; review carries that guard.
 
 ## Consequences
 
