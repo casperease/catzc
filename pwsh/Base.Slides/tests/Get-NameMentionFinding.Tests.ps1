@@ -43,14 +43,20 @@ Describe 'Get-NameMentionFinding (real tree)' -Tag 'L1', 'integrity', 'DDR-VISUA
             $hits = [System.Collections.Generic.List[string]]::new()
             foreach ($file in [System.IO.Directory]::EnumerateFiles((Join-Path $root 'docs'), '*.slide.md', 'AllDirectories')) {
                 $relative = [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
-                foreach ($hit in @(Get-NameMentionFinding -Path $relative -Text ([System.IO.File]::ReadAllText($file)) -Exempt $exempt)) { $hits.Add($hit) }
+                foreach ($hit in @(Get-NameMentionFinding -Path $relative -Text ([System.IO.File]::ReadAllText($file)) -Exempt $exempt)) {
+                    $hits.Add($hit)
+                }
             }
             foreach ($file in [System.IO.Directory]::EnumerateFiles((Join-Path $root 'docs'), '*.drawio.png', 'AllDirectories')) {
                 $relative = [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
                 $stem = $relative.Substring(0, $relative.Length - '.drawio.png'.Length)
                 $text = Get-DiagramDeclarationText -Stem $stem -RepositoryRoot $root
-                if ($null -eq $text) { continue }
-                foreach ($hit in @(Get-NameMentionFinding -Path $stem -Text $text -Exempt $exempt)) { $hits.Add($hit) }
+                if ($null -eq $text) {
+                    continue
+                }
+                foreach ($hit in @(Get-NameMentionFinding -Path $stem -Text $text -Exempt $exempt)) {
+                    $hits.Add($hit)
+                }
             }
             , $hits.ToArray()
         }

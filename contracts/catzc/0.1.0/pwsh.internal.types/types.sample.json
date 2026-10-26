@@ -63,6 +63,7 @@
     {"name":"Catzc.Base.Contracts.ContractManifest","aliases":[],"display":[]},
     {"name":"Catzc.Base.Contracts.ContractParameter","aliases":[],"display":["Name","Spec"]},
     {"name":"Catzc.Base.Contracts.ContractSchema","aliases":[],"display":[]},
+    {"name":"Catzc.Base.Contracts.ContractsConfig","aliases":[],"display":[]},
     {"name":"Catzc.Base.Contracts.ContractValue","aliases":[],"display":[]},
     {"name":"Catzc.Base.Docs.AgentEntry","aliases":[],"display":[]},
     {"name":"Catzc.Base.Docs.AgentsConfig","aliases":[],"display":[]},

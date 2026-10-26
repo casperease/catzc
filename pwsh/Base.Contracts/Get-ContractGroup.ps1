@@ -16,8 +16,8 @@ function Get-ContractGroup {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    # A module's contract group is its track and its folder in the normal form (pwsh.base.vs_code for Catzc.Base.VSCode):
-    # the group names where the module lives, never the namespace it carries.
+    # The group names where the module lives, never the namespace it carries; the contracts config holds the form and
+    # its exceptions (pwsh.base.vs_code for Catzc.Base.VSCode).
     $found = @(Get-CatzcModule -Name $Module -RepositoryRoot $RepositoryRoot)
     if ($found.Count -ne 1) {
         throw "Get-ContractGroup: no module named '$Module', so it has no contract group."
@@ -26,5 +26,5 @@ function Get-ContractGroup {
     $languages = Get-Config -Config languages
     $folder = [Catzc.Base.Objects.NameCase]::ToNormal('pascal-dotted', $track.FolderNameOf($found[0].name),
         $languages.naming_normal_form)
-    "$($found[0].track).$folder"
+    (Get-Config -Config contracts).GroupOf($found[0].name, $found[0].track, $folder)
 }

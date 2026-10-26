@@ -22,6 +22,8 @@ configs:
     type: Catzc.Base.Slides.SlidesConfig
   terminology:
     type: Catzc.Base.QualityGates.TerminologyConfig
+  contracts:
+    type: Catzc.Base.Contracts.ContractsConfig
   links:
     type: Catzc.Base.QualityGates.LinksConfig
   link-directions:
