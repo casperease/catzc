@@ -19,6 +19,7 @@ function Get-WorldMap {
 
     $aspects = [ordered]@{}
     foreach ($track in $tracks) {
+        # A laid-out track derives its aspects from the layout; any other track has them only when variants.yml declares them.
         if ($languages.IsLaidOut($track.languages) -or (Test-AspectDeclaration -Track $track.name)) {
             $aspects[$track.name] = @(Get-Aspect -Track $track.name)
         }
@@ -51,6 +52,7 @@ function Get-WorldMap {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:worldMapTextCache')) {
+        # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
         $script:worldMapTextCache = @{}
     }
     $texts = @{}
@@ -63,6 +65,7 @@ function Get-WorldMap {
         if (-not $script:worldMapTextCache.ContainsKey($path)) {
             $full = Join-Path $root $path
             $text = [System.IO.File]::Exists($full) ? [System.IO.File]::ReadAllText($full) : $null
+            # A file's head is derived from its citations, never read back as them: the file cites from its body.
             $carrier = $resolver.For($path)
             $form = if ($null -ne $text -and $carrier -and -not $resolver.IsExcluded($carrier, $path)) {
                 $carrier.Form()

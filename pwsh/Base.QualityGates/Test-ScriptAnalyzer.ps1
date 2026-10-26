@@ -22,12 +22,15 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
+    # The one settings file ships inside the code tree, so it resolves from the code root.
     $settingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
     Assert-PathExist $settingsPath
 
+    # The same coverage as the L2 analyzer test.
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
+            # A relative path is repository-relative, never $PWD-relative.
             $full = if ([System.IO.Path]::IsPathRooted($item)) {
                 $item
             }
@@ -47,11 +50,13 @@ function Test-ScriptAnalyzer {
         }
     }
     else {
+        # The canonical set the L2 test shares: importer.ps1 and authored .psd1 in, generated manifests out.
         foreach ($f in (Get-ModuleSourceFile)) {
             $files.Add($f)
         }
     }
 
+    # Third-party files are never judged; a file outside the repository is never third-party.
     $thirdParty = Get-GlobSet -Name 'third-party'
     $authored = [System.Collections.Generic.List[string]]::new()
     foreach ($file in $files) {
@@ -62,6 +67,7 @@ function Test-ScriptAnalyzer {
     }
     $files = $authored
 
+    # Sharded across background processes with progress, since a serial pass is ~90 s of silence.
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
     $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)
 

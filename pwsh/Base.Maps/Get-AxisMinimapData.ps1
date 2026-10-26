@@ -16,6 +16,7 @@ function Get-AxisMinimapData {
         [switch] $AsJson
     )
 
+    # The value chain re-cut: the top record domains down, the delivery concerns across, lit by the codes the diagram covers.
     $axis = (Get-Config -Config maps).minimap_axis
     $rows = [string[]] @($axis.rows | ForEach-Object Key)
     $columns = [string[]] @($axis.columns)

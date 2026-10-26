@@ -20,6 +20,7 @@ function Get-ModuleNeighbourhoodMinimapData {
         [switch] $AsJson
     )
 
+    # The subject's modules, the modules they depend on, and those that depend on them, from the dependency registry.
     $dependencies = Get-Config -Config dependencies
     $dependsOn = @{}
     foreach ($group in $dependencies.groups.Values) {

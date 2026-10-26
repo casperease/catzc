@@ -38,8 +38,7 @@ function Test-TrackMemberCommitted {
                 "track '$($member.track)': member '$($member.path)' is declared not committed, but git tracks $($tracked.Count) file(s) of it, e.g. '$($tracked[0])'"
             }
         })
-    # Every root entry on disk lies in a track (DDR-TRACKTYPE-LONGESTPLACEWINS): a file or folder a member covers, or a folder that
-    # holds a member, such as .ado holding .ado/pipelines; git's own folder is no entry of the repository.
+    # Every root entry but .git lies in a track: a member covers it, or it holds one (.ado holds .ado/pipelines).
     $memberPaths = @($members | ForEach-Object { $_.path })
     $issues += @(foreach ($entry in [System.IO.Directory]::GetFileSystemEntries($root)) {
             $name = [System.IO.Path]::GetFileName($entry)

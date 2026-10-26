@@ -122,6 +122,5 @@ of the same symbols as the VS Code file icons, so the editor tree and the diagra
 - The rungs and their gates: `pwsh/Base.Flow/types/RungsConfig.cs`, `Get-Rung`; the approval environments:
   `pwsh/Azure.DevOps/configs/environment-approvals.yml`.
 - The query handoff: `python/diagrams/query_rows.py`, `pwsh/Base.Slides/private/Write-DiagramQueryRows.ps1`.
-- The glyph inspiration: `js/file-icons/assets/pipe*.svg`; the three-slot prototype
-  `C:\Users\caspe\AppData\Local\Temp\claude\C--projects-catzc\1179c5b6-7497-460d-8faa-7b3371430831\scratchpad\glyphs.py`, rebuilt in the
-  kit, not copied.
+- The glyph inspiration: `js/file-icons/assets/pipe*.svg`; the three-slot prototype `glyphs.py` in a past session's scratchpad, rebuilt in the kit,
+  not copied.

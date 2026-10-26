@@ -56,6 +56,7 @@ function Test-Plans {
         $Config.folder
     }
 
+    # A plan is its file, its value-overlay row and its master chunk line; the overlays are read whole.
     $readLines = {
         param([string] $Name)
         $file = Join-Path $folder $Name
@@ -66,6 +67,7 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
+    # A check names an exported Verb-Noun command; any other cannot prove its step.
     $verbs = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Verb).Verb),
         [System.StringComparer]::OrdinalIgnoreCase)
     $commandPattern = '(?<![\w./\\-])(?<verb>[A-Z][a-z]+)-[A-Z][A-Za-z0-9]+(?![\w-]|\.\w)'
@@ -229,6 +231,7 @@ function Test-Plans {
 
         $items = @(Get-MarkdownListItem -Line $lines)
         $openCount = [int] $openCounts[$name]
+        # A step count an overlay states is the plan's open steps, or it drifted; Format-Code rewrites it.
         $assertCount = {
             param([string] $Text, [string] $Overlay)
             $stated = Resolve-PlanStepCount -Text $Text
@@ -255,6 +258,7 @@ function Test-Plans {
         else {
             $state = @($valueRow.Trim().Trim('|') -split '\|')[-1]
             & $assertCount $state "its row in $($Config.value_file)"
+            # A row holds as many cells as its own table's header, so a lost cell never shifts columns unseen.
             $at = [array]::IndexOf($valueLines, $valueRow)
             while ($at -gt 0 -and $valueLines[$at - 1] -match '^\s*\|') {
                 $at--
@@ -292,6 +296,7 @@ function Test-Plans {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
                 continue
             }
+            # The text after the last standalone check:, so catzc-check: is never read as one.
             $check = [regex]::Match($item.Text, '(?is)^.*(?<![\w-])check:(?<check>.*)$').Groups['check'].Value
             foreach ($match in [regex]::Matches($check, $commandPattern)) {
                 if ($verbs.Contains($match.Groups['verb'].Value) -and -not (& $isKnown $match.Value)) {

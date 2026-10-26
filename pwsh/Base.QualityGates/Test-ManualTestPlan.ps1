@@ -78,6 +78,7 @@ function Test-ManualTestPlan {
     if ($categoryFiles.Count -gt $maxCategories) {
         $issues.Add("${planRelative}/: $($categoryFiles.Count) category files, at most $maxCategories — merge categories")
     }
+    # One check per "### N." section, its "**Test file:**" paragraph running to the next blank line.
     $checks = [System.Collections.Generic.List[string]]::new()
     # The category page each check sits on, by the check's index: a missing block's check belongs on the page that holds its test file.
     $pages = [System.Collections.Generic.List[string]]::new()

@@ -83,7 +83,7 @@ headroom.
 
 ## comment:5
 
-Above `$engineTrack = $engineModules.Count -gt 0 ? (Get-Track -Name...`, written with `#`.
+Above `$variants = Get-Config -Config variants`, written with `#`.
 
 ```text
 A test folder is named for its module's folder, which drops the track's namespace

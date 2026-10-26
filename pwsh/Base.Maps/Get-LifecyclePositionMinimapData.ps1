@@ -20,6 +20,7 @@ function Get-LifecyclePositionMinimapData {
         [switch] $AsJson
     )
 
+    # The rungs in climbing order; a subject file lights a rung when it cites one of its rules, or the record that holds it.
     $rungs = @(Get-Rung)
     $count = @{}
     $reasons = @{}

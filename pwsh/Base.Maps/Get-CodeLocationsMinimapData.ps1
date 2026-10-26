@@ -17,6 +17,7 @@ function Get-CodeLocationsMinimapData {
 
         [System.Collections.IDictionary] $Facts,
 
+        # The drawing's own glyphs, each { kind; label }: the places they name come first, the cited records' places while rows remain.
         [object[]] $Glyph = @(),
 
         # Every tracked path, the index a glyph label is resolved against; read once when not given.
@@ -25,11 +26,13 @@ function Get-CodeLocationsMinimapData {
         [switch] $AsJson
     )
 
+    # Where the subject's code lives, with no static frame: each place a track, its module ('-' outside one) and folder ('.' at its root).
     $count = @{}
     $reasons = @{}
     $primary = [System.Collections.Generic.List[string[]]]::new()
     $secondary = [System.Collections.Generic.List[string[]]]::new()
     $known = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    # Each glyph label is resolved to the files it names; a label that names none is dropped and counted.
     $dropped = 0
     $resolved = @()
     if (@($Glyph).Count -gt 0) {
@@ -82,7 +85,8 @@ function Get-CodeLocationsMinimapData {
         folder = [string[]] @($sorted | ForEach-Object { $_[2] } | Select-Object -Unique)
     }
     $data = New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells ([string[][]] $sorted) -Count $count -Reasons $reasons
-    $first = [System.Collections.Generic.HashSet[string]]::new([string[]] @($primary | ForEach-Object { $_ -join "`t" }), [System.StringComparer]::Ordinal)
+    # The rows the place list draws are computed here, from the place triples, so the drawing only draws them.
+    $first =[System.Collections.Generic.HashSet[string]]::new([string[]] @($primary | ForEach-Object { $_ -join "`t" }), [System.StringComparer]::Ordinal)
     $primaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $first.Contains($_.At -join "`t") })
     $secondaryCells = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $first.Contains($_.At -join "`t") })
     $data = $data.WithPlaceRows([Catzc.Base.Maps.PlaceRows]::From($primaryCells, $secondaryCells,

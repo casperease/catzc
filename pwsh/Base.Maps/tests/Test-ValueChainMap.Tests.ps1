@@ -87,6 +87,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     }
 }
 
+# It reads only drs.yml and maps.yml, so its answer cannot differ between the run modes: source-only.
 Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-ValueChainMap passes over the registry' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN', 'DDR-TRACK-VALUECHAINMAP', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -PassThru -OutputFolder (Join-Path $TestDrive 'value-chain-map')

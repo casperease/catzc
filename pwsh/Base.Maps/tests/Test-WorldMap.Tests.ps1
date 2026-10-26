@@ -119,6 +119,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
     }
 }
 
+# It reads only the git index and the registries, so its answer cannot differ between the run modes: source-only.
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'Test-WorldMap passes over the repository' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER', 'DDR-TRACK-ONETECHSTACK', 'DDR-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')
