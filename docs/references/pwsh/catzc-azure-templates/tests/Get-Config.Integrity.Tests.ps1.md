@@ -1,33 +1,19 @@
 # pwsh/Azure.Templates/tests/Get-Config.Integrity.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The integrity tests of the shipped config assets and the real templates.
 
-## comment:1
+## Scope
 
-Above `Describe 'Shipped asset integrity'`, written with `#`.
+Unlike the logic tests, these bind deliberately to the real `configs/azure.yml`, `configs/network.yml` and `infrastructure/templates/`. They
+are the contract that what ships is internally consistent. They do not mock the `Resolve-ConfigEntry` (config discovery) or
+`Get-BicepTemplatesRoot` seams, and nothing else depends on them.
 
-```text
-Integrity tests for the SHIPPED config assets + real templates. Unlike the logic unit tests, these
-deliberately bind to the real configs/azure.yml, configs/network.yml, and infrastructure/templates/ —
-they are the contract that "what ships is internally consistent". They do NOT mock the
-Resolve-ConfigEntry (config discovery) / Get-BicepTemplatesRoot seams. Nothing else depends on them.
-```
+## One assertion per set
 
-## comment:2
+The check makes one `Should` over the violating set. A `Should` per template slot would cost Pester's per-assertion price times the whole
+discovered template tree.
 
-Above `$violations = foreach ($t in (Get-BicepTemplates)) {`, written with `#`.
+## Customers
 
-```text
-One Should over the violating set — a Should per template slot pays Pester's per-assertion
-cost times the whole discovered template tree.
-```
-
-## comment:3
-
-Above `try {`, written with `#`.
-
-```text
-slot.customer is the raw token from the subscription (a key or shortcode); it must
-resolve to a defined customer in customer.yml (Get-AzureCustomer throws otherwise).
-```
+`slot.customer` is the raw token from the subscription, a key or a shortcode. It must resolve to a defined customer in `customer.yml`, and
+`Get-AzureCustomer` throws otherwise.

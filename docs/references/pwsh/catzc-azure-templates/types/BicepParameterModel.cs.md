@@ -1,27 +1,16 @@
 # pwsh/Azure.Templates/types/BicepParameterModel.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed parameter model of a compiled Bicep template: the template name plus every parameter `main.json` declares, keyed by name. It is
+parsed from the `parameters` section, and the `definitions` a user-defined type refers to, of the `main.json` that `az bicep build` writes.
+`Get-BicepParameterModel` returns it, and `Get-BicepParameterViolations` checks every rendered `parameters.<config>.json` against it.
 
-## comment:1
+## Shape
 
-Above `using System;`, written with `//`.
+It is a result type, so its properties are PascalCase
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The
+keys compare case-insensitively, as ARM matches parameter names.
 
-```text
-A compiled Bicep template's parameter model: the template name plus every parameter main.json declares, keyed by
-name. Parsed from the `parameters` section (and the `definitions` a user-defined type refers to) of the main.json
-`az bicep build` writes; Get-BicepParameterModel returns it and Get-BicepParameterViolations checks every rendered
-parameters.<config>.json against it.
+## Parsing
 
-A result type, so PascalCase ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-The keys compare case-insensitively, as ARM matches parameter names.
-```
-
-## comment:2
-
-Above `public static BicepParameterModel Parse(string template, string mainJson)`, written with `//`.
-
-```text
-Parses the text of a compiled main.json. Throws, naming the template, when the text is not a JSON object or a
-parameter declaration is malformed.
-```
+`Parse` takes the text of a compiled `main.json`. It throws, naming the template, when the text is not a JSON object or a parameter
+declaration is malformed.

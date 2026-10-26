@@ -1,45 +1,22 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.SampleWithPrepost.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Build-Bicep` against the `sample-with-prepost` fixture template, whose `PrePost.psm1` hook injects values.
 
-## comment:1
+## Expected values
 
-Above `$script:alphaNetwork = (Get-Config -Config network).environments.alpha`, written with `#`.
+The merge seam injects the vnet ranges from the network fixture, so the tests resolve the expected per-environment values straight from the
+asset and track it. The hook injects an ARM Key Vault reference, not the value, because the config does not carry it. That is the
+production pattern for keeping deploy-time secrets out of the repository, proven here on a fixture so no test binds to a real template's
+secret name.
 
-```text
-The merge seam injects the vnet ranges from the network fixture — resolve the expected,
-per-env values straight from the asset so the test tracks it.
-```
+## One build
 
-## comment:2
+The path-keyed session caches are warmed once, not per test
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 
-Above `Get-Config -Config azure | Out-Null`, written with `#`.
-
-```text
-Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:3
-
-Above `$script:configRoot = Join-Path (Get-CatzcModuleRoot -Module...`, written with `#`.
-
-```text
-ONE build of ALL environments is the single observation every assertion below is a facet of
-([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)) — not a rebuild per test.
-Building all envs yields alpha AND beta, so every
-per-env range/vnet/reference check reads the captured output rather than re-invoking Build-Bicep.
-Under the sharded/greedy run a Build-Bicep call (PrePost import + file I/O) costs ~5-6x its warm
-solo time from CPU/IO contention; collapsing six builds to one keeps every It within the L0 time budget.
-```
-
-## comment:4
-
-Above `$configuration = Get-Content (Join-Path $script:configRoot 'alpha.yml') -Raw...` (occurrence 2), written with `#`.
-
-```text
-The config does NOT carry the value — the hook injects an ARM KV *reference* (the production
-pattern for keeping deploy-time secrets out of the repo, here proven on a fixture so no test binds
-to a real template's secret name).
-```
+One build of all environments is the single observation every assertion is a facet of
+([ADR-AUTO-TEST-ONEIMPORTPERCASE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)), not a rebuild per
+test. Building all environments yields `alpha` and `beta`, so every per-environment range, vnet and reference check reads the captured
+output instead of re-invoking `Build-Bicep`. Under the sharded, greedy run a `Build-Bicep` call (the PrePost import plus file I/O) costs
+five to six times its warm solo time from CPU and I/O contention, and collapsing six builds to one keeps every `It` within the L0 time
+budget.

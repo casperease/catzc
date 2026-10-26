@@ -2,39 +2,20 @@
 
 <!-- cspell:ignore alweutstsmodst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Build-Bicep` against the `sample-with-module` fixture template, which carries a local reusable module.
 
-## comment:1
+## Setup
 
-Above `BeforeAll {`, written with `#`.
+The boundary mocks and the config-cache reset run once, because the mocked config is identical for every test. Only the build output
+folder is wiped per test, since the build tests write into it
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
+[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 
-```text
-Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
-build output folder is wiped per test, since the build tests write into it
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
-```
+The build output is isolated to this file's throwaway `$TestDrive` through the output-root seam
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so it
+never shares `out/template/<name>` with `Build-Bicep.L2` or the other sample files, the sharing the `serial` tag used to work around
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)). Mocking the seam
+removes the sharing, so the file runs in parallel, and Pester cleans `$TestDrive`, so no manual output teardown is needed.
 
-## comment:2
-
-Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName...`, written with `#`.
-
-```text
-Isolate build output to this file's throwaway $TestDrive via the output-root seam
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so
-it never shares out/template/<name> with Build-Bicep.L2 or the other sample files — the sharing the
-'serial' tag used to work around
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)). Mocking the seam removes
-the sharing (so this runs in
-parallel), and Pester auto-cleans $TestDrive, so no manual output teardown is needed.
-```
-
-## comment:3
-
-Above `Get-BicepTemplate sample-with-module | Out-Null`, written with `#`.
-
-```text
-Warm the discovery + config caches once so the first It doesn't pay the cold Get-BicepTemplate derive
-inside its own timing now that this file runs in the (timed) parallel phase
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
+The discovery and config caches are warmed once, so the first `It` does not pay the cold `Get-BicepTemplate` derive inside its own timing
+now that the file runs in the timed parallel phase.

@@ -1,77 +1,37 @@
 # pwsh/Azure.Templates/tests/Deploy-Bicep.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Deploy-Bicep`: the devbox path, the hooks, dry runs and the do-not-run mode.
 
-## comment:1
+## Fixtures set up once
 
-Above `[System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null`, written with `#`.
+The static fixtures and the boundary mocks are set up once, not per test. The only per-test state is the hook marker files
+(`pre-called.json` and `post-called.json`), cleared in `BeforeEach`. `main.json`, the parameters and `PrePost.psm1` never change, so
+rebuilding them for every test was pure file-system-cmdlet tax, about five cmdlet calls at 20 ms each
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+`[System.IO]` writes them in about 0.1 ms.
 
-```text
-Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
-marker files (pre-/post-called.json), cleared in BeforeEach; main.json/parameters/PrePost.psm1 never
-change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet calls × ~20ms —
-[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). [System.IO] writes them in
-~0.1ms.
-```
+Only the marker files are cleared, so each test starts clean. The hooks write them, and several tests assert a marker is absent: `DryRun`
+skips post-deploy, and `DoNotRun` runs no hooks.
 
-## comment:2
+## The PrePost fixture
 
-Above `$prepostContent = @'`, written with `#`.
+The `PrePost.psm1` is a real per-template fixture. In the current model no default hook is loaded from assets, and `Deploy-Bicep` runs only
+the hooks a template's own `PrePost.psm1` exports. The hooks record what they were called with to marker files, so the tests assert that the
+template's own hooks ran, and with the right context.
 
-```text
-A real per-template PrePost.psm1 fixture. Under the current model there is NO default hook
-loaded from assets — Deploy-Bicep runs only the hooks a template's own PrePost.psm1 exports.
-These hooks record what they were called with to marker files, so the tests assert the
-template's own hooks actually ran (and with the right context).
-```
+## Mocks and caches
 
-## comment:3
+`$configCache` is reset once, not per test: the mocked config is the same fixture `azure.yml` for every test, so a per-test clear only
+forced a needless cold re-parse of about 65 ms per test. Dropped once, it also removes any real-config entry left by a prior test file.
 
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`, written with `#`.
+`Test-IsRunningInPipeline` is mocked to false because these tests exercise the devbox path. Without it the real function returns true under
+CI (`$env:GITHUB_ACTIONS`), and `Deploy-Bicep` throws "requires -SubscriptionIdAssertIs in a pipeline".
 
-```text
-Reset $configCache ONCE (not per test): the mocked config is the same fixture azure.yml every test,
-so a per-test clear only forced a needless cold re-parse (~65ms/test). Dropped once here so any
-real-config entry from a prior test file is gone; the fixture config then stays warm.
-```
+`customer` is mocked alongside `azure` and `network` so template discovery validates the `sample-customer` fixture, its
+`configuration/<customer>/` folders, against the fixture `customer.yml` and not the shipped one. Without it the file is not hermetic: it
+passed only when `Build-Bicep.SampleCustomer` happened to share a worker and pre-populate the template-descriptor cache
+([ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps),
+[ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 
-## comment:4
-
-Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates`, written with `#`.
-
-```text
-These exercise the DEVBOX path; without this, the real Test-IsRunningInPipeline returns $true under
-CI ($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssertIs in a pipeline".
-```
-
-## comment:5
-
-Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {...`, written with `#`.
-
-```text
-'customer' is mocked alongside azure/network so template discovery validates the sample-customer
-fixture (its configuration/<customer>/ folders) against the fixture customer.yml, not the shipped one.
-Without it this file is not hermetic — it passed only when Build-Bicep.SampleCustomer happened to
-share a worker and pre-populate the template-descriptor cache
-([ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)/[ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:6
-
-Above `Get-Config -Config azure | Out-Null`, written with `#`.
-
-```text
-Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
-is paid here and not by whichever test happens to run first
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:7
-
-Above `foreach ($m in 'pre-called.json', 'post-called.json') {`, written with `#`.
-
-```text
-Clear ONLY the hook marker files so each test starts clean — the hooks write these, and several
-tests assert a marker is absent (DryRun skips PostDeploy; DoNotRun runs no hooks).
-```
+The fixture config and the template-discovery caches are warmed once under those mocks, so the cold derive is paid in setup and not by
+whichever test happens to run first.

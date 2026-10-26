@@ -1,7 +1,7 @@
 # pwsh/Azure.Templates/private/Resolve-BicepConfigName.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that parses a config and resource-group identity name into its environment and slot parts, the inverse of
+`Get-BicepConfigName`.
 
 ## help
 

@@ -1,65 +1,36 @@
 # pwsh/Azure.Templates/types/BicepShortName.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed short name of a template: the 2 to 5 character, lowercase-alphanumeric Azure id segment every resource name is built from
+([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)). A
+template carries two identifiers, its readable, kebab-case on-disk folder name and this short name, and only the short name is ever
+Azure-facing.
 
-## comment:1
+The type makes the two identifiers, the derivation and the format validation one construction-time invariant, so no caller re-implements the
+rule and a malformed name cannot exist. It is a plain model type
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)):
+`Get-BicepTemplates` constructs one per template and pins its `value` as the short name. It does not mirror a YAML file, so it keeps the
+validation and derivation logic here and not in a loose dictionary.
 
-Above `using System;`, written with `//`.
+## Length
 
-```text
-A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built
-from ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)). A template carries TWO identifiers: its readable,
-kebab-case on-disk FOLDER name and this short_name; only the short_name is ever Azure-facing.
+`MaxLength` is 5. Five keeps the worst-case tight (storage) name at 23 of 24 characters, one byte to spare
+([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md), "Length budget").
 
-The short_name is DERIVED from the folder name by default — lowercase, keep only [a-z0-9] (hyphens and any
-other punctuation dropped), take the first 5 characters ("discovery" -> "disco"). A template MAY override it
-with an explicit `short_name` in its optional options.yml
-(Read-BicepTemplateOptions). This type makes the two identifiers, the derivation, and the format validation
-ONE construction-time invariant, so no caller re-implements the rule and a malformed name cannot exist.
+## Resolving
 
-A plain model type ([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)) — Get-BicepTemplates
-constructs one per template and pins its .value as the short_name; it does not mirror a YAML file, so it
-keeps default validation and derivation logic here rather than a loose dictionary.
-```
+`Resolve(folder, overrideValue)` resolves the short name from the folder name and an optional `options.yml` override. A null or empty
+override derives from the folder name, and otherwise the override is validated and taken. It throws, naming the template, when the override
+is malformed, or when the folder derives a value that cannot be a valid short name (fewer than 2 `[a-z0-9]` characters, or a leading digit)
+and no override is given.
 
-## comment:2
+## Deriving
 
-Above `public const int MaxLength = 5;`, written with `//`.
+`Derive(folder)` lowercases the folder name, keeps only `[a-z0-9]` (hyphens and any other punctuation are dropped) and takes the first
+`MaxLength` characters, so `discovery` becomes `disco`. It is pure and total: an empty or all-punctuation folder yields an empty string,
+which `IsValid` rejects at `Resolve` and so prompts an override.
 
-```text
-The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
-with a byte to spare ([ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md), "Length budget").
-```
+## Validity
 
-## comment:3
-
-Above `public static BicepShortName Resolve(string folder, string overrideValue)`, written with `//`.
-
-```text
-Resolve a template's short_name from its folder name and an optional options.yml override.
-  overrideValue null/empty -> derive from the folder name;
-  otherwise                -> validate and take the override.
-Throws (naming the template) when the override is malformed, or when the folder derives a value that
-cannot be a valid short_name (fewer than 2 [a-z0-9] chars, or a leading digit) and no override is given.
-```
-
-## comment:4
-
-Above `public static string Derive(string folder)`, written with `//`.
-
-```text
-The derivation: lowercase, keep only [a-z0-9] (drop hyphens and any other punctuation), take the first
-MaxLength characters. Pure and total — an empty/all-punctuation folder yields "" (which IsValid rejects
-at Resolve, prompting an override).
-```
-
-## comment:5
-
-Above `public static bool IsValid(string value)`, written with `//`.
-
-```text
-A well-formed short_name: 2-MaxLength chars, a leading letter then lowercase-alnum. Mirrors the
-options.yml schema regex ^[a-z][a-z0-9]{1,4}$ (Read-BicepTemplateOptions) and naming-standard Rule
-[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
-```
+`IsValid(value)` accepts a well-formed short name: 2 to `MaxLength` characters, a leading letter, then lowercase alphanumerics. It mirrors
+the `options.yml` schema regex `^[a-z][a-z0-9]{1,4}$` (`Read-BicepTemplateOptions`) and the naming rule
+[ADR-AZ-NAMING-LOWERCASECOMPONENTS](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).

@@ -1,50 +1,14 @@
 # pwsh/Azure.Templates/tests/Deploy-Bicep.SampleSubscription.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of `Deploy-Bicep` against the `sample-subscription` fixture template.
 
-## comment:1
+## Mocks
 
-Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
+The deploy target is the az session's subscription, so `Get-AzCliSessionSubscription` is a whole-boundary mock
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
 
-```text
-The deploy target is the az session's subscription
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries) whole-boundary
-mock).
-```
+`Test-IsRunningInPipeline` is mocked to false, the devbox path. Without it the real function returns true under CI
+(`$env:GITHUB_ACTIONS`), and `Deploy-Bicep` throws "requires -SubscriptionIdAssertIs in a pipeline".
 
-## comment:2
-
-Above `Get-Config -Config azure | Out-Null`, written with `#`.
-
-```text
-Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:3
-
-Above `Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Azure.Templates` (occurrence 2), written with `#`.
-
-```text
-Devbox path: without this the real Test-IsRunningInPipeline returns $true under CI
-($env:GITHUB_ACTIONS) and Deploy-Bicep throws "requires -SubscriptionIdAssertIs in a pipeline".
-```
-
-## comment:4
-
-Above `Get-Config -Config azure | Out-Null` (occurrence 2), written with `#`.
-
-```text
-Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:5
-
-Above `Get-Config -Config azure | Out-Null` (occurrence 3), written with `#`.
-
-```text
-Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
+The path-keyed session caches are warmed once per block, not per test
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).

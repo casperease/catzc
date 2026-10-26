@@ -1,15 +1,10 @@
 # pwsh/Azure.Templates/configs/glossary.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The glossary source of the Azure.Templates module: the vocabulary of the Bicep template configuration this module builds and deploys
+([ADR-REPO-VOCAB](../../../../drs/repository/controlled-vocabulary.md)). `Test-Glossary` checks it.
 
-## comment:1
+## Defaults
 
-Above `concepts:`, written with `#`.
-
-```text
-glossary.yml — the Catzc.Azure.Templates glossary source: the vocabulary of the Bicep template configuration this module
-builds and deploys ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five
-checks, the whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
-```
+Every option is defaulted: all five checks, the whole repository and every text surface
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). The file lists
+only the concepts.

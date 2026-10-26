@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/Install-VendorModule.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The one way a vendor module enters the repository: it saves the module from the configured source into `pwsh/.vendor/` and keeps only what
+loads on PowerShell 7.
 
 ## help
 
@@ -45,20 +45,5 @@ After the download, the command deletes the folders the toolset never loads
 Framework builds (`net20` to `net48`), since catzc targets PowerShell 7 on .NET 6 and later, and PSScriptAnalyzer's roughly 280 MB of
 `compatibility_profiles`. Only the `PSUseCompatible*` rules read those profiles, and `PSScriptAnalyzerSettings.psd1` turns those rules off.
 
-## comment:1
-
-Above `$moduleDir = Join-Path $vendorRoot $Name`, written with `#`.
-
-```text
-Only what loads is kept: .NET Framework builds and the analyzer's compatibility profiles are never read on
-PowerShell 7.
-```
-
-## comment:2
-
-Above `$unusedFolders = @(Get-ChildPath $moduleDir -Directory -Depth 5 -Exclude @()...`, written with `#`.
-
-```text
-A vendored module's folders reach three levels below the module folder; the walk must enter every one, vendor
-included.
-```
+The walk that finds them is bounded but deep enough: a vendored module's folders reach three levels below the module folder, so the walk
+enters every one, `vendor` folders included, and a folder inside one already removed goes with it.

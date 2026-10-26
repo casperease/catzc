@@ -1,7 +1,8 @@
 # pwsh/Azure.Templates/private/Get-BicepCustomerClassViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that returns the customer-class violations for a single resolved config. It is the shared rule used by both
+`Get-BicepTemplates` (fail-fast at discovery) and `Assert-BicepTemplate` (collect-all), so the two never drift, and it parallels
+`Get-BicepConfigClassViolations`.
 
 ## help
 

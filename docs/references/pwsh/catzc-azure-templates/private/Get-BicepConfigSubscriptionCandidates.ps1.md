@@ -1,7 +1,7 @@
 # pwsh/Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that returns the subscriptions a config coordinate, a customer (optional) and an environment, can resolve to. A root
+config has only the non-customer subscriptions as candidates.
 
 ## help
 
@@ -29,11 +29,7 @@ The config's resolved environment name.
 
 The loaded azure config (Get-Config -Config azure).
 
-## comment:1
+## Customer matching
 
-Above `if ($token -ceq $Customer -or (Get-AzureCustomer $token).key -ceq $Customer) {`, written with `#`.
-
-```text
-Customer config: match the raw token first (the common, by-key binding), and only resolve a
-non-matching token through the catalogue (the by-shortcode binding) — keeps the read lazy.
-```
+For a customer config the raw token is matched first, the common by-key binding. Only a non-matching token is resolved through the
+customer catalogue, the by-shortcode binding, which keeps the catalogue read lazy.

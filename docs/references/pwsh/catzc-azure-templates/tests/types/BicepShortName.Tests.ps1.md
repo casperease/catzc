@@ -2,16 +2,10 @@
 
 <!-- cspell:ignore deriv abcdef gadge gadgetry getry gadg -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the C# type that owns short name derivation and validation
+([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
 
-## comment:1
+## Loading and fixtures
 
-Above `Context 'Derive (folder name -> short_name)' {`, written with `#`.
-
-```text
-The C# type that owns short_name derivation + validation
-([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
-Loaded by the Import-CSharpTypes pre-pass; referenced by FQN here. Neutral fixture template names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
-```
+The type is loaded by the `Import-CSharpTypes` pre-pass and referenced here by its full name. The template names are neutral fixtures
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).

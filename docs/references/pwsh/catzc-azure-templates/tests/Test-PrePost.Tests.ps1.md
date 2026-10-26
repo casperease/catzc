@@ -1,32 +1,14 @@
 # pwsh/Azure.Templates/tests/Test-PrePost.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the PrePost starter, `Catzc.Azure.Templates/assets/PrePost.psm1`, the copy-in template that authors clone into
+`infrastructure/templates/<name>/PrePost.psm1`.
 
-## comment:1
+## Importing the starter
 
-Above `BeforeAll {`, written with `#`.
+Production code does not load the starter. These tests import it explicitly to verify that it is a working no-op baseline.
 
-```text
-Tests for the PrePost starter (Catzc.Azure.Templates/assets/PrePost.psm1) — the copy-in template that
-authors clone into infrastructure/templates/<name>/PrePost.psm1. Production code does NOT load it;
-these tests import it explicitly to verify the starter is a working no-op baseline.
-```
+## Mandatory parameters
 
-## comment:2
-
-Above `{ Invoke-BicepPrepareParameterSet -BuildInvocation $null -TemplateDescriptor...`, written with `#`.
-
-```text
-Null the parameter under test (supplying the others) so mandatory binding THROWS rather than
-PROMPTS — omitting a mandatory param entirely hangs an interactive host waiting for input.
-```
-
-## comment:3
-
-Above `{` (occurrence 3), written with `#`.
-
-```text
-Pass DeploymentOutput explicitly as $null (rather than omitting it) so mandatory binding
-throws instead of prompting for the missing value.
-```
+The parameter under test is passed as null, with the others supplied, so mandatory binding throws instead of prompting. Omitting a
+mandatory parameter entirely hangs an interactive host waiting for input. The same holds for `DeploymentOutput`, which is passed explicitly
+as null and not omitted.

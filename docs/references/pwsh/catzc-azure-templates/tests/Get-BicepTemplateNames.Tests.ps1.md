@@ -1,14 +1,10 @@
 # pwsh/Azure.Templates/tests/Get-BicepTemplateNames.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the template-names function.
 
-## comment:1
+## Setup once
 
-Above `BeforeAll {`, written with `#`.
-
-```text
-Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
-config is identical every test and no test mutates it, so the cache stays warm
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
-```
+These are read-only resolver tests. The boundary mocks and the config-cache reset run once, not per test: the mocked config is identical for
+every test and no test mutates it, so the cache stays warm
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
+[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).

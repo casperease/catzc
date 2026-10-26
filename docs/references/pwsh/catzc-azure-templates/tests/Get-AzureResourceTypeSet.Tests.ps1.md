@@ -1,13 +1,8 @@
 # pwsh/Azure.Templates/tests/Get-AzureResourceTypeSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the resource-type registry.
 
-## comment:1
+## The widened fifth character
 
-Above `$types = Get-AzureResourceTypeSet` (occurrence 7), written with `#`.
-
-```text
-The restricted storage/vm patterns can't spare the widened 5th char — derived from pattern,
-not a flag.
-```
+The restricted storage and vm patterns cannot spare the widened fifth character. The restriction is derived from the pattern, not set by a
+flag.

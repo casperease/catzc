@@ -2,14 +2,9 @@
 
 <!-- cspell:ignore nproperties -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the command that ensures a resource group exists.
 
-## comment:1
+## The caller resolves
 
-Above `$script:subId = '50a0ed00-de00-50b0-0000-000000000000'`, written with `#`.
-
-```text
-The caller resolves the subscription + region and passes them in; this function never
-re-resolves from azure.yml (so the RG always lands in the deployment's subscription).
-```
+The caller resolves the subscription and the region and passes them in. The function never re-resolves them from `azure.yml`, so the
+resource group always lands in the deployment's subscription.

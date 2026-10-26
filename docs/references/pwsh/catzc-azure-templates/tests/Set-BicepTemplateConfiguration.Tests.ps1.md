@@ -2,82 +2,39 @@
 
 <!-- cspell:ignore toolong gmweutstsmplst alweutstsmplst -->
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the command that writes a template's per-slot config.
 
-## comment:1
+## L0, but slow without care
 
-Above `Describe 'Set-BicepTemplateConfiguration'`, written with `#`.
+These are L0 logic tests: the config and discovery are mocked, and nothing launches an external tool, so they are not L2 and should not be.
+They were merely slow for an L0 tier, because the original `BeforeEach` gave every test a fresh root directory. Discovery keys its session
+cache on the root, so a new root per test was a guaranteed cache miss: a full eight-template re-discovery on every test, triggered at
+parameter binding (`[ValidateScript]` on `-Template` runs `Get-BicepTemplateNames`) before the body ran. That cold discovery costs about
+1 s here, because Pester's mock interception of `Get-BicepTemplatesRoot` inflates it about six times (165 ms unmocked).
 
-```text
-These are L0 'logic' tests (mocked config/discovery, no real az/cspell) — they are NOT L2 and should not
-be: nothing here launches an external tool. They were merely SLOW for an L0 tier, because the original
-BeforeEach gave EVERY test a fresh root ([Guid] dir). Discovery keys its session cache on the root, so a
-new root per test was a guaranteed cache miss — a full 8-template re-discovery every test, triggered at
-parameter binding ([ValidateScript] on -Template runs Get-BicepTemplateNames) before the body ever runs.
-That cold discovery costs ~1s here because Pester's Mock interception of Get-BicepTemplatesRoot inflates it
-~6x (165ms unmocked -> ~1s mocked). Both contexts now share ONE copy + ONE discovery (BeforeAll), keeping
-the cache warm:
-  - 'validation and read-only' tests never mutate the tree.
-  - 'writes' tests each target a DISTINCT config path, so the shared tree never causes interference.
-```
+Both contexts therefore share one copy and one discovery in `BeforeAll`, which keeps the cache warm:
 
-## comment:2
+- the validation and read-only tests never mutate the tree;
+- the write tests each target a distinct config path (`sample/gamma`, `sample/delta`, `sample/alpha`, `sample-customer/acme/alpha`), so the
+  shared tree never causes interference and the order of the tests does not matter.
 
-Above `Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName...`, written with `#`.
+## Root and mocks
 
-```text
-The tool/config boundary is mocked once for the whole block — Get-BicepTemplatesRoot reads the
-current $script:templatesRoot at call time, so each context just repoints that variable.
-```
+The tool and config boundary is mocked once for the whole block. `Get-BicepTemplatesRoot` reads the current `$script:templatesRoot` at call
+time, so each context just repoints that variable.
 
-## comment:3
+The root is a fresh, unique directory under `$TestDrive`, which Pester cleans. A unique directory is never re-deleted mid-run, so it cannot
+race a file scanner, on-access antivirus or the search indexer, that holds a just-copied file open and intermittently throws "used by
+another process". Scratch lives in temp, not `out/`
+([ADR-REPO-OUTDIR-TEMPFORSCRATCH](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
+`Copy-Directory`, raw `[System.IO]`, is about 15 times faster per tree than `Copy-Item -Recurse` here.
 
-Above `$script:templatesRoot = Join-Path $TestDrive ([Guid]::NewGuid())`, written with `#`.
+## Caches
 
-```text
-FRESH, UNIQUE root under $TestDrive (Pester auto-cleans it): a unique dir is never re-deleted
-mid-run, so it can't race a concurrent file scanner (on-access AV / the search indexer) holding
-a just-copied file open and intermittently throwing "used by another process". Scratch lives in
-temp, not out/
-([ADR-REPO-OUTDIR-TEMPFORSCRATCH](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-tempforscratch)).
-Copy-Directory (raw [System.IO]) instead of Copy-Item -Recurse: ~15x faster per tree here.
-```
-
-## comment:4
-
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }`, written with `#`.
-
-```text
-Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here in
-BeforeAll — not on the first test. The -Template [ValidateScript] runs Get-BicepTemplateNames
-(-> Get-BicepTemplates) at parameter binding, so an unwarmed cache makes the first It pay a
-full cold discovery (~6x inflated under Mock interception); warming here keeps that off the L0
-gate. These tests never mutate the tree, so the cache stays valid for all of them
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
-```
-
-## comment:5
-
-Above `BeforeAll {` (occurrence 3), written with `#`.
-
-```text
-Each test writes to a DISTINCT path (sample/gamma, sample/delta, sample/alpha,
-sample-customer/acme/alpha), so a single shared writable copy never causes interference and the
-order of the tests does not matter. One copy + ONE discovery (BeforeAll) keeps the discovery
-cache warm — a fresh per-test root would defeat the cache and pay a full cold re-discovery every
-test (discovery is filesystem-bound — see Get-BicepTemplates). See the read-only BeforeAll for
-the unique-dir / AV-race rationale.
-```
-
-## comment:6
-
-Above `InModuleScope Catzc.Base.Config { $script:configCache = $null }` (occurrence 2), written with `#`.
-
-```text
-Clear the caches ONCE so discovery re-derives against the fresh copy, then WARM them here so the
-first It in this context does not pay the cold parameter-binding discovery (see the read-only
-context's BeforeAll). Writes target distinct config paths and never invalidate the templates
-cache (session-scoped, [ADR-AUTO-CACHE-IMPORTERINVALIDATES](/docs/drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)), so one
-warm-up serves every test.
-```
+The caches are cleared once, so discovery re-derives against the fresh copy, and then warmed in `BeforeAll` and not on the first test. An
+unwarmed cache makes the first `It` pay a full cold discovery at parameter binding, about six times inflated under mock interception, and
+warming in setup keeps that off the L0 gate. The write tests target distinct config paths and never invalidate the templates cache, which
+is session-scoped
+([ADR-AUTO-CACHE-IMPORTERINVALIDATES](../../../../drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)), so one warm-up serves
+every test
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).

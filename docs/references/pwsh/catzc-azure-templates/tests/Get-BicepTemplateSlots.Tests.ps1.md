@@ -1,42 +1,20 @@
 # pwsh/Azure.Templates/tests/Get-BicepTemplateSlots.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the template-slots function and of the slot completer the commands expose.
 
-## comment:1
+## Setup once
 
-Above `BeforeAll {`, written with `#`.
+These are read-only resolver tests. In both blocks the boundary mocks and the config-cache reset run once, not per test: the mocked config
+is identical for every test and no test mutates it, so the cache stays warm
+([ADR-AUTO-TEST-SETUPONCE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-setuponce),
+[ADR-AUTO-TEST-SAFESEAMSWAPS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 
-```text
-Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
-config is identical every test and no test mutates it, so the cache stays warm
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
-```
+## Mixed and base-only customers
 
-## comment:2
+`sample-customer`'s root config carries no slot. The customer `acme` mixes a base config (`alpha`) and a slotted one (`alpha-001`), so only
+the `acme` view offers a slot discriminator.
 
-Above `@(Get-BicepTemplateSlots 'sample-customer') | Should -BeNullOrEmpty`, written with `#`.
+## The completer
 
-```text
-sample-customer's root config carries no slot; acme MIXES a base config (alpha) and a slotted
-one (alpha-001), so only the acme view offers a slot discriminator.
-```
-
-## comment:3
-
-Above `BeforeAll {` (occurrence 2), written with `#`.
-
-```text
-Read-only resolver tests: boundary mocks + config-cache reset run ONCE, not per test — the mocked
-config is identical every test and no test mutates it, so the cache stays warm
-([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
-```
-
-## comment:4
-
-Above `$commands = @(`, written with `#`.
-
-```text
-Every deploy/name path that takes a slot exposes the completer; the private RG helper carries it
-too for uniformity. These are the user-facing exported ones the completer actually fires on.
-```
+Every deploy and name path that takes a slot exposes the completer, and the private resource-group helper carries it too for uniformity. The
+tests cover the user-facing exported commands the completer actually fires on.

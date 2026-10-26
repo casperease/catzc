@@ -1,7 +1,6 @@
 # pwsh/Azure.Templates/private/Read-BicepTemplateOptions.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that reads a template's optional `options.yml` and returns the validated deployment overrides.
 
 ## help
 

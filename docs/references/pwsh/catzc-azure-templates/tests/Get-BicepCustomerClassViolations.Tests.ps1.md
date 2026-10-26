@@ -1,13 +1,8 @@
 # pwsh/Azure.Templates/tests/Get-BicepCustomerClassViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the private customer-class violations rule.
 
-## comment:1
+## Invocation
 
-Above `$script:check = {`, written with `#`.
-
-```text
-Invoke the private function in the module's scope. The config's customer is its configuration
-subfolder name ('' = a configuration-root, shared-platform config).
-```
+The tests invoke the private function in the module's scope. The config's customer is its configuration subfolder name, and the empty
+string means a configuration-root, shared-platform config.

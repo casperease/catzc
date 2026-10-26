@@ -1,13 +1,4 @@
 # pwsh/Azure.Templates/types/BicepDeploymentPlan.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `using System;`, written with `//`.
-
-```text
-The deployment-plan concern of a deployment: what to deploy and where, independent of the files
-(those are BicepArtifacts). One of the three concerns nested in BicepDeploymentContext.
-```
+The typed deployment-plan concern of a deployment: what to deploy and where, independent of the files, which are `BicepArtifacts`. It is
+one of the three concerns nested in `BicepDeploymentContext`.

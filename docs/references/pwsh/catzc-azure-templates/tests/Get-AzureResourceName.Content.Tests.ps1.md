@@ -1,14 +1,8 @@
 # pwsh/Azure.Templates/tests/Get-AzureResourceName.Content.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The data-driven tests of `Get-AzureResourceName`, sourced from `tests/assets/Get-AzureResourceName.Content.yml`.
 
-## comment:1
+## Cases
 
-Above `Describe 'Get-AzureResourceName...`, written with `#`.
-
-```text
-Data-driven coverage for Get-AzureResourceName, sourced from tests/assets/Get-AzureResourceName.Content.yml.
-Each case is an input splat + an expected name (or an expected error). `input` is read via
-$case.input (NOT bound as a -ForEach variable) because $input is a PowerShell automatic variable.
-```
+Each case is an input splat plus an expected name, or an expected error. The input is read through `$case.input` and not bound as a
+`-ForEach` variable, because `$input` is a PowerShell automatic variable.

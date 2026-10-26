@@ -1,14 +1,9 @@
 # pwsh/Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the deployment-name function.
 
-## comment:1
+## Choosing the platform
 
-Above `Context 'pipeline (Azure DevOps)' {`, written with `#`.
-
-```text
-Get-BicepDeploymentName picks the platform by which run-id DATA var is present (GITHUB_RUN_ID → GitHub
-Actions, else Azure DevOps). Each case sets its own vars and clears the other's run-id — important
-because these tests themselves run on a GitHub Actions runner where $env:GITHUB_RUN_ID is already set.
-```
+`Get-BicepDeploymentName` picks the platform by which run-id data variable is present: `GITHUB_RUN_ID` means GitHub Actions, otherwise
+Azure DevOps. Each case sets its own variables and clears the other's run id. That matters because these tests themselves run on a GitHub
+Actions runner, where `$env:GITHUB_RUN_ID` is already set.

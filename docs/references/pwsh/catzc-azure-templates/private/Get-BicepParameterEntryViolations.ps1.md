@@ -1,7 +1,7 @@
 # pwsh/Azure.Templates/private/Get-BicepParameterEntryViolations.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The private function that returns the violations of one parameters-file entry against its declaration in the template's compiled
+`main.json`.
 
 ## help
 
@@ -38,11 +38,7 @@ The parameters-file entry for that parameter.
 
 `[string[]]` the violations; empty when the entry conforms.
 
-## comment:1
+## Secure parameters
 
-Above `if ($Parameter.IsSecure) {`, written with `#`.
-
-```text
-A secure parameter takes its value from a Key Vault at deploy time. A literal is a secret in the repository;
-say so without ever echoing it.
-```
+A secure parameter takes its value from a Key Vault at deploy time. A literal there is a secret in the repository, so the function reports
+it without ever echoing the value.

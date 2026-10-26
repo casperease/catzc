@@ -1,13 +1,8 @@
 # pwsh/Azure.Templates/tests/Set-BicepTrackingTagSet.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the command that writes the deployment-provenance tags.
 
-## comment:1
+## The scope
 
-Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
-
-```text
-The scope subscription is the az session's — the whole-boundary session mock
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
-```
+The scope subscription is the az session's, so `Get-AzCliSessionSubscription` is a whole-boundary session mock
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).

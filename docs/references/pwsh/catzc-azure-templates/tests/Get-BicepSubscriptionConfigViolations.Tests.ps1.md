@@ -1,24 +1,12 @@
 # pwsh/Azure.Templates/tests/Get-BicepSubscriptionConfigViolations.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The L0 tests of the private subscription-resolution violations rule.
 
-## comment:1
+## Fixtures
 
-Above `$script:azure = [ordered]@{`, written with `#`.
+The fixture `azure` holds a non-customer pair (the shared platform), a customer pair (`acme`), and a second rogue non-customer subscription
+that overlaps `core_lower` on `beta`, the root-ambiguity case.
 
-```text
-Fixture azure: a non-customer pair (the shared platform) + a customer pair (acme) + a second
-rogue non-customer subscription that overlaps core_lower on beta (the root-ambiguity case).
-```
-
-## comment:2
-
-Above `Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName...`, written with `#`.
-
-```text
 The customer catalogue reads are whole-boundary mocks
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)) — the rule
-needs the key
-list, and the candidates rule normalizes a non-matching raw token through Get-AzureCustomer.
-```
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
+The rule needs the key list, and the candidates rule normalizes a non-matching raw token through `Get-AzureCustomer`.
