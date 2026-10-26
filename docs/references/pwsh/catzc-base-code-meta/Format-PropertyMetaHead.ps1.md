@@ -1,7 +1,8 @@
 # pwsh/Base.CodeMeta/Format-PropertyMetaHead.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter's entry point for a meta block that lives in a property rather than a comment: a JSON file or an MSBuild project. It takes
+the whole text and the facts and returns the text with the property written first, or the text as it was when the file is neither carrier or
+the property holds something foreign. The work is pure text on `Catzc.Base.CodeMeta.PropertyHead`.
 
 ## help
 

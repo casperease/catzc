@@ -1,13 +1,5 @@
 # pwsh/Base.CodeMeta/types/HeadAnchor.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
-
-## comment:1
-
-Above `namespace Catzc.Base.CodeMeta;`, written with `//`.
-
-```text
-What must stay above a comment head: nothing, a shebang, an XML or HTML prolog, or a fixed number of preamble lines.
-[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)
-```
+What must stay above a comment head: nothing, a shebang, an XML or HTML prolog, or a fixed number of preamble lines. A shebang or a prolog
+stops working once anything comes before it, so the head is written after it
+([ADR-REPO-CODEMETA-CODEFILEHEAD](../../../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)).

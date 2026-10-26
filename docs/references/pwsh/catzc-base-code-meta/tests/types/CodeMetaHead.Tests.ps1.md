@@ -1,13 +1,9 @@
 # pwsh/Base.CodeMeta/tests/types/CodeMetaHead.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The logic tests of `CodeMetaHead` over short widget and gadget texts: a head is rendered, imprinted, replaced and removed on strings, and
+the proofs are the byte-identical second run and the lossless removal.
 
-## comment:1
+## Agreement with the types hash
 
-Above `Describe 'CodeMetaHead and the types hash agree on every C# type'`, written with `#`.
-
-```text
-The types hash strips the head before the types load, so it cannot call CodeMetaHead; this proves the two read every
-real type the same.
-```
+The types hash strips the head before the types load, so it cannot call `CodeMetaHead`. The last block therefore proves that the two read
+every real C# type the same way.

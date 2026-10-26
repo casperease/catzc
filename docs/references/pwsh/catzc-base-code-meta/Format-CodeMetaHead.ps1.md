@@ -1,7 +1,8 @@
 # pwsh/Base.CodeMeta/Format-CodeMetaHead.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The formatter's one entry point for a code file's meta head: it takes the whole file text, the head's comment syntax and the facts, and
+returns the text with the head written, replaced or removed. The work is pure text on `Catzc.Base.CodeMeta.CodeMetaHead`; the file is read and
+written by the caller.
 
 ## help
 

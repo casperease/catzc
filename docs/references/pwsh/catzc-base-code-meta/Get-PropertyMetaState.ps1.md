@@ -1,7 +1,8 @@
 # pwsh/Base.CodeMeta/Get-PropertyMetaState.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The read side of the property carrier: it parses a JSON text or an MSBuild project and reports whether the meta property is there, whether
+it holds something foreign, and which sections, immutable keys, edges and authored config lines it holds. It never writes, so a gate can
+compare what a file says against what it should say.
 
 ## help
 

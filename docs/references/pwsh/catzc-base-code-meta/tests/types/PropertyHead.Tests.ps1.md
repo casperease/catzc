@@ -1,13 +1,9 @@
 # pwsh/Base.CodeMeta/tests/types/PropertyHead.Tests.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The logic tests of `PropertyHead`: the meta property is imprinted, replaced and removed on short JSON and MSBuild texts, and the proofs
+are the byte-identical second run and the text that comes back untouched when it is not a carrier.
 
-## comment:1
+## Line ends in the fixtures
 
-Above `function Get-Lines {`, written with `#`.
-
-```text
-'~' stands for a real line end in the single-quoted JSON below, so a JSON '\n' escape stays a backslash and an
-n.
-```
+A `~` in a single-quoted JSON fixture stands for a real line end, which `Get-Lines` swaps in. A JSON `\n` escape therefore stays a
+backslash and an `n` instead of turning into a line break.

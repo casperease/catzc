@@ -1,17 +1,21 @@
 # pwsh/Base.CodeMeta/configs/comment-pages.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The map from a source folder to the docs folder that holds its comment pages. A comment page is the one living copy of a file's long
+comments, and this file says where each file's page lives; `Get-CommentPage` reads it and
+[CommentPageMap](../types/CommentPageMap.cs.md) is its typed record.
 
-## comment:1
+## Entries
 
-Above `pages:`, written with `#`.
+Each `pages:` entry has two keys, and the first entry that covers a file decides:
 
-```text
-Where a file's comment page lives, first match wins. `source` is a folder, or `<prefix>/*` for each immediate
-subfolder of the prefix (dot-prefixed folders never match, so .vendor is out and .scriptanalyzer and .internal are
-listed by name); `docs` is the
-folder under docs/ the pages go under, and with a `/*` source `{kebab}` is the matched subfolder's leaf name,
-rendered in the kebab case of NameCase. The page keeps the file's name and extension plus `.md`
-(pwsh/Base.QualityGates/Format-Code.ps1 -> docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md).
-```
+- **`source`** — a repository-relative folder, or `<prefix>/*` for each immediate subfolder of the prefix.
+- **`docs`** — the folder under `docs/` the pages go under. With a `/*` source it may carry `{kebab}`, the matched module's name in the kebab
+  case of `NameCase`.
+
+The page keeps the file's name and extension plus `.md`, so every page maps back to exactly one file:
+`pwsh/Base.QualityGates/Format-Code.ps1` has the page `docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md`.
+
+## Hidden folders
+
+A `<prefix>/*` source never matches a dot-prefixed subfolder, so `.vendor` has no pages and `.scriptanalyzer` and `.internal` are listed by
+name, each with an entry of its own.
