@@ -65,7 +65,8 @@ Build improvement into the process as a continuous, evidence-driven loop:
 - **Inspect and adapt continuously.** The team routinely examines how it works — where the line stops, where items wait
   ([WDR-QUEUECOST](queues-cost-money.md)), what the gates catch — and adjusts. This is a standing reflex, not a quarterly initiative.
 - **Decide from evidence.** Process changes follow observed signals from the real system ([WDR-OBSERVEWIP](observe-work.md)), not opinion. A
-  recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure.
+  recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure. The consuming teams are
+  the platform's customers, so a change to the platform rests on the signals observed in their use of it.
 - **Amplify learning by capturing it.** When something is learned, it is encoded where it will hold — a convention that makes the mistake
   impossible to express ([PDR-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or a decision record that names the
   decision — so the next person inherits the knowledge instead of rediscovering it.

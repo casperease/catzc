@@ -56,7 +56,8 @@ a consumer move quickly is also the one that produces a complete, tamper-evident
 Self-service is the whole point of a platform: if every change still routes through a central team's queue, the platform has not removed the
 bottleneck it exists to remove. But naive self-service — handing people console access to a controlled environment — trades the bottleneck
 for chaos: undocumented changes, un-reproducible state, and no audit trail. In a regulated or otherwise tightly managed setting that trade
-is simply not allowed.
+is simply not allowed. The thin platform lets consumers edit configuration and compose functions without a ticket, the freedom DORA names as
+needing no outside permission.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of

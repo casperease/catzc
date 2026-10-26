@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0fe629683cc
+    with_body_sha: "8182422ec37b"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1169,7 +1169,7 @@ The one SQL login beside a server's Entra ID admin group, its password a Key Vau
 The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
 required by policy.
 
-- **Defined by:** [EDR-AZ-CAF-NAME-R11](external/azure/caf/naming-and-tagging.md#rule-edr-az-caf-name-r11)
+- **Defined by:** [ADR-AZ-LZ-CAFTAGS](azure/landing-zones.md#rule-adr-az-lz-caftags)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 
@@ -1259,7 +1259,7 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the subscription
 itself is created outside the repository.
 
-- **Defined by:** [EDR-AZ-CAF-RESORG-R19](external/azure/caf/resource-organization.md#rule-edr-az-caf-resorg-r19)
+- **Defined by:** [ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT](azure/azure-data-model.md#rule-adr-az-datamod-subscriptionunit)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 

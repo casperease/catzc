@@ -119,6 +119,7 @@ flow-lens: # what the flow lens draws with: its layout numbers in diagram units,
   stroke: 1.6 # every symbol's stroke but the thin double line
   thin-stroke: 1 # the double line =
   glyphs: env-flow
+  pins: a deploy run pinned to the run that certified its commit # the legend's meaning of the readers' one edge word
 flow-readers: # the reader of a flow point's files, by the track the files belong to; the command is resolved by name at render time
   ado: { track: vendor_ado.pipelines, command: Get-AdoFlowRows }
   github: { track: vendor_github.pipelines, command: Get-GithubFlowRows }

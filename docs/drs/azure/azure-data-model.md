@@ -138,9 +138,10 @@ Access), and cross-tenant tooling (Lighthouse, B2B) sit above the repository and
 
 ### Rule ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT
 
-The subscription is the unit of management, and `azure.yml` is its model: one landing zone, one workspace, one Key Vault, one budget, and one
-service connection per subscription, grouped by customer and environment class and never under management groups. Production and
-non-production are separated by subscription, every environment deploys to one region, and a resource group never mixes regions.
+The subscription is the unit of management, and `azure.yml` is its model: one landing zone, one workspace, one Key Vault, one budget, and
+one service connection per subscription (**subscription vending** is a pull request, not a creation), grouped by customer and environment
+class and never under management groups. Production and non-production are separated by subscription, every environment deploys to one
+region, and a resource group never mixes regions.
 
 - [The subscription as the unit](#the-subscription-as-the-unit)
 
@@ -263,13 +264,13 @@ and changing it is one edit to `azure.yml`.
 
 The repository has no management groups: its landing zone is deployed at subscription scope and deploys nothing at management-group or
 tenant level ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)). There is therefore no hierarchy to keep shallow, no
-sandbox, platform, or archetype group, no assignment at the root, no default group for new subscriptions, and no hierarchy setting to turn on;
-the settings of the tenant's hierarchy and its subscription transfer policy, with the list of users exempted from it, belong to the tenant's
-administrators. The grouping lives in config: `azure.yml` maps the standard environments onto a non-production and a production subscription
-per customer and for the shared platform, and the network kind of a subscription (hub or spoke) in `network.yml` is the one archetype split.
-No role is granted above a subscription: each subscription is deployed by its own service connection, pinned with `-SubscriptionIdAssertIs`,
-and the templates make no role assignment for workload teams. Experiments run in a non-production configuration slot of an existing
-subscription, not in a sandbox group.
+sandbox, platform, or archetype group, no assignment at the root, no default group for new subscriptions, and no hierarchy setting to turn
+on; the settings of the tenant's hierarchy and its subscription transfer policy, with the list of users exempted from it, belong to the
+tenant's administrators. The grouping lives in config: `azure.yml` maps the standard environments onto a non-production and a production
+subscription per customer and for the shared platform, and the network kind of a subscription (hub or spoke) in `network.yml` is the one
+archetype split. No role is granted above a subscription: each subscription is deployed by its own service connection, pinned with
+`-SubscriptionIdAssertIs`, and the templates make no role assignment for workload teams. Experiments run in a non-production configuration
+slot of an existing subscription, not in a sandbox group.
 
 Each subscription's budget alerts its `Owner` role, and its policies report compliance to that role's view; access reviews and remediation
 are the owner's practice, not the repository's. A new subscription is cut along a management boundary (the customer), a policy boundary (the
@@ -280,8 +281,8 @@ policies, roles, and budget until connectivity is split out. The subscription mo
 non-production subscription, or a non-production one alone.
 
 Subscription vending is a pull request: an `azure.yml` entry, its range in `network.yml` (the IP address plan), and one config per template
-that gives it its workspace, vault, landing zone, tags, and budget. Creating the subscription itself is not adopted, because the
-repository deploys only into subscriptions it is given, so a new customer subscription waits on someone with billing rights.
+that gives it its workspace, vault, landing zone, tags, and budget. Creating the subscription itself is not adopted, because the repository
+deploys only into subscriptions it is given, so a new customer subscription waits on someone with billing rights.
 
 Every environment deploys to `westeurope`, where every service the templates deploy is offered, so a resource group is created in its
 environment's region, its resources default to that region, and the landing zone's allowed-locations policy keeps every resource there. A

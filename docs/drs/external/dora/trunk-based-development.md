@@ -81,6 +81,7 @@ they merge — a skill and a habit, not just a branching policy. It also require
 synchronous code review or pairing at the point of merge, comprehensive automated testing run against every change before it commits, and a
 build fast enough — DORA's guidance is a few minutes — that this testing never becomes a bottleneck. Branch protection that requires passing
 tests, and advocates or mentors who help the rest of the team adopt the discipline, support the transition.
+
 ## Common pitfalls
 
 - **Heavyweight code review.** A review process that requires multiple approvals before a merge discourages developers from working in small

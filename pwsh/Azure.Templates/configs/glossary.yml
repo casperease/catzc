@@ -95,7 +95,7 @@ concepts:
   caf tags:
     key: caf_tags
     domain: azure
-    defined_by: EDR-AZ-CAF-NAME-R11
+    defined_by: ADR-AZ-LZ-CAFTAGS
     short:
       The six tag keys every resource carries — workload, environment, owner, cost-center, criticality, data-classification; cost-center is
       required by policy.
@@ -103,7 +103,7 @@ concepts:
   subscription vending:
     key: subscription_vending
     domain: azure
-    defined_by: EDR-AZ-CAF-RESORG-R19
+    defined_by: ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT
     short:
       Onboarding a subscription by pull request — its azure.yml entry, its range in network.yml, and one config per template; the
       subscription itself is created outside the repository.

@@ -31,9 +31,9 @@ function Get-GithubFlowRows {
             elseif ($on) {
                 @($on)
             })
-        $triggers = @(foreach ($event in $events.Keys) {
-                if ("$event" -in $declared) {
-                    $events[$event]
+        $triggers = @(foreach ($trigger in $events.Keys) {
+                if ("$trigger" -in $declared) {
+                    $events[$trigger]
                 }
             })
         $contents = [System.Collections.Generic.List[object]]::new()
@@ -47,12 +47,9 @@ function Get-GithubFlowRows {
         foreach ($job in $jobs.Keys) {
             $definition = $jobs[$job]
             $contents.Add([ordered]@{ name = "$job"; kind = 'job' })
-            $steps = if ($definition -is [System.Collections.IDictionary] -and $definition.Contains('steps')) {
-                @($definition['steps'])
-            }
-            else {
-                @()
-            }
+            $steps = @(if ($definition -is [System.Collections.IDictionary] -and $definition.Contains('steps')) {
+                    $definition['steps']
+                })
             foreach ($step in $steps) {
                 $label = if ($step.Contains('name')) {
                     "$($step['name'])"

@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "point": ".ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml;.ado/pipelines/deploy-widget.yaml",
+      "lens": "flow",
+      "lanes": [
+        {
+          "id": "ci-widget", "type": "CI", "unit": "widget", "engine": "ado", "triggers": ["push", "pull request"], "review": true,
+          "templates": [{ "name": ".ado/pipelines/stages/build-widget.yaml", "kind": "stage" }, { "name": ".ado/pipelines/jobs/test-widget.yaml", "kind": "job" }],
+          "environments": []
+        },
+        {
+          "id": "cd-widget", "type": "CD", "unit": "widget", "engine": "ado", "triggers": ["push"], "review": false,
+          "templates": [{ "name": ".ado/pipelines/extends/cd-gadget.yaml", "kind": "extends" }, { "name": ".ado/pipelines/variables/widget.yaml", "kind": "variables" }],
+          "environments": [{ "id": "widget-main-uat", "rung": "main-uat", "gate": "none", "approve": false }]
+        },
+        {
+          "id": "deploy-widget", "type": "DEPLOY", "unit": "widget", "engine": "ado", "triggers": ["manual"], "review": false,
+          "templates": [{ "name": ".ado/pipelines/stages/deploy-unit.yaml", "kind": "stage" }],
+          "environments": [
+            { "id": "widget-release-uat", "rung": "release-uat", "gate": "rc", "approve": true },
+            { "id": "widget-prod", "rung": "prod", "gate": "prod-approval", "approve": true }
+          ]
+        }
+      ],
+      "edges": [{ "from": "deploy-widget", "to": "cd-widget", "label": "pins" }]
+    }
+  ]
+}

@@ -58,3 +58,19 @@ Started 2026-10-26T16:36:54.9565876+01:00.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: running the analyzer on staged files directly before the first dry run, not after
   it fails.
 - 2026-10-26 Cats: Token tip: Next time, save tokens by: making the dry-run script snapshot in a child process from the start.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Get-TimeoutSeconds -Command resolves the function with Get-Command, so a private
+  function is invisible and the lookup throws; a private step takes its limit by -Executable.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: the user clears out/ by hand mid-session, so a burst staging or journal under out/
+  can vanish; staging lives in the session scratchpad.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: the Edit tool can drop a trailing space from replacement text and glue code ($x
+  =value), which still parses; a comment-only edit is proven by diff, not parse.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: an import that writes generated files during a burst is not undone by its rollback
+  unless the writer journals itself (now Save-BurstJournalWrite).
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Windows apps started from Explorer keep the sign-in PATH, so a removed machine tool
+  still shadows in VS Code; go.alternateTools now pins the managed go.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: a tool printed for pwsh must quote brace tokens ('{GUID}'), or pwsh parses a script
+  block and msiexec shows its usage popup.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: two sessions editing one config file at once can merge lines silently (timeouts.yml
+  lost brew to a comment); a shared config has one editor at a time.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: answering an idle notice with one line, never a recap.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: reading a gate output with one grep for its verdict lines.

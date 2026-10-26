@@ -64,7 +64,8 @@ sync point). The moment that assumption is false and unenforced, every downstrea
 
 **Stopping early is a feature, not a fault.** A team that stops the line often on the devbox and rarely in the pipeline, where the same
 gates run, is winning — the stops are landing where they are cheapest. Punishing stops teaches people to route around the cord, which is how
-defects reach production.
+defects reach production. Supportive leadership answers a stop with inquiry, not blame: in Westrum's generative culture, failure leads to
+inquiry.
 
 ## How to apply
 

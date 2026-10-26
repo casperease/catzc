@@ -1,0 +1,8 @@
+description: "A widget commit's route from its CI run through its CD run to the gated deploy."
+about:
+  adrs: []
+  lens: flow
+  point: .ado/pipelines/ci-widget.yaml;.ado/pipelines/cd-widget.yaml;.ado/pipelines/deploy-widget.yaml
+content:
+  title: A widget commit climbs from CI to production
+  kind: explanation

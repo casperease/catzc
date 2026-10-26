@@ -63,6 +63,28 @@ from .drawio_png_shapes import (
 )
 
 
+def paint_svg(d, svg, x0, y0, x1, y1):
+    """An embedded SVG of the kit's own subset, circles and lines in hex colours (the flow glyphs), painted into its box; the raster
+    draws no other SVG, so an element outside the subset is refused naming it."""
+    tree = ET.fromstring(re.sub(r"<!--.*?-->", "", svg, flags=re.S))
+    _, _, vw, vh = (float(v) for v in tree.get("viewBox").split())
+    sx, sy = (x1 - x0) / vw, (y1 - y0) / vh
+    at = lambda x, y: (x0 + float(x) * sx, y0 + float(y) * sy)
+    for element in tree:
+        tag = element.tag.split("}")[-1]
+        a = element.attrib
+        width = float(a.get("stroke-width", 1)) * sx
+        if tag == "circle":
+            (cx, cy), r = at(a["cx"], a["cy"]), float(a["r"]) * sx
+            fill = None if a.get("fill", "none") == "none" else a["fill"]
+            outline = a.get("stroke")
+            d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=fill, outline=outline, width=width if outline else 0)
+        elif tag == "line":
+            d.line([at(a["x1"], a["y1"]), at(a["x2"], a["y2"])], fill=a["stroke"], width=width)
+        else:
+            raise SystemExit(f"embedded svg element <{tag}> is outside the raster's subset of circle and line")
+
+
 def render(root, page=None):
     page = page or DEFAULTS["renderer"]["page"]
     if page not in ("dark", "model"):
@@ -142,6 +164,8 @@ def render(root, page=None):
             pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
             box = (max(1, int(x1 - x0)) * SCALE, max(1, int(y1 - y0)) * SCALE)
             img.paste(pic.resize(box, Image.Resampling.LANCZOS), (int(x0) * SCALE, int(y0) * SCALE))
+        elif s.get("shape") == "image" and uri.startswith("data:image/svg+xml,"):
+            paint_svg(d, base64.b64decode(uri.split(",", 1)[1]).decode("utf-8"), x0, y0, x1, y1)
         text = "" if s.get("noLabel") == "1" else plain(c.get("value"))  # noLabel: the value is data, as draw.io shows it
         if text:
             size = int(float(s.get("fontSize", 12)))

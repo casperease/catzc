@@ -74,9 +74,9 @@ irritating rather than the one that is actually constraining throughput.
 
 ## How to apply
 
-Pick a flow worth mapping, walk it end to end with the people who actually do each
-step, record where time is spent rather than assuming, and put the resulting picture somewhere everyone can see it without asking — a
-dashboard, a rendered diagram, or a shared board — and revisit it on a cadence rather than once.
+Pick a flow worth mapping, walk it end to end with the people who actually do each step, record where time is spent rather than assuming,
+and put the resulting picture somewhere everyone can see it without asking — a dashboard, a rendered diagram, or a shared board — and
+revisit it on a cadence rather than once.
 
 ## Common pitfalls
 

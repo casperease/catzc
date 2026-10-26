@@ -53,7 +53,8 @@ Treat visibility of the work as a requirement, not a nicety, and treat direct ob
   metric — not from a proxy. "Done" means the software does the thing, observed, not a task ticked
   ([EDR-AGILEPRINCIPLES](../external/agile/agile-principles.md), working software is the measure).
 - **Announce, don't bury.** When something happens that a human needs to know — a slow step about to block, a problem detected — it is said
-  plainly on the console at the moment it happens, not swallowed and discovered later.
+  plainly on the console at the moment it happens, not swallowed and discovered later. Console output is the CLI's display surface, so it
+  carries signal over noise and stays current and actionable.
 
 ## Why
 

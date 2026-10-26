@@ -73,6 +73,7 @@ DORA's implementation guidance names retrospective as the mechanism for keeping 
 giving the team the information it needs, whether the information is up to date, whether people are acting on it, and whether the display is
 driving measurable improvement toward the team's goals. A negative answer to any of those questions is the signal to investigate, then
 adjust, eliminate, or prototype a replacement display — the practice is iterative, not a one-time setup.
+
 ## Common pitfalls
 
 - **Choosing metrics without the team.** Selecting what a display shows unilaterally, rather than with the people who will read and act on

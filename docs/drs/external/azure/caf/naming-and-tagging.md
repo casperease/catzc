@@ -7,8 +7,8 @@ Microsoft's) and [`landing-zones`](../../../azure/landing-zones.md) (the landing
 
 Each rule is one of Microsoft's twenty-two naming and tagging items, numbered in page order: 1 to 10 from the naming page (with the
 abbreviation table under 7), 11 to 22 from the tagging page. Every source line names the page under `https://learn.microsoft.com/en-us` and
-the retrieval date; the sentence is the repository's own summary, never a quotation. The repository's decision on each item is in the rule it
-binds to.
+the retrieval date; the sentence is the repository's own summary, never a quotation. The repository's decision on each item is in the rule
+it binds to.
 
 ### Rule EDR-AZ-CAF-NAME-R01
 
@@ -72,8 +72,8 @@ Binds to [ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../../../azure/azure-naming-stan
 Use CAF's resource-type abbreviations to keep names within their length limits. The abbreviation page lists one per resource type, by
 category, with its provider namespace.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming and
-learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations (recommendation 7, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming and learn
+/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations (recommendation 7, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NAMING-CAFALIGNMENT](../../../azure/azure-naming-standard.md#rule-adr-az-naming-cafalignment).
 
@@ -97,8 +97,8 @@ Binds to [ADR-AZ-NAMING-CAFALIGNMENT](../../../azure/azure-naming-standard.md#ru
 ### Rule EDR-AZ-CAF-NAME-R10
 
 Example name patterns for common types: a resource group by workload and environment, a virtual network and a subnet by subscription
-purpose, region, and number, a network security group by policy or application, a route table by its purpose, a SQL database by workload
-and environment, a storage account by workload and number without hyphens; management groups by GUID with an editable display name;
+purpose, region, and number, a network security group by policy or application, a route table by its purpose, a SQL database by workload and
+environment, a storage account by workload and number without hyphens; management groups by GUID with an editable display name;
 subscriptions by descriptive display names.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming (recommendation 10, retrieved 2026-10-15)
@@ -118,8 +118,8 @@ Binds to [ADR-AZ-LZ-CAFTAGS](../../../azure/landing-zones.md#rule-adr-az-lz-caft
 
 ### Rule EDR-AZ-CAF-NAME-R12
 
-Enforce one tagging schema everywhere with Azure Policy, using resource selectors such as the resource location for rules that apply only
-in some regions.
+Enforce one tagging schema everywhere with Azure Policy, using resource selectors such as the resource location for rules that apply only in
+some regions.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (recommendation 12, retrieved 2026-10-15)
 
@@ -164,8 +164,8 @@ Binds to [ADR-AZ-LZ-CAFTAGS](../../../azure/landing-zones.md#rule-adr-az-lz-caft
 
 ### Rule EDR-AZ-CAF-NAME-R17
 
-Functional tags describe a resource's technical role: its application, tier, environment, and region, for example an app, tier,
-environment, region, or repository tag.
+Functional tags describe a resource's technical role: its application, tier, environment, and region, for example an app, tier, environment,
+region, or repository tag.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (recommendation 17, retrieved 2026-10-15)
 

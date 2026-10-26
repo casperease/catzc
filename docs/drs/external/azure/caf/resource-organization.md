@@ -164,8 +164,8 @@ Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az
 
 ### Rule EDR-AZ-CAF-RESORG-R16
 
-Decide whether a requirement needs a new subscription by four tests: scale limits (a large, specialised workload gets its own), a
-management boundary, a policy boundary (a regulated workload such as one under PCI), and network topology (a virtual network cannot span
+Decide whether a requirement needs a new subscription by four tests: scale limits (a large, specialised workload gets its own), a management
+boundary, a policy boundary (a regulated workload such as one under PCI), and network topology (a virtual network cannot span
 subscriptions).
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions (recommendation 16, retrieved
@@ -185,8 +185,8 @@ Binds to [ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT](../../../azure/azure-data-model.md#ru
 
 ### Rule EDR-AZ-CAF-RESORG-R18
 
-Run the platform in four separate subscriptions — management, security, connectivity, and identity — and never merge them, so that each
-gets its own policies, roles, and billing.
+Run the platform in four separate subscriptions — management, security, connectivity, and identity — and never merge them, so that each gets
+its own policies, roles, and billing.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-subscriptions (recommendation 18, retrieved
 2026-10-15)
@@ -358,10 +358,9 @@ Binds to [ADR-AZ-DATAMOD-ONETENANT](../../../azure/azure-data-model.md#rule-adr-
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for taking an organisation onto Azure. Resource organization is the design area
 that decides how resources are grouped and governed: the management group hierarchy that carries policy and access by inheritance, the
 subscriptions that bound management, policy, cost, and scale, and the naming and tagging that make resources findable (the naming and
-tagging recommendations have their own record). Microsoft's reference design keeps platform subscriptions apart from workload
-subscriptions, groups them in a management group hierarchy under the tenant root, and gives each workload its own subscription through a
-vending process. The live text is published under the
-[Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it into a shared
-repository, so nothing is quoted.
+tagging recommendations have their own record). Microsoft's reference design keeps platform subscriptions apart from workload subscriptions,
+groups them in a management group hierarchy under the tenant root, and gives each workload its own subscription through a vending process.
+The live text is published under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no
+licence to copy it into a shared repository, so nothing is quoted.
 
 The [CAF reference](../../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.

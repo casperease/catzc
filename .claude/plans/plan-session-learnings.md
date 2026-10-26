@@ -48,6 +48,14 @@ reach.
       copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
 
+## Open questions
+
+- From the orchestrator's finalize (2026-10-26), four shrink proposals, not applied: (1) `Get-TimeoutSeconds -Command` resolves a module's
+  private function too, or refuses with "use -Executable", so the next private caller cannot throw at run time; (2) the `catzc-verify` skill
+  gains one line, "a comment-only edit is proven by a diff showing only comment lines, never by a parse"; (3) `Invoke-StagedBurst` refuses a
+  staged folder under `out/`, which the user clears by hand; (4) a lock-only "one editor" claim for a shared config (`timeouts.yml`,
+  `dependencies.yml`) during a session's edit. Recommendation: yes to all four, each with its own check.
+
 ## Delegated (the orchestrator, 2026-10-22, on the user's "don't wait, go on")
 
 - Every finalize proposal above is taken as one step; the `globs.yml` word in plan-debt-full-run-failures is already `file-kinds.yml` where

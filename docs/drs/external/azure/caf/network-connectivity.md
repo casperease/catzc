@@ -70,7 +70,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R08
 
-Connect branches and remote sites through VPN gateways, zone-redundant for resilience, since the SKUs without availability-zone support are being retired.
+Connect branches and remote sites through VPN gateways, zone-redundant for resilience, since the SKUs without availability-zone support are
+being retired.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (recommendation 8, retrieved 2026-10-15)
 
@@ -86,7 +87,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R10
 
-Use separate ExpressRoute circuits, for example for production and non-production, when traffic must be isolated or needs dedicated bandwidth.
+Use separate ExpressRoute circuits, for example for production and non-production, when traffic must be isolated or needs dedicated
+bandwidth.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (recommendation 10, retrieved 2026-10-15)
 
@@ -94,7 +96,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R11
 
-Watch ExpressRoute peerings, connections, and gateways with network insights, and measure the paths between Azure and on-premises sites with Connection Monitor.
+Watch ExpressRoute peerings, connections, and gateways with network insights, and measure the paths between Azure and on-premises sites with
+Connection Monitor.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/connectivity-to-azure (recommendation 11, retrieved 2026-10-15)
 
@@ -110,11 +113,14 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R13
 
-Deliver internal and external applications from the landing zone of the application: an Application Gateway is part of the application in its spoke, not a shared hub service, because tuning its firewall alerts needs knowledge of the application, and a shared instance mixes teams' configuration and reaches its limits.
+Deliver internal and external applications from the landing zone of the application: an Application Gateway is part of the application in
+its spoke, not a shared hub service, because tuning its firewall alerts needs knowledge of the application, and a shared instance mixes
+teams' configuration and reaches its limits.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (recommendation 13, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-WORKLOADOWNSNONE](../../../azure/landing-zones.md#rule-adr-az-lz-workloadownsnone), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-WORKLOADOWNSNONE](../../../azure/landing-zones.md#rule-adr-az-lz-workloadownsnone),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R14
 
@@ -134,7 +140,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R16
 
-Deploy the Application Gateway v2 or partner appliance for inbound web traffic inside the landing-zone virtual network, beside the applications it protects.
+Deploy the Application Gateway v2 or partner appliance for inbound web traffic inside the landing-zone virtual network, beside the
+applications it protects.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (recommendation 16, retrieved 2026-10-15)
 
@@ -146,7 +153,8 @@ Protect every public IP address in a landing zone with a DDoS Protection plan.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (recommendation 17, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R18
 
@@ -166,7 +174,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R20
 
-When both are used, put the web application firewall policies on Front Door and lock the Application Gateway so it accepts traffic from Front Door only.
+When both are used, put the web application firewall policies on Front Door and lock the Application Gateway so it accepts traffic from
+Front Door only.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (recommendation 20, retrieved 2026-10-15)
 
@@ -182,33 +191,43 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 ### Rule EDR-AZ-CAF-NETCON-R22
 
-Make NAT Gateway the default for outbound internet traffic that leaves directly: it scales source network address translation, gives static outbound addresses, relieves port exhaustion on load balancers, firewalls, and App Service, and allows outbound traffic only.
+Make NAT Gateway the default for outbound internet traffic that leaves directly: it scales outbound network address translation, gives
+static outbound addresses, relieves port exhaustion on load balancers, firewalls, and App Service, and allows outbound traffic only.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 22, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+22, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R23
 
-Use Azure Firewall to control outbound internet traffic, inbound traffic that is not HTTP or HTTPS, and traffic between networks inside Azure where that needs filtering.
+Use Azure Firewall to control outbound internet traffic, inbound traffic that is not HTTP or HTTPS, and traffic between networks inside
+Azure where that needs filtering.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 23, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+23, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../azure/azure-network-model.md#rule-adr-az-network-persubscription), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../azure/azure-network-model.md#rule-adr-az-network-persubscription),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R24
 
-Enable the firewall's management NIC: create AzureFirewallManagementSubnet (at least /26) in advance, give it a public IP address, and keep gateway route propagation off on its route table.
+Enable the firewall's management NIC: create AzureFirewallManagementSubnet (at least /26) in advance, give it a public IP address, and keep
+gateway route propagation off on its route table.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 24, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+24, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../azure/azure-network-model.md#rule-adr-az-network-persubscription), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../azure/azure-network-model.md#rule-adr-az-network-persubscription),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R25
 
-Use Azure Firewall Premium where TLS inspection, intrusion detection and prevention, URL filtering, or web categories are needed; Standard and Premium need the management NIC enabled when they are created, while Basic always has it.
+Use Azure Firewall Premium where TLS inspection, intrusion detection and prevention, URL filtering, or web categories are needed; Standard
+and Premium need the management NIC enabled when they are created, while Basic always has it.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 25, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+25, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -216,23 +235,29 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Manage the firewalls of Virtual WAN hubs and of hub virtual networks through Azure Firewall Manager.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 26, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+26, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R27
 
-Where the same addresses and ranges recur in firewall rules, collect them in IP Groups and reuse them across rules, firewalls, regions, and subscriptions.
+Where the same addresses and ranges recur in firewall rules, collect them in IP Groups and reuse them across rules, firewalls, regions, and
+subscriptions.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 27, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+27, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-NETWORK-ONEIPPLAN](../../../azure/azure-network-model.md#rule-adr-az-network-oneipplan), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-NETWORK-ONEIPPLAN](../../../azure/azure-network-model.md#rule-adr-az-network-oneipplan),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R28
 
-In user-defined routes that steer traffic to Azure platform services, use service tags as the prefixes so Azure keeps the addresses current; do not attach a custom route table to the firewall's management subnet, or keep a default route to the internet on it if one is needed.
+In user-defined routes that steer traffic to Azure platform services, use service tags as the prefixes so Azure keeps the addresses current;
+do not attach a custom route table to the firewall's management subnet, or keep a default route to the internet on it if one is needed.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 28, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+28, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -240,7 +265,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Create one global Azure Firewall policy, assigned to every firewall, as the organisation's baseline security posture.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 29, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+29, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -248,7 +274,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Let regional security teams own child firewall policies for regional needs, delegated through role-based access control.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 30, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+30, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -256,39 +283,49 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Protect inbound HTTP and HTTPS traffic from the internet with a web application firewall inside the landing-zone virtual network.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 31, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+31, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-WORKLOADOWNSNONE](../../../azure/landing-zones.md#rule-adr-az-lz-workloadownsnone), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-WORKLOADOWNSNONE](../../../azure/landing-zones.md#rule-adr-az-lz-workloadownsnone),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R32
 
-Protect global inbound HTTP and HTTPS traffic with Front Door and web application firewall policies, after reading the global routing redundancy guidance.
+Protect global inbound HTTP and HTTPS traffic with Front Door and web application firewall policies, after reading the global routing
+redundancy guidance.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 32, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+32, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R33
 
-When Front Door and Application Gateway protect web applications together, put the firewall policies on Front Door and let Application Gateway accept traffic from Front Door only.
+When Front Door and Application Gateway protect web applications together, put the firewall policies on Front Door and let Application
+Gateway accept traffic from Front Door only.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 33, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+33, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R34
 
-When partner network virtual appliances handle inbound web traffic, deploy them in the landing-zone network beside the applications they expose.
+When partner network virtual appliances handle inbound web traffic, deploy them in the landing-zone network beside the applications they
+expose.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 34, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+34, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R35
 
-Never depend on Azure's default outbound internet access: it risks port exhaustion, is open by default, and uses addresses the organisation does not own and that can change.
+Never depend on Azure's default outbound internet access: it risks port exhaustion, is open by default, and uses addresses the organisation
+does not own and that can change.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 35, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+35, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -296,55 +333,69 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Landing zones that are not connected to the hub use NAT Gateway for outbound traffic when no firewall or appliance has to inspect it.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 36, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+36, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-HUBANDSPOKE](../../../azure/landing-zones.md#rule-adr-az-lz-hubandspoke), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-HUBANDSPOKE](../../../azure/landing-zones.md#rule-adr-az-lz-hubandspoke),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R37
 
 Where the organisation uses software-as-a-service security providers for outbound protection, connect them through Firewall Manager.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 37, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+37, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R38
 
-With partner appliances protecting traffic between networks or to and from the internet, place them in a separate appliance network connected to the hub in a Virtual WAN design, or in the central hub otherwise.
+With partner appliances protecting traffic between networks or to and from the internet, place them in a separate appliance network
+connected to the hub in a Virtual WAN design, or in the central hub otherwise.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 38, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+38, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R39
 
-Expose no management port of a virtual machine to the internet: block virtual machines with public IP addresses by policy and reach jump hosts through Bastion.
+Expose no management port of a virtual machine to the internet: block virtual machines with public IP addresses by policy and reach jump
+hosts through Bastion.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 39, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+39, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R40
 
 Protect the public endpoints in virtual networks with Azure DDoS Protection plans.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 40, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+40, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R41
 
-Do not rebuild on-premises perimeter network and demilitarised-zone designs in Azure; use patterns made for the cloud.
+Do not rebuild on-premises perimeter network and screened-subnet designs in Azure; use patterns made for the cloud.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation 41, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
+41, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md#rule-adr-az-network-cafprivateaccess), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md#rule-adr-az-network-cafprivateaccess),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R42
 
-Use the Standard or Premium Bastion SKU for production workloads, and the free Developer SKU for sandbox and test where the region offers it.
+Use the Standard or Premium Bastion SKU for production workloads, and the free Developer SKU for sandbox and test where the region offers
+it.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 42, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 42,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -352,31 +403,38 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Reach virtual machines from on-premises over the ExpressRoute or VPN connectivity that already exists.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 43, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 43,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R44
 
-In a Virtual WAN topology, deploy Bastion in each spoke, or one central Bastion in a spoke, which needs fewer instances but gives users Reader on Bastion and on that spoke's network.
+In a Virtual WAN topology, deploy Bastion in each spoke, or one central Bastion in a spoke, which needs fewer instances but gives users
+Reader on Bastion and on that spoke's network.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 44, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 44,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R45
 
-In a hub-and-spoke topology, one Bastion in the hub serves the peered spokes, with users given Reader on Bastion and on the hub network; where that grant is not allowed, deploy a Bastion in each spoke that needs one.
+In a hub-and-spoke topology, one Bastion in the hub serves the peered spokes, with users given Reader on Bastion and on the hub network;
+where that grant is not allowed, deploy a Bastion in each spoke that needs one.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 45, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 45,
+retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-HUBANDSPOKE](../../../azure/landing-zones.md#rule-adr-az-lz-hubandspoke), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-HUBANDSPOKE](../../../azure/landing-zones.md#rule-adr-az-lz-hubandspoke),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R46
 
 Protect Bastion and the virtual machines it reaches with the network security group rules Microsoft documents.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 46, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 46,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -384,23 +442,28 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Send Bastion's diagnostic logs to the central Log Analytics workspace.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 47, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 47,
+retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R48
 
 Create the role assignments that let the users and groups who connect through Bastion do so.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 48, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 48,
+retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-GOVERNANCELIMITS](../../../azure/landing-zones.md#rule-adr-az-lz-governancelimits), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-GOVERNANCELIMITS](../../../azure/landing-zones.md#rule-adr-az-lz-governancelimits),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R49
 
 Connect to Linux virtual machines over SSH with private keys kept in Key Vault.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 49, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 49,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -408,23 +471,28 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Keep both Bastion and ExpressRoute or VPN access where specific needs, such as break-glass access, call for both.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 50, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 50,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R51
 
-Do not allow remote access to Windows or Linux virtual machines through public IP addresses, and never allow remote access without strict network security groups and firewalling.
+Do not allow remote access to Windows or Linux virtual machines through public IP addresses, and never allow remote access without strict
+network security groups and firewalling.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 51, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 51,
+retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R52
 
 Connections from on-premises through a VPN gateway are encrypted with IPsec.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 52, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 52,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -432,7 +500,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Where traffic between virtual machines must be encrypted, inside a network or across peered networks, use virtual network encryption.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 53, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 53,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -440,7 +509,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Encrypt ExpressRoute Direct links at layer 2 with MACsec.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 54, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 54,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -448,15 +518,18 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 In Virtual WAN where MACsec is not an option, run IPsec over ExpressRoute private peering through the Virtual WAN VPN gateway.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 55, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 55,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R56
 
-Outside Virtual WAN and where MACsec is not an option, encrypt with partner appliances over private peering, a VPN over Microsoft peering, or a site-to-site VPN over private peering.
+Outside Virtual WAN and where MACsec is not an option, encrypt with partner appliances over private peering, a VPN over Microsoft peering,
+or a site-to-site VPN over private peering.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 56, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 56,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -464,31 +537,38 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 If the native options do not meet the requirements, encrypt traffic over private peering with partner appliances.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 57, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/define-network-encryption-requirements (recommendation 57,
+retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R58
 
-Record traffic with virtual network flow logs and move away from network security group flow logs: they are simpler to set up, cover a whole network, and add encryption status and Virtual Network Manager rule details. Network security group flow logs are being retired.
+Record traffic with virtual network flow logs and move away from network security group flow logs: they are simpler to set up, cover a whole
+network, and add encryption status and Virtual Network Manager rule details. Network security group flow logs are being retired.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 58, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 58, retrieved
+2026-10-15)
 
-Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R59
 
 Turn on traffic analytics, for ready-made views of the traffic and security analysis over the flow logs.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 59, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 59, retrieved
+2026-10-15)
 
-Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement), [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
+Binds to [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement),
+[ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R60
 
 If traffic analytics does not offer enough, add a partner solution from the Marketplace.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 60, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 60, retrieved
+2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -496,7 +576,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Run Network Watcher packet captures at different times through the week to learn which traffic flows.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 61, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 61, retrieved
+2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -504,7 +585,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Do not build a custom traffic-mirroring solution for a large estate; it is hard to support.
 
-Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 62, retrieved 2026-10-15)
+Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-traffic-inspection (recommendation 62, retrieved
+2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
@@ -512,8 +594,8 @@ Binds to [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#
 
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for taking an organisation onto Azure. Network topology and connectivity is the
 design area that decides how the landing zones' networks are laid out and joined. This record covers its connectivity half: reaching Azure
-from on-premises, delivering applications, inbound and outbound internet traffic, remote access to virtual machines, network encryption,
-and traffic inspection. The topology half and the private access to platform services have records of their own. The live text is published
+from on-premises, delivering applications, inbound and outbound internet traffic, remote access to virtual machines, network encryption, and
+traffic inspection. The topology half and the private access to platform services have records of their own. The live text is published
 under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no licence to copy it into a
 shared repository, so nothing is quoted.
 

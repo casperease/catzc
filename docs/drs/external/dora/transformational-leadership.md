@@ -79,10 +79,10 @@ obstacle to adopting them, regardless of how good the practices are on paper.
 
 ## How to apply
 
-Apply the capability by setting delivery goals that are specific enough to be measurably true or false,
-by treating obstacles as questions to put to the team rather than answers to hand down, by rewarding deliberate experimentation even when an
-attempt fails, and by keeping the same supportive, recognition-giving behavior under deadline pressure as when things are calm. Treat
-leadership as something anyone in a position to influence a team can practice, not as a behavior reserved for a named role.
+Apply the capability by setting delivery goals that are specific enough to be measurably true or false, by treating obstacles as questions
+to put to the team rather than answers to hand down, by rewarding deliberate experimentation even when an attempt fails, and by keeping the
+same supportive, recognition-giving behavior under deadline pressure as when things are calm. Treat leadership as something anyone in a
+position to influence a team can practice, not as a behavior reserved for a named role.
 
 ## Common pitfalls
 

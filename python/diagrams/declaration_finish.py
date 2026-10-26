@@ -11,6 +11,8 @@ from .declaration_constants import (
     ANCHOR,
     COMMIT_STATES,
     EDGE_DEADZONE,
+    FLOW,
+    FLOW_LENS,
     GAP,
     KEY,
     LABEL_LEGEND,
@@ -199,6 +201,16 @@ def legend_entries(content):
             e.get("after", "action") != "action" for e in content["effects"]
         ):  # a line into the next zone
             entries.append(("transition", transition_swatch, LABEL_LEGEND["word"]))
+    if content["lens"] == FLOW_LENS:  # the words the lanes draw, each with its meaning, the rhombus, and the readers' edge words
+        from .declaration_place_flow import word_cell, words
+
+        meaning = words()
+        for glyph in content.get("flow_words", []):
+            swatch = lambda eid, x, y, glyph=glyph: [word_cell(f"lg-{eid}", glyph, "", x, y + 2, content["theme"])]
+            entries.append((f"word-{glyph}", swatch, f"{meaning[glyph]['word']}: {meaning[glyph]['meaning']}"))
+        entries.append(("env-flow", swatch_for("env-flow"), glyphs["env-flow"]["phrase"]))
+        for word in dict.fromkeys(e.get("label", "") for e in content.get("route", {}).get("edges", []) if e.get("label")):
+            entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {FLOW[word]}"))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))

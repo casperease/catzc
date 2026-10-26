@@ -1,17 +1,17 @@
 # EDR: CAF network private access — Microsoft's recommendations on PaaS connectivity and DNS, as the repository reads them
 
 Binds to [`landing-zones`](../../../azure/landing-zones.md) (the hub that holds the private DNS zones and the workload that registers in
-them), [`azure-network-model`](../../../azure/azure-network-model.md) (the address plan), and
-[`caf-security`](landing-zone-security.md) (the vault's private access).
+them), [`azure-network-model`](../../../azure/azure-network-model.md) (the address plan), and [`caf-security`](landing-zone-security.md)
+(the vault's private access).
 
 ## Rules: EDR-AZ-CAF-NETPRV
 
-The network design area is large, so the repository records it in three records: topology, IP addressing, segmentation, and Virtual
-Network Manager (EDR-AZ-CAF-NETTOP); connectivity, internet traffic, application delivery, Bastion, encryption, and traffic inspection
+The network design area is large, so the repository records it in three records: topology, IP addressing, segmentation, and Virtual Network
+Manager (EDR-AZ-CAF-NETTOP); connectivity, internet traffic, application delivery, Bastion, encryption, and traffic inspection
 (EDR-AZ-CAF-NETCON); and this record, private access to PaaS services and name resolution. It covers two CAF pages: "Connectivity to Azure
 PaaS services" (rules 1–6) and "DNS for on-premises and Azure resources" (rules 7–13). Every source line names the page under
-`https://learn.microsoft.com/en-us` and the retrieval date; the sentence is the repository's own summary, never a quotation. The repository's
-decision on each recommendation is in the rule it binds to.
+`https://learn.microsoft.com/en-us` and the retrieval date; the sentence is the repository's own summary, never a quotation. The
+repository's decision on each recommendation is in the rule it binds to.
 
 ### Rule EDR-AZ-CAF-NETPRV-R01
 
@@ -74,7 +74,7 @@ Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md
 
 ### Rule EDR-AZ-CAF-NETPRV-R07
 
-Where resolution is needed only inside Azure, use Azure Private DNS zones, with a delegated zone for the organisation's own names and
+Where resolution is needed only inside Azure, use Azure Private DNS zones, with a delegated DNS zone for the organisation's own names and
 automatic registration of virtual machine records.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (recommendation 7,
@@ -106,7 +106,7 @@ Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md
 ### Rule EDR-AZ-CAF-NETPRV-R10
 
 Link the private DNS zones to the virtual networks, and use a resolver forwarding ruleset so that Azure queries for on-premises names go to
-on-premises DNS, while on-premises servers forward the Azure zones to the resolver's inbound endpoint.
+on-premises DNS, while on-premises servers forward the Azure DNS zones to the resolver's inbound endpoint.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (recommendation 10,
 retrieved 2026-10-15)
@@ -136,8 +136,8 @@ Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md
 
 ### Rule EDR-AZ-CAF-NETPRV-R13
 
-Host the Private DNS zones, including the privatelink zones of private endpoints such as the blob zone, in a global connectivity
-subscription.
+Host the Private DNS zones, including the `privatelink` DNS zones of private endpoints such as the one for blob storage, in a global
+connectivity subscription.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/dns-for-on-premises-and-azure-resources (recommendation 13,
 retrieved 2026-10-15)
@@ -149,10 +149,9 @@ Binds to [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md
 
 Microsoft's Cloud Adoption Framework (CAF) is its guidance for adopting Azure across an organisation. Its landing-zone part splits the
 platform that workloads land in into design areas, each with considerations and design recommendations: billing and tenant, identity and
-access, resource organisation, network, security, management, governance, and platform automation. Two further CAF pages bear on this
-record without recommendations of their own: "Private Link and DNS integration at scale" and "Limit cross-tenant private endpoint
-connections". The live text falls under the
-[Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no right to copy it into a shared
-repository, so nothing is quoted.
+access, resource organisation, network, security, management, governance, and platform automation. Two further CAF pages bear on this record
+without recommendations of their own: "Private Link and DNS integration at scale" and "Limit cross-tenant private endpoint connections". The
+live text falls under the [Microsoft Learn Terms of Use](https://learn.microsoft.com/en-us/legal/termsofuse), which grant no right to copy
+it into a shared repository, so nothing is quoted.
 
 The [CAF reference](../../../../references/caf/index.md) lists every CAF record in this repository and the Microsoft pages each one cites.

@@ -56,7 +56,9 @@ file.
 **Running tests:** call `Test-Automation`. It finds all test files across all modules automatically.
 
 Each of these is a single action with no prerequisites and no follow-up steps. The ceremony count is zero. The PowerShell mechanics behind
-it, in the pwsh twin, are one global function namespace with no import statements, and exports derived from file location.
+it, in the pwsh twin, are one global function namespace with no import statements, and exports derived from file location. Removing the
+ceremony from adding a function leaves the author time and judgement for the challenging work. Vendoring the third-party modules, and
+assuming no local admin, keep access to tools free of friction.
 
 ### What hard-to-fail looks like
 

@@ -86,14 +86,13 @@ understand its full substrate has simply relocated the cognitive load rather tha
 
 ## How to apply
 
-DORA's guidance groups into four approaches. The first is a golden path held to the smallest set of APIs, tooling, and docs that
-accelerates delivery, which shifts cognitive load off developers and is the minimum-viable-platform discipline DORA recommends over
-building comprehensively upfront. The second is self-service as the platform's mode of use, so a developer never waits behind a queue.
+DORA's guidance groups into four approaches. The first is a golden path held to the smallest set of APIs, tooling, and docs that accelerates
+delivery, which shifts cognitive load off developers and is the minimum-viable-platform discipline DORA recommends over building
+comprehensively upfront. The second is self-service as the platform's mode of use, so a developer never waits behind a queue.
 
-The guidance also calls for a product management mindset — a named owner for developer experience who maps the
-critical user journeys developers take and removes friction in them — and for extensibility: clear APIs and a well-defined contribution
-model, plus clear feedback on the outcome of a developer's task, which DORA identifies as the platform trait most correlated with a positive
-platform experience.
+The guidance also calls for a product management mindset — a named owner for developer experience who maps the critical user journeys
+developers take and removes friction in them — and for extensibility: clear APIs and a well-defined contribution model, plus clear feedback
+on the outcome of a developer's task, which DORA identifies as the platform trait most correlated with a positive platform experience.
 
 Measurement follows the same four-way split: track software delivery performance (change lead time, deployment frequency, recovery time,
 failure percentage, rework rate) to confirm the platform is improving outcomes, not just activity; track developer satisfaction with CSAT or

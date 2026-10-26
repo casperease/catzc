@@ -7,10 +7,22 @@ import html
 
 from . import declaration_settings
 from .declaration_cells import cell, edge_cell, ladder_rungs
-from .declaration_constants import ACTION_LENS, BYPASS_DIP, CHIP_CORNER, EDGE_DEADZONE, PAGE, PROOF_LENS, SHIFT_KEY, SPAN_LABEL, WORD_GAP
+from .declaration_constants import (
+    ACTION_LENS,
+    BYPASS_DIP,
+    CHIP_CORNER,
+    EDGE_DEADZONE,
+    FLOW_LENS,
+    PAGE,
+    PROOF_LENS,
+    SHIFT_KEY,
+    SPAN_LABEL,
+    WORD_GAP,
+)
 from .declaration_edges import edge_word
 from .declaration_finish import finish
 from .declaration_place_action import place_action
+from .declaration_place_flow import place_flow
 from .declaration_place_grid import place_grid
 from .declaration_routes import (
     LAST_ROUTES,
@@ -293,6 +305,8 @@ def place(declaration, check_routes=False):
     everything by ring and order."""
     if declaration["content"]["lens"] in (ACTION_LENS, PROOF_LENS):
         return place_action(declaration)
+    if declaration["content"]["lens"] == FLOW_LENS:
+        return place_flow(declaration)
     frame = place_grid(declaration)
     delta = place_spans(frame)
     place_edges(frame, delta, check_routes)

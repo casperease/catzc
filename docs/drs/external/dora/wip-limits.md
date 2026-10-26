@@ -80,6 +80,7 @@ Make the invisible work visible first: a storyboard with a column per workflow s
 board there is nothing concrete to cap. Give each column an explicit limit — how many items may sit in it at once — set from the real
 capacity of the people who work it, not from an aspirational or round number. When a stage's limit is reached, stop starting new work there
 and instead work on unblocking what is already in flight.
+
 ## Common pitfalls
 
 - **Limiting a stage without visualizing the whole stream.** Capping one column while the rest of the value stream stays invisible leads

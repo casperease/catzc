@@ -67,12 +67,21 @@ a workload's own are not used.
 
 ### Rule ADR-AZ-NETWORK-CAFTOPOLOGY
 
-The network is hub-and-spoke per tier in one region, with `network.yml` as the one IP address management, every range a /16 inside 10.0.0.0/8,
-IPv4 only, and a security group per workload subnet that denies inbound internet traffic. The hub carries reserved gateway and firewall
-subnets with nothing deployed, so there is no hybrid link, no filtered egress, no spoke-to-spoke transit, no Virtual WAN, and no Virtual
-Network Manager.
+The network is hub-and-spoke per tier in one region, with `network.yml` as the one IP address management, every range a /16 inside
+10.0.0.0/8, IPv4 only, and a security group per workload subnet that denies inbound internet traffic. The hub carries reserved gateway and
+firewall subnets with nothing deployed, so there is no hybrid link, no filtered egress, no spoke-to-spoke transit, no Virtual WAN, and no
+Virtual Network Manager.
 
 - [CAF topology](#caf-topology)
+
+### Rule ADR-AZ-NETWORK-CAFCONNECTIVITY
+
+The networks connect no on-premises site and expose no workload to the internet: no template deploys a public IP address, a gateway, a
+firewall, Bastion, or a virtual machine, and data is reached through private endpoints behind a security group per workload subnet. Egress
+is unfiltered today; a hub firewall in the reserved `AzureFirewallSubnet`, with flow logs and traffic analytics into `foundation`'s
+workspace, is the planned follow-up.
+
+- [CAF connectivity](#caf-connectivity)
 
 ## Context
 
@@ -199,19 +208,49 @@ requires an entry for every subscription of the shipped `azure.yml`.
 - The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
   [`test-automation`](../automation/test-automation.md)).
 
+### CAF connectivity
+
+The repository connects no on-premises site and no other cloud; the hub reserves `GatewaySubnet` so a gateway can be added without
+renumbering, and such a link would land there. So no ExpressRoute circuit, gateway, Direct port, FastPath, Global Reach, VPN connection, or
+encryption of a private link exists, and the production and non-production hubs would each take their own circuit if one came.
+
+No workload is reached from the internet or global, so no Application Gateway, Front Door, Traffic Manager, web application firewall, NAT
+Gateway, or inbound appliance exists; the first ingress gateway belongs to the workload template, in its spoke, not in a shared hub service.
+No template deploys a public IP address: the landing zone's policy keeps them off network interfaces, every workload subnet denies inbound
+internet traffic, and the unused `vm.bicep`, which creates one, is to lose it. No DDoS Protection plan exists, because no network holds a
+public endpoint. The landing zone has no perimeter network; each workload subnet carries its own security group and data is reached through
+private endpoints. No subnet hosts compute that uses Azure's default outbound access, and turning it off on every subnet becomes a secure
+default of `virtual-network.bicep`.
+
+Egress is the open item. The hub reserves `AzureFirewallSubnet` and deploys nothing into it, so outbound traffic is unfiltered. The
+follow-up is an Azure Firewall there with spoke routes to it, which also adds an `AzureFirewallManagementSubnet` to the hub's subnet set in
+`network.yml` and to [ADR-AZ-NETWORK-PERSUBSCRIPTION](#rule-adr-az-network-persubscription), and picks the firewall SKU, one firewall per
+hub declared in a template. Until then no firewall policy, rule, IP Group, Firewall Manager, security provider, or partner appliance exists,
+`network.yml` is the one home of every range a rule would name, and the spoke route tables carry no routes, because platform services are
+reached through private endpoints, not routed to their public addresses. Every landing zone is connected, each spoke peering to the hub of
+its tier, so none uses a NAT Gateway for a standalone path.
+
+No template deploys a virtual machine, so there is no Bastion, no jump host, no remote access to protect, no private key for SSH, and no
+break-glass path of that kind; a hub Bastion would need an `AzureBastionSubnet` the hub does not reserve, and its diagnostics would follow
+every other resource's to `foundation`'s workspace. No traffic flows between virtual machines, and every flow to data is encrypted by TLS
+1.2 at minimum, so virtual network encryption is not used. The network security groups and the virtual networks send their diagnostics to
+`foundation`'s workspace, but no flow log is recorded; virtual network flow logs, planned, are where there is no security-group flow log to
+migrate, and traffic analytics follows them. Packet capture runs on virtual machines, so none is used, and the repository builds no traffic
+mirroring of its own.
+
 ### CAF topology
 
 Each tier has one hub in the one region with its spokes peered to it, the hub's resources in one resource group named with the region code
-(`nsub-weu-zct-disco-rg`), and each hub lists a handful of spokes, far below the peering limit. A spoke peers only to its hub and nothing
-is forwarded, so one spoke cannot reach another, and the non-production and production hubs are deliberately not peered. There is no
+(`nsub-weu-zct-disco-rg`), and each hub lists a handful of spokes, far below the peering limit. A spoke peers only to its hub and nothing is
+forwarded, so one spoke cannot reach another, and the non-production and production hubs are deliberately not peered. There is no
 ExpressRoute circuit, VPN gateway, branch, partner appliance, or route learned over BGP (the spoke route tables are empty), so nothing is
-dual-homed or force-tunnelled, no ExpressRoute and VPN transit needs Route Server, and customers are isolated by subscription and spoke.
-The hub carries only the two reserved subnets, `shared-services`, and the private DNS zones; the shared platform's own workload also lands
-in `shared-services`, which is more than the minimal set. It holds no Application Gateway or other inbound proxy; a workload that needs one
+dual-homed or force-tunnelled, no ExpressRoute and VPN transit needs Route Server, and customers are isolated by subscription and spoke. The
+hub carries only the two reserved subnets, `shared-services`, and the private DNS zones; the shared platform's own workload also lands in
+`shared-services`, which is more than the minimal set. It holds no Application Gateway or other inbound proxy; a workload that needs one
 carries it in its own template. No workload has a public endpoint, so a DDoS Protection plan has nothing to protect. Every environment
-deploys to one region, so no cross-region peering, hub routing, global mesh, or Virtual WAN transit has anything to connect. Network
-Watcher monitoring arrives with the flow logs, and the virtual network and its security groups send their logs and metrics to
-`foundation`'s workspace.
+deploys to one region, so no cross-region peering, hub routing, global mesh, or Virtual WAN transit has anything to connect. Network Watcher
+monitoring arrives with the flow logs, and the virtual network and its security groups send their logs and metrics to `foundation`'s
+workspace.
 
 `network.yml` is the one IP plan and `NetworkConfig` rejects any overlap between its networks
 ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)); there is no on-premises range to avoid. A virtual network takes its address
@@ -221,9 +260,9 @@ subscription, of which the private block holds 256, so the plan has room to spar
 10.0.0.0/8, but no check requires a private range or rejects a reserved or public one; a private-range check in `NetworkConfig` would do
 both. A subscription removed from `azure.yml` makes `Test-AzureNetworkPlan` fail until its network leaves `network.yml`, which frees its
 range; a new subscription reserves its range by pull request, validated on load, and no API reserves one automatically. The hub reserves
-`GatewaySubnet` and `AzureFirewallSubnet` at the sizes those services need, and no template deploys another service that reserves
-addresses. The plan is IPv4 only, no workload has IPv6 clients, and so there is no dual-stack network, IPv6 block, route, or security rule,
-no translating appliance, and no Front Door.
+`GatewaySubnet` and `AzureFirewallSubnet` at the sizes those services need, and no template deploys another service that reserves addresses.
+The plan is IPv4 only, no workload has IPv6 clients, and so there is no dual-stack network, IPv6 block, route, or security rule, no
+translating appliance, and no Front Door.
 
 Every workload subnet has a network security group that denies inbound internet traffic and allows all traffic among the peered networks, so
 segmentation is a group per subnet with no central appliance between them and no rule finer than the virtual network boundary. The subnets
@@ -235,30 +274,30 @@ them. Virtual network flow logs with traffic analytics are not deployed.
 
 ### CAF private access
 
-Private-only access to data is the default. `storage-account.bicep` and `sql-server.bicep` default `publicNetworkAccess` to `'Disabled'`, the
-storage network rules deny by default, and `private-endpoint.bicep` gives each service a private endpoint with a DNS zone group that
-registers its address in the hub's zone ([ADR-AZ-LZ-WORKLOADOWNSNONE](landing-zones.md#rule-adr-az-lz-workloadownsnone)). A private
-endpoint maps one resource, not a whole service, into the network, so a breached workload reaches its own storage account and database and
-nothing else of the service. Every private endpoint targets a resource the same template deploys, so a connection to a foreign tenant's
-resource is a template change that review sees; no policy in Azure denies it. The hub deploys the zones and the subnets the endpoints sit
-in, `private-endpoints` in every spoke and `shared-services` in the hub, and `privateEndpointNetworkPolicies` defaults to `Enabled`, so each
+Private-only access to data is the default. `storage-account.bicep` and `sql-server.bicep` default `publicNetworkAccess` to `'Disabled'`,
+the storage network rules deny by default, and `private-endpoint.bicep` gives each service a private endpoint with a DNS zone group that
+registers its address in the hub's zone ([ADR-AZ-LZ-WORKLOADOWNSNONE](landing-zones.md#rule-adr-az-lz-workloadownsnone)). A private endpoint
+maps one resource, not a whole service, into the network, so a breached workload reaches its own storage account and database and nothing
+else of the service. Every private endpoint targets a resource the same template deploys, so a connection to a foreign tenant's resource is
+a template change that review sees; no policy in Azure denies it. The hub deploys the zones and the subnets the endpoints sit in,
+`private-endpoints` in every spoke and `shared-services` in the hub, and `privateEndpointNetworkPolicies` defaults to `Enabled`, so each
 subnet's network security group applies to its endpoints. `expedition` reads the hub's zones and its subnet as `existing` resources, so a
-deploy against a missing zone or subnet fails naming it. `foundation`'s Key Vault and Log Analytics workspace accept public network traffic
-today; the vault's private endpoint would make `foundation` depend on a subnet of `discovery` and on a zone in the hub.
+deploy against a missing DNS zone or subnet fails naming it. `foundation`'s Key Vault and Log Analytics workspace accept public network
+traffic today; the vault's private endpoint would make `foundation` depend on a subnet of `discovery` and on a zone in the hub.
 
-No template deploys a service that is injected into a subnet, so network injection is not used, and `virtual-network.bicep` offers no service
-endpoint or custom DNS server field, so no subnet carries a service endpoint: every data service takes a private endpoint, one way of
-reaching data for every workload, at Private Link's per-gigabyte charge. The repository has no on-premises connectivity, so there is no
-access to PaaS services from on-premises, and the spoke route tables carry no default route, so nothing forces internet traffic back
-through a gateway.
+No template deploys a service that is injected into a subnet, so network injection is not used, and `virtual-network.bicep` offers no
+service endpoint or custom DNS server field, so no subnet carries a service endpoint: every data service takes a private endpoint, one way
+of reaching data for every workload, at Private Link's per-gigabyte charge. The repository has no on-premises connectivity, so there is no
+access to PaaS services from on-premises, and the spoke route tables carry no default route, so nothing forces internet traffic back through
+a gateway.
 
-Every private DNS zone, the `privatelink` zones included, is linked to the hub and to every spoke the hub lists, and the zones live in the hub
-of each tier's shared subscription, one set per tier rather than one global set. Each spoke depends on its hub's zones to resolve its own data
-services. Name resolution is Azure-provided DNS plus those zones; a custom zone with automatic registration is unused because no template
-deploys a virtual machine, and no workload runs a DNS service of its own. Hybrid resolution, a DNS Private Resolver with its two dedicated
-subnets and a forwarding ruleset, and Azure Firewall as a DNS proxy are unused because there is no on-premises network and the hub deploys no
-firewall; the hub's address space leaves room for a resolver. Nothing in Azure guards against a workload that creates its own `privatelink`
-zone outside a template; review carries that guard.
+Every private DNS zone, the `privatelink` zones included, is linked to the hub and to every spoke the hub lists, and the zones live in the
+hub of each tier's shared subscription, one set per tier rather than one global set. Each spoke depends on its hub's zones to resolve its
+own data services. Name resolution is Azure-provided DNS plus those zones; a custom DNS zone with automatic registration is unused because
+no template deploys a virtual machine, and no workload runs a DNS service of its own. Hybrid resolution, a DNS Private Resolver with its two
+dedicated subnets and a forwarding ruleset, and Azure Firewall as a DNS proxy are unused because there is no on-premises network and the hub
+deploys no firewall; the hub's address space leaves room for a resolver. Nothing in Azure guards against a workload that creates its own
+`privatelink` zone outside a template; review carries that guard.
 
 ## Consequences
 

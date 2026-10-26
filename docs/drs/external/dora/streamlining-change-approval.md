@@ -84,6 +84,7 @@ Development platforms are themselves treated as products, giving fast feedback o
 people making the change. A centralized review body, where one still exists, is redesigned toward cross-team coordination, process
 improvement, and business-level trade-off decisions rather than line-by-line code review. Regular change management, built to this standard,
 is fast and reliable enough to also serve emergency changes.
+
 ## Common pitfalls
 
 - **Over-reliance on centralized CABs for error detection.** A reviewer distant from the change lacks the context to catch what the change

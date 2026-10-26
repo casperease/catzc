@@ -104,6 +104,12 @@ def normalise(raw, where="the declaration"):
         choices(f"{where}: about.zoom", str(zoom), tuple(DEFAULTS["zooms"]))
     out["zoom"] = None if zoom is None else str(zoom)
     out["point"] = point
+    # A flow slide's lanes are its readers' row for its point, handed over by address; without an address there is nothing to draw yet.
+    if lens == FLOW_LENS and point is not None and query_rows.rows_file() is not None:
+        route = query_rows.read(query_rows.rows_file()).get((point, FLOW_LENS))
+        if route is None:
+            raise DeclarationError(f"{where}: the query rows at {query_rows.rows_file()} hold nothing for {point} under the {FLOW_LENS} lens")
+        out["route"] = route
     kind = content.get("kind", KINDS[0])
     if kind not in KINDS:
         choices(f"{where}: kind", kind, KINDS)

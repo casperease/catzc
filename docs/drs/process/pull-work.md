@@ -51,7 +51,8 @@ capped:
 - **Pull.** A stage starts a new item only when it can finish it, signalled by its own free capacity — not by an upstream schedule that
   needs somewhere to put its output.
 - **Small batches.** Break work down to the smallest increment that can be integrated and delivered on its own. This is the same move agile
-  makes for responsiveness ([EDR-VALUES](../external/agile/agile-values.md)) and lean makes for flow — one lever, two payoffs.
+  makes for responsiveness ([EDR-VALUES](../external/agile/agile-values.md)) and lean makes for flow — one lever, two payoffs. Continuous
+  integration of small, frequent increments into one mainline is that move applied to the integration step.
 - **Defer commitment.** Make irreversible decisions at the last responsible moment, when knowledge is greatest ([EDR-LEAN][r1]). This is not
   procrastination: it is refusing to spend certainty you do not yet have, while still deciding before indecision itself becomes the cost.
 - **Limit work in progress.** Cap the number of items in flight. The cap is what actually forces small batches and exposes the constraint,

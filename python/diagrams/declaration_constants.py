@@ -39,6 +39,7 @@ PROOF_LENS = "proof"
 # from the engine readers' rows; title and kind are its only content keys.
 FLOW_LENS = "flow"
 FLOW_KEYS = ("title", "kind")
+FLOW = DEFAULTS["flow-lens"]  # the lane height, a word's slot size and its strokes, in diagram units
 PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row

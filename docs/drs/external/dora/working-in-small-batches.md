@@ -96,6 +96,7 @@ dark launching or a feature toggle instead of delaying the merge.
 Measure the discipline rather than assuming it: track how often production releases are possible across teams, what proportion of features
 complete within a week or less, and whether features are actively decomposed to support minimum viable slices and rapid cycles. A team that
 cannot answer these is not yet working in small batches, regardless of intent.
+
 ## Common pitfalls
 
 - **Insufficient decomposition.** Work that takes longer than a week to complete is too large. AI-assisted development tends to generate
