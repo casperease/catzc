@@ -11,9 +11,10 @@ The reference-style image definitions of a markdown text that point at a diagram
 
 ### description
 
-A page may embed a diagram by reference (`![Widget flow][widget-flow]`) with the definition elsewhere: `[widget-flow]: .assets/widget-flow.drawio.png`.
-Each such definition, indented by at most three spaces and pointing at a `.drawio.png` directly in the page's `.assets/` folder (with or
-without a leading `./`), maps its label, lower-cased as markdown matches labels, to the diagram's name. Other definitions are left out.
+A page may embed a diagram by reference (`![Widget flow][widget-flow]`) with the definition elsewhere:
+`[widget-flow]: .assets/widget-flow.drawio.png`. Each such definition, indented by at most three spaces and pointing at a `.drawio.png`
+directly in the page's `.assets/` folder (with or without a leading `./`), maps its label, lower-cased as markdown matches labels, to the
+diagram's name. Other definitions are left out.
 
 ### parameter `Text`
 

@@ -13,11 +13,11 @@ Writes the query rows of every C3 and C4 slide among the given diagrams into one
 
 A diagram whose declaration names an `about.point` is a query slide: its cells are read from the repository at build time, never written
 into its source. Its `about.zoom` picks the rows: `C3` reads the point's components (Get-DiagramComponentRows), `C4` its files
-(Get-DiagramCodeRows); a point at any other zoom throws. A point and zoom two diagrams share is read once. A diagram with no declaration,
-or one that names no point, adds no row.
+(Get-DiagramCodeRows); a point at any other zoom throws. A point and zoom two diagrams share is read once. A diagram with no declaration, or
+one that names no point, adds no row.
 
-The file is `{ "rows": [ ... ] }` in UTF-8 without a byte-order mark, its folder made when absent; an empty set of stems writes an empty
-row list.
+The file is `{ "rows": [ ... ] }` in UTF-8 without a byte-order mark, its folder made when absent; an empty set of stems writes an empty row
+list.
 
 ### parameter `Stem`
 

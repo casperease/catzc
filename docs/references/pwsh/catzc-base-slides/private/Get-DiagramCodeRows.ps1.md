@@ -11,10 +11,10 @@ The query rows of a C4 slide: the files of one folder as cells, and the links be
 
 ### description
 
-The point's git-tracked files are the cells, never its build output, and its tests are left out so they never crowd the slide. Each
-file's kind comes from the place its language gives it: `private` for a private function, `type` for a type, `code` for a `.ps1` at the
-folder's top, else `file`. One walk of the link graph into the point answers every relation; an edge between two of its files is kept
-once, and a file's link to itself is no edge. A point that is not a folder of the repository throws.
+The point's git-tracked files are the cells, never its build output, and its tests are left out so they never crowd the slide. Each file's
+kind comes from the place its language gives it: `private` for a private function, `type` for a type, `code` for a `.ps1` at the folder's
+top, else `file`. One walk of the link graph into the point answers every relation; an edge between two of its files is kept once, and a
+file's link to itself is no edge. A point that is not a folder of the repository throws.
 
 ### parameter `Point`
 

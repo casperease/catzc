@@ -11,10 +11,10 @@ The lines of a diagram or slide whose picture names the system by its code name 
 
 ### description
 
-A picture says what a thing is, not what the system is called. A word `catzc` or `cats` standing alone, in any case, is a finding; a
-name joined into an identifier (a module, a folder, a command such as `Get-CatzcModuleRoot`) is no mention. A line naming both draws the
-contrast between them and is no finding. The head is meta, never the picture: a front-matter block at the top is skipped, and so is a `#`
-comment line in a file that is not markdown. A path slides.yml's `name_mentions` lists is a declared contrast and yields nothing.
+A picture says what a thing is, not what the system is called. A word `catzc` or `cats` standing alone, in any case, is a finding; a name
+joined into an identifier (a module, a folder, a command such as `Get-CatzcModuleRoot`) is no mention. A line naming both draws the contrast
+between them and is no finding. The head is meta, never the picture: a front-matter block at the top is skipped, and so is a `#` comment
+line in a file that is not markdown. A path slides.yml's `name_mentions` lists is a declared contrast and yields nothing.
 
 ### parameter `Path`
 

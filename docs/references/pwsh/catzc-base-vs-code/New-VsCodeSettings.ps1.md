@@ -44,10 +44,15 @@ Supplied by the generator dispatch from the file-language registry, so Format Do
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)); an
 authored `[<id>]` block keeps its own settings, and an authored defaultFormatter in it wins.
 
-### parameter `Filter`
+### parameter `RepositoryFilter`
 
 The repository's filters, name to the include and exclude sets each claims by, in lamp order (Get-RepositoryFilter), rendered as
 `catzc.trackLamps.filters` so the lamps read what they hide from the settings alone; none when empty.
+
+### parameter `LampLanguage`
+
+The tagged languages the lamps offer, name to its tag and extensions, in the languages config's order, rendered as
+`catzc.trackLamps.languages`; none when empty.
 
 ### parameter `CurrentPath`
 

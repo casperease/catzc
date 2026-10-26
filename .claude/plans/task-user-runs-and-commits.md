@@ -178,11 +178,11 @@ final full run last.
     (new) and their comment pages, `pwsh/Base.QualityGates/private/Get-EngineSetFinding.ps1`,
     `pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1`, and the host-binding row in `pwsh/Base.Languages/configs/bcl.yml`. The test
     files: `pwsh/Azure.Templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1`, `pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1`,
-    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. The help pages of
-    plan-debt-function-help steps 3, 4, 5, 7, 8 and 10 under `docs/references/pwsh/` (FileLimits, GeneratedFiles, Globs with the new
+    `pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1` and `pwsh/Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1`. The help pages
+    of plan-debt-function-help steps 3, 4, 5, 7, 8 and 10 under `docs/references/pwsh/` (FileLimits, GeneratedFiles, Globs with the new
     `Build-TrackGlobSets.ps1.md` and its head in `pwsh/Base.Globs/Build-TrackGlobSets.ps1`, six QualityGates pages, Repository,
-    TypesSystem). Check:
-    `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists these files.
+    TypesSystem). Check: `git status --short pwsh/Base.QualityGates pwsh/Azure.Templates/tests pwsh/.internal/tests docs/references` lists
+    these files.
 
 31. Commit the contracts `arm/` folder (catzc-98, 2026-10-26): `contracts/catzc/0.1.0/pwsh.azure.templates/main.json.schema.json` moved to
     `pwsh.azure.templates/arm/main.json.schema.json`; `contracts/catzc/0.1.0/contract.yml` and

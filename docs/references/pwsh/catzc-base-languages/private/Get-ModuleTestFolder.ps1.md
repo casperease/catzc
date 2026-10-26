@@ -12,9 +12,9 @@ The name of a module's test folder for a language: its folder name, in the langu
 ### description
 
 A module's folder drops the namespace its track declares
-([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)), so the first track whose namespace prefixes the
-module's full name gives the folder; a name no track's namespace prefixes is its own folder. The languages config then renders that folder
-in the language's folder case.
+([DDR-TRACK-MODULENAMESPACE](../../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)), so the first track whose namespace prefixes
+the module's full name gives the folder; a name no track's namespace prefixes is its own folder. The languages config then renders that
+folder in the language's folder case.
 
 ### parameter `Language`
 

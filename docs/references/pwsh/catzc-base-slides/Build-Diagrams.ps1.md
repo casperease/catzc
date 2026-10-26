@@ -63,8 +63,7 @@ Test-Diagrams on the diagrams. A pair whose yml and png both moved since HEAD an
 
 ### parameter `Workers`
 
-The worker processes the one renderer call splits the diagrams across, each with a disjoint slice. Default: `render_parallel` of
-slides.yml.
+The worker processes the one renderer call splits the diagrams across, each with a disjoint slice. Default: `render_parallel` of slides.yml.
 
 ### parameter `Stale`
 
