@@ -56,8 +56,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
 - reference-normal-form -> plan-reference-normal-form.md: reference pages at a derived four-part path
-  (`docs/references/<language>/<module>/<aspect>/<file>.md`), no `docs:` links; steps 1, 2 and 4 staged and frozen
-  (out/drone-2f-refnf/staged, kept by catzc-98); blocked_on the user's step-3 rename (task-user-runs-and-commits)
+  (`docs/references/<language>/<module>/<aspect>/<file>.md`), no `docs:` links; the staged steps 1, 2 and 4 and the step-3 rename script
+  were lost in the out/ wipe of 2026-10-26 15:22 and are rebuilt outside out/ before the user's rename
 - module-types-contracts -> plan-module-types-contracts.md: each module group publishes its compiled type surface as `types.json` beside its
   command contracts, replacing the global sample; command contracts' types checked against it
 - python-namespace-package -> plan-python-namespace-package.md: the diagram kit becomes a package that code imports as `catzc.diagrams`

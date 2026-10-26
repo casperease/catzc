@@ -40,3 +40,6 @@ names are checked against the surfaces.
 5. [ ] Format-Types resolves a staged .cs copy under `out/` to no manifest and imprints its namespace without `Catzc`; Get-ModuleFullName
        (or Format-Types) maps a staged path to its live module folder through the burst's `.burst-base` mirror. Check: Format-Code on a
        staged copy of a `types/*.cs` leaves `namespace Catzc.<Module>;`.
+6. [ ] A burst's journal lives beside its staged folder, so an `out/` wipe mid-burst (one at about 15:22 on 2026-10-26 removed a staged
+       burst and its scripts) loses the only copy of what a rollback restores; the journal lives outside `out/`, or the burst refuses to
+       swap without it. Check: a burst whose journal folder is deleted mid-run still restores, or refuses to swap.

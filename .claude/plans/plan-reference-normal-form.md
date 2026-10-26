@@ -30,8 +30,8 @@ A reference page's path is derived from its source file, so no code head carries
 - Pages with no source: authored articles go in a declared `articles:` list in comment-pages.yml; the six internal module articles merge
   into their `.psm1` pages; the python map becomes `python/*` (`python/diagrams/index.md`); stale config pages re-point or go; the obj/
   build-artifact page goes.
-- Steps 1 and 2 are staged in `out/drone-2f-refnf/staged` and swap together with step 4, after the user's run of step 3's script; that
-  script reads `out/ns5/ref-map.csv`, which is refreshed from the committed tree before the run.
+- Steps 1 and 2 are staged in the building session's scratchpad (out/ is cleared by hand) and swap together with step 4, after the user's
+  run of step 3's script; that script reads the map csv, which is refreshed from the committed tree before the run.
 
 ## Open steps
 
@@ -40,9 +40,11 @@ A reference page's path is derived from its source file, so no code head carries
        on the Get-CommentPage and CommentPagesConfig tests.
 2. [ ] The gate: every reference page maps back to exactly one source file, and no two sources share a page. Check: its L1 real-tree test
        at 0.
-3. [ ] `out/ns5/Rename-ReferencePages.ps1`: a per-file git mv of every page and module article to its derived path, a record csv, a
-       `-WhatIf`, stopping on the first git error, no content edits; the user runs it (task-user-runs-and-commits step 28). Check: the
-       `-WhatIf` lists each page once and no target exists.
+3. [ ] After step 1's resolver, `out/ns5/Rename-ReferencePages.ps1` and its map generator: the generator derives a csv (old, new, source) of
+       every tracked page and module article from the resolver; the script reads that csv, refuses before moving anything when a page or a
+       target is listed twice, a page is missing or a target exists, moves a case-only rename through a `.tmp` name, runs one git mv per
+       page, stops on the first git error, edits no content, and lists each move under `-WhatIf`; the user runs it
+       (task-user-runs-and-commits step 28). Check: the `-WhatIf` lists each page once and no target exists.
 4. [ ] The repair: every code head's `docs:` key and every page's link back removed (Format-FileMeta, Sync-FileMeta), the readers
        (Build-CommentView, Export-Comments, Test-Comments, Get-ReadmeMappings) resolving through step 1, and every inbound link to a
        reference page re-pointed from the csv. Check: `Test-Comments`, `Test-FileMeta`, `Test-Links` and `Test-GeneratedFiles` at 0.
