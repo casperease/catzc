@@ -92,3 +92,7 @@ Started 2026-10-26T21:44:43.8483768+01:00.
   L1 assertion around it.
 - 2026-10-27 Cats: Token tip: Next time, save tokens by: staging every file of a multi-file template change up front, instead of editing a
   module live and reverting.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: module test folders and reference pages drop the catzc namespace on disk
+  (go/tests/baserepository, python/diagrams, docs/references/pwsh/base-*), so a catzc-prefixed path in a config is stale.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: most catzc-x kebab tokens are live identifiers (VS Code extension ids, git
+  attribute classes, temp prefixes), not old disk names.

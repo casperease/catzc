@@ -21,6 +21,18 @@ guids:
   ado_approval_check_type:
     guid: 8c6f20a7-a545-4486-9777-f762fafe0d4d
     description: Azure Pipelines well-known 'Approval' check type id — the discriminator every environment approval check carries
+  ado_minimum_reviewers_policy_type:
+    guid: fa4e907d-c16b-4a4c-9dfa-4906e5d171dd
+    description: Azure DevOps well-known 'Minimum number of reviewers' policy type id (Register-AdoBranchPolicies)
+  ado_merge_strategy_policy_type:
+    guid: fa4e907d-c16b-4a4c-9dfa-4916e5d171ab
+    description: Azure DevOps well-known 'Require a merge strategy' policy type id (Register-AdoBranchPolicies)
+  ado_comment_requirements_policy_type:
+    guid: c6a1889d-b943-4856-b76f-9e46bb6b0df2
+    description: Azure DevOps well-known 'Comment requirements' policy type id (Register-AdoBranchPolicies)
+  ado_required_reviewers_policy_type:
+    guid: fd2167ab-b0be-447a-8ec8-39368250530e
+    description: Azure DevOps well-known 'Required reviewers' policy type id (Register-AdoBranchPolicies)
   vs_csharp_project_type:
     guid: 9a19103f-16f7-4668-be54-9a1e7a4f7556
     description: Visual Studio SDK-style C# project-type id, every project of catzc.sln (New-Solution)
@@ -52,6 +64,9 @@ guids:
   policy_audit_diagnostic_setting:
     guid: 7f89b1eb-583c-429a-8828-af049802c1d9
     description: Azure built-in policy definition 'Audit diagnostic setting for selected resource types' (discovery main.bicep)
+  policy_cloud_security_benchmark:
+    guid: 1f3afdf9-d0c9-4c3d-847f-89da613e70a8
+    description: Azure built-in policy set definition 'Microsoft cloud security benchmark' (landing-zone-policies.bicep, planned)
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:
@@ -155,6 +170,9 @@ guids:
   fixture_truncation:
     guid: abcdef05-abcd-ef05-abcd-ef05abcdef05
     description: SentenceGuid test — input truncated at 32 mappable characters
+  fixture_branch_policy_reviewer:
+    guid: 0f0e0000-7e0a-0700-1d00-000000000000
+    description: Register-AdoBranchPolicies test fixture — the reviewer id a required-reviewer policy names
   minted_ah:
     guid: a0000000-0000-0000-0000-000000000000
     sentence: ah!
