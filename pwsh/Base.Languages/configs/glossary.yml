@@ -13,7 +13,7 @@ concepts:
     defined_by: ADR-AUTO-GO-ONEGOROOT
     short:
       The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
-      (`catzcbaserepository`), holding its black-box Go tests.
+      (`baserepository`), holding its black-box Go tests.
     realized_by: { kind: prose-only }
   python test folder:
     key: python_test_folder
@@ -21,7 +21,7 @@ concepts:
     defined_by: ADR-AUTO-PY-ONEPYTHONROOT
     short:
       The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case
-      (`catzc_base_repository`), holding its black-box Python tests; each is a member of the one generated uv workspace.
+      (`base_repository`), holding its black-box Python tests; each is a member of the one generated uv workspace.
     realized_by: { kind: prose-only }
   repository normal form:
     key: repository_normal_form

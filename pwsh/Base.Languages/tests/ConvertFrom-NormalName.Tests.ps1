@@ -19,7 +19,7 @@ Describe 'ConvertFrom-NormalName' -Tag 'L0', 'logic' {
         @{ Name = 'widget.base.gadget_parts'; Language = 'widget'; Kind = 'type'; Expected = 'Widget.Base.GadgetParts' }
         @{ Name = 'get_gadget_part'; Language = 'gadget'; Kind = 'function'; Expected = 'get_gadget_part' }
         @{ Name = 'widget.base.gadget_parts'; Language = 'gadget'; Kind = 'type'; Expected = 'WidgetBaseGadgetParts' }
-        @{ Name = 'catzc.base.repository'; Language = 'gadget'; Kind = 'folder'; Expected = 'catzcbaserepository' }
+        @{ Name = 'base.repository'; Language = 'gadget'; Kind = 'folder'; Expected = 'baserepository' }
     ) {
         ConvertFrom-NormalName $Name -Language $Language -NameKind $Kind | Should -BeExactly $Expected
     }

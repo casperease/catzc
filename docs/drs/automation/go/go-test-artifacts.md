@@ -16,7 +16,7 @@ that the engine runs as a process.
 
 The Go tests live under one Go root, a repository-relative folder declared by `go.yml`'s `root` with a sensible default: `go` when the
 repository has a `go/` folder (the `go` track), else the dot-prefixed `.go`. A **Go test module** is the folder `<root>/tests/<module>/`,
-one per catzc module and named for it as one lowercase word, Go's flat case (`Catzc.Base.Repository` → `catzcbaserepository`,
+one per catzc module and named for it as one lowercase word, Go's flat case (`Catzc.Base.Repository` → `baserepository`,
 ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's Go tests as one Go module. `go.work` sits at the repository root and lists every Go
 test module explicitly, and every go command runs inside its module folder, so every editor loads either layout with no setting.
 

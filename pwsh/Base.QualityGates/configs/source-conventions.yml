@@ -1,7 +1,7 @@
 engine_set:
   exempt:
     pwsh/Base.Engines/types/**: the model itself, the one place the engines are declared
-    docs/references/pwsh/catzc-base-engines/types/**:
+    docs/references/pwsh/base-engines/types/**:
       the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS-MOVELOSESNOTHING)
     pwsh/Base.Engines/tests/**: the model's own tests pin the names it declares
     "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design

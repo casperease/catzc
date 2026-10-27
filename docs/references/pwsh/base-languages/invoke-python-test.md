@@ -73,7 +73,7 @@ The engine's executable, already located by the caller. Default: located here by
 The test folder to run, repository-relative or absolute: the holder's `<root>/tests/<kebab>` or a module's own `tests/` folder, whose
 generated `pyproject.toml` sits at the module root. Default, in this order: the module's own `<root>/<folder>/tests/` when it exists on
 disk, else the holder's `<root>/tests/<folder>/`, where `<folder>` is the module's name in python's folder case as languages.yml's
-TestFolderOf declares it (Catzc.Diagrams -> catzc_diagrams).
+TestFolderOf declares it (Catzc.Diagrams -> diagrams).
 
 ### outputs
 

@@ -21,7 +21,7 @@ public static class NameCase
         { "kebab", new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$") },
         // Python's leading and trailing underscores sit outside the case: drawio_png, _private, __init__.
         { "snake", new Regex("^_*[a-z][a-z0-9]*(_[a-z0-9]+)*_*$") },
-        // One lowercase word, Go's package directory: catzcbaserepository.
+        // One lowercase word, Go's package directory: baserepository.
         { "flat", new Regex("^[a-z][a-z0-9]*$") },
     };
 

@@ -14,7 +14,7 @@ deck's orders is a render failure.
 
 ### Rule ADR-REPO-SLIDES-PATTERN
 
-A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `catzc_diagrams` module of the python
+A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `diagrams` module of the python
 track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
 Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig),
@@ -200,7 +200,7 @@ line keeps at least `renderer.edge-deadzone-min-line` (12 px) between the heads;
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
 checked by nobody, and a change to a rule it quotes never reaches it. The repository already carries one answer to that problem for
-diagrams: a `.drawio.png` is drawn from a kit, the `catzc_diagrams` module of the python track, with a style guide and a template, rendered
+diagrams: a `.drawio.png` is drawn from a kit, the `diagrams` module of the python track, with a style guide and a template, rendered
 forward into `out/`, described beside the article it illustrates, and never landed without a person asking. A deck is the same kind of thing
 with words instead of glyphs, so it gets the same shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails
 forward, and checks that tie every claim to the rule it states.

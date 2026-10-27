@@ -79,8 +79,8 @@ this rule says only how they are cased.
 ### Rule ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
 
 A language's test folder, `<root>/tests/<module>/`, is named for its catzc module by rendering the module's normal form in the language's
-folder case: `catzc_base_repository` for a `snake` language, `catzcbaserepository` for a `flat` one, `catzc-base-repository` for a `kebab`
-one. A test folder maps back to its module by the same rendering, so no mapping file exists and no convention is shared across languages.
+folder case, the namespace dropped: `base_repository` for a `snake` language, `baserepository` for a `flat` one, `base-repository` for a
+`kebab` one. A test folder maps back to its module by the same rendering, so no mapping file exists and no convention is shared across languages.
 
 - [Test folders](#test-folders)
 

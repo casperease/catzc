@@ -1,4 +1,4 @@
-# catzc_diagrams
+# diagrams
 
 The diagram kit, a module of the python track. It owns the rendering of every diagram of the repository from its one source, the
 `<name>.drawio.yml` beside its `<name>.drawio.png`: put renders the declaration into the png, get folds a draw.io edit back into the yml,

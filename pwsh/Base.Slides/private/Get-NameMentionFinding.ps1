@@ -18,7 +18,7 @@ function Get-NameMentionFinding {
     if ($Path -in $Exempt) {
         return
     }
-    # A name joined into an identifier (Catzc.Base.Git, catzc-track-lamps, catzc_diagrams, Get-CatzcModuleRoot, Catzc/<v>) is no mention.
+    # A name joined into an identifier (Catzc.Base.Git, catzc-track-lamps, Get-CatzcModuleRoot, Catzc/<v>) is no mention.
     $catzc = [regex]::new('(?<![\w./\-])catzc(?![\w./\-])', 'IgnoreCase')
     $cats = [regex]::new('(?<![\w./\-])cats(?![\w./\-])', 'IgnoreCase')
     $lines = $Text -split '\r?\n'

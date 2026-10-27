@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7a9716df6494"
+    with_body_sha: fd1c8477c683
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -844,7 +844,7 @@ System.Collections.Specialized.OrderedDictionary
 ### go test module
 
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
-(`catzcbaserepository`), holding its black-box Go tests.
+(`baserepository`), holding its black-box Go tests.
 
 - **Defined by:** [ADR-AUTO-GO-ONEGOROOT](automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -984,8 +984,8 @@ The name of the PowerShell track and of the engine that runs it; the PowerShell 
 
 ### python test folder
 
-The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`catzc_base_repository`),
-holding its black-box Python tests; each is a member of the one generated uv workspace.
+The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`base_repository`), holding
+its black-box Python tests; each is a member of the one generated uv workspace.
 
 - **Defined by:** [ADR-AUTO-PY-ONEPYTHONROOT](automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

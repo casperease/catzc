@@ -19,7 +19,7 @@ repository. Every `.py` file takes every Python check (ADR-AUTO-PY-EVERYFILELINT
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
 test language's root takes: `python` when the repository has a `python/` folder (the `python` track), else the dot-prefixed `.python`. A
 **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in Python's snake case
-(`Catzc.Base.Repository` → `catzc_base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python
+(`Catzc.Base.Repository` → `base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python
 test is a top-level `test*` function; a parametrised test is one test.
 
 - [The layout](#the-layout)
