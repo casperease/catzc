@@ -13,7 +13,7 @@ total, so the numbers live in one place. The decision that cost is shaped by con
   - `Basic`: the deployment hours, the data processed, and two Standard static public IPs, the egress and the management address;
   - `Standard`: the deployment hours, the data processed, and one Standard static public IP, spread over the region's zones;
   - either tier: its resource-specific logs into `foundation`'s workspace.
-- A hub's private DNS zones, priced by DNS billing zone, not by the ARM region.
+- A hub's private DNS zones, priced by the region of each DNS zone, not by the ARM region.
 - A spoke deploys no metered resource of its own: its firewall declaration has no tier, so no tier's meters apply.
 - Free or not yet modelled: the virtual network, the network security groups, the route tables, the peerings, the policy assignments, the
   budget, the cost export and the anomaly alert. The firewall policy carries no meter of its own for the one firewall it serves.

@@ -46,7 +46,7 @@ function Remove-BicepOrphanResources {
     $group = $context.deployment.resource_group
     $subscriptionId = $context.environment.subscription.id
 
-    # The template's evaluated resources, read with the slot's own parameter values, as the compliance gate reads them.
+    # The template's evaluated resources, read with the slot's own parameter values, as the template-compliance quality gate reads them.
     $main = [System.IO.File]::ReadAllText((Resolve-RepoPath $context.artifacts.template_file)) | ConvertFrom-Json -AsHashtable
     $parameters = [System.IO.File]::ReadAllText((Resolve-RepoPath $context.artifacts.parameters_file)) | ConvertFrom-Json -AsHashtable
     $values = @{}

@@ -153,7 +153,7 @@ function Get-ArmDeployedResource {
                         }
                     }
                 }
-                # A nested deployment above resource-group scope is sent to its resource's location, which its deployment() reads.
+                # A nested deployment above the resource group is sent to its resource's location, which its deployment() reads.
                 $nestedLocation = if ($resource.Contains('location')) {
                     & $evaluate $resource.location
                 }

@@ -30,9 +30,9 @@ of them, then the gate makes the registry binding.
       verifies the module offline (the generated `go.mod` files require nothing today); its entry moves to `offline-guarded`. Check:
       `Invoke-GoTest.Tests.ps1` asserts the variables during the run.
 - [x] `pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1`: the live deploy stays an opt-in L3 test, run only when asked with
-      `-MaxLevel 3` ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); its calls
-      go through the registered `Invoke-AzCli` site, so its own registry entry is removed. Check: `NetworkCallsConfig.Tests.ps1` passes on
-      the shipped registry with no `tests/` key.
+      `-MaxLevel 3` ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); its calls go
+      through the registered `Invoke-AzCli` site, so its own registry entry is removed. Check: `NetworkCallsConfig.Tests.ps1` passes on the
+      shipped registry with no `tests/` key.
 - [x] `docs/drs/automation/retry-as-last-resort.md`: ADR-AUTO-RETRY-NEVERINTESTS lets an L3 test depend on external connectivity; align it
       with ADR-AUTO-NET-TESTSOFFLINE (a dependency is mocked, a live check is a command). Check: `Test-Links` and `Test-DrsRegistry` pass.
 - [x] `pwsh/Base.QualityGates/Build-EnglishDictionary.ps1`: `npx --yes cspell-trie@10` fetches a package outside the tooling system

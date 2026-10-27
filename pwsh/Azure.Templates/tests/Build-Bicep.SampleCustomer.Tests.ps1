@@ -79,7 +79,7 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         $message = { Build-Bicep sample-customer | Out-Null } | Should -Throw -PassThru |
             ForEach-Object { $_.Exception.Message }
         $message | Should -BeLike "*1 of * bicep compile(s) failed*slot '*alpha-001*' (customer 'acme') failed with exit code 1*widget error*"
-        ([regex]::Matches($message, 'failed with exit code')).Count | Should -Be 1 -Because 'only the one failing slot is named'
+        ([regex]::Matches($message, 'failed with exit code')).Count | Should -Be 1 -Because 'only the one slot that fails is named'
     }
 
     It 'builds only the configuration-root slots with -Shared' {

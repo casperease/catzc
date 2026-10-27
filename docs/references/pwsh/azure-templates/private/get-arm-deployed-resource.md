@@ -19,7 +19,7 @@ its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 - `union()` and `range()`, which the object spread and the `for … in range` loops compile to.
 - `resourceId()`, `subscriptionResourceId()`, `extensionResourceId()`, `resourceGroup()` and `subscription()`: the scope and identity of the
   deployment. `tenantResourceId()` reads no scope and resolves. `deployment()` resolves only its `location`, and only when the caller passes
-  `-Location` (the slot's environment region, which Deploy-Bicep sends as `--location`) to a template above resource-group scope; a nested
+  `-Location` (the slot's environment region, which Deploy-Bicep sends as `--location`) to a template above the resource group; a nested
   deployment there reads its resource's evaluated `location`, and every other member, such as `name`, stays unresolved.
 - A property copy (`copy` inside a property or a module parameter, which a Bicep for-expression compiles to) resolves only as a whole module
   parameter, through `ArmExpression.EvaluateCopy`; one inside a resource's properties is read as written, unexpanded.
@@ -33,7 +33,7 @@ Above `[string] $Location`, written with `#`.
 
 ```text
 The location the deployment is sent to: Deploy-Bicep's --location, the slot's environment region. deployment().location reads
-it in a template above resource-group scope; a resource-group deployment has none, as in ARM.
+it in a template above the resource group; a resource-group deployment has none, as in ARM.
 ```
 
 ## comment:2

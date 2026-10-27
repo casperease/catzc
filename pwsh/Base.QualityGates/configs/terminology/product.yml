@@ -224,7 +224,7 @@ terms:
     - term: venvs
       meaning: "plural of venv"
     - term: importlib
-      meaning: "Python importlib.metadata (stdlib) — reads an installed package's version without importing it"
+      meaning: "Python importlib.metadata (standard library) — reads an installed package's version without importing it"
     - term: yoke
       meaning: "the 'yoke' of poka-yoke"
     - term: catzc

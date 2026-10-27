@@ -53,7 +53,7 @@ function Update-AzurePriceTable {
     $prices = [ordered]@{}
     $unmatched = [System.Collections.Generic.List[string]]::new()
     foreach ($meter in $Config.meters) {
-        # A meter sold by billing zone, such as a DNS zone, reads its own region in place of the model's ARM region.
+        # A meter sold per DNS zone region reads its own region in place of the model's ARM region.
         $region = $meter.region ? $meter.region : $Config.region
         $filter = "serviceName eq '$($meter.service)' and meterName eq '$($meter.meter)' and armRegionName eq '$region' and priceType eq 'Consumption'"
         if ($meter.product) {
