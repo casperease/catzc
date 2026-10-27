@@ -88,6 +88,10 @@ function Get-ArmDeployedResource {
                 if ($resource.properties.Contains('parameters')) {
                     foreach ($parameter in @($resource.properties.parameters.Keys)) {
                         $entry = $resource.properties.parameters[$parameter]
+                        # Bicep writes a conditional parameter as one expression yielding { value }: if(c, createObject('value', a), …).
+                        if ($entry -is [string]) {
+                            $entry = & $evaluate $entry
+                        }
                         $passed[$parameter] = if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('value')) {
                             & $evaluate $entry.value
                         }

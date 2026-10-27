@@ -190,50 +190,6 @@ public static class ArmExpression
             return resolved ? kept.ToArray() : Unresolved;
         }
 
-        // A for-variable: ARM writes it as an entry of variables.copy ({ name, count, input }), its value one input per copyIndex(name).
-        private object CopyVariable(string name)
-        {
-            IEnumerable copies = variables.Contains("copy") ? variables["copy"] as IEnumerable : null;
-            if (copies == null) { return Unresolved; }
-            foreach (object item in copies)
-            {
-                IDictionary copy = item as IDictionary;
-                if (copy == null || !copy.Contains("name") || !string.Equals(copy["name"] as string, name, StringComparison.OrdinalIgnoreCase)) { continue; }
-                object count = Evaluate(copy["count"], parameters, variables, copyIndexes, depth + 1);
-                if (!IsNumber(count) || !copy.Contains("input")) { return Unresolved; }
-                var values = new List<object>();
-                for (long index = 0; index < Convert.ToInt64(count, CultureInfo.InvariantCulture); index++)
-                {
-                    var bound = new Hashtable(StringComparer.OrdinalIgnoreCase);
-                    if (copyIndexes != null) { foreach (DictionaryEntry e in copyIndexes) { bound[e.Key] = e.Value; } }
-                    bound[name] = index;
-                    bound[string.Empty] = index;
-                    values.Add(EvaluateTree(copy["input"], bound));
-                }
-                return values.ToArray();
-            }
-            return Unresolved;
-        }
-
-        // A variable or a copy input may be an object or array of expressions, not one string: each leaf string evaluates in the given scope.
-        private object EvaluateTree(object node, IDictionary bound)
-        {
-            if (node is string) { return Evaluate(node, parameters, variables, bound, depth + 1); }
-            if (node is IDictionary map)
-            {
-                var result = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
-                foreach (DictionaryEntry e in map) { result[e.Key] = EvaluateTree(e.Value, bound); }
-                return result;
-            }
-            if (node is IList list && !(node is string))
-            {
-                var items = new List<object>();
-                foreach (object item in list) { items.Add(EvaluateTree(item, bound)); }
-                return items.ToArray();
-            }
-            return node;
-        }
-
         private object Call(string name, List<object> args)
         {
             switch (name.ToLowerInvariant())
@@ -242,13 +198,8 @@ public static class ArmExpression
                     if (args.Count != 1 || !(args[0] is string)) { return Unresolved; }
                     return parameters.Contains(args[0]) ? parameters[args[0]] : Unresolved;
                 case "variables":
-                    if (args.Count != 1 || !(args[0] is string) || variables == null || depth >= MaxVariableDepth) { return Unresolved; }
-                    if (variables.Contains(args[0])) { return EvaluateTree(variables[args[0]], copyIndexes); }
-                    return CopyVariable((string)args[0]);
-                case "if":
-                    // Lazy in effect: once the condition resolves, the branch it picks is the value, whatever the other branch is.
-                    if (args.Count != 3 || !(args[0] is bool)) { return Unresolved; }
-                    return (bool)args[0] ? args[1] : args[2];
+                    if (args.Count != 1 || !(args[0] is string) || variables == null || !variables.Contains(args[0]) || depth >= MaxVariableDepth) { return Unresolved; }
+                    return Evaluate(variables[args[0]], parameters, variables, copyIndexes, depth + 1);
                 case "copyindex":
                     // copyIndex(), copyIndex(offset), copyIndex('loop') or copyIndex('loop', offset); outside its loop it is Unresolved.
                     if (args.Exists(IsUnresolved) || copyIndexes == null) { return Unresolved; }
@@ -283,6 +234,8 @@ public static class ArmExpression
                         if ((bool)a != and) { return !and; }
                     }
                     return and;
+                case "if":
+                    return args.Count == 3 && args[0] is bool ? ((bool)args[0] ? args[1] : args[2]) : Unresolved;
                 case "objectkeys":
                     if (args.Count != 1 || !(args[0] is IDictionary)) { return Unresolved; }
                     var keys = new List<object>();

@@ -1,6 +1,6 @@
 description: Starts new Claude Code drone sessions, each in a terminal window of its own, in the repository root.
 parameters:
-  skill: string
+  skill: string!
   model: string
   prompt: string
   count: int = 1

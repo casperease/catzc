@@ -25,6 +25,8 @@ a check.
 | 16  | L1   | [Test-TrackMemberCommitted — the real tree][c16]             |
 | 17  | L1   | [Get-OutputRoot — no default reaches the output track][c17]  |
 | 18  | L1   | [Test-TrackNamespace — the real tree][c18]                   |
+| 19  | L1   | [Test-SecretScan (real tree)][c19]                           |
+| 20  | L1   | [SourceConventionScan over the repository][c20]              |
 
 [c1]: #1-analyzer-adr-map-integrity
 [c2]: #2-psscriptanalyzer
@@ -44,6 +46,8 @@ a check.
 [c16]: #16-test-trackmembercommitted--the-real-tree
 [c17]: #17-get-outputroot--no-default-reaches-the-output-track
 [c18]: #18-test-tracknamespace--the-real-tree
+[c19]: #19-test-secretscan-real-tree
+[c20]: #20-sourceconventionscan-over-the-repository
 
 ## Checks
 
@@ -203,3 +207,15 @@ The files that name the product keep it, each declared once in the track's `name
 
 - A fixture folder or file whose name starts with its track's namespace is reported once.
 - An exempt file, and a file under a track with no namespace, pass.
+
+### 19. Test-SecretScan (real tree)
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-SecretScan.Tests.ps1` (L1), block `Test-SecretScan (real tree)`.
+
+**Guards:** `Test-SecretScan` finds no secret in the tracked tree.
+
+### 20. SourceConventionScan over the repository
+
+**Test file:** `pwsh/Base.QualityGates/tests/types/SourceConventionScan.Tests.ps1` (L1), block `SourceConventionScan over the repository`.
+
+**Guards:** `SourceConventionScan` collects exactly the nodes `Ast.FindAll` finds, by extent, in every PowerShell file of the tree.

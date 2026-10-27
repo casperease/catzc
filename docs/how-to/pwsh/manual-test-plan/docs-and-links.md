@@ -20,6 +20,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 | 11  | L1   | [Test-GeneratedFiles — real tree][c11]                         |
 | 12  | L2   | [Repository link directions (every tracked file)][c12]         |
 | 14  | L1   | [Get-NameMentionFinding (real tree)][c14]                      |
+| 15  | L1   | [Test-ReferencePages — the real tree][c15]                     |
 
 [c1]: #1-build-gitkeep--managed-gitkeep-files
 [c2]: #2-build-gitkeep--shipped-assetsgitkeep
@@ -34,6 +35,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 [c11]: #11-test-generatedfiles--real-tree
 [c12]: #12-repository-link-directions-every-tracked-file
 [c14]: #14-get-namementionfinding-real-tree
+[c15]: #15-test-referencepages--the-real-tree
 
 ## Checks
 
@@ -150,3 +152,9 @@ tree, and the VS Code registries carry the code-link rule.
 **Checks:**
 
 - `Get-NameMentionFinding` over every declared diagram and every slide reports 0 findings.
+
+### 15. Test-ReferencePages — the real tree
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-ReferencePages.Tests.ps1` (L1), block `Test-ReferencePages — the real tree`.
+
+**Guards:** Every reference page maps back to exactly one source, and no two sources share a page (ADR-REPO-COMMENTS-COMMENTPAGEPLACE).

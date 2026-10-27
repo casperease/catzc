@@ -17,6 +17,21 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 | 9   | L2   | [BicepParamWriter — bicep format leaves the render unchanged][c9]                      |
 | 10  | L2   | [ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it][c10] |
 | 11  | L2   | [Every slot compiles through the .bicepparam path to the same parameters][c11]         |
+| 12  | L1   | [Catzc.Azure.RolesConfig — shipped roles.yml][c12]                                     |
+| 13  | L1   | [Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml][c13]   |
+| 14  | L1   | [Alerts: every compiled slot][c14]                                                     |
+| 15  | L3   | [Deploy-Bicep to an ephemeral l3 slot (live Azure)][c15]                               |
+| 16  | L1   | [discovery flow logs: every compiled slot][c16]                                        |
+| 17  | L1   | [foundation PrePost: every compiled slot][c17]                                         |
+| 18  | L1   | [Hub firewall and routes: every compiled discovery slot][c18]                          |
+| 19  | L1   | [The break-glass rotation pipeline][c19]                                               |
+| 20  | L1   | [CanNotDelete locks: every compiled slot][c20]                                         |
+| 21  | L1   | [Monitoring views: every compiled foundation slot][c21]                                |
+| 22  | L1   | [Security-group flows: the compiled discovery template][c22]                           |
+| 23  | L1   | [Production database alerts: every compiled expedition and discovery slot][c23]        |
+| 24  | L1   | [Test-BicepResourceNames (real templates)][c24]                                        |
+| 25  | L1   | [Test-BicepTemplateCompliance (real templates)][c25]                                   |
+| 26  | L1   | [Test-BicepApiVersions (real modules)][c26]                                            |
 
 [c1]: #1-integrity-shipped-azureyml
 [c2]: #2-integrity-shipped-networkyml
@@ -29,6 +44,21 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 [c9]: #9-bicepparamwriter--bicep-format-leaves-the-render-unchanged
 [c10]: #10-convertto-bicepparam--every-shipped-yml-slot-renders-as-bicep-format-leaves-it
 [c11]: #11-every-slot-compiles-through-the-bicepparam-path-to-the-same-parameters
+[c12]: #12-catzcazurerolesconfig--shipped-rolesyml
+[c13]: #13-catzcazuredevopsserviceconnectionsconfig--shipped-service-connectionsyml
+[c14]: #14-alerts-every-compiled-slot
+[c15]: #15-deploy-bicep-to-an-ephemeral-l3-slot-live-azure
+[c16]: #16-discovery-flow-logs-every-compiled-slot
+[c17]: #17-foundation-prepost-every-compiled-slot
+[c18]: #18-hub-firewall-and-routes-every-compiled-discovery-slot
+[c19]: #19-the-break-glass-rotation-pipeline
+[c20]: #20-cannotdelete-locks-every-compiled-slot
+[c21]: #21-monitoring-views-every-compiled-foundation-slot
+[c22]: #22-security-group-flows-the-compiled-discovery-template
+[c23]: #23-production-database-alerts-every-compiled-expedition-and-discovery-slot
+[c24]: #24-test-bicepresourcenames-real-templates
+[c25]: #25-test-biceptemplatecompliance-real-templates
+[c26]: #26-test-bicepapiversions-real-modules
 
 ## Checks
 
@@ -132,3 +162,133 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 `Every slot compiles through the .bicepparam path to the same parameters`.
 
 **Guards:** Every yml slot compiled through `bicep build-params` holds exactly the values of its `ConvertTo-Json` parameters file.
+
+### 12. Catzc.Azure.RolesConfig — shipped roles.yml
+
+**Test file:** `pwsh/Azure/tests/types/RolesConfig.Tests.ps1` (L1), block `Catzc.Azure.RolesConfig — shipped roles.yml`.
+
+**Guards:** The shipped `roles.yml` loads and holds the Owner role the action group addresses.
+
+### 13. Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml
+
+**Test file:** `pwsh/Azure.DevOps/tests/Sync-AdoServiceConnections.Tests.ps1` (L1), block
+`Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml`.
+
+**Guards:** Every shipped service connection names a subscription configured in `azure.yml`.
+
+### 14. Alerts: every compiled slot
+
+**Test file:** `pwsh/Azure.Templates/tests/Alerts.Tests.ps1` (L1), block `Alerts: every compiled slot`.
+
+**Guards:** The compiled templates deploy the alerting every slot needs.
+
+**Checks:**
+
+- Every foundation slot has one action group, addressed to the Owner role.
+- Every expedition SQL server is audited into the workspace and alerts on any sign-in of its break-glass login.
+- Every discovery slot has a Service Health and a Resource Health alert that notify the action group.
+
+### 15. Deploy-Bicep to an ephemeral l3 slot (live Azure)
+
+**Test file:** `pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1` (L3), block `Deploy-Bicep to an ephemeral l3 slot (live Azure)`.
+
+**Guards:** Each template deploys to a live l3 slot in the session's subscription; without a session the block skips.
+
+**Checks:**
+
+- Each template deploys, its resource group is tagged with where it came from, and no group is left behind.
+
+### 16. discovery flow logs: every compiled slot
+
+**Test file:** `pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1` (L1), block `discovery flow logs: every compiled slot`.
+
+**Guards:** Every discovery slot deploys a flow log on its virtual network, under the region's Network Watcher.
+
+### 17. foundation PrePost: every compiled slot
+
+**Test file:** `pwsh/Azure.Templates/tests/Foundation.PrePost.Tests.ps1` (L1), block `foundation PrePost: every compiled slot`.
+
+**Guards:** The foundation Key Vault private endpoint is deployed exactly where the slot asks for it.
+
+**Checks:**
+
+- Every foundation slot deploys the vault's private endpoint under its derived name.
+- The bootstrap pass, a slot that sets `deployKeyVaultPrivateEndpoint` to false, deploys no endpoint.
+
+### 18. Hub firewall and routes: every compiled discovery slot
+
+**Test file:** `pwsh/Azure.Templates/tests/HubFirewall.Tests.ps1` (L1), block `Hub firewall and routes: every compiled discovery slot`.
+
+**Guards:** Hub egress goes through one firewall, and every spoke routes to it.
+
+**Checks:**
+
+- Each hub's firewall address is the first one Azure assigns in its `AzureFirewallSubnet`.
+- Every hub deploys one firewall, its policy at the `network.yml` tier and its egress diagnostics; no spoke deploys one.
+- Every spoke subnet routes its egress to its hub's firewall address.
+
+### 19. The break-glass rotation pipeline
+
+**Test file:** `pwsh/Azure.Templates/tests/Invoke-BreakGlassRotation.Tests.ps1` (L1), block `The break-glass rotation pipeline`.
+
+**Guards:** The shipped `cron-break-glass-rotation.yaml` runs the rotation monthly, signed in through the deploy service connection.
+
+### 20. CanNotDelete locks: every compiled slot
+
+**Test file:** `pwsh/Azure.Templates/tests/Locks.Tests.ps1` (L1), block `CanNotDelete locks: every compiled slot`.
+
+**Guards:** The compiled templates lock exactly the resources that must not be deleted.
+
+**Checks:**
+
+- The hub's virtual network and each of its private DNS zones are locked.
+- Nothing in a spoke is locked.
+- Foundation's Key Vault is locked in every slot.
+
+### 21. Monitoring views: every compiled foundation slot
+
+**Test file:** `pwsh/Azure.Templates/tests/MonitoringViews.Tests.ps1` (L1), block `Monitoring views: every compiled foundation slot`.
+
+**Guards:** Every foundation slot deploys the capacity workbook, the saved-query pack and the dashboard, each under its derived name.
+
+### 22. Security-group flows: the compiled discovery template
+
+**Test file:** `pwsh/Azure.Templates/tests/NsgFlows.Tests.ps1` (L1), block `Security-group flows: the compiled discovery template`.
+
+**Guards:** The discovery security groups allow only the declared flows.
+
+**Checks:**
+
+- Every slot gets the declared flows, no wider than the landing zone needs.
+- The blanket virtual-network allow is replaced by the declared flows, then a deny of the network and the internet.
+
+### 23. Production database alerts: every compiled expedition and discovery slot
+
+**Test file:** `pwsh/Azure.Templates/tests/ProductionAlerts.Tests.ps1` (L1), block
+`Production database alerts: every compiled expedition and discovery slot`.
+
+**Guards:** Production slots carry the database alerts, and every alert is named through the namer.
+
+**Checks:**
+
+- The five database metric and capacity alerts deploy in every production slot and in no other.
+- Each database alert, the break-glass login alert and the two discovery health alerts carry a derived `alrt` name.
+
+### 24. Test-BicepResourceNames (real templates)
+
+**Test file:** `pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1` (L1), block `Test-BicepResourceNames (real templates)`.
+
+**Guards:** No shipped slot writes a name its template derives, and every declared name derives for every slot.
+
+### 25. Test-BicepTemplateCompliance (real templates)
+
+**Test file:** `pwsh/Azure.Templates/tests/Test-BicepTemplateCompliance.Tests.ps1` (L1), block
+`Test-BicepTemplateCompliance (real templates)`.
+
+**Guards:** Every compiled template slot holds to the compliance rules but for the known findings, and every known finding still occurs.
+
+### 26. Test-BicepApiVersions (real modules)
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-BicepApiVersions.Tests.ps1` (L1), block `Test-BicepApiVersions (real modules)`.
+
+**Guards:** Every API version the shipped Bicep modules reference is current, stable or pinned.

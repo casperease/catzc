@@ -17,6 +17,7 @@ check.
 | 8   | L1   | [Get-EngineCaseTable — every shipped engine case table][c8] |
 | 9   | L1   | [Get-Inspiration over the shipped inspiration.yml][c9]      |
 | 10  | L1   | [Catzc.Tooling.Listen over the shipped configs][c10]        |
+| 11  | L1   | [Invoke-ExecutableParallel — the shipped throttle][c11]     |
 
 [c1]: #1-integrity-shipped-toolsyml--toolsconfig
 [c2]: #2-shipped-toolsyml-generic-invariant
@@ -28,6 +29,7 @@ check.
 [c8]: #8-get-enginecasetable--every-shipped-engine-case-table
 [c9]: #9-get-inspiration-over-the-shipped-inspirationyml
 [c10]: #10-catzctoolinglisten-over-the-shipped-configs
+[c11]: #11-invoke-executableparallel--the-shipped-throttle
 
 ## Checks
 
@@ -126,3 +128,10 @@ WindowsApps bash.exe).
 `Catzc.Tooling.Listen over the shipped configs`.
 
 **Guards:** The shipped `listen.yml` loads as its typed model, names only declared file kinds, and watches a folder that exists.
+
+### 11. Invoke-ExecutableParallel — the shipped throttle
+
+**Test file:** `pwsh/Base.Execution/tests/Invoke-ExecutableParallel.Tests.ps1` (L1), block
+`Invoke-ExecutableParallel — the shipped throttle`.
+
+**Guards:** The default throttle is read from the shipped timeouts config: four processes unless the file says otherwise.

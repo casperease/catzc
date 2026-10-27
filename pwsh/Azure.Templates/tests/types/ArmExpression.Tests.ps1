@@ -57,20 +57,6 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('widget')]", @{}, $loop)) | Should -BeTrue
     }
 
-    It 'takes the branch an if() condition picks, whatever the other branch is' {
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(true(), 'widget', reference('gadget').id)]", @{}) | Should -Be 'widget'
-        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(false(), 'widget', reference('gadget').id)]", @{})) | Should -BeTrue
-        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(parameters('missing'), 'widget', 'gadget')]", @{})) | Should -BeTrue
-    }
-
-    It 'expands a for-variable from variables.copy, one input per index' {
-        $variables = @{ copy = @(@{ name = 'routes'; count = "[length(parameters('hops'))]"; input = @{ hop = "[parameters('hops')[copyIndex('routes')]]" } }) }
-        $routes = [Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('routes')]", @{ hops = @('widget', 'gadget') }, $variables)
-        $routes.Count | Should -Be 2
-        $routes[1].hop | Should -Be 'gadget'
-        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('missing')]", @{}, $variables)) | Should -BeTrue
-    }
-
     It 'is unresolved outside the subset, never a guess' {
         & $isUnresolved (& $eval "[resourceGroup().location]") | Should -BeTrue
         & $isUnresolved (& $eval "[reference('gadget').outputs.name.value]") | Should -BeTrue

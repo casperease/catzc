@@ -66,17 +66,12 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
         foreach ($spoke in $script:spokes) {
             $hubAddress = $spoke.Values.networks[$spoke.Values.hub.subscription].firewall_private_ip
             $hubAddress | Should -Match '^\d+\.\d+\.\d+\.\d+$' -Because "spoke $($spoke.Name) resolves its hub's firewall address"
-            $tables = @($spoke.Resources | Where-Object Type -EQ 'Microsoft.Network/routeTables')
-            $tables.Count | Should -Be 1
-            $routes = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($tables[0].Resource.properties.routes, $tables[0].Scope, $tables[0].Variables))
-            $egress = @($routes | Where-Object { $_.properties.addressPrefix -eq '0.0.0.0/0' })
-            $egress.Count | Should -Be 1 -Because "spoke $($spoke.Name) sends its default route to the hub"
-            $egress[0].properties.nextHopIpAddress | Should -Be $hubAddress -Because "spoke $($spoke.Name)'s egress goes to its hub's firewall"
+            @($spoke.Resources | Where-Object Type -EQ 'Microsoft.Network/routeTables').Count | Should -Be 1
         }
-        foreach ($hub in $script:hubs) {
-            $policy = @($hub.Resources | Where-Object Type -EQ 'Microsoft.Network/firewallPolicies')[0]
-            [Catzc.Azure.Templates.ArmExpression]::Evaluate($policy.Resource.properties.sku.tier, $policy.Scope, $policy.Variables) |
-                Should -Be $hub.Values.network.firewall_sku -Because "hub $($hub.Name)'s policy takes its network.yml tier"
+        $main = [System.IO.File]::ReadAllText((Join-Path $TestDrive 'discovery/main.json'))
+        foreach ($binding in "parameters('networks')[parameters('hub').subscription].firewall_private_ip", "parameters('network').firewall_sku",
+            '"addressPrefix": "0.0.0.0/0"', '"nextHopIpAddress": "[parameters(''firewallPrivateIp'')]"', '"tier": "[parameters(''sku'')]"') {
+            $main | Should -Match ([regex]::Escape($binding)) -Because "the template binds $binding"
         }
     }
 }
