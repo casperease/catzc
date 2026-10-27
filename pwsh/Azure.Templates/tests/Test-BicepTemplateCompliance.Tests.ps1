@@ -252,8 +252,8 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
             $scoped = Get-ArmDeployedResource -Template $Leaf -Values @{} -SubscriptionId '00000000-0000-0000-0000-00000000000a' -ResourceGroupName 'widget-rg' |
                 Select-Object -First 1
             $scoped.Name | Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
-            $unscoped = Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg' | Select-Object -First 1
-            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($unscoped.Name) | Should -BeTrue
+            $withoutSubscription = Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg' | Select-Object -First 1
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($withoutSubscription.Name) | Should -BeTrue
         }
     }
 

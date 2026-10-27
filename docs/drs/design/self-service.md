@@ -55,13 +55,12 @@ recorded, reproducible, and reviewable. Freedom and control coexist because the 
 ### One source of truth, or none
 
 The repository is the single source of truth for everything the platform manages — automation, configuration, infrastructure, and pinned
-tooling — all represented as code
-([PDR-EAC-EVERYTHINGCOMMITTED](../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted), the mechanics of the one source of
-truth). For self-service that means editing that source and letting the platform apply it, never clicking a portal or running an
-out-of-band command. State that diverges from the repository is **drift**, and drift is reconciled _to_ the repository, never blessed after
-the fact: you cannot audit, reproduce, or review what is not written down. The moment a second source exists (a console tweak, a hand-run
-command that leaves no record), the guarantees collapse: the audit log is incomplete, the rebuild does not match, and review covered only
-half the change.
+tooling — all represented as code ([PDR-EAC-EVERYTHINGCOMMITTED](../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted), the
+mechanics of the one source of truth). For self-service that means editing that source and letting the platform apply it, never clicking a
+portal or running an out-of-band command. State that diverges from the repository is **drift**, and drift is reconciled _to_ the repository,
+never blessed after the fact: you cannot audit, reproduce, or review what is not written down. The moment a second source exists (a console
+tweak, a hand-run command that leaves no record), the guarantees collapse: the audit log is incomplete, the rebuild does not match, and
+review covered only half the change.
 
 ### Immutable artifacts and provenance
 
