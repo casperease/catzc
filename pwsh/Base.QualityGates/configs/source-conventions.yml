@@ -57,3 +57,19 @@ track_root_literal:
     pwsh/Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1:
       it tests CommentPagesConfig.DefaultPages, which mirrors comment-pages.yml and is renamed with it in P4
     pwsh/Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1: it names the real globset key pwsh, the track's own name
+
+test_file_name:
+  exempt:
+    pwsh/Base.TypesSystem/tests/Types.Csproj.Tests.ps1: it tests the Catzc.Types.csproj carrier file, which is no function
+    pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1: it tests the track-lamps feature end to end across several functions, which is no one function
+    pwsh/Azure.Templates/tests/Alerts.Tests.ps1: it tests the alert templates under infrastructure/, which are no function
+    pwsh/Azure.Templates/tests/Discovery.Budget.Tests.ps1: it tests the discovery template's budget, which is no function
+    pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1: it tests the discovery template's flow log, which is no function
+    pwsh/Azure.Templates/tests/Discovery.Security.Tests.ps1: it tests the discovery template's security plans, which are no function
+    pwsh/Azure.Templates/tests/Foundation.PrePost.Tests.ps1: it tests the foundation template's pre and post extension, which is no function
+    pwsh/Azure.Templates/tests/HubFirewall.Tests.ps1: it tests the hub firewall template, which is no function
+    pwsh/Azure.Templates/tests/Locks.Tests.ps1: it tests the lock templates, which are no function
+    pwsh/Azure.Templates/tests/MonitoringViews.Tests.ps1: it tests the monitoring view templates, which are no function
+    pwsh/Azure.Templates/tests/NsgFlows.Tests.ps1: it tests the NSG flow-log templates, which are no function
+    pwsh/Azure.Templates/tests/RoleAssignments.Tests.ps1: it tests the role-assignment templates, which are no function
+    pwsh/Azure.Templates/tests/ProductionAlerts.Tests.ps1: it tests the production alert templates, which are no function

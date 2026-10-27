@@ -91,7 +91,8 @@ function Test-SourceConventions {
         foreach ($path in & $list $testsDirectory '*.Tests.ps1') {
             $testCount++
             $name = [System.IO.Path]::GetFileName($path)
-            if (($name -replace '\.Tests\.ps1$') -notmatch '-') {
+            if (($name -replace '\.Tests\.ps1$') -notmatch '-' -and
+                -not $settings.test_file_name.IsExempt("$(Get-CatzcModulesFolder)/$module/$testFolderName/$name")) {
                 $issues.Add("$module/tests/${name}: the test file is not named Verb-Noun.Tests.ps1")
             }
         }
