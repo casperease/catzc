@@ -37,15 +37,15 @@ prices, the cost model and its tests, reads the checked-in table and never the e
 
 ### Rule ADR-AUTO-NET-ADOAPI
 
-An `ado-api` call reaches the Azure DevOps REST API through the one request function the Azure DevOps module owns, with the credentials
-ADR-ADO-AUTH selects, and runs only from an explicit command or a pipeline step that names it.
+An `ado-api` call reaches the Azure DevOps REST API through the one request function the Azure DevOps module owns, with the credentials that
+module selects, and runs only from an explicit command or a pipeline step that names it.
 
 - [The classes](#the-classes)
 
 ### Rule ADR-AUTO-NET-AZURECONTROLPLANE
 
 An `azure-control-plane` call is the `az` CLI acting on a tenant or a subscription. It is a network call in its own class, never folded into
-`ado-api`: it runs only from an explicit command or a pipeline step, after the session assertions of ADR-AZ-SESSION prove the target, and a
+`ado-api`: it runs only from an explicit command or a pipeline step, after the Azure module's session assertions prove the target, and a
 build of a template stays offline.
 
 - [The classes](#the-classes)
@@ -53,8 +53,8 @@ build of a template stays offline.
 ### Rule ADR-AUTO-NET-GITREMOTE
 
 A `git-remote` call is git or the hosting CLI talking to a remote (fetch, ls-remote, push, a repository create). It runs only from the topic
-commands and the publishing commands that name the remote; a git call on a default path reads the local repository alone. A remote that is
-a local path is no network call and takes no entry.
+commands and the publishing commands that name the remote; a git call on a default path reads the local repository alone. A remote that is a
+local path is no network call and takes no entry.
 
 - [The classes](#the-classes)
 
@@ -74,13 +74,13 @@ or opened; ADR-AUTO-PKGMGR-NUGETINTOOLINGONLY is the precedent for `dotnet`.
 
 - [Offline switches](#offline-switches)
 
-### Rule ADR-AUTO-NET-REGISTRY
+### Rule ADR-AUTO-NET-SITEREGISTRY
 
-Every call site that can reach the network is one entry in one config registry, `network-calls.yml`, owned by the Base.Execution module:
-its file and function, its class, its trigger and the guard, parameter or config that keeps it off a default path. A trigger is
-`on-request`, `pipeline-only`, `offline-guarded` (on a default path with the tool held offline by a generated guard) or `default-path`,
-which marks a site that breaks ADR-AUTO-NET-NODEFAULTPATH and stays registered as it is until its fix lands. The registry is the inventory;
-this page carries only a summary of it.
+Every call site that can reach the network is one entry in one config registry, `network-calls.yml`, owned by the Base.Execution module: its
+file and function, its class, its trigger and the guard, parameter or config that keeps it off a default path. A trigger is `on-request`,
+`pipeline-only`, `offline-guarded` (on a default path with the tool held offline by a generated guard) or `default-path`, which marks a site
+that breaks ADR-AUTO-NET-NODEFAULTPATH and stays registered as it is until its fix lands. The registry is the inventory; this page carries
+only a summary of it.
 
 - [The registry](#the-registry)
 
@@ -94,9 +94,9 @@ function still makes the call it is registered for. A new call site lands with i
 ## Context
 
 The repository is the configuration record, and the tooling that reads it runs on a developer machine, a pipeline agent and a consumer's
-installed bundle. A network call on one of those paths makes the result depend on a host that is not in the commit: a package resolved
-today differs from one resolved next week, an endpoint that is down fails a format run, and a credential in a user profile leaks into a run
-that never asked for it. The machine may also be a regulated operations box, where an outbound call is itself a control to account for.
+installed bundle. A network call on one of those paths makes the result depend on a host that is not in the commit: a package resolved today
+differs from one resolved next week, an endpoint that is down fails a format run, and a credential in a user profile leaks into a run that
+never asked for it. The machine may also be a regulated operations box, where an outbound call is itself a control to account for.
 
 ### The default path
 
@@ -110,17 +110,17 @@ of them may. A call on request is a decision: a person types `Install-Uv`, or a 
 
 `Five named classes, each with its own controls`
 
-| Class                 | What it reaches                                    | Runs from                                         |
-| --------------------- | -------------------------------------------------- | ------------------------------------------------- |
-| `package-install`     | package managers, release feeds, vendored scripts  | the tooling commands and the install steps        |
-| `price-data`          | the public retail price list                       | the price-table refresh command                   |
-| `ado-api`             | the Azure DevOps REST API                          | the Azure DevOps commands and their pipeline steps |
-| `azure-control-plane` | a tenant or subscription through `az`              | the deploy, session and resource commands         |
-| `git-remote`          | a git remote or the hosting service                | the topic and publishing commands                 |
+| Class                 | What it reaches                                   | Runs from                                          |
+| --------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| `package-install`     | package managers, release feeds, vendored scripts | the tooling commands and the install steps         |
+| `price-data`          | the public retail price list                      | the price-table refresh command                    |
+| `ado-api`             | the Azure DevOps REST API                         | the Azure DevOps commands and their pipeline steps |
+| `azure-control-plane` | a tenant or subscription through `az`             | the deploy, session and resource commands          |
+| `git-remote`          | a git remote or the hosting service               | the topic and publishing commands                  |
 
-The first three are the paths the product sanctions by name. `azure-control-plane` and `git-remote` are real network calls of their own:
-a deploy talks to a subscription and a topic push talks to a server, and neither is an Azure DevOps API call or a package install, so each
-is classified in the open rather than hidden inside another class.
+The first three are the paths the product sanctions by name. `azure-control-plane` and `git-remote` are real network calls of their own: a
+deploy talks to a subscription and a topic push talks to a server, and neither is an Azure DevOps API call or a package install, so each is
+classified in the open rather than hidden inside another class.
 
 ### Offline switches
 

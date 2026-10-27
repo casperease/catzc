@@ -15,13 +15,13 @@ one entry in `pwsh/Base.Execution/configs/network-calls.yml`. The registry carri
 
 ## Open steps
 
-- [ ] `pwsh/Base.Languages/Invoke-PythonTest.ps1`: set `UV_OFFLINE=1` beside `UV_PYTHON_DOWNLOADS=never` for the `uv sync` of a test run,
-      so a cold cache fails with the remedy (an explicit install command that syncs the workspace online) instead of fetching from PyPI
+- [ ] `pwsh/Base.Languages/Invoke-PythonTest.ps1`: set `UV_OFFLINE=1` beside `UV_PYTHON_DOWNLOADS=never` for the `uv sync` of a test run, so
+      a cold cache fails with the remedy (an explicit install command that syncs the workspace online) instead of fetching from PyPI
       ([ADR-AUTO-NET-NODEFAULTPATH](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-nodefaultpath)); its registry entry moves
       to `offline-guarded`. Check: `Invoke-PythonTest.Tests.ps1` asserts the variable is set during the sync and restored after.
 - [ ] `pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1`: the same `UV_OFFLINE=1` for the sync before `Test-PythonLint` and
       `Test-PythonTypes`, and pyright held to its installed copy (pyright's Python wrapper downloads its node package on first run); its
-      entry moves to `offline-guarded`. Check: the module's `Invoke-PythonWorkspaceTool` test file asserts both.
+      entry moves to `offline-guarded`. Check: `Test-PythonLint.Tests.ps1` asserts both through the gate.
 - [ ] The online sync those two steps refer to: one tooling command (in `Tooling.Python`, beside `Install-PipTool`) that runs
       `uv sync --all-packages` with the network, registered as `package-install`, `on-request`. Check: its L0 test mocks `Invoke-Executable`
       and the registry test passes.
@@ -29,9 +29,9 @@ one entry in `pwsh/Base.Execution/configs/network-calls.yml`. The registry carri
       verifies the module offline (the generated `go.mod` files require nothing today); its entry moves to `offline-guarded`. Check:
       `Invoke-GoTest.Tests.ps1` asserts the variables during the run.
 - [ ] `pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1`: a live deploy is no test
-      ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); move the check to an explicit
-      command or pipeline step (the ephemeral-slot deploy) and delete the test file, with its registry entry. Check: `Test-NetworkCalls`
-      (below) finds no test file in the registry, and the pipeline step names the command.
+      ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); move the check to an
+      explicit command or pipeline step (the ephemeral-slot deploy) and delete the test file, with its registry entry. Check:
+      `NetworkCallsConfig.Tests.ps1` passes on the shipped registry with no `tests/` key, and the pipeline step names the command.
 - [ ] `docs/drs/automation/retry-as-last-resort.md`: ADR-AUTO-RETRY-NEVERINTESTS lets an L3 test depend on external connectivity; align it
       with ADR-AUTO-NET-TESTSOFFLINE (a dependency is mocked, a live check is a command). Check: `Test-Links` and `Test-DrsRegistry` pass.
 - [ ] `pwsh/Base.QualityGates/Build-EnglishDictionary.ps1`: `npx --yes cspell-trie@10` fetches a package outside the tooling system

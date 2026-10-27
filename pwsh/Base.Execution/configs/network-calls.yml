@@ -1,4 +1,4 @@
-# Every call site that can reach the network, keyed by its file (ADR-AUTO-NET-REGISTRY); a default-path site is an open violation.
+# Every call site that can reach the network, keyed by its file (ADR-AUTO-NET-SITEREGISTRY); a default-path site is an open violation.
 sites:
   pwsh/Tooling.Core/Install-Tool.ps1:
     function: Install-Tool
@@ -129,7 +129,7 @@ sites:
     function: Invoke-GoTest
     class: package-install
     trigger: default-path
-    gated_by: none; go mod download runs on every Go test run with no GOPROXY=off
+    gated_by: none; go mod download runs on every Go test run and the module proxy left on
   pwsh/Azure.Templates/Update-AzurePriceTable.ps1:
     function: Update-AzurePriceTable
     class: price-data

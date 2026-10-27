@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Execution;
 
-// One function that can reach the network, with its class, its trigger and what keeps it off a default path (ADR-AUTO-NET-REGISTRY).
+// One function that can reach the network, with its class, its trigger and what keeps it off a default path (ADR-AUTO-NET-SITEREGISTRY).
 public sealed class NetworkCallSite
 {
     static readonly string[] Classes = { "package-install", "price-data", "ado-api", "azure-control-plane", "git-remote" };

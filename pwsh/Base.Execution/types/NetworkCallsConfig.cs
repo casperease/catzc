@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Execution;
 
-// The registry of every call site that can reach the network, keyed by its repository-relative file (ADR-AUTO-NET-REGISTRY).
+// The registry of every call site that can reach the network, keyed by its repository-relative file (ADR-AUTO-NET-SITEREGISTRY).
 public sealed class NetworkCallsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
