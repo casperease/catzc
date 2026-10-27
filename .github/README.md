@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "681ba82f935b"
+    with_body_sha: "110b4675fa81"
     warning: "Do Not Edit, this file is generated"
 ---
 
