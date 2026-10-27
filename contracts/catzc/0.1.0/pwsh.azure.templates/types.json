@@ -484,6 +484,10 @@
       "display": [],
       "members": [
         {
+          "name": "count",
+          "kind": "property"
+        },
+        {
           "name": "id",
           "kind": "property"
         },
@@ -500,6 +504,10 @@
           "kind": "property"
         },
         {
+          "name": "region",
+          "kind": "property"
+        },
+        {
           "name": "service",
           "kind": "property"
         },
@@ -509,6 +517,10 @@
         },
         {
           "name": "type",
+          "kind": "property"
+        },
+        {
+          "name": "when_sku",
           "kind": "property"
         }
       ]
@@ -536,6 +548,10 @@
         },
         {
           "name": "request_pause_ms",
+          "kind": "property"
+        },
+        {
+          "name": "skus",
           "kind": "property"
         }
       ]
