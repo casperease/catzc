@@ -161,7 +161,7 @@ automation, and platform engineering — each mapped to the decisions that imple
 
 ## Get started
 
-### Choose how you take cats
+### Choose how you adopt cats
 
 | Pin the bundle                                                                                  | Own a clone                                                          |
 | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
