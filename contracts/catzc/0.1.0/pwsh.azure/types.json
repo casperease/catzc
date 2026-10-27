@@ -372,6 +372,10 @@
           "kind": "property"
         },
         {
+          "name": "service_tag_regions",
+          "kind": "property"
+        },
+        {
           "name": "service_tags",
           "kind": "property"
         }

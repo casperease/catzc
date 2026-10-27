@@ -4,6 +4,7 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
                 # Its own folder, so a concurrent build of the same template never swaps the files read here.
                 $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'discovery'))[-1]
                 $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
+                $environments = (Get-Config -Config azure).environments
                 foreach ($slot in @((Get-BicepTemplate discovery).slots)) {
                     $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -20,7 +21,9 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
                     [pscustomobject]@{
                         Name      = $slot.name
                         Values    = $values
-                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object { -not $_.Conditional })
+                        # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region |
+                                Where-Object { -not $_.Conditional })
                     }
                 }
             })
@@ -80,14 +83,14 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
         }
     }
 
-    It 'lets each hub''s egress reach storage only by the regional Storage.<region> tag of its own location' {
+    It 'lets each hub''s egress reach storage only by the regional Storage tag of its own location, spelled as the tag list does (Storage.WestEurope)' {
         foreach ($hub in $script:hubs) {
             $group = $hub.Resources | Where-Object Type -EQ 'Microsoft.Network/firewallPolicies/ruleCollectionGroups' | Select-Object -First 1
             $collections = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($group.Resource.properties.ruleCollections, $group.Scope, $group.Variables))
             $tags = @($collections | ForEach-Object { @($_.rules) } | Where-Object { $_.ruleType -eq 'NetworkRule' } | ForEach-Object { @($_.destinationAddresses) })
             $storage = @($tags | Where-Object { "$_" -like 'Storage*' })
             $storage.Count | Should -Be 1 -Because "hub $($hub.Name) allows one storage tag"
-            "$($storage[0])" | Should -Match '^Storage\.[a-z0-9]+$' -Because "hub $($hub.Name) narrows storage to its region's tag, never the global Storage"
+            "$($storage[0])" | Should -MatchExactly '^Storage\.[A-Z][A-Za-z0-9]+$' -Because "hub $($hub.Name) narrows storage to its region's tag, never the global Storage"
         }
     }
 }
