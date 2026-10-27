@@ -17,6 +17,7 @@ public static class ArmFunction
         {
             "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
             "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
+            "null", "items", "tryGet", "coalesce", "format", "replace", "join",
         };
         var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string name in names) { known[name] = name; }
@@ -32,11 +33,44 @@ public static class ArmFunction
     // The value of name(args); Unresolved when an argument is, or the call is outside the subset.
     public static object Call(string name, List<object> args)
     {
+        name = Canonical(name);
+        if (name == "coalesce") { return Coalesce(args); }
         if (args.Exists(ArmExpression.IsUnresolved)) { return ArmExpression.Unresolved; }
         object unresolved = ArmExpression.Unresolved;
-        name = Canonical(name);
         switch (name)
         {
+            case "items":
+                // Bicep's `for x in items(o)`: one { key, value } per entry, sorted by key, as ARM's items() returns them.
+                if (args.Count != 1 || !(args[0] is IDictionary source)) { return unresolved; }
+                var names = new List<string>();
+                foreach (object key in source.Keys) { names.Add(key == null ? string.Empty : key.ToString()); }
+                names.Sort(StringComparer.OrdinalIgnoreCase);
+                var entries = new List<object>();
+                foreach (string key in names)
+                {
+                    var entry = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+                    entry["key"] = key;
+                    entry["value"] = source[key];
+                    entries.Add(entry);
+                }
+                return entries.ToArray();
+            case "tryGet":
+                return TryGet(args);
+            case "format":
+                return Format(args);
+            case "replace":
+                // Ordinal and case-sensitive, as ARM's.
+                if (args.Count != 3 || !(args[0] is string original) || !(args[1] is string old) || !(args[2] is string replacement) || old.Length == 0) { return unresolved; }
+                return original.Replace(old, replacement, StringComparison.Ordinal);
+            case "join":
+                if (args.Count != 2 || !(args[0] is IList parts) || args[0] is string || !(args[1] is string delimiter)) { return unresolved; }
+                var texts = new List<string>();
+                foreach (object part in parts)
+                {
+                    if (!(part is string text)) { return unresolved; }
+                    texts.Add(text);
+                }
+                return string.Join(delimiter, texts);
             case "equals":
                 return args.Count == 2 ? (object)Same(args[0], args[1]) : unresolved;
             case "not":
@@ -111,6 +145,72 @@ public static class ArmFunction
             default:
                 return unresolved;
         }
+    }
+
+    // The first argument that is not null, which Bicep's `a ?? b` compiles to; an unresolved argument before it leaves the value unknown.
+    private static object Coalesce(List<object> args)
+    {
+        foreach (object a in args)
+        {
+            if (ArmExpression.IsUnresolved(a)) { return ArmExpression.Unresolved; }
+            if (a != null) { return a; }
+        }
+        return null;
+    }
+
+    // tryGet(o, key, …): each key reads an object's property or an array's index, and a missing one is null, which Bicep's `o.?key` compiles to.
+    private static object TryGet(List<object> args)
+    {
+        if (args.Count < 2) { return ArmExpression.Unresolved; }
+        object current = args[0];
+        for (int i = 1; i < args.Count; i++)
+        {
+            if (current == null) { return null; }
+            if (current is IDictionary map && args[i] is string name)
+            {
+                object found = null;
+                foreach (object k in map.Keys)
+                {
+                    if (string.Equals(k == null ? null : k.ToString(), name, StringComparison.OrdinalIgnoreCase)) { found = map[k]; break; }
+                }
+                current = found;
+                continue;
+            }
+            if (current is IList list && !(current is string) && IsInteger(args[i]))
+            {
+                long index = Convert.ToInt64(args[i], CultureInfo.InvariantCulture);
+                current = index >= 0 && index < list.Count ? list[(int)index] : null;
+                continue;
+            }
+            return ArmExpression.Unresolved;
+        }
+        return current;
+    }
+
+    // format('…{0}…', a, …), which Bicep string interpolation compiles to: plain {n} holes and {{ }} escapes over string and integer
+    // arguments; a format specifier or another argument kind is outside the subset, since its text depends on ARM's formatter.
+    private static object Format(List<object> args)
+    {
+        if (args.Count < 1 || !(args[0] is string pattern)) { return ArmExpression.Unresolved; }
+        var builder = new System.Text.StringBuilder();
+        int i = 0;
+        while (i < pattern.Length)
+        {
+            char c = pattern[i];
+            if (c == '{' && i + 1 < pattern.Length && pattern[i + 1] == '{') { builder.Append('{'); i += 2; continue; }
+            if (c == '}' && i + 1 < pattern.Length && pattern[i + 1] == '}') { builder.Append('}'); i += 2; continue; }
+            if (c == '}') { return ArmExpression.Unresolved; }
+            if (c != '{') { builder.Append(c); i++; continue; }
+            int close = pattern.IndexOf('}', i);
+            if (close < 0 || !int.TryParse(pattern.Substring(i + 1, close - i - 1), NumberStyles.None, CultureInfo.InvariantCulture, out int hole)) { return ArmExpression.Unresolved; }
+            if (hole + 1 >= args.Count) { return ArmExpression.Unresolved; }
+            object value = args[hole + 1];
+            if (value is string text) { builder.Append(text); }
+            else if (IsInteger(value)) { builder.Append(Convert.ToInt64(value, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture)); }
+            else { return ArmExpression.Unresolved; }
+            i = close + 1;
+        }
+        return builder.ToString();
     }
 
     // ARM compares strings without regard to case; numbers by value.

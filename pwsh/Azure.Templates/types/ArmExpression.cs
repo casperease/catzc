@@ -322,6 +322,7 @@ public static class ArmExpression
                     return Unresolved;
                 case "true": return true;
                 case "false": return false;
+                case "null": return args.Count == 0 ? null : Unresolved;
                 case "createArray": return args.Exists(IsUnresolved) ? Unresolved : (object)args.ToArray();
             }
             return ArmFunction.Call(name, args);

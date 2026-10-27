@@ -103,7 +103,47 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         [Catzc.Azure.Templates.ArmExpression]::Evaluate('[sub(10, 3)]', @{}) | Should -Be 7
     }
 
+    It 'indexes an object parameter by a parameter or an expression, inside a concat, a ternary and a map lambda with replace' {
+        $parameters = @{ regions = [ordered]@{ widgetnorth = 'WidgetNorth'; gadgetsouth = 'GadgetSouth' }; location = 'widgetnorth'; open = $false; tags = @('Widget.{region}', 'Gadget') }
+        & $eval "[concat('Storage.', parameters('regions')[parameters('location')])]" $parameters | Should -BeExactly 'Storage.WidgetNorth'
+        & $eval "[parameters('regions')[if(parameters('open'), 'gadgetsouth', parameters('location'))]]" $parameters | Should -BeExactly 'WidgetNorth'
+        & $eval "[if(parameters('open'), 'none', concat(parameters('regions')[parameters('location')], '-hub'))]" $parameters | Should -BeExactly 'WidgetNorth-hub'
+        & $eval "[map(parameters('tags'), lambda('tag', replace(lambdaVariables('tag'), '{region}', parameters('regions')[parameters('location')])))]" $parameters |
+            Should -BeExactly @('Widget.WidgetNorth', 'Gadget')
+        & $isUnresolved (& $eval "[parameters('regions')[parameters('missing')]]" $parameters) | Should -BeTrue
+        & $isUnresolved (& $eval "[concat('Storage.', parameters('regions')['nowhere'])]" $parameters) | Should -BeTrue
+    }
+
+    It 'expands a copy loop over items() of a variable, sorted by key, with tryGet and coalesce in its body, as Bicep compiles `for x in items(o)`' {
+        $variables = @{ definitions = [ordered]@{ widget = [ordered]@{ id = "[parameters('widgetId')]"; mode = 'DoNotEnforce' }; gadget = [ordered]@{ id = 'gadget-id' } } }
+        $parameters = @{ widgetId = 'widget-id'; mode = 'Default'; nested = @{ widget = @{ size = 1 } } }
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[length(items(variables('definitions')))]", $parameters, $variables) | Should -Be 2
+        $modes = foreach ($index in 0, 1) {
+            $indexes = @{ '' = $index; definitions = $index }
+            [Catzc.Azure.Templates.ArmExpression]::Evaluate("[items(variables('definitions'))[copyIndex()].key]", $parameters, $variables, $indexes)
+            [Catzc.Azure.Templates.ArmExpression]::Evaluate("[items(variables('definitions'))[copyIndex()].value.id]", $parameters, $variables, $indexes)
+            [Catzc.Azure.Templates.ArmExpression]::Evaluate("[coalesce(tryGet(items(variables('definitions'))[copyIndex()].value, 'mode'), parameters('mode'))]", $parameters, $variables, $indexes)
+        }
+        $modes | Should -Be @('gadget', 'gadget-id', 'Default', 'widget', 'widget-id', 'DoNotEnforce')
+        & $eval "[tryGet(parameters('nested'), 'widget', 'size')]" $parameters | Should -Be 1
+        & $eval "[tryGet(parameters('nested'), 'gadget', 'size')]" $parameters | Should -BeNullOrEmpty
+        & $eval "[coalesce(null(), tryGet(parameters('nested'), 'gadget'), 'sprocket')]" $parameters | Should -Be 'sprocket'
+        & $isUnresolved (& $eval "[coalesce(parameters('missing'), 'sprocket')]" $parameters) | Should -BeTrue
+        & $isUnresolved (& $eval "[items(createArray('widget'))]") | Should -BeTrue
+    }
+
+    It 'formats plain {n} holes over strings and integers, as Bicep compiles string interpolation, and joins a string array' {
+        & $eval "[format('policy-{0}-{1}', 'widget', 7)]" | Should -BeExactly 'policy-widget-7'
+        & $eval "[format('{{literal}} {0}', 'gadget')]" | Should -BeExactly '{literal} gadget'
+        & $eval "[format('tags {0}.', join(createArray('widget', 'gadget'), ', '))]" | Should -BeExactly 'tags widget, gadget.'
+        & $isUnresolved (& $eval "[format('{0:N2}', 7)]") | Should -BeTrue
+        & $isUnresolved (& $eval "[format('{1}', 'widget')]") | Should -BeTrue
+        & $isUnresolved (& $eval "[format('{0}', true())]") | Should -BeTrue
+        & $isUnresolved (& $eval "[join(createArray('widget', 7), '-')]") | Should -BeTrue
+    }
+
     It 'is unresolved outside the subset, never a guess' {
+        & $isUnresolved (& $eval "[guid('widget', 'gadget')]") | Should -BeTrue
         & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue
         & $isUnresolved (& $eval "[reference('gadget').outputs.name.value]") | Should -BeTrue
         & $isUnresolved (& $eval "[equals(parameters('missing'), 'widget')]") | Should -BeTrue
