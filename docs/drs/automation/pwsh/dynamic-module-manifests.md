@@ -83,7 +83,7 @@ declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an import statement.
 
 ### Rule ADR-PWSH-MANIFEST-VISIBILITYISLOCATION
 
-Visibility is location (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS, ADR-AUTO-ZERO-MISTAKESHARDTOMAKE). `New-DynamicManifest` exports every root
+Visibility is location (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS, ADR-AUTO-ZERO-DESIGNQUESTIONS). `New-DynamicManifest` exports every root
 `*.ps1` of a module, apart from `*.Tests.ps1`, under its file's base name, and loads every `private/*.ps1` without exporting it. No
 attribute, `Export-ModuleMember` call, or hand-written list decides what is public.
 

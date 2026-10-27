@@ -16,7 +16,7 @@ architectural change.
 
 Source: [DORA, Pervasive security](../../../references/dora/capabilities.md#pervasive-security)
 
-Binds to [PDR-POKAYOKE-DETECTEARLIEST](../../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest).
+Binds to [PDR-POKAYOKE-FAILFAST](../../principles/poka-yoke.md#rule-pdr-pokayoke-failfast).
 
 ### Rule EDR-DORA-SECURITY-SECUREPATHAUTOMATED
 

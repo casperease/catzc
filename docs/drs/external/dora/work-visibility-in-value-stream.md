@@ -10,7 +10,7 @@ and feature status.
 
 Source: [DORA, Work visibility in value stream](../../../references/dora/capabilities.md#work-visibility-in-value-stream)
 
-Binds to [WDR-OBSERVEWIP-OBSERVEWHOLESTREAM](../../process/observe-work.md#rule-wdr-observewip-observewholestream).
+Binds to [WDR-LEANTERMS-OPTIMISETHEWHOLE](../../process/process-terms.md#rule-wdr-leanterms-optimisethewhole).
 
 ### Rule EDR-DORA-WORKVIS-SHAREDDISPLAY
 

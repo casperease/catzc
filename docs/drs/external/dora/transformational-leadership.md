@@ -10,7 +10,7 @@ from.
 
 Source: [DORA, Transformational leadership](../../../references/dora/capabilities.md#transformational-leadership)
 
-Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap) and
+Binds to [WDR-BUILTIN-QUALITYFURTHESTLEFT](../../process/build-quality-in.md#rule-wdr-builtin-qualityfurthestleft) and
 [WDR-KAIZEN-CONTINUOUSIMPROVEMENT](../../process/inspect-and-adapt.md#rule-wdr-kaizen-continuousimprovement).
 
 ### Rule EDR-DORA-LEADERSHIP-INDIRECTLEVER

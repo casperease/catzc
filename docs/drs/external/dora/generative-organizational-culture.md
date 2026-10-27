@@ -32,7 +32,7 @@ the incident, teaches people to hide problems instead of surfacing them.
 
 Source: [DORA, Generative organizational culture](../../../references/dora/capabilities.md#generative-organizational-culture)
 
-Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap) and
+Binds to [WDR-BUILTIN-QUALITYFURTHESTLEFT](../../process/build-quality-in.md#rule-wdr-builtin-qualityfurthestleft) and
 [WDR-KAIZEN-ADAPTFROMEVIDENCE](../../process/inspect-and-adapt.md#rule-wdr-kaizen-adaptfromevidence).
 
 ### Rule EDR-DORA-CULTURE-MEASUREPERCEPTION

@@ -5,7 +5,7 @@ The tests of `ToolsConfig`, in two contexts.
 ## Integrity
 
 The integrity context reads the shipped `tools.yml` and guards real repository content
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
 
 ## Logic
 

@@ -10,7 +10,7 @@ deployed and validated on its own rather than a fragment that only makes sense b
 Source: [DORA, Working in small batches](../../../references/dora/capabilities.md#working-in-small-batches)
 
 Binds to [WDR-PULLWORK-SMALLESTBATCH](../../process/pull-work.md#rule-wdr-pullwork-smallestbatch) and
-[WDR-QUEUECOST-BATCHSIZEDRIVESQUEUES](../../process/queues-cost-money.md#rule-wdr-queuecost-batchsizedrivesqueues).
+[WDR-PULLWORK-SMALLESTBATCH](../../process/pull-work.md#rule-wdr-pullwork-smallestbatch).
 
 ### Rule EDR-DORA-SMALLBATCH-WEEKISTOOLARGE
 

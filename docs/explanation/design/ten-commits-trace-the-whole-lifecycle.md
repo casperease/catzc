@@ -11,7 +11,7 @@ Ten numbered commits show every stage, gate, environment and ending of the commi
 
 Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-ONECOMMITPERENVIRONMENT,
 FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-FAILEDSTAYSUPSTREAM and FDR-LIFE-NUMBERISIDENTITY,
-DDR-VISUAL-ONLYGITLANEISTIME and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
+DDR-VISUAL-COLOURISTEMPORAL and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
 ```
 
 A single commit is hard to follow when the picture is organised by stage. This diagram solves that by tracing ten commits at once. Each
@@ -178,7 +178,7 @@ content:
    in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the production occupant.
    Slot 9 shows a topic commit deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
 6. **The git lane.** This is the only lane where left to right is real time
-   ([DDR-VISUAL-ONLYGITLANEISTIME](../../drs/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries the landed
+   ([DDR-VISUAL-COLOURISTEMPORAL](../../drs/design/visual-design.md#rule-ddr-visual-colouristemporal)). The main line carries the landed
    commits, and side branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty heads: the
    tip of main is not always a commit that is safe to build on.
 7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate, a

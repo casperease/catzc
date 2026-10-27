@@ -46,9 +46,9 @@ whatever the arrival or service distribution. With throughput near-fixed, work-i
 
 Source: John D. C. Little, "A Proof for the Queuing Formula: L = λW", _Operations Research_ 9 (1961)
 
-Binds to [WDR-QUEUECOST-LITTLESLAW](../../process/queues-cost-money.md#rule-wdr-queuecost-littleslaw),
+Binds to [WDR-PULLWORK-LIMITWORKINPROGRESS](../../process/pull-work.md#rule-wdr-pullwork-limitworkinprogress),
 [WDR-QUEUECOST-DELAYHASAPRICE](../../process/queues-cost-money.md#rule-wdr-queuecost-delayhasaprice), and
-[WDR-LEANTERMS-FLOWISMEASURED](../../process/process-terms.md#rule-wdr-leanterms-flowismeasured).
+[WDR-PULLWORK-LIMITWORKINPROGRESS](../../process/pull-work.md#rule-wdr-pullwork-limitworkinprogress).
 
 ### Rule EDR-LEAN-COMPUTEOVERATTENTION
 
@@ -58,7 +58,7 @@ human attention stays scarce and expensive.
 Source: Gordon E. Moore, "Cramming More Components onto Integrated Circuits", _Electronics_ (1965)
 
 Binds to [WDR-QUEUECOST-ATTENTIONISTHECONSTRAINT](../../process/queues-cost-money.md#rule-wdr-queuecost-attentionistheconstraint) and
-[WDR-LEANTERMS-AUTOMATEDORMANUAL](../../process/process-terms.md#rule-wdr-leanterms-automatedormanual).
+[WDR-QUEUECOST-ATTENTIONISTHECONSTRAINT](../../process/queues-cost-money.md#rule-wdr-queuecost-attentionistheconstraint).
 
 ### Rule EDR-LEAN-LEANANDAGILE
 

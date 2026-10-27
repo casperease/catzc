@@ -41,7 +41,7 @@ flow is increasing, whether obstacles surface, and whether the resulting actions
 
 Source: [DORA, WIP limits](../../../references/dora/capabilities.md#wip-limits)
 
-Binds to [WDR-QUEUECOST-LITTLESLAW](../../process/queues-cost-money.md#rule-wdr-queuecost-littleslaw).
+Binds to [WDR-PULLWORK-LIMITWORKINPROGRESS](../../process/pull-work.md#rule-wdr-pullwork-limitworkinprogress).
 
 ## Context
 

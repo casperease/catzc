@@ -106,7 +106,7 @@ state on the mainline.
 before `1` … before `10`); the same number reappears in each lane in its state-of-the-moment colour, and its last appearance names its
 ending — discarded, retired, superseded, in-process, an environment's occupant, or the dirty HEAD. The numbered worked examples are the
 canonical encoding of this lifecycle (they render the grammar of
-[DDR-VISUAL-ONLYGITLANEISTIME](../design/visual-design.md#rule-ddr-visual-onlygitlaneistime)).
+[DDR-VISUAL-COLOURISTEMPORAL](../design/visual-design.md#rule-ddr-visual-colouristemporal)).
 
 - [One number, one story](#one-number-one-story)
 
@@ -390,7 +390,7 @@ reached an environment captures that a deploy and an integration are separate ev
 ## One number, one story
 
 A single commit is hard to follow across stage-organised lanes, so each traced commit carries a time-ordered number and the number is the
-thread. Because git is the only true left-to-right timeline (DDR-VISUAL-ONLYGITLANEISTIME), the numbers restore both identity and chronology
+thread. Because git is the only true left-to-right timeline (DDR-VISUAL-COLOURISTEMPORAL), the numbers restore both identity and chronology
 everywhere else: the same digit appears in each lane at its state-of-the-moment colour, and its final appearance is the verdict. The worked
 examples below are the canonical set.
 
@@ -413,7 +413,7 @@ the solo `main-direct` regime of the `git_workspace` variant; once the repo is `
 Pushing before verifying means the tip of main is often a commit nobody has judged. Calling that commit "dirty" would claim a failure that
 has not happened, so the model names it _landed_ and keeps "dirty HEAD" for the commit a stage actually failed. The distinction matters for
 the response: a landed head waits for its gate; a dirty head gets a fix-forward commit, and consumers stay on the verified point meanwhile
-([DDR-REMOTE-NORECONCILINGTIPS](../design/server-remote-integration.md#rule-ddr-remote-noreconcilingtips)).
+([DDR-REMOTE-INTEGRATEFROMVERIFIED](../design/server-remote-integration.md#rule-ddr-remote-integratefromverified)).
 
 ## Worked lifecycle examples
 

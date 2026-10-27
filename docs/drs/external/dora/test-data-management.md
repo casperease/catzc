@@ -9,7 +9,7 @@ set whose shape the test cannot pin down.
 
 Source: [DORA, Test data management](../../../references/dora/capabilities.md#test-data-management)
 
-Binds to [ADR-AUTO-TEST-LOGICANDINTEGRITY](../../automation/test-automation.md#rule-adr-auto-test-logicandintegrity) and
+Binds to [ADR-AUTO-TEST-TWOMANDATORYTAGS](../../automation/test-automation.md#rule-adr-auto-test-twomandatorytags) and
 [ADR-AUTO-TEST-DISTINCTFIXTURES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtures).
 
 ### Rule EDR-DORA-TESTDATA-MINIMIZEFIRST

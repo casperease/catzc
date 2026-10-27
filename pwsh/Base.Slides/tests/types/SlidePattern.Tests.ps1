@@ -109,7 +109,7 @@ catzc:
             Should -Match '<table><tr><th>Process</th><th>Where</th></tr><tr><td>Change</td><td>The commit</td></tr></table>'
     }
 
-    It 'reports a missing required field, an unknown field, and a kit value the kit does not declare' -Tag 'PDR-POKAYOKE-DETECTEARLIEST' {
+    It 'reports a missing required field, an unknown field, and a kit value the kit does not declare' -Tag 'PDR-POKAYOKE-FAILFAST' {
         $faults = @((& $render "# T`n`n## Eyebrow`n`nE`n`n## Gadget`n`nx").Faults | ForEach-Object ToString)
         $faults |
             Should -Contain "docs/gadget.slide.md: field 'body': pattern 'widget' requires this field and the slide has none"

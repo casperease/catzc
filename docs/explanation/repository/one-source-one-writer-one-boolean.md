@@ -10,7 +10,7 @@ Every managed root file has one source of truth, one writer, and one boolean tha
 5  tracked target      a file git or the bootstrap reads before the importer runs: 6 of 28
 
 Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG,
-ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT and ADR-REPO-ROOTCFG-HEADEDCOPY (meta lens).
+ADR-REPO-README-READMEIDEMPOTENT and ADR-REPO-ROOTCFG-HEADEDCOPY (meta lens).
 ```
 
 The repository root carries configuration files for git, editors and quality-gate tools. Cats does not keep them by hand: each one that is
@@ -46,7 +46,7 @@ is gitignored or stays tracked is one boolean per entry, not a second system.
   takeover switch (ADR-REPO-ROOTCFG-REGISTRY).
 - Per entry, `committed` decides git membership and nothing else: false is a gitignored artifact, true is a tracked file the bootstrap needs
   before the importer runs (ADR-REPO-ROOTCFG-COMMITTEDFLAG).
-- Generation is idempotent and runs on every import, so a target can never go stale between loads (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT).
+- Generation is idempotent and runs on every import, so a target can never go stale between loads (ADR-REPO-README-READMEIDEMPOTENT).
 
 ## See also
 

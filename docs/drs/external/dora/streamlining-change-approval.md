@@ -10,7 +10,7 @@ downstream ceremony.
 
 Source: [DORA, Streamlining change approval](../../../references/dora/capabilities.md#streamlining-change-approval)
 
-Binds to [DDR-SELFSERV-TRUNKWITHGUARDRAILS](../../design/self-service.md#rule-ddr-selfserv-trunkwithguardrails).
+Binds to [PDR-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-pdr-onelive-trunkbased).
 
 ### Rule EDR-DORA-APPROVAL-AUTOMATIONREPLACESREVIEW
 

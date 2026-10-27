@@ -54,7 +54,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $config.carriers[0].preamble_lines | Should -Be 2
         }
 
-        It 'reads the globs an entry leaves out with their reasons, empty by default' -Tag 'ADR-REPO-CODEMETA-SAMEENGINE' {
+        It 'reads the globs an entry leaves out with their reasons, empty by default' -Tag 'ADR-REPO-FILEMETA-METAKIND' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
                         widget = [ordered]@{ carrier = 'comment-head'; line = '#'; exclude = [ordered]@{ '**/tests/**' = 'a test carries no help'; '**/assets/**' = ' copied verbatim ' } }
                         gadget = [ordered]@{ carrier = 'comment-head'; line = '#' }

@@ -8,7 +8,7 @@ clean fixture by its repo-relative path.
 
 The integrity block proves that the actual repository content is spell-clean. Unlike the logic test, it binds to the real repository:
 `Test-Spelling` with no `-Path` scans its default content scope
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). It is L2 because it
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)). It is L2 because it
 drives the cspell CLI, and it self-skips when cspell is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 

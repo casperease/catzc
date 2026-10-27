@@ -13,7 +13,7 @@ Build-RootConfig filters the registry to the opted-in entries, then copies or re
 8  Write-FileIfChanged          the one write for every file, after Build-RootConfig deletes a link left at the target
 9  headed root file             what every branch leaves at the root path
 
-Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE,
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-COMPOSEDROOTFILE,
 ADR-REPO-ROOTCFG-HEADEDCOPY and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (implementation lens).
 ```
 
@@ -28,7 +28,7 @@ description:
 about:
   adrs:
     - ADR-REPO-ROOTCFG-REGISTRY
-    - ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
+    - ADR-REPO-README-READMEIDEMPOTENT
     - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
     - ADR-REPO-ROOTCFG-HEADEDCOPY
     - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
@@ -120,7 +120,7 @@ layout:
 - The registry is validated by the `RootConfigFiles` type and materialised by `Build-RootConfig`, the single writer; only `optIn: true`
   entries are touched (ADR-REPO-ROOTCFG-REGISTRY).
 - Every write goes through `Write-FileIfChanged`: canonical output, an EOL-insensitive compare, write only on a real change,
-  delete-then-write (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT).
+  delete-then-write (ADR-REPO-README-READMEIDEMPOTENT).
 - Every root file, a template copy or a generator's output, carries the generated-file head in its file class's carrier
   (ADR-REPO-ROOTCFG-COMPOSEDROOTFILE).
 - A `source` entry is a headed copy of its template, never a link to it, since a head written into a link would land in the template

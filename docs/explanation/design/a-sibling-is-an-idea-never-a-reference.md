@@ -157,7 +157,7 @@ its two CLIs, so a reader of either repository meets the same habit: one name pe
   - Catzc: Every output path resolves under one root
     ([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)) and
     belongs to one format with an area that sets its retention
-    ([ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat))
+    ([ADR-REPO-OUTFMT-OUTPUTFORMAT](../../drs/repository/output-formats.md#rule-adr-repo-outfmt-outputformat))
   - Eac: Intermediate and planning files live under `out/` only; a specification forbids scattered scripts
   - Meeting point: Nothing lands outside the output root unsorted. Catzc adds retention by area.
 - **Agents**

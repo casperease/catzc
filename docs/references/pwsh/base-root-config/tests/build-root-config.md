@@ -26,7 +26,7 @@ row. The fixture names are neutral
 
 The wiring the L0 tests mock away on both sides: a fixture registry names `New-GoWorkspace`, the real dispatch calls it, and
 `Build-RootConfig` writes what it renders. Only the registry, the run mode and the go pin are mocked, so the result is independent of the
-shipped config ([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+shipped config ([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
 
 ## The warm-run skip
 

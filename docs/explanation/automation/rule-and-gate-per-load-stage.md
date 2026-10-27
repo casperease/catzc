@@ -11,7 +11,7 @@ Every load stage but the unload has an ADR rule and a gate.
 6  Unload                  the import-time helpers removed; no rule and no gate
 
 Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION, ADR-PWSH-ERROR-STOPONERROR,
-PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT,
+PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-README-READMEIDEMPOTENT,
 DDR-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
@@ -32,7 +32,7 @@ about:
     - PDR-ONELIVE-ONEVERSION
     - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
     - ADR-REPO-ROOTCFG-FULLYMANAGED
-    - ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
+    - ADR-REPO-README-READMEIDEMPOTENT
     - DDR-RUNMODE-NEVERCOEXIST
     - ADR-BCL-TYPES-JANITORSBYCALLER
   lens: governance
@@ -70,7 +70,7 @@ content:
     - { at: g-load, kind: rule, rule: ADR-AUTO-BUNDLE-ONELIVINGIMPORTER }
     - { at: g-load, kind: rule, rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE }
     - { at: g-mode, kind: rule, rule: DDR-RUNMODE-NEVERCOEXIST }
-    - { at: g-janitors, kind: rule, rule: ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT }
+    - { at: g-janitors, kind: rule, rule: ADR-REPO-README-READMEIDEMPOTENT }
     - { at: g-janitors, kind: rule, rule: ADR-BCL-TYPES-JANITORSBYCALLER }
   legend: auto
   minimaps: [code-locations, grid, axis]
@@ -108,7 +108,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
 4. **Run mode.** The two run modes never coexist (DDR-RUNMODE-NEVERCOEXIST). The stage is itself a check: `Assert-CatzcRunModeExclusive`
    runs on every load and throws when a module from the other run mode's root is still loaded. `Assert-CatzcRunModeExclusive.Tests` checks
    it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before it.
-5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and who runs the importer decides
+5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-README-READMEIDEMPOTENT), and who runs the importer decides
    what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests` checks that
    holders are never stopped in a `Pipeline` or `Agent` session.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
@@ -127,7 +127,7 @@ build, and code review rejects a bundle loader that forks the importer.
 - A bundle loads through the one living importer, so types and accelerators register before any module (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,
   ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE).
 - The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
-- Root-config generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and the session actor decides what the
+- Root-config generation is idempotent and runs on every import (ADR-REPO-README-READMEIDEMPOTENT), and the session actor decides what the
   janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
 - The run modes have two entry points (DDR-RUNMODE-TWORUNMODES).
 

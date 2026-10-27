@@ -20,7 +20,7 @@ automated mechanism — never through console clicks, manual tickets, or an undo
 Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
 
 Binds to [PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted) and
-[DDR-SELFSERV-REPOSITORYISTRUTH](../../design/self-service.md#rule-ddr-selfserv-repositoryistruth).
+[PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted).
 
 ### Rule EDR-DORA-FLEXINFRA-CROSSFUNCTIONALCHANGE
 
@@ -36,7 +36,7 @@ infrastructure or requires a manual ticket to reach cloud resources has negated 
 
 Source: [DORA, Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure)
 
-Binds to [DDR-SELFSERV-TRUNKWITHGUARDRAILS](../../design/self-service.md#rule-ddr-selfserv-trunkwithguardrails).
+Binds to [PDR-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-pdr-onelive-trunkbased).
 
 ### Rule EDR-DORA-FLEXINFRA-MEASUREPREDICTEDOUTCOMES
 

@@ -111,7 +111,7 @@ The "why" and "how" behind the automation and its pwsh engine.
 - [Script-scope caching](drs/automation/pwsh/script-scope-caching.md) — the pwsh rules under [caching](drs/automation/caching.md):
   `$script:` cache entries, mock-the-whole-function
 - [Avoid deep nesting](drs/automation/avoid-deep-nesting.md) — flat code is readable code
-- [Avoid using semicolons](drs/automation/pwsh/avoid-using-semicolons.md) — one statement per line
+- [Avoid using semicolons](drs/automation/pwsh/powershell-formatting.md) — one statement per line
 - [Prefer foreach over ForEach-Object](drs/automation/pwsh/prefer-foreach-over-foreach-object.md) — clarity and debuggability
 - [Automatic variable pitfalls](drs/automation/pwsh/automatic-variable-pitfalls.md) — `$?`, `$_`, `$LASTEXITCODE` and their traps
 - [Use proper package managers](drs/automation/use-proper-package-managers.md) — system tools via native package managers

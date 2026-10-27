@@ -7,7 +7,7 @@ repository.
 
 The integrity block proves that the actual repository markdown is lint-clean. Unlike the logic test, it binds to the real repository:
 `Test-Markdownlint` with no `-Path` scans its default content scope
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). It is L2 because it
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)). It is L2 because it
 drives the markdownlint-cli2 CLI, and it self-skips when the CLI is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 

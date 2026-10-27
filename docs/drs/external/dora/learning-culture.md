@@ -23,7 +23,7 @@ risks that learning and experimentation require.
 
 Source: [DORA, Learning culture](../../../references/dora/capabilities.md#learning-culture)
 
-Binds to [WDR-ANDON-STOPPINGISCHEAP](../../process/holding-the-line.md#rule-wdr-andon-stoppingischeap).
+Binds to [WDR-BUILTIN-QUALITYFURTHESTLEFT](../../process/build-quality-in.md#rule-wdr-builtin-qualityfurthestleft).
 
 ### Rule EDR-DORA-LEARNING-STANDINGKNOWLEDGESHARING
 

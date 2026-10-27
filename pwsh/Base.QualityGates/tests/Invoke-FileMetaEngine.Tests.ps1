@@ -2,7 +2,7 @@
     Justification = 'The fixture fact processors keep the State, Path and Kind parameters the engine passes by name, though they read only Path')]
 param()
 
-Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-CODEMETA-SAMEENGINE' {
+Describe 'Invoke-FileMetaEngine' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FILEMETA-METAKIND' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'engine-repository'
         # The banner a property carrier strips is the one warning every generated head carries.

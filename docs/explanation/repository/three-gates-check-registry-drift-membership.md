@@ -13,7 +13,7 @@ Three gates check the registry, the drift and the git membership; one clause of 
 8  Test-RootConfigFiles         the integrity gate: git membership (#3), registry = .gitignore = index, copies equal templates,
                                no link (#6, #7)
 
-Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT,
+Supports ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-COMMITTEDFLAG, ADR-REPO-README-READMEIDEMPOTENT,
 ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY
 and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (governance lens).
 ```
@@ -32,7 +32,7 @@ about:
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-ROOTCFG-COMMITTEDFLAG
-    - ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
+    - ADR-REPO-README-READMEIDEMPOTENT
     - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
     - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
     - ADR-REPO-ROOTCFG-HEADEDCOPY
@@ -80,10 +80,10 @@ content:
     - { at: g-type, kind: rule, rule: ADR-REPO-ROOTCFG-FULLYMANAGED }
     - { at: g-type, kind: rule, rule: ADR-REPO-ROOTCFG-WILDCARDGENERATOR, corner: bottom-right }
     - { at: g-build, kind: rule, rule: ADR-REPO-ROOTCFG-REGISTRY, corner: top-left }
-    - { at: g-build, kind: rule, rule: ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, corner: bottom-right }
+    - { at: g-build, kind: rule, rule: ADR-REPO-README-READMEIDEMPOTENT, corner: bottom-right }
     - { at: g-build, kind: rule, rule: ADR-REPO-ROOTCFG-COMPOSEDROOTFILE, corner: bottom-left }
     - { at: g-copy-content, kind: rule, rule: ADR-REPO-ROOTCFG-HEADEDCOPY, corner: bottom-right }
-    - { at: g-write, kind: rule, rule: ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, corner: bottom-right }
+    - { at: g-write, kind: rule, rule: ADR-REPO-README-READMEIDEMPOTENT, corner: bottom-right }
     - { at: r-managed, kind: rule, rule: ADR-REPO-ROOTCFG-COMMITTEDFLAG, corner: bottom-right }
     - { at: g-generated-files, kind: rule, rule: ADR-REPO-ROOTCFG-THREEWAYAGREEMENT }
     - { at: g-root-config-files, kind: rule, rule: ADR-REPO-ROOTCFG-COMMITTEDFLAG }
@@ -138,7 +138,7 @@ layout:
 - Exactly one in-repo source of truth per opted-in root file; corrections go to the source (ADR-REPO-ROOTCFG-FULLYMANAGED).
 - One registry, validated by `RootConfigFiles` and written by `Build-RootConfig`; opt-out is the default (ADR-REPO-ROOTCFG-REGISTRY).
 - `committed` decides git membership and nothing else (ADR-REPO-ROOTCFG-COMMITTEDFLAG).
-- Idempotent generation on every import, through `Write-FileIfChanged` (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT).
+- Idempotent generation on every import, through `Write-FileIfChanged` (ADR-REPO-README-READMEIDEMPOTENT).
 - Every managed file, a template copy or a generator's output, carries the generated-file head (ADR-REPO-ROOTCFG-COMPOSEDROOTFILE).
 - The registry, `.gitignore` and the tracked set agree, the copies equal their templates, and no target is a link
   (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).

@@ -5,7 +5,7 @@ The L0 tests of `Get-Config`: discovery, memoization, the not-found path, parame
 ## Shipped config
 
 One case reads the shipped `tools.yml`, so discovery in its owning module is proven for a real config
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The raw default
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)). The raw default
 itself is pinned hermetically, on a fixture config with no registry entry.
 
 ## Function behaviour

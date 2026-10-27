@@ -11,7 +11,7 @@ Only ingress is checked by gates; the source-of-truth and integration rules rest
 6  code review      the only check on where consumers integrate from (R2, R3, L6)
 7  consumer clones  meant to build on the verified point; nothing resolves it
 
-Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-INTEGRATEFROMVERIFIED
 and DDR-REMOTE-PULLREQUESTISINGRESS, ADR-REPO-VARIANT-GITWORKSPACE and FDR-LIFE-SYNCFROMVERIFIEDHEAD (governance lens).
 ```
 
@@ -28,7 +28,7 @@ about:
   adrs:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
-    - DDR-REMOTE-NORECONCILINGTIPS
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-PULLREQUESTISINGRESS
     - ADR-REPO-VARIANT-GITWORKSPACE
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
@@ -72,7 +72,7 @@ content:
     - { at: g-policy, kind: rule, rule: DDR-REMOTE-PULLREQUESTISINGRESS }
     - { at: band-remote, kind: rule, rule: DDR-REMOTE-SERVERREMOTEISTRUTH, gated: false }
     - { at: g-review, kind: rule, rule: DDR-REMOTE-INTEGRATEFROMVERIFIED, gated: false }
-    - { at: g-review, kind: rule, rule: DDR-REMOTE-NORECONCILINGTIPS, gated: false }
+    - { at: g-review, kind: rule, rule: DDR-REMOTE-INTEGRATEFROMVERIFIED, gated: false }
     - { at: g-review, kind: rule, rule: FDR-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
@@ -113,7 +113,7 @@ layout:
 
 - The server remote is the single source of truth, and clones are bridges to it (DDR-REMOTE-SERVERREMOTEISTRUTH).
 - Consumers integrate from the last remote-verified commit and so never reconcile a rewritten tip (DDR-REMOTE-INTEGRATEFROMVERIFIED,
-  DDR-REMOTE-NORECONCILINGTIPS); that commit is the BVT-verified server head, the same one `main-UAT` takes first
+  DDR-REMOTE-INTEGRATEFROMVERIFIED); that commit is the BVT-verified server head, the same one `main-UAT` takes first
   (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 - The pull request is the authenticated ingress, enforced by the server branch policy (DDR-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`

@@ -35,7 +35,7 @@ it improves the one service being watched.
 
 Source: [DORA, Monitoring systems](../../../references/dora/capabilities.md#monitoring-systems)
 
-Binds to [WDR-OBSERVEWIP-OBSERVEWHOLESTREAM](../../process/observe-work.md#rule-wdr-observewip-observewholestream).
+Binds to [WDR-LEANTERMS-OPTIMISETHEWHOLE](../../process/process-terms.md#rule-wdr-leanterms-optimisethewhole).
 
 ### Rule EDR-DORA-MONITOR-ALERTONAPPROACH
 

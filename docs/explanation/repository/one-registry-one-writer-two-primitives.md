@@ -11,7 +11,7 @@ Root config materialisation is one registry, one writer, one write primitive and
 6  gitignored targets      22 targets git ignores
 7  tracked targets         6 targets git keeps, because git or the bootstrap reads them before the importer runs
 
-Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT and ADR-REPO-ROOTCFG-HEADEDCOPY (architecture lens).
+Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT and ADR-REPO-ROOTCFG-HEADEDCOPY (architecture lens).
 ```
 
 Root config materialisation in cats has four parts and one direction. Sources of truth sit under `pwsh/`; the registry in
@@ -24,7 +24,7 @@ description:
   The registry, the templates and the generators feed one writer in the RootConfig module, which writes every target through the one
   primitive in the Files module; the targets split into gitignored and tracked by one boolean.
 about:
-  adrs: [ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
+  adrs: [ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: architecture
 content:
   title: One registry, one writer, one write primitive, two kinds of target
@@ -101,7 +101,7 @@ layout:
 - The registry is one file and `Build-RootConfig` is its single writer; the target-to-source pairing lives nowhere else
   (ADR-REPO-ROOTCFG-REGISTRY).
 - All writes go through `Write-FileIfChanged`, whose delete-then-write never writes through a link into a source of truth
-  (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT).
+  (ADR-REPO-README-READMEIDEMPOTENT).
 - A `source` entry is a headed copy of its template, never a link to it, since a head written into a link would land in the template
   (ADR-REPO-ROOTCFG-HEADEDCOPY).
 

@@ -9,7 +9,7 @@ Changes enter the mainline through one door, and consumers build on one stable p
 4  verified point   the last commit the server proved verified; it never moves
 5  consumer clones  every consumer builds on the verified point, never on HEAD
 
-Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-INTEGRATEFROMVERIFIED
 and DDR-REMOTE-PULLREQUESTISINGRESS (meta lens).
 ```
 
@@ -23,7 +23,7 @@ description:
   A change enters the server's main only through a pull request, and consumers build on the last verified commit, a point that never moves,
   never on the provisional HEAD.
 about:
-  adrs: [DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS, DDR-REMOTE-PULLREQUESTISINGRESS]
+  adrs: [DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: meta
 content:
   title: Changes enter through one door, and consumers build on one stable point
@@ -86,7 +86,7 @@ layout:
 - The audited server remote is the single source of truth, and local and CI clones are bridges to it (DDR-REMOTE-SERVERREMOTEISTRUTH).
 - A consumer integrates from the last remote-verified commit, never from the current remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - Because the verified point never moves, a consumer never has to reconcile a tip that is later rewritten or superseded
-  (DDR-REMOTE-NORECONCILINGTIPS).
+  (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request is the authenticated ingress, and closing every other door is what makes the `git log` audit trail complete
   (DDR-REMOTE-PULLREQUESTISINGRESS).
 

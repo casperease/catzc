@@ -12,7 +12,7 @@ Three gates guard the CLI and az, but nothing checks that cats stays thin.
 7  az CLI                the default for every Azure operation
 8  swappable substrate   DRS-only: the vendor could change behind the CLI
 
-Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-REPRESENTEDASCODE
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, PDR-EAC-EVERYTHINGCOMMITTED
 and DDR-THINPLAT-SWAPPABLESUBSTRATE, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (governance lens).
 ```
 
@@ -30,7 +30,7 @@ about:
     - DDR-THINPLAT-THINPLATFORM
     - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
     - DDR-THINPLAT-PLATFORMASCLI
-    - DDR-THINPLAT-REPRESENTEDASCODE
+    - PDR-EAC-EVERYTHINGCOMMITTED
     - DDR-THINPLAT-SWAPPABLESUBSTRATE
     - ADR-AZ-CLI-AZBYDEFAULT
     - ADR-AZ-CLI-ASSERTAZ
@@ -75,7 +75,7 @@ content:
     - { at: g-naming, kind: rule, rule: ADR-AZ-CLI-NOAZMODULEIMPORT }
     - { at: g-functions, kind: rule, rule: DDR-THINPLAT-PLATFORMASCLI, gated: false }
     - { at: g-config, kind: rule, rule: DDR-THINPLAT-THINPLATFORM }
-    - { at: g-everything-code, kind: rule, rule: DDR-THINPLAT-REPRESENTEDASCODE, gated: false }
+    - { at: g-everything-code, kind: rule, rule: PDR-EAC-EVERYTHINGCOMMITTED, gated: false }
     - { at: g-assert-tool, kind: rule, rule: ADR-AZ-CLI-ASSERTAZ }
     - { at: g-no-reimplementation, kind: rule, rule: DDR-THINPLAT-DELEGATENOTREIMPLEMENT, gated: false }
     - { at: g-az-cli, kind: rule, rule: ADR-AZ-CLI-AZBYDEFAULT, gated: false }
@@ -126,7 +126,7 @@ layout:
 - The conventions over Azure are owned by the platform and live in its configuration (DDR-THINPLAT-THINPLATFORM).
 - Thin is delegation, not reimplementation (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
 - The `Verb-Noun` functions and their configuration are the platform's API (DDR-THINPLAT-PLATFORMASCLI).
-- Everything the platform covers is code, in one living version (DDR-THINPLAT-REPRESENTEDASCODE).
+- Everything the platform covers is code, in one living version (PDR-EAC-EVERYTHINGCOMMITTED).
 - The substrate is swappable, and the consequential choices stay in the consumer's configuration (DDR-THINPLAT-SWAPPABLESUBSTRATE).
 - az is the default for Azure operations (ADR-AZ-CLI-AZBYDEFAULT), a function that calls az asserts `Assert-Tool 'az_cli'` first
   (ADR-AZ-CLI-ASSERTAZ), and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).

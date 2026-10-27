@@ -1,4 +1,4 @@
-Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT' {
+Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
     BeforeAll {
         function script:Add-Output {
             param([string] $Relative, [datetime] $WrittenUtc = [datetime]::UtcNow, [string] $Content = 'widget')
@@ -37,7 +37,7 @@ Describe 'Clear-Output' -Tag 'L0', 'logic', 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT'
         Test-Path (Join-Path $script:root 'test-widget/latest.txt') | Should -BeTrue
     }
 
-    It 'ages out a session script after seven days, keeps a fresh one, and never prunes a log or a cache entry' -Tag 'ADR-REPO-OUTDIR-EVERYFILEHASFORMAT' {
+    It 'ages out a session script after seven days, keeps a fresh one, and never prunes a log or a cache entry' -Tag 'ADR-REPO-OUTFMT-OUTPUTFORMAT' {
         $old = [datetime]::UtcNow.AddDays(-9)
         Add-Output 'probe-old.ps1' -WrittenUtc $old
         Add-Output 'probe-new.ps1'

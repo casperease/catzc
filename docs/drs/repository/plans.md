@@ -114,7 +114,7 @@ sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim
 ### Done is deleted
 
 Keeping a finished plan "for the record" is the habit this repository does not have
-([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-nodeadcode)). The one line in `value-of-plan.md` says what was
+([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-historyingit)). The one line in `value-of-plan.md` says what was
 deleted and why, so a reader who misses a plan finds the reason in one place and the text in git.
 
 ### In-use files

@@ -6,7 +6,7 @@ analyzers:
   Measure-NoWriteErrorOrWarning: [ADR-PWSH-ERROR-THROWNOTWRITEERROR, ADR-PWSH-ERROR-NOWRITEWARNING]
   Measure-NoAzModuleNaming: [ADR-AZ-CLI-AZURENOUNPREFIX]
   Measure-NoAutomaticVariableMisuse: [ADR-PWSH-AUTOVAR-NOQUESTIONMARKVARIABLE]
-  Measure-NoForEachObjectControlFlow: [ADR-PWSH-FOREACH-NOCONTROLFLOWINOBJECT]
+  Measure-NoForEachObjectControlFlow: [ADR-PWSH-FOREACH-OBJECTFORTRANSFORMS]
   Measure-NoRawVsoCommand: [ADR-ADO-VAR-NORAWLOGGINGCOMMANDS]
   Measure-NoRawPipelineDetection: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   Measure-NoRawInformationStream: [ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT]
@@ -38,5 +38,5 @@ analyzers:
 
   # Enabled built-in rules that enforce an ADR
   PSUseApprovedVerbs: [ADR-PWSH-VERBS-APPROVEDVERBS]
-  PSAvoidSemicolonsAsLineTerminators: [ADR-PWSH-NOSEMI-NOTRAILINGSEMICOLONS]
+  PSAvoidSemicolonsAsLineTerminators: [ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS]
   PSPlaceOpenBrace: [ADR-PWSH-FORMAT-KANDRBRACES]

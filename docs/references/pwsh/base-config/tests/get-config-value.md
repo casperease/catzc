@@ -10,6 +10,6 @@ address resolves exactly as it would against a real config.
 ## Real wiring
 
 One case reads the shipped `tools.yml`, which loads as the typed `ToolsConfig`, a read-only tool map, and guards the wiring end to end
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
 
 [r1]: ../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-configonereader
