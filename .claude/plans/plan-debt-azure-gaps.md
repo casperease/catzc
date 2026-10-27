@@ -58,8 +58,9 @@ is planned here, one step each, so no record carries a planned item.
       `docs/references/pwsh/azure-templates/private/get-arm-deployed-resource.md`.
 - [ ] A cost model per template beside its reference article in `docs/references/infrastructure/`, with the budget amounts derived from it.
       Check: a budget amount has a model behind it.
-- [ ] A cost export to storage, a forecast alert and an anomaly alert in `discovery`; `budget.bicep` accepts more than one threshold type.
-      Check: `discovery` deploys all three.
+- [x] A cost export to storage, a forecast alert and an anomaly alert in `discovery`; `budget.bicep` accepts more than one threshold type.
+      Check: `discovery` deploys all three. Verdict (2026-10-27): the export and the forecast thresholds landed with the discovery wiring;
+      the anomaly alert stays in its own step below.
 - [ ] A pre-deploy cost estimate per template. Check: CI prints one per template.
 - [ ] Cost model: config-driven SKU and billing-zone meters. The estimate counts resources by type, so a type whose SKU varies by config
       cannot be priced yet: - the hub firewall, per hub from `network.yml` `subscriptions.<hub>.firewall_sku`: - `shared_nonprod`: Azure
@@ -76,11 +77,13 @@ is planned here, one step each, so no record carries a planned item.
       Build-Bicep.Integrity, Test-BicepTemplateCompliance.Tests and Test-BicepApiVersions green in one staged burst. Verdict (2026-10-27):
       found in the tree, identical to the staged copies; Build-Bicep.Integrity.Tests passed in the evaluator burst, the other three gates
       not run here.
-- [ ] Discovery wiring, after the foundation burst: `budgetForecastThresholds` (default `[100]`) to `budget.bicep`'s `forecastThresholds`;
+- [x] Discovery wiring, after the foundation burst: `budgetForecastThresholds` (default `[100]`) to `budget.bicep`'s `forecastThresholds`;
       `cost-export.bicep` to foundation's flow-log account (`costExportName`, namer type `cexp` added to Get-AzureResourceTypeSet, limit
       64), from `budgetStartDate` for five years; `defender-plans.bicep` with `defenderPlans`; the MCSB initiative
       (`1f3afdf9-d0c9-4c3d-847f-89da613e70a8`) in `landing-zone-policies.bicep` as `benchmark` (role `bm`), its own `DoNotEnforce`. Check:
-      the same four gates and Get-AzureResourceName tests green in one staged burst.
+      the same four gates and Get-AzureResourceName tests green in one staged burst. Verdict (2026-10-27 burst): Test-BicepLint,
+      Test-BicepApiVersions, Build-Bicep.Integrity, Test-BicepTemplateCompliance, Get-AzureResourceName and Discovery.FlowLog passed, 6 of
+      6.
 - [ ] The anomaly alert (`scheduled-action.bicep`) in discovery: its recipients are a required template input injected at deploy time from a
       pipeline variable (decided), but no deploy-time parameter injection exists yet, so the mechanism is designed and approved first, then
       the variable joins the task file's pipeline-setup step. Check: discovery deploys the alert with recipients from the variable and no

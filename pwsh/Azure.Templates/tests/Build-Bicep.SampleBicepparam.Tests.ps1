@@ -5,12 +5,12 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-bicepparam'
 
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
-        Mock Invoke-Executable {
-            if (& $script:compileBicepParams $Command) {
-                return
-            }
-            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
-                [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+        Mock Invoke-ExecutableParallel {
+            foreach ($line in $Command) {
+                if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                    [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+                }
+                [Catzc.Base.Execution.CliResult]::new('', '', 0)
             }
         } -ModuleName Catzc.Azure.Templates
         Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'bicep' } } -ModuleName Catzc.Azure.Templates
@@ -53,6 +53,8 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
 
     It 'compiles every slot through bicep build-params, once per slot' {
         Build-Bicep sample-bicepparam | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -Times 2 -Exactly -ParameterFilter { $Command -like '* build-params *' }
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter {
+            @($Command | Where-Object { $_ -like '* build-params *' }).Count -eq 2
+        }
     }
 }

@@ -7,12 +7,12 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
 
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
-        Mock Invoke-Executable {
-            if (& $script:compileBicepParams $Command) {
-                return
-            }
-            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
-                [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+        Mock Invoke-ExecutableParallel {
+            foreach ($line in $Command) {
+                if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                    [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+                }
+                [Catzc.Base.Execution.CliResult]::new('', '', 0)
             }
         } -ModuleName Catzc.Azure.Templates
         # The bicep binary is resolved through the toolchain; mock the boundary so no version probe runs.

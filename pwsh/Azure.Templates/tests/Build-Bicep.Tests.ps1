@@ -9,12 +9,12 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
         } -ModuleName Catzc.Azure.Templates
 
-        Mock Invoke-Executable {
-            if (& $script:compileBicepParams $Command) {
-                return
-            }
-            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
-                [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+        Mock Invoke-ExecutableParallel {
+            foreach ($line in $Command) {
+                if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                    [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+                }
+                [Catzc.Base.Execution.CliResult]::new('', '', 0)
             }
         } -ModuleName Catzc.Azure.Templates
         # The bicep binary is resolved through the toolchain; mock the boundary so no version probe runs.
@@ -67,10 +67,8 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
 
     It 'invokes bicep build with the template main path and outdir' {
         Build-Bicep sample | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -ParameterFilter {
-            $Command -match ' build "' -and
-            $Command -match 'main\.bicep' -and
-            $Command -match 'outdir'
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Azure.Templates -ParameterFilter {
+            @($Command | Where-Object { $_ -match ' build "' -and $_ -match 'main\.bicep' -and $_ -match 'outdir' }).Count -eq 1
         }
     }
 
@@ -119,16 +117,17 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Found = $true; VersionOk = $false; Path = 'bicep'; Version = '0.1.0'; Required = '9.9.9' }
         } -ModuleName Catzc.Azure.Templates
         { Build-Bicep sample -Environments alpha } | Should -Throw "*pins '9.9.9'*"
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -Times 0
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Azure.Templates -Times 0
     }
 
     It 'throws when bicep build exits 0 but produces no main.json' {
         # Bicep available, but the build emits nothing -> the post-build assert fires at the source.
-        Mock Invoke-Executable {
-            if (& $script:compileBicepParams $Command) {
-                return
+        Mock Invoke-ExecutableParallel {
+            foreach ($line in $Command) {
+                # bicep build: simulate exit 0 with no compiled output.
+                $null = & $script:compileBicepParams $line
+                [Catzc.Base.Execution.CliResult]::new('', '', 0)
             }
-            # bicep build: simulate exit 0 with no compiled output.
         } -ModuleName Catzc.Azure.Templates
         { Build-Bicep sample -Environments alpha } | Should -Throw '*no main.json*'
     }

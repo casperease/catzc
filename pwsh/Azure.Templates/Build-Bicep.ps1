@@ -88,6 +88,8 @@ function Build-Bicep {
     # Every slot deploys as a .bicepparam in the output folder whose using names main.bicep in the tree, so its module tree resolves.
     $using = [System.IO.Path]::GetRelativePath($outputFolder, $templateDescriptor.main).Replace('\', '/')
     $usingLine = [regex]::new("(?m)^(\s*using\s+)'[^']*'")
+    # Each compile is a full bicep process over the template, so every slot's build-params and the main.bicep build run side by side.
+    $compiles = [System.Collections.Generic.List[object]]::new()
     foreach ($slot in $targetSlots) {
         $environment = $slot.environment
         $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Customer $slot.customer)
@@ -98,17 +100,48 @@ function Build-Bicep {
             }
             $source = [System.IO.File]::ReadAllText($slot.file)
             [System.IO.File]::WriteAllText($bicepParamPath, $usingLine.Replace($source, "`$1'$using'", 1))
-            Invoke-BicepParamsBuild -BicepPath $bicep.Path -BicepParamPath $bicepParamPath -ParametersPath $paramsPath
+        }
+        else {
+            $preparedDescriptor = Get-BicepPreparedConfiguration -TemplateDescriptor $templateDescriptor -Slot $slot -PrepareHook $prepareHook
+            [System.IO.File]::WriteAllText($bicepParamPath,
+                (ConvertTo-BicepParam -Descriptor $preparedDescriptor -Using $using))
+        }
+        $compiles.Add([pscustomobject]@{
+                Label      = "bicep build-params of slot '$($slot.name)'$(if ($slot.customer) { " (customer '$($slot.customer)')" })"
+                Command    = "`"$($bicep.Path)`" build-params `"$bicepParamPath`" --outfile `"$paramsPath`""
+                Source     = $bicepParamPath
+                Parameters = $paramsPath
+            })
+    }
+    $compiles.Add([pscustomobject]@{
+            Label      = "bicep build of '$($templateDescriptor.main)'"
+            Command    = "`"$($bicep.Path)`" build `"$($templateDescriptor.main)`" --outdir `"$outputFolder`""
+            Source     = $templateDescriptor.main
+            Parameters = $null
+        })
+
+    Write-Message "Building $($templateDescriptor.main) and $($compiles.Count - 1) slot(s) to $outputFolder"
+    $results = @(Invoke-ExecutableParallel -Command @($compiles | ForEach-Object Command) -NoAssert -Silent)
+    $failures = [System.Collections.Generic.List[string]]::new()
+    for ($index = 0; $index -lt $compiles.Count; $index++) {
+        $compile = $compiles[$index]
+        $result = $results[$index]
+        if ($result.ExitCode -ne 0) {
+            $failures.Add("$($compile.Label) failed with exit code $($result.ExitCode):`n$($result.Full)")
             continue
         }
-        $preparedDescriptor = Get-BicepPreparedConfiguration -TemplateDescriptor $templateDescriptor -Slot $slot -PrepareHook $prepareHook
-        [System.IO.File]::WriteAllText($bicepParamPath,
-            (ConvertTo-BicepParam -Descriptor $preparedDescriptor -Using $using))
-        Invoke-BicepParamsBuild -BicepPath $bicep.Path -BicepParamPath $bicepParamPath -ParametersPath $paramsPath
+        if ($result.Errors) {
+            Write-Message "$($compile.Label):`n$($result.Errors)"
+        }
     }
-
-    Write-Message "Building $($templateDescriptor.main) to $outputFolder"
-    Invoke-Executable "`"$($bicep.Path)`" build `"$($templateDescriptor.main)`" --outdir `"$outputFolder`""
+    if ($failures.Count -gt 0) {
+        throw "Template '$Template': $($failures.Count) of $($compiles.Count) bicep compile(s) failed:`n$($failures -join "`n")"
+    }
+    foreach ($compile in @($compiles | Where-Object Parameters)) {
+        Assert-PathExist $compile.Parameters -PathType Leaf -ErrorText (
+            "bicep build-params reported success but wrote no '$($compile.Parameters)' from '$($compile.Source)'; check its output above.")
+        Write-Message "Wrote $($compile.Parameters)"
+    }
 
     # Asserted here because the Bicep CLI is proved available, so a missing main.json is an unexpected build failure, not a missing install.
     $mainJson = Join-Path $outputFolder 'main.json'
