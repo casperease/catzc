@@ -26,19 +26,68 @@ public static class ArmExpression
     // As above, with the template's variables: a variables() call evaluates that variable's own expression over the same scope, on demand.
     public static object Evaluate(object value, IDictionary parameters, IDictionary variables)
     {
-        return Evaluate(value, parameters, variables, null, 0);
+        return Evaluate(value, parameters, variables, null, null, 0);
     }
 
     // As above, inside copy loops: copyIndexes maps each loop's name to its instance index, and the empty name to the innermost loop's.
     public static object Evaluate(object value, IDictionary parameters, IDictionary variables, IDictionary copyIndexes)
     {
-        return Evaluate(value, parameters, variables, copyIndexes, 0);
+        return Evaluate(value, parameters, variables, copyIndexes, null, 0);
+    }
+
+    // As above, with what deployment() returns: the deployment's own facts, such as the location it is sent to; null leaves it Unresolved.
+    public static object Evaluate(object value, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment)
+    {
+        return Evaluate(value, parameters, variables, copyIndexes, deployment, 0);
+    }
+
+    // A property copy entry, { name, count, input }, which a Bicep for-expression in a module parameter or a property compiles to: one
+    // input per index, with copyIndex(name) bound to it; Unresolved when the count is not a resolved integer.
+    public static object EvaluateCopy(IDictionary copy, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment)
+    {
+        return EvaluateCopy(copy, parameters, variables, copyIndexes, deployment, 0);
     }
 
     // The deepest chain of variables referring to variables; past it the value is Unresolved, so a cycle cannot recurse forever.
     private const int MaxVariableDepth = 16;
 
-    private static object Evaluate(object value, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, int depth)
+    private static object EvaluateCopy(IDictionary copy, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment, int depth)
+    {
+        if (copy == null || !(copy["name"] is string name) || !copy.Contains("input")) { return Unresolved; }
+        object count = Evaluate(copy["count"], parameters, variables, copyIndexes, deployment, depth);
+        if (!ArmFunction.IsNumber(count)) { return Unresolved; }
+        var values = new List<object>();
+        for (long index = 0; index < Convert.ToInt64(count, CultureInfo.InvariantCulture); index++)
+        {
+            var bound = new Hashtable(StringComparer.OrdinalIgnoreCase);
+            if (copyIndexes != null) { foreach (DictionaryEntry e in copyIndexes) { bound[e.Key] = e.Value; } }
+            bound[name] = index;
+            bound[string.Empty] = index;
+            values.Add(EvaluateTree(copy["input"], parameters, variables, bound, deployment, depth));
+        }
+        return values.ToArray();
+    }
+
+    // A variable or a copy input may be an object or array of expressions, not one string: each leaf string evaluates in the given scope.
+    private static object EvaluateTree(object node, IDictionary parameters, IDictionary variables, IDictionary bound, IDictionary deployment, int depth)
+    {
+        if (node is string) { return Evaluate(node, parameters, variables, bound, deployment, depth); }
+        if (node is IDictionary map)
+        {
+            var result = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+            foreach (DictionaryEntry e in map) { result[e.Key] = EvaluateTree(e.Value, parameters, variables, bound, deployment, depth); }
+            return result;
+        }
+        if (node is IList list)
+        {
+            var items = new List<object>();
+            foreach (object item in list) { items.Add(EvaluateTree(item, parameters, variables, bound, deployment, depth)); }
+            return items.ToArray();
+        }
+        return node;
+    }
+
+    private static object Evaluate(object value, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment, int depth)
     {
         string text = value as string;
         if (text == null) { return value; }
@@ -46,7 +95,7 @@ public static class ArmExpression
         if (text.StartsWith("[[", StringComparison.Ordinal)) { return text.Substring(1); }
         try
         {
-            var parser = new Parser(text.Substring(1, text.Length - 2), parameters ?? new Hashtable(), variables, copyIndexes, depth);
+            var parser = new Parser(text.Substring(1, text.Length - 2), parameters ?? new Hashtable(), variables, copyIndexes, deployment, depth);
             object result = parser.Expression();
             parser.SkipSpace();
             return parser.AtEnd ? result : Unresolved;
@@ -62,15 +111,17 @@ public static class ArmExpression
         private readonly IDictionary parameters;
         private readonly IDictionary variables;
         private readonly IDictionary copyIndexes;
+        private readonly IDictionary deployment;
         private readonly int depth;
         private int position;
 
-        public Parser(string text, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, int depth)
+        public Parser(string text, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment, int depth)
         {
             this.text = text;
             this.parameters = parameters;
             this.variables = variables;
             this.copyIndexes = copyIndexes;
+            this.deployment = deployment;
             this.depth = depth;
         }
 
@@ -256,39 +307,9 @@ public static class ArmExpression
             {
                 IDictionary copy = item as IDictionary;
                 if (copy == null || !copy.Contains("name") || !string.Equals(copy["name"] as string, name, StringComparison.OrdinalIgnoreCase)) { continue; }
-                object count = Evaluate(copy["count"], parameters, variables, copyIndexes, depth + 1);
-                if (!ArmFunction.IsNumber(count) || !copy.Contains("input")) { return Unresolved; }
-                var values = new List<object>();
-                for (long index = 0; index < Convert.ToInt64(count, CultureInfo.InvariantCulture); index++)
-                {
-                    var bound = new Hashtable(StringComparer.OrdinalIgnoreCase);
-                    if (copyIndexes != null) { foreach (DictionaryEntry e in copyIndexes) { bound[e.Key] = e.Value; } }
-                    bound[name] = index;
-                    bound[string.Empty] = index;
-                    values.Add(EvaluateTree(copy["input"], bound));
-                }
-                return values.ToArray();
+                return EvaluateCopy(copy, parameters, variables, copyIndexes, deployment, depth + 1);
             }
             return Unresolved;
-        }
-
-        // A variable or a copy input may be an object or array of expressions, not one string: each leaf string evaluates in the given scope.
-        private object EvaluateTree(object node, IDictionary bound)
-        {
-            if (node is string) { return Evaluate(node, parameters, variables, bound, depth + 1); }
-            if (node is IDictionary map)
-            {
-                var result = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
-                foreach (DictionaryEntry e in map) { result[e.Key] = EvaluateTree(e.Value, bound); }
-                return result;
-            }
-            if (node is IList list && !(node is string))
-            {
-                var items = new List<object>();
-                foreach (object item in list) { items.Add(EvaluateTree(item, bound)); }
-                return items.ToArray();
-            }
-            return node;
         }
 
         private object Call(string name, List<object> args)
@@ -300,7 +321,7 @@ public static class ArmExpression
                     return parameters.Contains(args[0]) ? parameters[args[0]] : Unresolved;
                 case "variables":
                     if (args.Count != 1 || !(args[0] is string) || variables == null || depth >= MaxVariableDepth) { return Unresolved; }
-                    if (variables.Contains(args[0])) { return EvaluateTree(variables[args[0]], copyIndexes); }
+                    if (variables.Contains(args[0])) { return EvaluateTree(variables[args[0]], parameters, variables, copyIndexes, deployment, depth + 1); }
                     return CopyVariable((string)args[0]);
                 case "if":
                     // Lazy in effect: once the condition resolves, the branch it picks is the value, whatever the other branch is.
@@ -320,6 +341,9 @@ public static class ArmExpression
                         if (bindings[i].Key == (string)args[0]) { return bindings[i].Value; }
                     }
                     return Unresolved;
+                case "deployment":
+                    // The caller's deployment facts; a member it does not hold (a resource-group deployment has no location) stays Unresolved.
+                    return args.Count == 0 && deployment != null ? deployment : Unresolved;
                 case "true": return true;
                 case "false": return false;
                 case "null": return args.Count == 0 ? null : Unresolved;

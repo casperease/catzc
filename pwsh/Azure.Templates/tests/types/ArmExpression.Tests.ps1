@@ -148,6 +148,28 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved (& $eval "[tenantResourceId('Widget.Parts/widgets/gadgets', 'widget')]") | Should -BeTrue
     }
 
+    It 'reads deployment() from the deployment facts the caller passes, and leaves it unresolved without them or past what they hold' {
+        $deployment = @{ location = 'widgetnorth' }
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().location]', @{}, @{}, @{}, $deployment) | Should -BeExactly 'widgetnorth'
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('Widget.', deployment().location)]", @{}, @{}, $null, $deployment) | Should -BeExactly 'Widget.widgetnorth'
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().name]', @{}, @{}, @{}, $deployment)) | Should -BeTrue
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().location]', @{}, @{}, @{}, @{})) | Should -BeTrue
+        & $isUnresolved (& $eval '[deployment().location]') | Should -BeTrue
+    }
+
+    It 'expands a property copy entry, one input per index with copyIndex(name) bound, and a count that does not resolve to unresolved' {
+        $parameters = @{ widgets = @(@{ size = 'small' }, @{ size = 'large' }) }
+        $copy = @{ name = 'value'; count = "[length(parameters('widgets'))]"; input = "[parameters('widgets')[copyIndex('value')].size]" }
+        [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($copy, $parameters, @{}, $null, $null) | Should -BeExactly @('small', 'large')
+        $tree = @{ name = 'gadgets'; count = 2; input = @{ name = "[concat('gadget-', string(copyIndex('gadgets')))]"; at = "[deployment().location]"; index = "[copyIndex()]" } }
+        $built = @([Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($tree, @{}, @{}, $null, @{ location = 'widgetnorth' }))
+        $built | ForEach-Object { $_['at'] } | Should -Be @('widgetnorth', 'widgetnorth')
+        $built | ForEach-Object { $_['index'] } | Should -Be @(0, 1)
+        & $isUnresolved ($built[0]['name']) | Should -BeTrue
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::EvaluateCopy(@{ name = 'value'; count = "[parameters('missing')]"; input = 'widget' }, @{}, @{}, $null, $null)) | Should -BeTrue
+        [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy(@{ name = 'value'; count = 0; input = 'widget' }, @{}, @{}, $null, $null) | Should -BeNullOrEmpty
+    }
+
     It 'is unresolved outside the subset, never a guess' {
         & $isUnresolved (& $eval "[guid('widget', 'gadget')]") | Should -BeTrue
         & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue

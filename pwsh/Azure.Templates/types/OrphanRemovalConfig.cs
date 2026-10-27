@@ -11,8 +11,6 @@ public sealed class OrphanRemovalConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "orphan-removal configuration validation failed:\n";
     private static readonly string[] AllowedKeys = { "azure_created" };
 
-    // The children Azure creates with their parent, which no template declares and az resource list returns: each is the resource type
-    // and the last segment of its name, joined by '/'.
     public IReadOnlyList<string> azure_created { get; } = new[]
     {
         "Microsoft.Sql/servers/databases/master",                               // every SQL server's system database

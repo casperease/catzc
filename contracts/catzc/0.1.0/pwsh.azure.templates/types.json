@@ -6,6 +6,10 @@
       "display": [],
       "members": [
         {
+          "name": "EvaluateCopy",
+          "kind": "method"
+        },
+        {
           "name": "Evaluate",
           "kind": "method"
         },

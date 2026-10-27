@@ -75,7 +75,9 @@ is planned here, one step each, so no record carries a planned item.
       ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES) runs in the foundation and expedition jobs of `stages/deploy-unit.yaml` under
       `RemoveOrphans`, which `deploy-apex.yaml` and `deploy-shared.yaml` set on prod and rollback; Remove-BicepOrphanResources.Tests (12 L0,
       4 pipeline-YAML) passed 16 of 16, with Test-Parsing, Test-Contracts and Test-Pipelines.Tests. Discovery (subscription scope) has no
-      cleanup.
+      cleanup. Narrowed (meister, 2026-10-27 burst): only listable resources are compared, extension resources and child proxies are left
+      out, and `orphan-removal.yml` (`OrphanRemovalConfig`, `azure_created`) skips a SQL server's `master`; OrphanRemovalConfig.Tests,
+      Remove-BicepOrphanResources.Tests, Test-ShippedConfigs and Test-Contracts passed, 4 of 4.
 - [ ] The deploy pipelines run on an agent pool inside the network before a live deploy. `foundation`'s vault has public network access off
       (`docs/how-to/infrastructure/seed-a-secret.md`), so a Microsoft-hosted agent (`vmImage: ubuntu-latest`) cannot reach it for the
       anomaly seed (`Set-AnomalyAlertRecipientSecret`) or the break-glass rotation (`Invoke-BreakGlassRotation`). The pool is a Managed

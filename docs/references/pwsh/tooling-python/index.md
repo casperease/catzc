@@ -44,6 +44,7 @@ The module's public functions, sorted into the responsibilities above.
 | Responsibility                               | Function            |
 | -------------------------------------------- | ------------------- |
 | responsibility:1 — Python runtime and pip    | `Install-Python`    |
+|                                              | `Install-PythonWorkspace` |
 |                                              | `Invoke-Python`     |
 |                                              | `Invoke-Pip`        |
 |                                              | `Uninstall-Python`  |

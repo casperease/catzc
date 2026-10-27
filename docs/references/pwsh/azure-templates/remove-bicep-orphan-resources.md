@@ -20,9 +20,10 @@ the template's resources with the slot's parameter values offline (the complianc
 to case. Only what the listing can return is compared: the template's extension resources (any with a `scope`, such as role assignments,
 locks and diagnostic settings) and child proxies (a child resource without a `location`) are left out, and a listed resource Azure creates
 itself, named in `orphan-removal.yml` (a SQL server's `master` database by default), is never an orphan. When the name of any listable
-evaluated resource does not resolve offline, such as one built by `format()` or `resourceId()`, the command deletes nothing: it returns the orphan candidates and then fails, naming the unresolved resources. Otherwise it deletes each orphan by id
-(`az resource delete`) and returns the ids it deleted. A template deployed at subscription scope is refused, since several templates share
-that scope, and a `DoNotRun` template is skipped.
+evaluated resource does not resolve offline, such as one built by `format()` or `resourceId()`, the command deletes nothing: it returns the
+orphan candidates and then fails, naming the unresolved resources. Otherwise it deletes each orphan by id (`az resource delete`) and returns
+the ids it deleted. A template deployed at subscription scope is refused, since several templates share that scope, and a `DoNotRun`
+template is skipped.
 
 ### parameter `Environment`
 

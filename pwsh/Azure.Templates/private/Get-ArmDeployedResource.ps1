@@ -14,14 +14,22 @@ function Get-ArmDeployedResource {
         [switch] $Conditional,
 
         # The copy indexes in force where this template is read; a top-level template has none.
-        [System.Collections.IDictionary] $Indexes = @{}
+        [System.Collections.IDictionary] $Indexes = @{},
+
+        # The location the deployment is sent to: Deploy-Bicep's --location, the slot's environment region. deployment().location reads
+        # it in a template above resource-group scope; a resource-group deployment has none, as in ARM.
+        [string] $Location
     )
 
     # The template's variables, evaluated on demand over the same scope when an expression names one.
     $variables = if ($Template.Contains('variables') -and $Template.variables -is [System.Collections.IDictionary]) { $Template.variables } else { @{} }
     # The copy index of the instance being read, by loop name and '' for the innermost loop; empty outside a copy.
     $current = $Indexes
-    $evaluate = { param($Value) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, $scope, $variables, $current) }
+    $deployment = @{}
+    if ($Location -and "$($Template['$schema'])" -notmatch '/deploymentTemplate\.json') {
+        $deployment.location = $Location
+    }
+    $evaluate = { param($Value) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, $scope, $variables, $current, $deployment) }
     $unresolved = { param($Value) [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($Value) }
 
     # A parameter the caller passes keeps its value; one it omits takes its default, evaluated over the passed ones.
@@ -92,16 +100,30 @@ function Get-ArmDeployedResource {
                         if ($entry -is [string]) {
                             $entry = & $evaluate $entry
                         }
+                        # A for-expression parameter compiles to { copy: [{ name: 'value', count, input }] }, its value the copy's array.
+                        $copies = if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('copy')) { @($entry.copy) } else { @() }
                         $passed[$parameter] = if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('value')) {
                             & $evaluate $entry.value
+                        }
+                        elseif ($copies.Count -eq 1 -and $copies[0] -is [System.Collections.IDictionary] -and $copies[0]['name'] -eq 'value') {
+                            $copied = [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($copies[0], $scope, $variables, $current, $deployment)
+                            if ($copied -is [array]) {
+                                , $copied
+                            }
+                            else {
+                                $copied
+                            }
                         }
                         else {
                             [Catzc.Azure.Templates.ArmExpression]::Unresolved
                         }
                     }
                 }
+                # A nested deployment above resource-group scope is sent to its resource's location, which its deployment() reads.
+                $nestedLocation = if ($resource.Contains('location')) { & $evaluate $resource.location } else { $null }
+                $nestedLocation = if ($nestedLocation -is [string]) { $nestedLocation } else { '' }
                 # A nested template numbers its own copy loops: its copyIndex() names its own loops.
-                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain
+                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation
                 continue
             }
             [pscustomobject]@{
@@ -112,6 +134,7 @@ function Get-ArmDeployedResource {
                 Scope       = $scope
                 Variables   = $variables
                 Indexes     = $current
+                Deployment  = $deployment
                 Conditional = $uncertain
             }
         }

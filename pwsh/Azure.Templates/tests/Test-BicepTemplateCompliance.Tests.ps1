@@ -182,6 +182,41 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
                     Where-Object Type -EQ 'Microsoft.Authorization/locks').Count | Should -Be 0
         }
     }
+
+    It 'reads deployment().location from -Location above resource-group scope, and passes a for-expression module parameter as its array' {
+        # A subscription template whose location defaults to deployment().location, passed with a looped list to a resource-group module.
+        $nested = [ordered]@{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = [ordered]@{ location = @{ type = 'string' }; sizes = @{ type = 'array' } }
+            resources  = @([ordered]@{ type = 'Widget.Parts/widgets'; name = "[concat('widget-', parameters('location'))]"; location = '[deployment().location]' })
+        }
+        $template = [ordered]@{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
+            parameters = [ordered]@{ location = @{ type = 'string'; defaultValue = '[deployment().location]' }; gadgets = @{ type = 'array' } }
+            resources  = @([ordered]@{
+                    type       = 'Microsoft.Resources/deployments'; name = 'widgets'; resourceGroup = 'widget-rg'
+                    properties = [ordered]@{
+                        template   = $nested
+                        parameters = [ordered]@{
+                            location = @{ value = "[parameters('location')]" }
+                            sizes    = @{ copy = @(@{ name = 'value'; count = "[length(parameters('gadgets'))]"; input = "[parameters('gadgets')[copyIndex('value')].size]" }) }
+                        }
+                    }
+                })
+        }
+        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template } {
+            param($Template)
+            $widget = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @(@{ size = 'small' }, @{ size = 'large' }) } -Location 'widgetnorth')
+            $widget.Count | Should -Be 1
+            $widget[0].Name | Should -BeExactly 'widget-widgetnorth'
+            $widget[0].Scope.sizes | Should -BeExactly @('small', 'large')
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved([Catzc.Azure.Templates.ArmExpression]::Evaluate(
+                    $widget[0].Resource.location, $widget[0].Scope, $widget[0].Variables, $widget[0].Indexes, $widget[0].Deployment)) | Should -BeTrue
+            $unplaced = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @() })
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($unplaced[0].Name) | Should -BeTrue
+            @($unplaced[0].Scope.sizes).Count | Should -Be 0
+        }
+    }
 }
 
 Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L1', 'integrity' {

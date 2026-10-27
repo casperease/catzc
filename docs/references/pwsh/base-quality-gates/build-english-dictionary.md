@@ -18,7 +18,7 @@ list with `cspell-trie reader`, unions them, keeps only lower-cased pure-alpha w
 result gzip-compressed to pwsh/Base.QualityGates/assets/english.txt.gz.
 
 Unlike the `.cspell/*.txt` term lists (regenerated cheaply from terminology.yml on every import), this list is EXPENSIVE to regenerate — it
-needs node, npx, and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So
+needs node and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So
 it is COMMITTED, the same call the compiled-type prebuild makes
 ([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a
 deterministic, expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a committed stamp
@@ -60,8 +60,10 @@ the command does not guess it. It asks npm for the global `node_modules` root an
 
 ## Flattening
 
-`cspell-trie` at the 10 line, the line the installed tries match, reads a trie and prints its words. The run goes through `npx`, a cold run
-downloads the tool, and about 440,000 words come back, so the command announces the step first
+`cspell-trie-lib`, the trie library the installed cspell ships under its own `node_modules`, decodes each trie in a node script read from
+stdin, so the reader is always at the cspell pin and nothing is fetched
+([ADR-AUTO-NET-NODEFAULTPATH](../../../drs/automation/network-calls.md#rule-adr-auto-net-nodefaultpath)). About 440,000 words come back, so
+the command announces the step first
 ([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 Only lower-cased, purely alphabetic words of two letters or more are kept. That drops apostrophe forms such as `'cause`, digits and single
 characters, none of which is an identifier fragment, and it folds proper-noun casing (`Nicaea` becomes `nicaea`), so the set is a clean
