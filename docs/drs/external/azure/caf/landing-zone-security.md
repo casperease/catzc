@@ -128,7 +128,7 @@ Apply a Zero Trust approach to access to the platform where it fits.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security (recommendation 14, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-LZ-CAFSECURITY](../../../azure/landing-zones.md#rule-adr-az-lz-cafsecurity).
 
 ### Rule EDR-AZ-CAF-SEC-R15
@@ -314,7 +314,7 @@ Apply the standard Azure landing zone policies, so non-compliant deployments are
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/security-zero-trust (recommendation 36, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-LZ-CAFSECURITY](../../../azure/landing-zones.md#rule-adr-az-lz-cafsecurity).
 
 ### Rule EDR-AZ-CAF-SEC-R37

@@ -4,32 +4,27 @@ Part of the decision of [ADR-AZ-LZ](../landing-zones.md), which holds the rules 
 
 ## Cost by configuration
 
-Cost is open to the team. A landing zone's budget is the `budgetAmount` value in its `discovery` config (500 for shared non-production, 1000
-for shared production, 300 for each customer's non-production subscription and 800 for `apex` production, per month in the subscription's
-billing currency), so anyone who reads the repository reads every budget and a change to one goes through review like any other. The CAF
-tags name the paying team (`cost-center`) and the accountable one (`owner`) on every resource, for example `owner: platform` and
-`cost-center: platform` in `nsub.yml` and `owner: apex` and `cost-center: apex` in `apex/psub.yml`; `expedition` carries
-`cost-center: platform` in `dev.yml` and `cost-center: apex` in `apex/prod.yml`. The workload has no budget of its own and its cost counts
-against its subscription's. Training, cost champions, and recognition belong to the organisation that runs the repository. The budget
-amounts are plain config values with no cost model behind them. The cost drivers a model would name are `foundation`'s workspace ingestion
-(`PerGB2018`), its retention and its Key Vault operations, `discovery`'s virtual network, peering data transfer and private DNS zones, and
-`expedition`'s database (`GP_S_Gen5` at up to 2 vCores in non-production, `GP_Gen5` at 2 vCores in production), its backup redundancy and
-its storage account.
+Cost is open to the team. A landing zone's budget is the `budgetAmount` value in its `discovery` config, so anyone who reads the repository
+reads every budget and a change to one goes through review like any other. The CAF tags name the paying team (`cost-center`) and the
+accountable one (`owner`) on every resource. The workload has no budget of its own and its cost counts against its subscription's. Training,
+cost champions, and recognition belong to the organisation that runs the repository. The budget amounts are plain config values with no cost
+model behind them. The cost drivers a model would name are `foundation`'s workspace ingestion (`PerGB2018`), its retention and its Key Vault
+operations, `discovery`'s virtual network, peering data transfer and private DNS zones, and `expedition`'s database (`GP_S_Gen5` at up to 2
+vCores in non-production, `GP_Gen5` at 2 vCores in production), its backup redundancy and its storage account.
 
-Cost is grouped by tag: the six CAF tags are on every resource that takes tags, the required-tag policy makes `cost-center` mandatory
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), and `budget.bicep` alerts the holders of the
+Cost is grouped by tag: the six CAF tags are on every resource that takes tags, the required-tag policy makes all six mandatory
+([ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies)), and `budget.bicep` alerts the holders of the
 subscription's `Owner` role at each threshold. The `budgetThresholds` default is 50, 80, and 100 percent of actual cost, and the module
-takes one `thresholdType` per budget. `foundation`'s workspace and vault carry the CAF tags and its resource group does not; `discovery`'s
-resource group and every tagged resource do; `expedition`'s resources do and its resource group does not.
+takes one `thresholdType` per budget. Every template's resource group and every tagged resource carry the CAF tags.
 
 The platform guardrails are the allowed-locations and required-tag policies (`requiredTagNames` defaults to the six CAF keys) and the
 budget, which alerts and never stops a resource. Whether the policies deny or audit is `policy_enforcement` in `azure.yml`. The cost-bearing
 settings are typed parameters: `databaseTier` is `@allowed`, `databaseBackupRetentionDays` is bounded 1 to 35, `budgetAmount` has a minimum
 of 1, and every rendered parameters file is checked against those bounds
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). `databaseSkuName` is a free string, and
-the policies restrict the resource types, the storage SKUs and the virtual machine sizes. `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview, and a CD pipeline deploys through one
-service connection per subscription and asserts the target with `-SubscriptionIdAssertIs`. `foundation`'s SKUs are module defaults
-(`PerGB2018`, `standard`).
+the policies restrict the resource types, the storage SKUs and the virtual machine sizes. `Deploy-Bicep -DryRun` runs Azure's `--what-if`
+preview, and a CD pipeline deploys through one service connection per subscription and asserts the target with `-SubscriptionIdAssertIs`.
+`foundation`'s SKUs are module defaults (`PerGB2018`, `standard`).
 
 Rates are the billing account's. Every resource is pay-as-you-go: the workspace on `PerGB2018`, the vault on `standard`, a provisioned
 `GP_Gen5` production database at 2 vCores (the one candidate for a reservation, bought at the billing account), and nothing in `discovery`
@@ -104,7 +99,7 @@ storage account is `Standard_ZRS` from the module default and has no capacity se
 
 The templates use managed services throughout and no virtual machine (`vm.bicep` exists as a module that no template uses). Every
 environment in `azure.yml` names one region, `westeurope`, and the allowed-locations policy keeps resources there
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)), so the workload, its private endpoints, and its
+([ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies)), so the workload, its private endpoints, and its
 workspace never cross a region. `foundation` deploys a managed workspace and a vault; `discovery` peers each spoke to its hub on the Azure
 backbone and holds the private DNS zones in the hub, so a workload reaches its data services over private addresses
 ([ADR-AZ-LZ-HUBANDSPOKE](../landing-zones.md#rule-adr-az-lz-hubandspoke)); `expedition` deploys Azure SQL Database (General Purpose, Gen5)
@@ -143,11 +138,10 @@ as the landing zone allows: one virtual network, a network security group per wo
 reserved firewall subnet empty. `expedition` holds one empty database and one storage account with a 7-day soft delete and no schema, index,
 cache, read replica, or lifecycle rule, so data tuning is the workload's that owns a schema.
 
-Flows are not inventoried, because the workload has none. The CAF tags carry `criticality`, which rates each deployment, not each flow:
-`high` for the shared subscriptions and for production, `medium` for `foundation` and `discovery` in a customer's non-production
-subscription, and `low` for the non-production workload (`high` in `apex/prod.yml`). Nothing reserves capacity or limits traffic by it.
-Isolation comes from the customer model: each customer has its own subscriptions, spokes, workspace, vault, and workload resources, so one
-customer's load never shares a database with another's.
+Flows are not inventoried, because the workload has none. The `criticality` tag rates each deployment, not each flow (see
+[Reliability in one region](#reliability-in-one-region)), and nothing reserves capacity or limits traffic by it. Isolation comes from the
+customer model: each customer has its own subscriptions, spokes, workspace, vault, and workload resources, so one customer's load never
+shares a database with another's.
 
 The operational tasks the templates carry run on the platform. A deployment is `Deploy-Bicep`, an `az deployment group create` (or
 `sub create` for `discovery`) in Azure's default incremental mode, so a redeploy changes only what differs and removes nothing. Backups are
@@ -173,8 +167,8 @@ Vault, logs in its workspace, the network and private DNS zones in the landing z
 (`log-analytics.bicep`, `key-vault.bicep`), passing names and tags and keeping every module default, and neither exposes a redundancy
 setting. `discovery` deploys only platform networking and governance resources: a resource group, a virtual network with inline subnets, a
 network security group per workload subnet, a route table on a spoke, peerings, the hub's two private DNS zones, the policy assignments of
-`landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, and a budget. `expedition` deploys a
-`Standard_ZRS` storage account (`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`,
+`landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, and a budget. `expedition`
+deploys a `Standard_ZRS` storage account (`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`,
 `sql-database.bicep`) reached through two private endpoints, with no virtual machine and no self-managed database.
 
 The unit the repository rates is the deployment, not a flow: every config carries `criticality` among the CAF tags. The rating follows
@@ -250,22 +244,18 @@ changing the environment's `region` and `region_code` in `azure.yml`, re-spellin
 ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](../azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), and redeploying. This is the largest
 reliability gap and a deliberate limit on what the repository covers.
 
-Telemetry reaches one workspace and no alert reads it. Diagnostics flow to `foundation`'s workspace through `diagnostic-setting.bicep` (logs
-by the `allLogs` category group plus the metrics each resource kind exposes), and the subscription's activity log through
-`subscription-diagnostic-setting.bicep`, whose categories include `ServiceHealth` and `ResourceHealth`
-([ADR-AZ-LZ-CAFMANAGEMENT](../landing-zones.md#rule-adr-az-lz-cafmanagement)). `discovery` sends the virtual network and every network
-security group; `expedition` the storage account, its blob service, and the database; `foundation`'s own Key Vault sends none, though the
-module supports the `keyVault` kind. There is no health model, and the workspace keeps data for the module default of 30 days
-(`retentionInDays`).
+Telemetry reaches one workspace, as [Performance by configuration](#performance-by-configuration) lists; the activity log carries
+`ServiceHealth` and `ResourceHealth`, the templates that own the resources deploy their alerts, and each workload's health model is the
+workbook of its own template ([ADR-AZ-LZ-CAFMANAGEMENT](../landing-zones.md#rule-adr-az-lz-cafmanagement)).
 
 ## Security by default
 
 The baseline is written in three places, each the owner of one part. The Security line of
 [ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar) names what a workload gets, the shared modules in
-`infrastructure/modules/` carry those settings as secure defaults, and the three guardrails of
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) turn part of it into policy as code, with
+`infrastructure/modules/` carry those settings as secure defaults, and the guardrails of
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies) turn part of it into policy as code, with
 `policy_enforcement` in `pwsh/Azure/configs/azure.yml` deciding whether they deny or only audit
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). `discovery` assigns the three
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). `discovery` assigns the
 policies through `policy-assignment.bicep` at subscription scope, with the enforcement mode a fact the build derives from the subscription
 the slot targets (production enforcement where the subscription holds a production environment). The Microsoft cloud security benchmark
 initiative is assigned beside them in `DoNotEnforce` mode, whatever the subscription, so it measures every resource and denies none
@@ -322,7 +312,7 @@ workspace `log_analytics_reader`, and its operators `contributor` and `rbac_admi
 grant only the data roles. The data roles carry no condition of their own, since there is no tagged-container model to condition them on.
 The modules take a managed identity as principal too, which no template grants yet. The permission that lets a deploy resolve the
 break-glass reference is granted outside the repository, and conditional access, just-in-time access, and access reviews are tenant
-settings. The policy assignments carry no managed identity, because none of the three policies deploys or modifies a resource;
+settings. The policy assignments carry no managed identity, because none of the ten policies deploys or modifies a resource;
 `policy-assignment.bicep` grants remediation roles only when `assignIdentity` is set.
 
 The workload is private by default. `storage-account.bicep` and `sql-server.bicep` set `publicNetworkAccess: 'Disabled'`, the storage

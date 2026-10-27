@@ -136,9 +136,8 @@ foreach ($batch in $batches) {
 - **No streaming cost.** `ForEach-Object` processes items one at a time from the pipeline. `foreach` operates on the full collection in
   memory, enabling better CPU cache utilization and eliminating per-item pipeline dispatching.
 
-The performance difference is measurable — typically 3-10x for tight loops. For automation code where collections are small and already
-materialized, this rarely matters in wall-clock time. But there is **no performance reason** to prefer `ForEach-Object` over `foreach`
-unless streaming is specifically needed.
+The difference is typically 3-10x for tight loops. On small, materialized collections it rarely matters in wall-clock time, but there is
+**no performance reason** to prefer `ForEach-Object` unless streaming is needed.
 
 ### When ForEach-Object fits
 
@@ -208,9 +207,6 @@ control flow issues:
 
 - **Throttle limit defaults to 5.** Without `-ThrottleLimit`, only 5 runspaces execute concurrently. For I/O-bound work (API calls, file
   downloads), increase this. For CPU-bound work, match it to `[Environment]::ProcessorCount`.
-
-**Rule:** `ForEach-Object -Parallel` is a concurrency primitive, not a faster loop. Use it only when you have genuinely independent work
-items and understand the runspace isolation model. Prefer sequential `foreach` as the default.
 
 ## Decision
 

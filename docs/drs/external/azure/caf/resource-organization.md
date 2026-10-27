@@ -97,7 +97,7 @@ Enforce compliance requirements through Azure Policy assigned at management grou
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/resource-org-management-groups (recommendation 9, retrieved
 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) and
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies) and
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 
 ### Rule EDR-AZ-CAF-RESORG-R10
@@ -160,7 +160,7 @@ Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/res
 2026-10-15)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-RESORG-R16
 
@@ -261,7 +261,7 @@ Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/res
 2026-10-15)
 
 Binds to [ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT](../../../azure/azure-data-model.md#rule-adr-az-datamod-subscriptionunit) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-RESORG-R26
 

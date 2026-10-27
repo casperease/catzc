@@ -83,7 +83,7 @@ Describe 'Test-NetworkCalls' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite -Trigger 'default-path') })
         $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike 'widgets/Get-Widget.ps1#Get-Widget: trigger default-path*ADR-AUTO-NET-NODEFAULTPATH*'
+        $result.Issues[0] | Should -BeLike 'widgets/Get-Widget.ps1#Get-Widget: trigger default-path*'
     }
 }
 

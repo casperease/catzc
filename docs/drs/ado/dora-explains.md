@@ -73,3 +73,19 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — simpler ado pipelines require less
   review friction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Environment approvals
+
+`Environment approvals — the promotion ladder's gates and records in Azure DevOps`
+
+[ADR-ADO-APPROVAL](environment-approvals.md)
+
+> DORA's research finds that lightweight, peer-reviewed change approval outperforms heavyweight external boards, and that deployment
+> automation lowers change failure rates. This ADR keeps every approval check a reviewable config applied by one command, and certifies a
+> production deploy from the engine's own deployment history rather than a record a pipeline could forge.
+
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — approvers and checks are config,
+  reviewed like code.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — one idempotent apply replaces portal settings.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — production ships only the bytes that stood on pre-prod.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

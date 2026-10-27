@@ -24,10 +24,10 @@ of every range, and the landing zone reads the kind, the address space, and the 
 - [Hub and spoke](landing-zones/landing-zones-topology.md#hub-and-spoke)
 - [How this is enforced](landing-zones/landing-zones-operations.md#how-this-is-enforced)
 
-### Rule ADR-AZ-LZ-THREEBUILTINPOLICIES
+### Rule ADR-AZ-LZ-LANDINGZONEPOLICIES
 
-Every landing zone assigns the policies of `landing-zone-policies.bicep`: allowed locations (its region), the CAF tags required on resources
-(one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a SQL
+Every landing zone assigns the ten policies of `landing-zone-policies.bicep`: allowed locations (its region), the six CAF tags required on
+resources (one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a SQL
 server, a diagnostic setting on every data resource, the allowed storage SKUs, the allowed virtual machine sizes, the allowed resource types
 (the types the shared modules declare), and the Microsoft cloud security benchmark initiative, assigned to audit only. Whether the
 assignments enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default
@@ -118,8 +118,8 @@ obligation or a virtual machine adds the matching piece to the template that own
 
 ### Rule ADR-AZ-LZ-CAFTAGS
 
-Every taggable resource carries the six **CAF tags** from its config, lowercase and holding codes only: `cost-center` (required by policy),
-`workload`, `environment`, `owner`, `criticality`, and `data-classification`. A shared module takes `tags` exactly when its resource type
+Every taggable resource carries the six **CAF tags** from its config, lowercase and holding codes only: `cost-center`, `workload`,
+`environment`, `owner`, `criticality`, and `data-classification`, all six required by policy. A shared module takes `tags` exactly when its resource type
 supports them. Region, tier, repository, service-level, and purpose tags are not used.
 
 - [CAF tags](landing-zones/landing-zones-caf.md#caf-tags)

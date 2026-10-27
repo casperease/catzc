@@ -2,17 +2,6 @@
 
 ## Rules: ADR-AUTO-BASH
 
-### Rule ADR-AUTO-BASH-BASHMODULESBYLAYOUT
-
-Bash code in the `bash` track is either a module of the track, a folder under the Bash root that exists by the layout
-(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
-`<root>/tests/<module>/`: `.bats` files that verify the engine from outside, the way a Bash user reaches it. A Bash module ships only what
-`files.yml` packages, and a test file never ships: the builder's input is the engine's track. No function of the engine is written in Bash.
-The repository's other shell scripts (`importer.sh`, the vendored installers under `assets/scripts/`) are not tests, and this rule does not
-cover them; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
-
-- [Modules by layout](#modules-by-layout)
-
 ### Rule ADR-AUTO-BASH-ONEBASHROOT
 
 The Bash tests live under one Bash root, a repository-relative folder declared by `bash.yml`'s `root` with the sensible default every test
@@ -69,8 +58,11 @@ written the way the user writes commands: in Bash.
 
 ### Modules by layout
 
-The `bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
-is a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
+Bash is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and the
+`bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module is
+a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder, `.bats` files that verify
+the engine the way a Bash user reaches it. The repository's other shell scripts (`importer.sh`, the vendored installers under
+`assets/scripts/`) are not tests; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED). The engine stays
 PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Bash test verifies it from outside. The builder reads
 the engine's track, so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
 ([platform-bundle](../platform-bundle.md)).

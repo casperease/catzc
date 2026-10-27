@@ -58,7 +58,9 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; 0 steps
-- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, six steps each
+- drs-simplify -> plan-drs-simplify.md: the decision records simplified: contradictions settled first, then tier moves, rule merges (each
+  re-cited by Update-AdrCitation), restating sections cut, and the prose pass on the records still owed one
+- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, five steps each
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - catzc-cats-usage -> plan-catzc-cats-usage.md: cats out of identifiers, one glob-set name checked, a stale plan line, and the decision on

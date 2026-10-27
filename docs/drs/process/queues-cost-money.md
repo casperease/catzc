@@ -94,10 +94,6 @@ making the work visible ([WDR-OBSERVEWIP](observe-work.md)).
 ## How to apply
 
 When something feels slow, measure where the change waits before optimising how fast any step runs, and shorten the largest queue first.
-Keep work-in-progress low ([WDR-PULLWORK](pull-work.md)) — it is the Little's-Law lever on lead time. Reduce batch size before adding
-capacity, because large batches are what inflate the queue in the first place. And prefer spending compute over spending human wait:
-parallelise quality gates, cache so nothing is recomputed across a session, and use ephemeral environments rather than queueing for shared
-ones.
 
 ## References
 

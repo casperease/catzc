@@ -61,7 +61,7 @@ can be shortened (silent truncation collides on globally-unique types).
 The subscription is a resolution axis only and is never a name component; the customer that renders is derived from it
 (`subscription.customer`).
 
-- [Component sourcing](#component-sourcing)
+- [Components](#components)
 
 ### Rule ADR-AZ-NAMING-CAFALIGNMENT
 
@@ -74,9 +74,6 @@ a person's name or a secret.
 - [CAF alignment](#caf-alignment)
 
 ## Context
-
-Every Azure resource name is assembled from one canonical component set, rendered two ways (hyphenated for relaxed types, concatenated for
-tight types). Names are **deterministic** — no random suffixes or hashes.
 
 The binding constraint is the **storage account**: 3–24 chars, lowercase letters and digits only, globally unique, so a storage name's
 components hold **no hyphen** or uppercase and the name stays ≤ 24. Relaxed types (resource group ≤ 90, most others) never bind.
@@ -252,80 +249,27 @@ customer shortcode is what buys this — a 4-char customer code would push the s
 (hyphenated, 24) carries a customer comfortably (~22) but cannot also take the slot + role segments at `short_name`=5. The **`vm`** pattern
 (15) **omits** `org`, `customer`, and `role` (the resource group already encodes them), so it renders
 `<env_sc>[<slot>]<region><short_name>vm` — e.g. `de001weuwkspvm` (14) — and fits 15 even with a slot. A customer therefore never appears in
-a VM name. The namer computes the render and **throws at deploy time** if it exceeds the target type's limit, listing the components that
-can be shortened. Never truncate silently (truncation collides on globally-unique types).
+a VM name. An over-limit render throws at deploy time and is never truncated (ADR-AZ-NAMING-NEVERTRUNCATE).
 
 ### Character & case rules
 
 - All components lowercase. Validation is **case-sensitive** — `Get-AzureResourceName` checks every component with the case-sensitive
   `-cnotmatch` operator (PowerShell's default `-match`/`-notmatch` is case-insensitive), so the patterns themselves carry no `(?-i)` prefix.
 - `org`, `short_name`, `role`, env `name`, customer `key` **start with a letter** (Key Vault and others reject leading digits). Only `slot`
-  may be all-digit.
-- Key regexes (matched with the case-sensitive `-cmatch`/`-cnotmatch`):
-  - `type`: `^[a-z]{2,5}$` (2–5 letters; also guarded by membership in the type registry)
-  - `short_name`: `^[a-z][a-z0-9]{1,4}$` (2–5)
-  - folder name: `^[a-z][a-z0-9-]*$` (kebab, starts with a letter)
-  - `region`: `^[a-z]{3}$`
-  - env `name`: `^[a-z][a-z0-9]+$` (the azure.yml key; unique)
-  - env `shortcode`: `^[a-z]{2}$` (unique)
-  - customer `key`: `^[a-z][a-z0-9]+$` (the customer.yml key; unique)
-  - customer `shortcode`: `^[a-z]{2}$` (unique)
-  - `slot`: `^[a-z0-9]{1,3}$`
-
-### Component sourcing
-
-| Component    | Resolved from                                                                                                                    |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `env`        | deploy `-Environment` name → the env's `name` (relaxed) or 2-char `shortcode` (restricted), `azure.yml`                          |
-| `slot`       | deploy-time input (`-Slot`; the special slot being deployed); optional                                                           |
-| `region`     | `region_code` of the deploy environment in `azure.yml`                                                                           |
-| `org`        | global `org` value in `azure.yml` (one per repo)                                                                                 |
-| `short_name` | **derived** from the template folder (first 5 `[a-z0-9]`, `BicepShortName`); overridden by the template's optional `options.yml` |
-| `customer`   | the resolved subscription's `customer` → its `key` (generous) or 2-char `shortcode` (restricted), from `customer.yml`; optional  |
-| `role`       | the bicep author, per resource inside the template; optional                                                                     |
-| `type`       | the resource type being named                                                                                                    |
+  may be all-digit. Each component's pattern is the charset of [Components](#components); a `type` is also guarded by membership in the
+  type registry.
 
 ### Resource-type registry
 
-`Get-AzureResourceTypeSet` defines each type's abbreviation, render **pattern**, length, and any **omitted** components. `long`-pattern
-types carry their own per-type `limit` (the Azure max for that type); `kv`/`storage`/`vm` take their cap from the pattern (24/24/15) and
-declare no `limit`. A type may also declare `omit` — components it drops from its render because they are encoded elsewhere (only `vm` does
-so, dropping org/customer/role). The set is extended in code as consuming repos need; this table mirrors the shipped registry
-(`Get-AzureResourceTypeSet`). The **unique in** column is where Azure requires the name to be unique; the registry does not carry it,
-because a deterministic name differs wherever its components differ.
+[`Get-AzureResourceTypeSet`](../../references/pwsh/azure-templates/get-azure-resource-type-set.md) is the one registry of each type's
+abbreviation, render **pattern**, length, and any **omitted** components. `long`-pattern types carry their own per-type `limit` (the Azure
+max for that type); `kv`/`storage`/`vm` take their cap from the pattern (24/24/15) and declare no `limit`. A type may also declare `omit`,
+components it drops from its render because they are encoded elsewhere (only `vm` does so, dropping org/customer/role). The set is extended
+in code as consuming repos need. The registry carries no uniqueness scope, because a deterministic name differs wherever its components
+differ.
 
-| Type                     | abbr    | pattern | limit / cap | omit                | unique in       |
-| ------------------------ | ------- | ------- | ----------- | ------------------- | --------------- |
-| Resource group           | `rg`    | long    | 90          | —                   | subscription    |
-| Storage account          | `st`    | storage | 24 (cap)    | —                   | global          |
-| Key Vault                | `kv`    | kv      | 24 (cap)    | —                   | global          |
-| Web application firewall | `waf`   | long    | 128         | —                   | resource group  |
-| Virtual network          | `vnet`  | long    | 64          | —                   | resource group  |
-| SQL logical server       | `sql`   | long    | 63          | —                   | global          |
-| SQL database             | `sqldb` | long    | 128         | —                   | SQL server      |
-| Virtual machine          | `vm`    | vm      | 15 (cap)    | org, customer, role | resource group  |
-| Synapse workspace        | `synw`  | long    | 50          | —                   | global          |
-| Data Factory (V2)        | `adf`   | long    | 63          | —                   | global          |
-| Log Analytics workspace  | `log`   | long    | 63          | —                   | resource group  |
-| Network interface        | `nic`   | long    | 80          | —                   | resource group  |
-| Public IP address        | `pip`   | long    | 80          | —                   | resource group  |
-| Network security group   | `nsg`   | long    | 80          | —                   | resource group  |
-| Subnet                   | `snet`  | long    | 80          | —                   | virtual network |
-| Route table              | `rt`    | long    | 80          | —                   | resource group  |
-| Virtual network peering  | `peer`  | long    | 80          | —                   | virtual network |
-| Private endpoint         | `pep`   | long    | 64          | —                   | resource group  |
-| Budget                   | `budg`  | long    | 63          | —                   | subscription    |
-| Policy assignment        | `pa`    | long    | 64          | —                   | subscription    |
-| Action group             | `ag`    | long    | 260         | —                   | resource group  |
-| Alert rule               | `alert` | long    | 260         | —                   | resource group  |
-| Workbook (display name)  | `wb`    | long    | 128         | —                   | resource group  |
-| Log Analytics query pack | `pack`  | long    | 63          | —                   | resource group  |
-| Portal dashboard         | `dash`  | long    | 160         | —                   | resource group  |
-| Azure Firewall           | `afw`   | long    | 56          | —                   | resource group  |
-| Firewall policy          | `afwp`  | long    | 80          | —                   | resource group  |
-
-Every type above accepts the characters a render can produce. The `long` render is lowercase letters, digits, and hyphens, starting with a
-letter and ending with a letter or digit, which the most restrictive of these types (the budget: letters, digits, underscores, and hyphens;
+Every registered type accepts the characters a render can produce. The `long` render is lowercase letters, digits, and hyphens, starting
+with a letter and ending with a letter or digit, which the most restrictive types (the budget: letters, digits, underscores, and hyphens;
 the network types: start with a letter or digit, end with a letter, digit, or underscore) all allow. So the registry carries only the
 length. The budget abbreviation is `budg` because a `type` is at most 5 letters. A policy assignment at the management-group level would be
 capped at 24; the templates assign policies at the subscription only, so `pa` carries the subscription limit, 64.
@@ -394,7 +338,5 @@ Per-customer rows use customer `apex` (shortcode `ap`):
   of scope.
 - Deterministic-only means no entropy for globally-unique types; an external collision fails the deploy and is fixed by adjusting `slot` /
   `short_name` (no auto-hash).
-- The **subscription** (the config folder a template deploys to) is a **resolution axis only** — it selects _which subscription_ a deploy
-  targets and is **never** a resource-name component. Names are assembled from the components above
-  (env/slot/region/org/`short_name`/customer/role/type); the subscription never appears in them. The **customer** that does render is
-  _derived_ from that subscription (`subscription.customer`). See [`data-model`](azure-data-model.md).
+- The **subscription** selects which subscription a deploy targets and never appears in a name; the **customer** that renders is derived
+  from it (`subscription.customer`). See [`data-model`](azure-data-model.md).

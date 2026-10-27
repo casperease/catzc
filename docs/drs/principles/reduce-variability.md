@@ -66,10 +66,7 @@ another variation — it hides in the noise. Reducing variability is what makes 
 
 When designing a system or process, ask: _if I looked at a hundred instances of this, would they all look the same?_ If not, identify which
 differences are essential (driven by the problem being solved) and which are accidental (driven by history, convenience, or inconsistency).
-Eliminate the accidental differences. Make the essential differences explicit.
-
-Prefer convention over configuration. Prefer derived behavior over manual registration. Prefer one way to do something over many equivalent
-ways.
+Then apply PDR-REDUCEVAR-EXPLICITDIFFERENCES.
 
 This principle is technology-agnostic. It applies to code, infrastructure, pipelines, processes, and any other domain where consistency
 enables quality.

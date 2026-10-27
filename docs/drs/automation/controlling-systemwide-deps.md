@@ -11,33 +11,33 @@ of base tools (git, vscode) deliberately tracks `latest` and verifies integrity 
 
 ### Rule ADR-AUTO-DEPS-TOOLTRIAD
 
-Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS-PREREQUISITEASSERTED): it is
+Provide one install / invoke / uninstall triad per tool. The installer handles platform differences, the invoker asserts version and
+presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS-PREREQUISITEASSERTED): it is
 asserted, never installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 
 ### Rule ADR-AUTO-DEPS-ASSERTBEFOREINVOKE
 
-Assert before every invocation. `Assert-Tool` runs `Assert-Command` and `Assert-ToolVersion` (presence and version only) before every
-external tool call — or, for a tool whose entry declares candidate paths, the fast, timed existence check (`Resolve-ToolExecutable`), which
-probes those paths and PATH before starting any process; it does not resolve `depends_on`.
+Assert before every invocation. One tool assertion checks presence and version only before every external tool call — or, for a tool whose
+entry declares candidate paths, a fast, timed existence check that probes those paths and PATH before starting any process; it does not
+resolve `depends_on`.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
 ### Rule ADR-AUTO-DEPS-INSTALLORDERINCONFIG
 
-Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry;
-`Get-ToolInstallOrder` topologically sorts installs, and it is not a runtime assertion.
+Declare install-order dependencies in config. If a tool must be installed after another, add `depends_on` to its `tools.yml` entry; the
+install order is a topological sort of those edges, and it is not a runtime assertion.
 
 - [3b. Tool dependencies in config](#3b-tool-dependencies-in-config)
 
 ### Rule ADR-AUTO-DEPS-CISAMEINSTALLERS
 
-CI provisions tools with the same per-tool `Install-*` functions against the same `tools.yml` — the installer side of the one code path
+CI provisions tools with the same per-tool installers against the same `tools.yml` — the installer side of the one code path
 ([ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS](devbox-pipeline-parity.md#rule-adr-auto-parity-sameclibothenvironments)), with no separate CI
-setup script. It activates the agent's cached toolchains through native ADO version tasks first, and calls the per-tool functions rather
-than the `Install-DevBoxTools` orchestrator.
+setup script. It activates the agent's cached toolchains through the CI engine's native version tasks first, and calls the per-tool
+installers rather than the devbox orchestrator.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 
@@ -53,9 +53,8 @@ notice.
 Two kinds of dependency, two names. A **system dependency** (`ADR-AUTO-DEPS`) is an external runtime or CLI the automation runs _against_ —
 `pwsh`, Python, `dotnet`, the Azure CLI, git — installed at the OS level and covered by the Tooling layer (`tools.yml`, the `Install-*` /
 `Invoke-*` triads). A **module dependency** (`ADR-AUTO-DEPM`) is an edge in the internal graph among the repo's _own_ modules, the code we
-_build_ — spanning both kinds of module content, `pwsh` functions and C# types — declared in `dependencies.yml`. The two codes carry the
-split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This ADR governs `ADR-AUTO-DEPS`; `ADR-AUTO-DEPM` has its own ADR,
-[controlling-module-dependencies](controlling-module-dependencies.md).
+_build_ — spanning both kinds of module content, `pwsh` functions and C# types — declared in `dependencies.yml`. This ADR governs
+`ADR-AUTO-DEPS`; `ADR-AUTO-DEPM` has its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System vs module dependencies](#system-vs-module-dependencies)
 
@@ -64,9 +63,9 @@ split: `ADR-AUTO-DEPS` (SYS = system) and `ADR-AUTO-DEPM` (MOD = module). This A
 A platform-provided prerequisite is asserted, never installed by its own entry. "Provided by the platform" means the operating system —
 winget (the Windows App Installer), `/bin/bash` on Linux — or a base tool the devbox installs unpinned: git, and Git Bash with it, which is
 `bash` on Windows. Such a tool carries `system_provided: true`: the toolchain asserts it is present (keeping it on PATH through
-`session_path_hints` where it declares them), but its entry has no `Install-*` / `Uninstall-*` triad. `windows_only: true` marks a tool that
-exists only on Windows, skipped by the provisioning and status loops on other platforms. Tools that install through one declare `depends_on`
-on it (`depends_on: winget`), so `Get-ToolInstallOrder` orders it first and a missing prerequisite fails fast.
+`session_path_hints` where it declares them), but its entry has no install / uninstall triad. `windows_only: true` marks a tool that exists
+only on Windows, skipped by the provisioning and status loops on other platforms. Tools that install through one declare `depends_on` on it
+(`depends_on: winget`), so the install order puts it first and a missing prerequisite fails fast.
 
 - [3d. Platform-provided prerequisites](#3d-platform-provided-prerequisites)
 

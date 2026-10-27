@@ -35,7 +35,6 @@ public static class ArmExpression
         return Evaluate(value, parameters, variables, copyIndexes, null, 0);
     }
 
-    // As above, with what deployment() returns: the deployment's own facts, such as the location it is sent to; null leaves it Unresolved.
     public static object Evaluate(object value, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment)
     {
         return Evaluate(value, parameters, variables, copyIndexes, deployment, 0);
@@ -340,8 +339,11 @@ public static class ArmExpression
                     }
                     return Unresolved;
                 case "deployment":
-                    // The caller's deployment facts; a member it does not hold (a resource-group deployment has no location) stays Unresolved.
-                    return args.Count == 0 && deployment != null ? deployment : Unresolved;
+                case "subscription":
+                case "resourceGroup":
+                case "resourceId":
+                case "subscriptionResourceId":
+                    return ArmScopeFunction.Call(name, args, deployment);
                 case "true": return true;
                 case "false": return false;
                 case "null": return args.Count == 0 ? null : Unresolved;

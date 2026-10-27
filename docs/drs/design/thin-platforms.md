@@ -96,22 +96,15 @@ touching a single consumer.
 
 `Everything the platform covers is code`
 
-A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
-source of truth, a living one (`PDR-EAC`, `PDR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
-configuration, the pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we
-usually run this by hand" step. This is what lets the layer stay thin without becoming lossy — the full representation is in the repo, so
-the abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
+A thin abstraction is only trustworthy if it is fully materialized: the full representation in the repo is what lets the layer stay thin
+without becoming lossy.
 
 ### Owned as a product
 
 `Owned as a product, over a swappable substrate`
 
-The platform is developed and managed as a product with a lifecycle, not a one-off scaffold — versioned, tested, and evolved on behalf of
-its consumers by the platform team. Its value compounds because it is reusable: the same CLI backs every developer box and every CD
-pipeline, and the same conventions apply to every Azure target. And because the vendor lives strictly behind the CLI, the substrate is
-swappable in principle — Azure is the first covered vendor, not a hardwired assumption. The guardrail from Hohpe holds throughout: the
-abstraction harmonizes the substrate but never hides the consequential choices. Cost, region, scale, and blast radius stay in the consumer's
-configuration, where they belong.
+A product, not a one-off scaffold: its value compounds because the same CLI backs every developer box and every CD pipeline. Azure is the
+first covered vendor, not a hardwired assumption.
 
 ## Decision
 

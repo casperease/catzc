@@ -25,8 +25,8 @@ that keeps its own history and is driven one way from the trunk's pipelines, nev
 ### Rule TDR-ONETRUTH-TRUTHISQUERYABLE
 
 The source of truth is queryable: every question about the system's state is answered by reading the repository through the tooling. The
-**query surface** is the tooling's `Get-*` cmdlets, each of which also emits its answer as data (JSON), so a service-management tool reads
-the truth without PowerShell.
+**query surface** is the tooling's read commands, each of which also emits its answer as data (JSON), so a service-management tool reads
+the truth without the tooling's execution engine.
 
 - [The truth is queryable](#the-truth-is-queryable)
 
@@ -61,10 +61,8 @@ release processes read the repository and act through its one change process, in
 
 ### The problem
 
-Delivery is slow mainly because of a distributed-systems problem, not because building or deploying is hard. The truth about a system is
-spread across many disjoint stores: servers, databases, CMDBs, deployment engines, ticket systems, and requirement databases. Each holds
-part of reality, and they drift apart. Teams spend their effort rebuilding a picture of reality from stores that were never designed to
-agree, losing parity between them and the view of the whole.
+Delivery is slow mainly because of a distributed-systems problem, not because building or deploying is hard. Teams spend their effort
+rebuilding a picture of reality from disjoint stores that were never designed to agree.
 
 Managing that distributed system of information better keeps the problem: every store needs a synchronisation path to every other, and each
 path is one more way to drift. The thesis is to remove the problem instead.

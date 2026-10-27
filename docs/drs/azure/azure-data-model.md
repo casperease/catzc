@@ -14,7 +14,8 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 
 ### Rule ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
 
-One config file ⟷ one (customer?, env, **slot**) ⟷ one subscription ⟷ one Azure resource group; every config lives at
+One config file ⟷ one (customer?, env, **slot**) ⟷ one Azure resource group, in the one subscription its coordinate resolves to
+(ADR-AZ-DATAMOD-NAMEKEYEDMAPS); every config lives at
 `configuration/[<customer>/]<env>[-<slot>].yml` or `configuration/[<customer>/]<env>[-<slot>].bicepparam`, never both for one coordinate
 (discovery fails on both, naming the coordinate), and listing that tree is the resource-group inventory.
 
@@ -43,7 +44,8 @@ at discovery and by integrity tests.
 
 Customer is a first-class configuration axis — the subfolder — and at deploy time it is derived from the session subscription
 (`subscription.customer`), never a deploy arg: a customer-subscription session addresses the customer's subfolder config, a non-customer
-session the root config, and the customer renders into resource names.
+session the root config, and the customer renders into resource names. The session's subscription is resolved by the joins of
+ADR-AZ-DATAMOD-JOINSINPOWERSHELL.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
@@ -180,11 +182,8 @@ A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (
 It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This ADR
 covers identity (Layer 1) and templating (Layer 2); the network plan is documented there.
 
-The two layers join through the **conventional configuration tree**: a config at the configuration ROOT (`configuration/<env>[-<slot>].yml`)
-is a shared-platform deployment, and a config under a subfolder (`configuration/<customer>/<env>[-<slot>].yml`) is that customer's — the
-subfolder is always a customer KEY from `customer.yml`. The subscription never appears in a path; it is RESOLVED from the coordinate: a root
-config's env must be served by exactly one non-customer subscription, a customer config's env by exactly one of that customer's
-subscriptions, and Layer 1 resolves that subscription to its tenant, its serving environments, and (optionally) its customer.
+The two layers join through the **conventional configuration tree** (ADR-AZ-DATAMOD-TWOCONFIGLAYERS): the configuration root is the shared
+platform, a subfolder is a customer, and Layer 1 resolves each coordinate's one subscription to its tenant, environments, and customer.
 
 Governing principle:
 
@@ -201,9 +200,8 @@ All named entities are **maps keyed by name** (uniform access; duplicate names a
 name component. The component _order_ is **not** here — it is the `ado_naming` repo variant, `Get-AdoNaming` (see
 [The name builder](#the-name-builder)).
 
-There is **no subscription-group entity**, and no subscription name ever appears in a template path. The configuration tree's two
-conventional coordinates — the root (shared platform) and the customer subfolder — resolve to a subscription, so the subscription stays a
-pure Layer-1 identity.
+There is **no subscription-group entity**, and no subscription name appears in a template path, so the subscription stays a pure Layer-1
+identity.
 
 ```mermaid
 erDiagram
@@ -526,27 +524,14 @@ The config is resolved into runtime objects on demand — where the "complex joi
   the customer's `configuration/<customer>/` config, or the configuration-root one. The **`-SubscriptionIdAssertIs <guid>`** guard pins the
   expectation — mandatory in a pipeline (`Deploy-Bicep` throws without it), so a re-wired service connection can never silently retarget an
   existing pipeline's deploy; on a devbox `Connect-AzCli` / `az account set` chooses the target and the guard is optional.
-- `Get-AzureSubscription <sub>` → `{ name, id, customer?, tenant: { name, id } }` — a by-name lookup (no join), with the tenant rebuilt from
-  the map key.
-- `Get-AzureEnvironment <env> -Subscription <sub>` → `{ name, shortcode, region, region_code, subscription }`; asserts the subscription
-  serves the env and embeds `Get-AzureSubscription <sub>` — the check that a session cannot deploy an env its subscription does not serve.
-- `Get-AzureSubscriptionEnvironment <sub>` → the subscription's per-subscription identity env (nsub/psub), for templates that must locate
-  the once-per-subscription foundation in the same sub.
-- `Get-BicepDeploymentContext` → three concern-objects: **plan** (`deployment`), **artifacts**, and **identity** (`environment`) — composed
-  from the session-determined subscription; the customer that renders into names is read off it.
+- A subscription is a by-name lookup with no join; an environment lookup asserts that the subscription serves the environment, the check
+  that a session cannot deploy an environment its subscription does not serve; the per-subscription environment (nsub/psub) locates the
+  once-per-subscription foundation in the same subscription.
+- The deployment context is three concern-objects, **plan**, **artifacts**, and **identity**, composed from the session-determined
+  subscription; the customer that renders into names is read off it.
 
-### Derived accessors
-
-Thin read-only lookups and argument-completers over the two layers (no joins of their own); listed here so the public surface is complete:
-
-| Function                          | Returns / purpose                                                              |
-| --------------------------------- | ------------------------------------------------------------------------------ |
-| `Get-AzureCustomers`              | the customer keys from `customer.yml`                                          |
-| `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)             |
-| `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation              |
-| `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation            |
-| `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer) |
-| `Get-BicepTemplateSlots`          | each slot a template declares (completer)                                      |
+The lookups, their return shapes, and the thin read-only accessors and argument completers over the two layers are documented with their
+modules, [Catzc.Azure](../../references/pwsh/azure/index.md) and [Catzc.Azure.Templates](../../references/pwsh/azure-templates/index.md).
 
 ### Validation
 
@@ -562,7 +547,7 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
   `Get-BicepParameterModel` reads the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and
   length bounds — and `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value
   the PrePost hook merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2
-  integrity test (`Get-BicepParameterModel.Shipped.Tests.ps1`) builds every shipped template and asserts there are none;
+  integrity test builds every shipped template and asserts there are none;
   `Test-Automation -Suite infrastructure` runs it, as part of the `infrastructure` globset's verify scope. `Assert-BicepTemplate` without
   `-Build` keeps a fast check that needs no compiler: a config sets only parameters `main.bicep` declares.
 

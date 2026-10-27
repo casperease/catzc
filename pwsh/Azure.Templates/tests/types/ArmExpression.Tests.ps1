@@ -157,6 +157,34 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved (& $eval '[deployment().location]') | Should -BeTrue
     }
 
+    It 'resolves resourceId(), subscriptionResourceId(), subscription() and resourceGroup() exactly from the facts, and leaves them unresolved without' {
+        # The expected ids are Bicep's own evaluator's (bicep snapshot 0.48.1 with --subscription-id and --resource-group), not this type's.
+        $facts = @{ subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'; resourceGroupName = 'widget-group' }
+        $at = { param($Value, $Deployment = $facts) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, @{}, @{}, @{}, $Deployment) }
+        $group = '/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups'
+        & $at "[resourceId('Widget.Parts/widgets', 'gadget')]" | Should -BeExactly "$group/widget-group/providers/Widget.Parts/widgets/gadget"
+        & $at "[resourceId('Widget.Parts/widgets/gadgets', 'widget', 'sprocket')]" | Should -BeExactly "$group/widget-group/providers/Widget.Parts/widgets/widget/gadgets/sprocket"
+        & $at "[resourceId('widget-rg', 'Widget.Parts/widgets', 'gadget')]" | Should -BeExactly "$group/widget-rg/providers/Widget.Parts/widgets/gadget"
+        & $at "[resourceId('11111111-2222-3333-4444-555555555555', 'widget-rg', 'Widget.Parts/widgets', 'gadget')]" |
+            Should -BeExactly '/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/widget-rg/providers/Widget.Parts/widgets/gadget'
+        & $at "[subscriptionResourceId('Widget.Parts/widgets', 'gadget')]" | Should -BeExactly '/subscriptions/50a0ed00-de00-50b0-0000-000000000000/providers/Widget.Parts/widgets/gadget'
+        & $at "[subscriptionResourceId('11111111-2222-3333-4444-555555555555', 'Widget.Parts/widgets/gadgets', 'widget', 'sprocket')]" |
+            Should -BeExactly '/subscriptions/11111111-2222-3333-4444-555555555555/providers/Widget.Parts/widgets/widget/gadgets/sprocket'
+        & $at '[subscription().subscriptionId]' | Should -BeExactly '50a0ed00-de00-50b0-0000-000000000000'
+        & $at '[subscription().id]' | Should -BeExactly '/subscriptions/50a0ed00-de00-50b0-0000-000000000000'
+        & $at '[resourceGroup().name]' | Should -BeExactly 'widget-group'
+        & $at '[resourceGroup().id]' | Should -BeExactly "$group/widget-group"
+        & $at "[guid(resourceId('Microsoft.OperationalInsights/workspaces', 'widget-log'))]" | Should -BeExactly 'd61bf936-8844-5b06-b159-3f2725eb4720'
+        & $isUnresolved (& $at "[resourceId('Widget.Parts/widgets', 'gadget')]" @{ subscriptionId = '50a0ed00-de00-50b0-0000-000000000000' }) | Should -BeTrue
+        & $isUnresolved (& $at "[resourceId('Widget.Parts/widgets', 'gadget')]" @{ resourceGroupName = 'widget-group' }) | Should -BeTrue
+        & $isUnresolved (& $at '[subscription().subscriptionId]' @{ resourceGroupName = 'widget-group' }) | Should -BeTrue
+        & $isUnresolved (& $at '[resourceGroup().name]' @{ subscriptionId = '50a0ed00-de00-50b0-0000-000000000000' }) | Should -BeTrue
+        & $isUnresolved (& $at "[resourceId('Widget.Parts/widgets/gadgets', 'widget')]") | Should -BeTrue
+        & $isUnresolved (& $at "[resourceId(parameters('missing'), 'Widget.Parts/widgets', 'gadget')]") | Should -BeTrue
+        & $isUnresolved (& $eval "[resourceId('Widget.Parts/widgets', 'gadget')]") | Should -BeTrue
+        & $isUnresolved (& $at '[deployment().location]') | Should -BeTrue
+    }
+
     It 'expands a property copy entry, one input per index with copyIndex(name) bound, and a count that does not resolve to unresolved' {
         $parameters = @{ widgets = @(@{ size = 'small' }, @{ size = 'large' }) }
         $copy = @{ name = 'value'; count = "[length(parameters('widgets'))]"; input = "[parameters('widgets')[copyIndex('value')].size]" }

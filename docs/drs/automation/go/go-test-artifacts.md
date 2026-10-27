@@ -2,16 +2,6 @@
 
 ## Rules: ADR-AUTO-GO
 
-### Rule ADR-AUTO-GO-GOMODULESBYLAYOUT
-
-Go code in the repository is either a module of the `go` track, a folder under the Go root that exists by the layout
-(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
-`<root>/tests/<module>/`. A Go module ships only what `files.yml` packages, and a test file never ships: the builder's input is the engine's
-track, so no bundle holds a Go file by construction. No function of the engine is written in Go; a Go module is a tool of the repository
-that the engine runs as a process.
-
-- [Modules by layout](#modules-by-layout)
-
 ### Rule ADR-AUTO-GO-ONEGOROOT
 
 The Go tests live under one Go root, a repository-relative folder declared by `go.yml`'s `root` with a sensible default: `go` when the
@@ -91,8 +81,9 @@ artifacts, keep everything Go-specific but the code generated, and run the tests
 
 ### Modules by layout
 
-The `go` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
-is a folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell
+Go is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and the
+`go` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module is a
+folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell
 and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing in
 the engine calls Go. The builder reads the engine's track, so no bundle holds a Go file unless `files.yml` packages it — the layout is the
 guarantee ([platform-bundle](../platform-bundle.md)).

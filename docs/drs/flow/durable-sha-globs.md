@@ -78,14 +78,11 @@ A deployable unit takes one of two shapes: a **configured** unit — a base plus
 a **base** unit — a shared, un-configured surface that exists only to be composed, e.g. `template-azure-subscription-foundation`, which
 ships only through the configured units that compose it yet still carries an area-of-control (its `verify:` scope and its review surface).
 
-Within every layer but `loose-fileset` the sets are pairwise-independent on OWN contribution (`FDR-GLOBS-NOOVERLAPWITHINLAYER`): a module
-never consumes another module's files, a unit never another unit's — each is a boundary. The `module` layer carries a **catch-all**
-(`module-leftovers`) so it covers its whole space with nothing unmapped; the catch-all is the complement of the explicit sets, hence still
-disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are
-**orthogonal** annotations valid on any layer: a CI pipeline binds a loose-fileset track's projection, a CD pipeline a configured
-deployable-unit's, a base unit binds none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom
-state, and one living version (`PDR-ONELIVE`) forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every globset
-earns its cost.
+Within every layer but `loose-fileset` the sets are boundaries, pairwise-independent on OWN contribution (`FDR-GLOBS-NOOVERLAPWITHINLAYER`).
+`pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are **orthogonal** annotations
+valid on any layer: a CI pipeline binds a loose-fileset track's projection, a CD pipeline a configured deployable-unit's, a base unit binds
+none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom state, and one living version
+(`PDR-ONELIVE`) forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every globset earns its cost.
 
 - [One configuration point](#one-configuration-point)
 
@@ -135,12 +132,11 @@ committed hash suffers, and correct across renames (a rename is split into both 
 Within a layer, no two globsets may select a common file on their **OWN contribution** — the set's own `include`/`exclude` program with
 `compose` ignored (`FDR-GLOBS-TRACKEDFILESONLY`). Two that do contain parts of each other and are not independent — the boundary leaks.
 Validation is **per layer, never across**: a deployable-unit deliberately contains the base it composes, and every module file also sits in
-a loose-fileset track (`automation`), so cross-layer overlap is expected and correct — the rule is defined on OWN membership within one
-layer, never on effective membership or across layers. The `deployable-unit` and `module` layers are each pairwise-disjoint on OWN
-membership; the `loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (a track's root concern, scan scopes, the reserved
-umbrellas `internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the boundaries they cut across by design. The `module` layer's
-catch-all (`module-leftovers`) is the complement of that layer's explicit sets, so it satisfies the rule by construction. The rule holds
-across the declared registry and the derived module sets alike; a violation names both sets and a shared file.
+a loose-fileset track (`automation`), so cross-layer overlap is expected and correct. The `deployable-unit` and `module` layers are each
+pairwise-disjoint on OWN membership; the `loose-fileset` layer is **exempt** — its sets are cross-cutting surfaces (a track's root concern,
+scan scopes, the reserved umbrellas `internal`/`vendor`/`compiled`/`scriptanalyzer`) that overlap the boundaries they cut across by design.
+The `module` layer's catch-all (`module-leftovers`) is the complement of that layer's explicit sets, so it satisfies the rule by
+construction. The rule holds across the declared registry and the derived module sets alike; a violation names both sets and a shared file.
 
 - [Per-layer independence](#per-layer-independence)
 

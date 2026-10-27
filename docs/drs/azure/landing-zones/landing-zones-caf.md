@@ -14,12 +14,13 @@ network and one config per template. Subscription vending and management groups 
 subscriptions it is given. A new customer therefore waits for the tenant's administrator, and the budget and guardrails of a shared
 non-production subscription govern `dev` and `test` alike.
 
-Policy-driven governance is partly followed. The three built-in policies are the tool-agnostic guardrails, and CI adds guards before deploy
-that policy cannot: every template compiles and every rendered parameters file is checked against the compiled parameter model
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). The set is narrow: public network access
-on a data service, a missing diagnostic setting, and a TLS minimum are set by the shared modules and not guarded against another tool. Each
-landing zone assigns its own copy, with no management group to inherit from, so outside the three policies compliance rests on module
-defaults and review, and outside production the default mode audits and does not block.
+Policy-driven governance is partly followed. The landing zone's ten policies are the tool-agnostic guardrails
+([ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies)), and CI adds guards before deploy that policy
+cannot: every template compiles and every rendered parameters file is checked against the compiled parameter model
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). The set is narrow: a TLS minimum is set
+by the shared modules and not guarded against another tool. Each landing zone assigns its own copy, with no management group to inherit
+from, so outside the ten policies compliance rests on module defaults and review, and outside production the default mode audits and does
+not block.
 
 Control and management plane: the control plane is Azure Resource Manager. `Deploy-Bicep` runs `az deployment group create` or
 `az deployment sub create`, and `-DryRun` runs Azure's `--what-if`
@@ -31,7 +32,7 @@ send diagnostics and the activity log there. A view across customers needs a cro
 per workspace, and the gain is that one customer's telemetry stays in that customer's subscription.
 
 The application-centric model is followed: workloads are segmented by customer subscription and environment class, not by management group
-archetype, so every landing zone carries the same three assignments from one template and one setting, which cannot drift. The shared
+archetype, so every landing zone carries the same ten assignments from one template and one setting, which cannot drift. The shared
 modules include `vm.bicep`, so an IaaS workload would land in the same subnets under the same policies as the PaaS one.
 
 Azure-native design is followed: Bicep from the shared modules, Azure built-in policy, Azure Monitor, Key Vault, Private DNS and Entra ID,
@@ -58,15 +59,16 @@ sends every category (`Administrative`, `Security`, and `Policy` among them); `d
 security group, and `expedition` the storage account, its blob service, and the database. `foundation`'s own Key Vault sends nothing, though
 the module supports it. Platform metrics sit in Azure Monitor with no configuration and the diagnostic setting copies them beside the logs
 (`AllMetrics` for the virtual network, `Transaction` for the storage account and its blob service); the logs are queryable per subscription,
-and no saved query, workbook, or dashboard exists.
+and `foundation` deploys a query pack, a dashboard, and a capacity workbook over them.
 
-Alerting is only the budget's: `budget.bicep` sends its thresholds to the subscription's `Owner` role. The shape of the rest follows the
-same rule, one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that own the resources,
-never Microsoft's baseline alerts deployed by policy
-([ADR-AZ-LZ-THREEBUILTINPOLICIES](../landing-zones.md#rule-adr-az-lz-threebuiltinpolicies)). Service Health and Resource Health alerts
-belong to `discovery`. No module places a lock; the hub's virtual network and private DNS zones, and `foundation`'s Key Vault with the
-break-glass password, are the resources one would protect. The network security groups and the virtual network send logs and metrics, not
-flows, so no Traffic Analytics exists; it would arrive with flow logs into the workspace and a flow-log storage account in `foundation`.
+Alerting follows one rule: one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that
+own the resources, never Microsoft's baseline alerts deployed by policy
+([ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies)). `budget.bicep` sends its thresholds to the
+subscription's `Owner` role; `discovery` deploys the Service Health and Resource Health alerts and a cost anomaly alert, and `expedition`
+the break-glass sign-in alert and, in production, the database metric and capacity alerts. `lock.bicep` places a `CanNotDelete` lock on
+the hub's virtual network and private DNS zones and on `foundation`'s Key Vault with the break-glass password, the resources others depend
+on. Where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log there, with Traffic Analytics
+into the workspace; without one, the network sends logs and metrics, not flows.
 
 The workload relies on the platform's own redundancy and backup: zone-redundant storage (`Standard_ZRS`) in every environment, a production
 database that is zone-redundant (`databaseZoneRedundant` is false in development) with geo-redundant backups
@@ -90,8 +92,8 @@ preview and build on Service Groups at tenant level, which the landing zone neve
 ## CAF tags
 
 The tag set is written out in full in each config (eighteen copies across the three templates) and cost is split below the subscription by
-`cost-center` and `workload`; tag inheritance is not used, because every template passes the tags to each resource itself. Only
-`cost-center` is required, by the landing zone's policy, which checks that the key is present and not its value. The `workload` tag names
+`cost-center` and `workload`; tag inheritance is not used, because every template passes the tags to each resource itself. All six
+are required by the landing zone's policy, which checks that each key is present and not its value. The `workload` tag names
 the template (`foundation`, `landing-zone`, `expedition`), and `environment` is the environment class for the per-subscription templates
 (`nonprod`, `prod`) and the standard environment for `expedition`. `criticality` (`low`, `medium`, `high`) and `data-classification`
 (`internal`, `confidential`) are the classification tags, and no service-level tag is set because no example workload declares one.
@@ -110,10 +112,9 @@ for `discovery`, whose keys carry the template name as a prefix (`discovery-depl
 `requireTag`, named per subscription by `policyAssignmentNames` (`-tag-pa`), of the custom CAF-tags definition with parameter
 `requiredTagNames` defaulting to the six keys of the `azure.yml` tag schema; the policy ignores types that cannot carry a tag, so it never
 denies a peering or a budget. The peering, subnet, policy assignment, budget, and diagnostic setting modules take no `tags`, and
-`foundation` and `expedition` set `owner` on every taggable resource, while their resource groups carry only the provenance tags. The values
-in use are `criticality: high` for the shared platform and each production subscription, `medium` for customer non-production in
-`foundation` and `discovery`, `low` outside production and `high` in production for `expedition`; `data-classification` is `internal` for
-the platform and `confidential` for customers.
+`foundation` and `expedition` set the CAF tags on every taggable resource and on their resource groups, beside the provenance tags. The
+`criticality` and `data-classification` values in use are listed in
+[Reliability in one region](landing-zones-well-architected.md#reliability-in-one-region).
 
 No region tag is set, because the region is a component of every name and the allowed-locations policy holds each landing zone to its
 region, so a tag would repeat what the name and the resource's location state; resource selectors in the tag policy are unused for the same
@@ -193,8 +194,8 @@ Microsoft identity platform and its checklist are not a template concern.
 Templates, modules, configs, policy assignments, pipelines, automation, and ADRs all live in one Git repository, which is private by the
 visibility of its server remote, outside the repository, and built to hold no secret either way. What the repository shares publicly is the
 built catzc package, published by a manual release workflow, never the infrastructure templates and their configs. All Azure infrastructure
-is declarative Bicep with shared modules and one config per configuration slot, deployed only by pipelines. The landing zone's three policy
-assignments are Bicep in `discovery`, pinned by definition id and deployed by its pipeline; they deny in production and audit elsewhere,
+is declarative Bicep with shared modules and one config per configuration slot, deployed only by pipelines. The landing zone's ten policy
+assignments are Bicep in `landing-zone-policies.bicep`, pinned by id and deployed by its pipeline; they deny in production and audit elsewhere,
 none uses a modify or append effect, and the landing zone makes no exemption: a team that needs a different policy proposes a change to the
 landing zone, reviewed like any other.
 

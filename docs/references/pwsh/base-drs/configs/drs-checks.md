@@ -8,8 +8,8 @@ Every key is optional. An omitted key takes the sensible default declared once o
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so the
 file states only what deviates.
 
-- **`engine_neutrality`** — `Test-DrsEngineNeutrality`: the rule summaries of the listed `domains` carry no engine-specific syntax. `tokens`
-  maps a kebab-case name to a case-sensitive .NET regex.
+- **`engine_neutrality`** — `Test-DrsEngineNeutrality`: the rule summaries of each domain under `domains` carry none of the tokens of
+  the sets it names. `token_sets` maps a kebab-case set name to a map of kebab-case token name to a case-sensitive .NET regex.
 - **`citation_graph`** — `Test-DrsRegistry`: an ADR page cites only its own domain or a domain in its `depends_on`.
 - **`dora_coverage`** — `Test-DrsRegistry`: each rule set has exactly one section linking its ADR in its domain's DORA file. `file` names
   that file, `exempt` maps a domain to the reason it keeps none, and `exempt_folders` maps a folder to the reason its ADRs take no section.
@@ -24,5 +24,6 @@ while its findings are worked off.
 
 ## Tokens
 
-The `tokens` of `engine_neutrality` list engine-specific syntax a rule summary must not carry. Naming a catzc command (`Verb-Noun`) is
-allowed, so only engine built-ins are listed.
+The `engine` set lists engine-specific syntax a rule summary must not carry; naming a catzc command (`Verb-Noun`) is allowed, so only
+engine built-ins are listed. The `vendor` set lists vendor names a vendor-neutral tier must not carry; a vendor's own domain is never held
+to it. A tier is brought under the gate by one `domains` line naming the sets that fit it, once its records are clean.

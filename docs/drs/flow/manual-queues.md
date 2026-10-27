@@ -28,33 +28,37 @@ and from there the change enters main by exactly one of two doors.** The edit is
 downstream, which on the ladder is up: the authoritative push is the authenticated user's own act against the server's topic HEAD, the only
 remote ref the clone writes ([FDR-GIT-USERRUNSGIT](git-topic-flow.md#rule-fdr-git-userrunsgit)). From the server's topic HEAD the change
 reaches the server's main HEAD either by the platform's atomic pull-request merge, the ingress of
-[DDR-REMOTE-PULLREQUESTISINGRESS](../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress) (an Azure DevOps pull
-request, or the equivalent of another host), or by a direct merge from topic HEAD to main HEAD performed by a user whom the server's policy
-authorizes to bypass the pull request, in a secure and recorded manner. Both doors merge the server's own verified topic HEAD, never the
-clone. The queue's server is the author; its store is the server's history of the topic HEAD and the merge.
+[DDR-REMOTE-PULLREQUESTISINGRESS](../design/server-remote-integration.md#rule-ddr-remote-pullrequestisingress) (the host's pull request), or
+by a direct merge from topic HEAD to main HEAD performed by a user whom the server's policy authorizes to bypass the pull request, in a
+secure and recorded manner. Both doors merge the server's own verified topic HEAD, never the clone. The queue's server is the author; its
+store is the server's history of the topic HEAD and the merge.
 
 - [The authoring queue](#the-authoring-queue)
 
 ### Rule FDR-QUEUE-SIGNATUREISTHEGATE
 
-**The RC and RBC gates are each served by one release signature from a user with access, entered in the appointed security registry after
-the rung's post-deployment test proved the service loads.** A **release signature** is one recorded act that says "this rung passed its
-check" for one named commit: for RC, that main-UAT passed; for RBC, that release-uat passed. The post-deployment test that always proves the
-service loads in the rung runs on its own and is the evidence; the signature is the human's authentication of that evidence, not a second
-test. The signer is a user the appointed security registry grants access for that rung, and the registry is the one store of the signature:
-a signature anywhere else, in a chat, a ticket or a pipeline log, serves no gate. The queue's wait is the time from the rung's test passing
-to the signature being recorded.
+**The RC and RBC gates are each served by one release signature from a user with access, given on the execution engine's approval check
+after the rung's post-deployment test proved the service loads.** A **release signature** is one recorded act that says "this rung passed
+its check" for one named commit: for RC, that main-UAT passed; for RBC, that release-uat passed. The post-deployment test that always proves
+the service loads in the rung runs on its own and is the evidence; the signature is the human's authentication of that evidence, not a
+second test. The signature is the approval of the check the engine holds on the next rung's environment
+([FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)); the signer is a member of the approver group
+that check names, and the engine's record of the approval is the one store of the signature: a signature anywhere else, in a chat, a ticket
+or a pipeline log, serves no gate. The queue's wait is the time from the rung's test passing to the approval being recorded.
 
 - [The two signatures](#the-two-signatures)
 
 ### Rule FDR-QUEUE-SLOTSWITCHISAUTOMATED
 
-**Pre-prod is hot-swappable with production, blue-green wherever possible, and the switch between them is a monitored, fully automated
-procedure with no manual engagement or check.** The **slot switch** is the act that makes the pre-prod occupant the live production occupant
-and moves the former production occupant into the staging slot. It is never a queue: no person approves it, triggers it by hand or checks it
-on the way; it is observable while it runs and afterwards, and it reverses by the same automated path. Where blue-green is not possible for
-a deployable unit, the switch becomes a manual step, and then it is mapped like the three queues above, with its server, its store and its
-measured wait named by a rule, never left as an unnamed fourth manual gate.
+**Pre-prod is hot-swappable with production, blue-green wherever possible, and once the prod approval gate clears the switch between them is
+a monitored, fully automated procedure with no further manual engagement or check.** The **slot switch** is the act that makes the pre-prod
+occupant the live production occupant and moves the former production occupant into the staging slot. The one human act before it is the
+approval of the engine's check on the prod-tier environment
+([FDR-CD-PRODAPPROVALGATE](cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodapprovalgate)), a check of the engine, not a step of the
+switch. The switch itself is never a queue: no person triggers it by hand or checks it on the way; it is observable while it runs and
+afterwards, and it reverses by the same automated path. Where blue-green is not possible for a deployable unit, the switch becomes a manual
+step, and then it is mapped like the three queues above, with its server, its store and its measured wait named by a rule, never left as an
+unnamed fourth manual gate.
 
 - [The slot switch](#the-slot-switch)
 
@@ -70,29 +74,28 @@ store afterwards. A step where a person turns out to be needed and no rule names
 ## The authoring queue
 
 A change begins with one person editing one item of the catalogue, a piece of code or config, on a local clone that has no authority
-([DDR-REMOTE-SERVERREMOTEISTRUTH](../design/server-remote-integration.md#rule-ddr-remote-serverremoteistruth)). Delivering it downstream
-means pushing it upward: the push is the author's own, under the author's own credentials, and its only target is the author's topic branch
-on the server. From the server's topic HEAD two doors lead into main. The platform's pull request authenticates the author, runs the merge
-gates against the topic HEAD it holds, and performs one atomic merge. A user whom the server's policy authorizes to bypass the pull request
-merges the same server-held topic HEAD into main directly, with the bypass itself recorded by the server. Neither door takes anything from
-the clone; both take the topic HEAD the server already holds. The queue ends when the merge is in the server's history.
+([DDR-REMOTE-SERVERREMOTEISTRUTH](../design/server-remote-integration.md#rule-ddr-remote-serverremoteistruth)), so the only act with
+authority is the author's own push to their topic branch on the server. Both doors into main take that server-held topic HEAD, never the
+clone: the pull request runs its merge gates against it, and a policy bypass is itself recorded by the server. The queue ends when the merge
+is in the server's history.
 
 ## The two signatures
 
 RC stands after main-UAT and RBC after release-uat ([FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md)). Neither is a test: the
 rung's post-deployment test runs on its own after the deploy and always proves that the service loads there. What the gate waits for is a
-person with access entering one signature in the appointed security registry: "main-UAT passed its check" for commit N, or "release-uat
-passed its check" for commit N. The registry is appointed per rung and grants the signers; it is the store the gate reads and the only place
-a signature counts. The same person may sign both rungs when the registry grants both, and a team that runs without RBC has only the RC
-signature and the queue it serves. The wait of each queue is the time between the test passing and the signature landing, read from the
-registry.
+person with access approving the engine's check on the next rung's environment: "main-UAT passed its check" for commit N, or "release-uat
+passed its check" for commit N. The check names its approver group per rung; the engine's approval record is the store the gate reads and
+the only place a signature counts. The same person may sign both rungs when both groups hold them, and a team that runs without RBC has only
+the RC signature and the queue it serves. The wait of each queue is the time between the test passing and the approval landing, read from
+the engine's record.
 
 ## The slot switch
 
 The last climb, from pre-prod to production, is the one step the flow keeps out of human hands. Pre-prod is the staging slot of the
 production subscription ([FDR-LIFE-ONECOMMITPERENVIRONMENT](commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)), built so that it
-and production can trade places: blue-green, with the switch a procedure a pipeline runs and a person watches. A manual check here would be
-a fourth queue at the most expensive point of the ladder, and it would hide behind the signature just given at RBC. So the switch is
-automated, monitored while it runs, and reversed by the same path when the monitors say so. A deployable unit that cannot be switched
-blue-green does not get an unnamed manual gate: its switch is declared a manual step by a rule of this FDR, with its server, its store and
-its measured wait, and the unit's plan says how it becomes automated.
+and production can trade places: blue-green, with the switch a procedure a pipeline runs and a person watches. The prod approval gate
+(FDR-CD-PRODAPPROVALGATE) stands before it as the engine's check on the prod-tier environment; past that approval, a manual check would be a
+fourth queue at the most expensive point of the ladder, hiding behind the approvals just given. So the switch is automated, monitored while
+it runs, and reversed by the same path when the monitors say so. A deployable unit that cannot be switched blue-green does not get an
+unnamed manual gate: its switch is declared a manual step by a rule of this FDR, with its server, its store and its measured wait, and the
+unit's plan says how it becomes automated.

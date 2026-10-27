@@ -14,7 +14,7 @@ function Test-DrsEngineNeutrality {
 
     $ruleSetCount = 0
     $lineCount = 0
-    foreach ($domainName in $settings.domains) {
+    foreach ($domainName in $settings.domains.Keys) {
         $domain = $null
         foreach ($candidate in $adrs.Domains) {
             if ($candidate.Name -ceq $domainName) {
@@ -26,6 +26,7 @@ function Test-DrsEngineNeutrality {
             continue
         }
 
+        $tokens = $settings.TokensFor($domainName)
         foreach ($ruleSet in $domain.RuleSets) {
             if (-not $index.FileOf.ContainsKey($ruleSet.External)) {
                 continue
@@ -34,7 +35,7 @@ function Test-DrsEngineNeutrality {
             $relative = $index.FileOf[$ruleSet.External]
             foreach ($summaryLine in (Get-DrsRuleSummaryLines ([System.IO.Path]::Combine($index.Root, $relative)))) {
                 $lineCount++
-                foreach ($token in $settings.tokens) {
+                foreach ($token in $tokens) {
                     $found = $token.Find($summaryLine.Text)
                     if ($found.Count -gt 0) {
                         $issues.Add("$($adrs.Root)/${relative}:$($summaryLine.Line): $($summaryLine.Rule): $($token.name) — $(($found | ForEach-Object { "'$_'" }) -join ', ')")
@@ -49,7 +50,7 @@ function Test-DrsEngineNeutrality {
     $result = Write-QualityGateReport -Subject 'drs-engine-neutrality' -Title 'Test-DrsEngineNeutrality' -Issues $issues `
         -Facts ([ordered]@{
             Mode     = $settings.mode.ToString().ToLowerInvariant()
-            Domains  = $settings.domains -join ', '
+            Domains  = @(foreach ($name in $settings.domains.Keys) { "$name ($($settings.domains[$name] -join '+'))" }) -join ', '
             RuleSets = $ruleSetCount
             Lines    = $lineCount
         }) -OutputFolder $OutputFolder -PassThru:($PassThru -or $reportOnly)

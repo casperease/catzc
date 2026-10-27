@@ -486,7 +486,7 @@ Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-fo
 retrieved 2026-10-15)
 
 Binds to [ADR-AZ-NETWORK-PERSUBSCRIPTION](../../../azure/azure-network-model.md#rule-adr-az-network-persubscription),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-CAFTOPOLOGY](../../../azure/azure-network-model.md#rule-adr-az-network-caftopology).
 
 ### Rule EDR-AZ-CAF-NETTOP-R51

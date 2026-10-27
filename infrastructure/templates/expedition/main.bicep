@@ -119,6 +119,9 @@ param actionGroupName string
 @description('Name of the break-glass login alert; derived by the namer.')
 param breakGlassLoginAlertName string
 
+@description('Display name of the workload\'s health workbook; derived by the namer.')
+param healthWorkbookName string
+
 @description('Whether the slot is production, from its environment in azure.yml: only production carries the database alerts.')
 param deployProductionAlerts bool
 
@@ -269,6 +272,17 @@ module blobDiagnostics '../../modules/diagnostic-setting.bicep' = {
   }
 }
 
+// The workload's health model: the availability, health events and fired alerts of this resource group's resources.
+module healthWorkbook '../../modules/health-workbook.bicep' = {
+  name: 'health-workbook'
+  params: {
+    displayName: healthWorkbookName
+    location: location
+    workspaceId: workspace.id
+    tags: tags
+  }
+}
+
 module sqlDatabaseDiagnostics '../../modules/diagnostic-setting.bicep' = {
   name: 'diagnostics-sql-database'
   params: {
@@ -319,12 +333,15 @@ module databaseCapacityAlerts '../../modules/sql-database-capacity-alerts.bicep'
   }
 }
 
-// The data readers read the account's blobs.
+// The data readers read the account's blobs. The account is named by its declared name, so the assignment's scope resolves before the deploy.
 module dataReadersBlob '../../modules/role-assignment.bicep' = if (!empty(groups.data_readers)) {
   name: 'role-data-readers-blob-reader'
+  dependsOn: [
+    storage
+  ]
   params: {
     resourceKind: 'storageAccount'
-    resourceName: storage.outputs.name
+    resourceName: storageAccountName
     principalId: groups.data_readers
     roleId: roles.storage_blob_data_reader.id
     assignmentDescription: 'data-readers-storage-blob-data-reader'
@@ -334,9 +351,12 @@ module dataReadersBlob '../../modules/role-assignment.bicep' = if (!empty(groups
 // The data writers read and write the account's blobs.
 module dataWritersBlob '../../modules/role-assignment.bicep' = if (!empty(groups.data_writers)) {
   name: 'role-data-writers-blob-contributor'
+  dependsOn: [
+    storage
+  ]
   params: {
     resourceKind: 'storageAccount'
-    resourceName: storage.outputs.name
+    resourceName: storageAccountName
     principalId: groups.data_writers
     roleId: roles.storage_blob_data_contributor.id
     assignmentDescription: 'data-writers-storage-blob-data-contributor'

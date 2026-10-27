@@ -75,8 +75,8 @@ that is not a root file are load failures. The answer to "which track holds this
 ### Rule DDR-TRACKTYPE-FACTSFROMDECLARATION
 
 A file's `track`, `tracktype` and, when the track has one, `vendor` are read from the declaration on demand, through `Get-Track`, never
-guessed from a folder name and never read from a file's head, and a root file has none. A generated file's head shows its `track`, and no
-head shows `tracktype`, `vendor` or the track's role, places or languages: a reader looks those up by the track's name.
+guessed from a folder name and never read from a file's head, and a root file has none. No head shows `track`, `tracktype`, `vendor` or the
+track's role, places or languages: a reader asks `Get-Track` for them.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -91,11 +91,11 @@ A track of **vendored code** holds code written by a third party that the reposi
 
 ## Context
 
-The repository holds more than code to deploy. Its `automation` and `infrastructure` trees are collections of modules that CI/CD delivers;
-its `.ado/pipelines` and `.github/workflows` trees are the repository's own pipeline definitions for two different platforms; its
-dot-folders configure the tools that read them; its `.vendor` folders hold code written elsewhere. Calling all of these "root folders" hides
-the difference that matters: which tracks produce a deliverable, and which only hold a vendor's configuration or a third party's code. A
-name for the type of track, declared once, makes that difference a fact a gate can check.
+The repository holds more than code to deploy. Its `pwsh` and `infrastructure` trees are collections of modules that CI/CD delivers; its
+`.ado/pipelines` and `.github/workflows` trees are the repository's own pipeline definitions for two different platforms; its dot-folders
+configure the tools that read them; its `.vendor` folders hold code written elsewhere. Calling all of these "root folders" hides the
+difference that matters: which tracks produce a deliverable, and which only hold a vendor's configuration or a third party's code. A name
+for the type of track, declared once, makes that difference a fact a gate can check.
 
 ### Track types
 
@@ -116,11 +116,10 @@ A holder is therefore small, and a vendor change touches only its holder.
 
 ### Vendors
 
-A vendor is a tool, core, plugin or external dependency that the repository vendors ([DDR-VENDOR](vendoring.md)), and it is a fact of the
-track, not of the folder name. Pipelines show why: the ADO and GitHub definitions are the same sort of thing bound to two pipeline models,
-so they share a type and differ by vendor, where two types would make the sort of thing look like two things. Settings show the other side:
-four tools with four sets of files are four tracks of one type, so a change to one tool's settings never re-keys another's. The word has one
-meaning here: the tool the repository vendors, kept in the commit so that HEAD stays reproducible.
+A vendor ([DDR-VENDOR](vendoring.md)) is a fact of the track, not of the folder name. Pipelines show why: the ADO and GitHub definitions are
+the same sort of thing bound to two pipeline models, so they share a type and differ by vendor, where two types would make the sort of thing
+look like two things. Settings show the other side: four tools with four sets of files are four tracks of one type, so a change to one
+tool's settings never re-keys another's.
 
 ### Where the declarations live
 
@@ -142,8 +141,8 @@ Name the type of a track and declare it once. A track is a cluster of module con
 ([DDR-TRACKTYPE-OPTIONALVENDOR](#rule-ddr-tracktype-optionalvendor)). A deployable track owns deployable-units and a holder track is a
 module of one vendor, one tool or one purpose ([DDR-TRACKTYPE-ONEROLE](#rule-ddr-tracktype-onerole)). The `tracks` map and `track-types.yml`
 are the only declarations ([DDR-TRACKTYPE-TYPESDECLAREDONCE](#rule-ddr-tracktype-typesdeclaredonce)); the longest place resolves each file
-([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)); the head says `track`, `tracktype` and `vendor`
-([DDR-TRACKTYPE-FACTSFROMDECLARATION](#rule-ddr-tracktype-factsfromdeclaration)).
+([DDR-TRACKTYPE-LONGESTPLACEWINS](#rule-ddr-tracktype-longestplacewins)); a file's `track`, `tracktype` and `vendor` are asked of the
+declaration and never shown in a head ([DDR-TRACKTYPE-FACTSFROMDECLARATION](#rule-ddr-tracktype-factsfromdeclaration)).
 
 ### How this is enforced
 
@@ -153,7 +152,7 @@ are the only declarations ([DDR-TRACKTYPE-TYPESDECLAREDONCE](#rule-ddr-tracktype
   vendor is not declared, and a track type that admits a module type no registry declares.
 - **`Test-WorldMap`** fails a tracked file in no track and a stack violation
   ([DDR-TRACK-STACKVIOLATION](tracks.md#rule-ddr-track-stackviolation)); its rows are the tracks.
-- **`Test-FileMeta`** compares `track`, `tracktype` and `vendor` in each head with the declaration.
+- **`Test-FileMeta`** fails a head that holds a key the head policy does not call for, `track`, `tracktype` and `vendor` among them.
 
 ## Consequences
 

@@ -21,7 +21,7 @@ Source: learn /azure/well-architected/security/establish-baseline (SE:01, retrie
 
 Binds to [ADR-AZ-LZ-SECUREBYDEFAULT](../../../azure/landing-zones.md#rule-adr-az-lz-securebydefault),
 [ADR-AZ-LZ-EVERYPILLAR](../../../azure/landing-zones.md#rule-adr-az-lz-everypillar),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), and
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies), and
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 
 ### Rule EDR-AZ-WAF-SE-SE02
@@ -88,7 +88,7 @@ Source: learn /azure/well-architected/security/networking (SE:06, retrieved 2026
 
 Binds to [ADR-AZ-LZ-SECUREBYDEFAULT](../../../azure/landing-zones.md#rule-adr-az-lz-securebydefault),
 [ADR-AZ-LZ-WORKLOADOWNSNONE](../../../azure/landing-zones.md#rule-adr-az-lz-workloadownsnone),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-ONEIPPLAN](../../../azure/azure-network-model.md#rule-adr-az-network-oneipplan), and
 [ADR-AZ-NETWORK-CAFPRIVATEACCESS](../../../azure/azure-network-model.md#rule-adr-az-network-cafprivateaccess).
 
@@ -113,7 +113,7 @@ Source: learn /azure/well-architected/security/harden-resources (SE:08, retrieve
 
 Binds to [ADR-AZ-LZ-SECUREBYDEFAULT](../../../azure/landing-zones.md#rule-adr-az-lz-securebydefault),
 [ADR-AZ-LZ-EVERYPILLAR](../../../azure/landing-zones.md#rule-adr-az-lz-everypillar), and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-WAF-SE-SE09
 
@@ -138,7 +138,7 @@ with platform threat detection so alerts reach security operations quickly, and 
 Source: learn /azure/well-architected/security/monitor-threats (SE:10, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-SECUREBYDEFAULT](../../../azure/landing-zones.md#rule-adr-az-lz-securebydefault),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), and
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies), and
 [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement).
 
 ### Rule EDR-AZ-WAF-SE-SE11

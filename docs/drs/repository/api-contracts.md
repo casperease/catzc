@@ -177,8 +177,8 @@ version.
 
 The first folder names who made the promise. `catzc` is the repository, so everything under it is what we promise the world. Every other
 root is one vendor, named by its plain moniker, and everything under it is what that vendor promised us. The root is therefore the
-direction: no per-asset declaration, no override, no prefix to tell an external root from ours. A promise the repository makes about its own
-files to a vendor's reader — the keys GitHub reads from a workflow — is the vendor's promise to read them, so it lives under the vendor.
+direction: no per-asset declaration, no override, no prefix to tell an external root from ours. A shape we wrote about our own files for a
+vendor's reader — the keys GitHub reads from a workflow — is our promise, so it lives under `catzc` in its owning module's group.
 
 ```text
 contracts/
@@ -299,9 +299,8 @@ has dropped protects nothing.
 
 ### Binding, by contract testing
 
-A contract is only a promise if breaking it is caught. `Test-Contracts` checks every asset of every root's `0.1.0`, and the provided assets
-of every `catzc` release a consumer pins. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change that violates a
-contract turns the test run red before it ships. Without the test, "we keep this working" is a hope; with it, it is enforced.
+A contract is only a promise if breaking it is caught. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change
+that violates a contract turns the test run red before it ships.
 
 ### A release folder is frozen
 

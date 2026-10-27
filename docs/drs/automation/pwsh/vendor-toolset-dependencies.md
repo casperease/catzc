@@ -54,6 +54,17 @@ dependencies are vendored, and the gallery (or the configured feed) is reached o
 - [No gallery at runtime](#no-gallery-at-runtime)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule ADR-PWSH-VENDOR-TOOLCMDLETS
+
+The system-tool rules of ADR-AUTO-DEPS are spelled in PowerShell as follows. The triad (ADR-AUTO-DEPS-TOOLTRIAD) is one `Install-*` /
+`Invoke-*` / `Uninstall-*` function set per tool. The assertion before every call (ADR-AUTO-DEPS-ASSERTBEFOREINVOKE) is `Assert-Tool`, which
+runs `Assert-Command` and `Assert-ToolVersion`, or `Resolve-ToolExecutable` for a tool with candidate paths. The install order
+(ADR-AUTO-DEPS-INSTALLORDERINCONFIG) is `Get-ToolInstallOrder`. CI (ADR-AUTO-DEPS-CISAMEINSTALLERS) calls the per-tool `Install-*` functions
+after the ADO version tasks, never the `Install-DevBoxTools` orchestrator. A platform-provided prerequisite
+(ADR-AUTO-DEPS-PREREQUISITEASSERTED) has no `Install-*` / `Uninstall-*` pair and is ordered first by `Get-ToolInstallOrder`.
+
+- [System tools in PowerShell](#system-tools-in-powershell)
+
 ## Context
 
 [controlling-module-dependencies](../controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal module
@@ -113,6 +124,13 @@ of the whole repository: the protection identities hash every tracked file. Two 
 - **PSScriptAnalyzer's `compatibility_profiles`.** About 280 MB of platform profiles, read only by the `PSUseCompatible*` rules, which
   `PSScriptAnalyzerSettings.psd1` keeps off. Bringing those rules back means vendoring the profiles again, and the settings file documents
   that path next to the rules.
+
+### System tools in PowerShell
+
+[controlling-systemwide-deps](../controlling-systemwide-deps.md) states the system-tool rules for any engine. In pwsh, the Tooling layer
+realises them as cmdlets: the per-tool triads, `Assert-Tool` as the one assertion before a call, `Get-ToolInstallOrder` as the one reader of
+`depends_on`, and `Install-DevBoxTools` as the devbox orchestrator that CI does not run. Naming them here keeps the neutral record free of
+one engine's verbs while the cmdlets keep one owning record.
 
 ## Decision
 

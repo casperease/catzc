@@ -76,10 +76,10 @@ output, not source: it is never committed, never edited, and regenerated from th
 
 ### Rule ADR-REPO-OUTDIR-PLANNOTES
 
-The plan files `out/plan-*.md` are authored working notes, not output: the whitelisted clean (`Reset-GitCleanFxd`,
-`importer.ps1 -cleanClone`) keeps and reports them instead of deleting them. They stay gitignored and uncommitted like the rest of `out/`. A
-**workstream** is one labeled section of such a plan's work breakdown — its own `### W<n>:` heading, order, and gate — that lands as one
-change, never half-landed (PDR-ONELIVE).
+A plan lives in `.claude/plans`, never under `out/` ([ADR-REPO-PLANS](plans.md)). An `out/plan-*.md` is an authored note in the wrong place,
+not output, so the whitelisted clean (`Reset-GitCleanFxd`, `importer.ps1 -cleanClone`) keeps and reports it instead of deleting what cannot
+be regenerated, and its author moves it. A **workstream** is one labeled section of a plan's work breakdown — its own `### W<n>:` heading,
+order, and gate — that lands as one change, never half-landed (PDR-ONELIVE).
 
 - [Plan files](#plan-files)
 
@@ -156,9 +156,9 @@ each other.
 
 ### Plan files
 
-A plan is the one thing under `out/` a human writes rather than a function: a reviewable `plan-<topic>.md` that lives beside the output it
-plans, gitignored so it never reaches a commit. Unlike output it cannot be regenerated, so the whitelisted clean excludes it — a clean-clone
-resets every generated artifact and leaves the plans in place, reported like any other untracked file it refused to touch.
+A plan is written by a human rather than a function, reviewed and kept with the work it plans, so it lives in `.claude/plans`, not under the
+output root, which can be wiped at any time. A plan file found under `out/` cannot be regenerated, so the whitelisted clean excludes it — a
+clean-clone resets every generated artifact and leaves the stray plan in place, reported like any other untracked file it refused to touch.
 
 A plan's work breaks into workstreams — `### W<n>: <name>` sections such as W0, W1, W2 — each with its own order and gate. A workstream
 lands whole: it is never committed half-done, and its citation never aliases an older label (PDR-ONELIVE).
@@ -168,10 +168,10 @@ lands whole: it is never committed half-done, and its citation never aliases an 
 A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
 every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
 folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
-cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
-retires them. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on
-the format type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is
-reported and left alone: removing what nobody declared would guess at its owner.
+cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact stays until a person retires
+it. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on the format
+type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is reported and
+left alone: removing what nobody declared would guess at its owner.
 
 ## Consequences
 

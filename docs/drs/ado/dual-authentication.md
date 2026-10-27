@@ -33,15 +33,15 @@ which encapsulates the precedence.
 
 ### Rule ADR-ADO-AUTH-ASSERTWHENNOTOKEN
 
-Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set
-`$env:AZURE_DEVOPS_PAT`, or `Connect-AzCli` with an Entra ID account).
+Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set the
+`AZURE_DEVOPS_PAT` environment variable, or `Connect-AzCli` with an Entra ID account).
 
 - [Pattern](#pattern)
 
 ### Rule ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
 
 Step templates map the system token: `invoke-automation.yaml` maps `SYSTEM_ACCESSTOKEN: $(System.AccessToken)` when `ExposeAccessToken` is
-set. Functions read the mapped `$env:SYSTEM_ACCESSTOKEN`, never `System.AccessToken` directly.
+set. Functions read the mapped `SYSTEM_ACCESSTOKEN` environment variable, never `System.AccessToken` directly.
 
 - [Step template integration](#step-template-integration)
 
@@ -73,11 +73,9 @@ organization/tenant (`ado.yml`) before a header is returned.
 
 ## Decision
 
-`Get-AdoAuthorizationHeader` selects a credential by a fixed precedence over **which credential is configured** (its availability), not by
-trial-and-error. The order is deterministic; there is no guessing about _intent_, and there is **no fallback to another source when an auth
-attempt fails** — a configured-but-failing credential surfaces its own error rather than silently degrading to the next source. Each source
-is proven to target the `ado.yml` organization/tenant before a header is returned, so a present credential never resolves to "some other org
-by accident."
+`Get-AdoAuthorizationHeader` selects a credential by a fixed precedence over **which credential is configured**, not by trial-and-error
+(ADR-ADO-AUTH-FIXEDCREDENTIALORDER), and proves each source targets the `ado.yml` organization/tenant before returning a header
+(ADR-ADO-AUTH-PROVETARGET).
 
 ### Pattern
 
@@ -91,68 +89,25 @@ The precedence (highest first), each with its own org/tenant proof:
 3. **az CLI** — otherwise: `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant` proves the az session is in the Entra directory
    backing the org, then `az account get-access-token --resource $ResourceUrl` returns a `Bearer` token.
 
-```powershell
-function Get-AdoAuthorizationHeader {
-    [CmdletBinding()]
-    [OutputType([hashtable])]
-    param(
-        # Azure AD resource for az CLI token requests; defaults to the Azure DevOps resource ID.
-        [string] $ResourceUrl = '499b84ac-1321-427f-aa17-267ca6975798'
-    )
-
-    if ((Test-IsRunningInPipeline) -and $env:SYSTEM_ACCESSTOKEN) {
-        $collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')
-        $org = "$((Get-Config -Config ado).organization)".TrimEnd('/')
-        if ($collectionUri -and $collectionUri -ne $org) {
-            throw ("Pipeline collection '$collectionUri' does not match ado.yml organization '$org' — " +
-                'refusing the agent token for a different org.')
-        }
-        return @{ 'Authorization' = "Bearer $env:SYSTEM_ACCESSTOKEN" }
-    }
-
-    if ($env:AZURE_DEVOPS_PAT) {
-        $base64 = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$env:AZURE_DEVOPS_PAT"))
-        return @{ 'Authorization' = "Basic $base64" }
-    }
-
-    # Prove the az session is in the Entra directory backing the org before minting a token.
-    Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant
-
-    $result = Invoke-Executable "az account get-access-token --resource $ResourceUrl --query accessToken -o tsv" -PassThru -NoAssert -Silent
-    Assert-NotNullOrWhitespace $result.Output -ErrorText (
-        'No ADO token available. Set $env:AZURE_DEVOPS_PAT, or run Connect-AzCli with an Entra ID account.'
-    )
-
-    @{ 'Authorization' = "Bearer $($result.Output)" }
-}
-```
-
-The resource URL `499b84ac-1321-427f-aa17-267ca6975798` is Azure DevOps's well-known resource ID, exposed via the `-ResourceUrl` parameter.
-**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** An ARM-calling path mirrors this function with
-resource `https://management.azure.com/` (and the same per-source org/tenant proof) rather than overloading the ADO header function.
+**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** Its pwsh signature and body are
+[ADR-PWSH-ADOFUNC-HEADERFUNCTION](../automation/pwsh/ado-pipeline-functions.md#rule-adr-pwsh-adofunc-headerfunction).
 
 ### Step template integration
 
-```yaml
-# invoke-automation.yaml (with auth)
-parameters:
-  - name: RunCommand
-    type: string
-  - name: ExposeAccessToken
-    type: boolean
-    default: false
+A step that calls the ADO API goes through the runner's step template ([pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)) and
+asks for the token; the template maps it on whichever task its `Mode` selects:
 
-steps:
-  - task: PowerShell@2
-    inputs:
-      targetType: inline
-      script: |
-        . './.ado/pipelines/Invoke-AdoScript.ps1' -Command '${{ parameters.RunCommand }}' `
-          -ExposeAccessToken:$${{ parameters.ExposeAccessToken }}
-      pwsh: true
-    ${{ if parameters.ExposeAccessToken }}:
-      env:
-        SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+```yaml
+# A step with ADO API access
+- template: /.ado/pipelines/steps/invoke-automation.yaml
+  parameters:
+    RunCommand: "Sync-AdoEnvironmentApprovals"
+    ExposeAccessToken: true
+
+# Inside invoke-automation.yaml, on the task of every mode
+${{ if parameters.ExposeAccessToken }}:
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 ```
 
 The token is only mapped when `ExposeAccessToken` is true. This makes it visible in the YAML which steps have ADO API access — a useful

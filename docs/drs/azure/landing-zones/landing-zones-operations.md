@@ -9,10 +9,7 @@ where a machine can enforce it, by a quality gate
 ([ADR-AUTO-TEST-QUALITYGATE](../../automation/test-automation.md#rule-adr-auto-test-qualitygate)). Compliance built in as guardrails is the
 landing zone's policy assignments, in force in production and auditing outside it. A learning, blameless culture is the DORA capability
 [generative organizational culture](../../external/dora/generative-organizational-culture.md). The CAF tags on every resource include
-`owner`, `criticality`, and `data-classification`: every config tags `foundation`'s workspace and vault with `owner: platform` and
-`criticality: high` for the shared platform, a hub carries `owner: platform`, a spoke carries the customer's key as its owner (`owner: apex`
-in `configuration/apex/`), and each `expedition` config tags its resources with the workload, the environment, the owner, and a criticality
-that follows the environment class (`low` in a development special slot, `high` in production).
+`owner`, `criticality`, and `data-classification` ([ADR-AZ-LZ-CAFTAGS](../landing-zones.md#rule-adr-az-lz-caftags)).
 
 Routine operations are automation, not documents: building, deploying, and validating a template are the `Build-Bicep`, `Deploy-Bicep`, and
 `Assert-BicepTemplate` functions, run the same way on a devbox and in a pipeline. A scheduled routine is a CRON pipeline invoking an
@@ -67,25 +64,19 @@ triggers its CD pipeline through the globset's native path filter
 ([FDR-GLOBS-NATIVEPATHFILTER](../../flow/durable-sha-globs.md#rule-fdr-globs-nativepathfilter)). The CD pipeline runs the same CI engine as
 `ci-infrastructure.yaml` ([FDR-TYPE-ONECIENGINE](../../flow/pipeline-types.md#rule-fdr-type-oneciengine)), publishes one artifact per
 template, and its deploy stages consume those artifacts unchanged, build once and deploy many
-([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)). The stages run
-`foundation`, then `discovery`, then `expedition` (one deployment job per slot; a customer with no `expedition` config passes an empty list
-and gets no stage), and each deploy asserts the subscription its service connection logs into (`-SubscriptionIdAssertIs`). Hubs deploy from
-`cd-shared.yaml` and spokes from the customer pipelines, so the spoke rollout order spans two pipelines. Configuration that reaches the
-cloud enters only through version control
-([FDR-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-type-configentersthroughinput)). The shipped CD pipelines deploy
-non-production and production in the same stage: `cd-shared.yaml` deploys `nsub` and `psub` side by side, and `extends/cd-customer.yaml`
-deploys each customer's `dev` and `prod` side by side, whereas the flow model keeps CD within non-production and reaches production through
-a DEPLOY pipeline behind a manual gate
+([FDR-CD-SEPARATEPIPELINEKINDS](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds)), and configuration
+reaches the cloud only through version control
+([FDR-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-type-configentersthroughinput)). The stages run `foundation`,
+then `discovery`, then `expedition` (one deployment job per slot; a customer with no `expedition` config gets no stage), and each deploy
+asserts the subscription its service connection logs into (`-SubscriptionIdAssertIs`). Hubs deploy from `cd-shared.yaml` and spokes from
+the customer pipelines, so the spoke rollout order spans two pipelines. The shipped CD pipelines deploy non-production and production in the
+same stage, on `main` only, with no bake time and no what-if preview, and `.ado/pipelines/` holds no DEPLOY pipeline: they fall short of
+the flow model's promotion
 ([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
-[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy)); `.ado/pipelines/`
-holds no DEPLOY pipeline. The shipped pipelines deploy only on `main`, after the CI stage, in dependency order, each into an asserted
-subscription, with no bake time between non-production and production, and they do not run the what-if preview that `Deploy-Bicep -DryRun`
-offers. The flow model defines safe deployment as one tagged artifact built once, promoted through non-production behind the RC and RBC
-gates ([FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)), then staged inactive in
-pre-prod and activated to production
-([FDR-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)), and a DEPLOY
-pipeline deploys one pinned commit's artifact, so rolling back is deploying the commit before it
-([FDR-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-type-deployispinned)). Read-only standing access to the subscriptions is a
+[FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy),
+[FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
+[FDR-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation),
+[FDR-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-type-deployispinned)). Read-only standing access to the subscriptions is a
 tenant setting. `discovery` is the riskiest template, since a change to peering, routing, or a policy assignment reaches every workload of
 the subscription; a slot is a deployment of its own, so a special slot can take a change before the base slot.
 
@@ -94,11 +85,10 @@ Monitoring is part of the infrastructure, deployed by the same templates
 Analytics workspace (`PerGB2018`, the module's 30-day retention in every config), so telemetry is central per subscription and separate
 between non-production and production. Each template sends the diagnostics of the resources it deploys to that workspace through the
 `diagnostic-setting.bicep` module, and the subscription's activity log through `subscription-diagnostic-setting.bicep`
-([ADR-AZ-LZ-CAFMANAGEMENT](../landing-zones.md#rule-adr-az-lz-cafmanagement)); `foundation`'s own Key Vault sends no diagnostics,
-`discovery` sends the activity log, the virtual network and each network security group, and `expedition` the storage account, the blob
-service, and the database. A diagnostic setting in the template exists when the deploy succeeds, which a deploy-if-not-exists policy cannot
-promise. `expedition` deploys no compute, so it has no application telemetry to trace. There is no health model, alert rule, or dashboard,
-and the only alerts are the landing zone's budget thresholds, sent to the subscription's `Owner` role.
+([ADR-AZ-LZ-CAFMANAGEMENT](../landing-zones.md#rule-adr-az-lz-cafmanagement)). A diagnostic setting in the template exists when the deploy
+succeeds, which a deploy-if-not-exists policy cannot promise. `expedition` deploys no compute, so it has no application telemetry to trace.
+There is no health model, alert rule, or dashboard, and the only alerts are the landing zone's budget thresholds, sent to the subscription's
+`Owner` role.
 
 The architecture carries the containment and recovery side of an incident. Workloads sit behind private endpoints with public access off,
 each subnet that carries workloads has a network security group that denies inbound traffic from the internet, a spoke has a route table on

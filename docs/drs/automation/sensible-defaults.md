@@ -4,8 +4,8 @@
 
 ### Rule ADR-AUTO-DEFAULT-ZEROARGUMENTCALL
 
-The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — `Install-Poetry` installs
-the locked version, `Test-Automation` runs every tier its location allows (L0–L3 in the working folder, L0–L2 in a snapshot) with detailed
+The zero-argument call must work. If a function can do useful work without input, all parameters have defaults — a tool installer installs
+the locked version, the test runner runs every tier its location allows (L0–L3 in the working folder, L0–L2 in a snapshot) with detailed
 output.
 
 - [Examples](#examples)

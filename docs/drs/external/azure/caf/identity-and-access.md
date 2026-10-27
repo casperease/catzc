@@ -534,7 +534,7 @@ roles only.
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones (recommendation 51, retrieved
 2026-10-14)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-LZ-CAFIDENTITY](../../../azure/landing-zones.md#rule-adr-az-lz-cafidentity).
 
 ### Rule EDR-AZ-CAF-IAM-R52

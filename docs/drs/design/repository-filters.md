@@ -25,10 +25,10 @@ and resolves nothing of its own.
 A **lamp** is a filter a reader switches on (lit), off, or to **veto**, one click stepping it round off, on, veto. The view is the **total
 union** of the lit lamps minus the zones of the vetoed lamps: a file is shown while at least one lit lamp claims it, so putting a lamp out
 hides only the files no other lit lamp claims, while a vetoed lamp hides every file it claims even when a lit lamp claims it too. Every lamp
-takes part the same way, the open lamp included: its sets are the files open in an editor, and it is always lit, so it keeps them in the
-tree whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything. A reader adds **language lamps** to the
-row with the languages button: each tagged language of the languages config ticked there stands after the filters as `lang-<name>`, its sets
-one include per extension, and takes part exactly like a filter lamp; unticking it takes it out of the row again.
+takes part the same way, the open lamp included: its sets are the files the reader has open, and it is always lit, so it keeps them in view
+whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything. A reader may add **language lamps**, one per
+tagged language of the languages config, its sets one include per extension, taking part exactly like a filter lamp. How the editor
+presents the row is ADR-AUTO-JS-LAMPSINTHEEDITOR.
 
 - [Decision](#decision)
 - [Consequences](#consequences)
@@ -52,16 +52,14 @@ deleted file is a change. The condition is independent of the switch: an unlit l
 
 ### Rule DDR-FILTER-STATEALWAYSSHOWN
 
-A lamp's icon is one lookup, switch × condition, and nothing else: lit is a steady glyph, unlit an active filter pulsing in a turning ring;
-committed is green, local work in progress is the blue-grey range (staged dark, unstaged lighter), failed red, empty neutral grey. The
-editor's own git colours follow the same mapping, so a lamp and the files it claims never disagree. A reader never has to guess why a file
-is missing or where the work is.
+A lamp's state is one lookup, switch × condition, and nothing else: lit and unlit look different; committed is green, local work in
+progress is the blue-grey range (staged dark, unstaged lighter), failed red, empty neutral grey. The files a lamp claims show the same
+mapping, so a lamp and its files never disagree. A reader never has to guess why a file is missing or where the work is.
 
 Red always wins. A file's Error is remembered with the time it was first seen, and lapses only when the file reports a non-error set, is
-edited or saved, or changes on disk after that time; a closed tab and a quiet language server never release it. A remembered Error and a
-failed test marker are published again as the engine's own diagnostics, marked as remembered, because the editor's problem decorations are
-the only ones heavier than the git colours and the only ones that colour every folder above the file; the problems list and the error count
-show them too.
+edited or saved, or changes on disk after that time; a closed view and a quiet checker never release it, and a remembered Error stays
+visible wherever the reader looks for errors. How the editor draws the states and keeps a remembered Error visible is
+ADR-AUTO-JS-LAMPSINTHEEDITOR.
 
 - [Consequences](#consequences)
 
@@ -94,16 +92,11 @@ reader settles into a small working view and stays in it, and wants to see work 
 
 ## Decision
 
-Filters are a layer of their own above the hard model, declared once as named selections over tracks, aspects and generated targets and
-carried as the model's own patterns. A small language over them decides a view: inputs are the lamps' sets, the lit lamps and each file's
-facts; the view is the total union of the lit lamps, a file no lamp claims is shown and unaccounted, and each lamp's condition is the
-highest fact over its files. The union needs no rank, pin or natural state: a reader lights what they want in their tree, and the
-combination of the lit lamps is what they see.
+Filters are a layer of their own above the hard model, with a small language over them that decides a view. The union needs no rank, pin or
+natural state: a reader lights what they want in their tree, and the combination of the lit lamps is what they see.
 
-The language is small enough for any engine. Each engine adapts only its own sources into facts: the editor reads the git state that already
-colours its tree, the diagnostics that already mark its files, and the test-result markers a test run writes, by existence and timestamp
-alone. No engine re-reads the index, computes a domain identity or parses a test report; the durable globset identity stays with the
-pipelines.
+The language is small enough for any engine. No engine re-reads the index, computes a domain identity or parses a test report; the durable
+globset identity stays with the pipelines.
 
 ## Consequences
 

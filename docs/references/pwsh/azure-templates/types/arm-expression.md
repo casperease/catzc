@@ -49,3 +49,12 @@ Above `public static object EvaluateCopy(IDictionary copy, IDictionary parameter
 A property copy entry, { name, count, input }, which a Bicep for-expression in a module parameter or a property compiles to: one
 input per index, with copyIndex(name) bound to it; Unresolved when the count is not a resolved integer.
 ```
+
+## comment:6
+
+Above `public static object Evaluate(object value, IDictionary parameters,...` (occurrence 3), written with `//`.
+
+```text
+As above, with the deployment's own facts (location, subscriptionId, resourceGroupName) that deployment(), subscription(),
+resourceGroup(), resourceId() and subscriptionResourceId() read; a fact it does not hold leaves them Unresolved.
+```

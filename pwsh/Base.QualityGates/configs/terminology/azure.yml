@@ -113,3 +113,19 @@ terms:
       meaning: "the Microsoft.OperationalInsights resource provider namespace of Log Analytics"
     - term: timechart
       meaning: "the KQL timechart render operator, used in Log Analytics queries"
+    - term: resourcegraph
+      meaning: "the Microsoft.ResourceGraph resource provider namespace, queried with KQL across subscriptions"
+    - term: resourcehealth
+      meaning: "the Microsoft.ResourceHealth resource provider namespace, which reports a resource's availability"
+    - term: availabilitystatuses
+      meaning: "the Microsoft.ResourceHealth availabilityStatuses resource type, one health status per resource"
+    - term: resourcegroups
+      meaning: "the Resource Graph table of resource groups and the resourceGroups ARM path segment"
+    - term: alertsmanagement
+      meaning: "the Microsoft.AlertsManagement resource provider namespace of Azure Monitor alert processing"
+    - term: tolower
+      meaning: "the KQL tolower function, which lowercases a string, used to compare resource ids"
+    - term: tostring
+      meaning: "the KQL tostring function, which converts a value to a string"
+    - term: todatetime
+      meaning: "the KQL todatetime function, which converts a value to a datetime"

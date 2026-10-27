@@ -153,7 +153,7 @@ Protect every public IP address in a landing zone with a DDoS Protection plan.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-app-delivery (recommendation 17, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R18
@@ -366,7 +366,7 @@ hosts through Bastion.
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
 39, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R40
@@ -376,7 +376,7 @@ Protect the public endpoints in virtual networks with Azure DDoS Protection plan
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-inbound-and-outbound-internet-connectivity (recommendation
 40, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R41
@@ -484,7 +484,7 @@ network security groups and firewalling.
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-virtual-machine-remote-access (recommendation 51,
 retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-NETWORK-CAFCONNECTIVITY](../../../azure/azure-network-model.md#rule-adr-az-network-cafconnectivity).
 
 ### Rule EDR-AZ-CAF-NETCON-R52

@@ -32,8 +32,8 @@ never by editing module-scope state except to reset a cache entry.
 A Pester test file (ADR-AUTO-TEST-TESTFILE) is one `*.Tests.ps1` file under a module's `tests/`: one per function, `Verb-Noun.Tests.ps1` —
 `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting test file is named after the function it most exercises plus a
 suffix (`Verb-Noun.<Suffix>.Tests.ps1`). A test file for a native C# type is named for the type and lives in `tests/types/`
-(`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module. A test
-file whose subject is no one function — a template, a feature spanning several functions, a carrier file — is a named exception: it is listed
+(`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module. A test file
+whose subject is no one function — a template, a feature spanning several functions, a carrier file — is a named exception: it is listed
 under `test_file_name.exempt` in `source-conventions.yml` with its reason, never exempted by a pattern over a folder.
 
 - [How this is enforced](#how-this-is-enforced)
@@ -280,12 +280,9 @@ absent in the test exactly as in production.
 
 The doctrine's speed rules (ADR-AUTO-TEST-SETUPONCE to ADR-AUTO-TEST-MEASUREFIRST) meet four PowerShell-specific costs:
 
-- **The filesystem-cmdlet tax (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS).** On Windows the PowerShell file cmdlets carry ~20 ms of per-call
-  provider + AV/AMSI overhead that the raw .NET APIs avoid (~0.1 ms): `Copy-Item -Recurse` ~15× a `[System.IO]` tree copy,
-  `New-Item`/`Set-Content` similar. It bites **production code** the tests exercise as much as the tests themselves. Listing folders is
-  covered by [bounded-enumeration](bounded-enumeration.md) (ADR-PWSH-ENUM). In test setup, copy fixture trees with `Copy-Directory` (the
-  `[System.IO]` recursive-copy helper in `Catzc.Base.Files`) and write files with `[System.IO.File]::WriteAllText` /
-  `[System.IO.Directory]::CreateDirectory`. The bulk-delete gotcha below is the same effect for deletion.
+- **The filesystem-cmdlet tax (ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS).** On Windows a file cmdlet costs ~20 ms per call where the raw .NET API
+  costs ~0.1 ms, in production code as much as in tests. `Copy-Directory` lives in `Catzc.Base.Files`; the bulk-delete gotcha below is the
+  same effect for deletion.
 - **Setup in `BeforeEach` (ADR-PWSH-PESTER-SETUPONCEPERBLOCK).** `Get-BicepTemplates`/`Get-Config` key their session cache on the resolved
   root/path. A `BeforeEach` that assigns each test a fresh `Join-Path $TestDrive ([Guid]::NewGuid())` root, or re-runs
   `InModuleScope … { $script:configCache = $null }`, defeats that cache and pays a full cold re-derive **every test** — on the order of a
@@ -324,10 +321,8 @@ them as Pester tests.
 
 - **`<word>` in an `It` name is Pester data-binding**, not literal text — `'names parameters.<config>.json'` makes Pester look for
   `$config`. Keep angle brackets out of test names.
-- **An unbound `[string]` parameter is `''`, not `$null`** — the engine coerces `$null`→`''` for `[string]`, so `$Customer -eq $null` is
-  never true for a `[string]` param. Test emptiness with `if (-not $Customer)` or `[string]::IsNullOrEmpty($Customer)`, and never default
-  one with `??` (the default won't apply — see
-  [automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-nocoalesceonstrings)).
+- **An unbound `[string]` parameter is `''`, not `$null`** — test emptiness with `if (-not $Customer)`, never `-eq $null` or `??`
+  ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-nocoalesceonstrings)).
 - **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
   codebase returns ordered dicts pervasively.
 - **`Should -BeLike` and `Should -Throw` match a `-like` pattern, where `[ ]` is a character class and the backtick escapes
@@ -376,10 +371,8 @@ them as Pester tests.
 ### How this is enforced
 
 - **The seams exist** as mockable functions (`Get-BicepTemplatesRoot` for the template tree; `Resolve-ConfigEntry` and `Get-Config` for
-  config), so isolation is a mock away and production has a single pristine default. For config, mock the discovery seam to return a fixture
-  `@{ Name; Module; Path }`, or mock `Get-Config` outright — the whole function, never its internals (ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES).
-  When exercising cache behavior directly, reset the cache entry per [script-scope-caching](script-scope-caching.md)
-  (ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES).
+  config), so isolation is a mock away and production has a single pristine default (ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS,
+  ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES).
 - **`Test-Automation.Tests.ps1`** validates the `Verb-Noun.Tests.ps1` filename convention — a type test under `tests/types/` is instead
   named for the `types/*.cs` it covers — and the one-function-per-file rules for source (see
   [one-function-per-file](one-function-per-file.md)).

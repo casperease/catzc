@@ -91,7 +91,7 @@ Deploy and manage Azure Policy with infrastructure as code.
 
 Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (recommendation 10, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-LZ-CAFDELIVERY](../../../azure/landing-zones.md#rule-adr-az-lz-cafdelivery).
 
 ### Rule EDR-AZ-CAF-DEVOPS-R11
@@ -110,7 +110,7 @@ drift apart; the considerations name modify effects as the risk.
 
 Source: learn /azure/cloud-adoption-framework/ready/considerations/automation (recommendation 12, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-LZ-CAFDELIVERY](../../../azure/landing-zones.md#rule-adr-az-lz-cafdelivery).
 
 ### Rule EDR-AZ-CAF-DEVOPS-R13

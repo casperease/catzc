@@ -14,13 +14,15 @@ is planned here, one step each, so no record carries a planned item.
 
 ## Open steps
 
-- [ ] A health model per workload, the expedition wiring (the module `health-workbook.bicep`, the ADR-AZ-LZ-CAFMANAGEMENT rule line and the
+- [x] A health model per workload, the expedition wiring (the module `health-workbook.bicep`, the ADR-AZ-LZ-CAFMANAGEMENT rule line and the
       CAF management passage are in the tree): `options.yml` gains `healthWorkbookName: { type: wb, role: hlt }` and `main.bicep` a
       `healthWorkbookName` param and a `health-workbook.bicep` call (`displayName`, `location`, `workspaceId: workspace.id`, `tags`); the L1
       drafted at `out/drone-rap-HealthModel.Tests.ps1` lands as `pwsh/Azure.Templates/tests/HealthModel.Tests.ps1`, its query check read
       from the compiled module's `healthQueries` variable if the evaluator leaves `string()` unresolved. Check: HealthModel.Tests (one
       `Microsoft.Insights/workbooks` per expedition slot, with its three queries), Test-BicepLint, Build-Bicep.Integrity,
-      Test-BicepTemplateCompliance and Test-BicepResourceNames green in one staged burst.
+      Test-BicepTemplateCompliance and Test-BicepResourceNames green in one staged burst. Verdict (2026-10-27 burst, the queries read from
+      `healthQueries`): Test-BicepLint, Test-BicepApiVersions, Test-BicepResourceNames, Build-Bicep.Integrity.Tests,
+      Test-BicepTemplateCompliance.Tests, HealthModel.Tests and Get-BicepRoleAssignmentPlan.Tests passed, 7 of 7.
 - [x] Role assignments as code, the discovery slice: `role-assignment.bicep` (resource-group scope: resourceGroup | storageAccount |
       keyVault | sqlServer | workspace) and `subscription-role-assignment.bicep` (bicep refuses a subscription assignment from a
       resource-group file, BCP139), the `azure.yml` `groups:` map on AzureConfig/AzureGroupSet with its `groups` fact, discovery's standard
@@ -35,13 +37,14 @@ is planned here, one step each, so no record carries a planned item.
       Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
       `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
-- [ ] Role assignments, what is left after `Get-BicepRoleAssignmentPlan` landed: `RoleAssignments.Tests.ps1` gains the expedition case
-      (`data_readers` `storage_blob_data_reader` and `data_writers` `storage_blob_data_contributor` on the account, `data_writers`
-      `key_vault_secrets_user` on foundation's vault) in the burst that wires expedition's role assignments; the evaluator resolves
-      `resourceId` and `subscriptionResourceId` (as provider paths when the scope is unknown), and the command then drops its own
-      provider-path rewrite; `Get-ArmDeployedResource` carries a nested deployment's `resourceGroup`, so a scope names its resource group;
-      and a user step in the task file to review the stacked assignments. Check: RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests
-      green in one staged burst.
+- [ ] Role assignments, what is left after `Get-BicepRoleAssignmentPlan` landed (the expedition case of `RoleAssignments.Tests.ps1` and the
+      `ResourceGroup` on each `Get-ArmDeployedResource` record are in the tree): the evaluator resolves `resourceId` and
+      `subscriptionResourceId` exactly, from deployment facts the caller passes (the slot's subscription id and resource group), and stays
+      `Unresolved` without them, since a provider path inside `guid()` would name a workbook that is not the deployed one and
+      Remove-BicepOrphanResources would take the real one for an orphan; the command then passes the slot's facts and drops its own
+      provider-path rewrite; and a user step in the task file to review the stacked assignments. Check: ArmExpression.Tests with a
+      `resourceId` case, RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests green in one staged burst, and the orphan probe reads 0
+      unresolved names for foundation (its capacity workbook, `guid()` of the workspace's id).
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`

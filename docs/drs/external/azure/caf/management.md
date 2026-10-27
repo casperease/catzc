@@ -34,7 +34,7 @@ Use Azure Policy to enforce the settings that must hold across the organisation 
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (recommendation 3, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-MGMT-R04
 
@@ -58,7 +58,7 @@ Let role assignments decide who may deploy and deny policies decide what may be 
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/management-platform (recommendation 6, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) and
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies) and
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 
 ### Rule EDR-AZ-CAF-MGMT-R07

@@ -44,7 +44,7 @@ extracts the C# edges and the `Test-ModuleDependency` quality gate fails its L1 
 ### Rule ADR-BCL-TYPES-CHANGEDAFTERLOAD
 
 Handle changed-after-load by context — a loaded assembly cannot be swapped in a running process. In a **pipeline** the loader throws (CI
-must never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in orange that it is using
+must never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in yellow that it is using
 the old cached types until the session restarts, and keeps the already-loaded types this session, so a dev editing a type mid-session is
 never blocked. It returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the loaded
 assembly lacks (added since load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses
@@ -186,13 +186,12 @@ names the file and its reason. A host-bound type without its row is out of the l
 
 Some logic is better expressed as a native .NET type than as script code: a process runner with background reader threads
 (`Catzc.Base.Execution.CliRunner`), or a constrained, validated data record that replaces a loose dictionary. The platform autoloads such
-types from each module's `types/` folder and commits the compiled assembly so a fresh checkout and CI load it without invoking Roslyn (see
-[caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) for why committed prebuilds are the one sanctioned cross-session cache).
+types from each module's `types/` folder, compiling them once per machine into a gitignored, hash-named assembly that later sessions load
+without recompiling (see [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) for why this prebuild is the one sanctioned
+cross-session cache); git holds only each module's `types.json` contract.
 
-Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base (a
-dictionary-compatible data-record base) and layered records (a record in one module building on a record in another) — the thing static data
-classes want most. Compiling one assembly per module would forbid those cross-module references; the cost of the single assembly is that
-layering discipline is policed by the dependency checker rather than structurally by the compiler.
+Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base and
+records layered across modules. The cost is that the dependency checker, not the compiler, polices layering.
 
 ### One assembly
 
@@ -206,14 +205,11 @@ One combined assembly dissolves the problem entirely rather than working around 
 
 - **No cross-assembly references exist.** Every type is in one assembly; a base in `Catzc.Base.Objects` and a derived record in
   `Catzc.Azure.Templates` are different _namespaces_ in the _same_ assembly, which the compiler and CLR resolve unconditionally.
-- **The random name is harmless.** The combined assembly is a leaf in the assembly-reference graph — nothing references it by assembly
-  identity, and every caller resolves a type by its fully-qualified name, so the compiler-assigned name is never consulted. The host's own
-  compiler therefore stays the compiler, with no separate build step, no topological compile order, and no transitive references.
+- **The random name is harmless.** The assembly is a leaf (Rule ADR-BCL-TYPES-ONEASSEMBLY), so the host's own compiler stays the compiler,
+  with no separate build step, no topological compile order, and no transitive references.
 
-The cost is that the compiler does not structurally forbid a layer inversion (a base-module type referencing a leaf-module type) — in one
-compilation unit that just compiles. That enforcement moves to the linter (see Rule ADR-BCL-TYPES-REFERENCESFOLLOWDEPS):
-`Get-CSharpTypeDependency` reports the cross-module C# edges and the acyclic allow-list in `configs/dependencies.yml` governs them, failing
-L1 on an undeclared edge.
+A layer inversion (a base-module type referencing a leaf-module type) compiles in one assembly, so the linter catches it instead (Rule
+ADR-BCL-TYPES-REFERENCESFOLLOWDEPS).
 
 ## Decision
 
@@ -259,19 +255,19 @@ folder path, Rule ADR-BCL-TYPES-NAMESPACEISMODULE). The runtime never builds the
 on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is folder-derived by
 `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
-To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
-own identity ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — so its build metadata (the
+To keep that IDE artifact honest, the project **stamps its version from the built `Catzc.Types.<hash>.dll`** — the runtime assembly's own
+identity ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — so its build metadata (the
 `deps.json` project entry) reads `Catzc.Types/1.0.0-<hash>`, not the accidental default `1.0.0`. It is trust-but-verify: the build
-recomputes the combined source hash with the loader's algorithm and **fails when the committed DLL is stale, missing, or ambiguous**, so the
+recomputes the combined source hash with the loader's algorithm and **fails when the built DLL is stale, missing, or ambiguous**, so the
 editor's project can never present a version that outruns the sources it claims to describe. That makes the hashing a fourth mirror of the
 same algorithm (loader, `Clear-ModuleTypeCache`, the drift-guard tests) that must stay in step.
 
 That editor build is the second of two pathways over the same sources: the host's compiler builds the runtime assembly (Rule
 ADR-BCL-TYPES-ONEASSEMBLY), and `dotnet build` compiles for the editor, which makes every `types/*.cs` a navigable Go-to-Symbol target.
 `Invoke-BuildForVsCode` drives the editor half — a `dotnet build` of `Catzc.Types.csproj` — and it doubles as a gate: the project's stamp
-task fails when the committed `Catzc.Types.<hash>.dll` is stale versus the sources (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so a green build
-also proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's
-`Invoke-Dotnet`, which a `Base` module must not depend on.
+task fails when the built `Catzc.Types.<hash>.dll` is stale versus the sources (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so a green build also
+proves the IDE project matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable`, not the Tooling layer's `Invoke-Dotnet`,
+which a `Base` module must not depend on.
 
 ### The cache-state contract
 
@@ -345,12 +341,11 @@ assembly the session runs on, so the next terminal they open is the fix.
 ### Why a shadow copy
 
 Windows locks a loaded file until its process exits, so loading `.compiled` in place lets any live session (a console, the VS Code
-PowerShell host, an analyzer process, a test worker) block the prune of a superseded build — and a blocked prune is how a stale build
-reached a commit. A byte load (`[Reflection.Assembly]::Load([byte[]])`) avoids the lock but leaves `Assembly.Location` empty, and anything
-that later compiles against the types (`Add-Type -ReferencedAssemblies`) needs a real path. A copy keeps `Location` valid and leaves
-`.compiled` read-only to every session. The copy is content-addressed (`Catzc.Types.<hash>.dll`), written through a temp file and an atomic
-move, shared by every session and clone with the same sources, and pruned once it has gone a day without a load. Nothing there is committed,
-so a locked leftover copy is harmless.
+PowerShell host, an analyzer process, a test worker) block the prune of a superseded build. A byte load
+(`[Reflection.Assembly]::Load([byte[]])`) avoids the lock but leaves `Assembly.Location` empty, and anything that later compiles against the
+types (`Add-Type -ReferencedAssemblies`) needs a real path. A copy keeps `Location` valid and leaves `.compiled` read-only to every session.
+The copy is content-addressed (`Catzc.Types.<hash>.dll`), written through a temp file and an atomic move, shared by every session and clone
+with the same sources, and pruned once it has gone a day without a load. Nothing there is committed, so a locked leftover copy is harmless.
 
 ### The `DictionaryRecord` base
 
@@ -488,7 +483,7 @@ as well as its files, so the pair is the language's configuration, apart from th
 
 - **`Invoke-BuildForVsCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
   `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale
-  committed DLL, and a `Base` module reaching the Tooling layer's `Invoke-Dotnet` would invert the dependency graph, so it does not.
+  built DLL, and a `Base` module reaching the Tooling layer's `Invoke-Dotnet` would invert the dependency graph, so it does not.
 
 - **`Get-CSharpTypeDependency` + `Test-ModuleDependency`** — the cross-module C# edges are extracted (a scan that strips comments, string
   literals, and each file's own `namespace <module>;` line, then maps each dotted token to its longest known-module-name prefix) and checked
@@ -498,10 +493,10 @@ as well as its files, so the pair is the language's configuration, apart from th
 
 - **`Import-CSharpTypes.Tests.ps1`** covers the combined compile + cache, intra-module and **cross-module** inheritance, the missing /
   mismatched / block-scoped namespace and dotted-filename throws, the filename-type verification, the changed-after-load fail-fast,
-  self-heal of a deleted DLL, the `DictionaryRecord` dictionary view, and a drift guard (the committed `Catzc.Types.<hash>.dll` matches the
-  current sources, with no pending git changes). A `shipped C# types` test asserts every committed type resolves **and** declares its module
-  namespace (via `Test-Formatting -Language bcl`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
-  after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
+  self-heal of a deleted DLL, the `DictionaryRecord` dictionary view, and a drift guard (the built `Catzc.Types.<hash>.dll` matches the
+  current sources). A `shipped C# types` test asserts every shipped type resolves **and** declares its module namespace (via
+  `Test-Formatting -Language bcl`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves after load.
+  `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current build in the shadow root, and any build younger than the prune age, and prunes the older
   superseded ones. A build a process still holds is named with its holders in one yellow line and left for the run after the holder exits.
@@ -522,19 +517,13 @@ The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYP
 
 ## Consequences
 
-- The whole repository's types form one cohesive assembly — a single shared base, layered records, and nested graphs compile together and
-  reference each other freely.
+- The whole repository's types compile together and reference each other freely.
 
-- A type file's module identity lives in its folder; the declared `namespace <module>;` is a folder-derived mirror that `Format-Types`
-  maintains and `Test-Formatting` checks. Moving a `.cs` to another module stays a safe refactor — re-run `Format-Types` and the line
-  follows the folder (and `Test-Formatting`/the loader fail loudly if it didn't).
+- A type file's module identity lives in its folder; moving a `.cs` to another module is a safe refactor — re-run `Format-Types`.
 
-- The editor compiles and analyzes exactly the sources the runtime does: with C# Dev Kit enabled, `Catzc.Types.csproj`/`catzc.sln` give real
-  in-IDE analysis (no false `CA1050`, no "No solution file") that equals the runtime compile — the rules live as code, not as a disabled
-  analyzer.
+- The editor analyzes exactly the sources the runtime compiles, with the rules as code, not a disabled analyzer.
 
-- The dependency graph is a single source of truth for _both_ function-call and C# type layering. The cost of one combined assembly — the
-  compiler does not block a layer inversion — is paid back by the linter, which fails L1 on an undeclared edge.
+- The dependency graph is the one source of truth for both function-call and C# type layering.
 
-- Editing any type re-keys and rebuilds the one assembly (a single sub-second compile, one committed DLL) and requires a session restart to
-  pick up — the documented devbox contract.
+- Editing any type re-keys and rebuilds the one assembly (a single sub-second compile, paid once on each machine) and requires a session
+  restart to pick up — the documented devbox contract.

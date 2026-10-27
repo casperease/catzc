@@ -23,28 +23,6 @@ function Get-BicepRoleAssignmentPlan {
         $roleNames["$($roles[$name].id)"] = $name
     }
 
-    # A resource id names a scope beyond the deployment, which the evaluator leaves open; read as its provider path, it resolves offline.
-    $providerPath = {
-        param($Value)
-        if ($Value -is [string]) {
-            return $Value -replace '(?<![\w.])(?:subscriptionResourceId|resourceId)\(', 'tenantResourceId('
-        }
-        if ($Value -is [System.Collections.IDictionary]) {
-            $copy = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
-            foreach ($key in @($Value.Keys)) {
-                $copy[$key] = & $providerPath $Value[$key]
-            }
-            return $copy
-        }
-        if ($Value -is [System.Collections.IList]) {
-            $items = [object[]] @(foreach ($entry in $Value) {
-                    , (& $providerPath $entry)
-                })
-            return , $items
-        }
-        $Value
-    }
-
     foreach ($name in $templates) {
         $folder = Join-Path $OutputRoot $name
         $mainJson = Join-Path $folder 'main.json'
@@ -78,7 +56,8 @@ function Get-BicepRoleAssignmentPlan {
         }
         & $index $main
 
-        foreach ($slot in @((Get-BicepTemplate $name).slots)) {
+        $descriptor = Get-BicepTemplate $name
+        foreach ($slot in @($descriptor.slots)) {
             $file = Join-Path $folder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
             $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
             # A Key Vault reference carries no value, so it is passed as unresolved, as the compliance check does.
@@ -93,15 +72,16 @@ function Get-BicepRoleAssignmentPlan {
             }
             $coordinate = (@($slot.customer, $slot.environment, $slot.slot) | Where-Object { $_ }) -join '.'
 
-            foreach ($item in @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object Type -EQ 'Microsoft.Authorization/roleAssignments')) {
+            # Read where Deploy-Bicep sends the slot, so a resource id resolves exactly or stays unresolved.
+            $facts = Get-BicepSlotDeploymentFacts -Template $descriptor -Slot $slot
+            foreach ($item in @(Get-ArmDeployedResource -Template $main -Values $values @facts | Where-Object Type -EQ 'Microsoft.Authorization/roleAssignments')) {
                 if ($item.Conditional) {
                     Write-Message "Get-BicepRoleAssignmentPlan: whether '$($item.Path)' of '$name' deploys in slot $coordinate does not resolve offline, so it is not listed."
                     continue
                 }
-                $variables = & $providerPath $item.Variables
                 $evaluate = {
                     param($Value)
-                    $result = [Catzc.Azure.Templates.ArmExpression]::Evaluate((& $providerPath $Value), $item.Scope, $variables, $item.Indexes, $item.Deployment)
+                    $result = [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                     if ($result -is [string]) {
                         $result
                     }
@@ -109,7 +89,7 @@ function Get-BicepRoleAssignmentPlan {
                         ''
                     }
                 }
-                $properties = [Catzc.Azure.Templates.ArmExpression]::Evaluate((& $providerPath $item.Resource['properties']), $item.Scope, $variables, $item.Indexes, $item.Deployment)
+                $properties = [Catzc.Azure.Templates.ArmExpression]::Evaluate($item.Resource['properties'], $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                 if ($properties -isnot [System.Collections.IDictionary]) {
                     $properties = @{}
                 }
@@ -121,7 +101,8 @@ function Get-BicepRoleAssignmentPlan {
                     $definition
                 }
                 $scope = if ($item.Resource.Contains('scope')) {
-                    (& $evaluate $item.Resource['scope']) -replace '^/providers/', ''
+                    # The resource the assignment is on, by its provider path: the resource id less its subscription and group.
+                    (& $evaluate $item.Resource['scope']) -replace '^(/subscriptions/[^/]+(/resourceGroups/[^/]+)?)?/providers/', ''
                 }
                 elseif ($atSubscription.Contains($item.Resource)) {
                     'subscription'

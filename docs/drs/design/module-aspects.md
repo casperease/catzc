@@ -61,12 +61,9 @@ this module change" — even though nothing shippable moved. Isolation demands t
 
 ## Decision
 
-Aspects make the split first-class and fail-safe. In the code track the `live` surface is a **closed, explicit** convention; everything it
-does not claim — tests, docs, editor droppings, a file dropped at a module's root — falls through to the non-live `tests` remainder.
-Shipping code is therefore default-deny: a new file can only enter `live` by an explicit convention change, never by accident. A deployment
-track inverts the remainder: a template ships whole, so its `tests` is the closed, explicit head and `live` is the remainder. The two
-aspects partition the module exactly (ordered first-match with a `**` remainder guarantees it), and each carries an identity of its own: its
-live durable SHA, folded into the module's protection identity.
+Aspects make the split first-class and fail-safe. In the code track everything `live` does not claim — tests, docs, editor droppings, a file
+dropped at a module's root — falls through to `tests`, so a new file can only enter `live` by an explicit convention change, never by
+accident.
 
 The convention lives in the `aspects` variant so the vocabulary can evolve (a future `config`/`docs` aspect is one more ordered rule, and
 each track still names its own remainder) without touching the engine. `Catzc.Base.Globs` reads it through `Get-Aspect` and compiles per

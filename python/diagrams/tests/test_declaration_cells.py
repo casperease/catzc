@@ -43,7 +43,7 @@ def test_commits_draw_in_their_palette_state_and_ghosts_come_back():
     ]
     first = declaration.normalise(raw)
     model = declaration.put(first)
-    assert "fillColor=#C4915C" in model and "fillColor=#C9CCD1" in model and "opacity=60" in model
+    assert "fillColor=#4E6378" in model and "fillColor=#C9CCD1" in model and "opacity=60" in model
     # One legend entry per state, and one for a ghost of any state.
     assert 'value="commit: topic"' in model and 'value="commit: landed"' in model and 'value="commit: ghost"' in model
     back = declaration.get(model, kind="explanation")

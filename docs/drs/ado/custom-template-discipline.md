@@ -203,9 +203,6 @@ stable. Variable groups make this worse: they are not code, not version-controll
 [everything-as-code](../principles/everything-as-code.md)). The only legitimate use for a variable group is secrets — and only when no
 proper secret store (such as Key Vault) is available.
 
-Script configuration belongs in the catzc configuration. The pipeline's job is to collect the meta-level selection criteria — customer,
-environment, subscription type — and pass them to the script. Everything the script needs beyond those keys, it resolves itself.
-
 ## Decision
 
 Templates are used only for pipeline-level concerns. Automation logic, configuration, and business rules live in the catzc commands and are

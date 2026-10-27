@@ -88,8 +88,9 @@ acts, so a deployment can never run against the wrong subscription.
 The classification vocabularies (responsibility 3) are the small enumerations that keep options and deploys honest, and integrity validation
 (responsibility 6) is the safety net: it binds to the _set_ of shipped templates and asserts the invariants that must hold for every one of
 them, so a misnamed config folder or an undefined environment fails the tests rather than a deployment. Throughout, identity comes from the
-[Catzc.Azure](../azure/index.md) model: the module reads `azure.yml` and `network.yml` through that module, and owns only the configuration of
-its own checks and estimates, the template-compliance rules, the cost model's meters and the resources the orphan removal leaves to Azure.
+[Catzc.Azure](../azure/index.md) model: the module reads `azure.yml` and `network.yml` through that module, and owns only the configuration
+of its own checks and estimates, the template-compliance rules, the cost model's meters and the resources the orphan removal leaves to
+Azure.
 
 The first diagram below draws template discovery and the build from the source. A template is a folder, and its `options.yml` may override
 only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
@@ -267,9 +268,9 @@ by [Catzc.Azure](../azure/index.md)).
 | responsibility:4 — Build                                          | `Build-Bicep`                     |
 |                                                                   | `ConvertTo-BicepParam`            |
 |                                                                   | `Get-BicepTemplatesOutputRoot`    |
-|                                                                   | `Get-BicepCostEstimate` |
-|                                                                   | `Update-AzurePriceTable` |
-| config | `cost-model.yml` |
+|                                                                   | `Get-BicepCostEstimate`           |
+|                                                                   | `Update-AzurePriceTable`          |
+| config                                                            | `cost-model.yml`                  |
 | responsibility:5 — Deploy and resource-group provisioning         | `Deploy-Bicep`                    |
 |                                                                   | `Get-BicepDeploymentContext`      |
 |                                                                   | `Deploy-AzureResourceGroup`       |
@@ -278,10 +279,10 @@ by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Invoke-BreakGlassRotation`       |
 |                                                                   | `Set-AnomalyAlertRecipientSecret` |
 |                                                                   | `Remove-BicepOrphanResources`     |
-| config | `orphan-removal.yml` |
+| config                                                            | `orphan-removal.yml`              |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
 |                                                                   | `Test-BicepTemplateCompliance`    |
 |                                                                   | `Test-BicepResourceNames`         |
 |                                                                   | `Test-BicepOrphans`               |
-| config | `template-compliance.yml` |
+| config                                                            | `template-compliance.yml`         |

@@ -2,18 +2,6 @@
 
 ## Rules: ADR-AUTO-PY
 
-### Rule ADR-AUTO-PY-PYMODULESBYLAYOUT
-
-Python code in the repository is either a module of the `python` track, a folder under the Python root that exists by the layout
-(ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
-`<root>/tests/<module>/`. A Python module ships only what `files.yml` packages, and a test file never ships: the builder's input is the
-engine's track, so no bundle holds a Python file by construction. No function of the engine is written in Python; the engine is PowerShell
-and C#, and a Python module is a tool of the repository, such as the diagram renderer, that the engine runs as a process. Python-based tools
-the repository uses (the Azure CLI, Poetry) are tools, installed through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES); they are not code of the
-repository. Every `.py` file takes every Python check (ADR-AUTO-PY-EVERYFILELINTED).
-
-- [Modules by layout](#modules-by-layout)
-
 ### Rule ADR-AUTO-PY-ONEPYTHONROOT
 
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
@@ -107,12 +95,14 @@ mechanism.
 
 ### Modules by layout
 
-The `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
-module is a folder under the Python root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
+Python is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and
+the `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
+module, such as the diagram renderer, is a folder under the Python root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
 PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a tool the engine runs as a process,
 and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track, so no bundle holds a Python file
-unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs are a separate matter:
-they are tools, each installed in isolation through uv, and nothing here changes how.
+unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs (the Azure CLI,
+Poetry) are a separate matter: they are tools, not code of the repository, each installed in isolation through uv
+(ADR-AUTO-UVPY-TWOINSTALLSHAPES), and nothing here changes how.
 
 ### The layout
 

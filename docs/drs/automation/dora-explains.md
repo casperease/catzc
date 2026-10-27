@@ -637,6 +637,22 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   executable bit are checked on every tracked shell script.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Test-artifact languages
+
+`Test-artifact languages — modules by layout, one root, black-box tests of the engine, one bridge`
+
+[ADR-AUTO-TESTLANG](test-artifact-languages.md)
+
+> DORA research ties delivery performance to automated tests that developers trust and that exercise the software as its users run it.
+> Every test-artifact language starts the engine as a process and asserts on what it prints, and one bridge puts those tests in the same
+> run as the engine's own, so a second language adds coverage without adding a second test system.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — every top-level test in any language is one test of the one
+  run.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — modules by layout keep a second language out of the
+  engine and out of every bundle.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Execution engines
 
 `Execution engines — pwsh, bash and zsh, declared once`

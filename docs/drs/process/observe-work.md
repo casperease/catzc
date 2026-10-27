@@ -72,9 +72,7 @@ stations upstream. Observing the whole — end-to-end lead time, where items wai
 ## How to apply
 
 Prefer making the work visible over reporting on it. When adding a step, ask what state it produces and how that state will be seen — a
-commit colour, a console line, a monitored signal — and make that the default, not an opt-in. Judge whether work is done by observing the
-real artifact, not by a proxy. When you reason about speed, look at the whole value stream and find where items wait, rather than at how
-fast any single station runs.
+commit colour, a console line, a monitored signal — and make that the default, not an opt-in.
 
 ## References
 

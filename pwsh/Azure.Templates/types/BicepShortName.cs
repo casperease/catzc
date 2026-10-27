@@ -27,7 +27,7 @@ public sealed class BicepShortName
         this.overridden = overridden;
     }
 
-    // A null or empty override derives from the folder; throws, naming the template, on a malformed override or an underivable folder with none.
+    // A null or empty override derives from the folder; throws, naming the template, on a malformed override or a folder that cannot be derived from with none.
     public static BicepShortName Resolve(string folder, string overrideValue)
     {
         if (string.IsNullOrWhiteSpace(folder)) { throw new ArgumentException("BicepShortName requires a folder name"); }

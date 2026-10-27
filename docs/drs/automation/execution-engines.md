@@ -50,12 +50,13 @@ A behaviour that differs between the engines is tested side by side, in a per-en
 ### Rule ADR-AUTO-ENGINE-IMPORTERENTRY
 
 Each engine reaches catzc through its importer entry at the repository root. The **POSIX engine**s are the engines whose importer entry is
-`importer.sh`, read from the model's `ImporterEntry` and never listed; they share that one generated, committed root file, which each of
-them loads into its session, and there is no copy per shell. It defines one dispatcher, `cats`: with no arguments it lists the catzc
-commands; otherwise it runs its first argument as a catzc command in pwsh with the PowerShell entry loaded — `CATZC_IMPORTER`, else pwsh's
-own importer entry at the repository root — passing an argument that starts with `-` as a parameter name and every other argument as one
-PowerShell literal. The model's `CommandPrefix` (`cats` and a space for the POSIX engines, none for pwsh) is how a command text reaches
-catzc in that engine, so one test's command text is the same under every engine.
+the one shared POSIX entry, read from the model's `ImporterEntry` and never listed; they share that one generated, committed root file,
+which each of them loads into its session, and there is no copy per shell. It defines one dispatcher, `cats`: with no arguments it lists the
+catzc commands; otherwise it runs its first argument as a catzc command in the engine that hosts the commands, with that engine's entry
+loaded — `CATZC_IMPORTER`, else the hosting engine's own importer entry at the repository root — passing an argument that starts with `-` as
+a parameter name and every other argument as one literal of the hosting engine. The model's `CommandPrefix` (`cats` and a space for the
+POSIX engines, none for the hosting engine) is how a command text reaches catzc in that engine, so one test's command text is the same under
+every engine.
 
 - [The cats dispatcher](#the-cats-dispatcher)
 

@@ -16,7 +16,12 @@ function Get-ArmDeployedResource {
         # The copy indexes in force where this template is read; a top-level template has none.
         [System.Collections.IDictionary] $Indexes = @{},
 
-        [string] $Location
+        [string] $Location,
+
+        # The subscription the deployment is sent to, the slot's azure.yml subscription id; '' leaves subscription() and the ids unresolved.
+        [string] $SubscriptionId,
+
+        [object] $ResourceGroupName = ''
     )
 
     # The template's variables, evaluated on demand over the same scope when an expression names one.
@@ -31,6 +36,13 @@ function Get-ArmDeployedResource {
     $deployment = @{}
     if ($Location -and "$($Template['$schema'])" -notmatch '/deploymentTemplate\.json') {
         $deployment.location = $Location
+    }
+    if ($SubscriptionId) {
+        $deployment.subscriptionId = $SubscriptionId
+    }
+    # Only a resource-group template has a resource group; a subscription template's resourceId() stays unresolved, never guessed.
+    if ($ResourceGroupName -is [string] -and $ResourceGroupName -and "$($Template['$schema'])" -match '/deploymentTemplate\.json') {
+        $deployment.resourceGroupName = $ResourceGroupName
     }
     $evaluate = { param($Value) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, $scope, $variables, $current, $deployment) }
     $unresolved = { param($Value) [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($Value) }
@@ -166,20 +178,38 @@ function Get-ArmDeployedResource {
                 else {
                     ''
                 }
+                # A module scoped to another resource group (Bicep's scope: resourceGroup(name)) carries it; one without inherits this one's.
+                $nestedGroup = if ($resource.Contains('resourceGroup')) {
+                    & $evaluate $resource.resourceGroup
+                }
+                else {
+                    $ResourceGroupName
+                }
+                # A module sent to another subscription carries its id; one that does not resolve leaves the ids in it unresolved.
+                $nestedSubscription = if ($resource.Contains('subscriptionId')) {
+                    & $evaluate $resource.subscriptionId
+                }
+                else {
+                    $SubscriptionId
+                }
+                if ($nestedSubscription -isnot [string]) {
+                    $nestedSubscription = ''
+                }
                 # A nested template numbers its own copy loops: its copyIndex() names its own loops.
-                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation
+                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation -SubscriptionId $nestedSubscription -ResourceGroupName $nestedGroup
                 continue
             }
             [pscustomobject]@{
-                Type        = $resource.type
-                Path        = "$Path/$label"
-                Resource    = $resource
-                Name        = $resolvedName
-                Scope       = $scope
-                Variables   = $variables
-                Indexes     = $current
-                Deployment  = $deployment
-                Conditional = $uncertain
+                Type          = $resource.type
+                Path          = "$Path/$label"
+                Resource      = $resource
+                Name          = $resolvedName
+                Scope         = $scope
+                Variables     = $variables
+                Indexes       = $current
+                Deployment    = $deployment
+                ResourceGroup = $ResourceGroupName
+                Conditional   = $uncertain
             }
         }
     }

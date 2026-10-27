@@ -24,7 +24,7 @@ slower system-test **outer loop** (CI+, FDR-CD-INNERANDOUTERLOOP) is deliberatel
 ### Rule FDR-CD-SEPARATEPIPELINEKINDS
 
 CI, CD, CDe, and DEPLOY are **separate pipeline kinds keyed together by the tagged artifact**, not merged into one construct. Each is its
-own ADO pipeline with its own trigger, governance, and history (see [pipeline-types](pipeline-types.md)); they compose into a promotion flow
+own pipeline with its own trigger, governance, and history (see [pipeline-types](pipeline-types.md)); they compose into a promotion flow
 because they share one key — the immutable, **tagged** artifact a CI component produces and every downstream kind consumes unchanged.
 Build-once, deploy-many: nothing downstream rebuilds, so what reaches prod is byte-identical to what was certified in non-prod.
 
@@ -95,12 +95,10 @@ gate**, a human-owned certification, on an always-on environment: **RC** (Releas
 (Release Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on
 **main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
 commit must pass there (FDR-CD-ACCEPTANCEISNOTUAT) — with a human certifying the environment's occupant (FDR-LIFE-ONECOMMITPERENVIRONMENT)
-before it may advance. The gate is distinct from the **DEPLOY** pipeline that actuates the advance once the gate clears
-(FDR-CD-PRODPROGRESSIONISDEPLOY): RC/RBC decide _whether_ to proceed, DEPLOY performs the roll. Each gate is an **approval check on the next
-environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run promoting the occupant waits there
-for the certifier. The checks are configuration, applied like the prod approval gate (FDR-CD-PRODAPPROVALGATE). Clearing a gate is a
-promotion; failing it holds or discards the occupant. Whether a human owns the gate (delivery) or the pipeline advances past it
-automatically (deployment) is the CD-vs-CDe posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION.
+before it may advance; DEPLOY actuates the advance once the gate clears (FDR-CD-PRODPROGRESSIONISDEPLOY). Each gate is an **approval check
+on the next environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run promoting the occupant
+waits there for the certifier. The checks are configuration, applied like the prod approval gate (FDR-CD-PRODAPPROVALGATE). Clearing a gate
+is a promotion; failing it holds or discards the occupant.
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -162,11 +160,12 @@ beyond the fast CI gate is a release-candidate test run — CD's post-commit sys
 
 ### Rule FDR-CD-PRODAPPROVALGATE
 
-Every prod-tier environment a pipeline deploys to carries an **approval gate**: an Approval check by one named approver group, so a run that
-reaches it waits for a person. The gate is configuration, never a portal setting: `environment-approvals.yml` declares the approver group,
-its members, the timeout, the units and the prod-tier environments, and one deterministic apply, `Sync-AdoEnvironmentApprovals`, makes the
-organization match it. An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of FDR-CD-TWORELEASEGATES
-on each unit's `release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY).
+Every prod-tier environment a pipeline deploys to carries an **approval gate**: the execution engine's approval check by one named approver
+group, so a run that reaches it waits for a person. The gate is configuration, never a hand setting on the engine: one config declares the
+approver group, its members, the timeout, the units and the prod-tier environments, and one deterministic apply makes the engine match it.
+An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of FDR-CD-TWORELEASEGATES on each unit's
+`release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY). The ADO binding is
+[ADR-ADO-APPROVAL-CHECKSFROMCONFIG](../ado/environment-approvals.md#rule-adr-ado-approval-checksfromconfig).
 
 - [The prod approval gate](#the-prod-approval-gate)
 
@@ -174,25 +173,25 @@ on each unit's `release-uat` and `pre-prod` environments are derived from the ru
 
 The promotion ladder's **rungs** are declared once, in climbing order, by the rungs registry: each rung names the gate a commit clears to
 enter it, the configuration environment it deploys, and the rule codes that define it, so a file that cites one of them, or the decision
-record that holds it, concerns that rung. A unit's ADO environment for a rung is `<unit>-<rung>`, so every environment name, approval check
-and diagram that refers to a rung reads it from the registry, and remapping a rung to another environment is one edit there. The registry is
-`rungs.yml` in `Catzc.Base.Flow`, with its ladder declared on `RungsConfig`.
+record that holds it, concerns that rung. Every environment name, approval check and diagram that refers to a rung reads it from the
+registry, and remapping a rung to another environment is one edit there. The ADO binding, environment naming and the registry file, is
+[ADR-ADO-APPROVAL-ENVIRONMENTPERRUNG](../ado/environment-approvals.md#rule-adr-ado-approval-environmentperrung).
 
 - [The rungs registry](#the-rungs-registry)
 
 ### Rule FDR-CD-CERTIFYINGRECORD
 
 **A rung's certifying record is its environment's deployment history.** Before a DEPLOY run deploys a prod target, it checks that the commit
-it ships stood on pre-prod: the history of the unit's `<unit>-pre-prod` environment holds a successful deployment of that commit, or the run
-stops before it deploys. The record is the execution engine's own history of the environment, never a tag or a file a pipeline writes, so it
-cannot say a commit stood where it did not. In Azure DevOps the record is the environment's deployment history, and the check is a step of
-every deploy job of the prod target.
+it ships stood on pre-prod: the history of the unit's pre-prod environment holds a successful deployment of that commit, or the run stops
+before it deploys. The record is the execution engine's own history of the environment, never a tag or a file a pipeline writes, so it
+cannot say a commit stood where it did not. The ADO binding is
+[ADR-ADO-APPROVAL-DEPLOYMENTHISTORY](../ado/environment-approvals.md#rule-adr-ado-approval-deploymenthistory).
 
 - [The certifying record](#the-certifying-record)
 
 ## Context
 
-[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six ADO artifact kinds **is**. This FDR is the _design
+[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six pipeline artifact kinds **is**. This FDR is the _design
 layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat list:
 they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers "what is
 a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the way to
@@ -261,7 +260,7 @@ gate.
 
 ### Separate kinds, one key
 
-CI, CD, and DEPLOY are deliberately **separate ADO constructs** — separate triggers, separate governance, separate run histories — because
+CI, CD, and DEPLOY are deliberately **separate pipelines** — separate triggers, separate governance, separate run histories — because
 they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a
 manual gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
 tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
@@ -342,12 +341,9 @@ checks (L0–L2) and the BVT. The **outer loop** — CI+ — runs the system-lev
 (the L3-vertical run of FDR-CD-CDSTAYSINNONPROD), and those cannot be made to fit the inner budget: they take an hour or two, and forcing
 them into the pre-commit stage is exactly the shared-fate failure the budget rule exists to prevent.
 
-The discipline's honesty depends on naming this. A green inner CI proves the merge builds and passes the fast checks; it does not prove the
-system works. Integration, as the contributor experiences it, is not finished until the CI+ outer loop returns — that feedback, not the CI
-gate, is what closes the loop. So CI+ is not a weaker or optional CI: it is the part of the discipline the CI gate deliberately defers, run
-post-commit where its cost is affordable, and a change is "integrated" only once it is green. Because CI+ is discipline, not a pipeline
-kind, it adds no ADO pipeline kind (FDR-CD-SEPARATEPIPELINEKINDS) — its L3 leg is the CD pipeline's on-demand system test, named as the
-outer loop rather than forked into a second pipeline.
+A green inner CI proves the merge builds and passes the fast checks; it does not prove the system works. So CI+ is not a weaker or optional
+CI: it is the part of the discipline the CI gate deliberately defers, and a change is "integrated" only once it is green. It adds no
+pipeline kind — its L3 leg is the CD pipeline's on-demand system test, named as the outer loop rather than forked into a second pipeline.
 
 ### RC and RBC
 
@@ -363,13 +359,9 @@ than an automated check:
 - **RBC — Release Branch Certification**, at **release-uat**. When a release variant is stabilized on a release branch, RBC is the human
   certification of the release-uat occupant before it is cut to production.
 
-Each is a **gate, not a pipeline**. The gate is the human decision; the **DEPLOY** pipeline (FDR-CD-PRODPROGRESSIONISDEPLOY) is the actuator
-that rolls the certified artifact onward once the gate clears. Keeping them distinct is what lets one DEPLOY mechanism serve either gate,
-and lets a Continuous **Deployment** (CDe) posture internalize the roll (FDR-CD-CDEINTERNALIZESPROMOTION) by automating past the point where
-RC/RBC would otherwise stop it. Which gates a unit passes through — and whether a human or the pipeline owns the decision to advance — is
-the delivery-vs-deployment posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION.
-
-RC and RBC are the manual gates. A gate a machine decides is a quality gate, which is a gate in this sense.
+Keeping the gate (the human decision) apart from the DEPLOY actuator is what lets one DEPLOY mechanism serve either gate, and lets a CDe
+posture internalize the roll (FDR-CD-CDEINTERNALIZESPROMOTION) by automating past the point where RC/RBC would otherwise stop it. A gate a
+machine decides is a quality gate, which is a gate in the same sense.
 
 ### AT and UAT
 
@@ -418,22 +410,16 @@ not a fresh deploy of something only ever seen in non-prod, the moment of going 
 rendered, or first-run at cutover (build-once, FDR-CD-SEPARATEPIPELINEKINDS). What flips is _which environment serves traffic_, not _what
 the bytes are_. When the new version goes live, the previous production occupant is superseded and steps down
 (FDR-LIFE-SUPERSESSIONABANDONS) — the diagram shows the new version occupying both `pre-prod` and `production` at the moment of cutover, and
-the version it replaced leaving. Whether that activation is a human-triggered DEPLOY (delivery) or an automated continuation (CDe,
-deployment) is the posture of FDR-CD-PRODPROGRESSIONISDEPLOY/FDR-CD-CDEINTERNALIZESPROMOTION; either way the mechanic — stage inactive,
-validate, activate live — is the same.
+the version it replaced leaving. The mechanic is the same under delivery and deployment (CDe).
 
 ### The prod approval gate
 
 `Prod waits for a person, and the config says who`
 
-Whatever posture a unit is under, a run must not reach a prod-tier environment unattended. Azure DevOps holds that stop as an Approval check
-on the environment, and a check set by hand in the portal drifts: nobody can review it, rebuild it or see who may approve. So the gate is
-configuration. `environment-approvals.yml` (in `Catzc.Azure.DevOps`) names the approver group and its members, the timeout a pending
-approval waits, the units whose release-gate rungs carry the RC and RBC checks, and the prod-tier environments, which are named by their
-deploy target rather than by a rung; its config type declares the defaults once (`Prod Approvers`, 24 hours). One apply,
-`Sync-AdoEnvironmentApprovals`, makes the organization match the file in a fixed order — the group, then exactly its configured members,
-then one check per environment — and reports each step, so a second run changes nothing. The procedure is the how-to "Apply the prod-tier
-approvals" (`docs/how-to/automation/apply-environment-approvals.md`).
+Whatever posture a unit is under, a run must not reach a prod-tier environment unattended. The execution engine holds that stop as an
+approval check on the environment, and a check set by hand drifts: nobody can review it, rebuild it or see who may approve. So the gate is
+configuration, applied by one idempotent apply, so a second run changes nothing; the prod-tier environments are named by their deploy target
+rather than by a rung. The ADO config, apply and order are [environment-approvals](../ado/environment-approvals.md).
 
 The gate is the stop the promotion ladder does not yet have rungs for: until main-uat, RC, RBC and DEPLOY exist in code, it is what stands
 between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (FDR-CD-CDEINTERNALIZESPROMOTION) or
@@ -443,12 +429,12 @@ DEPLOY's.
 
 `One ladder, named once`
 
-The ladder's rung names travel: into ADO environment names, approval checks, deploy lists, the lifecycle diagrams. Written out in each, they
+The ladder's rung names travel: into environment names, approval checks, deploy lists, the lifecycle diagrams. Written out in each, they
 drift, and a rung that moves to another environment becomes a search through every file that names it. The registry states the ladder once.
 Each rung carries the gate that guards its entry (none for main-uat, which CD deploys on merge; RC for release-uat; RBC for pre-prod; the
 prod approval gate for prod) and the configuration environment it deploys, and everything else derives from it: the approval apply builds
-`<unit>-<rung>` for the rungs behind RC and RBC. The prod tier is the exception on purpose. Its environments are named by the deploy target,
-a subscription or a configuration slot, not by the rung, so `environment-approvals.yml` lists them.
+each unit's environment for the rungs behind RC and RBC. The prod tier is the exception on purpose. Its environments are named by the deploy
+target, a subscription or a configuration slot, not by the rung, so the approval config lists them.
 
 ### The certifying record
 
@@ -484,12 +470,8 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 - **CI+ and the release gates are review-checked.** Review confirms the slow system tests live in the CI+ outer loop, never the inner CI
   gate (FDR-CD-SHORTINTEGRATIONCYCLE/FDR-CD-INNERANDOUTERLOOP), and that a promotion to prod passes a named manual gate — RC at main-UAT or
   RBC at release-uat (FDR-CD-TWORELEASEGATES) — with DEPLOY as the actuator, not a human cutover fused into CD under another label.
-- **The prod approval gate is applied, not hand-set.** `EnvironmentApprovalsConfig` validates `environment-approvals.yml` when it loads, an
-  integrity test loads the shipped file, and `Sync-AdoEnvironmentApprovals` applies it; review checks that a pipeline deploying a new
-  prod-tier environment lists it there (FDR-CD-PRODAPPROVALGATE).
-- **The certifying record is checked in the run.** A DEPLOY pipeline names the pre-prod environment as its prod stage's `CertifiedBy`, and
-  each deploy job of that stage first runs `Assert-AdoDeploymentHistory`, which throws when the history lacks the commit; an L0 test stops a
-  commit absent from the history (FDR-CD-CERTIFYINGRECORD).
+- **The prod approval gate and the certifying record are enforced by the engine binding.** The ADO apply and the in-run history check are
+  [environment-approvals](../ado/environment-approvals.md) (FDR-CD-PRODAPPROVALGATE, FDR-CD-CERTIFYINGRECORD).
 
 ## Consequences
 

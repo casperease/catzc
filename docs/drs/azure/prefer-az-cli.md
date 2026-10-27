@@ -88,14 +88,15 @@ function changed it.
 **Process isolation.** Each `az` invocation runs in its own process. No assembly conflicts, no session state pollution, no import overhead.
 The CLI starts, does its work, and exits cleanly.
 
-**Single binary, single version.** `az` is one executable. You install it once, assert the version with `Assert-ToolVersion`, and every
-function uses the same tool. No sub-module matrix, no assembly graph.
+**Single binary, single version.** `az` is one executable. You install it once, assert it with `Assert-Tool 'az_cli'`, and every function
+uses the same tool. No sub-module matrix, no assembly graph.
 
 **JSON output.** `az` returns JSON by default. Parse it with `ConvertFrom-Json` and you have a PSCustomObject. The schema is documented in
 the Azure REST API docs, which are the canonical reference regardless of which tool you use.
 
-**Scriptable authentication.** `az login` stores credentials in a file that persists across processes. Service principal auth works via
-environment variables (`AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_TENANT_ID`). No global session context to manage.
+**Scriptable authentication.** `az login` stores credentials in a file that persists across processes. A pipeline signs in through its
+service connection by workload identity federation, with no secret held anywhere
+([ADR-AZ-LZ-CAFDELIVERY](landing-zones.md#rule-adr-az-lz-cafdelivery)). No global session context to manage.
 
 **Works everywhere.** `az` runs on Windows, macOS, and Linux without PowerShell-specific dependencies. The same automation code works in
 PowerShell, bash, and CI pipelines interchangeably.

@@ -15,6 +15,7 @@ names:
   virtualNetworkName: { type: vnet, template: discovery }
   privateDnsZoneResourceGroupName: { type: rg, template: discovery, owner_slot: hub }
   breakGlassLoginAlertName: { type: alert, role: bgl }
+  healthWorkbookName: { type: wb, role: hlt }
   databaseMetricAlertNames:
     type: alert
     roles: { cpu: cpu, deadlock: dlk, failedConnection: con }

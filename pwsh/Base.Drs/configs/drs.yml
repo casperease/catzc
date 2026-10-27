@@ -109,7 +109,6 @@ domains:
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
     rulesets:
       cd-discipline-and-promotion-flow: { external: FDR-CD }
-      pipeline-runner-pattern: { external: FDR-RUNNER, concern: [automation] }
       pipeline-detection: { external: FDR-DETECT, concern: [automation] }
       pipeline-types: { external: FDR-TYPE }
       durable-sha-globs: { external: FDR-GLOBS, concern: [automation] }
@@ -230,6 +229,7 @@ domains:
       pester-testing: { external: ADR-PWSH-PESTER, concern: [quality-control] }
       hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
       idempotent-state-mechanics: { external: ADR-PWSH-IDEM }
+      ado-pipeline-functions: { external: ADR-PWSH-ADOFUNC }
 
   configuration:
     code: CONF
@@ -262,6 +262,8 @@ domains:
       pipeline-variables: { external: ADR-ADO-VAR }
       pipeline-naming-and-placement: { external: ADR-ADO-NAME }
       custom-template-discipline: { external: ADR-ADO-TEMPLATE }
+      environment-approvals: { external: ADR-ADO-APPROVAL, concern: [release, deploy] }
+      pipeline-runner-pattern: { external: ADR-ADO-RUNNER, concern: [automation] }
 
   github:
     code: GH

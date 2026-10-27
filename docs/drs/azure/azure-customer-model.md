@@ -54,7 +54,8 @@ the shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTempla
 ### Rule ADR-AZ-CUSTOMER-KEYISSUBFOLDER
 
 The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
-and a subfolder that is not a defined key is a discovery error ([data-model](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The
+and a subfolder that is not a defined key is a discovery error
+([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The
 shortcode never names a folder — one spelling on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
@@ -92,13 +93,8 @@ only because keys and shortcodes are disjoint name-spaces (a key that equalled a
 A config type validates its own file and never reads another config: a cross-asset join is checked outside the load (the
 `network.yml`↔`azure.yml` join is the `Test-AzureNetworkPlan` quality gate). The customer reference matters most because `azure.yml` is
 loaded by almost every Azure test, so making `AzureConfig` read `customer.yml` to validate the `customer` FK would couple all of them to the
-catalogue (and its fixture). The reference is therefore enforced where it costs nothing hermetic:
-
-- a **shipped-asset integrity test** — every shipped subscription's `customer` token resolves via `Get-AzureCustomer`;
-- **at runtime** — `Get-AzureSubscription`/`Get-AzureCustomer` throw on an unknown token the moment the subscription is resolved.
-
-So `AzureConfig` validates only azure's own shape, azure-loading stays hermetic, and the cross-asset dependency runs one way: the Azure
-layer reads the customer catalogue, the catalogue reads nothing back.
+catalogue (and its fixture). The reference is therefore enforced where it costs nothing hermetic, by an integrity test and at runtime
+(ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED), and the dependency runs one way: the Azure layer reads the catalogue, never the reverse.
 
 ### Catalogue vs enabled set
 

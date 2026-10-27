@@ -150,6 +150,23 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
         { Remove-BicepOrphanResources widget widget -DryRun } | Should -Throw '*1 listable resources*main/databases (Microsoft.Sql/servers/databases)*'
     }
 
+    It 'resolves a name built from resourceId() in the listed group and subscription, so the deployed resource is kept' {
+        # guid() of the workspace's id in widget-rg of subscription ...0a, as Bicep's own evaluator gives it (bicep snapshot 0.48.1).
+        $workbook = '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
+        $template = @{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = @{ widgetName = @{ type = 'string' } }
+            resources  = @($script:widgetTemplate.resources) + @(
+                @{ type = 'Microsoft.Insights/workbooks'; name = "[guid(resourceId('Microsoft.OperationalInsights/workspaces', 'widget-log'))]"; location = 'westeurope' }
+            )
+        }
+        $script:templateFile = Join-Path $TestDrive 'workbook.json'
+        [System.IO.File]::WriteAllText($script:templateFile, ($template | ConvertTo-Json -Depth 10))
+        $script:listed += @{ id = "$groupId/Microsoft.Insights/workbooks/$workbook"; name = $workbook; type = 'Microsoft.Insights/workbooks' }
+        $script:listed += @{ id = "$groupId/Microsoft.Insights/workbooks/gadget-old"; name = 'gadget-old'; type = 'Microsoft.Insights/workbooks' }
+        @(Remove-BicepOrphanResources widget widget -DryRun) | Should -BeExactly @("$groupId/Microsoft.Insights/workbooks/gadget-old")
+    }
+
     It 'skips a resource Azure creates itself, such as a SQL server''s master database' {
         $script:listed += @{ id = "$groupId/Microsoft.Sql/servers/widget-sql/databases/master"; name = 'widget-sql/master'; type = 'Microsoft.Sql/servers/databases' }
         @(Remove-BicepOrphanResources widget widget -DryRun).Count | Should -Be 0

@@ -12,7 +12,12 @@ Describe 'discovery flow logs: every compiled slot' -Tag 'L1', 'integrity' {
                 $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
                 $values = @{}
                 foreach ($name in @($parameters.Keys)) {
-                    $values[$name] = if ($parameters[$name].Contains('value')) { $parameters[$name].value } else { [Catzc.Azure.Templates.ArmExpression]::Unresolved }
+                    $values[$name] = if ($parameters[$name].Contains('value')) {
+                        $parameters[$name].value
+                    }
+                    else {
+                        [Catzc.Azure.Templates.ArmExpression]::Unresolved
+                    }
                 }
                 $values.flowLogStorageAccountName | Should -Not -BeNullOrEmpty -Because "slot $($slot.name) names its flow-log storage"
                 # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.

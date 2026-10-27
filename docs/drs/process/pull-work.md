@@ -77,9 +77,7 @@ limit is what turns pull from a slogan into a mechanism, and by Little's Law it 
 ## How to apply
 
 Start fewer things and finish them. Before pulling in new work, ask whether there is capacity to complete it or whether it will simply join
-a queue as partially-done work ([PDR-NOWASTE](../principles/reduce-waste.md)). Break a change into the smallest slice that can integrate and
-deliver on its own, rather than batching several concerns into one large push. Hold irreversible decisions until the last responsible
-moment, and keep the number of changes in flight small enough that the flow, not the plan, sets the pace.
+a queue as partially-done work, and keep the number of changes in flight small enough that the flow, not the plan, sets the pace.
 
 ## References
 

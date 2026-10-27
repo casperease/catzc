@@ -60,11 +60,6 @@ no approval process. A better handoff template still loses more context than no 
 
 ## How to apply
 
-When evaluating a process or design, ask: _could I deliver the same outcome without this step?_ If the answer is yes, the step is waste.
-Either eliminate it or understand what structural constraint makes it necessary — then address the constraint.
-
-Prefer automation over manual steps. Prefer convention over configuration. Prefer self-service over approvals. Prefer small batches over
-large batches. Prefer fast feedback over deferred validation.
-
-This principle is technology-agnostic. It applies to code, processes, organizational structures, and any system where human effort is a
-finite resource.
+The question of PDR-NOWASTE-DROPUNNEEDEDSTEPS and the defaults of PDR-NOWASTE-PREFERLEANDEFAULTS apply to any process or design. This
+principle is technology-agnostic. It applies to code, processes, organizational structures, and any system where human effort is a finite
+resource.

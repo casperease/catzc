@@ -69,10 +69,8 @@ inquiry.
 
 ## How to apply
 
-Make the stop automatic and total. A quality gate that detects a problem throws — it does not `Write-Warning` and carry on, because a
-warning that does not stop is a defect waved through. The commit it stopped shows red in the history view. When the mainline is red, treat
-restoring it as the top priority and do not integrate new work onto it. When a gate goes red on your own machine, that is the system
-working: fix it there, where it is a one-line change, rather than pushing and letting the pipeline catch it.
+When a gate goes red on your own machine, that is the system working: fix it there, where it is a one-line change, rather than pushing and
+letting the pipeline catch it.
 
 ## References
 

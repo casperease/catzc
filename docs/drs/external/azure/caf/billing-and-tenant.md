@@ -56,7 +56,7 @@ Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azu
 2026-10-14)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-BILL-R06
 
@@ -294,7 +294,7 @@ Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/azu
 retrieved 2026-10-14)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-BILL-R32
 

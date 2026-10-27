@@ -122,9 +122,7 @@ function Get-OutputRoot {
 ```
 
 Functions that produce output artifacts call `Get-OutputRoot` instead of hardcoding either path. Pass `-EnsureExists` to have the directory
-created if it is missing. Note the division of labour: `BUILD_ARTIFACTSTAGINGDIRECTORY` is used here only to resolve the _output location_ —
-it is not a detection signal. Detection (am I in a pipeline?) goes through `Test-IsRunningInPipeline`; locating the artifact directory
-(where do outputs go?) reads the agent's staging-directory variable directly inside this one function.
+created if it is missing.
 
 ### How this is enforced
 

@@ -129,7 +129,7 @@ Source: learn /azure/well-architected/reliability/monitoring (RE:10, retrieved 2
 
 Binds to [ADR-AZ-LZ-ONEREGIONRELIABILITY](../../../azure/landing-zones.md#rule-adr-az-lz-oneregionreliability),
 [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement), and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ## Context
 

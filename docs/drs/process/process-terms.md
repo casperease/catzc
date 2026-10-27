@@ -123,11 +123,9 @@ called automation, and pinning the scarce resource to human attention explains w
 
 ## How to apply
 
-When a process or flow decision is in question, use these words with these meanings and no others. Before proposing a speed-up, name the
-constraint and check the change against it — a change that improves a non-constraint is waste
-([PDR-NOWASTE](../principles/reduce-waste.md)). Before calling a step "automated", check it runs with no human action and is identical every
-time. When an article needs a term elaborated — Little's Law, cost of delay, pull versus push — cite the decision record that owns it rather
-than redefining it here, so the vocabulary stays single-source.
+Before proposing a speed-up, name the constraint and check the change against it — a change that improves a non-constraint is waste
+([PDR-NOWASTE](../principles/reduce-waste.md)). When an article needs a term elaborated — Little's Law, cost of delay, pull versus push —
+cite the decision record that owns it rather than redefining it here, so the vocabulary stays single-source.
 
 ## References
 

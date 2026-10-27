@@ -141,8 +141,6 @@ reader sees. An address is a _reference_ to a config value, with the same discip
 
 - A config value has a written-down, committable name. "This env var's value is `global.database.host`" is expressible as data, resolved at
   the point of use, with the config file as the single source of truth — no copied literals to drift.
-- There is exactly one reader and one cache. `Get-ConfigValue` adds a grammar and a walk on top of `Get-Config`; it never re-reads a file or
-  caches anything (ADR-CONF-LOADING-CONFIGONEREADER).
 - Addressing draws a hard line at secrets: everything addressable is in git and non-secret, so a consumer can log an address-sourced value
   freely, and secrets stay entirely off the addressing channel (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS).
 - Mistakes fail loudly at the call site — a wrong name or a wrong key throws with the offending address — instead of leaking a `$null`

@@ -40,11 +40,13 @@ delete-then-write, never in-place, so a target that is a link is replaced by a f
 ### Rule ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
 
 Every managed root file — a `source` copy or a `generator`'s output — carries the unified generated-file head
-([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): the `role` the file-kinds registry names for the
-target, the `generator` (`Build-RootConfig` for a copy), the `source` it copies or the `sources` it renders from, and the one warning that
-the file is generated. `Build-RootConfig` writes the head, in the carrier its `carrier` key names (default: the carrier of the target's file
-language), so a generator renders its content bare and no entry and no template hand-words a banner or a managed-file marker. The head is
-strictly a leading block: config formats have no portable in-body anchor.
+([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): `with_body_sha` while git tracks the file and the
+one warning that the file is generated, and nothing else. Which command wrote the file and which template or inputs it comes from are the
+writer registry's and `rootconfig.yml`'s to answer, never the head's
+([ADR-REPO-FILEMETA-PROVENANCEINHEAD](file-meta.md#rule-adr-repo-filemeta-provenanceinhead)). `Build-RootConfig` writes the head, in the
+carrier its `carrier` key names (default: the carrier of the target's file language), so a generator renders its content bare and no entry
+and no template hand-words a banner or a managed-file marker. The head is strictly a leading block: config formats have no portable in-body
+anchor.
 
 - [Decision](#decision)
 
@@ -60,9 +62,9 @@ byte for byte once the line endings are LF, and no managed target is a link.
 ### Rule ADR-REPO-ROOTCFG-HEADEDCOPY
 
 A `source` entry is materialised as a **headed copy**: the root file is its template, `pwsh/Base.RootConfig/assets/root/<name>` (or the
-module asset the entry names), under the generated-file head that names the template as its `source` and carries the one warning. The
-template stays the pure authored file, with no head and no marker, and the root file is never a link to it, hard or symbolic, since a head
-written into a link would land in the template. A tool that rejects comments in its format keeps the head in the carrier the carrier
+module asset the entry names), under the generated-file head ([ADR-REPO-ROOTCFG-COMPOSEDROOTFILE](#rule-adr-repo-rootcfg-composedrootfile)).
+The template stays the pure authored file, with no head and no marker, and the root file is never a link to it, hard or symbolic, since a
+head written into a link would land in the template. A tool that rejects comments in its format keeps the head in the carrier the carrier
 registry gives it, such as the ignored property of a JSON file.
 
 - [A headed copy](#a-headed-copy)
@@ -107,12 +109,12 @@ and commit. This keeps the model honest — a copy-in and `importer.ps1` differ 
 
 `The template is authored, the root file is its generated copy`
 
-A root file that a reader opens must say that it is generated and where to edit, and the template it comes from must stay the file an author
-edits. One file cannot be both: a link makes the root path and the template one file, so a head written into the root file lands in the
-template, and a template with no head leaves the root file looking authored. A copy keeps them apart: the template under `assets/root` holds
-the content alone, and the root file is that content under the generated-file head, which names the template as its `source` and carries the
-one warning. The copy is rewritten on every import, so it never drifts for longer than a session, and the integrity test compares it with
-its template byte for byte, so an edit made in the copy is a finding that names the template to edit instead.
+A root file that a reader opens must say that it is generated, and the template it comes from must stay the file an author edits. One file
+cannot be both: a link makes the root path and the template one file, so a head written into the root file lands in the template, and a
+template with no head leaves the root file looking authored. A copy keeps them apart: the template under `assets/root` holds the content
+alone, and the root file is that content under the generated-file head, which carries the one warning; the template to edit is the one
+`rootconfig.yml` names. The copy is rewritten on every import, so it never drifts for longer than a session, and the integrity test compares
+it with its template byte for byte, so an edit made in the copy is a finding that names the template to edit instead.
 
 A tool reads its root file whatever comes before its content, as long as the head is in the format's own comment syntax, so the carrier
 registry decides the form: a `#` comment head for a dotfile, a YAML file or a solution file after its preamble, and the ignored property of
@@ -158,7 +160,7 @@ and no managed target is a link (the case a content compare cannot see, since a 
 - Taking over a root file is one registry entry plus its source; opting out is the default, so an unregistered file is simply not touched.
 - The root analyzer settings are an ordinary `source` entry with no bespoke builder, and `importer.ps1` is a `generator` entry whose
   `New-Importer` drift guard also backs `ADR-REPO-ROOTCFG-THREEWAYAGREEMENT`.
-- A reader never mistakes a managed root file for a source of truth: every one carries the generated-file head with the one warning and the
-  template to edit; committed targets are named in the registry and drift-tested.
+- A reader never mistakes a managed root file for a source of truth: every one carries the generated-file head with the one warning, and
+  `rootconfig.yml` names the template to edit; committed targets are named in the registry and drift-tested.
 - A template under `assets/root` is the pure authored file, so a consumer can take it as it is, and an edit in the root copy is a finding,
   never a change that reaches the template unseen.

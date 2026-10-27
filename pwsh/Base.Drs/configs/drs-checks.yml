@@ -1,21 +1,32 @@
 # Every key is optional and takes the default declared once on DrsChecksConfig.
 engine_neutrality:
-  domains: [automation]
-  # Engine-specific syntax a rule summary must not carry; a catzc command name is allowed, so only engine built-ins are listed.
-  tokens:
-    env-variable: '\$env:'
-    pwsh-variable: '\$(?!env:)[A-Za-z_][A-Za-z0-9_]*'
-    comparison-operator: '(?<![\w-])-[ci]?(?:not)?(?:eq|ne|gt|lt|ge|le|like|match|contains|in|replace)\b'
-    type-literal: '\[(?:[A-Z][A-Za-z0-9]*(?:\.[A-Z][A-Za-z0-9]*)*|switch|bool|string|int|object|hashtable|scriptblock|pscustomobject|ordered)(?:\(\))?\](?!\()'
-    pwsh-cmdlet: '\b(?:Join-Path|Split-Path|Test-Path|Resolve-Path|Set-Location|Push-Location|Pop-Location|Set-StrictMode|Write-Host|Write-Output|Write-Error|Write-Warning|Write-Verbose|Write-Information|ForEach-Object|Where-Object|Select-Object|Sort-Object|Group-Object|Measure-Object|Out-Null|Out-String|Invoke-Expression|Get-Content|Set-Content|Get-ChildItem|Get-Item|New-Item|Remove-Item|Copy-Item|Move-Item|ConvertFrom-Json|ConvertTo-Json|Import-Module|Remove-Module|Export-ModuleMember|Get-Command|Get-Module|New-Object|Add-Member|Start-Process|Invoke-Pester)\b'
-    common-parameter: '(?<![\w-])-(?:ErrorAction|WarningAction|InformationAction|Verbose|Debug|Confirm)\b'
-    pester-block: '\b(?:Describe|Context|It|BeforeAll|BeforeEach|AfterAll|AfterEach|Mock)\b(?=`|\s*\{|\s+[''"])'
-    pester-framework: '\bPester\b'
-    pwsh-file: '\.ps[md]?1\b'
-    dot-source: '\bdot-(?:source[sd]?|sourcing)\b'
-    module-manifest: '\b(?:FunctionsToExport|NestedModules|RootModule|RequiredModules)\b'
-    should-process: '\b(?:SupportsShouldProcess|ShouldProcess|WhatIf)\b'
-    script-block: '\b(?:Script|script) ?block'
+  # Each checked domain and the token sets its rule summaries must not carry; a neutral tier adds a line here once its records are clean.
+  domains:
+    automation: [engine]
+  token_sets:
+    # Engine-specific syntax; a catzc command name is allowed, so only engine built-ins are listed.
+    engine:
+      env-variable: '\$env:'
+      pwsh-variable: '\$(?!env:)[A-Za-z_][A-Za-z0-9_]*'
+      comparison-operator: '(?<![\w-])-[ci]?(?:not)?(?:eq|ne|gt|lt|ge|le|like|match|contains|in|replace)\b'
+      type-literal: '\[(?:[A-Z][A-Za-z0-9]*(?:\.[A-Z][A-Za-z0-9]*)*|switch|bool|string|int|object|hashtable|scriptblock|pscustomobject|ordered)(?:\(\))?\](?!\()'
+      pwsh-cmdlet: '\b(?:Join-Path|Split-Path|Test-Path|Resolve-Path|Set-Location|Push-Location|Pop-Location|Set-StrictMode|Write-Host|Write-Output|Write-Error|Write-Warning|Write-Verbose|Write-Information|ForEach-Object|Where-Object|Select-Object|Sort-Object|Group-Object|Measure-Object|Out-Null|Out-String|Invoke-Expression|Get-Content|Set-Content|Get-ChildItem|Get-Item|New-Item|Remove-Item|Copy-Item|Move-Item|ConvertFrom-Json|ConvertTo-Json|Import-Module|Remove-Module|Export-ModuleMember|Get-Command|Get-Module|New-Object|Add-Member|Start-Process|Invoke-Pester)\b'
+      common-parameter: '(?<![\w-])-(?:ErrorAction|WarningAction|InformationAction|Verbose|Debug|Confirm)\b'
+      pester-block: '\b(?:Describe|Context|It|BeforeAll|BeforeEach|AfterAll|AfterEach|Mock)\b(?=`|\s*\{|\s+[''"])'
+      pester-framework: '\bPester\b'
+      pwsh-file: '\.ps[md]?1\b'
+      dot-source: '\bdot-(?:source[sd]?|sourcing)\b'
+      module-manifest: '\b(?:FunctionsToExport|NestedModules|RootModule|RequiredModules)\b'
+      should-process: '\b(?:SupportsShouldProcess|ShouldProcess|WhatIf)\b'
+      script-block: '\b(?:Script|script) ?block'
+    # Vendor names a vendor-neutral tier must not carry; the vendor's own domain (ado, github, azure) is never held to it.
+    vendor:
+      azure-devops: '\b(?:Azure DevOps|ADO)\b'
+      github-actions: '\bGitHub Actions\b'
+      vendor-variable: '\b(?:TF_BUILD|GITHUB_ACTIONS|BUILD_[A-Z_]+|SYSTEM_[A-Z_]+)\b'
+      vendor-task: '\b[A-Za-z]+@\d+\b'
+      vendor-trigger: '\b(?:trigger\.paths|on\.[a-z_]+\.paths)\b'
+      ado-command: '\b[A-Z][a-z]+-Ado[A-Za-z]*\b'
 
 citation_graph:
   exempt:

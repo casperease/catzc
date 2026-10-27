@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bade2cce318a
+    with_body_sha: "54cecb0f97a9"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -124,7 +124,6 @@ implement it.
 | Code           | ADR                                                                          |
 | -------------- | ---------------------------------------------------------------------------- |
 | `FDR-CD`       | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
-| `FDR-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
 | `FDR-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
 | `FDR-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
 | `FDR-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
@@ -239,6 +238,7 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 | `ADR-PWSH-PESTER`   | [pester-testing](automation/pwsh/pester-testing.md)                                         |
 | `ADR-PWSH-TYPES`    | [hosting-csharp-types](automation/pwsh/hosting-csharp-types.md)                             |
 | `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](automation/pwsh/idempotent-state-mechanics.md)                 |
+| `ADR-PWSH-ADOFUNC`  | [ado-pipeline-functions](automation/pwsh/ado-pipeline-functions.md)                         |
 
 ### configuration/
 
@@ -269,6 +269,8 @@ warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without red
 | `ADR-ADO-VAR`      | [pipeline-variables](ado/pipeline-variables.md)                       |
 | `ADR-ADO-NAME`     | [pipeline-naming-and-placement](ado/pipeline-naming-and-placement.md) |
 | `ADR-ADO-TEMPLATE` | [custom-template-discipline](ado/custom-template-discipline.md)       |
+| `ADR-ADO-APPROVAL` | [environment-approvals](ado/environment-approvals.md)                 |
+| `ADR-ADO-RUNNER`   | [pipeline-runner-pattern](ado/pipeline-runner-pattern.md)             |
 
 ### github/
 

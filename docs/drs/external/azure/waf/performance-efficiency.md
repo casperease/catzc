@@ -40,7 +40,7 @@ Source: learn /azure/well-architected/performance-efficiency/select-services (PE
 
 Binds to [ADR-AZ-LZ-PERFBYCONFIG](../../../azure/landing-zones.md#rule-adr-az-lz-perfbyconfig),
 [ADR-AZ-LZ-EVERYPILLAR](../../../azure/landing-zones.md#rule-adr-az-lz-everypillar), and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-WAF-PE-PE04
 
@@ -52,7 +52,7 @@ Source: learn /azure/well-architected/performance-efficiency/monitoring (PE:04, 
 
 Binds to [ADR-AZ-LZ-PERFBYCONFIG](../../../azure/landing-zones.md#rule-adr-az-lz-perfbyconfig),
 [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement), and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-WAF-PE-PE05
 

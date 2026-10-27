@@ -501,6 +501,10 @@
           "kind": "method"
         },
         {
+          "name": "TokensFor",
+          "kind": "method"
+        },
+        {
           "name": "domains",
           "kind": "property"
         },
@@ -509,7 +513,7 @@
           "kind": "property"
         },
         {
-          "name": "tokens",
+          "name": "token_sets",
           "kind": "property"
         }
       ]

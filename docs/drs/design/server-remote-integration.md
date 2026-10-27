@@ -10,10 +10,12 @@ owns the remote topology and the integration/ingress discipline over it.
 
 ### Rule DDR-REMOTE-SERVERREMOTEISTRUTH
 
-**The audited server git remote is the single source of truth; local and CI repositories are bridges to it.** The mainline (`main` /
-`master`) that governs is the one on the server remote — Azure DevOps or GitHub — where identity, branch-protection policy, and the
+**The server's main is the authoritative copy of the repository; local and CI repositories are bridges to it.** The repository is the
+one source of truth ([everything-as-code](../principles/everything-as-code.md)), and the copy of it that governs is the mainline (`main` / `master`) on the audited server remote, where identity, branch-protection policy, and the
 immutable audit history are enforced. A developer box and a CI agent each hold a **local clone** that bridges to that remote; a local
-branch's view of "main" is provisional until it is what the server holds. The server is the authority; the client is a working copy.
+branch's view of "main" is provisional until it is what the server holds. The server's other state, its refs and pull requests, stays a
+fact source, read and never written as truth. The server holds the authoritative copy;
+the client holds a working copy.
 
 - [The authoritative remote](#the-authoritative-remote)
 
@@ -63,7 +65,8 @@ build on and honest about its history.
 
 ## Decision
 
-Treat the server git remote as the source of truth — audited, and bridged by local clones. Consumers **integrate from the last verified
+Treat the server's main as the authoritative copy of the repository — audited, and bridged by local clones — and its refs and pull requests
+as a fact source. Consumers **integrate from the last verified
 commit, not the remote HEAD**. Changes enter only through a **PR that authenticates and merges** them. Together these make a dirty HEAD a
 non-event for everyone downstream and keep the audit trail complete.
 
@@ -71,46 +74,31 @@ non-event for everyone downstream and keep the audit trail complete.
 
 `The server remote is the authority`
 
-The mainline is not a local artifact — it is the branch the server remote enforces, and the server is where identity, branch protection, and
-the immutable audit log live. A local clone is a bridge: it fetches from and pushes toward that remote, but "what is on main" is decided by
-the server, not by any client's local `main`. The guarantees the platform depends on — every change on main attributed, reviewed, and past
-its merge gate (`DDR-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the
-sanctioned path, is not "on main" in the sense that governs; it is working state that has not yet crossed the boundary.
+The guarantees the platform depends on — every change on main attributed, reviewed, and past its merge gate (`DDR-SELFSERV`) — are
+server-side facts. A local `main` that has diverged, or a local commit never pushed through the sanctioned path, is working state that has
+not yet crossed the boundary.
 
 ### Integrate from verified
 
 `Integrate from verified, not HEAD`
 
-The server's main advances by landing commits, but landing is not the same as being verified. At any moment the tip may be a commit whose
-gates have not run, or one that ran them and failed — a dirty HEAD. Reading the tip therefore gives "the newest commit," which is precisely
-not "the newest commit safe to build on." The last commit the server proved verified — the BVT-verified server head, the stable sync point,
-which is also the commit `main-UAT` takes first — is the one to integrate from. A developer branches from it; a downstream unit builds
-against it; an upstream consumer syncs to it. The rule is uniform across every consumer of the mainline: integrate from the last verified
-commit, never the raw HEAD.
+Landing is not the same as being verified. The stable sync point is also the commit `main-UAT` takes first, and the rule is uniform across
+every consumer of the mainline.
 
 ### Why verified is stable
 
 `Why verified is stable and the tip is not`
 
-The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
-(`PDR-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by a newer commit that
-overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So the choice of
-integration base is a choice between a stable anchor and a moving one. Building on the stable anchor means a later fix to the tip is simply
-the next thing you pull; building on the moving tip means that same fix can rewrite the ground under your work and force a reconciliation
-you did not need to have. Integrating from verified is what makes "the dirty HEAD got fixed later" a non-event for everyone downstream.
+A commit that reached the verified point is a durable fact no later event un-makes (`PDR-ONELIVE`), so the choice of integration base is a
+choice between a stable anchor and a moving one: on the anchor, a later fix to the tip is simply the next thing you pull.
 
 ### PR as authenticated ingress
 
 `PR is authenticated ingress, not just review`
 
-It is easy to read a pull request as a review checkpoint — a second pair of eyes. That undersells it. In the audited regime
-(`git_workspace: main-via-pr`, the repository's integration variant) the PR is the **only** ingress into the server's mainline, and it is
-what makes ingress _safe_: it authenticates the change against the server's identity model (so every commit on main is attributable to an
-authenticated principal), runs the mandatory merge gates, and performs the merge itself — the change reaches `main` / `master` by no other
-route. Review is one of the gates a PR can carry; the load-bearing property is authentication-plus-merge. The PR is the audited doorway, and
-closing every other door (no direct push to the protected branch) is what lets the audit trail in `git log` be trusted as complete. The solo
-`main-direct` mode is the deliberate exception for a single-author trunk, where the author _is_ the sole authenticated principal and the
-doorway collapses to a direct commit; the moment there is more than one author, the PR ingress is what keeps the mainline audited.
+Reading a pull request as a review checkpoint undersells it: authentication makes every commit on main attributable to an authenticated
+principal. The solo `main-direct` mode is the exception because there the author _is_ the sole authenticated principal and the doorway
+collapses to a direct commit; the moment there is more than one author, the PR ingress is what keeps the mainline audited.
 
 ## How this is enforced
 

@@ -19,7 +19,7 @@ guardrails that tests and governance verify.
 Source: learn /azure/well-architected/operational-excellence/devops-culture (OE:01, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-OPSASCODE](../../../azure/landing-zones.md#rule-adr-az-lz-opsascode),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies),
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies),
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode), and
 [ADR-AUTO-TEST-QUALITYGATE](../../../automation/test-automation.md#rule-adr-auto-test-qualitygate).
 
@@ -106,7 +106,7 @@ Source: learn /azure/well-architected/operational-excellence/observability (OE:0
 
 Binds to [ADR-AZ-LZ-OPSASCODE](../../../azure/landing-zones.md#rule-adr-az-lz-opsascode),
 [ADR-AZ-LZ-CAFMANAGEMENT](../../../azure/landing-zones.md#rule-adr-az-lz-cafmanagement),
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies), and
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies), and
 [ADR-AZ-LZ-EVERYPILLAR](../../../azure/landing-zones.md#rule-adr-az-lz-everypillar).
 
 ### Rule EDR-AZ-WAF-OE-OE08

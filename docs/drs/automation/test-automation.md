@@ -582,8 +582,7 @@ Logic tests run on every change, so their speed compounds. Three effects dominat
   narrative of many steps over the importer collapses to the few tree shapes that are actually distinct (empty, a populated tree, a
   re-derive-after-add/change/delete, a duplicate-name collision, a vendor shadow), each capturing a rich observation that many tests assert
   against — half the child-process spawns or fewer, with no loss of coverage. Reduce the spawn _count_; splitting the narrative buys no
-  concurrency — a test file's tests run one after another, the harness parallelizes whole test files across worker processes (a single
-  file's tests never split across workers), and these narratives are stateful besides.
+  concurrency — the harness parallelizes whole test files, never the tests inside one, and these narratives are stateful besides.
 
 - **Measure; mocks are rarely the cause (ADR-AUTO-TEST-MEASUREFIRST).** The instinct to blame slowness on mocking is almost always wrong:
   interception costs about a millisecond per call. An apparent "mock penalty" is usually a measurement artifact — a no-mock comparison that
@@ -600,20 +599,18 @@ environment variables, loaded assemblies — leaks out of anything less.
 
 When a directory of tests drives a boundary the same way and varies only by input — one slow integration test per case, each compiling,
 deploying, or shelling out to re-prove the _same_ wiring for a different fixture — the duplication is telling you the per-case behaviour is
-pure logic wearing an integration test's clothes. The response is to **push it left**: the case-by-case assertions move down to fast,
-deterministic **L0** logic tests on mocked boundaries — the rule-checks — and the integration tier keeps only a thin **walking skeleton**, a
-very few tests that drive the real tool once to prove the wiring connects.
+pure logic. **Push it left**: the case-by-case assertions become fast **L0** logic tests on mocked boundaries — the rule-checks — and the
+integration tier keeps a thin **walking skeleton** that drives the real tool once to prove the wiring connects.
 
 This is sound because the state under test is **the-state-of-this-commit**. Everything here is code — IaC templates, the `*.yml` configs,
 the module/type/function graph — so what a test checks is a static, hermetic property of the committed artifacts
 ([everything-as-code](../principles/everything-as-code.md)): which parameter file a template renders, what name a resource resolves to,
-which slots a config set discovers. None of that needs a tool or the cloud to decide; it is fixed by the files in the commit, and a mocked
-L0 test checks it in milliseconds, deterministically, on every change. The one thing the real tool decides that the files do not is the
-_integration concern itself_ — what the compiler, CLI, or cloud actually does with those artifacts — and that is exactly, and only, what the
-walking skeleton covers. [Fail-fast](fail-fast-with-asserts.md) argues that confidence comes from the integration run; this keeps that run
-thin and pushes everything it does not uniquely prove down to the fast tiers (ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER,
-ADR-AUTO-TEST-TAGBYOUTERMOSTRING), which is also where [reduce-waste](../principles/reduce-waste.md) points — the inner loop pays for the
-slow tier on every change.
+which slots a config set discovers. The files in the commit fix all of that, so a mocked L0 test checks it in milliseconds. The one thing
+the real tool decides that the files do not is the _integration concern itself_ — what the compiler, CLI, or cloud actually does with those
+artifacts — and that is exactly, and only, what the walking skeleton covers. [Fail-fast](fail-fast-with-asserts.md) argues that confidence
+comes from the integration run; this keeps that run thin and pushes everything it does not uniquely prove down to the fast tiers
+(ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER, ADR-AUTO-TEST-TAGBYOUTERMOSTRING), which is also where
+[reduce-waste](../principles/reduce-waste.md) points — the inner loop pays for the slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
 fakes away — a real `bicep build` resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's

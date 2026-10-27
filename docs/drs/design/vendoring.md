@@ -15,7 +15,7 @@ vendored, never the platform that reads a file and never the third party that wr
 Everything vendored sits under **one vendor umbrella**: every `.vendor` folder holding third-party code, and every vendor's settings, the
 files the repository keeps to configure that tool. A vendor's settings are never a separate kind from its code, and a vendor is never mixed
 into another vendor's track ([DDR-TRACKTYPE-OPTIONALVENDOR](track-types.md#rule-ddr-tracktype-optionalvendor)). The track name of a vendor
-starts with the vendor, per DDR-TRACKTYPE naming (pending).
+starts with the vendor ([DDR-TRACKTYPE-NAMEFROMMEMBERS](track-types.md#rule-ddr-tracktype-namefrommembers)).
 
 - [One umbrella](#one-umbrella)
 

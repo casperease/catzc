@@ -78,32 +78,10 @@ Pipeline variable manipulation is done through dedicated PowerShell functions, n
 
 ### Functions
 
-**`Set-AdoPipelineVariable`** — sets a pipeline variable with name validation and flags.
-
-```powershell
-function Set-AdoPipelineVariable {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory, Position = 0)] [string] $Name,
-        [Parameter(Mandatory, Position = 1)] [AllowEmptyString()] [string] $Value,
-        [switch] $IsOutput,
-        [switch] $IsSecret,
-        [switch] $SanitizeName
-    )
-    # ...
-}
-```
-
-Behavior:
-
-- Throws if `$Name` is null or whitespace.
-- **Validates the variable name and rejects it by default.** If `$Name` contains a character ADO silently rewrites (`.`, `-`, or `'`), the
-  function throws and tells the caller to use underscores directly or to pass `-SanitizeName`. This is explicit-over-silent: a name that
-  would resolve differently downstream is an error, not an automatic rewrite.
-- **`-SanitizeName` opts into rewriting** instead of throwing: `.` and `-` become `_`, and `'` is removed.
-- Emits the `##vso[task.setvariable]` command with correct flags.
-- Logs the variable name and value via `Write-Message` (when `$IsSecret`, the value is shown as `***`).
-- Accepts an empty `$Value` (via `[AllowEmptyString()]`) so a caller can clear a variable or signal "no value".
+**`Set-AdoPipelineVariable`** — sets a pipeline variable with name validation and flags. It **rejects a name ADO would rewrite by
+default**: a name that would resolve differently downstream is an error, not an automatic rewrite, and rewriting is an explicit opt-in. It
+accepts an empty value, so a caller can clear a variable or signal "no value". Its pwsh signature and parameter behaviour are
+[ADR-PWSH-ADOFUNC-VARIABLEFUNCTION](../automation/pwsh/ado-pipeline-functions.md#rule-adr-pwsh-adofunc-variablefunction).
 
 **`Test-IsRunningInPipeline`** — gates pipeline-specific behavior (see [pipeline-detection ADR](../flow/pipeline-detection.md)).
 `Set-AdoPipelineVariable` uses this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps
@@ -122,6 +100,5 @@ automation code portable: the same function runs locally (silently skipping the 
 - Variable names are validated up front: a name that would resolve differently downstream (a `.` vs `_` mismatch) fails loudly at the call
   site instead of being silently rewritten to an empty variable.
 - Secret masking is a flag, not a syntax detail to remember. Sensitive values cannot be accidentally logged.
-- Pipeline variable usage is greppable: search for `Set-AdoPipelineVariable` to find every variable the automation sets.
 - The same code runs locally and in ado pipelines without conditional guards. Local runs silently skip the ADO commands.
 - Output variable semantics are explicit in the function call, not hidden in a `##vso` flag string.

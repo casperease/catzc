@@ -139,7 +139,7 @@ function file, with no edit to `Get-Config`. The loader stays content-agnostic (
 
 ### How this is enforced
 
-- **`Get-Config`** gathers the contributions of an opted-in config and merges them in the order of Rule 2.
+- **`Get-Config`** gathers the contributions of an opted-in config and merges them in the order of ADR-CONF-MDCONTRIB-GATHEREDINSIDEREADER.
 - **`Test-ShippedConfigs`** fails a `markdown_sources` entry on a sealed config, and a glob that matches no tracked Markdown file.
 - **`Test-FileMeta`** fails two contributions to one key path and a contribution outside its config's globs.
 - **`Test-FileMetaProcessors`** fails a gather kind whose reader function is missing, and a reader no kind names.

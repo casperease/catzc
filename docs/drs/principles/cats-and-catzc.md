@@ -47,8 +47,8 @@ The folder names follow the source-level name: the consumer overlay root and thi
 ### Rule PDR-CATS-IDENTIFIERNAMESTHESYSTEM
 
 An identifier says catzc only where its noun names the system itself, or a thing that is the system's as against the repository's or a
-consumer's: `Get-CatzcModuleRoot`, `Invoke-CatzcCommand`, `CatzcModulesRoot`, `ForeignCatzcModule` keep the token, because without it the
-noun names a different thing. An identifier for a plain value type takes no prefix (`Get-DrsIndex`, `New-CommandLookup`), since its
+consumer's: the module root of the system, the system's command entry and a module foreign to the system keep the token, because without it
+the noun names a different thing. An identifier for a plain value, such as the DRS index or a command lookup, takes no prefix, since its
 module's namespace already qualifies it, and no identifier says cats.
 
 - [Identifiers](#identifiers)
@@ -84,31 +84,28 @@ to a person, it may use the same word.
 
 ### Across the boundary
 
-A consumer who writes a module against the toolset is outside the inner namespace; the cats form marks that. A reader who sees a `Catzc.*`
-name knows the module is shipped by this repository and ruled by its decision records; a reader who sees the cats form knows it came from
-somewhere else and is ruled by the contracts at the boundary.
+A `Catzc.*` module is ruled by this repository's decision records; a cats-form module is ruled by the contracts at the boundary.
 
 ### Used across each other on purpose
 
-The two names are not synonyms and not rivals; they are used across each other where the audiences overlap. A pwsh entry point that a person
-calls by hand may say cats. A sentence to a person that means one module names it `Catzc.Base.Docs`, because that is its name. What never
-happens is the swap in the name's own home: a module is never `Cats.*`, and prose never says catzc where cats would do.
+The two names are not synonyms and not rivals; they meet where the audiences overlap, and a sentence that means one module names it
+`Catzc.Base.Docs` because that is its name.
 
 ### The folders
 
 The consumer overlay root and this repository's own config-fragment root are `.catzc/`, with the track below it (`.catzc/<track>/`). A
-folder name is read by a resolver, not a person, so it takes the source-level name; the alias once proposed for the friendly form is
-withdrawn, because one path with two spellings is two sources of truth ([one-living-version](one-living-version.md)).
+folder name is read by a resolver, not a person, so it takes the source-level name, and it has no friendly alias, because one path with two
+spellings is two sources of truth ([one-living-version](one-living-version.md)).
 
 ### Identifiers
 
 A command, a variable or a type name is read by a loader and a resolver, so it takes the source-level name, and it takes it only when the
 token carries meaning. The catzc modules root is not the repository root, and a foreign catzc module is not any foreign module: there the
-token tells two things apart, and dropping it would make one name mean two things. Where the noun is a plain value type, a DRS index, a
-rule enforcer, a command lookup, the module that owns it is the namespace, and a prefix only repeats it. A catzc prefix also stays where it
-marks a name as the system's in a space with no module namespace: MSBuild properties, loader and script-scope variables, `PrivateData` keys,
-and helpers in a script outside any module. The cats form is a person's word, so it stays out of identifiers; a pwsh entry point a person
-calls by hand speaks cats in its messages and help, not in its name.
+token tells two things apart, and dropping it would make one name mean two things. Where the noun is a plain value type, a DRS index, a rule
+enforcer, a command lookup, the module that owns it is the namespace, and a prefix only repeats it. A catzc prefix also stays where it marks
+a name as the system's in a space with no module namespace: MSBuild properties, loader and script-scope variables, `PrivateData` keys, and
+helpers in a script outside any module. The cats form is a person's word, so it stays out of identifiers; a pwsh entry point a person calls
+by hand speaks cats in its messages and help, not in its name.
 
 ## Decision
 

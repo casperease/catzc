@@ -12,9 +12,6 @@ The IP plan lives only in `network.yml` — never duplicate vnet/subnet ranges i
 reads them from `network.yml` at build time — in its prepare hook (`Get-Config -Config network`), or through a config address in its
 parameter file — and never copies them.
 
-> **Status.** The asset, its config type, and the prepare-hook range-merge mechanism are built and exercised by a fixture test (the
-> `sample-with-prepost` template merges `vnet_address_space` / `default_subnet` into its parameter set).
-
 - [The asset](#the-asset)
 
 ### Rule ADR-AZ-NETWORK-KEYEDBYENVIRONMENT
@@ -198,16 +195,6 @@ The `subscriptions` block is the IP plan of the hub-and-spoke topology the subsc
 The `subscriptions` block is optional in the type, so a fixture plan that exercises only environment ranges stays small; the gate is what
 requires an entry for every subscription of the shipped `azure.yml`.
 
-### How this is enforced
-
-- `Get-Config -Config network` loads and validates the file through its registered config type, `NetworkConfig`.
-- `NetworkConfig` (with `NetworkEnvironment` and `NetworkSubscription` for each entry, and `NetworkCidr` for the range arithmetic) performs
-  the shape, format, containment, overlap, and kind checks above, on `network.yml` alone.
-- `Test-AzureNetworkPlan` (a quality gate, [`test-automation`](../automation/test-automation.md) `ADR-AUTO-TEST-QUALITYGATE`) performs the
-  cross-asset join over the two loaded configs and lists every violation; its integrity test runs it over the shipped files.
-- The shipped `network.yml` is exercised by the same integrity discipline as `azure.yml` (see
-  [`test-automation`](../automation/test-automation.md)).
-
 ### CAF connectivity
 
 The repository connects no on-premises site and no other cloud; the hub reserves `GatewaySubnet` so a gateway can be added without
@@ -234,23 +221,21 @@ No template deploys a virtual machine, so there is no Bastion, no jump host, no 
 break-glass path of that kind; a hub Bastion would need an `AzureBastionSubnet` the hub does not reserve, and its diagnostics would follow
 every other resource's to `foundation`'s workspace. No traffic flows between virtual machines, and every flow to data is encrypted by TLS
 1.2 at minimum, so virtual network encryption is not used. The network security groups and the virtual networks send their diagnostics to
-`foundation`'s workspace, but no flow log is recorded; virtual network flow logs, planned, are where there is no security-group flow log to
-migrate, and traffic analytics follows them. Packet capture runs on virtual machines, so none is used, and the repository builds no traffic
+`foundation`'s workspace, and where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log
+there with traffic analytics into the workspace ([ADR-AZ-LZ-CAFMANAGEMENT](landing-zones.md#rule-adr-az-lz-cafmanagement)); a virtual
+network flow log leaves no security-group flow log to migrate. Packet capture runs on virtual machines, so none is used, and the repository builds no traffic
 mirroring of its own.
 
 ### CAF topology
 
 Each tier has one hub in the one region with its spokes peered to it, the hub's resources in one resource group named with the region code
 (`nsub-weu-zct-disco-rg`), and each hub lists a handful of spokes, far below the peering limit. A spoke peers only to its hub and nothing is
-forwarded, so one spoke cannot reach another, and the non-production and production hubs are deliberately not peered. There is no
-ExpressRoute circuit, VPN gateway, branch, partner appliance, or route learned over BGP (the spoke route tables are empty), so nothing is
-dual-homed or force-tunnelled, no ExpressRoute and VPN transit needs Route Server, and customers are isolated by subscription and spoke. The
-hub carries only the two reserved subnets, `shared-services`, and the private DNS zones; the shared platform's own workload also lands in
-`shared-services`, which is more than the minimal set. It holds no Application Gateway or other inbound proxy; a workload that needs one
-carries it in its own template. No workload has a public endpoint, so a DDoS Protection plan has nothing to protect. Every environment
+forwarded, so one spoke cannot reach another, and the non-production and production hubs are deliberately not peered. With no hybrid link
+([CAF connectivity](#caf-connectivity)) and empty spoke route tables, nothing is dual-homed or force-tunnelled, no transit needs Route
+Server, and customers are isolated by subscription and spoke. The hub carries only the two reserved subnets, `shared-services`, and the
+private DNS zones; the shared platform's own workload also lands in `shared-services`, which is more than the minimal set. Every environment
 deploys to one region, so no cross-region peering, hub routing, global mesh, or Virtual WAN transit has anything to connect. Network Watcher
-monitoring arrives with the flow logs, and the virtual network and its security groups send their logs and metrics to `foundation`'s
-workspace.
+monitoring is the virtual network flow log.
 
 `network.yml` is the one IP plan and `NetworkConfig` rejects any overlap between its networks
 ([ADR-AZ-NETWORK-NOOVERLAP](#rule-adr-az-network-nooverlap)); there is no on-premises range to avoid. A virtual network takes its address
@@ -270,24 +255,7 @@ are planned centrally in `network.yml`, not by the landing zone's owner, and no 
 virtual machine, so an application security group has nothing to group, and no outbound rule is needed because nothing is force-tunnelled.
 Peerings and security rules are declared in config and deployed by `discovery`, not managed by Virtual Network Manager, which has no
 management group or tenant to reach here; the flows that must hold are the security group rules the landing zone owns, not admin rules above
-them. Virtual network flow logs with traffic analytics are not deployed.
-
-`discovery` deploys the hub or the spoke of its subscription, chosen by `networkKind` from `global.network.subscriptions.<name>.kind`, and
-reads `vnetAddressSpace` and `subnetPrefixes` from `global.network.subscriptions.<name>` by config address, never as literal ranges. A spoke
-peers to its `hub`, and a hub to every entry of its `spokes` list through `vnet-peering.bicep`, whose defaults allow neither gateway transit
-nor forwarded traffic (`allowForwardedTraffic` is off; the module exposes gateway transit for both sides). Every subnet named in
-`networkSecurityGroupNames` gets a network security group from `nsg.bicep` with the `deny-internet-inbound` rule and the same
-`securityRules` as every other subnet, written with the service tags `VirtualNetwork` and `Internet` rather than address ranges; the
-reserved subnets get no security group and no route table. `route-table.bicep` takes its routes as a parameter and exposes
-`disableBgpRoutePropagation`, and the spoke route table passes no routes and attaches to spoke subnets only, never to a hub subnet. The
-virtual network and each security group send diagnostics to `foundation`'s workspace through the `virtualNetwork` and `networkSecurityGroup`
-kinds of `diagnostic-setting.bicep`, which record rule events and counters, not the connections that passed. `virtual-network.bicep` sets no
-`defaultOutboundAccess` on its subnets, so the first compute placed in a spoke would reach the internet directly. `vm.bicep` creates a
-Basic-SKU dynamic public IP address that no template uses. `storage-account.bicep` fixes `minimumTlsVersion: 'TLS1_2'` and
-`supportsHttpsTrafficOnly: true`, and `sql-server.bicep` fixes `minimalTlsVersion: '1.2'`, as module values and not parameters. The
-no-public-IP assignment guards the networks `discovery` builds, and `ci-infrastructure.yaml` compiles the template before it deploys. The
-hub's address space has room for an `AzureFirewallManagementSubnet` beside the reserved ranges (for example `10.1.0.128/26` in
-`shared_prod`).
+them.
 
 ### CAF private access
 
@@ -311,7 +279,7 @@ a gateway.
 `expedition` has two private endpoints, `blob` on the storage account and `sqlServer` on the SQL server, in the subnet named by
 `privateEndpointSubnetName` (a customer spoke's `private-endpoints`, or the hub's `shared-services` for the shared platform's root configs),
 and reads the hub's subscription and resource group by config address (`privateDnsZoneSubscriptionId`, `privateDnsZoneResourceGroupName`). A
-hub (`networkKind: hub`) deploys `privatelink<sqlServerHostname suffix>` and `privatelink.blob.<storage suffix>`, built from
+hub deploys `privatelink<sqlServerHostname suffix>` and `privatelink.blob.<storage suffix>`, built from
 `environment().suffixes` so the names fit the cloud the template deploys to, and outputs their ids; a spoke deploys none, and no
 `privatelink.vaultcore.azure.net` zone exists until the vault takes a private endpoint. `private-dns-zone.bicep` links each zone to the
 hub's network and to every entry of `spokes`, one link per network, with `registrationEnabled` off as the `privatelink` zones require. No

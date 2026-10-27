@@ -50,7 +50,11 @@ Describe 'Test-BicepTemplateCompliance' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
         Mock Build-Bicep -ModuleName Catzc.Azure.Templates { $built }
         Mock Get-BicepTemplate -ModuleName Catzc.Azure.Templates {
-            [pscustomobject]@{ slots = @([pscustomobject]@{ name = 'prod'; environment = 'prod'; slot = ''; customer = '' }) }
+            [pscustomobject]@{
+                name              = 'widget'
+                deployment_target = 'Subscription'
+                slots             = @([pscustomobject]@{ name = 'prod'; environment = 'prod'; slot = ''; customer = ''; subscription = '' })
+            }
         }
         Mock Get-BicepParametersFileName -ModuleName Catzc.Azure.Templates { 'parameters.prod.json' }
     }
@@ -204,17 +208,50 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
                     }
                 })
         }
-        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template } {
-            param($Template)
+        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Nested = $nested } {
+            param($Template, $Nested)
             $widget = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @(@{ size = 'small' }, @{ size = 'large' }) } -Location 'widget-north')
             $widget.Count | Should -Be 1
             $widget[0].Name | Should -BeExactly 'widget-widget-north'
             $widget[0].Scope.sizes | Should -BeExactly @('small', 'large')
+            # The nested deployment's resource group rides on each of its records; a top-level record has the deployment's own, ''.
+            $widget[0].ResourceGroup | Should -BeExactly 'widget-rg'
+            @(Get-ArmDeployedResource -Template $Nested -Values @{ location = 'widget-north' })[0].ResourceGroup | Should -BeExactly ''
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved([Catzc.Azure.Templates.ArmExpression]::Evaluate(
                     $widget[0].Resource.location, $widget[0].Scope, $widget[0].Variables, $widget[0].Indexes, $widget[0].Deployment)) | Should -BeTrue
             $unplaced = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @() })
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($unplaced[0].Name) | Should -BeTrue
             @($unplaced[0].Scope.sizes).Count | Should -Be 0
+        }
+    }
+
+    It 'threads -SubscriptionId and -ResourceGroupName into resourceId(), a nested deployment''s group and subscription overriding them' {
+        # The expected ids are Bicep's own evaluator's (bicep snapshot 0.48.1 with --subscription-id and --resource-group), not this type's.
+        $leaf = [ordered]@{
+            '$schema' = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            resources = @([ordered]@{ type = 'Microsoft.Insights/workbooks'; name = "[guid(resourceId('Microsoft.OperationalInsights/workspaces', 'widget-log'))]" })
+        }
+        $template = [ordered]@{
+            '$schema' = 'https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#'
+            resources = @(
+                [ordered]@{ type = 'Widget.Parts/widgets'; name = "[resourceId('Widget.Parts/widgets', 'gadget')]" }
+                [ordered]@{ type = 'Microsoft.Resources/deployments'; name = 'grouped'; resourceGroup = 'widget-group'; properties = [ordered]@{ template = $leaf } }
+                [ordered]@{ type = 'Microsoft.Resources/deployments'; name = 'elsewhere'; resourceGroup = 'widget-rg'; subscriptionId = '00000000-0000-0000-0000-00000000000a'; properties = [ordered]@{ template = $leaf } }
+                [ordered]@{ type = 'Microsoft.Resources/deployments'; name = 'unplaced'; resourceGroup = "[parameters('missing')]"; properties = [ordered]@{ template = $leaf } }
+            )
+        }
+        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Leaf = $leaf } {
+            param($Template, $Leaf)
+            $items = @(Get-ArmDeployedResource -Template $Template -Values @{} -SubscriptionId '50a0ed00-de00-50b0-0000-000000000000' -ResourceGroupName 'widget-ignored')
+            $items.Count | Should -Be 4
+            # A subscription template has no resource group of its own, so its resourceId() stays unresolved, never guessed.
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($items[0].Name) | Should -BeTrue
+            $items[1].Name | Should -BeExactly 'd61bf936-8844-5b06-b159-3f2725eb4720'
+            $items[2].Name | Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($items[3].Name) | Should -BeTrue
+            @(Get-ArmDeployedResource -Template $Leaf -Values @{} -SubscriptionId '00000000-0000-0000-0000-00000000000a' -ResourceGroupName 'widget-rg')[0].Name |
+                Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved(@(Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg')[0].Name) | Should -BeTrue
         }
     }
 }

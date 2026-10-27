@@ -25,7 +25,8 @@ function Test-BicepTemplateCompliance {
         foreach ($name in $Template) {
             $outputFolder = @(Build-Bicep $name -OutputFolder (Join-Path $runFolder $name))[-1]
             $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
-            foreach ($slot in @((Get-BicepTemplate $name).slots)) {
+            $descriptor = Get-BicepTemplate $name
+            foreach ($slot in @($descriptor.slots)) {
                 $slots++
                 $parametersFile = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                 $parameters = [System.IO.File]::ReadAllText($parametersFile) | ConvertFrom-Json -AsHashtable
@@ -43,8 +44,9 @@ function Test-BicepTemplateCompliance {
                 # Production is the environment's fact in azure.yml, the one place it is declared.
                 $environments = (Get-Config -Config azure).environments
                 $production = $environments.ContainsKey($slot.environment) -and $environments[$slot.environment].production
-                # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
-                $deployed = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region)
+                # Sent where Deploy-Bicep sends it, so deployment().location, subscription() and the resource ids resolve.
+                $facts = Get-BicepSlotDeploymentFacts -Template $descriptor -Slot $slot
+                $deployed = @(Get-ArmDeployedResource -Template $main -Values $values @facts)
                 $diagnosed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
                 $needing = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 

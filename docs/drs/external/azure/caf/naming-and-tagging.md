@@ -114,7 +114,7 @@ enforced and which are optional.
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (recommendation 11, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-CAFTAGS](../../../azure/landing-zones.md#rule-adr-az-lz-caftags) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-NAME-R12
 
@@ -123,7 +123,7 @@ some regions.
 
 Source: learn /azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging (recommendation 12, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) and
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies) and
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 
 ### Rule EDR-AZ-CAF-NAME-R13

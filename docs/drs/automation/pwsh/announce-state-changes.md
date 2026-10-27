@@ -149,15 +149,12 @@ PowerShell has built-in output streams and this toolset defines some more. Each 
   - When to use: Function return values. **Never** use for status messages — it pollutes the pipeline
   - Visible by default: Captured
 
-`Write-Message` is the single public writer: it adds a `[CallerName]` prefix and routes through the information stream, not directly to the
-console, via the module's private `Write-InformationColored` chokepoint (which carries the colour and the Pester-run suppression). Use it
-with the prefix for one-liners where the caller context matters, and with `-NoHeader` for multiline output, tables, or any content where the
-prefix would indent the first line differently from the rest. Never call `Write-Information` or `Write-InformationColored` directly — the
-`NoRawInformationStream` rule enforces this.
+`Write-Message` is the single public writer, over the private `Write-InformationColored` chokepoint. `-NoHeader` suits any content where the
+`[CallerName]` prefix would indent the first line differently from the rest. Never call `Write-Information` or `Write-InformationColored`
+directly (`NoRawInformationStream`).
 
-**Do not use `Write-Warning` or `Write-Error`.** The importer sets both `$ErrorActionPreference` and `$WarningPreference` to `Stop`, so both
-streams terminate execution. There is no middle ground between "everything is fine" and "stop." See [error-handling](error-handling.md) for
-the full rationale and rules.
+**Do not use `Write-Warning` or `Write-Error`:** the importer sets both preferences to `Stop`, so both terminate
+([error-handling](error-handling.md)).
 
 `Write-Verbose` is the diagnostic output, and it deserves the same care as `Write-Message`:
 
@@ -192,8 +189,9 @@ The session state of ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES, and the PowerShell
 - **What the next session starts with**
   - Changed by: the user and machine environment, the PowerShell profile
 
-A .NET assembly cannot be unloaded, so the importer names the assembly it loads (`Loaded types pwsh/.compiled/Catzc.Types.<hash>.dll`), the
-vendor modules it imports, and the modules it loads, evicts, or drops, on its verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).
+A .NET assembly cannot be unloaded, so the importer names the assembly it loads, by its path from the repository root into the per-user
+shadow root (`Loaded types ../../Users/<user>/AppData/Local/catzc/types/Catzc.Types.<hash>.dll` on Windows), the vendor modules it imports,
+and the modules it loads, evicts, or drops, on its verbose load record (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE).
 
 ### Announce where it happens
 
@@ -239,11 +237,9 @@ is never routed there, and never written only when a diagnostic switch is set.
 
 `Child-process output is relayed, not re-written`
 
-When the toolset runs an external tool, the tool's output streams to the console as it arrives (ADR-AUTO-CONSOLE-TOOLSSPEAK), and a parallel
-test runner relays each worker's output the same way. That output is the child's own bytes, never a PowerShell record, so the C# relays
-(`Invoke-ExecutableStreamed`'s runner, the Pester worker pool) write it to the console directly, saving and restoring the console encoding
-around the run. The command that started the child is announced before it runs ([log-before-invoke](../log-before-invoke.md)); the relay
-honours the same Pester-run flag as the chokepoint.
+A child's output is its own bytes, never a PowerShell record, so routing it through the chokepoint would mean decoding and re-writing every
+line; the C# relays write it straight through instead (ADR-PWSH-ANNOUNCE-CHILDOUTPUTRELAYED). The command that started the child is
+announced before it runs ([log-before-invoke](../log-before-invoke.md)).
 
 ### Delegated announcements
 
@@ -261,7 +257,7 @@ plaintext secret if it announced its own writes. The changing function then carr
 roots, imports the vendor modules, prepends the vendor root to `PSModulePath`, loads the types assembly, and loads the catzc modules.
 Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOMES), so they are written with
 `Write-ImporterMessage -StateChange`, which puts them on the verbose stream. A plain import shows one `Loaded in N seconds (...)` line, plus
-anything that actually needs attention: a warning, `Built <dll>` for a freshly compiled assembly to commit, the stale-types notice, and the
+anything that actually needs attention: a warning, `Built <dll>` for a freshly compiled assembly, the stale-types notice, and the
 `-DiagnoseLoadTime` timings. `. .\importer.ps1 -Verbose` shows the full record.
 
 The shim is an advanced script so that it accepts `-Verbose`. Dot-sourced, it sets the preference in the caller's scope for the length of
@@ -302,15 +298,12 @@ announcement is recorded with a justified suppression. Every external command is
   the line says is a review concern.
 - **`Measure-NoRawInformationStream`** keeps `Write-Information` inside the two chokepoint functions, `Write-InformationColored` and
   `Write-ImporterMessage`.
-- **Writers emit on the information stream.** Every writer routes through `Write-InformationColored`, which emits via `Write-Information`
-  (carrying color as embedded ANSI, so it survives a pipe). In normal use the output therefore obeys `$InformationPreference`,
-  `-InformationAction`, and `6>` redirection — none of which `Write-Host` honours (it always renders).
-- **Test suppression is a guard at the chokepoint, not a stream preference.** During a Pester run, Pester captures the information stream
-  around each test and replays it at Normal+ verbosity, so `$InformationPreference = 'SilentlyContinue'` does NOT stop writer output — only
-  not writing it does. So `Test-Automation` sets `$global:__PesterRunning`, and `Write-InformationColored` (the single chokepoint every
-  writer shares) returns before writing. Because the guard is at the chokepoint, no writer can leak into test output, and there is one guard
-  rather than one per writer. The same flag silences a child process's raw `Console` output streamed by `Invoke-ExecutableStreamed`, which
-  never enters a PowerShell stream at all. Tests that assert writer output lift the flag for their own `Describe`.
+- **Writers emit on the information stream.** `Write-InformationColored` emits via `Write-Information`, carrying colour as embedded ANSI so
+  it survives a pipe.
+- **Test suppression is a guard at the chokepoint, not a stream preference.** Pester captures the information stream around each test and
+  replays it, so `$InformationPreference = 'SilentlyContinue'` does not stop writer output — only not writing it does. `Test-Automation`
+  sets `$global:__PesterRunning`, and the chokepoint and the child-output relay return before writing. Tests that assert writer output lift
+  the flag for their own `Describe`.
 - **`Write-Message -NoNewline`** provides the inline dot, so no liveness signal needs a raw write.
 - **Code review** checks the wording: an announcement names the target and its new value, and a suppression's justification names where the
   delegated announcement happens.

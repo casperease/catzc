@@ -74,11 +74,8 @@ recorded, reproducible, and reviewable. Freedom and control coexist because the 
 
 ### One source of truth, or none
 
-Every guarantee downstream — audit, reproducibility, review, rollback — assumes there is exactly one authoritative description of the
-managed world. The moment a second source exists (a console tweak, a hand-run command that leaves no record), the guarantees collapse: the
-audit log is incomplete, the rebuild does not match, and review covered only half the change. So the repository is not _a_ source of truth,
-it is _the_ source, and anything not in it does not exist as far as the platform is concerned. Drift detection exists to find the gap and
-close it toward the repository — never to promote an out-of-band change into the record.
+The moment a second source exists (a console tweak, a hand-run command that leaves no record), the guarantees collapse: the audit log is
+incomplete, the rebuild does not match, and review covered only half the change.
 
 ### Immutable artifacts and provenance
 
@@ -95,23 +92,17 @@ back to a reviewed commit and rebuilt to match.
 
 Trunk-based development is what keeps the single source of truth actually single and actually current. trunkbaseddevelopment.com defines it
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
-create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
-short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
-automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
-generated file stale. The branching discipline and the no-legacy rule (`PDR-ONELIVE`) are two faces of the same commitment: one living
-version, on trunk, always releasable.
+create other long-lived development branches". The branching discipline and the no-legacy rule (`PDR-ONELIVE`) are two faces of the same
+commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
 
 `Why this is safe where control matters most`
 
 The domains where self-service seems most dangerous — regulated, audited, compliance-bound — are the ones this design serves best, because
-it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. The audit trail is `git log`:
-every change is attributed, timestamped, and justified in its commit and review. The provenance record is the build's `build.json` with the
-content hash it carries: every deployed unit names its exact content and the commit it was built from. The change-approval control is the
-pull request: no change reaches trunk unreviewed. None of these is an extra step a busy engineer might skip under deadline — they are the
-only path, so the record is always complete. That is what "safe by construction" means: the fast path and the compliant path are the same
-path.
+it makes the compliance artifacts fall out of the normal workflow instead of being assembled after the fact. None of them is an extra step a
+busy engineer might skip under deadline — they are the only path, so the record is always complete. That is what "safe by construction"
+means: the fast path and the compliant path are the same path.
 
 ## Decision
 

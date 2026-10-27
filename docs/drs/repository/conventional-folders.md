@@ -208,9 +208,7 @@ tooling relies on is a setting, held to three conditions that keep what a litera
 - **Overridden for the repository or the track, never per module.** A module does not choose its own names
   (ADR-REPO-FOLDERS-NOMODULEOVERRIDE), so a name means the same in every module it reaches.
 
-The roots of the test languages follow it today: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`), Python
-(`python.yml`'s `root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`), and Bash (`bash.yml`'s `root`, the defaults
-`bash/` and `.bash/`, `BashConfig.ResolveRoot`), and a track's places are read through the track
+The test-language roots follow it (the rule names their settings and resolvers), and a track's places are read through the track
 ([DDR-TRACK-SUBSCRIBABLENOTPATH](../design/tracks.md#rule-ddr-track-subscribablenotpath)). The module-internal names are read from the
 layout through `LanguagesConfig.FolderOf`, and the bootstrap, which runs before any type loads, reads the same `languages.yml` row through
 `Get-PrivateFunctionFolder`. Only the importer spells its names: `pwsh/`, `.internal/` and `.vendor/` are the bootstrapping paths, read
@@ -243,7 +241,7 @@ The root is a closed set of folders, each with a fixed meaning. The **Kind** col
   - Programmed against by: `importer.ps1`, `Test-Automation`, `Install-VendorModule`
 - **`docs/`**
   - Kind: mixed
-  - Meaning: Documentation — `adr/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles,
+  - Meaning: Documentation — `drs/` decision records, `references/` reference articles, `how-to/` guides, `explanation/` articles,
     `.assets/` diagrams
   - Programmed against by: `Build-DrsIndex`, `Build-Readme`; human consumption
 - **`infrastructure/`**
@@ -313,18 +311,18 @@ The root is a closed set of folders, each with a fixed meaning. The **Kind** col
 `pwsh/` is the only root the module system interacts with; its internals are Levels 2–3 below. The rest separate concerns at the repo level,
 and each has its own conventional sub-layout:
 
-**`docs/`** holds five folders. `adr/` is the Architecture Decision Records, one subfolder per domain declared in
-`pwsh/Base.Drs/configs/drs.yml`: `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`, `ado/`,
-`github/`, `azure/`, `repository/` (this ADR), and `external/dora/`. Its `index.md` is generated from that registry and describes each
-domain, so the registry — not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles,
-including the sources the generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference
-under `references/dora/`. `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of
-how cats works and why, in a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized
-topic buckets. The dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown
-content under `docs/`, set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the
-`.assets/` beside the page that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its
-declaration, the one source its words and cells live in, and `<name>.drawio.png`, put from it. A projection's reasons travel in its computed
-data and in the diagram's declaration.
+**`docs/`** holds five folders. `drs/` is the decision records, one subfolder per domain declared in `pwsh/Base.Drs/configs/drs.yml`:
+`thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`, `ado/`, `github/`, `azure/`,
+`repository/` (this ADR), and `external/dora/`. Its `index.md` is generated from that registry and describes each domain, so the registry —
+not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the sources the
+generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under `references/dora/`.
+`how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of how cats works and why, in
+a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized topic buckets. The
+dot-prefixed `.assets/` holds the binary diagram assets (`*.drawio.png`) the markdown embeds — the one non-markdown content under `docs/`,
+set apart by the dot-prefix convention (ADR-REPO-FOLDERS-DOTMEANSTOOLING). A diagram is a pair of files in the `.assets/` beside the page
+that embeds it, so moving the diagram moves the pair and the page finds it by locality: `<name>.drawio.yml`, its declaration, the one source
+its words and cells live in, and `<name>.drawio.png`, put from it. A projection's reasons travel in its computed data and in the diagram's
+declaration.
 
 **`infrastructure/`** splits into `modules/` (reusable Bicep modules — flat `*.bicep`, _not_ discovered as templates) and
 `templates/<name>/` (deployable units: `main.bicep`, `options.yml`, optional `PrePost.psm1`). A template's
@@ -339,13 +337,11 @@ include kinds — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ad
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
 (what we promise the world) and depended-on (what a vendor, such as GitHub or Azure DevOps, promised us). It has at most four levels. The
 first is the root, who made the promise: `contracts/catzc/` for ours, `contracts/<vendor>/` for a vendor's. The second is the version:
-`0.1.0`, the current contracts, edited in place, which every internal binding points at; the rest of the `0.1` range is reserved, `0.0.0` is
-never a folder, and a version from `1.0.0` up is a frozen `catzc` release. The third, optional, is one group folder: the owning module in
-`catzc`, the vendor's area in a vendor root. The fourth is the asset itself; the files it binds are named in its version's `contract.yml`,
-not by a mirrored path. A release folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one
-place the repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist
-(see [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)). The root carries a checked-in
-`.gitkeep`, so it stays tracked before any contract exists.
+`0.1.0`, the current contracts, edited in place; the rest of the `0.1` range is reserved, `0.0.0` is never a folder, and a version from
+`1.0.0` up is a frozen `catzc` release. The third, optional, is one group folder. The fourth is the asset itself; the files it binds are
+named in its version's `contract.yml`, not by a mirrored path. A pinned release folder is the one place the repo deliberately carries
+backwards compatibility, because here, unlike the internal code, external consumers genuinely exist (see
+[one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)).
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
 ([go-test-artifacts](../automation/go/go-test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for
@@ -357,17 +353,13 @@ root elsewhere when declared; the two names are the sensible defaults of that on
 **`python/`** is the Python root: the repository's Python tests, which are black-box tests of the engine and never ship
 ([python-test-artifacts](../automation/python/python-test-artifacts.md)). It holds `tests/<module>/`, one Python test folder per catzc
 module, named for that module in kebab case, and the generated uv workspace — the root `pyproject.toml`, one member `pyproject.toml` per
-test folder, and the one environment and lock uv makes from them — all gitignored. A repository with no `python/` folder keeps the same
-layout under the dot-prefixed `.python/`, and `python.yml`'s `root` places the Python root elsewhere when declared, by the convention every
-test-language root follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)); the code that reads it is
-`PythonConfig.ResolveRoot`.
+test folder, and the one environment and lock uv makes from them — all gitignored. Its root resolves like Go's
+([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)).
 
 **`bash/`** is the Bash root: the repository's Bash tests, which are black-box tests of the engine through `importer.sh` and `cats`, and
 never ship ([bash-test-artifacts](../automation/bash/bash-test-artifacts.md)). It holds `tests/<module>/`, one Bash test folder per catzc
-module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. A repository with no
-`bash/` folder keeps the same layout under the dot-prefixed `.bash/`, and `bash.yml`'s `root` places the Bash root elsewhere when declared,
-by the convention every test-language root follows ([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)); the code
-that reads it is `BashConfig.ResolveRoot`.
+module, named for that module in kebab case, and the vendored bats-core runner under `.vendor/bats-core/`, committed. Its root resolves like
+Go's ([ADR-REPO-FOLDERS-NAMESARESETTINGS](#rule-adr-repo-folders-namesaresettings)).
 
 **`out/`** is the `output` track: the single home for all generated and transient files, gitignored except `.gitkeep`, and operated on like
 any track — the tools write their reports, renders and builds there and read them back. Its build destination is none, so it ships nothing.
@@ -469,14 +461,8 @@ organize content — the internal structure is freeform. The module's own config
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
 these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
-`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`). A
-module's own config goes in `configs/`, and `assets/` is reserved for templates, scripts, schemas, fixtures, and other consumable assets.
-Live examples: `Catzc.Base.Execution/configs/tools.yml`, `Catzc.Base.ModuleSystem/configs/dependencies.yml`,
-`Catzc.Azure.DevOps/configs/{ado,pipeline-env}.yml`, `Catzc.Azure/configs/{azure,network}.yml`. This is enforced by
-`Test-FolderConventions.Tests.ps1`, which allows `configs/` as a module subdirectory, requires every entry to be a flat kebab-case `.yml`
-file, and fails any module that keeps an `assets/config/` directory. Files in `configs/` are read through the shared
-`Get-Config -Config <name>` reader rather than bespoke per-reader loaders — see
-[module-config-loading](../configuration/module-config-loading.md).
+`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`), the one
+shared reader rather than bespoke per-reader loaders — see [module-config-loading](../configuration/module-config-loading.md).
 
 Not every module needs every folder. A module with no private helpers has no `private/`. A module with no assets has no `assets/`, and a
 module that loads no internal config has no `configs/`. The convention defines what the name means when the folder exists, not that every
@@ -567,8 +553,8 @@ task files of the plans folder hold to it too: each is named by its topic, and t
   that declares it — or a free label (renaming it is harmless).
 - The folder structure is self-documenting. Opening any module reveals the same layout. `private/` is private, `tests/` is tests, `assets/`
   is everything else — no per-module learning curve.
-- Tooling is simple and stable. The bootstrap module, test runner, and importer have no configuration for folder names. They hardcode the
-  names, and the names do not change.
+- Tooling is simple and stable. Each folder name is read through its one resolver, so no tool takes a per-call path; only the importer
+  spells its bootstrapping paths.
 - New modules are created by copying the folder layout. There is no registration, no configuration file to update, no "folder structure"
   section in a setup guide. The layout is the same everywhere because the names are the same everywhere.
 - Adding a new folder role to the conventional layout is a deliberate, documented decision. It adds a setting to a track's default

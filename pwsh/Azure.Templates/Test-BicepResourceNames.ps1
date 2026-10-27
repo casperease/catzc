@@ -31,7 +31,7 @@ function Test-BicepResourceNames {
                     $issues.Add("${name}/$($slot.name): writes '$parameter', a name the namer derives (options.yml names) — delete it from the slot")
                 }
             }
-            # Every declared name resolves for every slot, so a build never meets an underivable one.
+            # Every declared name resolves for every slot, so a build never meets a name that cannot be derived.
             try {
                 $null = Resolve-BicepDerivedNames -TemplateDescriptor $descriptor -Slot $slot -SlotParameters $written
             }

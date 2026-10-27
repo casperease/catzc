@@ -1,8 +1,8 @@
-# Flow: Pipeline runner pattern — how pipelines invoke automation
+# ADR: Pipeline runner pattern — how ado pipelines invoke automation
 
-## Rules: FDR-RUNNER
+## Rules: ADR-ADO-RUNNER
 
-### Rule FDR-RUNNER-NOINLINEPOWERSHELL
+### Rule ADR-ADO-RUNNER-NOINLINEPOWERSHELL
 
 YAML steps never contain inline PowerShell. All PowerShell execution goes through the runner (`Invoke-AdoScript.ps1`) or a step template
 that calls it.
@@ -10,20 +10,20 @@ that calls it.
 - [The runner pattern](#the-runner-pattern)
 - [Decision](#decision)
 
-### Rule FDR-RUNNER-IMPORTONCE
+### Rule ADR-ADO-RUNNER-IMPORTONCE
 
 The runner imports the module system once at the start of `Invoke-AdoScript.ps1`, and the command runs in the same scope (`-NoNewScope`).
 
 - [The runner](#the-runner)
 - [Why a dedicated runner script](#why-a-dedicated-runner-script)
 
-### Rule FDR-RUNNER-THINSTEPTEMPLATES
+### Rule ADR-ADO-RUNNER-THINSTEPTEMPLATES
 
 Step templates are thin wrappers: they add pipeline concerns (service connections, token injection, display names) but never contain logic.
 
 - [The step template](#the-step-template)
 
-### Rule FDR-RUNNER-DEVELOPERREPRODUCIBLE
+### Rule ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE
 
 Commands are developer-reproducible: whatever string appears in `RunCommand` can be pasted into a local terminal after running
 `.\importer.ps1`.

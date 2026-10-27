@@ -136,9 +136,8 @@ proves it.
 
 `The mode is derived from the code root`
 
-There is no run-mode variable. `CatzcModulesRoot` is set once per load by the entry point, and the mode follows from it: when the code root
-is the repository's own `pwsh/` folder, the session is in source mode; anywhere else, it is in build mode. A stored mode flag could disagree
-with the code actually loaded; a derived one cannot.
+`CatzcModulesRoot` is set once per load by the entry point. A stored mode flag could disagree with the code actually loaded; a derived one
+cannot.
 
 ### Switching modes in one session
 

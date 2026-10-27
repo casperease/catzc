@@ -1,12 +1,12 @@
 # pwsh/Base.Drs/Test-DrsEngineNeutrality.ps1
 
-A quality gate that keeps engine-specific syntax out of the rule summaries of the configured ADR domains.
+A quality gate that keeps engine syntax and vendor names out of the rule summaries of the configured ADR domains.
 
 ## help
 
 ### synopsis
 
-Checks that the rule summaries of the configured ADR domains carry no engine-specific syntax.
+Checks that the rule summaries of the configured ADR domains carry none of the tokens of their configured token sets.
 
 ### description
 
@@ -14,8 +14,9 @@ A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automat
 summaries (the `### Rule <code>:<n>` entries, Get-DrsRuleSummaryLines) of every rule set in the domains listed under
 engine_neutrality.domains in drs-checks.yml. The engine-agnostic rules hold for every execution engine
 ([ADR-AUTO-ENGINE-THREEENGINES](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), so their summaries state a
-rule, never one engine's syntax: each token under engine_neutrality.tokens is a regular expression for such syntax, and every match is a
-finding, reported with its file and line. Naming a catzc command is allowed, so the tokens list engine built-ins only.
+rule, never one engine's syntax, and a vendor-neutral tier never names a vendor. Each domain names the token sets under
+engine_neutrality.token_sets it is held to (engine, vendor, or both); each token is a regular expression, and every match is a finding,
+reported with its file and line. Naming a catzc command is allowed, so the engine set lists engine built-ins only.
 
 A domain in that list that drs.yml does not declare is a finding too. A rule set with no file, or several, is Test-DrsRegistry's finding and
 is skipped.

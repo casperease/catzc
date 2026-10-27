@@ -49,9 +49,9 @@ engines, order) is a separate concern; this DDR fixes only a module's placement 
 
 ### Module types
 
-Separating the sort (module type) from the track (track type) matters because a track can hold several sorts of module (`automation` holds
-folder and `psm1` modules) and a sort can sit in more than one place (`pipeline` in two tracks, `settings` in several). Each of the two is
-one declaration; the relation between them is the `admits` list, which is the only place the two meet.
+Separating the sort (module type) from the track (track type) matters because a track can hold several sorts of module (`pwsh` holds folder
+and `psm1` modules) and a sort can sit in more than one place (`pipeline` in two tracks, `settings` in several). Each of the two is one
+declaration; the relation between them is the `admits` list, which is the only place the two meet.
 
 ### Types and tracks
 

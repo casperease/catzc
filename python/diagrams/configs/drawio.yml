@@ -68,7 +68,7 @@ zooms: # the closed ladder of how far out a diagram stands (its optional about.z
   C4: code, one module's files and their link edges
 commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/drs/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
-  topic: C4915C 7A4B25 1E2430
+  topic: 4E6378 9FB3C8 DDE2E9
   landed: C9CCD1 6B7178 1E2430
   l3: 64B5F6 1565C0 1E2430
   main-uat: DAE8FC 6C8EBF 1E2430

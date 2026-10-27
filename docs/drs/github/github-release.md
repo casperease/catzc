@@ -84,10 +84,8 @@ is the token-light path the repository already has the credentials for.
 
 ### PowerShell Gallery is opt-in
 
-Publishing to the Gallery is a separate, opt-in step. It runs only when its input is set, and it reads `PSGALLERY_API_KEY` from secrets; if
-that secret is absent or empty, it prints a warning and exits success, so a maintainer who forgot the key gets a built artifact, not a
-failed run. The GitHub token has no power on the Gallery — the Gallery is the one target that needs its own credential — so the two paths
-stay cleanly separate.
+A missing key warns and exits success, so a maintainer who forgot it gets a built artifact, not a failed run. Because the GitHub token has
+no power on the Gallery, the two credential paths stay cleanly separate.
 
 ### One version, from config
 

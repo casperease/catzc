@@ -17,7 +17,7 @@ the tagging strategy page holds the detail.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (recommendation 1, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) and
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies) and
 [ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 
 ### Rule EDR-AZ-CAF-GOV-R02
@@ -43,7 +43,7 @@ Assign each policy at the highest level where it fits, and exclude a lower level
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (recommendation 4, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-GOV-R05
 
@@ -60,7 +60,7 @@ date, migrating its policies, and updating custom policies carry procedures rath
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (recommendation 6, retrieved 2026-10-15)
 
-Binds to [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+Binds to [ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ### Rule EDR-AZ-CAF-GOV-R07
 
@@ -94,7 +94,7 @@ Tag resources with metadata such as the cost centre or the project, so cost can 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/governance (recommendation 10, retrieved 2026-10-15)
 
 Binds to [ADR-AZ-LZ-COSTATTRIBUTION](../../../azure/landing-zones.md#rule-adr-az-lz-costattribution) and
-[ADR-AZ-LZ-THREEBUILTINPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies).
+[ADR-AZ-LZ-LANDINGZONEPOLICIES](../../../azure/landing-zones.md#rule-adr-az-lz-landingzonepolicies).
 
 ## Context
 

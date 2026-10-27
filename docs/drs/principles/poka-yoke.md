@@ -79,15 +79,9 @@ Applied to software systems, this means:
 
 ## How to apply
 
-When evaluating a design, ask two questions:
-
-1. **Can the author get this wrong?** If a mistake is possible, either prevent it structurally (conventions, derived behavior, constrained
-   inputs) or catch it immediately (static analysis, assertions, automated tests).
-
-2. **Does this add ceremony?** If the author has to do something that the platform could do for them, the platform should do it. Every
-   manual step removed is an error class eliminated.
-
-If the answer to either question is unsatisfying, the design is not done.
+For the first of the two design questions, a possible mistake is either prevented structurally (conventions, derived behavior, constrained
+inputs) or caught immediately (static analysis, assertions, automated tests). For the second, every manual step removed is an error class
+eliminated.
 
 This principle is technology-agnostic. It applies to code, configuration, infrastructure, pipelines, and any other system where humans
 author artifacts that machines consume.

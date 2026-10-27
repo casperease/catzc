@@ -120,12 +120,9 @@ parameters are meta keys only — never config the catzc commands can derive.
 3. `.yaml` = executable artifact, `.yml` = config data
 ```
 
-- **`.yaml`** — ado pipelines and template fragments. Anything ADO executes.
-- **`.yml`** — configuration/data files our own code reads (`azure.yml`, `options.yml`, `tools.yml`, `ado.yml`, a template's
-  `configuration/<env>.yml`, …).
-
-The extension is a one-character classifier: `.yaml` is run by ADO; `.yml` is parsed by us. This is consistent with the rest of the repo,
-where every config file is already `.yml`.
+[FDR-PIPELINE-EXECUTABLEYAMLEXTENSION](../flow/pipeline-concept.md#rule-fdr-pipeline-executableyamlextension) binds here as: `.yaml` is
+anything ADO executes (pipelines and template fragments); `.yml` is data our code reads (`azure.yml`, `ado.yml`, a template's
+`configuration/<env>.yml`, …).
 
 ### Resulting layout
 

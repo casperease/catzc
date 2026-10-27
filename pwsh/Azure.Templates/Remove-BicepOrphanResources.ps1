@@ -63,7 +63,8 @@ function Remove-BicepOrphanResources {
     }
     $expected = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $unresolvedNames = [System.Collections.Generic.List[string]]::new()
-    foreach ($item in @(Get-ArmDeployedResource -Template $main -Values $values -Location $context.environment.region)) {
+    # The group and subscription it lists, so a name built from resourceId(), such as guid() of a workspace's id, resolves to the deployed one.
+    foreach ($item in @(Get-ArmDeployedResource -Template $main -Values $values -Location $context.environment.region -SubscriptionId $subscriptionId -ResourceGroupName $group)) {
         # Only what az resource list returns is compared: never an extension resource (one with a scope) nor a child proxy (a child without a location).
         if ($item.Resource.Contains('scope') -or (($item.Type -split '/').Count -gt 2 -and -not $item.Resource.Contains('location'))) {
             continue

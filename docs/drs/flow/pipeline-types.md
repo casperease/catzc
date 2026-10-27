@@ -1,18 +1,19 @@
-# Flow: Pipeline types — the six kinds of ADO artifact, named
+# Flow: Pipeline types — the six kinds of pipeline artifact, named
 
 ## Rules: FDR-TYPE
 
 ### Rule FDR-TYPE-SIXTYPES
 
-Every ADO artifact is exactly one of the six types — CRON, CI, CD, CDe, DEPLOY, or INPUT. An artifact that does not fit is a design problem
-to resolve, not a seventh type to invent.
+Every pipeline artifact the execution engine runs is exactly one of the six types — CRON, CI, CD, CDe, DEPLOY, or INPUT. An artifact that
+does not fit is a design problem to resolve, not a seventh type to invent.
 
 - [Decision](#decision)
 
 ### Rule FDR-TYPE-ALLTHROUGHRUNNER
 
-All six types invoke automation through the runner (`Invoke-AdoScript.ps1`); YAML stays declarative and logic lives in `pwsh/`. (One
-sanctioned exception: the `ci-pwsh-expected-failures` guardrail pipeline.)
+All six types invoke automation through the one runner ([pipeline-runner-pattern](pipeline-runner-pattern.md)); the pipeline definition
+stays declarative and logic lives in the automation. The one sanctioned exception is the guardrail pipeline that proves the guardrails fail
+as designed.
 
 - [Decision](#decision)
 
@@ -83,11 +84,9 @@ DEPLOY exists to make an environment's governance a first-class pipeline constru
 history over an environment behind a manual gate. It **splits by target** on the one build-once artifact
 ([FDR-CD-PREPRODRUNG](cd-discipline-and-promotion-flow.md#rule-fdr-cd-preprodrung)): **DEPLOY-Non-Prod** drives it into the non-prod AT
 environments (the on-demand environments, `main-uat`, `release-uat`), and **DEPLOY-Prod** drives the RBC-cleared artifact through
-**pre-prod** into **production**. The human certifications are the two hands-on release gates of
-[FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates): **RC** clears when `main-AT` — acceptance testing
-against `main-uat` — is verified, **RBC** when `release-AT` against `release-uat` is verified. Each is a gate (FDR-CD-GATEDEFINED) — the
-human certification that decides _whether_ to proceed; DEPLOY is only the **actuator** that drives the pinned artifact onward once that gate
-clears. DEPLOY never owns the decision.
+**pre-prod** into **production**. The human certifications are the RC and RBC gates of
+[FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates); DEPLOY is only the **actuator** that drives the
+pinned artifact onward once a gate clears, and never owns the decision.
 
 - [DEPLOY](#deploy)
 
@@ -118,7 +117,7 @@ never both; the choice is a per-unit governance posture.
 
 ## Context
 
-In Azure DevOps, every YAML-defined, agent-executed artifact is called a "pipeline." The word covers structurally different things: a
+In a pipeline engine, every declared, agent-executed artifact is called a "pipeline." The word covers structurally different things: a
 timer-driven automation job, a build-and-test CI gate, a full deploy, a manually-governed deploy of a locked commit, and a user-facing form.
 When one noun covers all of them, the organisation loses the language it needs to distinguish their failure modes: a "pipeline" that is
 really a release-candidate test run hung in the pre-commit stage (breaking the CI-gate budget of
@@ -126,7 +125,7 @@ really a release-candidate test run hung in the pre-commit stage (breaking the C
 continuous delivery's name (the anti-pattern [INPUT](#input) replaces).
 
 The repair is not a new mechanism. It is **precise naming**: call each artifact what it is, give each its own trigger model and contract,
-and make the differences visible. This FDR establishes a **closed set of six pipeline types**. Every ADO artifact in this platform is
+and make the differences visible. This FDR establishes a **closed set of six pipeline types**. Every pipeline artifact in this platform is
 exactly one of them. Anything that does not fit is a design smell to resolve, not a seventh type to invent quietly.
 
 This FDR is taxonomy only. It fixes what the six types _are_ — their triggers, their components, and the contract each must honour. It does
@@ -273,22 +272,14 @@ Concretely:
 
 `CDe — Continuous Deployment, the prod roll internalized`
 
-A CDe pipeline is a **CD pipeline that internalizes and automates the roll to production**. Where a CD pipeline stops at non-prod and hands
-the production cutover to a separately-triggered, human-governed DEPLOY — Continuous _Delivery_ — a CDe pipeline continues past non-prod and
-drives the same tagged artifact into production **automatically** — Continuous _Deployment_. It runs the same CI engine
-(FDR-TYPE-ONECIENGINE) and the same deploy-and-verify path (FDR-TYPE-ONEDEPLOYPATH, FDR-TYPE-CDESHARESDEPLOYPATH) as CD and DEPLOY — it
-forks neither — and it **builds nothing** new: the artifact it rolls to prod is the CI engine's build-once output, pinned to the locked
-commit.
+A CDe pipeline continues past non-prod and drives the same tagged artifact into production **automatically** — Continuous _Deployment_,
+where CD → DEPLOY is Continuous _Delivery_. It forks neither the CI engine nor the deploy path and builds nothing new. The design rationale
+— where the promotion decision lives — is
+[FDR-CD-CDEINTERNALIZESPROMOTION](cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdeinternalizespromotion).
 
-What makes it CDe rather than CD → DEPLOY is **where the promotion decision lives**. In CD → DEPLOY the decision to go to prod is external —
-a human starts, or approves the cutover inside, a DEPLOY pipeline (FDR-TYPE-DEPLOYISCDTAIL). In CDe the decision is internalized: for a
-locked commit and its verified build, the pipeline advances to prod **automatically**. A CDe may still pause at an **internal** approval
-gate before its production stage, but that gate is a checkpoint _inside_ an automated promotion, not a separate construct someone must
-trigger; the activity — "roll this locked artifact to prod" — is determined by the pipeline.
-
-This is the sharp line against DEPLOY's second canonical target (the automated pre-prod rollover chained to a manual production gate):
-there, the production cutover is **required** to be human-approved — that gate is the pipeline's _primary_ governance, and it is Delivery.
-In a CDe, a production gate is optional and, when present, _internal_ to an otherwise automated roll — the promotion is Deployment.
+The sharp line against DEPLOY's second canonical target (the automated pre-prod rollover chained to a manual production gate): there, the
+production cutover is **required** to be human-approved — that gate is the pipeline's _primary_ governance, and it is Delivery. In a CDe, a
+production gate is optional and, when present, _internal_ to an otherwise automated roll — the promotion is Deployment.
 
 - **Trigger:** the CI engine triggers as for CD (PR build validation + post-commit master); the non-prod deploy, the production roll, and
   any internal approval gate run as automated continuations once the post-commit build is green.

@@ -86,12 +86,9 @@ is what makes the system better. Kaizen is the discipline of always taking the s
 
 ## How to apply
 
-When the line stops or a gate catches something, do not only fix the instance — ask what made it possible and add the countermeasure that
-prevents the class, then encode it where it holds ([PDR-POKAYOKE](../principles/poka-yoke.md)), or in a quality gate. Prefer many small
-adjustments driven by observed signals ([WDR-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn something
-worth keeping, capture it as a convention, a gate, or a decision record so it is not relearned. Treat the per-push gates as the platform's
-built-in learning loop and let them run on every change, not only at a milestone: the same gates run on the devbox and in the pipeline, and
-every push recomputes the flow state.
+When the line stops or a gate catches something, do not only fix the instance — add the countermeasure that prevents the class. Prefer many
+small adjustments driven by observed signals over occasional large reorganisations, and treat the per-push gates, the same on the devbox and
+in the pipeline, as the platform's built-in learning loop.
 
 ## Agile and lean grounding
 

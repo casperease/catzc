@@ -84,10 +84,9 @@ author is no rule at all.
 
 ### Questions the default answers
 
-When the mechanism and its default exist, a question about one instance is already answered: the instance gets the default, and an
-exception, if there is one, is an entry. Questions that remain are about the default itself ("should every text language name a formatter?")
-or about a mechanism that does not exist yet ("nothing runs `bicep format`"). Asking per instance whether support is worth it treats
-configuration as programming, and leaves the repository with uneven coverage decided case by case.
+Examples of the questions that remain: "should every text language name a formatter?" (the default) and "nothing runs `bicep format`" (a
+missing mechanism). Asking per instance whether support is worth it treats configuration as programming, and leaves the repository with
+uneven coverage decided case by case.
 
 ### Rejected alternatives
 

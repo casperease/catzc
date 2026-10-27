@@ -216,11 +216,8 @@ platform; `infrastructure/` is the IaC tree; `.ado/pipelines` holds the azure de
 `docs/` is the documentation; `contracts/` is the repository boundary's binding contracts, in both directions; each `.<foldername>`
 configures exactly one external system (the repository's boundary for that concern); a `.vendor` folder holds third-party code. A member may
 be narrower than a root (`.github/workflows`), or a single file (`importer.ps1` joins `pwsh`), so that two tracks share a root without
-sharing a file. `out/` is the output track: it holds what every run writes, generated and gitignored. Naming the concept makes the mapping
-normative: the declared members are the registration, and asking "which track does this file belong to?" always has exactly one answer. The
-two facts on each member answer the next two questions from the same declaration, "is it generated?" and "does git track it?", so a filter,
-a gate and a pipeline trigger ask one model instead of keeping their own lists of shapes. That single-answer property is what every consumer
-below builds on.
+sharing a file. Naming the concept makes the mapping normative, and the two member facts let a filter, a gate and a pipeline trigger ask one
+model instead of keeping their own lists of shapes. That single-answer property is what every consumer below builds on.
 
 ### The taxonomy
 
@@ -299,9 +296,8 @@ The rules above make the repository countable, and the world map is the count dr
 languages, so a reader sees at a glance which track holds which kinds of text and how much of each. A cell is where one track meets one file
 language, and its shade says how many files sit there. A stack violation is marked on its cell, because the place is the finding: it says
 which track holds the second stack and in which language. A highlight lights the cells a decision record governs or a change touches, so the
-same picture answers "where does this decision apply" and "where does my change sit". The map prints only defined terms, those the glossary
-lists: a label that names an undefined concept would teach its reader a word the repository never fixed, so every printed concept carries a
-rule here and a glossary entry, and the quality gate fails a label that names none.
+same picture answers "where does this decision apply" and "where does my change sit". A label that names an undefined concept would teach
+its reader a word the repository never fixed.
 
 ### The unordered track
 
@@ -319,11 +315,9 @@ track keeps its own reason to exist. What stays under `.unordered/` is exactly t
 
 ### Leaving the unordered track
 
-Landing, sorting and leaving are one lifecycle. A file lands with its import, unordered; it is sorted when a person names it; and it leaves
-in the same commit that brings it into the eac normal form, where the repository's formatters, tests and asserts leave it unchanged and do
-not fail. One file per commit keeps each move reviewable and its history whole, and a file that is not yet in the form never sits in a
-module where the gates would hold it to rules it does not meet. So the unordered part of the repository shrinks only by files that are
-finished, and the in-the-form check proves each one before it moves.
+Landing, sorting and leaving are one lifecycle. One file per commit keeps each move reviewable and its history whole, and a file that is not
+yet in the form never sits in a module where the gates would hold it to rules it does not meet, so the unordered part shrinks only by files
+that are finished.
 
 ### The value-chain map
 
@@ -335,25 +329,15 @@ travels — the tooling it runs on, its build, its verification, its release, it
 read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each answers
 what the other cannot.
 
-The place is declared, never guessed. Every decision-record domain names its row and a default set of value-chain concerns in `drs.yml`, and
-a decision record that acts elsewhere declares its own, so the declaration is made once per decision-record domain and repeated only where a
-decision record differs, the same resolution every setting follows: a declared default, overridden only where it differs. Both words are
-qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's tech-stack, so the
-value-chain forms keep each word to one meaning.
+The place is declared, never guessed, with the same resolution every setting follows: a declared default, overridden only where it differs.
+Both words are qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's
+tech-stack, so the value-chain forms keep each word to one meaning.
 
 ## Decision
 
-Name the concept: repository concerns are **tracks** — place-declared clusters of module contents (DDR-TRACK-ISPLACEDCLUSTER), each of one
-track type (DDR-TRACK-ONETRACKTYPE), including the unordered track that nothing defaults to (DDR-TRACK-UNORDEREDTRACK) and that a file
-leaves one per commit, in the eac normal form (DDR-TRACK-MIGRATEONEFILEPERCOMMIT), one tech-stack each (DDR-TRACK-ONETECHSTACK) that
-defaults to one primary language (DDR-TRACK-PRIMARYLANGUAGE), subscribable only via depms and globset projections
-(DDR-TRACK-SUBSCRIBABLENOTPATH), and shipped through deployable-units that bind pipelines 1-1 (DDR-TRACK-DEPLOYABLEUNIT). A tech-stack is a
-set of file languages, each named by its extension (DDR-TRACK-FILELANGUAGE). The world map crosses the tracks with the file languages
-(DDR-TRACK-WORLDMAP), with a row for the root files and a column for the unlisted files (DDR-TRACK-ROOTFILE, DDR-TRACK-UNLISTEDFILE); its
-cells (DDR-TRACK-CELL) mark the stack violations (DDR-TRACK-STACKVIOLATION) and light for a highlight (DDR-TRACK-LITCELL), and every label
-it prints names a defined term (DDR-TRACK-LABELSNAMEDEFINEDTERMS). Beside it, the value-chain map (DDR-TRACK-VALUECHAINMAP) crosses the
-value-chain stack (DDR-TRACK-VALUECHAINSTACK) with the value-chain concerns (DDR-TRACK-VALUECHAINCONCERN), both declared per decision-record
-domain in `drs.yml`, with a per-ADR override of the concerns.
+Name the concept: repository concerns are **tracks**, each of one type and one tech-stack, subscribable only through depms and globset
+projections and shipped through deployable-units, with the unordered track as the landing place nothing defaults to. Make the repository
+countable as the world map, and place every decision record on the value-chain map beside it.
 
 ### How this is enforced
 

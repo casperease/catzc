@@ -78,11 +78,8 @@ This repository is an internal mono-repo: an automation platform and its infrast
 the same tree. Nothing outside it pins a version of an internal function, config schema, or data model — so internally there is no external
 consumer that cannot be changed in lockstep, the only real reason a codebase carries backwards compatibility.
 
-The one place external consumers _do_ exist is the repository's deliberately published API surface, and that is exactly why it is versioned
-explicitly — as binding contracts under `contracts/catzc/<version>/`, current at `0.1.0`, frozen per release, and kept honest by contract
-testing. Back-compat for those consumers is legitimate and lives **there**, as separate live versions — never as a shim smeared through the
-internal code. Everything below is about the inside; the external API boundary is the deliberate, versioned exception
-(PDR-ONELIVE-PINNEDVERSIONNOTLEGACY).
+The one place external consumers _do_ exist is the published API surface, which is why it is versioned explicitly; back-compat for those
+consumers lives **there**, as separate live versions, never as a shim in internal code (PDR-ONELIVE-PINNEDVERSIONNOTLEGACY).
 
 Without that reason, legacy is pure cost. Two versions of a behaviour double the surface to read, test, and reason about; they drift; and
 every reader must first work out which one is live. A deprecated alias kept "for safety" is a second source of truth that quietly diverges.
@@ -134,22 +131,17 @@ inside the trunk: everything there is at HEAD, and synchronisation happens only 
 This principle governs the codebase's own behaviour; it does not forbid _version_ as a deliberate value of the domain. Some contracts are
 inherently versioned, and pinning or supporting a specific version is the spec, not residue:
 
-- **External dependency versions** — the tool versions pinned in `Catzc.Tooling.Core`'s `tools.yml` (asserted by `Assert-ToolVersion`), and
+- **External dependency versions** — the tool versions pinned in the tooling's tool registry and asserted before a tool is invoked, and
   the version-pinned vendored modules under `pwsh/.vendor/<name>/<version>/`. These name exactly which external version we target; carrying
   more than one is a deliberate choice the external world forces, not legacy.
 - **External API versions** — when an external service (the `az` CLI, the ADO REST API) exposes versioned endpoints, targeting a given
   `api-version` is part of the contract.
 - **An explicit `schema_version` you own and validate** — a declared, checked part of a data contract, not a hidden compatibility fallback.
 
-The tell that separates a versioned contract from legacy: in a versioned contract, **every supported version is equally live and intended**
-— each fully owned and tested. In legacy, one version is the real one and the other is kept alive grudgingly to defer changing callers,
-which is what PDR-ONELIVE-NOCOMPATIBILITYSHIMS forbids. Versioned coexistence is fair for the former and forbidden for the latter.
+In legacy, one version is the real one and the other is kept alive grudgingly to defer changing callers.
 
-Versioned contracts also have a **structural home**, which keeps them from being mistaken for legacy: the root `contracts/<root>/<version>/`
-convention — one root per promiser (`catzc` for ours, one per vendor for theirs), and inside it `0.1.0`, the one current version every
-internal binding points at, beside one frozen folder per `catzc` release a consumer pins. There is no repository-wide version. Each release
-is its own self-contained, checked-in folder, so coexistence is explicit and located — never an ad-hoc `V2` fork buried beside the original
-in the code. These are the repository's external-facing API contracts, binding and contract-tested.
+The structural home is one root per promiser under `contracts/` (`catzc` for ours, one per vendor for theirs), so coexistence is explicit
+and located, never an ad-hoc `V2` fork buried beside the original in the code.
 
 ### Branch by abstraction
 
@@ -160,11 +152,9 @@ sanctioned here. Introduce an abstraction seam in front of the thing being repla
 the two coexist briefly — optionally selected by config — while a small set of CI integrations cut callers over. Then delete the old
 implementation, the toggle, and usually the seam itself, in the same flow.
 
-What keeps this inside the principle is that it is **temporal**. The seam is a construct to lift the old thing out and the new thing in,
-over a few integrations to master, not a layer that stays. It has a built-in end state — one living version — and the migration is not
-finished until the scaffold is gone. That is the opposite of legacy: legacy is coexistence with no removal plan and no deadline; branch by
-abstraction is coexistence whose entire purpose is to reach one version faster and more safely than a big-bang rewrite or a long-lived
-branch would. Use it to _get to_ one version; the failure mode is letting the seam calcify into a permanent two.
+What keeps this inside the principle is that it is **temporal**: legacy is coexistence with no removal plan, while branch by abstraction is
+coexistence whose purpose is to reach one version more safely than a big-bang rewrite or a long-lived branch. The failure mode is letting
+the seam calcify into a permanent two.
 
 ### Deprecation cycles
 

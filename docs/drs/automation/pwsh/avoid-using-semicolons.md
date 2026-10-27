@@ -30,13 +30,8 @@ Inline hash table literals are exempt: `@{ A = 1; B = 2 }` is idiomatic PowerShe
 
 ## Context
 
-PowerShell does not require semicolons.
-
-Statements are separated by newlines.
-
-Despite this, semicolons appear frequently in PowerShell code written by developers coming from C#, JavaScript, or other C-family languages.
-
-They add visual noise and signal that the author is thinking in a different language.
+PowerShell separates statements by newlines and needs no semicolons. A semicolon carried over from C# or JavaScript habit adds noise and
+signals that the author is thinking in a different language.
 
 ### The two patterns
 
@@ -72,9 +67,8 @@ $a = 1;
 $b = 2;
 ```
 
-The distinction: a semicolon followed by another statement on the same line is chaining (allowed).
-
-A semicolon at the end of a line is a trailing terminator (forbidden).
+A semicolon followed by another statement on the same line is chaining (allowed); one at the end of a line is a trailing terminator
+(forbidden).
 
 ### The two exceptions
 

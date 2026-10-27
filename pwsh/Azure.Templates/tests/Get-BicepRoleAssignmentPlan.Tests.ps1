@@ -24,9 +24,10 @@ Describe 'Get-BicepRoleAssignmentPlan' -Tag 'L0', 'logic' {
             resources  = @(
                 (& $assignment 'widget-readers' "[parameters('readers')]" "'$script:readerRole'" '')
                 [ordered]@{
-                    type       = 'Microsoft.Resources/deployments'
-                    name       = 'widget-group'
-                    properties = [ordered]@{
+                    type          = 'Microsoft.Resources/deployments'
+                    name          = 'widget-group'
+                    resourceGroup = 'widget-rg'
+                    properties    = [ordered]@{
                         parameters = [ordered]@{ principalId = @{ value = "[parameters('operators')]" } }
                         template   = [ordered]@{
                             '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
@@ -55,10 +56,19 @@ Describe 'Get-BicepRoleAssignmentPlan' -Tag 'L0', 'logic' {
         Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
         Mock Get-BicepTemplate -ModuleName Catzc.Azure.Templates {
             [pscustomobject]@{
-                slots = @(
-                    [pscustomobject]@{ environment = 'wsub'; slot = ''; customer = '' }
-                    [pscustomobject]@{ environment = 'wsub'; slot = ''; customer = 'gadgetco' }
+                name              = 'widget'
+                deployment_target = 'Subscription'
+                slots             = @(
+                    [pscustomobject]@{ environment = 'wsub'; slot = ''; customer = ''; subscription = 'widget_sub' }
+                    [pscustomobject]@{ environment = 'wsub'; slot = ''; customer = 'gadgetco'; subscription = 'widget_sub' }
                 )
+            }
+        }
+        # The slot's subscription id, which the role definition's subscriptionResourceId() and the scope's resourceId() read.
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'azure' } {
+            [pscustomobject]@{
+                environments  = @{ wsub = @{ region = 'widget-north' } }
+                subscriptions = @{ widget_sub = @{ id = '00000000-0000-0000-0000-00000000000a' } }
             }
         }
         Mock Get-BicepParametersFileName -ModuleName Catzc.Azure.Templates {

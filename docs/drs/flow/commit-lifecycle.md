@@ -13,11 +13,12 @@ lifecycle states and the upstream/downstream sync semantics.
 ### Rule FDR-LIFE-ONESTATEADVANCESONERUNG
 
 **A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves
-backward.** The ladder is: topic (brown) → landed on main (grey) → BVT-verified (yellow) → L3-verified (blue) → main-UAT / main-AT-verified
-(light-blue) → release-uat / release-AT-verified (light-green) → **pre-prod** (staged, not yet live) → in production (green). The `main-UAT`
-and `release-uat` rungs are reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates. At any
-rung a commit may advance, **hold** as an environment's occupant, or **leave the ladder** into a terminal state (discarded, retired, or
-superseded). It never regresses to an earlier rung — a commit is not "re-verified" downward; a new attempt is a new commit.
+backward.** The ladder is: topic → landed on main → BVT-verified → L3-verified → main-UAT / main-AT-verified → release-uat /
+release-AT-verified → **pre-prod** (staged, not yet live) → in production; each state's colour is the design tier's
+([DDR-VISUAL-FIXEDCOMMITPALETTE](../design/visual-design.md#rule-ddr-visual-fixedcommitpalette)). The `main-UAT` and `release-uat` rungs are
+reached by clearing their **acceptance testing** — `main-AT` and `release-AT` — at the RC and RBC gates. At any rung a commit may advance,
+**hold** as an environment's occupant, or **leave the ladder** into a terminal state (discarded, retired, or superseded). It never regresses
+to an earlier rung — a commit is not "re-verified" downward; a new attempt is a new commit.
 
 - [The ladder](#the-ladder)
 
@@ -122,8 +123,8 @@ standing on main/master, the `git_workspace` variant's one stop condition.
 ### Rule FDR-LIFE-LANDEDUNTILFAILED
 
 **A pushed head is _landed_ until a stage fails it; only a failed head is the dirty HEAD.** A head on main that no stage has verified yet is
-**landed** (grey, FDR-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-LIFE-DIRTYHEADUNSAFE) only when a downstream stage fails
-it, and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
+**landed** (FDR-LIFE-ONESTATEADVANCESONERUNG). It becomes the dirty HEAD (FDR-LIFE-DIRTYHEADUNSAFE) only when a downstream stage fails it,
+and the repair is a successor commit that fixes forward, never a rewrite of the failed one.
 
 - [Landed, then dirty](#landed-then-dirty)
 
@@ -383,8 +384,8 @@ consumers' builds.
 
 There is a legitimate path that skips integration: a workflow can deploy a topic-branch commit directly, for a hotfix or an experiment,
 without that commit having reached main/master. The model treats this honestly — the commit is deployed but _not integrated_, stays off-main
-(brown) until it lands normally, and its out-of-band deploy grants it no mainline promotion state. Drawing it as a topic commit that
-nonetheless reached an environment captures that a deploy and an integration are separate events.
+until it lands normally, and its out-of-band deploy grants it no mainline promotion state. Drawing it as a topic commit that nonetheless
+reached an environment captures that a deploy and an integration are separate events.
 
 ## One number, one story
 

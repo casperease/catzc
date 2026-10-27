@@ -99,14 +99,11 @@ a repository is accountable for.
 
 ### Fact sources
 
-A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps plays two roles. Its runtime state
-holds many fact sources: the deployments to each environment, the security controls on projects, the history of pipeline runs, and the outer
-state of git that the repository's own history does not carry, such as refs and pull requests with their reviews. Catzc reads these, because
-they are facts about delivery that no commit records. It never writes to them: a write would make catzc a second author of state that a
-state machine owns. Its configuration, the approvals, the build validations with their branch policies, the pipeline definitions, and the
-variables, is an adjacent store: the repository declares it, the trunk's pipelines drive it one way, and nobody edits it beside the trunk.
-GitHub SaaS plays the same two roles: its configuration, such as branch protection and workflow settings, is an adjacent store, and its
-runtime state, such as workflow runs and pull-request history, is a fact source.
+A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps plays two roles: its runtime state
+holds fact sources, facts about delivery that no commit records, and its configuration is an adjacent store. Catzc never writes to a fact
+source, since a write would make it a second author of state that a state machine owns. GitHub SaaS plays the same two roles: its
+configuration, such as branch protection and workflow settings, is an adjacent store, and its runtime state, such as workflow runs and
+pull-request history, is a fact source.
 
 ### State machines
 
@@ -123,11 +120,9 @@ repository boundary, never an ad hoc call.
 
 ### Synchronising into actionable facts
 
-The truth about a delivered system is spread across truth stores, and the one-source-of-truth thesis removes that spread only inside a
-responsibility domain. Across the larger totality, the work is to synchronise: read each store, set what it says against the repository at
-one commit, and keep what can be verified and acted on. A fact is verifiable when it carries where it came from, a commit for a repository,
-or a URL and the moment of reading for a fact source, so anyone can read it again. It is actionable when it names what it calls for: a
-change through the one change process, or a report to a state machine at a junction. A fact that is neither is noise and is dropped.
+The one-source-of-truth thesis removes the spread only inside a responsibility domain; across the larger totality the work is to
+synchronise. A fact's origin, a commit for a repository or a URL and moment for a fact source, lets anyone read it again. A fact that is
+neither verifiable nor actionable is noise and is dropped.
 
 Synchronising is not keeping parity. Copying a fact source into the repository, or the repository into a state machine's records, builds the
 second record the one-source-of-truth thesis removes, and it drifts the moment either side moves.

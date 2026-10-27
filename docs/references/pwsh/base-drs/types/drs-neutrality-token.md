@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsNeutralityToken.cs
 
-One forbidden token of the engine-neutrality check (`configs/drs-checks.yml`, `engine_neutrality.tokens`): a kebab-case name and a
+One forbidden token of the engine-neutrality check (`configs/drs-checks.yml`, `engine_neutrality.token_sets.<set>`): a kebab-case name and a
 case-sensitive .NET regular expression that matches engine-specific syntax in a rule summary.
 
 ## Validation

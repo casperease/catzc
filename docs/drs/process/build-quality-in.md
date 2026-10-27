@@ -64,15 +64,12 @@ at its origin.
 to be a little careless. Removing the net is what forces each step to be correct by construction — the same reason the line stops rather
 than routing defects to a rework area ([WDR-ANDON](holding-the-line.md)).
 
-**Distance is cost.** The defects waste ([PDR-NOWASTE](../principles/reduce-waste.md)) is explicit: a fault's price is proportional to how
-far it travels before detection. Concentrating quality at the furthest-left point is the cheapest possible policy.
-
 ## How to apply
 
 When adding a capability, ask first whether the defect it could introduce can be made impossible — a convention, a type, a constrained input
 ([PDR-POKAYOKE](../principles/poka-yoke.md)). If not, add the check that catches it earliest and wire it into the quality gates that run on
 both the devbox and the pipeline. Never propose a "review will catch it" or "QA will find it" step as the quality mechanism — those are
-inspection, and inspection is what this rule replaces. A change is finished when its gates are green, not when a later stage approves it.
+inspection, and inspection is what this rule replaces.
 
 ## References
 

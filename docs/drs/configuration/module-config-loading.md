@@ -4,8 +4,8 @@
 
 ### Rule ADR-CONF-LOADING-CONFIGONEREADER
 
-All config reads go through `Get-Config -Config <name>` (public, in `Catzc.Base.Config`) — no function re-reads a `configs/*.yml` file
-directly or keeps its own `$script:` config cache.
+All config reads go through one public reader, asked by the config's global name — no function re-reads a `configs/*.yml` file directly or
+keeps its own config cache. Its engine spelling is ADR-PWSH-CONFIG-GETCONFIG.
 
 - [Decision](#decision)
 
@@ -35,10 +35,10 @@ resolves, and every shipped config loads.
 
 ### Rule ADR-CONF-LOADING-POWERSHELLVALIDATOR
 
-A config that cannot ship a C# type validates with a **PowerShell validator** through `Invoke-ConfigValidator`
-(`Catzc.Base.ConfigExtensions`): `Assert-<TitleCase(name)>Config` by convention, or a function named with `-Validator`, run in the owning
-module's scope. This is the extension point for the tracks and deployable-units that carry their own configuration; core configs never use
-it. `Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` maps to a shipped config of its module.
+A config that cannot ship a C# type validates with a **PowerShell validator**: an engine function found by a naming convention, or named
+explicitly, run in the owning module's scope. This is the extension point for the tracks and deployable-units that carry their own
+configuration; core configs never use it. A gate checks that every validator maps to a shipped config of its module. Its engine spelling is
+ADR-PWSH-CONFIG-ASSERTVALIDATOR.
 
 - [The PowerShell extension point](#the-powershell-extension-point)
 
@@ -70,9 +70,6 @@ other function reads a config file or keeps its own config cache. It:
 4. constructs the registered C# config type from the raw dict, once, on the cache miss — or returns the raw dict when no type is registered;
 5. caches the result keyed on the resolved file path. Re-running the importer is the only invalidation (see
    [caching](../automation/caching.md)).
-
-Reading a config is **global access** — any function in any module calls `Get-Config -Config ado` and gets the same validated object. There
-are no per-module reader wrappers and no dependency guard. Only `Get-Config` is public.
 
 ### Discovery
 
