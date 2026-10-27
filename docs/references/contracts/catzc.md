@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c5e8f1b8a9ce
+    with_body_sha: b42bb7dc1746
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -41,6 +41,7 @@ The current version: edited in place
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-infrastructure.yaml`                                | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-pwsh-expected-failures.yaml`                        | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/ci-pwsh.yaml`                                          | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/cron-break-glass-rotation.yaml`                        | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-apex.yaml`                                      | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-nova.yaml`                                      | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/deploy-shared.yaml`                                    | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -276,6 +277,8 @@ Notes:
 
 - `pwsh.azure/test_azure_network_plan.command.yml`: Checks that the network plan (network.yml) and the azure config's environments and
   subscriptions are in sync.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
 - `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
   editor and a gate need no download.
 - `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an

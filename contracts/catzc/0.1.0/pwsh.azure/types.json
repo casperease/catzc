@@ -303,6 +303,10 @@
           "kind": "property"
         },
         {
+          "name": "nsg_flows",
+          "kind": "property"
+        },
+        {
           "name": "subscriptions",
           "kind": "property"
         }
@@ -342,6 +346,37 @@
         },
         {
           "name": "service_tags",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.NetworkFlow",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Default",
+          "kind": "property"
+        },
+        {
+          "name": "from",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "ports",
+          "kind": "property"
+        },
+        {
+          "name": "protocol",
+          "kind": "property"
+        },
+        {
+          "name": "to",
           "kind": "property"
         }
       ]

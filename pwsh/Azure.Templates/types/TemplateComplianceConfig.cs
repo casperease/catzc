@@ -20,6 +20,8 @@ public sealed class TemplateComplianceConfig : Catzc.Base.Objects.DictionaryReco
         "Microsoft.Authorization/policyDefinitions",                            // policy objects carry metadata, not tags
         "Microsoft.Authorization/roleAssignments",                              // an extension resource; ARM has no tags on it
         "Microsoft.Consumption/budgets",                                        // a budget's schema has no tags
+        "Microsoft.CostManagement/exports",                                     // the cost export; the schema has no tags
+        "Microsoft.CostManagement/scheduledActions",                            // the anomaly alert; the schema has no tags
         "Microsoft.Insights/diagnosticSettings",                                // an extension resource; ARM has no tags on it
         "Microsoft.Network/firewallPolicies/ruleCollectionGroups",               // a child: tagged through its firewall policy
         "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",              // a child: tagged through its private endpoint
@@ -27,8 +29,10 @@ public sealed class TemplateComplianceConfig : Catzc.Base.Objects.DictionaryReco
         "Microsoft.OperationalInsights/queryPacks/queries",                     // a child: its tags sit in properties, not at the top
         "Microsoft.Resources/deployments",                                      // a nested deployment; the evaluator checks its resources
         "Microsoft.Sql/servers/auditingSettings",                               // a child: tagged through its server
+        "Microsoft.Security/pricings",                                          // a Defender plan, subscription-level; no tags
         "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",     // a child: tagged through its database
         "Microsoft.Storage/storageAccounts/blobServices",                       // a child: tagged through its storage account
+        "Microsoft.Storage/storageAccounts/blobServices/containers",            // a child: tagged through its storage account
         "Microsoft.Storage/storageAccounts/managementPolicies",                 // a child: tagged through its storage account
     };
 

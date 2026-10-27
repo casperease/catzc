@@ -13,7 +13,7 @@ Describe 'DocPattern' -Tag 'L0', 'logic' {
         { [Catzc.Base.Docs.DocPattern]::new(@{}) } | Should -Throw '*glob is required*'
     }
 
-    It 'refuses a source template, since the module article is derived' -Tag 'PDR-ONELIVE' {
+    It 'refuses a source template, since the module article is derived' -Tag 'PDR-ONELIVE-NOCOMPATIBILITYSHIMS' {
         { [Catzc.Base.Docs.DocPattern]::new(@{ glob = 'a/*'; source = 'b/{kebab}.md' }) } | Should -Throw "*'source' is no longer a pattern key*"
     }
 }

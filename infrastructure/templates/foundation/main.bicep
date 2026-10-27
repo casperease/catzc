@@ -8,6 +8,10 @@ param flowLogStorageAccountName string = ''
 
 var withFlowLogStorage = !empty(flowLogStorageAccountName)
 
+@description('Days a cost export is kept in the cost-exports container before the lifecycle policy deletes it.')
+@minValue(1)
+param costExportRetentionDays int = 400
+
 @description('The subscription\'s action group, addressed to its Owner role; every alert of the subscription notifies it.')
 param actionGroupName string
 
@@ -115,6 +119,13 @@ module flowLogStorage '../../modules/storage-account.bicep' = if (withFlowLogSto
     name: flowLogStorageAccountName
     location: location
     skuName: 'Standard_LRS'
+    // The subscription's cost export (discovery) writes here too, kept apart in its own container with its own retention.
+    containers: [
+      {
+        name: 'cost-exports'
+        deleteAfterDays: costExportRetentionDays
+      }
+    ]
     tags: tags
   }
 }

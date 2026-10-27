@@ -58,10 +58,15 @@ function Select-ProtectedTestFile {
         }
     }
 
+    # A unit is its folder name; its globsets and dependency declarations use the full name under the track's namespace.
+    $trackName = [System.IO.Path]::GetFileName($modulesRoot.TrimEnd('\', '/'))
+    $track = @(Get-Track | Where-Object name -ceq $trackName) | Select-Object -First 1
+
     $hashCache = @{}
     $droppedFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($unit in $filesByModule.Keys) {
-        $identity = Get-ModuleProtectionIdentity -Module $unit `
+        $moduleName = $null -ne $track -and -not $outsideModules.Contains($unit) -and -not $unit.StartsWith('.') ? $track.FullNameOf($unit) : $unit
+        $identity = Get-ModuleProtectionIdentity -Module $moduleName `
             -HasIntegrityTests:($integrityModules.Contains($unit)) -OutsideModulesFolder:($outsideModules.Contains($unit)) -HashCache $hashCache
         if (Test-GlobSetProtection -Test $ProtectionKey -Name $unit -Hash $identity) {
             foreach ($file in $filesByModule[$unit]) {

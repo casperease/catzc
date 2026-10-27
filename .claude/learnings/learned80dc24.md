@@ -57,3 +57,38 @@ Started 2026-10-26T21:44:43.8483768+01:00.
   weight is .claude/CLAUDE.md plus the plans, about 73 KB.
 - 2026-10-27 Cats: Token tip: Next time, save tokens by: grepping the current tree for the fix a hindsight line asks for, never following
   its pre-rename path pointers.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: worker sessions in prompting mode hold cross-session messages until the user
+  approves them, so a repeated idle timestamp means the message is unread
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: Test-ManagedGuids and other repository gates read tracked files only, so
+  landed-but-uncommitted files read red until the user commits
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: inside Invoke-StagedBurst the PowerShell location is the repo root but the .NET
+  current directory is out/, so [IO.File] calls on relative paths resolve wrongly
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: bicep reports warnings on stderr with exit 0, so only Test-BicepLint (text parse)
+  proves a 0-warning claim
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: Build-Bicep wipes out/template/\<name>, so two sessions building one template race;
+  use -OutputFolder for read-only checks
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: the Azure Retail Prices API rejects or-grouped filters (400) and rate-limits after
+  about 4 quick requests (429)
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: editing an import-run or template file live mid-step breaks every peer proof; stage
+  then burst
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: a hand-mirrored copy of a build step in a test drifts; call the one shared function
+  (Get-BicepPreparedConfiguration)
+- 2026-10-27 Cats: Token tip: Next time, save tokens by: not re-subscribing to idle notices; a repeated timestamp says nothing new
+- 2026-10-27 Cats: Token tip: Next time, save tokens by: asking workers for verdict lines only, not full design restatements in reports
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: a bicep module edit lands live the moment it is saved, so a module whose params
+  change goes into the same staged burst as its main.bicep and slots, or every peer build breaks.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: Build-Bicep -OutputFolder exists; every reader that only inspects a build (gate, L1
+  test) builds into its own folder, never the shared out/template/\<name>.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: the ARM evaluator does not resolve for-variables (variables.copy), toObject,
+  indexed map lambdas, or an if() whose unused branch is unresolved; L1s over such modules fall back to slot values plus compiled-binding
+  checks.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: a bicep param named like a module (network) is BCP028; the discovery network module
+  is landingZoneNetwork.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: a DLL cache hit skips the types contract write; after a C# burst, run
+  Write-TypesContract from Catzc.Internal.Types if the contract did not change.
+- 2026-10-27 Cats: In hindsight I wish I knew this fact: a staged burst refused for a busy run lock changed nothing, and the same call can
+  simply be retried.
+- 2026-10-27 Cats: Token tip: Next time, save tokens by: probing an evaluator expression in a one-off burst step before writing an evaluated
+  L1 assertion around it.
+- 2026-10-27 Cats: Token tip: Next time, save tokens by: staging every file of a multi-file template change up front, instead of editing a
+  module live and reverting.

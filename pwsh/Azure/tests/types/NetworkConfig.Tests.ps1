@@ -320,7 +320,7 @@ Describe 'NetworkConfig' -Tag 'L0' {
         }
     }
 
-    Context 'no_nsg_subnets' {
+    Context 'logic: no_nsg_subnets (fixture configs)' -Tag 'logic' {
         It 'takes Azure''s gateway, firewall and route-server subnets by default, and an override when given' {
             (& $script:make (Copy-Object $baseConfig)).no_nsg_subnets |
                 Should -Be @('GatewaySubnet', 'AzureFirewallSubnet', 'AzureFirewallManagementSubnet', 'RouteServerSubnet')
