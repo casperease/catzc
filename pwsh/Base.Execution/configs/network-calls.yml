@@ -94,15 +94,15 @@ sites:
     gated_by: Assert-DotnetOffline and the generated nuget.config hold the implicit restore offline
   pwsh/Base.Languages/Invoke-PythonTest.ps1#Invoke-PythonTest:
     class: package-install
-    trigger: default-path
+    trigger: offline-guarded
     gated_by: none; uv sync resolves and downloads from PyPI on every Python test run
   pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1#Invoke-PythonWorkspaceTool:
     class: package-install
-    trigger: default-path
+    trigger: offline-guarded
     gated_by: none; uv sync runs before Test-PythonLint and Test-PythonTypes, the Python language checks
   pwsh/Base.Languages/Invoke-GoTest.ps1#Invoke-GoTest:
     class: package-install
-    trigger: default-path
+    trigger: offline-guarded
     gated_by: none; go mod download runs on every Go test run and the module proxy left on
   pwsh/Azure.Templates/Update-AzurePriceTable.ps1#Update-AzurePriceTable:
     class: price-data

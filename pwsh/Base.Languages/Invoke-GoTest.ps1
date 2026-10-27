@@ -54,9 +54,12 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
-    # The engine contract is set for these commands only; GOTOOLCHAIN=local stops go downloading go.work's toolchain.
+    # The engine contract is set for these commands only; GOTOOLCHAIN=local stops go downloading go.work's toolchain, and
+    # GOPROXY=off with GOFLAGS=-mod=mod keeps every go command on the module cache, writing go.sum from it.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'
+    $environment['GOPROXY'] = 'off'
+    $environment['GOFLAGS'] = '-mod=mod'
     $saved = @{}
     foreach ($name in $environment.Keys) {
         $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
@@ -65,7 +68,8 @@ function Invoke-GoTest {
     try {
         $download = Invoke-Executable "$goCommand mod download" -WorkingDirectory $folder -PassThru -NoAssert
         if ($download.ExitCode -ne 0) {
-            throw "go mod download failed in $relative/ (exit $($download.ExitCode)):`n$($download.Full)"
+            throw ("go could not resolve its modules offline in $relative/ (exit $($download.ExitCode)); a test run keeps GOPROXY=off and " +
+                "never fetches, so fill the module cache once with: Invoke-Go '-C $relative mod download'`n$($download.Full)")
         }
 
         $vet = Invoke-Executable "$goCommand vet ./..." -WorkingDirectory $folder -PassThru -NoAssert

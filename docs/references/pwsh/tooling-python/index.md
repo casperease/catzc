@@ -41,17 +41,17 @@ functions run locally and in CI, with no separate provisioning path (see [cross-
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                               | Function            |
-| -------------------------------------------- | ------------------- |
-| responsibility:1 — Python runtime and pip    | `Install-Python`    |
+| Responsibility                               | Function                  |
+| -------------------------------------------- | ------------------------- |
+| responsibility:1 — Python runtime and pip    | `Install-Python`          |
 |                                              | `Install-PythonWorkspace` |
-|                                              | `Invoke-Python`     |
-|                                              | `Invoke-Pip`        |
-|                                              | `Uninstall-Python`  |
-|                                              | `Remove-Python`     |
-| responsibility:2 — uv-delivered Python tools | `Install-Poetry`    |
-|                                              | `Invoke-Poetry`     |
-|                                              | `Uninstall-Poetry`  |
-|                                              | `Install-PySpark`   |
-|                                              | `Invoke-PySpark`    |
-|                                              | `Uninstall-PySpark` |
+|                                              | `Invoke-Python`           |
+|                                              | `Invoke-Pip`              |
+|                                              | `Uninstall-Python`        |
+|                                              | `Remove-Python`           |
+| responsibility:2 — uv-delivered Python tools | `Install-Poetry`          |
+|                                              | `Invoke-Poetry`           |
+|                                              | `Uninstall-Poetry`        |
+|                                              | `Install-PySpark`         |
+|                                              | `Invoke-PySpark`          |
+|                                              | `Uninstall-PySpark`       |

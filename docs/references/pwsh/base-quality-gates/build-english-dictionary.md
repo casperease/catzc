@@ -18,8 +18,8 @@ list with `cspell-trie reader`, unions them, keeps only lower-cased pure-alpha w
 result gzip-compressed to pwsh/Base.QualityGates/assets/english.txt.gz.
 
 Unlike the `.cspell/*.txt` term lists (regenerated cheaply from terminology.yml on every import), this list is EXPENSIVE to regenerate — it
-needs node and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So
-it is COMMITTED, the same call the compiled-type prebuild makes
+needs node and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So it is
+COMMITTED, the same call the compiled-type prebuild makes
 ([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a
 deterministic, expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a committed stamp
 (`assets/english.stamp`) recording the cspell + dict package versions it was flattened from and the word count. The drift check

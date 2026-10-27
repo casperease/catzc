@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: afc776002412
+#     with_body_sha: d908df407b9a
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -78,6 +78,7 @@ install_py_spark	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.python/
 install_py_spark	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.python/install_py_spark.command.yml			install-py-spark	force	Install-PySpark	Force
 install_python	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.python/install_python.command.yml			install-python	version	Install-Python	Version
 install_python	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.python/install_python.command.yml			install-python	force	Install-Python	Force
+install_python_workspace	reinstall_package	string	1	0	0	contracts/catzc/0.1.0/pwsh.tooling.python/install_python_workspace.command.yml			install-python-workspace	reinstall-package	Install-PythonWorkspace	ReinstallPackage
 install_shellcheck	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/install_shellcheck.command.yml			install-shellcheck	version	Install-Shellcheck	Version
 install_shellcheck	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/install_shellcheck.command.yml			install-shellcheck	force	Install-Shellcheck	Force
 install_terraform	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/install_terraform.command.yml			install-terraform	version	Install-Terraform	Version

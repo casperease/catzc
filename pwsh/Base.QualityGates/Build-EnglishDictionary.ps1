@@ -10,7 +10,7 @@ function Build-EnglishDictionary {
     # An authoring step: it writes the committed artifact into the SOURCE module, never into an installed build.
     Assert-SourceTree
 
-    Assert-Command npx
+    Assert-Command node
     Assert-Command npm
     Assert-Command cspell
 
@@ -37,8 +37,22 @@ function Build-EnglishDictionary {
         $dictVersions[$package.name] = $package.version
     }
 
-    # cspell-trie@10 matches the installed tries; ~440k words through npx, so it is announced first.
-    Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie — this can take a while...'
+    # The trie reader is the cspell-trie-lib the installed cspell ships, at the tools.yml cspell pin, so nothing is fetched.
+    $trieLib = Join-Path $nodeRoot 'cspell/node_modules/cspell-trie-lib/dist/index.js'
+    if (-not (Test-Path -LiteralPath $trieLib -PathType Leaf)) {
+        throw "Could not find the cspell-trie-lib that cspell ships at '$trieLib'. Install cspell (Install-Cspell)."
+    }
+    $reader = @(
+        "import { readFileSync, writeFileSync } from 'node:fs';"
+        "import { gunzipSync } from 'node:zlib';"
+        "import { pathToFileURL } from 'node:url';"
+        'const [lib, trie, out] = process.argv.slice(-3);'
+        'const { decodeTrie } = await import(pathToFileURL(lib).href);'
+        "writeFileSync(out, [...decodeTrie(gunzipSync(readFileSync(trie))).words()].join('\n') + '\n');"
+    ) -join "`n"
+
+    # ~440k words, so it is announced first.
+    Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via cspell-trie-lib — this can take a while...'
 
     $set = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $tempFiles = [System.Collections.Generic.List[string]]::new()
@@ -47,7 +61,7 @@ function Build-EnglishDictionary {
             $tmp = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(),
                 [System.Guid]::NewGuid().ToString('N') + '.txt')
             $tempFiles.Add($tmp)
-            Invoke-Executable "npx --yes cspell-trie@10 reader '$trie' -o '$tmp'" | Out-Null
+            Invoke-Executable "node --input-type=module - '$trieLib' '$trie' '$tmp'" -InputText $reader | Out-Null
             Assert-PathExist $tmp
 
             # Lower-cased pure-alpha words of two letters or more: no apostrophe forms, digits or proper-noun casing.

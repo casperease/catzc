@@ -19,9 +19,9 @@ every file the workspace's ruff settings (the 140-column line, the pinned Python
 
 uv is the managed uv (Resolve-ToolExecutable, the tools.yml `uv` entry), run with UV_OFFLINE=1 and UV_PYTHON_DOWNLOADS=never so it never
 reaches an index or fetches an interpreter. pyright's wrapper is held to its bundled copy at the python.yml pin
-(PYRIGHT_PYTHON_FORCE_VERSION, PYRIGHT_PYTHON_USE_BUNDLED_PYRIGHT), with no version check against the index
-(PYRIGHT_PYTHON_IGNORE_WARNINGS) and npm offline (npm_config_offline). Every variable is restored afterwards. Throws with "Run Install-Uv"
-when no uv at the pin is found, and naming Install-PythonWorkspace when the workspace environment is missing.
+(PYRIGHT_PYTHON_FORCE_VERSION, PYRIGHT_PYTHON_USE_BUNDLED_PYRIGHT), with no version check against the index (PYRIGHT_PYTHON_IGNORE_WARNINGS)
+and npm offline (npm_config_offline). Every variable is restored afterwards. Throws with "Run Install-Uv" when no uv at the pin is found,
+and naming Install-PythonWorkspace when the workspace environment is missing.
 
 ### parameter `Tool`
 

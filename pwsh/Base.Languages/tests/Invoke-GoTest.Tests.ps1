@@ -32,6 +32,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
         $script:testOutput = $script:widgetStream
         $script:testExit = 1
         $script:vetExit = 0
+        $script:downloadExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('go', $script:goPath, 'probe', '1.27.1', '1.27',
             $true, 1, 0, 'Agent')
@@ -45,8 +46,13 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                     Start      = $env:CATZC_ENGINE_START
                     Root       = $env:CATZC_REPOSITORY_ROOT
                     Toolchain  = $env:GOTOOLCHAIN
+                    Proxy      = $env:GOPROXY
+                    Flags      = $env:GOFLAGS
                 })
             switch -Wildcard ($Command) {
+                '* mod download' {
+                    [Catzc.Base.Execution.CliResult]::new('', 'go: module lookup disabled by GOPROXY=off', $script:downloadExit)
+                }
                 '* vet *' {
                     $vetErrors = ''
                     if ($script:vetExit) {
@@ -164,6 +170,24 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                 $call.Toolchain | Should -Be 'local'
             }
             Test-Path Env:GOTOOLCHAIN | Should -BeFalse
+        }
+
+        It 'runs every go command offline, with the module proxy off and go.sum written from the module cache' {
+            $null = Invoke-GoTest Catzc.Widget
+            $script:seen.Count | Should -Be 3
+            foreach ($call in $script:seen) {
+                $call.Proxy | Should -Be 'off'
+                $call.Flags | Should -Be '-mod=mod'
+            }
+            Test-Path Env:GOPROXY | Should -BeFalse
+            Test-Path Env:GOFLAGS | Should -BeFalse
+        }
+
+        It 'throws naming the explicit download command when a module is not in the cache, running nothing more' {
+            $script:downloadExit = 1
+            { Invoke-GoTest Catzc.Widget } |
+                Should -Throw "*could not resolve its modules offline*GOPROXY=off*Invoke-Go '-C go/tests/widget mod download'*"
+            $script:seen.Count | Should -Be 1
         }
 
         It 'restores the environment afterwards' {

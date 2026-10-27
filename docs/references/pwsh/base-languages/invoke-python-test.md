@@ -13,8 +13,8 @@ Runs a catzc module's Python tests and returns one result per Python test.
 ### description
 
 In the module's Python test folder (the Python root is python.yml's `root`, by default python/ when the repository has one, else .python/),
-runs two uv commands from the Python root, the uv workspace root, through Invoke-Executable, each inside its time safeguard (the `uv`
-entry of timeouts.yml). It runs the managed uv by its path: the caller's -UvExecutable, or the one located from its tools.yml entry by
+runs two uv commands from the Python root, the uv workspace root, through Invoke-Executable, each inside its time safeguard (the `uv` entry
+of timeouts.yml). It runs the managed uv by its path: the caller's -UvExecutable, or the one located from its tools.yml entry by
 Resolve-ToolExecutable, never a bare uv off PATH; it throws with "Run Install-Uv" when no uv at the pin is found.
 
 ```text
@@ -23,12 +23,12 @@ uv run --no-sync pytest tests/<folder> ...        runs every test, uncached, wit
                                                   and a JUnit XML report.
 ```
 
-A test run never syncs: the workspace's one environment (<root>/.venv) is made by the explicit Install-PythonWorkspace, and the call
-throws with that remedy, running nothing, when the environment is missing or a strict editable kit has a module with no link yet
+A test run never syncs: the workspace's one environment (<root>/.venv) is made by the explicit Install-PythonWorkspace, and the call throws
+with that remedy, running nothing, when the environment is missing or a strict editable kit has a module with no link yet
 (Install-PythonWorkspace -ReinstallPackage <package>). uv runs with UV_OFFLINE=1, so it never reaches an index, and with
-UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and never fetches one silently (the Python
-form of GOTOOLCHAIN=local). Python writes its bytecode and
-pytest its cache under out/ (PYTHONPYCACHEPREFIX=out/pycache, cache_dir=out/pytest-cache), never into the tree.
+UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and never fetches one silently (the Python form
+of GOTOOLCHAIN=local). Python writes its bytecode and pytest its cache under out/ (PYTHONPYCACHEPREFIX=out/pycache,
+cache_dir=out/pytest-cache), never into the tree.
 
 The Python tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
 (Get-EngineContract), set for these commands only and restored afterwards:
@@ -43,9 +43,9 @@ CATZC_REPOSITORY_ROOT    the repository root.
 
 Returns one PythonTestResult per top-level test function (parametrised cases fold into it), with its category from its name:
 `test_integrity*` is integrity, everything else is logic. A failing test is a result, not an error. The call throws, with the uv output,
-when ruff check fails, and when pytest fails without a failing test (a collection error, or no tests). Under Pester the ruff
-throw lands in the `BeforeAll` of `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every engine:
-read the first failure's message before the case count.
+when ruff check fails, and when pytest fails without a failing test (a collection error, or no tests). Under Pester the ruff throw lands in
+the `BeforeAll` of `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`, so one lint line fails every case of every engine: read the first
+failure's message before the case count.
 
 ### parameter `Module`
 

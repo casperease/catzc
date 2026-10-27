@@ -6,6 +6,12 @@ Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
         { Build-EnglishDictionary -DryRun } | Should -Throw '*operates on the catzc source tree*'
         Should -Invoke Assert-Command -ModuleName Catzc.Base.QualityGates -Times 0
     }
+
+    It 'reads the tries with the installed cspell''s own trie library, never fetching a package through npx' {
+        $definition = (Get-Command Build-EnglishDictionary).Definition
+        $definition | Should -Not -Match '\bnpx\b'
+        $definition | Should -Match 'cspell/node_modules/cspell-trie-lib/dist/index\.js'
+    }
 }
 
 # source-only: it reads the committed artifact in the repository, which gives the same answer in both run modes.

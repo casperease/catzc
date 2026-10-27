@@ -16,30 +16,40 @@ function Invoke-PythonWorkspaceTool {
         throw "The Python checks need the managed uv at the tools.yml pin '$($uv.Required)' (found: $($uv.Version ?? 'none')). Run Install-Uv."
     }
     $repositoryRoot = Get-RepositoryRoot
-    $pythonRelative = (Get-Config -Config python).ResolveRoot($repositoryRoot)
+    $python = Get-Config -Config python
+    $pythonRelative = $python.ResolveRoot($repositoryRoot)
     $pythonRoot = Join-Path $repositoryRoot $pythonRelative
     if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot 'pyproject.toml') -PathType Leaf)) {
         throw "$pythonRelative/pyproject.toml is missing — the Python test workspace is generated; regenerate with: Build-RootConfig"
     }
+    # The checks never sync, since a sync resolves and downloads; the environment comes from the explicit install command.
+    if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot '.venv/pyvenv.cfg') -PathType Leaf)) {
+        throw "$pythonRelative/.venv is not synced, and the Python checks never sync it; sync it once with: Install-PythonWorkspace"
+    }
     $uvCommand = "`"$($uv.Path)`""
     $quoted = ($File | ForEach-Object { "`"$_`"" }) -join ' '
 
-    $saved = [System.Environment]::GetEnvironmentVariable('UV_PYTHON_DOWNLOADS')
-    [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', 'never')
+    # uv stays offline and on the pinned interpreter; pyright's wrapper stays on its bundled copy at the python.yml pin, with
+    # no version check against the index and npm held offline.
+    $environment = [ordered]@{
+        UV_PYTHON_DOWNLOADS                = 'never'
+        UV_OFFLINE                         = '1'
+        PYRIGHT_PYTHON_USE_BUNDLED_PYRIGHT = '1'
+        PYRIGHT_PYTHON_IGNORE_WARNINGS     = '1'
+        npm_config_offline                 = 'true'
+        PYRIGHT_PYTHON_FORCE_VERSION       = $python.dependencies['pyright']
+    }
+    $saved = @{}
+    foreach ($name in $environment.Keys) {
+        $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
+        [System.Environment]::SetEnvironmentVariable($name, $environment[$name])
+    }
     try {
-        $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
-        if ($sync.ExitCode -ne 0) {
-            throw ("uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python. " +
-                "If a workspace member moved: $pythonRelative/uv.lock is a gitignored product that pins member paths; delete it and run again.`n$($sync.Full)")
-        }
         Invoke-Executable "$uvCommand run --no-sync --quiet $Tool $ConfigOption pyproject.toml $quoted" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
     }
     finally {
-        if ($null -eq $saved) {
-            Remove-Item -LiteralPath Env:UV_PYTHON_DOWNLOADS -ErrorAction Ignore
-        }
-        else {
-            [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', $saved)
+        foreach ($name in $environment.Keys) {
+            [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
         }
     }
 }

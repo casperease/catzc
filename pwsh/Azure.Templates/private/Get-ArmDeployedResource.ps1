@@ -101,7 +101,10 @@ function Get-ArmDeployedResource {
                             $entry = & $evaluate $entry
                         }
                         # A for-expression parameter compiles to { copy: [{ name: 'value', count, input }] }, its value the copy's array.
-                        $copies = if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('copy')) { @($entry.copy) } else { @() }
+                        $copies = @()
+                        if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('copy')) {
+                            $copies = @($entry.copy)
+                        }
                         $passed[$parameter] = if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('value')) {
                             & $evaluate $entry.value
                         }
