@@ -55,7 +55,7 @@ Describe 'Get-CatzcModules — loaded catzc modules' -Tag 'L1', 'integrity', 'AD
     It 'lists this module with exactly the functions it exports' {
         $docs = $script:modules | Where-Object { $_.Module -eq 'Catzc.Base.Docs' }
         $docs | Should -Not -BeNullOrEmpty
-        $docs.Functions | Should -Contain 'Show-Cats'
+        $docs.Functions | Should -Contain 'Show-Catzc'
         $docs.Functions | Should -Be @((Get-Module Catzc.Base.Docs).ExportedFunctions.Keys | Sort-Object)
     }
 

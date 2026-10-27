@@ -1,4 +1,4 @@
-# pwsh/Base.Docs/Show-Cats.ps1
+# pwsh/Base.Docs/Show-Catzc.ps1
 
 The offline browser behind "ask cats": it prints the ADR index, the loaded modules and the approved verbs from what the repository already
 knows.
@@ -23,9 +23,9 @@ Ask the catzc docs — a deterministic browser over the ADRs, modules, and appro
 LLM). With no argument it prints the overview of what you can ask; an area narrows it:
 
 ```text
-Show-Cats adr [query]     the ADR codes and titles; with a query, the matching ADRs and their rules
-Show-Cats module [name]   the modules; with a name substring, the public functions they export
-Show-Cats verbs           the approved verbs in use across the tree
+Show-Catzc adr [query]     the ADR codes and titles; with a query, the matching ADRs and their rules
+Show-Catzc module [name]   the modules; with a name substring, the public functions they export
+Show-Catzc verbs           the approved verbs in use across the tree
 ```
 
 Output is presentation only (the information stream, [ADR-AUTO-CONSOLE](../../../drs/automation/console-output-matters.md)); the function
@@ -44,20 +44,20 @@ Narrows the area: an ADR code/title substring for 'adr', a module-name substring
 ### example 1
 
 ```powershell
-Show-Cats
+Show-Catzc
 Prints the overview of what you can ask.
 ```
 
 ### example 2
 
 ```powershell
-Show-Cats adr naming
+Show-Catzc adr naming
 Summarizes the ADRs whose code or title contains 'naming', with each rule's one-line summary.
 ```
 
 ### example 3
 
 ```powershell
-Show-Cats module azure
+Show-Catzc module azure
 Lists the public functions of every module whose name contains 'azure'.
 ```

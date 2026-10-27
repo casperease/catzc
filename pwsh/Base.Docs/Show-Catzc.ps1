@@ -1,4 +1,4 @@
-function Show-Cats {
+function Show-Catzc {
     [CmdletBinding()]
     [OutputType([void])]
     param(
@@ -28,7 +28,7 @@ function Show-Cats {
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
                 if ($matched.Count -eq 0) {
-                    Write-Message "No ADR matches '$Query'. Run 'Show-Cats adr' for the full list." -NoHeader
+                    Write-Message "No ADR matches '$Query'. Run 'Show-Catzc adr' for the full list." -NoHeader
                     break
                 }
                 $enforcers = Get-RuleEnforcers
@@ -65,7 +65,7 @@ function Show-Cats {
                 }
                 break
             }
-            Write-Message 'ADR codes (run ''Show-Cats adr <query>'' to summarize one):' -NoHeader -ForegroundColor Cyan
+            Write-Message 'ADR codes (run ''Show-Catzc adr <query>'' to summarize one):' -NoHeader -ForegroundColor Cyan
             $width = 0
             foreach ($entry in $entries) {
                 if ($entry.Code.Length -gt $width) {
@@ -82,7 +82,7 @@ function Show-Cats {
             if ($Query) {
                 $matched = @($modules | Where-Object { $_.Module -like "*$Query*" })
                 if ($matched.Count -eq 0) {
-                    Write-Message "No module matches '$Query'. Run 'Show-Cats module' for the full list." -NoHeader
+                    Write-Message "No module matches '$Query'. Run 'Show-Catzc module' for the full list." -NoHeader
                     break
                 }
                 foreach ($module in $matched) {
@@ -94,7 +94,7 @@ function Show-Cats {
                 }
                 break
             }
-            Write-Message 'Modules (run ''Show-Cats module <name>'' for a module''s functions):' -NoHeader -ForegroundColor Cyan
+            Write-Message 'Modules (run ''Show-Catzc module <name>'' for a module''s functions):' -NoHeader -ForegroundColor Cyan
             $width = 0
             foreach ($module in $modules) {
                 if ($module.Module.Length -gt $width) {
@@ -130,7 +130,7 @@ function Show-Cats {
             break
         }
         default {
-            throw "Show-Cats: unknown area '$Area'. Ask one of: adr, module, verbs — or run Show-Cats with no argument for the overview."
+            throw "Show-Catzc: unknown area '$Area'. Ask one of: adr, module, verbs — or run Show-Catzc with no argument for the overview."
         }
     }
 }

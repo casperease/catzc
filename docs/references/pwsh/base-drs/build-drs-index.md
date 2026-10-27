@@ -13,7 +13,7 @@ domain structure.
 
 index.md is a derived projection of pwsh/Base.Drs/configs/drs.yml: authored preamble and authoring-convention prose wrapped around one
 code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](../catzc-base-drs/<path>) |` — the format
-Get-DrsIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md`
+Get-DrsIndex parses and the citation grammar Show-Catzc presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md`
 file.
 
 The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked linguist-generated so its diff collapses,

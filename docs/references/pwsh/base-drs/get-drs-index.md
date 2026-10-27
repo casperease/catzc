@@ -1,12 +1,12 @@
 # pwsh/Base.Drs/Get-DrsIndex.ps1
 
-Parses the ADR index into one entry per ADR, the code, title slug and path that `Show-Cats` presents.
+Parses the ADR index into one entry per ADR, the code, title slug and path that `Show-Catzc` presents.
 
 ## help
 
 ### synopsis
 
-Parses the ADR index ([index](../../../drs/index.md)) into the code -> ADR entries that Show-Cats presents.
+Parses the ADR index ([index](../../../drs/index.md)) into the code -> ADR entries that Show-Catzc presents.
 
 ### description
 

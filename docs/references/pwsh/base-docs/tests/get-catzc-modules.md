@@ -10,6 +10,6 @@ from outside the root.
 
 ## Loaded session
 
-The last block reads the real loaded session with nothing mocked, so it runs in both the source run and the build run and proves `Show-Cats`
+The last block reads the real loaded session with nothing mocked, so it runs in both the source run and the build run and proves `Show-Catzc`
 lists the modules of whichever tree is loaded
 ([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).

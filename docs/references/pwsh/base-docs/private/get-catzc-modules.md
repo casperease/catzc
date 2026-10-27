@@ -1,6 +1,6 @@
 # pwsh/Base.Docs/private/Get-CatzcModules.ps1
 
-The private module lister of `Show-Cats`: it reads the loaded session and returns each catzc module with its exported functions.
+The private module lister of `Show-Catzc`: it reads the loaded session and returns each catzc module with its exported functions.
 
 ## What counts as a module
 
@@ -14,7 +14,7 @@ folder and is not a `.ps1` file counts.
 
 ### synopsis
 
-Lists the loaded catzc modules and the public functions each exports, for Show-Cats.
+Lists the loaded catzc modules and the public functions each exports, for Show-Catzc.
 
 ### description
 
@@ -26,7 +26,7 @@ mode, where each module's functions are merged into one file
 ([DDR-RUNMODE-SAMEMODULEINBOTH](../../../../drs/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)). Private functions are never
 exported, so they never appear.
 
-Private helper for Show-Cats; not exported.
+Private helper for Show-Catzc; not exported.
 
 ### parameter `ModulesRoot`
 

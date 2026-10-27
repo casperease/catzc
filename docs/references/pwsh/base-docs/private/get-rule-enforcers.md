@@ -1,6 +1,6 @@
 # pwsh/Base.Docs/private/Get-RuleEnforcers.ps1
 
-The private enforcer index of `Show-Cats` and the glossary enforcement check: for each rule citation it lists the analyzer rules and the
+The private enforcer index of `Show-Catzc` and the glossary enforcement check: for each rule citation it lists the analyzer rules and the
 tests that enforce it.
 
 ## Test enforcers
@@ -13,7 +13,7 @@ mistaken for a real tag. The cache entry is read with the strict-clean probe
 
 ### synopsis
 
-Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for Show-Cats.
+Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for Show-Catzc.
 
 ### description
 
@@ -29,7 +29,7 @@ read; owned by the QualityGates module but reachable from anywhere —
 module dependency on it is taken). A pure function of the files on disk, memoized for the session (re-run the importer to refresh). It reads
 the source tree's tests, so it runs in source mode only (Assert-SourceTree).
 
-Private helper for Show-Cats; not exported.
+Private helper for Show-Catzc; not exported.
 
 ### outputs
 
