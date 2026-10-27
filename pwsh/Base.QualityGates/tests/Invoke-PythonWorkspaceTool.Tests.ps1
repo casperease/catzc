@@ -18,6 +18,9 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'uv' } {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = $script:uvPath; Version = '0.11.26'; Required = '0.11' }
         }
+        Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'node_js' } {
+            [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\widget\node\node.exe'; Version = '24.0.0'; Required = '24' }
+        }
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates {
             $values = [ordered]@{}
             foreach ($name in $script:offline) {
@@ -62,6 +65,15 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType File -Path (Join-Path $TestDrive 'unsynced/python/pyproject.toml') -Force
         { InModuleScope Catzc.Base.QualityGates { Invoke-PythonWorkspaceTool -Tool 'ruff check' -File 'C:\widget\a.py' } } |
             Should -Throw '*python/.venv is not synced*Install-PythonWorkspace*'
+        $script:seen.Count | Should -Be 0
+    }
+
+    It 'throws naming the Node install command, running nothing, when no node is on PATH' {
+        Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Tool -eq 'node_js' } {
+            [pscustomobject]@{ Found = $false; VersionOk = $false; Path = $null; Version = $null; Required = '24' }
+        }
+        { InModuleScope Catzc.Base.QualityGates { Invoke-PythonWorkspaceTool -Tool 'pyright --outputjson' -File 'C:\widget\a.py' } } |
+            Should -Throw '*need node on PATH*Install-NodeJs*'
         $script:seen.Count | Should -Be 0
     }
 

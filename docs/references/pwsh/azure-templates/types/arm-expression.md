@@ -40,3 +40,12 @@ Above `private List<object> EachItem(object source, List<string> names)`, writte
 The lambda body at the position, once per item with the item (and its index) bound; null when the source is no resolved list. The body
 is parsed once more, unbound, so the position passes it and the lambda's closing parenthesis whatever the list held.
 ```
+
+## comment:5
+
+Above `public static object EvaluateCopy(IDictionary copy, IDictionary parameters,...`, written with `//`.
+
+```text
+A property copy entry, { name, count, input }, which a Bicep for-expression in a module parameter or a property compiles to: one
+input per index, with copyIndex(name) bound to it; Unresolved when the count is not a resolved integer.
+```

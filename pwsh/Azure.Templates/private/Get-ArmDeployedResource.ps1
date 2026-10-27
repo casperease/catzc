@@ -16,13 +16,16 @@ function Get-ArmDeployedResource {
         # The copy indexes in force where this template is read; a top-level template has none.
         [System.Collections.IDictionary] $Indexes = @{},
 
-        # The location the deployment is sent to: Deploy-Bicep's --location, the slot's environment region. deployment().location reads
-        # it in a template above resource-group scope; a resource-group deployment has none, as in ARM.
         [string] $Location
     )
 
     # The template's variables, evaluated on demand over the same scope when an expression names one.
-    $variables = if ($Template.Contains('variables') -and $Template.variables -is [System.Collections.IDictionary]) { $Template.variables } else { @{} }
+    $variables = if ($Template.Contains('variables') -and $Template.variables -is [System.Collections.IDictionary]) {
+        $Template.variables
+    }
+    else {
+        @{}
+    }
     # The copy index of the instance being read, by loop name and '' for the innermost loop; empty outside a copy.
     $current = $Indexes
     $deployment = @{}
@@ -52,14 +55,17 @@ function Get-ArmDeployedResource {
     }
 
     # languageVersion 2.0 writes resources as a symbolic-name map, the classic form as an array.
-    $resources = if ($Template.resources -is [System.Collections.IDictionary]) { @($Template.resources.Values) } else { @($Template.resources) }
+    $resources = if ($Template.resources -is [System.Collections.IDictionary]) {
+        @($Template.resources.Values)
+    }
+    else {
+        @($Template.resources)
+    }
     $outer = $Indexes
     foreach ($resource in $resources) {
         if ($resource.Contains('existing') -and $resource.existing -eq $true) {
             continue
         }
-        # A copy loop deploys one instance per index, each read with copyIndex() bound to it: none when the count resolves to 0, one
-        # uncertain item when the count does not resolve.
         $instances = @($null)
         $countUnknown = $false
         if ($resource.Contains('copy') -and $resource.copy -is [System.Collections.IDictionary] -and $resource.copy.Contains('count')) {
@@ -69,7 +75,12 @@ function Get-ArmDeployedResource {
                 $countUnknown = $true
             }
             elseif ($count -is [long] -or $count -is [int]) {
-                $loop = if ($resource.copy.Contains('name')) { "$($resource.copy.name)" } else { '' }
+                $loop = if ($resource.copy.Contains('name')) {
+                    "$($resource.copy.name)"
+                }
+                else {
+                    ''
+                }
                 $instances = @(for ($index = 0; $index -lt $count; $index++) {
                         $bound = @{}
                         foreach ($key in @($outer.Keys)) {
@@ -82,15 +93,35 @@ function Get-ArmDeployedResource {
             }
         }
         foreach ($instance in $instances) {
-            $current = if ($null -eq $instance) { $outer } else { $instance }
-            $condition = if ($resource.Contains('condition')) { & $evaluate $resource.condition } else { $true }
+            $current = if ($null -eq $instance) {
+                $outer
+            }
+            else {
+                $instance
+            }
+            $condition = if ($resource.Contains('condition')) {
+                & $evaluate $resource.condition
+            }
+            else {
+                $true
+            }
             if ($condition -eq $false) {
                 continue
             }
             $uncertain = $Conditional -or $countUnknown -or (& $unresolved $condition)
             # The resolved name labels the finding; an expression name keeps its type's last segment instead.
-            $resolvedName = if ($resource.Contains('name')) { & $evaluate $resource.name } else { $null }
-            $label = if ($resolvedName -is [string]) { $resolvedName } else { ($resource.type -split '/')[-1] }
+            $resolvedName = if ($resource.Contains('name')) {
+                & $evaluate $resource.name
+            }
+            else {
+                $null
+            }
+            $label = if ($resolvedName -is [string]) {
+                $resolvedName
+            }
+            else {
+                ($resource.type -split '/')[-1]
+            }
             if ($resource.type -eq 'Microsoft.Resources/deployments' -and $resource.properties.Contains('template')) {
                 $passed = @{}
                 if ($resource.properties.Contains('parameters')) {
@@ -123,8 +154,18 @@ function Get-ArmDeployedResource {
                     }
                 }
                 # A nested deployment above resource-group scope is sent to its resource's location, which its deployment() reads.
-                $nestedLocation = if ($resource.Contains('location')) { & $evaluate $resource.location } else { $null }
-                $nestedLocation = if ($nestedLocation -is [string]) { $nestedLocation } else { '' }
+                $nestedLocation = if ($resource.Contains('location')) {
+                    & $evaluate $resource.location
+                }
+                else {
+                    $null
+                }
+                $nestedLocation = if ($nestedLocation -is [string]) {
+                    $nestedLocation
+                }
+                else {
+                    ''
+                }
                 # A nested template numbers its own copy loops: its copyIndex() names its own loops.
                 Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation
                 continue

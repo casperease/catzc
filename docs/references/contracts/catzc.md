@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c7b3c344ba4d
+    with_body_sha: "1c38bae23d97"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -196,6 +196,7 @@ The current version: edited in place
 | `pwsh.base.quality_gates`             | `test_managed_guids.command.yml`                 | `pwsh/Base.QualityGates/Test-ManagedGuids.ps1`                         | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `pwsh.base.quality_gates`             | `test_markdown_title.command.yml`                | `pwsh/Base.QualityGates/Test-MarkdownTitle.ps1`                        | provided  | command contract | `path: string[], repository_root: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                       |
 | `pwsh.base.quality_gates`             | `test_markdownlint.command.yml`                  | `pwsh/Base.QualityGates/Test-Markdownlint.ps1`                         | provided  | command contract | `path: string[], output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                |
+| `pwsh.base.quality_gates`             | `test_network_calls.command.yml`                 | `pwsh/Base.QualityGates/Test-NetworkCalls.ps1`                         | provided  | command contract | `config: catzc.base.execution.network_calls_config, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                             |
 | `pwsh.base.quality_gates`             | `test_parameter_consistency.command.yml`         | `pwsh/Base.QualityGates/Test-ParameterConsistency.ps1`                 | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `pwsh.base.quality_gates`             | `test_python_lint.command.yml`                   | `pwsh/Base.QualityGates/Test-PythonLint.ps1`                           | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `pwsh.base.quality_gates`             | `test_python_types.command.yml`                  | `pwsh/Base.QualityGates/Test-PythonTypes.ps1`                          | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
@@ -536,6 +537,8 @@ Notes:
   not a title or whose headings are not in normal form.
 - `pwsh.base.quality_gates/test_markdownlint.command.yml`: Lints the repository's Markdown with markdownlint-cli2 and writes a report to the
   output folder.
+- `pwsh.base.quality_gates/test_network_calls.command.yml`: Checks the network-call registry against the tracked code, every call in a
+  registered file and every registered site still making its call, and reports every default-path site.
 - `pwsh.base.quality_gates/test_parameter_consistency.command.yml`: Checks that one parameter name means one type across the public
   functions.
 - `pwsh.base.quality_gates/test_python_lint.command.yml`: Lints every Python file the repository holds with ruff.

@@ -19,8 +19,8 @@ repository. Every `.py` file takes every Python check (ADR-AUTO-PY-EVERYFILELINT
 The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
 test language's root takes: `python` when the repository has a `python/` folder (the `python` track), else the dot-prefixed `.python`. A
 **Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in Python's snake case
-(`Catzc.Base.Repository` → `base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python
-test is a top-level `test*` function; a parametrised test is one test.
+(`Catzc.Base.Repository` → `base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python test is a
+top-level `test*` function; a parametrised test is one test.
 
 - [The layout](#the-layout)
 
@@ -40,8 +40,9 @@ module: nothing Python-specific is committed but the `test_*.py` files. `New-Pyt
 `<root>/pyproject.toml`, a virtual root naming every member explicitly, and one member `<root>/tests/<module>/pyproject.toml` per Python
 test folder, from `python.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through wildcard
 root-config entries, drift-checked by `Test-GeneratedFiles`. The workspace has one environment (`<root>/.venv`) and one lock
-(`<root>/uv.lock`), both made by `uv sync --all-packages` and gitignored. A test dependency is declared in `python.yml` with its exact
-version, never added by `uv add`.
+(`<root>/uv.lock`), both made by `Install-PythonWorkspace` (`uv sync --all-packages`, the one online step) and gitignored. A test run reads
+the environment offline (`uv run --no-sync` with `UV_OFFLINE=1`) and never syncs; a missing `.venv` stops it naming
+`Install-PythonWorkspace`. A test dependency is declared in `python.yml` with its exact version, never added by `uv add`.
 
 - [A generated workspace](#a-generated-workspace)
 
@@ -56,8 +57,10 @@ The repository has one Python version: the `python` tool's pin in `tools.yml`. T
 
 A Python test run uses the managed tools: uv, located through the existence check (`Resolve-ToolExecutable`,
 ADR-AUTO-DEPS-ASSERTBEFOREINVOKE) and run by its path, and the uv-managed interpreter at the pin (ADR-AUTO-UVPY-UVHANDLESPYTHON). uv runs
-with `UV_PYTHON_DOWNLOADS=never`, so it never fetches an interpreter itself. A missing or off-pin uv stops `Invoke-PythonTest` with the
-remedy `Install-Uv`; a missing interpreter stops `uv sync` with the remedy `Install-Python`.
+with `UV_PYTHON_DOWNLOADS=never`, so it never fetches an interpreter itself, and `UV_OFFLINE=1`, so a run never syncs or resolves: the
+environment is made by `Install-PythonWorkspace` (ADR-AUTO-PY-PYWORKSPACE), and the checks run pyright on its bundled copy at the
+`python.yml` pin with node on `PATH`. A missing or off-pin uv stops `Invoke-PythonTest` with the remedy `Install-Uv`; a missing interpreter
+stops `Install-PythonWorkspace` with the remedy `Install-Python`; a missing node stops the checks with the remedy `Install-NodeJs`.
 
 - [The managed tools](#the-managed-tools)
 

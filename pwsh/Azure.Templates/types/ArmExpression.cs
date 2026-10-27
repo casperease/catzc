@@ -41,8 +41,6 @@ public static class ArmExpression
         return Evaluate(value, parameters, variables, copyIndexes, deployment, 0);
     }
 
-    // A property copy entry, { name, count, input }, which a Bicep for-expression in a module parameter or a property compiles to: one
-    // input per index, with copyIndex(name) bound to it; Unresolved when the count is not a resolved integer.
     public static object EvaluateCopy(IDictionary copy, IDictionary parameters, IDictionary variables, IDictionary copyIndexes, IDictionary deployment)
     {
         return EvaluateCopy(copy, parameters, variables, copyIndexes, deployment, 0);

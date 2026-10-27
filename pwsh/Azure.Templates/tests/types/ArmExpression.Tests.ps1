@@ -104,9 +104,9 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
     }
 
     It 'indexes an object parameter by a parameter or an expression, inside a concat, a ternary and a map lambda with replace' {
-        $parameters = @{ regions = [ordered]@{ widgetnorth = 'WidgetNorth'; gadgetsouth = 'GadgetSouth' }; location = 'widgetnorth'; open = $false; tags = @('Widget.{region}', 'Gadget') }
+        $parameters = @{ regions = [ordered]@{ 'widget-north' = 'WidgetNorth'; 'gadget-south' = 'GadgetSouth' }; location = 'widget-north'; open = $false; tags = @('Widget.{region}', 'Gadget') }
         & $eval "[concat('Storage.', parameters('regions')[parameters('location')])]" $parameters | Should -BeExactly 'Storage.WidgetNorth'
-        & $eval "[parameters('regions')[if(parameters('open'), 'gadgetsouth', parameters('location'))]]" $parameters | Should -BeExactly 'WidgetNorth'
+        & $eval "[parameters('regions')[if(parameters('open'), 'gadget-south', parameters('location'))]]" $parameters | Should -BeExactly 'WidgetNorth'
         & $eval "[if(parameters('open'), 'none', concat(parameters('regions')[parameters('location')], '-hub'))]" $parameters | Should -BeExactly 'WidgetNorth-hub'
         & $eval "[map(parameters('tags'), lambda('tag', replace(lambdaVariables('tag'), '{region}', parameters('regions')[parameters('location')])))]" $parameters |
             Should -BeExactly @('Widget.WidgetNorth', 'Gadget')
@@ -149,9 +149,9 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
     }
 
     It 'reads deployment() from the deployment facts the caller passes, and leaves it unresolved without them or past what they hold' {
-        $deployment = @{ location = 'widgetnorth' }
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().location]', @{}, @{}, @{}, $deployment) | Should -BeExactly 'widgetnorth'
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('Widget.', deployment().location)]", @{}, @{}, $null, $deployment) | Should -BeExactly 'Widget.widgetnorth'
+        $deployment = @{ location = 'widget-north' }
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().location]', @{}, @{}, @{}, $deployment) | Should -BeExactly 'widget-north'
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('Widget.', deployment().location)]", @{}, @{}, $null, $deployment) | Should -BeExactly 'Widget.widget-north'
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().name]', @{}, @{}, @{}, $deployment)) | Should -BeTrue
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate('[deployment().location]', @{}, @{}, @{}, @{})) | Should -BeTrue
         & $isUnresolved (& $eval '[deployment().location]') | Should -BeTrue
@@ -161,9 +161,9 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         $parameters = @{ widgets = @(@{ size = 'small' }, @{ size = 'large' }) }
         $copy = @{ name = 'value'; count = "[length(parameters('widgets'))]"; input = "[parameters('widgets')[copyIndex('value')].size]" }
         [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($copy, $parameters, @{}, $null, $null) | Should -BeExactly @('small', 'large')
-        $tree = @{ name = 'gadgets'; count = 2; input = @{ name = "[concat('gadget-', string(copyIndex('gadgets')))]"; at = "[deployment().location]"; index = "[copyIndex()]" } }
-        $built = @([Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($tree, @{}, @{}, $null, @{ location = 'widgetnorth' }))
-        $built | ForEach-Object { $_['at'] } | Should -Be @('widgetnorth', 'widgetnorth')
+        $tree = @{ name = 'gadgets'; count = 2; input = @{ name = "[concat('gadget-', string(copyIndex('gadgets')))]"; at = '[deployment().location]'; index = '[copyIndex()]' } }
+        $built = @([Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($tree, @{}, @{}, $null, @{ location = 'widget-north' }))
+        $built | ForEach-Object { $_['at'] } | Should -Be @('widget-north', 'widget-north')
         $built | ForEach-Object { $_['index'] } | Should -Be @(0, 1)
         & $isUnresolved ($built[0]['name']) | Should -BeTrue
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::EvaluateCopy(@{ name = 'value'; count = "[parameters('missing')]"; input = 'widget' }, @{}, @{}, $null, $null)) | Should -BeTrue

@@ -92,5 +92,44 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
             $entry.Remove($Key)
             { & $script:make $entry } | Should -Throw "*$Key is required*"
         }
+
+        It 'defaults to no patterns and the declared skip paths' {
+            $config = [Catzc.Base.Execution.NetworkCallsConfig]::new($null)
+            $config.patterns.Count | Should -Be 0
+            $config.skip | Should -Contain '*/tests/*'
+            $config.Matches('Invoke-WidgetFetch') | Should -BeNullOrEmpty
+        }
+
+        It 'names every pattern one line matches, in declaration order' {
+            $config = [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{
+                    patterns = [ordered]@{ 'widget-fetch' = '\bInvoke-WidgetFetch\b'; 'gadget-pull' = '\bgadget pull\b' }
+                })
+            $config.patterns.Count | Should -Be 2
+            $config.Matches('Invoke-WidgetFetch; gadget pull') | Should -Be @('widget-fetch', 'gadget-pull')
+            $config.Matches('Get-Widget') | Should -BeNullOrEmpty
+        }
+
+        It 'reads a skip list in place of the default' {
+            $config = [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ skip = @('widgets/*') })
+            $config.skip | Should -Be @('widgets/*')
+        }
+
+        It 'rejects patterns that are not a map' {
+            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ patterns = 'gadget' }) } | Should -Throw '*patterns must be a map*'
+        }
+
+        It 'rejects an empty pattern' {
+            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ patterns = [ordered]@{ widget = '' } }) } |
+                Should -Throw "*patterns 'widget' is empty*"
+        }
+
+        It 'rejects a pattern that is not a regular expression' {
+            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ patterns = [ordered]@{ widget = '(' } }) } |
+                Should -Throw "*patterns 'widget' is not a regular expression*"
+        }
+
+        It 'rejects a skip entry that is blank' {
+            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ skip = @('widgets/*', ' ') }) } | Should -Throw '*skip must be a list*'
+        }
     }
 }

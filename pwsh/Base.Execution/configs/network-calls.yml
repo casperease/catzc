@@ -1,4 +1,18 @@
-# Every call site that can reach the network, keyed '<file>#<function or pipeline job>' (ADR-AUTO-NET-SITEREGISTRY); a default-path site is an open violation.
+patterns:
+  web-request: '\bInvoke-(WebRequest|RestMethod)\b'
+  ps-gallery: '\b(Save|Find|Install)-PSResource\s+[@-]'
+  os-package-manager: '["''](sudo\s+)?(winget\s+(install|upgrade|list|search|source)|brew\s+(install|upgrade|update|reinstall)|apt-get\s+(install|update|upgrade))\b'
+  uv-resolve: '\b(uv|uvCommand|Invoke-Uv)\b[^\s"'']*["''`]*\s+["'']?(sync|lock|tool install|pip install|python install)\b'
+  uv-run: '\$uvCommand\s+run\b'
+  pip-install: '\bInvoke-Pip\s+["'']install\b'
+  node-package: '\bInvoke-Executable\s+["''](npm|npx)\s'
+  go-module: '\b(go|goCommand)\b[^\s"'']*\s+(mod download|get)\b'
+  dotnet-restore: '["''`]dotnet\s+(restore|build|publish|format|pack)(?![\w-])'
+  git-remote: '\b(fetch|push|pull|ls-remote)\s+(-u\s+|--force-with-lease\s+)?(origin\b|\$\(\$Config\.remote\)|\$Url\b)'
+  git-fetch-source: '\$git\s+fetch\b'
+  hosting-cli: '\bgh\s+(repo|release|api)\s'
+  az-cli: '\bInvoke-Executable\s+["'']az\s+(?!account (show|set)\b|logout\b)|\bInvoke-AzCli\s+["'']account get-access-token\b'
+  pipeline-install-step: '\bRunCommand:\s*["'']?Install-\w+'
 sites:
   pwsh/Tooling.Core/Install-Tool.ps1#Install-Tool:
     class: package-install
@@ -36,6 +50,14 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: runs only from the Install-* tooling commands
+  pwsh/Tooling.Python/Install-PythonWorkspace.ps1#Install-PythonWorkspace:
+    class: package-install
+    trigger: on-request
+    gated_by: the one online sync of the Python test workspace (uv sync, pyright's first run), an explicit tooling command
+  pwsh/Tooling.Python/Install-Python.ps1#Install-Python:
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command (uv python install)
   pwsh/Tooling.Node/Install-NodeJs.ps1#Install-NodeJs:
     class: package-install
     trigger: on-request
@@ -48,6 +70,10 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: explicit install command (apt key download on Linux)
+  pwsh/Tooling.Toolchain/Install-Shellcheck.ps1#Install-Shellcheck:
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command (apt-get on Linux)
   pwsh/Tooling.Toolchain/private/Get-GoRelease.ps1#Get-GoRelease:
     class: package-install
     trigger: on-request
@@ -76,10 +102,10 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: explicit vendoring command (Save-PSResource from the gallery), source tree only
-  pwsh/Base.QualityGates/Build-EnglishDictionary.ps1#Build-EnglishDictionary:
+  pwsh/Base.Vendor/Test-VendorModuleAvailable.ps1#Test-VendorModuleAvailable:
     class: package-install
     trigger: on-request
-    gated_by: none beyond the explicit command; npx --yes fetches cspell-trie outside the tooling system
+    gated_by: Find-PSResource asks the gallery; called only by Assert-VendorModuleAvailable and Remove-VendorModules, source tree only
   pwsh/Base.QualityGates/private/Invoke-DotnetFormat.ps1#Invoke-DotnetFormat:
     class: package-install
     trigger: offline-guarded
@@ -95,15 +121,15 @@ sites:
   pwsh/Base.Languages/Invoke-PythonTest.ps1#Invoke-PythonTest:
     class: package-install
     trigger: offline-guarded
-    gated_by: none; uv sync resolves and downloads from PyPI on every Python test run
+    gated_by: uv run --no-sync with UV_OFFLINE=1 and UV_PYTHON_DOWNLOADS=never; a missing environment throws naming Install-PythonWorkspace
   pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1#Invoke-PythonWorkspaceTool:
     class: package-install
     trigger: offline-guarded
-    gated_by: none; uv sync runs before Test-PythonLint and Test-PythonTypes, the Python language checks
+    gated_by: UV_OFFLINE=1, pyright held to its bundled copy at the python.yml pin, npm_config_offline=true
   pwsh/Base.Languages/Invoke-GoTest.ps1#Invoke-GoTest:
     class: package-install
     trigger: offline-guarded
-    gated_by: none; go mod download runs on every Go test run and the module proxy left on
+    gated_by: GOPROXY=off, GOFLAGS=-mod=mod, GOTOOLCHAIN=local; a missing module throws naming Invoke-Go '-C <folder> mod download'
   pwsh/Azure.Templates/Update-AzurePriceTable.ps1#Update-AzurePriceTable:
     class: price-data
     trigger: on-request
@@ -116,14 +142,18 @@ sites:
     class: ado-api
     trigger: on-request
     gated_by: mints the ADO token through az only when no pipeline token or PAT is set (ADR-ADO-AUTH)
+  pwsh/Azure.Cli/Connect-AzCli.ps1#Connect-AzCli:
+    class: azure-control-plane
+    trigger: on-request
+    gated_by: explicit login command (az login); a pipeline logs in through its service connection instead
   pwsh/Azure.Cli/Invoke-AzCli.ps1#Invoke-AzCli:
     class: azure-control-plane
     trigger: on-request
     gated_by: the one az runner, called by the deploy, session, firewall and orphan commands after ADR-AZ-SESSION's assertions
-  pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1#Deploy-Bicep:
-    class: azure-control-plane
+  pwsh/Base.Git/Import-RepositoryWithHistory.ps1#Import-RepositoryWithHistory:
+    class: git-remote
     trigger: on-request
-    gated_by: an L3 test, run only when asked with -MaxLevel 3 (Test-Automation stops at L2 by default) and deploying live with an ambient az session
+    gated_by: explicit import command (git fetch from the -Source it names, a remote when not a local path)
   pwsh/Base.Git/Get-SyncPoint.ps1#Get-SyncPoint:
     class: git-remote
     trigger: on-request
@@ -144,6 +174,10 @@ sites:
     class: git-remote
     trigger: on-request
     gated_by: explicit publishing command (git push)
+  pwsh/Tooling.Github/Assert-GitHubPurgeReady.ps1#Assert-GitHubPurgeReady:
+    class: git-remote
+    trigger: on-request
+    gated_by: gh api and gh repo view, the preflight of the publishing commands
   pwsh/Tooling.Github/private/Assert-RemoteMatchesBranch.ps1#Assert-RemoteMatchesBranch:
     class: git-remote
     trigger: on-request
@@ -160,3 +194,11 @@ sites:
     class: azure-control-plane
     trigger: pipeline-only
     gated_by: the azcli and azps mode steps (az account show, Get-AzContext) under the sc-azure-test service connection, pipeline agent only
+  .ado/pipelines/ci-infrastructure.yaml#CI:
+    class: package-install
+    trigger: pipeline-only
+    gated_by: the Install-Bicep step, run only on the pipeline agent
+  .github/workflows/release-automation.yml#release:
+    class: git-remote
+    trigger: pipeline-only
+    gated_by: the manually dispatched release workflow (git push of the frozen contracts, gh release create)

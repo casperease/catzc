@@ -59,10 +59,11 @@ is planned here, one step each, so no record carries a planned item.
       Discovery.Security.Tests (Defender pricings, benchmark assignment `DoNotEnforce`) and Alerts.Tests (one auditing setting per
       expedition slot) pass offline on the compiled templates; ADR-AZ-LZ-CAFSECURITY, ADR-AZ-LZ-GOVERNANCELIMITS and the well-architected
       page's "no external benchmark" passage are rewritten to match.
-- [ ] The firewall egress narrows `Storage` to the region's tag: `NetworkFirewallEgress`'s default `Storage.{region}`, which
-      `firewall-policy.bicep` fills with its location (in HEAD; the working tree's type was restored to `Storage` by a failed burst, staged
-      copy kept in drone-opus's scratchpad `s2`). Check: HubFirewall.Tests' "regional Storage.<region> tag" case and NetworkConfig.Tests
-      pass in one staged burst with the type swapped in, once the peer's CostMeter/CostModelConfig types compile.
+- [x] The firewall egress narrows `Storage` to the region's tag: `NetworkFirewallEgress`'s default `Storage.{region}`, which
+      `firewall-policy.bicep` fills with its location's tag name (`firewall_egress.service_tag_regions`). Verdict (2026-10-27 burst, after
+      the evaluator gained `deployment()` from `Get-ArmDeployedResource -Location` and module-parameter copies): HubFirewall.Tests 4 of 4,
+      NetworkConfig.Tests, Discovery.Security.Tests 3 of 3, Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance and
+      Test-BicepResourceNames passed.
 - [x] Rollback by deploying an earlier commit's artifact. Check: a pipeline test that every production DEPLOY offers `rollback` on its prod
       path, certified by a production environment's deployment history. Verdict (2026-10-27): `deploy-apex.yaml` and `deploy-shared.yaml`
       gained `Target: rollback`; Test-Pipelines.Tests passed, 23 of 23.
@@ -146,12 +147,10 @@ is planned here, one step each, so no record carries a planned item.
       `policyAssignmentNames.resourceTypes` (role `ty`), `landing-zone-policies.bicep`'s `resourceTypes` entry (built-in
       `a08ec900-254a-4555-9bf5-e42af04b5c5c`, in guids.yml), and a Discovery.Security.Tests case. Verdict (2026-10-27 burst):
       Get-BicepModuleResourceTypes.Tests, Resolve-BicepEnvironmentFacts.Tests, Test-BicepLint, Test-BicepApiVersions and
-      Read-BicepTemplateOptions.Tests passed; Discovery.Security.Tests failed 2 of 3, its benchmark case too: the evaluator returns the
-      policies module's copy loop as one conditional assignment whatever `allowedResourceTypes` holds (probed empty, one type, the built
-      list), so `items(variables('policyDefinitions'))` with `tryGet`/`coalesce` is an evaluator gap to close first; Build-Bicep.Integrity,
-      Test-BicepTemplateCompliance and Test-BicepResourceNames did not run (the burst stopped at the failure). Then
-      ADR-AZ-LZ-GOVERNANCELIMITS drops "no resource-type policy" and names the derived list. Check: Discovery.Security.Tests green with the
-      three gates in one burst, and Get-BicepModuleResourceTypes.Tests' "a new module's type is allowed without editing a list".
+      Read-BicepTemplateOptions.Tests passed; confirmed in the firewall burst (2026-10-27): Discovery.Security.Tests 3 of 3,
+      Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance and Test-BicepResourceNames passed. Then ADR-AZ-LZ-GOVERNANCELIMITS drops
+      "no resource-type policy" and names the derived list. Check: Discovery.Security.Tests green with the three gates in one burst, and
+      Get-BicepModuleResourceTypes.Tests' "a new module's type is allowed without editing a list".
 - [x] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least
       the estimate times `headroom`. Check: the L1 case reads 0, offline from the checked-in price table. Verdict (2026-10-27 burst): the
       cost model is a `<template>-cost-model.md` page beside each article, and `Discovery.Budget.Tests.ps1` reads 0, passed.

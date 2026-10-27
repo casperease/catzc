@@ -11,6 +11,8 @@ categories:
       - "**/*.psm1"
 terms:
   fixture:
+    - term: widgetstore
+      meaning: "a widget storage-account name in tests; storage-account names allow no hyphen, so the widget fixture is one word"
     - term: tmpl
       meaning: "placeholder C# type name 'Tmpl' (template) in Get-CSharpTypeDependency tests, alongside Ctx/Use"
     - term: wdgx

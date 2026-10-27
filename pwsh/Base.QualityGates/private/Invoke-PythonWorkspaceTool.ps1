@@ -15,6 +15,11 @@ function Invoke-PythonWorkspaceTool {
     if (-not ($uv.Found -and $uv.VersionOk)) {
         throw "The Python checks need the managed uv at the tools.yml pin '$($uv.Required)' (found: $($uv.Version ?? 'none')). Run Install-Uv."
     }
+    # pyright's wrapper downloads node when none is on PATH, so the check stops before the tool runs.
+    $node = Resolve-ToolExecutable -Tool node_js
+    if (-not $node.Found) {
+        throw 'The Python checks need node on PATH, since pyright runs on it and its wrapper would otherwise download one. Run Install-NodeJs.'
+    }
     $repositoryRoot = Get-RepositoryRoot
     $python = Get-Config -Config python
     $pythonRelative = $python.ResolveRoot($repositoryRoot)
@@ -29,8 +34,6 @@ function Invoke-PythonWorkspaceTool {
     $uvCommand = "`"$($uv.Path)`""
     $quoted = ($File | ForEach-Object { "`"$_`"" }) -join ' '
 
-    # uv stays offline and on the pinned interpreter; pyright's wrapper stays on its bundled copy at the python.yml pin, with
-    # no version check against the index and npm held offline.
     $environment = [ordered]@{
         UV_PYTHON_DOWNLOADS                = 'never'
         UV_OFFLINE                         = '1'

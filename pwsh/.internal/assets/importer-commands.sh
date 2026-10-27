@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d908df407b9a
+#     with_body_sha: fcc14d42a541
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -278,6 +278,9 @@ test_module_cycles	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.mo
 test_module_cycles	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.module_system/test_module_cycles.command.yml			test-module-cycles	pass-thru	Test-ModuleCycles	PassThru
 test_module_dependency	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.module_system/test_module_dependency.command.yml			test-module-dependency	output-folder	Test-ModuleDependency	OutputFolder
 test_module_dependency	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.module_system/test_module_dependency.command.yml			test-module-dependency	pass-thru	Test-ModuleDependency	PassThru
+test_network_calls	config	catzc.base.execution.network_calls_config	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_network_calls.command.yml			test-network-calls	config	Test-NetworkCalls	Config
+test_network_calls	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_network_calls.command.yml			test-network-calls	output-folder	Test-NetworkCalls	OutputFolder
+test_network_calls	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_network_calls.command.yml			test-network-calls	pass-thru	Test-NetworkCalls	PassThru
 test_parameter_consistency	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_parameter_consistency.command.yml			test-parameter-consistency	output-folder	Test-ParameterConsistency	OutputFolder
 test_parameter_consistency	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_parameter_consistency.command.yml			test-parameter-consistency	pass-thru	Test-ParameterConsistency	PassThru
 test_pipelines	path	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.dev_ops/test_pipelines.command.yml			test-pipelines	path	Test-Pipelines	Path

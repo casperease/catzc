@@ -222,6 +222,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-ReferencePages`         |
 |                                                 | `Test-BicepLint`              |
 |                                                 | `Test-SecretScan`             |
+|                                                 | `Test-NetworkCalls`           |
 |                                                 | `New-Plan`                    |
 |                                                 | `Get-DrsUsage`                |
 |                                                 | `Measure-QualityGates`        |

@@ -1,0 +1,6 @@
+description: Checks the network-call registry against the tracked code, every call in a registered file and every registered site still making its call, and reports every default-path site.
+parameters:
+  config: catzc.base.execution.network_calls_config
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

@@ -23,9 +23,9 @@ uv run --no-sync pytest tests/<folder> ...        runs every test, uncached, wit
                                                   and a JUnit XML report.
 ```
 
-A test run never syncs: the workspace's one environment (<root>/.venv) is made by the explicit Install-PythonWorkspace, and the call throws
-with that remedy, running nothing, when the environment is missing or a strict editable kit has a module with no link yet
-(Install-PythonWorkspace -ReinstallPackage <package>). uv runs with UV_OFFLINE=1, so it never reaches an index, and with
+A test run never syncs: the workspace's one environment (`<root>/.venv`) is made by the explicit Install-PythonWorkspace, and the call
+throws with that remedy, running nothing, when the environment is missing or a strict editable kit has a module with no link yet
+(`Install-PythonWorkspace -ReinstallPackage <package>`). uv runs with UV_OFFLINE=1, so it never reaches an index, and with
 UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and never fetches one silently (the Python form
 of GOTOOLCHAIN=local). Python writes its bytecode and pytest its cache under out/ (PYTHONPYCACHEPREFIX=out/pycache,
 cache_dir=out/pytest-cache), never into the tree.

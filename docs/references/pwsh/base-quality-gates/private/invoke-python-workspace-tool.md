@@ -44,3 +44,12 @@ The option that hands the tool the workspace's pyproject.toml: '--config' (the d
 ```powershell
 $check = Invoke-PythonWorkspaceTool -Tool 'ruff check' -File $files
 ```
+
+## comment:1
+
+Above `$environment = [ordered]@{`, written with `#`.
+
+```text
+uv stays offline and on the pinned interpreter; pyright's wrapper stays on its bundled copy at the python.yml pin, with
+no version check against the index and npm held offline.
+```

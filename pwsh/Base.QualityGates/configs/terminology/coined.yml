@@ -9,6 +9,10 @@ terms:
         the namespace, DDR-TRACK-MODULENAMESPACE)"
     - term: frontpage
       meaning: "the front page's config name, frontpage.yml in Catzc.Base.Docs, as Get-Config -Config frontpage names it"
+    - term: untaggable
+      meaning:
+        "of a resource kind Azure gives no tags property (role and policy assignments, locks, diagnostic settings), as
+        TemplateComplianceConfig.untaggable_types lists them"
     - term: getcommandcontract
       meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
     - term: drsonly

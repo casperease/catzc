@@ -23,9 +23,9 @@ go vet ./...                   type-checks and vets the test packages;
 go test -json -count=1 ./...   runs every test, uncached, as a test2json event stream.
 ```
 
-Every go command runs offline: GOPROXY=off and GOFLAGS=-mod=mod keep it on the module cache, writing go.sum from it, and GOTOOLCHAIN=local
-keeps it on the managed toolchain. A module missing from the cache fails the run with the explicit fetch that fills it,
-`Invoke-Go '-C <folder> mod download'`.
+Every go command runs offline: the module proxy is off and `-mod=mod` is set, which keeps it on the module cache, writing go.sum from it,
+and GOTOOLCHAIN=local keeps it on the managed toolchain. A module missing from the cache fails the run with the explicit fetch that fills
+it, `Invoke-Go '-C <folder> mod download'`.
 
 The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
 (Get-EngineContract), set for these commands only and restored afterwards:

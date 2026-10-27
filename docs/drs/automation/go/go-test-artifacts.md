@@ -37,7 +37,8 @@ source run and the build's entry script in a build run (ADR-AUTO-TEST-SAMETESTSB
 The Go workspace is generated and gitignored: nothing Go-specific is committed but the `*_test.go` files. `New-GoWorkspace` renders
 `go.work` and every `go.mod` from `go.yml` — pure text, offline, and byte-stable — and `Build-RootConfig` writes them on import through a
 wildcard root-config entry, drift-checked by `Test-GeneratedFiles`. The `go.sum` files come from `go mod download`, which a Go test run
-makes first. A test dependency is declared in `go.yml` with its version, never added by `go get` or `go mod tidy`.
+makes first, offline (the module proxy off, `-mod=mod`, `GOTOOLCHAIN=local`) from the module cache; `Invoke-Go '-C <folder> mod download'`
+is the command that fills that cache. A test dependency is declared in `go.yml` with its version, never added by `go get` or `go mod tidy`.
 
 - [A generated workspace](#a-generated-workspace)
 

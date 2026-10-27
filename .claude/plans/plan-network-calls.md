@@ -23,23 +23,23 @@ of them, then the gate makes the registry binding.
 - [x] `pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1`: the same `UV_OFFLINE=1` for the sync before `Test-PythonLint` and
       `Test-PythonTypes`, and pyright held to its installed copy (pyright's Python wrapper downloads its node package on first run); its
       entry moves to `offline-guarded`. Check: `Test-PythonLint.Tests.ps1` asserts both through the gate.
-- [ ] The online sync those two steps refer to: one tooling command (in `Tooling.Python`, beside `Install-PipTool`) that runs
+- [x] The online sync those two steps refer to: one tooling command (in `Tooling.Python`, beside `Install-PipTool`) that runs
       `uv sync --all-packages` with the network, registered as `package-install`, `on-request`. Check: its L0 test mocks `Invoke-Executable`
       and the registry test passes.
 - [x] `pwsh/Base.Languages/Invoke-GoTest.ps1`: set `GOPROXY=off` and `GOFLAGS=-mod=mod` beside `GOTOOLCHAIN=local`, so `go mod download`
       verifies the module offline (the generated `go.mod` files require nothing today); its entry moves to `offline-guarded`. Check:
       `Invoke-GoTest.Tests.ps1` asserts the variables during the run.
-- [ ] `pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1`: a live deploy is no test
-      ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); move the check to an
-      explicit command or pipeline step (the ephemeral-slot deploy) and delete the test file, with its registry entry. Check:
-      `NetworkCallsConfig.Tests.ps1` passes on the shipped registry with no `tests/` key, and the pipeline step names the command.
+- [x] `pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1`: the live deploy stays an opt-in L3 test, run only when asked with
+      `-MaxLevel 3` ([ADR-AUTO-NET-TESTSOFFLINE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); its calls
+      go through the registered `Invoke-AzCli` site, so its own registry entry is removed. Check: `NetworkCallsConfig.Tests.ps1` passes on
+      the shipped registry with no `tests/` key.
 - [x] `docs/drs/automation/retry-as-last-resort.md`: ADR-AUTO-RETRY-NEVERINTESTS lets an L3 test depend on external connectivity; align it
       with ADR-AUTO-NET-TESTSOFFLINE (a dependency is mocked, a live check is a command). Check: `Test-Links` and `Test-DrsRegistry` pass.
 - [x] `pwsh/Base.QualityGates/Build-EnglishDictionary.ps1`: `npx --yes cspell-trie@10` fetches a package outside the tooling system
       ([ADR-AUTO-PKGMGR-NUGETINTOOLINGONLY](../../docs/drs/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-nugetintoolingonly));
-      pin `cspell-trie` in `tools.yml`, install it with `Install-Cspell`, and call the installed binary with `Assert-Tool`. Check:
-      `Build-EnglishDictionary.Tests.ps1` passes and the source holds no `npx --yes`.
-- [ ] `pwsh/Base.Execution/Test-NetworkCalls.ps1`: the gate of
+      read the tries through the `cspell-trie-lib` the installed cspell ships, at the `tools.yml` cspell pin, so nothing is fetched, and
+      delete its registry entry. Check: `Build-EnglishDictionary.Tests.ps1` passes and the source holds no `npx --yes`.
+- [x] `pwsh/Base.QualityGates/Test-NetworkCalls.ps1`: the gate of
       [ADR-AUTO-NET-REGISTRYGATE](../../docs/drs/automation/network-calls.md#rule-adr-auto-net-registrygate): the network patterns as a
       `patterns` key of `network-calls.yml` (on `NetworkCallsConfig`, with its type test case), every match in a file holding a registered
       `<file>#<function or job>` site, every registered site's file still matching and still naming its function or job, and every

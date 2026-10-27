@@ -206,9 +206,9 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
         }
         InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template } {
             param($Template)
-            $widget = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @(@{ size = 'small' }, @{ size = 'large' }) } -Location 'widgetnorth')
+            $widget = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @(@{ size = 'small' }, @{ size = 'large' }) } -Location 'widget-north')
             $widget.Count | Should -Be 1
-            $widget[0].Name | Should -BeExactly 'widget-widgetnorth'
+            $widget[0].Name | Should -BeExactly 'widget-widget-north'
             $widget[0].Scope.sizes | Should -BeExactly @('small', 'large')
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved([Catzc.Azure.Templates.ArmExpression]::Evaluate(
                     $widget[0].Resource.location, $widget[0].Scope, $widget[0].Variables, $widget[0].Indexes, $widget[0].Deployment)) | Should -BeTrue
