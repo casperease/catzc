@@ -1,4 +1,4 @@
-function Get-Overlay {
+function Get-CatzcOverlay {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param()

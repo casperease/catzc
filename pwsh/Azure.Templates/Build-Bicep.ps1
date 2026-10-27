@@ -20,7 +20,7 @@ function Build-Bicep {
 
         # Ephemeral slots to build too, as <env>-<slot>: each on every selected base slot of that environment, with no file of its own.
         [Parameter(ParameterSetName = 'RuntimeSlots')]
-        [ValidatePattern('^[a-z][a-z0-9]*-[a-z0-9]{1,3}$')]
+        [ValidatePattern('^[a-z][a-z0-9]*-[a-z0-9]{1,3}$', Options = 'None')]
         [string[]] $RuntimeSlots,
 
         # The same, as a pipeline's deploy-target list in JSON ([{ env, slot?, ... }]): every entry with a slot is a runtime slot.

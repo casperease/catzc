@@ -30,7 +30,7 @@ neutral_codes:
     pwsh/Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1:
       the citation a covering test carries is the real rule the function looks for
-    pwsh/Base.Overlay/tests/Assert-Overlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
+    pwsh/Base.Overlay/tests/Assert-CatzcOverlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
 
 track_root_literal:
   exempt:

@@ -164,11 +164,11 @@ is what an override is for.
 - **`Catzc.Base.Repository`** derives the overlay root (`Get-CatzcOverlayRoot`, build mode only), returns an overlay asset from
   `Get-CatzcModuleRoot`, and resolves a local module's folder in the overlay.
 - **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, refuses a
-  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-CatzcOverlay` reads it), and discovers a
+  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and discovers a
   local module's configs.
-- **`Catzc.Base.Overlay`** inventories the overlay (`Get-CatzcOverlay`), checks it (`Assert-CatzcOverlay`, with the shared function-file
+- **`Catzc.Base.Overlay`** inventories the overlay (`Get-Overlay`), checks it (`Assert-Overlay`, with the shared function-file
   check `Get-FunctionFileViolation`, the contract check, and the local-module check), and applies function overrides and loads local modules
-  (`Import-CatzcOverlay`), which the importer runs at the end of a bundle load.
+  (`Import-Overlay`), which the importer runs at the end of a bundle load.
 - **Tests** prove the merge, the sealing, the asset lookup, every check, a function override reaching every caller, and a local module
   loading with its configs, in a built bundle.
 
