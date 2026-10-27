@@ -16,9 +16,9 @@ is planned here, one step each, so no record carries a planned item.
 
 - [ ] A health model per workload, the expedition wiring (the module `health-workbook.bicep`, the ADR-AZ-LZ-CAFMANAGEMENT rule line and the
       CAF management passage are in the tree): `options.yml` gains `healthWorkbookName: { type: wb, role: hlt }` and `main.bicep` a
-      `healthWorkbookName` param and a `health-workbook.bicep` call (`displayName`, `location`, `workspaceId: workspace.id`, `tags`); the
-      L1 drafted at `out/drone-rap-HealthModel.Tests.ps1` lands as `pwsh/Azure.Templates/tests/HealthModel.Tests.ps1`, its query check
-      read from the compiled module's `healthQueries` variable if the evaluator leaves `string()` unresolved. Check: HealthModel.Tests (one
+      `healthWorkbookName` param and a `health-workbook.bicep` call (`displayName`, `location`, `workspaceId: workspace.id`, `tags`); the L1
+      drafted at `out/drone-rap-HealthModel.Tests.ps1` lands as `pwsh/Azure.Templates/tests/HealthModel.Tests.ps1`, its query check read
+      from the compiled module's `healthQueries` variable if the evaluator leaves `string()` unresolved. Check: HealthModel.Tests (one
       `Microsoft.Insights/workbooks` per expedition slot, with its three queries), Test-BicepLint, Build-Bicep.Integrity,
       Test-BicepTemplateCompliance and Test-BicepResourceNames green in one staged burst.
 - [x] Role assignments as code, the discovery slice: `role-assignment.bicep` (resource-group scope: resourceGroup | storageAccount |
@@ -27,18 +27,20 @@ is planned here, one step each, so no record carries a planned item.
       set, `action-group.bicep`'s Owner by `roles.yml` address, and ADR-AZ-LZ-CAFIDENTITY rewritten. Check: one staged burst. Verdict
       (2026-10-27 burst): AzureConfig, Resolve-BicepEnvironmentFacts, Read-BicepTemplateOptions, Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity and Test-BicepTemplateCompliance passed, 7 of 7.
-- [ ] Role assignments in `expedition` (the templates drone owns its `main.bicep`): `options.yml` gains `facts: groups: groups` and
+- [x] Role assignments in `expedition` (the templates drone owns its `main.bicep`): `options.yml` gains `facts: groups: groups` and
       `addresses: roles: global.roles.roles`, and `main.bicep` the `roles` and `groups` object params and three `role-assignment.bicep`
       calls, each `if (!empty(<group>))`: `data_readers` to `storage_blob_data_reader` and `data_writers` to `storage_blob_data_contributor`
       on the account (`resourceKind: storageAccount`), and `data_writers` to `key_vault_secrets_user` on foundation's vault
       (`resourceKind: keyVault`, scope foundation's resource group). Check: Test-BicepLint, Test-BicepApiVersions, Build-Bicep.Integrity and
-      Test-BicepTemplateCompliance green in one staged burst.
+      Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
+      `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
+      Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
 - [ ] Role assignments, what is left after `Get-BicepRoleAssignmentPlan` landed: `RoleAssignments.Tests.ps1` gains the expedition case
       (`data_readers` `storage_blob_data_reader` and `data_writers` `storage_blob_data_contributor` on the account, `data_writers`
       `key_vault_secrets_user` on foundation's vault) in the burst that wires expedition's role assignments; the evaluator resolves
       `resourceId` and `subscriptionResourceId` (as provider paths when the scope is unknown), and the command then drops its own
-      provider-path rewrite; `Get-ArmDeployedResource` carries a nested deployment's `resourceGroup`, so a scope names its resource group; and
-      a user step in the task file to review the stacked assignments. Check: RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests
+      provider-path rewrite; `Get-ArmDeployedResource` carries a nested deployment's `resourceGroup`, so a scope names its resource group;
+      and a user step in the task file to review the stacked assignments. Check: RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests
       green in one staged burst.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload

@@ -81,19 +81,6 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $message | Should -Match "Set-ItResult -Because 'Not on this box' is not a constrained skip key"
     }
 
-    It 'accepts a test file that is not Verb-Noun when the config exempts it' {
-        $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{
-                test_file_name = [ordered]@{ exempt = [ordered]@{ 'widget-modules/Widget/tests/Gadget.Tests.ps1' = 'a gadget feature test' } }
-            })
-        Mock Get-Config -ParameterFilter { $Config -eq 'source-conventions' } -ModuleName Catzc.Base.QualityGates -MockWith { $config }.GetNewClosure()
-        New-FixtureFile 'Widget/tests/Gadget.Tests.ps1'
-        New-FixtureFile 'Widget/tests/Sprocket.Tests.ps1'
-
-        $result = Test-SourceConventions -OutputFolder $out -PassThru
-        $result.Issues | Should -Contain 'Widget/tests/Sprocket.Tests.ps1: the test file is not named Verb-Noun.Tests.ps1'
-        $result.Issues | Should -Not -Contain 'Widget/tests/Gadget.Tests.ps1: the test file is not named Verb-Noun.Tests.ps1'
-    }
-
     It 'returns the issues under -PassThru instead of throwing' {
         New-FixtureFile 'Widget/Widget.ps1' 'function Widget { }'
         $result = Test-SourceConventions -OutputFolder $out -PassThru

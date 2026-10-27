@@ -1,8 +1,8 @@
 # pwsh/Azure.Templates/Get-BicepRoleAssignmentPlan.ps1
 
 The review of who gets which role where. The templates assign built-in roles to groups and managed identities
-([ADR-AZ-LZ-CAFIDENTITY](../../../drs/azure/landing-zones.md#rule-adr-az-lz-cafidentity)), spread over modules, loops and conditions;
-this command lists the assignments every slot makes, read from the compiled templates, so the stacked set is reviewed in one table before a
+([ADR-AZ-LZ-CAFIDENTITY](../../../drs/azure/landing-zones.md#rule-adr-az-lz-cafidentity)), spread over modules, loops and conditions; this
+command lists the assignments every slot makes, read from the compiled templates, so the stacked set is reviewed in one table before a
 deploy and an L1 test pins each slot's set.
 
 ## help

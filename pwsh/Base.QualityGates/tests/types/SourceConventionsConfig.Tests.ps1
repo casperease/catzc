@@ -4,7 +4,6 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{})
             $config.engine_set.IsReport | Should -BeFalse
             $config.neutral_codes.IsReport | Should -BeFalse
-            $config.test_file_name.IsExempt('widget/Widget/tests/Gadget.Tests.ps1') | Should -BeFalse
             $config.engine_set.name_phrases.Count | Should -Be 0
         }
 
@@ -12,10 +11,7 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{
                     engine_set    = [ordered]@{ mode = 'report'; name_phrases = @('{name} and {name}') }
                     neutral_codes = [ordered]@{ exempt = [ordered]@{ 'src/**' = 'widget fixtures' } }
-                    test_file_name = [ordered]@{ exempt = [ordered]@{ 'src/Widget/tests/Gadget.Tests.ps1' = 'a gadget feature test' } }
                 })
-            $config.test_file_name.IsExempt('src/Widget/tests/Gadget.Tests.ps1') | Should -BeTrue
-            $config.test_file_name.IsExempt('src/Widget/tests/Sprocket.Tests.ps1') | Should -BeFalse
             $config.engine_set.IsReport | Should -BeTrue
             $config.engine_set.name_phrases | Should -Be @('{name} and {name}')
             $config.neutral_codes.IsExempt('src/widget.ps1') | Should -BeTrue

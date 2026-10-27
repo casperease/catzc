@@ -19,8 +19,6 @@ public sealed class BicepRoleAssignment
     // The roles.yml name of the role, or its definition id when roles.yml names none; the empty string when it does not resolve offline.
     public string role { get; }
 
-    // subscription, resourceGroup, or the '<provider>/<type>/<name>' of the one resource the role is assigned on; the empty string when
-    // that resource's name does not resolve offline.
     public string scope { get; }
 
     // The attribute-based condition that narrows the assignment; the empty string, never null, when it carries none.

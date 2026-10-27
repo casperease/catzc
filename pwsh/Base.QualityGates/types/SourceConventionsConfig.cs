@@ -15,9 +15,6 @@ public sealed class SourceConventionsConfig
     // The files that may spell the modules track's place; NoTrackRootLiteral reads it.
     public SourceCheck track_root_literal { get; }
 
-    // The test files a module keeps for a subject that is no one function (a template, a feature, a carrier file), each with its reason.
-    public SourceCheck test_file_name { get; }
-
     public SourceConventionsConfig(IDictionary raw)
     {
         if (raw != null)
@@ -25,17 +22,16 @@ public sealed class SourceConventionsConfig
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "engine_set" && name != "neutral_codes" && name != "track_root_literal" && name != "test_file_name")
+                if (name != "engine_set" && name != "neutral_codes" && name != "track_root_literal")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "source-conventions config: unknown key '{0}' (allowed: engine_set, neutral_codes, track_root_literal, test_file_name)", name));
+                        "source-conventions config: unknown key '{0}' (allowed: engine_set, neutral_codes, track_root_literal)", name));
                 }
             }
         }
         engine_set = new EngineSetCheck(Section(raw, "engine_set"));
         neutral_codes = new SourceCheck("neutral_codes", Section(raw, "neutral_codes"));
         track_root_literal = new SourceCheck("track_root_literal", Section(raw, "track_root_literal"));
-        test_file_name = new SourceCheck("test_file_name", Section(raw, "test_file_name"));
     }
 
     static IDictionary Section(IDictionary raw, string key)
