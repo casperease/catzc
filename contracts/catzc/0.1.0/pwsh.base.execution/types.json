@@ -130,6 +130,52 @@
       ]
     },
     {
+      "name": "Catzc.Base.Execution.NetworkCallsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "sites",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Execution.NetworkCallSite",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsViolation",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "class",
+          "kind": "property"
+        },
+        {
+          "name": "function",
+          "kind": "property"
+        },
+        {
+          "name": "gated_by",
+          "kind": "property"
+        },
+        {
+          "name": "trigger",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.Execution.ToolConfig",
       "aliases": [],
       "display": [],
