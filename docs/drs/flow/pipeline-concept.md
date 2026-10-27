@@ -57,8 +57,8 @@ The flow domain already decides most of what a pipeline is:
   ([FDR-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)).
 
 This FDR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, how
-long a credential lives inside it, and how the automation learns that it runs in a pipeline. The ado domain binds them for the azure devops pipelines and the github domain for the GitHub
-workflows.
+long a credential lives inside it, and how the automation learns that it runs in a pipeline. The ado domain binds them for the azure devops
+pipelines and the github domain for the GitHub workflows.
 
 ## Decision
 
@@ -89,11 +89,11 @@ variable, or a later step. Which credential is chosen, and how it proves its tar
 
 ### The context is detected in one place
 
-Some behaviour differs between a devbox and a pipeline: the output format, the token source, where artifacts go. Every engine marks its
-runs with a variable of its own, and a function that reads such a mark itself scatters the detection, misses an engine, and goes untested.
-One detection point reads every mark and answers a plain yes or no; every function that branches on context asks it, so the branch is
-findable and one change covers a new engine. Detection is the fallback: a value the caller can supply, such as an output path, is a
-parameter. Each engine's domain names its run mark, and each implementation language holds its detection function.
+Some behaviour differs between a devbox and a pipeline: the output format, the token source, where artifacts go. Every engine marks its runs
+with a variable of its own, and a function that reads such a mark itself scatters the detection, misses an engine, and goes untested. One
+detection point reads every mark and answers a plain yes or no; every function that branches on context asks it, so the branch is findable
+and one change covers a new engine. Detection is the fallback: a value the caller can supply, such as an output path, is a parameter. Each
+engine's domain names its run mark, and each implementation language holds its detection function.
 
 ## Consequences
 

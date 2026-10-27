@@ -70,11 +70,11 @@ hub's virtual network and private DNS zones and on `foundation`'s Key Vault with
 Where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log there, with Traffic Analytics into
 the workspace; without one, the network sends logs and metrics, not flows.
 
-The workload relies on the platform's own redundancy and backup: zone-redundant storage (`Standard_ZRS`) in every environment, a production
-database that is zone-redundant (`databaseZoneRedundant` is false in development) with geo-redundant backups
-(`databaseBackupStorageRedundancy` `Geo` in production, `Local` in development), short-term retention (`databaseBackupRetentionDays` 35 in
-production, 7 in development, set by `sql-database.bicep`) and blob and container soft delete of 7 days by default, with the `@minValue`,
-`@maxValue`, and `@allowed` bounds keeping a config within what the service accepts
+The workload relies on the platform's own redundancy and backup: zone-redundant storage (`Standard_ZRS`) in production and locally redundant
+storage (`Standard_LRS`) outside it, a production database that is zone-redundant (`databaseZoneRedundant` is false in development) with
+geo-redundant backups (`databaseBackupStorageRedundancy` `Geo` in production, `Local` in development), short-term retention
+(`databaseBackupRetentionDays` 35 in production, 7 in development, set by `sql-database.bicep`) and blob and container soft delete of 7 days
+by default, with the `@minValue`, `@maxValue`, and `@allowed` bounds keeping a config within what the service accepts
 ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). No policy audits redundancy or backup, and no backup vault exists
 because nothing deployed needs one. No range of the plan overlaps another, which `NetworkConfig` checks, so a recovery network added to the
 plan falls under the same check ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)).

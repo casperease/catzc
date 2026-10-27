@@ -82,6 +82,32 @@ in one pass, one such file stops the quality gate's formatting pass for the whol
 
 - [One-line hashtables](#one-line-hashtables)
 
+### Rule ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS
+
+Never use trailing semicolons; statements end at the newline. A `;` at the end of a line with nothing after it is dead C#/dotnet syntax.
+
+- [Semicolons](#semicolons)
+- [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-PWSH-FORMAT-SINGLELINECHAINING
+
+Single-line chaining is allowed: `$x = 1; $y = 2` on one line chains two statements. The rule targets the habit of ending every line with
+`;`, not concise single-line expressions.
+
+- [Semicolons](#semicolons)
+
+### Rule ADR-PWSH-FORMAT-FORHEADERSEXEMPT
+
+`for` loop headers are exempt: `for ($i = 0; $i -lt $n; $i++)` requires semicolons as syntactic separators.
+
+- [The two semicolon exceptions](#the-two-semicolon-exceptions)
+
+### Rule ADR-PWSH-FORMAT-INLINEHASHTABLESEXEMPT
+
+Inline hash table literals are exempt: `@{ A = 1; B = 2 }` is idiomatic PowerShell.
+
+- [The two semicolon exceptions](#the-two-semicolon-exceptions)
+
 ## Context
 
 The repository's uniform formatting fixes the cross-language baseline every file meets (UTF-8 without BOM, LF, spaces, trimmed trailing
@@ -166,6 +192,74 @@ else {
 [ordered]@{ $Kind.keys[0] = $value }
 ```
 
+### Semicolons
+
+PowerShell separates statements by newlines and needs no semicolons. A semicolon carried over from C# or JavaScript habit adds noise and
+signals that the author is thinking in a different language.
+
+**Trailing semicolons** — line terminators left over from C# habits:
+
+```powershell
+# Wrong — semicolons are noise
+$config = Get-Config;
+$name = $config.Name;
+Write-Message $name;
+```
+
+```powershell
+# Correct
+$config = Get-Config
+$name = $config.Name
+Write-Message $name
+```
+
+**Statement chaining on a single line** — permitted when it improves readability for short, related statements:
+
+```powershell
+# OK — short related assignments chained on one line
+$inner = $Width - 2; "╰$('─' * $inner)╯"
+
+# OK — compact switch branches
+'Curved' { $inner = $Width - 2; "╰$('─' * $inner)╯" }
+```
+
+```powershell
+# Wrong — trailing semicolons (statement terminators, not chaining)
+$a = 1;
+$b = 2;
+```
+
+A semicolon followed by another statement on the same line is chaining (allowed); one at the end of a line is a trailing terminator
+(forbidden).
+
+### The two semicolon exceptions
+
+**`for` loop headers** — The `for` statement uses semicolons as syntactic separators. This is required — there is no alternative syntax:
+
+```powershell
+for ($i = 0; $i -lt 10; $i++) {
+    # ...
+}
+```
+
+**Inline hash table literals** — Semicolons separate entries in single-line hash tables. This is idiomatic PowerShell:
+
+```powershell
+$obj = [PSCustomObject]@{ Name = 'test'; Value = 42 }
+```
+
+Multi-line hash tables use newlines instead and do not need semicolons:
+
+```powershell
+$obj = [PSCustomObject]@{
+    Name  = 'test'
+    Value = 42
+}
+```
+
+Both exceptions are structural — the semicolons serve as syntactic separators, not statement terminators. The `for` loop exception is narrow
+and unambiguous, so it needs no judgment call.
+
 ### Line length and encoding
 
 Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline). Which analyzer
@@ -204,7 +298,8 @@ named intermediate would explain.
 ## Decision
 
 PowerShell files follow the repo-wide baseline plus the PowerShell-specific rules above, all mechanically enforced. No per-file overrides.
-Every custom analyzer rule names the DRS rule it enforces in the analyzer map.
+Every custom analyzer rule names the DRS rule it enforces in the analyzer map. Semicolons are never trailing statement terminators; they are
+permitted for chaining statements on a single line, in `for` loop headers, and in inline hash table literals.
 
 ### How this is enforced
 
@@ -225,6 +320,8 @@ Every custom analyzer rule names the DRS rule it enforces in the analyzer map.
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
 - **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), run by its integrity test.
+- **PSScriptAnalyzer built-in rule `PSAvoidSemicolonsAsLineTerminators`** — catches trailing semicolons
+  (ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS); enabled in `PSScriptAnalyzerSettings.psd1`.
 
 ## Consequences
 
@@ -234,3 +331,5 @@ Every custom analyzer rule names the DRS rule it enforces in the analyzer map.
 - The cross-language baseline is single-sourced in the repository's uniform formatting; this ADR holds only the PowerShell rules, so the two
   never duplicate or drift.
 - A new custom analyzer rule cannot ship without naming the DRS rule it enforces, so the coverage report credits it from its first run.
+- Code reads as idiomatic PowerShell, not transliterated C#: every statement is on its own line, easier to read, debug, blame, and diff, and
+  developers with C# habits get immediate feedback from the linter rather than accumulating semicolons over time.

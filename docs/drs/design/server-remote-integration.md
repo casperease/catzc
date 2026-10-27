@@ -1,10 +1,10 @@
 # Design: The audited server git remote — verified integration and PR ingress
 
-The mainline lives on an **audited server git remote** (Azure DevOps or GitHub); every developer box and CI agent is a client that bridges
-to it. This DDR fixes how work crosses that boundary in both directions: what a consumer reads _out_ (integrate from the last verified
-commit, never the dirty remote HEAD) and how a change gets _in_ (ingress through a pull request that authenticates and merges). The
-commit-lifecycle states it builds on — the stable sync point and the dirty HEAD — belong to the delivery flow's commit lifecycle; this DDR
-owns the remote topology and the integration/ingress discipline over it.
+The mainline lives on an **audited server git remote** (the git host); every developer box and CI agent is a client that bridges to it. This
+DDR fixes how work crosses that boundary in both directions: what a consumer reads _out_ (integrate from the last verified commit, never the
+dirty remote HEAD) and how a change gets _in_ (ingress through a pull request that authenticates and merges). The commit-lifecycle states it
+builds on — the stable sync point and the dirty HEAD — belong to the delivery flow's commit lifecycle; this DDR owns the remote topology and
+the integration/ingress discipline over it.
 
 ## Rules: DDR-REMOTE
 
@@ -25,18 +25,12 @@ holds the authoritative copy; the client holds a working copy.
 **dirty HEAD** — landed but still unverified, or verified-then-failed downstream, and so unsafe to build on. Any consumer that builds on the
 mainline — a developer starting work, a downstream deployable-unit, an upstream integrator — syncs against the **last commit the server
 proved verified** (the BVT-verified server head, the stable sync point), not the raw tip. "Latest" and "safe to build on" are different
-questions; this rule answers the second.
+questions; this rule answers the second. A dirty HEAD is provisional: it may be fixed forward by a successor or superseded by a newer
+commit that overtakes it; history is never rewritten. A consumer that built on the verified point never has to reconcile a fixed or
+superseded tip, because the verified history is stable and monotonic (a commit's state only ever advances) and does not move under it; a
+consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 
 - [Integrate from verified](#integrate-from-verified)
-
-### Rule DDR-REMOTE-NORECONCILINGTIPS
-
-**Integrating from verified avoids ever having to reconcile a fixed or superseded tip.** A dirty HEAD is provisional: it may be fixed
-forward by a successor or superseded by a newer commit that overtakes it; history is never rewritten. A consumer that built on the verified
-point never has to negotiate any of that, because the verified history is stable and monotonic (a commit's state only ever advances) and
-does not move under it. A consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
-Integrate from verified and the reconciliation problem does not exist.
-
 - [Why verified is stable](#why-verified-is-stable)
 
 ### Rule DDR-REMOTE-PULLREQUESTISINGRESS
@@ -53,9 +47,8 @@ lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the
 
 Trunk-based development ([one-living-version](../principles/one-living-version.md), `PDR-ONELIVE-TRUNKBASED`) puts one mainline at the
 centre, and [self-service](self-service.md) (`DDR-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere
-every change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub
-repository whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to
-it.
+every change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the git host's repository
+whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to it.
 
 Two questions arise at that client/server boundary, and this DDR answers both. Reading _from_ the remote: the tip of main is not always safe
 to build on, because it can be a dirty HEAD (for example, a tip that entered main-UAT and failed there). Writing _to_ the remote: how does a
@@ -103,7 +96,7 @@ the mainline audited.
 
 ## How this is enforced
 
-- **Server branch policy** — the protected `main` / `master` on the ADO / GitHub remote admits merges only through a PR, so ingress cannot
+- **Server branch policy** — the protected `main` / `master` on the git host's remote admits merges only through a PR, so ingress cannot
   bypass the authenticate-and-merge path (`DDR-REMOTE-PULLREQUESTISINGRESS`).
 - **`git_workspace` variant** — `main-via-pr` vs `main-direct` selects the audited-ingress regime; `Sync-GeneratedFile`'s branch guard is
   the local half.

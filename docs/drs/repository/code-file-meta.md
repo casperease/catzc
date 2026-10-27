@@ -29,19 +29,6 @@ instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-c
 
 - [What the head holds](#what-the-head-holds)
 
-### Rule ADR-REPO-CODEMETA-SAMEENGINE
-
-The head's edge, the only fact an authored head has, is imprinted by the same engine, from the same registry, as a Markdown block
-([ADR-REPO-FILEMETA-METAKIND](file-meta.md#rule-adr-repo-filemeta-metakind),
-[ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)): a kind is a registry entry, and its processor is a
-function found by convention. The scope is the head policy ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)):
-every authored file whose carrier is a comment head or a JSON property and that has a `docs` edge carries the navigation head, tests and
-configs included, less the classes `.gitattributes` exempts ([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope));
-every other authored file carries none, and the engine strips a head it holds. The kinds that fill the head select no files of their own, so
-they apply to every file the policy gives a head.
-
-- [Scope](#scope)
-
 ### Rule ADR-REPO-CODEMETA-CODEHEADIMPRINT
 
 `Format-Code` writes the head as an imprint step
@@ -117,6 +104,13 @@ JSON property, and the head policy gives one only to a file with a `docs` edge. 
 syntax, so the scope comes from it and no meta kind repeats a list of globs. The files the head would harm stay out through
 `.gitattributes`: vendored code is someone else's, contract assets and fixtures are compared byte for byte, and generated files carry the
 head their writer wrote ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).
+
+The head's edge, the only fact an authored head has, is imprinted by the same engine, from the same registry, as a Markdown block
+([ADR-REPO-FILEMETA-METAKIND](file-meta.md#rule-adr-repo-filemeta-metakind)): a kind is a registry entry, its processor a function found by
+convention, and the kinds that fill the head select no files of their own, so they apply to every file the head policy gives a head. Tests
+and configs are in scope; the classes `.gitattributes` exempts are out
+([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope)). Every other authored file carries no head, and the engine
+strips a head it holds.
 
 ### Hosted by Format-Code
 

@@ -12,15 +12,10 @@ Default to the `foreach` statement for all iteration: it has correct, predictabl
 ### Rule ADR-PWSH-FOREACH-OBJECTFORTRANSFORMS
 
 Use `ForEach-Object` only for single-expression pipeline transforms with no control flow keywords. If you need `if`, `return`, `break`,
-`continue`, or `try`/`catch`, switch to `foreach`.
+`continue`, or `try`/`catch`, switch to `foreach`. Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not do what
+they appear to.
 
 - [When ForEach-Object fits](#when-foreach-object-fits)
-
-### Rule ADR-PWSH-FOREACH-NOCONTROLFLOWINOBJECT
-
-Never use `return`, `break`, or `continue` inside `ForEach-Object`; they do not do what they appear to. If you need control flow, rewrite as
-`foreach`.
-
 - [The control flow trap](#the-control-flow-trap)
 - [How this is enforced](#how-this-is-enforced)
 

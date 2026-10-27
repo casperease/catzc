@@ -8,7 +8,7 @@ analyzers:
   Measure-NoAutomaticVariableMisuse: [ADR-PWSH-AUTOVAR-NOQUESTIONMARKVARIABLE]
   Measure-NoForEachObjectControlFlow: [ADR-PWSH-FOREACH-NOCONTROLFLOWINOBJECT]
   Measure-NoRawVsoCommand: [ADR-ADO-VAR-NORAWLOGGINGCOMMANDS]
-  Measure-NoRawPipelineDetection: [FDR-DETECT-NODIRECTVARIABLECHECK]
+  Measure-NoRawPipelineDetection: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   Measure-NoRawInformationStream: [ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT]
   Measure-NoRawConsoleWrite: [ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT]
   Measure-AnnounceStateChange:

@@ -21,23 +21,10 @@ easiest to speed up.
 
 Optimise the whole, not the part. A local optimum that does not lift the system constraint delivers no system gain and often harms the whole
 (a faster non-constraint just piles work in front of the constraint). "This step got faster" is not an outcome; "the system got faster" is.
+So observe the whole value stream, concept to cash, not one local step: a station that looks green can hide a stream choking on a queue
+upstream ([WDR-OBSERVEWIP](observe-work.md), [EDR-LEAN][r1]).
 
 - [The constraint](#the-constraint)
-
-### Rule WDR-LEANTERMS-FLOWISMEASURED
-
-Flow is measured, not felt. Throughput, work-in-progress, and lead time are defined quantities related by Little's Law
-([EDR-LEAN](../external/lean/lean.md)); decisions about batch size and work-in-progress rest on those measures, never on "we feel slow".
-
-- [Flow primitives](#flow-primitives)
-
-### Rule WDR-LEANTERMS-AUTOMATEDORMANUAL
-
-Work is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person. Human attention
-is the scarce constraint and machine time is cheap and falling (Moore's Law, [EDR-LEAN][r1]), so the platform's direction of travel is to
-convert manual steps into automated ones — spending the cheap resource to protect the dear one.
-
-- [Automated and manual](#automated-and-manual)
 
 ## Context
 
@@ -54,7 +41,8 @@ owns and elaborates them. It defines the nouns; the companion articles state the
 
 ### Flow primitives
 
-The base measures of how work moves. They are quantities, not moods.
+The base measures of how work moves. They are quantities, not moods, and decisions about batch size and work-in-progress rest on them
+([WDR-PULLWORK-LIMITWORKINPROGRESS](pull-work.md#rule-wdr-pullwork-limitworkinprogress)).
 
 - **Throughput.** The rate at which the system completes units of work — items delivered per unit time. The system-level output measure.
 - **Work-in-progress (WIP).** The number of items started but not yet finished — everything currently inside the system, including items
@@ -96,7 +84,7 @@ How a step is classified by the actor it requires.
   decision); they are waste where they are merely un-automated toil.
 - **The direction of travel.** Because human attention is the scarce constraint and machine time is cheap and falling (Moore's Law,
   [EDR-LEAN][r1]), a manual step that needs no judgement is a candidate for automation — spend compute to drain the human queue, never the
-  reverse.
+  reverse ([WDR-QUEUECOST-ATTENTIONISTHECONSTRAINT](queues-cost-money.md#rule-wdr-queuecost-attentionistheconstraint)).
 
 ### The named laws
 

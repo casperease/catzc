@@ -114,9 +114,9 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-TRIGGER](pipeline-triggers.md)
 
-> DORA links continuous integration and version-controlled configuration to faster, more reliable delivery. Generating every ado trigger
-> and build-validation filter from the one committed globset, and checking it for drift, starts a pipeline exactly when its unit changes,
-> and keeping runtime parameters to INPUT and DEPLOY selection keeps configuration in version control.
+> DORA links continuous integration and version-controlled configuration to faster, more reliable delivery. Generating every ado trigger and
+> build-validation filter from the one committed globset, and checking it for drift, starts a pipeline exactly when its unit changes, and
+> keeping runtime parameters to INPUT and DEPLOY selection keeps configuration in version control.
 
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the pre-commit build validation and the `main`
   trigger select the same files, so the CI engine runs on every change to the unit.

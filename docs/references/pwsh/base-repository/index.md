@@ -27,7 +27,7 @@ anchors, so no function anywhere in the platform depends on the current working 
 Whether the code is executing inside a CI pipeline, named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can
 pin. The answer keys environment-dependent settings such as the time-safeguard limits. It is read off the one detection seam, which lives in
 the always-loaded [Catzc.Internal.Loader](../internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module
-loads (see [pipeline-detection](../../../drs/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
+loads (see [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md)). Callers never probe CI environment variables directly.
 
 ## What the module does
 
@@ -44,7 +44,7 @@ this function, the location is never duplicated or guessed.
 Pipeline detection (responsibility 2) is a single boolean question with a single authoritative answer. Scattering the environment-variable
 checks that answer it across modules would mean each could disagree; `Test-IsRunningInPipeline` in the loader holds the logic once, and
 `Get-RunEnvironment` names its answer, so the detection heuristic can be improved in one place (see
-[pipeline-detection](../../../drs/flow/pipeline-detection.md)).
+[pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md)).
 
 ## Division
 

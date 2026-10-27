@@ -38,8 +38,8 @@ derived mode, no coexistence, the same tests, and three kinds of build root. Thi
 | build  | one of the build roots below   | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
 
 Both entries are dot-sourced, so they run in the caller's scope. A temporary build, written by `Build-Modules` in a source-mode session, is
-entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot` set to the repository. A build's `build.json` names the version and the
-commit it was built from. `Build-Modules` merges the function files in the order the source manifest lists them.
+entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot` set to the repository. A build's `build.json` names the version and
+the commit it was built from. `Build-Modules` merges the function files in the order the source manifest lists them.
 
 ### One session state per module
 
@@ -58,12 +58,12 @@ code root.
 | saved     | `<root>/.vendor/Catzc/<v>/`                           | `Install-Catzc -Root`       |
 
 `<v>` is the package version. A NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root. A module locates its
-own files through `Get-CatzcModuleRoot`, and a source-tree tool asserts source mode with `Assert-SourceTree`.
+own files through `Get-CatzcModuleRoot`, and a source-tree tool asserts with `Assert-SourceTree` that it runs in source mode.
 
 ## Decision
 
-pwsh enters source mode through `importer.ps1` and build mode through `Import-Catzc.ps1` or `Import-Module Catzc`, keeps every built module
-a PowerShell module of its own, and derives the mode from `CatzcModulesRoot` with `Get-CatzcRunMode`.
+In pwsh, a session runs in source mode through `importer.ps1` and in build mode through `Import-Catzc.ps1` or `Import-Module Catzc`, keeps
+every built module a PowerShell module of its own, and derives the mode from `CatzcModulesRoot` with `Get-CatzcRunMode`.
 
 ## Consequences
 

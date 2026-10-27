@@ -3,6 +3,10 @@ engine_neutrality:
   # Each checked domain and the token sets its rule summaries must not carry; a neutral tier adds a line here once its records are clean.
   domains:
     automation: [engine]
+    flow: [vendor]
+    design: [engine, vendor]
+    principles: [engine, vendor]
+    thesis: [engine, vendor]
   token_sets:
     # Engine-specific syntax; a catzc command name is allowed, so only engine built-ins are listed.
     engine:

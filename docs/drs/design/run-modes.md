@@ -78,8 +78,8 @@ In source mode a module is a folder of one-function files in the repository's co
 mode it is a generated manifest and one merged function file in a build root, entered by the package's own entry. Both entries run in the
 caller's scope. A temporary build is entered with the repository still named as the repository root, so the output folder and
 repository-relative paths keep resolving there while the code root moves to the build. Every entry ends in the one living importer, so the
-load sequence — preferences, vendored modules, types, then modules — is the same in both modes. The engine's entry scripts and file forms are
-its own twin's.
+load sequence — preferences, vendored modules, types, then modules — is the same in both modes. The engine's entry scripts and file forms
+are its own twin's.
 
 Which mode a session is in is read from what actually loaded, never from a flag: it is derived from the code root
 ([Deriving the mode](#deriving-the-mode)), and a build's manifest file names the version and the commit it was built from.
@@ -103,10 +103,10 @@ same `configs/` and `assets/`. The build merges the function files in the same o
 identical; the built manifest exports the module's public functions only. Everything that names a module — a config validator run in its
 owning module's scope, a module query, a test's mock of one module's call — resolves the same way in both modes.
 
-What makes this hold for content as well as code is that a module locates its own files only through the code root, never through the
-folder its source file sits in, and that every such lookup is inventoried and tested in both modes. Tools whose job is the source tree
-itself — formatters, dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert
-that they run in source mode and fail fast in a build rather than reading the wrong tree.
+What makes this hold for content as well as code is that a module locates its own files only through the code root, never through the folder
+its source file sits in, and that every such lookup is inventoried and tested in both modes. Tools whose job is the source tree itself —
+formatters, dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert that
+they run in source mode and fail fast in a build rather than reading the wrong tree.
 
 ### One scope per module
 
@@ -127,16 +127,16 @@ cannot.
 ### Switching modes in one session
 
 A developer moves between the modes in one shell — the repository's importer, then a build's entry, then the importer again, in any order
-and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the
-importer enforces mutual exclusion:
+and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the importer
+enforces mutual exclusion:
 
 - **Evict before loading.** Before it loads a root, the importer removes every loaded catzc module whose base lies outside that root,
   together with the root's own stale modules. The internal loader modules are reloaded from the new root, so the loader itself always
   belongs to the active mode.
 - **Assert after loading.** An exclusivity check runs at the importer tail in both modes and throws, naming the offending modules and both
   roots, when any loaded catzc module lies outside the active code root.
-- **Caches reset by construction.** An evicted module takes its state with it, so a switched session never sees a cache from the other
-  mode. Vendored modules are reloaded from the active mode's vendor folder.
+- **Caches reset by construction.** An evicted module takes its state with it, so a switched session never sees a cache from the other mode.
+  Vendored modules are reloaded from the active mode's vendor folder.
 - **Types are the exception.** A loaded assembly cannot be unloaded. Every build ships the full type set — the same type sources and the
   same hash-named assembly as the source tree, whatever its module selection — so when the sources are unchanged the type identities are the
   same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded type set with the

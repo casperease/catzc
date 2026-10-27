@@ -196,8 +196,8 @@ domains:
     description: >-
       PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests,
       parameter and error design, streams and console output, caching in script scope, working directory and environment mechanics,
-      cross-platform pwsh, pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
-      them.
+      cross-platform pwsh, pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine
+      and never redefines them.
     depends_on: [external, principles, process, design, automation, bcl]
     stack: AUTO
     concern: [automation] # the pwsh engine of the module system
@@ -213,7 +213,6 @@ domains:
       error-handling: { external: ADR-PWSH-ERROR }
       assert-idioms: { external: ADR-PWSH-ASSERT }
       announce-state-changes: { external: ADR-PWSH-ANNOUNCE }
-      avoid-using-semicolons: { external: ADR-PWSH-NOSEMI }
       prefer-foreach-over-foreach-object: { external: ADR-PWSH-FOREACH }
       automatic-variable-pitfalls: { external: ADR-PWSH-AUTOVAR }
       respect-pwsh-verb-rules: { external: ADR-PWSH-VERBS }
@@ -276,8 +275,8 @@ domains:
     description: >-
       The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to
       GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery, and the run mark and `on.*.paths` triggers of a workflow. It
-      applies the `flow/` rules to GitHub Actions under
-      `.github/workflows/` and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
+      applies the `flow/` rules to GitHub Actions under `.github/workflows/` and publishes the bundle the automation domain defines; `ado/`
+      is its Azure DevOps counterpart.
     depends_on: [external, principles, process, design, automation, flow]
     stack: PIPE
     concern: [build, release] # the workflow that builds and publishes the package

@@ -29,13 +29,6 @@ by the abstract: **pwsh** is the name of the PowerShell track, beside `go`, `pyt
 
 - [Named by the stack](#named-by-the-stack)
 
-### Rule ADR-AUTO-LAYERS-IMPORTERDECIDESMIX
-
-The importer decides the mix a session loads, which languages, which engines and which modules, from one configuration with sensible
-defaults ([ADR-AUTO-IMPORTER](importer.md)); no command, test runner or builder decides it again.
-
-- [Five layers, one word each](#five-layers-one-word-each)
-
 ### Rule ADR-AUTO-LAYERS-CONTRACTATBOUNDARY
 
 A public command's interface is stated at the repository boundary by its contract under `contracts/`, versioned with the unit that carries
@@ -73,7 +66,8 @@ giving each its own word, lets every later rule say which one it binds.
 Automation is what the repository offers. A contract states a command's interface at the boundary, so a consumer can rely on it. A language
 is what a command's source is written in. An engine is the shell the code runs under. The importer brings a chosen mix of them into a
 session. Reading down the list answers "what, interface, how written, how run, how assembled"; each answer stands on the one above and adds
-nothing to it, the stance the PowerShell rules already take toward the automation rules.
+nothing to it, the stance the PowerShell rules already take toward the automation rules. The importer layer's mix is decided by
+[ADR-AUTO-IMPORTER-DECIDESMIX](importer.md#rule-adr-auto-importer-decidesmix).
 
 ### What the word covers
 

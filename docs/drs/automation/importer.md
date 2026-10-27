@@ -7,7 +7,8 @@
 The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the engine
 model names, every entry generated from one source and never hand-edited
 ([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry),
-[DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)).
+[DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)). The POSIX engines share one such entry, a committed root
+file each of them loads into its session, with no copy per shell.
 
 - [One entry per engine](#one-entry-per-engine)
 
@@ -21,10 +22,11 @@ engines an entry serves comes from the engine model's importer entry, never from
 
 ### Rule ADR-AUTO-IMPORTER-DECIDESMIX
 
-The importer decides the mix a session loads: which languages, which engines and which modules. Each input resolves in the one order of a
-setting ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the caller's explicit value,
-else the importer's configuration, else the default declared once on its config type. The default is `auto`: every engine whose executable
-is present, with a missing one skipped and reported
+The importer decides the mix a session loads: which languages, which engines and which modules; no command, test runner or builder decides
+it again. Each input resolves in the one order of a setting
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the caller's explicit value, else
+the importer's configuration, else the default declared once on its config type. The default is `auto`: every engine whose executable is
+present, with a missing one skipped and reported
 ([ADR-AUTO-ENGINE-AUTONAMESNOENGINE](execution-engines.md#rule-adr-auto-engine-autonamesnoengine)), and the languages of the modules it
 loads.
 
@@ -79,7 +81,7 @@ About thirty ADRs mention the importer and none defines it. The entry scripts, t
 assume a mix of languages, engines and modules that no one place states: the loader reads every module folder of the code root, the test
 runner runs every Go and Python test once per engine from the engine model, and the builder reads the bundle's profile. Three places decide
 three parts of one thing. This ADR names the importer as the one that decides, and names the inputs and the result, so the others read it
-([ADR-AUTO-LAYERS-IMPORTERDECIDESMIX](layers.md#rule-adr-auto-layers-importerdecidesmix)).
+([ADR-AUTO-IMPORTER-DECIDESMIX](#rule-adr-auto-importer-decidesmix)).
 
 ### One entry per engine
 

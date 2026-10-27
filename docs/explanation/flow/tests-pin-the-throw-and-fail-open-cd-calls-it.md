@@ -12,7 +12,7 @@ Logic tests pin the throw and the fail-open, an analyzer rule pins detection, an
 7  fetchDepth: 0                  required by GLOBS#9; set on the CD checkouts that diff, no gate checks it
 8  Changes step                   GLOBS#9's first step: the CD stages run the check, no gate requires it
 
-Supports FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK
+Supports FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK
 and ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY (governance lens).
 ```
 
@@ -26,7 +26,7 @@ description:
   "Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection, and
   the deep checkout and the Changes step are wired into the CD pipelines with no gate."
 about:
-  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
+  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
   lens: governance
 content:
   title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
@@ -64,7 +64,7 @@ content:
     - { at: c-affected, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT }
     - { at: c-affected, kind: rule, rule: ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY, gated: false }
     - { at: c-change-range, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT }
-    - { at: c-in-pipeline, kind: rule, rule: FDR-DETECT-NODIRECTVARIABLECHECK }
+    - { at: c-in-pipeline, kind: rule, rule: ADR-PWSH-DETECT-NODIRECTVARIABLECHECK }
     - { at: c-fetch-depth, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
     - { at: c-changes-step, kind: rule, rule: FDR-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
   legend: auto
@@ -115,7 +115,7 @@ layout:
 - Whether a change touches a unit is computed from git at real refs, the reference commit is resolved per context, the check fails open on
   any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 - The detection variables are never read directly; `Test-IsRunningInPipeline` keeps the detection logic in one place
-  (FDR-DETECT-NODIRECTVARIABLECHECK).
+  (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 - An error is raised through the assertion library, never through an inline check that raises its own error
   (ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY).
 
@@ -127,7 +127,7 @@ The decision wants the check to gate a unit's stages; the CD pipelines run it, b
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) and
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) and
   [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the two other decisions whose rules the check
   carries.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),

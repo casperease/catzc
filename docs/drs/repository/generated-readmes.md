@@ -33,9 +33,12 @@ derive their source by convention, plus explicit `mappings` for the exceptions â
 
 ### Rule ADR-REPO-README-READMEIDEMPOTENT
 
-Generation is idempotent and runs on every import (the importer tail): `Build-Readme` composes each README (`Get-ReadmeContent`) and writes
-it through `Write-FileIfChanged`, which rewrites only a README whose content differs (line endings ignored) and writes by delete-then-write,
-so a README that is a filesystem link is severed, never written through into its source. A clean tree is a fast no-op.
+Generation of every generated artifact (a README, a managed root config) is idempotent and runs on every import (the importer tail):
+`Build-Readme` composes each README (`Get-ReadmeContent`) and every content write goes through the one shared primitive
+`Write-FileIfChanged` (`Catzc.Base.Files`): canonical output (UTF-8 no BOM, LF, one trailing newline), an EOL-insensitive compare, a write
+only on a real content change, so a clean tree is a fast no-op and a CRLF/LF flip never forces a rewrite. A changed write is
+delete-then-write, never in-place, so a target that is a filesystem link is replaced by a file of its own and never written through into its
+source or template.
 
 - [Always current](#always-current)
 

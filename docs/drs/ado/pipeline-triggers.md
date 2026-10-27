@@ -73,8 +73,8 @@ both register on the same projection, so the policy and the pipeline select the 
 ### Schedules and parameters
 
 A CRON pipeline is the ado pipeline mechanism used as a scheduler: a `schedules:` cron entry and one `RunCommand`. An INPUT pipeline takes
-its user input as ado runtime `parameters:`, the one legitimate home for parameters that carry values, because those values are written
-into version control before anything deploys. A DEPLOY pipeline's parameters name a commit and a governed target, never configuration.
+its user input as ado runtime `parameters:`, the one legitimate home for parameters that carry values, because those values are written into
+version control before anything deploys. A DEPLOY pipeline's parameters name a commit and a governed target, never configuration.
 
 ### How this is enforced
 

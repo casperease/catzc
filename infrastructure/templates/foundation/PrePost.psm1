@@ -10,7 +10,7 @@ Set-StrictMode -Version Latest
     subnet. A value the slot's yml sets wins. The bootstrap pass, deployed before discovery has built the network, sets
     deployKeyVaultPrivateEndpoint to false in the slot's yml, and the template then deploys no endpoint.
 
-    See docs/drs/automation/pwsh/prepost-extension-modules.md.
+    See [ADR-PWSH-PREPOST](/docs/drs/automation/pwsh/prepost-extension-modules.md).
 #>
 function Invoke-BicepPrepareParameterSet {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'TemplateDescriptor',

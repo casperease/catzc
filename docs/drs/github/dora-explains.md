@@ -36,6 +36,6 @@ the ADRs themselves; this file carries only their DORA rationale.
   change to the unit and on nothing else.
 - [Version control](../../references/dora/capabilities.md#version-control) — the trigger is derived from the committed globset, never
   hand-kept beside it.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a drift gate keeps the generated trigger honest
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a quality gate keeps the generated trigger honest
   without a manual step.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

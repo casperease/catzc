@@ -9,7 +9,7 @@ A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts
 4  Test-IsRunningInPipeline    CI step 2e asserts it is true on the agent
 5  Get-OutputRoot              the same step prints the staging directory it resolves
 
-Supports FDR-DETECT-NODIRECTVARIABLECHECK and FDR-DETECT-BOOLEANNOTMODAL (operations lens).
+Supports ADR-PWSH-DETECT-NODIRECTVARIABLECHECK and ADR-PWSH-DETECT-BOOLEANNOTMODAL (operations lens).
 ```
 
 A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, not in a code review. `Test-ScriptAnalyzer` prints one line
@@ -21,7 +21,7 @@ description:
   "What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes its report or throws once
   with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."
 about:
-  adrs: [FDR-DETECT-NODIRECTVARIABLECHECK, FDR-DETECT-BOOLEANNOTMODAL]
+  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: operations
 content:
   title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
@@ -86,14 +86,14 @@ layout:
 ## Why it holds
 
 - Never check the detection variables directly; the analyzer rule turns a raw read into an error a developer sees at once
-  (FDR-DETECT-NODIRECTVARIABLECHECK).
-- Detection is boolean, so the pipeline can assert it with one `Assert-True` (FDR-DETECT-BOOLEANNOTMODAL).
+  (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
+- Detection is boolean, so the pipeline can assert it with one `Assert-True` (ADR-PWSH-DETECT-BOOLEANNOTMODAL).
 - Both environments are checked equally: the analyzer runs on the devbox and in the pipeline, and the two must agree
   (ADR-AUTO-PARITY-CHECKEDEQUALLY).
 
 ## See also
 
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
   [architecture](the-loader-holds-the-one-detector.md), [implementation](two-variables-read-in-one-place.md) and

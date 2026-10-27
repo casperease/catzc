@@ -8,9 +8,14 @@ An **output format** is one declared kind of file a producer writes under the ou
 `Catzc.Base.Reports/configs/output-formats.yml` with its id, its file patterns relative to the output root, its producer, its audience, its
 validator, and its limits. No path can match the patterns of two formats: the catalogue is rejected on load when two patterns can overlap,
 so a file's format never depends on declaration order or on which pattern is more specific. Every file under a catalogued folder belongs to
-exactly one output format; a file that matches none is an orphan and an error.
+exactly one output format; a file that matches none is an orphan and an error. The format's **area** (`run`, `build`, `cache`, `review`,
+`session`, `log`) sets how long its files stay: the newest stamps of a run, the newest build, every cache entry and review artifact, session
+files for seven days. A format overrides the area with `keep` and `max_age`, and the defaults are declared once on the format type.
+`Clear-Output` removes what no format keeps, and reports, never removes, a file no format covers; in a pipeline, whose staging directory is
+fresh for every run, it removes nothing.
 
 - [The catalogue](#the-catalogue)
+- [Retention](#retention)
 
 ### Rule ADR-REPO-OUTFMT-REVIEWABLEFORMATS
 
@@ -81,6 +86,16 @@ write the same kind of file into the same folders, they share one format and its
 
 A limit is a field of its format, because a value repeated in prose drifts from the value the check uses. Adding a format is a catalogue
 entry, not code, as long as an existing validator kind fits it.
+
+### Retention
+
+A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
+every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
+folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
+cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact stays until a person retires
+it. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on the format
+type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is reported and
+left alone: removing what nobody declared would guess at its owner.
 
 ### Formats for people
 

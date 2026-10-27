@@ -50,8 +50,10 @@ Get-BicepDeploymentName sample -Environment prod -Slot 001   # -> sample-prod-00
 
 The function already knows it is in a pipeline, because the one sanctioned detector said so. It reads only each platform's run-id and commit
 data variables, never the detection variables `TF_BUILD` and `GITHUB_ACTIONS`, which only `Test-IsRunningInPipeline` may read
-([FDR-DETECT-NODIRECTVARIABLECHECK](../../../drs/flow/pipeline-detection.md#rule-fdr-detect-nodirectvariablecheck), enforced by
+([ADR-PWSH-DETECT-NODIRECTVARIABLECHECK][r1], enforced by
 `Measure-NoRawPipelineDetection`).
 
 GitHub Actions sets `GITHUB_RUN_ID` and `GITHUB_SHA`, and Azure DevOps sets `BUILD_BUILDID` and `BUILD_SOURCEVERSION`. The commit is
 truncated to 7 characters. Outside a pipeline the name carries the placeholders `xCLIxx` and `xxxxxxx`.
+
+[r1]: ../../../drs/automation/pwsh/pipeline-detection.md#rule-adr-pwsh-detect-nodirectvariablecheck

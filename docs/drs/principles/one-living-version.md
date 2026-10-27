@@ -23,13 +23,6 @@ the old shape leaves no residue. The one bounded exception is a temporary branch
 - [Branch by abstraction](#branch-by-abstraction)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule PDR-ONELIVE-NODEADCODE
-
-No legacy or dead code kept "just in case." Code that nothing reaches is **deleted** — not commented out, not parked behind a disabled flag,
-not moved to an `old/` folder. If it is ever needed again, it is recovered from git.
-
-- [History lives in git](#history-lives-in-git)
-
 ### Rule PDR-ONELIVE-TRUNKBASED
 
 Trunk-based development. Work integrates continuously into a single mainline; there are no long-lived release or version branches carrying
@@ -40,7 +33,11 @@ an alternate version of the code. Branches are short-lived and merge back. The t
 ### Rule PDR-ONELIVE-HISTORYINGIT
 
 History lives in git, not in the working tree. The record of what the code used to be is `git log` / `git blame` — never a retained old
-file, a `# previously …` comment, an in-code changelog, or a commented-out alternative. The working tree shows only the present.
+file, a `# previously …` comment, an in-code changelog, or a commented-out alternative. The working tree shows only the present. No legacy
+or dead code is kept "just in case": code that nothing reaches is **deleted** — not commented out, not parked behind a disabled flag, not
+moved to an `old/` folder — and if it is ever needed again, it is recovered from git.
+
+- [Rejected alternatives](#rejected-alternatives)
 
 - [History lives in git](#history-lives-in-git)
 

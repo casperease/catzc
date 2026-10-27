@@ -197,21 +197,6 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
   the rule holds as code is added rather than depending on review alone.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
-## No semicolons
-
-`Avoid using semicolons`
-
-[ADR-PWSH-NOSEMI](avoid-using-semicolons.md)
-
-> DORA's research on code maintainability shows that reducing syntactic noise and following language idioms correlates with faster code
-> review cycles and fewer defects. Semicolon-free PowerShell code reads as idiomatic, lowers cognitive load, and improves team velocity.
-
-- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — idiomatic syntax reduces cognitive load and review
-  friction.
-- [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — clear, consistent code patterns serve as
-  self-documentation.
-- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
-
 ## foreach over ForEach-Object
 
 `Prefer foreach over ForEach-Object`
@@ -300,9 +285,11 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 [ADR-PWSH-FORMAT](powershell-formatting.md)
 
 > DORA research links consistent code formatting to improved code maintainability. Mechanical enforcement of uniform standards removes
-> variation and lets teams focus on logic rather than style.
+> variation and lets teams focus on logic rather than style. Reducing syntactic noise and following language idioms, such as semicolon-free
+> statements, correlates with faster code review cycles and fewer defects.
 
-- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — consistent conventions enable faster code review.
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — consistent conventions and idiomatic syntax enable
+  faster code review.
 - [Documentation quality](../../../references/dora/capabilities.md#documentation-quality) — clear structure serves as living documentation.
 - [Test automation](../../../references/dora/capabilities.md#test-automation) — every analyzer rule names the DRS rule it enforces, so rule
   coverage counts it.
@@ -463,18 +450,33 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
   function keep every state function readable the same way.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
+## Run-mode mechanics
+
+[ADR-PWSH-RUNMODE](run-mode-mechanics.md)
+
+> DORA's research ties deployment automation and test automation to reliable releases. One importer behind both entry scripts, one module
+> per session state in the package, and a mode derived from the code root mean the shipped package and the source tree load the same code
+> the same way, so what the tests prove in one form holds in the other.
+
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — the package enters through the same importer the
+  source tree uses.
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — the same test files run against both entry scripts.
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — every pwsh spelling of the run modes lives in one
+  record.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
+
 ## Pipeline detection
 
 [ADR-PWSH-DETECT](pipeline-detection.md)
 
-> DORA's research links code maintainability and comprehensive testing to fewer defects and faster deployment cycles. One pwsh function
-> that reads every engine's run mark keeps context-dependent logic greppable, testable, and consistent, so an engine is never silently
-> missed and a mismatch never surfaces late as a cryptic deployment failure.
+> DORA's research links code maintainability and comprehensive testing to fewer defects and faster deployment cycles. One pwsh function that
+> reads every engine's run mark keeps context-dependent logic greppable, testable, and consistent, so an engine is never silently missed and
+> a mismatch never surfaces late as a cryptic deployment failure.
 
-- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one detection function keeps the logic
-  consistent across every caller.
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one detection function keeps the logic consistent
+  across every caller.
 - [Test automation](../../../references/dora/capabilities.md#test-automation) — the detection function is trivially testable by setting a
   run-mark variable.
-- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — the same detection on every engine keeps a
-  CI run from taking a devbox path.
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — the same detection on every engine keeps a CI
+  run from taking a devbox path.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.

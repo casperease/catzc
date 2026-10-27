@@ -27,7 +27,9 @@ pipeline and must agree, so quality is proven where the work is done.
 
 Concentrate quality effort at the furthest-left point, because a defect's cost grows with the distance it travels from its origin
 ([PDR-NOWASTE](../principles/reduce-waste.md), the defects waste). A fault an assertion catches at entry is free; the same fault in
-production is an incident.
+production is an incident. Stopping the line ([WDR-ANDON](holding-the-line.md)) is therefore cheap and expected, not a failure event: the
+best stop is the earliest and smallest — a gate on the devbox — and the worst is a stop discovered in production. Optimise for stopping
+furthest left, not for never stopping.
 
 - [Why](#why)
 

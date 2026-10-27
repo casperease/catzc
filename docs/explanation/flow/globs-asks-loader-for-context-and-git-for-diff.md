@@ -12,7 +12,7 @@ Catzc.Base.Globs owns the touched-unit check; it asks the loader which context i
 7  Get-ChangedFile             the private diff: the changed paths over the range
 8  git                         the vendor tool that answers the diff
 
-Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-DETECT-NODIRECTVARIABLECHECK (architecture lens).
+Supports FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT and ADR-PWSH-DETECT-NODIRECTVARIABLECHECK (architecture lens).
 ```
 
 One module, `Catzc.Base.Globs`, owns everything about globsets: the registry file, the dialect, the native projection and the git-reflection
@@ -25,7 +25,7 @@ description:
   The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
   changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
 about:
-  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-DETECT-NODIRECTVARIABLECHECK]
+  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
@@ -109,7 +109,7 @@ layout:
 - Whether a change touches a unit is computed from git at real refs, with `Test-GlobSetAffected` resolving the reference commit per context
   through `Get-GlobSetChangeRange` and failing open on any doubt (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
 - Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays in
-  one place (FDR-DETECT-NODIRECTVARIABLECHECK).
+  one place (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 
 ## Where the code and the decision record differ
 
@@ -118,7 +118,7 @@ The decision describes a pipeline stage that runs `Test-GlobSetAffected` first; 
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the one detection function the resolver asks.
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the one detection function the resolver asks.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [implementation](range-per-context-then-diff-and-match.md), [operations](stop-only-on-false-everything-else-proceeds.md) and
   [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).

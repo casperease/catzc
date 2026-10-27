@@ -75,15 +75,9 @@ fails to intercept fails loudly.
 Every test carries two mandatory, orthogonal tags, resolved through the groups that enclose it (the nearest contributing group wins):
 exactly one **tier** `L0|L1|L2|L3|L4` and exactly one category `logic|integrity`. There is no default for either — a test resolving to zero,
 or to two of the same axis, is a violation. Put both on the outermost group for a uniform test file; override on an inner group where the
-file mixes tiers or categories — never two tags of the same axis on one group.
-
-- [Two mandatory tag axes](#mandatory-tag-axes)
-
-### Rule ADR-AUTO-TEST-LOGICANDINTEGRITY
-
-`logic` = verifies a function's logic on mocks and/or its own fixtures, independent of shipped config; `integrity` = verifies the actual
-repository contents (shipped `azure.yml`/`network.yml`/`tools.yml`/…, real templates, the module/type/function graph, checked-in binaries,
-file/folder conventions). This is the category axis of ADR-AUTO-TEST-TWOMANDATORYTAGS.
+file mixes tiers or categories — never two tags of the same axis on one group. On the category axis, `logic` verifies a function's logic on
+mocks and/or its own fixtures, independent of shipped config; `integrity` verifies the actual repository contents (shipped
+`azure.yml`/`network.yml`/`tools.yml`/…, real templates, the module/type/function graph, checked-in binaries, file/folder conventions).
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 
@@ -748,7 +742,7 @@ tests as rows like any other.
 
 The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2`
 (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE), always. Its category comes from its name: `TestIntegrity*` reads the shipped artifacts and is
-`integrity`, every other Go test is `logic` (ADR-AUTO-TEST-LOGICANDINTEGRITY). When the managed `go` is missing, the bridge skips with
+`integrity`, every other Go test is `logic` (ADR-AUTO-TEST-TWOMANDATORYTAGS). When the managed `go` is missing, the bridge skips with
 `tool_go_missing`, the same constrained skip key as any other tool skip (ADR-AUTO-TEST-TAGBYOUTERMOSTRING). In a build run the bridge hands
 the Go tests the build's entry script, the same single seam the shard workers use (ADR-AUTO-TEST-SAMETESTSBOTHRUNS).
 

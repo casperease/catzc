@@ -9,17 +9,11 @@ there is no separate registration to fall out of sync.
 
 - [Principle](#principle)
 
-### Rule PDR-POKAYOKE-DETECTEARLIEST
-
-Where prevention is impossible, detect the error at the earliest moment — authoring time, build time, or the first line of execution — never
-at production time and never silently.
-
-- [Principle](#principle)
-
 ### Rule PDR-POKAYOKE-FAILFAST
 
-Fail fast — stop the moment a defect is detected and fix it at source; never continue with bad state hoping something downstream compensates
-(jidoka).
+Fail fast — where prevention is impossible, detect the error at the earliest moment (authoring time, build time, or the first line of
+execution), never at production time and never silently; stop the moment a defect is detected and fix it at source, never continuing with
+bad state hoping something downstream compensates (jidoka).
 
 - [Principle](#principle)
 

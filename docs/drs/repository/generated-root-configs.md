@@ -28,15 +28,6 @@ reviewable diff. The difference between the two is one boolean, not two systems.
 
 - [One system, one boolean](#one-system-one-boolean)
 
-### Rule ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT
-
-Generation is idempotent and runs on every import (the importer tail). All content writes go through the one shared primitive
-`Write-FileIfChanged` (`Catzc.Base.Files`): canonical output (UTF-8 no BOM, LF, one trailing newline), an EOL-insensitive compare, write
-only on a real content change — so a clean tree is a fast no-op and a CRLF/LF flip never forces a rewrite. A changed write is
-delete-then-write, never in-place, so a target that is a link is replaced by a file of its own and never written through into a template.
-
-- [Always current](#always-current)
-
 ### Rule ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
 
 Every managed root file — a `source` copy or a `generator`'s output — carries the unified generated-file head
@@ -119,8 +110,9 @@ it with its template byte for byte, so an edit made in the copy is a finding tha
 A tool reads its root file whatever comes before its content, as long as the head is in the format's own comment syntax, so the carrier
 registry decides the form: a `#` comment head for a dotfile, a YAML file or a solution file after its preamble, and the ignored property of
 a JSON file whose parser rejects comments. A target that is a link is stale whatever its bytes: `Build-RootConfig` deletes it before it
-writes the copy, so a write never tunnels through a link into a template (ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT), and the integrity test fails
-a managed target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
+writes the copy, so a write never tunnels through a link into a template
+([ADR-REPO-README-READMEIDEMPOTENT](generated-readmes.md#rule-adr-repo-readme-readmeidempotent)), and the integrity test fails a managed
+target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 
 ### One entry, many files
 
@@ -139,10 +131,12 @@ the entry's pattern, or a literal target rendering anything but one file, throws
 `Always current, at no steady-state cost`
 
 Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
-links ([generated-readmes](generated-readmes.md)). This is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises,
-compares ignoring line endings, and writes only on a real change (delete-then-write, so the changed write always yields a fresh, independent
-file). The same primitive is the write tail for every generated-artifact builder — one living copy of that logic (see
-[one-living-version](../principles/one-living-version.md)) instead of a per-builder reimplementation.
+links ([generated-readmes](generated-readmes.md)). Generation is idempotent by
+[ADR-REPO-README-READMEIDEMPOTENT](generated-readmes.md#rule-adr-repo-readme-readmeidempotent), which holds for every root config too. This
+is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises, compares ignoring line endings, and writes only on a
+real change (delete-then-write, so the changed write always yields a fresh, independent file). The same primitive is the write tail for
+every generated-artifact builder — one living copy of that logic (see [one-living-version](../principles/one-living-version.md)) instead of
+a per-builder reimplementation.
 
 ### The integrity test
 

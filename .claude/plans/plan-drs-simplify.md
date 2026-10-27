@@ -27,21 +27,14 @@ records.
 Each step keeps a neutral rule in place and moves the spelling to its twin. Check for each: the record check plus `Test-DrsEngineNeutrality`
 on the neutral record.
 
-- [ ] `flow/durable-sha-globs.md`: the GitHub and ADO path-filter projections, YAML samples and drift gates (FDR-GLOBS-NATIVEPATHFILTER)
-      move to `github/` and `ado/`. Check: as above.
-- [ ] `flow/pipeline-detection.md` (the FDR-DETECT rules) moves to `automation/pwsh/`. Check: as above.
 - [ ] `configuration/config-value-addressing.md`: its pwsh code moves to `automation/pwsh/`. Check: as above.
-- [ ] `automation/test-automation.md`: the pwsh, Pester and Bicep names in ADR-AUTO-TEST-SAFESEAMSWAPS, -PROCESSTRIPWIRE,
-      -GENERICTEMPLATETESTS, -TAGSENFORCED, -TESTRUN, -QUALITYGATE, -TESTSUITE and -TESTINGINPRODUCTION, the Build-Bicep example, and the
-      harness and snapshot mechanics move to `automation/pwsh/pester-testing.md`; the decisions of -FILEPARALLELISM, -ONESCHEDULINGPOOL and
-      -SYSTEMTESTSATLTHREE stay. Check: as above.
-- [ ] `automation/BCL/native-csharp-types.md`: the pwsh host behaviour (ADR-BCL-TYPES-CHANGEDAFTERLOAD, -STALETYPESGUARD, -ONEDRIFTMEASURE,
-      -CONSOLEVERIFIESONLY, -ACCELERATORSNOTFULLNAMES, -JANITORSBYCALLER and its two sections) moves to
-      `automation/pwsh/hosting-csharp-types.md`, merging with ADR-PWSH-TYPES-RESTARTTORELOAD and -ONEINSTANCEPERSESSION. Check: as above.
+- [ ] `automation/BCL/native-csharp-types.md`: the pwsh host rules (ADR-BCL-TYPES-CHANGEDAFTERLOAD, -STALETYPESGUARD, -ONEDRIFTMEASURE,
+      -CONSOLEVERIFIESONLY, -ACCELERATORSNOTFULLNAMES, -JANITORSBYCALLER) move to `automation/pwsh/hosting-csharp-types.md`, merging with
+      ADR-PWSH-TYPES-RESTARTTORELOAD and -ONEINSTANCEPERSESSION; the shadow-copy mechanics already moved. Check: as above.
 - [ ] `repository/conventional-folders.md`: the `Join-Path`, `Get-CatzcModuleRoot` and `Format-Types` samples move to `automation/pwsh/`.
       Check: as above.
-- [ ] `design/run-modes.md` (all PowerShell) moves to `automation/pwsh/`; the three value-chain rules of `design/tracks.md`
-      (DDR-TRACK-VALUECHAINSTACK, -VALUECHAINCONCERN, -VALUECHAINMAP) move to a DRS record in `repository/`. Check: as above.
+- [ ] The three value-chain rules of `design/tracks.md` (DDR-TRACK-VALUECHAINSTACK, -VALUECHAINCONCERN, -VALUECHAINMAP) move to a DRS record
+      in `repository/`. Check: as above.
 - [ ] Engine names leave DDR-TRACK-ONETRACKTYPE (its Go, Python and Bash test-holder sentences). Check: as above.
 - [ ] DDR-VISUAL-ARROWSPOINTATDEPENDENCY keeps the arrow meaning and its routing mechanics move to the renderer docs. Check: as above.
 
@@ -75,8 +68,6 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
 
 ### Sections that restate their rules
 
-- [ ] `azure/azure-data-model.md`: "One tenant" and "The subscription as the unit" move to `az-session-verification.md`,
-      `azure-customer-model.md` and `landing-zones.md`, cited from here. Check: the record check.
 - [ ] `repository/conventional-folders.md`: "How this is enforced" becomes one current list. Check: the record check.
 - [ ] `repository/api-contracts.md`: "The name picks the kind", the Decision restatement and "Three version ranges" go; rejected
       alternatives 1/3/10 and 2/7 fold together; HEADPOLICY's carrier detail in `repository/file-meta.md` defers to JSONCARRIER. Check: the
@@ -84,9 +75,8 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
 
 ### Gate extension (decided by the user, 2026-10-27: yes)
 
-- [ ] Extend `Test-DrsEngineNeutrality` from `automation/` to `flow/` (vendor names), `design/`, `principles/` and `thesis/` (engine names),
-      so tier drift is caught at the gate instead of by review. Runs after the tier moves above land, so the gate goes green on arrival.
-      Check: `Test-DrsEngineNeutrality` passes on the whole DRS and its test file covers one widget record per new folder.
+- [ ] `pwsh/Base.Drs/configs/drs-checks.yml` `engine_neutrality.domains`: add `flow: [vendor]` and `design`, `principles`, `thesis`:
+      `[engine, vendor]` (the token sets and their tests landed). Check: `Test-DrsEngineNeutrality` passes on the whole DRS.
 
 ### Records still owed a full prose pass
 

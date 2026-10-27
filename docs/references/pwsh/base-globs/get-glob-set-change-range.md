@@ -1,6 +1,6 @@
 # pwsh/Base.Globs/Get-GlobSetChangeRange.ps1
 
-The reference-commit resolver ([FDR-DETECT](../../../drs/flow/pipeline-detection.md)): it returns the git diff range that the current
+The reference-commit resolver ([ADR-PWSH-DETECT][r1]): it returns the git diff range that the current
 execution context measures a globset change against, or null when the range cannot be resolved, which callers treat as affected.
 
 ## help
@@ -12,7 +12,7 @@ The git diff range the current context measures a globset change against — the
 ### description
 
 Answers "before versus now: which two commits?" for the in-pipeline "is this unit affected?" check, per execution context
-([FDR-DETECT](../../../drs/flow/pipeline-detection.md)), so the same globset check is correct everywhere it runs:
+([ADR-PWSH-DETECT](../../../drs/automation/pwsh/pipeline-detection.md)), so the same globset check is correct everywhere it runs:
 
 - Post-commit on main (the BVT / the CD engine on the merged commit): 'HEAD^1..HEAD'. main advances ONLY by squash-merge, so the merged
   commit has a single parent (the prior main tip) and its first-parent diff is exactly what the push added. This is the squash-proof
@@ -38,3 +38,5 @@ fails open (the fast CI engine runs anyway, never wrongly skipped).
 ```powershell
 Get-GlobSetChangeRange
 ```
+
+[r1]: ../../../drs/automation/pwsh/pipeline-detection.md

@@ -48,13 +48,14 @@ non-production and `Standard` in production. `expedition` holds one storage acco
 secondary region; an ephemeral slot (`dev-blu` on `apex/dev.yml`) is a second full copy of the workload.
 
 Environment class is a config decision ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). The non-production
-`expedition` configs (`dev.yml`, `test.yml`, `apex/dev.yml` and its ephemeral `dev-blu`, `nova/dev.yml`) set the serverless `GP_S_Gen5`
-between `databaseMinCapacity: "0.5"` and `databaseSkuCapacity: 2` vCores with `databaseAutoPauseDelay: 60` minutes,
-`databaseZoneRedundant: false`, `databaseBackupStorageRedundancy: Local`, and `databaseBackupRetentionDays: 7`; `apex/prod.yml` sets the
-provisioned `GP_Gen5` at `databaseSkuCapacity: 2`, omits `databaseZoneRedundant` so the template default `true` applies, and keeps the
-module's `Geo` redundancy and 35 days. These are the per-class values the rest of this page refers to. The storage account takes the
-module's `Standard_ZRS` in every class, because `expedition` exposes no storage SKU. `foundation` is identical in both classes (the
-workspace keeps 30 days in each, the minimum). Policy enforcement audits outside production by default
+`expedition` configs (`dev.yml`, `test.yml`, their `apex/` and `nova/` counterparts, and apex's ephemeral `dev-blu`) set the serverless
+`GP_S_Gen5` between `databaseMinCapacity: "0.5"` and `databaseSkuCapacity: 2` vCores with `databaseAutoPauseDelay: 60` minutes,
+`databaseZoneRedundant: false`, `databaseBackupStorageRedundancy: Local`, and `databaseBackupRetentionDays: 7`; `apex/prod.yml` and
+`apex/preprod.yml` set the provisioned `GP_Gen5` at `databaseSkuCapacity: 2`, omit `databaseZoneRedundant` so the template default `true`
+applies, and set `databaseBackupStorageRedundancy: Geo` and `databaseBackupRetentionDays: 35`, since the template takes both from every
+config. These are the per-class values the rest of this page refers to. The storage account's SKU is per config too: `storageSkuName` is
+`Standard_ZRS` in `apex/prod.yml` and `apex/preprod.yml` and `Standard_LRS` in the non-production configs. `foundation` is identical in both
+classes (the workspace keeps 30 days in each, the minimum). Policy enforcement audits outside production by default
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Off-hours shutdown is not used,
 because auto-pause stops the database's compute when idle, and no environment is ephemeral.
 
@@ -97,7 +98,7 @@ config address ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../azure-data-model.md#rule-adr-
 a `/24` for the private endpoints and for each environment, which caps the private endpoints a spoke can hold; its budget (1000 for the
 production hub, 300 for the apex non-production spoke) is the one capacity-like number in its configs. Every `expedition` config names the
 database capacity: `GP_S_Gen5` with a ceiling of 2 vCores and a floor of 0.5 outside production, `GP_Gen5` with 2 vCores in production; the
-storage account is `Standard_ZRS` from the module default and has no capacity setting.
+storage account is `Standard_ZRS` in production and `Standard_LRS` outside it, set per config, and has no capacity setting.
 
 The templates use managed services throughout and no virtual machine (`vm.bicep` exists as a module that no template uses). Every
 environment in `azure.yml` names one region, `westeurope`, and the allowed-locations policy keeps resources there
@@ -174,7 +175,7 @@ Vault, logs in its workspace, the network and private DNS zones in the landing z
 setting. `discovery` deploys only platform networking and governance resources: a resource group, a virtual network with inline subnets, a
 network security group per workload subnet, a route table, peerings, a hub's Azure Firewall with its policy and its three private DNS zones,
 the policy assignments of `landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, the
-Service Health and Resource Health alerts, the Defender plans, and a budget. `expedition` deploys a `Standard_ZRS` storage account
+Service Health and Resource Health alerts, the Defender plans, and a budget. `expedition` deploys a storage account
 (`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`, `sql-database.bicep`) reached through two
 private endpoints, with no virtual machine and no self-managed database.
 
@@ -205,10 +206,11 @@ deployments do not have.
 Zone-redundant deployment is the module default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
 turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template weakens that only by a
 config value, and only outside production, where the cost saving outweighs a zone outage
-([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Storage is `Standard_ZRS` in every `expedition` config, and the
-database's zone and backup redundancy per class are those of [Cost by configuration](#cost-by-configuration). Every environment maps to one
-region, so geo-redundant backups are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the
-only copy of the private DNS zones; each hub runs its Azure Firewall in `AzureFirewallSubnet` (zone-redundant in production) and reserves
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). `expedition` takes the storage SKU and the database's backup
+redundancy and retention from every config: storage is `Standard_ZRS` in production and `Standard_LRS` outside it, and the database's zone
+and backup redundancy per class are those of [Cost by configuration](#cost-by-configuration). Every environment maps to one region, so
+geo-redundant backups are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the only copy of
+the private DNS zones; each hub runs its Azure Firewall in `AzureFirewallSubnet` (zone-redundant in production) and reserves
 `GatewaySubnet`, so a gateway is added without renumbering. A `CanNotDelete` lock guards what many deployments depend on: the hub's virtual
 network, its private DNS zones, and `foundation`'s vault.
 

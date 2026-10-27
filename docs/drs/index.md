@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9c641c99663d"
+    with_body_sha: faf4e5adc2a7
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -222,7 +222,6 @@ pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `au
 | `ADR-PWSH-ERROR`    | [error-handling](automation/pwsh/error-handling.md)                                         |
 | `ADR-PWSH-ASSERT`   | [assert-idioms](automation/pwsh/assert-idioms.md)                                           |
 | `ADR-PWSH-ANNOUNCE` | [announce-state-changes](automation/pwsh/announce-state-changes.md)                         |
-| `ADR-PWSH-NOSEMI`   | [avoid-using-semicolons](automation/pwsh/avoid-using-semicolons.md)                         |
 | `ADR-PWSH-FOREACH`  | [prefer-foreach-over-foreach-object](automation/pwsh/prefer-foreach-over-foreach-object.md) |
 | `ADR-PWSH-AUTOVAR`  | [automatic-variable-pitfalls](automation/pwsh/automatic-variable-pitfalls.md)               |
 | `ADR-PWSH-VERBS`    | [respect-pwsh-verb-rules](automation/pwsh/respect-pwsh-verb-rules.md)                       |

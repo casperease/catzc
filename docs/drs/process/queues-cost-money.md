@@ -9,13 +9,6 @@ on speed is shortening queues, not speeding up the work — the money is lost in
 
 - [Decision](#decision)
 
-### Rule WDR-QUEUECOST-LITTLESLAW
-
-Little's Law governs flow: average flow time equals average work-in-progress divided by average throughput. Throughput is near-fixed in the
-short run, so lead time falls by cutting work-in-progress ([WDR-PULLWORK](pull-work.md)), not by exhortation to hurry.
-
-- [The arithmetic](#the-arithmetic)
-
 ### Rule WDR-QUEUECOST-DELAYHASAPRICE
 
 Delay has a measurable price. Cost of delay turns queue time into money and sets priority: work the highest cost-of-delay item first, and
@@ -26,16 +19,11 @@ treat a long feedback queue as an ongoing expense rather than a neutral wait.
 ### Rule WDR-QUEUECOST-ATTENTIONISTHECONSTRAINT
 
 Machine time is cheap and follows Moore's law; human attention is the constraint. So spend compute to drain the human queue — parallel
-quality gates, eager caches, ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper than a minute of a person blocked.
+quality gates, eager caches, ephemeral environments, rebuild-don't-wait. A minute of CPU is cheaper than a minute of a person blocked. Work
+is classified by who acts: an automated step runs to completion with no human action, a manual step requires a person
+([WDR-LEANTERMS](process-terms.md)); the direction of travel is to convert every manual step that needs no judgement into an automated one.
 
 - [Decision](#decision)
-
-### Rule WDR-QUEUECOST-BATCHSIZEDRIVESQUEUES
-
-Batch size drives queue size. Large batches inflate queues and their variability; small batches ([WDR-PULLWORK](pull-work.md)) keep both the
-queue and its cost of delay low. Reduce batch size before adding capacity.
-
-- [How to apply](#how-to-apply)
 
 ## Context
 
@@ -67,7 +55,9 @@ Manage the queues, not just the work. Concretely:
 **Little's Law** [^2]. For any stable system, average flow time equals average work-in-progress divided by average throughput
 (`flow time = WIP ÷ throughput`). Read it as a lever: throughput (how many changes the pipeline completes per unit time) is roughly fixed by
 the system's design in the short run, so the term you can move is work-in-progress. Halving the number of changes in flight halves their
-average lead time — arithmetic, not effort. This is the formal reason [WDR-PULLWORK](pull-work.md) caps work-in-progress.
+average lead time — arithmetic, not effort. This is the formal reason
+[WDR-PULLWORK-LIMITWORKINPROGRESS](pull-work.md#rule-wdr-pullwork-limitworkinprogress) caps work-in-progress, and batch size drives queue
+size the same way ([WDR-PULLWORK-SMALLESTBATCH](pull-work.md#rule-wdr-pullwork-smallestbatch)).
 
 **Cost of delay** [^1]. Every item has a cost of delay — the value lost per unit time it is late. Multiplying queue time by cost of delay
 turns a wait into a number, which does two things: it sets priority (work the highest cost-of-delay item first, not the biggest or the

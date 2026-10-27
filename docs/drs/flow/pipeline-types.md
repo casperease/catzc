@@ -138,8 +138,8 @@ engine**.
 
 The CI engine is **build-and-verify**, run in two trigger contexts on the same code:
 
-1. **Pre-commit** — runs as a **build validation** on the PR branch, before merge. Its job is to build the unit and verify the build.
-   It is bound by a hard budget of **5–10 minutes** (Farley's pre-commit figure; DORA's ten-minute working number — see
+1. **Pre-commit** — runs as a **build validation** on the PR branch, before merge. Its job is to build the unit and verify the build. It is
+   bound by a hard budget of **5–10 minutes** (Farley's pre-commit figure; DORA's ten-minute working number — see
    [test automation](../../references/dora/capabilities.md#test-automation)). A gate slower than that stops being a gate and becomes a
    queue.
 2. **Post-commit on master** — the _same_ build-and-verify, re-run on the actual merged commit. The pre-commit validation proved the PR
@@ -163,8 +163,8 @@ There are exactly six pipeline types: **CRON**, **CI**, **CD**, **CDe**, **DEPLO
   then deploy + verify to prod. Produces: an automated production deployment.
 - **DEPLOY**: CD's deploy tail, extracted and human-governed. Trigger: manual or chained, pinned to a commit. Components: deploy & system
   tests over a pinned artifact. Produces: a governed, audited deployment.
-- **INPUT**: self-service input turned into a config change. Trigger: manual, with run parameters. Components: param intake →
-  checkout → write config files. Produces: a version-controlled change (a commit).
+- **INPUT**: self-service input turned into a config change. Trigger: manual, with run parameters. Components: param intake → checkout →
+  write config files. Produces: a version-controlled change (a commit).
 
 CDe is the fullest — the CI engine, then deploy-and-verify across non-prod and prod, automated end to end; CD is CDe with the production
 roll left to a separately-governed step; CI is CD with the deploy and system-test stages amputated; and DEPLOY is exactly those amputated
@@ -308,8 +308,8 @@ Its output is a change to the source of truth — a commit — not a deployment.
 normal CI/CD path then carries to the cloud. The invariant: self-service belongs _above_ the pipeline, feeding the source of truth —
 **inputs become commits, not run parameters.**
 
-- **Trigger:** manual, with parameters. INPUT is the **one** legitimate home for run parameters that carry values, precisely because those parameters
-  never reach the cloud directly — they are written into version control first, where the PR gate and CD can see them.
+- **Trigger:** manual, with parameters. INPUT is the **one** legitimate home for run parameters that carry values, precisely because those
+  parameters never reach the cloud directly — they are written into version control first, where the PR gate and CD can see them.
 - **How the commit lands:** an INPUT pipeline may open a **PR** (reviewed, or policy-auto-merged) or commit **directly** to a branch. The PR
   form preserves the change-approval gate that DORA's research identifies as the effective one (see
   [streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval)); the direct form is lower-ceremony for
@@ -323,7 +323,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - **The taxonomy is the review checklist.** A new pipeline artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An
   artifact that cannot be cleanly classified does not merge until it can.
 - **Each vendor's pipelines** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars work elsewhere
-  in this codebase; the vendor domain spells each type's triggers, build validation and parameters.
+  in this codebase; the ado domain and the github domain spell each type's triggers, build validation and parameters.
 - **Naming.** Pipeline definitions name their type so the artifact's category is visible at a glance, not inferred from its YAML.
 
 ## Consequences
@@ -349,7 +349,7 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 - [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a discipline, and
   how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
 - [pipeline-concept](pipeline-concept.md) — the vendor-neutral pipeline rules every type relies on, the one detection point among them; the
-  vendor domains bind their YAML, variables and credentials.
+  ado domain and the github domain bind their YAML, variables and credentials.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - The L2/L3 test tiers — what the CI engine runs.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration),

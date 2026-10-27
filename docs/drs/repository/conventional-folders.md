@@ -103,17 +103,9 @@ runner; the module just cannot expect tooling to interact with it.
 
 ### Rule ADR-REPO-FOLDERS-CONTRACTSFOLDER
 
-Contracts live under the root `contracts/` folder, laid out as `contracts/<root>/<version>/[<group>/]<asset>`
-([ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)): `<root>` names who made the promise — `catzc` for what we
-promise the world, a vendor's plain moniker (`github`, `ado`, `azure`) for what that vendor promised us — `<version>` is `0.1.0`, the
-current contracts every internal binding points at, or a frozen `catzc` release from `1.0.0` up
-([ADR-REPO-CONTRACT-CURRENTVERSION](api-contracts.md#rule-adr-repo-contract-currentversion)), and the optional `<group>` is one folder, the
-owning module in `catzc` or the vendor's area in a vendor root; no folder under `contracts/` is dot-prefixed
-([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). A release folder kept for a consumer that pins it
-is deliberately and equally live (see [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)),
-not legacy. The root carries a checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding
-interfaces at the repository boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code
-`ADR-REPO-CONTRACT`).
+Contracts live under the root `contracts/` folder, whose layout [ADR-REPO-CONTRACT-LAYOUT](api-contracts.md#rule-adr-repo-contract-layout)
+owns, with the versions, the pinned releases and the dot-prefix ban in the rules beside it in [api-contracts](api-contracts.md) (code
+`ADR-REPO-CONTRACT`). The root carries a checked-in `.gitkeep`, so it stays tracked before any contract exists.
 
 - [Level 1: Repository root](#level-1-repository-root)
 

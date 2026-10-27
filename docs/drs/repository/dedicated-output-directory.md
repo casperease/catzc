@@ -90,16 +90,6 @@ PDF that must be committed opts out with its own `!` line, and a note saying why
 
 - [Decision](#decision)
 
-### Rule ADR-REPO-OUTDIR-EVERYFILEHASFORMAT
-
-Every file under the output root belongs to one format of `output-formats.yml`, and its format's **area** (`run`, `build`, `cache`,
-`review`, `session`, `log`) sets how long it stays: the newest stamps of a run, the newest build, every cache entry and review artifact,
-session files for seven days. A format overrides the area with `keep` and `max_age`, and the defaults are declared once on the format type.
-`Clear-Output` removes what no format keeps, and reports, never removes, a file no format covers; in a pipeline, whose staging directory is
-fresh for every run, it removes nothing.
-
-- [Retention](#retention)
-
 ## Context
 
 Automation functions produce files — reports, exports, generated configs, build artifacts, test results. When each function chooses its own
@@ -163,15 +153,7 @@ clean-clone resets every generated artifact and leaves the stray plan in place, 
 A plan's work breaks into workstreams — `### W<n>: <name>` sections such as W0, W1, W2 — each with its own order and gate. A workstream
 lands whole: it is never committed half-done, and its citation never aliases an older label (PDR-ONELIVE).
 
-### Retention
-
-A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
-every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
-folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
-cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact stays until a person retires
-it. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on the format
-type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is reported and
-left alone: removing what nobody declared would guess at its owner.
+Which files stay and for how long is decided per format, in [output-formats](output-formats.md#retention).
 
 ## Consequences
 

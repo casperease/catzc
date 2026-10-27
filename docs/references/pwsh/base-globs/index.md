@@ -81,7 +81,7 @@ description:
   Before the workers start, a module's globset hashes fold into one identity that is compared with the identity recorded after its last
   green run; a match skips the module, the asked identity is held as pending, and a green result promotes it afterwards.
 about:
-  adrs: [ADR-REPO-PROTGLOB, FDR-GLOBS, FDR-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
+  adrs: [ADR-REPO-PROTGLOB, FDR-GLOBS, ADR-PWSH-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
   lens: source
 content:
   title: Skip a module only if its folded hash matches its last green

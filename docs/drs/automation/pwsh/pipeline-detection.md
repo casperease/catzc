@@ -40,9 +40,8 @@ Keep the function fast. It is called often, so it reads the run-mark variables a
 ## Context
 
 The automation runs in two contexts: interactively on a developer's machine, and inside a CI/CD pipeline. Some behaviour differs between
-them: the output format, the token source, the artifact path, and whether a pipeline variable is emitted. Each CI engine marks its runs
-with an environment variable of its own, and the engine's domain names it. The question is how a pwsh function knows which context it is
-in.
+them: the output format, the token source, the artifact path, and whether a pipeline variable is emitted. Each CI engine marks its runs with
+an environment variable of its own, and the engine's domain names it. The question is how a pwsh function knows which context it is in.
 
 ### Implicit detection
 
@@ -124,8 +123,8 @@ it is missing.
 
 ## Consequences
 
-- Pipeline detection is consistent: every function uses the same check over the same variables, and every supported engine is covered in
-  one place.
+- Pipeline detection is consistent: every function uses the same check over the same variables, and every supported engine is covered in one
+  place.
 - The variables read are an implementation detail. When an engine changes its run mark, or another engine is added, one function changes,
   not every consumer.
 - The function is trivially testable: set a run-mark variable in a test, assert the result, clean up.

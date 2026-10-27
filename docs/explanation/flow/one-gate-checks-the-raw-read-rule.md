@@ -9,8 +9,8 @@ The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no g
 4  Test-IsRunningInPipeline.Tests.ps1  the L0 test that proves the boolean's three cases
 5  Measure-NoRawPipelineDetection      the analyzer rule, mapped to rule 1 in analyzer-drs-map.yml
 
-Supports FDR-DETECT-NODIRECTVARIABLECHECK, FDR-DETECT-VISIBLECONTEXTBEHAVIOUR, FDR-DETECT-PARAMETERSOVERDETECTION,
-FDR-DETECT-BOOLEANNOTMODAL, FDR-DETECT-FASTDETECTION and ADR-AUTO-PARITY-PARITYSEAM (governance lens).
+Supports ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-VISIBLECONTEXTBEHAVIOUR, ADR-PWSH-DETECT-PARAMETERSOVERDETECTION,
+ADR-PWSH-DETECT-BOOLEANNOTMODAL, ADR-PWSH-DETECT-FASTDETECTION and ADR-AUTO-PARITY-PARITYSEAM (governance lens).
 ```
 
 Five rules govern pipeline detection in cats, and one gate carries most of the weight. The analyzer rule enforces the first, never read the
@@ -23,11 +23,11 @@ description:
   is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the ADR alone, drawn dashed."
 about:
   adrs:
-    - FDR-DETECT-NODIRECTVARIABLECHECK
-    - FDR-DETECT-VISIBLECONTEXTBEHAVIOUR
-    - FDR-DETECT-PARAMETERSOVERDETECTION
-    - FDR-DETECT-BOOLEANNOTMODAL
-    - FDR-DETECT-FASTDETECTION
+    - ADR-PWSH-DETECT-NODIRECTVARIABLECHECK
+    - ADR-PWSH-DETECT-VISIBLECONTEXTBEHAVIOUR
+    - ADR-PWSH-DETECT-PARAMETERSOVERDETECTION
+    - ADR-PWSH-DETECT-BOOLEANNOTMODAL
+    - ADR-PWSH-DETECT-FASTDETECTION
     - ADR-AUTO-PARITY-PARITYSEAM
   lens: governance
 content:
@@ -56,12 +56,12 @@ content:
     - { at: g-test, number: 4 }
     - { at: g-analyzer, number: 5 }
   chips:
-    - { at: g-detector, kind: rule, rule: FDR-DETECT-BOOLEANNOTMODAL }
-    - { at: g-detector, kind: rule, rule: FDR-DETECT-FASTDETECTION, gated: false }
-    - { at: g-hook, kind: rule, rule: FDR-DETECT-NODIRECTVARIABLECHECK, gated: false }
-    - { at: s-consumers, kind: rule, rule: FDR-DETECT-NODIRECTVARIABLECHECK }
-    - { at: s-consumers, kind: rule, rule: FDR-DETECT-VISIBLECONTEXTBEHAVIOUR, gated: false }
-    - { at: s-consumers, kind: rule, rule: FDR-DETECT-PARAMETERSOVERDETECTION, gated: false }
+    - { at: g-detector, kind: rule, rule: ADR-PWSH-DETECT-BOOLEANNOTMODAL }
+    - { at: g-detector, kind: rule, rule: ADR-PWSH-DETECT-FASTDETECTION, gated: false }
+    - { at: g-hook, kind: rule, rule: ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, gated: false }
+    - { at: s-consumers, kind: rule, rule: ADR-PWSH-DETECT-NODIRECTVARIABLECHECK }
+    - { at: s-consumers, kind: rule, rule: ADR-PWSH-DETECT-VISIBLECONTEXTBEHAVIOUR, gated: false }
+    - { at: s-consumers, kind: rule, rule: ADR-PWSH-DETECT-PARAMETERSOVERDETECTION, gated: false }
     - { at: s-consumers, kind: rule, rule: ADR-AUTO-PARITY-PARITYSEAM, gated: false }
   legend: auto
   minimaps: [code-locations, grid, axis]
@@ -89,18 +89,18 @@ layout:
    the environments genuinely differ, have no gate: dashed chips.
 4. **Test-IsRunningInPipeline.Tests.ps1.** An L0 logic test. It sets `TF_BUILD`, then `GITHUB_ACTIONS`, then neither, and asserts true, true
    and false.
-5. **Measure-NoRawPipelineDetection.** The analyzer rule. `analyzer-drs-map.yml` maps it to FDR-DETECT-NODIRECTVARIABLECHECK, and
+5. **Measure-NoRawPipelineDetection.** The analyzer rule. `analyzer-drs-map.yml` maps it to ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, and
    `Test-AnalyzerDrsMap` fails when a custom rule is unmapped or cites a rule that does not exist, so the credit the rule-coverage report
    gives to this rule is itself checked.
 
 ## Why it holds
 
-- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file (FDR-DETECT-NODIRECTVARIABLECHECK).
+- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 - Context-dependent behavior must be intentional and visible, through the detector or a parameter; the FDR alone states it
-  (FDR-DETECT-VISIBLECONTEXTBEHAVIOUR).
-- Prefer a parameter over detection; detection is the fallback; the FDR alone states it (FDR-DETECT-PARAMETERSOVERDETECTION).
-- Detection is boolean, not modal; the L0 test proves all three cases (FDR-DETECT-BOOLEANNOTMODAL).
-- The function stays fast, reading two variables and nothing else; the FDR alone states it (FDR-DETECT-FASTDETECTION).
+  (ADR-PWSH-DETECT-VISIBLECONTEXTBEHAVIOUR).
+- Prefer a parameter over detection; detection is the fallback; the FDR alone states it (ADR-PWSH-DETECT-PARAMETERSOVERDETECTION).
+- Detection is boolean, not modal; the L0 test proves all three cases (ADR-PWSH-DETECT-BOOLEANNOTMODAL).
+- The function stays fast, reading two variables and nothing else; the FDR alone states it (ADR-PWSH-DETECT-FASTDETECTION).
 - A command branches on the seam only where the environments genuinely differ, never to change what it does; the FDR alone states it
   (ADR-AUTO-PARITY-PARITYSEAM).
 
@@ -112,7 +112,7 @@ layout:
 
 ## See also
 
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
   [architecture](the-loader-holds-the-one-detector.md), [implementation](two-variables-read-in-one-place.md) and

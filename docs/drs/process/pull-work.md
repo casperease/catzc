@@ -11,8 +11,9 @@ ready creates queues and partially-done work ([PDR-NOWASTE](../principles/reduce
 
 ### Rule WDR-PULLWORK-SMALLESTBATCH
 
-Reduce batch size to the smallest increment that can move on its own. Small batches shorten feedback, lower the cost of any one change, and
-keep queues short ([WDR-QUEUECOST](queues-cost-money.md)); large batches do the opposite on every count.
+Reduce batch size to the smallest increment that can move on its own. Batch size drives queue size: small batches shorten feedback, lower
+the cost of any one change, and keep both the queue and its cost of delay low ([WDR-QUEUECOST](queues-cost-money.md)); large batches inflate
+queues and their variability. Reduce batch size before adding capacity.
 
 - [Decision](#decision)
 
@@ -25,9 +26,11 @@ them is low — but decide before the lack of a decision starts to cost more tha
 
 ### Rule WDR-PULLWORK-LIMITWORKINPROGRESS
 
-Limit work in progress. Finishing beats starting: a cap on concurrent work forces the queue down, exposes the real constraint, and reduces
-the task-switching waste ([PDR-NOWASTE](../principles/reduce-waste.md)) — by Little's Law, less work-in-progress is directly less lead time
-([WDR-QUEUECOST](queues-cost-money.md)).
+Limit work in progress. Flow is measured, not felt: by Little's Law, average flow time equals average work-in-progress divided by average
+throughput ([WDR-QUEUECOST](queues-cost-money.md), [EDR-LEAN][r1]). Throughput is near-fixed in the short run, so lead time falls by cutting
+work-in-progress, not by exhortation to hurry, and decisions about batch size and work-in-progress rest on those measures, never on "we feel
+slow". Finishing beats starting: a cap on concurrent work forces the queue down, exposes the real constraint, and reduces the task-switching
+waste ([PDR-NOWASTE](../principles/reduce-waste.md)).
 
 - [How to apply](#how-to-apply)
 

@@ -4,12 +4,12 @@
 
 ### Rule ADR-GH-ACTIONS-RUNNERRUNMARK
 
-`GITHUB_ACTIONS` is the GitHub run mark: the runner sets it on every workflow run and never interactively, and the one detection point
-reads it ([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)).
+`GITHUB_ACTIONS` is the GitHub run mark: the runner sets it on every workflow run and never interactively, and the one detection point reads
+it ([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)).
 
 - [The runner's run mark](#the-runners-run-mark)
 
-### Rule ADR-GH-ACTIONS-PATHSPROJECTION
+### Rule ADR-GH-ACTIONS-ONPATHSPROJECTION
 
 A workflow triggers on its globset's projection into `on.*.paths`
 ([FDR-GLOBS-NATIVEPATHFILTER](../flow/durable-sha-globs.md#rule-fdr-globs-nativepathfilter)): the flattened scan program in order, each `-`
@@ -18,7 +18,7 @@ exact.
 
 - [The on.\*.paths projection](#the-onpaths-projection)
 
-### Rule ADR-GH-ACTIONS-PATHSDRIFTGATE
+### Rule ADR-GH-ACTIONS-ONPATHSDRIFTGATE
 
 `Test-GitHubWorkflowTriggerGlob` recomputes the projection of every workflow-bound globset and reports one issue per workflow whose declared
 `paths:` no longer equals its projection, or whose file is missing; its integrity test requires zero issues.
@@ -57,7 +57,7 @@ on:
 ### How this is enforced
 
 - `Test-GitHubWorkflowTriggerGlob` is a quality gate: a hand-edited or drifted `paths:` filter under `.github/workflows/` fails
-  `Test-Automation` locally and in CI (ADR-GH-ACTIONS-PATHSDRIFTGATE).
+  `Test-Automation` locally and in CI (ADR-GH-ACTIONS-ONPATHSDRIFTGATE).
 - The analyzer rule that guards the one detection function flags a raw read of `GITHUB_ACTIONS` (ADR-GH-ACTIONS-RUNNERRUNMARK).
 
 ## Consequences

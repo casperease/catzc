@@ -24,13 +24,6 @@ a problem is made visible where it happens, never buried or deferred.
 
 - [How to apply](#how-to-apply)
 
-### Rule WDR-OBSERVEWIP-OBSERVEWHOLESTREAM
-
-Observe the whole value stream, not one local step. Optimise concept-to-cash end to end and guard against a local optimum that speeds one
-station while starving the whole (optimise the whole; [EDR-LEAN](../external/lean/lean.md)).
-
-- [Why](#why)
-
 ## Context
 
 Toyota managers are taught genchi genbutsu — go to the actual place and see the actual thing. A report about the floor is a lossy
@@ -67,7 +60,7 @@ steer. The running software, the gate result, and the monitored metric are the g
 
 **Local visibility hides global stalls.** A dashboard that shows one busy station green can conceal a value stream choking on a queue two
 stations upstream. Observing the whole — end-to-end lead time, where items wait — is what keeps optimisation honest [^2]
-([WDR-QUEUECOST](queues-cost-money.md)).
+([WDR-QUEUECOST](queues-cost-money.md), [WDR-LEANTERMS-OPTIMISETHEWHOLE](process-terms.md#rule-wdr-leanterms-optimisethewhole)).
 
 ## How to apply
 

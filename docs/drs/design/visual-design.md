@@ -42,10 +42,13 @@ The **commit-colour palette is fixed**:
   not integrated is WIP blue, not grey).
 - **ghost-grey** (faded, dashed) — a commit that exists in history but was silently ignored: no successor ever took it up. Still a real
   commit, still on the line.
-- **yellow** — on `main` / `master` / `release` **and** past the BVT process, with an immutable artifact under version control.
+- **yellow** — on `main` / `master` / `release` **and** past the BVT process, with an immutable artifact under version control. Grey and
+  yellow separate on the BVT boundary: a commit is grey until an immutable, version-controlled BVT artifact exists for it, at which point it
+  is yellow.
 - **ghost-yellow** (faded, dashed) — a _pre-verified_ BVT result that is **not on main/master**: produced either by the pre-commit
   build-validation / PR-gate pipeline on a WIP topic commit, or by a local devbox invocation of the BVT process. It is not the
-  version-controlled BVT artifact and confers no promotion.
+  version-controlled BVT artifact and confers no promotion; the simulation is drawn as a ghost — same hue, faded — precisely so the diagram
+  cannot be read as claiming a governed artifact where there is only a local dry run.
 - **blue / light-blue / light-green / green** — the post-BVT promotion states: **blue** is L3-verified on the on-demand environment;
   **light-blue** is rolled onto the always-on `main-UAT` non-prod environment; **light-green** is release-verified on the release-uat track;
   **green** is in production.
@@ -59,14 +62,6 @@ Every hue has one locked hex pair (fill / stroke), owned by the renderer's commi
 [Canonical palette (locked)](#canonical-palette-locked). A commit drawn in any other hex for one of these meanings is a drift error.
 
 - [The fixed palette](#the-fixed-palette)
-
-### Rule DDR-VISUAL-GREYYELLOWATBVT
-
-**Grey and yellow separate on the BVT boundary, and the simulation is drawn as a ghost.** A commit is grey until an immutable,
-version-controlled BVT artifact exists for it, at which point it is yellow. A _local_ pre-flight BVT the developer runs before the PR is
-drawn ghost-yellow — same hue, faded — precisely so the diagram cannot be read as claiming a governed artifact where there is only a local
-dry run.
-
 - [The BVT boundary and its ghost](#the-bvt-boundary-and-its-ghost)
 
 ### Rule DDR-VISUAL-FIXFORWARDTHENCHERRYPICK
@@ -92,9 +87,17 @@ as candidates misrepresents the gate as a pass-through.
 **Colour is temporal: it is the commit's state at a moment, and one commit may be drawn at several colours to show its progression.** A
 commit does not own a fixed colour — it starts WIP blue or grey and is recoloured as it moves through the flow (WIP blue → grey → yellow →
 blue → light-blue → light-green → green), or terminates (→ red, or is left as a ghost). Showing the same commit at grey in git, yellow in
-the BVT lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time.
+the BVT lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time. Only the GIT
+lane is a real left-to-right time axis: in git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …), while the
+pipeline, discard, and env lanes are organised by _stage_, not by time, so a commit can sit anywhere horizontally there. **A number ties a
+commit's appearances across lanes into one identity** and is the time-code that carries git's ordering into the other lanes: when a diagram
+traces specific commits, each gets a small number (1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline,
+discard, or timeline lane — carries the same number in its state-of-the-moment colour. Each number is one commit's whole story, ending where
+that commit was discarded, abandoned, or promoted.
 
 - [Colour as a moment](#colour-as-a-moment)
+- [Commit numbers](#commit-numbers)
+- [Git is the only true timeline](#git-is-the-only-true-timeline)
 
 ### Rule DDR-VISUAL-STAGECOLOURCONTRACT
 
@@ -120,14 +123,6 @@ A stage never emits a colour outside its contract, so the palette doubles as the
 
 - [Stages have colour contracts](#stages-have-colour-contracts)
 
-### Rule DDR-VISUAL-NUMBERTIESAPPEARANCES
-
-**A number ties a commit's appearances across lanes into one identity.** When a diagram traces specific commits, each gets a small number
-(1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline, discard, or timeline lane — carries the same number.
-The number is the thread that lets a reader follow one commit's colour-over-time across the lanes without guessing which dot is which.
-
-- [Commit numbers](#commit-numbers)
-
 ### Rule DDR-VISUAL-GHOSTSINEVERYCOLOUR
 
 **Ghosts exist in every colour, and a ghost is a faded rendering of the state it held while alive, drifting toward grey/green.** A ghost is
@@ -137,16 +132,6 @@ specific commit, part of a traced journey"; un-numbered/ghost means "a represent
 the grey member of this family.
 
 - [Ghosts of every colour](#ghosts-of-every-colour)
-
-### Rule DDR-VISUAL-ONLYGITLANEISTIME
-
-**Only the GIT lane is a real left-to-right time axis; the commit numbers are the time-code that carries that ordering into the other
-lanes.** In git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …). The pipeline, discard, and env lanes are
-organised by _stage_, not by time, so a commit can sit anywhere horizontally there — its **number** is what restores its identity and its
-moment. Each number is one commit's whole story: the same number reappears across lanes in its state-of-the-moment colour and ends where
-that commit was discarded, abandoned, or promoted.
-
-- [Git is the only true timeline](#git-is-the-only-true-timeline)
 
 ### Rule DDR-VISUAL-ENVIRONMENTISCONTAINER
 

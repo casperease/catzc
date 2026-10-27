@@ -281,35 +281,10 @@ so no slot names the class, no template restates the mode, and changing it is on
 
 ### The subscription as the unit
 
-The repository has no management groups: its landing zone is deployed at subscription scope and deploys nothing at management-group or
-tenant level ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)). There is therefore no hierarchy to keep shallow, no
-sandbox, platform, or archetype group, no assignment at the root, no default group for new subscriptions, and no hierarchy setting to turn
-on; the settings of the tenant's hierarchy and its subscription transfer policy, with the list of users exempted from it, belong to the
-tenant's administrators. The grouping lives in config: `azure.yml` maps the standard environments onto a non-production and a production
-subscription per customer and for the shared platform, and the network kind of a subscription (hub or spoke) in `network.yml` is the one
-archetype split. No role is granted above a subscription: each subscription is deployed by its own service connection, pinned with
-`-SubscriptionIdAssertIs`, and the templates make no role assignment for workload teams. Experiments run in a non-production configuration
-slot of an existing subscription, not in a sandbox group.
-
-Each subscription's budget alerts its `Owner` role, and its policies report compliance to that role's view; access reviews and remediation
-are the owner's practice, not the repository's. A new subscription is cut along a management boundary (the customer), a policy boundary (the
-environment class), and a network boundary (one virtual network per subscription); scale limits are not a criterion, and no subscription is
-split for scale or by region. The platform runs in one shared subscription per environment class, which holds the hub and the shared
-platform's workloads, not in four dedicated platform subscriptions, so connectivity and the shared workloads share one subscription's
-policies, roles, and budget until connectivity is split out. The subscription model is config: a customer has a production and a
-non-production subscription, or a non-production one alone.
-
-Subscription vending is a pull request: an `azure.yml` entry, its range in `network.yml` (the IP address plan), and one config per template
-that gives it its workspace, vault, landing zone, tags, and budget. Creating the subscription itself is not adopted, because the repository
-deploys only into subscriptions it is given, so a new customer subscription waits on someone with billing rights.
-
-Every environment deploys to `westeurope`, where every service the templates deploy is offered, so a resource group is created in its
-environment's region, its resources default to that region, and the landing zone's allowed-locations policy keeps every resource there. A
-second region would be a new environment, not a new subscription, and the day a new region enters `azure.yml` is the trigger to check
-service availability there. No secondary region exists, so no disaster-recovery pair needs a subscription decision. The templates deploy no
-virtual machine or other capacity-constrained compute, so there is no capacity to reserve, no default quota to raise at provisioning, no
-Quota Group to share, no quota request to automate, and no quota usage near a limit to alert on; a capacity dashboard with alerts does not
-exist.
+`azure.yml` is the subscription model: it maps the standard environments onto a non-production and a production subscription per customer
+and for the shared platform, and a new subscription is a pull request that adds its entry. The landing zone owns the rest of the decision,
+the absence of management groups, how a subscription is cut and vended, and the one region
+([The subscription as the unit](landing-zones.md#the-subscription-as-the-unit)).
 
 ### One tenant
 
@@ -318,35 +293,10 @@ registered in `guids.yml` as `tenant_placeholder`. Every subscription names it i
 subscription whose tenant is not declared; `ado.yml` names the same tenant as the directory behind the DevOps organisation. The model could
 hold more tenants, and a second would need only a second `tenants` entry and the service connections of its subscriptions.
 
-Each deploy proves its subscription: `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on
-one the file does not declare ([ADR-AZ-SESSION-REVERSELOOKUP](az-session-verification.md#rule-adr-az-session-reverselookup)), and
-`-SubscriptionIdAssertIs` pins the expected one. The CD pipelines carry one service connection per subscription. The tenant is declared
-beside the subscription, but the deploy path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
-([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](az-session-verification.md#rule-adr-az-session-configdefinescorrect)) and the deploy path does not
-call it, so a subscription created in another directory deploys, and its first sign of trouble is a SQL server whose administrator group
-does not exist there. Some resources fix their tenant at creation (the Key Vault and SQL server modules default to
-`subscription().tenantId`), so a later change of directory leaves the vault stale and the administrator group in the old directory. There is
-no separate test tenant; changes reach non-production subscriptions before production ones.
-
-Every customer is a subscription pair in the one tenant
-([ADR-AZ-CUSTOMER-TWOBINDINGS](azure-customer-model.md#rule-adr-az-customer-twobindings)), and its isolation comes from the subscription:
-its own landing zone, network, budget, workspace, vault, CD pipeline, and service connections. The landing zone depends on it: a spoke peers
-to the hub in a shared subscription, the hub's private DNS zones link to every spoke, and a workload registers its private endpoints in the
-hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)). Within one tenant each join needs only a role on the
-other side, and the one SQL administrator group administers every customer's server. A customer whose contract or regulation demands its own
-directory would be a second `tenants` entry and a design change, needing a hub of its own. Experiments run as an ephemeral slot of a
-non-production subscription (`dev-blu` on `apex/dev.yml`, [ADR-AZ-DATAMOD-EPHEMERALSLOT](#rule-adr-az-datamod-ephemeralslot)), inside the
-same tenant and behind the same guardrails; an experiment needing what the landing zone denies would be the trigger for a sandbox
-subscription declared in the same tenant.
-
-Everything above the subscription is not adopted, because the repository deploys into subscriptions it is given and needs no right above
-them ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role and creates no subscription, grants no
-role to a person, manages no Entra user, and streams no Entra log (those diagnostic settings are made at tenant level, and `foundation`'s
-workspace is where they would go). It uses Lighthouse nowhere and is no ISV, no CSP customer, and no multitenant application. Notification
-contacts, offers, budgets above a subscription, and charge visibility are billing administration; the repository budgets each subscription
-instead. SQL administration goes through an Entra group ([ADR-AZ-LZ-SQLENTRAADMINS](landing-zones.md#rule-adr-az-lz-sqlentraadmins)), so the
-tenant's MFA, Conditional Access, and PIM reach it with no change here; the break-glass SQL login is the one deliberate path outside them,
-kept for when the directory is unavailable, and deployment identities are service connections that sign in without MFA by nature.
+How a deploy proves its subscription, and why it compares the subscription and not the tenant, is the session record's
+([One tenant at deploy](az-session-verification.md#one-tenant-at-deploy)); how a customer is isolated inside the one tenant is the customer
+record's ([A customer in the one tenant](azure-customer-model.md#a-customer-in-the-one-tenant)); and what above the subscription the
+repository leaves to the tenant's administrators is the landing zone's ([Above the subscription](landing-zones.md#above-the-subscription)).
 
 ### Staging slots
 

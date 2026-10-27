@@ -19,9 +19,10 @@ asserted, never installed by its own entry, so it has no triad.
 
 ### Rule ADR-AUTO-DEPS-ASSERTBEFOREINVOKE
 
-Assert before every invocation. One tool assertion checks presence and version only before every external tool call — or, for a tool whose
-entry declares candidate paths, a fast, timed existence check that probes those paths and PATH before starting any process; it does not
-resolve `depends_on`.
+Assert before every invocation, and never assume a tool is pre-installed. One tool assertion checks presence and version only before every
+external tool call — or, for a tool whose entry declares candidate paths, a fast, timed existence check that probes those paths and PATH
+before starting any process; it does not resolve `depends_on`. A CI runner with pre-installed tools is asserted the same way, because runner
+images change without notice.
 
 - [3. Assert at runtime](#3-assert-at-runtime)
 
@@ -41,20 +42,15 @@ installers rather than the devbox orchestrator.
 
 - [5. CI uses the same functions](#5-ci-uses-the-same-functions)
 
-### Rule ADR-AUTO-DEPS-NOPREINSTALLEDTOOLS
-
-Do not assume tools are pre-installed. Even on CI runners with pre-installed tools, assert the version — runner images change without
-notice.
-
-- [3. Assert at runtime](#3-assert-at-runtime)
-
 ### Rule ADR-AUTO-DEPS-TWODEPENDENCYKINDS
 
 Two kinds of dependency, two names. A **system dependency** (`ADR-AUTO-DEPS`) is an external runtime or CLI the automation runs _against_ —
 `pwsh`, Python, `dotnet`, the Azure CLI, git — installed at the OS level and covered by the Tooling layer (the tools config and the per-tool
-install / invoke / uninstall triads). A **module dependency** (`ADR-AUTO-DEPM`) is an edge in the internal graph among the repo's _own_
-modules, the code we _build_ — spanning both kinds of module content, `pwsh` functions and C# types — declared in `dependencies.yml`. This
-ADR governs `ADR-AUTO-DEPS`; `ADR-AUTO-DEPM` has its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md).
+install / invoke / uninstall triads), version-locked and asserted, never built from. A **module dependency** (`ADR-AUTO-DEPM`) is code the
+toolset is built _from_ — an edge in the internal graph among the repo's _own_ modules, spanning both kinds of module content, `pwsh`
+functions and C# types, declared in `dependencies.yml` — pinned and stitched into the build, whether it is internal code the repository
+holds or an external package a feed supplies. Keep the two names distinct in code, config, and prose. This ADR governs `ADR-AUTO-DEPS`;
+`ADR-AUTO-DEPM` has its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System vs module dependencies](#system-vs-module-dependencies)
 
@@ -247,7 +243,7 @@ place — the toolchain prefers its own, it does not evict anyone else's; evicti
 decision ([tool-removal-lifecycle](tool-removal-lifecycle.md)). Like every janitor action this is session-only, never writes the registry,
 and is a no-op in CI, where the pipeline activates the locked version natively (`UseDotNet`).
 
-#### 4. Orchestrate with Install-DevBoxTools
+#### 4. Orchestrate the install order
 
 A single orchestrator provisions the entire local development environment by calling each tool's installer in install order.
 

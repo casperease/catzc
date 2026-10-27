@@ -5,9 +5,12 @@
 ### Rule ADR-AUTO-ZERO-DESIGNQUESTIONS
 
 Evaluate every design choice against two questions — does this add ceremony (if the platform could do it for the author, it should), and can
-the author get this wrong (prevent it structurally or catch it immediately)? If either answer is unsatisfying, the design is not done.
+the author get this wrong (prevent it structurally or catch it immediately)? If either answer is unsatisfying, the design is not done. So
+the platform makes the common mistakes hard to fail — preventing them structurally (naming conventions, auto-discovery, location-based
+visibility) or catching them immediately (static analysis rules, the tests).
 
 - [Decision](#decision)
+- [What hard-to-fail looks like](#what-hard-to-fail-looks-like)
 
 ### Rule ADR-AUTO-ZERO-CEREMONYAUTOMATION
 
@@ -16,13 +19,6 @@ folder is a module, and loading the importer entry brings in everything. The con
 (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).
 
 - [What zero ceremony looks like](#what-zero-ceremony-looks-like)
-
-### Rule ADR-AUTO-ZERO-MISTAKESHARDTOMAKE
-
-The platform makes the common mistakes hard to fail — preventing them structurally (naming conventions, auto-discovery, location-based
-visibility) or catching them immediately (static analysis rules, the tests).
-
-- [What hard-to-fail looks like](#what-hard-to-fail-looks-like)
 
 ## Context
 

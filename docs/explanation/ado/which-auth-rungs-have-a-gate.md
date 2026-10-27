@@ -104,7 +104,7 @@ layout:
    the `AzureAuthTests` job of `.ado/pipelines/ci-pwsh.yaml`. It asserts only that the token is non-empty when `ExposeAccessToken` is true.
 
 No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDetection` forbids raw reads of the pipeline variables outside
-`Test-IsRunningInPipeline`, which supports #3, but it is mapped to FDR-DETECT-NODIRECTVARIABLECHECK.
+`Test-IsRunningInPipeline`, which supports #3, but it is mapped to ADR-PWSH-DETECT-NODIRECTVARIABLECHECK.
 
 ## Why it holds
 

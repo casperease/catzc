@@ -16,13 +16,6 @@ defect multiplies its blast radius and hides which change was at fault.
 
 - [Decision](#decision)
 
-### Rule WDR-ANDON-STOPPINGISCHEAP
-
-Stopping the line is cheap and expected, not a failure event. The best stop is the earliest and smallest — a gate on the devbox; the worst
-is a stop discovered in production. Optimise for stopping furthest left, not for never stopping.
-
-- [Why](#why)
-
 ### Rule WDR-ANDON-STOPISAUTOMATIC
 
 The stop is automatic and unambiguous: the gate throws, the commit is coloured red, and there is no "warn and continue" path. A warning that
@@ -63,9 +56,10 @@ lets a red build stand trades a small, certain stop for a large, uncertain untan
 sync point). The moment that assumption is false and unenforced, every downstream actor inherits the break.
 
 **Stopping early is a feature, not a fault.** A team that stops the line often on the devbox and rarely in the pipeline, where the same
-gates run, is winning — the stops are landing where they are cheapest. Punishing stops teaches people to route around the cord, which is how
-defects reach production. Supportive leadership answers a stop with inquiry, not blame: in Westrum's generative culture, failure leads to
-inquiry.
+gates run, is winning — the stops are landing where they are cheapest
+([WDR-BUILTIN-QUALITYFURTHESTLEFT](build-quality-in.md#rule-wdr-builtin-qualityfurthestleft)). Punishing stops teaches people to route
+around the cord, which is how defects reach production. Supportive leadership answers a stop with inquiry, not blame: in Westrum's
+generative culture, failure leads to inquiry.
 
 ## How to apply
 

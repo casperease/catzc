@@ -8,7 +8,7 @@ One function answers "am I in a pipeline?", and every branch on context asks it.
 3  context-dependent behavior  every function that behaves differently in a pipeline asks it
 4  analyzer rule               flags any read of the signal outside the function
 
-Supports FDR-DETECT-NODIRECTVARIABLECHECK and FDR-DETECT-BOOLEANNOTMODAL (meta lens).
+Supports ADR-PWSH-DETECT-NODIRECTVARIABLECHECK and ADR-PWSH-DETECT-BOOLEANNOTMODAL (meta lens).
 ```
 
 Cats runs the same commands on a developer's machine and inside a CI/CD pipeline, and a few of them must behave differently in the two
@@ -21,7 +21,7 @@ description:
   The pipeline agent sets the signal, one detection function reads it and answers true or false, every function that behaves differently in
   a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.
 about:
-  adrs: [FDR-DETECT-NODIRECTVARIABLECHECK, FDR-DETECT-BOOLEANNOTMODAL]
+  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: meta
 content:
   title: One function answers "am I in a pipeline?", and every branch on context asks it
@@ -78,15 +78,15 @@ layout:
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the detection logic stays in one place
-  (FDR-DETECT-NODIRECTVARIABLECHECK).
+  (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 - Detection is boolean, not modal: the function returns true or false, and either variable set means a pipeline
-  (FDR-DETECT-BOOLEANNOTMODAL).
+  (ADR-PWSH-DETECT-BOOLEANNOTMODAL).
 - The function is the one seam between devbox and pipeline, and a command branches on it only where the two environments genuinely differ
   (ADR-AUTO-PARITY-PARITYSEAM).
 
 ## See also
 
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [architecture](the-loader-holds-the-one-detector.md),
   [implementation](two-variables-read-in-one-place.md), [operations](the-analyzer-names-the-raw-read.md) and

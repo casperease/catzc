@@ -12,7 +12,7 @@ The detector lives in the loader, which both run modes import first and keep loa
 7  Measure-NoRawPipelineDetection  the analyzer rule that bans a raw read in PowerShell
 8  Assert-BashTimeout              the C# hook, outside the analyzer, repeats the same test
 
-Supports FDR-DETECT-NODIRECTVARIABLECHECK (architecture lens).
+Supports ADR-PWSH-DETECT-NODIRECTVARIABLECHECK (architecture lens).
 ```
 
 The detector has to exist before anything else, because the importer's own bootstrap asks it while it is still compiling types, before a
@@ -25,7 +25,7 @@ description:
   "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
   modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
 about:
-  adrs: [FDR-DETECT-NODIRECTVARIABLECHECK]
+  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: The detector lives in the loader, which both run modes import first and keep loaded
@@ -109,7 +109,7 @@ layout:
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, so the logic lives in one place and both platforms are
-  always covered (FDR-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the rule
+  always covered (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK). Placing that one function in the loader is what lets the bootstrap honour the rule
   before any module exists.
 - The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the loader
   (ADR-AUTO-PARITY-PARITYSEAM).
@@ -121,7 +121,7 @@ both variables itself, and no gate reaches C#.
 
 ## See also
 
-- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+- [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
   [implementation](two-variables-read-in-one-place.md), [operations](the-analyzer-names-the-raw-read.md) and

@@ -140,10 +140,10 @@ construction. The rule holds across the declared registry and the derived module
 ## Context
 
 A deployable unit is a high-level composition of modules in the modular repository — a whole track or a reduced slice of one (see
-[tracks](../design/tracks.md), `DDR-TRACK-DEPLOYABLEUNIT`) — mapped onto actual files under version control. Every delivery platform
-decides whether to run a pipeline by matching changed paths against filter lists, each in its own dialect. Writing those lists directly into
-every pipeline by hand scatters one fact — "which files compose this unit" — across the pipeline definitions, in one dialect per vendor,
-where drift is invisible until a deploy silently does not fire.
+[tracks](../design/tracks.md), `DDR-TRACK-DEPLOYABLEUNIT`) — mapped onto actual files under version control. Every delivery platform decides
+whether to run a pipeline by matching changed paths against filter lists, each in its own dialect. Writing those lists directly into every
+pipeline by hand scatters one fact — "which files compose this unit" — across the pipeline definitions, in one dialect per vendor, where
+drift is invisible until a deploy silently does not fire.
 
 The design keeps the composition declared once, in `globs.yml` — the layer that is the source of truth, and is deterministic — and derives
 everything else from it. Two derivations do the work a committed per-set marker would carry: the trigger is the globset **projected** into
@@ -210,18 +210,18 @@ both of which see the merged tree as it actually is.
 
 ### Native projection: the no-start trigger
 
-`Get-GlobSetTrigger` projects a globset's flattened scan program (FDR-GLOBS-TRACKEDFILESONLY) into each vendor's native path-filter
-dialect. A dialect that is ordered and last-match-wins, the same evaluator as `GlobSet.Matches`, takes the program in order with each `-`
-rule as a negation, and the projection is **exact**. A dialect that is order-independent (union include minus union exclude) takes each
-pattern collapsed to its **last select** in the program, so a base exclude that a later compose include re-adds nets to an include. A
-vendor that accepts wildcards anywhere in a path filter makes the projection a real no-start trigger, not a start-then-bail.
+`Get-GlobSetTrigger` projects a globset's flattened scan program (FDR-GLOBS-TRACKEDFILESONLY) into each vendor's native path-filter dialect.
+A dialect that is ordered and last-match-wins, the same evaluator as `GlobSet.Matches`, takes the program in order with each `-` rule as a
+negation, and the projection is **exact**. A dialect that is order-independent (union include minus union exclude) takes each pattern
+collapsed to its **last select** in the program, so a base exclude that a later compose include re-adds nets to an include. A vendor that
+accepts wildcards anywhere in a path filter makes the projection a real no-start trigger, not a start-then-bail.
 
 The projected filters are **generated** from `globs.yml` into the orchestration YAML (the generated-root-config contract), never
 hand-authored. A registration is therefore behaviourally the unit's real path filter — including renames and moves, which content-blind hand
 filters miss — and each vendor's drift quality gate reports every pipeline whose declared trigger no longer equals its projection. The one
 semantic seam, an order-independent dialect against the positional last-match-wins, coincides for every folder-shaped set; a set whose
-projection cannot reproduce exact membership is caught at generation time, not silently mis-triggered. A server-side registration, such as
-a branch policy, carries the same projection, so the unit's composition still lives only in `globs.yml`. The ado and github domains spell
+projection cannot reproduce exact membership is caught at generation time, not silently mis-triggered. A server-side registration, such as a
+branch policy, carries the same projection, so the unit's composition still lives only in `globs.yml`. The ado and github domains spell
 their dialects, samples and gates.
 
 ### Git reflection: the in-pipeline check and the PR report
@@ -230,9 +230,9 @@ A native trigger is content-blind at the vendor's grain, and a coarse or over-ap
 need. `Test-GlobSetAffected` is the exact backstop the pipeline runs first — "is there anything here for us to process?" — and the same
 computation is the PR area-of-control report:
 
-- `Get-GlobSetChangeRange` resolves the reference commit per context (FDR-PIPELINE-CONTEXTDETECTEDONCE): **post-commit on main** diffs first-parent
-  `HEAD^1..HEAD` — main advances only by squash merge, so the merged commit's first parent is the prior mainline and the diff is exactly the
-  push; **PR pre-commit** diffs the merge-base `origin/<target>...HEAD`; **local** diffs the working tree.
+- `Get-GlobSetChangeRange` resolves the reference commit per context (FDR-PIPELINE-CONTEXTDETECTEDONCE): **post-commit on main** diffs
+  first-parent `HEAD^1..HEAD` — main advances only by squash merge, so the merged commit's first parent is the prior mainline and the diff
+  is exactly the push; **PR pre-commit** diffs the merge-base `origin/<target>...HEAD`; **local** diffs the working tree.
 - `Get-ChangedGlobSet` matches the changed paths against the registry (declared, and with `-IncludeModules` the derived module sets), and
   `Test-GlobSetAffected` reports whether the named unit is among them.
 
@@ -265,7 +265,7 @@ umbrella mistakenly declared a `module` fails as a named pair.
   (`FDR-GLOBS-MALFORMEDPATTERNREJECTED`), and cyclic or self-referential compose (`FDR-GLOBS-COMPOSESETS`).
 - Each vendor's drift quality gate recomputes the native projection of its pipeline-bound globsets and compares it to what the bound
   pipeline declares, one issue per drifted or missing pipeline; its integrity test requires zero issues, so a hand-edited or drifted path
-  filter fails `Test-Automation` locally and in CI. The vendor domains name the gates.
+  filter fails `Test-Automation` locally and in CI. The ado domain and the github domain name the gates.
 - Grep-ability: every pipeline's path filter is generated from `globs.yml`; a filter that disagrees with the projection is findable by the
   drift quality gates and wrong by rule (`FDR-GLOBS-NATIVEPATHFILTER`).
 
@@ -275,8 +275,8 @@ umbrella mistakenly declared a `module` fails as a named pair.
   hand in one dialect per vendor.
 - No false-red mainline: because nothing per-set is committed and checked, a busy mainline cannot go red from a stale, forgotten, or
   concurrently-merged marker — the failure mode a committed-hash design carries.
-- No-start where it can be: a vendor that accepts wildcards anywhere filters on the projected patterns directly, so a pipeline whose unit is untouched does not
-  start at all; the in-pipeline `Test-GlobSetAffected` check is the exact backstop for the residue.
+- No-start where it can be: a vendor that accepts wildcards anywhere filters on the projected patterns directly, so a pipeline whose unit is
+  untouched does not start at all; the in-pipeline `Test-GlobSetAffected` check is the exact backstop for the residue.
 - Reviewable deploys: "this change touches unit X" is the computed area-of-control report over the PR diff — derived, so it can never go
   stale, and correct across renames.
 - Contributors carry no marker-regeneration duty; the drift quality gates keep the generated triggers honest, and the identity used for

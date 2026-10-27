@@ -93,9 +93,9 @@ empty value, so a caller can clear a variable or signal "no value". Its signatur
 the engine that carries it.
 
 **`Test-IsRunningInPipeline`** — gates pipeline-specific behavior, the one detection point
-([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)). `Set-AdoPipelineVariable` uses
-this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps automation code portable: the
-same function runs locally (silently skipping the `##vso` command) and in a pipeline (emitting it).
+([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)). `Set-AdoPipelineVariable` uses this
+internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps automation code portable: the same
+function runs locally (silently skipping the `##vso` command) and in a pipeline (emitting it).
 
 ### The agent's run mark
 

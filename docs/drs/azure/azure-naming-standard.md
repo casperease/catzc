@@ -265,8 +265,8 @@ a VM name. An over-limit render throws at deploy time and is never truncated (AD
 abbreviation, render **pattern**, length, and any **omitted** components. `long`-pattern types carry their own per-type `limit` (the Azure
 max for that type); `kv`/`storage`/`vm` take their cap from the pattern (24/24/15) and declare no `limit`. A type may also declare `omit`,
 components it drops from its render because they are encoded elsewhere (only `vm` does so, dropping org/customer/role). The set is extended
-in code as consuming repos need. The registry declares no range within which a name must be unique, because a deterministic name differs wherever its components
-differ.
+in code as consuming repos need. The registry declares no range within which a name must be unique, because a deterministic name differs
+wherever its components differ.
 
 Every registered type accepts the characters a render can produce. The `long` render is lowercase letters, digits, and hyphens, starting
 with a letter and ending with a letter or digit, which the most restrictive types (the budget: letters, digits, underscores, and hyphens;

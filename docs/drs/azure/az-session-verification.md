@@ -98,6 +98,18 @@ organization and tenant. A credential that authenticates somewhere is not eviden
 correctness check is config-driven, the config keys that express it (tenant, subscription, organization) are required — treating them as
 "only some paths need this" is backwards.
 
+### One tenant at deploy
+
+Each deploy proves its subscription: `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on
+one the file does not declare ([ADR-AZ-SESSION-REVERSELOOKUP](#rule-adr-az-session-reverselookup)), and `-SubscriptionIdAssertIs` pins the
+expected one. The CD pipelines carry one service connection per subscription. The tenant is declared beside the subscription, but the deploy
+path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
+([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](#rule-adr-az-session-configdefinescorrect)) and the deploy path does not call it, so a subscription
+created in another directory deploys, and its first sign of trouble is a SQL server whose administrator group does not exist there. Some
+resources fix their tenant at creation (the Key Vault and SQL server modules default to `subscription().tenantId`), so a later change of
+directory leaves the vault stale and the administrator group in the old directory. There is no separate test tenant; changes reach
+non-production subscriptions before production ones.
+
 ## How this is enforced
 
 - **`Assert-Tool 'az_cli'`** (`Catzc.Tooling.Core`) owns availability — the az _binary_ and its `tools.yml` version lock;

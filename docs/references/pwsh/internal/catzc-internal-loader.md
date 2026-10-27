@@ -16,7 +16,7 @@ removes it. A resident cover function on a hot path can therefore call `Import-I
 nothing when the shared module is already loaded.
 
 Because it is loaded first in both run modes and never removed, the loader also holds the detection functions: `Test-IsRunningInPipeline`
-(see [pipeline-detection](../../../drs/flow/pipeline-detection.md)) and `Test-IsRunningInVsCode`. The bootstrap's C#-types pre-pass runs
+(see [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md)) and `Test-IsRunningInVsCode`. The bootstrap's C#-types pre-pass runs
 before any `Catzc` module loads, and it calls the same functions as every module, which need no import step to reach them.
 
 `Import-InternalModule` is **idempotent**: it takes the bare area name of a shared module — `Types` resolves to
@@ -70,5 +70,5 @@ A console session's janitors run once the first prompt has shown. `Enable-Deferr
 - ADR: [one-living-version](../../../drs/principles/one-living-version.md) — the two-layer shared code this loader exists to serve.
 - ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
 - ADR: [caching](../../../drs/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
-- ADR: [pipeline-detection](../../../drs/flow/pipeline-detection.md) — the one detection function the loader carries.
+- ADR: [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md) — the one detection function the loader carries.
 - Reference: the internal area overview and the shared modules it loads — `Types`, `Vendor`, `Bootstrap`, `TestKit`.

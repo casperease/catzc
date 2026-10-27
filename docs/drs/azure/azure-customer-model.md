@@ -55,8 +55,8 @@ the shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTempla
 
 The customer **key is the configuration subfolder name**: a template's customer configs live at `configuration/<key>/<env>[-<slot>].yml`,
 and a subfolder that is not a defined key is a discovery error
-([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The
-shortcode never names a folder — one spelling on disk, the canonical key.
+([ADR-AZ-DATAMOD-NAMEKEYEDMAPS](azure-data-model.md#rule-adr-az-datamod-namekeyedmaps)). The shortcode never names a folder — one spelling
+on disk, the canonical key.
 
 - [The catalogue](#the-catalogue)
 
@@ -127,6 +127,18 @@ Customer definitions live in `customer.yml` (a self-contained catalogue), refere
 shortcode and resolved through `Get-AzureCustomer`; the FK is enforced by integrity + runtime, not at azure load. Which customers are
 enabled is the `have_customers` variant, and a template's `customer_deployment` bit (defaulting to that variant, guarded by it) decides
 whether it may deploy into customer subscriptions.
+
+### A customer in the one tenant
+
+Every customer is a subscription pair in the one tenant ([ADR-AZ-CUSTOMER-TWOBINDINGS](#rule-adr-az-customer-twobindings)), and its
+isolation comes from the subscription: its own landing zone, network, budget, workspace, vault, CD pipeline, and service connections. The
+landing zone depends on it: a spoke peers to the hub in a shared subscription, the hub's private DNS zones link to every spoke, and a
+workload registers its private endpoints in the hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)). Within
+one tenant each join needs only a role on the other side, and the one SQL administrator group administers every customer's server. A
+customer whose contract or regulation demands its own directory would be a second `tenants` entry and a design change, needing a hub of its
+own. Experiments run as an ephemeral slot of a non-production subscription (`dev-blu` on `apex/dev.yml`,
+[ADR-AZ-DATAMOD-EPHEMERALSLOT](azure-data-model.md#rule-adr-az-datamod-ephemeralslot)), inside the same tenant and behind the same
+guardrails; an experiment needing what the landing zone denies would be the trigger for a sandbox subscription declared in the same tenant.
 
 ### How this is enforced
 

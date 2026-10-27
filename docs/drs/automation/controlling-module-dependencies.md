@@ -43,15 +43,6 @@ combined assembly.
 
 - [Extend by declaring](#extend-by-declaring)
 
-### Rule ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY
-
-A module dependency (`ADR-AUTO-DEPM`) is not a system dependency (`ADR-AUTO-DEPS`). A `ADR-AUTO-DEPM` is code the toolset is built _from_ —
-pinned, and stitched into the build (whether it is internal code the repository already holds or an external package a feed supplies); a
-`ADR-AUTO-DEPS` is an external runtime it runs _against_ (`pwsh`, Python, the Azure CLI), version-locked and asserted by the Tooling layer,
-governed by [controlling-systemwide-deps](controlling-systemwide-deps.md). Keep the two names distinct in code, config, and prose.
-
-- [Not a system dependency](#not-a-system-dependency)
-
 ### Rule ADR-AUTO-DEPM-EXACTVERSIONPINS
 
 Pin every module dependency to an exact version. An internal dependency is pinned by the commit — its code is in-tree, so a checkout builds
@@ -155,13 +146,8 @@ as documentation to be reconciled later; it is the contract the build enforces.
 
 ### Not a system dependency
 
-"Dependency" names two different things in this repo, and they are governed by opposite disciplines. A **module dependency**
-(`ADR-AUTO-DEPM`) is code the toolset is built _from_ — pinned to an exact version and stitched into the build, whether it is internal code
-the repository holds (vendored and named) or an external package a feed supplies. A **system dependency** (`ADR-AUTO-DEPS`) is an external
-runtime or CLI the automation merely runs _against_ — `pwsh`, Python, `dotnet`, the Azure CLI, git — version-locked and asserted, never
-built from, by the Tooling layer. That concern has its own ADR, [controlling-systemwide-deps](controlling-systemwide-deps.md). The two codes
-carry the split: `ADR-AUTO-DEPM` (MOD = module) and `ADR-AUTO-DEPS` (SYS = system). Keeping the words distinct keeps the two from being
-conflated.
+A module dependency is not a system dependency: the split and its two names are
+[ADR-AUTO-DEPS-TWODEPENDENCYKINDS](controlling-systemwide-deps.md#rule-adr-auto-deps-twodependencykinds).
 
 ### Pinning: an exact version
 

@@ -19,11 +19,10 @@ name is its one definitive name, computed from its members
 
 ### Rule DDR-TRACK-ONETRACKTYPE
 
-Every track has exactly one **track type** ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)), stated
-once and carrying no second classification beside it: `modules` (`pwsh`, the core the other tracks rest on, and the other language tracks,
-`python`, `go`, `bash` and `js`, which hold their modules the same way), `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
-`contracts`, `documentation`, `unordered` (`.unordered`, DDR-TRACK-UNORDEREDTRACK), or `output` (`out/`, gitignored, built to no
-destination). The type's role is deployable or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language
+Every track has exactly one **track type**, one of the closed set
+([DDR-TRACKTYPE-CLOSEDSETOFTYPES](track-types.md#rule-ddr-tracktype-closedsetoftypes)), stated once and carrying no second classification
+beside it. The `modules` type holds `pwsh`, the core the other tracks rest on, and the other language tracks, `python`, `go`, `bash` and
+`js`, which hold their modules the same way; `.unordered` is the `unordered` track (DDR-TRACK-UNORDEREDTRACK). The type's role is deployable or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language
 track keeps a test holder, `<root>/tests/`, of black-box tests that verify the core from outside; a test file is never live and never ships,
 and a module of the track ships only what `files.yml` packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps
 the same tests in the dot-prefixed `.go`, which is of the same class. `python` holds the Python ones, by the same convention: `.python` when

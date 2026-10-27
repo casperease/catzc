@@ -28,15 +28,6 @@ wiring. The CLI is the boundary that lets the platform team change the substrate
 
 - [The surface is a CLI](#the-surface-is-a-cli)
 
-### Rule DDR-THINPLAT-REPRESENTEDASCODE
-
-Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
-bindings (Bicep modules and az invocations) — in exactly one living version (`PDR-EAC`, `PDR-ONELIVE`). There is no console-clicked state,
-no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository. Full EaC representation
-is what makes the thin abstraction reproducible and reviewable.
-
-- [Everything is code](#everything-is-code)
-
 ### Rule DDR-THINPLAT-SWAPPABLESUBSTRATE
 
 The platform is a **product with a swappable substrate**, owned over its full lifecycle by the platform team whose job is to develop and
@@ -96,8 +87,12 @@ touching a single consumer.
 
 `Everything the platform covers is code`
 
-A thin abstraction is only trustworthy if it is fully materialized: the full representation in the repo is what lets the layer stay thin
-without becoming lossy.
+Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
+bindings (Bicep modules and az invocations) — in exactly one living version
+([PDR-EAC-EVERYTHINGCOMMITTED](../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted), `PDR-ONELIVE`). There is no
+console-clicked state, no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository. A
+thin abstraction is only trustworthy if it is fully materialized: the full representation in the repo is what makes it reproducible and
+reviewable, and what lets the layer stay thin without becoming lossy.
 
 ### Owned as a product
 
@@ -110,7 +105,7 @@ first covered vendor, not a hardwired assumption.
 
 Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (DDR-THINPLAT-THINPLATFORM), kept thin by delegating to the
 vendor's own primitives rather than reimplementing them (DDR-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI surface
-(DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (DDR-THINPLAT-REPRESENTEDASCODE), and owned as a reusable
+(DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (PDR-EAC-EVERYTHINGCOMMITTED), and owned as a reusable
 product over a substrate that stays swappable behind the CLI (DDR-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD
 principles as a Team-Topologies platform, covering Azure and Azure RM via Bicep plus a curated az CLI.
 

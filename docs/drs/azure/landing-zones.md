@@ -249,6 +249,49 @@ The decision is told in four pages, one per group of sections:
   [Adding a spoke](landing-zones/landing-zones-operations.md#adding-a-spoke),
   [How this is enforced](landing-zones/landing-zones-operations.md#how-this-is-enforced).
 
+### The subscription as the unit
+
+The repository has no management groups: its landing zone is deployed at subscription scope and deploys nothing at management-group or
+tenant level ([ADR-AZ-LZ-LANDINGZONE](#rule-adr-az-lz-landingzone)). There is therefore no hierarchy to keep shallow, no sandbox, platform,
+or archetype group, no assignment at the root, no default group for new subscriptions, and no hierarchy setting to turn on; the settings of
+the tenant's hierarchy and its subscription transfer policy, with the list of users exempted from it, belong to the tenant's administrators.
+The grouping lives in config: `azure.yml` maps the standard environments onto a non-production and a production subscription per customer
+and for the shared platform, and the network kind of a subscription (hub or spoke) in `network.yml` is the one archetype split. No role is
+granted above a subscription: each subscription is deployed by its own service connection, pinned with `-SubscriptionIdAssertIs`, and the
+templates make no role assignment for workload teams. Experiments run in a non-production configuration slot of an existing subscription,
+not in a sandbox group.
+
+Each subscription's budget alerts its `Owner` role, and its policies report compliance to that role's view; access reviews and remediation
+are the owner's practice, not the repository's. A new subscription is cut along a management boundary (the customer), a policy boundary (the
+environment class), and a network boundary (one virtual network per subscription); scale limits are not a criterion, and no subscription is
+split for scale or by region. The platform runs in one shared subscription per environment class, which holds the hub and the shared
+platform's workloads, not in four dedicated platform subscriptions, so connectivity and the shared workloads share one subscription's
+policies, roles, and budget until connectivity is split out. The subscription model is config: a customer has a production and a
+non-production subscription, or a non-production one alone.
+
+Subscription vending is a pull request: an `azure.yml` entry, its range in `network.yml` (the IP address plan), and one config per template
+that gives it its workspace, vault, landing zone, tags, and budget. Creating the subscription itself is not adopted, because the repository
+deploys only into subscriptions it is given, so a new customer subscription waits on someone with billing rights.
+
+Every environment deploys to `westeurope`, where every service the templates deploy is offered, so a resource group is created in its
+environment's region, its resources default to that region, and the landing zone's allowed-locations policy keeps every resource there. A
+second region would be a new environment, not a new subscription, and the day a new region enters `azure.yml` is the trigger to check
+service availability there. No secondary region exists, so no disaster-recovery pair needs a subscription decision. The templates deploy no
+virtual machine or other capacity-constrained compute, so there is no capacity to reserve, no default quota to raise at provisioning, no
+Quota Group to share, no quota request to automate, and no quota usage near a limit to alert on; a capacity dashboard with alerts does not
+exist.
+
+### Above the subscription
+
+Everything above the subscription is not adopted, because the repository deploys into subscriptions it is given and needs no right above
+them ([ADR-AZ-LZ-LANDINGZONE](#rule-adr-az-lz-landingzone)): it holds no billing role and creates no subscription, grants no role to a
+person, manages no Entra user, and streams no Entra log (those diagnostic settings are made at tenant level, and `foundation`'s workspace is
+where they would go). It uses Lighthouse nowhere and is no ISV, no CSP customer, and no multitenant application. Notification contacts,
+offers, budgets above a subscription, and charge visibility are billing administration; the repository budgets each subscription instead.
+SQL administration goes through an Entra group ([ADR-AZ-LZ-SQLENTRAADMINS](#rule-adr-az-lz-sqlentraadmins)), so the tenant's MFA,
+Conditional Access, and PIM reach it with no change here; the break-glass SQL login is the one deliberate path outside them, kept for when
+the directory is unavailable, and deployment identities are service connections that sign in without MFA by nature.
+
 ## Consequences
 
 - Every subscription gets the same landing zone from one template, so the network, the policies, and the budget of a new customer
