@@ -14,13 +14,13 @@ is planned here, one step each, so no record carries a planned item.
 
 ## Open steps
 
-- [ ] A health model per workload. Tool (drone-opus, 2026-10-27, by ADR-AZ-LZ-LANDINGZONE and landing-zones-caf.md's CAF management
-      passage): an Azure Monitor workbook through `workbook.bicep`, over the workload's Resource Health and its alert rules, in the
-      workload's own template; not Azure Monitor health models, which are preview and build on Service Groups at tenant level, which the
-      landing zone never deploys. Waits on the expedition `main.bicep` owner (the backlog drone). Lands with the rule line in
-      ADR-AZ-LZ-CAFMANAGEMENT and the CAF management passage's "chosen when that work begins" rewritten. Check: an L1 that expedition's
-      compiled template holds one `Microsoft.Insights/workbooks` per slot, Test-BicepLint, Build-Bicep.Integrity and
-      Test-BicepTemplateCompliance green in one staged burst.
+- [ ] A health model per workload, the expedition wiring (the module `health-workbook.bicep`, the ADR-AZ-LZ-CAFMANAGEMENT rule line and the
+      CAF management passage are in the tree): `options.yml` gains `healthWorkbookName: { type: wb, role: hlt }` and `main.bicep` a
+      `healthWorkbookName` param and a `health-workbook.bicep` call (`displayName`, `location`, `workspaceId: workspace.id`, `tags`); the
+      L1 drafted at `out/drone-rap-HealthModel.Tests.ps1` lands as `pwsh/Azure.Templates/tests/HealthModel.Tests.ps1`, its query check
+      read from the compiled module's `healthQueries` variable if the evaluator leaves `string()` unresolved. Check: HealthModel.Tests (one
+      `Microsoft.Insights/workbooks` per expedition slot, with its three queries), Test-BicepLint, Build-Bicep.Integrity,
+      Test-BicepTemplateCompliance and Test-BicepResourceNames green in one staged burst.
 - [x] Role assignments as code, the discovery slice: `role-assignment.bicep` (resource-group scope: resourceGroup | storageAccount |
       keyVault | sqlServer | workspace) and `subscription-role-assignment.bicep` (bicep refuses a subscription assignment from a
       resource-group file, BCP139), the `azure.yml` `groups:` map on AzureConfig/AzureGroupSet with its `groups` fact, discovery's standard
