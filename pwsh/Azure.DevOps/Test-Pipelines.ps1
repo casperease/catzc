@@ -91,7 +91,7 @@ function Test-Pipelines {
         # Template references are absolute (/pipelines/<kind>/<name>.yaml), never relative.
         foreach ($ref in (Get-PipelineTemplateReference -Path $record.Path)) {
             if (-not $ref.StartsWith($templatePrefix, [System.StringComparison]::Ordinal)) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-NAME-ABSOLUTETEMPLATEPATH' -Message "Template reference '$ref' must be an absolute path starting with $templatePrefix."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-ADO-TEMPLATE-ABSOLUTEPATHS' -Message "Template reference '$ref' must be an absolute path starting with $templatePrefix."))
             }
         }
     }

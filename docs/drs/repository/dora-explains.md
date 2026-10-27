@@ -453,3 +453,19 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Version control](../../references/dora/capabilities.md#version-control) — what needs history says so where there is none, instead of
   guessing.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## DRS value chain
+
+`DRS value chain — where each decision record sits along delivery`
+
+[ADR-REPO-VALUECHAIN](drs-value-chain.md)
+
+> DORA's research ties documentation quality and the visibility of work in the value stream to delivery performance: a team that sees where
+> along delivery its decisions act finds the one that governs a change. Placing every decision record on a declared row and value-chain
+> concern makes that place a fact the registry holds, and the map draws it the same way on every run.
+
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — a decision record's place along delivery is
+  declared once and read from the registry, never guessed.
+- [Work visibility in value stream](../../references/dora/capabilities.md#work-visibility-in-value-stream) — the map shows which decisions
+  govern each step a change travels through.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

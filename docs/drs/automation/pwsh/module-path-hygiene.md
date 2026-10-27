@@ -51,6 +51,26 @@ Group Policy or login scripts may add further network paths — the primary caus
 
 We vendor all dependencies ([vendor-toolset-dependencies](vendor-toolset-dependencies.md)). The user profile module path is never needed.
 
+### Module folders in pwsh
+
+`How pwsh spells the module folder conventions`
+
+The repository's folder convention states what each folder under the code root means for any engine. In pwsh those conventions are spelled
+as follows, so a path inside a module is always relative to something the module knows, never to the user's profile or the working
+directory:
+
+- **Module discovery.** `Import-AllModules` keeps a folder as a module with the filter `$_.Name -notmatch '^\.'`, so a dot-prefixed folder
+  is infrastructure.
+- **Test discovery.** `Test-Automation` scans `Join-Path $moduleDir 'tests'` for every module.
+- **Test fixtures.** A test reaches its fixtures through `$PSScriptRoot`, which is the `tests/` folder:
+  `Join-Path $PSScriptRoot 'assets/<fixture>'`.
+- **Module assets and configs.** A module function, public or private, reaches its own files through `Get-CatzcModuleRoot -ChildPath`, as in
+  `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`; in source mode `Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in
+  `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`, which is where `Get-Config` finds that config.
+- **Type namespaces.** Each `types/*.cs` declares the file-scoped `namespace <module>;`, which `Format-Types` writes and repairs from the
+  file's `types/` folder and `Test-Formatting` checks; the loader rejects a dotted filename and a missing, mismatched or block-scoped
+  namespace.
+
 ## Decision
 
 The vendored copies win through surgical `$env:PSModulePath` edits at import, and the network-user-path slowdown is addressed by an optional

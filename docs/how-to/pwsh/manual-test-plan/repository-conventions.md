@@ -242,14 +242,14 @@ file but `out/` is a declared track, and every printed label (maps.yml labels, t
 
 **Guards:** The `Test-ValueChainMap` quality gate reports 0 issues: the value-chain map's rows and columns are the value-chain stack and the
 value-chain concerns DrsConfig declares, in order, every decision record of drs.yml sits in at least one cell, and every value_chain_ label
-of maps.yml names a glossary term (DDR-TRACK-VALUECHAINSTACK, DDR-TRACK-VALUECHAINCONCERN, DDR-TRACK-VALUECHAINMAP).
+of maps.yml names a glossary term (ADR-REPO-VALUECHAIN-STACK, ADR-REPO-VALUECHAIN-CONCERN, ADR-REPO-VALUECHAIN-MAP).
 
 ### 20. Get-ValueChainMap — the real registry
 
 **Test file:** `pwsh/Base.Maps/tests/Get-ValueChainMap.Tests.ps1` (L1), block `Get-ValueChainMap — the real registry`.
 
 **Guards:** Every decision record sits in exactly its value-chain concerns' cells on its domain's value-chain stack row
-(DDR-TRACK-VALUECHAINCONCERN).
+(ADR-REPO-VALUECHAIN-CONCERN).
 
 ### 21. Get-ValueChainHighlight — the real registry
 

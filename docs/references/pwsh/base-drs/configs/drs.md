@@ -14,9 +14,9 @@ projection of this file (`Build-DrsIndex`), see [ADR-REPO-README](../../../../dr
 - `depends_on` — the acyclic DAG of domains, rendered through `Get-DrsDomainEdges | ConvertTo-DrsDomainDiagram`, mirroring the module
   dependency graph;
 - `stack` — its row of the value-chain stack: PRIN, DSGN, AUTO, PIPE or CLOUD
-  ([DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack));
+  ([ADR-REPO-VALUECHAIN-STACK](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack));
 - `concern` — its default value-chain concerns, a list of automation, build, quality-control, release, deploy and access
-  ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
+  ([ADR-REPO-VALUECHAIN-CONCERN](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern)).
 
 ## Rule sets
 

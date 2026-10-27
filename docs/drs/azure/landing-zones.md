@@ -29,13 +29,14 @@ of every range, and the landing zone reads the kind, the address space, and the 
 Every landing zone assigns the ten policies of `landing-zone-policies.bicep`: allowed locations (its region), the six CAF tags required on
 resources (one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a
 SQL server, a diagnostic setting on every data resource, the allowed storage SKUs, the allowed virtual machine sizes, the allowed resource
-types (the types the shared modules declare), and the Microsoft cloud security benchmark initiative, assigned to audit only. Whether the
-assignments enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default
-declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); the benchmark is
-`DoNotEnforce` whatever the setting. The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic
-setting the landing zone deploys, never through a deploy-if-not-exists policy. Apart from the CAF-tags definition the policies are built-in,
-each pinned by its definition id in `landing-zone-policies.bicep`, and each is assigned once per subscription, with no exclusion and no
-exemption.
+types, and the Microsoft cloud security benchmark initiative, assigned to audit only. The allowed resource types are derived at build time
+from the types the shared modules deploy (the `module_resource_types` fact), never a hand-kept list. Whether the assignments enforce or only
+audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default declared once
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); the benchmark is `DoNotEnforce`
+whatever the setting. The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic setting the
+landing zone deploys, never through a deploy-if-not-exists policy. The CAF-tags definition is defined at subscription scope beside its
+assignment; apart from it the policies are built-in, each pinned by its definition id in `landing-zone-policies.bicep`, and each is assigned
+once per subscription, with no exclusion and no exemption.
 
 - [Guardrails](landing-zones/landing-zones-topology.md#guardrails)
 - [How this is enforced](landing-zones/landing-zones-operations.md#how-this-is-enforced)
@@ -50,12 +51,15 @@ no network, peering, DNS zone, or policy.
 
 ### Rule ADR-AZ-LZ-EVERYPILLAR
 
-The workload realises every **pillar** of the Azure **Well-Architected Framework**, each as a module default or a config value. Reliability:
-zone-redundant storage, and in production a zone-redundant database with geo-redundant backups. Security: no public network access, private
-endpoints only, TLS 1.2 minimum, a managed identity, and Entra ID authentication (ADR-AZ-LZ-SQLENTRAADMINS). Cost optimisation: a serverless
-database that pauses when idle outside production, a provisioned one in production. Operational excellence: diagnostics from every resource
-to `foundation`'s workspace, and the CAF tags on every resource. Performance efficiency: the database SKU, tier, and capacity per
-environment class, from the config.
+The workload realises every **pillar** of the Azure **Well-Architected Framework**, each as a module default or a config value, and each
+pillar's rule says how:
+
+- Reliability: [ADR-AZ-LZ-ONEREGIONRELIABILITY](#rule-adr-az-lz-oneregionreliability).
+- Security: [ADR-AZ-LZ-SECUREBYDEFAULT](#rule-adr-az-lz-securebydefault), with [ADR-AZ-LZ-SQLENTRAADMINS](#rule-adr-az-lz-sqlentraadmins).
+- Cost optimisation: [ADR-AZ-LZ-COSTBYCLASS](#rule-adr-az-lz-costbyclass).
+- Operational excellence: [ADR-AZ-LZ-OPSASCODE](#rule-adr-az-lz-opsascode), with [ADR-AZ-LZ-CAFMANAGEMENT](#rule-adr-az-lz-cafmanagement)
+  and [ADR-AZ-LZ-CAFTAGS](#rule-adr-az-lz-caftags).
+- Performance efficiency: [ADR-AZ-LZ-PERFBYCONFIG](#rule-adr-az-lz-perfbyconfig).
 
 - [The Well-Architected checklist](landing-zones/landing-zones-topology.md#the-well-architected-checklist)
 
@@ -77,11 +81,8 @@ same way: hubs, then spokes, then hubs again.
 
 ### Rule ADR-AZ-LZ-GOVERNANCELIMITS
 
-The landing zone governs location, tagging, exposure, data diagnostics, the storage and virtual machine SKUs, and the resource types, and
-nothing else. Its one custom definition is the CAF-tags rule, defined at subscription scope beside its assignment; every other assignment is
-a built-in pinned by its id, and its one initiative is the Microsoft cloud security benchmark, assigned to audit only. The allowed resource
-types are derived at build time from the types the shared modules deploy (the `module_resource_types` fact), never a hand-kept list. It
-assigns no regulatory initiative and no resource-provider policy, makes no assignment above a subscription, and grants roles only as
+The landing zone governs its policy set ([ADR-AZ-LZ-LANDINGZONEPOLICIES](#rule-adr-az-lz-landingzonepolicies)) and nothing else. It assigns
+no regulatory initiative and no resource-provider policy, makes no assignment above a subscription, and grants roles only as
 ADR-AZ-LZ-CAFIDENTITY declares. A repository whose customer carries a regulation adds the matching built-in initiative to the landing zone's
 set, pinned like the others.
 

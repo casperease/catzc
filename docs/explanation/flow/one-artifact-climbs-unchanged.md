@@ -10,7 +10,7 @@ One artifact is built once and climbs to production unchanged.
 5  production        past the gate, DEPLOY rolls the same artifact to prod
 
 Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY,
-FDR-CD-TWORELEASEGATES and FDR-CD-GATEDEFINED (meta lens).
+FDR-CD-TWORELEASEGATES and FDR-CD-TWORELEASEGATES (meta lens).
 ```
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
@@ -29,7 +29,7 @@ about:
     - FDR-CD-CDSTAYSINNONPROD
     - FDR-CD-PRODPROGRESSIONISDEPLOY
     - FDR-CD-TWORELEASEGATES
-    - FDR-CD-GATEDEFINED
+    - FDR-CD-TWORELEASEGATES
   lens: meta
 content:
   title: One artifact is built once and climbs to production unchanged
@@ -104,7 +104,7 @@ layout:
 - CD takes the artifact through non-prod only (FDR-CD-CDSTAYSINNONPROD), and progression toward prod enters DEPLOY behind a manual gate
   (FDR-CD-PRODPROGRESSIONISDEPLOY).
 - RC and RBC are the manual gates (FDR-CD-TWORELEASEGATES). A gate decides; DEPLOY, the pipeline that acts, is not a gate
-  (FDR-CD-GATEDEFINED).
+  (FDR-CD-TWORELEASEGATES).
 
 ## Where the code and the decision record differ
 

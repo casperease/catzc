@@ -32,7 +32,7 @@ this on every load and a janitor never breaks the load.
 
 - Skips, silently, in a test-run snapshot (Test-RepositorySnapshot): the disposable clone a test run executes in is never committed to.
 - Who is running decides (Get-SessionActor,
-  [ADR-BCL-TYPES-JANITORSBYCALLER](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-janitorsbycaller)): a pipeline
+  [ADR-PWSH-TYPES-JANITORSBYCALLER](../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-janitorsbycaller)): a pipeline
   skips — the gates there must fail loudly, not be auto-repaired — and an agent never commits: it announces which generated paths changed
   and leaves the commit to the person, whose repository it is. Only a person's session commits.
 - Skips on a detached HEAD: a commit there hangs off no branch and is one checkout away from lost.

@@ -13,7 +13,7 @@ The CI budget is the only promotion rule a quality gate checks.
 8  reviewer         code review, the only enforcer the FDR names for the whole flow
 
 Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG,
-FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-GATEDEFINED, FDR-TYPE-PRECOMMITBUDGET, FDR-TYPE-DEPLOYISCDTAIL,
+FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-TWORELEASEGATES, FDR-TYPE-PRECOMMITBUDGET, FDR-TYPE-DEPLOYISCDTAIL,
 FDR-TYPE-ONEDEPLOYPATH, FDR-TYPE-DEPLOYISPINNED and FDR-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
 ```
 
@@ -33,7 +33,7 @@ about:
     - FDR-CD-TWORELEASEGATES
     - FDR-CD-PREPRODRUNG
     - FDR-CD-TWOENVIRONMENTACTIVATION
-    - FDR-CD-GATEDEFINED
+    - FDR-CD-TWORELEASEGATES
     - FDR-TYPE-PRECOMMITBUDGET
     - FDR-TYPE-DEPLOYISCDTAIL
     - FDR-TYPE-ONEDEPLOYPATH
@@ -83,7 +83,7 @@ content:
     - { at: g-reviewer, number: 8 }
   chips:
     - { at: g-inner-loop, kind: rule, rule: FDR-CD-SHORTINTEGRATIONCYCLE }
-    - { at: g-machine-gate, kind: rule, rule: FDR-CD-GATEDEFINED }
+    - { at: g-machine-gate, kind: rule, rule: FDR-CD-TWORELEASEGATES }
     - { at: g-cd, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false }
     - { at: g-rc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
     - { at: g-deploy-non-prod, kind: rule, rule: FDR-CD-PREPRODRUNG, gated: false }
@@ -137,7 +137,7 @@ layout:
 - DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (FDR-CD-PREPRODRUNG,
   FDR-TYPE-DEPLOYISCDTAIL–FDR-TYPE-DEPLOYCARRIESGOVERNANCE).
 - Deploy to prod stages the artifact inactive in pre-prod, then activates it live (FDR-CD-TWOENVIRONMENTACTIVATION).
-- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (FDR-CD-GATEDEFINED).
+- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (FDR-CD-TWORELEASEGATES).
 
 ## Where the code and the decision record differ
 

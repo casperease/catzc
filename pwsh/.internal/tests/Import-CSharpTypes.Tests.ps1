@@ -290,7 +290,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             Test-Path $dll | Should -BeTrue                          # re-import rebuilt the committed artifact
         }
 
-        It 'on a devbox, a source changed after load warns (orange) and keeps the old types — no throw' {
+        It 'on a devbox, a source changed after load warns (yellow) and keeps the old types — no throw' {
             $savedTfBuild = $env:TF_BUILD
             $savedGitHubActions = $env:GITHUB_ACTIONS
             $env:TF_BUILD = ''

@@ -30,7 +30,7 @@ never plan the live build for deletion.
 
 The other half of the cache is the copy in the running process, which cannot be swapped once loaded. A test/assert pair asks whether the
 types this process loaded are still those its sources declare, from the one measurement the loader and the importer use
-([ADR-BCL-TYPES-ONEDRIFTMEASURE](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)); the assert names
+([ADR-PWSH-TYPES-ONEDRIFTMEASURE][r1]); the assert names
 every drifted type and the one remedy, a new PowerShell.
 
 ### responsibility:2 — Cross-module type dependency analysis
@@ -99,3 +99,5 @@ The module's public functions, sorted into the responsibilities above.
 |                                                          | `New-Solution`              |
 | responsibility:4 — Shipped-type coverage                 | `Test-ShippedTypes`         |
 | responsibility:5 — Agent hook build                      | `Build-AgentHook`           |
+
+[r1]: ../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-onedriftmeasure

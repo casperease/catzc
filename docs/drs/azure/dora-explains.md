@@ -123,7 +123,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 ## Az CLI session verification
 
-`Az CLI session verification — three layers, and verify is not connect`
+`Az CLI session verification — four layers, and verify is not connect`
 
 [ADR-AZ-SESSION](az-session-verification.md)
 

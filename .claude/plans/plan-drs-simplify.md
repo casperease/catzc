@@ -17,37 +17,16 @@ records.
 
 ## Open steps
 
-### Contradictions, settled first
+### Verify the last wave
 
-- [ ] `design/visual-design.md`: "slate" names both a stage-box tint and staged WIP; the stage box takes another tint name. Check: the
-      record check.
+The flow, ado and azure merges, the session-rule rename (ADR-AZ-SESSION-SEPARATECONCERNS), the BCL host rules, the folder and config
+samples, the value-chain move (ADR-REPO-VALUECHAIN), ONETRACKTYPE, the arrows rule and the pewter tint rename landed with a 226-change
+re-cite; five importer-path files went by staged burst, its 14 test files green.
 
-### Vendor and engine detail down a tier
-
-Each step keeps a neutral rule in place and moves the spelling to its twin. Check for each: the record check plus `Test-DrsEngineNeutrality`
-on the neutral record.
-
-- [ ] `configuration/config-value-addressing.md`: its pwsh code moves to `automation/pwsh/`. Check: as above.
-- [ ] `automation/BCL/native-csharp-types.md`: the pwsh host rules (ADR-BCL-TYPES-CHANGEDAFTERLOAD, -STALETYPESGUARD, -ONEDRIFTMEASURE,
-      -CONSOLEVERIFIESONLY, -ACCELERATORSNOTFULLNAMES, -JANITORSBYCALLER) move to `automation/pwsh/hosting-csharp-types.md`, merging with
-      ADR-PWSH-TYPES-RESTARTTORELOAD and -ONEINSTANCEPERSESSION; the shadow-copy mechanics already moved. Check: as above.
-- [ ] `repository/conventional-folders.md`: the `Join-Path`, `Get-CatzcModuleRoot` and `Format-Types` samples move to `automation/pwsh/`.
-      Check: as above.
-- [ ] The three value-chain rules of `design/tracks.md` (DDR-TRACK-VALUECHAINSTACK, -VALUECHAINCONCERN, -VALUECHAINMAP) move to a DRS record
-      in `repository/`. Check: as above.
-- [ ] Engine names leave DDR-TRACK-ONETRACKTYPE (its Go, Python and Bash test-holder sentences). Check: as above.
-- [ ] DDR-VISUAL-ARROWSPOINTATDEPENDENCY keeps the arrow meaning and its routing mechanics move to the renderer docs. Check: as above.
-
-### Rules that state one thing
-
-Check for each: `Update-AdrCitation` dry run, then the record check.
-
-- [ ] Flow and ado: FDR-CD-GATEDEFINED into -TWORELEASEGATES; FDR-LIFE-FAILEDSTAYSUPSTREAM into -DIRTYHEADUNSAFE;
-      FDR-TYPE-CDEAUTOMATESPRODROLL, -CDEINTERNALGATES and -CDESHARESDEPLOYPATH into one rule citing FDR-CD-CDEINTERNALIZESPROMOTION;
-      ADR-ADO-NAME-ABSOLUTETEMPLATEPATH into ADR-ADO-TEMPLATE-ABSOLUTEPATHS, and "Flat pipelines" cites FDR-PIPELINE-TYPEPREFIX. Check: as
-      above.
-- [ ] Azure: ADR-AZ-LZ-GOVERNANCELIMITS keeps only what is ungoverned and -EVERYPILLAR indexes the pillar rules;
-      ADR-AZ-SESSION-REVERSELOOKUP into -THREESEPARATECONCERNS (renamed for its layers). Check: as above.
+- [ ] `Build-DrsIndex` and `Build-Glossary`, then the record check over the tree plus `Test-Spelling`, `Test-Glossary` and
+      `Test-DrsEngineNeutrality`. Check: each reports 0 issues.
+- [ ] The glossary sources' "cell" and "lit cell" (`pwsh/Base.ModuleSystem/configs/glossary.yml`) read the world map only, since their
+      defining design rules no longer carry the value-chain half. Check: `Test-Glossary`.
 
 ### Sections that restate their rules
 

@@ -16,13 +16,6 @@ not invent other template folders.
 
 - [Template fragments live in per-kind folders](#2-per-kind-template-folders)
 
-### Rule ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-
-Templates are referenced by absolute path (`/.ado/pipelines/<kind>/<name>.yaml`) — fragments via `template:`, whole-pipeline templates via
-`extends:`.
-
-- [Template fragments live in per-kind folders](#2-per-kind-template-folders)
-
 ### Rule ADR-ADO-NAME-EXTENDSISNOTPIPELINE
 
 An `extends` template is not a pipeline — it defines structure, not an entry point. What gets registered is the thin root
@@ -64,7 +57,8 @@ an executable ADO artifact or data our code reads.
 
 A pipeline (the file ADO registers and runs) sits directly in `.ado/pipelines/`, not in a subfolder.
 
-Its name **starts with its type** — one of `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
+Its name starts with its type, followed by a descriptive name
+([FDR-PIPELINE-TYPEPREFIX](../flow/pipeline-concept.md#rule-fdr-pipeline-typeprefix)):
 
 ```text
 .ado/pipelines/ci-pwsh.yaml
@@ -162,9 +156,10 @@ anything ADO executes (pipelines and template fragments); `.yml` is data our cod
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `.ado/pipelines/` tree
   against this ADR: the type prefix (FDR-PIPELINE-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
   fragment kinds (ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
-  (FDR-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/.ado/pipelines/...` template references (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH). It
-  collects one issue per violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues
-  over the real tree, so a mis-named or misplaced pipeline fails CI, not just review.
+  (FDR-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/.ado/pipelines/...` template references
+  ([ADR-ADO-TEMPLATE-ABSOLUTEPATHS](custom-template-discipline.md#rule-adr-ado-template-absolutepaths)). It collects one issue per
+  violation, each naming its rule code, and throws once listing them all; its L1 integrity test requires zero issues over the real tree, so
+  a mis-named or misplaced pipeline fails CI, not just review.
 
 ## Consequences
 

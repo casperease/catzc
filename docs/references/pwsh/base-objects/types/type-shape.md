@@ -4,7 +4,7 @@ The reflected properties of a type, read once.
 
 ## Cache
 
-The table is keyed by `Type` and filled on first use. A loaded type cannot change in a process (ADR-BCL-TYPES-CHANGEDAFTERLOAD), so an entry
+The table is keyed by `Type` and filled on first use. A loaded type cannot change in a process (ADR-PWSH-TYPES-RESTARTTORELOAD), so an entry
 cannot go stale, and it is not a session cache of the file set (ADR-AUTO-CACHE).
 
 ## Data properties

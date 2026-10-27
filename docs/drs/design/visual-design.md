@@ -312,43 +312,19 @@ An arrow runs from the one that acts, its initiator, to what it acts on or depen
 to its provider, a resolver to the sources it reads, and the head is always the receiver. Code acts and is not acted on, so a plain arrow
 ends on a code block only from an actor, an author or a trigger, which a diagram may place at the start of a flow; a call is the declared
 exception, an arrow labelled `calls` whose head is the code it runs, and a feed is the second, an arrow labelled `feeds` whose head is the
-code that takes in what the tail supplies (its tail still initiates). Only a word says otherwise: an arrow whose label names another meaning
-(`reads`, `writes`, `feeds`, `failed`) means that. Four words carry the relations that are not a dependency of code, each with its tail as
-the initiator: `else` runs from the first choice to its fallback, `composes` from a whole to the part it is built from, `then` from a step
-to what comes after it (the next rung, the next step, or the form derived from it), and `in` from the contained to its container. A diagram
-that gives its plain arrows one other meaning states it as its `relation`, which every plain arrow then carries and which opts the diagram
-out of the check. The `relation` opt-out is for state and commit diagrams only, where an arrow is a step between states rather than a
-dependency, and such a diagram says so with `states: true`: the validator refuses a `relation` without it and `states: true` without a
-relation. `commit-promotion-states` declares "advances one rung", and `sync-point` "points at"; any other diagram's plain arrows keep the
-default meaning. The default meaning, the code kinds, the labels that may end on code and each label's initiating end are declared once, in
-the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`; the legend entry of a plain arrow reads `flow: initiator to receiver` from
-that declaration, and a declaration that breaks the rule is refused naming the edge.
+code that takes in what the tail supplies (its tail still initiates). The kind of each end orders an arrow that carries no word: an actor
+acts on code, code on a file, a config, a store or a set, and on the result or failure it produces, so a file or config is the receiver of
+the code that reads it and never an initiator. Only a word says otherwise: an arrow whose label names another meaning (`reads`, `writes`,
+`feeds`, `failed`) means that. Four words carry the relations that are not a dependency of code, each with its tail as the initiator: `else`
+runs from the first choice to its fallback, `composes` from a whole to the part it is built from, `then` from a step to what comes after it
+(the next rung, the next step, or the form derived from it), and `in` from the contained to its container.
 
-The kind of each end orders the arrow. The kit's `edge-rank` lists the ranks, lowest first (actor, code, file or config, store or set,
-result or failure), each with its glyph kinds, and the lower rank acts on the higher: an edge between cells of different rank runs from the
-lower to the higher, so a file or config is the receiver of the code that reads it and never an initiator. An edge with no label of the
-vocabulary is oriented this way: declared against its rank it is refused naming the edge, and declared with its rank it takes the label its
-kind pair names in `edge-defaults` (code to file or set `reads`, to store `writes`, to failure `failed`; an actor to code none), drawn in
-the label presentation like any other label. The source keeps that edge minimal: get and tidy never write a derived label, and a label the
-author wrote that equals its pair's default is the same edge, so the one form leaves it out; a label of another meaning is kept, and so are
-the direction as written (get never rewrites `from` and `to` into `between`) and every edge of a diagram with its own `relation`. An edge
-may be declared minimally as `between: [a, b]` and the kit orients it; ends of one rank are declared with `from` and `to`, between two code
-blocks with a `calls` label or an actor. An edge that no waypoint routes leaves the side its two ends face (across the axis they overlap on,
-else the axis of their wider centre distance) and takes an even share of that side with every other edge that meets it there, in the order
-of the other ends, one edge alone at the side's middle, so edges between aligned cells run straight and edges sharing a side fan out without
-crossing. A cell that is neither end of an edge is a keep-out zone for it: the cell grown by the 8 px deadzone and its marker, and a path
-that enters one is an `E_KEEPOUT` error under the kit's one findings setting; bands, groups and spans are no obstacle. An edge whose two
-ends share no x overlap and no y overlap has no straight line and is routed as one orthogonal elbow by default (`edge-route: elbow` in the
-renderer, `straight` keeps the diagonal): it leaves the side facing across, runs along that row to the column of the side it enters, with
-the deadzone at both ends and its pill on the longer leg; the route is derived, never written to the declaration, and an edge whose ends
-overlap on an axis stays straight. An edge may also carry a `count`, `n/m` with n at most m (`count: 13/28`), shown in its pill after its
-label as `calls 13/28`; a count is no label and decides no direction, and a label that is only an `n/m` is read as the edge's count. Where
-every flow edge of a diagram carries one and the same word (all `calls`), no pill is drawn on each: the legend entry of the plain arrow says
-it once (`flow: calls`), derived at render time under the renderer's `uniform-label: legend` and never written back; an edge with a count
-keeps its pill for the count, and a failure edge does not count toward the sameness. A label outside the vocabulary is free text, not an
-arrow meaning, and the edge is oriented by rank like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the
-direction their author declared, and a diagram with its own `relation` keeps its plain arrows as they are. The edge audit reads the same
-ranks and defaults.
+Only a state diagram declares a relation. In a state or commit diagram an arrow is a step between states rather than a dependency, so such a
+diagram says `states: true` and states the one meaning every plain arrow carries as its `relation`, which opts it out of the check; a
+`relation` without `states: true`, and `states: true` without a relation, are refused. `commit-promotion-states` declares "advances one
+rung", and `sync-point` "points at"; every other diagram's plain arrows keep the default meaning. The default meaning, the code kinds, the
+labels that may end on code and each label's initiating end are declared once, in the renderer's vocabulary; the legend entry of a plain
+arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is refused naming the edge.
 
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 
@@ -527,8 +503,9 @@ these meanings is drift and must be normalised.
   of this family, with no separate hex.
 
 Pipeline **stage-box** tints are _chrome_, not commit states, and are not part of this palette: the pale green on the pre-prod and
-production boxes is only a box tint, never the production commit's green. **Environment** boxes carry no tint at all — they are neutral
-containers coloured only by their occupant (DDR-VISUAL-ENVIRONMENTISCONTAINER).
+production boxes is only a box tint, never the production commit's green. The structural glyph fills are chrome too: **pewter**, the fill of
+a code unit, a store and a runner, shares its hue with staged slate and still names no commit state. **Environment** boxes carry no tint at
+all — they are neutral containers coloured only by their occupant (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Lifecycle endings
 

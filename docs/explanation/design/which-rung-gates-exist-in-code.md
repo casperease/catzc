@@ -14,7 +14,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 
 Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-RETIREMENTISNOTDISCARD,
 FDR-LIFE-SUPERSESSIONABANDONS, FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD,
-FDR-LIFE-FAILEDSTAYSUPSTREAM, FDR-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD,
+FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD,
 FDR-CD-TWORELEASEGATES, FDR-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST
 and DDR-VISUAL-FIXEDCOMMITPALETTE (governance lens).
 ```
@@ -36,7 +36,7 @@ about:
     - FDR-LIFE-SUPERSESSIONABANDONS
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
     - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - FDR-CD-INNERANDOUTERLOOP
     - FDR-CD-CDSTAYSINNONPROD
@@ -109,7 +109,7 @@ content:
     - { at: a-rbc, kind: rule, rule: FDR-LIFE-DISCARDISTERMINAL, gated: false, corner: bottom-left }
     - { at: a-two-slot, kind: rule, rule: FDR-CD-TWOENVIRONMENTACTIVATION, gated: false, corner: bottom-right }
     - { at: c-production, kind: rule, rule: FDR-LIFE-RETIREMENTISNOTDISCARD, gated: false }
-    - { at: g-failure-stop, kind: rule, rule: FDR-LIFE-FAILEDSTAYSUPSTREAM, corner: bottom-right }
+    - { at: g-failure-stop, kind: rule, rule: FDR-LIFE-DIRTYHEADUNSAFE, corner: bottom-right }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -165,7 +165,7 @@ layout:
 - Each always-on environment holds one occupant, and no gate checks it (FDR-LIFE-ONECOMMITPERENVIRONMENT).
 - The BVT-verified server head is the stable integration point, and the same commit goes into `main-uat` first
   (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
-- A commit that fails a stage cannot go downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit that fails a stage cannot go downstream (FDR-LIFE-DIRTYHEADUNSAFE).
 - An out-of-band deploy of a topic commit is not an integration (FDR-LIFE-TOPICDEPLOYSOUTOFBAND).
 - PR build validation is the inner CI gate (FDR-CD-INNERANDOUTERLOOP); L3 runs in CD (FDR-CD-CDSTAYSINNONPROD); RC and RBC are the manual
   gates (FDR-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION).

@@ -381,8 +381,8 @@ Level 2: `pwsh/` — modules vs. infrastructure
   - Meaning: Module — auto-discovered by `Import-AllModules`
   - Examples: `Catzc.Base.Asserts/`, `Catzc.Base.Writers/`, `Catzc.Tooling.Core/`
 
-`Import-AllModules` filters with `$_.Name -notmatch '^\.'`. This is the entire module discovery mechanism: if the folder name starts with a
-dot, it is infrastructure; otherwise, it is a module. No registration, no manifest, no list of module names.
+`Import-AllModules` skips every folder whose name starts with a dot. This is the entire module discovery mechanism: if the folder name
+starts with a dot, it is infrastructure; otherwise, it is a module. No registration, no manifest, no list of module names.
 
 **Why dot-prefix:** The dot-prefix convention is borrowed from Unix (dotfiles are hidden by default) and from this repository's own
 `.github/` and `.vscode/` patterns. It communicates "infrastructure, not content" at a glance. It also sorts infrastructure to the top of
@@ -416,25 +416,24 @@ session state by the module's loader but excluded from `FunctionsToExport`. The 
 every module, without exception.
 
 **`types/`** contains C# source files (`*.cs`) compiled and loaded as .NET types at import time by the bootstrap module's
-`Import-CSharpTypes`, before any module's functions. **The filename is the bare type name** the file must produce, and **the file declares a
-file-scoped `namespace <module>;`** — derived from its `types/` folder, written and repaired by `Format-Types` and checked by
-`Test-Formatting`, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in `Catzc.Base.Execution` →
-`Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename with no source parsing — one type per file (the analogue
-of one-function-per-file) — and rejects a dotted filename or a missing, mismatched, or block-scoped namespace. Every module's sources
-compile together into **one** assembly for the whole repository, `Catzc.Types.<hash>.dll`, built on each machine into the per-user shadow
-root and keyed by the source hash; git keeps no file under `pwsh/.compiled`, and the types surface is the provided contract under
+`Import-CSharpTypes`, before any module's functions. **The filename is the bare type name** the file must produce, and **the file's
+namespace is its module**, derived from its `types/` folder, so the fully-qualified type is `<module>.<filename>` (`types/CliRunner.cs` in
+`Catzc.Base.Execution` → `Catzc.Base.Execution.CliRunner`). The loader identifies the type from the filename — one type per file (the
+analogue of one-function-per-file) — and rejects a file whose name or namespace breaks that. Every module's sources compile together into
+**one** assembly for the whole repository, `Catzc.Types.<hash>.dll`, built on each machine into the per-user shadow root and keyed by the
+source hash; git keeps no file under `pwsh/.compiled`, and the types surface is the provided contract under
 `contracts/catzc/0.1.0/catzc.internal.types/`. A module with no native types has no `types/` folder. The full rule set — the single combined
 assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state behaviour, the fail-fast on
 edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
 [native-csharp-types](../automation/BCL/native-csharp-types.md).
 
-**`tests/`** contains `*.Tests.ps1` files. `Test-Automation` scans `Join-Path $moduleDir 'tests'` for every module. Tests go here and
-nowhere else. A test file outside `tests/` will not be discovered. Test-only fixtures — the inputs a test owns (fixture templates, identity
-configs, golden files, sample CSV/JSON/YAML) — live in `tests/assets/`, packaged with the tests that consume them rather than mixed into the
-module's shipped `assets/`. Tests reference them relative to `$PSScriptRoot` (e.g. `Join-Path $PSScriptRoot 'assets/<fixture>'`, since
-`$PSScriptRoot` is the `tests/` folder). The internal layout under `tests/assets/` is freeform. One constraint: no fixture may be named
-`*.Tests.ps1` — `Test-Automation` recurses the whole `tests/` tree, so a fixture with that suffix would be collected and run as a test. The
-shipped, runtime-consumable assets stay in `assets/`; test fixtures never do.
+**`tests/`** contains `*.Tests.ps1` files. `Test-Automation` scans each module's `tests/` folder. Tests go here and nowhere else. A test
+file outside `tests/` will not be discovered. Test-only fixtures — the inputs a test owns (fixture templates, identity configs, golden
+files, sample CSV/JSON/YAML) — live in `tests/assets/`, packaged with the tests that consume them rather than mixed into the module's
+shipped `assets/`. A test reaches them relative to its own folder, `tests/`, never through an absolute path. The internal layout under
+`tests/assets/` is freeform. One constraint: no fixture may be named `*.Tests.ps1` — `Test-Automation` recurses the whole `tests/` tree, so
+a fixture with that suffix would be collected and run as a test. The shipped, runtime-consumable assets stay in `assets/`; test fixtures
+never do.
 
 **`tests/types/`** holds the tests for a module's native C# types (`types/*.cs`). A type test is named for its type
 (`<TypeName>.Tests.ps1`), not `Verb-Noun.Tests.ps1` — a type has no verb — so it lives in this dedicated sub-folder instead of directly
@@ -445,17 +444,17 @@ so the folder cannot collect a mislocated or misnamed test.
 **`assets/`** is for consumable assets the module ships at runtime that are not a function, a test, or the module's own config: vendored
 scripts, templates, JSON schemas, reference data, embedded resources. Test-only fixtures do **not** belong here — they live in
 `tests/assets/`, packaged with the tests that use them. The bootstrap module does not scan this folder. `New-DynamicManifest` does not look
-here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets via
-`Get-CatzcModuleRoot` (e.g., `Get-CatzcModuleRoot -ChildPath 'assets/template.bicep'`, the same call from a root or a `private/` function),
-which resolves under the active code root in source mode and in the installed build alike
+here. `Test-Automation` does not look here. The one-function-per-file validator does not look here. Module functions reference assets
+through the one module-root resolver, `Get-CatzcModuleRoot`, with the same module-relative path from a public or a private function, which
+resolves under the active code root in source mode and in the installed build alike
 ([internal-asset-dependencies](../automation/internal-asset-dependencies.md)). Module authors may create subdirectories inside `assets/` to
 organize content — the internal structure is freeform. The module's own configuration does **not** belong here; it lives in `configs/`.
 
 **`configs/`** holds the module's own internal configuration — the checked-in YAML a module loads to configure its own behaviour. Each entry
 is a flat, kebab-case `.yml` file (`<kebab-name>.yml`, never `.yaml`); the folder is flat, with no subdirectories. Module functions read
-these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode,
-`Get-CatzcModuleRoot -ChildPath 'configs/tools.yml'` in `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`), the one
-shared reader rather than bespoke per-reader loaders — see [module-config-loading](../configuration/module-config-loading.md).
+these files through `Get-Config`, which locates them under the module's folder in the active code root (in source mode, `configs/tools.yml`
+of `Catzc.Base.Execution` resolves to `pwsh/Base.Execution/configs/tools.yml`), the one shared reader rather than bespoke per-reader loaders
+— see [module-config-loading](../configuration/module-config-loading.md).
 
 Not every module needs every folder. A module with no private helpers has no `private/`. A module with no assets has no `assets/`, and a
 module that loads no internal config has no `configs/`. The convention defines what the name means when the folder exists, not that every
@@ -513,8 +512,7 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 - **`New-DynamicManifest`** — scans `private/` for non-exported functions (a literal today, the setting's default). Files not in `private/`
   or the module root are not included in the manifest. A file in `helpers/` is structurally invisible.
 
-- **`Import-AllModules`** — applies the dot-prefix filter (`$_.Name -notmatch '^\.'`). Dot-prefixed folders are infrastructure. Non-dot
-  folders are modules.
+- **`Import-AllModules`** — applies the dot-prefix filter. Dot-prefixed folders are infrastructure. Non-dot folders are modules.
 
 - **`Test-Automation`** — discovers test paths under `tests/` (a literal today, the setting's default). Test files outside `tests/` are
   never executed.

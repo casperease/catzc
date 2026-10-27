@@ -14,10 +14,10 @@ terms:
       expands_to: "decision record system"
     - term: LOCAL
       meaning:
-        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
+        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-REPO-VALUECHAIN-CONCERN)"
       expands_to: "automation"
     - term: release
-      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
+      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-REPO-VALUECHAIN-CONCERN)"
       expands_to: "release"
     - term: dora
       meaning:

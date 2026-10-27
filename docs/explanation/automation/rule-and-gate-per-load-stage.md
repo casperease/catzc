@@ -12,7 +12,7 @@ Every load stage but the unload has an ADR rule and a gate.
 
 Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION, ADR-PWSH-ERROR-STOPONERROR,
 PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-README-READMEIDEMPOTENT,
-DDR-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
+DDR-RUNMODE-NEVERCOEXIST and ADR-PWSH-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
@@ -34,7 +34,7 @@ about:
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-README-READMEIDEMPOTENT
     - DDR-RUNMODE-NEVERCOEXIST
-    - ADR-BCL-TYPES-JANITORSBYCALLER
+    - ADR-PWSH-TYPES-JANITORSBYCALLER
   lens: governance
 content:
   title: Every load stage but the unload has an ADR rule and a gate
@@ -71,7 +71,7 @@ content:
     - { at: g-load, kind: rule, rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE }
     - { at: g-mode, kind: rule, rule: DDR-RUNMODE-NEVERCOEXIST }
     - { at: g-janitors, kind: rule, rule: ADR-REPO-README-READMEIDEMPOTENT }
-    - { at: g-janitors, kind: rule, rule: ADR-BCL-TYPES-JANITORSBYCALLER }
+    - { at: g-janitors, kind: rule, rule: ADR-PWSH-TYPES-JANITORSBYCALLER }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -109,7 +109,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    runs on every load and throws when a module from the other run mode's root is still loaded. `Assert-CatzcRunModeExclusive.Tests` checks
    it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before it.
 5. **Janitors.** Generation is idempotent and runs on every import (ADR-REPO-README-READMEIDEMPOTENT), and who runs the importer decides
-   what the janitors may change, read from `Get-SessionActor` (ADR-BCL-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests` checks that
+   what the janitors may change, read from `Get-SessionActor` (ADR-PWSH-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests` checks that
    holders are never stopped in a `Pipeline` or `Agent` session.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
    ADR rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
@@ -128,7 +128,7 @@ build, and code review rejects a bundle loader that forks the importer.
   ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE).
 - The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
 - Root-config generation is idempotent and runs on every import (ADR-REPO-README-READMEIDEMPOTENT), and the session actor decides what the
-  janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
+  janitors may change (ADR-PWSH-TYPES-JANITORSBYCALLER).
 - The run modes have two entry points (DDR-RUNMODE-TWORUNMODES).
 
 ## Where the code and the decision record differ

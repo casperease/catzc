@@ -232,7 +232,7 @@ concepts:
   value-chain stack:
     key: value_chain_stack
     domain: design
-    defined_by: DDR-TRACK-VALUECHAINSTACK
+    defined_by: ADR-REPO-VALUECHAIN-STACK
     short:
       The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain
       declares one.
@@ -243,7 +243,7 @@ concepts:
   value-chain concern:
     key: value_chain_concern
     domain: design
-    defined_by: DDR-TRACK-VALUECHAINCONCERN
+    defined_by: ADR-REPO-VALUECHAIN-CONCERN
     short:
       Where along delivery a decision record acts — automation, build, quality-control, release, deploy, or access — a default per
       decision-record domain, an override per decision record.
@@ -251,7 +251,7 @@ concepts:
   value-chain map:
     key: value_chain_map
     domain: design
-    defined_by: DDR-TRACK-VALUECHAINMAP
+    defined_by: ADR-REPO-VALUECHAIN-MAP
     short:
       The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision
       sits in the value chain.

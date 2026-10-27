@@ -203,7 +203,7 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*root '$Root' must be*"
     }
 
-    Context 'value-chain stack and concerns' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
+    Context 'value-chain stack and concerns' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         It 'declares the stack rows and the concerns once, in value-chain order' {
             [Catzc.Base.Drs.DrsConfig]::Stacks | Should -Be @('PRIN', 'DSGN', 'AUTO', 'PIPE', 'CLOUD')
             [Catzc.Base.Drs.DrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release',

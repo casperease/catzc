@@ -14,7 +14,7 @@ A label names the concept it prints in its head: the text before its first ':', 
 the whole label when it has no ':'. The head resolves when, compared without case, it is a term of -Term or that term's plural (the term
 followed by 's' or 'es': 'Root files' names the term 'root file'). Every label the world map or the value-chain map prints names a defined
 term in its head ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms),
-[DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)), so Test-WorldMap and Test-ValueChainMap report a
+[ADR-REPO-VALUECHAIN-MAP][r1]), so Test-WorldMap and Test-ValueChainMap report a
 label this returns nothing for.
 
 ### parameter `Label`
@@ -34,3 +34,5 @@ The glossary terms (Get-Glossary), lower-case as the glossary declares them.
 ```powershell
 Resolve-MapLabelTerm -Label 'Root files' -Term (Get-Glossary | ForEach-Object { $_.Concept.term })
 ```
+
+[r1]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map

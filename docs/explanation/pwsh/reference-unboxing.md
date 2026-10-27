@@ -176,7 +176,7 @@ large **retained** collection, never to save call cost.
 
 What not to do: replace a boxed numeric comparison with `==` on `object` (reference equality, wrong); add a fast path whose result differs
 from the general path for any input (int against long and double must stay equal by value); cache anything that can change inside a process
-(a type cannot, `ADR-BCL-TYPES-CHANGEDAFTERLOAD`; a guard's verdict can).
+(a type cannot, `ADR-PWSH-TYPES-RESTARTTORELOAD`; a guard's verdict can).
 
 ## 6. This repository, measured
 

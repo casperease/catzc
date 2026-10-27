@@ -13,7 +13,7 @@ their headers print those terms.
 ## Value-chain map
 
 The value-chain map's labels each start `value_chain_`: its title, the header of each axis (the value-chain stack and the value-chain
-concerns) and the legend's entries ([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)).
+concerns) and the legend's entries ([ADR-REPO-VALUECHAIN-MAP](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map)).
 `Test-WorldMap` checks the world map's labels and `Test-ValueChainMap` the value-chain map's.
 
 ## Validation and defaults

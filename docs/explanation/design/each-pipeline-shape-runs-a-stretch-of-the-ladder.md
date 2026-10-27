@@ -8,7 +8,7 @@ Six pipeline shapes each run a stretch of one promotion ladder, and a commit can
 3  the shapes    six panels, each a different stretch of the ladder
 4  the exit      under every step a dashed arrow to discarded
 
-Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL and FDR-LIFE-FAILEDSTAYSUPSTREAM,
+Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL and FDR-LIFE-DIRTYHEADUNSAFE,
 and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
 ```
 
@@ -126,7 +126,7 @@ content:
 - Every step has an exit to discarded, and the discarded commit stays in history
   ([FDR-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-life-discardisterminal)).
 - A failed step stops the commit going further in every shape
-  ([FDR-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-life-failedstaysupstream)).
+  ([FDR-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-life-dirtyheadunsafe)).
 - RC and RBC are defined by the flow model, and the acceptance testing that clears them is separate from the environment it runs in
   ([FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
   [FDR-CD-ACCEPTANCEISNOTUAT](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptanceisnotuat)).

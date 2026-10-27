@@ -7,10 +7,10 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stack), nameof(Concern), nameof(AdrCount))]
 public sealed class ValueChainCell
 {
-    // The row: a row of the value-chain stack ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)).
+    // The row: a row of the value-chain stack ([ADR-REPO-VALUECHAIN-STACK](/docs/drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack)).
     public string Stack { get; }
 
-    // The column: a value-chain concern ([DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
+    // The column: a value-chain concern ([ADR-REPO-VALUECHAIN-CONCERN](/docs/drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern)).
     public string Concern { get; }
 
     // On the map in drs.yml order, on a highlight in request order; empty for an empty cell.

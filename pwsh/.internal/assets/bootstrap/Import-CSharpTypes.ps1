@@ -32,7 +32,7 @@ function Import-CSharpTypes {
 
     # The enumeration, deterministic ordering, per-file EOL-insensitive digest, combined hash, and per-file
     # snapshot all come from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared module)
-    # that the janitor (Clear-ModuleTypeCache) also calls — so the committed Catzc.Types.<hash>.dll key can never
+    # that the janitor (Clear-ModuleTypeCache) also calls — so the built Catzc.Types.<hash>.dll key can never
     # drift between loader and janitor. The importer loads Catzc.Internal.Types before this pre-pass; the
     # Import-InternalModule call is a no-op guard that keeps this callable if the module was unloaded.
     Import-InternalModule Types
@@ -113,9 +113,9 @@ function Import-CSharpTypes {
         # loaded hash and the source hash. On any other devbox, a type the AppDomain lacks (added, or not
         # loaded cross-root) is a hard failure — the code that uses it is certain to fail later, far from
         # here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
-        # warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
+        # warn (yellow), and return WITHOUT recording the new hash, so the warning repeats on every re-import
         # until you restart. Every devbox session, a person's included, takes this path
-        # ([ADR-BCL-TYPES-ONEDRIFTMEASURE](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)): one
+        # ([ADR-PWSH-TYPES-ONEDRIFTMEASURE](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-onedriftmeasure)): one
         # yellow line naming the changed types by simple name, and the import goes on.
         if (Test-IsRunningInPipeline) {
             throw "$changeSummary Restart PowerShell to pick up the change."
@@ -240,7 +240,7 @@ function Import-CSharpTypes {
     # the DLL; a reimport that keeps the live copy loads
     # nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
     # .compiled file itself, so no session ever locks a build inside the repository; the message names the
-    # committed DLL, the artifact a reader recognizes.
+    # built DLL under pwsh/.compiled, the artifact a reader recognizes.
     $deferred = $false
     if (-not $loaded) {
         Test-TypesAssemblyContent -Path $dll -Expected $arr

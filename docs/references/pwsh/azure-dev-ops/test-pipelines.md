@@ -31,7 +31,7 @@ the closed set steps/ jobs/ stages/ variables/ extends/, and a
                 fragment's structural kind matches its folder (a steps template lives in steps/, …).
 [FDR-PIPELINE-TYPEPREFIX](/docs/drs/flow/pipeline-concept.md#rule-fdr-pipeline-typeprefix)  A root pipeline's
 filename starts with its type — cron | ci | cd | cde | deploy | input.
-[ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](/docs/drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)  Templates are
+[ADR-ADO-TEMPLATE-ABSOLUTEPATHS](/docs/drs/ado/custom-template-discipline.md#rule-adr-ado-template-absolutepaths)  Templates are
 referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
                 relative path.
 ```
@@ -81,6 +81,6 @@ Test-Pipelines
 - **Fragment kind.** A fragment's structural kind matches its folder, and `extends/` is exempt, since it holds a whole pipeline of any body
   (ADR-ADO-NAME-TEMPLATEKINDFOLDER above).
 - **Template references.** Every template reference is absolute, `/pipelines/<kind>/<name>.yaml`
-  ([ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](../../../drs/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)).
+  ([ADR-ADO-TEMPLATE-ABSOLUTEPATHS](../../../drs/ado/custom-template-discipline.md#rule-adr-ado-template-absolutepaths)).
 
 A file that fails to parse is itself a violation, since a pipeline ADO cannot read is not compliant.

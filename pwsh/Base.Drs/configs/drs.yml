@@ -314,8 +314,9 @@ domains:
       directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`,
       READMEs and root configs generated from one source, fictional documentation examples, the separation of design, test, and live
       vocabulary, the controlled vocabulary of defined terms, the directions a link may point, the reserved meta block in a Markdown file's
-      front matter, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never
-      as a reference implementation, and the session-memory protection that skips a repeated scan over an unchanged globset.
+      front matter, repo-wide variants, the sub-agent definitions and the rules behind each, sibling repositories read for ideas, never as a
+      reference implementation, the session-memory protection that skips a repeated scan over an unchanged globset, and the value-chain map
+      that places every decision record on a row and its value-chain concerns.
     depends_on: [external, principles, design, automation, configuration, bcl]
     stack: AUTO
     concern: [automation] # the repository tree the tooling lays out and generates
@@ -346,6 +347,7 @@ domains:
       plans: { external: ADR-REPO-PLANS }
       slides-as-markdown: { external: ADR-REPO-SLIDES, concern: [quality-control] }
       repository-kinds: { external: ADR-REPO-REPOKIND }
+      drs-value-chain: { external: ADR-REPO-VALUECHAIN }
 
   external:
     kind: EDR

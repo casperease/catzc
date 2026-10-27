@@ -37,7 +37,7 @@ The sidebar of every diagram places it on three maps, each drawn small as a mini
   ([DDR-TRACK-WORLDMAP](../drs/design/tracks.md#rule-ddr-track-worldmap)). It shows where the files the diagram concerns are.
 - The **tree** is the repository's files, grouped by folder. It shows the same files in the folders that hold them.
 - The **value-chain map** is the decision records drawn as the value-chain stack crossed with the value-chain concerns
-  ([DDR-TRACK-VALUECHAINMAP](../drs/design/tracks.md#rule-ddr-track-valuechainmap)). It shows where the decision sits in delivery.
+  ([ADR-REPO-VALUECHAIN-MAP][r1]). It shows where the decision sits in delivery.
 
 On each map, a **lit cell** ([DDR-TRACK-LITCELL](../drs/design/tracks.md#rule-ddr-track-litcell)) is one the diagram's decision record
 selects; a cell lit only by passing mentions is drawn lighter, and every other cell is idle. The map key below the minimaps names the four
@@ -57,3 +57,5 @@ The articles are grouped by the decision-record domain of the decision they expl
 - [Model](model/index.md) — the physical and meta models, where each is declared, and the zoom ladder.
 - [Repository](repository/index.md) — how managed root files and repository variants are kept in shape.
 - [Thesis](thesis/index.md) — the product thesis as a deck of slide files.
+
+[r1]: ../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map

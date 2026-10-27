@@ -12,7 +12,7 @@ function Get-LoadedTypeDrift {
     #     [pscustomobject] { RootKey; Loaded; Current; LoadedHash; SourceHash; Drift; MissingTypes; Summary }. Summary
     #     is one sentence naming the hashes or roots, or $null when the types are current.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
-        Justification = 'Reads $global:__CatzcTypes, the per-root session record of loaded types the loader keeps (ADR-BCL-TYPES-STALETYPESGUARD)')]
+        Justification = 'Reads $global:__CatzcTypes, the per-root session record of loaded types the loader keeps (ADR-PWSH-TYPES-STALETYPESGUARD)')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

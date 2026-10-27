@@ -21,7 +21,7 @@ public sealed class DrsConfig
     public const int DefaultSharedRuleSegments = 3;
     public const int DefaultOwnedRuleSegments = 2;
 
-    // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)).
+    // The rows of the value-chain stack, top to bottom ([ADR-REPO-VALUECHAIN-STACK](/docs/drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
     // The value-chain concerns, in value-chain order, left to right.

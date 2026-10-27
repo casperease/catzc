@@ -31,7 +31,7 @@ is set only to change it. `Get-Config -Config maps` loads it.
 
 The catch-all row prints the root files ([DDR-TRACK-ROOTFILE](../../../../drs/design/tracks.md#rule-ddr-track-rootfile)) and the catch-all
 column the unlisted files ([DDR-TRACK-UNLISTEDFILE](../../../../drs/design/tracks.md#rule-ddr-track-unlistedfile)). The value-chain labels
-follow [DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap). `Test-WorldMap` checks the world-map labels
+follow [ADR-REPO-VALUECHAIN-MAP][r1]. `Test-WorldMap` checks the world-map labels
 and `Test-ValueChainMap` the value-chain ones.
 
 ## Default citation exclusions
@@ -39,3 +39,5 @@ and `Test-ValueChainMap` the value-chain ones.
 By default the files whose citations light nothing are the session logs and plans under `.claude/`, the diagram assets under
 `docs/**/.assets/`, the explanation articles under `docs/explanation/` and the drawing tooling under `python/diagrams/`. A slide's minimap
 then lights the repository's citations of its ADRs, never the slide's own words.
+
+[r1]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map

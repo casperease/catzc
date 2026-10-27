@@ -15,7 +15,7 @@ Only the BVT rung has a gate in code; every sync-point rule is DRS-only.
 10  dirty HEAD           commit 10, failed in main-UAT; nothing syncs from it
 
 Supports FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD,
-FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
+FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-DIRTYHEADUNSAFE, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
 and FDR-CD-PREPRODRUNG (governance lens).
 ```
 
@@ -34,7 +34,7 @@ about:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
     - FDR-CD-CDSTAYSINNONPROD
     - FDR-CD-TWORELEASEGATES
     - FDR-CD-PREPRODRUNG
@@ -95,7 +95,7 @@ content:
     - { at: g-on-demand, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false }
     - { at: g-ci-automation, kind: rule, rule: FDR-LIFE-DISCARDISTERMINAL }
     - { at: f-dirty-head, kind: rule, rule: FDR-LIFE-DIRTYHEADUNSAFE, gated: false }
-    - { at: f-dirty-head, kind: rule, rule: FDR-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
+    - { at: f-dirty-head, kind: rule, rule: FDR-LIFE-DIRTYHEADUNSAFE, gated: false }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -126,7 +126,7 @@ layout:
 9. **Upstream integrator.** Takes its commit from the BVT-verified head in main-UAT (FDR-LIFE-SYNCFROMVERIFIEDHEAD) and never from the dirty
    HEAD (FDR-LIFE-DIRTYHEADUNSAFE). Nothing in code checks either.
 10. **Dirty HEAD.** Commit 10, the tip of main, which entered `main-UAT` and failed there. Nothing syncs from it (FDR-LIFE-DIRTYHEADUNSAFE),
-    and it feeds nothing downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM). It keeps the blue of the state it carried into `main-UAT`.
+    and it feeds nothing downstream (FDR-LIFE-DIRTYHEADUNSAFE). It keeps the blue of the state it carried into `main-UAT`.
 
 ## Why it holds
 
@@ -135,7 +135,7 @@ layout:
   as `prose-only`, so `Test-Glossary` checks only its phrasing ("current occupant", "resident commit") and exempts it from the enforcement
   check.
 - Integrators sync from the BVT-verified head, which `main-UAT` takes first, never from HEAD (FDR-LIFE-SYNCFROMVERIFIEDHEAD,
-  FDR-LIFE-DIRTYHEADUNSAFE), and a failed commit goes nowhere downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+  FDR-LIFE-DIRTYHEADUNSAFE), and a failed commit goes nowhere downstream (FDR-LIFE-DIRTYHEADUNSAFE).
 - RC and RBC are manual gates at `main-UAT` and release-uat (FDR-CD-TWORELEASEGATES); the tail runs through pre-prod (FDR-CD-PREPRODRUNG);
   L3 runs in an on-demand environment (FDR-CD-CDSTAYSINNONPROD).
 
@@ -145,7 +145,7 @@ The decision records describe `main-UAT`, release-uat and pre-prod as always-on 
 pipelines define none of them: a main commit that passes its CI stage is deployed to every non-prod target of a stage at once (`nsub`, or
 the expedition's `dev`), and the prod subscription is reached only by the manual `deploy-apex.yaml` and `deploy-shared.yaml`. The approval
 check on a prod-tier environment is the engine's, configured by the adopting team's apply of the shipped `environment-approvals.yml`
-through `Sync-AdoEnvironmentApprovals`; this repository runs none. FDR-LIFE-FAILEDSTAYSUPSTREAM holds in code only between pipeline stages, through `succeeded()` conditions, not between
+through `Sync-AdoEnvironmentApprovals`; this repository runs none. FDR-LIFE-DIRTYHEADUNSAFE holds in code only between pipeline stages, through `succeeded()` conditions, not between
 environment rungs. No pipeline defines the on-demand L3 environment. The decision records also spell the environment `main-UAT` in the
 commit lifecycle and `main-uat` in the promotion flow.
 

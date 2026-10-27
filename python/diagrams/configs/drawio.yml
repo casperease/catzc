@@ -153,8 +153,8 @@ theme-dark: # every colour a style may name, as a token: a style says @<token>, 
   red: 8E2424 # failure fill
   red-rim: E57373 # failure rim and the failure-path edge
   red-ink: EFD4D4 # failure text
-  slate: 4E6378 # code unit, store and runner fill
-  slate-rim: 9FB3C8 # their rim and slate text
+  pewter: 4E6378 # code unit, store and runner fill
+  pewter-rim: 9FB3C8 # their rim and pewter text
   mauve: 6A567E # mauve structural fill
   mauve-rim: B9A6CC # its rim
   olive: 5B7653 # olive structural fill
@@ -195,8 +195,8 @@ theme-light: # the light-era kit's colours, the light side of its light-to-dark 
   red: EF9A9A
   red-rim: C62828
   red-ink: B71C1C
-  slate: DAE8FC
-  slate-rim: 6C8EBF
+  pewter: DAE8FC
+  pewter-rim: 6C8EBF
   mauve: E1D5E7
   mauve-rim: 9673A6
   olive: D5E8D4

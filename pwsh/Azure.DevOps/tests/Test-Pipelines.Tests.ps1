@@ -174,10 +174,10 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
         Get-Issues | Should -HaveCount 0
     }
 
-    It 'flags a relative template reference (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH)' {
+    It 'flags a relative template reference (ADR-ADO-TEMPLATE-ABSOLUTEPATHS)' {
         $script:records = @((New-PipelineRecord 'ci-x.yaml' 'Pipeline'))
         $script:refs = @('steps/local.yaml')
-        Get-Issues | Should -Match 'ADR-ADO-NAME-ABSOLUTETEMPLATEPATH'
+        Get-Issues | Should -Match 'ADR-ADO-TEMPLATE-ABSOLUTEPATHS'
     }
 
     It 'accepts an absolute template reference' {

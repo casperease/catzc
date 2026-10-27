@@ -15,7 +15,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         $script:counts = { param($Map) @($Map.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern) = $($_.AdrCount)" }) }
     }
 
-    It 'holds every cell of the grid, row by row, empty cells included' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'holds every cell of the grid, row by row, empty cells included' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $script:map.Stacks | Should -Be $script:rows
         $script:map.Concerns | Should -Be $script:columns
         & $script:counts $script:map | Should -Be @(
@@ -24,12 +24,12 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         )
     }
 
-    It 'lists the ADRs of a cell in the given order' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'lists the ADRs of a cell in the given order' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $script:map.Cell('TOP', 'gamma').Adrs | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
         $script:map.Cell('TOP', 'delta') | Should -BeNullOrEmpty
     }
 
-    It 'answers the cells an ADR sits in, in the map''s order, and nothing for a code it does not hold' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'answers the cells an ADR sits in, in the map''s order, and nothing for a code it does not hold' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         @($script:map.CellsOf('ADR-WIDGET-GADGET') | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) |
             Should -Be @('TOP x alpha', 'TOP x gamma')
         $script:map.CellsOf('ADR-WIDGET-GIZMO') | Should -BeNullOrEmpty
@@ -38,7 +38,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         $script:map.Strays | Should -BeNullOrEmpty
     }
 
-    It 'records a row or value-chain concern the axes lack, and an ADR that sits in no cell' -Tag 'DDR-TRACK-VALUECHAINCONCERN' {
+    It 'records a row or value-chain concern the axes lack, and an ADR that sits in no cell' -Tag 'ADR-REPO-VALUECHAIN-CONCERN' {
         $map = [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @(
                 & $script:adr 'ADR-WIDGET-GADGET' 'MIDDLE' @('alpha')
                 & $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha', 'delta')

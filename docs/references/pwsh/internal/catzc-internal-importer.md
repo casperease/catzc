@@ -51,7 +51,7 @@ diverge. The switches are the toolset's load surface:
 ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 The dot-sourced shim binds it in the caller's scope, so the importer quiets the session-wide preference for the import and restores it in a
 `finally`; otherwise every `Import-Module` would list each function it dot-sources and exports. Nothing about committing is a switch: who is
-running decides (`Get-SessionActor`, ADR-BCL-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's
+running decides (`Get-SessionActor`, ADR-PWSH-TYPES-JANITORSBYCALLER) — a person's import commits the generated `pwsh/.compiled`, an agent's
 announces it, and a pipeline's or a test-run snapshot's never commits.
 
 ## Roots

@@ -1,14 +1,14 @@
 # pwsh/Base.Maps/types/ValueChainMap.cs
 
 The value-chain map: the rows of the value-chain stack crossed with the value-chain concerns, every cell of that grid, and the ADRs each
-cell holds ([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)).
+cell holds ([ADR-REPO-VALUECHAIN-MAP](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map)).
 
 ## Where an ADR sits
 
 An ADR sits on its ADR domain's row (`DrsRuleSet.Stack`,
-[DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)) in the column of each of its value-chain
+[ADR-REPO-VALUECHAIN-STACK][r1]) in the column of each of its value-chain
 concerns (`DrsRuleSet.Concerns`, an override or its ADR domain's default,
-[DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)). So it sits in one or more cells of one
+[ADR-REPO-VALUECHAIN-CONCERN][r2]). So it sits in one or more cells of one
 row.
 
 ## Build
@@ -24,3 +24,6 @@ each ADR that sits in no cell. `Test-ValueChainMap` reports both.
 
 The order is deterministic: rows and columns as given, cells row by row, the ADRs of a cell in the given order. `ToJson` is its data form
 ([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
+
+[r1]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack
+[r2]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern

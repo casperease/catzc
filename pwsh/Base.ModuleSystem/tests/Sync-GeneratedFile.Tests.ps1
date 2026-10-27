@@ -32,7 +32,7 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -ParameterFilter { $Message -like '*pipeline*' }
     }
 
-    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-BCL-TYPES-JANITORSBYCALLER' {
+    It 'never commits in an agent session, and announces what the person should commit' -Tag 'ADR-PWSH-TYPES-JANITORSBYCALLER' {
         Mock Get-SessionActor { 'Agent' } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0

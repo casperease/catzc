@@ -1,15 +1,22 @@
-# ADR: Az CLI session verification — three layers, and verify is not connect
+# ADR: Az CLI session verification — four layers, and verify is not connect
 
 ## Rules: ADR-AZ-SESSION
 
-### Rule ADR-AZ-SESSION-THREESEPARATECONCERNS
+### Rule ADR-AZ-SESSION-SEPARATECONCERNS
 
-Keep three az concerns in separate functions and do not collapse them: **availability** (`Assert-Tool 'az_cli'` in `Catzc.Tooling.Core` — is
+Keep four az concerns in separate functions and do not collapse them: **availability** (`Assert-Tool 'az_cli'` in `Catzc.Tooling.Core` — is
 `az` on PATH at the locked `tools.yml` version), **by-args verification** (`Assert-AzCliConnected` / `Test-AzCliConnected` in
-`Catzc.Azure.Cli` — is the session set to a subscription / tenant supplied as GUIDs, with no `azure.yml`), and **config-aware verification**
-(`Assert-AzCliIsConnected` / `Test-AzCliIsConnected` in `Catzc.Azure.Cli` — is the session set to the subscription _named_ in `azure.yml`).
+`Catzc.Azure.Cli` — is the session set to a subscription / tenant supplied as GUIDs, with no `azure.yml`), **config-aware verification**
+(`Assert-AzCliIsConnected` / `Test-AzCliIsConnected` in `Catzc.Azure.Cli` — is the session set to the subscription _named_ in `azure.yml`),
+and the **reverse lookup** (`Get-AzCliSessionSubscription` in `Catzc.Azure.Cli` — where is the session pointed, in config terms). The
+reverse lookup reads the session's active subscription (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml`
+identity — name, customer, tenant — throwing when the session targets a subscription azure.yml does not declare. It makes the session usable
+as a **selector** (the deploy target follows the service connection) while config stays the authority on what exists; it is read-only like
+every verification (ADR-AZ-SESSION-VERIFYISNOTCONNECT), and the `-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin
+(see [data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
 
-- [The three layers](#the-three-layers)
+- [The layers](#the-layers)
+- [The reverse lookup](#the-reverse-lookup)
 
 ### Rule ADR-AZ-SESSION-VERIFYISNOTCONNECT
 
@@ -35,30 +42,20 @@ token alone. Every auth path proves itself against that config, so the keys that
 
 - [Config defines correct](#config-defines-correct)
 
-### Rule ADR-AZ-SESSION-REVERSELOOKUP
-
-The **reverse lookup** adds a layer, the fourth: `Get-AzCliSessionSubscription` (in `Catzc.Azure.Cli`) reads the session's active
-subscription (`Get-CurrentAzSubscription`) and resolves its GUID to the declared `azure.yml` identity — name, customer, tenant — throwing
-when the session targets a subscription azure.yml does not declare. It makes the session usable as a **selector** (the deploy target follows
-the service connection) while config stays the authority on what exists; it is read-only like every verification
-(ADR-AZ-SESSION-VERIFYISNOTCONNECT), and the `-SubscriptionIdAssertIs` guard on the deploy surface is its explicit pin (see
-[data-model](azure-data-model.md#rule-adr-az-datamod-joinsinpowershell)).
-
-- [The reverse lookup](#the-reverse-lookup)
-
 ## Context
 
-Working with `az` involves three genuinely different questions that are easy to conflate: is the tool installed, is the session pointed at a
-subscription I name by its raw GUID, and is the session pointed at the subscription my configuration says this work targets. Collapsing them
-produces functions that "check the connection" but secretly depend on `azure.yml`, or that quietly log you in as a side effect of a check —
-both of which make failures hard to reason about and couple modules that should not depend on each other.
+Working with `az` involves four genuinely different questions that are easy to conflate: is the tool installed, is the session pointed at a
+subscription I name by its raw GUID, is the session pointed at the subscription my configuration says this work targets, and which declared
+subscription is the session pointed at. Collapsing them produces functions that "check the connection" but secretly depend on `azure.yml`,
+or that quietly log you in as a side effect of a check — both of which make failures hard to reason about and couple modules that should not
+depend on each other.
 
 This ADR records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az PowerShell
 modules) and [dual-authentication](../ado/dual-authentication.md) (how an ADO token is selected and proven against `ado.yml`).
 
 ## Decision
 
-### The three layers
+### The layers
 
 - **Availability** — `Assert-Tool 'az_cli'` (`Catzc.Tooling.Core`) confirms `az` is on PATH at the locked version. Tool presence only; it
   knows nothing about login or subscriptions.
@@ -101,9 +98,9 @@ correctness check is config-driven, the config keys that express it (tenant, sub
 ### One tenant at deploy
 
 Each deploy proves its subscription: `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on
-one the file does not declare ([ADR-AZ-SESSION-REVERSELOOKUP](#rule-adr-az-session-reverselookup)), and `-SubscriptionIdAssertIs` pins the
-expected one. The CD pipelines carry one service connection per subscription. The tenant is declared beside the subscription, but the deploy
-path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
+one the file does not declare ([ADR-AZ-SESSION-SEPARATECONCERNS](#rule-adr-az-session-separateconcerns)), and
+`-SubscriptionIdAssertIs` pins the expected one. The CD pipelines carry one service connection per subscription. The tenant is declared
+beside the subscription, but the deploy path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
 ([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](#rule-adr-az-session-configdefinescorrect)) and the deploy path does not call it, so a subscription
 created in another directory deploys, and its first sign of trouble is a SQL server whose administrator group does not exist there. Some
 resources fix their tenant at creation (the Key Vault and SQL server modules default to `subscription().tenantId`), so a later change of

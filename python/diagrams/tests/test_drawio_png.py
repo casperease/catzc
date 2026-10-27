@@ -229,9 +229,9 @@ def test_draws_a_flex_arrow_as_a_filled_block_with_a_head():
 
 def test_an_unpainted_token_fails_naming_the_cell_and_the_key():
     import pytest
-    with pytest.raises(SystemExit, match=r"widget fillColor=@slate"):
+    with pytest.raises(SystemExit, match=r"widget fillColor=@pewter"):
         rendered(
-            '<mxCell id="widget" value="widget" style="rounded=1;fillColor=@slate;strokeColor=#FF0000;" vertex="1" parent="1">'
+            '<mxCell id="widget" value="widget" style="rounded=1;fillColor=@pewter;strokeColor=#FF0000;" vertex="1" parent="1">'
             '<mxGeometry x="20" y="20" width="120" height="40" as="geometry"/></mxCell>'
         )
 

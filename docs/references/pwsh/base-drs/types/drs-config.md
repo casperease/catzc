@@ -28,9 +28,9 @@ quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirr
 - Every `external` is unique and matches the code grammar. When the external has a domain segment, the effective code (the rule set's
   override, else the domain's code) is that segment. A one-segment external such as `ADR-REPO-AI` has none to match.
 - Each domain declares its row of the value-chain stack (`stack`, one of `Stacks`,
-  [DDR-TRACK-VALUECHAINSTACK](../../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)) and its default value-chain concerns
+  [ADR-REPO-VALUECHAIN-STACK][r1]) and its default value-chain concerns
   (`concern`, a list of one or more of `Concerns`). A rule set may override the default with its own `concern` list, so every ADR resolves
-  to at least one concern ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)). The allowed
+  to at least one concern ([ADR-REPO-VALUECHAIN-CONCERN][r2]). The allowed
   rows and concerns are declared once, in value-chain order
   ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
@@ -52,3 +52,6 @@ code grammar over these kinds, which every parser of a code reads.
 ## Concerns
 
 `Concerns` lists the value-chain concerns in value-chain order, left to right.
+
+[r1]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack
+[r2]: ../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern

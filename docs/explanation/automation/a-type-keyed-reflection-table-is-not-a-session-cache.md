@@ -6,7 +6,7 @@ ADR-AUTO-CACHE governs functions that cache a derivation of the file set; a Type
 1  scope        ADR-AUTO-CACHE caches static config reads and filesystem-derived information, in a function, in module $script: state
 2  the table    a static ConcurrentDictionary<Type, Shape> inside a compiled type, filled on first use
 3  its input    the compiled assembly, not the file set and not the runtime
-4  its life     the process: a loaded type cannot change (ADR-BCL-TYPES-CHANGEDAFTERLOAD), so the key cannot go stale
+4  its life     the process: a loaded type cannot change (ADR-PWSH-TYPES-RESTARTTORELOAD), so the key cannot go stale
 5  invalidation none needed; the importer neither reaches it nor needs to
 6  borrowed     read-only values, a session-stable key and lazy fill: the principles carry over, the rules do not apply
 7  review       no decision-record line is needed; the type states the rule in its own comment
@@ -32,7 +32,7 @@ from what the ADR and the type system define; the two are read here, and no rule
    sessions, or of runtime state. A `Type`'s metadata is a function of the loaded assembly, which is itself the rule-8 build named for the
    hash of every `types/*.cs`. The table caches nothing about the repository's content and nothing a person edits mid-session.
 4. **Its life is the process, and it cannot go stale.** A loaded assembly cannot be swapped in a running process; on a devbox a changed type
-   warns and the old types stay until restart, and in a pipeline the loader throws (`ADR-BCL-TYPES-CHANGEDAFTERLOAD`,
+   warns and the old types stay until restart, and in a pipeline the loader throws (`ADR-PWSH-TYPES-RESTARTTORELOAD`,
    [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)). The key is the `Type` object itself, so a type from a different
    assembly is a different key, and one type's metadata never changes. The cache cannot be wrong while the process lives.
 5. **No invalidation, and no reach for the importer.** Re-running the importer discards module `$script:` state; it does not unload a type
@@ -52,7 +52,7 @@ from what the ADR and the type system define; the two are read here, and no rule
 
 - The ADR's scope is a function's cached derivation of the file set or of the runtime; a reflection table is neither, so the rules about
   invalidation do not reach it (`ADR-AUTO-CACHE-STATICCONFIGREADS`, `#2`, `#6`).
-- A loaded type cannot change inside a process, so a table keyed by that type cannot be stale (`ADR-BCL-TYPES-CHANGEDAFTERLOAD`).
+- A loaded type cannot change inside a process, so a table keyed by that type cannot be stale (`ADR-PWSH-TYPES-RESTARTTORELOAD`).
 - One living version of each behaviour: the two copies of "which properties are data" collapse into one table (`PDR-ONELIVE`).
 
 ## Where the article and the code differ

@@ -13,4 +13,4 @@ its properties are PascalCase ([ADR-BCL-TYPES](../../../../drs/automation/BCL/na
 - `Terminology` — the optional terminology token.
 - `Stack` — the domain's row of the value-chain stack.
 - `Concerns` — the effective value-chain concerns: a rule set override, else the domain default `DomainConcerns`
-  ([DDR-TRACK-VALUECHAINCONCERN](../../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
+  ([ADR-REPO-VALUECHAIN-CONCERN](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern)).

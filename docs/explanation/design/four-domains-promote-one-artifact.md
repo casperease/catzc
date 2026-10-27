@@ -12,7 +12,7 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
 Supports FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE
-and FDR-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
+and FDR-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -28,7 +28,7 @@ about:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
   title: Four pipeline kinds promote one artifact that CI built once
@@ -140,7 +140,7 @@ layout:
   synced from and the commit `main-uat` takes are one (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
   it (FDR-LIFE-DIRTYHEADUNSAFE).
-- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it (FDR-LIFE-DIRTYHEADUNSAFE).
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
   (FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI).
 

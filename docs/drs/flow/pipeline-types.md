@@ -95,23 +95,12 @@ pinned artifact onward once a gate clears, and never owns the decision.
 CDe (Continuous Deployment) is a CD that **internalizes and automates the roll to production**. It runs the same CI engine and the same
 deploy-and-verify path as CD (FDR-TYPE-ONECIENGINE, FDR-TYPE-ONEDEPLOYPATH), builds nothing new, and drives the CI engine's tagged,
 commit-pinned artifact all the way to prod. Its defining trait: the promotion of a locked commit-and-build to production is an **automated
-activity of the pipeline**, not a separately-triggered DEPLOY.
-
-- [CDe](#cde)
-
-### Rule FDR-TYPE-CDEINTERNALGATES
-
-A CDe may contain **internal** manual gates — an approval before the production stage — but they are checkpoints _inside_ an automated
-promotion. Such a gate does not make it a DEPLOY: what separates CDe (deployment) from CD → DEPLOY (delivery) is that the roll-to-prod
-activity is automatically determined, not human-initiated.
-
-- [CDe](#cde)
-
-### Rule FDR-TYPE-CDESHARESDEPLOYPATH
-
-CDe shares the one deploy-and-verify path with CD and DEPLOY (FDR-TYPE-ONEDEPLOYPATH) — never a second deploy implementation. A deployable
-unit's production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or** CDe (deployment, automated prod),
-never both; the choice is a per-unit governance posture.
+activity of the pipeline**, not a separately-triggered DEPLOY; the flow model defines that line
+([FDR-CD-CDEINTERNALIZESPROMOTION](cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdeinternalizespromotion)). As a pipeline type, three
+things follow. A CDe may contain **internal** manual gates — an approval before the production stage — but they are checkpoints _inside_ an
+automated promotion and do not make it a DEPLOY. CDe shares the one deploy-and-verify path with CD and DEPLOY — never a second deploy
+implementation. And a deployable unit's production promotion is governed as **either** CD → DEPLOY (delivery, human-governed prod) **or**
+CDe (deployment, automated prod), never both; the choice is a per-unit governance posture.
 
 - [CDe](#cde)
 

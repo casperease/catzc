@@ -9,7 +9,7 @@ A commit only climbs the promotion ladder, then ends superseded, discarded or re
 4  retired     a production commit that served and was replaced; a success
 
 Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-RETIREMENTISNOTDISCARD,
-FDR-LIFE-SUPERSESSIONABANDONS and FDR-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
+FDR-LIFE-SUPERSESSIONABANDONS and FDR-LIFE-DIRTYHEADUNSAFE (meta lens).
 ```
 
 A commit in cats holds one lifecycle state at a time. It climbs the promotion ladder one rung at a time and never moves backward, because
@@ -27,7 +27,7 @@ about:
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-RETIREMENTISNOTDISCARD
     - FDR-LIFE-SUPERSESSIONABANDONS
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
   lens: meta
 content:
   title: A commit only climbs, then ends in one of three ways
@@ -118,7 +118,7 @@ layout:
 - Discard is terminal rejection at a named stage, and the discarded commit stays in history (FDR-LIFE-DISCARDISTERMINAL).
 - Retirement is a successful end of life, not a discard (FDR-LIFE-RETIREMENTISNOTDISCARD).
 - Supersession abandons a still-valid commit that a newer one overtook (FDR-LIFE-SUPERSESSIONABANDONS).
-- A commit that fails a stage cannot go downstream (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit that fails a stage cannot go downstream (FDR-LIFE-DIRTYHEADUNSAFE).
 - The endings each have their own rendering: red for discarded, kept green for retired, a ghost for superseded (DDR-VISUAL-DISTINCTENDINGS).
 
 ## See also

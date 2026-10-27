@@ -47,22 +47,22 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 3
     }
 
-    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
+    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $script:map = $script:brokenMap
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Drs.DrsConfig]::Stacks -join ', '), in that order (DDR-TRACK-VALUECHAINSTACK)"
-            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Drs.DrsConfig]::Concerns -join ', '), in that order (DDR-TRACK-VALUECHAINCONCERN)"
-            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (DDR-TRACK-VALUECHAINCONCERN)"
-            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (DDR-TRACK-VALUECHAINCONCERN)'
+            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Drs.DrsConfig]::Stacks -join ', '), in that order (ADR-REPO-VALUECHAIN-STACK)"
+            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Drs.DrsConfig]::Concerns -join ', '), in that order (ADR-REPO-VALUECHAIN-CONCERN)"
+            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (ADR-REPO-VALUECHAIN-CONCERN)"
+            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-REPO-VALUECHAIN-CONCERN)'
         )
     }
 
-    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $script:labels = [pscustomobject]@{ value_chain_row_axis = 'Widgets'; value_chain_title = 'Gizmo map: widgets' }
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues |
-            Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (DDR-TRACK-VALUECHAINMAP)")
+            Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (ADR-REPO-VALUECHAIN-MAP)")
     }
 
     It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -81,7 +81,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
 
 # It reads only drs.yml and maps.yml, so its answer cannot differ between the run modes: source-only.
 Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-ValueChainMap passes over the registry' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN', 'DDR-TRACK-VALUECHAINMAP', 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'Test-ValueChainMap passes over the registry' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN', 'ADR-REPO-VALUECHAIN-MAP', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -PassThru -OutputFolder (Join-Path $TestDrive 'value-chain-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

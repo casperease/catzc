@@ -32,8 +32,8 @@ to an external consumer through the one sanctioned seam.
 ### Rule ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
 
 Resolution fails fast. An unknown or ambiguous config name (surfaced from `Get-Config`) throws, and a segment that resolves at neither a
-dictionary key nor a property throws, naming the full address and the failing segment. A malformed address is rejected at parameter binding
-by a `ValidatePattern`. There is no silent `$null` for a wrong path.
+dictionary key nor a property throws, naming the full address and the failing segment. A malformed address is rejected where it is bound, by
+the grammar's pattern, before any walk. There is no silent null for a wrong path.
 
 - [Fail fast, never silent null](#fail-fast-never-silent-null)
 
@@ -64,47 +64,47 @@ commit and a tool can dereference.
 ## Decision
 
 A global config address `global.<config>.<key>[.<key>…]` is a by-reference handle to one node inside a named config, resolved by
-`Get-ConfigValue -Address <address> [-Module <module>]`. The address is data: it can live in a checked-in config, be passed as a string, and
-be dereferenced anywhere a value is wanted.
+`Get-ConfigValue` from the address and, for the rare name two modules share, the owning module. The address is data: it can live in a
+checked-in config, be passed as a string, and be dereferenced anywhere a value is wanted.
 
 ### The address grammar
 
 - The literal prefix `global.` marks the string as an address (and lets a consumer such as `Write-EnvironmentSet` distinguish an address
   from a bare literal).
 - The next segment is the **config name** — the same global lowercase name `Get-Config` takes (kebab-case,
-  ADR-CONF-LOADING-EXISTENCEDISCOVERED). The owning module is discovered, never written into the address; `-Module` on `Get-ConfigValue` is
-  a passthrough to `Get-Config` for the rare name that exists in two modules.
+  ADR-CONF-LOADING-EXISTENCEDISCOVERED). The owning module is discovered, never written into the address; the resolver passes an owning
+  module through to the config reader only for the rare name that exists in two modules.
 - Each remaining segment is a **key** walked into the parsed config, in order. The key path is optional: `global.<config>` with no keys
   addresses the whole config as a subtree (its root node).
 
-The grammar is fixed by a `ValidatePattern` on `Get-ConfigValue` so a malformed address is rejected at the call site, not deep in traversal.
+The grammar is fixed as a pattern checked where the address is bound, so a malformed address is rejected at the call site, not deep in
+traversal.
 
 ### Grammar examples
 
 `The address grammar, concretely`
 
-```powershell
-Get-ConfigValue -Address 'global.myproperty.name'                       # scalar leaf → the value at myproperty → name
-Get-ConfigValue -Address 'global.database'                              # subtree     → the whole database config node
-Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep leaf
+```text
+global.myproperty.name                       scalar leaf → the value at myproperty → name
+global.database                              subtree     → the whole database config node
+global.azure.environments.prod.region_code   deep leaf
 ```
 
 ### One reader underneath
 
-`Get-ConfigValue` strips `global.`, splits the rest into `<config>` plus a key path, calls `Get-Config -Config <config> -Module <module>`,
-and walks the key path with the private `Resolve-ConfigKeyPath`. It does not open a file or keep a cache of its own — it is a view over what
-`Get-Config` already loaded and validated (ADR-CONF-LOADING-CONFIGONEREADER). The traversal lives in `Resolve-ConfigKeyPath` alone so
-`Get-ConfigValue` stays a thin strip-split-walk and the walk is unit-testable in isolation.
+The resolver strips `global.`, splits the rest into `<config>` plus a key path, asks the one config reader for `<config>`, and walks the key
+path. It does not open a file or keep a cache of its own — it is a view over what the reader already loaded and validated
+(ADR-CONF-LOADING-CONFIGONEREADER). The walk is one unit of its own, so the resolver stays a thin strip-split-walk and the walk is testable
+in isolation.
 
 ### Uniform traversal
 
 `Traversal is uniform over dict and typed object`
 
-A config is either a raw ordered dictionary (no validator) or a typed object (a C# type or an `Assert-…`-validated shape) — see
-[module-config-loading](module-config-loading.md). `Resolve-ConfigKeyPath` handles both with one rule per segment: resolve the segment as a
-**dictionary key** when the current node is an `IDictionary`, otherwise as a **property** on the node. This keeps an address agnostic to how
-its config happens to be modelled; the same `global.<config>.<key>` works whether the owner validates into a typed object or leaves the
-config raw.
+A config is either a raw ordered dictionary (no validator) or a typed object (a C# type or a validated shape) — see
+[module-config-loading](module-config-loading.md). The walk handles both with one rule per segment: resolve the segment as a **dictionary
+key** when the current node is a dictionary, otherwise as a **property** on the node. This keeps an address agnostic to how its config
+happens to be modelled; the same `global.<config>.<key>` works whether the owner validates into a typed object or leaves the config raw.
 
 ### Committed config only
 
@@ -118,15 +118,14 @@ referenced by a `global.…` string.
 
 ### Fail fast, never silent null
 
-Every failure mode throws rather than returning `$null`, so a mistyped address surfaces at the call that made it:
+Every failure mode throws rather than returning null, so a mistyped address surfaces at the call that made it:
 
-- unknown or ambiguous config name — thrown by `Get-Config`/`Resolve-ConfigEntry` (an ambiguous name asks for `-Module`);
-- a key segment that matches neither a dictionary key nor a property on the current node — thrown by `Resolve-ConfigKeyPath`, naming the
-  full address and the segment that failed;
-- a syntactically malformed address — rejected by the `ValidatePattern` at parameter binding.
+- unknown or ambiguous config name — thrown by the config reader (an ambiguous name asks for the owning module);
+- a key segment that matches neither a dictionary key nor a property on the current node — thrown by the walk, naming the full address and
+  the segment that failed;
+- a syntactically malformed address — rejected by the grammar's pattern where the address is bound.
 
-A silent `$null` would let a wrong address flow downstream as an empty value and fail somewhere far from its cause; addressing never does
-that.
+A silent null would let a wrong address flow downstream as an empty value and fail somewhere far from its cause; addressing never does that.
 
 ### A read, not a copy
 

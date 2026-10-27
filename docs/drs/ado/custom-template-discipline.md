@@ -12,10 +12,11 @@ reusable, proven by the rule of three (at least three real ado pipelines need th
 
 ### Rule ADR-ADO-TEMPLATE-ABSOLUTEPATHS
 
-Template paths are always absolute, rooted at the repository root (`template: /.ado/pipelines/path/to/template.yaml`). Never use relative
-paths.
+Template paths are always absolute, rooted at the repository root (`/.ado/pipelines/<kind>/<name>.yaml`): fragments are referenced via
+`template:`, whole-pipeline templates via `extends:`. Never use relative paths.
 
 - [Anti-patterns](#anti-patterns)
+- [Per-kind template folders](pipeline-naming-and-placement.md#2-per-kind-template-folders)
 
 ### Rule ADR-ADO-TEMPLATE-PIPELINECONCERNSONLY
 
@@ -206,9 +207,9 @@ proper secret store (such as Key Vault) is available.
 ## Decision
 
 Templates are used only for pipeline-level concerns. Automation logic, configuration, and business rules live in the catzc commands and are
-invoked through the runner pattern (see [pipeline-runner-pattern](pipeline-runner-pattern.md)). And even for those concerns, a
-template is the **exception, not the default**: the default is a self-contained pipeline of a page or two of inline YAML, composed directly.
-A template is extracted only when a fragment is proven to be genuinely, generally reusable — never created speculatively.
+invoked through the runner pattern (see [pipeline-runner-pattern](pipeline-runner-pattern.md)). And even for those concerns, a template is
+the **exception, not the default**: the default is a self-contained pipeline of a page or two of inline YAML, composed directly. A template
+is extracted only when a fragment is proven to be genuinely, generally reusable — never created speculatively.
 
 ### Anti-patterns
 

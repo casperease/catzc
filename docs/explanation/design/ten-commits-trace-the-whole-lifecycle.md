@@ -10,7 +10,7 @@ Ten numbered commits show every stage, gate, environment and ending of the commi
 5  the endings    discarded, in process, an environment's occupant, or the dirty head
 
 Supports FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL, FDR-LIFE-ONECOMMITPERENVIRONMENT,
-FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-FAILEDSTAYSUPSTREAM and FDR-LIFE-NUMBERISIDENTITY,
+FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-NUMBERISIDENTITY,
 DDR-VISUAL-COLOURISTEMPORAL and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCEISNOTUAT.
 ```
 
@@ -198,7 +198,7 @@ content:
 - The tip of main can be a dirty head that is unsafe to sync or promote from
   ([FDR-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-life-dirtyheadunsafe)).
 - A commit that fails a stage cannot go downstream
-  ([FDR-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-life-failedstaysupstream)).
+  ([FDR-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-life-dirtyheadunsafe)).
 - A commit's number is its time-ordered identity, and its last appearance is where its story ends
   ([FDR-LIFE-NUMBERISIDENTITY](../../drs/flow/commit-lifecycle.md#rule-fdr-life-numberisidentity)).
 

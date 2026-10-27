@@ -90,15 +90,18 @@ verification the inner CI gate cannot afford is allowed to live. CI+ is a part o
 
 ### Rule FDR-CD-TWORELEASEGATES
 
-**RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline.** A promotion toward production stops at a **manual
-gate**, a human-owned certification, on an always-on environment: **RC** (Release Certification) is the gate at **main-UAT**, and **RBC**
-(Release Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on
-**main-AT** (AT against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a
-commit must pass there (FDR-CD-ACCEPTANCEISNOTUAT) — with a human certifying the environment's occupant (FDR-LIFE-ONECOMMITPERENVIRONMENT)
-before it may advance; DEPLOY actuates the advance once the gate clears (FDR-CD-PRODPROGRESSIONISDEPLOY). Each gate is an **approval check
-on the next environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run promoting the occupant
-waits there for the certifier. The checks are configuration, applied like the prod approval gate (FDR-CD-PRODAPPROVALGATE). Clearing a gate
-is a promotion; failing it holds or discards the occupant.
+**RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline.** A **gate** is a check whose verdict decides whether
+work may proceed past a point in the flow: it clears or holds, never half. A gate gives its verdict either by machine — a quality gate, run
+inside the inner CI gate and its integration budget (FDR-CD-SHORTINTEGRATIONCYCLE) — or by human certification, as a manual gate; a gate
+decides, and the pipeline that acts once a gate clears (DEPLOY) is not a gate. A promotion toward production stops at a **manual gate**, a
+human-owned certification, on an always-on environment: **RC** (Release Certification) is the gate at **main-UAT**, and **RBC** (Release
+Branch Certification) is the gate at **release-uat**. Each clears when its **acceptance testing (AT)** is verified — RC on **main-AT** (AT
+against the `main-uat` environment), RBC on **release-AT** (AT against `release-uat`), the automated and manual tests a commit must pass
+there (FDR-CD-ACCEPTANCEISNOTUAT) — with a human certifying the environment's occupant (FDR-LIFE-ONECOMMITPERENVIRONMENT) before it may
+advance; DEPLOY actuates the advance once the gate clears (FDR-CD-PRODPROGRESSIONISDEPLOY). Each gate is an **approval check on the next
+environment**: RC on the unit's `release-uat` environment, RBC on its `pre-prod` environment, so a run promoting the occupant waits there
+for the certifier. The checks are configuration, applied like the prod approval gate (FDR-CD-PRODAPPROVALGATE). Clearing a gate is a
+promotion; failing it holds or discards the occupant.
 
 - [RC and RBC](#rc-and-rbc)
 
@@ -138,15 +141,6 @@ the previous production occupant is superseded and steps down (FDR-LIFE-RETIREME
 holds throughout: pre-prod and production receive the identical tagged artifact (FDR-CD-SEPARATEPIPELINEKINDS).
 
 - [Deploy to prod](#deploy-to-prod)
-
-### Rule FDR-CD-GATEDEFINED
-
-A **gate** is a check whose verdict decides whether work may proceed past a point in the flow: it clears or holds, never half. A gate gives
-its verdict either by machine — a quality gate, run inside the inner CI gate and its integration budget (FDR-CD-SHORTINTEGRATIONCYCLE) — or
-by human certification, as a manual gate — RC and RBC (FDR-CD-TWORELEASEGATES). A gate decides; the pipeline that acts once a gate clears
-(DEPLOY, FDR-CD-PRODPROGRESSIONISDEPLOY) is not a gate.
-
-- [RC and RBC](#rc-and-rbc)
 
 ### Rule FDR-CD-RELEASECANDIDATE
 

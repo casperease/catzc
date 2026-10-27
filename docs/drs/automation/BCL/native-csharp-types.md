@@ -41,33 +41,6 @@ extracts the C# edges and the `Test-ModuleDependency` quality gate fails its L1 
 - [The `DictionaryRecord` base](#the-dictionaryrecord-base)
 - [How this is enforced](#how-this-is-enforced)
 
-### Rule ADR-BCL-TYPES-CHANGEDAFTERLOAD
-
-Handle changed-after-load by context — a loaded assembly cannot be swapped in a running process. In a **pipeline** the loader throws (CI
-must never run on stale types). On a **devbox** a changed or removed type degrades gracefully — the loader warns in yellow that it is using
-the old cached types until the session restarts, and keeps the already-loaded types this session, so a dev editing a type mid-session is
-never blocked. It returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the loaded
-assembly lacks (added since load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses
-it, so continuing would only move the failure to a confusing cast error far from the cause. The loader tells a pipeline from a devbox by
-asking `Test-IsRunningInPipeline`, like every other caller. Inside a **VS Code** terminal no drift throws: a throw cannot restart the
-terminal or the extension's host, and an import that dies there leaves the editor's session without cats, so the loader keeps the loaded
-assembly whatever drifted and writes one line, "loaded inside VS Code with non-current types dll", naming the loaded hash and the source
-hash. It asks `Test-IsRunningInVsCode`, the loader's one reader of VS Code's terminal mark, with `Assert-IsRunningInVsCode` as its guard
-form; the pipeline check comes first, so a pipeline is never softened by the mark. Ahead of all of these, after the pipeline check, a
-developer's console session in the source tree loads the changed build beside the old one, up to the `generations` cap that `types-load.yml`
-declares for that cell, and re-points the `Catzc.*` accelerators to it; past the cap, the paths above hold.
-
-- [The cache-state contract](#the-cache-state-contract)
-
-### Rule ADR-BCL-TYPES-ACCELERATORSNOTFULLNAMES
-
-Code names a catzc type by its `Catzc.*` accelerator, not by its full type name, wherever builds can stack. Two builds of the same sources
-load side by side with the same full type names, and a full name keeps resolving to the first-loaded build, silently; a re-pointed
-accelerator resolves to the newest build. An object of the old build does not convert to the new build's type, so code that mixes the two
-fails far from the cause.
-
-- [The cache-state contract](#the-cache-state-contract)
-
 ### Rule ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 
 Use snake_case property names **only** on a type that mirrors a YAML config (so the YAML key and the C# property are the same identifier);
@@ -96,34 +69,6 @@ deletion.
 
 - [The cache-state contract](#the-cache-state-contract)
 
-### Rule ADR-BCL-TYPES-STALETYPESGUARD
-
-The stale-types guard — the source changed since it was loaded, so restart — is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree
-as a parameter, and one session may load more than one tree (the real code root plus the test-fixture trees), so the per-session record of
-loaded hash and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely
-report a change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names
-the drifted files and both hashes so the cause is diagnosable from the error text alone.
-
-- [The cache-state contract](#the-cache-state-contract)
-
-### Rule ADR-BCL-TYPES-JANITORSBYCALLER
-
-Who runs the importer decides what its janitors may change outside the session, read from one place: `Get-SessionActor` → `Person`, `Agent`,
-or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides it.
-
-- **Delete a superseded build another process still holds**: a person, no (named in one line, gone when its holder exits); an agent, no
-  (named in one line); a pipeline, no (it asserts exactly one build).
-- **Commit the regenerated types contracts** (`contracts/catzc/0.1.0/<group>/types.json`): a person, yes; an agent, no (it announces what
-  changed, to be committed); a pipeline, no (it checks the committed contract against the build).
-- **Regenerate the gitignored generated files**: a person, an agent and a pipeline, yes.
-
-The repository is the person's: their session commits to it. An agent leaves it to the person and says what it left; a pipeline only
-asserts. No session of any actor stops another process: a build another process holds open is that process's one types instance until it
-exits, since a loaded assembly cannot be swapped (ADR-BCL-TYPES-CHANGEDAFTERLOAD). A test-run snapshot (`Test-RepositorySnapshot`) is never
-committed to, whoever runs it.
-
-- [The cache-state contract](#the-cache-state-contract)
-
 ### Rule ADR-BCL-TYPES-CONSOLEREADYTOSTRING
 
 Every concrete type a caller can hold renders console-ready: it overrides `ToString()`, normally as the one line
@@ -133,32 +78,6 @@ every record derived from it. A type names its identity properties with `[Catzc.
 text and its default display at the prompt. `Test-ShippedTypes` fails a type that keeps the inherited `ToString()`.
 
 - [Console-ready rendering](#console-ready-rendering)
-- [How this is enforced](#how-this-is-enforced)
-
-### Rule ADR-BCL-TYPES-ONEDRIFTMEASURE
-
-Whether the C# types loaded in a process are current is measured in one place, `Get-LoadedTypeDrift` (`Catzc.Internal.Types`), and asked
-through one test/assert pair, `Test-LoadedTypesCurrent` and `Assert-LoadedTypesCurrent` (`Catzc.Base.TypesSystem`). When they are stale, the
-importer never starts a nested shell and never waits: the loader's warn-or-throw (ADR-BCL-TYPES-CHANGEDAFTERLOAD) applies to every session.
-On a devbox that is one yellow line naming the changed types by simple name, and the import goes on with the loaded types; a pipeline
-throws.
-
-- [The cache-state contract](#the-cache-state-contract)
-- [Stale types in a running process](#stale-types-in-a-running-process)
-
-### Rule ADR-BCL-TYPES-CONSOLEVERIFIESONLY
-
-In a console session the importer verifies the types assembly and loads nothing: `Import-CSharpTypes` registers the assembly as deferred,
-and the first lookup of a catzc command loads it (`Enable-DeferredTypesLoad`, `Initialize-Types`), so an import that runs no command pays no
-load. A headless session loads at import, so a pipeline or a test worker fails on stale or missing types where it starts
-(ADR-BCL-TYPES-ONEDRIFTMEASURE). Which cell loads how is the `types-load.yml` table, host by operating system by run mode, with its default
-row declared once in the `TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so
-it cannot sit on a config type, the one exception to
-[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder). The combined hash of the sources is
-memoised per machine beside the shadow copies, by each file's length and last write (`Get-CombinedTypeHash -StampPath`); only the importer
-reads the memo, and the builder, the janitor and the gates hash every byte.
-
-- [Loaded by the first use](#loaded-by-the-first-use)
 - [How this is enforced](#how-this-is-enforced)
 
 ### Rule ADR-BCL-TYPES-DEBUGANYCPU
@@ -229,8 +148,9 @@ before the module loop.
 BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own build
 pair, and the BCL as its whole reference set (Rule ADR-BCL-TYPES-REFERENCESET); this ADR decides it. The **host** is the one engine that
 runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler builds the
-assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, and why the
-console text has to live in C# are that host's binding, decided in the pwsh domain.
+assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, when a session
+loads the assembly, what its janitors may change, and why the console text has to live in C# are that host's binding, decided in the pwsh
+domain.
 
 A type that needs the host itself (a parser over pwsh's syntax tree, a runspace) binds to it on purpose, and that binding is a row in
 `bcl.yml` with its reason, so the language's reference set stays the BCL and every exception is named, not found.
@@ -298,9 +218,8 @@ filename, so the current-hash DLL is simply absent until built. The loader resol
   - Outcome: **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the shadow build; no reload.
 - **absent because the source CHANGED**
   - types loaded this session: yes
-  - Outcome: **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session
-    (ADR-BCL-TYPES-ONEDRIFTMEASURE) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell".
-    **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped.
+  - Outcome: **Keep the loaded types; the host decides whether the session warns and goes on or throws.** A loaded copy cannot be swapped,
+    so the remedy is a new process; the host's record names the outcome for each kind of session.
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
 `Clear-ModuleTypeCache` (which deletes on a devbox only; CI makes no source-control changes). Editing any `types/*.cs` re-keys the whole
@@ -311,7 +230,7 @@ refreshes its build's write time, so a build loaded within the loader's prune ag
 tree's current one: the loader's prune and `Clear-ModuleTypeCache` both keep it. `Clear-ModuleTypeCache` removes every deletable superseded
 build older than that and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one
 yellow line; a silent run says nothing. It never throws for a held build, never stops a holder and never waits for one: the held build is
-that process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on the next run after the holder exits.
+that process's one types instance, since a loaded assembly cannot be swapped, and it goes on the next run after the holder exits.
 
 What git guards is the types surface, not a build. A devbox import that compiles regenerates the contract from the compiled assembly and
 writes it only when the surface moved, so equal content leaves git clean; `Test-GeneratedFiles` fails when the committed contract differs
@@ -322,21 +241,7 @@ from the current assembly's surface, naming the added, removed or changed types;
 .NET cannot unload an assembly from a running process, and a second assembly with the same type names would split their identity: a
 `[Catzc.…]` literal would resolve to one copy while an object holds the other. So once a type source changes, the process that loaded the
 old types keeps them until it ends, and the only remedy is a new process. Stopping other processes does not help: the stale copy is in the
-process that asks.
-
-That limit is measured once, so every caller agrees on it. `Get-LoadedTypeDrift` compares the session record of what was loaded with the
-sources on disk and names each drifted type; the loader reads it to warn or throw, and `Test-LoadedTypesCurrent` /
-`Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
-
-Whether a stale load warns or throws depends on where the process runs, and the loader asks `Test-IsRunningInPipeline`, the one reader of
-the pipeline variables, like every other caller (Rule ADR-BCL-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before the
-types pre-pass runs.
-
-A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
-import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a
-script would block on a nested one. A pipeline must never run on stale types, so it throws. A VS Code terminal is the one devbox host where
-even a missing type does not throw: the person cannot restart that host from the import, and the loader's line names the hash of the
-assembly the session runs on, so the next terminal they open is the fix.
+process that asks. How a host measures that drift and answers it, warning or throwing, is the host's record.
 
 ### Why a shadow copy
 
@@ -414,27 +319,6 @@ better than a property list.
 those, and `Import-CSharpTypes` registers them as the type's default display, so an object shown at the prompt shows those columns instead
 of every property.
 
-### Loaded by the first use
-
-`Verify at import, load at the first command`
-
-An interactive session imports catzc to have its commands at hand, and most sessions then run a few of them or none. Loading the types
-assembly costs a shadow copy and an `Add-Type` on every import, and the import already proves the assembly current by its metadata
-(ADR-BCL-TYPES-ONEDRIFTMEASURE), so the load is deferred to the moment a command needs a type: a name-filtered command-lookup hook,
-installed once every command name is known, loads the assembly on the first lookup of one of them and removes itself. A literal type name
-typed at the console before any command stays unresolved until then, which a console user sees and a script never does: a headless session
-is eager, so a pipeline, a test worker or `cats` fails at import on a stale or missing assembly rather than later in a cast. The table that
-says which cell is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by
-code. The import-time janitors are catzc commands, so a console import would load the assembly through them before the prompt appeared; a
-console session therefore runs them once the first prompt has shown, through a prompt hook the loader installs and removes after that one
-run, and a headless session runs them at import as before.
-
-The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
-each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives
-beside the shadow copies, never in the tree, since it holds this machine's write times. Only the importer trusts it: the builder that names
-a release, the janitor that prunes the cache and the gates that compare the build hash every byte, so the memo can speed up a session but
-never decide what ships.
-
 ### One build configuration
 
 `One configuration, one platform, one build`
@@ -459,10 +343,6 @@ as well as its files, so the pair is the language's configuration, apart from th
   ADR-BCL-TYPES-REFERENCESET). A value that only crosses from pwsh is unwrapped by its caller through `ConvertTo-BclValue`, so it never
   makes a type host-bound.
 
-- **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
-  the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or last
-  write changed (ADR-BCL-TYPES-CONSOLEVERIFIESONLY).
-
 - **`Format-Types` + `Test-Formatting`** (in `Catzc.Base.QualityGates`) — `Format-Types` writes/repairs each source's file-scoped
   `namespace <module>;` from its `types/` folder (the formatter, not an ad-hoc sweep); the `Test-Formatting` quality gate runs it in its
   report-only mode, failing on a missing, mismatched, or block-scoped namespace. The folder is the single source of truth, so the namespace
@@ -472,9 +352,6 @@ as well as its files, so the pair is the language's configuration, apart from th
   invariant `Test-Formatting` enforces, checked at load), compiles all modules' sources **as authored** into one assembly (one compilation
   unit per file), verifies every `types/*.cs` produced `<module>.<filename>` (else "was not produced"), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (Rule ADR-BCL-TYPES-CONSOLEREADYTOSTRING).
-
-- **`Get-LoadedTypeDrift`** (in `Catzc.Internal.Types`) is the one measure of stale types; the loader and the `Test-LoadedTypesCurrent` /
-  `Assert-LoadedTypesCurrent` pair read it (Rule ADR-BCL-TYPES-ONEDRIFTMEASURE).
 
 - **`Test-ShippedTypes`** (in `Catzc.Base.TypesSystem`) fails a concrete shipped class that keeps the inherited `ToString()`, naming the
   file and the line to add (Rule ADR-BCL-TYPES-CONSOLEREADYTOSTRING); enums, interfaces, abstract and static classes, attributes, and

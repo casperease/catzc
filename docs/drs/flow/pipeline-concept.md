@@ -54,7 +54,7 @@ The flow domain already decides most of what a pipeline is:
 - **How it runs the automation.** Every step goes through the runner, so a step is a command a developer can paste into a terminal
   ([FDR-TYPE-ALLTHROUGHRUNNER](pipeline-types.md#rule-fdr-type-allthroughrunner)).
 - **What stops it.** A gate is a check whose verdict decides whether work may proceed
-  ([FDR-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)).
+  ([FDR-CD-TWORELEASEGATES](cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
 
 This FDR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, how
 long a credential lives inside it, and how the automation learns that it runs in a pipeline. The ado domain binds them for the azure devops

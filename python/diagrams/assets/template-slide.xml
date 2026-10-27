@@ -89,7 +89,7 @@
     </mxCell>
     <mxCell id="g-code"
       value="&lt;b&gt;Get-Widget&lt;/b&gt;"
-      style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;"
+      style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@pewter;strokeColor=@pewter-rim;fontColor=@title;fontSize=12;"
       vertex="1"
       parent="1">
       <mxGeometry x="230" y="154" width="140" height="44" as="geometry" />
@@ -103,7 +103,7 @@
     </mxCell>
     <mxCell id="g-store"
       value="&lt;b&gt;repository&lt;/b&gt;"
-      style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=8;whiteSpace=wrap;html=1;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;"
+      style="shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=8;whiteSpace=wrap;html=1;fillColor=@pewter;strokeColor=@pewter-rim;fontColor=@title;fontSize=12;"
       vertex="1"
       parent="1">
       <mxGeometry x="245" y="290" width="110" height="64" as="geometry" />
@@ -117,7 +117,7 @@
     </mxCell>
     <mxCell id="g-runner"
       value="&lt;b&gt;ci-widget&lt;/b&gt;"
-      style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;"
+      style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=@pewter;strokeColor=@pewter-rim;fontColor=@title;fontSize=12;"
       vertex="1"
       parent="1">
       <mxGeometry x="680" y="154" width="140" height="44" as="geometry" />
@@ -305,7 +305,7 @@
     </mxCell>
     <mxCell id="lg-code"
       value=""
-      style="rounded=1;html=1;arcSize=20;fillColor=@slate;strokeColor=@slate-rim;"
+      style="rounded=1;html=1;arcSize=20;fillColor=@pewter;strokeColor=@pewter-rim;"
       vertex="1"
       parent="1"><mxGeometry x="36" y="450" width="40" height="18" as="geometry" /></mxCell>
     <mxCell id="lg-code-t"
@@ -335,7 +335,7 @@
       parent="1"><mxGeometry x="84" y="505" width="120" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-store"
       value=""
-      style="shape=cylinder3;size=4;html=1;fillColor=@slate;strokeColor=@slate-rim;"
+      style="shape=cylinder3;size=4;html=1;fillColor=@pewter;strokeColor=@pewter-rim;"
       vertex="1"
       parent="1"><mxGeometry x="230" y="446" width="28" height="26" as="geometry" /></mxCell>
     <mxCell id="lg-store-t"
@@ -345,7 +345,7 @@
       parent="1"><mxGeometry x="270" y="449" width="120" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-runner"
       value=""
-      style="rounded=1;arcSize=50;html=1;fillColor=@slate;strokeColor=@slate-rim;"
+      style="rounded=1;arcSize=50;html=1;fillColor=@pewter;strokeColor=@pewter-rim;"
       vertex="1"
       parent="1"><mxGeometry x="224" y="478" width="40" height="18" as="geometry" /></mxCell>
     <mxCell id="lg-runner-t"

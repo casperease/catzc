@@ -11,7 +11,7 @@ Upstream integrators take the BVT-verified head, every rung takes its commit fro
 6  dirty HEAD           commit 10, the newest commit on main, which failed in main-UAT
 
 Supports FDR-LIFE-ONECOMMITPERENVIRONMENT, FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE
-and FDR-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
+and FDR-LIFE-DIRTYHEADUNSAFE, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
 ```
 
 Each always-on environment in cats holds one commit, its occupant, and anyone outside the repository who needs a stable base takes the
@@ -30,7 +30,7 @@ about:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
     - FDR-CD-TWORELEASEGATES
     - FDR-CD-PREPRODRUNG
   lens: architecture
@@ -116,7 +116,7 @@ layout:
 - The stable integration point is the BVT-verified server head, and upstream integrators sync from it, never from HEAD; the same commit goes
   into `main-UAT` first, so once deployed it is the `main-UAT` occupant (FDR-LIFE-SYNCFROMVERIFIEDHEAD).
 - The dirty HEAD is the latest commit on main and is not safe to sync or promote from (FDR-LIFE-DIRTYHEADUNSAFE).
-- A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (FDR-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit that fails a stage cannot go downstream, neither by promotion nor by consumption (FDR-LIFE-DIRTYHEADUNSAFE).
 - RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production
   (FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG).
 

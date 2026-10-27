@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/types/ValueChainHighlight.cs
 
 A value-chain highlight: the lit cells of the value-chain map for ADR references
-([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap),
+([ADR-REPO-VALUECHAIN-MAP](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map),
 [DDR-TRACK-LITCELL](../../../../drs/design/tracks.md#rule-ddr-track-litcell)).
 
 ## References

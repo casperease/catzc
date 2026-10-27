@@ -12,7 +12,7 @@ No gate checks the runner rules 1 or 4, and the step template breaks rule 3.
 7  expected-failures - Pester   steps 1a and 1c prove the trap; Pester covers the sanitizer
 
 Supports ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES
-and ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
+and ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-TEMPLATE-ABSOLUTEPATHS (governance lens).
 ```
 
 The pipeline runner pattern has four rules, one for each stage a pipeline step passes through: the YAML, the step template, the runner and
@@ -30,7 +30,7 @@ about:
     - ADR-ADO-RUNNER-IMPORTONCE
     - ADR-ADO-RUNNER-THINSTEPTEMPLATES
     - ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE
-    - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
+    - ADR-ADO-TEMPLATE-ABSOLUTEPATHS
   lens: governance
 content:
   title: No gate checks the runner rules 1 or 4, and the step template breaks rule 3
@@ -65,7 +65,7 @@ content:
     - { at: f-step-template, kind: rule, rule: ADR-ADO-RUNNER-THINSTEPTEMPLATES }
     - { at: g-runner, kind: rule, rule: ADR-ADO-RUNNER-IMPORTONCE }
     - { at: a-run-command, kind: rule, rule: ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE, gated: false }
-    - { at: g-test-pipelines, kind: rule, rule: ADR-ADO-NAME-ABSOLUTETEMPLATEPATH }
+    - { at: g-test-pipelines, kind: rule, rule: ADR-ADO-TEMPLATE-ABSOLUTEPATHS }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -93,8 +93,8 @@ layout:
 4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
    replays a `RunCommand` outside the runner, so only the FDR keeps it, and no gate stands below it.
 5. **Test-Pipelines.** The pipeline-layout check runs over `.ado/pipelines/` and checks FDR-PIPELINE-TYPEPREFIX,
-   ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-NAME-ABSOLUTETEMPLATEPATH and
-   FDR-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-NAME-ABSOLUTETEMPLATEPATH, that templates are referenced
+   ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-TEMPLATE-ABSOLUTEPATHS and
+   FDR-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-TEMPLATE-ABSOLUTEPATHS, that templates are referenced
    by absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
 6. **Expected-failures 1b.** Step 1b of `ci-pwsh-expected-failures.yaml` proves that a multiline command without a display name throws, but
    it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to rule 1: it
@@ -110,7 +110,7 @@ layout:
 - Step templates are thin wrappers that add pipeline concerns and never contain logic (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 - Every command is developer-reproducible: the `RunCommand` string runs as-is in a terminal after the importer
   (ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE).
-- Templates are referenced by an absolute path under `/.ado/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
+- Templates are referenced by an absolute path under `/.ado/pipelines/` (ADR-ADO-TEMPLATE-ABSOLUTEPATHS).
 
 ## Where the code and the decision record differ
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: faf4e5adc2a7
+    with_body_sha: "2fcf9c6f500e"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -317,8 +317,9 @@ How the repository tree is laid out, formatted, and generated: conventional fold
 one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root
 configs generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
 vocabulary of defined terms, the directions a link may point, the reserved meta block in a Markdown file's front matter, repo-wide variants,
-the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the
-session-memory protection that skips a repeated scan over an unchanged globset.
+the sub-agent definitions and the rules behind each, sibling repositories read for ideas, never as a reference implementation, the
+session-memory protection that skips a repeated scan over an unchanged globset, and the value-chain map that places every decision record on
+a row and its value-chain concerns.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `design`, `automation`, `configuration`, `bcl`.
 
@@ -350,6 +351,7 @@ session-memory protection that skips a repeated scan over an unchanged globset.
 | `ADR-REPO-PLANS`       | [plans](repository/plans.md)                                           |
 | `ADR-REPO-SLIDES`      | [slides-as-markdown](repository/slides-as-markdown.md)                 |
 | `ADR-REPO-REPOKIND`    | [repository-kinds](repository/repository-kinds.md)                     |
+| `ADR-REPO-VALUECHAIN`  | [drs-value-chain](repository/drs-value-chain.md)                       |
 
 ### external/
 

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b90873a18ad"
+    with_body_sha: "131fb70d6878"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -537,7 +537,7 @@ or falls back to it.
 Where along delivery a decision record acts — automation, build, quality-control, release, deploy, or access — a default per decision-record
 domain, an override per decision record.
 
-- **Defined by:** [DDR-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-ddr-track-valuechainconcern)
+- **Defined by:** [ADR-REPO-VALUECHAIN-CONCERN](repository/drs-value-chain.md#rule-adr-repo-valuechain-concern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -551,7 +551,7 @@ domain, an override per decision record.
 The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in
 the value chain.
 
-- **Defined by:** [DDR-TRACK-VALUECHAINMAP](design/tracks.md#rule-ddr-track-valuechainmap)
+- **Defined by:** [ADR-REPO-VALUECHAIN-MAP](repository/drs-value-chain.md#rule-adr-repo-valuechain-map)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -565,7 +565,7 @@ the value chain.
 The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain
 declares one.
 
-- **Defined by:** [DDR-TRACK-VALUECHAINSTACK](design/tracks.md#rule-ddr-track-valuechainstack)
+- **Defined by:** [ADR-REPO-VALUECHAIN-STACK](repository/drs-value-chain.md#rule-adr-repo-valuechain-stack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -617,7 +617,7 @@ tracked file in exactly one cell.
 
 A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
 
-- **Defined by:** [FDR-CD-GATEDEFINED](flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)
+- **Defined by:** [FDR-CD-TWORELEASEGATES](flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.QualityGates/configs/glossary.yml`
 - **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,

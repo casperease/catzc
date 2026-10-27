@@ -13,7 +13,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
         $script:cellNames = { param($Highlight) @($Highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) }
     }
 
-    It 'lights the cells an ADR sits in, in the map''s order' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'lights the cells an ADR sits in, in the map''s order' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $highlight = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-GADGET')
         $highlight.Requested | Should -Be @('ADR-WIDGET-GADGET')
         & $script:cellNames $highlight | Should -Be @('TOP x alpha', 'TOP x gamma')
@@ -46,7 +46,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
             Should -Throw "*value-chain highlight: 'ADR-WIDGET-GIZMO' is not an ADR code of the adrs registry; 'widget' is not an ADR code of the adrs registry*"
     }
 
-    It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
+    It 'gives every lit cell a reason per ADR: its ADR domain''s row, the concern, and default or override' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $own = [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'gizmo', 'ADR-WIDGET-GIZMO', 'WIDGET', 'WIDGET',
             'TOP',
             [string[]] @('beta'), [string[]] @('alpha', 'gamma'))

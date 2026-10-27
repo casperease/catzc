@@ -32,6 +32,27 @@ A naming convention finds the validator without a registry: the config's name in
 scope gives it the module's private helpers. `-Validator` names a function outside the convention, and the gate keeps every conventional
 name tied to a config that ships, so an orphaned validator fails rather than lingering.
 
+### Config addresses in pwsh
+
+`How pwsh resolves a global config address`
+
+The configuration domain states the `global.<config>.<key>[.<key>…]` address grammar for any engine. In pwsh the resolver is
+`Get-ConfigValue -Address <address> [-Module <module>]` (public, `Catzc.Base.Config`):
+
+```powershell
+Get-ConfigValue -Address 'global.myproperty.name'                       # scalar leaf → the value at myproperty → name
+Get-ConfigValue -Address 'global.database'                              # subtree     → the whole database config node
+Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep leaf
+```
+
+A `ValidatePattern` on `-Address` rejects a malformed address at parameter binding. `Get-ConfigValue` strips `global.`, splits the rest into
+`<config>` plus a key path, calls `Get-Config -Config <config> -Module <module>` (`-Module` is a passthrough for the rare name that exists
+in two modules), and walks the key path with the private `Resolve-ConfigKeyPath`. The walk lives there alone, so `Get-ConfigValue` stays a
+thin strip-split-walk and the walk is unit-testable in isolation. Per segment it resolves a **dictionary key** when the current node is an
+`IDictionary`, otherwise a **property** on the node, so a raw ordered dictionary and a C# or `Assert-…`-validated object walk alike. An
+unknown or ambiguous config name throws from `Get-Config` / `Resolve-ConfigEntry` (an ambiguous one asks for `-Module`), and a segment that
+resolves at neither throws from `Resolve-ConfigKeyPath`, naming the full address and the failing segment; nothing returns `$null`.
+
 ## Decision
 
 pwsh reads every config through `Get-Config` and validates a config without a C# type through `Invoke-ConfigValidator` and the

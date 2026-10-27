@@ -10,10 +10,10 @@ Returns the value-chain map: the rows of the value-chain stack crossed with the 
 
 ### description
 
-Builds the value-chain map ([DDR-TRACK-VALUECHAINMAP](../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)) with
+Builds the value-chain map ([ADR-REPO-VALUECHAIN-MAP](../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map)) with
 Catzc.Base.Maps.ValueChainMap from drs.yml: the rows are the value-chain stack the registry type declares (Catzc.Base.Drs.DrsConfig Stacks,
-[DDR-TRACK-VALUECHAINSTACK](../../../drs/design/tracks.md#rule-ddr-track-valuechainstack)), the columns its value-chain concerns (DrsConfig
-Concerns, [DDR-TRACK-VALUECHAINCONCERN](../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), and each ADR (Get-DrsRuleSet) sits
+[ADR-REPO-VALUECHAIN-STACK][r1]), the columns its value-chain concerns (DrsConfig
+Concerns, [ADR-REPO-VALUECHAIN-CONCERN][r2]), and each ADR (Get-DrsRuleSet) sits
 on its ADR domain's row in the column of each of its value-chain concerns. Every row meets every column, so the map holds every cell, empty
 ones included, row by row.
 
@@ -43,3 +43,6 @@ Return the map as JSON (the rows, the columns, and every cell with its ADRs) ins
 ```powershell
 Get-ValueChainMap -AsJson
 ```
+
+[r1]: ../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack
+[r2]: ../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern

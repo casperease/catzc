@@ -16,7 +16,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps { $script:ruleSets }
     }
 
-    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $map = Get-ValueChainMap
         $map | Should -BeOfType [Catzc.Base.Maps.ValueChainMap]
         $map.Stacks | Should -Be $script:stacks
@@ -36,7 +36,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
 
 # It reads only drs.yml, so its answer cannot differ between the run modes: source-only.
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'places every ADR of drs.yml in at least one cell of its ADR domain''s row' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
+    It 'places every ADR of drs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $map = Get-ValueChainMap
         $ruleSets = @(Get-DrsRuleSet)
         $map.AdrCount | Should -Be $ruleSets.Count

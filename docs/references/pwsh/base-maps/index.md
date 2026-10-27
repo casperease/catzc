@@ -5,7 +5,7 @@ file languages, built from the repository's own registries and the git index, ne
 ([tracks](../../../drs/design/tracks.md#rule-ddr-track-worldmap)). On that map it lights the cells an ADR code or a set of files concerns,
 checks that no track carries a second tech-stack, and draws the map as deterministic PDFs. Beside it, it computes the value-chain map, the
 ADRs placed on the value-chain stack crossed with the value-chain concerns
-([tracks](../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)). It does **not** declare the axes: the tracks come from
+([tracks](../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map)). It does **not** declare the axes: the tracks come from
 [Catzc.Base.Variants](../base-variants/index.md), the file languages from [Catzc.Base.Languages](../base-languages/index.md), and the
 value-chain stack and concerns from the ADR registry of [Catzc.Base.Docs](../base-docs/index.md); this module only reads them. The concepts
 it draws are the subject of [tracks](../../../drs/design/tracks.md).
@@ -87,7 +87,7 @@ them with its own BCL-only PDF writer.
 
 Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the ADR registry,
 where each ADR domain declares its row and a default set of value-chain concerns and an ADR declares its own only when it differs
-([DDR-TRACK-VALUECHAINCONCERN](../../../drs/design/tracks.md#rule-ddr-track-valuechainconcern)), so its picture is declared, never guessed.
+([ADR-REPO-VALUECHAIN-CONCERN][r1]), so its picture is declared, never guessed.
 Its quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check different
 properties; the labels of both maps share one configuration section and one glossary check.
 
@@ -114,3 +114,5 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                           | `Get-AxisMinimapData`                |
 |                                           | `Get-CodeLocationsMinimapData`       |
 |                                           | `Get-MinimapFact`                    |
+
+[r1]: ../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-concern

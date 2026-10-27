@@ -25,11 +25,9 @@ beside it. The `modules` type holds `pwsh`, the core the other tracks rest on, a
 `js`, which hold their modules the same way; `.unordered` is the `unordered` track (DDR-TRACK-UNORDEREDTRACK). The type's role is deployable
 or holder ([DDR-TRACKTYPE-ONEROLE](track-types.md#rule-ddr-tracktype-onerole)). Each language track keeps a test holder, `<root>/tests/`, of
 black-box tests that verify the core from outside; a test file is never live and never ships, and a module of the track ships only what
-`files.yml` packages. `go` holds the Go black-box tests; a repository without a `go/` root keeps the same tests in the dot-prefixed `.go`,
-which is of the same class. `python` holds the Python ones, by the same convention: `.python` when the repository has no `python/` root.
-`bash` holds the Bash ones: `.bash` when the repository has no `bash/` root. `js` holds the editor extensions, each module keeping its node
-tests in its own `tests/`: `.js` when the repository has no `js/` root. Cross-cutting slices (e.g. the cats configs — every yml/config file
-across the modules track) are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
+`files.yml` packages. A repository without a language track's root keeps that track in a dot-prefixed folder of the same name and the same
+class, declared once in the languages config. Cross-cutting slices (e.g. the cats configs — every yml/config file across the modules track)
+are **scopes over tracks**, not tracks: they select through the roots rather than owning one.
 
 - [The taxonomy](#the-taxonomy)
 
@@ -109,10 +107,9 @@ the git index, never drawn by hand, so it is the same picture on every run of th
 
 ### Rule DDR-TRACK-CELL
 
-A **cell** is one row crossed with one column of a map, the world map (DDR-TRACK-WORLDMAP) or the value-chain map (DDR-TRACK-VALUECHAINMAP).
-A world-map cell holds the tracked files whose track names its row and whose extension names its column, and its file count is how many
-there are; a value-chain map cell holds the decision records whose decision-record domain declares its row and whose value-chain concerns
-include its column. Every row meets every column, so an empty cell is still a cell of the map.
+A **cell** is one row crossed with one column of a map, such as the world map (DDR-TRACK-WORLDMAP). A world-map cell holds the tracked files
+whose track names its row and whose extension names its column, and its file count is how many there are. Every row meets every column, so
+an empty cell is still a cell of the map.
 
 - [The world map](#the-world-map)
 
@@ -127,8 +124,8 @@ has no track, so none of its cells is one.
 ### Rule DDR-TRACK-LITCELL
 
 A **lit cell** is a cell a highlight selects. On the world map, a rule code, or a set of files, names the files it concerns, and every cell
-holding one of them is lit; on the value-chain map, a record code, or one of its rules, lights every cell its decision record sits in. A lit
-cell answers "where does this decision, or this change, sit"; lighting a cell never changes what the cell holds.
+holding one of them is lit. A lit cell answers "where does this decision, or this change, sit"; lighting a cell never changes what the cell
+holds.
 
 - [The world map](#the-world-map)
 
@@ -140,39 +137,6 @@ gets its defining rule and its glossary entry before the map prints it, and a la
 `Test-WorldMap` quality gate checks it.
 
 - [The world map](#the-world-map)
-
-### Rule DDR-TRACK-VALUECHAINSTACK
-
-The **value-chain stack** is the ordered set of rows a decision sits on, from the axioms down to the vendor: `PRIN` (what catzc is for, its
-principles, its process, and the research they rest on), `DSGN` (how the platform and its delivery flow are shaped), `AUTO` (the tooling
-that enacts them), `PIPE` (the pipelines that run the tooling), and `CLOUD` (the substrate it deploys onto). Every decision-record domain
-declares exactly one row (`stack:` in `drs.yml`), and every decision record it holds sits on that row. The value-chain stack orders
-decisions; it is not a track's tech-stack (DDR-TRACK-ONETECHSTACK), which is a set of file languages.
-
-- [The value-chain map](#the-value-chain-map)
-
-### Rule DDR-TRACK-VALUECHAINCONCERN
-
-A **value-chain concern** is one of the six columns that say where along delivery a decision record acts, in value-chain order: `automation`
-(loading the modules, reading their configuration, and selecting files through globsets), `build` (turning the tracked files into an
-artifact), `quality-control` (verifying a change — tests, checks, and quality gates), `release` (making a build a versioned, promotable
-release candidate), `deploy` (putting a release onto its target), and `access` (reaching and operating what runs — identities, credentials,
-and monitoring). Every decision-record domain declares a default (`concern:` in `drs.yml`), and a decision record declares its own only when
-it differs, so every decision record resolves to one or more value-chain concerns, never to none and never to an unknown one. A value-chain
-concern is not a track's root concern (DDR-TRACK-ISPLACEDCLUSTER): a track is where files live, and a value-chain concern is where a
-decision acts.
-
-- [The value-chain map](#the-value-chain-map)
-
-### Rule DDR-TRACK-VALUECHAINMAP
-
-The **value-chain map** is the decision records drawn as the value-chain stack crossed with the value-chain concerns: one row per row of the
-stack (DDR-TRACK-VALUECHAINSTACK) and one column per value-chain concern (DDR-TRACK-VALUECHAINCONCERN), and a decision record lights the
-places where the row of the decision-record domain that holds it meets each of its value-chain concerns. It is computed from `drs.yml`,
-never drawn by hand, and every label it prints names a defined term in its head, as the world map's labels do
-(DDR-TRACK-LABELSNAMEDEFINEDTERMS); its row names are the rows of the value-chain stack, and its column names are the value-chain concerns.
-
-- [The value-chain map](#the-value-chain-map)
 
 ### Rule DDR-TRACK-UNORDEREDTRACK
 
@@ -318,25 +282,11 @@ Landing, sorting and leaving are one lifecycle. One file per commit keeps each m
 yet in the form never sits in a module where the gates would hold it to rules it does not meet, so the unordered part shrinks only by files
 that are finished.
 
-### The value-chain map
-
-The world map says where a decision's files sit; it cannot say where along delivery the decision acts. A rule about formatting and a rule
-about release tags can govern the same PowerShell files in the same track, and the world map lights the same cells for both. The value-chain
-map answers the other question. Its rows are the value-chain stack, ordered from the axioms every decision specialises down to the vendor
-every deployment lands on, so the row says how general a decision is. Its columns are the value-chain concerns, ordered the way a change
-travels — the tooling it runs on, its build, its verification, its release, its deployment, and the access to what runs — so the columns
-read left to right like the value-chain diagrams ([visual-design](visual-design.md)). The two maps sit side by side because each answers
-what the other cannot.
-
-The place is declared, never guessed, with the same resolution every setting follows: a declared default, overridden only where it differs.
-Both words are qualified on purpose: "concern" already names a track, the repository's root concern, and "stack" already names a track's
-tech-stack, so the value-chain forms keep each word to one meaning.
-
 ## Decision
 
 Name the concept: repository concerns are **tracks**, each of one type and one tech-stack, subscribable only through depms and globset
 projections and shipped through deployable-units, with the unordered track as the landing place nothing defaults to. Make the repository
-countable as the world map, and place every decision record on the value-chain map beside it.
+countable as the world map.
 
 ### How this is enforced
 
@@ -351,18 +301,12 @@ countable as the world map, and place every decision record on the value-chain m
 - **The `Test-WorldMap` quality gate** reads the world map and fails on a stack violation (DDR-TRACK-STACKVIOLATION), a root folder with
   tracked files that no track names (DDR-TRACK-ISPLACEDCLUSTER), and a printed label that names no defined term
   (DDR-TRACK-LABELSNAMEDEFINEDTERMS).
-- **`Catzc.Base.Drs.DrsConfig`**, the type of `drs.yml`, declares the rows of the value-chain stack and the value-chain concerns once, in
-  order, and fails the load on a decision-record domain without a row or a default, on a row or a value-chain concern outside them, and on
-  an unknown key, so every decision record resolves to its row and one or more value-chain concerns (DDR-TRACK-VALUECHAINSTACK,
-  DDR-TRACK-VALUECHAINCONCERN).
 - **Code review** applies the taxonomy: a new track must name its type, its places and its tech-stack; a cross-cutting need becomes a scope
   globset, not a root.
 
 ## Consequences
 
 - "Which track does this change touch?" has one answer, computed (git-reflected against the globsets), not argued.
-- "Where along delivery does this decision act?" has a declared answer too: the value-chain map reads it from `drs.yml`, and a new decision
-  record inherits its decision-record domain's default until it declares otherwise.
 - Pipelines, tests, and reviewers all read the same coordination surface, so a change's blast radius is the same fact everywhere.
 - Opening a concern is cheap and bounded: one track entry with its type and places, one globset entry — and the rest of the repository is
   untouched by construction.

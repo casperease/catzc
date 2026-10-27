@@ -21,7 +21,7 @@ preview rasters (`drawio_png.py`, the minimaps, the sample renderers) draw the s
 %, offset 2 px right and 3 px down, blurred 2 px, painted just before the shape. The `page` is drawn first, behind everything else, and
 almost all text is `ink` (titles and names on a glyph `title`, quiet text `quiet`).
 
-**Colours are tokens.** A style never names a colour: it names a token as `@<token>` (`fillColor=@slate;`), and put writes the theme's
+**Colours are tokens.** A style never names a colour: it names a token as `@<token>` (`fillColor=@pewter;`), and put writes the theme's
 colour. Every theme is one token set in [`configs/drawio.yml`](../configs/drawio.yml) (`theme-dark`, `theme-light`), the single source of
 every value; the first theme, dark, is the committed raster, and any other renders on demand to `out/drawio/themes/<theme>/`.
 
@@ -55,13 +55,13 @@ means two things across slides (grey is not "config" on one slide and "drift" on
 [`glyphs.xml`](glyphs.xml); its preview is `out/diagrams/wave-7/_glyphs.drawio.png`. Copy from there, never retype.
 
 **Structure in mid-tones, state set apart.** Structural kinds use lifted mid-tone fills with a rim of the same hue and `title` names:
-`slate` / `slate-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures
+`pewter` / `pewter-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures
 are saturated with a bright rim, and commits keep the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be mistaken
-for a commit state. Slate is shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
+for a commit state. Pewter is shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
 - **code unit**
   - Shape: rounded box
-  - Fill / stroke: slate / slate-rim
+  - Fill / stroke: pewter / pewter-rim
   - Use it for: a module, function, type or script that runs; text `title`
 - **named set**
   - Shape: rounded box
@@ -73,11 +73,11 @@ for a commit state. Slate is shared by code unit, store and runner on purpose: t
   - Use it for: a config, YAML, manifest or other file read as data (`shape=note`); text `title`
 - **store**
   - Shape: cylinder
-  - Fill / stroke: slate / slate-rim
+  - Fill / stroke: pewter / pewter-rim
   - Use it for: the repository, a registry, a cache, a feed (`shape=cylinder3`); text `title`
 - **runner**
   - Shape: pill
-  - Fill / stroke: slate / slate-rim
+  - Fill / stroke: pewter / pewter-rim
   - Use it for: a pipeline, stage, task or job that executes (`arcSize=50`); text `title`
 - **gate**
   - Shape: rhombus, 3 px rim
@@ -108,24 +108,24 @@ for a commit state. Slate is shared by code unit, store and runner on purpose: t
   - Fill / stroke: page / line
   - Use it for: something a decision record states that no code runs or checks; text `ink`
 
-**Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in slate, so they add no colour to the budget.
+**Source-lens phrases** (the `source` lens, below) are variants of the code unit. They stay in pewter, so they add no colour to the budget.
 Copy them from `glyphs.xml` (`g-private`, `g-type` + `g-type-tag`, `g-module`):
 
 - **private helper**
   - Shape: code unit, 36 px tall, dark fill, 11 px name
-  - Fill / stroke: neutral-deep / slate-rim
+  - Fill / stroke: neutral-deep / pewter-rim
   - Use it for: a function in the module's `private/` folder; never dashed; text `ink`
 - **C# type**
   - Shape: code unit with a `C#` tag (26 × 16) on its top-right
-  - Fill / stroke: slate / slate-rim, tag on page
+  - Fill / stroke: pewter / pewter-rim, tag on page
   - Use it for: a class or record under `types/*.cs`
 - **catzc module**
-  - Shape: slate frame, no fill, `strokeWidth=1.5`, name top-left
-  - Fill / stroke: none / slate-rim
+  - Shape: pewter frame, no fill, `strokeWidth=1.5`, name top-left
+  - Fill / stroke: none / pewter-rim
   - Use it for: another `Catzc.*` module the drawn code calls; its members sit inside it
 - **nested frame**
   - Shape: the same frame inside a frame (`g-module-holder`)
-  - Fill / stroke: none / slate-rim
+  - Fill / stroke: none / pewter-rim
   - Use it for: a holder's part: a track holds its modules, a module holds its members
 
 The private helper's dark fill is what sets it apart at preview scale. A dimmer or thinner rim on the code-unit fill was tried in the wave-9

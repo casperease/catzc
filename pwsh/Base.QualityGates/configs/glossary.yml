@@ -52,7 +52,7 @@ concepts:
   gate:
     key: gate
     domain: flow
-    defined_by: FDR-CD-GATEDEFINED
+    defined_by: FDR-CD-TWORELEASEGATES
     short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
     realized_by: { kind: prose-only }
     forms: [quality, CI, AT, RC, RBC, BVT, release, manual, PR, merge, commit, approval, production, push]

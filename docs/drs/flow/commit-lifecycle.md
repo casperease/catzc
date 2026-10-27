@@ -79,16 +79,12 @@ commit that goes into `main-UAT` first, so once it is deployed it is the `main-U
 it may have _failed_ a downstream stage (for example, died in `main-UAT`). Such a commit is the **dirty HEAD**: it is the tip of main, but
 it must not be synced from and cannot be promoted downstream. Consumers who naively track HEAD are pointed instead at the BVT-verified
 server head (FDR-LIFE-SYNCFROMVERIFIEDHEAD). "Latest" and "safe to build on" are different questions, and the model keeps them separate. A
-newest commit that no stage has judged yet is _landed_, not dirty (FDR-LIFE-LANDEDUNTILFAILED).
+newest commit that no stage has judged yet is _landed_, not dirty (FDR-LIFE-LANDEDUNTILFAILED). The same holds for **any commit that fails a
+stage**, tip or not: failure at any environment stops both _promotion_ (it will not advance to a later environment) and _downstream
+consumption_ (nothing may sync from or build on it). Downstream flow proceeds only from the last successful state, so a failure is a hard
+stop, not a soft warning.
 
 - [The dirty HEAD](#the-dirty-head)
-
-### Rule FDR-LIFE-FAILEDSTAYSUPSTREAM
-
-**A commit that fails a stage cannot go downstream.** Failure at any environment stops both _promotion_ (it will not advance to a later
-environment) and _downstream consumption_ (nothing may build on it). Downstream flow proceeds only from the last successful state, so a
-failure is a hard stop, not a soft warning.
-
 - [Failure stops downstream](#failure-stops-downstream)
 
 ### Rule FDR-LIFE-TOPICDEPLOYSOUTOFBAND
@@ -154,7 +150,7 @@ about:
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-RETIREMENTISNOTDISCARD
     - FDR-LIFE-SUPERSESSIONABANDONS
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-LIFE-DIRTYHEADUNSAFE
     - DDR-VISUAL-DISTINCTENDINGS
   lens: architecture
 content:
@@ -327,7 +323,6 @@ about:
     - FDR-LIFE-DIRTYHEADUNSAFE
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
-    - FDR-LIFE-FAILEDSTAYSUPSTREAM
   lens: architecture
 content:
   title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip

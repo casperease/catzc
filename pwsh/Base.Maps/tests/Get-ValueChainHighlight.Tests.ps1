@@ -15,7 +15,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
         Mock Get-ValueChainMap -ModuleName Catzc.Base.Maps { $script:map }
     }
 
-    It 'lights the cells of an ADR code given by position' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'lights the cells of an ADR code given by position' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $highlight = Get-ValueChainHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.ValueChainHighlight]
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha',
@@ -42,7 +42,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainHighlight — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of drs.yml' -Tag 'DDR-TRACK-VALUECHAINMAP' {
+    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of drs.yml' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $citations = Get-DrsCitationMap
         foreach ($ruleSet in @(Get-DrsRuleSet)) {
             # A rule lights its ADR's cells; an ADR with no rules of its own stands for itself.

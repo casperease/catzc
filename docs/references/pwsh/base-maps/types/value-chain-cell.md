@@ -1,7 +1,7 @@
 # pwsh/Base.Maps/types/ValueChainCell.cs
 
 One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs that sit in it
-([DDR-TRACK-VALUECHAINMAP](../../../../drs/design/tracks.md#rule-ddr-track-valuechainmap),
+([ADR-REPO-VALUECHAIN-MAP](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map),
 [DDR-TRACK-CELL](../../../../drs/design/tracks.md#rule-ddr-track-cell)).
 
 ## Adrs
