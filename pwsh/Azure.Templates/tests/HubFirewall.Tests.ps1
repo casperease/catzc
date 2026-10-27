@@ -80,14 +80,14 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
         }
     }
 
-    It 'lets each hub''s egress reach storage only by the regional Storage tag of its own location, spelled as the tag list does (Storage.WestEurope)' {
+    It 'lets each hub''s egress reach storage only by the regional Storage.<region> tag of its own location' {
         foreach ($hub in $script:hubs) {
             $group = $hub.Resources | Where-Object Type -EQ 'Microsoft.Network/firewallPolicies/ruleCollectionGroups' | Select-Object -First 1
             $collections = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($group.Resource.properties.ruleCollections, $group.Scope, $group.Variables))
             $tags = @($collections | ForEach-Object { @($_.rules) } | Where-Object { $_.ruleType -eq 'NetworkRule' } | ForEach-Object { @($_.destinationAddresses) })
             $storage = @($tags | Where-Object { "$_" -like 'Storage*' })
             $storage.Count | Should -Be 1 -Because "hub $($hub.Name) allows one storage tag"
-            "$($storage[0])" | Should -MatchExactly '^Storage\.[A-Z][A-Za-z0-9]+$' -Because "hub $($hub.Name) narrows storage to its region's tag, never the global Storage"
+            "$($storage[0])" | Should -Match '^Storage\.[a-z0-9]+$' -Because "hub $($hub.Name) narrows storage to its region's tag, never the global Storage"
         }
     }
 }

@@ -95,7 +95,8 @@ stages:
                                   f.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation" -DryRun'
                             - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
-                                DisplayName: "Remove ${{ f.env }} foundation orphans (session target, assert ${{ f.subscriptionIdAssertIs }})"
+                                DisplayName:
+                                  "Remove ${{ f.env }} foundation orphans (session target, assert ${{ f.subscriptionIdAssertIs }})"
                                 Mode: azcli
                                 ServiceConnection: ${{ f.serviceConnection }}
                                 RunCommand:

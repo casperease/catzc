@@ -1,0 +1,171 @@
+Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:groupId = '/subscriptions/00000000-0000-0000-0000-00000000000a/resourceGroups/widget-rg/providers'
+        $script:widgetTemplate = @{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = @{ widgetName = @{ type = 'string' } }
+            resources  = @(
+                @{ type = 'Microsoft.Storage/storageAccounts'; name = "[parameters('widgetName')]" }
+                @{ type = 'Microsoft.KeyVault/vaults'; name = 'widget-kv' }
+            )
+        }
+        $script:gadgetTemplate = @{
+            parameters = @{ widgetName = @{ type = 'string' } }
+            resources  = @(
+                @{ type = 'Microsoft.Storage/storageAccounts'; name = "[parameters('widgetName')]" }
+                @{ type = 'Microsoft.Network/networkSecurityGroups'; name = "[format('{0}-nsg', parameters('widgetName'))]" }
+            )
+        }
+        $script:parametersFile = Join-Path $TestDrive 'parameters.widget.json'
+        [System.IO.File]::WriteAllText($script:parametersFile, '{ "parameters": { "widgetName": { "value": "widget-account" } } }')
+        $script:widgetFile = Join-Path $TestDrive 'widget.json'
+        [System.IO.File]::WriteAllText($script:widgetFile, ($script:widgetTemplate | ConvertTo-Json -Depth 10))
+        $script:gadgetFile = Join-Path $TestDrive 'gadget.json'
+        [System.IO.File]::WriteAllText($script:gadgetFile, ($script:gadgetTemplate | ConvertTo-Json -Depth 10))
+    }
+
+    BeforeEach {
+        $script:calls = [System.Collections.Generic.List[string]]::new()
+        $script:messages = [System.Collections.Generic.List[string]]::new()
+        $script:templateFile = $script:widgetFile
+        $script:target = 'ResourceGroup'
+        $script:listExitCode = 0
+        $script:listed = @(
+            @{ id = "$groupId/Microsoft.Storage/storageAccounts/widget-account"; name = 'widget-account'; type = 'Microsoft.Storage/storageAccounts' }
+            @{ id = "$groupId/Microsoft.KeyVault/vaults/widget-kv"; name = 'widget-kv'; type = 'Microsoft.KeyVault/vaults' }
+        )
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'azure' } {
+            [pscustomobject]@{ environments = @{ widget = @{} } }
+        }
+        Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
+        Mock Test-IsRunningInPipeline -ModuleName Catzc.Azure.Templates { $false }
+        Mock Get-BicepDeploymentContext -ModuleName Catzc.Azure.Templates -RemoveParameterValidation Environment, Template {
+            [ordered]@{
+                deployment  = [ordered]@{ target = $script:target; resource_group = 'widget-rg' }
+                artifacts   = [ordered]@{ template_file = $script:templateFile; parameters_file = $script:parametersFile }
+                environment = [ordered]@{ subscription = [ordered]@{ id = '00000000-0000-0000-0000-00000000000a' } }
+            }
+        }
+        Mock Write-Message -ModuleName Catzc.Azure.Templates { $script:messages.Add("$Message") }
+        Mock Invoke-AzCli -ModuleName Catzc.Azure.Templates {
+            $script:calls.Add($Arguments)
+            if ($Arguments -like 'resource list *') {
+                [pscustomobject]@{ ExitCode = $script:listExitCode; Output = (ConvertTo-Json -InputObject @($script:listed) -Depth 5); Errors = 'widget denied' }
+            }
+            else {
+                [pscustomobject]@{ ExitCode = 0; Output = ''; Errors = '' }
+            }
+        }
+    }
+
+    It 'lists the slot''s resource group in the session''s subscription' {
+        Remove-BicepOrphanResources widget widget -DryRun | Out-Null
+        $calls[0] | Should -BeExactly 'resource list --subscription 00000000-0000-0000-0000-00000000000a --resource-group widget-rg --output json'
+    }
+
+    It 'returns an orphan on a dry run and deletes nothing' {
+        $script:listed += @{ id = "$groupId/Microsoft.Web/sites/gadget-old"; name = 'gadget-old'; type = 'Microsoft.Web/sites' }
+        $orphans = @(Remove-BicepOrphanResources widget widget -DryRun)
+        $orphans | Should -BeExactly @("$groupId/Microsoft.Web/sites/gadget-old")
+        @($calls | Where-Object { $_ -like 'resource delete *' }).Count | Should -Be 0
+    }
+
+    It 'deletes an orphan by its id and returns it' {
+        $script:listed += @{ id = "$groupId/Microsoft.Web/sites/gadget-old"; name = 'gadget-old'; type = 'Microsoft.Web/sites' }
+        $deleted = @(Remove-BicepOrphanResources widget widget)
+        $deleted | Should -BeExactly @("$groupId/Microsoft.Web/sites/gadget-old")
+        $calls[1] | Should -BeExactly "resource delete --ids `"$groupId/Microsoft.Web/sites/gadget-old`" --output none"
+        $messages | Should -Match 'Deleted .*gadget-old'
+    }
+
+    It 'keeps a resource whose name and type match the template, whatever their case' {
+        $script:listed = @(@{ id = "$groupId/microsoft.storage/storageAccounts/WIDGET-ACCOUNT"; name = 'WIDGET-ACCOUNT'; type = 'microsoft.storage/storageAccounts' })
+        @(Remove-BicepOrphanResources widget widget).Count | Should -Be 0
+    }
+
+    It 'treats a resource of the same name but another type as an orphan' {
+        $script:listed += @{ id = "$groupId/Microsoft.Web/sites/widget-kv"; name = 'widget-kv'; type = 'Microsoft.Web/sites' }
+        @(Remove-BicepOrphanResources widget widget -DryRun) | Should -BeExactly @("$groupId/Microsoft.Web/sites/widget-kv")
+    }
+
+    It 'does nothing when the group holds only what the template declares' {
+        @(Remove-BicepOrphanResources widget widget).Count | Should -Be 0
+        $calls.Count | Should -Be 1
+        $messages | Should -Match 'holds nothing the template .widget. no longer declares'
+    }
+
+    It 'refuses to delete when a name does not resolve, lists the candidates and names the unresolved resource' {
+        $script:templateFile = $script:gadgetFile
+        $script:listed += @{ id = "$groupId/Microsoft.Network/networkSecurityGroups/widget-account-nsg"; name = 'widget-account-nsg'; type = 'Microsoft.Network/networkSecurityGroups' }
+        $seen = [System.Collections.Generic.List[string]]::new()
+        { Remove-BicepOrphanResources widget widget | ForEach-Object { $seen.Add($_) } } |
+            Should -Throw '*deletes none*1 evaluated resources*main/networkSecurityGroups (Microsoft.Network/networkSecurityGroups)*'
+        $seen | Should -Contain "$groupId/Microsoft.Network/networkSecurityGroups/widget-account-nsg"
+        @($calls | Where-Object { $_ -like 'resource delete *' }).Count | Should -Be 0
+    }
+
+    It 'refuses a template deployed at subscription scope, before any call' {
+        $script:target = 'Subscription'
+        { Remove-BicepOrphanResources widget widget -DryRun } | Should -Throw '*deploys at Subscription scope*'
+        $calls.Count | Should -Be 0
+    }
+
+    It 'does nothing for a DoNotRun template' {
+        Mock Get-BicepDeploymentContext -ModuleName Catzc.Azure.Templates -RemoveParameterValidation Environment, Template { $null }
+        @(Remove-BicepOrphanResources widget widget).Count | Should -Be 0
+        $calls.Count | Should -Be 0
+    }
+
+    It 'requires -SubscriptionIdAssertIs in a pipeline' {
+        Mock Test-IsRunningInPipeline -ModuleName Catzc.Azure.Templates { $true }
+        { Remove-BicepOrphanResources widget widget -DryRun } | Should -Throw '*requires -SubscriptionIdAssertIs in a pipeline*'
+        $calls.Count | Should -Be 0
+    }
+
+    It 'passes the slot, the assert and the artifacts folder to the deployment context' {
+        Remove-BicepOrphanResources widget widget -Slot blu -SubscriptionIdAssertIs '00000000-0000-0000-0000-00000000000a' -ArtifactsFolder $TestDrive -DryRun | Out-Null
+        Should -Invoke Get-BicepDeploymentContext -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter {
+            $Slot -eq 'blu' -and $SubscriptionIdAssertIs -eq '00000000-0000-0000-0000-00000000000a' -and $ArtifactsFolder -eq $TestDrive
+        }
+    }
+
+    It 'reports the az exit code when the listing fails, and deletes nothing' {
+        $script:listExitCode = 3
+        { Remove-BicepOrphanResources widget widget } | Should -Throw '*widget-rg failed*exit code 3*widget denied*'
+        $calls.Count | Should -Be 1
+    }
+}
+
+Describe 'The orphan removal in the production deploy pipelines' -Tag 'L1', 'integrity' {
+    BeforeAll {
+        $script:pipelines = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
+    }
+
+    It 'passes RemoveOrphans to every stage template of the prod and rollback path of <_>' -ForEach 'deploy-apex.yaml', 'deploy-shared.yaml' {
+        $text = Get-Content -Raw (Join-Path $pipelines $_)
+        $production = $text.Substring($text.IndexOf("in(parameters.Target, 'prod', 'rollback')"))
+        $stages = ([regex]::Matches($production, 'template: /\.ado/pipelines/stages/deploy-unit\.yaml')).Count
+        $stages | Should -BeGreaterThan 0
+        ([regex]::Matches($production, 'RemoveOrphans: true')).Count | Should -Be $stages
+        $release = $text.Substring(0, $text.IndexOf("in(parameters.Target, 'prod', 'rollback')"))
+        $release | Should -Not -Match 'RemoveOrphans'
+    }
+
+    It 'runs the -DryRun listing, then the removal, after the deploy of every <_> job' -ForEach 'foundation', 'expedition' {
+        $template = $_
+        $text = Get-Content -Raw (Join-Path $pipelines 'stages/deploy-unit.yaml')
+        $jobs = @($text -split '- deployment: ' | Where-Object { $_ -match "-Template $template " })
+        $jobs.Count | Should -BeGreaterThan 0
+        foreach ($job in $jobs) {
+            $deploy = $job.LastIndexOf("'Deploy-Bicep -Environment")
+            $deploy | Should -BeGreaterThan 0
+            $preview = $job.IndexOf("'Remove-BicepOrphanResources -Environment")
+            $preview | Should -BeGreaterThan $deploy
+            $removal = $job.IndexOf("'Remove-BicepOrphanResources -Environment", $preview + 1)
+            $removal | Should -BeGreaterThan $preview
+            $job.Substring($preview, $removal - $preview) | Should -Match '-DryRun'
+            $job.Substring($removal) | Should -Not -Match '-DryRun'
+            $job | Should -Match '\$\{\{ if parameters\.RemoveOrphans \}\}'
+        }
+    }
+}

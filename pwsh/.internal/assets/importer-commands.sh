@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d2ac5c2eb1a6
+#     with_body_sha: afc776002412
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -123,6 +123,12 @@ register_ado_build_validation	repository_name	string	0	0	0	contracts/catzc/0.1.0
 register_ado_build_validation	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.azure.dev_ops.build_validation/register_ado_build_validation.command.yml			register-ado-build-validation	dry-run	Register-AdoBuildValidation	DryRun
 remove_az_cli	install_dir	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/remove_az_cli.command.yml			remove-az-cli	install-dir	Remove-AzCli	InstallDir
 remove_az_cli	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/remove_az_cli.command.yml			remove-az-cli	force	Remove-AzCli	Force
+remove_bicep_orphan_resources	environment	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	environment	Remove-BicepOrphanResources	Environment
+remove_bicep_orphan_resources	template	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	template	Remove-BicepOrphanResources	Template
+remove_bicep_orphan_resources	slot	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	slot	Remove-BicepOrphanResources	Slot
+remove_bicep_orphan_resources	subscription_id_assert_is	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	subscription-id-assert-is	Remove-BicepOrphanResources	SubscriptionIdAssertIs
+remove_bicep_orphan_resources	artifacts_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	artifacts-folder	Remove-BicepOrphanResources	ArtifactsFolder
+remove_bicep_orphan_resources	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/remove_bicep_orphan_resources.command.yml			remove-bicep-orphan-resources	dry-run	Remove-BicepOrphanResources	DryRun
 remove_dotnet	install_dir	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/remove_dotnet.command.yml			remove-dotnet	install-dir	Remove-Dotnet	InstallDir
 remove_dotnet	force	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/remove_dotnet.command.yml			remove-dotnet	force	Remove-Dotnet	Force
 remove_java	install_dir	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/remove_java.command.yml			remove-java	install-dir	Remove-Java	InstallDir

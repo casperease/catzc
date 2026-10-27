@@ -1,0 +1,9 @@
+description: Deletes the resources of a slot's resource group that its compiled template no longer declares, and returns their ids.
+parameters:
+  environment: string!
+  template: string!
+  slot: string
+  subscription_id_assert_is: string
+  artifacts_folder: string
+  dry_run: switch
+output: string[]

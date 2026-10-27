@@ -66,11 +66,24 @@ is planned here, one step each, so no record carries a planned item.
 - [x] Rollback by deploying an earlier commit's artifact. Check: a pipeline test that every production DEPLOY offers `rollback` on its prod
       path, certified by a production environment's deployment history. Verdict (2026-10-27): `deploy-apex.yaml` and `deploy-shared.yaml`
       gained `Target: rollback`; Test-Pipelines.Tests passed, 23 of 23.
-- [ ] Removal of what a revert takes out of a template. Every template deploys `Incremental` (landing-zones-operations, Operations as code),
+- [x] Removal of what a revert takes out of a template. Every template deploys `Incremental` (landing-zones-operations, Operations as code),
       and ARM has no `Complete` mode at subscription scope, so it is a cleanup step, not a mode: a command that lists a resource group's
       resources against the compiled template's evaluated resources (`Get-ArmDeployedResource`) and deletes the rest after a `-DryRun`
       listing, run by the DEPLOY prod and rollback paths after the deploy. Check: the command's L0 against a widget template and a mocked
-      resource list, and a pipeline test that each production DEPLOY stage runs the cleanup after its deploy, with `-DryRun` first.
+      resource list, and a pipeline test that each production DEPLOY stage runs the cleanup after its deploy, with `-DryRun` first. Verdict
+      (2026-10-27 burst): `Remove-BicepOrphanResources` (resource-group templates; refuses deletion on an unresolved name,
+      ADR-AZ-DATAMOD-ORPHANREMOVALNEEDSRESOLVEDNAMES) runs in the foundation and expedition jobs of `stages/deploy-unit.yaml` under
+      `RemoveOrphans`, which `deploy-apex.yaml` and `deploy-shared.yaml` set on prod and rollback; Remove-BicepOrphanResources.Tests (12 L0,
+      4 pipeline-YAML) passed 16 of 16, with Test-Parsing, Test-Contracts and Test-Pipelines.Tests. Discovery (subscription scope) has no
+      cleanup.
+- [ ] The deploy pipelines run on an agent pool inside the network before a live deploy. `foundation`'s vault has public network access off
+      (`docs/how-to/infrastructure/seed-a-secret.md`), so a Microsoft-hosted agent (`vmImage: ubuntu-latest`) cannot reach it for the
+      anomaly seed (`Set-AnomalyAlertRecipientSecret`) or the break-glass rotation (`Invoke-BreakGlassRotation`). The pool is a Managed
+      DevOps Pool or self-hosted agents in the hub virtual network, decided (meister, 2026-10-27) over a firewall exception on the vault,
+      which would open the one store of the platform's secrets to the internet; its name is declared once and every vault job names it.
+      Check: a pipeline-YAML test that every job of `.ado/pipelines` whose steps run a command writing to a `foundation` vault
+      (`Set-AnomalyAlertRecipientSecret`, `Invoke-BreakGlassRotation`) names that pool and no `vmImage`, and fails on a new vault-writing
+      job on a Microsoft-hosted agent.
 - [x] The compliance evaluator resolves `toObject` and an indexed `map` lambda (`(item, index) => …`), which build the security rules in
       `landing-zone-network.bicep`. Check: `NsgFlows.Tests.ps1` asserts each security group's evaluated rules (only declared flows allowed,
       then the two denies) in place of its binding checks. Verdict (2026-10-27 burst): ArmExpression.Tests, NsgFlows.Tests and
@@ -125,8 +138,18 @@ is planned here, one step each, so no record carries a planned item.
       `Set-AnomalyAlertRecipientSecret` with `$(AnomalyAlertRecipients)` before its what-if, writing through the shared private
       `Set-KeyVaultSecretValue` that break-glass now calls; Set-AnomalyAlertRecipientSecret.Tests (with the pipeline-YAML case) passed, 12
       of 12, and Invoke-BreakGlassRotation.Tests passed, 9 of 9.
-- [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time fact;
-      design first). Check: a new module's type is allowed without editing a list.
+- [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time. Built in the tree
+      (drone-opus, 2026-10-27): the fact `module_resource_types` (private `Get-BicepModuleResourceTypes`, read by
+      `Resolve-BicepEnvironmentFacts`, admitted by `Read-BicepTemplateOptions`), discovery's `allowedResourceTypes` fact and
+      `policyAssignmentNames.resourceTypes` (role `ty`), `landing-zone-policies.bicep`'s `resourceTypes` entry (built-in
+      `a08ec900-254a-4555-9bf5-e42af04b5c5c`, in guids.yml), and a Discovery.Security.Tests case. Verdict (2026-10-27 burst):
+      Get-BicepModuleResourceTypes.Tests, Resolve-BicepEnvironmentFacts.Tests, Test-BicepLint, Test-BicepApiVersions and
+      Read-BicepTemplateOptions.Tests passed; Discovery.Security.Tests failed 2 of 3, its benchmark case too: the evaluator returns the
+      policies module's copy loop as one conditional assignment whatever `allowedResourceTypes` holds (probed empty, one type, the built
+      list), so `items(variables('policyDefinitions'))` with `tryGet`/`coalesce` is an evaluator gap to close first; Build-Bicep.Integrity,
+      Test-BicepTemplateCompliance and Test-BicepResourceNames did not run (the burst stopped at the failure). Then
+      ADR-AZ-LZ-GOVERNANCELIMITS drops "no resource-type policy" and names the derived list. Check: Discovery.Security.Tests green with the
+      three gates in one burst, and Get-BicepModuleResourceTypes.Tests' "a new module's type is allowed without editing a list".
 - [x] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least
       the estimate times `headroom`. Check: the L1 case reads 0, offline from the checked-in price table. Verdict (2026-10-27 burst): the
       cost model is a `<template>-cost-model.md` page beside each article, and `Discovery.Budget.Tests.ps1` reads 0, passed.

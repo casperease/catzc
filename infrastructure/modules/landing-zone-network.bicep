@@ -198,7 +198,6 @@ module firewallPolicy 'firewall-policy.bicep' = if (isHub) {
     sourceAddresses: spokeAddressSpaces
     serviceTags: firewallEgress.service_tags
     fqdnTags: firewallEgress.fqdn_tags
-    serviceTagRegions: firewallEgress.service_tag_regions
     tags: tags
   }
 }

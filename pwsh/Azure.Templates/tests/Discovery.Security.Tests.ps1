@@ -9,7 +9,12 @@ Describe 'discovery security: every compiled slot' -Tag 'L1', 'integrity' {
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
                     $values = @{}
                     foreach ($name in @($parameters.Keys)) {
-                        $values[$name] = if ($parameters[$name].Contains('value')) { $parameters[$name].value } else { [Catzc.Azure.Templates.ArmExpression]::Unresolved }
+                        $values[$name] = if ($parameters[$name].Contains('value')) {
+                            $parameters[$name].value
+                        }
+                        else {
+                            [Catzc.Azure.Templates.ArmExpression]::Unresolved
+                        }
                     }
                     [pscustomobject]@{
                         Name      = $slot.name
