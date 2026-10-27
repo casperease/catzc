@@ -7,16 +7,11 @@
 JavaScript in the repository is a module of the `js` track: one folder per editor extension, `<root>/<extension-name>/`, named in kebab
 case, its entry `extension.js` exporting `activate` and `deactivate`, its sibling parts beside it, its own files in `assets/` and its tests
 in `tests/` (ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE). Files, functions and types follow the language's
-naming: file kebab, function camel, type pascal. The PowerShell side renders, packs and installs an extension from catzc configs and never
-reaches inside it; an extension reads catzc's configs only through the settings the generator renders.
+naming: file kebab, function camel, type pascal. The root is `js` when the repository has a `js/` folder (the `js` track), else `.js`,
+declared by `javascript.yml`'s `root` (ADR-AUTO-TESTLANG-ONEROOT). The PowerShell side renders, packs and installs an extension from catzc
+configs and never reaches inside it; an extension reads catzc's configs only through the settings the generator renders.
 
 - [Extensions are modules](#extensions-are-modules)
-
-### Rule ADR-AUTO-JS-ONEJSROOT
-
-The JavaScript lives under one root, declared by `javascript.yml`'s `root` with a sensible default on its config type: `js` when the
-repository has a `js/` folder (the `js` track), else the dot-prefixed `.js`.
-
 - [One root](#one-root)
 
 ### Rule ADR-AUTO-JS-NODETESTRUNNER
@@ -24,9 +19,11 @@ repository has a `js/` folder (the `js` track), else the dot-prefixed `.js`.
 A JavaScript test runs under node's built-in runner, `node --test`, with no test package: a module's tests are `tests/*.test.js` beside its
 code, each a top-level `test()` call over the module's pure parts, which take no editor and so run under node as they are. A part that needs
 the editor is driven through a recording stub of the editor API, in its own node process. `Invoke-JavaScriptTest` runs a module's tests with
-the managed node and reads node's junit report, so a failure is placed in its file.
+the managed node and reads node's junit report, so a failure is placed in its file. A test whose name starts with `integrity:` is
+`integrity`, every other test `logic`.
 
 - [Node's own runner](#nodes-own-runner)
+- [The bridge](#the-bridge)
 
 ### Rule ADR-AUTO-JS-TYPESGATE
 
@@ -37,14 +34,6 @@ editor version the extension manifests declare. Nothing is installed into the re
 formatter is added.
 
 - [The types check](#the-types-check)
-
-### Rule ADR-AUTO-JS-JSBRIDGE
-
-`Test-Automation` runs the JavaScript tests through a bridge, as it runs the Go and Python ones: discovery maps each module's tests to the
-module, every top-level `test()` is one test of the run (ADR-AUTO-TEST-TEST), and a test whose name starts with `integrity:` is `integrity`,
-every other test `logic`.
-
-- [The bridge](#the-bridge)
 
 ### Rule ADR-AUTO-JS-LAMPSINTHEEDITOR
 
@@ -74,8 +63,9 @@ manifest and settings, never through its code.
 
 ### One root
 
-The default is declared once, on the config type ([sensible-defaults](../sensible-defaults.md)), and `javascript.yml` declares a `root` only
-to place the root elsewhere. The dot-prefixed fallback keeps a repository without a `js/` folder from growing one for tooling alone.
+The JavaScript root follows the one convention every test-artifact language's root follows
+([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-oneroot)): `js/` when present, the `js` track, else `.js/`,
+declared once on the config type. An extension is a module of the language's own track, so its tests sit in its own `tests/` folder.
 
 ### Node's own runner
 
@@ -95,8 +85,11 @@ against. A separate lint tool would bring a second configuration for what the co
 
 ### The bridge
 
-The bridge is the same one every second language uses ([test-automation](../test-automation.md)), so ordering, `-Modules`, the tiers and
-both runs apply to the JavaScript tests as to the module's own Pester tests.
+The JavaScript tests run through the one bridge ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-bridge)), in
+a `Test-Automation` test run ([test-automation](../test-automation.md)): discovery maps each module's tests to the module, every top-level
+`test()` is one test of the run, in pwsh a Pester `It` tagged `L2`, and the `JavaScriptTestResult` type decides the category. A JavaScript
+test tests an extension, not the engine, so it runs once, under pwsh. node is the JavaScript tests' tool: the run's source session locates
+the managed node once and hands its path down; without it, every JavaScript test skips with `tool_node_js_missing`.
 
 ### Lamps in the editor
 
@@ -108,7 +101,8 @@ another viewer would spell the same rules with its own.
 
 JavaScript is a language track: each editor extension is a module, `<root>/<extension-name>/`, tested by node's own runner over its pure
 parts and a recording editor stub, type-checked by the TypeScript compiler over a generated `jsconfig.json` with tool-installed
-declarations, and run by `Test-Automation` through the bridge.
+declarations, kept under the one root (ADR-AUTO-TESTLANG-ONEROOT), and run by `Test-Automation` through the one bridge
+(ADR-AUTO-TESTLANG-BRIDGE).
 
 ### How this is enforced
 

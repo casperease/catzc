@@ -75,8 +75,8 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
 
 ### Sections that restate their rules
 
-- [ ] `azure/azure-data-model.md`: "One tenant" and "The subscription as the unit" move to
-      `az-session-verification.md`, `azure-customer-model.md` and `landing-zones.md`, cited from here. Check: the record check.
+- [ ] `azure/azure-data-model.md`: "One tenant" and "The subscription as the unit" move to `az-session-verification.md`,
+      `azure-customer-model.md` and `landing-zones.md`, cited from here. Check: the record check.
 - [ ] `repository/conventional-folders.md`: "How this is enforced" becomes one current list. Check: the record check.
 - [ ] `repository/api-contracts.md`: "The name picks the kind", the Decision restatement and "Three version ranges" go; rejected
       alternatives 1/3/10 and 2/7 fold together; HEADPOLICY's carrier detail in `repository/file-meta.md` defers to JSONCARRIER. Check: the

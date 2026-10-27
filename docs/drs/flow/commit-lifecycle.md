@@ -56,9 +56,8 @@ and "delivered then retired": valid, but not chosen.
 stateful, not pass-through: at any moment each holds one **occupant** — the commit deployed there, as the release candidate built from it —
 and a trail of the commits it held before. Each rung is its own pipeline environment per deployable-unit (`<unit>-main-uat`,
 `<unit>-release-uat`), so each has its own occupant and its own deployment history. `pre-prod` is inactive until it is activated, and where
-it lives is the substrate domain's to declare. An environment box in the diagram is a neutral container naming
-its occupant, drawn in that commit's state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER), so reading the occupant tells you the true state of
-that environment right now.
+it lives is the substrate domain's to declare. An environment box in the diagram is a neutral container naming its occupant, drawn in that
+commit's state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER), so reading the occupant tells you the true state of that environment right now.
 
 - [One occupant per environment](#one-occupant-per-environment)
 

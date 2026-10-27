@@ -1,8 +1,8 @@
 concepts:
   staging slot:
     key: staging_slot
-    domain: design
-    defined_by: FDR-LIFE-ONECOMMITPERENVIRONMENT
+    domain: azure
+    defined_by: ADR-AZ-DATAMOD-STAGINGSLOT
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }

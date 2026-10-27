@@ -44,6 +44,15 @@ Rely on the no-op-outside-pipelines behavior: `Set-AdoPipelineVariable` checks `
 
 - [Functions](#functions)
 
+### Rule ADR-ADO-VAR-AGENTRUNMARK
+
+`TF_BUILD` is the ado run mark: the agent sets it on every pipeline run and never interactively, and the one detection point reads it
+([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)). The agent's other variables answer
+other questions: `BUILD_ARTIFACTSTAGINGDIRECTORY` is where a run's artifacts go and `SYSTEM_ACCESSTOKEN` is the run's token; neither is a
+run mark.
+
+- [The agent's run mark](#the-agents-run-mark)
+
 ## Context
 
 Azure DevOps pipelines communicate between steps and jobs through pipeline variables. The mechanism is a logging command written to stdout:
@@ -83,9 +92,17 @@ a name that would resolve differently downstream is an error, not an automatic r
 empty value, so a caller can clear a variable or signal "no value". Its signature and parameter behaviour are spelled in the pwsh domain,
 the engine that carries it.
 
-**`Test-IsRunningInPipeline`** — gates pipeline-specific behavior (see [pipeline-detection ADR](../flow/pipeline-detection.md)).
-`Set-AdoPipelineVariable` uses this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps
-automation code portable: the same function runs locally (silently skipping the `##vso` command) and in a pipeline (emitting it).
+**`Test-IsRunningInPipeline`** — gates pipeline-specific behavior, the one detection point
+([FDR-PIPELINE-CONTEXTDETECTEDONCE](../flow/pipeline-concept.md#rule-fdr-pipeline-contextdetectedonce)). `Set-AdoPipelineVariable` uses
+this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps automation code portable: the
+same function runs locally (silently skipping the `##vso` command) and in a pipeline (emitting it).
+
+### The agent's run mark
+
+The Azure DevOps agent sets `TF_BUILD=True` on every run, so the detection point treats it as the ado run mark. Where output goes is a
+different question: a pipeline run writes its artifacts to `BUILD_ARTIFACTSTAGINGDIRECTORY`, read only once detection has said the code is
+in a pipeline, and a local run writes to `out/`. The run's REST token is `SYSTEM_ACCESSTOKEN`, which the dual-authentication rules bind
+against a devbox credential. Keeping the three apart keeps the run mark a plain yes or no.
 
 ### How this is enforced
 

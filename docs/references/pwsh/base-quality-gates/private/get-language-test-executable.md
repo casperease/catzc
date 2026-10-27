@@ -14,8 +14,7 @@ Returns the managed tool a test run hands to each test language's tests: a path 
 A test run's source session locates each test language's tool once (Resolve-ToolExecutable, the tools.yml entry) and hands the paths down to
 every worker through the shard script and the language bridge container, beside the engine entry. The worker never locates a tool itself: a
 build run's engine carries only the modules under test, not the tools.yml entries, and the tools belong to the harness, not to what ships
-([ADR-AUTO-GO-GOBRIDGE](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-gobridge),
-[ADR-AUTO-PY-PYBRIDGE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pybridge)):
+([ADR-AUTO-TESTLANG-BRIDGE](../../../../drs/automation/test-artifact-languages.md#rule-adr-auto-testlang-bridge)):
 
 ```text
 go      the managed go at the pin;

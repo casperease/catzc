@@ -554,5 +554,5 @@ modules, [Catzc.Azure](../../references/pwsh/azure/index.md) and [Catzc.Azure.Te
 ## Consequences
 
 The cost is that a second non-customer platform cannot ship template configs: the configuration root belongs to one shared platform (every
-root config must resolve to exactly one non-customer subscription per environment). That is the deliberate trade: the conventional tree stays
-two-coordinate (root or customer), with no third naming axis to invent.
+root config must resolve to exactly one non-customer subscription per environment). That is the deliberate trade: the conventional tree
+stays two-coordinate (root or customer), with no third naming axis to invent.

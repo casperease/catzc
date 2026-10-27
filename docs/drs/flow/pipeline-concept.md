@@ -29,6 +29,14 @@ session state or pass it between functions.
 
 - [A credential lives for one request](#a-credential-lives-for-one-request)
 
+### Rule FDR-PIPELINE-CONTEXTDETECTEDONCE
+
+The automation learns whether it runs in a pipeline from one detection point that answers yes or no, never from scattered reads of the
+engine's run marks. Behaviour that differs by context is visible, through that point or a parameter the caller sets, and a parameter wins
+wherever the caller can supply the value.
+
+- [The context is detected in one place](#the-context-is-detected-in-one-place)
+
 ## Context
 
 A pipeline is the automated process that takes a change from a commit towards production: it runs on a trigger, invokes the automation,
@@ -44,13 +52,12 @@ The flow domain already decides most of what a pipeline is:
 - **Which kind it is.** Every pipeline is one of the six types, keyed together by one immutable tagged artifact
   ([pipeline-types](pipeline-types.md), [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md)).
 - **How it runs the automation.** Every step goes through the runner, so a step is a command a developer can paste into a terminal
-  ([FDR-TYPE-ALLTHROUGHRUNNER](pipeline-types.md#rule-fdr-type-allthroughrunner)), and the automation finds out where it runs by detection,
-  never by a flag ([pipeline-detection](pipeline-detection.md)).
+  ([FDR-TYPE-ALLTHROUGHRUNNER](pipeline-types.md#rule-fdr-type-allthroughrunner)).
 - **What stops it.** A gate is a check whose verdict decides whether work may proceed
   ([FDR-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)).
 
-This FDR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, and
-how long a credential lives inside it. The ado domain binds them for the azure devops pipelines and the github domain for the GitHub
+This FDR holds the remaining rules that hold for any vendor: how a pipeline file is named, what its extension says, how its YAML reads, how
+long a credential lives inside it, and how the automation learns that it runs in a pipeline. The ado domain binds them for the azure devops pipelines and the github domain for the GitHub
 workflows.
 
 ## Decision
@@ -79,6 +86,14 @@ is the failure this rule prevents; the ado domain holds the ado template rules.
 A token is the narrowest-lived secret a pipeline holds. The function that calls a service acquires the token, builds the header, and makes
 the call; nothing caches the token or hands it to another function, so a token never outlives the request and never leaks into a log, a
 variable, or a later step. Which credential is chosen, and how it proves its target, is the vendor ADR's decision.
+
+### The context is detected in one place
+
+Some behaviour differs between a devbox and a pipeline: the output format, the token source, where artifacts go. Every engine marks its
+runs with a variable of its own, and a function that reads such a mark itself scatters the detection, misses an engine, and goes untested.
+One detection point reads every mark and answers a plain yes or no; every function that branches on context asks it, so the branch is
+findable and one change covers a new engine. Detection is the fallback: a value the caller can supply, such as an output path, is a
+parameter. Each engine's domain names its run mark, and each implementation language holds its detection function.
 
 ## Consequences
 

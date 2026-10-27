@@ -348,13 +348,13 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 ### Rule ADR-AUTO-TEST-LANGUAGETESTMODULES
 
-A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)), a Python test folder
-([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)) and a Bash test folder
-([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are the second kind of test file, beside a module's own
-test files, under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites,
+A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule)), a Python test folder
+([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py-pytestfolder)) and a Bash test folder
+([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash-bashtestfolder)) are the second kind of test file, beside a module's
+own test files, under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites,
 ordering, protection, both runs, and the report treat its tests as that module's; one shared bridge, the language bridge, runs them all
 inside the test run, and every test they hold is one test with both mandatory tags — `L2`, and a category from its name
-(ADR-AUTO-GO-GOBRIDGE, ADR-AUTO-PY-PYBRIDGE, ADR-AUTO-BASH-BASHBRIDGE).
+(ADR-AUTO-TESTLANG-BRIDGE).
 
 - [Go test modules](#go-test-modules)
 
@@ -471,9 +471,8 @@ template _name_ dimension: production identities flow into the generic check as 
 The codebase isolates the _template tree_ behind one mockable root function, so discovery can be redirected to a fixture tree. Config has
 its own seam: the config reader finds a config's file by scanning the modules' config folders through a discovery function, so a logic test
 isolates a config by **mocking that discovery** to return a fixture entry (name, module, path) pointing at a fixture file (or by mocking the
-reader outright). **A seam is a single function
-that names _where_ an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md)
-way to isolate without touching production data.
+reader outright). **A seam is a single function that names _where_ an input comes from**, with one production answer and a test override; it
+is the [poka-yoke](../principles/poka-yoke.md) way to isolate without touching production data.
 
 ### Mandatory tag axes
 

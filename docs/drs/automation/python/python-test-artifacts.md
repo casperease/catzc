@@ -126,11 +126,11 @@ run.
 ### The bridge
 
 The Python tests run through the one bridge ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-bridge)), in a
-`Test-Automation` test run ([test-automation](../test-automation.md)). The bridge runs `Invoke-PythonTest` once per mapped module — `uv sync`,
-`ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and in pwsh each Python test is a Pester `It`, tagged
-`L2`. Discovery reads the `test_*.py` files without running Python. The `PythonTestResult` type decides the category. uv is the Python
-tests' tool: the run's source session locates it, with the interpreter at the pin, once (`Get-LanguageTestExecutable`); without either,
-every Python test skips with `tool_uv_missing`.
+`Test-Automation` test run ([test-automation](../test-automation.md)). The bridge runs `Invoke-PythonTest` once per mapped module —
+`uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and in pwsh each Python test is a Pester
+`It`, tagged `L2`. Discovery reads the `test_*.py` files without running Python. The `PythonTestResult` type decides the category. uv is the
+Python tests' tool: the run's source session locates it, with the interpreter at the pin, once (`Get-LanguageTestExecutable`); without
+either, every Python test skips with `tool_uv_missing`.
 
 ### The checks
 
@@ -160,8 +160,8 @@ Python is a language track whose modules exist by the layout and ship only what 
 (ADR-AUTO-TESTLANG-ONEROOT, ADR-AUTO-PY-PYTESTFOLDER), start the engine from the entry the run names (ADR-AUTO-TESTLANG-BLACKBOX), run in
 one generated, gitignored uv workspace (ADR-AUTO-PY-PYWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the
 managed tools (ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the one bridge (ADR-AUTO-TESTLANG-BRIDGE),
-under the
-checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
+under the checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor
+(ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### How this is enforced
 

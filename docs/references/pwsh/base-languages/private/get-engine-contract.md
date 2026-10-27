@@ -13,8 +13,7 @@ commands.
 ### description
 
 A Go or Python test starts the engine as a process and asserts on its output
-([ADR-AUTO-GO-GOBLACKBOX](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-goblackbox),
-[ADR-AUTO-PY-PYBLACKBOX](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyblackbox)). How to start it comes
+([ADR-AUTO-TESTLANG-BLACKBOX](../../../../drs/automation/test-artifact-languages.md#rule-adr-auto-testlang-blackbox)). How to start it comes
 from the execution engine model, never from the test ([ADR-AUTO-ENGINE](../../../../drs/automation/execution-engines.md)), so the same test
 runs under every engine:
 

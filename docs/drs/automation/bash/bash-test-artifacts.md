@@ -100,9 +100,9 @@ runs ([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvi
 
 Bash is a language track whose modules exist by the layout and ship only what is packaged, and the black-box test language for the path a
 Bash user takes (ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash
-root (ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names (ADR-AUTO-BASH-BASHBLACKBOX), run
-on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests through the language bridge
-(ADR-AUTO-BASH-BASHBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
+root (ADR-AUTO-TESTLANG-ONEROOT, ADR-AUTO-BASH-BASHTESTFOLDER), call catzc through `importer.sh` and `cats` from the entry the run names
+(ADR-AUTO-TESTLANG-BLACKBOX), run on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests
+through the one bridge (ADR-AUTO-TESTLANG-BRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### How this is enforced
 

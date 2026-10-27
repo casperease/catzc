@@ -165,10 +165,10 @@ The two enforcer kinds of ADR-AUTO-TEST-COVERAGEREPORTEDONLY are a `pester-test`
 
 ### Rule ADR-PWSH-PESTER-PESTERBRIDGE
 
-The language bridge of ADR-AUTO-TEST-LANGUAGETESTMODULES (ADR-AUTO-GO-GOBRIDGE, ADR-AUTO-PY-PYBRIDGE, ADR-AUTO-BASH-BASHBRIDGE) is one
-Pester container, `Language.Bridge.ps1` in `Catzc.Base.QualityGates/tests/`, run once per mapped test folder with the folder, its language,
-the engine entry, and the path of the language's tool, located once by the run's source session, as container data: each test of the folder
-becomes one `It` tagged `L2` and its category, so the tag check, the timing check, and the reports read it like any Pester test.
+The language bridge of ADR-AUTO-TEST-LANGUAGETESTMODULES (ADR-AUTO-TESTLANG-BRIDGE) is one Pester container, `Language.Bridge.ps1` in
+`Catzc.Base.QualityGates/tests/`, run once per mapped test folder with the folder, its language, the engine entry, and the path of the
+language's tool, located once by the run's source session, as container data: each test of the folder becomes one `It` tagged `L2` and its
+category, so the tag check, the timing check, and the reports read it like any Pester test.
 
 - [The harness in Pester](#the-harness-in-pester)
 

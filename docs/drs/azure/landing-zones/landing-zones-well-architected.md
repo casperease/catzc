@@ -31,10 +31,11 @@ Rates are the billing account's. Every resource is pay-as-you-go: the workspace 
 carries commitment-based pricing. The SQL database module exposes no licence type, so Azure Hybrid Benefit cannot be selected.
 
 Each resource is configured to its meter. A serverless SQL database bills compute per second while it runs and only storage while paused, so
-non-production configs use the serverless SKU with auto-pause, while production is provisioned (the values are below). A Log Analytics workspace bills per ingested gigabyte, so `diagnostic-setting.bicep` picks the
-categories each resource kind needs (a storage account sends only its `Transaction` metrics and no logs). `discovery` sends the activity
-log, the virtual network's diagnostics and each network security group's logs to `foundation`'s workspace, each a per-gigabyte cost there.
-The repository keeps no catalogue of each service's meter and runs no billing proof of concept.
+non-production configs use the serverless SKU with auto-pause, while production is provisioned (the values are below). A Log Analytics
+workspace bills per ingested gigabyte, so `diagnostic-setting.bicep` picks the categories each resource kind needs (a storage account sends
+only its `Transaction` metrics and no logs). `discovery` sends the activity log, the virtual network's diagnostics and each network security
+group's logs to `foundation`'s workspace, each a per-gigabyte cost there. The repository keeps no catalogue of each service's meter and runs
+no billing proof of concept.
 
 The configuration tree is the inventory: one config file is one resource group
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), names are deterministic
@@ -51,9 +52,9 @@ Environment class is a config decision ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones
 between `databaseMinCapacity: "0.5"` and `databaseSkuCapacity: 2` vCores with `databaseAutoPauseDelay: 60` minutes,
 `databaseZoneRedundant: false`, `databaseBackupStorageRedundancy: Local`, and `databaseBackupRetentionDays: 7`; `apex/prod.yml` sets the
 provisioned `GP_Gen5` at `databaseSkuCapacity: 2`, omits `databaseZoneRedundant` so the template default `true` applies, and keeps the
-module's `Geo` redundancy and 35 days. These are the per-class values the rest of this page refers to. The storage account takes the module's `Standard_ZRS` in every class, because
-`expedition` exposes no storage SKU. `foundation` is identical in both classes (the workspace keeps 30 days in each, the minimum). Policy
-enforcement audits outside production by default
+module's `Geo` redundancy and 35 days. These are the per-class values the rest of this page refers to. The storage account takes the
+module's `Standard_ZRS` in every class, because `expedition` exposes no storage SKU. `foundation` is identical in both classes (the
+workspace keeps 30 days in each, the minimum). Policy enforcement audits outside production by default
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Off-hours shutdown is not used,
 because auto-pause stops the database's compute when idle, and no environment is ephemeral.
 
@@ -66,8 +67,8 @@ Data is kept as long as it earns its cost. The workspace keeps 30 days, the mini
 point-in-time retention are per-class config values; `discovery` stores no data of its own. The storage account is fixed on the `Hot` access
 tier and carries no lifecycle management policy.
 
-The one component that scales does so within a ceiling set in config: in non-production the serverless database moves between its floor
-and ceiling and pauses at zero use, and in production it is provisioned at a fixed capacity. Nothing in `foundation` or `discovery` scales.
+The one component that scales does so within a ceiling set in config: in non-production the serverless database moves between its floor and
+ceiling and pauses at zero use, and in production it is provisioned at a fixed capacity. Nothing in `foundation` or `discovery` scales.
 
 People's time goes to decisions: every template composes the shared modules in `infrastructure/modules/`, so a secure or cheap default is
 written once; a config reads a shared value (a network range, a subscription id, the policy mode) by config address
@@ -123,10 +124,11 @@ synthetic transaction, saved query, or workbook is deployed, and the architectur
 
 Two scaling mechanisms exist, both by configuration. Outside production Azure scales the serverless database between the
 `databaseMinCapacity` floor and the `databaseSkuCapacity` ceiling and pauses it after `databaseAutoPauseDelay` minutes idle (the values in
-[Cost by configuration](#cost-by-configuration)), so the ceiling is the upper limit; and the configuration slot is the unit of scale-out, an ephemeral slot (`dev-blu` on `apex/dev.yml`) deploying a whole second copy of
-the workload into its own resource group, while a new customer gets its own subscription, spoke, and landing zone, much as the Deployment
-Stamps pattern does. Production is provisioned at a fixed capacity, no autoscale rule exists, and there is no data to
-partition. The address plan reserves a `/16` per spoke, so the number of spokes, not their size, is what grows.
+[Cost by configuration](#cost-by-configuration)), so the ceiling is the upper limit; and the configuration slot is the unit of scale-out, an
+ephemeral slot (`dev-blu` on `apex/dev.yml`) deploying a whole second copy of the workload into its own resource group, while a new customer
+gets its own subscription, spoke, and landing zone, much as the Deployment Stamps pattern does. Production is provisioned at a fixed
+capacity, no autoscale rule exists, and there is no data to partition. The address plan reserves a `/16` per spoke, so the number of spokes,
+not their size, is what grows.
 
 The repository's tests verify code, configs, and compiled templates; testing in production, the L4 tier
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../automation/test-automation.md#rule-adr-auto-test-testinginproduction)), observes a released
@@ -149,8 +151,8 @@ shares a database with another's.
 The operational tasks the templates carry run on the platform. A deployment is `Deploy-Bicep`, an `az deployment group create` (or
 `sub create` for `discovery`) in Azure's default incremental mode, so a redeploy changes only what differs and removes nothing. Backups are
 the database's automated backups, with the per-class retention and redundancy of [Cost by configuration](#cost-by-configuration), and the
-storage account's 7-day soft delete. The break-glass password is a Key
-Vault reference resolved at deploy time, so rotating it touches no running resource. Adding a spoke takes three deploys in a fixed order
+storage account's 7-day soft delete. The break-glass password is a Key Vault reference resolved at deploy time, so rotating it touches no
+running resource. Adding a spoke takes three deploys in a fixed order
 ([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). The alerts reach the action group of the
 subscription's `Owner` role; no maintenance window, off-peak schedule, triage plan, or on-call rota is set, and access to the workspace is
 whatever role the subscription grants.
@@ -203,17 +205,17 @@ deployments do not have.
 Zone-redundant deployment is the module default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
 turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template weakens that only by a
 config value, and only outside production, where the cost saving outweighs a zone outage
-([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Storage is `Standard_ZRS` in every `expedition` config,
-and the database's zone and backup redundancy per class are those of [Cost by configuration](#cost-by-configuration). Every environment maps to one region, so geo-redundant backups
-are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the only copy of the private DNS zones;
-each hub runs its Azure Firewall in `AzureFirewallSubnet` (zone-redundant in production) and reserves `GatewaySubnet`, so a gateway is added
-without renumbering. A `CanNotDelete` lock guards what many deployments depend on: the hub's virtual network, its private DNS zones, and
-`foundation`'s vault.
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Storage is `Standard_ZRS` in every `expedition` config, and the
+database's zone and backup redundancy per class are those of [Cost by configuration](#cost-by-configuration). Every environment maps to one
+region, so geo-redundant backups are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the
+only copy of the private DNS zones; each hub runs its Azure Firewall in `AzureFirewallSubnet` (zone-redundant in production) and reserves
+`GatewaySubnet`, so a gateway is added without renumbering. A `CanNotDelete` lock guards what many deployments depend on: the hub's virtual
+network, its private DNS zones, and `foundation`'s vault.
 
 Scaling: none of the templates deploys compute, so application scaling does not arise, and storage, the workspace and the vault scale inside
 the platform. Outside production the serverless SKU scales automatically between `databaseMinCapacity` and `databaseSkuCapacity`, the cap
-kept in config; in production the database is provisioned at a fixed `databaseSkuCapacity`, so more capacity is a config change and a deploy, and no signal says one
-is needed. The network's room to grow is the address plan: each spoke has a `/16` with `/24` subnets
+kept in config; in production the database is provisioned at a fixed `databaseSkuCapacity`, so more capacity is a config change and a
+deploy, and no signal says one is needed. The network's room to grow is the address plan: each spoke has a `/16` with `/24` subnets
 ([ADR-AZ-NETWORK-PERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-persubscription)), so its `private-endpoints` subnet has
 room for many more private endpoints.
 

@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/types/DrsNeutralityCheck.cs
 
 The settings of the engine-neutrality check (`configs/drs-checks.yml`, `engine_neutrality`), read by `Test-DrsEngineNeutrality`: the rule
-summaries of each listed domain carry none of the tokens of the sets that domain names — engine syntax, vendor names, or both
+summaries of each ADR domain it lists carry none of the tokens of the sets it names for that domain — engine syntax, vendor names, or both
 ([ADR-AUTO-ENGINE-THREEENGINES](../../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). `DrsChecksConfig`
 builds and validates it.
 

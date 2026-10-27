@@ -10,7 +10,7 @@ concepts:
   go test module:
     key: go_test_module
     domain: automation
-    defined_by: ADR-AUTO-GO-ONEGOROOT
+    defined_by: ADR-AUTO-GO-GOTESTMODULE
     short:
       The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
       (`baserepository`), holding its black-box Go tests.
@@ -18,7 +18,7 @@ concepts:
   python test folder:
     key: python_test_folder
     domain: automation
-    defined_by: ADR-AUTO-PY-ONEPYTHONROOT
+    defined_by: ADR-AUTO-PY-PYTESTFOLDER
     short:
       The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case
       (`base_repository`), holding its black-box Python tests; each is a member of the one generated uv workspace.
@@ -34,7 +34,7 @@ concepts:
   bash test folder:
     key: bash_test_folder
     domain: automation
-    defined_by: ADR-AUTO-BASH-ONEBASHROOT
+    defined_by: ADR-AUTO-BASH-BASHTESTFOLDER
     short:
       The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box
       `.bats` tests, which call catzc through `importer.sh` and `cats`.

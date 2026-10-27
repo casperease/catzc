@@ -34,8 +34,8 @@ launcher.
 A black-box test in another language starts the engine from the **engine start environment** its runner sets, never from a hardcoded
 command: `CATZC_ENGINE` (the engine's name), `CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_ENTRY` (the script that loads catzc into the engine),
 and `CATZC_ENGINE_START`, the model's start arguments as a JSON array that loads the entry and ends in the command text, with `{command}`
-where the test's command goes (ADR-AUTO-GO-GOBLACKBOX, ADR-AUTO-PY-PYBLACKBOX, ADR-AUTO-BASH-BASHBLACKBOX). Every Go and Python black-box
-test runs once per engine, three runs titled `<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
+where the test's command goes (ADR-AUTO-TESTLANG-BLACKBOX). Every Go and Python black-box test runs once per engine, three runs titled
+`<test> [pwsh]`, `<test> [bash]` and `<test> [zsh]`, unchanged between them.
 
 - [The engine start environment](#the-engine-start-environment)
 

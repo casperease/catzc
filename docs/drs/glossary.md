@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a45e9377cc2"
+    with_body_sha: "3b90873a18ad"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -471,14 +471,6 @@ A world-map cell holding a live file whose file language its track does not decl
   - [value-chain stack](#value-chain-stack): A stack violation is a world-map cell outside its track's file languages; the value-chain stack
     orders decisions.
 
-### staging slot
-
-System.Collections.Specialized.OrderedDictionary
-
-- **Defined by:** [FDR-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-life-onecommitperenvironment)
-- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
-- **Source:** `pwsh/Base.Docs/configs/glossary`
-
 ### track
 
 A named, on-disk cluster of one concern's files, declared once as a set of members that each say whether they are generated and committed,
@@ -753,7 +745,7 @@ folder; the decision-record domain, the value-chain row and the concern carry th
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
 tests, which call catzc through `importer.sh` and `cats`.
 
-- **Defined by:** `ADR-AUTO-BASH-ONEBASHROOT`
+- **Defined by:** [ADR-AUTO-BASH-BASHTESTFOLDER](automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-bashtestfolder)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -846,7 +838,7 @@ System.Collections.Specialized.OrderedDictionary
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
 (`baserepository`), holding its black-box Go tests.
 
-- **Defined by:** `ADR-AUTO-GO-ONEGOROOT`
+- **Defined by:** [ADR-AUTO-GO-GOTESTMODULE](automation/go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -987,7 +979,7 @@ The name of the PowerShell track and of the engine that runs it; the PowerShell 
 The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`base_repository`), holding
 its black-box Python tests; each is a member of the one generated uv workspace.
 
-- **Defined by:** `ADR-AUTO-PY-ONEPYTHONROOT`
+- **Defined by:** [ADR-AUTO-PY-PYTESTFOLDER](automation/python/python-test-artifacts.md#rule-adr-auto-py-pytestfolder)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -1253,6 +1245,14 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
   - [hub](#hub): A spoke is a customer subscription's landing zone, peered to its hub; a hub is a shared subscription's, listing its spokes.
+
+### staging slot
+
+System.Collections.Specialized.OrderedDictionary
+
+- **Defined by:** [ADR-AZ-DATAMOD-STAGINGSLOT](azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Base.Docs/configs/glossary`
 
 ### subscription vending
 
