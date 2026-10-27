@@ -48,6 +48,8 @@ configs:
     type: Catzc.Azure.Templates.TemplateComplianceConfig
   cost-model:
     type: Catzc.Azure.Templates.CostModelConfig
+  orphan-removal:
+    type: Catzc.Azure.Templates.OrphanRemovalConfig
   markdownlint:
     type: Catzc.Base.QualityGates.MarkdownlintConfig
   identity-tokens:

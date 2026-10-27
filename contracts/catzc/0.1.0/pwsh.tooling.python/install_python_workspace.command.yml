@@ -1,3 +1,0 @@
-description: Syncs the Python test workspace's one environment through uv, online, so test runs and the Python checks read it offline.
-parameters:
-  reinstall_package: string[]

@@ -64,6 +64,10 @@ function Remove-BicepOrphanResources {
     $expected = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     $unresolvedNames = [System.Collections.Generic.List[string]]::new()
     foreach ($item in @(Get-ArmDeployedResource -Template $main -Values $values)) {
+        # Only what az resource list returns is compared: never an extension resource (one with a scope) nor a child proxy (a child without a location).
+        if ($item.Resource.Contains('scope') -or (($item.Type -split '/').Count -gt 2 -and -not $item.Resource.Contains('location'))) {
+            continue
+        }
         if ($item.Name -is [string]) {
             [void]$expected.Add("$($item.Type)|$($item.Name)")
         }
@@ -77,8 +81,10 @@ function Remove-BicepOrphanResources {
         throw "Listing the resources of resource group $group failed (subscription $subscriptionId, az exit code $($listing.ExitCode)): $($listing.Errors)"
     }
     $deployed = @("$($listing.Output)" | ConvertFrom-Json -AsHashtable)
+    # A resource Azure creates itself, such as a SQL server's master database, is never a template's, so the declared list skips it.
+    $config = Get-Config -Config orphan-removal
     $orphans = @(foreach ($resource in $deployed) {
-            if ($null -ne $resource -and -not $expected.Contains("$($resource.type)|$($resource.name)")) {
+            if ($null -ne $resource -and -not $expected.Contains("$($resource.type)|$($resource.name)") -and -not $config.IsAzureCreated("$($resource.type)", "$($resource.name)")) {
                 "$($resource.id)"
             }
         })
@@ -86,7 +92,7 @@ function Remove-BicepOrphanResources {
     # An unresolved name could match any deployed resource, so a deletion is refused and the candidates are only listed (ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES).
     if ($unresolvedNames.Count -gt 0) {
         $orphans
-        throw "Remove-BicepOrphanResources lists $($orphans.Count) candidates in resource group $group but deletes none: the names of $($unresolvedNames.Count) evaluated resources of '$Template' do not resolve offline: $($unresolvedNames -join ', ')."
+        throw "Remove-BicepOrphanResources lists $($orphans.Count) candidates in resource group $group but deletes none: the names of $($unresolvedNames.Count) listable resources of '$Template' do not resolve offline: $($unresolvedNames -join ', ')."
     }
     if ($orphans.Count -eq 0) {
         Write-Message "Resource group $group holds nothing the template '$Template' no longer declares"

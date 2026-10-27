@@ -22,6 +22,18 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:widgetFile, ($script:widgetTemplate | ConvertTo-Json -Depth 10))
         $script:gadgetFile = Join-Path $TestDrive 'gadget.json'
         [System.IO.File]::WriteAllText($script:gadgetFile, ($script:gadgetTemplate | ConvertTo-Json -Depth 10))
+        # The widget template with further resources, written beside it, for the cases a listing never returns.
+        $script:writeWidgetTemplate = {
+            param([string] $Name, [object[]] $Resources)
+            $template = @{
+                parameters = @{ widgetName = @{ type = 'string' } }
+                resources  = @($script:widgetTemplate.resources) + $Resources
+            }
+            $file = Join-Path $TestDrive "$Name.json"
+            [System.IO.File]::WriteAllText($file, ($template | ConvertTo-Json -Depth 10))
+            $file
+        }
+        $script:unresolvedName = "[format('{0}-gadget', uniqueString(parameters('widgetName')))]"
     }
 
     BeforeEach {
@@ -36,6 +48,9 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
         )
         Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'azure' } {
             [pscustomobject]@{ environments = @{ widget = @{} } }
+        }
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'orphan-removal' } {
+            [Catzc.Azure.Templates.OrphanRemovalConfig]::new($null)
         }
         Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
         Mock Test-IsRunningInPipeline -ModuleName Catzc.Azure.Templates { $false }
@@ -99,9 +114,43 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
         $script:listed += @{ id = "$groupId/Microsoft.Network/networkSecurityGroups/widget-account-nsg"; name = 'widget-account-nsg'; type = 'Microsoft.Network/networkSecurityGroups' }
         $seen = [System.Collections.Generic.List[string]]::new()
         { Remove-BicepOrphanResources widget widget | ForEach-Object { $seen.Add($_) } } |
-            Should -Throw '*deletes none*1 evaluated resources*main/networkSecurityGroups (Microsoft.Network/networkSecurityGroups)*'
+            Should -Throw '*deletes none*1 listable resources*main/networkSecurityGroups (Microsoft.Network/networkSecurityGroups)*'
         $seen | Should -Contain "$groupId/Microsoft.Network/networkSecurityGroups/widget-account-nsg"
         @($calls | Where-Object { $_ -like 'resource delete *' }).Count | Should -Be 0
+    }
+
+    It 'leaves an extension resource out of the comparison, and still deletes a listed orphan' {
+        $script:templateFile = & $writeWidgetTemplate 'extension' @(
+            @{ type = 'Microsoft.Insights/diagnosticSettings'; name = 'widget-diagnostics'; scope = "[resourceId('Microsoft.KeyVault/vaults', 'widget-kv')]" }
+        )
+        $script:listed += @{ id = "$groupId/Microsoft.Web/sites/gadget-old"; name = 'gadget-old'; type = 'Microsoft.Web/sites' }
+        @(Remove-BicepOrphanResources widget widget) | Should -BeExactly @("$groupId/Microsoft.Web/sites/gadget-old")
+        @($calls | Where-Object { $_ -like 'resource delete *' }).Count | Should -Be 1
+    }
+
+    It 'deletes despite an unresolved name on an extension resource' {
+        $script:templateFile = & $writeWidgetTemplate 'extension-unresolved' @(
+            @{ type = 'Microsoft.Authorization/locks'; name = $unresolvedName; scope = "[resourceId('Microsoft.KeyVault/vaults', 'widget-kv')]" }
+        )
+        $script:listed += @{ id = "$groupId/Microsoft.Web/sites/gadget-old"; name = 'gadget-old'; type = 'Microsoft.Web/sites' }
+        @(Remove-BicepOrphanResources widget widget) | Should -BeExactly @("$groupId/Microsoft.Web/sites/gadget-old")
+    }
+
+    It 'leaves a child proxy out, unresolved name and all, but still refuses on an unresolved child with a location' {
+        $script:templateFile = & $writeWidgetTemplate 'child-proxy' @(
+            @{ type = 'Microsoft.Storage/storageAccounts/blobServices'; name = $unresolvedName }
+        )
+        @(Remove-BicepOrphanResources widget widget).Count | Should -Be 0
+        $script:templateFile = & $writeWidgetTemplate 'child-located' @(
+            @{ type = 'Microsoft.Sql/servers/databases'; name = $unresolvedName; location = 'westeurope' }
+        )
+        { Remove-BicepOrphanResources widget widget -DryRun } | Should -Throw '*1 listable resources*main/databases (Microsoft.Sql/servers/databases)*'
+    }
+
+    It 'skips a resource Azure creates itself, such as a SQL server''s master database' {
+        $script:listed += @{ id = "$groupId/Microsoft.Sql/servers/widget-sql/databases/master"; name = 'widget-sql/master'; type = 'Microsoft.Sql/servers/databases' }
+        @(Remove-BicepOrphanResources widget widget -DryRun).Count | Should -Be 0
+        Should -Invoke Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'orphan-removal' }
     }
 
     It 'refuses a template deployed at subscription scope, before any call' {

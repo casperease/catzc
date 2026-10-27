@@ -75,34 +75,13 @@ function Invoke-PythonTest {
     }
     $uvCommand = "`"$uvPath`""
 
-    # A test run never syncs, since a sync resolves and downloads; the environment comes from the explicit install command.
-    if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot '.venv/pyvenv.cfg') -PathType Leaf)) {
-        throw "$pythonRelative/.venv is not synced, and a test run never syncs it; sync it once with: Install-PythonWorkspace"
-    }
-    # A strict editable install links files one by one, so a new module has no link until its package is reinstalled.
-    $memberRoot = Split-Path -Parent (Join-Path $root $member[0])
-    $buildCopy = @(Get-Item -Path (Join-Path $memberRoot 'build/__editable__.*') -ErrorAction Ignore).Where({ $_.PSIsContainer }, 'First')
-    if ($buildCopy) {
-        $linked = [System.Collections.Generic.HashSet[string]]::new(
-            [string[]]@(Get-ChildItem -LiteralPath $buildCopy[0].FullName -Filter '*.py' -Recurse -File).Name)
-        $unlinked = @(Get-ChildItem -LiteralPath $memberRoot -Filter '*.py' -File).Where({ -not $linked.Contains($_.Name) })
-        $package = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $memberRoot 'pyproject.toml')),
-            '(?m)^name\s*=\s*"([^"]+)"').Groups[1].Value
-        if ($unlinked.Count -and $package) {
-            throw ("$($unlinked[0].Name) in $relative/ has no link in the installed $package, and a test run never reinstalls it; " +
-                "relink it with: Install-PythonWorkspace -ReinstallPackage $package")
-        }
-    }
-
-    $report =Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
+    $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
     $cacheDir = Join-Path $root $python.pytest_cache
 
-    # The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter and
-    # UV_OFFLINE=1 keeps every uv call off the network.
+    # The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
-    $environment['UV_OFFLINE'] = '1'
     $environment['PYTHONPYCACHEPREFIX'] = Join-Path $root $python.pycache
     $saved = @{}
     foreach ($name in $environment.Keys) {
@@ -110,6 +89,26 @@ function Invoke-PythonTest {
         [System.Environment]::SetEnvironmentVariable($name, $environment[$name])
     }
     try {
+        # A strict editable install links files one by one, so a new module has no link until its package is reinstalled.
+        $reinstall = ''
+        $memberRoot = Split-Path -Parent (Join-Path $root $member[0])
+        $buildCopy = @(Get-Item -Path (Join-Path $memberRoot 'build/__editable__.*') -ErrorAction Ignore).Where({ $_.PSIsContainer }, 'First')
+        if ($buildCopy) {
+            $linked = [System.Collections.Generic.HashSet[string]]::new(
+                [string[]]@(Get-ChildItem -LiteralPath $buildCopy[0].FullName -Filter '*.py' -Recurse -File).Name)
+            $unlinked = @(Get-ChildItem -LiteralPath $memberRoot -Filter '*.py' -File).Where({ -not $linked.Contains($_.Name) })
+            $package = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $memberRoot 'pyproject.toml')),
+                '(?m)^name\s*=\s*"([^"]+)"').Groups[1].Value
+            if ($unlinked.Count -and $package) {
+                $reinstall = " --reinstall-package $package"
+            }
+        }
+        $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet$reinstall" -WorkingDirectory $pythonRoot -PassThru -NoAssert
+        if ($sync.ExitCode -ne 0) {
+            throw ("uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python. " +
+                "If a workspace member moved: $pythonRelative/uv.lock is a gitignored product that pins member paths; delete it and run again.`n$($sync.Full)")
+        }
+
         $lint = Invoke-Executable "$uvCommand run --no-sync --quiet ruff check `"$inWorkspace`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($lint.ExitCode -ne 0) {
             throw "ruff check failed in $relative/ (exit $($lint.ExitCode)):`n$($lint.Full)"

@@ -6,7 +6,6 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         $script:folder = Join-Path $script:pythonRoot 'tests/widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force
         Set-Content -LiteralPath (Join-Path $script:pythonRoot 'pyproject.toml') -Value '[tool.uv.workspace]'
-        $null = New-Item -ItemType File -Path (Join-Path $script:pythonRoot '.venv/pyvenv.cfg') -Force
         Set-Content -LiteralPath (Join-Path $script:folder 'pyproject.toml') -Value '[project]'
         $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/gadget') -Force
         # A module of the python track with its own tests/ folder; its generated member project sits at the module root.
@@ -32,6 +31,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:report = $script:widgetReport
         $script:testExit = 1
+        $script:syncExit = 0
         $script:lintExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
         $script:probe = [Catzc.Base.Execution.ExecutableProbe]::new('uv', $script:uvPath, 'path', '0.11.26', '0.11',
@@ -46,9 +46,12 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
                     Start      = $env:CATZC_ENGINE_START
                     Root       = $env:CATZC_REPOSITORY_ROOT
                     Downloads  = $env:UV_PYTHON_DOWNLOADS
-                    Offline    = $env:UV_OFFLINE
                 })
             switch -Wildcard ($Command) {
+                '* sync *' {
+                    [Catzc.Base.Execution.CliResult]::new('', 'No interpreter found for Python ==3.13.*',
+                        $script:syncExit)
+                }
                 '* ruff check *' {
                     [Catzc.Base.Execution.CliResult]::new('tests/widget/test_widget.py:3:1: F401 unused import',
                         '', $script:lintExit)
@@ -65,11 +68,11 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
     }
 
     Context 'the uv commands' {
-        It 'runs ruff check and pytest on the folder from the workspace root, and never syncs' {
+        It 'syncs the whole workspace, then runs ruff check and pytest on the folder from the workspace root' {
             $null = Invoke-PythonTest Catzc.Widget
-            $script:seen.Count | Should -Be 2
-            $script:seen.Command[0] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
-            $script:seen.Command[1] |
+            $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
+            $script:seen.Command[2] |
                 Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/widget`" --rootdir `"tests/widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
         }
@@ -87,7 +90,6 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $dotFolder = Join-Path $dotRoot '.python/tests/widget'
             $null = New-Item -ItemType Directory -Path $dotFolder -Force
             Set-Content -LiteralPath (Join-Path $dotRoot '.python/pyproject.toml') -Value '[tool.uv.workspace]'
-            $null = New-Item -ItemType File -Path (Join-Path $dotRoot '.python/.venv/pyvenv.cfg') -Force
             Set-Content -LiteralPath (Join-Path $dotFolder 'pyproject.toml') -Value '[project]'
             Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'dot-repo' }
             $null = Invoke-PythonTest Catzc.Widget
@@ -99,7 +101,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $null = New-Item -ItemType File -Path $callerUv -Force
             $null = Invoke-PythonTest Catzc.Widget -UvExecutable $callerUv
             Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Languages -Times 0 -Exactly
-            $script:seen.Command[0] | Should -Be "`"$callerUv`" run --no-sync --quiet ruff check `"tests/widget`""
+            $script:seen.Command[0] | Should -Be "`"$callerUv`" sync --all-packages --quiet"
         }
 
         It 'throws with "Run Install-Uv" when no managed uv is found, before running anything' {
@@ -119,19 +121,19 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             Set-Content -LiteralPath (Join-Path $gizmo 'pyproject.toml') -Value '[project]'
             $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/gizmo') -Force
             $null = Invoke-PythonTest Catzc.Gizmo
-            $script:seen.Command[0] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gizmo/tests`""
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gizmo/tests`""
             $null = Invoke-PythonTest Catzc.Widget
-            $script:seen.Command[2] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
         }
 
         It 'runs a kit module named by its folder from its own tests/' {
             $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'gadgets/tests') -Force
             Set-Content -LiteralPath (Join-Path $script:pythonRoot 'gadgets/pyproject.toml') -Value '[project]'
             $null = Invoke-PythonTest gadgets
-            $script:seen.Command[0] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gadgets/tests`""
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"gadgets/tests`""
         }
 
-        It 'throws naming the relink command, running nothing, when a module of a strict editable kit has no link' {
+        It 'reinstalls a strict editable kit only when a module of it has no link in its build copy' {
             $kit = Join-Path $script:pythonRoot 'sprockets'
             $null = New-Item -ItemType Directory -Path (Join-Path $kit 'tests') -Force
             Set-Content -LiteralPath (Join-Path $kit 'pyproject.toml') -Value "[project]`nname = `"widget-sprockets`""
@@ -140,47 +142,40 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             Set-Content -LiteralPath (Join-Path $kit 'cog.py') -Value ''
             Set-Content -LiteralPath (Join-Path $linked 'cog.py') -Value ''
             $null = Invoke-PythonTest sprockets
-            $script:seen.Count | Should -Be 2
+            $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
             Set-Content -LiteralPath (Join-Path $kit 'gear.py') -Value ''
-            { Invoke-PythonTest sprockets } |
-                Should -Throw '*gear.py*no link*Install-PythonWorkspace -ReinstallPackage widget-sprockets*'
-            $script:seen.Count | Should -Be 2
-        }
-
-        It 'throws naming the sync command, running nothing, when the workspace environment is missing' {
-            $bare = Join-Path $TestDrive 'bare-repo'
-            $null = New-Item -ItemType Directory -Path (Join-Path $bare 'python/tests/widget') -Force
-            Set-Content -LiteralPath (Join-Path $bare 'python/pyproject.toml') -Value '[tool.uv.workspace]'
-            Set-Content -LiteralPath (Join-Path $bare 'python/tests/widget/pyproject.toml') -Value '[project]'
-            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bare-repo' }
-            { Invoke-PythonTest Catzc.Widget } | Should -Throw '*python/.venv is not synced*Install-PythonWorkspace*'
-            $script:seen.Count | Should -Be 0
+            $null = Invoke-PythonTest sprockets
+            $script:seen.Command[3] | Should -Be "$script:uv sync --all-packages --quiet --reinstall-package widget-sprockets"
         }
 
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
             $null = Invoke-PythonTest Widget.Kit -Folder $script:ownFolder
-            $script:seen.Command[0] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""
-            $script:seen.Command[1] |
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"Widget.Kit/tests`""
+            $script:seen.Command[2] |
                 Should -BeLike "$script:uv run --no-sync --quiet pytest `"Widget.Kit/tests`" --rootdir `"Widget.Kit/tests`" *"
             $null = Invoke-PythonTest Catzc.Widget -Folder 'python/tests/widget'
-            $script:seen.Command[2] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/widget`""
             { Invoke-PythonTest Widget.Kit -Folder 'python/Widget.Nothing/tests' } |
                 Should -Throw '*python/Widget.Nothing/tests/ does not exist*'
         }
 
-        It 'keeps uv offline and off interpreter downloads, and passes the engine contract loading the entry, and the root' {
+        It 'never lets uv download an interpreter, and passes the engine contract loading the entry, and the root' {
             $null = Invoke-PythonTest Catzc.Widget -EntryScript $script:buildEntry
             $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Resolve-Path -LiteralPath $script:buildEntry).ProviderPath, '{command}')
             foreach ($call in $script:seen) {
                 $call.Downloads | Should -Be 'never'
-                $call.Offline | Should -Be '1'
                 $call.Executable | Should -Be 'C:\widget\engine\pwsh.exe'
                 @($call.Start | ConvertFrom-Json) | Should -Be $expected
                 $call.Root | Should -Be $script:root
             }
             Test-Path Env:UV_PYTHON_DOWNLOADS | Should -BeFalse
-            Test-Path Env:UV_OFFLINE | Should -BeFalse
             Test-Path Env:CATZC_ENGINE_START | Should -BeFalse
+        }
+
+        It 'throws with the remedy when uv sync fails' {
+            $script:syncExit = 2
+            { Invoke-PythonTest Catzc.Widget } |
+                Should -Throw '*uv sync failed*Run Install-Python*uv.lock is a gitignored product*delete it and run again*No interpreter found*'
         }
 
         It 'throws with the ruff output when ruff check fails' {
