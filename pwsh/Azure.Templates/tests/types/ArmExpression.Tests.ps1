@@ -170,8 +170,18 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy(@{ name = 'value'; count = 0; input = 'widget' }, @{}, @{}, $null, $null) | Should -BeNullOrEmpty
     }
 
+    It 'computes guid() as ARM does, a version 5 UUID over the arguments joined by a dash, and leaves a non-string argument unresolved' {
+        # The expected values are Bicep's own evaluator's (bicep build-params 0.48.1 over `param x = guid(…)`), not this type's.
+        & $eval "[guid('a')]" | Should -BeExactly '3703365d-5a9f-59b4-bca7-b9681389e4c1'
+        & $eval "[guid('widget', 'gadget')]" | Should -BeExactly '861d683b-b864-5597-a1a6-790d56697302'
+        & $eval "[guid('widget-gadget')]" | Should -BeExactly '861d683b-b864-5597-a1a6-790d56697302'
+        & $eval "[guid('/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg', 'Reader')]" | Should -BeExactly 'c5d25c8c-603a-553a-bb0e-2f2e44314cd1'
+        & $isUnresolved (& $eval "[guid('widget', 7)]") | Should -BeTrue
+        & $isUnresolved (& $eval "[guid(parameters('missing'))]") | Should -BeTrue
+    }
+
     It 'is unresolved outside the subset, never a guess' {
-        & $isUnresolved (& $eval "[guid('widget', 'gadget')]") | Should -BeTrue
+        & $isUnresolved (& $eval "[uniqueString('widget', 'gadget')]") | Should -BeTrue
         & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue
         & $isUnresolved (& $eval "[reference('gadget').outputs.name.value]") | Should -BeTrue
         & $isUnresolved (& $eval "[equals(parameters('missing'), 'widget')]") | Should -BeTrue

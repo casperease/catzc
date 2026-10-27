@@ -11,6 +11,26 @@ categories:
       - "**/*.psm1"
 terms:
   fixture:
+    - term: widgetnorth
+      meaning: "a widget region token in the network-config tests, one word like a real region (northeurope)"
+    - term: gadgetfile
+      meaning: "fixture DRS code segment 'GADGETFILE', a glued gadget + file word the code-word splitter is tested on"
+    - term: gadgetspin
+      meaning: "fixture DRS code segment 'GADGETSPIN', a glued gadget + spin word in the code-word splitter tests"
+    - term: gadgetxqz
+      meaning: "fixture DRS code segment 'GADGETXQZ', a gadget word plus an unsplittable tail in the code-word splitter tests"
+    - term: spinlever
+      meaning: "fixture DRS code segment 'SPINLEVER', a glued spin + lever word in the code-word splitter tests"
+    - term: spinleverlever
+      meaning: "fixture DRS code segment 'SPINLEVERLEVER', a glued word with a repeated lever the splitter collapses"
+    - term: spinseverygadget
+      meaning: "fixture DRS code segment 'SPINSEVERYGADGET', a long glued word in the DRS code checks"
+    - term: spinseverygadgetlever
+      meaning: "fixture DRS code segment 'SPINSEVERYGADGETLEVER', a long glued word in the code-word splitter tests"
+    - term: spinseverygadgetforlonger
+      meaning: "fixture DRS code segment 'SPINSEVERYGADGETFORLONGER', a longer glued word in the registry tests"
+    - term: spinsgadget
+      meaning: "fixture DRS code segment 'SPINSGADGET', a glued word in the code-language check tests"
     - term: widgetstore
       meaning: "a widget storage-account name in tests; storage-account names allow no hyphen, so the widget fixture is one word"
     - term: tmpl

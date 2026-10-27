@@ -3,6 +3,10 @@ categories:
     description: "A word this codebase coined — a neologism (adjective, verb, or noun) not found in ordinary usage."
 terms:
   coined:
+    - term: moduleless
+      meaning: "coined adjective 'moduleless' — of a track that holds no module folder (PlaceRows)"
+    - term: ungated
+      meaning: "coined adjective 'ungated' — of a promotion rung that has no approval gate"
     - term: baserepository
       meaning:
         "the module folder Base.Repository rendered in Go's flat naming case, its Go test folder go/tests/baserepository (the folder drops

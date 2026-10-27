@@ -93,3 +93,23 @@ terms:
       meaning: "Azure region 'westeurope'"
     - term: weu
       meaning: "Azure region short code West Europe (weu)"
+    - term: tenantid
+      meaning: "the tenantId property of an Azure subscription or service principal (Microsoft Entra tenant GUID)"
+    - term: afwp
+      meaning: "Azure Firewall policy resource-type token (afwp) in the naming registry"
+    - term: cexp
+      meaning: "Cost Management export resource-type token (cexp) in the naming registry"
+    - term: vcore
+      meaning: "Azure vCore, the virtual-core purchasing model of SQL and Cosmos DB, priced per core"
+    - term: pricings
+      meaning: "Microsoft.Security/pricings, the Defender for Cloud plan resource type"
+    - term: mcsb
+      meaning: "MCSB, the Microsoft cloud security benchmark"
+    - term: azfw
+      meaning: "AzureFirewall, as the AZFW prefix of Azure Firewall diagnostic log categories (AZFWNetworkRule)"
+    - term: purgeable
+      meaning: "of a soft-deleted Key Vault that can be purged (purge protection off)"
+    - term: operationalinsights
+      meaning: "the Microsoft.OperationalInsights resource provider namespace of Log Analytics"
+    - term: timechart
+      meaning: "the Kusto (KQL) timechart render operator, used in Log Analytics queries"

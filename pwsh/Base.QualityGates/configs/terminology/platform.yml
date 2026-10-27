@@ -3,6 +3,8 @@ categories:
     description: "Operating-system, .NET, filesystem, registry, or low-level runtime and encoding vocabulary."
 terms:
   platform:
+    - term: datetimeoffset
+      meaning: ".NET System.DateTimeOffset, the date-time type that carries a UTC offset ([datetimeoffset]::Parse)"
     - term: bugcheck
       meaning: "a Windows kernel bug check (stop error), event 1001 in the System log"
     - term: clr

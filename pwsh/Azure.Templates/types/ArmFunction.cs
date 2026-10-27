@@ -17,7 +17,7 @@ public static class ArmFunction
         {
             "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
             "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
-            "null", "items", "tryGet", "coalesce", "format", "replace", "join", "tenantResourceId",
+            "null", "items", "tryGet", "coalesce", "format", "replace", "join", "tenantResourceId", "guid",
         };
         var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string name in names) { known[name] = name; }
@@ -64,6 +64,10 @@ public static class ArmFunction
                 var id = new System.Text.StringBuilder("/providers/").Append(typeSegments[0]);
                 for (int i = 1; i < typeSegments.Length; i++) { id.Append('/').Append(typeSegments[i]).Append('/').Append((string)args[i]); }
                 return id.ToString();
+            case "guid":
+                // guid(a, …): one string argument or more, joined by '-', as ARM joins them before it hashes.
+                if (args.Count == 0 || !args.TrueForAll(a => a is string)) { return unresolved; }
+                return NameBasedGuid(string.Join("-", args));
             case "format":
                 return Format(args);
             case "replace":
@@ -219,6 +223,26 @@ public static class ArmFunction
             i = close + 1;
         }
         return builder.ToString();
+    }
+
+    // ARM's guid(): an RFC 4122 version 5 UUID, SHA-1 over ARM's namespace 11fb06fb-712d-4ddd-98c7-e71bbd588830 followed by the name's
+    // UTF-8 bytes, written in lower case. Checked against Bicep's own evaluator (bicep build-params), whose values the L0 case pins.
+    private static readonly byte[] GuidNamespace =
+    {
+        0x11, 0xfb, 0x06, 0xfb, 0x71, 0x2d, 0x4d, 0xdd, 0x98, 0xc7, 0xe7, 0x1b, 0xbd, 0x58, 0x88, 0x30,
+    };
+
+    private static string NameBasedGuid(string name)
+    {
+        byte[] text = System.Text.Encoding.UTF8.GetBytes(name);
+        byte[] input = new byte[GuidNamespace.Length + text.Length];
+        Buffer.BlockCopy(GuidNamespace, 0, input, 0, GuidNamespace.Length);
+        Buffer.BlockCopy(text, 0, input, GuidNamespace.Length, text.Length);
+        byte[] hash = System.Security.Cryptography.SHA1.HashData(input);
+        hash[6] = (byte)((hash[6] & 0x0f) | 0x50);
+        hash[8] = (byte)((hash[8] & 0x3f) | 0x80);
+        string hex = Convert.ToHexString(hash, 0, 16).ToLowerInvariant();
+        return string.Concat(hex.Substring(0, 8), "-", hex.Substring(8, 4), "-", hex.Substring(12, 4), "-", hex.Substring(16, 4), "-", hex.Substring(20, 12));
     }
 
     // ARM compares strings without regard to case; numbers by value.

@@ -43,7 +43,8 @@ function Test-BicepTemplateCompliance {
                 # Production is the environment's fact in azure.yml, the one place it is declared.
                 $environments = (Get-Config -Config azure).environments
                 $production = $environments.ContainsKey($slot.environment) -and $environments[$slot.environment].production
-                $deployed = @(Get-ArmDeployedResource -Template $main -Values $values)
+                # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                $deployed = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region)
                 $diagnosed = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
                 $needing = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
 

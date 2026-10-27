@@ -29,11 +29,11 @@ Describe 'AzureTagSchema' -Tag 'L0', 'logic' {
     It 'reports a dropped key, a misspelled value and a value that is not lowercase' {
         $broken = [ordered]@{} + $good
         $broken.Remove('owner')
-        $broken['criticality'] = 'hihg'
+        $broken['criticality'] = 'urgent'
         $broken['workload'] = 'Widget'
         $found = @((& $schema $null).TagErrors($broken))
         $found | Should -Contain 'misses the CAF tag(s) owner'
-        $found | Should -Contain "tag criticality 'hihg' is not one of low, medium, high"
+        $found | Should -Contain "tag criticality 'urgent' is not one of low, medium, high"
         $found | Should -Contain "tag workload 'Widget' is not lowercase"
     }
 

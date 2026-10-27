@@ -3,6 +3,8 @@ categories:
     description: "Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands."
 terms:
   ado:
+    - term: serviceprincipalkey
+      meaning: "ServicePrincipalKey, the authentication-scheme parameter of an ADO service connection that holds the secret"
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"
     - term: gh

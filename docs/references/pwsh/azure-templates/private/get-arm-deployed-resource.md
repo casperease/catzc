@@ -23,8 +23,10 @@ its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
   deployment there reads its resource's evaluated `location`, and every other member, such as `name`, stays unresolved.
 - A property copy (`copy` inside a property or a module parameter, which a Bicep for-expression compiles to) resolves only as a whole module
   parameter, through `ArmExpression.EvaluateCopy`; one inside a resource's properties is read as written, unexpanded.
-- `guid()`, left out until it is computed exactly as ARM does (a name-based UUID over the joined arguments, which no offline check here
-  confirms), and `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time.
+- `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time. `guid()` over string arguments resolves, computed
+  as ARM computes it (a version 5 UUID over the arguments joined by `-`), and its `ArmExpression.Tests.ps1` case pins values Bicep's own
+  evaluator gives; a `guid()` over a resource id still waits on `resourceId()` or a module output, such as foundation's capacity workbook,
+  named by `guid()` of its workspace's id.
 - The comparisons `greater()`, `less()` and their `OrEquals` forms, and `json()`, `string()` and `int()`.
 
 ## comment:1

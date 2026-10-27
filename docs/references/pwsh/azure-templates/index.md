@@ -3,7 +3,8 @@
 The Bicep templating module. It is the top of the Azure stack: it discovers the deployable templates in the repository, derives the names
 their resources must carry, builds them into deployable artifacts, and deploys them. It consumes the identity model from
 [Catzc.Azure](../azure/index.md) and the session checks from [Catzc.Azure.Cli](../azure-cli/index.md), and is the implementation of the
-[data-model](../../../drs/azure/azure-data-model.md) and [naming-standard](../../../drs/azure/azure-naming-standard.md) decisions.
+[data-model](../../../drs/azure/azure-data-model.md) and [naming-standard](../../../drs/azure/azure-naming-standard.md) decisions. The
+identity model is not its own; the configuration it owns is that of its compliance checks, its cost estimate and its orphan removal.
 
 ## Responsibilities
 
@@ -87,8 +88,8 @@ acts, so a deployment can never run against the wrong subscription.
 The classification vocabularies (responsibility 3) are the small enumerations that keep options and deploys honest, and integrity validation
 (responsibility 6) is the safety net: it binds to the _set_ of shipped templates and asserts the invariants that must hold for every one of
 them, so a misnamed config folder or an undefined environment fails the tests rather than a deployment. Throughout, identity comes from the
-[Catzc.Azure](../azure/index.md) model — this module owns no configuration of its own; it reads `azure.yml` and `network.yml` through that
-module.
+[Catzc.Azure](../azure/index.md) model: the module reads `azure.yml` and `network.yml` through that module, and owns only the configuration of
+its own checks and estimates, the template-compliance rules, the cost model's meters and the resources the orphan removal leaves to Azure.
 
 The first diagram below draws template discovery and the build from the source. A template is a folder, and its `options.yml` may override
 only five derived defaults, under a strict schema. The build writes one parameters file per slot and then compiles the template once. The
@@ -242,8 +243,8 @@ layout:
 
 ## Division
 
-The module's public functions, sorted into the responsibilities above. This module owns no config files of its own; it consumes `azure.yml`
-and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
+The module's public functions and its config files, sorted into the responsibilities above; it consumes `azure.yml` and `network.yml` (owned
+by [Catzc.Azure](../azure/index.md)).
 
 | Responsibility                                                    | Function                          |
 | ----------------------------------------------------------------- | --------------------------------- |
@@ -266,6 +267,9 @@ and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
 | responsibility:4 — Build                                          | `Build-Bicep`                     |
 |                                                                   | `ConvertTo-BicepParam`            |
 |                                                                   | `Get-BicepTemplatesOutputRoot`    |
+|                                                                   | `Get-BicepCostEstimate` |
+|                                                                   | `Update-AzurePriceTable` |
+| config | `cost-model.yml` |
 | responsibility:5 — Deploy and resource-group provisioning         | `Deploy-Bicep`                    |
 |                                                                   | `Get-BicepDeploymentContext`      |
 |                                                                   | `Deploy-AzureResourceGroup`       |
@@ -274,8 +278,10 @@ and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Invoke-BreakGlassRotation`       |
 |                                                                   | `Set-AnomalyAlertRecipientSecret` |
 |                                                                   | `Remove-BicepOrphanResources`     |
+| config | `orphan-removal.yml` |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
 |                                                                   | `Test-BicepTemplateCompliance`    |
 |                                                                   | `Test-BicepResourceNames`         |
 |                                                                   | `Test-BicepOrphans`               |
+| config | `template-compliance.yml` |

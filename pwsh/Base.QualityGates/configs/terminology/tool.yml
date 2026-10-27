@@ -3,6 +3,18 @@ categories:
     description: "An external tool, product, package manager, runtime, or file/data format."
 terms:
   tool:
+    - term: pyvenv
+      meaning: "pyvenv.cfg, the file a Python virtual environment holds at its root"
+    - term: nologo
+      meaning: "the dotnet and MSBuild -nologo switch that suppresses the banner"
+    - term: urllib
+      meaning: "urllib3, the Python HTTP library, as cspell splits it before the digit"
+    - term: ghsa
+      meaning: "GHSA, the GitHub Security Advisory id prefix (GHSA-xxxx-xxxx-xxxx) the vulnerability scanner reports"
+    - term: akia
+      meaning: "AKIA, the prefix of an AWS access key id, matched by the secret-scan patterns"
+    - term: pousr
+      meaning: "the p, o, u, s, r letters of the gh[pousr]_ prefix of a GitHub token, as cspell reads the secret-scan pattern"
     - term: csharp
       meaning: "C# (the csharp language / file token)"
     - term: msbuild
