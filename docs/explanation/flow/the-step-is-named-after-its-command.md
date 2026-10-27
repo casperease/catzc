@@ -11,7 +11,7 @@ The Azure DevOps step is named after its command, and its log echoes the command
 6  Write-Exception           type, message, stack trace and inner exceptions; the run stops
 7  developer                 runs .\importer.ps1 and pastes the RunCommand; no gate checks it
 
-Supports FDR-RUNNER-THINSTEPTEMPLATES and FDR-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
+Supports ADR-ADO-RUNNER-THINSTEPTEMPLATES and ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
 ```
 
 What an author writes in a pipeline is what the Azure DevOps run shows. The step's label is its command, the log names the mode and then
@@ -23,7 +23,7 @@ description:
   "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
   full exception, and a developer copies the command from the label with no gate checking that."
 about:
-  adrs: [FDR-RUNNER-THINSTEPTEMPLATES, FDR-RUNNER-DEVELOPERREPRODUCIBLE]
+  adrs: [ADR-ADO-RUNNER-THINSTEPTEMPLATES, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: operations
 content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
@@ -93,9 +93,9 @@ every `pwsh/**` change.
 
 ## Why it holds
 
-- Step templates add pipeline concerns such as the display name, and never contain logic (FDR-RUNNER-THINSTEPTEMPLATES).
+- Step templates add pipeline concerns such as the display name, and never contain logic (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 - Whatever string appears in `RunCommand` can be pasted into a local terminal after running `.\importer.ps1`
-  (FDR-RUNNER-DEVELOPERREPRODUCIBLE).
+  (ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the decision record differ
 
@@ -105,7 +105,7 @@ every `pwsh/**` change.
 
 ## See also
 
-- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
   [implementation](three-tasks-one-guard-one-runner.md) and [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

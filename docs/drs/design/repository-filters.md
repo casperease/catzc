@@ -27,8 +27,7 @@ union** of the lit lamps minus the zones of the vetoed lamps: a file is shown wh
 hides only the files no other lit lamp claims, while a vetoed lamp hides every file it claims even when a lit lamp claims it too. Every lamp
 takes part the same way, the open lamp included: its sets are the files the reader has open, and it is always lit, so it keeps them in view
 whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything. A reader may add **language lamps**, one per
-tagged language of the languages config, its sets one include per extension, taking part exactly like a filter lamp. How the editor
-presents the row is ADR-AUTO-JS-LAMPSINTHEEDITOR.
+tagged language of the languages config, its sets one include per extension, taking part exactly like a filter lamp.
 
 - [Decision](#decision)
 - [Consequences](#consequences)
@@ -52,14 +51,13 @@ deleted file is a change. The condition is independent of the switch: an unlit l
 
 ### Rule DDR-FILTER-STATEALWAYSSHOWN
 
-A lamp's state is one lookup, switch × condition, and nothing else: lit and unlit look different; committed is green, local work in
-progress is the blue-grey range (staged dark, unstaged lighter), failed red, empty neutral grey. The files a lamp claims show the same
-mapping, so a lamp and its files never disagree. A reader never has to guess why a file is missing or where the work is.
+A lamp's state is one lookup, switch × condition, and nothing else: lit and unlit look different; committed is green, local work in progress
+is the blue-grey range (staged dark, unstaged lighter), failed red, empty neutral grey. The files a lamp claims show the same mapping, so a
+lamp and its files never disagree. A reader never has to guess why a file is missing or where the work is.
 
 Red always wins. A file's Error is remembered with the time it was first seen, and lapses only when the file reports a non-error set, is
 edited or saved, or changes on disk after that time; a closed view and a quiet checker never release it, and a remembered Error stays
-visible wherever the reader looks for errors. How the editor draws the states and keeps a remembered Error visible is
-ADR-AUTO-JS-LAMPSINTHEEDITOR.
+visible wherever the reader looks for errors.
 
 - [Consequences](#consequences)
 

@@ -185,6 +185,18 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved (& $at '[deployment().location]') | Should -BeTrue
     }
 
+    It 'appends extensionResourceId()''s provider path to the scope id it is given, and leaves an unresolved scope unresolved' {
+        # The expected ids are Bicep's own evaluator's (bicep snapshot 0.48.1), not this type's.
+        $facts = @{ subscriptionId = '00000000-0000-0000-0000-00000000000a' }
+        $at = { param($Value) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, @{}, @{}, @{}, $facts) }
+        & $at "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, 'widget-log-rg'), 'Microsoft.OperationalInsights/workspaces', 'widget-log')]" |
+            Should -BeExactly '/subscriptions/00000000-0000-0000-0000-00000000000a/resourceGroups/widget-log-rg/providers/Microsoft.OperationalInsights/workspaces/widget-log'
+        & $eval "[extensionResourceId('/subscriptions/00000000-0000-0000-0000-00000000000a', 'Widget.Parts/widgets/gadgets', 'widget', 'sprocket')]" |
+            Should -BeExactly '/subscriptions/00000000-0000-0000-0000-00000000000a/providers/Widget.Parts/widgets/widget/gadgets/sprocket'
+        & $isUnresolved (& $eval "[extensionResourceId(format('/subscriptions/{0}', subscription().subscriptionId), 'Widget.Parts/widgets', 'gadget')]") | Should -BeTrue
+        & $isUnresolved (& $eval "[extensionResourceId('/subscriptions/00000000-0000-0000-0000-00000000000a', 'Widget.Parts/widgets/gadgets', 'widget')]") | Should -BeTrue
+    }
+
     It 'expands a property copy entry, one input per index with copyIndex(name) bound, and a count that does not resolve to unresolved' {
         $parameters = @{ widgets = @(@{ size = 'small' }, @{ size = 'large' }) }
         $copy = @{ name = 'value'; count = "[length(parameters('widgets'))]"; input = "[parameters('widgets')[copyIndex('value')].size]" }

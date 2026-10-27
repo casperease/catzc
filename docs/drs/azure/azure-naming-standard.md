@@ -256,8 +256,8 @@ a VM name. An over-limit render throws at deploy time and is never truncated (AD
 - All components lowercase. Validation is **case-sensitive** — `Get-AzureResourceName` checks every component with the case-sensitive
   `-cnotmatch` operator (PowerShell's default `-match`/`-notmatch` is case-insensitive), so the patterns themselves carry no `(?-i)` prefix.
 - `org`, `short_name`, `role`, env `name`, customer `key` **start with a letter** (Key Vault and others reject leading digits). Only `slot`
-  may be all-digit. Each component's pattern is the charset of [Components](#components); a `type` is also guarded by membership in the
-  type registry.
+  may be all-digit. Each component's pattern is the charset of [Components](#components); a `type` is also guarded by membership in the type
+  registry.
 
 ### Resource-type registry
 

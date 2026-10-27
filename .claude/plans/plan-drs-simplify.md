@@ -19,9 +19,9 @@ records.
 
 ### Contradictions, settled first
 
-- [ ] `azure/azure-network-model.md`: the hub firewall the templates deploy (`landing-zone-network.bicep`, `firewall.bicep`, the spoke
-      route to it) settles ADR-AZ-NETWORK-CAFTOPOLOGY, -CAFCONNECTIVITY and "CAF connectivity", which say egress is unfiltered and the
-      firewall planned; `docs/references/infrastructure/discovery.md` and `templates/discovery/main.md` say three policy assignments where
+- [ ] `azure/azure-network-model.md`: the hub firewall the templates deploy (`landing-zone-network.bicep`, `firewall.bicep`, the spoke route
+      to it) settles ADR-AZ-NETWORK-CAFTOPOLOGY, -CAFCONNECTIVITY and "CAF connectivity", which say egress is unfiltered and the firewall
+      planned; `docs/references/infrastructure/discovery.md` and `templates/discovery/main.md` say three policy assignments where
       `landing-zone-policies.bicep` assigns ten. Check: a grep of the templates.
 - [ ] `design/visual-design.md`: "slate" names both a stage-box tint and staged WIP; the stage box takes another tint name. Check: the
       record check.
@@ -42,8 +42,8 @@ on the neutral record.
       rules, which duplicate FDR-TYPE-ALLTHROUGHRUNNER) moves to `ado/`, flow keeping "no inline script in pipeline YAML". Check: as above.
 - [ ] `flow/pipeline-types.md` (FDR-TYPE-SIXTYPES, -ALLTHROUGHRUNNER) and FDR-QUEUE-AUTHORINGISTHEFIRST lose their ADO wording. Check: as
       above.
-- [ ] `ado/dual-authentication.md`, `ado/pipeline-variables.md` and `configuration/config-value-addressing.md`: their pwsh code moves to `automation/pwsh/`; the step-template
-      sample matches the runner pattern. Check: as above.
+- [ ] `ado/dual-authentication.md`, `ado/pipeline-variables.md` and `configuration/config-value-addressing.md`: their pwsh code moves to
+      `automation/pwsh/`; the step-template sample matches the runner pattern. Check: as above.
 - [ ] `automation/test-automation.md`: the pwsh, Pester and Bicep names in ADR-AUTO-TEST-SAFESEAMSWAPS, -PROCESSTRIPWIRE,
       -GENERICTEMPLATETESTS, -TAGSENFORCED, -TESTRUN, -QUALITYGATE, -TESTSUITE and -TESTINGINPRODUCTION, the Build-Bicep example, and the
       harness and snapshot mechanics move to `automation/pwsh/pester-testing.md`; the decisions of -FILEPARALLELISM, -ONESCHEDULINGPOOL and
@@ -55,13 +55,8 @@ on the neutral record.
       Check: as above.
 - [ ] `design/run-modes.md` (all PowerShell) moves to `automation/pwsh/`; the three value-chain rules of `design/tracks.md`
       (DDR-TRACK-VALUECHAINSTACK, -VALUECHAINCONCERN, -VALUECHAINMAP) move to a DRS record in `repository/`. Check: as above.
-- [ ] Engine names leave DDR-TRACK-ONETRACKTYPE, -MODULENAMESPACE, DDR-THINPLAT-PLATFORMASCLI, DDR-ASPECT-ASPECTSAREDERIVED,
-      -TRACKPICKSCATCHALL, DDR-VISUAL-FLOWISALENS, -PROOFISTHEACCOSTEDFILE, -PROOFBOXUNDERTHEFRAME, TDR-ONETRUTH-TRUTHISQUERYABLE,
-      PDR-CATS-IDENTIFIERNAMESTHESYSTEM and the `tools.yml`/`Assert-ToolVersion` lines of `principles/one-living-version.md`. Check: as
-      above.
-- [ ] DDR-FILTER-TOTALUNION and -STATEALWAYSSHOWN: editor specifics move to `automation/javascript/`; DDR-VISUAL-ARROWSPOINTATDEPENDENCY
-      keeps the arrow meaning and its routing mechanics move to the renderer docs; `thesis/closed-loop.md` "Current state" leaves the
-      thesis. Check: as above.
+- [ ] Engine names leave DDR-TRACK-ONETRACKTYPE (its Go, Python and Bash test-holder sentences). Check: as above.
+- [ ] DDR-VISUAL-ARROWSPOINTATDEPENDENCY keeps the arrow meaning and its routing mechanics move to the renderer docs. Check: as above.
 
 ### Rules that state one thing
 
@@ -88,10 +83,8 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
 - [ ] Repository: ADR-REPO-README-READMEIDEMPOTENT and ADR-REPO-ROOTCFG-ROOTCFGIDEMPOTENT get one owning rule;
       ADR-REPO-OUTDIR-EVERYFILEHASFORMAT into ADR-REPO-OUTFMT-OUTPUTFORMAT; ADR-REPO-FOLDERS-CONTRACTSFOLDER points at
       ADR-REPO-CONTRACT-LAYOUT; ADR-REPO-CODEMETA-SAMEENGINE folds into file-meta after the head contradiction. Check: as above.
-- [ ] Azure: ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION and -NAMEKEYEDMAPS state "one subscription per coordinate" once, -CUSTOMERAXIS cites
-      -JOINSINPOWERSHELL; ADR-AZ-LZ-GOVERNANCELIMITS keeps only what is ungoverned and -EVERYPILLAR indexes the pillar rules;
-      ADR-AZ-SESSION-REVERSELOOKUP into -THREESEPARATECONCERNS (renamed for its layers); ADR-AZ-CUSTOMER-KEYISSUBFOLDER cites
-      ADR-AZ-DATAMOD-NAMEKEYEDMAPS. Check: as above.
+- [ ] Azure: ADR-AZ-LZ-GOVERNANCELIMITS keeps only what is ungoverned and -EVERYPILLAR indexes the pillar rules;
+      ADR-AZ-SESSION-REVERSELOOKUP into -THREESEPARATECONCERNS (renamed for its layers). Check: as above.
 
 ### Sections that restate their rules
 

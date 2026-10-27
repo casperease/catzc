@@ -5,7 +5,7 @@
 ### Rule ADR-CONF-LOADING-CONFIGONEREADER
 
 All config reads go through one public reader, asked by the config's global name — no function re-reads a `configs/*.yml` file directly or
-keeps its own config cache. Its engine spelling is ADR-PWSH-CONFIG-GETCONFIG.
+keeps its own config cache.
 
 - [Decision](#decision)
 
@@ -37,8 +37,7 @@ resolves, and every shipped config loads.
 
 A config that cannot ship a C# type validates with a **PowerShell validator**: an engine function found by a naming convention, or named
 explicitly, run in the owning module's scope. This is the extension point for the tracks and deployable-units that carry their own
-configuration; core configs never use it. A gate checks that every validator maps to a shipped config of its module. Its engine spelling is
-ADR-PWSH-CONFIG-ASSERTVALIDATOR.
+configuration; core configs never use it. A gate checks that every validator maps to a shipped config of its module.
 
 - [The PowerShell extension point](#the-powershell-extension-point)
 

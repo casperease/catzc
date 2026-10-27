@@ -11,22 +11,23 @@ evaluate a subset of the ARM functions. A call outside the subset yields `Unreso
 that asserts such a value passes on nothing. The next L1 author checks this list first, and either adds the function to the evaluator with
 its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 
-- `reference()`, `list*()` and every runtime lookup: a value read from a deployed resource or a module output.
+- `reference()`, `list*()` and every runtime lookup: a value read from a deployed resource or a module output, such as foundation's capacity
+  workbook, named by `guid()` of the `log-analytics` module's `id` output.
 - `format()` with a format specifier (`{0:N2}`) or over an argument that is not a string or an integer; plain `{n}` holes, which Bicep
   string interpolation compiles to, resolve.
 - `toLower()`, `toUpper()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other string and array
   helpers.
 - `union()` and `range()`, which the object spread and the `for … in range` loops compile to.
-- `extensionResourceId()`, and every member of `subscription()` and `resourceGroup()` beyond their ids, `subscriptionId` and `name`.
-  `resourceId()`, `subscriptionResourceId()`, `subscription()` and `resourceGroup()` resolve exactly, as ARM writes them, from the facts the
-  caller passes (`-SubscriptionId` and `-ResourceGroupName`, the slot's azure.yml subscription id and its resource group, which
-  `Get-BicepSlotDeploymentFacts` reads), and stay unresolved without them, never as a guessed provider path: a wrong id inside `guid()` would
-  name another resource than the deployed one. A resource group exists only in a resource-group template, so `resourceId()` in a
-  subscription template without a group argument stays unresolved; a nested deployment's `resourceGroup` and `subscriptionId` override the
-  caller's, and one that does not resolve leaves the ids in it unresolved. `tenantResourceId()` reads no scope and resolves.
-  `deployment()` resolves only its `location`, and only when the caller passes `-Location` (the slot's environment region, which
-  Deploy-Bicep sends as `--location`) to a template above the resource group; a nested deployment there reads its resource's evaluated
-  `location`, and every other member, such as `name`, stays unresolved.
+- Every member of `subscription()` and `resourceGroup()` beyond their ids, `subscriptionId` and `name`. `extensionResourceId()` resolves
+  wherever its scope id does, the scope id followed by the provider path. `resourceId()`, `subscriptionResourceId()`, `subscription()` and
+  `resourceGroup()` resolve exactly, as ARM writes them, from the facts the caller passes (`-SubscriptionId` and `-ResourceGroupName`, the
+  slot's azure.yml subscription id and its resource group, which `Get-BicepSlotDeploymentFacts` reads), and stay unresolved without them,
+  never as a guessed provider path: a wrong id inside `guid()` would name another resource than the deployed one. A resource group exists
+  only in a resource-group template, so `resourceId()` in a subscription template without a group argument stays unresolved; a nested
+  deployment's `resourceGroup` and `subscriptionId` override the caller's, and one that does not resolve leaves the ids in it unresolved.
+  `tenantResourceId()` reads no scope and resolves. `deployment()` resolves only its `location`, and only when the caller passes `-Location`
+  (the slot's environment region, which Deploy-Bicep sends as `--location`) to a template above the resource group; a nested deployment
+  there reads its resource's evaluated `location`, and every other member, such as `name`, stays unresolved.
 - A property copy (`copy` inside a property or a module parameter, which a Bicep for-expression compiles to) resolves only as a whole module
   parameter, through `ArmExpression.EvaluateCopy`; one inside a resource's properties is read as written, unexpanded.
 - `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time. `guid()` over string arguments resolves,

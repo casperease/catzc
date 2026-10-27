@@ -45,7 +45,7 @@ Declare what you deliver and the files that trigger it; drop in a template, and 
 
 ### 4. Ship through the pipeline
 
-Commit. The pipeline runs the same commands you ran on your devbox ([runner pattern](../../drs/flow/pipeline-runner-pattern.md)), and the
+Commit. The pipeline runs the same commands you ran on your devbox ([runner pattern](../../drs/ado/pipeline-runner-pattern.md)), and the
 commit climbs its lifecycle to production ([commit lifecycle](../../drs/flow/commit-lifecycle.md)).
 
 [**Full getting-started guide →**](../../how-to/getting-started/automation/index.md) ·

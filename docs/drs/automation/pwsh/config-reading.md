@@ -4,28 +4,27 @@
 
 ### Rule ADR-PWSH-CONFIG-GETCONFIG
 
-The one config reader (ADR-CONF-LOADING-CONFIGONEREADER) is `Get-Config -Config <name>`, public in `Catzc.Base.Config`. No function reads
-a `configs/*.yml` file with `Get-Content` or a YAML parser of its own, and none keeps a `$script:` config cache.
+The one config reader the configuration domain requires is `Get-Config -Config <name>`, public in `Catzc.Base.Config`. No function reads a
+`configs/*.yml` file with `Get-Content` or a YAML parser of its own, and none keeps a `$script:` config cache.
 
 - [One cmdlet](#one-cmdlet)
 
 ### Rule ADR-PWSH-CONFIG-ASSERTVALIDATOR
 
-A PowerShell validator (ADR-CONF-LOADING-POWERSHELLVALIDATOR) runs through `Invoke-ConfigValidator` (`Catzc.Base.ConfigExtensions`):
-`Assert-<TitleCase(name)>Config` by convention, or a function named with `-Validator`, run in the owning module's scope.
-`Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` maps to a shipped config of its module.
+A PowerShell validator, the configuration domain's extension point for a config without a C# type, runs through `Invoke-ConfigValidator`
+(`Catzc.Base.ConfigExtensions`): `Assert-<TitleCase(name)>Config` by convention, or a function named with `-Validator`, run in the owning
+module's scope. `Test-ConfigValidators` is its gate: every `Assert-<TitleCase(name)>Config` maps to a shipped config of its module.
 
 - [The validator convention](#the-validator-convention)
 
 ## Context
 
-[module-config-loading](../../configuration/module-config-loading.md) states how a config is read, cached and validated for any engine. This
-record is how pwsh spells it.
+The configuration domain states how a config is read, cached and validated for any engine. This record is how pwsh spells it.
 
 ### One cmdlet
 
-A second reader beside `Get-Config` would be a second cache and a second validation path, and the two would disagree the first time a
-config changed mid-session. A `$script:` cache is the usual way a function grows one, so it is named here as the shape to refuse.
+A second reader beside `Get-Config` would be a second cache and a second validation path, and the two would disagree the first time a config
+changed mid-session. A `$script:` cache is the usual way a function grows one, so it is named here as the shape to refuse.
 
 ### The validator convention
 

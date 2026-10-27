@@ -9,7 +9,7 @@ A pipeline step only names a command, and a developer can run that same command 
 4  same command   runs with the same modules, in the scope of the load
 5  developer      loads the modules and types the same command; no gate checks it
 
-Supports FDR-RUNNER-NOINLINEPOWERSHELL and FDR-RUNNER-DEVELOPERREPRODUCIBLE (meta lens).
+Supports ADR-ADO-RUNNER-NOINLINEPOWERSHELL and ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE (meta lens).
 ```
 
 A pipeline step in cats does not hold PowerShell. It names a command, and one runner turns that name into the same command a developer runs
@@ -21,7 +21,7 @@ description:
   A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
   so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
 about:
-  adrs: [FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-DEVELOPERREPRODUCIBLE]
+  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: meta
 content:
   title: A pipeline step only names a command that a developer can run locally
@@ -77,8 +77,8 @@ the runner's own failure modes.
 
 ## Why it holds
 
-- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (FDR-RUNNER-NOINLINEPOWERSHELL).
-- Whatever string a step names can be pasted into a local terminal after the importer (FDR-RUNNER-DEVELOPERREPRODUCIBLE).
+- YAML steps never contain inline PowerShell; all PowerShell runs through the runner (ADR-ADO-RUNNER-NOINLINEPOWERSHELL).
+- Whatever string a step names can be pasted into a local terminal after the importer (ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the decision record differ
 
@@ -86,7 +86,7 @@ No gate checks that a step's command runs the same way in a terminal: nothing re
 
 ## See also
 
-- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [architecture](the-runner-is-the-only-seam.md),
   [implementation](three-tasks-one-guard-one-runner.md), [operations](the-step-is-named-after-its-command.md) and
   [governance](no-gate-checks-rules-one-and-four.md).

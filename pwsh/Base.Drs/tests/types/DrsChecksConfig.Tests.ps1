@@ -26,7 +26,7 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
         BeforeAll {
             $script:config = [Catzc.Base.Drs.DrsChecksConfig]::new([ordered]@{
                     engine_neutrality = [ordered]@{
-                        mode    = 'report'
+                        mode       = 'report'
                         domains    = [ordered]@{ widget = @('engine'); gadget = @('vendor', 'engine') }
                         token_sets = [ordered]@{
                             engine = [ordered]@{ 'gizmo-call' = '\bGizmo-[A-Z][a-z]+\b'; 'dollar-name' = '\$[a-z]+' }
@@ -80,13 +80,13 @@ Describe 'DrsChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
             $raw = [ordered]@{
                 widget            = 1
                 engine_neutrality = [ordered]@{
-                    mode    = 'loud'
-                    colour  = 'red'
+                    mode       = 'loud'
+                    colour     = 'red'
                     domains    = [ordered]@{ widget = @('engine', 'engine'); gadget = @('gizmo'); sprocket = 'engine' }
                     token_sets = [ordered]@{
-                        engine     = [ordered]@{ 'Bad Name' = 'x'; 'broken' = '(unclosed'; 'empty' = '' }
-                        'Bad Set'  = [ordered]@{ 'fine' = 'x' }
-                        flat       = 'x'
+                        engine    = [ordered]@{ 'Bad Name' = 'x'; 'broken' = '(unclosed'; 'empty' = '' }
+                        'Bad Set' = [ordered]@{ 'fine' = 'x' }
+                        flat      = 'x'
                     }
                 }
                 citation_graph    = 'report'

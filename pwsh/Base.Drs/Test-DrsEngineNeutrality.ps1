@@ -12,6 +12,10 @@ function Test-DrsEngineNeutrality {
     $index = Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot (Resolve-RepoPath $adrs.Root)
     $issues = [System.Collections.Generic.List[string]]::new()
 
+    $domainFacts = foreach ($name in $settings.domains.Keys) {
+        "$name ($($settings.domains[$name] -join '+'))"
+    }
+
     $ruleSetCount = 0
     $lineCount = 0
     foreach ($domainName in $settings.domains.Keys) {
@@ -50,7 +54,7 @@ function Test-DrsEngineNeutrality {
     $result = Write-QualityGateReport -Subject 'drs-engine-neutrality' -Title 'Test-DrsEngineNeutrality' -Issues $issues `
         -Facts ([ordered]@{
             Mode     = $settings.mode.ToString().ToLowerInvariant()
-            Domains  = @(foreach ($name in $settings.domains.Keys) { "$name ($($settings.domains[$name] -join '+'))" }) -join ', '
+            Domains  = @($domainFacts) -join ', '
             RuleSets = $ruleSetCount
             Lines    = $lineCount
         }) -OutputFolder $OutputFolder -PassThru:($PassThru -or $reportOnly)

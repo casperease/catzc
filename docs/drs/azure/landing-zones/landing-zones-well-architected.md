@@ -255,10 +255,10 @@ The baseline is written in three places, each the owner of one part. The Securit
 `infrastructure/modules/` carry those settings as secure defaults, and the guardrails of
 [ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies) turn part of it into policy as code, with
 `policy_enforcement` in `pwsh/Azure/configs/azure.yml` deciding whether they deny or only audit
-([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). `discovery` assigns the
-policies through `policy-assignment.bicep` at subscription scope, with the enforcement mode a fact the build derives from the subscription
-the slot targets (production enforcement where the subscription holds a production environment). The Microsoft cloud security benchmark
-initiative is assigned beside them in `DoNotEnforce` mode, whatever the subscription, so it measures every resource and denies none
+([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). `discovery` assigns the policies
+through `policy-assignment.bicep` at subscription scope, with the enforcement mode a fact the build derives from the subscription the slot
+targets (production enforcement where the subscription holds a production environment). The Microsoft cloud security benchmark initiative is
+assigned beside them in `DoNotEnforce` mode, whatever the subscription, so it measures every resource and denies none
 ([ADR-AZ-LZ-CAFSECURITY](../landing-zones.md#rule-adr-az-lz-cafsecurity)). `foundation`'s two resources come from `log-analytics.bicep` and
 `key-vault.bicep` and carry the CAF tags, so they pass the required-tag policy; `expedition` takes every secure default of
 `storage-account.bicep` and `sql-server.bicep` and overrides only `entraOnlyAuthentication`, to keep the break-glass login.

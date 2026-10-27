@@ -10,12 +10,12 @@ owns the remote topology and the integration/ingress discipline over it.
 
 ### Rule DDR-REMOTE-SERVERREMOTEISTRUTH
 
-**The server's main is the authoritative copy of the repository; local and CI repositories are bridges to it.** The repository is the
-one source of truth ([everything-as-code](../principles/everything-as-code.md)), and the copy of it that governs is the mainline (`main` / `master`) on the audited server remote, where identity, branch-protection policy, and the
-immutable audit history are enforced. A developer box and a CI agent each hold a **local clone** that bridges to that remote; a local
-branch's view of "main" is provisional until it is what the server holds. The server's other state, its refs and pull requests, stays a
-fact source, read and never written as truth. The server holds the authoritative copy;
-the client holds a working copy.
+**The server's main is the authoritative copy of the repository; local and CI repositories are bridges to it.** The repository is the one
+source of truth ([everything-as-code](../principles/everything-as-code.md)), and the copy of it that governs is the mainline (`main` /
+`master`) on the audited server remote, where identity, branch-protection policy, and the immutable audit history are enforced. A developer
+box and a CI agent each hold a **local clone** that bridges to that remote; a local branch's view of "main" is provisional until it is what
+the server holds. The server's other state, its refs and pull requests, stays a fact source, read and never written as truth. The server
+holds the authoritative copy; the client holds a working copy.
 
 - [The authoritative remote](#the-authoritative-remote)
 
@@ -66,9 +66,8 @@ build on and honest about its history.
 ## Decision
 
 Treat the server's main as the authoritative copy of the repository — audited, and bridged by local clones — and its refs and pull requests
-as a fact source. Consumers **integrate from the last verified
-commit, not the remote HEAD**. Changes enter only through a **PR that authenticates and merges** them. Together these make a dirty HEAD a
-non-event for everyone downstream and keep the audit trail complete.
+as a fact source. Consumers **integrate from the last verified commit, not the remote HEAD**. Changes enter only through a **PR that
+authenticates and merges** them. Together these make a dirty HEAD a non-event for everyone downstream and keep the audit trail complete.
 
 ### The authoritative remote
 

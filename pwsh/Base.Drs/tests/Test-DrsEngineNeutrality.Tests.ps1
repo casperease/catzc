@@ -2,12 +2,12 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
     BeforeAll {
         $script:adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                 domains = [ordered]@{
-                    widget   = [ordered]@{
+                    widget    = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
                         stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{ 'widget-one' = [ordered]@{ external = 'ADR-WI-ONE' } }
                     }
-                    gadget   = [ordered]@{
+                    gadget    = [ordered]@{
                         code = 'GA'; role = 'implementation'; description = 'The gadget implementation.'; depends_on = @('widget')
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
@@ -15,9 +15,9 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
                             'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: a Test-DrsRegistry finding
                         }
                     }
-                    sprocket = [ordered]@{
+                    sprocket  = [ordered]@{
                         code = 'SP'; role = 'architecture'; description = 'The sprocket flow.'; depends_on = @('widget')
-                        stack = 'FLOW'; concern = @('build')
+                        stack = 'PIPE'; concern = @('build')
                         rulesets = [ordered]@{ 'sprocket-one' = [ordered]@{ external = 'ADR-SP-ONE' } }
                     }
                     doohickey = [ordered]@{

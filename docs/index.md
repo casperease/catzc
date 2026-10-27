@@ -138,7 +138,7 @@ The "why" and "how" behind the automation and its pwsh engine.
 
 How Azure DevOps pipelines interact with the catzc commands.
 
-- [Pipeline runner pattern](drs/flow/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
+- [Pipeline runner pattern](drs/ado/pipeline-runner-pattern.md) — all pipeline steps invoke PowerShell through a single runner
 - [Custom template discipline](drs/ado/custom-template-discipline.md) — when and how to use ADO templates
 - [Pipeline variables](drs/ado/pipeline-variables.md) — setting ADO output variables from PowerShell
 - [Pipeline detection](drs/flow/pipeline-detection.md) — how functions adapt to pipeline vs. local context

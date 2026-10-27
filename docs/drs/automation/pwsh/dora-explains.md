@@ -45,8 +45,8 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 > DORA's research on code maintainability favours one obvious way to do a common thing. One reader cmdlet and one validator convention mean
 > every function reads configuration the same way, so a config change has one path to review and one cache to trust.
 
-- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one reader replaces per-function YAML parsing
-  and ad-hoc caches.
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one reader replaces per-function YAML parsing and
+  ad-hoc caches.
 - [Test automation](../../../references/dora/capabilities.md#test-automation) — a gate ties every validator to a shipped config.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 

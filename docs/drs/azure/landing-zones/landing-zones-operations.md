@@ -68,11 +68,10 @@ template, and its deploy stages consume those artifacts unchanged, build once an
 reaches the cloud only through version control
 ([FDR-TYPE-CONFIGENTERSTHROUGHINPUT](../../flow/pipeline-types.md#rule-fdr-type-configentersthroughinput)). The stages run `foundation`,
 then `discovery`, then `expedition` (one deployment job per slot; a customer with no `expedition` config gets no stage), and each deploy
-asserts the subscription its service connection logs into (`-SubscriptionIdAssertIs`). Hubs deploy from `cd-shared.yaml` and spokes from
-the customer pipelines, so the spoke rollout order spans two pipelines. The shipped CD pipelines deploy non-production and production in the
-same stage, on `main` only, with no bake time and no what-if preview, and `.ado/pipelines/` holds no DEPLOY pipeline: they fall short of
-the flow model's promotion
-([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
+asserts the subscription its service connection logs into (`-SubscriptionIdAssertIs`). Hubs deploy from `cd-shared.yaml` and spokes from the
+customer pipelines, so the spoke rollout order spans two pipelines. The shipped CD pipelines deploy non-production and production in the
+same stage, on `main` only, with no bake time and no what-if preview, and `.ado/pipelines/` holds no DEPLOY pipeline: they fall short of the
+flow model's promotion ([FDR-CD-CDSTAYSINNONPROD](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod),
 [FDR-CD-PRODPROGRESSIONISDEPLOY](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy),
 [FDR-CD-TWORELEASEGATES](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
 [FDR-CD-TWOENVIRONMENTACTIVATION](../../flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation),

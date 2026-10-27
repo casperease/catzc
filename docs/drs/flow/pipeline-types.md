@@ -11,9 +11,9 @@ does not fit is a design problem to resolve, not a seventh type to invent.
 
 ### Rule FDR-TYPE-ALLTHROUGHRUNNER
 
-All six types invoke automation through the one runner ([pipeline-runner-pattern](pipeline-runner-pattern.md)); the pipeline definition
-stays declarative and logic lives in the automation. The one sanctioned exception is the guardrail pipeline that proves the guardrails fail
-as designed.
+All six types invoke automation through one runner, the engine's single entry point, and no pipeline definition holds an inline script:
+the definition stays declarative, names a command a developer can run locally, and the logic lives in the automation. The one sanctioned
+exception is the guardrail pipeline that proves the guardrails fail as designed.
 
 - [Decision](#decision)
 
@@ -179,9 +179,9 @@ automation job (e.g. certificate rotation, scheduled cleanup, drift checks). It 
 and deploys nothing. It invokes one automation function on a clock.
 
 - **Trigger:** a schedule.
-- **Contract:** it is a thin scheduled invocation of an automation function through the runner (see
-  [pipeline-runner-pattern](pipeline-runner-pattern.md)). The logic lives in an idempotent `pwsh/` function, not in YAML. The pipeline names
-  a `RunCommand` and a schedule; nothing more.
+- **Contract:** it is a thin scheduled invocation of an automation function through the runner
+  (FDR-TYPE-ALLTHROUGHRUNNER). The logic lives in an idempotent `pwsh/` function, not in YAML. The
+  pipeline names a `RunCommand` and a schedule; nothing more.
 
 ### CI
 
@@ -349,7 +349,6 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 - [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a discipline, and
   how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
-- [pipeline-runner-pattern](pipeline-runner-pattern.md) — how all six invoke PowerShell.
 - [pipeline-detection](pipeline-detection.md) — the context mechanics every type relies on; the ado domain binds its YAML, variables and
   credentials.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.

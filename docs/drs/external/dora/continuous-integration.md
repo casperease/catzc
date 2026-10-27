@@ -36,7 +36,7 @@ steps that a person remembers to run in a particular order.
 
 Source: [DORA, Continuous integration](../../../references/dora/capabilities.md#continuous-integration)
 
-Binds to [FDR-RUNNER-DEVELOPERREPRODUCIBLE](../../flow/pipeline-runner-pattern.md#rule-fdr-runner-developerreproducible).
+Binds to [ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE](../../ado/pipeline-runner-pattern.md#rule-adr-ado-runner-developerreproducible).
 
 ### Rule EDR-DORA-CI-FASTGATE
 

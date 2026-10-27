@@ -37,14 +37,14 @@ is planned here, one step each, so no record carries a planned item.
       Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
       `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
-- [ ] Role assignments, what is left after `Get-BicepRoleAssignmentPlan` landed (the expedition case of `RoleAssignments.Tests.ps1` and the
-      `ResourceGroup` on each `Get-ArmDeployedResource` record are in the tree): the evaluator resolves `resourceId` and
-      `subscriptionResourceId` exactly, from deployment facts the caller passes (the slot's subscription id and resource group), and stays
-      `Unresolved` without them, since a provider path inside `guid()` would name a workbook that is not the deployed one and
-      Remove-BicepOrphanResources would take the real one for an orphan; the command then passes the slot's facts and drops its own
-      provider-path rewrite; and a user step in the task file to review the stacked assignments. Check: ArmExpression.Tests with a
-      `resourceId` case, RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests green in one staged burst, and the orphan probe reads 0
-      unresolved names for foundation (its capacity workbook, `guid()` of the workspace's id).
+- [ ] Role assignments, what is left after the exact resource ids landed (`resourceId`, `subscriptionResourceId`, `extensionResourceId`,
+      `subscription()` and `resourceGroup()` from the slot's facts, `Get-BicepSlotDeploymentFacts`, the role plan's provider-path rewrite
+      gone; expedition's orphan probe reads 0 unresolved names in all 8 slots): foundation's capacity workbook is named `guid()` of the
+      `log-analytics` module's `id` output, `reference(resourceId('Microsoft.Resources/deployments', 'log-analytics'), …).outputs.id.value`,
+      which stays `Unresolved`; `Get-ArmDeployedResource` evaluates a nested deployment's `outputs` in its own scope and the parent's
+      `reference(<deployments id>).outputs.<name>.value` reads them, offline and exact, never a guess; and a user step in the task file to
+      review the stacked assignments. Check: a `Test-BicepTemplateCompliance.Tests.ps1` case for a module output, and the orphan probe
+      (`out/drone-rid-probe.ps1`) reads 0 unresolved names in foundation's 6 slots, in one staged burst.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`

@@ -74,6 +74,24 @@ the ADRs themselves; this file carries only their DORA rationale.
   review friction.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Pipeline runner pattern
+
+`Pipeline runner pattern — how ado pipelines invoke automation`
+
+[ADR-ADO-RUNNER](pipeline-runner-pattern.md)
+
+> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This ADR's
+> runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
+> orchestration (YAML) from automation (PowerShell), enabling consistent debugging and modification across contexts without scatter.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — commands are locally reproducible and testable without running
+  a pipeline.
+- [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — single bootstrap point reduces deployment friction and
+  scatter.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — separation of concerns keeps YAML declarative and
+  PowerShell testable.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Environment approvals
 
 `Environment approvals — the promotion ladder's gates and records in Azure DevOps`

@@ -15,9 +15,9 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 ### Rule ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
 
 One config file ⟷ one (customer?, env, **slot**) ⟷ one Azure resource group, in the one subscription its coordinate resolves to
-(ADR-AZ-DATAMOD-NAMEKEYEDMAPS); every config lives at
-`configuration/[<customer>/]<env>[-<slot>].yml` or `configuration/[<customer>/]<env>[-<slot>].bicepparam`, never both for one coordinate
-(discovery fails on both, naming the coordinate), and listing that tree is the resource-group inventory.
+(ADR-AZ-DATAMOD-NAMEKEYEDMAPS); every config lives at `configuration/[<customer>/]<env>[-<slot>].yml` or
+`configuration/[<customer>/]<env>[-<slot>].bicepparam`, never both for one coordinate (discovery fails on both, naming the coordinate), and
+listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
@@ -547,9 +547,9 @@ modules, [Catzc.Azure](../../references/pwsh/azure/index.md) and [Catzc.Azure.Te
   `Get-BicepParameterModel` reads the parameters a template's compiled `main.json` declares — type, default, `@allowed` values, value and
   length bounds — and `Get-BicepParameterViolations` checks every rendered `parameters.[<customer>.]<config>.json` against it, so a value
   the PrePost hook merges in is checked like one the config carries. `Assert-BicepTemplate -Build` reports the violations, and an L2
-  integrity test builds every shipped template and asserts there are none;
-  `Test-Automation -Suite infrastructure` runs it, as part of the `infrastructure` globset's verify scope. `Assert-BicepTemplate` without
-  `-Build` keeps a fast check that needs no compiler: a config sets only parameters `main.bicep` declares.
+  integrity test builds every shipped template and asserts there are none; `Test-Automation -Suite infrastructure` runs it, as part of the
+  `infrastructure` globset's verify scope. `Assert-BicepTemplate` without `-Build` keeps a fast check that needs no compiler: a config sets
+  only parameters `main.bicep` declares.
 
 ## Consequences
 

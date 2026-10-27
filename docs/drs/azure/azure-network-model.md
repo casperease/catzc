@@ -221,10 +221,10 @@ No template deploys a virtual machine, so there is no Bastion, no jump host, no 
 break-glass path of that kind; a hub Bastion would need an `AzureBastionSubnet` the hub does not reserve, and its diagnostics would follow
 every other resource's to `foundation`'s workspace. No traffic flows between virtual machines, and every flow to data is encrypted by TLS
 1.2 at minimum, so virtual network encryption is not used. The network security groups and the virtual networks send their diagnostics to
-`foundation`'s workspace, and where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log
-there with traffic analytics into the workspace ([ADR-AZ-LZ-CAFMANAGEMENT](landing-zones.md#rule-adr-az-lz-cafmanagement)); a virtual
-network flow log leaves no security-group flow log to migrate. Packet capture runs on virtual machines, so none is used, and the repository builds no traffic
-mirroring of its own.
+`foundation`'s workspace, and where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log there
+with traffic analytics into the workspace ([ADR-AZ-LZ-CAFMANAGEMENT](landing-zones.md#rule-adr-az-lz-cafmanagement)); a virtual network flow
+log leaves no security-group flow log to migrate. Packet capture runs on virtual machines, so none is used, and the repository builds no
+traffic mirroring of its own.
 
 ### CAF topology
 
@@ -279,11 +279,11 @@ a gateway.
 `expedition` has two private endpoints, `blob` on the storage account and `sqlServer` on the SQL server, in the subnet named by
 `privateEndpointSubnetName` (a customer spoke's `private-endpoints`, or the hub's `shared-services` for the shared platform's root configs),
 and reads the hub's subscription and resource group by config address (`privateDnsZoneSubscriptionId`, `privateDnsZoneResourceGroupName`). A
-hub deploys `privatelink<sqlServerHostname suffix>` and `privatelink.blob.<storage suffix>`, built from
-`environment().suffixes` so the names fit the cloud the template deploys to, and outputs their ids; a spoke deploys none, and no
-`privatelink.vaultcore.azure.net` zone exists until the vault takes a private endpoint. `private-dns-zone.bicep` links each zone to the
-hub's network and to every entry of `spokes`, one link per network, with `registrationEnabled` off as the `privatelink` zones require. No
-virtual network sets custom DNS servers.
+hub deploys `privatelink<sqlServerHostname suffix>` and `privatelink.blob.<storage suffix>`, built from `environment().suffixes` so the
+names fit the cloud the template deploys to, and outputs their ids; a spoke deploys none, and no `privatelink.vaultcore.azure.net` zone
+exists until the vault takes a private endpoint. `private-dns-zone.bicep` links each zone to the hub's network and to every entry of
+`spokes`, one link per network, with `registrationEnabled` off as the `privatelink` zones require. No virtual network sets custom DNS
+servers.
 
 Every private DNS zone, the `privatelink` zones included, is linked to the hub and to every spoke the hub lists, and the zones live in the
 hub of each tier's shared subscription, one set per tier rather than one global set. Each spoke depends on its hub's zones to resolve its

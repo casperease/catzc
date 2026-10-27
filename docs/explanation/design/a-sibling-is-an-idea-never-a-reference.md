@@ -8,7 +8,7 @@ Two siblings of one family, catzc and eac, compared model by model: where they m
 3  the parting     rules as decision records or as specifications; a place where imports land, or none
 4  the crossing    an idea is named where it is used and rebuilt to this repository's rules
 
-Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-GO-GOMODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME
+Supports PDR-ONELIVE-ONEVERSION and PDR-ONELIVE-HISTORYINGIT, ADR-AUTO-TESTLANG-MODULESBYLAYOUT, PDR-CATS-CATZCISSOURCENAME
 and PDR-CATS-ISPERSONNAME, and DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETECHSTACK, DDR-TRACK-DEPLOYABLEUNIT
 and DDR-TRACK-UNORDEREDTRACK.
 ```
@@ -28,7 +28,7 @@ about:
   adrs:
     - PDR-ONELIVE-ONEVERSION
     - PDR-ONELIVE-HISTORYINGIT
-    - ADR-AUTO-GO-GOMODULESBYLAYOUT
+    - ADR-AUTO-TESTLANG-MODULESBYLAYOUT
     - PDR-CATS-CATZCISSOURCENAME
     - PDR-CATS-ISPERSONNAME
     - DDR-TRACK-ISPLACEDCLUSTER
@@ -109,8 +109,8 @@ run as tests. The two forms carry the same discipline in different grammars.
 
 The engines differ by decision, not by accident. Catzc is PowerShell with the C# types it hosts
 ([DDR-TRACK-ONETECHSTACK](../../drs/design/tracks.md#rule-ddr-track-onetechstack)), and Go in catzc is modules by layout and test artifacts,
-never the engine ([ADR-AUTO-GO-GOMODULESBYLAYOUT][r1]). Eac is Go. A Go idea read in eac beyond that scope is a question for the user, never
-a precedent. The two names of this system, cats to a person and catzc in code
+never the engine ([ADR-AUTO-TESTLANG-MODULESBYLAYOUT][r1]). Eac is Go. A Go idea read in eac beyond that scope is a question for the user,
+never a precedent. The two names of this system, cats to a person and catzc in code
 ([PDR-CATS-CATZCISSOURCENAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename),
 [PDR-CATS-ISPERSONNAME](../../drs/principles/cats-and-catzc.md#rule-pdr-cats-ispersonname)), have their counterpart in eac's two names for
 its two CLIs, so a reader of either repository meets the same habit: one name per audience.
@@ -207,4 +207,4 @@ It does not rank the two. Each repository's rules fit its engine and its audienc
 defect. It does not read eac as an authority: a sentence here about eac describes what its tree holds on the day of writing, and catzc's
 decision records decide catzc whatever eac does next.
 
-[r1]: ../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-gomodulesbylayout
+[r1]: ../../drs/automation/test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout

@@ -32,8 +32,8 @@ send diagnostics and the activity log there. A view across customers needs a cro
 per workspace, and the gain is that one customer's telemetry stays in that customer's subscription.
 
 The application-centric model is followed: workloads are segmented by customer subscription and environment class, not by management group
-archetype, so every landing zone carries the same ten assignments from one template and one setting, which cannot drift. The shared
-modules include `vm.bicep`, so an IaaS workload would land in the same subnets under the same policies as the PaaS one.
+archetype, so every landing zone carries the same ten assignments from one template and one setting, which cannot drift. The shared modules
+include `vm.bicep`, so an IaaS workload would land in the same subnets under the same policies as the PaaS one.
 
 Azure-native design is followed: Bicep from the shared modules, Azure built-in policy, Azure Monitor, Key Vault, Private DNS and Entra ID,
 with no third-party firewall, agent or secret store. `tools.yml` pins the Bicep CLI, and `Build-Bicep` fails before it builds on a missing
@@ -61,14 +61,14 @@ the module supports it. Platform metrics sit in Azure Monitor with no configurat
 (`AllMetrics` for the virtual network, `Transaction` for the storage account and its blob service); the logs are queryable per subscription,
 and `foundation` deploys a query pack, a dashboard, and a capacity workbook over them.
 
-Alerting follows one rule: one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that
-own the resources, never Microsoft's baseline alerts deployed by policy
+Alerting follows one rule: one action group per subscription in `foundation` addressed to `Owner`, and alert rules in the templates that own
+the resources, never Microsoft's baseline alerts deployed by policy
 ([ADR-AZ-LZ-LANDINGZONEPOLICIES](../landing-zones.md#rule-adr-az-lz-landingzonepolicies)). `budget.bicep` sends its thresholds to the
 subscription's `Owner` role; `discovery` deploys the Service Health and Resource Health alerts and a cost anomaly alert, and `expedition`
-the break-glass sign-in alert and, in production, the database metric and capacity alerts. `lock.bicep` places a `CanNotDelete` lock on
-the hub's virtual network and private DNS zones and on `foundation`'s Key Vault with the break-glass password, the resources others depend
-on. Where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log there, with Traffic Analytics
-into the workspace; without one, the network sends logs and metrics, not flows.
+the break-glass sign-in alert and, in production, the database metric and capacity alerts. `lock.bicep` places a `CanNotDelete` lock on the
+hub's virtual network and private DNS zones and on `foundation`'s Key Vault with the break-glass password, the resources others depend on.
+Where `foundation` configures a flow-log storage account, `discovery` records a virtual network flow log there, with Traffic Analytics into
+the workspace; without one, the network sends logs and metrics, not flows.
 
 The workload relies on the platform's own redundancy and backup: zone-redundant storage (`Standard_ZRS`) in every environment, a production
 database that is zone-redundant (`databaseZoneRedundant` is false in development) with geo-redundant backups
@@ -92,13 +92,13 @@ preview and build on Service Groups at tenant level, which the landing zone neve
 ## CAF tags
 
 The tag set is written out in full in each config (eighteen copies across the three templates) and cost is split below the subscription by
-`cost-center` and `workload`; tag inheritance is not used, because every template passes the tags to each resource itself. All six
-are required by the landing zone's policy, which checks that each key is present and not its value. The `workload` tag names
-the template (`foundation`, `landing-zone`, `expedition`), and `environment` is the environment class for the per-subscription templates
-(`nonprod`, `prod`) and the standard environment for `expedition`. `criticality` (`low`, `medium`, `high`) and `data-classification`
-(`internal`, `confidential`) are the classification tags, and no service-level tag is set because no example workload declares one.
-`cost-center` equals `owner` (`platform` or the customer key), since the customer is the unit of cost and of accountability; budget alerts
-go to the subscription's `Owner` role, not to the tag.
+`cost-center` and `workload`; tag inheritance is not used, because every template passes the tags to each resource itself. All six are
+required by the landing zone's policy, which checks that each key is present and not its value. The `workload` tag names the template
+(`foundation`, `landing-zone`, `expedition`), and `environment` is the environment class for the per-subscription templates (`nonprod`,
+`prod`) and the standard environment for `expedition`. `criticality` (`low`, `medium`, `high`) and `data-classification` (`internal`,
+`confidential`) are the classification tags, and no service-level tag is set because no example workload declares one. `cost-center` equals
+`owner` (`platform` or the customer key), since the customer is the unit of cost and of accountability; budget alerts go to the
+subscription's `Owner` role, not to the tag.
 
 Tags carry codes only: team codes, class values, and template names. Every key and value is lowercase with hyphens between words, matching
 [ADR-AZ-NAMING-LOWERCASECOMPONENTS](../azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents); CAF's examples run the words
@@ -195,9 +195,9 @@ Templates, modules, configs, policy assignments, pipelines, automation, and ADRs
 visibility of its server remote, outside the repository, and built to hold no secret either way. What the repository shares publicly is the
 built catzc package, published by a manual release workflow, never the infrastructure templates and their configs. All Azure infrastructure
 is declarative Bicep with shared modules and one config per configuration slot, deployed only by pipelines. The landing zone's ten policy
-assignments are Bicep in `landing-zone-policies.bicep`, pinned by id and deployed by its pipeline; they deny in production and audit elsewhere,
-none uses a modify or append effect, and the landing zone makes no exemption: a team that needs a different policy proposes a change to the
-landing zone, reviewed like any other.
+assignments are Bicep in `landing-zone-policies.bicep`, pinned by id and deployed by its pipeline; they deny in production and audit
+elsewhere, none uses a modify or append effect, and the landing zone makes no exemption: a team that needs a different policy proposes a
+change to the landing zone, reviewed like any other.
 
 Development is trunk-based on `main`, with short-lived branches that carry nothing automation reads from their names and no release or
 version branches. The delivery design takes `main` to advance by squash merge only, and its change detection relies on it; the rule that

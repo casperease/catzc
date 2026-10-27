@@ -25,8 +25,8 @@ that keeps its own history and is driven one way from the trunk's pipelines, nev
 ### Rule TDR-ONETRUTH-TRUTHISQUERYABLE
 
 The source of truth is queryable: every question about the system's state is answered by reading the repository through the tooling. The
-**query surface** is the tooling's read commands, each of which also emits its answer as data (JSON), so a service-management tool reads
-the truth without the tooling's execution engine.
+**query surface** is the tooling's read commands, each of which also emits its answer as data (JSON), so a service-management tool reads the
+truth without the tooling's execution engine.
 
 - [The truth is queryable](#the-truth-is-queryable)
 

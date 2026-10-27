@@ -50,31 +50,6 @@ belongs to the record. None of them says who changes the record, how a change is
 without making delivery less predictable. A language model is not deterministic by itself, so an AI that changes the record directly makes
 every outcome a one-off that nobody can repeat or audit.
 
-## Current state
-
-The tree holds part of this thesis and lacks the rest; each line names what exists or what is missing.
-
-- **Truth store.** One trunk holds the modules, the configs, the decision records and the diagrams as code, read as a whole at one commit
-  ([TDR-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)).
-- **Mapping.** Every rule has a citation code, the index maps each code to its record, and code heads carry the codes that govern them
-  ([index](../index.md)).
-- **Checks, tests and gates.** Formatters, analyzers, tiered Pester tests and quality gates decide the eac normal form
-  ([TDR-NORMALFORM-UNCONTESTED](eac-normal-form.md#rule-tdr-normalform-uncontested)), with a time roof on every run.
-- **Three-phase flow.** The flow records define pipeline kinds, the promotion ladder and the release gates in the flow domain; the pipelines
-  that run the promotion end to end are not yet built.
-- **Agentic actors.** Robot definitions on named models load shared capabilities, are registered with the rules that support them, and read
-  the AI agent contract first, as the repository domain decides.
-- **Bounded actions.** A hook denies any shell call without a time limit, and heavy runs serialise on one run lock, so an agent's action
-  ends or stops visibly.
-- **Determinism.** Determinism comes from the gates, not from the model: a change is accepted only when the same checks give the same
-  verdict on every run.
-- **Experiments.** Imports land on the unordered track and migrate into the form one fragment at a time; a committed hypothesis record with
-  declared expectations does not exist.
-- **Digital twin.** No digital twin is in the tree: nothing replays production, so experiments run against the checks and the non-prod
-  environments only.
-- **Audit.** Git history is the audit trail of every change; platform approvals and runs are fact sources read, not copied
-  ([TDR-STORES-FACTSOURCEREADONLY](truth-stores.md#rule-tdr-stores-factsourcereadonly)).
-
 ## Decision
 
 Make catzc a closed loop: every change, by a person or an agent, is a committed experiment, tried against a deterministic twin and the

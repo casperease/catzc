@@ -10,7 +10,7 @@ The runner is the only seam from pipeline YAML into PowerShell.
 5  importer.ps1            loads the modules under pwsh/
 6  developer               dot-sources the importer and types the same command
 
-Supports FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE and FDR-RUNNER-THINSTEPTEMPLATES (architecture lens).
+Supports ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE and ADR-ADO-RUNNER-THINSTEPTEMPLATES (architecture lens).
 ```
 
 Azure DevOps runs YAML steps, and cats keeps its automation in PowerShell modules. The bridge between the two is a critical boundary, so
@@ -23,7 +23,7 @@ description:
   "The one crossing from pipeline YAML into PowerShell: root pipelines call one step template, the template selects one task, the task calls
   one runner script that loads the importer, and a developer reaches the same importer from a terminal."
 about:
-  adrs: [FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE, FDR-RUNNER-THINSTEPTEMPLATES]
+  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: architecture
 content:
   title: The runner is the only seam from pipeline YAML into PowerShell
@@ -93,9 +93,9 @@ layout:
 ## Why it holds
 
 - YAML steps never contain inline PowerShell; all PowerShell runs through the runner or the step template that calls it
-  (FDR-RUNNER-NOINLINEPOWERSHELL).
-- The runner imports the module system once, at its start, and the command runs in that same scope (FDR-RUNNER-IMPORTONCE).
-- The step template is a thin wrapper that adds pipeline concerns but no logic (FDR-RUNNER-THINSTEPTEMPLATES).
+  (ADR-ADO-RUNNER-NOINLINEPOWERSHELL).
+- The runner imports the module system once, at its start, and the command runs in that same scope (ADR-ADO-RUNNER-IMPORTONCE).
+- The step template is a thin wrapper that adds pipeline concerns but no logic (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 
 ## Where the code and the decision record differ
 
@@ -104,7 +104,7 @@ without a `DisplayName` before it calls the runner.
 
 ## See also
 
-- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [implementation](three-tasks-one-guard-one-runner.md),
   [operations](the-step-is-named-after-its-command.md) and [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -18,7 +18,7 @@ public static class ArmFunction
             "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
             "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
             "null", "items", "tryGet", "coalesce", "format", "replace", "join", "tenantResourceId", "guid", "deployment", "subscription",
-            "resourceGroup", "resourceId", "subscriptionResourceId",
+            "resourceGroup", "resourceId", "subscriptionResourceId", "extensionResourceId",
         };
         var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string name in names) { known[name] = name; }
@@ -61,6 +61,11 @@ public static class ArmFunction
                 // The provider path alone: it reads no deployment scope, so it resolves offline.
                 if (args.Count < 2) { return unresolved; }
                 return (object)ArmScopeFunction.ProviderPath(args[0], args.GetRange(1, args.Count - 1)) ?? unresolved;
+            case "extensionResourceId":
+                // extensionResourceId(scopeId, type, names…): the scope's own id, which the caller resolved, followed by the provider path.
+                if (args.Count < 3 || !(args[0] is string scopeId) || scopeId.Length == 0) { return unresolved; }
+                string extension = ArmScopeFunction.ProviderPath(args[1], args.GetRange(2, args.Count - 2));
+                return extension == null ? unresolved : scopeId.TrimEnd('/') + extension;
             case "guid":
                 // guid(a, …): one string argument or more, joined by '-', as ARM joins them before it hashes.
                 if (args.Count == 0 || !args.TrueForAll(a => a is string)) { return unresolved; }

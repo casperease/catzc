@@ -16,10 +16,10 @@ variant (`Catzc.Base.Variants`).
 ### Rule DDR-ASPECT-ASPECTSAREDERIVED
 
 Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (the folder-scoped patterns of
-the layout's live rows — `*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder
-ships); the **last** aspect is the `**` catch-all remainder. Ordered first-match makes the partition disjoint and exhaustive _by
-construction_: `AspectPartition.Compile` gives aspect _k_ the leaf scan program `+ (its own patterns) − (every earlier aspect's patterns)`,
-all prefixed by the unit root.
+the layout's live rows, the module's public files and its private, types, configs and assets folders, that never reach `tests/`, and are
+what the builder ships); the **last** aspect is the `**` catch-all remainder. Ordered first-match makes the partition disjoint and
+exhaustive _by construction_: the partition gives aspect _k_ the leaf scan program
+`+ (its own patterns) − (every earlier aspect's patterns)`, all prefixed by the unit root.
 
 - [Decision](#decision)
 
@@ -28,8 +28,8 @@ all prefixed by the unit root.
 Which aspect is the catch-all remainder is each **track's** call. A **code** track (`pwsh`) keeps `live` closed and declares the non-live
 `tests` last, so a stray or unclassified file lands on the verification side and can **never silently ship** (default-deny). A
 **deployment** track (`infrastructure`) declares `live` last, because everything under a template deploys, and only an explicit `tests/`
-folder is non-live. The `VariantsConfig` config type enforces the structure at load: the last aspect is the `**` catch-all, and no earlier
-aspect uses it.
+folder is non-live. The variants config type enforces the structure at load: the last aspect is the `**` catch-all, and no earlier aspect
+uses it.
 
 - [Decision](#decision)
 - [Consequences](#consequences)

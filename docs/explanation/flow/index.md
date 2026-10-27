@@ -33,7 +33,7 @@ The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual
 ## The pipeline runner
 
 A pipeline step only names a command that a developer can run locally
-([pipeline-runner-pattern](../../drs/flow/pipeline-runner-pattern.md)).
+([pipeline-runner-pattern](../../drs/ado/pipeline-runner-pattern.md)).
 
 - **meta**: [A pipeline step only names a command that a developer can run locally](a-step-only-names-a-command.md)
 - **architecture**: [The runner is the only seam from pipeline YAML into PowerShell](the-runner-is-the-only-seam.md)

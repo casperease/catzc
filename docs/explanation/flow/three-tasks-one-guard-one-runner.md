@@ -12,7 +12,7 @@ Three tasks share one guard, and one runner imports, traps, sanitizes and invoke
 7  sanitize                ConvertFrom-AdoPipelineCommand normalizes the string
 8  Invoke-Command          runs the command with -NoNewScope
 
-Supports FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE and FDR-RUNNER-THINSTEPTEMPLATES (implementation lens).
+Supports ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE and ADR-ADO-RUNNER-THINSTEPTEMPLATES (implementation lens).
 ```
 
 Every ado pipeline step in cats runs through two files: the step template `.ado/pipelines/steps/invoke-automation.yaml` and the runner
@@ -25,7 +25,7 @@ description:
   "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
   the runner imports, traps, sanitizes and invokes in a fixed order."
 about:
-  adrs: [FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE, FDR-RUNNER-THINSTEPTEMPLATES]
+  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: implementation
 content:
   title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
@@ -108,9 +108,9 @@ trap, and no code runs it, so it is not drawn.
 ## Why it holds
 
 - YAML never holds inline PowerShell beyond calling the runner; the template's tasks are the one place that calls it
-  (FDR-RUNNER-NOINLINEPOWERSHELL).
-- The runner imports the module system once at its start, and the command runs in the same scope (FDR-RUNNER-IMPORTONCE).
-- The step template adds pipeline concerns, such as the service connection, the token and the display name (FDR-RUNNER-THINSTEPTEMPLATES).
+  (ADR-ADO-RUNNER-NOINLINEPOWERSHELL).
+- The runner imports the module system once at its start, and the command runs in the same scope (ADR-ADO-RUNNER-IMPORTONCE).
+- The step template adds pipeline concerns, such as the service connection, the token and the display name (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 
 ## Where the code and the decision record differ
 
@@ -120,7 +120,7 @@ trap, and no code runs it, so it is not drawn.
 
 ## See also
 
-- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
   [operations](the-step-is-named-after-its-command.md) and [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

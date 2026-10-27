@@ -62,9 +62,9 @@ Bash is a test-artifact language ([test-artifact-languages](../test-artifact-lan
 `bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module is
 a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder, `.bats` files that verify
 the engine the way a Bash user reaches it. The repository's other shell scripts (`importer.sh`, the vendored installers under
-`assets/scripts/`) are not tests; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED). The engine stays
-PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Bash test verifies it from outside. The builder reads
-the engine's track, so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
+`assets/scripts/`) are not tests; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED). The engine stays PowerShell and C#
+([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Bash test verifies it from outside. The builder reads the engine's track,
+so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
 ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
@@ -122,7 +122,7 @@ runs ([execution-engines](../execution-engines.md#rule-adr-auto-engine-startenvi
 ## Decision
 
 Bash is a language track whose modules exist by the layout and ship only what is packaged, and the black-box test language for the path a
-Bash user takes (ADR-AUTO-BASH-BASHMODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash
+Bash user takes (ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Bash test folder per catzc module under the Bash
 root (ADR-AUTO-BASH-ONEBASHROOT), call catzc through `importer.sh` and `cats` from the entry the run names (ADR-AUTO-BASH-BASHBLACKBOX), run
 on a vendored, pinned bats-core (ADR-AUTO-BASH-VENDOREDBATS) through `Test-Automation` as `L2` tests through the language bridge
 (ADR-AUTO-BASH-BASHBRIDGE), and every shell script takes the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).

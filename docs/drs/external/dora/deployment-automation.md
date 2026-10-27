@@ -19,7 +19,7 @@ preceded it.
 
 Source: [DORA, Deployment automation](../../../references/dora/capabilities.md#deployment-automation)
 
-Binds to [FDR-RUNNER-DEVELOPERREPRODUCIBLE](../../flow/pipeline-runner-pattern.md#rule-fdr-runner-developerreproducible) and
+Binds to [ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE](../../ado/pipeline-runner-pattern.md#rule-adr-ado-runner-developerreproducible) and
 [FDR-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-fdr-type-deployispinned).
 
 ### Rule EDR-DORA-DEPLOY-ONDEMAND

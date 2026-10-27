@@ -78,10 +78,10 @@ Pipeline variable manipulation is done through dedicated PowerShell functions, n
 
 ### Functions
 
-**`Set-AdoPipelineVariable`** — sets a pipeline variable with name validation and flags. It **rejects a name ADO would rewrite by
-default**: a name that would resolve differently downstream is an error, not an automatic rewrite, and rewriting is an explicit opt-in. It
-accepts an empty value, so a caller can clear a variable or signal "no value". Its pwsh signature and parameter behaviour are
-[ADR-PWSH-ADOFUNC-VARIABLEFUNCTION](../automation/pwsh/ado-pipeline-functions.md#rule-adr-pwsh-adofunc-variablefunction).
+**`Set-AdoPipelineVariable`** — sets a pipeline variable with name validation and flags. It **rejects a name ADO would rewrite by default**:
+a name that would resolve differently downstream is an error, not an automatic rewrite, and rewriting is an explicit opt-in. It accepts an
+empty value, so a caller can clear a variable or signal "no value". Its signature and parameter behaviour are
+spelled in the pwsh domain, the engine that carries it.
 
 **`Test-IsRunningInPipeline`** — gates pipeline-specific behavior (see [pipeline-detection ADR](../flow/pipeline-detection.md)).
 `Set-AdoPipelineVariable` uses this internally — calling it outside a pipeline is a no-op with a verbose message, not an error. This keeps

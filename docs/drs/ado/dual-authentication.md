@@ -33,8 +33,8 @@ which encapsulates the precedence.
 
 ### Rule ADR-ADO-AUTH-ASSERTWHENNOTOKEN
 
-Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set the
-`AZURE_DEVOPS_PAT` environment variable, or `Connect-AzCli` with an Entra ID account).
+Assert when the last source yields nothing: if the az CLI path produces no token, surface the actionable causes (set the `AZURE_DEVOPS_PAT`
+environment variable, or `Connect-AzCli` with an Entra ID account).
 
 - [Pattern](#pattern)
 
@@ -89,13 +89,13 @@ The precedence (highest first), each with its own org/tenant proof:
 3. **az CLI** — otherwise: `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant` proves the az session is in the Entra directory
    backing the org, then `az account get-access-token --resource $ResourceUrl` returns a `Bearer` token.
 
-**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** Its pwsh signature and body are
-[ADR-PWSH-ADOFUNC-HEADERFUNCTION](../automation/pwsh/ado-pipeline-functions.md#rule-adr-pwsh-adofunc-headerfunction).
+**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** Its signature and body are spelled in
+the pwsh domain, the engine that carries it.
 
 ### Step template integration
 
-A step that calls the ADO API goes through the runner's step template ([pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)) and
-asks for the token; the template maps it on whichever task its `Mode` selects:
+A step that calls the ADO API goes through the runner's step template ([pipeline-runner-pattern](pipeline-runner-pattern.md)) and asks for
+the token; the template maps it on whichever task its `Mode` selects:
 
 ```yaml
 # A step with ADO API access

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54cecb0f97a9"
+    with_body_sha: ea9b86be2d35
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -181,6 +181,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
+| `ADR-AUTO-TESTLANG` | [test-artifact-languages](automation/test-artifact-languages.md)                 |
 | `ADR-AUTO-JS`       | [javascript-track](automation/javascript/javascript-track.md)                    |
 | `ADR-AUTO-ENGINE`   | [execution-engines](automation/execution-engines.md)                             |
 | `ADR-AUTO-MODULE`   | [module-model](automation/module-model.md)                                       |
@@ -238,6 +239,7 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 | `ADR-PWSH-PESTER`   | [pester-testing](automation/pwsh/pester-testing.md)                                         |
 | `ADR-PWSH-TYPES`    | [hosting-csharp-types](automation/pwsh/hosting-csharp-types.md)                             |
 | `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](automation/pwsh/idempotent-state-mechanics.md)                 |
+| `ADR-PWSH-CONFIG`   | [config-reading](automation/pwsh/config-reading.md)                                         |
 | `ADR-PWSH-ADOFUNC`  | [ado-pipeline-functions](automation/pwsh/ado-pipeline-functions.md)                         |
 
 ### configuration/

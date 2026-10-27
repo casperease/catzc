@@ -97,12 +97,12 @@ mechanism.
 
 Python is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and
 the `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
-module, such as the diagram renderer, is a folder under the Python root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
-PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a tool the engine runs as a process,
-and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track, so no bundle holds a Python file
-unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the devbox installs (the Azure CLI,
-Poetry) are a separate matter: they are tools, not code of the repository, each installed in isolation through uv
-(ADR-AUTO-UVPY-TWOINSTALLSHAPES), and nothing here changes how.
+module, such as the diagram renderer, is a folder under the Python root that the layout places, and the tests of the engine sit in the
+track's own holder. The engine stays PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a
+tool the engine runs as a process, and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track,
+so no bundle holds a Python file unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the
+devbox installs (the Azure CLI, Poetry) are a separate matter: they are tools, not code of the repository, each installed in isolation
+through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES), and nothing here changes how.
 
 ### The layout
 
@@ -189,7 +189,7 @@ never a gap.
 ## Decision
 
 Python is a language track whose modules exist by the layout and ship only what is packaged, and a black-box test language
-(ADR-AUTO-PY-PYMODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
+(ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
 (ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-PYBLACKBOX), run in one generated, gitignored uv
 workspace (ADR-AUTO-PY-PYWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools
 (ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-PY-PYBRIDGE), under the

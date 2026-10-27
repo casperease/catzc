@@ -42,7 +42,7 @@ and what code, configs and docs name (a manifest, a loaded module, a C# namespac
 already states the track, adds. One resolver maps a folder name to a full name and back, and no other code joins the namespace by hand: a
 reader that needs a module's location names the module or the track and resolves it, never spells a path with the namespace in it. No folder
 or file under a track's members starts with the track's namespace on disk, apart from a global name the track declares exempt, such as a
-file that names a product-wide identity. A built bundle is no track place: its module folders carry the full names, because PowerShell's
+file that names a product-wide identity. A built bundle is no track place: its module folders carry the full names, because an engine's
 module path finds a module only in a folder named for it, so it resolves with no namespace. A track that declares none names its modules by
 their folders, and only a track whose type admits modules may declare one.
 

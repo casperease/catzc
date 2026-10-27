@@ -167,6 +167,7 @@ domains:
       go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control], layer: language }
       bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control], layer: language }
+      test-artifact-languages: { external: ADR-AUTO-TESTLANG, concern: [quality-control], layer: language }
       javascript-track: { external: ADR-AUTO-JS, concern: [quality-control], layer: language }
       execution-engines: { external: ADR-AUTO-ENGINE, layer: engine }
       module-model: { external: ADR-AUTO-MODULE, concern: [automation, build, quality-control] }
@@ -229,6 +230,7 @@ domains:
       pester-testing: { external: ADR-PWSH-PESTER, concern: [quality-control] }
       hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
       idempotent-state-mechanics: { external: ADR-PWSH-IDEM }
+      config-reading: { external: ADR-PWSH-CONFIG }
       ado-pipeline-functions: { external: ADR-PWSH-ADOFUNC }
 
   configuration:

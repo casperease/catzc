@@ -22,9 +22,9 @@ abstractions, not illusions — a thick wrapper that re-implements the cloud is 
 
 ### Rule DDR-THINPLAT-PLATFORMASCLI
 
-The consumable surface is a **CLI** — platform-as-a-CLI, offered X-as-a-Service. PowerShell `Verb-Noun` functions plus their configuration
-_are_ the platform's API: a paved road with self-service defaults. Consumers edit configuration and compose functions; they never touch the
-vendor wiring. The CLI is the boundary that lets the platform team change the substrate underneath without breaking the teams above.
+The consumable surface is a **CLI** — platform-as-a-CLI, offered X-as-a-Service. The CLI's verb-noun commands plus their configuration _are_
+the platform's API: a paved road with self-service defaults. Consumers edit configuration and compose functions; they never touch the vendor
+wiring. The CLI is the boundary that lets the platform team change the substrate underneath without breaking the teams above.
 
 - [The surface is a CLI](#the-surface-is-a-cli)
 

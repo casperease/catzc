@@ -11,8 +11,8 @@ No gate checks the runner rules 1 or 4, and the step template breaks rule 3.
 6  expected-failures 1b         replays its own copy of the template's guard
 7  expected-failures - Pester   steps 1a and 1c prove the trap; Pester covers the sanitizer
 
-Supports FDR-RUNNER-NOINLINEPOWERSHELL, FDR-RUNNER-IMPORTONCE, FDR-RUNNER-THINSTEPTEMPLATES
-and FDR-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
+Supports ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES
+and ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE, and ADR-ADO-NAME-ABSOLUTETEMPLATEPATH (governance lens).
 ```
 
 The pipeline runner pattern has four rules, one for each stage a pipeline step passes through: the YAML, the step template, the runner and
@@ -26,10 +26,10 @@ description:
   gate checks the YAML or the command, and the gates that touch the template and the runner check something nearby, not the rule itself."
 about:
   adrs:
-    - FDR-RUNNER-NOINLINEPOWERSHELL
-    - FDR-RUNNER-IMPORTONCE
-    - FDR-RUNNER-THINSTEPTEMPLATES
-    - FDR-RUNNER-DEVELOPERREPRODUCIBLE
+    - ADR-ADO-RUNNER-NOINLINEPOWERSHELL
+    - ADR-ADO-RUNNER-IMPORTONCE
+    - ADR-ADO-RUNNER-THINSTEPTEMPLATES
+    - ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE
     - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
   lens: governance
 content:
@@ -61,10 +61,10 @@ content:
     - { at: g-failures-1b, number: 6 }
     - { at: g-failures-pester, number: 7 }
   chips:
-    - { at: a-pipeline-yaml, kind: rule, rule: FDR-RUNNER-NOINLINEPOWERSHELL, gated: false }
-    - { at: f-step-template, kind: rule, rule: FDR-RUNNER-THINSTEPTEMPLATES }
-    - { at: g-runner, kind: rule, rule: FDR-RUNNER-IMPORTONCE }
-    - { at: a-run-command, kind: rule, rule: FDR-RUNNER-DEVELOPERREPRODUCIBLE, gated: false }
+    - { at: a-pipeline-yaml, kind: rule, rule: ADR-ADO-RUNNER-NOINLINEPOWERSHELL, gated: false }
+    - { at: f-step-template, kind: rule, rule: ADR-ADO-RUNNER-THINSTEPTEMPLATES }
+    - { at: g-runner, kind: rule, rule: ADR-ADO-RUNNER-IMPORTONCE }
+    - { at: a-run-command, kind: rule, rule: ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE, gated: false }
     - { at: g-test-pipelines, kind: rule, rule: ADR-ADO-NAME-ABSOLUTETEMPLATEPATH }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
@@ -105,11 +105,11 @@ layout:
 ## Why it holds
 
 - YAML steps never contain inline PowerShell; all PowerShell runs through the runner or a step template that calls it
-  (FDR-RUNNER-NOINLINEPOWERSHELL).
-- The runner imports the module system once, and the command runs in the same scope (FDR-RUNNER-IMPORTONCE).
-- Step templates are thin wrappers that add pipeline concerns and never contain logic (FDR-RUNNER-THINSTEPTEMPLATES).
+  (ADR-ADO-RUNNER-NOINLINEPOWERSHELL).
+- The runner imports the module system once, and the command runs in the same scope (ADR-ADO-RUNNER-IMPORTONCE).
+- Step templates are thin wrappers that add pipeline concerns and never contain logic (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 - Every command is developer-reproducible: the `RunCommand` string runs as-is in a terminal after the importer
-  (FDR-RUNNER-DEVELOPERREPRODUCIBLE).
+  (ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE).
 - Templates are referenced by an absolute path under `/.ado/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
 
 ## Where the code and the decision record differ
@@ -120,7 +120,7 @@ layout:
 
 ## See also
 
-- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - [Pipeline naming and placement](../../drs/ado/pipeline-naming-and-placement.md) — the rules `Test-Pipelines` checks.
 - The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
   [implementation](three-tasks-one-guard-one-runner.md) and [operations](the-step-is-named-after-its-command.md).

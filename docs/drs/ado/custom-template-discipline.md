@@ -206,7 +206,7 @@ proper secret store (such as Key Vault) is available.
 ## Decision
 
 Templates are used only for pipeline-level concerns. Automation logic, configuration, and business rules live in the catzc commands and are
-invoked through the runner pattern (see [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md)). And even for those concerns, a
+invoked through the runner pattern (see [pipeline-runner-pattern](pipeline-runner-pattern.md)). And even for those concerns, a
 template is the **exception, not the default**: the default is a self-contained pipeline of a page or two of inline YAML, composed directly.
 A template is extracted only when a fragment is proven to be genuinely, generally reusable — never created speculatively.
 
@@ -233,7 +233,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
 ### What to use instead
 
 - **The runner pattern** for all automation logic. Pass a `RunCommand` string that a developer can paste into a terminal after
-  `.\importer.ps1`. See [pipeline-runner-pattern](../flow/pipeline-runner-pattern.md).
+  `.\importer.ps1`. See [pipeline-runner-pattern](pipeline-runner-pattern.md).
 
 - **The catzc configuration system** for all values the script needs. Configuration files, structured lookups keyed by meta parameters
   (customer, environment, subscription type) — these are version-controlled, testable, and independent of the pipeline.

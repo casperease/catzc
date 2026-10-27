@@ -257,8 +257,8 @@ The **proof** of an action diagram is the accosted file its `about.proves` names
 file the runs are kept in. Every state change's observation occurs verbatim in that file, and `Test-Diagrams` checks it, so the picture
 never claims an observation the proof does not run. The action, and every execution among the effects, is a contracted command in the
 contract form, which `Test-Diagrams` checks against its command contract. An article shows the proof as a fenced `yml accosted` block copied
-from that file, or links the file. The PowerShell text in an article is a rendering of the contract form, produced by the accosted
-language's one reader and never written by hand; a linked `.ps1` asset is not taken, since it would be a second version of the same runs
+from that file, or links the file. An engine's text in an article is a rendering of the contract form, produced by the accosted language's
+one reader and never written by hand; a linked engine script asset is not taken, since it would be a second version of the same runs
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)).
 
 - [The proof is the accosted file](#the-proof-is-the-accosted-file)
@@ -266,10 +266,9 @@ language's one reader and never written by hand; a linked `.ps1` asset is not ta
 ### Rule DDR-VISUAL-PROOFBOXUNDERTHEFRAME
 
 A **proof box** is the box captioned Proof under the frame of an action diagram, as wide as the frame. For each call of the action it prints
-the call's normalized statement, written with the word cats, and the words each engine runs it as, in the idiom of that engine (PascalCase
-for pwsh, kebab-case for every other engine). The engines and their idioms are declared once in the renderer's vocabulary, never in a
-declaration. An action diagram shows the proof box by default, and `content.proof: hidden` turns it off, the default being declared once in
-the same vocabulary.
+the call's normalized statement, written with the word cats, and the words each engine runs it as, in the idiom of that engine. The engines
+and their idioms are declared once in the renderer's vocabulary, never in a declaration. An action diagram shows the proof box by default,
+and `content.proof: hidden` turns it off, the default being declared once in the same vocabulary.
 
 - [The proof box](#the-proof-box)
 
@@ -405,8 +404,8 @@ direction key. A flow declaration stores its inputs alone, the pipeline and work
 beyond `title` and `kind`; `Build-Diagrams` asks the engine readers for those files' rows and hands them to the renderer by address, the
 same handoff a zoom slide rides (DDR-VISUAL-ZOOMISANAXIS). Each engine has one reader that maps its files to the same rows (lane, type,
 stage, job, step, environment, trigger, edge), so a new engine adds a reader, never a branch in the renderer, and the renderer never parses
-pipeline YAML. A lane's environments are the rungs its unit deploys to, read from the rungs registry, and a deploy pipeline joins its
-certifying run by the shared unit name, drawn with the operator word `pins`.
+a pipeline definition. A lane's environments are the rungs its unit deploys to, read from the rungs registry, and a deploy pipeline joins
+its certifying run by the shared unit name, drawn with the operator word `pins`.
 
 - [The flow lens](#the-flow-lens)
 

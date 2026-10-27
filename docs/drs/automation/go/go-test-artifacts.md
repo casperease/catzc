@@ -83,9 +83,9 @@ artifacts, keep everything Go-specific but the code generated, and run the tests
 
 Go is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and the
 `go` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module is a
-folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell
-and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing in
-the engine calls Go. The builder reads the engine's track, so no bundle holds a Go file unless `files.yml` packages it — the layout is the
+folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell and
+C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing in the
+engine calls Go. The builder reads the engine's track, so no bundle holds a Go file unless `files.yml` packages it — the layout is the
 guarantee ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
@@ -181,7 +181,7 @@ so a Go comment is outside their reach.
 ## Decision
 
 Go is a language track whose modules exist by the layout and ship only what is packaged, and the repository's first black-box test language
-(ADR-AUTO-GO-GOMODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
+(ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
 (ADR-AUTO-GO-ONEGOROOT), start the engine from the entry the run names (ADR-AUTO-GO-GOBLACKBOX), build against a generated, gitignored
 workspace (ADR-AUTO-GO-GOWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain
 (ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests (ADR-AUTO-GO-GOBRIDGE), under the checks that read Go

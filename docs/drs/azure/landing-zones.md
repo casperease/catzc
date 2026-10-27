@@ -27,9 +27,9 @@ of every range, and the landing zone reads the kind, the address space, and the 
 ### Rule ADR-AZ-LZ-LANDINGZONEPOLICIES
 
 Every landing zone assigns the ten policies of `landing-zone-policies.bicep`: allowed locations (its region), the six CAF tags required on
-resources (one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a SQL
-server, a diagnostic setting on every data resource, the allowed storage SKUs, the allowed virtual machine sizes, the allowed resource types
-(the types the shared modules declare), and the Microsoft cloud security benchmark initiative, assigned to audit only. Whether the
+resources (one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a
+SQL server, a diagnostic setting on every data resource, the allowed storage SKUs, the allowed virtual machine sizes, the allowed resource
+types (the types the shared modules declare), and the Microsoft cloud security benchmark initiative, assigned to audit only. Whether the
 assignments enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default
 declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); the benchmark is
 `DoNotEnforce` whatever the setting. The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic
@@ -119,8 +119,8 @@ obligation or a virtual machine adds the matching piece to the template that own
 ### Rule ADR-AZ-LZ-CAFTAGS
 
 Every taggable resource carries the six **CAF tags** from its config, lowercase and holding codes only: `cost-center`, `workload`,
-`environment`, `owner`, `criticality`, and `data-classification`, all six required by policy. A shared module takes `tags` exactly when its resource type
-supports them. Region, tier, repository, service-level, and purpose tags are not used.
+`environment`, `owner`, `criticality`, and `data-classification`, all six required by policy. A shared module takes `tags` exactly when its
+resource type supports them. Region, tier, repository, service-level, and purpose tags are not used.
 
 - [CAF tags](landing-zones/landing-zones-caf.md#caf-tags)
 

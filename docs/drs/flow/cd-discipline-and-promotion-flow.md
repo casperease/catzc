@@ -113,7 +113,7 @@ fast run that reports the assumptions it makes, not a gate; **`main-AT`** is the
 FDR-CD-TWORELEASEGATES); **`release-AT`** is the AT against `release-uat` (the manual RBC gate). A commit state
 `release-at-verified (main-uat)` reads "passed AT, in the main-uat environment" — the `-AT` is the testing, the `(…-uat)` is where.
 
-- [AT and UAT](#at-and-uat)
+- [RC and RBC](#rc-and-rbc)
 
 ### Rule FDR-CD-PREPRODRUNG
 
@@ -164,8 +164,8 @@ Every prod-tier environment a pipeline deploys to carries an **approval gate**: 
 group, so a run that reaches it waits for a person. The gate is configuration, never a hand setting on the engine: one config declares the
 approver group, its members, the timeout, the units and the prod-tier environments, and one deterministic apply makes the engine match it.
 An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of FDR-CD-TWORELEASEGATES on each unit's
-`release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY). The ADO binding is
-[ADR-ADO-APPROVAL-CHECKSFROMCONFIG](../ado/environment-approvals.md#rule-adr-ado-approval-checksfromconfig).
+`release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY). Each engine's domain binds the gate
+to its own check.
 
 - [The prod approval gate](#the-prod-approval-gate)
 
@@ -174,8 +174,7 @@ An environment a pipeline deploys the prod tier to is listed there; the RC and R
 The promotion ladder's **rungs** are declared once, in climbing order, by the rungs registry: each rung names the gate a commit clears to
 enter it, the configuration environment it deploys, and the rule codes that define it, so a file that cites one of them, or the decision
 record that holds it, concerns that rung. Every environment name, approval check and diagram that refers to a rung reads it from the
-registry, and remapping a rung to another environment is one edit there. The ADO binding, environment naming and the registry file, is
-[ADR-ADO-APPROVAL-ENVIRONMENTPERRUNG](../ado/environment-approvals.md#rule-adr-ado-approval-environmentperrung).
+registry, and remapping a rung to another environment is one edit there. Each engine's domain names its environments from it.
 
 - [The rungs registry](#the-rungs-registry)
 
@@ -184,18 +183,17 @@ registry, and remapping a rung to another environment is one edit there. The ADO
 **A rung's certifying record is its environment's deployment history.** Before a DEPLOY run deploys a prod target, it checks that the commit
 it ships stood on pre-prod: the history of the unit's pre-prod environment holds a successful deployment of that commit, or the run stops
 before it deploys. The record is the execution engine's own history of the environment, never a tag or a file a pipeline writes, so it
-cannot say a commit stood where it did not. The ADO binding is
-[ADR-ADO-APPROVAL-DEPLOYMENTHISTORY](../ado/environment-approvals.md#rule-adr-ado-approval-deploymenthistory).
+cannot say a commit stood where it did not; each engine's domain names where its history is read.
 
 - [The certifying record](#the-certifying-record)
 
 ## Context
 
-[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six pipeline artifact kinds **is**. This FDR is the _design
-layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat list:
-they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers "what is
-a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the way to
-production without any of them rebuilding it."
+[pipeline-types](pipeline-types.md) is the _taxonomy_ — it fixes what each of the six pipeline artifact kinds **is**. This FDR is the
+_design layer_ above it: it records that "CI" names a **discipline** before it names a pipeline, and that the pipeline kinds are not a flat
+list: they **compose into a directional promotion flow**, keyed together by one shared object — the tagged artifact. The taxonomy answers
+"what is a CD pipeline"; this answers "what is Continuous Integration as a practice, and how do CI, CD, and DEPLOY chain a commit all the
+way to production without any of them rebuilding it."
 
 Two of those kinds share the letters "CD" and must not be confused. **CD is Continuous _Delivery_**: the flow is automated through non-prod
 and the artifact is left _ready_ for prod, with the production cutover handed to a separately-governed DEPLOY
@@ -260,13 +258,13 @@ gate.
 
 ### Separate kinds, one key
 
-CI, CD, and DEPLOY are deliberately **separate pipelines** — separate triggers, separate governance, separate run histories — because
-they answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a
-manual gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable,
-tagged artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its
-commit) is the join key across the kinds, the same way one name joins two configuration layers. Because the key is an immutable artifact and
-no kind rebuilds it — build-once, deploy-many — what runs in production is byte-identical to what was certified in non-prod. The kinds stay
-small and independently reasoned; the artifact carries the continuity.
+CI, CD, and DEPLOY are deliberately **separate pipelines** — separate triggers, separate governance, separate run histories — because they
+answer to different owners and cadences (build-and-verify on every change; automated non-prod promotion; production cutover behind a manual
+gate). What keeps them from being three disconnected things is that they are **keyed together by one shared object**: the immutable, tagged
+artifact. A CI component stamps it once; CD consumes exactly that tag; DEPLOY promotes exactly that tag to prod. The tag (and its commit) is
+the join key across the kinds, the same way one name joins two configuration layers. Because the key is an immutable artifact and no kind
+rebuilds it — build-once, deploy-many — what runs in production is byte-identical to what was certified in non-prod. The kinds stay small
+and independently reasoned; the artifact carries the continuity.
 
 ### A CD is a CI that keeps going
 
@@ -363,21 +361,6 @@ Keeping the gate (the human decision) apart from the DEPLOY actuator is what let
 posture internalize the roll (FDR-CD-CDEINTERNALIZESPROMOTION) by automating past the point where RC/RBC would otherwise stop it. A gate a
 machine decides is a quality gate, which is a gate in the same sense.
 
-### AT and UAT
-
-`AT is the verification, UAT is the environment`
-
-The value chain names two layers that are easy to conflate. A **UAT** is a _place_ — a running environment where the built artifact is
-deployed and a human (or an automated user-mimic) can exercise it; the diagram's env lane labels these `main-uat` and `release-uat`. **AT**
-is what happens there — the acceptance testing, automated and manual, that a commit must pass before it is release-verified. Keeping the two
-apart is what lets one environment host successive commits' testing over time (the UAT persists; each commit's AT is a fresh verification),
-and lets the same verification idea span an automated slice (`L3-vertical-AT`) and manual slices (`main-AT`, `release-AT`).
-
-The `-AT` / `-uat` suffixes are a deliberate two-word grammar, not redundancy: `main-AT` is the acceptance testing performed against the
-`main-uat` environment, and clearing it is the RC gate; `release-AT` is the acceptance testing against `release-uat`, and clearing it is the
-RBC gate. A commit labelled `release-at-verified (main-uat)` has passed its AT in the main-uat environment. The environment is durable and
-shared; the AT is per-commit and is what the gate certifies.
-
 ### Pre-prod and the DEPLOY split
 
 `Pre-prod, and DEPLOY split non-prod / prod`
@@ -419,7 +402,7 @@ the version it replaced leaving. The mechanic is the same under delivery and dep
 Whatever posture a unit is under, a run must not reach a prod-tier environment unattended. The execution engine holds that stop as an
 approval check on the environment, and a check set by hand drifts: nobody can review it, rebuild it or see who may approve. So the gate is
 configuration, applied by one idempotent apply, so a second run changes nothing; the prod-tier environments are named by their deploy target
-rather than by a rung. The ADO config, apply and order are [environment-approvals](../ado/environment-approvals.md).
+rather than by a rung. The config, the apply and its order belong to the engine's domain.
 
 The gate is the stop the promotion ladder does not yet have rungs for: until main-uat, RC, RBC and DEPLOY exist in code, it is what stands
 between a merge and production. It stays when the ladder lands, as the CDe's internal approval gate (FDR-CD-CDEINTERNALIZESPROMOTION) or
@@ -471,22 +454,12 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
   gate (FDR-CD-SHORTINTEGRATIONCYCLE/FDR-CD-INNERANDOUTERLOOP), and that a promotion to prod passes a named manual gate — RC at main-UAT or
   RBC at release-uat (FDR-CD-TWORELEASEGATES) — with DEPLOY as the actuator, not a human cutover fused into CD under another label.
 - **The prod approval gate and the certifying record are enforced by the engine binding.** The ADO apply and the in-run history check are
-  [environment-approvals](../ado/environment-approvals.md) (FDR-CD-PRODAPPROVALGATE, FDR-CD-CERTIFYINGRECORD).
+  engine's domain, which applies the approval config and checks the history in the run (FDR-CD-PRODAPPROVALGATE, FDR-CD-CERTIFYINGRECORD).
 
 ## Consequences
 
-- "CI" stops being ambiguous: the discipline (fast, continuous integration into one mainline) and the pipeline (the BVT that enforces it)
-  are named as cause and instrument, so a design conversation can say which one it means.
-- The pipeline kinds read as a **flow**, not a flat list: a solo CI produces the artifact, a CD carries it through non-prod, a DEPLOY
-  promotes it to prod — one artifact keying three independently-governed pipeline kinds.
 - Build-once, deploy-many is structural: because the tagged artifact is the join key and no kind rebuilds, production runs exactly the bytes
   non-prod certified.
-- The manual/automated line has a home: under **delivery**, everything automated lives in CD's non-prod direction and everything behind a
-  manual gate lives in DEPLOY, with the boundary explicit rather than an approval buried in an automated pipeline. Under **deployment
-  (CDe)**, the prod roll is internalized and automated, and the boundary moves _inside_ the pipeline as an optional approval gate — still
-  explicit, but now a checkpoint in an automated flow rather than a separately-triggered construct.
-- "CD" stops meaning two things: Continuous **Delivery** (prod is a human-triggered DEPLOY) and Continuous **Deployment** (CDe — the prod
-  roll is automated) are named apart, so a unit's promotion posture is stated, not inferred.
 - The cost is that promotion is several keyed constructs rather than one monolith. That is the intended trade: separate pipeline kinds with
   their own access, isolation, and history, held together by an immutable artifact — not a single pipeline that conflates the team's CI
   gate, an automated non-prod rollout, and a governed production cutover.
@@ -494,7 +467,6 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 ## Related
 
 - [pipeline-types](pipeline-types.md) — the taxonomy this FDR builds on (CRON / CI / CD / CDe / DEPLOY / INPUT).
-- [pipeline-runner-pattern](pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
 - The L0–L3 test tiers — L3 is the system-level E2E CD runs in its on-demand environment, and the outer CI+ loop (FDR-CD-INNERANDOUTERLOOP).
 - The `git_workspace` variant — the PR-vs-Direct integration mode the value-chain diagrams prefix a flow with.
 - [everything-as-code](../principles/everything-as-code.md), [reduce-waste](../principles/reduce-waste.md) — build-once/deploy-many and the

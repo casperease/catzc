@@ -52,9 +52,9 @@ The lamp extension spells the repository filters (DDR-FILTER-TOTALUNION, DDR-FIL
 are the files open in an editor tab. The languages button adds a language lamp for each tagged language ticked there, standing after the
 filters as `lang-<name>`; unticking it takes it out of the row. A lamp's icon is lit as a steady glyph and unlit as an active filter pulsing
 in a turning ring, and the editor's own git colours follow the lamps' colour mapping. A remembered Error and a failed test marker are
-published again as the extension's own diagnostics, marked as remembered, because the editor's problem decorations are the only ones
-heavier than the git colours and the only ones that colour every folder above the file; the problems list and the error count show them
-too. A closed tab and a quiet language server never release a remembered Error.
+published again as the extension's own diagnostics, marked as remembered, because the editor's problem decorations are the only ones heavier
+than the git colours and the only ones that colour every folder above the file; the problems list and the error count show them too. A
+closed tab and a quiet language server never release a remembered Error.
 
 - [Lamps in the editor](#lamps-in-the-editor)
 
@@ -100,9 +100,9 @@ both runs apply to the JavaScript tests as to the module's own Pester tests.
 
 ### Lamps in the editor
 
-[repository-filters](../../design/repository-filters.md) states what a lamp means and what its state shows, for any viewer. The editor
-names belong here, with the extension that draws them: a tab, a button, a glyph, a diagnostic and a language server are what VS Code
-offers, and another viewer would spell the same rules with its own.
+[repository-filters](../../design/repository-filters.md) states what a lamp means and what its state shows, for any viewer. The editor names
+belong here, with the extension that draws them: a tab, a button, a glyph, a diagnostic and a language server are what VS Code offers, and
+another viewer would spell the same rules with its own.
 
 ## Decision
 

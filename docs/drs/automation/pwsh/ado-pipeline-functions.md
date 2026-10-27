@@ -1,18 +1,16 @@
 # ADR: ADO pipeline functions — the pwsh spelling of the ado credential and variable rules
 
-The ado domain decides how a REST call selects and proves its credential ([dual-authentication](../../ado/dual-authentication.md),
-`ADR-ADO-AUTH`) and how a step sets a pipeline variable ([pipeline-variables](../../ado/pipeline-variables.md), `ADR-ADO-VAR`). This ADR
-holds the pwsh spelling of those decisions: the two functions' signatures, their parameters and their behaviour.
+The ado domain decides how a REST call selects and proves its credential and how a step sets a pipeline variable. This ADR holds the pwsh
+spelling of those decisions: the two functions' signatures, their parameters and their behaviour.
 
 ## Rules: ADR-PWSH-ADOFUNC
 
 ### Rule ADR-PWSH-ADOFUNC-HEADERFUNCTION
 
-**`Get-AdoAuthorizationHeader` returns the `Authorization` header as a hashtable and reads each credential from its environment
-variable.** The in-pipeline token is read from the mapped `$env:SYSTEM_ACCESSTOKEN` and its org from `$env:SYSTEM_COLLECTIONURI`, the PAT
-from `$env:AZURE_DEVOPS_PAT`, and the az CLI path proves its tenant with `Assert-AzCliConnected` before `Invoke-Executable` mints the token;
-`-ResourceUrl` names the token's resource and defaults to the Azure DevOps resource id
-([ADR-ADO-AUTH-FIXEDCREDENTIALORDER](../../ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialorder)).
+**`Get-AdoAuthorizationHeader` returns the `Authorization` header as a hashtable and reads each credential from its environment variable.**
+The in-pipeline token is read from the mapped `$env:SYSTEM_ACCESSTOKEN` and its org from `$env:SYSTEM_COLLECTIONURI`, the PAT from
+`$env:AZURE_DEVOPS_PAT`, and the az CLI path proves its tenant with `Assert-AzCliConnected` before `Invoke-Executable` mints the token;
+`-ResourceUrl` names the token's resource and defaults to the Azure DevOps resource id.
 
 - [The header function](#the-header-function)
 
@@ -20,8 +18,7 @@ from `$env:AZURE_DEVOPS_PAT`, and the az CLI path proves its tenant with `Assert
 
 **`Set-AdoPipelineVariable -Name -Value` sets one variable, with `-IsOutput`, `-IsSecret` and `-SanitizeName` as switches.** It throws on a
 blank name and on a name holding `.`, `-` or `'` unless `-SanitizeName` is passed, accepts an empty value (`[AllowEmptyString()]`), logs
-through `Write-Message` with a secret shown as `***`, and is a no-op outside a pipeline
-([ADR-ADO-VAR-NORAWLOGGINGCOMMANDS](../../ado/pipeline-variables.md#rule-adr-ado-var-norawloggingcommands)).
+through `Write-Message` with a secret shown as `***`, and is a no-op outside a pipeline.
 
 - [The variable function](#the-variable-function)
 

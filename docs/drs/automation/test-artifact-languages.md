@@ -42,25 +42,25 @@ locates the language's tool once and hands its path to the bridge; without the t
 
 ## Context
 
-The engine's own tests load its modules in-process and call functions directly. That suits the engine's logic and misses the question a
-user asks: does the engine, started as a process the way a user or a pipeline starts it, do what it says? A test in a second language
-cannot reach into the engine's session, so it can only ask that question. Go, Python and Bash each answer it from a different side; the
-twins [go test artifacts](go/go-test-artifacts.md), [python test artifacts](python/python-test-artifacts.md) and
+The engine's own tests load its modules in-process and call functions directly. That suits the engine's logic and misses the question a user
+asks: does the engine, started as a process the way a user or a pipeline starts it, do what it says? A test in a second language cannot
+reach into the engine's session, so it can only ask that question. Go, Python and Bash each answer it from a different side; the twins
+[go test artifacts](go/go-test-artifacts.md), [python test artifacts](python/python-test-artifacts.md) and
 [bash test artifacts](bash/bash-test-artifacts.md) hold each language's spellings, and this record holds the decision they share.
 
 ### Outside the engine
 
-The risk of a second language is a second tech stack spreading through the repository: helpers beside the engine's functions, a second
-build in the bundle, a second set of committed module files to keep in step. A test-artifact language is a language track like any other
+The risk of a second language is a second tech stack spreading through the repository: helpers beside the engine's functions, a second build
+in the bundle, a second set of committed module files to keep in step. A test-artifact language is a language track like any other
 ([module-model](module-model.md#rule-adr-auto-module-everylanguagetrackalike)), and the engine stays one stack
-([tracks](../design/tracks.md#rule-ddr-track-onetechstack)); a test verifies the engine from outside, and nothing in the engine calls it. The
-builder reads the engine's track, so the layout is the guarantee that no test reaches a bundle ([platform-bundle](platform-bundle.md)).
+([tracks](../design/tracks.md#rule-ddr-track-onetechstack)); a test verifies the engine from outside, and nothing in the engine calls it.
+The builder reads the engine's track, so the layout is the guarantee that no test reaches a bundle ([platform-bundle](platform-bundle.md)).
 
 ### One root
 
-Every language's root follows the same convention, declared once on its config type ([sensible-defaults](sensible-defaults.md)), so a
-reader who knows one language's layout knows them all, and the same folder-case rendering lets the harness map a test folder to its catzc
-module with no mapping file.
+Every language's root follows the same convention, declared once on its config type ([sensible-defaults](sensible-defaults.md)), so a reader
+who knows one language's layout knows them all, and the same folder-case rendering lets the harness map a test folder to its catzc module
+with no mapping file.
 
 ### One bridge
 

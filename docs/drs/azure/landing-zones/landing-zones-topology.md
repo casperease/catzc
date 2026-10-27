@@ -45,29 +45,27 @@ sensible default enforces in production and audits outside it, and a stricter re
 reads the production mode and its `nsub` config the non-production mode, by config address.
 
 Every resource the templates deploy carries the six CAF tags (`workload`, `environment`, `owner`, `cost-center`, `criticality`, and
-`data-classification`) from its config, because the production assignment denies a resource without them. `foundation` passes the same
-tags, so its resources pass the policy too. All six are required by policy: one custom definition in `landing-zone-policies.bicep`, mode
-Indexed, denies a resource that misses any of them. Append and modify effects are not used: they fill a missing tag after
-the fact from a value the policy holds rather than the config, and a modify policy needs a managed identity and remediation tasks for
-resources that exist before it. The templates write every tag deterministically, so the policy's job is to stop a resource that skipped
-them, and deny does that.
+`data-classification`) from its config, because the production assignment denies a resource without them. `foundation` passes the same tags,
+so its resources pass the policy too. All six are required by policy: one custom definition in `landing-zone-policies.bicep`, mode Indexed,
+denies a resource that misses any of them. Append and modify effects are not used: they fill a missing tag after the fact from a value the
+policy holds rather than the config, and a modify policy needs a managed identity and remediation tasks for resources that exist before it.
+The templates write every tag deterministically, so the policy's job is to stop a resource that skipped them, and deny does that.
 
 Each policy is assigned at subscription scope, the highest level the repository owns, through
 `infrastructure/modules/policy-assignment.bicep`, once per subscription and named per config (`policyAssignmentNames`, one role per
 assignment, two or three characters as the namer requires): allowed locations, the required CAF tags, no public IP on a network interface,
-public network access off on storage and on SQL (deny), an audit of a diagnostic setting on every data resource kind (storage, SQL
-database, Key Vault, Data Factory), the allowed storage SKUs, virtual machine sizes and resource types, and the benchmark initiative.
-`landing-zone-policies.bicep` holds the ten ids in its `policyDefinitions` map, each with its parameters and a non-compliance message,
-and the build derives `policyEnforcementMode` from `policy_enforcement` by the class of the
-subscription each slot targets. No assignment sets `assignIdentity`, so no remediation identity exists. Every resource group of the
-subscription inherits the assignments, those of `foundation` and `expedition` included. Production and non-production differ through the
-enforcement mode, never through a narrower assignment.
+public network access off on storage and on SQL (deny), an audit of a diagnostic setting on every data resource kind (storage, SQL database,
+Key Vault, Data Factory), the allowed storage SKUs, virtual machine sizes and resource types, and the benchmark initiative.
+`landing-zone-policies.bicep` holds the ten ids in its `policyDefinitions` map, each with its parameters and a non-compliance message, and
+the build derives `policyEnforcementMode` from `policy_enforcement` by the class of the subscription each slot targets. No assignment sets
+`assignIdentity`, so no remediation identity exists. Every resource group of the subscription inherits the assignments, those of
+`foundation` and `expedition` included. Production and non-production differ through the enforcement mode, never through a narrower
+assignment.
 
 Keeping the policies current is a matter of their ids. Microsoft revises a built-in definition in place under the same id, so an assignment
-follows the current version with no change here. When a definition is deprecated or a better one appears, the id in `landing-zone-policies.bicep` and its
-`guids.yml` entry (one `policy_*` entry per built-in) change together in one reviewed
-change, and the repository never carries the old and the new definition side by side
-([PDR-ONELIVE](../../principles/one-living-version.md)).
+follows the current version with no change here. When a definition is deprecated or a better one appears, the id in
+`landing-zone-policies.bicep` and its `guids.yml` entry (one `policy_*` entry per built-in) change together in one reviewed change, and the
+repository never carries the old and the new definition side by side ([PDR-ONELIVE](../../principles/one-living-version.md)).
 
 The subscription's activity log streams to `foundation`'s workspace through a diagnostic setting the landing zone deploys. A
 deploy-if-not-exists policy would reach the same end through a remediation task that runs later, needs a managed identity with rights to
@@ -119,7 +117,7 @@ config, in the subscription's billing currency, with alerts at 50, 80, and 100 p
 `Owner` role, so no address is kept in a config. The amounts are plain config values that anyone reading the repository can see and review.
 `foundation` and `expedition` have no budget of their own; their cost counts against the subscription's. The CAF tags carry the metadata
 cost analysis groups by: `cost-center` names the paying team, `workload` the project, and `owner` and `environment` let spend group further.
-`Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`) through `Deploy-AzureResourceGroup`
-with the template's CAF tags from its config, merged onto a group that exists, so cost grouped by resource group, or inherited from it,
-reads the same tags as the resources. `discovery` creates its own resource group through
-`infrastructure/modules/resource-group.bicep`, so its resource group and every resource in it carry the tags.
+`Deploy-Bicep` creates the resource group of a resource-group template (`foundation`, `expedition`) through `Deploy-AzureResourceGroup` with
+the template's CAF tags from its config, merged onto a group that exists, so cost grouped by resource group, or inherited from it, reads the
+same tags as the resources. `discovery` creates its own resource group through `infrastructure/modules/resource-group.bicep`, so its
+resource group and every resource in it carry the tags.
