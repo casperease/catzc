@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eddcbf3d7098
+#     with_body_sha: "89ecff7adc65"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -136,7 +136,7 @@ remove_token_from_history	replace_with	string	0	0	0	contracts/catzc/0.1.0/pwsh.t
 remove_token_from_history	skip_messages	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	skip-messages	Remove-TokenFromHistory	SkipMessages
 remove_token_from_history	repository_path	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	repository-path	Remove-TokenFromHistory	RepositoryPath
 remove_token_from_history	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	dry-run	Remove-TokenFromHistory	DryRun
-start_claude_drone	agent	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	agent	Start-ClaudeDrone	Agent
+start_claude_drone	skill	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	skill	Start-ClaudeDrone	Skill
 start_claude_drone	model	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	model	Start-ClaudeDrone	Model
 start_claude_drone	prompt	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	prompt	Start-ClaudeDrone	Prompt
 start_claude_drone	count	int	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	count	Start-ClaudeDrone	Count
