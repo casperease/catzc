@@ -16,6 +16,7 @@ names:
   firewallPublicIpName: { type: pip, role: fw }
   firewallManagementPublicIpName: { type: pip, role: fwm }
   budgetName: { type: budg }
+  costExportName: { type: cexp }
   logAnalyticsName: { type: log, template: foundation }
   actionGroupName: { type: ag, template: foundation }
   logAnalyticsResourceGroupName: { type: rg, template: foundation }
@@ -33,6 +34,7 @@ names:
         dataDiagnostics: dg,
         storageSkus: sk,
         vmSkus: vs,
+        benchmark: bm,
       }
   healthAlertNames:
     type: alrt

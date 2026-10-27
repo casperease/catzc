@@ -56,7 +56,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; four steps
-- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 17 steps each
+- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 16 steps each
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - frontpage -> plan-frontpage.md: the generated GitHub front page; 0 steps (help, rule phrases, module article)

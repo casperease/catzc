@@ -40,7 +40,7 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-session-learnings      | the session-finalize skill (the learning definition)                              | Pester for Add-SessionLearning and LearningsConfig                                            | decided; one step                                |
 | high   | plan-idiomatic-names        | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written) | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                              | folders renamed; wiring and the normal form open |
 | medium | plan-debt-test-speed        | none (test files only)                                                            | the measured test files, twice each                                                           | four steps                                       |
-| medium | plan-debt-azure-gaps        | the CAF-bound ADR-AZ-* rules each step makes true                                 | each step's own check                                                                         | 17 steps                                         |
+| medium | plan-debt-azure-gaps        | the CAF-bound ADR-AZ-* rules each step makes true                                 | each step's own check                                                                         | 16 steps                                         |
 | medium | plan-diagram-review         | the visual-design rules each answer changes                                       | Test-Diagrams after every answer, the kit suite                                               | new                                              |
 | medium | plan-vscode-session-binding |                                                                                   |                                                                                               | new                                              |
 
@@ -78,9 +78,8 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
   `Move-Diagram` deleted-page guard.
 - plan-diagram-in-article: a diagram declared in its article in a `yml drawio` block above its image, `carriers:` in the kit's `drawio.yml`,
   `build-diagrams-runs-five-stages` as the proof; the `catzc-verify` staging clause and the `Build-Diagrams` page's two-call sentence.
-- plan-debt-reference-pages: seven comment pages corrected to their code (contracts.yml, New-CommandLookup,
-  Get-GlossarySourceViolations, Invoke-TestFile, Test-Links, Update-DrsCitation, terminology.yml) and the NameCase type test pinning the
-  DevOps kebab split.
+- plan-debt-reference-pages: seven comment pages corrected to their code (contracts.yml, New-CommandLookup, Get-GlossarySourceViolations,
+  Invoke-TestFile, Test-Links, Update-DrsCitation, terminology.yml) and the NameCase type test pinning the DevOps kebab split.
 - plan-debt-red-tests: the analyzer test green again (the `drs` term, 33 findings fixed file by file) and the glossary rule-code test green
   through a post-load `defined_by` check in `Get-GlossarySourceViolations` against `(Get-Config drs).CodeForm`.
 - plan-debt-gate-findings: `Get-DrsUsage` skips a deleted indexed path, `Test-Plans` checks stated step counts (with the rule sentence in

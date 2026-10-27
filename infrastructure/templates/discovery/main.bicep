@@ -40,6 +40,9 @@ type policyAssignmentNameSet = {
 
   @description('The allowed-virtual-machine-size-SKUs assignment.')
   vmSkus: string
+
+  @description('The Microsoft cloud security benchmark assignment, in audit mode.')
+  benchmark: string
 }
 
 @description('Azure region of the resource group and its resources. Defaults to the deployment location.')
@@ -149,12 +152,31 @@ param budgetAmount int
 @description('First day of the budget, yyyy-MM-dd, the first of a month.')
 param budgetStartDate string
 
-@description('Budget alert thresholds, in percent of the amount.')
+@description('Budget alert thresholds on actual cost, in percent of the amount.')
 param budgetThresholds array = [
   50
   80
   100
 ]
+
+@description('Budget alert thresholds on forecasted cost, in percent of the amount.')
+param budgetForecastThresholds array = [
+  100
+]
+
+@description('Name of the subscription\'s daily cost export; derived by the namer.')
+param costExportName string
+
+@description('Defender for Cloud plans turned on for the services the landing zone runs.')
+param defenderPlans array = [
+  'StorageAccounts'
+  'SqlServers'
+  'KeyVaults'
+  'Arm'
+]
+
+// The cost export runs from the budget's first day for five years, the longest schedule kept between renewals.
+var costExportEndDate = dateTimeAdd('${budgetStartDate}T00:00:00Z', 'P5Y', 'yyyy-MM-dd')
 
 var isHub = network.kind == 'hub'
 var subnetNames = objectKeys(network.subnets)
@@ -342,6 +364,30 @@ module budget '../../modules/budget.bicep' = {
     amount: budgetAmount
     startDate: budgetStartDate
     thresholds: budgetThresholds
+    forecastThresholds: budgetForecastThresholds
+  }
+}
+
+// The subscription's daily cost, exported to foundation's governed storage, in its own container with its own retention.
+module costExport '../../modules/cost-export.bicep' = if (!empty(flowLogStorageAccountName)) {
+  name: 'cost-export'
+  params: {
+    name: costExportName
+    storageAccountId: resourceId(
+      subscription().subscriptionId,
+      logAnalyticsResourceGroupName,
+      'Microsoft.Storage/storageAccounts',
+      flowLogStorageAccountName
+    )
+    startDate: budgetStartDate
+    endDate: costExportEndDate
+  }
+}
+
+module defender '../../modules/defender-plans.bicep' = {
+  name: 'defender-plans'
+  params: {
+    plans: defenderPlans
   }
 }
 

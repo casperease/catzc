@@ -23,6 +23,7 @@ function Get-AzureResourceTypeSet {
         peer  = @{ pattern = 'long'; limit = 80 }   # virtual network peering — 1-80, unique in the virtual network
         pep   = @{ pattern = 'long'; limit = 64 }   # private endpoint — 2-64, unique in the resource group
         budg  = @{ pattern = 'long'; limit = 63 }   # budget — 1-63 (letters, digits, _ and -), unique in the subscription
+        cexp  = @{ pattern = 'long'; limit = 64 }   # Cost Management export — 1-64 (letters, digits, _ and -), unique in the subscription
         pa    = @{ pattern = 'long'; limit = 64 }   # policy assignment — 1-64 at the subscription, unique there
         ag    = @{ pattern = 'long'; limit = 260 }  # action group — 1-260, unique in the resource group
         alrt  = @{ pattern = 'long'; limit = 260 }  # alert rule (metric, activity log, scheduled query) — 1-260, unique in the resource group

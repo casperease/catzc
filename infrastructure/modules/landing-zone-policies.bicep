@@ -112,6 +112,13 @@ var policyDefinitions = {
     }
     message: 'Virtual machines in this landing zone use a listed size only.'
   }
+  // The Microsoft cloud security benchmark initiative, assigned to audit only: it reports, and never denies.
+  benchmark: {
+    id: tenantResourceId('Microsoft.Authorization/policySetDefinitions', '1f3afdf9-d0c9-4c3d-847f-89da613e70a8')
+    parameters: {}
+    message: 'Resources in this landing zone are measured against the Microsoft cloud security benchmark.'
+    enforcementMode: 'DoNotEnforce'
+  }
 }
 
 // The data resource kinds the diagnostic-setting audit covers.
@@ -129,7 +136,7 @@ module policyAssignments 'policy-assignment.bicep' = [
       name: policyAssignmentNames[policy.key]
       policyDefinitionId: policy.value.id
       parameters: policy.value.parameters
-      enforcementMode: policyEnforcementMode
+      enforcementMode: policy.value.?enforcementMode ?? policyEnforcementMode
       nonComplianceMessage: policy.value.message
     }
   }
