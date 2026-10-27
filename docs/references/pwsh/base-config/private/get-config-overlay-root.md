@@ -10,7 +10,7 @@ Returns the consumer overlay root Get-Config merges fragments from, cached per p
 
 ### description
 
-Get-Config sits on the hot path, so the overlay root (Get-CatzcOverlayRoot, which derives the run mode from the two roots) is worked out
+Get-Config sits on the hot path, so the overlay root (Get-OverlayRoot, which derives the run mode from the two roots) is worked out
 once per RepositoryRoot / CatzcModulesRoot pair and kept for the session
 ([ADR-PWSH-CACHE](../../../../drs/automation/pwsh/script-scope-caching.md)). A change of either anchor — a new working root, or a switch of
 run mode — is a new key, so the answer never outlives the roots it came from.

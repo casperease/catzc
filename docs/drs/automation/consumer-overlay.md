@@ -161,7 +161,7 @@ is what an override is for.
 
 ### How this is enforced
 
-- **`Catzc.Base.Repository`** derives the overlay root (`Get-CatzcOverlayRoot`, build mode only), returns an overlay asset from
+- **`Catzc.Base.Repository`** derives the overlay root (`Get-OverlayRoot`, build mode only), returns an overlay asset from
   `Get-CatzcModuleRoot`, and resolves a local module's folder in the overlay.
 - **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, refuses a
   fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and discovers a

@@ -9,7 +9,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 | --- | ---- | -------------------------------------------------------------- |
 | 1   | L2   | [Build-GitKeep — managed .gitkeep files][c1]                   |
 | 2   | L1   | [Build-GitKeep — shipped assets/gitkeep][c2]                   |
-| 3   | L1   | [Get-CatzcModules — loaded catzc modules][c3]                  |
+| 3   | L1   | [Get-CatzcModuleExport — loaded catzc modules][c3]             |
 | 4   | L1   | [Repository code links (automation comments)][c4]              |
 | 5   | L1   | [Repository Markdown titles][c5]                               |
 | 6   | L2   | [Repository markdown integrity][c6]                            |
@@ -24,7 +24,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 
 [c1]: #1-build-gitkeep--managed-gitkeep-files
 [c2]: #2-build-gitkeep--shipped-assetsgitkeep
-[c3]: #3-get-catzcmodules--loaded-catzc-modules
+[c3]: #3-get-catzcmoduleexport--loaded-catzc-modules
 [c4]: #4-repository-code-links-automation-comments
 [c5]: #5-repository-markdown-titles
 [c6]: #6-repository-markdown-integrity
@@ -52,9 +52,9 @@ and every .gitkeep folder is a readme-mapped target with a reference article.
 
 **Guards:** Build-GitKeep writes the content of the `assets/gitkeep` shipped in the loaded module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
 
-### 3. Get-CatzcModules — loaded catzc modules
+### 3. Get-CatzcModuleExport — loaded catzc modules
 
-**Test file:** `pwsh/Base.Docs/tests/Get-CatzcModules.Tests.ps1` (L1), block `Get-CatzcModules — loaded catzc modules`.
+**Test file:** `pwsh/Base.Docs/tests/Get-CatzcModuleExport.Tests.ps1` (L1), block `Get-CatzcModuleExport — loaded catzc modules`.
 
 **Guards:** Show-Catzc's module list is read from the loaded modules under the code root: exact exports, no privates, no infrastructure.
 

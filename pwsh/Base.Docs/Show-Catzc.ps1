@@ -78,7 +78,7 @@ function Show-Catzc {
             break
         }
         { $_ -in 'module', 'modules' } {
-            $modules = Get-CatzcModules
+            $modules = Get-CatzcModuleExport
             if ($Query) {
                 $matched = @($modules | Where-Object { $_.Module -like "*$Query*" })
                 if ($matched.Count -eq 0) {
@@ -107,7 +107,7 @@ function Show-Catzc {
             break
         }
         { $_ -in 'verb', 'verbs' } {
-            $modules = Get-CatzcModules
+            $modules = Get-CatzcModuleExport
             $counts = @{}
             foreach ($module in $modules) {
                 foreach ($function in $module.Functions) {

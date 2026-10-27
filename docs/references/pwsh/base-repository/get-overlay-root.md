@@ -1,4 +1,4 @@
-# pwsh/Base.Repository/Get-CatzcOverlayRoot.ps1
+# pwsh/Base.Repository/Get-OverlayRoot.ps1
 
 The resolver of the consumer overlay root, the folder a bundle consumer uses to change what the bundle does; it returns nothing outside
 build mode.
@@ -27,5 +27,5 @@ never stored, like the run mode: it cannot disagree with what loaded.
 ### example 1
 
 ```powershell
-Get-CatzcOverlayRoot
+Get-OverlayRoot
 ```

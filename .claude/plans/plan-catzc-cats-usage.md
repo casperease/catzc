@@ -54,9 +54,13 @@ catzc-prefixed names left over from old disk names, where the current folder dro
       `CatzcBuildGadget`, `CatzcWidget` and `catzc_widget` become neutral Widget/Gadget names
       ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)); each fixture and the
       test files that read it change in one pass. Check: each touched test file passes.
-- [ ] One living version for the module list: compare private `Get-CatzcModules` (`pwsh/Base.Docs/private/`) with `Get-CatzcModule`
+- [x] One living version for the module list: compare private `Get-CatzcModules` (`pwsh/Base.Docs/private/`) with `Get-CatzcModule`
       (`Catzc.Base.Modules`); if one answers the other's callers, they move to it and the other is deleted
-      ([PDR-ONELIVE](../../docs/drs/principles/one-living-version.md)). Check: the callers' test files pass.
+      ([PDR-ONELIVE](../../docs/drs/principles/one-living-version.md)). Check: the callers' test files pass. Verdict: two questions, not
+      two versions. `Get-CatzcModule` reads the module model from the tracks and the files on disk; the Base.Docs one reads the loaded
+      session's exported functions, the same in source and build mode, which `Show-Catzc` (its only caller) needs and the model's file lists
+      do not give in build mode. Renamed to `Get-CatzcModuleExport`, with its test file and pages, so the name says it returns exports
+      ([PDR-CATS-IDENTIFIERNAMESTHESYSTEM](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-identifiernamesthesystem)).
 
 None of the new names is a command in the tree, the vendored modules or pwsh itself, and each keeps the `Verb-Noun` case and file round-trip
 that `Test-IdiomaticNames` checks.
@@ -67,7 +71,7 @@ that `Test-IdiomaticNames` checks.
 | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | `Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`, `CatzcModulesRoot`, `CatzcModulesFolder` | the system's modules root, not the repository root                                                        |
 | `Get-CatzcModuleRoot`, `Get-ForeignCatzcModule`                                            | named by the rule itself                                                                                  |
-| `Get-CatzcModule`, `Get-CatzcModules`, `Copy-CatzcModule`, `$catzcModules`, `catzc_module` | the system's modules as against any loaded module                                                         |
+| `Get-CatzcModule`, `Get-CatzcModuleExport`, `Copy-CatzcModule`, `$catzcModules`, `catzc_module` | the system's modules as against any loaded module                                                         |
 | `Import-Catzc`, `Export-Catzc`, `Install-Catzc`, `Show-Catzc`                              | the noun is the system itself                                                                             |
 | `Invoke-CatzcCommand`, `Enter-CatzcBurst`, `Exit-CatzcBurst`                               | entry scripts run by path, with no module namespace                                                       |
 | `Wait-CatzcRunLock` and its `*-CatzcRunLock*` helpers                                      | the system's run lock `Local\catzc-run`, in a script with no module                                       |

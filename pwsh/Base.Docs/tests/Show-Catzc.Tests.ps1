@@ -1,10 +1,10 @@
 Describe 'Show-Catzc' -Tag 'L0', 'logic' {
     It 'prints the overview with no argument, without reading the getters' {
         Mock Get-DrsIndex -ModuleName Catzc.Base.Docs
-        Mock Get-CatzcModules -ModuleName Catzc.Base.Docs
+        Mock Get-CatzcModuleExport -ModuleName Catzc.Base.Docs
         { Show-Catzc } | Should -Not -Throw
         Should -Invoke Get-DrsIndex -ModuleName Catzc.Base.Docs -Times 0
-        Should -Invoke Get-CatzcModules -ModuleName Catzc.Base.Docs -Times 0
+        Should -Invoke Get-CatzcModuleExport -ModuleName Catzc.Base.Docs -Times 0
     }
 
     It 'routes the adr area to Get-DrsIndex' {
@@ -35,16 +35,16 @@ Describe 'Show-Catzc' -Tag 'L0', 'logic' {
         Should -Invoke Get-RuleEnforcers -ModuleName Catzc.Base.Docs -Times 1
     }
 
-    It 'routes the module area to Get-CatzcModules' {
-        Mock Get-CatzcModules -ModuleName Catzc.Base.Docs { @() }
+    It 'routes the module area to Get-CatzcModuleExport' {
+        Mock Get-CatzcModuleExport -ModuleName Catzc.Base.Docs { @() }
         Show-Catzc module
-        Should -Invoke Get-CatzcModules -ModuleName Catzc.Base.Docs -Times 1
+        Should -Invoke Get-CatzcModuleExport -ModuleName Catzc.Base.Docs -Times 1
     }
 
-    It 'routes the verbs area to Get-CatzcModules' {
-        Mock Get-CatzcModules -ModuleName Catzc.Base.Docs { @() }
+    It 'routes the verbs area to Get-CatzcModuleExport' {
+        Mock Get-CatzcModuleExport -ModuleName Catzc.Base.Docs { @() }
         Show-Catzc verbs
-        Should -Invoke Get-CatzcModules -ModuleName Catzc.Base.Docs -Times 1
+        Should -Invoke Get-CatzcModuleExport -ModuleName Catzc.Base.Docs -Times 1
     }
 
     It 'throws on an unknown area' {
