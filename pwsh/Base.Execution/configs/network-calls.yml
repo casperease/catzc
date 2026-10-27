@@ -1,0 +1,192 @@
+# Every call site that can reach the network, keyed by its file (ADR-AUTO-NET-REGISTRY); a default-path site is an open violation.
+sites:
+  pwsh/Tooling.Core/Install-Tool.ps1:
+    function: Install-Tool
+    class: package-install
+    trigger: on-request
+    gated_by: runs only from the Install-* tooling commands (winget, apt-get, brew)
+  pwsh/Tooling.Core/Install-UvTool.ps1:
+    function: Install-UvTool
+    class: package-install
+    trigger: on-request
+    gated_by: runs only from the Install-* tooling commands
+  pwsh/Tooling.Core/Install-UvVenvTool.ps1:
+    function: Install-UvVenvTool
+    class: package-install
+    trigger: on-request
+    gated_by: runs only from the Install-* tooling commands
+  pwsh/Tooling.Core/Save-VerifiedDownload.ps1:
+    function: Save-VerifiedDownload
+    class: package-install
+    trigger: on-request
+    gated_by: called only by Install-* commands; SHA-256 checked (ADR-AUTO-PKGMGR-VERIFYDOWNLOADS); tests mock Invoke-WebRequest
+  pwsh/Tooling.Core/Test-ExpectedPackageManager.ps1:
+    function: Test-ExpectedPackageManager
+    class: package-install
+    trigger: on-request
+    gated_by: winget list refreshes its sources; called from Get-ToolsStatus and the install commands only
+  pwsh/Tooling.Provisioning/Get-ToolsStatus.ps1:
+    function: Get-ToolsStatus
+    class: package-install
+    trigger: on-request
+    gated_by: winget list refreshes its sources; an explicit status command
+  pwsh/Tooling.Provisioning/Install-Git.ps1:
+    function: Install-Git
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command; tests mock Invoke-RestMethod
+  pwsh/Tooling.Provisioning/Install-Postman.ps1:
+    function: Install-Postman
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command; tests mock Invoke-WebRequest
+  pwsh/Tooling.Python/private/Install-PipTool.ps1:
+    function: Install-PipTool
+    class: package-install
+    trigger: on-request
+    gated_by: runs only from the Install-* tooling commands
+  pwsh/Tooling.Node/Install-NodeJs.ps1:
+    function: Install-NodeJs
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command (apt key download on Linux)
+  pwsh/Tooling.Node/Invoke-Npm.ps1:
+    function: Invoke-Npm
+    class: package-install
+    trigger: on-request
+    gated_by: called only by the Install-*/Uninstall-* node tool commands
+  pwsh/Tooling.Toolchain/Install-Terraform.ps1:
+    function: Install-Terraform
+    class: package-install
+    trigger: on-request
+    gated_by: explicit install command (apt key download on Linux)
+  pwsh/Tooling.Toolchain/private/Get-GoRelease.ps1:
+    function: Get-GoRelease
+    class: package-install
+    trigger: on-request
+    gated_by: called only by Install-Go; tests mock Invoke-RestMethod
+  pwsh/Tooling.Toolchain/private/Install-BicepStandalone.ps1:
+    function: Install-BicepStandalone
+    class: package-install
+    trigger: on-request
+    gated_by: called only by Install-Bicep; tests mock Invoke-RestMethod
+  pwsh/Tooling.Toolchain/private/Install-OsvScannerStandalone.ps1:
+    function: Install-OsvScannerStandalone
+    class: package-install
+    trigger: on-request
+    gated_by: called only by Install-OsvScanner
+  pwsh/Tooling.Toolchain/private/Install-UvStandalone.ps1:
+    function: Install-UvStandalone
+    class: package-install
+    trigger: on-request
+    gated_by: called only by Install-Uv; tests mock Invoke-RestMethod
+  pwsh/Tooling.Toolchain/assets/scripts/dotnet-install.ps1:
+    function: dotnet-install
+    class: package-install
+    trigger: on-request
+    gated_by: the vendored installer script, run only by Install-Dotnet
+  pwsh/Tooling.Toolchain/Test-DependencyAdvisories.ps1:
+    function: Test-DependencyAdvisories
+    class: package-install
+    trigger: on-request
+    gated_by: explicit command (uv lock against PyPI, osv-scanner against the advisory database); tests mock both
+  pwsh/Base.Vendor/Install-VendorModule.ps1:
+    function: Install-VendorModule
+    class: package-install
+    trigger: on-request
+    gated_by: explicit vendoring command (Save-PSResource from the gallery), source tree only
+  pwsh/Base.QualityGates/Build-EnglishDictionary.ps1:
+    function: Build-EnglishDictionary
+    class: package-install
+    trigger: on-request
+    gated_by: none beyond the explicit command; npx --yes fetches cspell-trie outside the tooling system
+  pwsh/Base.QualityGates/private/Invoke-DotnetFormat.ps1:
+    function: Invoke-DotnetFormat
+    class: package-install
+    trigger: offline-guarded
+    gated_by: Assert-DotnetOffline and the generated nuget.config hold the implicit restore offline
+  pwsh/Base.TypesSystem/Build-AgentHook.ps1:
+    function: Build-AgentHook
+    class: package-install
+    trigger: offline-guarded
+    gated_by: Assert-DotnetOffline and the generated nuget.config hold the implicit restore offline
+  pwsh/Base.TypesSystem/Invoke-BuildForVsCode.ps1:
+    function: Invoke-BuildForVsCode
+    class: package-install
+    trigger: offline-guarded
+    gated_by: Assert-DotnetOffline and the generated nuget.config hold the implicit restore offline
+  pwsh/Base.Languages/Invoke-PythonTest.ps1:
+    function: Invoke-PythonTest
+    class: package-install
+    trigger: default-path
+    gated_by: none; uv sync resolves and downloads from PyPI on every Python test run
+  pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1:
+    function: Invoke-PythonWorkspaceTool
+    class: package-install
+    trigger: default-path
+    gated_by: none; uv sync runs before Test-PythonLint and Test-PythonTypes, the Python language checks
+  pwsh/Base.Languages/Invoke-GoTest.ps1:
+    function: Invoke-GoTest
+    class: package-install
+    trigger: default-path
+    gated_by: none; go mod download runs on every Go test run with no GOPROXY=off
+  pwsh/Azure.Templates/Update-AzurePriceTable.ps1:
+    function: Update-AzurePriceTable
+    class: price-data
+    trigger: on-request
+    gated_by: the one refresh command; readers use the checked-in table; tests mock Invoke-RestMethod
+  pwsh/Azure.DevOps/Invoke-AdoRestMethod.ps1:
+    function: Invoke-AdoRestMethod
+    class: ado-api
+    trigger: on-request
+    gated_by: the one ADO request function, called only by explicit Azure DevOps commands and their pipeline steps; tests mock it
+  pwsh/Azure.DevOps/Get-AdoAuthorizationHeader.ps1:
+    function: Get-AdoAuthorizationHeader
+    class: ado-api
+    trigger: on-request
+    gated_by: mints the ADO token through az only when no pipeline token or PAT is set (ADR-ADO-AUTH)
+  pwsh/Azure.Cli/Invoke-AzCli.ps1:
+    function: Invoke-AzCli
+    class: azure-control-plane
+    trigger: on-request
+    gated_by: the one az runner, called by the deploy, session, firewall and orphan commands after ADR-AZ-SESSION's assertions
+  pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1:
+    function: Deploy-Bicep L3 test
+    class: azure-control-plane
+    trigger: default-path
+    gated_by: none beyond an ambient az session; L3 runs in the default Test-Automation (MaxLevel 3) and deploys live
+  pwsh/Base.Git/Get-SyncPoint.ps1:
+    function: Get-SyncPoint
+    class: git-remote
+    trigger: on-request
+    gated_by: git ls-remote, called only by Sync-Topic; tests mock Invoke-Executable or use a local bare remote
+  pwsh/Base.Git/Sync-Topic.ps1:
+    function: Sync-Topic
+    class: git-remote
+    trigger: on-request
+    gated_by: explicit topic command (git fetch)
+  pwsh/Base.Git/Push-Topic.ps1:
+    function: Push-Topic
+    class: git-remote
+    trigger: on-request
+    gated_by: explicit topic command (git fetch, git push)
+  pwsh/Tooling.Github/Reset-GitHubRepository.ps1:
+    function: Reset-GitHubRepository
+    class: git-remote
+    trigger: on-request
+    gated_by: explicit publishing command (gh repo create, git push)
+  pwsh/Tooling.Github/Publish-CleanHistory.ps1:
+    function: Publish-CleanHistory
+    class: git-remote
+    trigger: on-request
+    gated_by: explicit publishing command (git push)
+  pwsh/Tooling.Github/private/Assert-RemoteMatchesBranch.ps1:
+    function: Assert-RemoteMatchesBranch
+    class: git-remote
+    trigger: on-request
+    gated_by: git ls-remote, called only by the publishing commands
+  .ado/pipelines/ci-pwsh.yaml:
+    function: the Install-* steps and the azcli mode step
+    class: package-install
+    trigger: pipeline-only
+    gated_by: runs only on the pipeline agent

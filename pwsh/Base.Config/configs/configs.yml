@@ -78,6 +78,8 @@ configs:
     type: Catzc.Base.Drs.DrsIndexConfig
   source-conventions:
     type: Catzc.Base.QualityGates.SourceConventionsConfig
+  network-calls:
+    type: Catzc.Base.Execution.NetworkCallsConfig
   agents:
     type: Catzc.Base.Docs.AgentsConfig
   capabilities:

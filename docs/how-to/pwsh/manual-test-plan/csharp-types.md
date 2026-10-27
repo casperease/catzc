@@ -100,16 +100,17 @@ The shipped C# types: they parse, compile, resolve, and the committed combined a
 
 **Prerequisite:** git.
 
-### 8. Catzc.Types.csproj — stale types warning
+### 8. Catzc.Types.csproj — editor build stamps, never warns on loaded types
 
-**Test file:** `pwsh/Base.TypesSystem/tests/Types.Csproj.Tests.ps1` (L1), block `Catzc.Types.csproj — stale types warning`.
+**Test file:** `pwsh/Base.TypesSystem/tests/Types.Csproj.Tests.ps1` (L1), block
+`Catzc.Types.csproj — editor build stamps, never warns on loaded types`.
 
-**Guards:** the editor build of `Catzc.Types.csproj` warns when the sources changed since the last import, and only then.
+**Guards:** the editor build of `Catzc.Types.csproj` stamps the source hash as its version and answers only whether the code compiles;
+whether a pwsh process holds older types is the importer's question.
 
 **Checks:**
 
-- With only an older-hash DLL in the types shadow root, the stamp target warns that the loaded types are older than the sources and
-  names the current-hash DLL.
-- With the current-hash DLL in the shadow root, the stamp target stays silent.
+- The stamp target carries no warning.
+- With only an older-hash DLL in the types shadow root, the stamp target stamps the source hash and stays silent.
 
 **Prerequisite:** dotnet.

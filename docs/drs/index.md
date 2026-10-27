@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cb42d40d361b
+    with_body_sha: bade2cce318a
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -188,6 +188,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |
 | `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
 | `ADR-AUTO-ACCOSTED` | [accosted-language](automation/accosted-language.md)                             |
+| `ADR-AUTO-NET`      | [network-calls](automation/network-calls.md)                                     |
 
 ### automation/BCL/
 

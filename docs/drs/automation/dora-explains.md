@@ -719,3 +719,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a call is written once, in the contract form, and
   checked against its contract by the one reader.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Network calls
+
+`Network calls only on sanctioned, explicit paths`
+
+[ADR-AUTO-NET](network-calls.md)
+
+> DORA ties deployment automation and test automation to reliable, repeatable runs. A run that reaches the network on its own depends on a
+> host outside the commit, so keeping every default path offline and every call site registered keeps a build, a test run and a format run
+> the same on every machine.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — tests mock the call or read checked-in data, so a red run
+  means the code, never a host that was down.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a deploy reaches a subscription only from the
+  command a pipeline names, with its target proved first.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — every outbound call is a registered, classified site,
+  so the supply paths are known and reviewed.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

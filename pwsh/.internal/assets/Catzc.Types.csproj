@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: b97fcbfee9c7
+    with_body_sha: "985eb8479914"
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
@@ -85,34 +85,24 @@
     the IDE build's version mirrors the runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>"). The call loads
     the loader and the vendor modules only: no importer, no run lock, about half a second.
 
-    The editor never fails over pwsh/.compiled: whether the code compiles is the editor's question, and
-    the committed assembly is the importer's, the tests' and the bundle check's. It only WARNS when what git
-    will commit — the index's pwsh/.compiled, not the disk — does not hold exactly one
-    Catzc.Types.<hash>.dll named for the current sources. Untracked or unstaged leftovers (an old build another
-    pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage pwsh/.compiled when it warns.
+    The editor build answers one question, whether the code compiles. Whether a pwsh process holds types older
+    than the sources is the importer's question, never the editor's: a running process cannot unload an
+    assembly, so a warning here only repeats what the next import fixes.
   -->
 
   <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
        attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
   <Target Name="StampCatzcTypesVersionFromSources" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
-    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;Import-Module '$(MSBuildProjectDirectory)/../Catzc.Internal.Loader.psm1'; Import-InternalModule Vendor; Import-VendorModules -VendorRoot '$(MSBuildProjectDirectory)/../../.vendor' -Lazy Pester, PSScriptAnalyzer; Import-InternalModule Types; [Console]::Out.Write((Get-CombinedTypeHash '$(MSBuildProjectDirectory)/../..').CombinedHash + '|' + (Get-TypesShadowRoot))&quot;"
+    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;Import-Module '$(MSBuildProjectDirectory)/../Catzc.Internal.Loader.psm1'; Import-InternalModule Vendor; Import-VendorModules -VendorRoot '$(MSBuildProjectDirectory)/../../.vendor' -Lazy Pester, PSScriptAnalyzer; Import-InternalModule Types; [Console]::Out.Write((Get-CombinedTypeHash '$(MSBuildProjectDirectory)/../..').CombinedHash)&quot;"
           ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" IgnoreExitCode="true">
       <Output TaskParameter="ConsoleOutput" PropertyName="CatzcTypesStamp" />
       <Output TaskParameter="ExitCode" PropertyName="CatzcHashExitCode" />
     </Exec>
-    <Error Condition="'$(CatzcHashExitCode)' != '0' Or !$(CatzcTypesStamp.Contains('|'))"
+    <Error Condition="'$(CatzcHashExitCode)' != '0' Or '$(CatzcTypesStamp)' == ''"
            Text="Catzc.Types: Get-CombinedTypeHash gave no hash (exit $(CatzcHashExitCode), output '$(CatzcTypesStamp)'). The stamp asks the loader at pwsh/.internal through the pwsh on PATH — install pwsh 7.4+ and ensure it is on PATH."
     />
-    <!-- The loader answers with "<hash>|<shadow root>": one pwsh start for both. -->
     <PropertyGroup>
-      <CatzcTypesHash>$(CatzcTypesStamp.Split('|')[0])</CatzcTypesHash>
-      <CatzcTypesShadowRoot>$(CatzcTypesStamp.Split('|')[1])</CatzcTypesShadowRoot>
-    </PropertyGroup>
-    <!-- The import builds Catzc.Types.<hash>.dll in the shadow root; absent, the sources changed since the last import. Older-hash DLLs never warn. -->
-    <Warning Condition="!Exists('$(CatzcTypesShadowRoot)/Catzc.Types.$(CatzcTypesHash).dll')"
-             Text="Catzc.Types: the loaded types are older than the sources (needs Catzc.Types.$(CatzcTypesHash).dll); dot-source ./importer.ps1 to rebuild."
-      />
-    <PropertyGroup>
+      <CatzcTypesHash>$(CatzcTypesStamp)</CatzcTypesHash>
       <Version>1.0.0-$(CatzcTypesHash)</Version>
       <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>
     </PropertyGroup>
