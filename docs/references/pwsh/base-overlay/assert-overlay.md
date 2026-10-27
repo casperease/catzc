@@ -1,7 +1,7 @@
-# pwsh/Base.Overlay/Assert-CatzcOverlay.ps1
+# pwsh/Base.Overlay/Assert-Overlay.ps1
 
 The check of the whole consumer overlay: it gathers every entry's violations and throws once with all of them, so a consumer sees every fix
-at once. `Import-CatzcOverlay` runs it before it applies anything.
+at once. `Import-Overlay` runs it before it applies anything.
 
 ## help
 
@@ -29,14 +29,14 @@ LocalModule       follows catzc's module conventions (Get-LocalModuleViolation):
                   well-shaped, and no public function that takes the name of a command already loaded.
 ```
 
-A consumer's CI runs it on its own to fail early; Import-CatzcOverlay runs it before it applies anything.
+A consumer's CI runs it on its own to fail early; Import-Overlay runs it before it applies anything.
 
 ### parameter `Entry`
 
-The overlay entries to check (Get-CatzcOverlay). Defaults to the current overlay.
+The overlay entries to check (Get-Overlay). Defaults to the current overlay.
 
 ### example 1
 
 ```powershell
-Assert-CatzcOverlay
+Assert-Overlay
 ```

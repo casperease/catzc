@@ -1,4 +1,4 @@
-Describe 'Import-CatzcOverlay' -Tag 'L0', 'logic' {
+Describe 'Import-Overlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')
     }
@@ -26,7 +26,7 @@ function Get-Widget {
 '@
         Set-OverlayFile 'Base.Widget/private/Get-WidgetCore.ps1' "function Get-WidgetCore {`n    [OutputType([string])]`n    param()`n    'core2'`n}"
 
-        $applied = @(Import-CatzcOverlay)
+        $applied = @(Import-Overlay)
 
         @($applied | ForEach-Object Target) | Should -Be @('Get-Widget', 'Get-WidgetCore')
         # The session, through the published override, and the module's own private function, through its scope.
@@ -38,7 +38,7 @@ function Get-Widget {
     It 'applies nothing when the overlay breaks a rule' {
         Set-OverlayFile 'Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param()`n    'overridden'`n}"
         $before = (Get-Command Get-Widget).Definition
-        { Import-CatzcOverlay } | Should -Throw -ExpectedMessage '*drops parameter -Name*'
+        { Import-Overlay } | Should -Throw -ExpectedMessage '*drops parameter -Name*'
         (Get-Command Get-Widget).Definition | Should -Be $before
     }
 
@@ -71,7 +71,7 @@ function Get-Widget {
             Set-OverlayFile 'Widget.Local/private/Get-LocalCore.ps1' "function Get-LocalCore {`n    'local-core'`n}"
             Set-OverlayFile 'Widget.Local/configs/widget-local.yml' 'limit: 7'
 
-            $applied = @(Import-CatzcOverlay)
+            $applied = @(Import-Overlay)
 
             @($applied | ForEach-Object Kind) | Should -Be @('FunctionOverride', 'LocalModule')
             # Its private function, the bundle as overridden, and its own config.
@@ -83,9 +83,9 @@ function Get-Widget {
 
         It 'replaces the module a previous load built' {
             Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'first'`n}"
-            $null = Import-CatzcOverlay
+            $null = Import-Overlay
             Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'second'`n}"
-            $null = Import-CatzcOverlay
+            $null = Import-Overlay
             Get-Local | Should -Be 'second'
             @(Get-Module Widget.Local).Count | Should -Be 1
         }
@@ -93,6 +93,6 @@ function Get-Widget {
 
     It 'does nothing without an overlay' {
         Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
-        @(Import-CatzcOverlay) | Should -BeNullOrEmpty
+        @(Import-Overlay) | Should -BeNullOrEmpty
     }
 }

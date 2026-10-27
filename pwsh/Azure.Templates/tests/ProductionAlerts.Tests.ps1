@@ -39,7 +39,12 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
         @($script:expedition | Where-Object Production).Count | Should -BeGreaterThan 0 -Because 'a production expedition slot exists to prove it'
         foreach ($slot in $script:expedition) {
             $alerts = @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/metricAlerts')
-            $expected = if ($slot.Production) { 5 } else { 0 }
+            $expected = if ($slot.Production) {
+                5
+            }
+            else {
+                0
+            }
             $alerts.Count | Should -Be $expected -Because "slot $($slot.Name) is $(if ($slot.Production) { 'production' } else { 'not production' })"
         }
     }

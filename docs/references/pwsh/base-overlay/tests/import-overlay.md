@@ -1,6 +1,6 @@
-# pwsh/Base.Overlay/tests/Import-CatzcOverlay.Tests.ps1
+# pwsh/Base.Overlay/tests/Import-Overlay.Tests.ps1
 
-The tests of `Import-CatzcOverlay`: they apply a fixture overlay to a fixture bundle and check what was replaced and loaded.
+The tests of `Import-Overlay`: they apply a fixture overlay to a fixture bundle and check what was replaced and loaded.
 
 ## The fixture overlay
 

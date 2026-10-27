@@ -1,4 +1,4 @@
-# pwsh/Base.Overlay/Import-CatzcOverlay.ps1
+# pwsh/Base.Overlay/Import-Overlay.ps1
 
 The step that applies a consumer overlay to a loaded bundle: it checks the overlay as a whole, replaces the overridden functions inside
 their modules, then loads the consumer's local modules.
@@ -12,7 +12,7 @@ Applies the consumer overlay's function overrides to the loaded bundle, after ch
 ### description
 
 Runs at the end of a bundle load ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). It checks the overlay first
-(Assert-CatzcOverlay), so nothing applies unless all of it is valid. Then each override file replaces its function inside the bundled
+(Assert-Overlay), so nothing applies unless all of it is valid. Then each override file replaces its function inside the bundled
 module, in two steps:
 
 1. the file is dot-sourced inside the module's own scope (`. $module { . $file }`), so the module's callers, its script state and Mock
@@ -34,5 +34,5 @@ Config fragments and asset overrides need no step here: Get-Config and Get-Catzc
 ### example 1
 
 ```powershell
-Import-CatzcOverlay
+Import-Overlay
 ```

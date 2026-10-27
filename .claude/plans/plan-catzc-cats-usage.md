@@ -49,6 +49,14 @@ catzc-prefixed names left over from old disk names, where the current folder dro
       `pwsh/Base.Repository/tests/*.Tests.ps1`, `pwsh/Base.Overlay/tests/*.Tests.ps1` and
       `pwsh/Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1` pass, then a fresh import.
 
+- [ ] Test fixture type names: `CatzcTest*`, `CatzcGetConfigTest`, `CatzcFlatSettingSet*`, `CatzcHold`, `CatzcBuildWidget`,
+      `CatzcBuildGadget`, `CatzcWidget` and `catzc_widget` become neutral Widget/Gadget names
+      ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)); each fixture and the
+      test files that read it change in one pass. Check: each touched test file passes.
+- [ ] One living version for the module list: compare private `Get-CatzcModules` (`pwsh/Base.Docs/private/`) with `Get-CatzcModule`
+      (`Catzc.Base.Modules`); if one answers the other's callers, they move to it and the other is deleted
+      ([PDR-ONELIVE](../../docs/drs/principles/one-living-version.md)). Check: the callers' test files pass.
+
 None of the new names is a command in the tree, the vendored modules or pwsh itself, and each keeps the `Verb-Noun` case and file round-trip
 that `Test-IdiomaticNames` checks.
 
@@ -73,4 +81,5 @@ that `Test-IdiomaticNames` checks.
 | `$catzcModuleFile`, `$catzcParseErrors`, `$catzcModuleAst`, `$catzcFirstError`             | the loader's variables inside every module's scope                                                        |
 | `$CatzcChild*`                                                                             | the TestKit runner's names in the scope the importer joins                                                |
 | `CatzcType` (`ContractParameter.cs`)                                                       | it matches `Catzc.*` type names                                                                           |
+| `project: "CatzcProject"` (`ado.yml`) | deploy-time data, outside the identifier rule |
 | C# `Catzc.*` namespaces, `Catzc.` accelerators                                             | [PDR-CATS-CATZCISSOURCENAME](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename) |

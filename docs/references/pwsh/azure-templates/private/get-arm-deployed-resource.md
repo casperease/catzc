@@ -13,8 +13,8 @@ its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 
 - `reference()`, `list*()` and every runtime lookup: a value read from a deployed resource or a module output.
 - `format()`, which Bicep string interpolation (`'${a}-${b}'`) compiles to, so an interpolated name or property stays unresolved.
-- `toLower()`, `toUpper()`, `replace()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other
-  string and array helpers.
+- `toLower()`, `toUpper()`, `replace()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other string
+  and array helpers.
 - `union()`, `coalesce()`, `tryGet()` and `range()`, which the safe-access (`.?`) and coalesce (`??`) operators and the `for … in range`
   loops compile to.
 - `resourceId()`, `subscriptionResourceId()`, `tenantResourceId()`, `extensionResourceId()`, `resourceGroup()`, `subscription()` and

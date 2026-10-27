@@ -107,7 +107,7 @@ output goes to the working root's `out/`, like every other output.
 `.catzc/pwsh/` mirrors the bundle's code root, path for path. `.catzc/pwsh/Catzc.Azure/configs/azure.yml` changes the bundled
 `Catzc.Azure/configs/azure.yml`; `.catzc/pwsh/Catzc.Azure.Cli/Invoke-AzCli.ps1` replaces the public function `Invoke-AzCli` of
 `Catzc.Azure.Cli`. Because the path is the declaration, there is nothing to register and nothing that can disagree with the files.
-`Get-CatzcOverlay` lists what the overlay holds, each entry classified by where it sits.
+`Get-Overlay` lists what the overlay holds, each entry classified by where it sits.
 
 ### Override points
 
@@ -146,7 +146,7 @@ not exist, so they are sealed in the one place every config is registered.
 
 ### Checked as a whole
 
-`Assert-CatzcOverlay` checks every entry against these rules and reports every violation at once; `Import-CatzcOverlay` runs it before it
+`Assert-Overlay` checks every entry against these rules and reports every violation at once; `Import-Overlay` runs it before it
 applies anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there
 is no bundle to change — the catzc tree is `pwsh/` itself — so only the overlay's config fragments are read, merged by `Get-Config`.
 

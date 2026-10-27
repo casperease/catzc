@@ -82,8 +82,8 @@ is planned here, one step each, so no record carries a planned item.
       64), from `budgetStartDate` for five years; `defender-plans.bicep` with `defenderPlans`; the MCSB initiative
       (`1f3afdf9-d0c9-4c3d-847f-89da613e70a8`) in `landing-zone-policies.bicep` as `benchmark` (role `bm`), its own `DoNotEnforce`. Check:
       the same four gates and Get-AzureResourceName tests green in one staged burst. Verdict (2026-10-27 burst): Test-BicepLint,
-      Test-BicepApiVersions, Build-Bicep.Integrity, Test-BicepTemplateCompliance, Get-AzureResourceName and Discovery.FlowLog passed, 6 of
-      6.
+      Test-BicepApiVersions, Build-Bicep.Integrity, Test-BicepTemplateCompliance, Get-AzureResourceName and Discovery.FlowLog passed, 6
+      of 6.
 - [ ] The anomaly alert (`scheduled-action.bicep`) in discovery: its recipients are a required template input injected at deploy time from a
       pipeline variable (decided), but no deploy-time parameter injection exists yet, so the mechanism is designed and approved first, then
       the variable joins the task file's pipeline-setup step. Check: discovery deploys the alert with recipients from the variable and no

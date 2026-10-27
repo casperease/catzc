@@ -1,6 +1,6 @@
 # pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1
 
-The check of a consumer's local module: it returns one message per reason the module cannot load, so `Assert-CatzcOverlay` can list them
+The check of a consumer's local module: it returns one message per reason the module cannot load, so `Assert-Overlay` can list them
 all.
 
 ## help

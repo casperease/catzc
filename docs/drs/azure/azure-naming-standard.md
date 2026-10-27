@@ -346,10 +346,10 @@ The component order is fixed repository-wide by the `ado_naming` variant, and it
 unlike CAF's type-first examples, which the `classic` order reproduces. Hyphens appear where the type allows them, with no delimiter in the
 `storage` and `vm` patterns, chosen per type by its render pattern. Every type token in `Get-AzureResourceTypeSet` that CAF lists equals
 CAF's abbreviation; the alert rule takes the spelled-out `alert`, one token for the metric, activity-log and scheduled-query kinds, which a
-role tells apart; the three other types CAF does not list take `budg` (budget), `pa` (policy assignment) and `wb` (workbook, whose resource name Azure requires to be a
-GUID, so the namer derives its display name and the GUID derives from that), and a private DNS zone keeps the name Azure requires. Subnets
-keep the names of the network plan instead of an `snet` name, and every type in CAF's examples that the templates deploy is named by the
-standard, type last and with no instance counter.
+role tells apart; the three other types CAF does not list take `budg` (budget), `pa` (policy assignment) and `wb` (workbook, whose resource
+name Azure requires to be a GUID, so the namer derives its display name and the GUID derives from that), and a private DNS zone keeps the
+name Azure requires. Subnets keep the names of the network plan instead of an `snet` name, and every type in CAF's examples that the
+templates deploy is named by the standard, type last and with no instance counter.
 
 Each shipped template pins its `short_name` in its `options.yml` (`fnd` for `foundation`, `disco` for `discovery`, `exped` for
 `expedition`), so renaming a folder never re-spells a resource, and the integrity test checks that `short_name` is unique across the shipped

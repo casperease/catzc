@@ -161,7 +161,7 @@ public static class ArmExpression
             List<object> first = EachItem(source, LambdaHead());
             List<object> values = null;
             SkipSpace();
-            if (name == "toObject" &&!AtEnd && text[position] == ',')
+            if (name == "toObject" && !AtEnd && text[position] == ',')
             {
                 position++;
                 values = EachItem(source, LambdaHead());

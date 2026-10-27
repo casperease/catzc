@@ -1,4 +1,4 @@
-# pwsh/Base.Overlay/Get-CatzcOverlay.ps1
+# pwsh/Base.Overlay/Get-Overlay.ps1
 
 The inventory of the consumer overlay: it walks the overlay folder and classifies every file by where it sits, loading and checking nothing.
 
@@ -19,11 +19,11 @@ private/<Function>.ps1  FunctionOverride (private)   replaces the module's priva
 configs/<config>.yml    ConfigFragment               merges onto the bundled config (Get-Config)
 assets/<path>           AssetOverride                replaces the bundled asset (Get-CatzcModuleRoot)
 tests/<path>            LocalTest                    a local test of the module as overridden
-anything else           Unknown                      not an override point (Assert-CatzcOverlay rejects it)
+anything else           Unknown                      not an override point (Assert-Overlay rejects it)
 ```
 
-A folder that names no bundled module is a LocalModule. Nothing is loaded or checked here; the inventory is what Assert-CatzcOverlay checks
-and Import-CatzcOverlay applies, and what a reader asks to see what a session changed. Returns nothing when there is no overlay (source
+A folder that names no bundled module is a LocalModule. Nothing is loaded or checked here; the inventory is what Assert-Overlay checks
+and Import-Overlay applies, and what a reader asks to see what a session changed. Returns nothing when there is no overlay (source
 mode, or no .catzc/automation/).
 
 ### outputs
@@ -33,7 +33,7 @@ mode, or no .catzc/automation/).
 ### example 1
 
 ```powershell
-Get-CatzcOverlay | Format-Table Kind, Module, Target
+Get-Overlay | Format-Table Kind, Module, Target
 ```
 
 ## The walk prunes nothing

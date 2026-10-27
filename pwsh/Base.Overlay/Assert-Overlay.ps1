@@ -1,7 +1,7 @@
-function Assert-CatzcOverlay {
+function Assert-Overlay {
     [CmdletBinding()]
     param(
-        [object[]] $Entry = @(Get-CatzcOverlay)
+        [object[]] $Entry = @(Get-Overlay)
     )
 
     $violations = [System.Collections.Generic.List[string]]::new()

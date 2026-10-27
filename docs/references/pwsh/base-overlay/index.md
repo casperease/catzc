@@ -57,7 +57,7 @@ The module's public functions, sorted into the responsibilities above.
 
 | Responsibility                          | Function                    |
 | --------------------------------------- | --------------------------- |
-| responsibility:1 — Applying the overlay | `Import-CatzcOverlay`       |
-| responsibility:2 — Overlay checks       | `Assert-CatzcOverlay`       |
-| responsibility:3 — Overlay inventory    | `Get-CatzcOverlay`          |
+| responsibility:1 — Applying the overlay | `Import-Overlay` |
+| responsibility:2 — Overlay checks | `Assert-Overlay` |
+| responsibility:3 — Overlay inventory | `Get-Overlay` |
 | responsibility:4 — Function file shape  | `Get-FunctionFileViolation` |
