@@ -2,7 +2,7 @@
 
 The typed record for `configs/analyzer-drs-map.yml`: each enabled PSScriptAnalyzer rule that enforces a decision-record rule, mapped to the
 rule codes it enforces. It is the source of the `pssa-rule` enforcer kind in the rule-coverage report (`Get-AnalyzerDrsCoverage`,
-`Get-CatsRuleEnforcers`). It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config analyzer-drs-map` returns it.
+`Get-RuleEnforcers`). It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config analyzer-drs-map` returns it.
 Its properties mirror the YAML keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 

@@ -82,7 +82,7 @@ layout:
 1. **Template files.** A `source` entry names a file kept under `pwsh/`, most of them in `Catzc.Base.RootConfig/assets/root/`. The root path
    is a copy of it under a generated-file head that names it as the source; the template itself stays the pure authored file.
 2. **Generator functions.** A `generator` entry names a function that renders the file: `New-Importer`, `New-GitIgnore`,
-   `New-GitAttributes`, `New-CatsCommandLookup`, the five `New-VsCode*` writers, `New-GoWorkspace` and `New-PythonProject`.
+   `New-GitAttributes`, `New-CommandLookup`, the five `New-VsCode*` writers, `New-GoWorkspace` and `New-PythonProject`.
    `Invoke-RootConfigGenerator` is the one place a name is bound to its call, so an unknown name fails loudly.
 3. **rootconfig.yml.** The registry lists 28 entries. Each names its target, exactly one source of truth, and the booleans `optIn` and
    `committed`. Nothing else in cats restates the target-to-source pairing.

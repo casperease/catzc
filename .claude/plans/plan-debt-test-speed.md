@@ -21,15 +21,15 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 The L0-L1 run `out/test-automation/20261027-081457` (snapshot, 1033 files, 568.7 s summed, 166.1 s wall on 12 shards) ranks the files; the
 run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bicep files, whose L1 tests failed there before compiling.
 
-| File                                       | Seconds | Cause                                                                     |
-| ------------------------------------------ | ------: | ------------------------------------------------------------------------- |
-| `Test-BicepTemplateCompliance.Tests.ps1`   |    54.3 | one L1 test, 53.8 s: `Build-Bicep` runs one bicep process per slot in turn |
-| `Get-ContractCheckResults.Assets.Tests.ps1` |    27.1 | left to catzc-e9                                                         |
-| `Wait-CatzcRunLock.Tests.ps1`              |    17.6 | real lock waits in whole seconds: the waits are what it proves             |
-| `catzc-track-lamps.Tests.ps1`              |    13.5 | four L1 walks of the real repository, 1.8-3.9 s each                       |
-| `Foundation.PrePost.Tests.ps1`             |    13.3 | its L1 `BeforeAll` compiles foundation again (tests sum 117 ms)            |
-| `Test-FileLimits.Tests.ps1`                |    12.2 | one L1 pass over every tracked file, under its 30 s roof                   |
-| `SourceConventionScan.Tests.ps1`           |    12.0 | one L1 test over every PowerShell file, 11.3 s                             |
+| File                                        | Seconds | Cause                                                                      |
+| ------------------------------------------- | ------: | -------------------------------------------------------------------------- |
+| `Test-BicepTemplateCompliance.Tests.ps1`    |    54.3 | one L1 test, 53.8 s: `Build-Bicep` runs one bicep process per slot in turn |
+| `Get-ContractCheckResults.Assets.Tests.ps1` |    27.1 | left to catzc-e9                                                           |
+| `Wait-CatzcRunLock.Tests.ps1`               |    17.6 | real lock waits in whole seconds: the waits are what it proves             |
+| `catzc-track-lamps.Tests.ps1`               |    13.5 | four L1 walks of the real repository, 1.8-3.9 s each                       |
+| `Foundation.PrePost.Tests.ps1`              |    13.3 | its L1 `BeforeAll` compiles foundation again (tests sum 117 ms)            |
+| `Test-FileLimits.Tests.ps1`                 |    12.2 | one L1 pass over every tracked file, under its 30 s roof                   |
+| `SourceConventionScan.Tests.ps1`            |    12.0 | one L1 test over every PowerShell file, 11.3 s                             |
 
 ## Open steps
 
@@ -40,14 +40,15 @@ run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bice
 - [ ] `Build-Bicep` runs every slot's `bicep build-params` and the `main.bicep` build one after another, each a full compile of the template
       in its own bicep process; send them through `Invoke-ExecutableParallel` (`CliRunner.RunMany`, the throttle of `timeouts.yml`
       `parallel.processes`), as `Build-Bicep.Integrity.Tests.ps1` already compiles its slots side by side. It speeds every caller,
-      `Test-BicepTemplateCompliance.Tests.ps1` (53.8 s) and `Foundation.PrePost.Tests.ps1` (13.3 s) first. The seven `Build-Bicep*.Tests.ps1`
-      files mock `Invoke-Executable` for the build-params calls and move to a mock of `Invoke-ExecutableParallel`, and
-      `private/Invoke-BicepParamsBuild.ps1` goes, its existence assert kept in `Build-Bicep`. Check: both files twice with `Invoke-TestFile`,
-      the same test names and `Should` count, the compiled `main.json` and parameter files identical to a serial build, and
-      `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      `Test-BicepTemplateCompliance.Tests.ps1` (53.8 s) and `Foundation.PrePost.Tests.ps1` (13.3 s) first. The seven
+      `Build-Bicep*.Tests.ps1` files mock `Invoke-Executable` for the build-params calls and move to a mock of `Invoke-ExecutableParallel`,
+      and `private/Invoke-BicepParamsBuild.ps1` goes, its existence assert kept in `Build-Bicep`. Check: both files twice with
+      `Invoke-TestFile`, the same test names and `Should` count, the compiled `main.json` and parameter files identical to a serial build,
+      and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 - [ ] `catzc-track-lamps.Tests.ps1` (13.5 s): measure whether its four L1 walks of the real repository can share one walk in `BeforeAll`
-      (ADR-AUTO-TEST-SETUPONCE) without changing what each proves.
+      (ADR-AUTO-TEST-SETUPONCE) without changing what each proves. Check: `Invoke-TestFile` twice, the same test names and `Should` count.
 - [ ] `SourceConventionScan.Tests.ps1` (12.0 s): measure the one test that parses every PowerShell file, and whether a parse is repeated.
+      Check: `Invoke-TestFile` twice, the same test names and `Should` count.
 
 ## Decided
 

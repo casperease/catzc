@@ -30,7 +30,7 @@ The (AdrId, Enforcer, Kind='pssa-rule') rows from Get-AnalyzerDrsCoverage. AdrId
 
 ### parameter `AllRuleIds`
 
-Every declared ADR rule id in '#' citation form (Get-CatsDrsRuleIds, ':'->'#') — the coverage universe.
+Every declared ADR rule id in '#' citation form (Get-DrsRuleIds, ':'->'#') — the coverage universe.
 
 ### parameter `OutputFolder`
 

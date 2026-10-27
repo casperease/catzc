@@ -14,12 +14,16 @@ plan:
 
 ## Open steps
 
-- [ ] Function help for `Build-FrontPage` and `Get-FrontPageSection` on the Base.Docs comment page, as ADR-REPO-HELP asks of a public
-      command. Check: the help gate reports neither command.
-- [ ] A short rule-level phrase for a link that names one rule, so a records row stops spelling a whole record title for a rule anchor (the
-      normal-form row names two). Check: the thesis table's normal-form row reads in one short sentence.
-- [ ] The Base.Docs module article names the front page among its generators. Check: the article lists `Build-FrontPage` and
-      `frontpage.yml`.
+- [x] Function help for `Build-FrontPage` and `Get-FrontPageSection` on the Base.Docs comment page, as ADR-REPO-HELP asks of a public
+      command. Check: the help gate reports neither command. Verdict: both pages hold the help section and `Format-Code` (ps-help step)
+      passed on both files.
+- [x] A short rule-level phrase for a link that names one rule, so a records row stops spelling a whole record title for a rule anchor (the
+      normal-form row names two). Check: the thesis table's normal-form row reads in one short sentence. Verdict: `Get-FrontPageRuleTitle`
+      names a rule by its first decision link; the regenerated row links "Responsibility domains" and "The repository is the configuration
+      record".
+- [x] The Base.Docs module article names the front page among its generators. Check: the article lists `Build-FrontPage` and
+      `frontpage.yml`. Verdict: the article's lead names the front page among its generators, and its Division table lists
+      `Build-FrontPage`, `Get-FrontPageSection` and `frontpage.yml`.
 
 ## Open questions
 

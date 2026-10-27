@@ -52,6 +52,6 @@ output: catzc.base.contracts.contract_command[]
    ```
 
 2. Run `Build-RootConfig`. It regenerates the lookup `cats` reads, `pwsh/.internal/assets/importer-commands.sh`, from the contracts through
-   `New-CatsCommandLookup`, so the new command answers to `cats <command-in-kebab-case>`.
+   `New-CommandLookup`, so the new command answers to `cats <command-in-kebab-case>`.
 3. A later change to the command's signature edits its asset in the same change; a released version folder pins it
    ([ADR-REPO-CMDCONTRACT-VERSIONSWITHUNIT](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-versionswithunit)).

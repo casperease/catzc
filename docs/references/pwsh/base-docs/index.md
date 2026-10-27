@@ -5,8 +5,10 @@ source, never a hand-kept one (see [generated-readmes](../../../drs/repository/g
 rebased to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place
 to edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
 primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every
-load. The module also generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the ADRs,
-modules, and verbs. The ADR registry, and the index generated from it, are [Catzc.Base.Drs](../base-drs/index.md).
+load. The module also generates the repository's front page, `.github/README.md`, from `frontpage.yml` and the section articles it names
+(`Build-FrontPage`, `Get-FrontPageSection`), and generates the glossary from the modules' glossary sources and answers "ask cats", the
+offline browser over the ADRs, modules, and verbs. The ADR registry, and the index generated from it, are
+[Catzc.Base.Drs](../base-drs/index.md).
 
 ## Responsibilities
 
@@ -117,6 +119,7 @@ The module's public surface, sorted into the responsibilities above.
 |                                           | `Test-GeneratedReadmes` |
 |                                           | `Build-FrontPage`       |
 |                                           | `Get-FrontPageSection`  |
+| config                                    | `frontpage.yml`         |
 | responsibility:2 — README map             | `readme.yml`            |
 | responsibility:3 — Managed .gitkeep files | `Build-GitKeep`         |
 | responsibility:4 — Controlled vocabulary  | `Get-Glossary`          |

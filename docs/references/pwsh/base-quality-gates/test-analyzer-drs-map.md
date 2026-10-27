@@ -15,7 +15,7 @@ analyzer map (configs/analyzer-drs-map.yml), the source of the 'pssa-rule' enfor
 ([ADR-PWSH-FORMAT-ANALYZERADRMAPPING](../../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-analyzeradrmapping)). The
 config load checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
 
-- every rule id an analyzer cites that is not a real ADR rule (Get-CatsDrsRuleIds, in '#' citation form);
+- every rule id an analyzer cites that is not a real ADR rule (Get-DrsRuleIds, in '#' citation form);
 - every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
   dispatches — the map does not list, so a new custom rule cannot ship unmapped.
 

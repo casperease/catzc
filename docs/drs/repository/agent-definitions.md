@@ -174,7 +174,7 @@ capabilities under `.claude/skills/`, each registered in `capabilities.yml` and 
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
   - an agent file with no registry entry, and an entry with no file;
   - front matter that does not parse, a `name` that differs from the file name, and a missing `description`, `Do NOT` clause, or `tools`;
-  - a `supported_by` citation that names no rule (resolved through `Get-CatsDrsRuleIds`);
+  - a `supported_by` citation that names no rule (resolved through `Get-DrsRuleIds`);
   - a `checks` entry that names no command;
   - a registered agent that the `## Sub-agents` section of `.claude/CLAUDE.md` does not list, and a listed agent that is not registered;
   - a robot body over `roofs.agent_body_lines`, a front-matter key outside the robot set or out of the fixed order, a missing or inherited

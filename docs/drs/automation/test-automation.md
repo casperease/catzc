@@ -217,7 +217,7 @@ A parallel-run flake root-caused to a shared resource is fixed by tagging it ser
 An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` citation tags naming the DRS rule(s) it enforces — the
 `docs/drs/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
 violation. A **present** citation is validated (`Get-TestTagViolations`): it must be well-formed and resolve to a real rule
-(`Get-CatsDrsRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
+(`Get-DrsRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
 (nearest contributing group wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's
 own tags and every group that encloses it, so a broad rule on the outermost group and a specific rule on one test both count.
 
@@ -510,7 +510,7 @@ outermost group and a rule on one inner test both hold, so `Get-TestRuleTags` **
 than taking the nearest like the single-valued axes.
 
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
-that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsDrsRuleIds` (the flat set
+that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-DrsRuleIds` (the flat set
 parsed from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy —
 it reads the DRS only when a test actually carries a citation — so a test run with none stays hermetic.
 

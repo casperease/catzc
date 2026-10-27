@@ -34,7 +34,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 25  | L1   | [Get-ChildPath (shipped folder-walk.yml)][c25]                                    |
 | 26  | L1   | [The provided head contract][c26]                                                 |
 | 27  | L1   | [Command contracts][c27]                                                          |
-| 28  | L1   | [New-CatsCommandLookup — the real contracts][c28]                                 |
+| 28  | L1   | [New-CommandLookup — the real contracts][c28]                                 |
 | 29  | L1   | [Test-ParameterConsistency — shipped configs/parameter-consistency.yml][c29]      |
 | 30  | L1   | [Test-ManagedGuids — shipped configs/guids.yml][c30]                              |
 | 31  | L1   | [Get-GuidScanFiles — shipped configs/guids.yml][c31]                              |
@@ -73,7 +73,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 [c25]: #25-get-childpath-shipped-folder-walkyml
 [c26]: #26-the-provided-head-contract
 [c27]: #27-command-contracts
-[c28]: #28-new-catscommandlookup--the-real-contracts
+[c28]: #28-new-commandlookup--the-real-contracts
 [c29]: #29-test-parameterconsistency--shipped-configsparameter-consistencyyml
 [c30]: #30-test-managedguids--shipped-configsguidsyml
 [c31]: #31-get-guidscanfiles--shipped-configsguidsyml
@@ -301,9 +301,9 @@ sample of only written keys, binds a code file to nothing outside its module and
 **Guards:** Every command asset of every contract unit reads as one typed record through Get-CommandContract, and the pilot set is all
 there.
 
-### 28. New-CatsCommandLookup — the real contracts
+### 28. New-CommandLookup — the real contracts
 
-**Test file:** `pwsh/Base.Contracts/tests/New-CatsCommandLookup.Tests.ps1` (L1), block `New-CatsCommandLookup — the real contracts`.
+**Test file:** `pwsh/Base.Contracts/tests/New-CommandLookup.Tests.ps1` (L1), block `New-CommandLookup — the real contracts`.
 
 **Guards:** The command lookup that `cats` reads before pwsh starts is one quoted shell variable with a row per contracted parameter of
 every command contract, and no row holds a quote that would end it (ADR-REPO-CMDCONTRACT-CONTRACTONEREADER).
