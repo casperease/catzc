@@ -196,7 +196,7 @@ when an off-config binary shadows the managed install — and only recommends `R
 - **`Uninstall-Chocolatey`** is the exemplar eviction the pattern generalizes
   ([use-proper-package-managers](use-proper-package-managers.md)).
 - **Code review** keeps the split honest: a `Uninstall-` that reaches past its manager to delete foreign state, or a `Remove-` that acts on
-  a managed install, is rejected against this ADR.
+  a managed install, is rejected against this record.
 
 ## Consequences
 

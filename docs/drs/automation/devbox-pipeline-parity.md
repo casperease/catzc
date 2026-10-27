@@ -34,11 +34,11 @@ crosses between devbox and pipeline: no shared runtime state, only the committed
 
 ## Context
 
-The value of the pwsh track is that it collapses the distance between "works on my machine" and "works in CI": one CLI, run the same
-everywhere, so a problem is caught at the furthest-left point it can be. That only holds if parity is a rule, not an accident — the moment a
-command needs a pipeline to work, or behaves differently there, shift-left breaks and the pipeline becomes the first place failures appear.
-The single seam (`Test-IsRunningInPipeline`) keeps the _one_ legitimate difference in one auditable place; the version-controlled globsets
-are the only channel between the two, so everything else stays identical.
+The tooling collapses the distance between "works on my machine" and "works in CI": one CLI, run the same everywhere, so a problem is caught
+at the furthest-left point it can be. That holds only while parity is a rule — a command that needs a pipeline to work, or behaves
+differently there, breaks shift-left and makes the pipeline the first place failures appear. The single seam (`Test-IsRunningInPipeline`)
+keeps the _one_ legitimate difference in one auditable place; the version-controlled globsets are the only channel between the two, so
+everything else stays identical.
 
 ## Decision
 

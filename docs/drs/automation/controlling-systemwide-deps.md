@@ -67,8 +67,8 @@ only on Windows, skipped by the provisioning and status loops on other platforms
 
 ## Context
 
-Automation code depends on tools installed at the OS level — Python, dotnet, Poetry, Azure CLI, git. These are not PowerShell modules that
-can be vendored into the repo. They are binaries managed by platform package managers (winget, brew, apt-get) and installed system-wide.
+Automation code depends on tools installed at the OS level — Python, dotnet, Poetry, Azure CLI, git. They are not engine modules that can be
+vendored into the repo but binaries that platform package managers (winget, brew, apt-get) install system-wide.
 
 This creates the hardest reproducibility problem in automation: "works on my machine" caused by different tool versions, missing tools, or
 tools installed in unexpected locations.
@@ -91,7 +91,7 @@ prerequisite.
   uninstall triads). This ADR — and everything under `Catzc.Tooling.*` — is about `ADR-AUTO-DEPS`.
 - A **module dependency** — code **`ADR-AUTO-DEPM`** (MOD = module) — is an edge in the internal graph among the repo's _own_ modules, the
   code we _build_. It is a separate concern with its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md)
-  (`ADR-AUTO-DEPM`); this ADR does not govern it.
+  (`ADR-AUTO-DEPM`); this record does not govern it.
 
 The two are governed by opposite disciplines: a `ADR-AUTO-DEPS` is external and uncontrolled, so the rules below lock, assert, and never
 assume it; a `ADR-AUTO-DEPM` is internal and fully ours, so it is declared once and its layering is checked (see

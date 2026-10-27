@@ -89,19 +89,16 @@ after a native call), the toolset's private session bookkeeping, and the state a
 
 ## Context
 
-The console is the user interface of a CLI automation platform. There is no GUI, no dashboard, no notification system. What appears in the
-terminal is the entire user experience. Every line of output is a UX decision.
+The console is the whole user interface of a CLI automation platform — no GUI, dashboard or notification system — so every line of output is
+a UX decision. Automation output fails in one of two ways:
 
-Most automation code gets this wrong in one of two ways:
+**Too noisy.** Every step, variable and decision is logged; the line that matters is buried, and a CI log becomes megabytes of noise. When
+everything is highlighted, nothing is.
 
-**Too noisy.** Functions log every step, every variable, every decision. The user scrolls through pages of output to find the one line that
-matters. In CI, log files become megabytes of noise where the actual error is buried. When everything is highlighted, nothing is.
+**Too silent.** A 30-second step gives no sign of whether it works or hangs, and a failure arrives without saying what was attempted, so the
+user re-runs with diagnostics on and hopes.
 
-**Too silent.** Functions produce no output at all. When something takes 30 seconds, the user does not know if it is working or hung. When
-something fails, the error appears with no context about what was being attempted. The user re-runs with diagnostics turned on and hopes the
-information they need is behind that switch.
-
-Both fail the same test: **can the user understand what happened by reading the output once, top to bottom, without re-running anything?**
+Both fail one test: **can the user understand what happened by reading the output once, top to bottom, without re-running anything?**
 
 ### What good output looks like
 
@@ -133,10 +130,9 @@ the automation: why a decision was made, what was skipped, what path was resolve
 for its caller, never a status line, and a failure stops execution with a self-contained error. There is no third path between "fine" and
 "stop": no warnings and no errors that let execution carry on. Each engine maps these onto its own output channels.
 
-**Diagnostic output deserves the same care as status output.** It is the user's window into what is happening underneath when something is
-not behaving as expected. The best time to write a diagnostic line is during development and debugging — if you needed that information
-exposed to understand the code's behavior, you will need it again next time. Leave it in. Good diagnostic output turns a 30-minute debugging
-session into a 30-second re-run with diagnostics on.
+**Diagnostic output deserves the same care as status output.** It is the window underneath when something misbehaves. Information needed
+once to understand the code's behaviour is needed again, so a diagnostic line written while debugging stays in; it turns a 30-minute
+debugging session into a 30-second re-run with diagnostics on.
 
 ```text
 GOOD — diagnostic lines capture the decisions the function made
@@ -154,28 +150,25 @@ The distinction between status and diagnostic output is about audience, not impo
 
 ### Output practice
 
-**Log commands, not commentary.** Every wrapper around an external tool logs the exact command before it runs (see
-[log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand)). This is the most valuable output: it tells the user what
-ran, and they can copy-paste it to reproduce. Do not add "Now installing Poetry..." before the command — the command itself is more
-informative.
+**Log commands, not commentary.** Every wrapper around an external tool logs the exact command before it runs
+([log-before-invoke](log-before-invoke.md#rule-adr-auto-prelog-logresolvedcommand)). It is the most valuable output: it says what ran, and
+it can be copy-pasted to reproduce. "Now installing Poetry..." adds nothing the command does not say better.
 
-**Let tools speak for themselves.** When `poetry install` produces output, let it flow to the console. Do not capture and re-format it. Do
-not prefix each line. The user knows what poetry output looks like — wrapping it in your own formatting makes it harder to read and
-impossible to search for in documentation. How each engine relays a child's output is its own ADR's concern (for pwsh, its twin).
+**Let tools speak for themselves.** The user knows what `poetry install` output looks like; capturing, re-formatting or prefixing it makes
+it harder to read and impossible to search for in the tool's documentation. How an engine relays a child's output is its twin record's
+concern.
 
-**Report outcomes, not steps.** "Poetry 2.1 installed successfully" is an outcome. "Checking if poetry is installed... Poetry is
-installed... Checking version... Version matches... Running poetry install... Done" is step-by-step narration that nobody reads. Report the
-end state, not the journey.
+**Report outcomes, not steps.** "Poetry 2.1 installed successfully" is an outcome; "Checking if poetry is installed... Checking version...
+Done" is narration nobody reads.
 
-**Silence is acceptable.** A function that succeeds with nothing to report should produce no output. `Assert-Command python` succeeds
-silently — the absence of an error _is_ the output. Do not add "Python found!" for reassurance.
+**Silence is acceptable.** `Assert-Command python` succeeds silently — the absence of an error _is_ the output; "Python found!" adds only
+noise.
 
-**Errors must be self-contained.** When a function fails, the error message must contain everything needed to diagnose the problem without
-reading the source code. "'Python' is not installed" is good. "Assertion failed" is not. The `Assert-*` library provides structured error
-messages by convention.
+**Errors must be self-contained.** "'Python' is not installed" diagnoses; "Assertion failed" does not. The `Assert-*` library builds
+structured messages by convention.
 
-**Use color sparingly and consistently.** Color draws the eye — use it only for information that deserves attention. Both GitHub Actions and
-Azure DevOps render ANSI colors in their log viewers, so color choices matter everywhere, not just in local terminals.
+**Use color sparingly and consistently.** GitHub Actions and Azure DevOps render ANSI colors in their log viewers, so color choices matter
+everywhere, not only in local terminals.
 
 | Color   | Meaning                                       |
 | ------- | --------------------------------------------- |
@@ -206,37 +199,29 @@ signal that nothing is wrong.
 3 services updated
 ```
 
-Side borders (`|`, `+--+`, `║`) break copy-paste. The user has to manually strip decoration from every line to use the output. Headers
-(`---`, `===`, `Write-Header`) and blank-line separators are fine — they frame the output vertically without touching the content itself.
+Side borders (`|`, `+--+`, `║`) force the user to strip decoration from every line before using it. Headers (`---`, `===`, `Write-Header`)
+and blank-line separators frame the output vertically without touching the content.
 
-**No progress bars.** A progress bar does not play well with automation output. It overwrites previous lines, disappears from CI logs
-entirely, clutters the terminal in interactive use, and adds significant complexity to the code (calculating percentages, estimating
-remaining time, managing activity IDs). For a long-running operation, print a dot (`.`) on the same line for each interval that passes, and
-end the line when the work finishes.
+**No progress bars.** A progress bar overwrites previous lines, vanishes from CI logs, clutters an interactive terminal, and costs code
+(percentages, time estimates, activity IDs). A dot (`.`) per interval on one line, ended when the work finishes, says the operation is alive
+in CI logs, terminals and redirected output alike, and goes through the toolset's writer, so a test run silences it with no special
+handling.
 
-This tells the user the operation is alive without any of the overhead. The dots appear in CI logs, in terminals, and in redirected output.
-They go through the toolset's writer like every other line, so a test run silences them with no special handling.
-
-**Timestamps are opt-in.** Every status line carries its caller's name as a prefix by default (`[Invoke-Executable] poetry install`).
-Timestamps can be enabled through the `CATZC_MESSAGE_TIMESTAMPS` environment variable for local debugging. CI platforms (ADO, GitHub
-Actions) timestamp every log line natively, so this is never needed there.
+**Timestamps are opt-in.** Every status line carries its caller's name as a prefix (`[Invoke-Executable] poetry install`); timestamps are
+for local debugging only, since CI platforms timestamp every line natively.
 
 ### Announce work before it blocks
 
-Silence is the right default for fast work — `Assert-Command python` says nothing because it has nothing to report. It is the wrong default
-for slow work: a function that goes quiet for several seconds is indistinguishable from one that has hung, and a user watching a frozen
-console cannot tell whether to keep waiting or kill it. So before any operation that leaves the session unresponsive for more than roughly
-five seconds — a slow external tool, a scan or format pass over hundreds of files, a first-time lazy module load, a long cloud call — a
-function writes a status line first, naming what is about to happen. That message is not step narration; it is the signal that the process
-is alive and working, which is meaningful output, not noise. This is the one place "report outcomes, not steps" yields: the _start_ of a
-long operation is itself an outcome worth reporting.
+Silence is right for fast work and wrong for slow work: a function quiet for several seconds is indistinguishable from a hung one, and the
+user cannot tell whether to wait or kill it. The up-front line is not step narration but the signal that the process is alive; it is the one
+place "report outcomes, not steps" yields, since the _start_ of a long operation is itself an outcome worth reporting.
 
-The announcement goes _before_ the blocking call, not after — a message printed once the work is done cannot tell the user it is in
-progress. For an operation whose duration is open-ended, pair the up-front message with a dot-per-interval liveness signal
-(ADR-AUTO-CONSOLE-NOBOXDRAWING) rather than leaving the console frozen. `Invoke-Executable` covers the common case: it logs the exact
-command before running it (ADR-AUTO-CONSOLE-LOGCOMMANDS, [log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a
-single external call inherits the announcement for free. The rule bites where the slow work is not a logged external call — a large
-in-process loop, a module import, an in-memory computation — where nothing else would print.
+The line goes _before_ the blocking call — one printed once the work is done cannot say it is in progress. For an open-ended operation, pair
+it with a dot-per-interval liveness signal (ADR-AUTO-CONSOLE-NOBOXDRAWING) rather than leaving the console frozen. `Invoke-Executable`
+covers the common case: it logs the exact command before running it (ADR-AUTO-CONSOLE-LOGCOMMANDS,
+[log-before-invoke](log-before-invoke.md)), so a function whose slow step _is_ a single external call inherits the announcement for free.
+The rule bites where the slow work is not a logged external call — a large in-process loop, a module import, an in-memory computation —
+where nothing else would print.
 
 ### Session state changes
 
@@ -314,8 +299,8 @@ is announced where it happens, naming what changed and to what; changes that are
 - **The Writers module** — provides all output functions: `Write-Message`, `Write-Object`, `Write-Header`, `Write-Exception`, and others.
   These are the building blocks for uniform console output, and the only way the toolset writes to the console.
 - **`Write-Message`** — the principal communication tool. Every message includes the calling function name automatically
-  (`[Invoke-Executable] poetry install`), so the user always knows which function produced the output. Timestamps can be enabled through
-  `CATZC_MESSAGE_TIMESTAMPS` for local debugging — CI platforms (ADO, GitHub Actions) timestamp every log line natively.
+  (`[Invoke-Executable] poetry install`), so the user always knows which function produced the output, and honours
+  `CATZC_MESSAGE_TIMESTAMPS`.
 - **Test runs are silent** — the writer checks the test-run flag the test runner sets and writes nothing while it is set, so no line leaks
   into test output and no test needs its own guard; a child process's relayed output honours the same flag.
 - **`Invoke-Executable`** — logs the exact command via `Write-Message` before execution. All `Invoke-*` wrappers inherit this.

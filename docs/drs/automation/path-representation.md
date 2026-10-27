@@ -105,19 +105,18 @@ either shell's view (`C:\projects\catzc` under pwsh, `/c/projects/catzc` under G
 
 ## Context
 
-A path moves through automation code in two very different roles, and conflating them is a source of bugs that keeps recurring. In one role
-a path is _data_ — a value a function returns, stores in a record, writes into a config a human reads, or prints in a log line. In the other
-it is an _address_ — the argument to a file read, a module import, or an `az` invocation that is about to touch the filesystem.
+A path plays two roles in automation code, and conflating them breeds recurring bugs. As _data_ it is a value a function returns, stores in
+a record, writes into a config a human reads, or prints in a log line. As an _address_ it is the argument to a file read, a module import,
+or an `az` invocation about to touch the filesystem.
 
-As data, an absolute path is wrong in three ways: it is machine-specific (it embeds `C:\Users\someone\…` or `/home/vsts/work/1/s/…`, so it
-cannot be compared, committed, or moved between a workstation and a CI agent), it is noisy in logs, and it is fragile — built by a path join
-from a raw caller argument, it carries whatever `.\`, `..`, or backslash the caller passed straight through. As an address, a relative path
-is wrong the moment resolution depends on the current directory (see [never-depend-on-pwd](never-depend-on-pwd.md)), so binding must resolve
-against a known anchor, not the current directory.
+As data, an absolute path is machine-specific (it embeds `C:\Users\someone\…` or `/home/vsts/work/1/s/…`, so it cannot be compared,
+committed, or moved between a workstation and a CI agent), noisy in logs, and fragile — joined from a raw caller argument, it carries the
+caller's `.\`, `..`, or backslash straight through. As an address, a relative path is wrong the moment resolution depends on the current
+directory ([never-depend-on-pwd](never-depend-on-pwd.md)), so binding resolves against a known anchor.
 
-The fix is to fix the _form_ a path takes at each boundary, rather than leaving it to each function author. This ADR complements
-[never-depend-on-pwd](never-depend-on-pwd.md) (resolve against the working root, never the current directory), the pwsh twin's path join and
-normalization (forward slashes), and the `out/` root, whose paths take the same relative form.
+So the _form_ a path takes is fixed at each boundary rather than left to each function author. This record complements
+[never-depend-on-pwd](never-depend-on-pwd.md), the engine twin's path join and normalization (forward slashes), and the `out/` root, whose
+paths take the same relative form.
 
 ### The two forms
 
@@ -170,8 +169,8 @@ Every path that crosses a boundary going out goes through `ConvertTo-RepoRelativ
 `Resolve-RepoPath`. The pair round-trips: relativizing a path under the root and resolving it again yields the original absolute path.
 Centralizing on the two functions is what makes normalization a guarantee rather than a hope — a path hand-joined onto the repository root
 preserves a caller's `.\` and produces `{root}/./sub`, and a hand-rolled backslash-to-slash replace fixes separators but not `..` segments.
-The converters fix both, in one place, so the rule cannot be half-applied. The PowerShell spellings of the two hand-built crossings are in
-the pwsh twin.
+The converters fix both, in one place, so the rule cannot be half-applied. The engine spellings of the two hand-built crossings are in the
+engine twin.
 
 ### Degradation
 
@@ -189,16 +188,13 @@ repository root — is what keeps an output artifact portable: `out/template/sam
 `{root}/out/template/sample/main.json` locally and `{staging}/template/sample/main.json` in a pipeline, from the one stored string.
 Anchoring it as a plain repo-relative path would resolve to `{root}/out/...` everywhere and point at nothing in the pipeline.
 
-That is the **within-stage** story — the `out/` sentinel keeps an output path portable between a devbox and a pipeline. When an artifact
-crosses a **stage boundary** the anchor changes again: the build stage produces it and a later deploy stage — often a different agent —
-downloads and consumes it, and the publish step renames the artifact, stripping the `out/template/` prefix. So the producer's output root
-does not survive the boundary and the `out/` sentinel is not the shared anchor; the **artifact root** is (the producer's `output_folder`,
-the consumer's downloaded folder). The cross-stage descriptor is therefore an immutable `ArtifactRef` carrying **both** forms: an
-**artifact-relative** relative (e.g. `main.json`, which the consumer re-resolves against **its own** artifact root) and the
-producing-context absolute (for audit). The type is the factory — it takes the raw path and the artifact root, converts once, and
-materializes both — and it exposes the consumer's verification (`ResolveAt`, then `ExistsAt`, which answers whether the file exists) as a
-method, so the "check at the other end" lives on the type rather than in every consumer. `RepoRelativePath` stays repo-root-pure (source
-paths, relative-only); the cross-stage artifact is the separate, dual-form case.
+That holds **within a stage**. Across a **stage boundary** the anchor changes again: a later deploy stage, often on another agent, downloads
+the artifact, and the publish step renames it, stripping the `out/template/` prefix. The shared anchor is then the **artifact root** (the
+producer's `output_folder`, the consumer's downloaded folder), so the cross-stage descriptor is an immutable `ArtifactRef` carrying **both**
+forms: the **artifact-relative** path (e.g. `main.json`, which the consumer re-resolves against **its own** artifact root) and the
+producing-context absolute (for audit). The type is the factory — it takes the raw path and the artifact root and converts once — and it
+owns the consumer's check (`ResolveAt`, then `ExistsAt`), so the "check at the other end" is not repeated in every consumer.
+`RepoRelativePath` stays repo-root-pure (source paths, relative-only).
 
 ### The workspace anchor
 
@@ -220,14 +216,11 @@ produce at bind time may not. Relative is the rule for everything a human commit
 
 ### Logging is an output format
 
-A log line, a console write, a thrown message, and a returned summary are output channels, not storage. Treating them as a format makes the
-rendered path form a deliberate decision rather than an accident. The value being rendered is a path that knows both its forms, so the
-channel picks: tracking and correlation want the relative form — it is identical across machines, so log lines from a workstation and a CI
-agent line up, and it greps cleanly — so relative is the default; a channel whose consumer binds the path (a command a human will copy and
-run locally) may render absolute. A path-bearing type carries this by validating once in its constructor and exposing both forms
-(`ArtifactRef` holds both, `RepoRelativePath` holds the relative and derives the absolute on demand), so the rendering choice never costs a
-re-derivation and the stored field stays relative either way. This is why the rule is _not_ "wrap every log call in
-`ConvertTo-RepoRelativePath`": the path is a typed value with both forms, and each channel renders the one it needs.
+A log line, a console write, a thrown message, and a returned summary are output channels, not storage, so the rendered form is a deliberate
+per-channel choice. Relative is the default: it is identical across machines, so workstation and CI log lines line up and grep cleanly; a
+channel whose consumer binds the path (a command a human copies and runs locally) may render absolute. A path-bearing type validates once in
+its constructor and exposes both forms (`ArtifactRef` holds both, `RepoRelativePath` derives the absolute on demand), so rendering never
+re-derives and the stored field stays relative. The rule is therefore _not_ "wrap every log call in `ConvertTo-RepoRelativePath`".
 
 ## Decision
 
@@ -246,16 +239,16 @@ hand-builds a communicated path from the repository-root environment variable or
 - **`RepoRelativePath` and `ArtifactRef`** (`Catzc.Base.Objects`) make the form a construction-time property: a record that holds one of
   these cannot carry a mis-formed or wrong-anchor path, and the cross-stage artifact's two forms and its consumer-side check are produced
   and owned by the type. Where a record holds one, that is correctness by construction, not by a linter pass; `ArtifactRef` is the type a
-  published artifact takes, and no production code publishes one yet.
+  published artifact takes.
 
 - **`InspirationRoot`** (`Catzc.Tooling.Inspiration`) rejects a stored root that is absolute, has a drive letter, a backslash, or a `..`
   segment, or carries `{workspace}` anywhere but first, and resolves the anchor; `Resolve-InspirationRoot` binds it.
 
-- **Code review** against this ADR covers what a linter cannot. A custom PSScriptAnalyzer rule is _not_ used here: the only
-  statically-decidable signatures — a raw read of the repository-root environment variable, a path joined onto it, an ad-hoc
-  backslash-to-slash replace — are each used legitimately in scores of binding sites, parameter defaults, and tests, so a blanket rule is
-  overwhelmingly false-positive; and the property that actually distinguishes a leak (a path _communicated_ rather than _bound_) is not
-  expressible as an AST pattern. Enforcement therefore lives in the types above and in review, not in a noisy rule.
+- **Code review** against this record covers what a linter cannot. A custom analyzer rule is _not_ used here: the only statically-decidable
+  signatures — a raw read of the repository-root environment variable, a path joined onto it, an ad-hoc backslash-to-slash replace — are
+  each used legitimately in scores of binding sites, parameter defaults, and tests, so a blanket rule is overwhelmingly false-positive; and
+  the property that actually distinguishes a leak (a path _communicated_ rather than _bound_) is not expressible as an AST pattern.
+  Enforcement therefore lives in the types above and in review, not in a noisy rule.
 
 ## Consequences
 

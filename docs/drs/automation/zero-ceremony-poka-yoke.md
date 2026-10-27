@@ -38,7 +38,7 @@ platform itself enforces correctness — the author does not have to remember to
 **Adding a function:** create the function's file, named for it, in a module folder. No manifest to update, no export list to maintain, no
 import to add. The bootstrap module discovers it automatically.
 
-**Adding a module:** create a folder under the engine's code root (`pwsh/`). The folder name becomes the module name. No registration, no
+**Adding a module:** create a folder under the engine's code root. The folder name becomes the module name. No registration, no
 configuration file.
 
 **Using a function:** load the importer into the shell. Every function from every module is available. No module import, no `using`
@@ -51,25 +51,23 @@ file.
 
 **Running tests:** call `Test-Automation`. It finds all test files across all modules automatically.
 
-Each of these is a single action with no prerequisites and no follow-up steps. The ceremony count is zero. The PowerShell mechanics behind
-it, in the pwsh twin, are one global function namespace with no import statements, and exports derived from file location. Removing the
-ceremony from adding a function leaves the author time and judgement for the challenging work. Vendoring the third-party modules, and
-assuming no local admin, keep access to tools free of friction.
+Each is a single action with no prerequisites and no follow-up steps; the engine twin gives the mechanics (one global function namespace,
+exports derived from file location). Zero ceremony leaves the author's time and judgement for the challenging work, and vendored third-party
+modules with no local admin assumed keep access to tools free of friction.
 
 ### What hard-to-fail looks like
 
 **You cannot name a file wrong.** One function per file — the automation tests validate that every function file is named `Verb-Noun`,
 contains exactly one function, and the function name matches. A misnamed file fails the next test run immediately.
 
-**You cannot use the wrong verb.** Approved verbs — PSScriptAnalyzer's `PSUseApprovedVerbs` rule rejects unapproved verbs. The author does
-not need to check `Get-Verb` — the tool catches it.
+**You cannot use the wrong verb.** The analyzer rejects an unapproved verb, so the author never checks the verb list by hand.
 
 **You cannot forget an assertion.** [Fail fast with assertions](fail-fast-with-asserts.md#rule-adr-auto-failfast-assertinputsatentry) — the
 convention of asserting every assumption inline means errors surface at the exact point of failure with a message naming the violated
 assumption. Bad state cannot silently propagate.
 
-**You cannot break formatting.** Uniform formatting — `.editorconfig` configures the editor. PSScriptAnalyzer rules enforce brace style and
-variable casing. The author does not need to think about formatting — the tools handle it.
+**You cannot break formatting.** `.editorconfig` configures the editor and analyzer rules enforce brace style and variable casing, so the
+tools handle formatting.
 
 **You cannot depend on the current directory.** Working-directory mechanics — a custom analyzer rule flags a bare change of the current
 directory. Functions that accidentally depend on the working directory are caught before they run in a different context.
@@ -88,7 +86,7 @@ Every design choice in this project is evaluated against two questions:
 1. **Does this add ceremony?** If the author has to do something that the platform could do for them, the platform should do it.
 
 2. **Can the author get this wrong?** If a mistake is possible, the system should either prevent it structurally (file naming conventions,
-   bootstrap-module auto-discovery) or catch it immediately (PSScriptAnalyzer rules, test assertions).
+   bootstrap-module auto-discovery) or catch it immediately (analyzer rules, test assertions).
 
 If the answer to either question is unsatisfying, the design is not done.
 

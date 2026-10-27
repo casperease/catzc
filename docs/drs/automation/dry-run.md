@@ -34,10 +34,10 @@ remove), not by an interactive prompt.
 
 ## Context
 
-Side-effecting automation functions — those that deploy, install, delete, tag, or shell out to a CLI — need a "don't actually do it" mode,
-for previewing and for tests that must verify _what would happen_ without making it happen. Engines and frameworks often ship an implicit
-one: a session-wide what-if mode that functions opt into, a preference that flows down the call chain on its own, and a confirmation prompt
-before each destructive step. It looks like the idiomatic choice. We deliberately do **not** use it.
+Side-effecting functions — those that deploy, install, delete, tag, or shell out to a CLI — need a "don't actually do it" mode, for
+previewing and for tests that verify _what would happen_ without making it happen. Engines often ship an implicit one: a session-wide
+what-if mode that functions opt into, a preference that flows down the call chain on its own, and a confirmation prompt before each
+destructive step. It looks idiomatic and is deliberately **not** used.
 
 ### Why not an implicit mode
 
@@ -48,10 +48,9 @@ before each destructive step. It looks like the idiomatic choice. We deliberatel
   the function cannot **return the action it would take** for a test to inspect. Good tests assert on a return value or a mockable call — an
   implicit mode gives neither.
 
-- **It is special plumbing that is easy to get subtly wrong.** Making an implicit mode actually safe requires separate, invisible steps:
-  opting the function in, guarding **every** side effect at exactly the right place, and making sure the mode reaches **every** nested call
-  that has its own side effects. Miss any one and the side effect fires in what-if mode — a silent, dangerous failure that looks like it
-  worked. The ceremony is not visible at the call site, and people forget it.
+- **It is special plumbing that is easy to get subtly wrong.** Safety takes separate, invisible steps: opting the function in, guarding
+  **every** side effect at exactly the right place, and making the mode reach **every** nested call with side effects of its own. Miss one
+  and the side effect fires in what-if mode — a silent, dangerous failure that looks like success, from ceremony the call site never shows.
 
 - **It is ambient state.** Whether a call previews or acts depends on settings inherited from wherever the call came from — implicit,
   surprising, and hard to reason about. An explicit parameter passed by hand has none of that ambiguity.

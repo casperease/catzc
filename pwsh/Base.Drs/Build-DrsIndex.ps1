@@ -69,7 +69,7 @@ function Build-DrsIndex {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $path = $fileOf[$ruleSet.External]
             if (-not $path) {
-                throw "Build-DrsIndex: no single ADR file $($adrs.Root)/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
+                throw "Build-DrsIndex: no single decision record file $($adrs.Root)/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
             }
             [pscustomobject]@{
                 Code = '`' + $ruleSet.External + '`'
@@ -78,7 +78,7 @@ function Build-DrsIndex {
         }
 
         $codeWidth = [System.Math]::Max(4, (@($rows.Code) | Measure-Object -Property Length -Maximum).Maximum)
-        $adrWidth = [System.Math]::Max(3, (@($rows.Adr) | Measure-Object -Property Length -Maximum).Maximum)
+        $adrWidth = [System.Math]::Max(6, (@($rows.Adr) | Measure-Object -Property Length -Maximum).Maximum)
 
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("### $($domain.Folder)/")
@@ -98,7 +98,7 @@ function Build-DrsIndex {
         }
         $lines.Add("**Role:** ``$($domain.Role)`` — **depends on:** $dependsOn.")
         $lines.Add('')
-        $lines.Add("| $('Code'.PadRight($codeWidth)) | $('ADR'.PadRight($adrWidth)) |")
+        $lines.Add("| $('Code'.PadRight($codeWidth)) | $('Record'.PadRight($adrWidth)) |")
         $lines.Add("| $('-' * $codeWidth) | $('-' * $adrWidth) |")
         foreach ($row in $rows) {
             $lines.Add("| $($row.Code.PadRight($codeWidth)) | $($row.Adr.PadRight($adrWidth)) |")

@@ -24,21 +24,15 @@ samples, the value-chain move (ADR-REPO-VALUECHAIN), ONETRACKTYPE, the arrows ru
 re-cite; five importer-path files went by staged burst, its 14 test files green.
 
 - [ ] `Build-DrsIndex` and `Build-Glossary`, then the record check over the tree plus `Test-Spelling`, `Test-Glossary` and
-      `Test-DrsEngineNeutrality`. Check: each reports 0 issues.
-- [ ] The glossary sources' "cell" and "lit cell" (`pwsh/Base.ModuleSystem/configs/glossary.yml`) read the world map only, since their
-      defining design rules no longer carry the value-chain half. Check: `Test-Glossary`.
-
-### Sections that restate their rules
-
-- [ ] `repository/conventional-folders.md`: "How this is enforced" becomes one current list. Check: the record check.
-- [ ] `repository/api-contracts.md`: "The name picks the kind", the Decision restatement and "Three version ranges" go; rejected
-      alternatives 1/3/10 and 2/7 fold together; HEADPOLICY's carrier detail in `repository/file-meta.md` defers to JSONCARRIER. Check: the
-      record check.
+      `Test-DrsEngineNeutrality`. Check: each reports 0 issues. Open: `Test-Spelling` still reports the peer files
+      `.claude/hindsight/hindsightbfef75.md` (bfef, renamer, scripter) and `.claude/plans/plan-session-learnings.md:30`
+      (`ADR-AUTO-TYPES-CHANGEDAFTERLOAD`, a code no record declares).
 
 ### Records still owed a full prose pass
 
 - [ ] The same in-place tightening for `repository/` (slides-as-markdown, command-contracts, drs-code-language, uniform-formatting,
-      controlled-vocabulary, markdown-links, agent-definitions and the rest), the Context bodies of the larger `automation/` records
-      (platform-bundle, console-output-matters, path-representation, fail-fast-with-asserts, environment-variables, caching, module-model)
-      and ~25 smaller ones, and `automation/pwsh/` (dynamic-module-manifests, environment-variable-mechanics, pwsh-engine, error-handling,
-      powershell-formatting and the rest). Check: the record check.
+      controlled-vocabulary, markdown-links, agent-definitions and the rest), the Context bodies of the smaller `automation/` records not
+      yet tightened (execution-engines, layers, idiomatic-names, materialization, use-proper-package-managers, file-limits,
+      accosted-language, test-artifact-languages, tracked-files-from-the-index, test-automation), and `automation/pwsh/` (pwsh-engine,
+      error-handling, powershell-formatting and every record but dynamic-module-manifests and environment-variable-mechanics). Check: the
+      record check.

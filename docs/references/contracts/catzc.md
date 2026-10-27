@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6f360c75fa2
+    with_body_sha: c03b4634c27b
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -51,6 +51,7 @@ The current version: edited in place
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/cache-types.yaml`                                | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/download-artifact.yaml`                          | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/steps/invoke-automation.yaml`                          | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
+| `pwsh.azure.dev_ops`                  | `pipeline.yaml.schema.json`                      | `.ado/pipelines/variables/network-agent-pool.yaml`                     | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops`                  | `test_pipelines.command.yml`                     | `pwsh/Azure.DevOps/Test-Pipelines.ps1`                                 | provided  | command contract | `path: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                  |
 | `pwsh.azure.dev_ops`                  | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.dev_ops.build_validation` | `register_ado_build_validation.command.yml`      | `pwsh/Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1`    | provided  | command contract | `glob_set: string!, pipeline: string, branch: string, project: string, organization: string, repository_name: string, dry_run: switch`                                                                                                                                                                                                                              |
@@ -222,8 +223,10 @@ The current version: edited in place
 | `pwsh.base.vs_code`                   | `package.schema.json`                            | `contracts/catzc/0.1.0/pwsh.base.vs_code/package.sample.json`          | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.base.vs_code`                   | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.base.writers`                   | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
+| `pwsh.tooling.claude`                 | `lock_shared_config.command.yml`                 | `pwsh/Tooling.Claude/Lock-SharedConfig.ps1`                            | provided  | command contract | `name: string!, session: string -> catzc.tooling.claude.editor_claim`                                                                                                                                                                                                                                                                                               |
 | `pwsh.tooling.claude`                 | `start_claude_drone.command.yml`                 | `pwsh/Tooling.Claude/Start-ClaudeDrone.ps1`                            | provided  | command contract | `skill: string!, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                   |
 | `pwsh.tooling.claude`                 | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
+| `pwsh.tooling.claude`                 | `unlock_shared_config.command.yml`               | `pwsh/Tooling.Claude/Unlock-SharedConfig.ps1`                          | provided  | command contract | `name: string!, session: string`                                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.tooling.core`                   | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.tooling.github`                 | `remove_token_from_history.command.yml`          | `pwsh/Tooling.Github/Remove-TokenFromHistory.ps1`                      | provided  | command contract | `token: string!, replace_with: string = ***REMOVED***, skip_messages: switch, repository_path: string, dry_run: switch`                                                                                                                                                                                                                                             |
 | `pwsh.tooling.github`                 | `workflow.yml.schema.json`                       | `.github/workflows/ci-pwsh.yml`                                        | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -282,6 +285,8 @@ Notes:
 
 - `pwsh.azure/test_azure_network_plan.command.yml`: Checks that the network plan (network.yml) and the azure config's environments and
   subscriptions are in sync.
+- `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
+  editor and a gate need no download.
 - `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
   editor and a gate need no download.
 - `pwsh.azure.dev_ops/pipeline.yaml.schema.json`: Our schema of an Azure Pipelines file, the shape Azure DevOps reads, kept local so an
@@ -444,9 +449,9 @@ Notes:
   source.
 - `pwsh.base.docs/test_glossary.command.yml`: Checks the controlled vocabulary against the repository with every glossary check, every issue
   in one report.
-- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Checks that the rule summaries of the configured ADR domains carry no
+- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Checks that the rule summaries of the configured `ADR` domains carry no
   engine-specific syntax.
-- `pwsh.base.drs/test_drs_registry.command.yml`: Checks that the ADR registry (drs.yml) and the ADR rule files agree.
+- `pwsh.base.drs/test_drs_registry.command.yml`: Checks that the DRS registry (drs.yml) and the decision records agree.
 - `pwsh.base.flow/actionable-fact.schema.json`: The schema of one actionable fact, verifiable by the truth store, address and moment its
   origin names, and actionable by the one change or report it calls for.
 - `pwsh.base.flow/junction-inbound.schema.json`: The schema of one inbound junction call, a state machine calling catzc at a point it
@@ -486,8 +491,8 @@ Notes:
   draws, every lit cell with its reason.
 - `pwsh.base.maps/query-rows.schema.json`: The schema of the query rows a C3, C4 or flow slide is drawn from, one row per point with its
   edges, and its level and nodes or its flow lens and lanes.
-- `pwsh.base.maps/test_value_chain_map.command.yml`: Checks that every ADR sits in a cell of the value-chain map and that every label the
-  value-chain map prints is a glossary term.
+- `pwsh.base.maps/test_value_chain_map.command.yml`: Checks that every decision record sits in a cell of the value-chain map and that every
+  label the value-chain map prints is a glossary term.
 - `pwsh.base.maps/test_world_map.command.yml`: Checks that every tracked file sits in a declared track and its tech-stack, and that every
   label the world map prints is a glossary term.
 - `pwsh.base.module_system/test_checked_in_binaries.command.yml`: Checks that every checked-in binary in the repository is stored
@@ -511,7 +516,7 @@ Notes:
   fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
 - `pwsh.base.quality_gates/head.schema.json`: The schema of a file's meta head, the keys of the catzc block a tool may rely on, none of them
   required.
-- `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Checks that analyzer-drs-map.yml cites only real ADR rules and maps every
+- `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Checks that analyzer-drs-map.yml cites only real DRS rules and maps every
   custom analyzer rule.
 - `pwsh.base.quality_gates/test_automation.command.yml`: Runs all Pester tests found across the catzc modules, sharded across parallel
   worker processes.
@@ -566,8 +571,12 @@ Notes:
   module's namespace and file name.
 - `pwsh.base.vs_code/package.schema.json`: The schema of the trimmed extension manifest VS Code expects of a cats extension, checked on
   every rendered package.json before packing.
+- `pwsh.tooling.claude/lock_shared_config.command.yml`: Claims a shared config for this session's edits until the claim expires, so another
+  session's Edit of it is denied.
 - `pwsh.tooling.claude/start_claude_drone.command.yml`: Starts new Claude Code drone sessions, each in a terminal window of its own, in the
   repository root.
+- `pwsh.tooling.claude/unlock_shared_config.command.yml`: Releases this session's claim on a shared config, so any session may edit or claim
+  it.
 - `pwsh.tooling.github/remove_token_from_history.command.yml`: Scrubs a token from a git history's blob content and commit messages with
   git-filter-repo, the fallback route to New-SyntheticHistory.
 - `pwsh.tooling.github/workflow.yml.schema.json`: Our schema of a GitHub Actions workflow, the shape GitHub reads, kept local so an editor

@@ -16,10 +16,9 @@ plan:
 
 # A languages button that clicks language lamps into the title row
 
-The typed-languages lamp was an experiment and is gone. Its replacement is a **button**, not a lamp: one click opens a pick list of the
-languages `languages.yml` declares, and every language ticked there becomes a lamp of its own, after the filters, with everything a lamp
-has: off, on and veto, its condition colour, the red journey, a place in the census and the status words. Unticking takes the lamp out of
-the row again.
+A **button**, not a lamp, picks the languages: one click opens a pick list of the languages `languages.yml` declares, and every language
+ticked there becomes a lamp of its own, after the filters, with everything a lamp has: off, on and veto, its condition colour, the red
+journey, a place in the census and the status words. Unticking takes the lamp out of the row again.
 
 ## Why its value is medium
 

@@ -26,16 +26,19 @@ BeforeDiscovery {
 
 Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
     BeforeAll {
-        # One filtered lookup per unit, version and module, shared by every case.
+        # One read of every contract, keyed by unit, version and module: each Get-Contract call resolves the whole tree, whatever its filter.
         $script:groupContracts = @{}
+        foreach ($contract in Get-Contract -Root '*' -Version '*' -Group '*') {
+            $groupKey = "$($contract.Root)|$($contract.Version)|$($contract.Group)"
+            if (-not $script:groupContracts.ContainsKey($groupKey)) {
+                $script:groupContracts[$groupKey] = [System.Collections.Generic.List[object]]::new()
+            }
+            $script:groupContracts[$groupKey].Add($contract)
+        }
     }
 
     It '<Root> <Version> <Group>: <Path> -> <Target> (<Direction>) holds' -ForEach $script:assetCases {
         $groupKey = "$Root|$Version|$Group"
-        if (-not $script:groupContracts.ContainsKey($groupKey)) {
-            $script:groupContracts[$groupKey] = @(Get-Contract -Root ([WildcardPattern]::Escape($Root)) `
-                    -Version ([WildcardPattern]::Escape($Version)) -Group ([WildcardPattern]::Escape($Group)))
-        }
         $assets = @($script:groupContracts[$groupKey] | Where-Object { $_.AssetPath -ceq $AssetPath -and $_.Target -ceq $Target })
         $assets.Count | Should -Be 1
         $result = Get-ContractCheckResults -Asset $assets[0]

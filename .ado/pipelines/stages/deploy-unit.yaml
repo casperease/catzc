@@ -112,6 +112,8 @@ stages:
         ${{ else }}:
           dependsOn: ${{ parameters.DependsOn }}
           condition: ${{ parameters.FirstCondition }}
+        variables:
+          - template: /.ado/pipelines/variables/network-agent-pool.yaml
         jobs:
           - ${{ each d in parameters.Discoveries }}:
               - deployment: Discovery_${{ d.env }}
@@ -120,8 +122,9 @@ stages:
                   environment: ${{ d.adoEnvironment }}
                 ${{ else }}:
                   environment: ${{ parameters.Unit }}-${{ d.env }}
+                # The anomaly seed writes the foundation vault, which has no public network access: an agent inside the network.
                 pool:
-                  vmImage: ubuntu-latest
+                  name: ${{ variables.NetworkAgentPool }}
                 strategy:
                   runOnce:
                     deploy:

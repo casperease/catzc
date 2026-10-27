@@ -37,9 +37,7 @@ is planned here, one step each, so no record carries a planned item.
       Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
       `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
-- [ ] Role assignments, what is left after the module outputs resolved offline: a user step in the task file to review the stacked
-      assignments. Check: the step is in `task-user-runs-and-commits.md`.
-- [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
+- [ ] The identity split (the firewall burst is in the tree):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`
       name — and the connections are derived per subscription, the trust boundary: one landing-zone and one read-only connection per
@@ -47,16 +45,12 @@ is planned here, one step each, so no record carries a planned item.
       the role `lz`/`ro`/`wl` through a new namer type `sc` (`pattern long, limit 256`). `Get-BicepServiceConnectionName` and
       `Get-BicepServiceConnections` live in Azure.Templates; `Sync-AdoServiceConnections` and `Test-AdoServiceConnections` take the
       connection objects as input (pipeline or `-Connection`), so Azure.DevOps gains no dependency on Azure.Templates (checked against
-      `dependencies.yml`). The pipelines' literal `sc-*` names move to the derived ones in an order agreed with catzc-ab (its part B edits
-      `cd-customer.yaml`). Check: the connection listing names each subscription's landing-zone, read-only and workload connections, and an
+      `dependencies.yml`). The pipelines' literal `sc-*` names move to the derived ones in the same change as the config and the namer, one
+      staged burst, `cd-customer.yaml`'s parameter examples included (decided, drone-opus for meister, 2026-10-27, by PDR-ONELIVE: a
+      contract and every in-tree caller change together, so no pipeline waits on a separate part B and no old `sc-*` name outlives the
+      config). Check: the connection listing names each subscription's landing-zone, read-only and workload connections, and an
       L1 that every `serviceConnection` in `.ado/pipelines` resolves to a derived connection whose identity fits what its stage deploys
       (landing-zone for foundation and discovery, workload for expedition, read-only for `-DryRun` previews).
-- [ ] Defender for Cloud as a landing-zone resource and the benchmark initiative in audit mode (built with the discovery wiring; SQL server
-      auditing now through `sql-server.bicep`'s required `auditWorkspaceId`, `sql-audit.bicep` deleted, verdict 2026-10-27 burst:
-      Test-BicepLint on the touched paths, Test-BicepApiVersions, Build-Bicep.Integrity and Test-BicepTemplateCompliance passed). Check:
-      Discovery.Security.Tests (Defender pricings, benchmark assignment `DoNotEnforce`) and Alerts.Tests (one auditing setting per
-      expedition slot) pass offline on the compiled templates; ADR-AZ-LZ-CAFSECURITY, ADR-AZ-LZ-GOVERNANCELIMITS and the well-architected
-      page's "no external benchmark" passage are rewritten to match.
 - [x] The firewall egress narrows `Storage` to the region's tag: `NetworkFirewallEgress`'s default `Storage.{region}`, which
       `firewall-policy.bicep` fills with its location's tag name (`firewall_egress.service_tag_regions`). Verdict (2026-10-27 burst, after
       the evaluator gained `deployment()` from `Get-ArmDeployedResource -Location` and module-parameter copies): HubFirewall.Tests 4 of 4,
@@ -77,14 +71,6 @@ is planned here, one step each, so no record carries a planned item.
       cleanup. Narrowed (meister, 2026-10-27 burst): only listable resources are compared, extension resources and child proxies are left
       out, and `orphan-removal.yml` (`OrphanRemovalConfig`, `azure_created`) skips a SQL server's `master`; OrphanRemovalConfig.Tests,
       Remove-BicepOrphanResources.Tests, Test-ShippedConfigs and Test-Contracts passed, 4 of 4.
-- [ ] The deploy pipelines run on an agent pool inside the network before a live deploy. `foundation`'s vault has public network access off
-      (`docs/how-to/infrastructure/seed-a-secret.md`), so a Microsoft-hosted agent (`vmImage: ubuntu-latest`) cannot reach it for the
-      anomaly seed (`Set-AnomalyAlertRecipientSecret`) or the break-glass rotation (`Invoke-BreakGlassRotation`). The pool is a Managed
-      DevOps Pool or self-hosted agents in the hub virtual network, decided (meister, 2026-10-27) over a firewall exception on the vault,
-      which would open the one store of the platform's secrets to the internet; its name is declared once and every vault job names it.
-      Check: a pipeline-YAML test that every job of `.ado/pipelines` whose steps run a command writing to a `foundation` vault
-      (`Set-AnomalyAlertRecipientSecret`, `Invoke-BreakGlassRotation`) names that pool and no `vmImage`, and fails on a new vault-writing
-      job on a Microsoft-hosted agent.
 - [x] The compliance evaluator resolves `toObject` and an indexed `map` lambda (`(item, index) => …`), which build the security rules in
       `landing-zone-network.bicep`. Check: `NsgFlows.Tests.ps1` asserts each security group's evaluated rules (only declared flows allowed,
       then the two denies) in place of its binding checks. Verdict (2026-10-27 burst): ArmExpression.Tests, NsgFlows.Tests and
@@ -104,16 +90,6 @@ is planned here, one step each, so no record carries a planned item.
 - [x] A pre-deploy cost estimate per template. Check: CI prints one per template. Verdict (2026-10-27): `ci-infrastructure.yaml` runs
       `Get-BicepCostEstimate <template>` after each build, from the checked-in price table; Test-Pipelines.Tests passed, 23 of 23, with a
       case for the step order and no price refresh in CI.
-- [ ] Cost model: config-driven SKU and billing-zone meters. The estimate counts resources by type, so a type whose SKU varies by config
-      cannot be priced yet: - the hub firewall, per hub from `network.yml` `subscriptions.<hub>.firewall_sku`: - `shared_nonprod`: Azure
-      Firewall Basic, a Basic policy and 2 Standard static public IPs; - `shared_prod`: Azure Firewall Standard, a Standard policy, 1
-      Standard static public IP and zones 1–3; - each with data processed per GB and its resource-specific logs into the workspace; - the
-      private DNS zone, priced by DNS billing zone, not ARM region (a per-meter region); - the private endpoint, whose Retail Prices API
-      service is not yet known (it is under neither Virtual Network nor Azure Private Link in westeurope). Check: the estimate prices every
-      meter cost-model.yml lists, and prices the firewall by each hub's SKU. Verdict (2026-10-27 burst): `skus`, `when_sku`, `count` and a
-      per-meter `region` landed on CostModelConfig (CostMeter split to its own file) with the firewall, public-IP and Zone 1 DNS meters; the
-      hub firewall is priced by its tier (Discovery.Budget.Tests, 3 of 3). Open: `Update-AzurePriceTable` is not yet run for the new meters
-      (the table lacks them, so they read as unpriced), and the private endpoint's service is still unknown.
 - [x] Foundation wiring, staged and not yet landed (the run lock stayed busy): `storage-account.bicep` takes a `containers` list of
       `{ name, deleteAfterDays }`, each with a blob container and a `delete-<name>` rule in the account's one lifecycle policy (the policy
       exists only when it has a rule); foundation's flow-log account gets `cost-exports`, kept `costExportRetentionDays` (400), inside its

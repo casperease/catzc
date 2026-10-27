@@ -29,12 +29,12 @@ its policy, absent where the policy calls for it or present where it does not, i
 about the file, written into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding a generated
 file's head under `immutable`, an authored file's edges at the block's first level
 ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a capability's authored config contributions under `config`
-([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key
-sits at the top level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign
-data, nests under that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own
-key is `catzc` either way, and a parent key written as a flow mapping or a scalar is the author's to open up, never rewritten. A code file's
-carrier is its meta head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file
-the tooling owns: every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
+([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)); where
+another tool validates the front matter, the key nests at the path the carrier registry declares (`key`, such as `metadata.catzc`), the
+block's own key `catzc` either way, and a parent key written as a flow mapping or a scalar is never rewritten. A JSON file's carrier is its
+ignored property ([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier)), a code file's its meta head
+([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns: every
+other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
 - [One block, two carriers](#one-block-two-carriers)

@@ -106,9 +106,9 @@ function still makes the call it is registered for. A new call site lands with i
 ## Context
 
 The repository is the configuration record, and the tooling that reads it runs on a developer machine, a pipeline agent and a consumer's
-installed bundle. A network call on one of those paths makes the result depend on a host that is not in the commit: a package resolved today
-differs from one resolved next week, an endpoint that is down fails a format run, and a credential in a user profile leaks into a run that
-never asked for it. The machine may also be a regulated operations box, where an outbound call is itself a control to account for.
+installed bundle. A network call on one of those paths makes the result depend on a host that is not in the commit: a package resolved this
+week differs from one resolved next week, an endpoint that is down fails a format run, and a credential in a user profile leaks into a run
+that never asked for it. The machine may also be a regulated operations box, where an outbound call is itself a control to account for.
 
 ### The default path
 

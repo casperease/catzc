@@ -125,11 +125,11 @@ config is read, so no caller knows an overlay exists.
 
 ### Function overrides
 
-The bundle's own code keeps calling a replaced function the way it always has, so an override keeps the original's contract, and it replaces
-a function the module already has — never adds one, which would be a new module hidden inside a bundled one. The replacement reaches every
-caller. In pwsh that takes two steps: the override file is loaded inside the module's own scope, which reaches the module's callers, its
-state, and module-scoped mocks; and a public override is published to the session, where the import had put the original, which reaches the
-session and every other module. Its code stays bound to the module, so it runs in the module's scope wherever it is called from.
+The bundle's own code calls a replaced function unchanged, so an override keeps the original's contract, and it replaces a function the
+module has — never adds one, which would be a new module hidden inside a bundled one. The replacement reaches every caller in two steps: the
+override file is loaded inside the module's own scope, reaching the module's callers, its state, and module-scoped mocks; and a public
+override is published to the session where the import put the original, reaching the session and every other module. Its code stays bound to
+the module, so it runs in the module's scope wherever it is called from; the engine twin gives the mechanics.
 
 ### Asset overrides
 

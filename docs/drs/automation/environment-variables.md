@@ -61,50 +61,41 @@ stays prohibited.
 
 ## Context
 
-Environment variables are dangerously convenient. In most engines they look like regular variables, they are accessible everywhere, and they
-survive function calls. This makes them tempting for passing state between functions, caching results, or storing configuration.
+Environment variables are dangerously convenient: in most engines they look like regular variables, reach everywhere, and survive function
+calls, which tempts code to pass state, cache results, or store configuration in them. They are the worst form of global mutable state: **no
+scoping, no type safety, no automatic cleanup, and no visibility boundaries.**
 
-That temptation is the problem. Environment variables are the worst form of global mutable state because they have **no scoping, no type
-safety, no automatic cleanup, and no visibility boundaries.**
-
-A language gives code scoped mechanisms for its own state — parameters, return values, locals, module state — all destroyed or scoped
-automatically. An environment variable set inside any function, at any call depth, persists for the entire process lifetime unless someone
-explicitly removes it; no scope exit cleans it up. The PowerShell mechanics of obeying this rule — which scoped mechanism replaces which
-environment-variable temptation, runspace sharing, test isolation — are the language layer, in the pwsh twin.
+A language confines its own state — parameters, return values, locals, module state — and cleans it up automatically. An environment
+variable set at any call depth persists for the whole process until someone removes it. How an engine obeys this rule — which scoped
+mechanism replaces which temptation, worker sharing, test isolation — is its twin record's to say.
 
 ### Global mutable state
 
 `Why environment variables are global mutable state`
 
-- **Global.** An environment variable is readable and writable from any function, any module, any scope. There is no access control. Any
-  code — yours, vendored, third-party — can read or mutate any environment variable. This couples all code together: you must reason about
-  the entire process, not just the function you are reading.
+- **Global.** Any code — ours, vendored, third-party — can read or mutate any environment variable from any scope, with no access control,
+  so reasoning about one function means reasoning about the whole process.
 
-- **Mutable.** Any code path can change the value at any time. Two consecutive reads of the same variable can return different values if
-  something in between modified it.
+- **Mutable.** Two consecutive reads can return different values if anything in between changed it.
 
-- **Unscoped.** Unlike a language's scoped variables (a function local, module-level state), an environment variable has no boundaries at
-  all. It bypasses the language's scope isolation entirely.
+- **Unscoped.** It bypasses the language's scope isolation entirely.
 
 ### They are always strings
 
-An environment variable's value is always a string. There is no type safety: a number or a boolean is stored as its text, and every consumer
-must parse and validate it. There is no schema, no constraint, and no validation at the call site. Compare this to a typed function
-parameter with a validated range or set — the type system catches errors at the call site.
+A number or a boolean is stored as its text, and every consumer must parse and validate it — no schema, no constraint, no call-site check,
+where a typed parameter with a validated range or set fails at the call site.
 
 ### They leak to child processes
 
-Every child process inherits **all** environment variables from the parent. A child process (a linter, a build tool, a third-party CLI) sees
-every variable the parent set, even if it has no need for them. This violates least privilege and creates an invisible coupling between
-parent and child.
+Every child process (a linter, a build tool, a third-party CLI) inherits **all** of the parent's variables, needed or not — a breach of
+least privilege and an invisible coupling between parent and child.
 
 ### Parallel runs and tests
 
 `They break parallel execution and poison tests`
 
-Environment variables are process-wide, so concurrent workers share one mutable namespace — parallel reads and writes race — and a value set
-in one test leaks into the next, producing order-dependent failures that are extremely difficult to diagnose. The PowerShell specifics
-(runspace sharing, `$using:`, Pester's lack of environment isolation) live in the pwsh twin.
+Concurrent workers share one process-wide mutable namespace, so parallel reads and writes race, and a value set in one test leaks into the
+next as an order-dependent failure that is hard to diagnose. The engine specifics live in the engine twin.
 
 ### They are a security surface
 
@@ -121,17 +112,16 @@ There is one narrow exception, and it is a hand-off, not a store: when an extern
 
 `Case sensitivity is inconsistent`
 
-Environment-variable names are case-insensitive on Windows and case-sensitive on Linux, so `Path` and `PATH` are one variable on one
-platform and two on the other. Using environment variables for internal state means dealing with this cross-platform inconsistency in every
-consumer. Module-scoped variables have no such problem.
+Names are case-insensitive on Windows and case-sensitive on Linux, so `Path` and `PATH` are one variable on one platform and two on the
+other, and every consumer of internal state kept there inherits the inconsistency. Module-scoped variables do not.
 
 ### Internal state instead
 
 `The correct alternative for internal state`
 
-Internal state belongs in the mechanisms whose scope and cleanup the language manages automatically: pass values between functions as
-parameters and return values, and keep shared state in module scope. None of these leak to child processes, pollute tests, or persist beyond
-their natural lifetime. The PowerShell mechanism table and idioms are the language layer, in the pwsh twin.
+Values pass between functions as parameters and return values, and shared state lives in module scope — mechanisms whose scope and cleanup
+the language manages, which never leak to child processes, pollute tests, or outlive their natural lifetime. The engine's mechanism table is
+in its twin.
 
 ## Decision
 
@@ -142,48 +132,39 @@ Environment variables are used exclusively at external boundaries — never as i
 These are the only acceptable uses of environment variables in our code:
 
 **1. Setting variables for external tools to consume.** External tools define their configuration contract through environment variables —
-the dotnet CLI's telemetry opt-out, git's terminal prompt, the Azure CLI's config folder, PowerShell's module path. We set these so the tool
-behaves correctly. The key distinction: the _consumer_ of the variable is an external process, not our code.
+the dotnet CLI's telemetry opt-out, git's terminal prompt, the Azure CLI's config folder, an engine's module path. The _consumer_ is an
+external process, not our code.
 
-**2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate via environment
-variables — the Azure DevOps and GitHub Actions markers, the Windows system root. Reading these is fine — they are inputs from outside our
-boundary. The two CI markers are read only inside `Test-IsRunningInPipeline`; no other code reads them directly.
+**2. Reading variables that external systems set.** CI platforms, container runtimes, and operating systems communicate through them — the
+Azure DevOps and GitHub Actions markers, the Windows system root — as inputs from outside our boundary. The two CI markers are read only
+inside `Test-IsRunningInPipeline`.
 
-A small family of `CATZC_*` flags belongs to this category as well. They are deliberate external/diagnostic toggles — signals set by the
-outer environment (a developer's shell, a test harness) that our code _reads_ to alter a presentation or test-isolation behaviour, never to
-pass internal state between our own functions. The value is an input from outside our boundary (a human or a harness flips it), and the
-function merely observes it. This is the boundary rule, not an exception to it.
+The small family of `CATZC_*` flags belongs here too: external/diagnostic toggles that a developer's shell or a test harness sets and our
+code only _reads_, to alter a presentation or test-isolation behaviour — the boundary rule, not an exception to it.
 
-**3. Setting a well-known anchor once at bootstrap.** The working root is set by the importer entry at startup and never modified again. It
-is effectively a constant — a process-wide anchor that removes the need to depend on the working directory. This is acceptable because it is
-set once, never mutated, and serves the same role as a tool's contract variable (every function needs a stable root, and the environment is
-the only mechanism that crosses module boundaries without passing parameters through every call).
+**3. Setting a well-known anchor once at bootstrap.** The importer entry sets the working root at startup and never changes it, so it is
+effectively a constant that removes any dependence on the working directory. It plays a tool contract variable's role: every function needs
+a stable root, and the environment is the only mechanism that crosses module boundaries without threading a parameter through every call.
 
-The PowerShell examples of each use are in the pwsh twin.
+The engine twin gives an example of each use.
 
 ### The secret hand-off
 
 `The one sanctioned secret hand-off`
 
-Setting a variable for an external tool (legitimate use 1) covers non-secret contract values directly. Some external contracts are for a
-**secret**: a CLI or container that reads its token, key, or connection string from the environment. That is still an external-boundary use
-— the consumer is an outside process, not our code — but a secret crossing the boundary demands more discipline than a bare assignment,
-because the plaintext must not leak into a log, a return value, or a persisted variable that outlives the call.
+Some external contracts are for a **secret**: a CLI or container that reads its token, key, or connection string from the environment. That
+is still an external-boundary use, but it needs more discipline than a bare assignment, because the plaintext must not leak into a log, a
+return value, or a variable that outlives the call.
 
-ADR-AUTO-ENVVAR-NOSECRETSTATE forbids using the environment as a secret **store** — durable or internal state, config, or any secret our own
-code reads back out of the environment. It does not forbid a disciplined secret **hand-off** to an external consumer that reads the secret
-from the environment; that narrow, external-boundary crossing is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, and it is permitted through exactly
-one seam: **`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the
-plaintext, decrypts only at the assignment that is the boundary, and by default removes the secret from the environment when the hand-off
-ends. Its PowerShell mechanics are in the pwsh twin.
+ADR-AUTO-ENVVAR-NOSECRETSTATE forbids the environment as a secret **store** — durable or internal state, config, or a secret our own code
+reads back. A **hand-off** to an external consumer is ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS, permitted through exactly one seam:
+**`Write-EnvironmentSet`** (`Catzc.Tooling.Environment`). It takes the secret as a protected value, never logs or returns the plaintext,
+decrypts only at the assignment that is the boundary, and by default removes the secret when the hand-off ends; the engine twin gives its
+mechanics.
 
-The plaintext does land in the environment for the instant the external tool reads it — that is unavoidable, because the tool's contract is
-to read it there, and it is the boundary hand-off the whole rule is about. What ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS guarantees is that this
-is the _only_ place the plaintext exists, that it is not logged or returned, and that it does not outlive the hand-off.
-
-This _strengthens_ ADR-AUTO-ENVVAR-NOSECRETSTATE rather than weakening it: scattered ad-hoc plaintext assignments are replaced by one seam
-that carries the don't-log / don't-persist / decrypt-at-boundary discipline, so a reviewer has one function to audit instead of every string
-assignment.
+The plaintext lands in the environment for the instant the tool reads it — unavoidable, since that is the tool's contract — and that seam is
+the _only_ place it exists, never logged, unreturned, and not outliving the hand-off. One auditable function in place of scattered ad-hoc
+assignments _strengthens_ ADR-AUTO-ENVVAR-NOSECRETSTATE.
 
 ### Prohibited uses
 
@@ -194,54 +175,29 @@ assignment.
 - **Never make functionality depend on an environment variable being set.** A function that throws when a variable is unset hides its input;
   a mandatory, validated parameter gives type validation, tab completion, mandatory enforcement, and documentation for free.
 
-The PowerShell form of each, as BAD and GOOD code, is in the pwsh twin.
+The engine twin shows each as BAD and GOOD code.
 
 ## Twelve-factor configuration
 
 `On twelve-factor app configuration`
 
-The twelve-factor app methodology recommends storing configuration in environment variables that are "granular controls, each fully
-orthogonal to other env vars" and "never grouped together as environments."
+The twelve-factor app methodology stores configuration in environment variables that are "granular controls, each fully orthogonal to other
+env vars" and "never grouped together as environments." That suits its setting: a stateless web application with a handful of independent
+knobs (a database URL, an API key, a log level).
 
-This is sound advice for its original setting: stateless web applications with a handful of independent settings (a database URL, an API
-key, a log level).
+Infrastructure platform configuration is a different problem. In a multi-customer, multi-environment system the values form a dependency
+graph: a resource group name derives from the customer shortname, the environment, and the type; the subscription depends on the
+environment, and the service connection on the subscription. Flat variables for this produce hundreds of individually managed values with no
+visible relationships, no consistency validation, and the customer shortname duplicated in dozens of them — a new customer touches dozens of
+places, and nobody can see the structure.
 
-Each knob is truly independent — changing the log level has no relationship to the database host.
+So an infrastructure platform separates **selection criteria** from **configuration**. Selection criteria — customer, environment,
+environment type — are control signals that decide _which_ configuration applies: in a pipeline they steer the flow, in a function they
+decide what to look up. `Catzc.Azure/configs/azure.yml` and `Get-Config -Config azure` provide these dimensions, validated for referential
+integrity on load; the configuration proper (resource names, connection strings, feature flags) is a separate concern that consumes them.
 
-Infrastructure platform configuration is a fundamentally different problem.
-
-In a multi-customer, multi-environment system, configuration values form a dependency graph, not a flat set of independent knobs.
-
-A resource group name derives from the customer shortname, the environment, and the type.
-
-The subscription depends on the environment. The service connection depends on the subscription.
-
-These values are not orthogonal — they are computed from a small set of dimensions.
-
-Applying twelve-factor's flat env var advice to this domain produces hundreds of individually managed variables with no visible
-relationships, no consistency validation, and rampant duplication (the customer shortname appears in dozens of variables).
-
-Adding a new customer means touching dozens of places and hoping they all agree.
-
-No one can look at the configuration and understand its structure.
-
-The correct approach for infrastructure platforms is to separate **selection criteria** from **configuration**.
-
-Selection criteria are the dimensions that determine _which_ configuration applies: customer, environment, environment type.
-
-They are control signals — in a pipeline they control the path of flow, in a function they determine what to look up.
-
-This is what `Catzc.Azure/configs/azure.yml` and `Get-Config -Config azure` provide: the selection dimensions (customers, environments,
-types), validated for referential integrity on load. They are not the configuration system itself — they are the axes by which configuration
-is selected.
-
-The actual configuration system (resource names, connection strings, feature flags) is a separate concern that consumes these dimensions.
-
-This does not contradict twelve-factor's underlying principle — "don't bake environment-specific values into code." It recognizes that
-twelve-factor's implementation advice (flat independent env vars) breaks down when configuration values depend on each other and are
-selected by structured, interrelated dimensions.
-
-Environment variables remain the right answer when your config is genuinely a flat set of independent knobs.
+This keeps twelve-factor's principle — "don't bake environment-specific values into code" — and drops only its implementation advice where
+values depend on each other. Environment variables remain right for configuration that is genuinely a flat set of independent knobs.
 
 ## Consequences
 

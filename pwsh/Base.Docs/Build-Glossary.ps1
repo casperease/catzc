@@ -40,7 +40,7 @@ function Build-Glossary {
     $lines.Add('Glossary: the controlled vocabulary')
     $lines.Add('')
     $intro = 'Every defined term of the repository, generated from the glossary sources (each module''s `configs/glossary.yml`) by ' +
-    '`Build-Glossary` — edit a source, never this page. A term''s meaning is fixed by the one ADR rule that defines it ' +
+    '`Build-Glossary` — edit a source, never this page. A term''s meaning is fixed by the one DRS rule that defines it ' +
     '([controlled-vocabulary](repository/controlled-vocabulary.md)); this page collects them, with how each differs from its ' +
     'neighbours and the phrasings to avoid. `Test-Glossary` checks the sources.'
     foreach ($line in (Format-MarkdownParagraph -Text $intro)) {

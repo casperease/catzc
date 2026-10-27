@@ -35,7 +35,7 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   commits, not from git diff of the working tree
 - 2026-10-27 Cats: In hindsight I wish I knew this fact: a drone briefed with a whole domain stops at its 50-turn limit; under ten records
   or one merge group per drone finishes
-- 2026-10-27 Cats: Token tip: run content-only drones that write rule-map rows, then one combined Update-DrsCitation, prefiltered with git
+- 2026-10-27 Cats: Token tip: run content-only drones that write rule-map rows, then one combined Update-DrsCitation, pre-filtered with git
   grep to the files that name a retired code
 - 2026-10-27 Cats: Token tip: brief drones with the domain dependency list and the importer-path hold rule up front instead of correcting
   them mid-run

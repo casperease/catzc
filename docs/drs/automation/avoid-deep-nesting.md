@@ -65,8 +65,8 @@ scripts = filter(list_files(path, "*.script"), file -> not is_test(file))
 if count(scripts) > 5:
 ```
 
-This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The PowerShell
-spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are in the pwsh twin.
+This is not about line length or aesthetics. Deep nesting has concrete costs for debugging, assertability, and code review. The engine
+spellings of the step assertions (rule 3) and of the exempt simple expressions (rule 5) are in the engine twin.
 
 ### No performance cost
 

@@ -6,8 +6,8 @@
 
 The **decision records system** (DRS) is the one system that holds every **decision record**: the domains of every record kind, their
 records and rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in
-`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, never
-the system or a record of another kind.
+`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only: the system
+is the DRS, and a record of any kind is a decision record.
 
 - [One system holds every record](drs-code-language.md#one-system-holds-every-record)
 

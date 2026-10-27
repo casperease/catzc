@@ -45,7 +45,7 @@ shell restart mid-work.
 ## Context
 
 The toolchain provisions a developer workstation with a locked set of CLIs — Python, the Azure CLI, Poetry, PySpark, and the Node/JVM tools.
-The question this ADR answers is how the **Python-family** tools are installed. The others keep their native user-scope package managers
+The question this record answers is how the **Python-family** tools are installed. The others keep their native user-scope package managers
 (winget on Windows, brew on macOS); Python and the CLIs written in Python are handled by uv.
 
 ### Why uv
@@ -60,8 +60,8 @@ reproducible version pins. It removes three problems that a system-package-manag
   cannot break another.
 - **Determinism.** uv resolves an exact interpreter and package set from the pin in `tools.yml`, identically on a devbox and in CI.
 
-The Azure CLI is preferred over the Az PowerShell modules for all Azure work; this ADR governs only how that CLI is installed, not whether
-it is the chosen tool.
+The Azure CLI is preferred over the Az PowerShell modules for all Azure work; this record governs only how that CLI is installed, not
+whether it is the chosen tool.
 
 ### Two install shapes
 

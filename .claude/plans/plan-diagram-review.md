@@ -62,5 +62,3 @@ engine).
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
       minimap/router fixes; restart from batch 1 on the fresh renders. Check: a per-diagram list per batch, and each next batch's brief
       sharpened from the last.
-- [ ] `ConvertTo-NormalName` round-trip test fails on `*VSCode` names (`Assert-IsRunningInVSCode` against `…VsCode`), found by the Languages
-      test run. Check: the Languages module passes `Test-Automation -Modules Catzc.Base.Languages` with 0 failed.

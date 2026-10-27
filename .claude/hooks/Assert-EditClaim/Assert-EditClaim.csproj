@@ -1,0 +1,40 @@
+<!--
+  The Claude Code hook that denies an Edit or Write of a shared config another session has claimed (Program.cs). Build-AgentHook
+  publishes it, framework-dependent, to .claude/hooks/bin/ whenever its sources change; obj/bin here and the published output are
+  gitignored.
+
+  The claim record and the decision are the Catzc.Tooling.Claude module's own types, compiled in from their source files, so the hook
+  and Lock-SharedConfig can never disagree on where a claim lives or what it says.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- The one configuration and platform of bcl.yml
+        ([ADR-BCL-TYPES-DEBUGANYCPU](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)). -->
+    <Configurations>Debug</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <AssemblyName>Assert-EditClaim</AssemblyName>
+    <RootNamespace>Catzc.Hooks</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseAppHost>true</UseAppHost>
+    <TieredPGO>true</TieredPGO>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleText.cs" Link="linked/ConsoleText.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/ConsoleDisplayAttribute.cs"
+             Link="linked/ConsoleDisplayAttribute.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/TypeShape.cs" Link="linked/TypeShape.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Base.Objects/types/DictionaryRecord.cs" Link="linked/DictionaryRecord.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Tooling.Claude/types/EditorClaim.cs" Link="linked/EditorClaim.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Tooling.Claude/types/EditorClaimGuard.cs" Link="linked/EditorClaimGuard.cs" />
+  </ItemGroup>
+  <Target Name="RequireCatzcModulesFolder" BeforeTargets="BeforeBuild" Condition="'$(CatzcModulesFolder)' == ''">
+    <Error
+      Text="CatzcModulesFolder is not set: build the hook with Build-AgentHook, which passes the modules folder from Get-CatzcModulesFolder."
+    />
+  </Target>
+</Project>

@@ -54,8 +54,8 @@ rarely justified.
 
 The codebase leans the other way. [Fail fast with assertions](fail-fast-with-asserts.md) says assert and fail at the source. Error handling
 and [single-responsibility-functions](single-responsibility-functions.md) say functions **throw** on failure and never catch-and-continue;
-whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never tangled into business logic. This ADR sets the policy
-for when a retry is permitted at all; how pwsh spells the test tier and the wrapper is the pwsh twin's to say.
+whether to retry is the _caller's_ decision, isolated in a dedicated wrapper, never tangled into business logic. This record sets the policy
+for when a retry is permitted at all; how an engine spells the test tier and the wrapper is its twin's to say.
 
 ## Decision
 

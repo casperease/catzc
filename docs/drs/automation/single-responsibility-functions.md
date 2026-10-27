@@ -103,7 +103,7 @@ part they need because they cannot use the function without the part they do not
 - **The function logs before and after its work**: logging concerns change independently. Fix: use the engine's verbose and debug streams,
   or wrap at the call site.
 
-The pwsh forms of a temporary state change and of a retry wrapper are in the pwsh twin.
+The engine twin gives the forms of a temporary state change and of a retry wrapper.
 
 ### Composition vs mixing
 
@@ -184,9 +184,9 @@ silently does something else too.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-FunctionLength`** (`pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body
-  exceeds 300 lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing
-  brace) — comment-based help placed before the function is not counted.
+- **Custom analyzer rule `Measure-FunctionLength`** (`pwsh/.scriptanalyzer/FunctionLength.psm1`) — warns when a function body exceeds 300
+  lines. A function that long is almost certainly doing too much. The limit counts the body only (opening brace to closing brace) —
+  comment-based help placed before the function is not counted.
 
 ## Consequences
 

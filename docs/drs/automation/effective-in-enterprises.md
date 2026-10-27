@@ -24,11 +24,11 @@ Enterprise environments impose constraints that developer-oriented tooling rarel
   cannot depend on containers (see [controlling-systemwide-deps](controlling-systemwide-deps.md)).
 
 - **Locked-down, network-polluted module paths.** Group Policy or login scripts may add network shares to the module search path, which the
-  engine then scans on every lookup. How the module path is kept local and deterministic in pwsh is the pwsh twin's to say.
+  engine then scans on every lookup. How the module path is kept local and deterministic is the engine twin's to say.
 
 - **Proxy and firewall.** Access to a package feed may be blocked or require proxy configuration. Operations that need the network at
-  runtime are unreliable, so the dependencies are vendored ([controlling-module-dependencies](controlling-module-dependencies.md)) and pwsh
-  never calls the PowerShell Gallery at runtime.
+  runtime are unreliable, so the dependencies are vendored ([controlling-module-dependencies](controlling-module-dependencies.md)) and no
+  engine calls a package gallery at runtime.
 
 - **Real-time antivirus.** Endpoint protection (e.g. Defender) scans each file on first open. The importer opens ~400 function files, so the
   dominant cost of a _cold_ import — the first one after a fresh checkout, a file change, or a reboot — is this per-file scan. Once the scan
@@ -64,7 +64,7 @@ pays the `~0.5s` compile once — but that is secondary to the per-file scan.)
 
 We vendor every dependency and assume nothing about the machine: no network access at runtime, no elevation, no dependence on the user
 profile. How the engine realises this — the module-path mechanics that make the vendored copies win, the one-time fix for a network user
-path, and no gallery at runtime — belongs to the pwsh twin.
+path, and no gallery at runtime — belongs to the engine twin.
 
 ### How this is enforced
 

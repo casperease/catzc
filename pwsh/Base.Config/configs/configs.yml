@@ -142,6 +142,8 @@ configs:
     type: Catzc.Tooling.Listen.ListenConfig
   claude-drone:
     type: Catzc.Tooling.Claude.ClaudeDroneConfig
+  editor-claims:
+    type: Catzc.Tooling.Claude.EditorClaimsConfig
   learnings:
     type: Catzc.Base.Docs.LearningsConfig
   hindsight:

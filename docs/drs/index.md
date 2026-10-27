@@ -1,21 +1,21 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2fcf9c6f500e"
+    with_body_sha: "694d06f0194f"
     warning: "Do Not Edit, this file is generated"
 ---
 
 # DRS index and rule-citation registry
 
 The Decision Records System (DRS) holds every decision record under `docs/drs/`, each of one registered record kind, grouped by domain — the
-sections below mirror the domains declared in `pwsh/Base.Drs/configs/drs.yml`, from which this file is generated. The ADRs define the design
-principles this codebase must follow. **Read this index at the start of every session**, then read in full the ADRs that govern the files a
-task touches, and cite their rules by code.
+sections below mirror the domains declared in `pwsh/Base.Drs/configs/drs.yml`, from which this file is generated. The decision records
+define the design principles this codebase must follow. **Read this index at the start of every session**, then read in full the decision
+records that govern the files a task touches, and cite their rules by code.
 
 ## Citing a rule
 
-Every ADR carries a rule registry as its first content section: `## Rules: <code>`, followed by `### Rule <code>-<NAME>` entries (each a
-normative summary plus internal links to the prose that justifies it). The grammar is its own ADR, ADR-REPO-DRSCODE.
+Every decision record carries a rule registry as its first content section: `## Rules: <code>`, followed by `### Rule <code>-<NAME>` entries
+(each a normative summary plus internal links to the prose that justifies it). The grammar is its own record, ADR-REPO-DRSCODE.
 
 - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
   joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`) are the searchable markers for a reference anywhere
@@ -25,11 +25,11 @@ normative summary plus internal links to the prose that justifies it). The gramm
   `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED).
 - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
   `automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror`.
-- A code selects everything below it: a kind is every record of that kind, `ADR-PWSH` every ADR of the domain, `ADR-PWSH-ERROR` every rule
-  of the ADR (ADR-REPO-DRSCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
+- A code selects everything below it: a kind is every record of that kind, `ADR-PWSH` every record of the domain, `ADR-PWSH-ERROR` every
+  rule of the record (ADR-REPO-DRSCODE-CODEISSELECTOR). There is no group or range spelling; a list of rules is the list of their codes
   (ADR-REPO-DRSCODE-NOSUBSETSPELLING). The index lists records, never rule codes: `Test-DrsRegistry` reads a record's rules from the record
   itself.
-- A rule name is unique in the repository and never reused once retired; the tables below are the authoritative code ↔ ADR mapping.
+- A rule name is unique in the repository and never reused once retired; the tables below are the authoritative code ↔ record mapping.
 
 ## Codes
 
@@ -45,7 +45,7 @@ research, the authoritative source, and the principles state its mechanics, so e
 
 **Role:** `framing` — **depends on:** `external`.
 
-| Code             | ADR                                                  |
+| Code             | Record                                               |
 | ---------------- | ---------------------------------------------------- |
 | `TDR-ONETRUTH`   | [one-source-of-truth](thesis/one-source-of-truth.md) |
 | `TDR-STORES`     | [truth-stores](thesis/truth-stores.md)               |
@@ -61,7 +61,7 @@ reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `external`, `thesis`.
 
-| Code            | ADR                                                          |
+| Code            | Record                                                       |
 | --------------- | ------------------------------------------------------------ |
 | `PDR-EAC`       | [everything-as-code](principles/everything-as-code.md)       |
 | `PDR-CONFIG`    | [configure-not-program](principles/configure-not-program.md) |
@@ -79,7 +79,7 @@ implementation domains put its practices into effect — stopping the line, buil
 
 **Role:** `optimisable` — **depends on:** `external`, `principles`.
 
-| Code             | ADR                                               |
+| Code             | Record                                            |
 | ---------------- | ------------------------------------------------- |
 | `WDR-LEANTERMS`  | [process-terms](process/process-terms.md)         |
 | `WDR-ANDON`      | [holding-the-line](process/holding-the-line.md)   |
@@ -97,7 +97,7 @@ build). It builds on the external records, principles, and process; the flow and
 
 **Role:** `architecture` — **depends on:** `external`, `principles`, `process`.
 
-| Code            | ADR                                                              |
+| Code            | Record                                                           |
 | --------------- | ---------------------------------------------------------------- |
 | `DDR-TRACK`     | [tracks](design/tracks.md)                                       |
 | `DDR-THINPLAT`  | [thin-platforms](design/thin-platforms.md)                       |
@@ -121,7 +121,7 @@ implement it.
 
 **Role:** `architecture` — **depends on:** `external`, `principles`, `process`, `design`.
 
-| Code           | ADR                                                                          |
+| Code           | Record                                                                       |
 | -------------- | ---------------------------------------------------------------------------- |
 | `FDR-CD`       | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
 | `FDR-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
@@ -142,7 +142,7 @@ github, and azure domains build on it.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`.
 
-| Code                | ADR                                                                              |
+| Code                | Record                                                                           |
 | ------------------- | -------------------------------------------------------------------------------- |
 | `ADR-AUTO-PARITY`   | [devbox-pipeline-parity](automation/devbox-pipeline-parity.md)                   |
 | `ADR-AUTO-UVPY`     | [uv-python-handler](automation/uv-python-handler.md)                             |
@@ -198,7 +198,7 @@ the types is the pwsh domain's.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`.
 
-| Code            | ADR                                                          |
+| Code            | Record                                                       |
 | --------------- | ------------------------------------------------------------ |
 | `ADR-BCL-TYPES` | [native-csharp-types](automation/BCL/native-csharp-types.md) |
 
@@ -210,7 +210,7 @@ pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `au
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `bcl`.
 
-| Code                | ADR                                                                                         |
+| Code                | Record                                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------------- |
 | `ADR-PWSH-ENGINE`   | [pwsh-engine](automation/pwsh/pwsh-engine.md)                                               |
 | `ADR-PWSH-ONEFUNC`  | [one-function-per-file](automation/pwsh/one-function-per-file.md)                           |
@@ -251,7 +251,7 @@ implementation domain its single way to read configuration.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `automation`, `bcl`.
 
-| Code                  | ADR                                                                             |
+| Code                  | Record                                                                          |
 | --------------------- | ------------------------------------------------------------------------------- |
 | `ADR-CONF-LOADING`    | [module-config-loading](configuration/module-config-loading.md)                 |
 | `ADR-CONF-ADDRESSING` | [config-value-addressing](configuration/config-value-addressing.md)             |
@@ -266,7 +266,7 @@ vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` 
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
-| Code               | ADR                                                                   |
+| Code               | Record                                                                |
 | ------------------ | --------------------------------------------------------------------- |
 | `ADR-ADO-AUTH`     | [dual-authentication](ado/dual-authentication.md)                     |
 | `ADR-ADO-VAR`      | [pipeline-variables](ado/pipeline-variables.md)                       |
@@ -285,7 +285,7 @@ DevOps counterpart.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
-| Code             | ADR                                        |
+| Code             | Record                                     |
 | ---------------- | ------------------------------------------ |
 | `ADR-GH-RELEASE` | [github-release](github/github-release.md) |
 | `ADR-GH-ACTIONS` | [github-actions](github/github-actions.md) |
@@ -300,7 +300,7 @@ Adoption Framework landing-zone design areas, are external records; the decision
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `design`, `automation`, `flow`, `ado`.
 
-| Code              | ADR                                                         |
+| Code              | Record                                                      |
 | ----------------- | ----------------------------------------------------------- |
 | `ADR-AZ-DATAMOD`  | [azure-data-model](azure/azure-data-model.md)               |
 | `ADR-AZ-NETWORK`  | [azure-network-model](azure/azure-network-model.md)         |
@@ -323,7 +323,7 @@ a row and its value-chain concerns.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `design`, `automation`, `configuration`, `bcl`.
 
-| Code                   | ADR                                                                    |
+| Code                   | Record                                                                 |
 | ---------------------- | ---------------------------------------------------------------------- |
 | `ADR-REPO-FOLDERS`     | [conventional-folders](repository/conventional-folders.md)             |
 | `ADR-REPO-OUTDIR`      | [dedicated-output-directory](repository/dedicated-output-directory.md) |
@@ -365,7 +365,7 @@ and it depends on none; the others cite the DORA records through their `dora-exp
 
 **Role:** `reference` — **depends on:** none.
 
-| Code                  | ADR                                                                                     |
+| Code                  | Record                                                                                  |
 | --------------------- | --------------------------------------------------------------------------------------- |
 | `EDR-DORA-AIDATA`     | [ai-accessible-internal-data](external/dora/ai-accessible-internal-data.md)             |
 | `EDR-DORA-AISTANCE`   | [clear-and-communicated-ai-stance](external/dora/clear-and-communicated-ai-stance.md)   |
@@ -426,22 +426,22 @@ and it depends on none; the others cite the DORA records through their `dora-exp
 
 ## Authoring conventions
 
-These apply when writing or editing any ADR (and largely any doc under `docs/`):
+These apply when writing or editing any decision record (and largely any doc under `docs/`):
 
-- **Decision and rationale, not config values.** An ADR owns the decision and the _why_; the root config files own the concrete rule values
-  (`.editorconfig`, `PSScriptAnalyzerSettings.psd1`, `.markdownlint.yml`, `.gitattributes`, `pwsh/.scriptanalyzer/*.psm1`). Name the
-  enforcing file as a pointer, but do not reproduce value tables, pasted `@{ }` rule blocks, or per-rule on/off lists — that duplication
+- **Decision and rationale, not config values.** A decision record owns the decision and the _why_; the root config files own the concrete
+  rule values (`.editorconfig`, `PSScriptAnalyzerSettings.psd1`, `.markdownlint.yml`, `.gitattributes`, `pwsh/.scriptanalyzer/*.psm1`). Name
+  the enforcing file as a pointer, but do not reproduce value tables, pasted `@{ }` rule blocks, or per-rule on/off lists — that duplication
   drifts. Naming a value in order to justify it (for example, "UTF-8, because a BOM breaks `git diff`") is fine; a bare value list with no
   rationale is not.
 
-- **`automation/` is engine-neutral; a language's ADRs sit in `automation/<language>/`.** An ADR in `automation/` states its rules for any
-  engine, and the language's spellings and samples live in the twin under `automation/<language>/` (`Test-DrsEngineNeutrality` judges the
-  rules). A language with its own code prefix is its own domain, and its `folder` in `drs.yml` points into `automation/`, so `ADR-PWSH-*`
-  keeps its codes while its pages sit in `automation/pwsh/`; a code names the rule, never the path.
+- **`automation/` is engine-neutral; a language's records sit in `automation/<language>/`.** A record in `automation/` states its rules for
+  any engine, and the language's spellings and samples live in the twin under `automation/<language>/` (`Test-DrsEngineNeutrality` judges
+  the rules). A language with its own code prefix is its own domain, and its `folder` in `drs.yml` points into `automation/`, so
+  `ADR-PWSH-*` keeps its codes while its pages sit in `automation/pwsh/`; a code names the rule, never the path.
 
-- **References point one way: code to ADR.** Code, function help, sample headers, and READMEs cite the relevant ADR; an ADR never links back
-  to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that _name_ an
-  enforcing function are the established exception.
+- **References point one way: code to record.** Code, function help, sample headers, and READMEs cite the relevant record; a record never
+  links back to sample or example code, because that couples durable rationale to code churn. The "How this is enforced" sections that
+  _name_ an enforcing function are the established exception.
 
 - **Two kinds of link (ADR-REPO-LINK).** A markdown link, in a `.md` file, is relative to its own file
   (`[reduce-variability](../principles/reduce-variability.md)`). A code link, in a comment of any other file, is repository-rooted with the
@@ -455,18 +455,18 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
 
 - **Link granularity is per-context.** Cite a specific rule anchor (`file.md#rule-<code><n>`, e.g.
   `azure-data-model.md#rule-adr-az-datamod-onefileonesubscription`) when the citing sentence, comment, or throw-message invokes one concrete
-  rule. Link the ADR document when the context is general — an index list, a "see ADR X for the full rationale" pointer, or a citation that
-  invokes the ADR's whole thesis. Over-narrowing a general pointer to one rule is worse than leaving it doc-level.
+  rule. Link the record when the context is general — an index list, a "see record X for the full rationale" pointer, or a citation that
+  invokes the record's whole thesis. Over-narrowing a general pointer to one rule is worse than leaving it doc-level.
 
 - **Plain language.** Write in plain English; avoid terse logic or math jargon. Never use "iff" — spell out both directions ("required when
   Y; an error otherwise", or "present exactly when Y"). Prefer "when" / "only when" / "exactly when".
 
-- **Present tense, not a changelog.** An ADR describes the _current_ design as if it had always been that way. It never records what the
-  code used to do, what was removed/renamed/migrated, that a decision is recent, or which past incident motivated a rule — that history
-  lives in git, not here. Drop change/time markers ("now", "no longer", "previously", "originally", "we used to", "this ADR replaces/moves",
-  "still", "today", "already") and war-stories ("we learned this the hard way", "has cost us a red suite"). Argue against a rejected
-  alternative in the present ("a global `Set-Location` is unsafe"), not as a journey ("what we tried"); state a rule and its present-tense
-  rationale, never the path that led to it.
+- **Present tense, not a changelog.** A decision record describes the _current_ design as if it had always been that way. It never records
+  what the code used to do, what was removed/renamed/migrated, that a decision is recent, or which past incident motivated a rule — that
+  history lives in git, not here. Drop change/time markers ("now", "no longer", "previously", "originally", "we used to", "this record
+  replaces/moves", "still", "today", "already") and war-stories ("we learned this the hard way", "has cost us a red suite"). Argue against a
+  rejected alternative in the present ("a global `Set-Location` is unsafe"), not as a journey ("what we tried"); state a rule and its
+  present-tense rationale, never the path that led to it.
 
 - **Blank-line padding.** Pad every section: a blank line immediately after each `##`/`###` heading, and a blank line before the next
   heading. This applies to the `## Rules: <code>` registries and the `### Rule <code>-<NAME>` entries as well.
@@ -478,15 +478,15 @@ These apply when writing or editing any ADR (and largely any doc under `docs/`):
   publication as `publications.md#<year>-<title>`, and the research program as `index.md` — never a deep link into dora.dev, which lives
   only inside `docs/references/dora/` and in the DORA records' `## References` footnotes.
 
-- **`dora-explains.md` collects each domain's DORA rationale.** An ADR outside `external/` carries no `## Dora explains` section; instead
-  every other domain folder keeps a `dora-explains.md` that consolidates, one entry per ADR, the short present-tense paragraph tying that
-  ADR's topic to DORA research and its 2–4 domain-relevant capability links (each
+- **`dora-explains.md` collects each domain's DORA rationale.** A record outside `external/` carries no `## Dora explains` section; instead
+  every other domain folder keeps a `dora-explains.md` that consolidates, one entry per record, the short present-tense paragraph tying that
+  record's topic to DORA research and its 2–4 domain-relevant capability links (each
   `[Capability](<relative>/capabilities.md#<dora-slug>) — why it is relevant`, plus a link to the reference's `index.md`). Link only the
-  capabilities that genuinely bear on an ADR's domain, never the whole catalogue. DORA grounds the repository's own decisions; a record in
+  capabilities that genuinely bear on a record's domain, never the whole catalogue. DORA grounds the repository's own decisions; a record in
   `external/` is grounded in its own source (a vendor record in `docs/references/caf/` or `docs/references/waf/`) and takes no entry
   (`drs-checks.yml` `exempt`).
 
 - **The DORA records carry their own `## Dora explains`.** Each `external/dora/<slug>.md` is the record of one DORA capability, so it is the
-  one place an ADR ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
+  one place a record ends with a `## Dora explains` section: the capability's site category and Core Model position, the publications its
   evidence comes from, and its related capabilities, all as links into `docs/references/dora/`. `external/` therefore has no
   `dora-explains.md`.

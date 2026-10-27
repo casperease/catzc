@@ -79,8 +79,8 @@ in source mode, `<build>/<Module>` in build mode — joined with `-ChildPath` wh
 explicit `-Module` reads another module's content, which is a cross-module dependency and therefore an edge in `dependencies.yml`
 ([controlling-module-dependencies](controlling-module-dependencies.md)). The dot-prefixed infrastructure that is not a module — the
 `.internal` assets, the vendored modules, the compiled types — is located from `Get-CatzcModulesRoot` directly. An analyzer rule bans the
-executing file's folder as an anchor in module function files, which leaves the helper as the only way a function can find its content. In
-PowerShell the helper call, that ban, and the literal child path the inventory reads are the pwsh twin's to say.
+executing file's folder as an anchor in module function files, which leaves the helper as the only way a function can find its content. The
+helper call, that ban, and the literal child path the inventory reads are the engine twin's to say.
 
 ### The code is the inventory
 

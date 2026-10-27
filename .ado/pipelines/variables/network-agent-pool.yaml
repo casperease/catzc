@@ -1,0 +1,2 @@
+variables:
+  NetworkAgentPool: hub-network-agents

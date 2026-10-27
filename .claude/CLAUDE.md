@@ -33,16 +33,16 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## DRS
 
 The DRS holds the decision records, under `docs/drs/`, grouped into the domains that `docs/drs/index.md` lists. The index also holds every
-rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles
+rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The decision records define the design principles
 behind this codebase and must be followed when writing or reviewing code. **Read `docs/drs/index.md` at the start of every session**, then
-read in full the ADRs that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
+read in full the decision records that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
 window, so never sweep it, and never sweep `research/`, which is reference material, not rules.
 
 ## Inspiration
 
 If `C:\projects\eac` is available (the same project family, a sibling checkout), you may read it for **inspiration on every aspect**: module
 and command design, docs and ADR structure, contracts, specs, testing, pipelines, tooling. It is **not a reference implementation**. It is a
-similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority. Catzc's own ADRs decide.
+similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority. Catzc's own decision records decide.
 Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea came from it. If it is absent, carry on
 without it.
 

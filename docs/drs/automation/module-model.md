@@ -99,13 +99,11 @@ language is registry entries, a track in `variants.yml`, a module type with its 
 `ADR-AUTO-MODULE` sits under [DDR-TRACK](../design/tracks.md): it cites `DDR-TRACK`, [DDR-TRACKTYPE](../design/track-types.md) and
 [DDR-MODTYPE](../design/module-types.md) as the rules it specialises. A track is the repository's root entity, a deployable track
 ([DDR-TRACKTYPE-ONEROLE](../design/track-types.md#rule-ddr-tracktype-onerole)) holds modules, and the module types say what each sort of
-module is. Those three decide what a track, a module and a module type are; this ADR decides how the modules of a deployable track are found
-and what a reader can ask of one. It restates none of the three. It sits in the `automation` domain because the domain order lets
-`automation` cite `design` and not the other way round.
+module is. Those three decide what a track, a module and a module type are; this record decides how the modules of a deployable track are
+found and what a reader can ask of one, and sits in `automation` because the domain order lets `automation` cite `design`, not the reverse.
 
-A module that several commands each find for themselves, with a folder walk and a copy of the folder rules in each, is found differently by
-each of them, and the copies drift apart. One resolver, built on the track and the layout, is the single place that answers what a module
-is, so a reader asks it and a change to the folder rules is made once.
+Commands that each find modules with their own folder walk and copy of the folder rules find them differently, and the copies drift. One
+resolver, built on the track and the layout, answers what a module is, so a change to the folder rules is made once.
 
 ### One resolver through the track
 
@@ -122,8 +120,8 @@ turns its modules public or internal by accident.
 
 ### Registration is placement
 
-A person adds a module by putting correctly named files in the layout's folders, and removes it by deleting them. There is nothing else to
-update, so there is nothing to forget. The layout is config with a sensible default, resolved in the one order of
+A module is added by putting correctly named files in the layout's folders and removed by deleting them; nothing else to update means
+nothing to forget. The layout is config with a sensible default, resolved in the one order of
 [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder): the caller's value, the owning
 module's configuration, then the default declared on the type. A consumer repository overlays only a difference
 ([ADR-AUTO-OVERLAY](consumer-overlay.md)). A file the layout does not place is reported, so a misplaced file is never silently not part of a
@@ -157,15 +155,13 @@ A name that also spelled the track would state one fact twice, and the copy in t
 
 ### Every language track alike
 
-The pwsh track carries the tooling, and for a while it was the only track that held modules: the other language tracks were each one holder
-of black-box test projects, and three commands branched on the `modules` id to find "the" modules. That shape made the first module outside
-pwsh impossible without a special case, and every later language would have repeated it. The model is generic on paper, a track declared
-once, a type that admits module types, a module type with places, a layout per language, so the fix is to let it be generic in practice: the
-language tracks take the same type, the same folder place and the same layout rows, and the one thing pwsh never had, a test holder at the
-track root, is declared on the place as the track's own folder rather than carried by a track type of its own. What was specific to pwsh,
-the relocatable modules root, is tied to the fact that makes it special, the engine its modules run under, so the resolver reads
-`execution_engines` and never a type id. A third language is then a rehearsal the resolver's tests already run: a fixture track of another
-name, with its folder place, its `except` and one layout row, resolves with no code change.
+A command that branches on one track's id to find "the" modules makes the first module of any other language a special case, and every later
+language repeats it. The model is generic — a track declared once, a type that admits module types, a module type with places, a layout per
+language — so every language track takes the same type, the same folder place and the same layout rows. A test holder at the track root is
+declared on the place as the track's own folder, not carried by a track type of its own. The relocatable modules root of the tooling track
+is tied to the fact that makes it special, the engine its modules run under, so the resolver reads `execution_engines` and never a type id.
+A new language is a rehearsal the resolver's tests run: a fixture track of another name, with its folder place, its `except` and one layout
+row, resolves with no code change.
 
 ## Decision
 

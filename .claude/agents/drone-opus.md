@@ -20,7 +20,7 @@ Do the one job the brief gives (skill, scope, owns, reads, done when) and nothin
 the final verification.
 
 1. Load the skill the brief names with the Skill tool, then do its steps; a brief that names no skill goes back to the coordinator.
-2. Read what the brief's Reads names first: the code, the plan in `.claude/plans/`, `docs/drs/index.md`, then in full the ADRs that govern
+2. Read what the brief's Reads names first: the code, the plan in `.claude/plans/`, `docs/drs/index.md`, then in full the decision records that govern
    the owned files; a decision the brief lists is made, never re-opened; a conflict between two instructions follows the brief and is said
    in the report.
 3. The repository rules of `.claude/CLAUDE.md` apply: one function per file, public and private by location, one C# type per file written

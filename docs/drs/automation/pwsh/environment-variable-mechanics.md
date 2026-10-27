@@ -95,14 +95,11 @@ invokes its `-ScriptBlock`, and restores it in a `finally`; it persists the valu
 ## Context
 
 [environment-variables](../environment-variables.md) fixes the doctrine: environment variables are for external boundaries, never internal
-state. This ADR realises it in pwsh — the concrete mechanics of obeying that doctrine in this codebase's language.
+state. This record gives the pwsh mechanics of obeying it.
 
-PowerShell makes `$env:` variables dangerously convenient. They look like regular variables, they are accessible everywhere, and they
-survive function calls — which makes them tempting for passing state between functions, caching results, or storing configuration. The
-language also supplies exactly the scoped alternatives the doctrine demands: `$local:`, `$script:`, module scope, function parameters, and
-return values, all destroyed or scoped automatically. `$env:FOO` set inside any function, at any call depth, persists for the entire process
-lifetime unless someone explicitly removes it; there is no `try`/`finally` equivalent that cleans up environment variables when a scope
-exits.
+`$env:` variables look like regular variables, reach everywhere, and survive function calls. The language supplies the scoped alternatives
+the doctrine demands — `$local:`, `$script:`, module scope, parameters, and return values, cleaned up automatically — while `$env:FOO` set
+at any call depth persists for the whole process until removed, with no scope exit that cleans it up.
 
 `$env:` values are always strings: `$env:COUNT = 42` stores the string `"42"`, and `$env:ENABLED = $true` stores the string `"True"`. Every
 process started with `Start-Process`, `Start-Job`, `&`, or `Invoke-Executable` inherits every `$env:` variable the session holds. And
@@ -117,10 +114,9 @@ process started with `Start-Process`, `Start-Job`, `&`, or `Invoke-Executable` i
 | `$script:` variables | Module  | Module unload  | Yes          | Mockable                  |
 | `$env:` variables    | Process | Never (manual) | No (strings) | Requires snapshot/restore |
 
-To pass a value between functions, pass it as a parameter. To share state within a module, use `$script:`. To cache a result, use a
-module-scoped variable (see [caching](../caching.md)). None of these leak to child processes, pollute tests, or persist beyond their natural
-lifetime — and unlike `$env:` (always strings), each carries the type system: `[int]`, `[switch]`, `[ValidateRange()]` catch errors at the
-call site.
+A value between functions is a parameter, state shared within a module is `$script:`, and a cache is a module-scoped variable
+([caching](../caching.md)). Unlike `$env:`, each carries the type system: `[int]`, `[switch]`, `[ValidateRange()]` catch errors at the call
+site.
 
 ### Setting a contract variable
 

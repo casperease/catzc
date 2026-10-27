@@ -101,8 +101,8 @@ Four categories keep their short form, because each is already as clear to a rea
 - **Loop indices.** `i`, `j`, `k` in a counting loop are a universal idiom; `index` is welcome but not required.
 - **Acronyms that _are_ the name.** Nobody writes "comma-separated-values file" or "uniform-resource-locator" — the acronym is the canonical
   term, more recognizable than its expansion. CSV, JSON, URL, ID, HTTP, IP, UTC, API, CLI, DNS, TLS, SDK, GUID, and the like stay as-is.
-- **The engine's automatic variables.** The names an engine defines for itself are its own vocabulary, not a choice the author made; the
-  PowerShell set is in the pwsh twin.
+- **The engine's automatic variables.** The names an engine defines for itself are its own vocabulary, not a choice the author made; each
+  engine twin lists its set.
 - **The conventional-abbreviation allow-list.** A short, curated set that every developer reads without translating — `ctx`, `cfg`, `cmd`,
   `params`, `env`, `repo`, and the like. The authoritative list, with each term mapped to its full word, lives in the terminology registry
   (ADR-AUTO-SPELL-ONEVOCABULARYSOURCE); it grows only by review, never by reflex.
@@ -110,8 +110,8 @@ Four categories keep their short form, because each is already as clear to a rea
 The test for an exception is "is the short form a _standard, shared_ name recognized outside this repository, or on the curated allow-list?"
 — not "is it shorter?" `tfPath` and `rcg` fail that test; `JSON` and `ctx` pass it.
 
-A local whose meaning is its role or its type, or that has no meaning at all, takes a blessed name rather than a coined one; the PowerShell
-conventions for those names are in the pwsh twin.
+A local whose meaning is its role or its type, or that has no meaning at all, takes a blessed name rather than a coined one; the engine twin
+gives the conventions for those names.
 
 ### The dictionary is the backstop
 
@@ -158,7 +158,7 @@ like `tfPath` belongs.
 
 The spell-checker is a backstop, not an intake. When it flags a token, the token is a candidate for review, not something a tool may accept
 on its own (ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED): a human either spells it out or adds a categorized registry entry that explains it.
-Auto-appending flagged tokens to the accepted list is the junk drawer this ADR forbids — it teaches the vocabulary it was only meant to
+Auto-appending flagged tokens to the accepted list is the junk drawer this record forbids — it teaches the vocabulary it was only meant to
 tolerate.
 
 The registry also stays honest about what is live. A term worth keeping is used consistently and stays referenced; an entry no code
@@ -171,7 +171,7 @@ Spell out identifier names in full. Abbreviate only the universal acronyms and l
 nothing local. A product term worth keeping is added to the terminology registry and used consistently; everything else is written as the
 real, whole word.
 
-This is the variable-and-parameter complement to the function-naming rules of the pwsh twin: verbs gives functions a shared, spelled-out
+This is the variable-and-parameter complement to the engine twin's function-naming rules: verbs give functions a shared, spelled-out
 vocabulary, and this gives the same to the names inside them.
 
 ### How this is enforced

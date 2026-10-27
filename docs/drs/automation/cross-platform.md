@@ -36,9 +36,9 @@ a tool that exists on every platform.
 Our workstations run Windows, maybe MacOS, maybe Linux. Our CI runs Linux. MacOs is a unix based os, so is linux, so we can reduce to
 Windows and Linux for most. Everything we write must work on both — and a developer must be able to test locally everything that runs in CI.
 
-The runtime is cross-platform by design, but the _code_ people write in it often is not: platform-only APIs, hardcoded separators and paths,
-and shell-outs to binaries the other OS does not have all work fine on the author's machine and fail silently or loudly in CI. The concrete
-PowerShell hazards — and the analyzer profiles that catch them at analysis time — are the language layer, in the pwsh twin.
+A cross-platform runtime does not make the _code_ written in it cross-platform: platform-only APIs, hardcoded separators and paths, and
+shell-outs to binaries the other OS lacks work on the author's machine and fail, silently or loudly, in CI. An engine's concrete hazards,
+and the analyzer profiles that catch them at analysis time, are its twin's to say.
 
 The usual response is "it works in CI, we'll fix it if it breaks." This is backwards. A developer should never have to push to CI to
 discover a platform bug. If you can run it locally, you can debug it locally — fast feedback, no waiting for pipeline queues.
@@ -58,13 +58,13 @@ Four failure axes are platform-independent facts every language obeys:
 - **Platform shells and binaries.** `cmd.exe` does not exist on Linux, and `/bin/sh` does not exist on Windows; a shell-out to either works
   on one platform only. A tool that ships on every platform, started directly, works on both.
 
-The concrete PowerShell breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in the pwsh twin, whose
-rules carry the PowerShell mechanics of each rule here: the path anchors and joins of rule 3, the invariant culture of rule 6, the path
-comparison of rule 7, and the shell-outs of rule 9.
+The concrete breakage tables — Windows-isms that fail on Unix and Unix-isms that fail on Windows — live in the engine twin, whose rules
+carry the engine mechanics of each rule here: the path anchors and joins of rule 3, the invariant culture of rule 6, the path comparison of
+rule 7, and the shell-outs of rule 9.
 
 ### How we enforce this
 
-**The analyzer layer** of the pwsh twin validates cmdlets and .NET types against the target-platform profiles at analysis time, in the L2
+**The analyzer layer** of the engine twin validates commands and .NET types against the target-platform profiles at analysis time, in the L2
 tests, on every developer's machine — so a platform break is caught before push, not in the pipeline queue.
 
 **Platform-aware installers** (see [controlling-systemwide-deps](controlling-systemwide-deps.md)) abstract package manager differences.

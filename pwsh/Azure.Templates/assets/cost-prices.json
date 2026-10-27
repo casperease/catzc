@@ -58,6 +58,11 @@
       "unit_of_measure": "1 Hour",
       "sku": "1 vCore"
     },
+    "private-endpoint-hours": {
+      "unit_price": 0.01,
+      "unit_of_measure": "1 Hour",
+      "sku": "Standard"
+    },
     "private-dns-zone": {
       "unit_price": 0.5,
       "unit_of_measure": "1",

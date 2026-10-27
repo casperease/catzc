@@ -77,10 +77,10 @@ modules, languages and engines.
 
 ## Context
 
-About thirty ADRs mention the importer and none defines it. The entry scripts, the module loader, the types loader and the bundle each
-assume a mix of languages, engines and modules that no one place states: the loader reads every module folder of the code root, the test
-runner runs every Go and Python test once per engine from the engine model, and the builder reads the bundle's profile. Three places decide
-three parts of one thing. This ADR names the importer as the one that decides, and names the inputs and the result, so the others read it
+Many records mention the importer. The entry scripts, the module loader, the types loader and the bundle each assume a mix of languages,
+engines and modules: the loader reads every module folder of the code root, the test runner runs every Go and Python test once per engine
+from the engine model, and the builder reads the bundle's profile. Three places deciding three parts of one thing would drift, so this
+record names the importer as the one that decides, with its inputs and its result, and the others read it
 ([ADR-AUTO-IMPORTER-DECIDESMIX](#rule-adr-auto-importer-decidesmix)).
 
 ### One entry per engine

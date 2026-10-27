@@ -120,16 +120,13 @@ stable, and the importer is the one knob.
 
 `Importer run time is a protected budget`
 
-The importer is on the hot path of **every** session — every interactive shell tab a developer opens and every step a pipeline runs begins
-by loading it into the shell. Its job is to make the module system available, fast, and nothing more: it sets error preferences and runs the
-bootstrap module to discover and import modules. It even **defers** expensive vendor modules (the test runner, the analyzer) via lazy
-loading rather than pay for them at startup, and it reports its own load time so regressions are visible.
+Every shell tab a developer opens and every pipeline step begins by loading the importer, so its job is to make the module system available,
+fast, and nothing more: set error preferences and run the bootstrap module to discover and import modules. It **defers** expensive vendor
+modules (the test runner, the analyzer) to first use, and reports its own load time so regressions show.
 
-This makes importer time a budget to protect, and it sets the default for caching: **lazy.** Reading `azure.yml`, scanning
-`infrastructure/templates/`, or deriving any other config/information at import would tax every session for work most sessions never use.
-Such work is therefore done **on first use** and cached for the rest of the session — paid once, by the sessions that actually need it, not
-by all of them. The one thing that is unavoidably eager is the bootstrap module's own module discovery, because without it there are no
-functions to call.
+That budget sets the caching default: **lazy.** Reading `azure.yml` or scanning `infrastructure/templates/` at import would tax every
+session for work most never use, so such work runs **on first use** and is cached for the rest of the session, paid only by the sessions
+that need it. The one unavoidably eager step is the bootstrap module's own discovery, without which there are no functions to call.
 
 ### The cost of not caching
 
@@ -140,10 +137,8 @@ functions to call.
 result. This is pure [waste](../principles/reduce-waste.md), and on enterprise machines where the home directory and its repositories can
 sit on network storage it is also latency that compounds (see [effective-in-enterprises](effective-in-enterprises.md)).
 
-Config caching is centralized in `Get-Config`, which caches every config read lazily in module state keyed on the resolved file path, so
-every config read inherits one cache; `Get-BicepTemplates` caches filesystem information per resolved root in module state; and the
-bootstrap module computes module information once at import (eagerly, because it must — see the rule below). Computing-once applies to all
-filesystem-derived information; the default is **lazy** so the importer stays fast.
+`Get-Config` caches every config read lazily in module state keyed on the resolved file path, so every config read inherits one cache;
+`Get-BicepTemplates` caches per resolved root; the bootstrap module computes module information once, eagerly, at import.
 
 ### What is NOT cacheable
 
@@ -195,11 +190,11 @@ check (ADR-AUTO-CACHE-CROSSSESSIONFILES).
 
 `The storage idiom is the language layer`
 
-Where a cache lives, the keyed-hashtable code shape, and how tests interact with a cached function belong to the pwsh twin: the
-module-scoped state of pwsh, never the environment or the global scope, with `Get-Config` and `Get-BicepTemplates` as the exemplars. Its
-rules map onto the ones here: the importer as the only invalidation (ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on
-re-import, and the compiled-type prebuild (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions. How the prebuild is
-compiled and when a session must restart because a source changed live with the type system, in the BCL domain.
+Where a cache lives, the keyed-hashtable code shape, and how tests meet a cached function belong to the engine twin: module-scoped state,
+never the environment or the global scope, with `Get-Config` and `Get-BicepTemplates` as the exemplars. The importer as the only
+invalidation (ADR-AUTO-CACHE-IMPORTERINVALIDATES) is module state discarded on re-import, and the compiled-type prebuild
+(ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD) is loaded by the bootstrap functions; how the prebuild is compiled, and when a changed type source
+forces a session restart, is the BCL domain's to say.
 
 ### How this is enforced
 

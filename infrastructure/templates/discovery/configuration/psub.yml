@@ -22,7 +22,7 @@ ParametersFile:
       value:
         - subscription: apex_prod
     budgetAmount:
-      value: 1000
+      value: 1200
     budgetStartDate:
       value: "2026-11-01"
     anomalyAlertRecipients:

@@ -8,11 +8,15 @@ schedules:
       include: [main]
     always: true
 
+variables:
+  - template: /.ado/pipelines/variables/network-agent-pool.yaml
+
 jobs:
   - job: rotate
     displayName: Rotate every production break-glass password
+    # The rotation writes the foundation vault, which has no public network access: an agent inside the network.
     pool:
-      vmImage: ubuntu-latest
+      name: ${{ variables.NetworkAgentPool }}
     steps:
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:

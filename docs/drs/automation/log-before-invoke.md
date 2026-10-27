@@ -71,8 +71,8 @@ Every function that invokes an external command must log the exact command strin
 ### How this is enforced
 
 - **`Invoke-Executable`** — logs the full command string via `Write-Message` before execution. All `Invoke-*` tool wrappers
-  (`Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) delegate to `Invoke-Executable` and inherit this behavior automatically. How pwsh logs
-  a tool started outside it, and on which stream, is the pwsh twin's to say.
+  (`Invoke-Python`, `Invoke-Poetry`, `Invoke-Dotnet`) delegate to `Invoke-Executable` and inherit this behavior automatically. How an engine
+  logs a tool started outside it, and on which stream, is the engine twin's to say.
 
 ## Consequences
 

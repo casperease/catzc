@@ -60,6 +60,54 @@ BeforeAll {
         [string[]] @($targets | Where-Object { $_.Subscription -in $ProductionSubscriptionIds } | ForEach-Object { $_.Env })
     }
 
+    $script:networkPoolInclude = '/.ado/pipelines/variables/network-agent-pool.yaml'
+    $script:findVaultJobsOffPool = {
+        param([string] $Path, [string[]] $VaultCommands)
+        $text = [System.IO.File]::ReadAllText($Path)
+        $offenders = [System.Collections.Generic.List[string]]::new()
+        $runs = {
+            param($Node)
+            if ($Node -is [System.Collections.IDictionary]) {
+                if ($Node['RunCommand']) {
+                    "$($Node['RunCommand'])"
+                }
+                foreach ($value in $Node.Values) {
+                    & $runs $value
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                foreach ($item in $Node) {
+                    & $runs $item
+                }
+            }
+        }
+        $walk = {
+            param($Node)
+            if ($Node -is [System.Collections.IDictionary]) {
+                if ($Node.Contains('pool') -or $Node.Contains('job') -or $Node.Contains('deployment')) {
+                    $commands = @(& $runs $Node | ForEach-Object { ($_ -split '\s+', 2)[0] } | Where-Object { $_ -in $VaultCommands })
+                    $pool = $Node['pool']
+                    $onPool = $pool -is [System.Collections.IDictionary] -and -not $pool.Contains('vmImage') -and
+                    "$($pool['name'])" -eq '${{ variables.NetworkAgentPool }}' -and $text.Contains($script:networkPoolInclude)
+                    if ($commands.Count -gt 0 -and -not $onPool) {
+                        $offenders.Add("$($Node['displayName'])")
+                    }
+                }
+                foreach ($value in $Node.Values) {
+                    & $walk $value
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                foreach ($item in $Node) {
+                    & $walk $item
+                }
+            }
+        }
+        & $walk (ConvertFrom-Yaml -Yaml $text -Ordered)
+        [string[]] $offenders
+    }
+    $script:vaultCommands = @('Set-AnomalyAlertRecipientSecret', 'Invoke-BreakGlassRotation')
+
     # The ids of the subscriptions that host a production environment, or stage for one, as azure.yml declares them.
     $script:productionSubscriptionIds = {
         $azure = Get-Config -Config azure
@@ -271,6 +319,22 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
         }
     }
 
+    It 'runs every foundation-vault write on the network agent pool, declared once, and never on a Microsoft-hosted image' {
+        $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
+        $writers = 0
+        $offenders = foreach ($file in Get-ChildPath $root -File -Filter '*.yaml' -Depth 4) {
+            $text = [System.IO.File]::ReadAllText($file)
+            if (@($script:vaultCommands | Where-Object { $text.Contains($_) }).Count -gt 0) {
+                $writers++
+            }
+            & $script:findVaultJobsOffPool $file $script:vaultCommands | ForEach-Object { "$([System.IO.Path]::GetFileName($file)): $_" }
+        }
+        $writers | Should -BeGreaterThan 1 -Because 'the anomaly seed and the break-glass rotation both write a foundation vault'
+        @($offenders) | Should -BeNullOrEmpty -Because 'the foundation vault has no public network access, so only an agent inside the network reaches it'
+        $declared = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) $script:networkPoolInclude.TrimStart('/')))) -Ordered
+        "$($declared['variables']['NetworkAgentPool'])" | Should -Not -BeNullOrEmpty -Because 'the pool name is declared once, in the variable template'
+    }
+
     It 'prints a pre-deploy cost estimate in CI for every template, after its build and from no network' {
         $yaml = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) '.ado/pipelines/ci-infrastructure.yaml'))) -Ordered
         $runs = @($yaml['jobs'][0]['steps'] | Where-Object { $_ -is [System.Collections.IDictionary] -and $_['parameters'] } |
@@ -299,6 +363,45 @@ Describe 'the production-target finder' -Tag 'L0', 'logic' {
             ) -join "`n")
         & $script:findProductionTargets $path @('00000000-0000-0000-0000-00000000000b') | Should -Be @('gadget')
         & $script:findProductionTargets $path @() | Should -BeNullOrEmpty
+    }
+}
+
+Describe 'the network-pool guard on vault writes' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:poolYaml = {
+            param([string] $Pool, [string] $Command, [switch] $Include)
+            $path = Join-Path $TestDrive "$([guid]::NewGuid().ToString('N')).yaml"
+            $variables = if ($Include) {
+                "variables:`n  - template: $script:networkPoolInclude`n"
+            }
+            [System.IO.File]::WriteAllText($path, "$variables" + (@(
+                        'jobs:'
+                        '  - job: widget'
+                        '    displayName: widget'
+                        "    pool:`n      $Pool"
+                        '    steps:'
+                        '      - template: /.ado/pipelines/steps/invoke-automation.yaml'
+                        "        parameters:`n          RunCommand: $Command gadget"
+                    ) -join "`n"))
+            $path
+        }
+    }
+
+    It 'flags a new vault-writing job on a Microsoft-hosted agent' {
+        $path = & $script:poolYaml -Pool 'vmImage: ubuntu-latest' -Command 'Invoke-BreakGlassRotation' -Include
+        & $script:findVaultJobsOffPool $path $script:vaultCommands | Should -Be @('widget')
+    }
+
+    It 'flags a vault-writing job on the pool variable in a file without the variable template' {
+        $path = & $script:poolYaml -Pool 'name: ${{ variables.NetworkAgentPool }}' -Command 'Set-AnomalyAlertRecipientSecret'
+        & $script:findVaultJobsOffPool $path $script:vaultCommands | Should -Be @('widget')
+    }
+
+    It 'passes a vault-writing job on the declared pool, and any job that writes no vault' {
+        $vault = & $script:poolYaml -Pool 'name: ${{ variables.NetworkAgentPool }}' -Command 'Set-AnomalyAlertRecipientSecret' -Include
+        & $script:findVaultJobsOffPool $vault $script:vaultCommands | Should -BeNullOrEmpty
+        $other = & $script:poolYaml -Pool 'vmImage: ubuntu-latest' -Command 'Deploy-Bicep'
+        & $script:findVaultJobsOffPool $other $script:vaultCommands | Should -BeNullOrEmpty
     }
 }
 

@@ -35,10 +35,12 @@ metadata:
    (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its code in one
    pass and is parked in `out/` during a peer's burst, as is a `pwsh/*/types/*.cs` edit (every import compiles it), and a gate after a
    `Format-Code` on C# (it moves the DLL key) runs in a fresh import; a root asset (`pwsh/Base.RootConfig/assets/root/*`) too, which every
-   import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows paths,
-   regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers' scripts
-   share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to Windows
-   tools goes through `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as `uv run --no-sync --project python python …`; a
-   word check pipes a scratch word list to `cspell stdin` in one call, since cspell skips every file under the ignored `out/`. A "0
-   warnings" claim on bicep is proven only by `Test-BicepLint`, since bicep warns on stderr with exit 0, and a read-only check builds with
-   `Build-Bicep -OutputFolder`.
+   import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A config in `editor-claims.yml`
+   `shared_configs` (`timeouts`, `dependencies`) is claimed before its first edit, `Invoke-CatzcCommand.ps1 'Lock-SharedConfig timeouts'`,
+   so the `Assert-EditClaim` hook denies a peer's Edit of it; the same call renews it while the edit outlasts `run_lock.wait_seconds`, and
+   `'Unlock-SharedConfig timeouts'` releases it once the edit lands. A script holding backslashes (Windows paths, regexes) is written with
+   the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers' scripts share the folder; one
+   reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to Windows tools goes through
+   `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as `uv run --no-sync --project python python …`; a word check pipes a
+   scratch word list to `cspell stdin` in one call, since cspell skips every file under the ignored `out/`. A "0 warnings" claim on bicep is
+   proven only by `Test-BicepLint`, since bicep warns on stderr with exit 0, and a read-only check builds with `Build-Bicep -OutputFolder`.

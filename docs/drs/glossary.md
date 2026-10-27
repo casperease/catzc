@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "131fb70d6878"
+    with_body_sha: a77817d116d3
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -10,7 +10,7 @@ catzc:
 Glossary: the controlled vocabulary
 
 Every defined term of the repository, generated from the glossary sources (each module's `configs/glossary.yml`) by `Build-Glossary` — edit
-a source, never this page. A term's meaning is fixed by the one ADR rule that defines it
+a source, never this page. A term's meaning is fixed by the one DRS rule that defines it
 ([controlled-vocabulary](repository/controlled-vocabulary.md)); this page collects them, with how each differs from its neighbours and the
 phrasings to avoid. `Test-Glossary` checks the sources.
 
@@ -234,8 +234,7 @@ code and precise references.
 
 ### cell
 
-One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's
-decision records of one row of the value-chain stack in one value-chain concern.
+One row crossed with one column of the world map — the tracked files of one track in one file language.
 
 - **Defined by:** [DDR-TRACK-CELL](design/tracks.md#rule-ddr-track-cell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -244,8 +243,6 @@ decision records of one row of the value-chain stack in one value-chain concern.
   - [lit cell](#lit-cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
   - [stack violation](#stack-violation): A stack violation is a cell holding a live file outside its track's file languages; a cell is any
     intersection, allowed or not.
-  - [value-chain map](#value-chain-map): The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records
-    of one row in one value-chain concern.
   - [world map](#world-map): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the
     registries and the git index.
 
@@ -342,8 +339,7 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 
 ### lit cell
 
-A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells a
-decision record sits in.
+A cell a highlight selects — on the world map the cells of the files a rule code or a file set names.
 
 - **Defined by:** [DDR-TRACK-LITCELL](design/tracks.md#rule-ddr-track-litcell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -555,8 +551,6 @@ the value chain.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one
-    value-chain concern.
   - [world map](#world-map): The value-chain map says where a decision acts; the world map crosses tracks with file languages, where files
     sit.
 

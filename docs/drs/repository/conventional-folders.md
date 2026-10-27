@@ -509,32 +509,19 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 
 ### How this is enforced
 
-- **`New-DynamicManifest`** — scans `private/` for non-exported functions (a literal today, the setting's default). Files not in `private/`
-  or the module root are not included in the manifest. A file in `helpers/` is structurally invisible.
-
-- **`Import-AllModules`** — applies the dot-prefix filter. Dot-prefixed folders are infrastructure. Non-dot folders are modules.
-
-- **`Test-Automation`** — discovers test paths under `tests/` (a literal today, the setting's default). Test files outside `tests/` are
-  never executed.
-
-- **`Test-Automation.Tests.ps1`** — validates that every `.ps1` file in a module follows the one-function-per-file convention. It scans only
-  the module root and `private/` — files in `assets/` or other folders are not subject to this validation.
-
-- **`importer.ps1`** and its **`Invoke-Importer`** overlay — hardcode `pwsh/`, `.internal/`, and `.vendor/`. These are the bootstrapping
-  paths. They do not come from configuration.
-
-- **`Test-FolderConventions.Tests.ps1`** — enforces the module-internal layout: every module subdirectory must be one of `private/`,
-  `tests/`, `assets/`, `configs/`, or `types/`; every entry in `configs/` must be a flat, kebab-case `.yml` file (no subdirectories, never
-  `.yaml`); no module may have an `assets/config/` directory; and no module may have an `assets/test/` directory — test fixtures live in
-  `tests/assets/`.
-
-- **Repo-wide conventions** — the closed root set (ADR-REPO-FOLDERS-CLOSEDROOTSET), the dot-prefixed roots
-  (ADR-REPO-FOLDERS-DOTMEANSTOOLING), the markdown-only rule for `docs/` (ADR-REPO-FOLDERS-DOCSMARKDOWNONLY), and the
-  `contracts/<root>/<version>/[<group>/]` layout with its root `.gitkeep` (ADR-REPO-FOLDERS-CONTRACTSFOLDER) — are enforced by **code
-  review** against this ADR; the deep `pwsh/` conventions above are additionally enforced mechanically by the tooling listed here.
-
-- **Code review.** Structural conventions that tooling cannot enforce (e.g., "this YAML file belongs in `configs/`, not the module root")
-  are caught in review. The uniform structure makes deviations visually obvious.
+- **`New-DynamicManifest`** — lists the files in the module root and the layout's private folder; a file in `helpers/` is structurally
+  invisible.
+- **`Import-AllModules`** — applies the dot-prefix filter: dot-prefixed folders are infrastructure, non-dot folders are modules.
+- **`Test-Automation`** — discovers test files under `tests/` only; a test file outside it never runs. Its tests validate the
+  one-function-per-file convention over the module root and `private/`; `assets/` and the other folders are not scanned.
+- **`Test-FolderConventions.Tests.ps1`** — enforces the module-internal layout: every module subdirectory is one of `private/`, `tests/`,
+  `assets/`, `configs/` or `types/`; every entry in `configs/` is a flat, kebab-case `.yml` file; no module has `assets/config/` or
+  `assets/test/`, since test fixtures live in `tests/assets/`.
+- **`importer.ps1`** and `Invoke-Importer` — spell `pwsh/`, `.internal/` and `.vendor/`, the bootstrapping paths that come from no
+  configuration.
+- **Code review** — the repo-wide conventions (ADR-REPO-FOLDERS-CLOSEDROOTSET, ADR-REPO-FOLDERS-DOTMEANSTOOLING,
+  ADR-REPO-FOLDERS-DOCSMARKDOWNONLY, ADR-REPO-FOLDERS-CONTRACTSFOLDER) and any structure tooling cannot see, such as a YAML file in the
+  module root instead of `configs/`.
 
 ## Consequences
 

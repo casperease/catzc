@@ -78,6 +78,7 @@ meters:
     service: Virtual Network
     meter: Standard Private Endpoint
     product: Virtual Network Private Link
+    region: Global # Private Link sells one global price, not per ARM region
     quantity: 730 # hours a month
   - id: private-dns-zone
     type: Microsoft.Network/privateDnsZones

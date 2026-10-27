@@ -60,12 +60,11 @@ A GUID identity check in code goes through `Assert-ManagedGuid` / `Test-ManagedG
 
 GUIDs accumulate in an infrastructure repository: real tenant and subscription ids in the identity config, well-known platform ids (an OAuth
 resource, a policy type, a project-type id), and — most numerous — placeholder values in fixtures, function help, and docs that exist only
-to prove tooling loads and content validates. Unmanaged, they are opaque: a reader cannot tell a real id from a demo value, a leaked
-production identity from an arbitrary token, or which fixture a value belongs to. And nothing stops a new, unexplained GUID from entering
-the tree.
+to prove tooling loads and content validates. Unmanaged, they are opaque — a real id is indistinguishable from a demo value, a leaked
+production identity from an arbitrary token — and nothing stops a new, unexplained GUID from entering the tree.
 
-The repair is the registry pattern the repository already applies to vocabulary ([spell-out-names](spell-out-names.md)): one authored source
-of truth, deliberate reviewed entries, a liveness rule, and a gate that enforces membership both ways.
+The answer is the registry pattern the repository applies to vocabulary ([spell-out-names](spell-out-names.md)): one authored source of
+truth, deliberate reviewed entries, a liveness rule, and a gate that enforces membership both ways.
 
 ### The registry
 

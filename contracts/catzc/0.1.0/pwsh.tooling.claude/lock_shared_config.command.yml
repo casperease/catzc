@@ -1,0 +1,5 @@
+description: Claims a shared config for this session's edits until the claim expires, so another session's Edit of it is denied.
+parameters:
+  name: string!
+  session: string
+output: catzc.tooling.claude.editor_claim

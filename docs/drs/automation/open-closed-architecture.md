@@ -34,15 +34,13 @@ loader never gains module-specific branches.
 
 ## Context
 
-The Open/Closed Principle (the O in SOLID) states that a system should be open for extension but closed for modification. In this platform,
-that translates to a concrete rule: **you grow the system by adding files and folders, never by editing the infrastructure that discovers
-them.**
+The Open/Closed Principle (the O in SOLID) keeps a system open for extension and closed for modification. Here that is a concrete rule:
+**the system grows by adding files and folders, never by editing the infrastructure that discovers them.**
 
-Module systems typically require hand-maintained manifests, explicit import lists, or registration steps — edit-to-extend workflows that
-create merge conflicts, stale registrations, and "I added it but forgot to register it" bugs. This platform eliminates that entire class of
-problems: the bootstrap module derives every registration from the filesystem, and the importer discovers modules by convention. Adding
-capability never requires touching existing code. The PowerShell mechanics — the generated module manifests and the collision-free function
-namespace — are the language layer, in the pwsh twin.
+Hand-maintained manifests, explicit import lists, and registration steps are edit-to-extend workflows that breed merge conflicts, stale
+registrations, and "added but never registered" bugs. The bootstrap module derives every registration from the filesystem and the importer
+discovers modules by convention, so adding capability never touches existing code. The engine mechanics — generated module manifests and a
+collision-free function namespace — are the engine twin's to say.
 
 ### How the platform does it
 
@@ -80,14 +78,14 @@ The open/closed guarantee rests on conventions:
 - **Folder = module.** A directory under the engine's code root that holds function files is a module. No registration needed.
 - **Root = public, `private/` = private.** Export visibility is determined by file location. No attribute or annotation needed.
 
-In PowerShell these conventions are one function per file and location-based exports, stated in the pwsh twin.
+The engine twin states them in its own terms (one function per file, location-based exports).
 
-These conventions are rigid by design. Rigidity is what makes the system predictable and extensible. If every module followed its own
-structure, the bootstrap module could not derive registrations automatically, and you would be back to hand-maintained configuration.
+They are rigid by design, because rigidity is what makes the system predictable and extensible: a module with its own structure defeats
+derived registration and brings hand-maintained configuration back.
 
-Convention-as-source-of-truth carries one assumption: that a name means exactly one thing. That is the one open/closed seam where
-"non-conforming code is invisible" does not hold — two definitions of one name are both discovered, and one quietly wins. The import
-therefore fails fast on any collision; the mechanics live in the pwsh twin.
+Convention as the source of truth assumes a name means exactly one thing. That is the one seam where "non-conforming code is invisible" does
+not hold — two definitions of one name are both discovered and one quietly wins — so the import fails fast on any collision; the engine twin
+gives the mechanics.
 
 ### Module dependency graph
 
@@ -123,11 +121,11 @@ The platform must remain open for extension and closed for modification. Concret
 - **`Test-Automation.Tests.ps1`** and **`Test-FolderConventions.Tests.ps1`** fail the test run on a file, function, or folder that breaks
   the naming and placement conventions, so non-conforming code is caught rather than silently skipped.
 - **Code review** rejects a module-specific branch, a hand-maintained registry, or a module-name check in the importer or bootstrap module
-  against this ADR.
+  against this record.
 
 ## Disambiguation
 
-The module-dependency graph this ADR references (`dependencies.yml`, `groups:`/`modules:`, `Test-ModuleDependency`) is owned by
+The module-dependency graph this record references (`dependencies.yml`, `groups:`/`modules:`, `Test-ModuleDependency`) is owned by
 [controlling-module-dependencies](controlling-module-dependencies.md) (`ADR-AUTO-DEPM`).
 
 ## Consequences

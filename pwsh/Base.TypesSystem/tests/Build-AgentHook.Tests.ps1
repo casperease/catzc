@@ -56,7 +56,7 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
         }
         $programs = @(Build-AgentHook -OutputDirectory $script:outputDirectory)
         @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) |
-            Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
+            Should -Be @('Assert-BashTimeout', 'Assert-EditClaim', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
         Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
         Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw |
             Should -BeLike '*Tooling.Listen/types/WriteLedger.cs:*'

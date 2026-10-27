@@ -18,6 +18,87 @@
           "kind": "property"
         }
       ]
+    },
+    {
+      "name": "Catzc.Tooling.Claude.EditorClaim",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Claim",
+          "kind": "method"
+        },
+        {
+          "name": "DefaultFolder",
+          "kind": "method"
+        },
+        {
+          "name": "Expires",
+          "kind": "property"
+        },
+        {
+          "name": "NormalPath",
+          "kind": "method"
+        },
+        {
+          "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "Read",
+          "kind": "method"
+        },
+        {
+          "name": "RecordPath",
+          "kind": "method"
+        },
+        {
+          "name": "Release",
+          "kind": "method"
+        },
+        {
+          "name": "Session",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Claude.EditorClaimGuard",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Decide",
+          "kind": "method"
+        },
+        {
+          "name": "DenyOutput",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Tooling.Claude.EditorClaimsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefaultSharedConfigs",
+          "kind": "property"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "shared_configs",
+          "kind": "property"
+        }
+      ]
     }
   ]
 }

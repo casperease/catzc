@@ -101,33 +101,26 @@ edge is declared or not, so the function-call edges of the module graph (ADR-AUT
 ## Context
 
 [open-closed-architecture](../open-closed-architecture.md) fixes the doctrine: grow the system by adding files and folders, never by editing
-the infrastructure that discovers them. This ADR realises it in pwsh — the manifest and namespace mechanics that make the doctrine hold in
-this module system, in the source tree and in the installed build.
-
-PowerShell module systems typically require hand-maintained manifests, explicit import lists, or registration steps. Each new function means
-editing a `.psd1`, updating an export list, or adding a line to a loader script. These edit-to-extend workflows create merge conflicts,
-stale manifests, and "I added the function but forgot to export it" bugs. The bootstrap module eliminates that entire class of problems by
-generating manifests dynamically from the filesystem.
+the infrastructure that discovers them. This record realises it in pwsh — the manifest and namespace mechanics that make the doctrine hold
+in the source tree and in the installed build. Where a PowerShell module system would have each new function edit a `.psd1`, an export list
+or a loader script, the bootstrap module generates the manifests from the filesystem.
 
 ### Why PowerShell
 
 `Why this matters for PowerShell specifically`
 
-**No linker catches missing exports.** In compiled languages, a missing export causes a build error. In PowerShell, a function that exists
-in a file but is missing from `FunctionsToExport` silently does not load. The caller gets a confusing "command not found" at runtime — often
-in CI, often after the PR already merged. Dynamic manifest generation eliminates this failure mode entirely.
+**No linker catches missing exports.** A compiled language fails the build on a missing export; in PowerShell a function missing from
+`FunctionsToExport` silently does not load, and the caller meets "command not found" at runtime, often in CI after the merge. A generated
+manifest cannot miss one.
 
-**Hand-maintained lists rot.** A `.psd1` manifest with an explicit `FunctionsToExport` list is a second source of truth that must stay in
-sync with the actual files. Every rename, move, or delete requires updating both the file and the manifest. People forget. Reviews miss it.
-The list drifts. Filesystem-driven discovery means the filesystem _is_ the manifest — there is no second source of truth to keep in sync.
+**Hand-maintained lists rot.** An explicit `FunctionsToExport` list is a second source of truth that every rename, move, or delete must
+update, and forgotten updates slip past review. With discovery, the filesystem _is_ the manifest.
 
-**Merge conflicts on shared files.** When every new function requires editing a central manifest or loader, two developers adding functions
-in parallel will conflict on that file. The conflict is trivial but annoying, and it blocks CI. Convention-based discovery means parallel
-additions never touch the same file.
+**Merge conflicts on shared files.** Two developers adding functions in parallel would conflict on a central manifest or loader — trivial,
+but CI-blocking. Discovered additions never touch the same file.
 
-**Onboarding cost compounds.** "To add a function, create a file, then edit the manifest, then update the export list, then add it to the
-loader" is four steps where one would do. Each extra step is a place a newcomer can get stuck. "Drop a `.ps1` file in the folder" is
-self-evident.
+**Onboarding cost compounds.** Create a file, edit the manifest, update the export list, register it in the loader: four steps where one
+would do, each a place for a newcomer to stall. "Drop a `.ps1` file in the folder" is self-evident.
 
 ### Conventions in PowerShell
 
@@ -145,12 +138,12 @@ A module's `.psd1` is not source — it is a projection of the module's `.ps1` f
 `<Module>/<Module>.psd1` directly from the current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function,
 every `private/*.ps1` a non-exported one. The files are listed, `private/` first and then the root, each group ordinal, in the manifest's
 `PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses
-each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script cost about 3 ms
-per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`, errors
-and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write, which is
-also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost all its
-`.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the filesystem
-of `.ps1` files is the single source of truth, and the manifest is its output.
+each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script would cost about 3
+ms per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`,
+errors and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write,
+which is also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost
+all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the
+filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory

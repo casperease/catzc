@@ -1,0 +1,4 @@
+description: Releases this session's claim on a shared config, so any session may edit or claim it.
+parameters:
+  name: string!
+  session: string

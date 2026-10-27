@@ -1,12 +1,12 @@
 # pwsh/Base.Drs/Test-DrsRegistry.ps1
 
-A quality gate that checks the ADR registry and the ADR rule files agree, and runs the configured citation-graph and DORA-coverage checks.
+A quality gate that checks the DRS registry and the decision records agree, and runs the configured citation-graph and DORA-coverage checks.
 
 ## help
 
 ### synopsis
 
-Checks that the ADR registry (drs.yml) and the ADR rule files agree.
+Checks that the DRS registry (drs.yml) and the decision records agree.
 
 ### description
 

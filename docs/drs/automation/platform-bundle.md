@@ -90,20 +90,18 @@ something loading or building a bundle does.
 
 ## Context
 
-The catzc platform is developed in source mode: loading the importer at the repository root reads the automation tree in place, one function
-per file, and everything anchors on a repository that is both the working root and the location of the code. That form is right for the
-people who edit the code and wrong for the machines that only run it. A machine that runs the toolset wants it **installed** — carried to
-another folder (another repository's `.vendor`, a work directory, the user's module location) and run there as a reusable tool rather than a
-repository you are inside — and it wants the install to load fast, including on a cold import behind real-time antivirus that scans every
-file on first open ([effective-in-enterprises](effective-in-enterprises.md)).
+Source mode loads the automation tree in place, one function per file, from a repository that is both the working root and the location of
+the code. That suits the people who edit the code, not the machines that only run it. A machine wants the toolset **installed** — carried to
+another folder (another repository's `.vendor`, a work directory, the user's module location) and run there as a tool — and wants it to load
+fast, including on a cold import behind real-time antivirus that scans every file on first open
+([effective-in-enterprises](effective-in-enterprises.md)).
 
-The repository holds most of the pieces: a typed module model with a dependency closure, the durable-SHA identity primitives, the
-combined-types compile, a manifest emitter, and the one importer. The concept that ties them together is the **bundle** — the build — plus
-the two mechanisms that make the platform relocatable without disturbing the source mode: the anchor split, and a bundle mode on the one
-living importer.
+The pieces exist: a typed module model with a dependency closure, the durable-SHA identity primitives, the combined-types compile, a
+manifest emitter, and the one importer. The **bundle** ties them together, with two mechanisms that make the platform relocatable without
+disturbing the source mode: the anchor split, and a bundle mode on the one living importer.
 
-This ADR is the bundle in words that hold for any engine. How it is realised in pwsh — the merged module form, the package module, and the
-build's entry script — is the pwsh twin's to say.
+This record states the bundle for any engine; the engine's twin says how it is realised — the merged module form, the package module, and
+the build's entry script.
 
 ## Decision
 
@@ -137,14 +135,11 @@ relocated — a scan that anchored on `RepositoryRoot` would look in the wrong p
 
 `The bundle boots through the importer`
 
-A bundle does not carry its own loader. Its entry — a checked-in, authored file under `pwsh/.internal/assets/`, copied verbatim into the
-build — sets the two anchors and runs the same importer the mono repo's entry runs, in its bundle mode. This is not merely to avoid a second
-copy of the load logic — it is load-order-correct. The C# types the platform uses are registered by catzc's own code before any module
-loads, and a module that names one of them at load time needs it registered first. The importer sequences this — types, then the module loop
-— and a single declarative package description that listed every module as part of one package could not, besides collapsing every module's
-private state into one shared scope. So the bundle reuses the importer, and the bundle mode only changes what it does to the filesystem:
-janitors off, each module's prebuilt manifest read rather than generated, the prebuilt DLL loaded rather than compiled, the pre-set code
-root honoured.
+A bundle carries no loader of its own. Its entry — an authored file under the internal assets, copied verbatim into the build — sets the two
+anchors and runs the importer in its bundle mode. Beyond avoiding a second copy of the load logic, this is load-order-correct: a module that
+names a C# type at load time needs it registered first, and the importer sequences types before the module loop. A single declarative
+package description could not, and would collapse every module's private state into one shared scope. The bundle mode changes only what the
+importer does to the filesystem: janitors off, prebuilt manifests read, the prebuilt DLL loaded, the pre-set code root honoured.
 
 ### The runtime payload
 
@@ -160,7 +155,7 @@ selection: the selected modules' `types/*.cs` travel in their folders and the re
 guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
 DLL is copied from the machine's shadow build when its hash matches, and compiled only when it is missing. The vendored dependencies are
 copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
-out: no `tests/` tree travels. The exact form of the payload in pwsh is the pwsh twin's to say.
+out: no `tests/` tree travels. The payload's exact form is the engine twin's to say.
 
 ### The verified artifact
 
@@ -173,8 +168,8 @@ untracked files git does not ignore ship too, because they are the work in progr
 a pipeline refuses a dirty tree, so a released bundle is always exactly its commit. The type sources and the DLL follow the type set the
 DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes its generated output canonically — UTF-8 without BOM, LF,
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
-copied file — and computes a durable SHA over the whole payload with the same recipe the globsets use, the durable SHA. The same commit
-therefore hashes the same on every OS, which the CI pipeline proves by building on each and comparing.
+copied file — and computes a durable SHA over the whole payload with the recipe the globsets use. The same commit therefore hashes the same
+on every OS, which the CI pipeline proves by building on each and comparing.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a
@@ -183,10 +178,9 @@ closure brings the owner in, or to move what is read to where it belongs. The sa
 
 The DLL's own name carries the `typesHash`, so which sources it was compiled from is proven by hash. The bundle, content hash, `typesHash`,
 type-source list, source commit, whether the tree differed from that commit, version, and module list travel in `build.json`, which is
-excluded from the hash it carries. A devbox may build a tree with uncommitted changes, and `build.json` says so; a pipeline refuses, so a
-released bundle is always exactly its commit. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and checks it
-against `build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash` and that the shipped
-type sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
+excluded from the hash it carries. `Assert-CatzcBundle` closes the loop: given any bundle, it recomputes the hash and checks it against
+`build.json`, confirms no test file leaked in, confirms exactly one types DLL whose name matches `typesHash` and that the shipped type
+sources hash to it, confirms every module's manifest and merged file, and confirms every manifest export resolves to a function in its
 merged file — throwing with the full list of what is wrong. A build verifies itself with it, and an install verifies its source with it.
 
 A bundle is an engine carried to other environments, so its size is checked, not hoped for. A bundle may state footprint limits, `max_files`
@@ -210,16 +204,12 @@ it as a local package. The vendored dependencies ride inside the build's own `.v
 
 `Versions: a local placeholder, a calculated pipeline version`
 
-A build on a devbox is a local convenience, not a release, so it carries the fixed `6.6.666` placeholder and overwrites in place — an
-obviously-unreal number that reads as "built locally" — and `Build-Modules` says so with a yellow `Write-Message` line. It is never a
-warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-ISSESSION). A pipeline export gets a real version, and that version is
-**calculated, not chosen**: `MAJOR.MINOR` is the bundle's own reviewed `version` in `exporter.yml` — the repository is a mono repo, so each
-bundle has its own version line and no bundle's version moves another's — and `PATCH` is the first-parent commit count of the built commit
-(`git rev-list --first-parent --count HEAD`, which needs the full history the pipelines fetch). The same commit therefore always gets the
-same version — build once, version once — and versions increase monotonically along `main` without a counter to store. The placeholder never
-leaves a devbox: a pipeline build that names it explicitly is rejected. Every bundle, with its profile, vendor policy, and version line, is
-declared in one `exporter.yml` read through `Get-Config` — the single place the repository states how it wants to export itself, validated
-on load and substitutable by a fixture in tests.
+A devbox build is a local convenience, not a release, so it carries the obviously-unreal `6.6.666` and overwrites in place; the notice is a
+`Write-Message` line, never a warning, which terminates in a catzc session (ADR-AUTO-BUNDLE-ISSESSION). A pipeline version is **calculated,
+not chosen**: in a mono repo each bundle owns its version line, and `PATCH` comes from `git rev-list --first-parent --count HEAD`, which
+needs the full history the pipelines fetch. Build once, version once: the same commit always gets the same version, and versions rise along
+`main` without a counter to store. `exporter.yml` is the single place the repository states how it exports itself, validated on load and
+substitutable by a fixture in tests.
 
 ### A session, not a library
 
@@ -246,7 +236,7 @@ effect of building or loading.
 - **The build run** (`Test-CatzcBuild`, [test-automation](test-automation.md)) runs the same tests against the build that the source run
   runs against source.
 - **Code review** keeps the split honest: a scan of catzc's own code anchored on `RepositoryRoot` rather than `CatzcModulesRoot`, or a
-  bundle loader that forks the importer, is rejected against this ADR.
+  bundle loader that forks the importer, is rejected against this record.
 
 ## Consequences
 

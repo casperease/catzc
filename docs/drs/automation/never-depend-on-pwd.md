@@ -28,13 +28,10 @@ whose job is the variable itself carries a justified exception, and tests and th
 
 ## Context
 
-Scripts often assume they are run from a specific directory — typically the repository root. This works when the author runs the script
-manually but breaks the moment someone calls the function from a different working directory, a scheduled task, a CI pipeline, or a nested
-script that changed location earlier.
-
-Functions that use relative paths like `pwsh/Azure/configs/azure.yml`, or shell out to tools sensitive to the current directory (git,
-dotnet, poetry), will silently operate on the wrong files or fail with confusing errors when the working directory is not what the author
-expected.
+A script that assumes it runs from the repository root works when its author runs it by hand and breaks when called from another working
+directory, a scheduled task, a CI pipeline, or a nested script that moved earlier. A function that uses a relative path like
+`pwsh/Azure/configs/azure.yml`, or shells out to a tool sensitive to the current directory (git, dotnet, poetry), then silently works on the
+wrong files or fails with a confusing error.
 
 ### Rejected alternatives
 
@@ -48,12 +45,11 @@ expected.
 `The code root, not the script's folder`
 
 The toolset runs in two modes ([run-modes](../design/run-modes.md)): in source mode a function sits in its own file under its module folder,
-and in build mode the same function sits inside one merged file in the build. An anchor taken from the folder of the executing file
-therefore gives a different answer in each mode. The code root — the module's folder under the active code root — gives the same answer in
-both, so a module's own configs and assets resolve identically from source and from the installed build. Because every such lookup passes a
-literal child path, the lookups are also an inventory the build and its tests check
-([internal-asset-dependencies](internal-asset-dependencies.md)). How PowerShell code reaches the code root, and which files keep the
-file-folder anchor, is the pwsh twin's to say.
+and in build mode inside one merged file, so the executing file's folder differs between modes. The module's folder under the active code
+root does not, so its configs and assets resolve identically from source and from the installed build; and since every such lookup passes a
+literal child path, the lookups are an inventory the build and its tests check
+([internal-asset-dependencies](internal-asset-dependencies.md)). How engine code reaches the code root, and which files keep the file-folder
+anchor, is the engine twin's to say.
 
 ## Decision
 
@@ -62,8 +58,8 @@ never through the folder its file happens to sit in.
 
 ### How this is enforced
 
-- **Custom PSScriptAnalyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on dependence on the
-  current directory. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
+- **Custom analyzer rule `Measure-NeverDependOnPwd`** (`pwsh/.scriptanalyzer/NeverDependOnPwd.psm1`) — warns on dependence on the current
+  directory. Runs as one of the L2 tests via `Test-ScriptAnalyzer.Tests.ps1`.
 - **The language layer** — the anchor idioms, the code-root and working-root analyzer rules, and the one safe way to change directory (a
   change restored in a `finally`) are the pwsh twin's: the anchors of rule 1, the test paths of rule 4, and the working-root accessor of
   rule 6.

@@ -75,34 +75,31 @@ removed too. A watchpoint is a diagnostic behind a switch, never a standing cost
 
 ## Context
 
-Automation code is fundamentally about side effects — creating resources, calling APIs, installing tools, writing files. This makes it hard
-to test with traditional unit testing approaches:
+Automation code is mostly side effects — creating resources, calling APIs, installing tools, writing files — which unit testing serves
+poorly:
 
-- **Mocking is fragile and misleading.** You can mock `Invoke-Executable` to return a canned string, but that tells you nothing about
-  whether the real CLI will behave the same way. Mock-heavy tests pass in CI and fail in production because the mock does not replicate the
-  real tool's exit codes, stderr behavior, or edge cases.
+- **Mocking is fragile and misleading.** A mocked `Invoke-Executable` returning a canned string says nothing about the real CLI's exit
+  codes, stderr behaviour, or edge cases, so mock-heavy tests pass in CI and fail in production.
 
-- **Integration tests are slow and environment-dependent.** A real test that installs Python, runs poetry, and deploys to Azure takes
-  minutes, requires credentials, and breaks when the network is flaky. You cannot run these on every save.
+- **Integration tests are slow and environment-dependent.** Installing Python, running poetry and deploying to Azure takes minutes, needs
+  credentials, and breaks on a flaky network; it cannot run on every save.
 
-- **Coverage is deceptive.** You can hit 90% line coverage and still miss the bug, because the bug is not in the logic — it is in the
-  assumption that a variable is non-null, a path exists, a command returned the expected format, or an exit code was zero. These are the
-  actual failure modes of automation code.
+- **Coverage is deceptive.** 90% line coverage still misses the bug, because it sits not in the logic but in the assumption that a variable
+  is non-null, a path exists, a command returned the expected format, or an exit code was zero — the real failure modes of automation code.
 
-Traditional testing works best for pure functions with inputs and outputs. Automation code is mostly impure — it orchestrates external
-systems. We need a strategy that matches this reality.
+Testing suits pure functions; automation code orchestrates external systems, and needs a strategy that matches.
 
 ### The inline assertion pattern
 
-Instead of relying solely on after-the-fact testing, we build quality _into_ the code itself with inline assertions. The principle: **assert
-every assumption at the point where it is made.** On average, roughly every fifth line of code should be an assertion.
+Quality is built _into_ the code with inline assertions: **assert every assumption at the point where it is made**, roughly every fifth line
+on average.
 
 Each assumption is checked by a call into the assertion library, not by a hand-written conditional that raises its own error. The library
 call names its intent (`Assert-PathExist`, `Assert-NotNullOrWhitespace`), so a reviewer sees an assumption rather than control flow, and
 every failure carries the same structured, self-contained message, so an error is greppable and reads the same wherever it fires.
 
-This is not a replacement for tests — it is a complementary strategy. Tests verify behavior in controlled conditions. Inline assertions
-verify assumptions in _every_ execution, including production, including the edge cases no test anticipated.
+This complements tests rather than replacing them: tests verify behaviour in controlled conditions, inline assertions verify assumptions in
+_every_ execution, production and unanticipated edge cases included.
 
 ### In practice
 
@@ -114,32 +111,24 @@ asserts four things on the way:
 3. the tool is at the expected version — a contract check with the system;
 4. the tool produced output — a contract check with the integration: it returned something rather than nothing.
 
-Five functional lines, four assertions. This is not excessive — it is the minimum needed to produce a clear error for every failure mode:
-
-- Caller passed empty arguments → immediate failure with the parameter name
-- Poetry not installed → immediate failure naming the missing tool
-- Poetry is the wrong version → immediate failure with expected vs actual
-- Command produced no output → immediate failure at the source
-
-Without the assertions, all four failures eventually surface as something unhelpful: a null-reference error three functions down the call
-stack, or a silent empty result that corrupts downstream state.
+Five functional lines, four assertions — the minimum for a clear, immediate error per failure mode (the parameter name, the missing tool,
+expected against actual version, the empty result at its source). Without them, each failure surfaces as a null-reference error three
+functions down the stack, or a silent empty result that corrupts downstream state.
 
 ### Why every fifth line
 
-The ratio is a guideline, not a rigid rule. The point is that assertions should be _pervasive_, not sprinkled in as an afterthought. Code
-that goes 20 lines without an assertion is almost certainly making unchecked assumptions. Common assertion points:
+The ratio is a guideline; the point is that assertions are _pervasive_, not an afterthought, and 20 lines without one almost certainly make
+unchecked assumptions. Common assertion points:
 
-- **Function entry.** Validate parameters beyond what the parameter declaration can express. Check that paths exist, strings are non-empty,
-  objects have expected properties.
+- **Function entry.** What the parameter declaration cannot express: paths exist, strings are non-empty, objects have expected properties.
 
-- **After external calls.** CLI tools, APIs, and file operations can fail in ways that do not raise an error — non-zero exit codes, empty
-  responses, partial writes. Assert the result is what you expected.
+- **After external calls.** CLI tools, APIs, and file operations fail without raising an error — non-zero exit codes, empty responses,
+  partial writes.
 
-- **Before using a value.** If a variable could be null, empty, or the wrong type, assert before using it. Do not trust upstream code to
-  have validated it — the upstream code might change.
+- **Before using a value.** A value that could be null, empty, or the wrong type is asserted, since upstream validation can change.
 
-- **State transitions.** After modifying state (environment variables, files, registry), assert the state is what you set it to. External
-  processes, group policies, or concurrent scripts can interfere.
+- **State transitions.** After setting state (environment variables, files, registry), assert it holds; external processes, group policies,
+  or concurrent scripts can interfere.
 
 ### A hang is the slowest failure
 
@@ -154,9 +143,9 @@ There is no "no limit" value, because an unbounded wait is exactly the failure t
 
 Two axes decide a limit, and both are read from the session rather than passed in. The run environment (devbox or pipeline,
 `Get-RunEnvironment`) sets how tight it is: a devbox has a person to tune with, a pipeline has nobody watching and longer ordinary builds.
-The shell (one of the execution engines) sets what it bounds: pwsh code bounds its own script blocks and processes, and the agent hook
-bounds bash calls (the pwsh twin gives the pwsh forms). A caller can pin the environment with an `-EnvironmentAssertIs` guard, which
-verifies and never selects.
+The shell (one of the execution engines) sets what it bounds: each engine's code bounds its own blocks and processes, and the agent hook
+bounds the agent's shell calls (the engine twin gives the forms). A caller can pin the environment with an `-EnvironmentAssertIs` guard,
+which verifies and never selects.
 
 An exemption is for work that is known to be slow while it is fixed. It names the work by an immutable budget GUID — registered in the
 managed-GUID registry ([ADR-AUTO-GUIDS](managed-guids.md)), one at a time or as an inclusive range of a minted family — and carries the
@@ -213,8 +202,8 @@ A configuration value is asserted at the first level that can see what is wrong,
    ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 2. **Load-time**, `Get-Config`: the fragment merged onto the shipped file, and a sealed config refusing one
    ([ADR-AUTO-OVERLAY-CONFIGFRAGMENT](consumer-overlay.md#rule-adr-auto-overlay-configfragment)).
-3. **Cross-config**, the PowerShell validators and `Test-ConfigValidators`: what holds across configs, such as a name one config declares
-   and another uses.
+3. **Cross-config**, the config validators and `Test-ConfigValidators`: what holds across configs, such as a name one config declares and
+   another uses.
 4. **Contract-time**, `Test-Contracts`: a provided asset against what the code takes and gives.
 5. **Repo-time**, the gates over the whole tree: `Test-ShippedConfigs`, which also holds each shipped file to its type's defaults, and the
    rest of the quality gates.

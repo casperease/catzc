@@ -1,4 +1,4 @@
-Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
+Describe 'Build-DrsIndex — generated DRS index' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-DrsIndex }
         $script:ruleSets = Get-DrsRuleSet
@@ -41,14 +41,14 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'sourc
             Should -BeNullOrEmpty -Because 'each domain section opens with the description declared in drs.yml'
     }
 
-    It 'every index row links to a real ADR file under its domain folder' {
+    It 'every index row links to a real decision record file under its domain folder' {
         $missing = foreach ($entry in $script:indexEntries) {
             $full = Join-Path $script:adrRoot $entry.Path
             if (-not [System.IO.File]::Exists($full)) {
                 "$($entry.Code) -> $($entry.Path)"
             }
         }
-        @($missing) | Should -BeNullOrEmpty -Because 'each generated link resolves to the ADR markdown it cites'
+        @($missing) | Should -BeNullOrEmpty -Because 'each generated link resolves to the decision record it cites'
     }
 }
 

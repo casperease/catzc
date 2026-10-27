@@ -50,12 +50,9 @@ a cache or a run's artifacts, writes to an address it names itself.
 
 ## Context
 
-Automation functions should be easy to call. If a function requires five parameters to do the most common thing, nobody will use it — they
-will write their own inline version or skip automation entirely. The most common invocation of any function should require zero or minimal
-arguments.
-
-PowerShell makes this easy: parameters can have default values, can pull from configuration, and can be positional. But it requires
-discipline to design every function with the "just call it" experience in mind.
+A function that needs five parameters for the most common thing goes unused — callers write their own inline version or skip automation
+entirely. Engines let parameters default, read configuration, and bind by position; designing every function for the "just call it"
+experience is the discipline.
 
 ### Examples
 
@@ -82,18 +79,16 @@ function Install-Python(version: required):
     # ...
 ```
 
-How the parameter surface itself is shaped so the common call stays short — the positional primary argument, switches over booleans — is the
-language layer, in the pwsh twin.
+How the parameter surface keeps the common call short — the positional primary argument, switches over booleans — is the engine twin's to
+say.
 
 ### The principle
 
-Every function should answer the question: **"What would the caller most likely pass here?"** If there is a single obvious answer, that
-answer is the default. If the answer comes from configuration, read it from config. If the answer is "nothing" (the feature is off), the
-behavior defaults to off and the caller opts in explicitly.
+Every function answers: **"What would the caller most likely pass here?"** A single obvious answer is the default; an answer from
+configuration is read from config; "nothing" means the behaviour is off and the caller opts in.
 
-This does not mean making everything optional. A function that does nothing useful without a specific value should make that parameter
-mandatory. `Invoke-Poetry` without arguments would enter an interactive prompt — that is never the right default, so its arguments are
-mandatory. The test is: **does a reasonable default exist?** If yes, use it. If no, make it mandatory.
+Not everything is optional. `Invoke-Poetry` without arguments would enter an interactive prompt, never a right default, so its arguments are
+mandatory. The test is: **does a reasonable default exist?** If yes, use it; if no, make it mandatory.
 
 ### Where defaults come from
 
@@ -109,7 +104,7 @@ In order of preference:
    `Get-CatzcModuleRoot` provides the module's own folder. The function uses these anchors instead of requiring a path parameter.
 
 4. **Off, for opt-in behavior.** `-PassThru`, `-DryRun`, `-Silent`, `-NoAssert` — these default to off because the common case does not need
-   them; the caller opts in explicitly when needed (in pwsh a switch).
+   them; the caller opts in explicitly when needed.
 
 ### One resolution order
 
@@ -126,7 +121,7 @@ behave identically, a fresh checkout works with no configuration edits, and no f
 where a shipped file carries a value of its own, such as this repository enabling every customer, its entry in `configs.yml` names the key
 under `differs` with one sentence of reason, and `Test-ShippedConfigs` fails any other difference and any reason whose values agree. This is
 not a fallback kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an
-optional setting. How a PowerShell parameter expresses steps 1–2 is the language layer, in the pwsh twin.
+optional setting. How a parameter expresses steps 1–2 is the engine twin's to say.
 
 ### The output track is reached by address only
 
@@ -135,11 +130,11 @@ optional setting. How a PowerShell parameter expresses steps 1–2 is the langua
 `out/` is a track like the others, the `output` track
 ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../design/track-types.md#rule-ddr-tracktype-closedsetoftypes)): git ignores it, and the tools write their
 reports, renders, caches and builds there and read them back. What it holds is the result of an action, not the source of one, so a default
-that swept it in would check, format or test yesterday's output as if it were today's code, and a gate would fail on a stale report it wrote
-itself. So a default scope is the domain's source, and the output track is never part of it. The defaults already keep to that by their
-construction: the gates and `Format-Code` work on the files git tracks, the folder walk excludes `out` (`folder-walk.yml`), and the markdown
-scope excludes `out/**` (`globs.yml`). What remains is the explicit address: a caller that names a file or a folder under `out/` — a render
-to check, a report to read — gets exactly that address, resolved on disk, because there the caller, not a default, chose the output.
+that swept it in would check, format or test stale output as if it were code, and a gate would fail on a stale report it wrote itself. So a
+default scope is the domain's source, and the output track is never part of it. The defaults keep to that by construction: the gates and
+`Format-Code` work on the files git tracks, the folder walk excludes `out` (`folder-walk.yml`), and the markdown scope excludes `out/**`
+(`globs.yml`). What remains is the explicit address: a caller that names a file or a folder under `out/` — a render to check, a report to
+read — gets exactly that address, resolved on disk, because there the caller, not a default, chose the output.
 
 ## Decision
 

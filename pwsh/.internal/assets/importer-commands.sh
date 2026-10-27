@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "633bde0a831d"
+#     with_body_sha: "22c217b114a8"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -111,6 +111,8 @@ invoke_python_test	uv_executable	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.la
 invoke_python_test	engine	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/invoke_python_test.command.yml			invoke-python-test	engine	Invoke-PythonTest	Engine
 invoke_python_test	engine_executable	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/invoke_python_test.command.yml			invoke-python-test	engine-executable	Invoke-PythonTest	EngineExecutable
 invoke_python_test	folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/invoke_python_test.command.yml			invoke-python-test	folder	Invoke-PythonTest	Folder
+lock_shared_config	name	string	0	1	0	contracts/catzc/0.1.0/pwsh.tooling.claude/lock_shared_config.command.yml			lock-shared-config	name	Lock-SharedConfig	Name
+lock_shared_config	session	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/lock_shared_config.command.yml			lock-shared-config	session	Lock-SharedConfig	Session
 new_go_workspace	target	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/new_go_workspace.command.yml			new-go-workspace	target	New-GoWorkspace	Target
 new_python_project	line_length	int	0	1	0	contracts/catzc/0.1.0/pwsh.base.languages/new_python_project.command.yml			new-python-project	line-length	New-PythonProject	LineLength
 new_python_project	target	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/new_python_project.command.yml			new-python-project	target	New-PythonProject	Target
@@ -344,4 +346,6 @@ uninstall_shellcheck	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.too
 uninstall_terraform	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_terraform.command.yml			uninstall-terraform	version	Uninstall-Terraform	Version
 uninstall_uv	version	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.toolchain/uninstall_uv.command.yml			uninstall-uv	version	Uninstall-Uv	Version
 uninstall_zsh			0	0	0	contracts/catzc/0.1.0/pwsh.tooling.provisioning/uninstall_zsh.command.yml			uninstall-zsh		Uninstall-Zsh	
+unlock_shared_config	name	string	0	1	0	contracts/catzc/0.1.0/pwsh.tooling.claude/unlock_shared_config.command.yml			unlock-shared-config	name	Unlock-SharedConfig	Name
+unlock_shared_config	session	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/unlock_shared_config.command.yml			unlock-shared-config	session	Unlock-SharedConfig	Session
 '

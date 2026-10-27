@@ -32,4 +32,4 @@ Zoomed: the dirty HEAD under main-UAT, its failure path going up and stopping at
 
 ## Notes
 
-Check it: docs/drs/flow/commit-lifecycle.md, rules DIRTYHEADUNSAFE and FAILEDSTAYSUPSTREAM.
+Check it: docs/drs/flow/commit-lifecycle.md, rules FDR-LIFE-DIRTYHEADUNSAFE and FDR-LIFE-LANDEDUNTILFAILED.
