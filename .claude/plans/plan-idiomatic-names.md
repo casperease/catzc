@@ -19,7 +19,7 @@ plan:
 # Idiomatic names: every language names its own way, and contracts name in one normal form
 
 Each source language names its files, folders, functions and types in its own idiom: PowerShell `Get-CommandContract.ps1` in
-`Catzc.Base.Contracts/`, Python `get_command_contract` in `catzc_diagrams/`, Go `GetCommandContract` in `catzcbaserepository/`. Under the
+`Base.Contracts/`, Python `get_command_contract` in `diagrams/`, Go `GetCommandContract` in `baserepository/`. Under the
 idioms sits one **repository normal form**, configured as `snake`; each idiom is a rendering of it, and the command contracts in
 `contracts/catzc/0.1.0` are written in it.
 
@@ -36,8 +36,8 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
 
 - The idiom is a `naming:` entry per language in `languages.yml`, from a closed set of cases (ADR-AUTO-IDIOM-LANGUAGEIDIOM,
   ADR-AUTO-IDIOM-CLOSEDCASES); assets, vendored folders and listed files keep their source's names (ADR-AUTO-IDIOM-SOURCENAMEDEXEMPT).
-- PowerShell is correct as it is; Python and Go are renamed to their idiom: `python/Catzc.Diagrams/`, `python/tests/catzc-base-repository/`
-  and `go/tests/catzc-base-repository/` are the three misnamed folders.
+- PowerShell is correct as it is; Python and Go take their idiom: `python/diagrams/`, `python/tests/base_repository/` and
+  `go/tests/baserepository/`.
 - The normal form is a configured case, the best of all worlds even when it is one language's idiom: `snake` (ADR-AUTO-IDIOM-NORMALFORM);
   every name round-trips (ADR-AUTO-IDIOM-ROUNDTRIP); an acronym is one ordinary word, never a list (ADR-AUTO-IDIOM-ACRONYMISWORD).
 - A test folder is its module's normal form in its language's folder case (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM).

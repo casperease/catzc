@@ -92,7 +92,13 @@ public static class ArmExpression
             string name = Identifier();
             SkipSpace();
             Expect('(');
-            if (name.Equals("filter", StringComparison.OrdinalIgnoreCase)) { return Postfix(Filter()); }
+            switch (name.ToLowerInvariant())
+            {
+                case "filter":
+                case "map":
+                case "toobject":
+                    return Postfix(LambdaCall(name.ToLowerInvariant()));
+            }
             var args = new List<object>();
             SkipSpace();
             if (!AtEnd && text[position] == ')') { position++; }
@@ -138,7 +144,7 @@ public static class ArmExpression
                 }
                 return Unresolved;
             }
-            if (container is IList list && IsNumber(key))
+            if (container is IList list && ArmFunction.IsNumber(key))
             {
                 long index = Convert.ToInt64(key, CultureInfo.InvariantCulture);
                 return index >= 0 && index < list.Count ? list[(int)index] : Unresolved;
@@ -149,45 +155,105 @@ public static class ArmExpression
         // The lambda variables bound while a lambda body evaluates for one item, innermost last.
         private readonly List<KeyValuePair<string, object>> bindings = new List<KeyValuePair<string, object>>();
 
-        // filter(array, lambda('item', predicate)): the body is parsed once per item with the variable bound; the list's order is kept.
-        private object Filter()
+        // filter(array, predicate), map(array, body) and toObject(array, key[, value]), each lambda('item'[, 'index'], body): a body is parsed
+        // once per item with its variables bound, and the list's order is kept. Unresolved when the array is, or a predicate or key is not a
+        // bool or a string.
+        private object LambdaCall(string name)
         {
             object source = Expression();
             SkipSpace();
             Expect(',');
+            List<object> first = EachItem(source, LambdaHead());
+            List<object> values = null;
             SkipSpace();
-            if (!Identifier().Equals("lambda", StringComparison.OrdinalIgnoreCase)) { throw new FormatException("filter takes a lambda"); }
+            if (name == "toobject" && !AtEnd && text[position] == ',')
+            {
+                position++;
+                values = EachItem(source, LambdaHead());
+                SkipSpace();
+            }
+            Expect(')');
+            if (first == null) { return Unresolved; }
+            if (name == "map") { return first.ToArray(); }
+            int index = 0;
+            if (name == "filter")
+            {
+                var kept = new List<object>();
+                foreach (object item in (IEnumerable)source)
+                {
+                    object keep = first[index++];
+                    if (!(keep is bool)) { return Unresolved; }
+                    if ((bool)keep) { kept.Add(item); }
+                }
+                return kept.ToArray();
+            }
+            // toObject: a later item with the same key replaces an earlier one; with no value lambda the item itself is the value.
+            var built = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+            foreach (object item in (IEnumerable)source)
+            {
+                if (!(first[index] is string key)) { return Unresolved; }
+                built[key] = values == null ? item : values[index];
+                index++;
+            }
+            return built;
+        }
+
+        // lambda('item'[, 'index'], body): the variable names, with the position left at the body; a string-literal body is told from a
+        // variable by the comma a variable is followed by.
+        private List<string> LambdaHead()
+        {
+            SkipSpace();
+            if (!Identifier().Equals("lambda", StringComparison.OrdinalIgnoreCase)) { throw new FormatException("expected a lambda"); }
             SkipSpace();
             Expect('(');
-            SkipSpace();
-            string variable = StringLiteral();
-            SkipSpace();
-            Expect(',');
-            int body = position;
-            var kept = new List<object>();
-            bool resolved = !IsUnresolved(source) && source is IEnumerable && !(source is string) && !(source is IDictionary);
-            if (resolved)
+            var names = new List<string>();
+            while (true)
             {
+                SkipSpace();
+                if (AtEnd || text[position] != '\'') { break; }
+                int start = position;
+                string variable = StringLiteral();
+                SkipSpace();
+                if (AtEnd || text[position] != ',') { position = start; break; }
+                position++;
+                names.Add(variable);
+            }
+            if (names.Count < 1 || names.Count > 2) { throw new FormatException("a lambda binds an item and at most its index"); }
+            return names;
+        }
+
+        // The lambda body at the position, once per item with the item (and its index) bound; null when the source is no resolved list. The body
+        // is parsed once more, unbound, so the position passes it and the lambda's closing parenthesis whatever the list held.
+        private List<object> EachItem(object source, List<string> names)
+        {
+            int body = position;
+            List<object> results = null;
+            if (!IsUnresolved(source) && source is IEnumerable && !(source is string) && !(source is IDictionary))
+            {
+                results = new List<object>();
+                long index = 0;
                 foreach (object item in (IEnumerable)source)
                 {
                     position = body;
-                    bindings.Add(new KeyValuePair<string, object>(variable, item));
-                    object keep = Expression();
-                    bindings.RemoveAt(bindings.Count - 1);
-                    if (!(keep is bool)) { resolved = false; break; }
-                    if ((bool)keep) { kept.Add(item); }
+                    Bind(names, item, index);
+                    results.Add(Expression());
+                    bindings.RemoveRange(bindings.Count - names.Count, names.Count);
+                    index++;
                 }
             }
-            // The body is parsed once more, unbound, so the position passes it whatever the list held.
             position = body;
-            bindings.Add(new KeyValuePair<string, object>(variable, Unresolved));
+            Bind(names, Unresolved, Unresolved);
             Expression();
-            bindings.RemoveAt(bindings.Count - 1);
+            bindings.RemoveRange(bindings.Count - names.Count, names.Count);
             SkipSpace();
             Expect(')');
-            SkipSpace();
-            Expect(')');
-            return resolved ? kept.ToArray() : Unresolved;
+            return results;
+        }
+
+        private void Bind(List<string> names, object item, object index)
+        {
+            bindings.Add(new KeyValuePair<string, object>(names[0], item));
+            if (names.Count > 1) { bindings.Add(new KeyValuePair<string, object>(names[1], index)); }
         }
 
         // A for-variable: ARM writes it as an entry of variables.copy ({ name, count, input }), its value one input per copyIndex(name).
@@ -200,7 +266,7 @@ public static class ArmExpression
                 IDictionary copy = item as IDictionary;
                 if (copy == null || !copy.Contains("name") || !string.Equals(copy["name"] as string, name, StringComparison.OrdinalIgnoreCase)) { continue; }
                 object count = Evaluate(copy["count"], parameters, variables, copyIndexes, depth + 1);
-                if (!IsNumber(count) || !copy.Contains("input")) { return Unresolved; }
+                if (!ArmFunction.IsNumber(count) || !copy.Contains("input")) { return Unresolved; }
                 var values = new List<object>();
                 for (long index = 0; index < Convert.ToInt64(count, CultureInfo.InvariantCulture); index++)
                 {
@@ -253,7 +319,7 @@ public static class ArmExpression
                     // copyIndex(), copyIndex(offset), copyIndex('loop') or copyIndex('loop', offset); outside its loop it is Unresolved.
                     if (args.Exists(IsUnresolved) || copyIndexes == null) { return Unresolved; }
                     string loop = args.Count > 0 && args[0] is string named ? named : string.Empty;
-                    object offset = args.Count > 0 && IsNumber(args[args.Count - 1]) ? args[args.Count - 1] : 0L;
+                    object offset = args.Count > 0 && ArmFunction.IsNumber(args[args.Count - 1]) ? args[args.Count - 1] : 0L;
                     if (!copyIndexes.Contains(loop)) { return Unresolved; }
                     return Convert.ToInt64(copyIndexes[loop], CultureInfo.InvariantCulture) + Convert.ToInt64(offset, CultureInfo.InvariantCulture);
                 case "lambdavariables":
@@ -267,78 +333,7 @@ public static class ArmExpression
                 case "false": return false;
                 case "createarray": return args.Exists(IsUnresolved) ? Unresolved : (object)args.ToArray();
             }
-            if (args.Exists(IsUnresolved)) { return Unresolved; }
-            switch (name.ToLowerInvariant())
-            {
-                case "equals":
-                    return args.Count == 2 ? (object)Same(args[0], args[1]) : Unresolved;
-                case "not":
-                    return args.Count == 1 && args[0] is bool ? (object)!(bool)args[0] : Unresolved;
-                case "and":
-                case "or":
-                    if (args.Count < 2 || !args.TrueForAll(a => a is bool)) { return Unresolved; }
-                    bool and = name.Equals("and", StringComparison.OrdinalIgnoreCase);
-                    foreach (object a in args)
-                    {
-                        if ((bool)a != and) { return !and; }
-                    }
-                    return and;
-                case "createobject":
-                    // createObject('key', value, …): Bicep wraps a module's conditional parameter in it, createObject('value', …).
-                    if (args.Count % 2 != 0) { return Unresolved; }
-                    var created = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
-                    for (int i = 0; i < args.Count; i += 2)
-                    {
-                        if (!(args[i] is string field)) { return Unresolved; }
-                        created[field] = args[i + 1];
-                    }
-                    return created;
-                case "objectkeys":
-                    if (args.Count != 1 || !(args[0] is IDictionary)) { return Unresolved; }
-                    var keys = new List<object>();
-                    foreach (object key in ((IDictionary)args[0]).Keys) { keys.Add(key == null ? string.Empty : key.ToString()); }
-                    return keys.ToArray();
-                case "length":
-                    if (args.Count != 1) { return Unresolved; }
-                    if (args[0] is string ls) { return (long)ls.Length; }
-                    if (args[0] is ICollection lc) { return (long)lc.Count; }
-                    return Unresolved;
-                case "empty":
-                    if (args.Count != 1) { return Unresolved; }
-                    if (args[0] == null) { return true; }
-                    if (args[0] is string s) { return s.Length == 0; }
-                    if (args[0] is ICollection collection) { return collection.Count == 0; }
-                    return Unresolved;
-                case "contains":
-                    if (args.Count != 2) { return Unresolved; }
-                    if (args[0] is string container) { return args[1] is string part ? (object)(container.IndexOf(part, StringComparison.OrdinalIgnoreCase) >= 0) : Unresolved; }
-                    if (args[0] is IDictionary map) { return args[1] is string key ? (object)map.Contains(key) : Unresolved; }
-                    if (args[0] is IEnumerable items)
-                    {
-                        foreach (object item in items)
-                        {
-                            if (Same(item, args[1])) { return true; }
-                        }
-                        return false;
-                    }
-                    return Unresolved;
-                default:
-                    return Unresolved;
-            }
-        }
-
-        // ARM compares strings without regard to case; numbers by value.
-        private static bool Same(object a, object b)
-        {
-            if (a is string sa && b is string sb) { return string.Equals(sa, sb, StringComparison.OrdinalIgnoreCase); }
-            if (a is bool ba && b is bool bb) { return ba == bb; }
-            if (IsNumber(a) && IsNumber(b)) { return Convert.ToDecimal(a, CultureInfo.InvariantCulture) == Convert.ToDecimal(b, CultureInfo.InvariantCulture); }
-            return Equals(a, b);
-        }
-
-        private static bool IsNumber(object value)
-        {
-            return value is int || value is long || value is double || value is decimal;
+            return ArmFunction.Call(name, args);
         }
 
         private string StringLiteral()

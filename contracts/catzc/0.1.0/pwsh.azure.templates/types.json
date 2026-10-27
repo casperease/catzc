@@ -16,6 +16,21 @@
       ]
     },
     {
+      "name": "Catzc.Azure.Templates.ArmFunction",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Call",
+          "kind": "method"
+        },
+        {
+          "name": "IsNumber",
+          "kind": "method"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.Templates.BicepArtifacts",
       "aliases": [],
       "display": [],

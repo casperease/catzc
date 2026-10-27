@@ -56,7 +56,7 @@ and every .gitkeep folder is a readme-mapped target with a reference article.
 
 **Test file:** `pwsh/Base.Docs/tests/Get-CatzcModules.Tests.ps1` (L1), block `Get-CatzcModules — loaded catzc modules`.
 
-**Guards:** Show-Cats' module list is read from the loaded modules under the code root: exact exports, no privates, no infrastructure.
+**Guards:** Show-Catzc's module list is read from the loaded modules under the code root: exact exports, no privates, no infrastructure.
 
 ### 4. Repository code links (automation comments)
 

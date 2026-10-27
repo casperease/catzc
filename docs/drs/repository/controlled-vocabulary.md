@@ -152,7 +152,7 @@ thing to get wrong, so none exists; a vendored file keeps the vendor's spelling 
 
 A term that names something in code — a folder convention, a tag, a type — is only as reliable as the check behind it. `realized_by` records
 where the concept lives, and a realized concept needs an enforcer citing its defining rule, found through the same rule-citation link that
-`Show-Cats` reports. A pure vocabulary term (a flow measure, a principle) is `prose-only`: it has nothing in code to enforce, and saying so
+`Show-Catzc` reports. A pure vocabulary term (a flow measure, a principle) is `prose-only`: it has nothing in code to enforce, and saying so
 is explicit rather than an absence.
 
 ### Domain rules
@@ -194,7 +194,7 @@ with their replacements. A source's options default sensibly, and a source overr
   ADR bodies are never read.
 
 - **`Get-GlossaryEnforcementViolations`** (`Catzc.Base.Docs`) checks that every concept realized in code has an enforcer: an analyzer rule
-  or a test that cites its defining rule, found through the same rule-citation link `Show-Cats` reports (ADR-REPO-VOCAB-REALIZEDBY). A
+  or a test that cites its defining rule, found through the same rule-citation link `Show-Catzc` reports (ADR-REPO-VOCAB-REALIZEDBY). A
   `prose-only` concept is exempt.
 
 - **`Get-GlossaryPhrasingViolations`** (`Catzc.Base.Docs`) checks that prose avoids the avoided phrasings

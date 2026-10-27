@@ -44,6 +44,15 @@ The folder names follow the source-level name: the consumer overlay root and thi
 - [The folders](#the-folders)
 - [How this is enforced](#how-this-is-enforced)
 
+### Rule PDR-CATS-IDENTIFIERNAMESTHESYSTEM
+
+An identifier says catzc only where its noun names the system itself, or a thing that is the system's as against the repository's or a
+consumer's: `Get-CatzcModuleRoot`, `Invoke-CatzcCommand`, `CatzcModulesRoot`, `ForeignCatzcModule` keep the token, because without it the
+noun names a different thing. An identifier for a plain domain object takes no prefix (`Get-DrsIndex`, `New-CommandLookup`), since its
+module's namespace already qualifies it, and no identifier says cats.
+
+- [Identifiers](#identifiers)
+
 ## Context
 
 One system, two audiences. A compiler, a module loader and a config reader need one exact token that never changes and never collides: that
@@ -90,6 +99,14 @@ happens is the swap in the name's own home: a module is never `Cats.*`, and pros
 The consumer overlay root and this repository's own config-fragment root are `.catzc/`, with the track below it (`.catzc/<track>/`). A
 folder name is read by a resolver, not a person, so it takes the source-level name; the alias once proposed for the friendly form is
 withdrawn, because one path with two spellings is two sources of truth ([one-living-version](one-living-version.md)).
+
+### Identifiers
+
+A command, a variable or a type name is read by a loader and a resolver, so it takes the source-level name, and it takes it only when the
+token carries meaning. The catzc modules root is not the repository root, and a foreign catzc module is not any foreign module: there the
+token tells two things apart, and dropping it would make one name mean two things. Where the noun is a plain domain object, a DRS index, a
+rule enforcer, a command lookup, the module that owns it is the namespace, and a prefix only repeats it. The cats form is a person's word,
+so it stays out of identifiers; a pwsh entry point a person calls by hand speaks cats in its messages and help, not in its name.
 
 ## Decision
 

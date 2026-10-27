@@ -4,7 +4,7 @@ The decision-record registry module. It owns `drs.yml`, the one source of the AD
 depends on, and each ADR's citation code ([drs-code-language](../../../drs/repository/drs-code-language.md)). From it the module generates
 the ADR index, resolves every citation to its ADR and rule, checks that the registry and the rule files agree, and rewrites citations when
 an ADR moves. What it deliberately does **not** own is the ADRs themselves, which are authored under `docs/drs/`, nor the offline browser
-over them, which is Show-Cats ([Catzc.Base.Docs](../base-docs/index.md)).
+over them, which is Show-Catzc ([Catzc.Base.Docs](../base-docs/index.md)).
 
 ## Responsibilities
 

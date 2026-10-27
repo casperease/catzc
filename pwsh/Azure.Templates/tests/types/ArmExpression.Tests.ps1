@@ -78,6 +78,31 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('missing')]", @{}, $variables)) | Should -BeTrue
     }
 
+    It 'maps an array by a lambda with its index, and computes with add and mul, as Bicep compiles `map(list, (item, index) => …)`' {
+        $parameters = @{ widgets = @(@{ name = 'widget' }, @{ name = 'gadget' }) }
+        $mapped = @([Catzc.Azure.Templates.ArmExpression]::Evaluate("[map(parameters('widgets'), lambda('item', 'index', createObject('name', lambdaVariables('item').name, 'priority', add(100, mul(lambdaVariables('index'), 10)))))]", $parameters))
+        $mapped | ForEach-Object name | Should -Be @('widget', 'gadget')
+        $mapped | ForEach-Object priority | Should -Be @(100, 110)
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[map(parameters('widgets'), lambda('item', 'sprocket'))]", $parameters) | Should -Be @('sprocket', 'sprocket')
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[map(parameters('missing'), lambda('item', 'sprocket'))]", @{})) | Should -BeTrue
+    }
+
+    It 'builds an object by toObject, a key lambda and an optional value lambda, as Bicep compiles `toObject(list, k => …, v => …)`' {
+        $parameters = @{ names = @('widget', 'gadget'); widgets = @(@{ name = 'widget'; size = 1 }) }
+        $built = [Catzc.Azure.Templates.ArmExpression]::Evaluate("[toObject(parameters('names'), lambda('name', lambdaVariables('name')), lambda('name', concat(lambdaVariables('name'), '-role')))]", $parameters)
+        @($built.Keys) | Should -Be @('widget', 'gadget')
+        $built['gadget'] | Should -Be 'gadget-role'
+        ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[toObject(parameters('widgets'), lambda('item', lambdaVariables('item').name))]", $parameters))['widget'].size | Should -Be 1
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[toObject(parameters('names'), lambda('name', length(lambdaVariables('name'))))]", $parameters)) | Should -BeTrue
+    }
+
+    It 'joins arrays and strings by concat, and leaves a mix unresolved' {
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat(createArray('widget'), createArray('gadget', 'sprocket'))]", @{}) | Should -Be @('widget', 'gadget', 'sprocket')
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('widget', '-', 'gadget')]", @{}) | Should -Be 'widget-gadget'
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('widget', createArray('gadget'))]", @{})) | Should -BeTrue
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[sub(10, 3)]", @{}) | Should -Be 7
+    }
+
     It 'is unresolved outside the subset, never a guess' {
         & $isUnresolved (& $eval "[resourceGroup().location]") | Should -BeTrue
         & $isUnresolved (& $eval "[reference('gadget').outputs.name.value]") | Should -BeTrue
