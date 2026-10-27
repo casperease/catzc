@@ -128,6 +128,15 @@ param databaseMetricAlertNames object
 @description('Names of the database capacity alerts (storage, compute); derived by the namer.')
 param databaseCapacityAlertNames object
 
+@description('Name of foundation\'s Key Vault, in the workspace\'s resource group: the data writers read its secrets.')
+param keyVaultName string
+
+@description('The built-in roles, roles.yml by config address (options.yml addresses): every role id the template assigns.')
+param roles object
+
+@description('The Entra group object ids of the slot\'s owner in its subscription\'s class (options.yml facts); an empty id assigns nothing.')
+param groups object
+
 var actionGroupId = resourceId(
   subscription().subscriptionId,
   logAnalyticsResourceGroupName,
@@ -189,10 +198,14 @@ module sqlServer '../../modules/sql-server.bicep' = {
   }
 }
 
+// The server's name is the slot's declared name, passed as written, so the database's name resolves before the deploy; the order stays explicit.
 module sqlDatabase '../../modules/sql-database.bicep' = {
   name: 'sql-database'
+  dependsOn: [
+    sqlServer
+  ]
   params: {
-    serverName: sqlServer.outputs.name
+    serverName: sqlServerName
     name: sqlDatabaseName
     location: location
     skuName: databaseSkuName
@@ -303,6 +316,43 @@ module databaseCapacityAlerts '../../modules/sql-database-capacity-alerts.bicep'
     computeAlertName: databaseCapacityAlertNames.compute
     actionGroupId: actionGroupId
     tags: tags
+  }
+}
+
+// The data readers read the account's blobs.
+module dataReadersBlob '../../modules/role-assignment.bicep' = if (!empty(groups.data_readers)) {
+  name: 'role-data-readers-blob-reader'
+  params: {
+    resourceKind: 'storageAccount'
+    resourceName: storage.outputs.name
+    principalId: groups.data_readers
+    roleId: roles.storage_blob_data_reader.id
+    assignmentDescription: 'data-readers-storage-blob-data-reader'
+  }
+}
+
+// The data writers read and write the account's blobs.
+module dataWritersBlob '../../modules/role-assignment.bicep' = if (!empty(groups.data_writers)) {
+  name: 'role-data-writers-blob-contributor'
+  params: {
+    resourceKind: 'storageAccount'
+    resourceName: storage.outputs.name
+    principalId: groups.data_writers
+    roleId: roles.storage_blob_data_contributor.id
+    assignmentDescription: 'data-writers-storage-blob-data-contributor'
+  }
+}
+
+// The data writers read the secrets of foundation's vault, in foundation's own resource group.
+module dataWritersSecrets '../../modules/role-assignment.bicep' = if (!empty(groups.data_writers)) {
+  name: 'role-data-writers-key-vault-secrets-user'
+  scope: resourceGroup(logAnalyticsResourceGroupName)
+  params: {
+    resourceKind: 'keyVault'
+    resourceName: keyVaultName
+    principalId: groups.data_writers
+    roleId: roles.key_vault_secrets_user.id
+    assignmentDescription: 'data-writers-key-vault-secrets-user'
   }
 }
 

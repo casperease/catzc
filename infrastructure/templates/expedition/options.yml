@@ -9,6 +9,7 @@ names:
   sqlPrivateEndpointName: { type: pep, role: sql }
   logAnalyticsName: { type: log, template: foundation }
   actionGroupName: { type: ag, template: foundation }
+  keyVaultName: { type: kv, template: foundation }
   logAnalyticsResourceGroupName: { type: rg, template: foundation }
   networkResourceGroupName: { type: rg, template: discovery }
   virtualNetworkName: { type: vnet, template: discovery }
@@ -23,3 +24,8 @@ names:
 # The environment facts the build derives from azure.yml; a slot never writes one.
 facts:
   deployProductionAlerts: production
+  # The Entra groups of the slot's owner in its subscription's class; the data role assignments go to them.
+  groups: groups
+# The role ids every slot assigns, from roles.yml; a slot never writes one.
+addresses:
+  roles: global.roles.roles
