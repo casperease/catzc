@@ -1,4 +1,4 @@
-# pwsh/Base.Contracts/New-CatsCommandLookup.ps1
+# pwsh/Base.Contracts/New-CommandLookup.ps1
 
 The generator of the command lookup text that `cats` reads in bash before it starts pwsh. It derives the lookup from the command contracts,
 so the shell never keeps its own list of commands.
@@ -30,7 +30,7 @@ The repository root that holds contracts/. Default: the loaded repository root.
 ### example 1
 
 ```powershell
-New-CatsCommandLookup
+New-CommandLookup
 ```
 
 ## names

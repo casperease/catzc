@@ -1,4 +1,4 @@
-# pwsh/Base.Docs/private/Get-CatsModules.ps1
+# pwsh/Base.Docs/private/Get-CatzcModules.ps1
 
 The private module lister of `Show-Cats`: it reads the loaded session and returns each catzc module with its exported functions.
 

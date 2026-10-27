@@ -1,6 +1,6 @@
-# pwsh/Base.Docs/tests/Get-CatsModules.Tests.ps1
+# pwsh/Base.Docs/tests/Get-CatzcModules.Tests.ps1
 
-The tests of `Get-CatsModules`. The function is private, so it is exercised through the module
+The tests of `Get-CatzcModules`. The function is private, so it is exercised through the module
 ([ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 
 ## Fixture modules

@@ -31,10 +31,12 @@ run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bice
 | `Test-FileLimits.Tests.ps1`                |    12.2 | one L1 pass over every tracked file, under its 30 s roof                   |
 | `SourceConventionScan.Tests.ps1`           |    12.0 | one L1 test over every PowerShell file, 11.3 s                             |
 
-The shared import costs each run the gap between a worker's wall time and its file's own Pester time.
-
 ## Open steps
 
+- [ ] Measure what the shared import costs each test run a second time: a lone `Invoke-TestFile` run's `run.json` `durationSeconds` against
+      its `files-shard-0.json` `DurationMs` is the worker's start, import and Pester load. The first sample, `Test-BicepTemplateCompliance`
+      alone in place (`out/test-file/20261027-160116-0cf782`), is 52.4 s against 46.6 s: 5.8 s per worker, so about 70 s of the run's 12
+      workers. Check: a second lone run of one small file, its number recorded here.
 - [ ] `Build-Bicep` runs every slot's `bicep build-params` and the `main.bicep` build one after another, each a full compile of the template
       in its own bicep process; send them through `Invoke-ExecutableParallel` (`CliRunner.RunMany`, the throttle of `timeouts.yml`
       `parallel.processes`), as `Build-Bicep.Integrity.Tests.ps1` already compiles its slots side by side. It speeds every caller,
