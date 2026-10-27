@@ -109,7 +109,6 @@ domains:
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
     rulesets:
       cd-discipline-and-promotion-flow: { external: FDR-CD }
-      pipeline-detection: { external: FDR-DETECT, concern: [automation] }
       pipeline-types: { external: FDR-TYPE }
       durable-sha-globs: { external: FDR-GLOBS, concern: [automation] }
       pipeline-concept: { external: FDR-PIPELINE }
@@ -197,7 +196,7 @@ domains:
     description: >-
       PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests,
       parameter and error design, streams and console output, caching in script scope, working directory and environment mechanics,
-      cross-platform pwsh, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
+      cross-platform pwsh, pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines
       them.
     depends_on: [external, principles, process, design, automation, bcl]
     stack: AUTO
@@ -232,6 +231,7 @@ domains:
       idempotent-state-mechanics: { external: ADR-PWSH-IDEM }
       config-reading: { external: ADR-PWSH-CONFIG }
       ado-pipeline-functions: { external: ADR-PWSH-ADOFUNC }
+      pipeline-detection: { external: ADR-PWSH-DETECT }
 
   configuration:
     code: CONF
@@ -254,8 +254,9 @@ domains:
     role: implementation # minimal ADO extensions over the general flow model (FDR-*)
     description: >-
       The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets ado pipeline
-      output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template
-      is warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
+      output variables and which agent variable marks a run, how ado pipelines and template folders are named and placed under
+      `.ado/pipelines/`, how they trigger on path filters, build validation, schedules and parameters, and when an ADO YAML template is
+      warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
     depends_on: [external, principles, process, design, automation, flow]
     stack: PIPE
     concern: [build, quality-control, release, deploy] # the Azure DevOps pipelines that carry the delivery flow
@@ -266,19 +267,22 @@ domains:
       custom-template-discipline: { external: ADR-ADO-TEMPLATE }
       environment-approvals: { external: ADR-ADO-APPROVAL, concern: [release, deploy] }
       pipeline-runner-pattern: { external: ADR-ADO-RUNNER, concern: [automation] }
+      pipeline-triggers: { external: ADR-ADO-TRIGGER }
 
   github:
     code: GH
     role: implementation # minimal GitHub extensions over the general flow model (.github/workflows placement, etc.)
     description: >-
       The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to
-      GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under
+      GitHub Releases, GitHub Packages, and optionally the PowerShell Gallery, and the run mark and `on.*.paths` triggers of a workflow. It
+      applies the `flow/` rules to GitHub Actions under
       `.github/workflows/` and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
     depends_on: [external, principles, process, design, automation, flow]
     stack: PIPE
     concern: [build, release] # the workflow that builds and publishes the package
     rulesets:
       github-release: { external: ADR-GH-RELEASE }
+      github-actions: { external: ADR-GH-ACTIONS, concern: [build] }
 
   azure:
     code: AZ

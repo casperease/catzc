@@ -24,27 +24,9 @@ capability links. The decisions live in the decision records themselves; this fi
   automated validation from human governance.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
-## Pipeline detection
-
-`Pipeline detection — how functions adapt to their execution context`
-
-[FDR-DETECT](pipeline-detection.md)
-
-> DORA's research links code maintainability and comprehensive testing to reduced defects and faster deployment cycles. Centralizing
-> platform detection in a single function keeps context-dependent logic greppable, testable, and consistent, preventing silent
-> cross-platform mismatches that surface only as cryptic failures deep in deployments.
-
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — centralized detection keeps logic consistent across
-  functions.
-- [Test automation](../../references/dora/capabilities.md#test-automation) — the detection function is trivially testable and mocks are
-  straightforward.
-- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — consistent detection across Azure DevOps and
-  GitHub Actions prevents platform-specific failures.
-- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
-
 ## Pipeline types
 
-`Pipeline types — the six kinds of ADO artifact, named`
+`Pipeline types — the six kinds of pipeline artifact, named`
 
 [FDR-TYPE](pipeline-types.md)
 
@@ -94,7 +76,8 @@ capability links. The decisions live in the decision records themselves; this fi
 
 > DORA's research links deployment automation and code maintainability to faster, safer delivery. One vendor-neutral rule set for naming,
 > typing and reading a pipeline keeps every delivery platform's pipelines reviewable from the file alone, and a token that lives for one
-> request keeps the pipeline's credentials out of logs and later steps.
+> request keeps the pipeline's credentials out of logs and later steps. One detection point for the execution context keeps every
+> context-dependent branch greppable and testable, so no engine is silently missed.
 
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a pipeline whose type and role read from its name
   and its flat YAML is automation a reviewer can trust.

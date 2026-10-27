@@ -107,3 +107,21 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — one idempotent apply replaces portal settings.
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — production ships only the bytes that stood on pre-prod.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Pipeline triggers
+
+`Pipeline triggers — the ado path filters, build validation, schedules and parameters`
+
+[ADR-ADO-TRIGGER](pipeline-triggers.md)
+
+> DORA links continuous integration and version-controlled configuration to faster, more reliable delivery. Generating every ado trigger
+> and build-validation filter from the one committed globset, and checking it for drift, starts a pipeline exactly when its unit changes,
+> and keeping runtime parameters to INPUT and DEPLOY selection keeps configuration in version control.
+
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the pre-commit build validation and the `main`
+  trigger select the same files, so the CI engine runs on every change to the unit.
+- [Version control](../../references/dora/capabilities.md#version-control) — triggers derive from the committed globset and configuration
+  enters as a commit, never as a run parameter.
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — an INPUT pipeline's parameters land
+  as a reviewable commit.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

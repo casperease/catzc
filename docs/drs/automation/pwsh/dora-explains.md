@@ -462,3 +462,19 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 - [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one meaning for `-Force` and one result shape per
   function keep every state function readable the same way.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
+
+## Pipeline detection
+
+[ADR-PWSH-DETECT](pipeline-detection.md)
+
+> DORA's research links code maintainability and comprehensive testing to fewer defects and faster deployment cycles. One pwsh function
+> that reads every engine's run mark keeps context-dependent logic greppable, testable, and consistent, so an engine is never silently
+> missed and a mismatch never surfaces late as a cryptic deployment failure.
+
+- [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — one detection function keeps the logic
+  consistent across every caller.
+- [Test automation](../../../references/dora/capabilities.md#test-automation) — the detection function is trivially testable by setting a
+  run-mark variable.
+- [Continuous integration](../../../references/dora/capabilities.md#continuous-integration) — the same detection on every engine keeps a
+  CI run from taking a devbox path.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.

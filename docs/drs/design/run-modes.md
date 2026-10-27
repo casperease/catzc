@@ -4,10 +4,9 @@
 
 ### Rule DDR-RUNMODE-TWORUNMODES
 
-A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `pwsh/<Module>/` in a
-repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
-functions merged into one `<Module>.functions.ps1` — entered by the package's `Import-Catzc.ps1`, or by `Import-Module Catzc` for an
-installed package.
+A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from its folder in a repository
+root's code track, entered by the repository's importer. **Build mode** loads the same modules from a built, installable package — each
+module's functions merged into one file — entered by the package's own entry.
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
@@ -20,15 +19,14 @@ Only its on-disk form differs.
 
 ### Rule DDR-RUNMODE-OWNSCRIPTSCOPE
 
-Each module keeps its own script scope in both modes. Built modules are separate PowerShell modules inside the one package, so no module
-ever shares `$script:` state with another.
+Each module keeps its own module state in both modes. Built modules are separate modules inside the one package, so no module ever shares
+module-level state with another.
 
 - [One scope per module](#one-scope-per-module)
 
 ### Rule DDR-RUNMODE-MODEISDERIVED
 
-The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is `<RepositoryRoot>/pwsh`,
-and `build` otherwise.
+The mode is derived, never stored: it is `source` when the code root is the repository's own code track, and `build` otherwise.
 
 - [Deriving the mode](#deriving-the-mode)
 
@@ -42,17 +40,16 @@ be swapped is the loaded C# types assembly, which is reused when both modes' typ
 
 ### Rule DDR-RUNMODE-SAMETESTSBOTHMODES
 
-Both modes are tested by the same tests: the source run (`Test-Automation`) and the build run (`Test-CatzcBuild`) execute the same test
-files up to L2, and a test opts out of the build run only with the `source-only` tag.
+Both modes are tested by the same tests: the source run and the build run execute the same test files up to L2, and a test opts out of the
+build run only with the `source-only` tag.
 
 - [One body of tests](#one-body-of-tests)
 
 ### Rule DDR-RUNMODE-THREEBUILDKINDS
 
-Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under
-`<RepositoryRoot>/out/pwsh/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there by
-`Install-Catzc`), and **saved** (a package copied into another root's `.vendor/` by `Install-Catzc -Root`, which `Export-Catzc -Root` calls
-after building). The kind is never stored, and every kind loads through the same importer.
+Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under the output folder, overwritten in
+place), **installed** (a package in the engine's per-user or machine module location), and **saved** (a package copied into another root's
+vendor folder, versioned with that root). The kind is never stored, and every kind loads through the same importer.
 
 - [Three kinds of build root](#three-kinds-of-build-root)
 
@@ -77,72 +74,60 @@ in one session, and are proven in both by running the same tests.
 
 ### Two modes, two entry points
 
-| Mode   | Code root (`CatzcModulesRoot`)     | Entered by                                | A module on disk                          |
-| ------ | ---------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| source | `<RepositoryRoot>/pwsh`            | `importer.ps1`                            | a folder of one-function `.ps1` files     |
-| build  | one of the three build roots below | `Import-Catzc.ps1`, `Import-Module Catzc` | a generated `.psd1` and one merged `.ps1` |
+In source mode a module is a folder of one-function files in the repository's code track, entered by the repository's importer. In build
+mode it is a generated manifest and one merged function file in a build root, entered by the package's own entry. Both entries run in the
+caller's scope. A temporary build is entered with the repository still named as the repository root, so the output folder and
+repository-relative paths keep resolving there while the code root moves to the build. Every entry ends in the one living importer, so the
+load sequence — preferences, vendored modules, types, then modules — is the same in both modes. The engine's entry scripts and file forms are
+its own twin's.
 
-Both entries are dot-sourced and run in the caller's scope. `importer.ps1` at the repository root loads the source mode. A temporary build —
-written by `Build-Modules`, which runs in a source-mode session — is entered by dot-sourcing its `Import-Catzc.ps1` with `-RepositoryRoot`
-set to the repository, so `out/` and repo-relative paths keep resolving there while the code root moves to the build. An installed build is
-entered the same way, through its own `Import-Catzc.ps1` or through `Import-Module Catzc`, whose root module dot-sources that file. Every
-entry point ends in the one living importer, so the load sequence — preferences, vendored modules, types and accelerators, then modules — is
-the same in both modes.
-
-Which mode a session is in is read from what actually loaded, never from a flag: `Get-CatzcRunMode` derives it from the code root
-([Deriving the mode](#deriving-the-mode)), and a build's `build.json` names the version and the commit it was built from.
+Which mode a session is in is read from what actually loaded, never from a flag: it is derived from the code root
+([Deriving the mode](#deriving-the-mode)), and a build's manifest file names the version and the commit it was built from.
 
 ### Three kinds of build root
 
 `Temporary, installed, saved`
 
 "Build mode" says only that the modules come from a package and not from the source tree. Where that package sits says how long it lives and
-who owns it, and the three kinds name those places (`<v>` is the package version):
+who owns it, and the three kinds name those places: a temporary build lives until the next devbox build overwrites it, an installed package
+until it is uninstalled or replaced, and a saved package is versioned with the root that vendors it.
 
-| Kind      | Code root                                             | Made by                     | Lifetime                             |
-| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------ |
-| temporary | `<RepositoryRoot>/out/pwsh/built/<bundle>/Catzc/<v>/` | `Build-Modules` on a devbox | overwritten by the next devbox build |
-| installed | `<PSModulePath entry>/Catzc/<v>/`                     | `Install-Catzc -Scope`      | until uninstalled or replaced        |
-| saved     | `<root>/.vendor/Catzc/<v>/`                           | `Install-Catzc -Root`       | versioned with that root             |
-
-The kind is read from where the code root lives, so it cannot disagree with what loaded; `Get-CatzcRunMode` reports the mode only, and no
-function reports the kind, since nothing has needed it. All three enter through the package's `Import-Catzc.ps1` (or `Import-Module Catzc`
-for an installed package), end in the same importer, and are the same modules; a NuGet package from `Export-Catzc -To nuget` is a
-distribution file, not a code root, until it is installed or saved.
+The kind is read from where the code root lives, so it cannot disagree with what loaded; the mode is reported and the kind is not, since
+nothing has needed it. All three enter through the package's entry, end in the same importer, and are the same modules; a distribution file
+such as a package-feed artifact is not a code root until it is installed or saved.
 
 ### The same module in both modes
 
 A built module has the same name as its source folder, exports the same public functions, carries the same private functions, and ships the
-same `configs/` and `assets/`. `Build-Modules` merges the function files in the same order the source manifest lists them, so load semantics
-are identical; the built manifest exports the module's public functions only. Everything that names a module — `Get-Config` running a
-validator in its owning module's scope, `Get-Module`, a test's `Mock -ModuleName` or `InModuleScope` — resolves the same way in both modes.
+same `configs/` and `assets/`. The build merges the function files in the same order the source manifest lists them, so load semantics are
+identical; the built manifest exports the module's public functions only. Everything that names a module — a config validator run in its
+owning module's scope, a module query, a test's mock of one module's call — resolves the same way in both modes.
 
-What makes this hold for content as well as code is that a module locates its own files only through the code root (`Get-CatzcModuleRoot`),
-never through the folder its source file sits in, and that every such lookup is inventoried and tested in both modes. Tools whose job is the
-source tree itself — formatters, dependency tooling, README and dictionary generators — operate on per-function files and git by definition;
-they assert that they run in source mode (`Assert-SourceTree`) and fail fast in a build rather than reading the wrong tree.
+What makes this hold for content as well as code is that a module locates its own files only through the code root, never through the
+folder its source file sits in, and that every such lookup is inventoried and tested in both modes. Tools whose job is the source tree
+itself — formatters, dependency tooling, README and dictionary generators — operate on per-function files and git by definition; they assert
+that they run in source mode and fail fast in a build rather than reading the wrong tree.
 
 ### One scope per module
 
 `One scope per module, never shared`
 
 Merging every module into one scope, flattened, would be the simplest build and the wrong one. Module scope is a contract: each module's
-`$script:` caches belong to it alone, and config validation, mocks, and module queries all name a module. So the package `Catzc` is a
-container, not a scope: inside it every source module is its own PowerShell module with its own session state, exactly as in source mode.
-Two modules that hold a `$script:` cache entry of the same name never see each other's value, in either mode, and a scope-isolation test
-proves it.
+module-level caches belong to it alone, and config validation, mocks, and module queries all name a module. So the package is a container,
+not a scope: inside it every source module is its own module with its own state, exactly as in source mode. Two modules that hold a cache
+entry of the same name never see each other's value, in either mode, and a scope-isolation test proves it.
 
 ### Deriving the mode
 
 `The mode is derived from the code root`
 
-`CatzcModulesRoot` is set once per load by the entry point. A stored mode flag could disagree with the code actually loaded; a derived one
+The code root is set once per load by the entry point. A stored mode flag could disagree with the code actually loaded; a derived one
 cannot.
 
 ### Switching modes in one session
 
-A developer moves between the modes in one shell — `importer.ps1`, then a build's `Import-Catzc.ps1`, then `importer.ps1` again, in any
-order and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the
+A developer moves between the modes in one shell — the repository's importer, then a build's entry, then the importer again, in any order
+and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the
 importer enforces mutual exclusion:
 
 - **Evict before loading.** Before it loads a root, the importer removes every loaded catzc module (a `Catzc.*` module or the `Catzc`

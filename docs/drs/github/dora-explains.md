@@ -21,3 +21,21 @@ the ADRs themselves; this file carries only their DORA rationale.
 - [Version control](../../references/dora/capabilities.md#version-control) — a GitHub Release ties each published package to a tagged
   commit.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## GitHub Actions
+
+`GitHub Actions — the run mark and the path-filter triggers of a workflow`
+
+[ADR-GH-ACTIONS](github-actions.md)
+
+> DORA links continuous integration and version-controlled configuration to faster, more reliable delivery. A workflow whose `paths` filter
+> is generated from the one committed globset, and checked for drift, runs exactly when its unit changes, and one named run mark keeps the
+> automation's pipeline behaviour the same on GitHub as elsewhere.
+
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — an exact, generated trigger runs CI on every
+  change to the unit and on nothing else.
+- [Version control](../../references/dora/capabilities.md#version-control) — the trigger is derived from the committed globset, never
+  hand-kept beside it.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a drift gate keeps the generated trigger honest
+  without a manual step.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

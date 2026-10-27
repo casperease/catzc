@@ -138,7 +138,7 @@ engine**.
 
 The CI engine is **build-and-verify**, run in two trigger contexts on the same code:
 
-1. **Pre-commit** — runs as an **ADO build validation** on the PR branch, before merge. Its job is to build the unit and verify the build.
+1. **Pre-commit** — runs as a **build validation** on the PR branch, before merge. Its job is to build the unit and verify the build.
    It is bound by a hard budget of **5–10 minutes** (Farley's pre-commit figure; DORA's ten-minute working number — see
    [test automation](../../references/dora/capabilities.md#test-automation)). A gate slower than that stops being a gate and becomes a
    queue.
@@ -163,7 +163,7 @@ There are exactly six pipeline types: **CRON**, **CI**, **CD**, **CDe**, **DEPLO
   then deploy + verify to prod. Produces: an automated production deployment.
 - **DEPLOY**: CD's deploy tail, extracted and human-governed. Trigger: manual or chained, pinned to a commit. Components: deploy & system
   tests over a pinned artifact. Produces: a governed, audited deployment.
-- **INPUT**: self-service input turned into a config change. Trigger: manual, with ADO pipeline parameters. Components: param intake →
+- **INPUT**: self-service input turned into a config change. Trigger: manual, with run parameters. Components: param intake →
   checkout → write config files. Produces: a version-controlled change (a commit).
 
 CDe is the fullest — the CI engine, then deploy-and-verify across non-prod and prod, automated end to end; CD is CDe with the production
@@ -174,7 +174,7 @@ stages given their own human-governed pipeline. CI, CD, and CDe share **one** CI
 
 `CRON — automation jobs on a timer`
 
-A CRON pipeline is, same as INPUT, **not really a pipeline**. It is the ADO pipeline mechanism used as a _scheduler_: a timer that runs an
+A CRON pipeline is, same as INPUT, **not really a pipeline**. It is the pipeline mechanism used as a _scheduler_: a timer that runs an
 automation job (e.g. certificate rotation, scheduled cleanup, drift checks). It does not build, does not test a unit, produces no artifact,
 and deploys nothing. It invokes one automation function on a clock.
 
@@ -192,7 +192,7 @@ deployable unit downstream of it.
 
 This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
 
-- **Trigger:** ADO build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
+- **Trigger:** build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
   projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-fdr-globs-nativepathfilter)) — generated from
   `globs.yml`, never hand-authored.
 - **Example — CI-automation:** "builds" by running `importer.ps1` and "tests" via `Test-Automation`. It produces no artifact; it simply
@@ -299,7 +299,7 @@ truth, and nothing bypasses it.
 
 An INPUT pipeline:
 
-1. Takes user input via **ADO pipeline parameters**.
+1. Takes user input via **run parameters**.
 2. Checks out the repo.
 3. **Creates or edits infrastructure template config files** (under `infrastructure/templates/<name>/configuration/…`) to merge in the
    user's configuration parameters.
@@ -308,7 +308,7 @@ Its output is a change to the source of truth — a commit — not a deployment.
 normal CI/CD path then carries to the cloud. The invariant: self-service belongs _above_ the pipeline, feeding the source of truth —
 **inputs become commits, not run parameters.**
 
-- **Trigger:** manual, with parameters. INPUT is the **one** legitimate home for runtime ADO parameters, precisely because those parameters
+- **Trigger:** manual, with parameters. INPUT is the **one** legitimate home for run parameters that carry values, precisely because those parameters
   never reach the cloud directly — they are written into version control first, where the PR gate and CD can see them.
 - **How the commit lands:** an INPUT pipeline may open a **PR** (reviewed, or policy-auto-merged) or commit **directly** to a branch. The PR
   form preserves the change-approval gate that DORA's research identifies as the effective one (see
@@ -320,10 +320,10 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 ## How this is enforced
 
-- **The taxonomy is the review checklist.** A new ADO artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An artifact
-  that cannot be cleanly classified does not merge until it can.
-- **The ado pipelines in `.ado/pipelines/`** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars
-  work elsewhere in this codebase.
+- **The taxonomy is the review checklist.** A new pipeline artifact is classified as CRON / CI / CD / CDe / DEPLOY / INPUT at review. An
+  artifact that cannot be cleanly classified does not merge until it can.
+- **Each vendor's pipelines** are the canonical shape for each type — the patterns new pipelines copy, the way the exemplars work elsewhere
+  in this codebase; the vendor domain spells each type's triggers, build validation and parameters.
 - **Naming.** Pipeline definitions name their type so the artifact's category is visible at a glance, not inferred from its YAML.
 
 ## Consequences
@@ -348,8 +348,8 @@ normal CI/CD path then carries to the cloud. The invariant: self-service belongs
 
 - [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md) — the design layer above this taxonomy: CI as a discipline, and
   how CI / CD / CDe / DEPLOY key together into a promotion flow via the tagged artifact.
-- [pipeline-detection](pipeline-detection.md) — the context mechanics every type relies on; the ado domain binds its YAML, variables and
-  credentials.
+- [pipeline-concept](pipeline-concept.md) — the vendor-neutral pipeline rules every type relies on, the one detection point among them; the
+  vendor domains bind their YAML, variables and credentials.
 - [durable-sha-globs](durable-sha-globs.md) — the globset projection every unit-scoped trigger registers on.
 - The L2/L3 test tiers — what the CI engine runs.
 - DORA: [continuous integration](../../references/dora/capabilities.md#continuous-integration),
