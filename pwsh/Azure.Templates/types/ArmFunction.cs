@@ -8,12 +8,34 @@ namespace Catzc.Azure.Templates;
 
 public static class ArmFunction
 {
+    // ARM function names are case-insensitive; each name of the subset maps to its documented camelCase spelling.
+    private static readonly Dictionary<string, string> Known = BuildKnown();
+
+    private static Dictionary<string, string> BuildKnown()
+    {
+        string[] names =
+        {
+            "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
+            "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
+        };
+        var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string name in names) { known[name] = name; }
+        return known;
+    }
+
+    // The canonical spelling of a parsed function name; a name outside the subset comes back as written.
+    public static string Canonical(string name)
+    {
+        return Known.TryGetValue(name, out string canonical) ? canonical : name;
+    }
+
     // The value of name(args); Unresolved when an argument is, or the call is outside the subset.
     public static object Call(string name, List<object> args)
     {
         if (args.Exists(ArmExpression.IsUnresolved)) { return ArmExpression.Unresolved; }
         object unresolved = ArmExpression.Unresolved;
-        switch (name.ToLowerInvariant())
+        name = Canonical(name);
+        switch (name)
         {
             case "equals":
                 return args.Count == 2 ? (object)Same(args[0], args[1]) : unresolved;
@@ -22,13 +44,13 @@ public static class ArmFunction
             case "and":
             case "or":
                 if (args.Count < 2 || !args.TrueForAll(a => a is bool)) { return unresolved; }
-                bool and = name.Equals("and", StringComparison.OrdinalIgnoreCase);
+                bool and = name == "and";
                 foreach (object a in args)
                 {
                     if ((bool)a != and) { return !and; }
                 }
                 return and;
-            case "createobject":
+            case "createObject":
                 // createObject('key', value, …): Bicep wraps a module's conditional parameter in it, createObject('value', …).
                 if (args.Count % 2 != 0) { return unresolved; }
                 var created = new System.Collections.Specialized.OrderedDictionary(StringComparer.OrdinalIgnoreCase);
@@ -45,8 +67,7 @@ public static class ArmFunction
                 if (args.Count != 2 || !IsInteger(args[0]) || !IsInteger(args[1])) { return unresolved; }
                 long left = Convert.ToInt64(args[0], CultureInfo.InvariantCulture);
                 long right = Convert.ToInt64(args[1], CultureInfo.InvariantCulture);
-                string operation = name.ToLowerInvariant();
-                return operation == "add" ? left + right : operation == "sub" ? left - right : left * right;
+                return name == "add" ? left + right : name == "sub" ? left - right : left * right;
             case "concat":
                 // Arrays join into one array, strings into one string; a mix is outside the subset.
                 if (args.Count == 0) { return unresolved; }
@@ -58,7 +79,7 @@ public static class ArmFunction
                     foreach (object item in (IList)a) { joined.Add(item); }
                 }
                 return joined.ToArray();
-            case "objectkeys":
+            case "objectKeys":
                 if (args.Count != 1 || !(args[0] is IDictionary)) { return unresolved; }
                 var keys = new List<object>();
                 foreach (object key in ((IDictionary)args[0]).Keys) { keys.Add(key == null ? string.Empty : key.ToString()); }

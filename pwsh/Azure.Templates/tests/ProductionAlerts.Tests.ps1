@@ -44,13 +44,13 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
         }
     }
 
-    It 'names each database alert through the namer: every deployed alert carries one of the slot''s derived alrt names' {
+    It 'names each database alert through the namer: every deployed alert carries one of the slot''s derived alert names' {
         foreach ($slot in $script:expedition) {
             @($slot.Values.databaseMetricAlertNames.Keys | Sort-Object) | Should -Be @('cpu', 'deadlock', 'failedConnection')
             @($slot.Values.databaseCapacityAlertNames.Keys | Sort-Object) | Should -Be @('compute', 'storage')
             $derived = @(@($slot.Values.databaseMetricAlertNames.Values) + @($slot.Values.databaseCapacityAlertNames.Values))
             foreach ($name in $derived) {
-                $name | Should -Match '-alrt$' -Because "slot $($slot.Name) derives its alert names with the alrt type"
+                $name | Should -Match '-alert$' -Because "slot $($slot.Name) derives its alert names with the alert type"
             }
             # The evaluator follows the object parameters into the alert modules, so each deployed name is its resolved value.
             $deployed = @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/metricAlerts' | ForEach-Object Name)
@@ -72,7 +72,7 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
         foreach ($slot in $script:discovery) {
             @($slot.Values.healthAlertNames.Keys | Sort-Object) | Should -Be @('ResourceHealth', 'ServiceHealth')
             foreach ($name in @($slot.Values.healthAlertNames.Values)) {
-                $name | Should -Match '-alrt$' -Because "slot $($slot.Name) derives its health alert names with the alrt type"
+                $name | Should -Match '-alert$' -Because "slot $($slot.Name) derives its health alert names with the alert type"
             }
             # The health alerts are a copy over their categories; each instance's name resolves to that category's derived name.
             $deployed = @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/activityLogAlerts' | ForEach-Object Name | Sort-Object)

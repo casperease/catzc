@@ -25,6 +25,10 @@
           "kind": "method"
         },
         {
+          "name": "Canonical",
+          "kind": "method"
+        },
+        {
           "name": "IsNumber",
           "kind": "method"
         }

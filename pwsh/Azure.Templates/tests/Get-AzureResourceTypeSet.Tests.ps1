@@ -36,7 +36,7 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
         @{ type = 'budg'; limit = 63 }
         @{ type = 'pa'; limit = 64 }
         @{ type = 'ag'; limit = 260 }
-        @{ type = 'alrt'; limit = 260 }
+        @{ type = 'alert'; limit = 260 }
         @{ type = 'wb'; limit = 128 }
         @{ type = 'pack'; limit = 63 }
         @{ type = 'dash'; limit = 160 }

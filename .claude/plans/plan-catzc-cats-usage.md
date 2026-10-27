@@ -34,8 +34,8 @@ catzc-prefixed names left over from old disk names, where the current folder dro
       `pwsh/.internal/Catzc.Internal.Importer.psm1`, `pwsh/Base.QualityGates/configs/source-conventions.yml`,
       `docs/references/pwsh/base-overlay/index.md`, `private/get-local-module-violation.md`, `docs/drs/automation/consumer-overlay.md`. The
       new exported files land by staged burst. Check: `pwsh/Base.Overlay/tests/*.Tests.ps1` pass, then a fresh import.
-- [ ] `Catzc.Base.Exporter`: `Get-CatzcContentHash` → `Get-ContentHash` (hashes any folder's content), private `Get-CatzcUserModulePath`
-      → `Get-UserModulePath` (the user's own module path). Each function file, test file and `docs/references/pwsh/base-exporter/` page take
+- [ ] `Catzc.Base.Exporter`: `Get-CatzcContentHash` → `Get-ContentHash` (hashes any folder's content), private `Get-CatzcUserModulePath` →
+      `Get-UserModulePath` (the user's own module path). Each function file, test file and `docs/references/pwsh/base-exporter/` page take
       the new name; callers `Install-Catzc.ps1`, `Assert-CatzcBundle.ps1` and their tests, `pwsh/.internal/Catzc.Internal.Builder.psm1`,
       `pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`, `docs/references/pwsh/internal/catzc-internal-builder.md`,
       `docs/references/pwsh/base-exporter/index.md` and `assert-catzc-bundle.md`, `docs/drs/automation/platform-bundle.md`. The new exported
@@ -49,28 +49,28 @@ catzc-prefixed names left over from old disk names, where the current folder dro
       `pwsh/Base.Repository/tests/*.Tests.ps1`, `pwsh/Base.Overlay/tests/*.Tests.ps1` and
       `pwsh/Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1` pass, then a fresh import.
 
-None of the new names is a command in the tree, the vendored modules or pwsh itself, and each keeps the `Verb-Noun` case and file
-round-trip that `Test-IdiomaticNames` checks.
+None of the new names is a command in the tree, the vendored modules or pwsh itself, and each keeps the `Verb-Noun` case and file round-trip
+that `Test-IdiomaticNames` checks.
 
 ## Names that keep catzc
 
-| Names | Why the token stays |
-| --- | --- |
-| `Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`, `CatzcModulesRoot`, `CatzcModulesFolder` | the system's modules root, not the repository root |
-| `Get-CatzcModuleRoot`, `Get-ForeignCatzcModule` | named by the rule itself |
-| `Get-CatzcModule`, `Get-CatzcModules`, `Copy-CatzcModule`, `$catzcModules`, `catzc_module` | the system's modules as against any loaded module |
-| `Import-Catzc`, `Export-Catzc`, `Install-Catzc`, `Show-Catzc` | the noun is the system itself |
-| `Invoke-CatzcCommand`, `Enter-CatzcBurst`, `Exit-CatzcBurst` | entry scripts run by path, with no module namespace |
-| `Wait-CatzcRunLock` and its `*-CatzcRunLock*` helpers | the system's run lock `Local\catzc-run`, in a script with no module |
-| `Get-CatzcRunMode`, `Assert-CatzcRunModeExclusive` | whether the system runs from source or a build |
-| `Assert-CatzcBundle`, `Resolve-CatzcBuildVersion`, `New-CatzcNuGetPackage` | the system's bundle, its version and its package |
-| `Format-CatzcPackageManifest`, `Test-CatzcBuild` | the `Catzc.psd1` manifest and the system's build |
-| `New-BuiltCatzcRoot`, `Remove-BuiltCatzcRoot`, `Invoke-InBuiltCatzc` | a built copy of the system, as against the source tree |
-| `Measure-CatzcRules`, `Measure-CatzcSpelling` and their modules | the system's analyzer rules beside PSScriptAnalyzer's |
-| `CatzcMeta` | the `catzc` head block as an MSBuild property |
-| `CatzcTypes*`, `CatzcAssets`, `CatzcSmaPath`, `Catzc*ExitCode` | the `Catzc.Types` build in MSBuild's flat property space |
-| `CatzcFiles` | the system's key in a manifest's shared `PrivateData` |
-| `$catzcModuleFile`, `$catzcParseErrors`, `$catzcModuleAst`, `$catzcFirstError` | the loader's variables inside every module's scope |
-| `$CatzcChild*` | the TestKit runner's names in the scope the importer joins |
-| `CatzcType` (`ContractParameter.cs`) | it matches `Catzc.*` type names |
-| C# `Catzc.*` namespaces, `Catzc.` accelerators | [PDR-CATS-CATZCISSOURCENAME](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename) |
+| Names                                                                                      | Why the token stays                                                                                       |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `Get-CatzcModulesRoot`, `Get-CatzcModulesFolder`, `CatzcModulesRoot`, `CatzcModulesFolder` | the system's modules root, not the repository root                                                        |
+| `Get-CatzcModuleRoot`, `Get-ForeignCatzcModule`                                            | named by the rule itself                                                                                  |
+| `Get-CatzcModule`, `Get-CatzcModules`, `Copy-CatzcModule`, `$catzcModules`, `catzc_module` | the system's modules as against any loaded module                                                         |
+| `Import-Catzc`, `Export-Catzc`, `Install-Catzc`, `Show-Catzc`                              | the noun is the system itself                                                                             |
+| `Invoke-CatzcCommand`, `Enter-CatzcBurst`, `Exit-CatzcBurst`                               | entry scripts run by path, with no module namespace                                                       |
+| `Wait-CatzcRunLock` and its `*-CatzcRunLock*` helpers                                      | the system's run lock `Local\catzc-run`, in a script with no module                                       |
+| `Get-CatzcRunMode`, `Assert-CatzcRunModeExclusive`                                         | whether the system runs from source or a build                                                            |
+| `Assert-CatzcBundle`, `Resolve-CatzcBuildVersion`, `New-CatzcNuGetPackage`                 | the system's bundle, its version and its package                                                          |
+| `Format-CatzcPackageManifest`, `Test-CatzcBuild`                                           | the `Catzc.psd1` manifest and the system's build                                                          |
+| `New-BuiltCatzcRoot`, `Remove-BuiltCatzcRoot`, `Invoke-InBuiltCatzc`                       | a built copy of the system, as against the source tree                                                    |
+| `Measure-CatzcRules`, `Measure-CatzcSpelling` and their modules                            | the system's analyzer rules beside PSScriptAnalyzer's                                                     |
+| `CatzcMeta`                                                                                | the `catzc` head block as an MSBuild property                                                             |
+| `CatzcTypes*`, `CatzcAssets`, `CatzcSmaPath`, `Catzc*ExitCode`                             | the `Catzc.Types` build in MSBuild's flat property space                                                  |
+| `CatzcFiles`                                                                               | the system's key in a manifest's shared `PrivateData`                                                     |
+| `$catzcModuleFile`, `$catzcParseErrors`, `$catzcModuleAst`, `$catzcFirstError`             | the loader's variables inside every module's scope                                                        |
+| `$CatzcChild*`                                                                             | the TestKit runner's names in the scope the importer joins                                                |
+| `CatzcType` (`ContractParameter.cs`)                                                       | it matches `Catzc.*` type names                                                                           |
+| C# `Catzc.*` namespaces, `Catzc.` accelerators                                             | [PDR-CATS-CATZCISSOURCENAME](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename) |

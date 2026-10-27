@@ -89,15 +89,15 @@ public static class ArmExpression
             if (c == '\'') { return StringLiteral(); }
             if (char.IsDigit(c) || c == '-') { return Number(); }
             if (!char.IsLetter(c)) { throw new FormatException("unexpected character"); }
-            string name = Identifier();
+            string name = ArmFunction.Canonical(Identifier());
             SkipSpace();
             Expect('(');
-            switch (name.ToLowerInvariant())
+            switch (name)
             {
                 case "filter":
                 case "map":
-                case "toobject":
-                    return Postfix(LambdaCall(name.ToLowerInvariant()));
+                case "toObject":
+                    return Postfix(LambdaCall(name));
             }
             var args = new List<object>();
             SkipSpace();
@@ -161,7 +161,7 @@ public static class ArmExpression
             List<object> first = EachItem(source, LambdaHead());
             List<object> values = null;
             SkipSpace();
-            if (name == "toobject" && !AtEnd && text[position] == ',')
+            if (name == "toObject" &&!AtEnd && text[position] == ',')
             {
                 position++;
                 values = EachItem(source, LambdaHead());
@@ -293,7 +293,7 @@ public static class ArmExpression
 
         private object Call(string name, List<object> args)
         {
-            switch (name.ToLowerInvariant())
+            switch (name)
             {
                 case "parameters":
                     if (args.Count != 1 || !(args[0] is string)) { return Unresolved; }
@@ -306,14 +306,14 @@ public static class ArmExpression
                     // Lazy in effect: once the condition resolves, the branch it picks is the value, whatever the other branch is.
                     if (args.Count != 3 || !(args[0] is bool)) { return Unresolved; }
                     return (bool)args[0] ? args[1] : args[2];
-                case "copyindex":
+                case "copyIndex":
                     // copyIndex(), copyIndex(offset), copyIndex('loop') or copyIndex('loop', offset); outside its loop it is Unresolved.
                     if (args.Exists(IsUnresolved) || copyIndexes == null) { return Unresolved; }
                     string loop = args.Count > 0 && args[0] is string named ? named : string.Empty;
                     object offset = args.Count > 0 && ArmFunction.IsNumber(args[args.Count - 1]) ? args[args.Count - 1] : 0L;
                     if (!copyIndexes.Contains(loop)) { return Unresolved; }
                     return Convert.ToInt64(copyIndexes[loop], CultureInfo.InvariantCulture) + Convert.ToInt64(offset, CultureInfo.InvariantCulture);
-                case "lambdavariables":
+                case "lambdaVariables":
                     if (args.Count != 1 || !(args[0] is string)) { return Unresolved; }
                     for (int i = bindings.Count - 1; i >= 0; i--)
                     {
@@ -322,7 +322,7 @@ public static class ArmExpression
                     return Unresolved;
                 case "true": return true;
                 case "false": return false;
-                case "createarray": return args.Exists(IsUnresolved) ? Unresolved : (object)args.ToArray();
+                case "createArray": return args.Exists(IsUnresolved) ? Unresolved : (object)args.ToArray();
             }
             return ArmFunction.Call(name, args);
         }

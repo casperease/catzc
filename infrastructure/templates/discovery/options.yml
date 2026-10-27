@@ -37,7 +37,7 @@ names:
         benchmark: bm,
       }
   healthAlertNames:
-    type: alrt
+    type: alert
     roles: { ServiceHealth: svc, ResourceHealth: res }
   networkSecurityGroupNames:
     type: nsg

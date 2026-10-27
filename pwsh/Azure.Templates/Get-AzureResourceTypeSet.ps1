@@ -26,7 +26,7 @@ function Get-AzureResourceTypeSet {
         cexp  = @{ pattern = 'long'; limit = 64 }   # Cost Management export — 1-64 (letters, digits, _ and -), unique in the subscription
         pa    = @{ pattern = 'long'; limit = 64 }   # policy assignment — 1-64 at the subscription, unique there
         ag    = @{ pattern = 'long'; limit = 260 }  # action group — 1-260, unique in the resource group
-        alrt  = @{ pattern = 'long'; limit = 260 }  # alert rule (metric, activity log, scheduled query) — 1-260, unique in the resource group
+        alert = @{ pattern = 'long'; limit = 260 }  # alert rule (metric, activity log, scheduled query) — 1-260, unique in the resource group
         wb    = @{ pattern = 'long'; limit = 128 }  # workbook display name (the resource name is a GUID derived from it)
         pack  = @{ pattern = 'long'; limit = 63 }   # Log Analytics query pack — unique in the resource group
         afw   = @{ pattern = 'long'; limit = 56 }   # Azure Firewall — 1-56, unique in the resource group
