@@ -1,0 +1,5 @@
+description: Lists the role assignments of the compiled templates, one per template, slot, principal, role and scope, read offline.
+parameters:
+  template: string[]
+  output_root: string
+output: catzc.azure.templates.bicep_role_assignment[]

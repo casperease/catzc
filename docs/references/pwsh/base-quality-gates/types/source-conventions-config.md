@@ -16,3 +16,7 @@ omitted check takes every default of its type: gate mode, nothing exempt, no phr
   `SourceCheck`.
 - **`track_root_literal`** — the files that may spell the modules track's place, each with its reason. The analyzer rule
   `NoTrackRootLiteral` reads it ([ADR-AUTO-LAYERS](../../../../drs/automation/layers.md)). It is a `SourceCheck`.
+- **`test_file_name`** — the test files whose subject is no one function (a template, a feature, a carrier file), each named with its reason,
+  so the `Verb-Noun.Tests.ps1` name check lets them pass
+  ([ADR-PWSH-PESTER-PESTERTESTFILE](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-pestertestfile)). It is a
+  `SourceCheck`.

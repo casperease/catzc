@@ -32,7 +32,9 @@ never by editing module-scope state except to reset a cache entry.
 A Pester test file (ADR-AUTO-TEST-TESTFILE) is one `*.Tests.ps1` file under a module's `tests/`: one per function, `Verb-Noun.Tests.ps1` —
 `Test-Automation.Tests.ps1` enforces the hyphenated basename. A cross-cutting test file is named after the function it most exercises plus a
 suffix (`Verb-Noun.<Suffix>.Tests.ps1`). A test file for a native C# type is named for the type and lives in `tests/types/`
-(`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module.
+(`<TypeName>.Tests.ps1`) — exempt from Verb-Noun, but the gate requires the name to match a `types/*.cs` in the same module. A test
+file whose subject is no one function — a template, a feature spanning several functions, a carrier file — is a named exception: it is listed
+under `test_file_name.exempt` in `source-conventions.yml` with its reason, never exempted by a pattern over a folder.
 
 - [How this is enforced](#how-this-is-enforced)
 

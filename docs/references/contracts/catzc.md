@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1c38bae23d97"
+    with_body_sha: b6f360c75fa2
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -57,6 +57,7 @@ The current version: edited in place
 | `pwsh.azure.dev_ops.build_validation` | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.firewall`                 | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.templates`                | `get_bicep_parameter_model.command.yml`          | `pwsh/Azure.Templates/Get-BicepParameterModel.ps1`                     | provided  | command contract | `template: string! -> catzc.azure.templates.bicep_parameter_model`                                                                                                                                                                                                                                                                                                  |
+| `pwsh.azure.templates`                | `get_bicep_role_assignment_plan.command.yml`     | `pwsh/Azure.Templates/Get-BicepRoleAssignmentPlan.ps1`                 | provided  | command contract | `template: string[], output_root: string -> catzc.azure.templates.bicep_role_assignment[]`                                                                                                                                                                                                                                                                          |
 | `pwsh.azure.templates`                | `get_bicep_template_names.command.yml`           | `pwsh/Azure.Templates/Get-BicepTemplateNames.ps1`                      | provided  | command contract | `no parameters -> string[]`                                                                                                                                                                                                                                                                                                                                         |
 | `pwsh.azure.templates`                | `remove_bicep_orphan_resources.command.yml`      | `pwsh/Azure.Templates/Remove-BicepOrphanResources.ps1`                 | provided  | command contract | `environment: string!, template: string!, slot: string, subscription_id_assert_is: string, artifacts_folder: string, dry_run: switch -> string[]`                                                                                                                                                                                                                   |
 | `pwsh.azure.templates`                | `set_anomaly_alert_recipient_secret.command.yml` | `pwsh/Azure.Templates/Set-AnomalyAlertRecipientSecret.ps1`             | provided  | command contract | `environment: string!, value: string!, subscription_id_assert_is: string, dry_run: switch`                                                                                                                                                                                                                                                                          |
@@ -321,6 +322,8 @@ Notes:
   branch policy tied to a globset. Idempotent.
 - `pwsh.azure.templates/get_bicep_parameter_model.command.yml`: Returns a template's Bicep parameter model, every parameter its compiled
   main.json declares with its type, default, allowed values and bounds.
+- `pwsh.azure.templates/get_bicep_role_assignment_plan.command.yml`: Lists the role assignments of the compiled templates, one per template,
+  slot, principal, role and scope, read offline.
 - `pwsh.azure.templates/get_bicep_template_names.command.yml`: Returns the names of all discovered bicep templates as a flat string array.
 - `pwsh.azure.templates/remove_bicep_orphan_resources.command.yml`: Deletes the resources of a slot's resource group that its compiled
   template no longer declares, and returns their ids.

@@ -33,14 +33,13 @@ is planned here, one step each, so no record carries a planned item.
       on the account (`resourceKind: storageAccount`), and `data_writers` to `key_vault_secrets_user` on foundation's vault
       (`resourceKind: keyVault`, scope foundation's resource group). Check: Test-BicepLint, Test-BicepApiVersions, Build-Bicep.Integrity and
       Test-BicepTemplateCompliance green in one staged burst.
-- [ ] A read-only public `Get-BicepRoleAssignmentPlan` in Azure.Templates lists principal, role and scope across templates and slots, read
-      from the compiled templates through the compliance evaluator, its output a contract type and its provided contract under
-      `contracts/catzc/<v>/pwsh.azure.templates/`, landed by staged burst with its L0. Then an L1 that every slot's assignments are the
-      declared set (discovery: readers `reader` and workspace `log_analytics_reader`, operators `contributor` and conditioned
-      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Its
-      output type, `types/BicepRoleAssignment.cs` (template, slot, principal, role, scope, condition), compiles in every import, so it lands
-      in the same staged burst as the command; the evaluated assignments come from `Get-ArmDeployedResource` filtered on
-      `Microsoft.Authorization/roleAssignments`, as Discovery.Security.Tests reads its slots. Check: the L0 and the L1 green.
+- [ ] Role assignments, what is left after `Get-BicepRoleAssignmentPlan` landed: `RoleAssignments.Tests.ps1` gains the expedition case
+      (`data_readers` `storage_blob_data_reader` and `data_writers` `storage_blob_data_contributor` on the account, `data_writers`
+      `key_vault_secrets_user` on foundation's vault) in the burst that wires expedition's role assignments; the evaluator resolves
+      `resourceId` and `subscriptionResourceId` (as provider paths when the scope is unknown), and the command then drops its own
+      provider-path rewrite; `Get-ArmDeployedResource` carries a nested deployment's `resourceGroup`, so a scope names its resource group; and
+      a user step in the task file to review the stacked assignments. Check: RoleAssignments.Tests and Get-BicepRoleAssignmentPlan.Tests
+      green in one staged burst.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`

@@ -25,6 +25,8 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
                     [pscustomobject]@{
                         Slot      = $slot.name
                         Main      = $text
+                        # The slot's parameters, where a roles.yml address lands as its role definition id.
+                        Values    = [System.IO.File]::ReadAllText($file)
                         # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
                         Resources = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region |
                                 Where-Object { -not $_.Conditional })
@@ -39,8 +41,8 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
             @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/actionGroups').Count | Should -Be 1 -Because "slot $($slot.Slot) has its action group"
-            # The Owner built-in role's definition id, fixed by Azure: the group's role receiver.
-            $slot.Main | Should -Match '8e3af657-a8ff-443c-a75c-2fe8c4bcb635' -Because 'the action group notifies the Owner role'
+            # The Owner built-in role's definition id, fixed by Azure: the group's role receiver, passed by its roles.yml address.
+            $slot.Values | Should -Match '8e3af657-a8ff-443c-a75c-2fe8c4bcb635' -Because 'the action group notifies the Owner role'
         }
     }
 

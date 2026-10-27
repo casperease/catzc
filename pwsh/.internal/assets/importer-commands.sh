@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fcc14d42a541
+#     with_body_sha: "633bde0a831d"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -37,6 +37,8 @@ get_accosted_fragment	run_number	int	0	0	0	contracts/catzc/0.1.0/pwsh.base.contr
 get_accosted_fragment	command_number	int	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	command-number	Get-AccostedFragment	CommandNumber
 get_accosted_fragment	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	repository-root	Get-AccostedFragment	RepositoryRoot
 get_bicep_parameter_model	template	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_parameter_model.command.yml			get-bicep-parameter-model	template	Get-BicepParameterModel	Template
+get_bicep_role_assignment_plan	template	string	1	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_role_assignment_plan.command.yml			get-bicep-role-assignment-plan	template	Get-BicepRoleAssignmentPlan	Template
+get_bicep_role_assignment_plan	output_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_role_assignment_plan.command.yml			get-bicep-role-assignment-plan	output-root	Get-BicepRoleAssignmentPlan	OutputRoot
 get_bicep_template_names			0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_template_names.command.yml			get-bicep-template-names		Get-BicepTemplateNames	
 get_command_contract	name	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_command_contract.command.yml			get-command-contract	name	Get-CommandContract	Name
 get_command_contract	module	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_command_contract.command.yml			get-command-contract	module	Get-CommandContract	Module

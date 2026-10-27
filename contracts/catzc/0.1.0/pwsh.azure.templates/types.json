@@ -291,6 +291,41 @@
       ]
     },
     {
+      "name": "Catzc.Azure.Templates.BicepRoleAssignment",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "condition",
+          "kind": "property"
+        },
+        {
+          "name": "principal",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "scope",
+          "kind": "property"
+        },
+        {
+          "name": "slot",
+          "kind": "property"
+        },
+        {
+          "name": "template",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.Templates.BicepShortName",
       "aliases": [],
       "display": [],

@@ -1375,6 +1375,10 @@
         {
           "name": "track_root_literal",
           "kind": "property"
+        },
+        {
+          "name": "test_file_name",
+          "kind": "property"
         }
       ]
     },
