@@ -87,7 +87,7 @@ function Test-BicepTemplateCompliance {
                             $issues.Add("${at}: carries no tags")
                         }
                         else {
-                            $tags = [Catzc.Azure.Templates.ArmExpression]::Evaluate($resource.tags, $item.Scope, $item.Variables, $item.Indexes)
+                            $tags = [Catzc.Azure.Templates.ArmExpression]::Evaluate($resource.tags, $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                             if (& $unresolved $tags) {
                                 $issues.Add("${at}: its tags do not resolve")
                             }
@@ -112,7 +112,7 @@ function Test-BicepTemplateCompliance {
                             $issues.Add("${at}: $($rule.path) is not set ($($rule.reason))")
                         }
                         foreach ($raw in $found) {
-                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($raw, $item.Scope, $item.Variables, $item.Indexes)
+                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($raw, $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                             if (& $unresolved $value) {
                                 $issues.Add("${at}: $($rule.path) does not resolve")
                             }
@@ -127,7 +127,7 @@ function Test-BicepTemplateCompliance {
 
                     foreach ($property in $Config.public_access_properties) {
                         if ($properties.Contains($property)) {
-                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes)
+                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                             if (& $unresolved $value) {
                                 $issues.Add("${at}: $property does not resolve")
                             }
@@ -139,7 +139,7 @@ function Test-BicepTemplateCompliance {
 
                     foreach ($property in $Config.tls_properties.Keys) {
                         if ($properties.Contains($property)) {
-                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes)
+                            $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                             if (& $unresolved $value) {
                                 $issues.Add("${at}: $property does not resolve")
                             }
@@ -152,7 +152,7 @@ function Test-BicepTemplateCompliance {
                     if ($production) {
                         foreach ($property in $Config.zone_properties) {
                             if ($properties.Contains($property)) {
-                                $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes)
+                                $value = [Catzc.Azure.Templates.ArmExpression]::Evaluate($properties[$property], $item.Scope, $item.Variables, $item.Indexes, $item.Deployment)
                                 if (& $unresolved $value) {
                                     $issues.Add("${at}: $property does not resolve on a production slot")
                                 }

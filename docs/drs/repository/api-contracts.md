@@ -300,7 +300,8 @@ has dropped protects nothing.
 ### Binding, by contract testing
 
 A contract is only a promise if breaking it is caught. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change
-that violates a contract turns the test run red before it ships.
+that violates a contract turns the test run red before it ships. `Test-Contracts` covers every asset of every root's `0.1.0`, plus the
+provided assets of every `catzc` release a consumer pins.
 
 ### A release folder is frozen
 

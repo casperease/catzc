@@ -338,9 +338,10 @@ include kinds — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ad
 (what we promise the world) and depended-on (what a vendor, such as GitHub or Azure DevOps, promised us). It has at most four levels. The
 first is the root, who made the promise: `contracts/catzc/` for ours, `contracts/<vendor>/` for a vendor's. The second is the version:
 `0.1.0`, the current contracts, edited in place; the rest of the `0.1` range is reserved, `0.0.0` is never a folder, and a version from
-`1.0.0` up is a frozen `catzc` release. The third, optional, is one group folder. The fourth is the asset itself; the files it binds are
-named in its version's `contract.yml`, not by a mirrored path. A pinned release folder is the one place the repo deliberately carries
-backwards compatibility, because here, unlike the internal code, external consumers genuinely exist (see
+`1.0.0` up is a frozen `catzc` release. The `contracts/` root carries a checked-in `.gitkeep`, so it stays tracked before any contract
+exists. The third, optional, is one group folder. The fourth is the asset itself; the files it binds are named in its version's
+`contract.yml`, not by a mirrored path. A pinned release folder is the one place the repo deliberately carries backwards compatibility,
+because here, unlike the internal code, external consumers genuinely exist (see
 [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)).
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
@@ -553,8 +554,8 @@ task files of the plans folder hold to it too: each is named by its topic, and t
   that declares it — or a free label (renaming it is harmless).
 - The folder structure is self-documenting. Opening any module reveals the same layout. `private/` is private, `tests/` is tests, `assets/`
   is everything else — no per-module learning curve.
-- Tooling is simple and stable. Each folder name is read through its one resolver, so no tool takes a per-call path; only the importer
-  spells its bootstrapping paths.
+- Tooling is simple and stable. Each folder name is read through its one resolver, so no tool takes a per-call path; only the importer and
+  the bootstrap module spell their bootstrapping paths.
 - New modules are created by copying the folder layout. There is no registration, no configuration file to update, no "folder structure"
   section in a setup guide. The layout is the same everywhere because the names are the same everywhere.
 - Adding a new folder role to the conventional layout is a deliberate, documented decision. It adds a setting to a track's default

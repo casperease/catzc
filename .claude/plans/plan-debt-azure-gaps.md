@@ -37,14 +37,8 @@ is planned here, one step each, so no record carries a planned item.
       Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
       `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
-- [ ] Role assignments, what is left after the exact resource ids landed (`resourceId`, `subscriptionResourceId`, `extensionResourceId`,
-      `subscription()` and `resourceGroup()` from the slot's facts, `Get-BicepSlotDeploymentFacts`, the role plan's provider-path rewrite
-      gone; expedition's orphan probe reads 0 unresolved names in all 8 slots): foundation's capacity workbook is named `guid()` of the
-      `log-analytics` module's `id` output, `reference(resourceId('Microsoft.Resources/deployments', 'log-analytics'), …).outputs.id.value`,
-      which stays `Unresolved`; `Get-ArmDeployedResource` evaluates a nested deployment's `outputs` in its own scope and the parent's
-      `reference(<deployments id>).outputs.<name>.value` reads them, offline and exact, never a guess; and a user step in the task file to
-      review the stacked assignments. Check: a `Test-BicepTemplateCompliance.Tests.ps1` case for a module output, and the orphan probe
-      (`out/drone-rid-probe.ps1`) reads 0 unresolved names in foundation's 6 slots, in one staged burst.
+- [ ] Role assignments, what is left after the module outputs resolved offline: a user step in the task file to review the stacked
+      assignments. Check: the step is in `task-user-runs-and-commits.md`.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`

@@ -2,24 +2,14 @@
 
 ## Rules: ADR-AUTO-PY
 
-### Rule ADR-AUTO-PY-ONEPYTHONROOT
+### Rule ADR-AUTO-PY-PYTESTFOLDER
 
-The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s `root` with the sensible default every
-test language's root takes: `python` when the repository has a `python/` folder (the `python` track), else the dot-prefixed `.python`. A
-**Python test folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in Python's snake case
-(`Catzc.Base.Repository` → `base_repository`, ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM), holding that module's `test_*.py` files. A Python test is a
-top-level `test*` function; a parametrised test is one test.
+The Python root is `python` when the repository has a `python/` folder (the `python` track), else `.python`, declared by `python.yml`'s
+`root` (ADR-AUTO-TESTLANG-ONEROOT). A **Python test folder** is the folder `<root>/tests/<module>/`, named for its catzc module in Python's
+snake case (`Catzc.Base.Repository` → `base_repository`), holding that module's `test_*.py` files. A Python test is a top-level `test*`
+function, its parametrised cases folded into one test; a `test_integrity*` test is `integrity`, every other test `logic`.
 
 - [The layout](#the-layout)
-
-### Rule ADR-AUTO-PY-PYBLACKBOX
-
-A Python test is a black-box test under the contract the Go tests follow (ADR-AUTO-GO-GOBLACKBOX, ADR-AUTO-ENGINE-STARTENVIRONMENT): it
-starts the engine from `CATZC_ENGINE_EXECUTABLE` with the `CATZC_ENGINE_START` arguments, which load the run's entry and end in the test's
-command, and asserts on output and exit codes, never on the engine's internals; `CATZC_REPOSITORY_ROOT` names the repository root.
-`Invoke-PythonTest` sets them for its uv commands only and restores them afterwards.
-
-- [The engine start environment](#the-engine-start-environment)
 
 ### Rule ADR-AUTO-PY-PYWORKSPACE
 
@@ -52,16 +42,6 @@ stops `Install-PythonWorkspace` with the remedy `Install-Python`; a missing node
 
 - [The managed tools](#the-managed-tools)
 
-### Rule ADR-AUTO-PY-PYBRIDGE
-
-`Test-Automation` runs the Python tests through the language bridge the Go tests run through (ADR-AUTO-GO-GOBRIDGE): discovery maps each
-Python test folder to its catzc module, and the bridge turns every top-level Python test into one test of the run (ADR-AUTO-TEST-TEST),
-tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus a category from its name — `test_integrity*` is `integrity`, every other test is
-`logic`. The run's source session locates uv once and hands its path to the bridge; without uv or the interpreter at the pin, the bridge
-skips with `tool_uv_missing` (ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
-
-- [The bridge](#the-bridge)
-
 ### Rule ADR-AUTO-PY-EVERYFILELINTED
 
 Every `.py` file the repository holds — the Python tests and the agent helpers under `.claude/` alike — takes the repository's checks where
@@ -83,47 +63,38 @@ in `python.yml`, and a folder whose scripts import a sibling script is named in 
 
 ## Context
 
-The engine is verified as a process, from outside, by tests in a second language ([go test artifacts](../go/go-test-artifacts.md)). Python
-is the second such language: it is what most of the people who read this repository write first, pytest needs no ceremony, and uv — already
-the repository's one Python handler ([uv-python-handler](../uv-python-handler.md)) — provisions both the interpreter and the test
-dependencies user-space on every platform.
+Python is a test-artifact language: its modules exist by the layout, its tests prove the engine as a process from outside, and the test run
+reaches them through the one bridge ([test-artifact-languages](../test-artifact-languages.md)). This record holds Python's spellings of that
+shared decision and what is Python's own: the workspace, the version, the tools and the checks. Python is what most of the people who read
+this repository write first, pytest needs no ceremony, and uv, the repository's one Python handler
+([uv-python-handler](../uv-python-handler.md)), provisions both the interpreter and the test dependencies user-space on every platform.
 
-The risks are the ones Go carried, and one more. Python projects tend to grow: a package, a virtual environment per folder, a lock file to
-keep in step, a test framework plugin per need. The rules below hold Python to modules by layout and test artifacts, keep one generated
-workspace with one environment for every member, and run the tests through the same bridge as Go, so a third language adds an entry, not a
-mechanism.
+Python projects tend to grow: a package, a virtual environment per folder, a lock file to keep in step, a test framework plugin per need.
+The rules below keep one generated workspace with one environment for every member, so the language adds an entry, not a mechanism.
 
 ### Modules by layout
 
-Python is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and
-the `python` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a
-module, such as the diagram renderer, is a folder under the Python root that the layout places, and the tests of the engine sit in the
-track's own holder. The engine stays PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Python module is a
-tool the engine runs as a process, and a Python test verifies the engine from outside, as a black box. The builder reads the engine's track,
-so no bundle holds a Python file unless `files.yml` packages it ([platform-bundle](../platform-bundle.md)). The Python-based tools the
-devbox installs (the Azure CLI, Poetry) are a separate matter: they are tools, not code of the repository, each installed in isolation
-through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES), and nothing here changes how.
+A Python module, such as the diagram renderer, is a folder under the Python root that the layout places
+([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), a tool the engine runs as a process. The
+Python-based tools the devbox installs (the Azure CLI, Poetry) are a separate matter: they are tools, not code of the repository, each
+installed in isolation through uv (ADR-AUTO-UVPY-TWOINSTALLSHAPES), and nothing here changes how.
 
 ### The layout
 
-The Python root is the one folder every Python file lives under. When the repository has a `python/` folder, that folder is the root, and it
-is the `python` track ([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)). Otherwise the root is `.python/`, dot-prefixed as the
-tooling folders are. This is the one convention every test language's root follows, Go's included: the default is declared once, on the
-`PythonConfig` type ([sensible-defaults](../sensible-defaults.md)), `PythonConfig.ResolveRoot` is the one resolver every caller asks, and
-`python.yml` declares a `root` only to place the Python root elsewhere.
-
-Under the root, `tests/<module>/` holds one Python test folder per catzc module, named for that module by rendering the module's repository
-normal form in Python's folder case, snake ([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)). The same
-rendering maps a folder back to its module with no mapping file, and the folder is an importable Python name, as every Python folder in the
-tree is.
+The Python root follows the one convention every test-artifact language's root follows
+([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-oneroot)): `python/` when present, the `python` track, else
+`.python/`, declared once on the `PythonConfig` type, whose `ResolveRoot` every caller asks. Under it, a Python test folder's name is the
+module's repository normal form in Python's folder case, snake
+([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)), so the folder is an importable Python name, as every
+Python folder in the tree is.
 
 ### The engine start environment
 
-A Python test knows what a Go test knows, from the same environment variables, and does what a Go test does: it starts the engine from the
-executable and start arguments the contract names ([execution-engines](../execution-engines.md)), puts its command in place of `{command}`,
-and asserts on the output and exit code. It never builds a command line itself, so it holds no engine's quoting rule. The same test
-therefore proves both run modes ([run-modes](../../design/run-modes.md)): the entry the start loads is the repository's `importer.ps1` in a
-source run and the build's `Import-Catzc.ps1` in a build run.
+A Python test is a black-box test ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-blackbox)) that reads its
+start contract from three variables: `CATZC_ENGINE_EXECUTABLE` and the `CATZC_ENGINE_START` arguments start the engine, and
+`CATZC_REPOSITORY_ROOT` names the repository it works on. The test puts its command in place of `{command}` in the start arguments.
+`Invoke-PythonTest` sets the variables for its uv commands only and restores the session's values afterwards. A source run's entry is the
+repository's `importer.ps1`, a build run's the build's `Import-Catzc.ps1`, and every Python test runs once per execution engine.
 
 ### A generated workspace
 
@@ -149,21 +120,17 @@ address, so raising Python is one line in `tools.yml`.
 
 A test run runs uv by the path the existence check returns, never a bare `uv` off `PATH`, and uv runs the interpreter it manages at the pin.
 uv would otherwise download a matching interpreter on demand; a test run sets `UV_PYTHON_DOWNLOADS=never`, so a missing interpreter is a
-precondition failure with one remedy, `Install-Python`, rather than a silent network fetch — the Python form of `GOTOOLCHAIN=local`
-(ADR-AUTO-GO-MANAGEDTOOLCHAIN). Python writes no bytecode into the tree during a run.
+precondition failure with one remedy, `Install-Python`, rather than a silent network fetch. Python writes no bytecode into the tree during a
+run.
 
 ### The bridge
 
-A Python test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
-protection, tiers, categories, and report ([test-automation](../test-automation.md)). The one language bridge runs `Invoke-PythonTest` once
-per mapped module — `uv sync`, `ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and turns each
-top-level test function into one test of the run, its parametrised cases folded into it, as Go folds subtests; in pwsh that test is a Pester
-`It`. Discovery reads the `test_*.py` files without running Python, so it is fast, offline, and works where uv is missing.
-
-A Python test starts a real engine through a real toolchain, so every one is `L2`. Its category comes from its name, decided in one place
-(the `PythonTestResult` type). uv is a tool of the harness, not part of what ships: the run's source session locates it, with the
-interpreter, once (`Get-LanguageTestExecutable`), and hands the path to the bridge, so a build run tests the build without carrying the
-tools config.
+The Python tests run through the one bridge ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-bridge)), in a
+`Test-Automation` test run ([test-automation](../test-automation.md)). The bridge runs `Invoke-PythonTest` once per mapped module — `uv sync`,
+`ruff check`, then `pytest` with a JUnit report, the test folder as pytest's rootdir — and in pwsh each Python test is a Pester `It`, tagged
+`L2`. Discovery reads the `test_*.py` files without running Python. The `PythonTestResult` type decides the category. uv is the Python
+tests' tool: the run's source session locates it, with the interpreter at the pin, once (`Get-LanguageTestExecutable`); without either,
+every Python test skips with `tool_uv_missing`.
 
 ### The checks
 
@@ -190,9 +157,10 @@ never a gap.
 
 Python is a language track whose modules exist by the layout and ship only what is packaged, and a black-box test language
 (ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Python test folder per catzc module under the Python root
-(ADR-AUTO-PY-ONEPYTHONROOT), start the engine from the entry the run names (ADR-AUTO-PY-PYBLACKBOX), run in one generated, gitignored uv
-workspace (ADR-AUTO-PY-PYWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the managed tools
-(ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the language bridge (ADR-AUTO-PY-PYBRIDGE), under the
+(ADR-AUTO-TESTLANG-ONEROOT, ADR-AUTO-PY-PYTESTFOLDER), start the engine from the entry the run names (ADR-AUTO-TESTLANG-BLACKBOX), run in
+one generated, gitignored uv workspace (ADR-AUTO-PY-PYWORKSPACE) at the one pinned Python version (ADR-AUTO-PY-ONEPYTHONVERSION) with the
+managed tools (ADR-AUTO-PY-MANAGEDTOOLS), and run through `Test-Automation` as `L2` tests through the one bridge (ADR-AUTO-TESTLANG-BRIDGE),
+under the
 checks that read Python (ADR-AUTO-PY-EVERYFILELINTED) and one type check shared with the editor (ADR-AUTO-PY-EVERYFILETYPECHECKED).
 
 ### How this is enforced

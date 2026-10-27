@@ -55,7 +55,7 @@ The **commit-colour palette is fixed**:
 The **pre-prod** rung has no hue of its own: its occupant is drawn green, the same bytes already validated for production, and the neutral
 environment box, not the colour, says which of the two it sits in (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
-Every hue has one locked hex pair (fill / stroke), owned by the `commits:` entry of `python/diagrams/configs/drawio.yml`; see
+Every hue has one locked hex pair (fill / stroke), owned by the renderer's commit-palette config; see
 [Canonical palette (locked)](#canonical-palette-locked). A commit drawn in any other hex for one of these meanings is a drift error.
 
 - [The fixed palette](#the-fixed-palette)
@@ -131,10 +131,10 @@ The number is the thread that lets a reader follow one commit's colour-over-time
 ### Rule DDR-VISUAL-GHOSTSINEVERYCOLOUR
 
 **Ghosts exist in every colour, and a ghost is a faded rendering of the state it held while alive, drifting toward grey/green.** A ghost is
-the diagram's _generic_ commit — "some commit in this stage" — drawn faded and dashed in the colour of that stage's state (ghost-WIP,
-ghost-grey, ghost-yellow, ghost-blue, …), not a separate grey-only token. A ghost carries **no number**: numbered means "this specific
-commit, part of a traced journey"; un-numbered/ghost means "a representative commit here". ghost-grey (silently ignored) is just the grey
-member of this family.
+the diagram's _generic_ commit — "some commit in this stage" — drawn faded and dashed in the colour of that stage's state (ghost slate,
+ghost steel, ghost-grey, ghost-yellow, ghost-blue, …), not a separate grey-only token. A ghost carries **no number**: numbered means "this
+specific commit, part of a traced journey"; un-numbered/ghost means "a representative commit here". ghost-grey (silently ignored) is just
+the grey member of this family.
 
 - [Ghosts of every colour](#ghosts-of-every-colour)
 
@@ -524,8 +524,8 @@ is deployed here", not "what this stage is for".
 
 ## Canonical palette (locked)
 
-The hex pairs live once, in the `commits:` entry of `python/diagrams/configs/drawio.yml`; this record binds each hue to its meaning, and any
-other hex for one of these meanings is drift and must be normalised.
+The hex pairs live once, in the renderer's commit-palette config; this record binds each hue to its meaning, and any other hex for one of
+these meanings is drift and must be normalised.
 
 - **slate** (staged) and **steel** (unstaged) — local work in progress, the WIP blue range; muted and dark, so they never read as the
   verified L3 blue.

@@ -16,8 +16,8 @@ synchronisation between stores inside its responsibility domain.
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
 kept in parity with it, and nothing about delivery state has its source of truth (for BVT) outside it. An **adjacent store** is the one
-legitimate second store: a repository or service, such as a GitOps or configuration repository or Azure DevOps Services SaaS / GitHub SaaS,
-that keeps its own history and is driven one way from the trunk's pipelines, never edited beside it.
+legitimate second store: a repository or service, such as a GitOps or configuration repository or a hosted service such as the CI engine or
+the git host, that keeps its own history and is driven one way from the trunk's pipelines, never edited beside it.
 
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
 - [Adjacent stores](#adjacent-stores)
@@ -102,16 +102,15 @@ lives in version control, what can be diffed belongs there, and no configuration
 ### Adjacent stores
 
 An adjacent store keeps its own history, but nobody edits it beside the trunk: the trunk's pipelines drive it, one way. It is a projection
-of the truth, never a second record of it, so it adds no synchronisation path back. Catzc's adjacent store is the Azure DevOps
-configuration: its approvals, build validations, pipeline definitions, and variables are declared in the repository and driven from the
-trunk, so its history is the trunk that drives it. The rule allows another where a consumer such as a GitOps controller needs its own
-repository.
+of the truth, never a second record of it, so it adds no synchronisation path back. Catzc's adjacent store is the CI engine's configuration:
+its approvals, build validations, pipeline definitions, and variables are declared in the repository and driven from the trunk, so its
+history is the trunk that drives it. The rule allows another where a consumer such as a GitOps controller needs its own repository.
 
 ### The truth is queryable
 
 A store that cannot answer questions sends people back to the other stores. The repository answers through the tooling: the `Get-*` cmdlets
-read it and return typed answers, and each can emit them as JSON, so a service-management tool reads the truth without running PowerShell.
-No second database is built to answer queries.
+read it and return typed answers, and each can emit them as JSON, so a service-management tool reads the truth without running the tooling's
+execution engine. No second database is built to answer queries.
 
 ### Inside the trunk, only HEAD
 
@@ -122,8 +121,8 @@ trunk. The tracks and deployable-units that bound a product mono-repository are 
 ### Pins at the repository boundary
 
 Synchronisation exists in one place, the repository boundary, and in one form, a pin. A dependency that crosses the boundary inward is
-pinned to an explicit version the consumer controls: tool versions in `tools.yml`, vendored modules in `pwsh/.vendor/`, and depended-on
-contracts. It is then stitched into an immutable artifact at build time: the bundle and the release candidate.
+pinned to an explicit version the consumer controls: tool versions in the tools config, vendored modules in the vendored-modules folder, and
+depended-on contracts. It is then stitched into an immutable artifact at build time: the bundle and the release candidate.
 
 ### Versions only at the boundary
 
@@ -134,8 +133,8 @@ crossing unit versions on its own; nothing versions the repository as a whole.
 
 The bundle is catzc's one provided pin point, so what catzc provides versions with the bundle. A consumer chooses one of two shapes:
 
-- **Pin.** Another trunk installs a released bundle (`Export-Catzc -Root <dir>` places it under `<dir>/.vendor/Catzc/<version>/`) and pins
-  its version.
+- **Pin.** Another trunk installs a released bundle (the bundle export places it, by version, in the consumer's vendor folder) and pins its
+  version.
 - **Clone.** A consumer that needs to change catzc keeps its own clone, a trunk of its own with its own history.
 
 Consuming catzc implicitly across a repository boundary, at whatever commit happens to be current, is neither: it carries the coupling of

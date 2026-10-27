@@ -87,8 +87,8 @@ capability links. The decisions live in the decision records themselves; this fi
 
 - [Trunk-based development](../../references/dora/capabilities.md#trunk-based-development) — integrate from the stable verified point so the
   trunk stays continuously integrable and a dirty tip never propagates.
-- [Version control](../../references/dora/capabilities.md#version-control) — the audited server remote is the single source of truth with a
-  complete, attributable history.
+- [Version control](../../references/dora/capabilities.md#version-control) — the server's main is the authoritative copy of the repository
+  with a complete, attributable history.
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — the PR is built-in, authenticated
   ingress and approval, not a heavyweight external approval gate.
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — authenticating every ingress at the PR keeps every commit

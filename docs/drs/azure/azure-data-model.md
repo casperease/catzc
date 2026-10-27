@@ -553,21 +553,6 @@ modules, [Catzc.Azure](../../references/pwsh/azure/index.md) and [Catzc.Azure.Te
 
 ## Consequences
 
-- At-a-glance source-of-truth ⟷ Azure mapping: one config file = one resource group; the `configuration/` tree is the RG inventory — the
-  root is the shared platform, each subfolder a customer.
-- The resource-group name is **derived**, not hand-typed. The name-component **order** is the `ado_naming` repo variant (`Get-AdoNaming`);
-  changing it re-spells every derived name.
-- Maps keyed by name make duplicate tenant/subscription names structurally impossible.
-- No subscription name appears in any path, pipeline, or deploy call — the subscription is a resolved value, and the deploy target follows
-  the session (the service connection), pinned by the explicit `-SubscriptionIdAssertIs` guard in pipelines.
-- **Customer** is the one path dimension (the subfolder = the customer key) and, at deploy time, a fact of the session subscription
-  (`subscription.customer`) — never a deploy arg. It both marks a customer deployment and renders into the names. Like an environment, a
-  customer carries a readable **`key`** + a 2-char **`shortcode`** so it stays readable in generous names and cheap (2 bytes) in tight ones.
-- Build artifacts mirror the configuration tree (`parameters.[<customer>.]<config>.json`) — uniform and structurally collision-free in the
-  shared build folder, with no validation guard to remember.
-- Each environment maps to one region; multi-region-per-environment is out of scope (see [`naming-standard`](azure-naming-standard.md)).
-  Each env carries a readable, unique **`name`** (the deploy/config handle + relaxed env-segment) and a 2-char **`shortcode`** (the
-  restricted env-segment).
-- The cost is that a second non-customer platform cannot ship template configs — the configuration root belongs to ONE shared platform
-  (every root config must resolve to exactly one non-customer subscription per env). That is the deliberate trade: the conventional tree
-  stays two-coordinate (root or customer), with no third naming axis to invent.
+The cost is that a second non-customer platform cannot ship template configs: the configuration root belongs to one shared platform (every
+root config must resolve to exactly one non-customer subscription per environment). That is the deliberate trade: the conventional tree stays
+two-coordinate (root or customer), with no third naming axis to invent.

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "53d4d5f346f8"
+    with_body_sha: "5a45e9377cc2"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -753,7 +753,7 @@ folder; the decision-record domain, the value-chain row and the concern carry th
 The folder `<root>/tests/<module>/` under the Bash root — one per catzc module, named for it in kebab case, holding its black-box `.bats`
 tests, which call catzc through `importer.sh` and `cats`.
 
-- **Defined by:** [ADR-AUTO-BASH-ONEBASHROOT](automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)
+- **Defined by:** `ADR-AUTO-BASH-ONEBASHROOT`
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -846,7 +846,7 @@ System.Collections.Specialized.OrderedDictionary
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
 (`baserepository`), holding its black-box Go tests.
 
-- **Defined by:** [ADR-AUTO-GO-ONEGOROOT](automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot)
+- **Defined by:** `ADR-AUTO-GO-ONEGOROOT`
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -987,7 +987,7 @@ The name of the PowerShell track and of the engine that runs it; the PowerShell 
 The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`base_repository`), holding
 its black-box Python tests; each is a member of the one generated uv workspace.
 
-- **Defined by:** [ADR-AUTO-PY-ONEPYTHONROOT](automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot)
+- **Defined by:** `ADR-AUTO-PY-ONEPYTHONROOT`
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -1787,7 +1787,8 @@ The narrowing of a role, such as a gate among the functions, written under its r
 
 ### workstream
 
-One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one change.
+One labeled section of a plan's work breakdown (`.claude/plans/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as
+one change.
 
 - **Defined by:** [ADR-REPO-OUTDIR-PLANNOTES](repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

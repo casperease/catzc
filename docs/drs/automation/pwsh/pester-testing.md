@@ -313,6 +313,16 @@ lookup — is the same module either way.
 Rule coverage counts the enforcers that run in that same Pester invocation (ADR-PWSH-PESTER-ENFORCERKINDS): a tagged `It`, and a
 PSScriptAnalyzer rule through its mapping, since the analyzer quality gate runs as an integrity test in the run.
 
+The pwsh spellings of the neutral test rules ([test-automation](../test-automation.md)) are these. The session caches of
+ADR-AUTO-TEST-SAFESEAMSWAPS are `Get-Config` and `Get-BicepTemplates`, each keyed on the resolved path or root; the template discovery seam
+of ADR-AUTO-TEST-GENERICTEMPLATETESTS is `Get-BicepTemplateNames`/`Get-BicepTemplates`, redirected by mocking `Get-BicepTemplatesRoot`; the
+config reader's seam is `Resolve-ConfigEntry`, which `Get-Config` (in `Catzc.Base.Config`) calls to scan `pwsh/*/configs/`. The process
+tripwire of ADR-AUTO-TEST-PROCESSTRIPWIRE is `Test-Automation` setting `CATZC_BLOCK_REAL_PROCESS` so that `Invoke-Executable`, the process
+seam, throws instead of launching. The one test entry that enforces the tags (ADR-AUTO-TEST-TAGSENFORCED) is `Test-Automation`, through the
+discovery-only pass `Get-TestTagViolations`; the same pass validates the optional `source-only` tag and the rule citations. The source run
+is `Test-Automation` and the build run is `Test-CatzcBuild`; both entry points, with `Invoke-TestFile`, claim their location through
+`Enter-TestRunLocation`, and the workers reduce each live result with `ConvertTo-TestAutomationRowSet`.
+
 The other test languages reach the run through one Pester container (ADR-PWSH-PESTER-PESTERBRIDGE). Pester runs it once per mapped Go,
 Python, or Bash test folder; the container runs the folder's tests through their own tool and emits one `It` per test, so every report reads
 them as Pester tests.

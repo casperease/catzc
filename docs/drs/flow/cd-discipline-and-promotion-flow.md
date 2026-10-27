@@ -131,8 +131,8 @@ target and its governance differ; the tagged artifact is identical across both.
 **Deploy-to-prod is a two-environment activation: stage the artifact _inactive_ in pre-prod, validate the exact bytes, then activate it
 _live_ to production.** DEPLOY-Prod never deploys straight into the serving environment. It first deploys the RBC-cleared artifact to
 **pre-prod** — a production-grade environment that is **not serving live traffic** (the "inactive" environment) — where the identical bytes
-get a final rehearsal against production-shaped dependencies. Pre-prod is a **staging slot in the production subscription**, declared in the
-azure config and inactive until activated, not a subscription of its own. Only then is that same artifact **activated to live production**
+get a final rehearsal against production-shaped dependencies. Where pre-prod lives is the substrate domain's to
+declare. Only then is that same artifact **activated to live production**
 (the inactive → live cutover). The go-live is therefore a **promotion of already-validated bytes, not a fresh untested deploy**, which is
 what keeps the production cutover low-risk. When the new version goes live, the previous production occupant is superseded and steps down
 (FDR-LIFE-RETIREMENTISNOTDISCARD/FDR-LIFE-SUPERSESSIONABANDONS). Build-once holds throughout: pre-prod and production receive the identical
@@ -164,8 +164,8 @@ Every prod-tier environment a pipeline deploys to carries an **approval gate**: 
 group, so a run that reaches it waits for a person. The gate is configuration, never a hand setting on the engine: one config declares the
 approver group, its members, the timeout, the units and the prod-tier environments, and one deterministic apply makes the engine match it.
 An environment a pipeline deploys the prod tier to is listed there; the RC and RBC checks of FDR-CD-TWORELEASEGATES on each unit's
-`release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY). Each engine's domain binds the gate
-to its own check.
+`release-uat` and `pre-prod` environments are derived from the rungs registry (FDR-CD-RUNGSREGISTRY). Each engine's domain binds the gate to
+its own check.
 
 - [The prod approval gate](#the-prod-approval-gate)
 

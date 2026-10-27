@@ -340,12 +340,11 @@ assembly the session runs on, so the next terminal they open is the fix.
 
 ### Why a shadow copy
 
-Windows locks a loaded file until its process exits, so loading `.compiled` in place lets any live session (a console, the VS Code
-PowerShell host, an analyzer process, a test worker) block the prune of a superseded build. A byte load
-(`[Reflection.Assembly]::Load([byte[]])`) avoids the lock but leaves `Assembly.Location` empty, and anything that later compiles against the
-types (`Add-Type -ReferencedAssemblies`) needs a real path. A copy keeps `Location` valid and leaves `.compiled` read-only to every session.
-The copy is content-addressed (`Catzc.Types.<hash>.dll`), written through a temp file and an atomic move, shared by every session and clone
-with the same sources, and pruned once it has gone a day without a load. Nothing there is committed, so a locked leftover copy is harmless.
+Windows locks a loaded file until its process exits, so loading the built assembly in place lets any live session (a console, an editor
+host, an analyzer process, a test worker) block the prune of a superseded build. So a session loads a per-user copy of the build, never the
+build itself, and the build stays read-only to every session. The copy is content-addressed (`Catzc.Types.<hash>.dll`), written through a
+temp file and an atomic move, shared by every session and clone with the same sources, and pruned once it has gone a day without a load.
+Nothing there is committed, so a locked leftover copy is harmless. How a host loads the copy is that host's own record.
 
 ### The `DictionaryRecord` base
 
@@ -452,8 +451,8 @@ as well as its files, so the pair is the language's configuration, apart from th
 ### How this is enforced
 
 - **`BclConfig.Tests.ps1`** (in `Catzc.Base.Languages`) pins the default pair, and its integrity test fails a tracked, non-vendored `.sln`
-  or `.csproj` that declares any other configuration or platform (Rule ADR-BCL-TYPES-DEBUGANYCPU). `Build-AgentHook` and
-  `Invoke-BuildForVsCode` build the configuration they read from `bcl.yml`.
+  or `.csproj` that declares any other configuration or platform (Rule ADR-BCL-TYPES-DEBUGANYCPU). `Build-AgentHook` and the IDE-project
+  build build the configuration they read from `bcl.yml`.
 
 - **`Test-BclReferences`** (in `Catzc.Base.QualityGates`, a check of the `csharp` language) fails a type source that uses
   `System.Management.Automation` without its `bcl.yml` host-binding row, and a row whose source no longer uses it (Rule
@@ -481,9 +480,8 @@ as well as its files, so the pair is the language's configuration, apart from th
   file and the line to add (Rule ADR-BCL-TYPES-CONSOLEREADYTOSTRING); enums, interfaces, abstract and static classes, attributes, and
   exceptions are exempt. `ConsoleText.Tests.ps1` pins the rendering rules.
 
-- **`Invoke-BuildForVsCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
-  `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; the project's stamp task fails the build on a stale
-  built DLL, and a `Base` module reaching the Tooling layer's `Invoke-Dotnet` would invert the dependency graph, so it does not.
+- **The IDE-project build** drives the editor-facing `dotnet build` of `Catzc.Types.csproj` on demand, so a dev or CI builds and verifies
+  the IDE project; the project's stamp task fails the build on a stale built DLL. The command that drives it is the host's.
 
 - **`Get-CSharpTypeDependency` + `Test-ModuleDependency`** — the cross-module C# edges are extracted (a scan that strips comments, string
   literals, and each file's own `namespace <module>;` line, then maps each dotted token to its longest known-module-name prefix) and checked

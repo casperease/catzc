@@ -343,6 +343,7 @@ public static class ArmExpression
                 case "resourceGroup":
                 case "resourceId":
                 case "subscriptionResourceId":
+                case "reference":
                     return ArmScopeFunction.Call(name, args, deployment);
                 case "true": return true;
                 case "false": return false;

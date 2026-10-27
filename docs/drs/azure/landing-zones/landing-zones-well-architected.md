@@ -31,8 +31,7 @@ Rates are the billing account's. Every resource is pay-as-you-go: the workspace 
 carries commitment-based pricing. The SQL database module exposes no licence type, so Azure Hybrid Benefit cannot be selected.
 
 Each resource is configured to its meter. A serverless SQL database bills compute per second while it runs and only storage while paused, so
-non-production configs use `GP_S_Gen5` with `databaseAutoPauseDelay: 60` and `databaseMinCapacity: "0.5"`, while production is provisioned
-`GP_Gen5` at `databaseSkuCapacity: 2`. A Log Analytics workspace bills per ingested gigabyte, so `diagnostic-setting.bicep` picks the
+non-production configs use the serverless SKU with auto-pause, while production is provisioned (the values are below). A Log Analytics workspace bills per ingested gigabyte, so `diagnostic-setting.bicep` picks the
 categories each resource kind needs (a storage account sends only its `Transaction` metrics and no logs). `discovery` sends the activity
 log, the virtual network's diagnostics and each network security group's logs to `foundation`'s workspace, each a per-gigabyte cost there.
 The repository keeps no catalogue of each service's meter and runs no billing proof of concept.
@@ -42,14 +41,17 @@ The configuration tree is the inventory: one config file is one resource group
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames)), and every resource carries `owner`,
 so a resource found in a subscription traces to its template and team. Disaster recovery is a redeploy from the templates plus the
 database's backups, never a warm standby. The deployment mode defaults to `Incremental`, so a resource removed from a template stays in
-Azure until someone deletes it, and nothing finds such an orphan or a resource group with no config. `discovery` reserves `GatewaySubnet`
-and `AzureFirewallSubnet` as address space only, so no cost accrues for them. `expedition` holds one storage account and one database per
-configuration slot, with no secondary region; an ephemeral slot (`dev-blu` on `apex/dev.yml`) is a second full copy of the workload.
+Azure until someone deletes it, and nothing finds such an orphan or a resource group with no config. `discovery` reserves `GatewaySubnet` as
+address space only, so no cost accrues for it; the hub's Azure Firewall is the landing zone's one standing network cost, a `Basic` tier in
+non-production and `Standard` in production. `expedition` holds one storage account and one database per configuration slot, with no
+secondary region; an ephemeral slot (`dev-blu` on `apex/dev.yml`) is a second full copy of the workload.
 
 Environment class is a config decision ([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). The non-production
-`expedition` configs (`dev.yml`, `test.yml`, `apex/dev.yml` and its ephemeral `dev-blu`, `nova/dev.yml`) set `GP_S_Gen5` with auto-pause,
-`databaseZoneRedundant: false`, `databaseBackupStorageRedundancy: Local`, and `databaseBackupRetentionDays: 7`; `apex/prod.yml` sets
-`GP_Gen5`, zone redundancy by default, `Geo`, and 35 days. The storage account takes the module's `Standard_ZRS` in every class, because
+`expedition` configs (`dev.yml`, `test.yml`, `apex/dev.yml` and its ephemeral `dev-blu`, `nova/dev.yml`) set the serverless `GP_S_Gen5`
+between `databaseMinCapacity: "0.5"` and `databaseSkuCapacity: 2` vCores with `databaseAutoPauseDelay: 60` minutes,
+`databaseZoneRedundant: false`, `databaseBackupStorageRedundancy: Local`, and `databaseBackupRetentionDays: 7`; `apex/prod.yml` sets the
+provisioned `GP_Gen5` at `databaseSkuCapacity: 2`, omits `databaseZoneRedundant` so the template default `true` applies, and keeps the
+module's `Geo` redundancy and 35 days. These are the per-class values the rest of this page refers to. The storage account takes the module's `Standard_ZRS` in every class, because
 `expedition` exposes no storage SKU. `foundation` is identical in both classes (the workspace keeps 30 days in each, the minimum). Policy
 enforcement audits outside production by default
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). Off-hours shutdown is not used,
@@ -64,9 +66,8 @@ Data is kept as long as it earns its cost. The workspace keeps 30 days, the mini
 point-in-time retention are per-class config values; `discovery` stores no data of its own. The storage account is fixed on the `Hot` access
 tier and carries no lifecycle management policy.
 
-The one component that scales does so within a ceiling set in config: in non-production the serverless database moves between
-`databaseMinCapacity: "0.5"` and `databaseSkuCapacity: 2` vCores and pauses at zero use, and in production it is provisioned at a fixed 2
-vCores. Nothing in `foundation` or `discovery` scales.
+The one component that scales does so within a ceiling set in config: in non-production the serverless database moves between its floor
+and ceiling and pauses at zero use, and in production it is provisioned at a fixed capacity. Nothing in `foundation` or `discovery` scales.
 
 People's time goes to decisions: every template composes the shared modules in `infrastructure/modules/`, so a secure or cheap default is
 written once; a config reads a shared value (a network range, a subscription id, the policy mode) by config address
@@ -110,19 +111,21 @@ Measurement is a diagnostic setting per resource, from the shared `diagnostic-se
 categories each resource kind exposes, into the workspace `foundation` deploys in the same subscription. Since production and non-production
 run in different subscriptions (`azure.yml`), their signals land in different workspaces by construction. The subscription's activity log
 arrives through `subscription-diagnostic-setting.bicep`, with `ServiceHealth`, `ResourceHealth`, and `Autoscale` among the eight categories
-it sends. `discovery` sends the virtual network (all logs and `AllMetrics`) and every network security group (all logs). `expedition`'s
-storage account sends its `Transaction` metrics, its blob service its logs and `Transaction` metrics, and its database its logs, which carry
-its query-store and wait statistics, and its `Basic`, `InstanceAndAppAdvanced`, and `WorkloadManagement` metrics; the SQL server and the
-private endpoints have no diagnostic setting. `foundation`'s vault has none either, although the module supports the `keyVault` kind, and
-the workspace's 30-day retention bounds how far back a comparison reaches. No baseline, alert, dashboard, synthetic transaction, saved
-query, or workbook is deployed, and the architecture is documented in the reference articles under `docs/references/infrastructure/`.
+it sends. `discovery` sends the virtual network (all logs and `AllMetrics`), every network security group (all logs), and a hub's firewall.
+`expedition`'s storage account sends its `Transaction` metrics, its blob service its logs and `Transaction` metrics, and its database its
+logs, which carry its query-store and wait statistics, and its `Basic`, `InstanceAndAppAdvanced`, and `WorkloadManagement` metrics;
+`foundation`'s vault sends its logs and metrics; the SQL server and the private endpoints have no diagnostic setting, and the workspace's
+30-day retention bounds how far back a comparison reaches. The alerts are fixed thresholds, not baselines: Service Health and Resource
+Health from `discovery`, the break-glass sign-in from `expedition`, and in production the database's CPU, deadlock, failed-connection,
+storage and compute metrics, each to the action group `foundation` deploys for the subscription's `Owner` role. No baseline, dashboard,
+synthetic transaction, saved query, or workbook is deployed, and the architecture is documented in the reference articles under
+`docs/references/infrastructure/`.
 
 Two scaling mechanisms exist, both by configuration. Outside production Azure scales the serverless database between the
-`databaseMinCapacity` floor and the `databaseSkuCapacity` ceiling and pauses it after `databaseAutoPauseDelay` minutes idle (0.5 to 2 vCores
-and 60 minutes in `dev.yml`, `test.yml`, `apex/dev.yml` (and so its ephemeral `dev-blu`), and `nova/dev.yml`), so the ceiling is the upper
-limit; and the configuration slot is the unit of scale-out, an ephemeral slot (`dev-blu` on `apex/dev.yml`) deploying a whole second copy of
+`databaseMinCapacity` floor and the `databaseSkuCapacity` ceiling and pauses it after `databaseAutoPauseDelay` minutes idle (the values in
+[Cost by configuration](#cost-by-configuration)), so the ceiling is the upper limit; and the configuration slot is the unit of scale-out, an ephemeral slot (`dev-blu` on `apex/dev.yml`) deploying a whole second copy of
 the workload into its own resource group, while a new customer gets its own subscription, spoke, and landing zone, much as the Deployment
-Stamps pattern does. Production is provisioned at a fixed 2 vCores in `apex/prod.yml`, no autoscale rule exists, and there is no data to
+Stamps pattern does. Production is provisioned at a fixed capacity, no autoscale rule exists, and there is no data to
 partition. The address plan reserves a `/16` per spoke, so the number of spokes, not their size, is what grows.
 
 The repository's tests verify code, configs, and compiled templates; testing in production, the L4 tier
@@ -134,9 +137,9 @@ template, in its reference article under `docs/references/infrastructure/`.
 The templates deploy no application code, so the code half of optimisation is the workload's. The infrastructure half follows from the
 choice of platform services: TLS ends at the managed services, identity is a managed identity and Entra ID rather than stored credentials
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)), and backups are platform features. The network is as simple
-as the landing zone allows: one virtual network, a network security group per workload subnet, no appliance in the traffic path, and the
-reserved firewall subnet empty. `expedition` holds one empty database and one storage account with a 7-day soft delete and no schema, index,
-cache, read replica, or lifecycle rule, so data tuning is the workload's that owns a schema.
+as the landing zone allows: one virtual network, a network security group per workload subnet, and one appliance in the traffic path, the
+hub's Azure Firewall, through which a spoke's route table sends its egress. `expedition` holds one empty database and one storage account
+with a 7-day soft delete and no schema, index, cache, read replica, or lifecycle rule, so data tuning is the workload's that owns a schema.
 
 Flows are not inventoried, because the workload has none. The `criticality` tag rates each deployment, not each flow (see
 [Reliability in one region](#reliability-in-one-region)), and nothing reserves capacity or limits traffic by it. Isolation comes from the
@@ -145,11 +148,12 @@ shares a database with another's.
 
 The operational tasks the templates carry run on the platform. A deployment is `Deploy-Bicep`, an `az deployment group create` (or
 `sub create` for `discovery`) in Azure's default incremental mode, so a redeploy changes only what differs and removes nothing. Backups are
-the database's automated backups and the storage account's soft delete: point-in-time restore keeps 7 days of locally redundant backups
-outside production and 35 days of geo-redundant ones in production, and blob soft delete keeps 7 days. The break-glass password is a Key
+the database's automated backups, with the per-class retention and redundancy of [Cost by configuration](#cost-by-configuration), and the
+storage account's 7-day soft delete. The break-glass password is a Key
 Vault reference resolved at deploy time, so rotating it touches no running resource. Adding a spoke takes three deploys in a fixed order
-([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). No maintenance window, off-peak schedule,
-alert, triage plan, or on-call rota is set, and access to the workspace is whatever role the subscription grants.
+([ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](../landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)). The alerts reach the action group of the
+subscription's `Owner` role; no maintenance window, off-peak schedule, triage plan, or on-call rota is set, and access to the workspace is
+whatever role the subscription grants.
 
 What the repository does continuously is change the templates through the same build and verification as any code: `ci-infrastructure.yaml`
 compiles and verifies every template on every change under `infrastructure/`, and `tools.yml` pins the Bicep CLI, so a newer platform
@@ -166,10 +170,11 @@ Vault, logs in its workspace, the network and private DNS zones in the landing z
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). `foundation` deploys two managed services
 (`log-analytics.bicep`, `key-vault.bicep`), passing names and tags and keeping every module default, and neither exposes a redundancy
 setting. `discovery` deploys only platform networking and governance resources: a resource group, a virtual network with inline subnets, a
-network security group per workload subnet, a route table on a spoke, peerings, the hub's two private DNS zones, the policy assignments of
-`landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, and a budget. `expedition`
-deploys a `Standard_ZRS` storage account (`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`,
-`sql-database.bicep`) reached through two private endpoints, with no virtual machine and no self-managed database.
+network security group per workload subnet, a route table, peerings, a hub's Azure Firewall with its policy and its three private DNS zones,
+the policy assignments of `landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, the
+Service Health and Resource Health alerts, the Defender plans, and a budget. `expedition` deploys a `Standard_ZRS` storage account
+(`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`, `sql-database.bicep`) reached through two
+private endpoints, with no virtual machine and no self-managed database.
 
 The unit the repository rates is the deployment, not a flow: every config carries `criticality` among the CAF tags. The rating follows
 dependency, not environment: the shared non-production hub is `high`, because every non-production spoke resolves its private endpoints
@@ -190,26 +195,24 @@ time `expedition` depends strongly on its spoke's `private-endpoints` subnet (th
 and on the hub's `privatelink` DNS zones, and weakly on the workspace; at deploy time it depends strongly on `discovery` and on
 `foundation`'s vault.
 
-The production settings of `expedition` imply recovery points without stating them as objectives: `apex/prod.yml` sets
-`databaseBackupRetentionDays: 35` and `databaseBackupStorageRedundancy: Geo`, and blobs are recoverable for 7 days after deletion;
-non-production sets `databaseBackupRetentionDays: 7` and `databaseBackupStorageRedundancy: Local`. `foundation` holds no business data, and
+The production settings of `expedition` imply recovery points without stating them as objectives: the backup retention and redundancy of
+[Cost by configuration](#cost-by-configuration), and blobs recoverable for 7 days after deletion. `foundation` holds no business data, and
 `discovery` holds configuration, not data, and recovers by redeploying. An availability objective needs measured traffic, which the example
 deployments do not have.
 
 Zone-redundant deployment is the module default: `storage-account.bicep` defaults `skuName` to `Standard_ZRS`, and `sql-database.bicep`
 turns `zoneRedundant` on for every tier that supports it and defaults `backupStorageRedundancy` to `Geo`. A template weakens that only by a
 config value, and only outside production, where the cost saving outweighs a zone outage
-([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Storage is `Standard_ZRS` in every `expedition` config;
-`apex/prod.yml` omits `databaseZoneRedundant`, so the template default `true` applies, while every non-production config sets
-`databaseZoneRedundant: false` and `databaseBackupStorageRedundancy: Local`. Every environment maps to one region, so geo-redundant backups
-are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the only copy of the private DNS zones,
-and each hub reserves `GatewaySubnet` and `AzureFirewallSubnet` so a gateway or firewall is added without renumbering. No module places a
-resource lock.
+([ADR-AZ-LZ-EVERYPILLAR](../landing-zones.md#rule-adr-az-lz-everypillar)). Storage is `Standard_ZRS` in every `expedition` config,
+and the database's zone and backup redundancy per class are those of [Cost by configuration](#cost-by-configuration). Every environment maps to one region, so geo-redundant backups
+are the only copy outside it. The network is the hub-and-spoke shape, with one hub per tier holding the only copy of the private DNS zones;
+each hub runs its Azure Firewall in `AzureFirewallSubnet` (zone-redundant in production) and reserves `GatewaySubnet`, so a gateway is added
+without renumbering. A `CanNotDelete` lock guards what many deployments depend on: the hub's virtual network, its private DNS zones, and
+`foundation`'s vault.
 
 Scaling: none of the templates deploys compute, so application scaling does not arise, and storage, the workspace and the vault scale inside
 the platform. Outside production the serverless SKU scales automatically between `databaseMinCapacity` and `databaseSkuCapacity`, the cap
-kept in config (`databaseSkuName: GP_S_Gen5`, `databaseMinCapacity: "0.5"`, `databaseSkuCapacity: 2`, `databaseAutoPauseDelay: 60`); in
-production the database is `GP_Gen5` at `databaseSkuCapacity: 2`, so more capacity is a config change and a deploy, and no signal says one
+kept in config; in production the database is provisioned at a fixed `databaseSkuCapacity`, so more capacity is a config change and a deploy, and no signal says one
 is needed. The network's room to grow is the address plan: each spoke has a `/16` with `/24` subnets
 ([ADR-AZ-NETWORK-PERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-persubscription)), so its `private-endpoints` subnet has
 room for many more private endpoints.
@@ -219,9 +222,9 @@ deployments, so a fault or a bad deploy in one customer's subscription does not 
 and the other spokes untouched ([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)). The hub is the one shared part of
 a tier. Failover inside a region is the platform's: zone-redundant storage and a zone-redundant database fail over without a deploy, in
 production and not in non-production. `storage-account.bicep` turns on soft delete for blobs and containers (`deleteRetentionDays`, 7 by
-default, which `expedition` keeps), so an accidental delete is recoverable. The vault module sets no purge protection. No template deploys
-an alert, an action group, or a runbook, so no failure triggers an automated action; retries, checkpoints and a degraded mode belong to
-application code, which the examples do not have.
+default, which `expedition` keeps), so an accidental delete is recoverable. The vault module turns on purge protection with no parameter to
+turn it off. Alerts notify the subscription's `Owner` role through its action group, but no template deploys a runbook, so no failure
+triggers an automated action; retries, checkpoints and a degraded mode belong to application code, which the examples do not have.
 
 Resiliency is tested where Azure is not needed: `ci-infrastructure.yaml` compiles every template, renders every config, and checks each
 rendered parameters file against the compiled parameter model
@@ -323,11 +326,13 @@ reached through `private-endpoint.bicep`, registered in the hub's private DNS zo
 `pwsh/Azure/configs/network.yml` and uses private ranges only
 ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)). The policy against public IP addresses on network
 interfaces closes the most common way to expose a virtual machine. `privateEndpointNetworkPolicies` defaults to `Enabled` in
-`virtual-network.bicep`, so the security groups apply to the private endpoints too; `GatewaySubnet` and `AzureFirewallSubnet` carry no
-security group. The hub hosts two private DNS zones, SQL Database and Blob Storage, linked to every spoke it lists. The workload has no
-internet-facing endpoint, so a web application firewall and DDoS protection have nothing to protect. Egress is not filtered: the hub
-reserves `AzureFirewallSubnet` and deploys no firewall, and the spoke route tables (`routeTableName`) carry no routes. `foundation`'s Key
-Vault and Log Analytics workspace accept public network traffic, since the modules set no `publicNetworkAccess`.
+`virtual-network.bicep`, so the security groups apply to the private endpoints too; the gateway and firewall subnets carry no security
+group. The hub hosts three private DNS zones, SQL Database, Blob Storage and Key Vault, linked to every spoke it lists. The workload has no
+internet-facing endpoint, so a web application firewall and DDoS protection have nothing to protect. Egress is filtered: every spoke route
+table (`routeTableName`) sends `0.0.0.0/0` to the hub's Azure Firewall, whose policy allows only the service and FQDN tags of
+`network.yml`'s `firewall_egress` over port 443
+([ADR-AZ-NETWORK-CAFCONNECTIVITY](../azure-network-model.md#rule-adr-az-network-cafconnectivity)). `foundation`'s Key Vault turns public
+network access off and is reached through its private endpoint; its Log Analytics workspace accepts public network traffic.
 
 In transit, the storage account sets `minimumTlsVersion: 'TLS1_2'` and `supportsHttpsTrafficOnly: true`, and the SQL server sets
 `minimalTlsVersion: '1.2'`; both are fixed in the modules, not parameters. At rest, storage service encryption and SQL transparent data
@@ -341,11 +346,11 @@ no data.
 Hardening lives in the shared modules as secure defaults, so every template inherits it
 ([The Well-Architected checklist](landing-zones-topology.md#the-well-architected-checklist)). `storage-account.bicep` turns off anonymous
 blob access and shared-key access and enables soft delete for blobs and containers (`deleteRetentionDays: 7`); `sql-server.bicep` defaults
-to Entra-only authentication with no SQL login and no public access; the no-public-IP policy enforces one hardening rule at scale. Three
-modules miss these defaults: `key-vault.bicep` sets neither `publicNetworkAccess` nor purge protection, `vm.bicep` creates a Basic dynamic
-public IP address and takes a local administrator password (no template uses it, and the no-public-IP policy denies it in an enforcing
-landing zone), and `data-factory.bicep` fixes `publicNetworkAccess: 'Enabled'` (no template uses it either). The budget limits the cost of
-an abuse of `discovery`'s subscription.
+to Entra-only authentication with no SQL login and no public access; the no-public-IP policy enforces one hardening rule at scale.
+`key-vault.bicep` turns off public network access and turns on purge protection. Two modules miss these defaults: `vm.bicep` creates a Basic
+dynamic public IP address and takes a local administrator password (no template uses it, and the no-public-IP policy denies it in an
+enforcing landing zone), and `data-factory.bicep` fixes `publicNetworkAccess: 'Enabled'` (no template uses it either). The budget limits the
+cost of an abuse of `discovery`'s subscription.
 
 The repository holds no secret. A `@secure()` parameter takes a Key Vault `reference`, and the parameter contract rejects a literal for it;
 a config address reaches only committed config, so it cannot name a secret
@@ -360,11 +365,11 @@ rotation is manual. `discovery` uses no secret.
 
 `foundation`'s Log Analytics workspace is the one sink of each subscription, outside every workload's resource group. The landing zone
 streams the subscription's activity log there, including the `Administrative`, `Security`, and `Policy` categories, and
-`diagnostic-setting.bicep` sends each resource's logs (category group `allLogs`) and metrics to it; `discovery` sends the virtual network
-and every network security group, and `expedition` the storage account, its blob service, and the database. The workspace keeps 30 days
-(`retentionInDays` default of `log-analytics.bicep`). The vault sends no diagnostics, so secret reads are not logged. `discovery` turns on
-the Microsoft Defender for Cloud plans of `defenderPlans` (storage, SQL, Key Vault, and Resource Manager), `sql-server.bicep` sends each
-server's auditing to the workspace, and Microsoft Sentinel is not deployed.
+`diagnostic-setting.bicep` sends each resource's logs (category group `allLogs`) and metrics to it; `discovery` sends the virtual network,
+every network security group and a hub's firewall, and `expedition` the storage account, its blob service, and the database. The workspace
+keeps 30 days (`retentionInDays` default of `log-analytics.bicep`). The vault sends its logs there too, so secret reads are logged.
+`discovery` turns on the Microsoft Defender for Cloud plans of `defenderPlans` (storage, SQL, Key Vault, and Resource Manager),
+`sql-server.bicep` sends each server's auditing to the workspace, and Microsoft Sentinel is not deployed.
 
 The repository's tests run before deploy, on the code: `Build-Bicep` compiles each template and checks every rendered parameters file
 against its contract, and `Test-AzureNetworkPlan` checks the network plan. None of them reads a security property of the compiled templates,
@@ -373,5 +378,6 @@ and nothing tests a deployed workload; a regression in a module default is caugh
 Incident response is an operating process of the organisation that runs the tenant, not a resource a template deploys. The repository
 supplies its inputs: the `owner` and `criticality` tags on every resource, the configuration tree as the deployment inventory
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)), and the logs of each
-subscription in one workspace. The budget alerts, which go to the subscription's `Owner` role, are the only alerts the templates create;
-recovery uses the database's point-in-time restore (`databaseBackupRetentionDays`), which is a reliability setting.
+subscription in one workspace. The alerts the templates create (budget, cost anomaly, Service Health, Resource Health, the break-glass
+sign-in, and the production database's metrics) go to the subscription's `Owner` role or the vault's recipients; recovery uses the
+database's point-in-time restore (`databaseBackupRetentionDays`), which is a reliability setting.

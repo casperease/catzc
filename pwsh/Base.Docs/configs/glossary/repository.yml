@@ -33,7 +33,7 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-OUTDIR-PLANNOTES
     short:
-      One labeled section of a plan's work breakdown (`out/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one
+      One labeled section of a plan's work breakdown (`.claude/plans/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one
       change.
     realized_by: { kind: prose-only }
   robot:

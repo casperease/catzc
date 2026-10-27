@@ -11,8 +11,12 @@ evaluate a subset of the ARM functions. A call outside the subset yields `Unreso
 that asserts such a value passes on nothing. The next L1 author checks this list first, and either adds the function to the evaluator with
 its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 
-- `reference()`, `list*()` and every runtime lookup: a value read from a deployed resource or a module output, such as foundation's capacity
-  workbook, named by `guid()` of the `log-analytics` module's `id` output.
+- `reference()` of anything but a nested deployment, `list*()` and every runtime lookup: a value read from a deployed resource, such as a
+  workspace's `customerId`. A module output resolves: each nested deployment's `outputs` are evaluated in its own scope after its resources,
+  and `reference()` of its id (`resourceId('Microsoft.Resources/deployments', …)`, or `extensionResourceId()` across a resource group) or of
+  its symbolic name reads them, as `.outputs.<name>.value`, through `tryGet()` for a conditional module, or under `properties` with
+  `'full'`. An output is only as resolved as its own expression, so one that reads a resource's runtime properties stays unresolved, and so
+  does one of a module declared after its reader, or of any module when the caller passes no subscription.
 - `format()` with a format specifier (`{0:N2}`) or over an argument that is not a string or an integer; plain `{n}` holes, which Bicep
   string interpolation compiles to, resolve.
 - `toLower()`, `toUpper()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other string and array
@@ -32,7 +36,7 @@ its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
   parameter, through `ArmExpression.EvaluateCopy`; one inside a resource's properties is read as written, unexpanded.
 - `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time. `guid()` over string arguments resolves,
   computed as ARM computes it (a version 5 UUID over the arguments joined by `-`), and its `ArmExpression.Tests.ps1` case pins values
-  Bicep's own evaluator gives, and a `guid()` over a `resourceId()` resolves wherever the id does; one over a module output does not.
+  Bicep's own evaluator gives, and a `guid()` over a `resourceId()` resolves wherever the id does, a module's `id` output included.
 - The comparisons `greater()`, `less()` and their `OrEquals` forms, and `json()`, `string()` and `int()`.
 
 ## comment:1

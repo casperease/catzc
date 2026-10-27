@@ -5,8 +5,8 @@
 ### Rule DDR-MODTYPE-MODULEISPLACEDUNIT
 
 A **module** is a named unit placed in a track: a PowerShell module is a folder under `pwsh/` or one `psm1` file, a Bicep module is a
-template folder or one reusable `bicep` file, and a holder track's module is the holder itself (the vendor settings, the ADO pipelines, the
-GitHub workflows). A file in no module, such as a documentation page, has neither `module` nor `moduletype`.
+template folder or one reusable `bicep` file, and a holder track's module is the holder itself (the vendor settings, the pipeline engine's
+pipelines, the git host's workflows). A file in no module, such as a documentation page, has neither `module` nor `moduletype`.
 
 - [Modules](#modules)
 
@@ -49,9 +49,9 @@ engines, order) is a separate concern; this DDR fixes only a module's placement 
 
 ### Module types
 
-Separating the sort (module type) from the track (track type) matters because a track can hold several sorts of module (`pwsh` holds folder
-and `psm1` modules) and a sort can sit in more than one place (`pipeline` in two tracks, `settings` in several). Each of the two is one
-declaration; the relation between them is the `admits` list, which is the only place the two meet.
+Separating the sort (module type) from the track (track type) matters because a track can hold several sorts of module (a code track holds
+folder modules and single-file modules) and a sort can sit in more than one place (`pipeline` in two tracks, `settings` in several). Each of
+the two is one declaration; the relation between them is the `admits` list, which is the only place the two meet.
 
 ### Types and tracks
 

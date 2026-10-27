@@ -86,15 +86,17 @@ between non-production and production. Each template sends the diagnostics of th
 `diagnostic-setting.bicep` module, and the subscription's activity log through `subscription-diagnostic-setting.bicep`
 ([ADR-AZ-LZ-CAFMANAGEMENT](../landing-zones.md#rule-adr-az-lz-cafmanagement)). A diagnostic setting in the template exists when the deploy
 succeeds, which a deploy-if-not-exists policy cannot promise. `expedition` deploys no compute, so it has no application telemetry to trace.
-There is no health model, alert rule, or dashboard, and the only alerts are the landing zone's budget thresholds, sent to the subscription's
-`Owner` role.
+Alerts reach the subscription's `Owner` role: `foundation` deploys one action group for it, `discovery` routes Service Health and Resource
+Health to that group and sends the budget thresholds to the role, a daily cost-anomaly alert mails the recipients in foundation's vault, and
+`expedition` pages the group on any sign-in of the SQL break-glass login and, in production only, on the database's CPU, deadlock,
+failed-connection, storage and compute metrics. There is no health model or dashboard.
 
 The architecture carries the containment and recovery side of an incident. Workloads sit behind private endpoints with public access off,
-each subnet that carries workloads has a network security group that denies inbound traffic from the internet, a spoke has a route table on
-every subnet, the hub reserves `AzureFirewallSubnet`, and a SQL server keeps a break-glass login beside its Entra ID administrator group
+each subnet that carries workloads has a network security group that denies inbound traffic from the internet, a spoke routes the egress of
+every subnet through the hub's Azure Firewall, and a SQL server keeps a break-glass login beside its Entra ID administrator group
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The activity log of every subscription is the audit trail,
-and the provenance tags name the commit behind any deployed resource, so a bad change is found and redeployed from the commit before it. No
-alert routes an incident to anyone, and no response plan, escalation path, or drill exists as a version-controlled procedure; a blameless
+and the provenance tags name the commit behind any deployed resource, so a bad change is found and redeployed from the commit before it. The
+alerts above reach the `Owner` role, but no response plan, escalation path, or drill exists as a version-controlled procedure; a blameless
 review that changes a rule, a gate, or an ADR is how the repository learns.
 
 Infrastructure is tested in tiers by `Test-Automation` ([ADR-AUTO-TEST](../../automation/test-automation.md)), each test tagged with its

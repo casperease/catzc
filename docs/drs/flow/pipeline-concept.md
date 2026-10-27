@@ -44,8 +44,8 @@ The flow domain already decides most of what a pipeline is:
 - **Which kind it is.** Every pipeline is one of the six types, keyed together by one immutable tagged artifact
   ([pipeline-types](pipeline-types.md), [cd-discipline-and-promotion-flow](cd-discipline-and-promotion-flow.md)).
 - **How it runs the automation.** Every step goes through the runner, so a step is a command a developer can paste into a terminal
-  ([FDR-TYPE-ALLTHROUGHRUNNER](pipeline-types.md#rule-fdr-type-allthroughrunner)), and the automation finds out where it runs by detection, never by a flag
-  ([pipeline-detection](pipeline-detection.md)).
+  ([FDR-TYPE-ALLTHROUGHRUNNER](pipeline-types.md#rule-fdr-type-allthroughrunner)), and the automation finds out where it runs by detection,
+  never by a flag ([pipeline-detection](pipeline-detection.md)).
 - **What stops it.** A gate is a check whose verdict decides whether work may proceed
   ([FDR-CD-GATEDEFINED](cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)).
 

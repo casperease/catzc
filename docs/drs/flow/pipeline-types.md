@@ -11,8 +11,8 @@ does not fit is a design problem to resolve, not a seventh type to invent.
 
 ### Rule FDR-TYPE-ALLTHROUGHRUNNER
 
-All six types invoke automation through one runner, the engine's single entry point, and no pipeline definition holds an inline script:
-the definition stays declarative, names a command a developer can run locally, and the logic lives in the automation. The one sanctioned
+All six types invoke automation through one runner, the engine's single entry point, and no pipeline definition holds an inline script: the
+definition stays declarative, names a command a developer can run locally, and the logic lives in the automation. The one sanctioned
 exception is the guardrail pipeline that proves the guardrails fail as designed.
 
 - [Decision](#decision)
@@ -179,9 +179,8 @@ automation job (e.g. certificate rotation, scheduled cleanup, drift checks). It 
 and deploys nothing. It invokes one automation function on a clock.
 
 - **Trigger:** a schedule.
-- **Contract:** it is a thin scheduled invocation of an automation function through the runner
-  (FDR-TYPE-ALLTHROUGHRUNNER). The logic lives in an idempotent `pwsh/` function, not in YAML. The
-  pipeline names a `RunCommand` and a schedule; nothing more.
+- **Contract:** it is a thin scheduled invocation of an automation function through the runner (FDR-TYPE-ALLTHROUGHRUNNER). The logic lives
+  in an idempotent `pwsh/` function, not in YAML. The pipeline names a `RunCommand` and a schedule; nothing more.
 
 ### CI
 

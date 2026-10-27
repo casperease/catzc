@@ -13,7 +13,7 @@ The kind, the address space and the subnets come from `network.yml` by config ad
 - One resource group with the virtual network, every subnet inline.
 - A network security group per subnet named in `networkSecurityGroupNames`.
 - The activity log and the network diagnostics, sent to foundation's Log Analytics workspace.
-- Three policy assignments.
+- Ten policy assignments, nine enforced and the cloud security benchmark audited only.
 - A budget.
 
 ## What differs

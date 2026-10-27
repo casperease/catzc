@@ -19,10 +19,10 @@ org `tst`) so they cannot collide with production.
 
 ### Rule ADR-AUTO-TEST-SAFESEAMSWAPS
 
-Seam swaps are safe because `Get-Config` and `Get-BicepTemplates` key their session caches on the resolved path/root, so a fixture path and
-the real path get separate cache entries. A test varies a cached function's behaviour by replacing the whole function, never its internals,
-because a warm cache ignores a replaced dependency; only a test that exercises cache behaviour itself resets the cache, and it resets the
-one entry it exercises.
+Seam swaps are safe because the config reader and template discovery key their session caches on the resolved path/root, so a fixture path
+and the real path get separate cache entries. A test varies a cached function's behaviour by replacing the whole function, never its
+internals, because a warm cache ignores a replaced dependency; only a test that exercises cache behaviour itself resets the cache, and it
+resets the one entry it exercises.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -64,9 +64,9 @@ is a prerequisite of every source-tree L2 run rather than a tool its tests skip 
 
 ### Rule ADR-AUTO-TEST-PROCESSTRIPWIRE
 
-A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets the `CATZC_BLOCK_REAL_PROCESS` environment variable and
-`Invoke-Executable` throws instead of launching, in every run and for each test container by the tier of its outermost Describe, so a mock
-that fails to intercept fails loudly.
+A runtime tripwire enforces "L0/L1 launches no real process": the one test entry sets a block-real-process environment variable and the
+process seam throws instead of launching, in every run and for each test container by the tier of its outermost Describe, so a mock that
+fails to intercept fails loudly.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -89,9 +89,9 @@ file/folder conventions). This is the category axis of ADR-AUTO-TEST-TWOMANDATOR
 
 ### Rule ADR-AUTO-TEST-TAGSENFORCED
 
-`Test-Automation` enforces ADR-AUTO-TEST-TWOMANDATORYTAGS on every invocation: a discovery-only pass (`Get-TestTagViolations`), which finds
-every test without running any, inspects every test regardless of `-Level`, and the run throws if any test is missing — or ambiguous on — a
-tier or category tag.
+The one test entry enforces ADR-AUTO-TEST-TWOMANDATORYTAGS on every invocation: a discovery-only pass, which finds every test without
+running any, inspects every test regardless of `-Level`, and the run throws if any test is missing — or ambiguous on — a tier or category
+tag.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -104,13 +104,13 @@ never by booting the importer or inspecting a loaded session. A static property 
 
 ### Rule ADR-AUTO-TEST-GENERICTEMPLATETESTS
 
-An integrity test that exercises shipped templates must be **generic**: discover the set with `Get-BicepTemplateNames`/`Get-BicepTemplates`
-and assert invariants that hold for _every_ template. It must **never** bind to a specific production template name, nor assert a
-production-derived magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity
-makes that test veto the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour
-(e.g. a PrePost hook injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template
-(ADR-AUTO-TEST-DISTINCTFIXTURES), not against the shipped one; the generic integrity test asserts only the structural invariant — "any
-reference present is well-formed" — across all shipped templates.
+An integrity test that exercises shipped templates must be **generic**: discover the set through the template discovery and assert
+invariants that hold for _every_ template. It must **never** bind to a specific production template name, nor assert a production-derived
+magic value (a rendered secret name, resource name, or parameter-file name). Binding a test to a production identity makes that test veto
+the identity's rename or removal — a test must never block a production refactor. Positive, template-specific behaviour (e.g. a PrePost hook
+injecting a particular Key Vault reference) is verified as a **logic** test against a **fixture** template (ADR-AUTO-TEST-DISTINCTFIXTURES),
+not against the shipped one; the generic integrity test asserts only the structural invariant — "any reference present is well-formed" —
+across all shipped templates.
 
 - [Generic integrity tests](#generic-integrity-tests)
 
@@ -172,7 +172,7 @@ master only when its BVT is green, and the canonical module-manifest artifact a 
 
 ### Rule ADR-AUTO-TEST-FILEPARALLELISM
 
-`Test-Automation` parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across workers
+The one test entry parallelizes at whole-file granularity across worker **processes**: the run's test files are sharded across workers
 (pooled live output — one worker's stream live while later workers buffer and replay in order), each worker loads the modules through its
 run's entry script, runs its shard, writes its own results file, and reduces its **live** result to plain per-test rows
 (`ConvertTo-TestAutomationRowSet` — tier/category resolution walks the live chain of groups, which does not survive a process boundary) into
@@ -236,7 +236,7 @@ report-only because a rule may be enforced structurally or by review, so "no mec
 ### Rule ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 
 The same tests run in two kinds of test run (ADR-AUTO-TEST-TESTRUN), one per run mode ([run-modes](../design/run-modes.md)): the source run
-(`Test-Automation`) loads the modules from the code root through the source entry script, and the build run (`Test-CatzcBuild`) builds the
+(the one test entry) loads the modules from the code root through the source entry script, and the build run (`Test-CatzcBuild`) builds the
 selected modules and loads them through the build's entry script. Both run the same test files of every module at every tier their location
 allows by default (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE), with the same discovery, tag checks, sharding, and reports — the build run swaps only
 the entry script each shard worker loads, and writes its reports to `out/test-catzc-build/`. No test is copied or rewritten for the build
@@ -249,9 +249,9 @@ run.
 **`source-only`** is the one tag by which a test opts out of the build run. It marks a test whose answer cannot differ between the modes —
 an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the DRS registry, managed GUIDs,
 spelling) — or a logic test of a source-tree tool that needs per-function files. It is optional, resolved along the chain of groups like
-`serial`/`greedy`, and validated by `Get-TestTagViolations`; the build run counts and lists every test it excludes this way, so the
-exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through `Get-Config`, types and
-accelerators load, an internal asset is read
+`serial`/`greedy`, and validated by the discovery-only tag pass; the build run counts and lists every test it excludes this way, so the
+exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through the config reader,
+types and accelerators load, an internal asset is read
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)) — is never `source-only`.
 
 - [Source and build runs](#source-and-build-runs)
@@ -468,12 +468,12 @@ template _name_ dimension: production identities flow into the generic check as 
 
 `Isolation comes from seams, not from editing production`
 
-The codebase isolates the _template tree_ behind a mockable private function, `Get-BicepTemplatesRoot`, so discovery can be redirected to a
-fixture tree. Config has its own seam: `Get-Config` (in `Catzc.Base.Config`) finds a config's file by scanning `pwsh/*/configs/` through the
-private `Resolve-ConfigEntry`, so a logic test isolates a config by **mocking `Resolve-ConfigEntry`** to return a fixture
-`@{ Name; Module; Path }` pointing at a fixture file (or by mocking `Get-Config` outright). **A seam is a single function that names _where_
-an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md) way to isolate
-without touching production data.
+The codebase isolates the _template tree_ behind one mockable root function, so discovery can be redirected to a fixture tree. Config has
+its own seam: the config reader finds a config's file by scanning the modules' config folders through a discovery function, so a logic test
+isolates a config by **mocking that discovery** to return a fixture entry (name, module, path) pointing at a fixture file (or by mocking the
+reader outright). **A seam is a single function
+that names _where_ an input comes from**, with one production answer and a test override; it is the [poka-yoke](../principles/poka-yoke.md)
+way to isolate without touching production data.
 
 ### Mandatory tag axes
 
@@ -571,7 +571,7 @@ flowchart TB
 
 Logic tests run on every change, so their speed compounds. Three effects dominate, and the fixes are cheap:
 
-- **Don't redo expensive setup per test (ADR-AUTO-TEST-SETUPONCE).** `Get-BicepTemplates`/`Get-Config` key their session cache on the
+- **Don't redo expensive setup per test (ADR-AUTO-TEST-SETUPONCE).** Template discovery and the config reader key their session cache on the
   resolved root/path (ADR-AUTO-TEST-SAFESEAMSWAPS). A per-test setup that assigns each test a fresh root, or clears the config cache,
   defeats that cache and pays a full cold re-derive **every test** — on the order of a second per test for template-configuration tests. The
   fixture copy **and** the one-time cache reset run once for the group of tests that shares them, with the few mutating tests pointed at

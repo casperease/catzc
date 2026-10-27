@@ -30,9 +30,9 @@ code.
 
 ### Rule TDR-STORES-FACTSOURCEREADONLY
 
-A **fact source** is a state store: a database with a reachable live URL that holds state about delivery outside the repository, such as
-Azure DevOps runtime state: environment deployments, pipeline runs, security controls, and the outer state of git (refs and pull-request
-history). Catzc reads a fact source's state only and never writes to it. A platform's configuration is not a fact source: Azure DevOps
+A **fact source** is a state store: a database with a reachable live URL that holds state about delivery outside the repository, such as the
+CI engine's runtime state: environment deployments, pipeline runs, security controls, and the outer state of git (refs and pull-request
+history). Catzc reads a fact source's state only and never writes to it. A platform's configuration is not a fact source: the CI engine's
 approvals, build validations with their branch policies, pipeline definitions, and variables are an adjacent store, driven one way from the
 trunk's pipelines ([TDR-ONETRUTH-REPOSITORYISRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)).
 
@@ -99,9 +99,9 @@ a repository is accountable for.
 
 ### Fact sources
 
-A fact source answers a question at a URL now, and its answer can differ a minute later. Azure DevOps plays two roles: its runtime state
+A fact source answers a question at a URL now, and its answer can differ a minute later. The CI engine plays two roles: its runtime state
 holds fact sources, facts about delivery that no commit records, and its configuration is an adjacent store. Catzc never writes to a fact
-source, since a write would make it a second author of state that a state machine owns. GitHub SaaS plays the same two roles: its
+source, since a write would make it a second author of state that a state machine owns. The git host plays the same two roles: its
 configuration, such as branch protection and workflow settings, is an adjacent store, and its runtime state, such as workflow runs and
 pull-request history, is a fact source.
 

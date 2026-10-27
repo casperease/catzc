@@ -18,7 +18,7 @@ public static class ArmFunction
             "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
             "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
             "null", "items", "tryGet", "coalesce", "format", "replace", "join", "tenantResourceId", "guid", "deployment", "subscription",
-            "resourceGroup", "resourceId", "subscriptionResourceId", "extensionResourceId",
+            "resourceGroup", "resourceId", "subscriptionResourceId", "extensionResourceId", "reference",
         };
         var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string name in names) { known[name] = name; }

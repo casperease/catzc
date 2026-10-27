@@ -220,6 +220,24 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved (& $eval "[guid(parameters('missing'))]") | Should -BeTrue
     }
 
+    It 'reads reference() of a nested deployment from the deployments fact, by id or symbolic name, and of anything else as unresolved' {
+        $id = '/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/widget-group/providers/Microsoft.Resources/deployments/gadget'
+        $outputs = @{ id = @{ type = 'string'; value = 'widget-id' }; late = @{ type = 'string'; value = [Catzc.Azure.Templates.ArmExpression]::Unresolved } }
+        $facts = @{ subscriptionId = '50a0ed00-de00-50b0-0000-000000000000'; resourceGroupName = 'widget-group'; deployments = @{ $id = $outputs; sprocket = $outputs } }
+        $at = { param($Value) [Catzc.Azure.Templates.ArmExpression]::Evaluate($Value, @{ on = $true }, @{}, @{}, $facts) }
+        & $at "[reference(resourceId('Microsoft.Resources/deployments', 'gadget'), '2025-04-01').outputs.id.value]" | Should -BeExactly 'widget-id'
+        & $at "[REFERENCE(resourceId('Microsoft.Resources/deployments', 'GADGET'), '2025-04-01').outputs.id.value]" | Should -BeExactly 'widget-id'
+        & $at "[reference(resourceId('Microsoft.Resources/deployments', 'gadget'), '2025-04-01', 'full').properties.outputs.id.value]" | Should -BeExactly 'widget-id'
+        & $at "[reference('sprocket').outputs.id.value]" | Should -BeExactly 'widget-id'
+        & $at "[coalesce(tryGet(if(parameters('on'), reference('sprocket'), null()), 'outputs', 'id', 'value'), '')]" | Should -BeExactly 'widget-id'
+        & $isUnresolved (& $at "[reference('sprocket').outputs.late.value]") | Should -BeTrue
+        & $isUnresolved (& $at "[reference('sprocket').outputs.missing.value]") | Should -BeTrue
+        & $isUnresolved (& $at "[reference('sprocket').provisioningState]") | Should -BeTrue
+        & $isUnresolved (& $at "[reference(resourceId('Microsoft.OperationalInsights/workspaces', 'gadget'), '2025-02-01').customerId]") | Should -BeTrue
+        & $isUnresolved (& $at "[reference('sprocket', '2025-04-01', 'widget')]") | Should -BeTrue
+        & $isUnresolved (& $eval "[reference('sprocket').outputs.id.value]") | Should -BeTrue
+    }
+
     It 'is unresolved outside the subset, never a guess' {
         & $isUnresolved (& $eval "[uniqueString('widget', 'gadget')]") | Should -BeTrue
         & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue

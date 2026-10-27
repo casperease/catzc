@@ -2,24 +2,14 @@
 
 ## Rules: ADR-AUTO-BASH
 
-### Rule ADR-AUTO-BASH-ONEBASHROOT
+### Rule ADR-AUTO-BASH-BASHTESTFOLDER
 
-The Bash tests live under one Bash root, a repository-relative folder declared by `bash.yml`'s `root` with the sensible default every test
-language's root takes: `bash` when the repository has a `bash/` folder (the `bash` track), else the dot-prefixed `.bash`. A **Bash test
-folder** is the folder `<root>/tests/<module>/`, one per catzc module and named for it in kebab case, holding that module's `.bats` files. A
-Bash test is one `@test "<name>" {` line; a name starting with `integrity:` makes it an integrity test.
+The Bash root is `bash` when the repository has a `bash/` folder (the `bash` track), else `.bash`, declared by `bash.yml`'s `root`
+(ADR-AUTO-TESTLANG-ONEROOT). A **Bash test folder** is the folder `<root>/tests/<module>/`, named for its catzc module in kebab case,
+holding that module's `.bats` files, which call catzc through `importer.sh` and `cats`. A Bash test is one `@test "<name>" {` line; a name
+starting with `integrity:` makes it `integrity`, every other test `logic`.
 
 - [The layout](#the-layout)
-
-### Rule ADR-AUTO-BASH-BASHBLACKBOX
-
-A Bash test is a black-box test that calls catzc the way a Bash user does: its `setup` loads `CATZC_ENGINE_ENTRY` — the repository's
-`importer.sh` — and the test runs catzc commands through the `cats` dispatcher, asserting on output and exit codes, never on the engine's
-internals. `CATZC_IMPORTER` names the entry `cats` loads into pwsh (ADR-AUTO-ENGINE-IMPORTERENTRY) — the repository's in a source run, the
-build's in a build run — and `CATZC_REPOSITORY_ROOT` the repository root. `Invoke-BashTest` sets them for its bats run only and restores
-them afterwards (ADR-AUTO-ENGINE-STARTENVIRONMENT). A Bash test runs under the bash engine only.
-
-- [The engine start environment](#the-engine-start-environment)
 
 ### Rule ADR-AUTO-BASH-VENDOREDBATS
 
@@ -28,16 +18,6 @@ pinned in `bash.yml` by release and the SHA-256 of its source archive. A test ru
 runner; `Update-BatsVendor` rebuilds the copy from the pin. The vendored files are LF and carry the executable bit in git.
 
 - [A vendored runner](#a-vendored-runner)
-
-### Rule ADR-AUTO-BASH-BASHBRIDGE
-
-`Test-Automation` runs the Bash tests through the language bridge the Go and Python tests run through (ADR-AUTO-GO-GOBRIDGE,
-ADR-AUTO-PY-PYBRIDGE): discovery maps each Bash test folder to its catzc module, and the bridge turns every `@test` into one test of the run
-(ADR-AUTO-TEST-TEST), tagged `L2` (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE) plus its category from its name. The bash engine is the Bash tests'
-tool: the run's source session locates it once and hands its path to the bridge; without it, the bridge skips with `tool_bash_missing`
-(ADR-AUTO-TEST-TAGBYOUTERMOSTRING).
-
-- [The bridge](#the-bridge)
 
 ### Rule ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
 
@@ -50,41 +30,38 @@ of the `Test-ShellScripts` quality gate: LF line endings and the executable bit 
 
 ## Context
 
-The engine is verified from outside by tests in other languages ([go test artifacts](../go/go-test-artifacts.md),
-[python test artifacts](../python/python-test-artifacts.md)), which start it as a process under each execution engine
-([execution-engines](../execution-engines.md)). Those tests prove the engine runs; they do not prove what a Bash user sees. A Bash user
+Bash is a test-artifact language: its modules exist by the layout, its tests prove the engine from outside, and the test run reaches them
+through the one bridge ([test-artifact-languages](../test-artifact-languages.md)). A test that starts the engine as a process under each
+execution engine ([execution-engines](../execution-engines.md)) proves the engine runs; it does not prove what a Bash user sees. A Bash user
 loads `importer.sh` and types `cats <command>`, and that path — the dispatcher's quoting, its root detection, its exit codes — needs tests
-written the way the user writes commands: in Bash.
+written the way the user writes commands: in Bash. This record holds Bash's spellings of the shared decision and what is Bash's own: the
+vendored runner and the shell-script checks.
 
 ### Modules by layout
 
-Bash is a test-artifact language ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), and the
-`bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module is
-a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder, `.bats` files that verify
-the engine the way a Bash user reaches it. The repository's other shell scripts (`importer.sh`, the vendored installers under
-`assets/scripts/`) are not tests; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED). The engine stays PowerShell and C#
-([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Bash test verifies it from outside. The builder reads the engine's track,
-so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
-([platform-bundle](../platform-bundle.md)).
+The tests of the engine sit in the track's own holder
+([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-modulesbylayout)), `.bats` files that verify the engine the
+way a Bash user reaches it. The repository's other shell scripts (`importer.sh`, the vendored installers under `assets/scripts/`) are not
+tests; they take the shell-script checks (ADR-AUTO-BASH-SHELLSCRIPTSCHECKED).
 
 ### The layout
 
-The Bash root follows the one convention every test language's root follows: `bash/` when present — the `bash` track
-([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig` type, and
-`BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per catzc
-module, named by rendering the module's repository normal form in Bash's folder case, kebab
-([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)).
+The Bash root follows the one convention every test-artifact language's root follows
+([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-oneroot)): `bash/` when present, the `bash` track, else
+`.bash/`, declared once on the `BashConfig` type, whose `ResolveRoot` every caller asks. Under it, a Bash test folder's name is the module's
+repository normal form in Bash's folder case, kebab ([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)).
 
 A Bash test is declared on one line, `@test "<name>" {`, so the bridge reads it from the source without running bats. Its name is free text,
 so the integrity marker is a prefix of the name, `integrity:`, decided in one place (the `BashTestResult` type).
 
 ### The engine start environment
 
-A Go or Python test starts the engine with arguments the runner hands it. A Bash test does what a Bash user does instead: it loads the
-engine's entry, `importer.sh`, and calls `cats`. The contract still comes from the runner, never from the test: `CATZC_ENGINE_ENTRY` is the
-file to load, and `CATZC_IMPORTER` tells `cats` which PowerShell entry to load — the repository's `importer.ps1` in a source run, the
-build's `Import-Catzc.ps1` in a build run — so the same test proves both run modes ([run-modes](../../design/run-modes.md)). A Bash test is
-Bash, so it runs under the bash engine only; the Go and Python tests are the ones that run once per engine.
+A Bash test is a black-box test ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-blackbox)) that loads the
+language's own entry instead of starting the engine with start arguments: its `setup` loads `CATZC_ENGINE_ENTRY`, the repository's
+`importer.sh`, and the test runs catzc commands through the `cats` dispatcher. `CATZC_IMPORTER` names the entry `cats` loads into pwsh
+([execution-engines](../execution-engines.md#rule-adr-auto-engine-importerentry)), the repository's `importer.ps1` in a source run and the
+build's `Import-Catzc.ps1` in a build run, and `CATZC_REPOSITORY_ROOT` names the repository root. `Invoke-BashTest` sets the variables for
+its bats run only and restores them afterwards. A Bash test is Bash, so it runs under the bash engine only.
 
 ### A vendored runner
 
@@ -98,12 +75,12 @@ pinned to LF by `.gitattributes` and carry `100755` in git.
 
 ### The bridge
 
-A Bash test runs where every other test runs: in a `Test-Automation` test run, in both run modes, under the same selection, ordering,
-protection, tiers, categories, and report ([test-automation](../test-automation.md)). The bridge runs `Invoke-BashTest` once per mapped
-module — the vendored bats with a JUnit report, from the Bash root — and turns each `@test` into one test of the run, in pwsh a Pester `It`.
-Every Bash test starts a real engine through a real shell, so every one is `L2`. The bash engine is located by its `tools.yml` entry
-([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the run's source session and handed down, so a build
-run tests the build without carrying the tools config.
+The Bash tests run through the one bridge ([test-artifact-languages](../test-artifact-languages.md#rule-adr-auto-testlang-bridge)), in a
+`Test-Automation` test run ([test-automation](../test-automation.md)). The bridge runs `Invoke-BashTest` once per mapped module — the
+vendored bats with a JUnit report, from the Bash root — and in pwsh each `@test` is a Pester `It`, tagged `L2`. The `BashTestResult` type
+decides the category. The bash engine is the Bash tests' tool: it is located by its `tools.yml` entry
+([execution-engines](../execution-engines.md#rule-adr-auto-engine-locateexecutable)) in the run's source session and handed down; without
+it, every Bash test skips with `tool_bash_missing`.
 
 ### The checks
 

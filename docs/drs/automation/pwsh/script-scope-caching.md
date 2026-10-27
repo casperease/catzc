@@ -30,9 +30,9 @@ name falls through to `$global:` when the module's cache entry is unset.
 
 The compiled-type prebuild of [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) is realised by
 the bootstrap: `Import-CSharpTypes` (`Catzc.Internal.Bootstrap.psm1`) computes the key over every module's `types/*.cs` and loads the
-committed `Catzc.Types.<hash>.dll` whose name matches, compiling with `Add-Type` only when none does; `Import-TypesAssembly`
-(`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy, for the bootstrap and the `SpellOutIdentifiers`
-analyzer rule alike.
+gitignored, per-machine `Catzc.Types.<hash>.dll` whose name matches (git holds only each module's `types.json` contract), compiling with
+`Add-Type` only when none does; `Import-TypesAssembly` (`Catzc.Internal.Types.psm1`) is the one load path, through the per-user shadow copy,
+for the bootstrap and the `SpellOutIdentifiers` analyzer rule alike.
 
 - [The compiled-type prebuild](#the-compiled-type-prebuild)
 

@@ -172,6 +172,16 @@ The question a session can answer is about itself. `Get-VsCodeSession` runs insi
 assembly, the environment the extensions contributed and the editor's log folder are all in reach, so a diagnosis is a command in the
 toolset, not a probe run from another process against this one.
 
+### Why a shadow copy loads from a path
+
+`The copy is loaded by path, not by bytes`
+
+The per-user shadow copy of [the BCL record](../BCL/native-csharp-types.md#why-a-shadow-copy) is loaded in pwsh by its path. A byte load
+(`[Reflection.Assembly]::Load([byte[]])`) would avoid the file lock, but it leaves `Assembly.Location` empty, and anything that later
+compiles against the types (`Add-Type -ReferencedAssemblies`) needs a real path. A path load of the copy keeps `Location` valid and still
+leaves the built assembly unlocked. Inside the VS Code PowerShell host the same rule holds: the host is one more live session that loads the
+copy, never the build.
+
 ### Model types in pwsh
 
 `The loose shapes are pwsh's own`
@@ -209,6 +219,9 @@ because that is the one pwsh's string conversion reads.
   `Import-CSharpTypes.Tests.ps1` asserts a decorated type's accelerator resolves after load.
 - **`Catzc.Types.csproj`** carries the `System.Management.Automation` reference compile-time-only (ADR-PWSH-TYPES-POWERSHELLPRIMITIVES); a
   reference beyond the default set fails the runtime compile, because `Add-Type` cannot see it (ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES).
+- **`Invoke-BuildForVsCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through
+  `Invoke-Executable`, so a dev or CI builds and verifies the IDE project on demand; a `Base` module reaching the Tooling layer's
+  `Invoke-Dotnet` would invert the dependency graph, so it does not.
 - **`Test-ShippedTypes`** fails a concrete shipped class that keeps the inherited `ToString()` (ADR-PWSH-TYPES-TOSTRINGOVERRIDE).
 - **`Clear-ModuleTypeCache`** names a held superseded build and leaves it; `Clear-ModuleTypeCache.Tests.ps1` holds a build open and asserts
   no throw, no stop and no wait. **`Get-VsCodeSession`** (`Catzc.Base.VSCode`) is the one diagnosis of a session's binding and refuses to

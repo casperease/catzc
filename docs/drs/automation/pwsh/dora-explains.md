@@ -50,6 +50,17 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 - [Test automation](../../../references/dora/capabilities.md#test-automation) — a gate ties every validator to a shipped config.
 - [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
 
+## ADO pipeline functions
+
+[ADR-PWSH-ADOFUNC](ado-pipeline-functions.md)
+
+> DORA's research on deployment automation favours pipeline steps a developer can run locally. One function per pipeline header and per
+> pipeline variable keeps the engine's spellings in one place, so a step reads the same in a pipeline and at a prompt.
+
+- [Deployment automation](../../../references/dora/capabilities.md#deployment-automation) — pipeline values come from named functions, not
+  inline lookups.
+- [DORA research reference](../../../references/dora/index.md) — the overview these findings sit within.
+
 ## `.ps1` function files
 
 `Use .ps1 for function files, not .psm1`

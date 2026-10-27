@@ -132,6 +132,25 @@ realises them as cmdlets: the per-tool triads, `Assert-Tool` as the one assertio
 `depends_on`, and `Install-DevBoxTools` as the devbox orchestrator that CI does not run. Naming them here keeps the neutral record free of
 one engine's verbs while the cmdlets keep one owning record.
 
+- The config is `pwsh/Base.Execution/configs/tools.yml`, read by every installer and assertion through `Get-ToolConfig`.
+- `Assert-Tool` looks up the command name from config, runs `Assert-Command` for PATH presence, then `Assert-ToolVersion` for the lock; a
+  missing tool's error names its installer ("python is not installed (python not found on PATH). Run Install-Python."). The first
+  `Invoke-Python` call validates and later calls skip the check. `Assert-ToolVersion` also reads the optional `devbox_version`, which
+  `Test-IsRunningInPipeline` switches off in a pipeline.
+- A tool with candidate paths is located by `Resolve-ToolExecutable`, which hands the entry's inputs to `Find-Executable` (both in
+  `Catzc.Base.Execution`, so a module below the Tooling layer locates a tool the same way); its probe record is what `Test-Tool -PassThru`
+  returns and `Write-ToolProbeReport` prints.
+- Isolated `uv tool` installs share `Install-UvTool` / `Uninstall-UvTool`; a library installed into the interpreter uses `Install-PipTool` /
+  `Uninstall-PipTool`. Both run through `Invoke-Uv`, which asserts `uv` is present, and both parallel `Install-Tool` / `Uninstall-Tool` for
+  platform package managers.
+- `Install-Git` installs Git Bash with git; `Install-DevBoxTools` asserts a platform-provided prerequisite and names its remedy;
+  `Get-ToolsStatus` reports its manager as `system`.
+- `Sync-SessionTools` is the session janitor and applies `session_host_probes` through `Resolve-SessionToolHost`; the forced removal is
+  `Remove-<Tool> -Force`.
+- `Install-DevBoxTools` calls `Install-Python`, `Install-Poetry`, `Install-Dotnet` and the rest in order. CI calls the individual installers
+  in dependency order (`Install-AzCli`, `Install-Poetry`, `Install-Terraform`, `Install-Java`, `Install-PySpark`), for example
+  `RunCommand: "Install-AzCli -Force"` in `invoke-automation.yaml`.
+
 ## Decision
 
 All PowerShell module dependencies used by the toolset are vendored in `pwsh/.vendor/`, and nothing calls the gallery at runtime. Az

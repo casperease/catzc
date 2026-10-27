@@ -21,7 +21,10 @@ function Get-ArmDeployedResource {
         # The subscription the deployment is sent to, the slot's azure.yml subscription id; '' leaves subscription() and the ids unresolved.
         [string] $SubscriptionId,
 
-        [object] $ResourceGroupName = ''
+        [object] $ResourceGroupName = '',
+
+        # Filled with the template's evaluated outputs, each { type, value }, which a parent's reference() of this deployment reads.
+        [System.Collections.IDictionary] $Outputs
     )
 
     # The template's variables, evaluated on demand over the same scope when an expression names one.
@@ -33,7 +36,8 @@ function Get-ArmDeployedResource {
     }
     # The copy index of the instance being read, by loop name and '' for the innermost loop; empty outside a copy.
     $current = $Indexes
-    $deployment = @{}
+    # Each nested deployment read so far, by its id and its symbolic name, mapped to its evaluated outputs; a later reference() reads it.
+    $deployment = @{ deployments = @{} }
     if ($Location -and "$($Template['$schema'])" -notmatch '/deploymentTemplate\.json') {
         $deployment.location = $Location
     }
@@ -67,14 +71,29 @@ function Get-ArmDeployedResource {
     }
 
     # languageVersion 2.0 writes resources as a symbolic-name map, the classic form as an array.
-    $resources = if ($Template.resources -is [System.Collections.IDictionary]) {
+    $symbolic = $Template.resources -is [System.Collections.IDictionary]
+    $resources = if ($symbolic) {
         @($Template.resources.Values)
     }
     else {
         @($Template.resources)
     }
+    $symbols = if ($symbolic) {
+        @($Template.resources.Keys)
+    }
+    else {
+        @()
+    }
     $outer = $Indexes
+    $position = 0
     foreach ($resource in $resources) {
+        $symbol = if ($symbolic) {
+            "$($symbols[$position])"
+        }
+        else {
+            ''
+        }
+        $position++
         if ($resource.Contains('existing') -and $resource.existing -eq $true) {
             continue
         }
@@ -196,7 +215,29 @@ function Get-ArmDeployedResource {
                     $nestedSubscription = ''
                 }
                 # A nested template numbers its own copy loops: its copyIndex() names its own loops.
-                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation -SubscriptionId $nestedSubscription -ResourceGroupName $nestedGroup
+                $nestedOutputs = [ordered]@{}
+                Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain -Location $nestedLocation -SubscriptionId $nestedSubscription -ResourceGroupName $nestedGroup -Outputs $nestedOutputs
+                # Its id is the one resourceId() or extensionResourceId() gives in this scope: in its resource group when it has one, else in the subscription.
+                $grouped = $resource.Contains('resourceGroup') -or $deployment.Contains('resourceGroupName')
+                if ($resolvedName -is [string] -and $nestedSubscription -and (-not $grouped -or ($nestedGroup -is [string] -and $nestedGroup))) {
+                    $groupPath = if ($grouped) {
+                        "/resourceGroups/$nestedGroup"
+                    }
+                    else {
+                        ''
+                    }
+                    $deployment.deployments["/subscriptions/$nestedSubscription$groupPath/providers/Microsoft.Resources/deployments/$resolvedName"] = $nestedOutputs
+                }
+                # languageVersion 2.0 reads it by its symbolic name, one instance of a loop as name[index].
+                if ($symbol) {
+                    $key = if ($null -eq $instance) {
+                        $symbol
+                    }
+                    else {
+                        "$symbol[$($instance[''])]"
+                    }
+                    $deployment.deployments[$key] = $nestedOutputs
+                }
                 continue
             }
             [pscustomobject]@{
@@ -211,6 +252,34 @@ function Get-ArmDeployedResource {
                 ResourceGroup = $ResourceGroupName
                 Conditional   = $uncertain
             }
+        }
+    }
+
+    # Read after every resource, so an output over a nested deployment's own outputs finds them; a runtime value stays Unresolved.
+    if ($null -ne $Outputs -and $Template.Contains('outputs') -and $Template.outputs -is [System.Collections.IDictionary]) {
+        $current = $Indexes
+        foreach ($name in @($Template.outputs.Keys)) {
+            $definition = $Template.outputs[$name]
+            $condition = if ($definition.Contains('condition')) {
+                & $evaluate $definition.condition
+            }
+            else {
+                $true
+            }
+            if ($condition -eq $false) {
+                continue
+            }
+            $value = if (& $unresolved $condition) {
+                [Catzc.Azure.Templates.ArmExpression]::Unresolved
+            }
+            elseif ($definition.Contains('copy') -and $definition.copy -is [System.Collections.IDictionary]) {
+                $copy = @{ name = ''; count = $definition.copy['count']; input = $definition.copy['input'] }
+                [Catzc.Azure.Templates.ArmExpression]::EvaluateCopy($copy, $scope, $variables, $current, $deployment)
+            }
+            else {
+                & $evaluate $definition['value']
+            }
+            $Outputs[$name] = [ordered]@{ type = $definition['type']; value = $value }
         }
     }
 }

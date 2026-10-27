@@ -19,10 +19,6 @@ records.
 
 ### Contradictions, settled first
 
-- [ ] `azure/azure-network-model.md`: the hub firewall the templates deploy (`landing-zone-network.bicep`, `firewall.bicep`, the spoke route
-      to it) settles ADR-AZ-NETWORK-CAFTOPOLOGY, -CAFCONNECTIVITY and "CAF connectivity", which say egress is unfiltered and the firewall
-      planned; `docs/references/infrastructure/discovery.md` and `templates/discovery/main.md` say three policy assignments where
-      `landing-zone-policies.bicep` assigns ten. Check: a grep of the templates.
 - [ ] `design/visual-design.md`: "slate" names both a stage-box tint and staged WIP; the stage box takes another tint name. Check: the
       record check.
 
@@ -31,19 +27,10 @@ records.
 Each step keeps a neutral rule in place and moves the spelling to its twin. Check for each: the record check plus `Test-DrsEngineNeutrality`
 on the neutral record.
 
-- [ ] `flow/cd-discipline-and-promotion-flow.md`: the ADO mechanics of FDR-CD-PRODAPPROVALGATE, -CERTIFYINGRECORD, -SEPARATEPIPELINEKINDS
-      and -RUNGSREGISTRY (`environment-approvals.yml`, `Sync-AdoEnvironmentApprovals`, `Assert-AdoDeploymentHistory`, environment naming,
-      `rungs.yml`) move to `ado/`. Check: as above.
-- [ ] "Pre-prod is a staging slot in the production subscription" (FDR-CD-TWOENVIRONMENTACTIVATION, FDR-LIFE-ONECOMMITPERENVIRONMENT) is
-      said once, in `azure/`. Check: as above.
 - [ ] `flow/durable-sha-globs.md`: the GitHub and ADO path-filter projections, YAML samples and drift gates (FDR-GLOBS-NATIVEPATHFILTER)
       move to `github/` and `ado/`. Check: as above.
-- [ ] `flow/pipeline-detection.md` (the FDR-DETECT rules) moves to `automation/pwsh/`; `flow/pipeline-runner-pattern.md` (the FDR-RUNNER
-      rules, which duplicate FDR-TYPE-ALLTHROUGHRUNNER) moves to `ado/`, flow keeping "no inline script in pipeline YAML". Check: as above.
-- [ ] `flow/pipeline-types.md` (FDR-TYPE-SIXTYPES, -ALLTHROUGHRUNNER) and FDR-QUEUE-AUTHORINGISTHEFIRST lose their ADO wording. Check: as
-      above.
-- [ ] `ado/dual-authentication.md`, `ado/pipeline-variables.md` and `configuration/config-value-addressing.md`: their pwsh code moves to
-      `automation/pwsh/`; the step-template sample matches the runner pattern. Check: as above.
+- [ ] `flow/pipeline-detection.md` (the FDR-DETECT rules) moves to `automation/pwsh/`. Check: as above.
+- [ ] `configuration/config-value-addressing.md`: its pwsh code moves to `automation/pwsh/`. Check: as above.
 - [ ] `automation/test-automation.md`: the pwsh, Pester and Bicep names in ADR-AUTO-TEST-SAFESEAMSWAPS, -PROCESSTRIPWIRE,
       -GENERICTEMPLATETESTS, -TAGSENFORCED, -TESTRUN, -QUALITYGATE, -TESTSUITE and -TESTINGINPRODUCTION, the Build-Bicep example, and the
       harness and snapshot mechanics move to `automation/pwsh/pester-testing.md`; the decisions of -FILEPARALLELISM, -ONESCHEDULINGPOOL and
@@ -88,14 +75,12 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
 
 ### Sections that restate their rules
 
-- [ ] `flow/cd-discipline-and-promotion-flow.md`: the "AT and UAT" section and Consequences bullets 1, 2, 4, 5. Check: the record check.
-- [ ] `azure/azure-data-model.md`: Consequences keeps its final trade-off; "One tenant" and "The subscription as the unit" move to
+- [ ] `azure/azure-data-model.md`: "One tenant" and "The subscription as the unit" move to
       `az-session-verification.md`, `azure-customer-model.md` and `landing-zones.md`, cited from here. Check: the record check.
 - [ ] `repository/conventional-folders.md`: "How this is enforced" becomes one current list. Check: the record check.
 - [ ] `repository/api-contracts.md`: "The name picks the kind", the Decision restatement and "Three version ranges" go; rejected
       alternatives 1/3/10 and 2/7 fold together; HEADPOLICY's carrier detail in `repository/file-meta.md` defers to JSONCARRIER. Check: the
       record check.
-- [ ] Azure: per-config values in `landing-zones-well-architected.md` stated once. Check: the record check.
 
 ### Gate extension (decided by the user, 2026-10-27: yes)
 

@@ -11,16 +11,25 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
 
 - Resource group, with the CAF tags — `resource-group.bicep`
 - Virtual network, with every subnet of the network plan declared inline — `virtual-network.bicep`
-- Network security group per subnet named in the config, allowing traffic inside the virtual networks and denying inbound traffic from the
-  internet — `nsg.bicep`. The reserved hub subnets, `GatewaySubnet` and `AzureFirewallSubnet`, get none, and nothing is deployed into them.
-- Spoke only: a route table on every subnet — `route-table.bicep` — and the peering to the hub — `vnet-peering.bicep`
-- Hub only: a peering to each spoke the config lists — `vnet-peering.bicep` — and the private DNS zones of SQL Database and Blob Storage
-  (`privatelink.database.windows.net`, `privatelink.blob.core.windows.net`, spelled from `environment()` for the cloud), each linked to the
-  hub and to every listed spoke — `private-dns-zone.bicep`
+- Network security group per subnet named in the config, allowing the flows `network.yml` declares to the subnet's role and denying the rest
+  of the virtual network and inbound traffic from the internet — `nsg.bicep`. The gateway and firewall subnets get none.
+- Spoke only: a route table on every subnet, sending `0.0.0.0/0` to the hub's firewall — `route-table.bicep` — and the peering to the hub —
+  `vnet-peering.bicep`
+- Hub only: an Azure Firewall in `AzureFirewallSubnet` with its two public IP addresses and an egress policy that allows the service and
+  FQDN tags of `firewall_egress` — `firewall.bicep`, `firewall-policy.bicep`; a route table on `shared-services` that sends each spoke's
+  range to the firewall; `GatewaySubnet` stays empty
+- Hub only: a peering to each spoke the config lists — `vnet-peering.bicep` — and the private DNS zones of SQL Database, Blob Storage and
+  Key Vault (`privatelink.database.windows.net`, `privatelink.blob.core.windows.net`, `privatelink.vaultcore.azure.net`, spelled from
+  `environment()` for the cloud), each linked to the hub and to every listed spoke — `private-dns-zone.bicep`; a `CanNotDelete` lock on the
+  hub's network and on each zone — `lock.bicep`
+- Service Health and Resource Health alerts to `foundation`'s action group — `health-alert.bicep`
+- The Defender for Cloud plans of `defenderPlans` — `defender-plans.bicep`
 - Activity log of the subscription to `foundation`'s workspace — `subscription-diagnostic-setting.bicep`
 - Diagnostics of the virtual network and of each network security group to the same workspace — `diagnostic-setting.bicep`
-- Three policy assignments of built-in definitions — allowed locations (the deployment region), a required tag on resources, and no public
-  IP address on a network interface — `policy-assignment.bicep`
+- Ten policy assignments — allowed locations (the deployment region), the CAF tags (the one custom definition), no public IP address on a
+  network interface, public network access off for storage and SQL, a diagnostic setting on every data resource, the allowed storage SKUs,
+  virtual machine sizes and resource types, and the Microsoft cloud security benchmark, audited only — `landing-zone-policies.bicep`,
+  `policy-assignment.bicep`
 - Budget with alerts at 50, 80, and 100 percent, sent to the subscription `Owner` role — `budget.bicep`
 - A daily cost anomaly alert, emailed to its recipients for a year from the budget's start date — `scheduled-action.bicep`
 

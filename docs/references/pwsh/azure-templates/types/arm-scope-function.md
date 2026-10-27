@@ -21,3 +21,12 @@ Above `private static object ScopedId(List<object> args, bool atGroup, string...
 resourceId([subscriptionId], [resourceGroupName], type, names…) and subscriptionResourceId([subscriptionId], type, names…): the type
 is the first argument holding a '/', and the arguments before it name the scope, else the deployment's own scope does.
 ```
+
+## comment:3
+
+Above `private static object Reference(List<object> args, IDictionary deployment)`, written with `//`.
+
+```text
+reference(id or symbolic name, apiVersion[, 'full']) of a nested deployment the caller evaluated: its { outputs }, under properties when
+full. The deployments fact maps each one's id and symbolic name to its evaluated outputs; any other resource is runtime state.
+```

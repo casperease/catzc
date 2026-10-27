@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1965f1a596c5"
+    with_body_sha: "86c309ada353"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -206,7 +206,7 @@ Declare what you deliver and the files that trigger it; drop in a template, and 
 
 #### 4. Ship through the pipeline
 
-Commit. The pipeline runs the same commands you ran on your devbox ([runner pattern](../docs/drs/flow/pipeline-runner-pattern.md)), and the
+Commit. The pipeline runs the same commands you ran on your devbox ([runner pattern](../docs/drs/ado/pipeline-runner-pattern.md)), and the
 commit climbs its lifecycle to production ([commit lifecycle](../docs/drs/flow/commit-lifecycle.md)).
 
 [**Full getting-started guide →**](../docs/how-to/getting-started/automation/index.md) ·

@@ -254,6 +254,74 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved(@(Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg')[0].Name) | Should -BeTrue
         }
     }
+
+    It 'reads a module output a parent passes on, as Bicep compiles it, from the nested deployment''s evaluated outputs, and never a runtime one' {
+        # The expected values are Bicep's own evaluator's (bicep snapshot 0.48.1 with --subscription-id and --resource-group), not this type's.
+        $dependency = '[resourceId(''Microsoft.Resources/deployments'', ''{0}'')]'
+        $output = '[reference(resourceId(''Microsoft.Resources/deployments'', ''gadget''), ''2025-04-01'').outputs.{0}.value]'
+        $gadget = [ordered]@{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = [ordered]@{ name = @{ type = 'string' } }
+            resources  = @([ordered]@{ type = 'Microsoft.OperationalInsights/workspaces'; name = "[parameters('name')]"; location = 'westeurope' })
+            outputs    = [ordered]@{
+                id         = @{ type = 'string'; value = "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('name'))]" }
+                name       = @{ type = 'string'; value = "[parameters('name')]" }
+                customerId = @{ type = 'string'; value = "[reference(resourceId('Microsoft.OperationalInsights/workspaces', parameters('name')), '2025-02-01').customerId]" }
+            }
+        }
+        $gizmo = [ordered]@{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = [ordered]@{ workspaceId = @{ type = 'string' }; owner = @{ type = 'string' }; sourceId = @{ type = 'string' } }
+            resources  = @([ordered]@{
+                    type = 'Microsoft.Insights/workbooks'; name = "[guid(parameters('workspaceId'))]"; tags = @{ owner = "[parameters('owner')]" }
+                    properties = [ordered]@{ sourceId = "[parameters('sourceId')]" }
+                })
+        }
+        $template = [ordered]@{
+            '$schema'  = 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#'
+            parameters = [ordered]@{ withSprocket = @{ type = 'bool'; defaultValue = $true } }
+            resources  = @(
+                [ordered]@{ type = 'Microsoft.Resources/deployments'; name = 'gadget'; properties = [ordered]@{ template = $gadget; parameters = @{ name = @{ value = 'widget-log' } } } }
+                [ordered]@{
+                    condition = "[parameters('withSprocket')]"; type = 'Microsoft.Resources/deployments'; name = 'sprocket'
+                    properties = [ordered]@{ template = $gadget; parameters = @{ name = @{ value = 'sprocket-log' } } }
+                }
+                [ordered]@{
+                    type = 'Microsoft.Resources/deployments'; name = 'by-id'; dependsOn = @(($dependency -f 'gadget'), ($dependency -f 'sprocket'))
+                    properties = [ordered]@{
+                        template   = $gizmo
+                        parameters = [ordered]@{
+                            workspaceId = @{ value = $output -f 'id' }
+                            owner       = @{ value = $output -f 'name' }
+                            sourceId    = @{ value = "[coalesce(tryGet(if(parameters('withSprocket'), reference(resourceId('Microsoft.Resources/deployments', 'sprocket'), '2025-04-01'), null()), 'outputs', 'id', 'value'), '')]" }
+                        }
+                    }
+                }
+                [ordered]@{
+                    type = 'Microsoft.Resources/deployments'; name = 'by-runtime'; dependsOn = @($dependency -f 'gadget')
+                    properties = [ordered]@{
+                        template   = $gizmo
+                        parameters = [ordered]@{ workspaceId = @{ value = $output -f 'customerId' }; owner = @{ value = 'widget' }; sourceId = @{ value = '' } }
+                    }
+                }
+            )
+        }
+        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template } {
+            param($Template)
+            $facts = @{ SubscriptionId = '50a0ed00-de00-50b0-0000-000000000000'; ResourceGroupName = 'widget-group' }
+            $workbooks = @(Get-ArmDeployedResource -Template $Template -Values @{} @facts | Where-Object Type -EQ 'Microsoft.Insights/workbooks')
+            $workbooks.Count | Should -Be 2
+            $workbooks[0].Name | Should -BeExactly 'd61bf936-8844-5b06-b159-3f2725eb4720'
+            $workbooks[0].Scope.owner | Should -BeExactly 'widget-log'
+            $workbooks[0].Scope.sourceId | Should -BeExactly '/subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/widget-group/providers/Microsoft.OperationalInsights/workspaces/sprocket-log'
+            # The workspace's customerId exists only once it is deployed, so the name over it stays unresolved.
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($workbooks[1].Name) | Should -BeTrue
+            $without = @(Get-ArmDeployedResource -Template $Template -Values @{ withSprocket = $false } @facts | Where-Object Type -EQ 'Microsoft.Insights/workbooks')
+            $without[0].Scope.sourceId | Should -BeExactly ''
+            # Without the slot's facts the deployments have no id, so no output is read.
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved(@(Get-ArmDeployedResource -Template $Template -Values @{})[2].Name) | Should -BeTrue
+        }
+    }
 }
 
 Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L1', 'integrity' {

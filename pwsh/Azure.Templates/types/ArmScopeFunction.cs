@@ -8,7 +8,7 @@ namespace Catzc.Azure.Templates;
 
 public static class ArmScopeFunction
 {
-    // The value of name(args) over the deployment facts { location, subscriptionId, resourceGroupName }; null holds none of them.
+    // The value of name(args) over the deployment facts { location, subscriptionId, resourceGroupName, deployments }; null holds none of them.
     public static object Call(string name, List<object> args, IDictionary deployment)
     {
         object unresolved = ArmExpression.Unresolved;
@@ -34,8 +34,31 @@ public static class ArmScopeFunction
                 return ScopedId(args, false, subscriptionId, null);
             case "resourceId":
                 return ScopedId(args, true, subscriptionId, resourceGroupName);
+            case "reference":
+                return Reference(args, deployment);
         }
         return unresolved;
+    }
+
+    private static object Reference(List<object> args, IDictionary deployment)
+    {
+        object unresolved = ArmExpression.Unresolved;
+        if (args.Count < 1 || args.Count > 3 || !(args[0] is string key) || deployment == null || !deployment.Contains("deployments")) { return unresolved; }
+        bool full = args.Count == 3 && args[2] is string mode && string.Equals(mode, "full", StringComparison.OrdinalIgnoreCase);
+        if (args.Count == 3 && !full) { return unresolved; }
+        if (!(deployment["deployments"] is IDictionary deployments)) { return unresolved; }
+        object outputs = null;
+        foreach (object k in deployments.Keys)
+        {
+            if (string.Equals(k == null ? null : k.ToString(), key, StringComparison.OrdinalIgnoreCase)) { outputs = deployments[k]; break; }
+        }
+        if (!(outputs is IDictionary)) { return unresolved; }
+        var properties = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+        properties["outputs"] = outputs;
+        if (!full) { return properties; }
+        var resource = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
+        resource["properties"] = properties;
+        return resource;
     }
 
     // '/providers/<namespace>/<type>/<name>[/<child type>/<name>…]', one name per type segment after the namespace; null on a mismatch.

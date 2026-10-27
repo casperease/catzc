@@ -96,8 +96,10 @@ choice between a stable anchor and a moving one: on the anchor, a later fix to t
 `PR is authenticated ingress, not just review`
 
 Reading a pull request as a review checkpoint undersells it: authentication makes every commit on main attributable to an authenticated
-principal. The solo `main-direct` mode is the exception because there the author _is_ the sole authenticated principal and the doorway
-collapses to a direct commit; the moment there is more than one author, the PR ingress is what keeps the mainline audited.
+principal. Because the PR is the only door, the mandatory merge gates run on every change, and no one pushes directly to the protected
+branch, so the `git log` audit trail is complete. The solo `main-direct` mode is the exception because there the author _is_ the sole
+authenticated principal and the doorway collapses to a direct commit; the moment there is more than one author, the PR ingress is what keeps
+the mainline audited.
 
 ## How this is enforced
 

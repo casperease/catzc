@@ -89,8 +89,8 @@ The precedence (highest first), each with its own org/tenant proof:
 3. **az CLI** — otherwise: `Assert-AzCliConnected -TenantId (Get-Config -Config ado).tenant` proves the az session is in the Entra directory
    backing the org, then `az account get-access-token --resource $ResourceUrl` returns a `Bearer` token.
 
-**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** Its signature and body are spelled in
-the pwsh domain, the engine that carries it.
+**The function covers Azure DevOps only; Azure Resource Manager access is out of its scope.** Its signature and body are spelled in the pwsh
+domain, the engine that carries it.
 
 ### Step template integration
 

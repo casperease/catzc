@@ -39,8 +39,8 @@ uses it.
 Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live durable-SHA identity and nothing committed per set. A unit's
 two aspects are therefore **two independent identities** — one `live`, one `tests`: a `tests`-only change never re-keys `live`, and a
 runtime change never re-keys `tests`. A unit's rolled-up identity is the fold of its aspect identities, not a separate whole-unit hash,
-which would re-key on any change and defeat the isolation. Single-file units (internal `.psm1` modules) have no `tests/`, so they carry the
-degenerate one-aspect partition.
+which would re-key on any change and defeat the isolation. Single-file units (a module manifest or entry file) have no `tests/`, so they
+carry the degenerate one-aspect partition.
 
 - [Context](#context)
 - [Consequences](#consequences)
