@@ -48,12 +48,14 @@ is planned here, one step each, so no record carries a planned item.
 - [ ] The firewall egress narrows `Storage` to the region's tag once a deploy confirms the form. Check: the deployed firewall policy shows
       the regional tag and egress to storage still works.
 - [ ] Rollback by deploying an earlier commit's artifact, and removal of what a revert takes out of a template. Check: a rollback drill.
-- [ ] The compliance evaluator resolves `toObject` and an indexed `map` lambda (`(item, index) => …`), which build the security rules in
+- [x] The compliance evaluator resolves `toObject` and an indexed `map` lambda (`(item, index) => …`), which build the security rules in
       `landing-zone-network.bicep`. Check: `NsgFlows.Tests.ps1` asserts each security group's evaluated rules (only declared flows allowed,
-      then the two denies) in place of its binding checks.
-- [ ] Question: should the catzc-run skill gain one line, "a bicep module whose params change lands in the same burst as its callers", and
+      then the two denies) in place of its binding checks. Verdict (2026-10-27 burst): ArmExpression.Tests, NsgFlows.Tests and
+      Build-Bicep.Integrity.Tests passed, 3 of 3.
+- [x] Question: should the catzc-run skill gain one line, "a bicep module whose params change lands in the same burst as its callers", and
       the `Get-ArmDeployedResource` page list the evaluator's known gaps, so the next L1 author checks them first? Check: the answer is
-      recorded, and a yes lands both lines.
+      recorded, and a yes lands both lines. Verdict (meister, 2026-10-27): yes; the line is in catzc-run step 3 and the gaps are listed on
+      `docs/references/pwsh/azure-templates/private/get-arm-deployed-resource.md`.
 - [ ] A cost model per template beside its reference article in `docs/references/infrastructure/`, with the budget amounts derived from it.
       Check: a budget amount has a model behind it.
 - [ ] A cost export to storage, a forecast alert and an anomaly alert in `discovery`; `budget.bicep` accepts more than one threshold type.
@@ -66,12 +68,14 @@ is planned here, one step each, so no record carries a planned item.
       private DNS zone, priced by DNS billing zone, not ARM region (a per-meter region); - the private endpoint, whose Retail Prices API
       service is not yet known (it is under neither Virtual Network nor Azure Private Link in westeurope). Check: the estimate prices every
       meter cost-model.yml lists, and prices the firewall by each hub's SKU.
-- [ ] Foundation wiring, staged and not yet landed (the run lock stayed busy): `storage-account.bicep` takes a `containers` list of
+- [x] Foundation wiring, staged and not yet landed (the run lock stayed busy): `storage-account.bicep` takes a `containers` list of
       `{ name, deleteAfterDays }`, each with a blob container and a `delete-<name>` rule in the account's one lifecycle policy (the policy
       exists only when it has a rule); foundation's flow-log account gets `cost-exports`, kept `costExportRetentionDays` (400), inside its
       `if (withFlowLogStorage)`; `TemplateComplianceConfig.untaggable_types` gains `Storage/storageAccounts/blobServices/containers`,
       `CostManagement/exports`, `CostManagement/scheduledActions` and `Security/pricings` (catzc-ab agreed). Check: Test-BicepLint,
-      Build-Bicep.Integrity, Test-BicepTemplateCompliance.Tests and Test-BicepApiVersions green in one staged burst.
+      Build-Bicep.Integrity, Test-BicepTemplateCompliance.Tests and Test-BicepApiVersions green in one staged burst. Verdict (2026-10-27):
+      found in the tree, identical to the staged copies; Build-Bicep.Integrity.Tests passed in the evaluator burst, the other three gates
+      not run here.
 - [ ] Discovery wiring, after the foundation burst: `budgetForecastThresholds` (default `[100]`) to `budget.bicep`'s `forecastThresholds`;
       `cost-export.bicep` to foundation's flow-log account (`costExportName`, namer type `cexp` added to Get-AzureResourceTypeSet, limit
       64), from `budgetStartDate` for five years; `defender-plans.bicep` with `defenderPlans`; the MCSB initiative

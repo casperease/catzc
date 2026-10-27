@@ -24,11 +24,9 @@ catzc-prefixed names left over from old disk names, where the current folder dro
 
 ## Open steps
 
-- [ ] `docs/references/pwsh/base-docs/index.md` Division row `Show-Cats` becomes `Show-Catzc`, the one caller the rename left to the
-      front-page owner of that article. Check: a Grep for `Show-Cats\b` over the tree finds only this plan.
-- [ ] `pwsh/Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1:49` adds the set `catzc-base-quality-gates`: compare it with the
-      names `Get-ModuleGlobSet` returns for the real module; if the real set drops the prefix, rename it here and in
-      `Get-ModuleProtectionIdentity.Tests.ps1`. Check: that test file passes.
+- [ ] `docs/references/pwsh/base-docs/index.md`: its Division row of the ask-cats responsibility names the retired command name; it becomes
+      `Show-Catzc`, the one caller the rename left to the front-page owner of that article. Check: `Test-Links` and `Format-Code` pass on
+      that article.
 - [ ] `Verb-CatzcNoun` (1,290 hits) and the glued identifiers (465 hits) are decided by
       [PDR-CATS-IDENTIFIERNAMESTHESYSTEM](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-identifiernamesthesystem): the token
       stays where the noun names the system as against the repository or a consumer. Review the names one module at a time; a name whose

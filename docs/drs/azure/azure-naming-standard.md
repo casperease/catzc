@@ -317,7 +317,7 @@ because a deterministic name differs wherever its components differ.
 | Budget                   | `budg`  | long    | 63          | —                   | subscription    |
 | Policy assignment        | `pa`    | long    | 64          | —                   | subscription    |
 | Action group             | `ag`    | long    | 260         | —                   | resource group  |
-| Alert rule               | `alrt`  | long    | 260         | —                   | resource group  |
+| Alert rule               | `alert` | long    | 260         | —                   | resource group  |
 | Workbook (display name)  | `wb`    | long    | 128         | —                   | resource group  |
 | Log Analytics query pack | `pack`  | long    | 63          | —                   | resource group  |
 | Portal dashboard         | `dash`  | long    | 160         | —                   | resource group  |
@@ -345,8 +345,8 @@ is caught only when the deploy fails.
 The component order is fixed repository-wide by the `ado_naming` variant, and its default puts the environment first and the type last,
 unlike CAF's type-first examples, which the `classic` order reproduces. Hyphens appear where the type allows them, with no delimiter in the
 `storage` and `vm` patterns, chosen per type by its render pattern. Every type token in `Get-AzureResourceTypeSet` that CAF lists equals
-CAF's abbreviation; the four types CAF does not list take `budg` (budget), `pa` (policy assignment), `alrt` (alert rule, one token for the
-metric, activity-log and scheduled-query kinds, which a role tells apart) and `wb` (workbook, whose resource name Azure requires to be a
+CAF's abbreviation; the alert rule takes the spelled-out `alert`, one token for the metric, activity-log and scheduled-query kinds, which a
+role tells apart; the three other types CAF does not list take `budg` (budget), `pa` (policy assignment) and `wb` (workbook, whose resource name Azure requires to be a
 GUID, so the namer derives its display name and the GUID derives from that), and a private DNS zone keeps the name Azure requires. Subnets
 keep the names of the network plan instead of an `snet` name, and every type in CAF's examples that the templates deploy is named by the
 standard, type last and with no instance counter.

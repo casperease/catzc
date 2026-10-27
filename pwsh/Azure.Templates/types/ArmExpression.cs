@@ -117,8 +117,6 @@ public static class ArmExpression
             return Postfix(Call(name, args));
         }
 
-        // A property or index access on a call result (reference(...).outputs) is outside the subset.
-        // A property (.name) or index ([key]) of a resolved object or list; on anything unresolved, or a missing key, it stays Unresolved.
         private object Postfix(object result)
         {
             SkipSpace();
@@ -155,9 +153,6 @@ public static class ArmExpression
         // The lambda variables bound while a lambda body evaluates for one item, innermost last.
         private readonly List<KeyValuePair<string, object>> bindings = new List<KeyValuePair<string, object>>();
 
-        // filter(array, predicate), map(array, body) and toObject(array, key[, value]), each lambda('item'[, 'index'], body): a body is parsed
-        // once per item with its variables bound, and the list's order is kept. Unresolved when the array is, or a predicate or key is not a
-        // bool or a string.
         private object LambdaCall(string name)
         {
             object source = Expression();
@@ -198,8 +193,6 @@ public static class ArmExpression
             return built;
         }
 
-        // lambda('item'[, 'index'], body): the variable names, with the position left at the body; a string-literal body is told from a
-        // variable by the comma a variable is followed by.
         private List<string> LambdaHead()
         {
             SkipSpace();
@@ -222,8 +215,6 @@ public static class ArmExpression
             return names;
         }
 
-        // The lambda body at the position, once per item with the item (and its index) bound; null when the source is no resolved list. The body
-        // is parsed once more, unbound, so the position passes it and the lambda's closing parenthesis whatever the list held.
         private List<object> EachItem(object source, List<string> names)
         {
             int body = position;

@@ -76,9 +76,9 @@ one resolver, makes every new view a config line, and moving the extra units int
 
 ## Open steps
 
-1. [ ] Reload VS Code (`catzc-track-lamps` 0.26.0 is installed). Check: the counter reads "everything is accounted for" with each lamp
-       off in turn, and a vetoed lamp shows no staged, unstaged or failed condition colour; the user looks, each remark landing here as its
-       own step.
+1. [ ] Reload VS Code (`catzc-track-lamps` 0.26.0 is installed). Check: the counter reads "everything is accounted for" with each lamp off
+       in turn, and a vetoed lamp shows no staged, unstaged or failed condition colour; the user looks, each remark landing here as its own
+       step.
 
 ## Refs
 

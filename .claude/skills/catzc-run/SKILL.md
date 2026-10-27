@@ -26,7 +26,7 @@ metadata:
    to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call that
    may wait on the run lock takes the 340 s background roof, and a re-imprint runs one folder per call; a burst ends with "burst done" sent
    at once after `Exit-CatzcBurst`; a burst step is an `Invoke-TestFile` call or a quality gate the brief names, its files staged with
-   `-Stage`, its verdict read from the results XML.
+   `-Stage`, its verdict read from the results XML; a bicep module whose params change lands in the same burst as its callers.
 4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
    is waited on by a second background call, never by polling its output, and its result is read with one grep for its
    `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run; a tree sweep is answered by the Grep

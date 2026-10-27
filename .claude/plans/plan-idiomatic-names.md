@@ -19,9 +19,9 @@ plan:
 # Idiomatic names: every language names its own way, and contracts name in one normal form
 
 Each source language names its files, folders, functions and types in its own idiom: PowerShell `Get-CommandContract.ps1` in
-`Base.Contracts/`, Python `get_command_contract` in `diagrams/`, Go `GetCommandContract` in `baserepository/`. Under the
-idioms sits one **repository normal form**, configured as `snake`; each idiom is a rendering of it, and the command contracts in
-`contracts/catzc/0.1.0` are written in it.
+`Base.Contracts/`, Python `get_command_contract` in `diagrams/`, Go `GetCommandContract` in `baserepository/`. Under the idioms sits one
+**repository normal form**, configured as `snake`; each idiom is a rendering of it, and the command contracts in `contracts/catzc/0.1.0` are
+written in it.
 
 ## Why its value is high
 

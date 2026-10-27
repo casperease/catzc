@@ -48,14 +48,14 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
     }
 
     It 'reads a property or key of an object, an index of a list, and copyIndex() inside its loop' {
-        $parameters = @{ names = [ordered]@{ cpu = 'widget-alrt'; storage = 'gadget-alrt' }; kinds = @('cpu', 'storage') }
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names').cpu]", $parameters) | Should -Be 'widget-alrt'
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names')['storage']]", $parameters) | Should -Be 'gadget-alrt'
+        $parameters = @{ names = [ordered]@{ cpu = 'widget-alert'; storage = 'gadget-alert' }; kinds = @('cpu', 'storage') }
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names').cpu]", $parameters) | Should -Be 'widget-alert'
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names')['storage']]", $parameters) | Should -Be 'gadget-alert'
         $indexes = @{ '' = 1; kinds = 1 }
         [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names')[parameters('kinds')[copyIndex()]]]", $parameters, @{}, $indexes) |
-            Should -Be 'gadget-alrt'
+            Should -Be 'gadget-alert'
         [Catzc.Azure.Templates.ArmExpression]::Evaluate("[copyIndex('kinds', 10)]", $parameters, @{}, $indexes) | Should -Be 11
-        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[copyIndex()]", $parameters)) | Should -BeTrue
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate('[copyIndex()]', $parameters)) | Should -BeTrue
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names').memory]", $parameters)) | Should -BeTrue
     }
 
@@ -100,11 +100,11 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat(createArray('widget'), createArray('gadget', 'sprocket'))]", @{}) | Should -Be @('widget', 'gadget', 'sprocket')
         [Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('widget', '-', 'gadget')]", @{}) | Should -Be 'widget-gadget'
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[concat('widget', createArray('gadget'))]", @{})) | Should -BeTrue
-        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[sub(10, 3)]", @{}) | Should -Be 7
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate('[sub(10, 3)]', @{}) | Should -Be 7
     }
 
     It 'is unresolved outside the subset, never a guess' {
-        & $isUnresolved (& $eval "[resourceGroup().location]") | Should -BeTrue
+        & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue
         & $isUnresolved (& $eval "[reference('gadget').outputs.name.value]") | Should -BeTrue
         & $isUnresolved (& $eval "[equals(parameters('missing'), 'widget')]") | Should -BeTrue
         & $isUnresolved (& $eval "[equals(parameters('kind'),]") | Should -BeTrue

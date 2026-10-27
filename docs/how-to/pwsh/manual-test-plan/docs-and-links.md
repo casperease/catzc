@@ -9,7 +9,7 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 | --- | ---- | -------------------------------------------------------------- |
 | 1   | L2   | [Build-GitKeep — managed .gitkeep files][c1]                   |
 | 2   | L1   | [Build-GitKeep — shipped assets/gitkeep][c2]                   |
-| 3   | L1   | [Get-CatzcModules — loaded catzc modules][c3]                   |
+| 3   | L1   | [Get-CatzcModules — loaded catzc modules][c3]                  |
 | 4   | L1   | [Repository code links (automation comments)][c4]              |
 | 5   | L1   | [Repository Markdown titles][c5]                               |
 | 6   | L2   | [Repository markdown integrity][c6]                            |

@@ -19,7 +19,7 @@ metadata:
    limit that already does it (a `TimeLimit`, `Get-ChildPath`, `DurableHash`, the extension and hook builders). One function per
    `Verb-Noun.ps1`; public at the module root, helpers in `private/`; an internal psm1 exports an explicit list, so a new loader function is
    named in its `Export-ModuleMember` before its first test run; a shared head mechanism lives in `Catzc.Base.CodeMeta`; a contract output
-   is `void`, a contract type or `<type>[]`, never `pscustomobject` (`New-CatsCommandLookup` refuses it), and a new or changed public
+   is `void`, a contract type or `<type>[]`, never `pscustomobject` (`New-CommandLookup` refuses it), and a new or changed public
    parameter updates the command's provided contract under `contracts/<unit>/0.0.0/` in the same step, then `Build-ContractReference`
    renders the page; the module's group and dependencies in `configs/dependencies.yml`; a config is `configs/<name>.yml` mirrored by a typed
    record `types/<Name>Config.cs` (snake_case, ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) registered in `configs.yml`, its sensible default

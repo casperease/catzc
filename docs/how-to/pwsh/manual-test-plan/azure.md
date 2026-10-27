@@ -272,7 +272,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 **Checks:**
 
 - The five database metric and capacity alerts deploy in every production slot and in no other.
-- Each database alert, the break-glass login alert and the two discovery health alerts carry a derived `alrt` name.
+- Each database alert, the break-glass login alert and the two discovery health alerts carry a derived `alert` name.
 
 ### 24. Test-BicepResourceNames (real templates)
 

@@ -34,7 +34,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 25  | L1   | [Get-ChildPath (shipped folder-walk.yml)][c25]                                    |
 | 26  | L1   | [The provided head contract][c26]                                                 |
 | 27  | L1   | [Command contracts][c27]                                                          |
-| 28  | L1   | [New-CommandLookup — the real contracts][c28]                                 |
+| 28  | L1   | [New-CommandLookup — the real contracts][c28]                                     |
 | 29  | L1   | [Test-ParameterConsistency — shipped configs/parameter-consistency.yml][c29]      |
 | 30  | L1   | [Test-ManagedGuids — shipped configs/guids.yml][c30]                              |
 | 31  | L1   | [Get-GuidScanFiles — shipped configs/guids.yml][c31]                              |

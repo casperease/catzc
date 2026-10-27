@@ -125,7 +125,7 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:4 — Controlled vocabulary  | `Get-Glossary`          |
 |                                           | `Build-Glossary`        |
 |                                           | `Test-Glossary`         |
-| responsibility:5 — Ask cats               | `Show-Cats`             |
+| responsibility:5 — Ask cats               | `Show-Catzc`            |
 | responsibility:6 — Sub-agent registry     | `Test-AgentDefinitions` |
 | config                                    | `agents.yml`            |
 |                                           | `capabilities.yml`      |
