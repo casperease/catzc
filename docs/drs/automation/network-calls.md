@@ -14,10 +14,10 @@ set.
 
 ### Rule ADR-AUTO-NET-SANCTIONEDCLASSES
 
-Every network call belongs to exactly one of five sanctioned classes: `package-install`, `price-data`, `ado-api`, `azure-control-plane` or
-`git-remote`. `azure-control-plane` and `git-remote` are sanctioned for explicit commands and pipeline steps only, never for a default path.
-A call that fits none of them is refused until a decision adds a class; a class is never inferred from the code that happens to make the
-call.
+Every network call belongs to exactly one of six sanctioned classes: `package-install`, `price-data`, `ado-api`, `azure-control-plane`,
+`git-remote` or `release-publish`. `azure-control-plane`, `git-remote` and `release-publish` are sanctioned for explicit commands and
+pipeline steps only, never for a default path. A call that fits none of them is refused until a decision adds a class; a class is never
+inferred from the code that happens to make the call.
 
 - [The classes](#the-classes)
 
@@ -57,6 +57,15 @@ build of a template stays offline.
 A `git-remote` call is git or the hosting CLI talking to a remote (fetch, ls-remote, push, a repository create). It runs only from the topic
 commands and the publishing commands that name the remote; a git call on a default path reads the local repository alone. A remote that is a
 local path is no network call and takes no entry.
+
+- [The classes](#the-classes)
+
+### Rule ADR-AUTO-NET-RELEASEPUBLISH
+
+A `release-publish` call publishes a release outward and cannot be taken back: a package pushed to a feed or a gallery, a release created on
+the hosting service, the frozen contracts pushed with it. It runs only in the release pipeline, for a named release version, with the
+credentials the pipeline supplies (its token or a repository secret); it never runs locally and is never a default path. The site is
+registered `pipeline-only`, and no local command makes such a call.
 
 - [The classes](#the-classes)
 
@@ -111,7 +120,7 @@ of them may. A call on request is a decision: a person types `Install-Uv`, or a 
 
 ### The classes
 
-`Five named classes, each with its own controls`
+`Six named classes, each with its own controls`
 
 | Class                 | What it reaches                                   | Runs from                                          |
 | --------------------- | ------------------------------------------------- | -------------------------------------------------- |
@@ -120,10 +129,13 @@ of them may. A call on request is a decision: a person types `Install-Uv`, or a 
 | `ado-api`             | the Azure DevOps REST API                         | the Azure DevOps commands and their pipeline steps |
 | `azure-control-plane` | a tenant or subscription through `az`             | the deploy, session and resource commands          |
 | `git-remote`          | a git remote or the hosting service               | the topic and publishing commands                  |
+| `release-publish`     | a package feed, a gallery, a release on the host  | the release pipeline's release job                 |
 
-All five are sanctioned. `azure-control-plane` and `git-remote` are real network calls of their own: a deploy talks to a subscription and a
-topic push talks to a server, and neither is an Azure DevOps API call or a package install, so each is classified in the open rather than
-hidden inside another class, and each is limited to the explicit commands and pipeline steps that name its target, never a default path.
+All six are sanctioned. `azure-control-plane`, `git-remote` and `release-publish` are real network calls of their own: a deploy talks to a
+subscription, a topic push talks to a server and a release push talks to a feed, and none is an Azure DevOps API call or a package install,
+so each is classified in the open rather than hidden inside another class, and each is limited to the explicit commands and pipeline steps
+that name its target, never a default path. `release-publish` is the narrowest: the outbound call is irreversible, so it exists only in the
+release pipeline, with pipeline credentials, and never as a local command or a default.
 
 ### Offline switches
 
@@ -151,8 +163,8 @@ gate. The gate searches the code for the network patterns the registry declares 
 
 ## Decision
 
-Network calls run only on explicit paths, each in one of five named classes, each registered in one config, and never on a default path or
-in a test.
+Network calls run only on explicit paths, each in one of six named classes, each registered in one config, and never on a default path or in
+a test.
 
 ## Consequences
 

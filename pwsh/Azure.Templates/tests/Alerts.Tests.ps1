@@ -9,6 +9,7 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
                 $outputFolder = @(Build-Bicep $Template -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root $Template))[-1]
                 $text = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json'))
                 $main = $text | ConvertFrom-Json -AsHashtable
+                $environments = (Get-Config -Config azure).environments
                 foreach ($slot in @((Get-BicepTemplate $Template).slots)) {
                     $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -24,7 +25,9 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
                     [pscustomobject]@{
                         Slot      = $slot.name
                         Main      = $text
-                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object { -not $_.Conditional })
+                        # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region |
+                                Where-Object { -not $_.Conditional })
                     }
                 }
             }

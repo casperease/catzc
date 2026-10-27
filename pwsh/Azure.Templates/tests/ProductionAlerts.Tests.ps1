@@ -7,6 +7,7 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
                 # Its own folder, so a concurrent build of the same template never swaps the files read here.
                 $outputFolder = @(Build-Bicep $Template -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root $Template))[-1]
                 $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
+                $environments = (Get-Config -Config azure).environments
                 foreach ($slot in @((Get-BicepTemplate $Template).slots)) {
                     $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -22,9 +23,11 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
                     }
                     [pscustomobject]@{
                         Name       = $slot.name
-                        Production = [bool](Get-Config -Config azure).environments[$slot.environment].production
+                        Production = [bool]$environments[$slot.environment].production
                         Values     = $values
-                        Resources  = @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object { -not $_.Conditional })
+                        # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                        Resources  = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region |
+                                Where-Object { -not $_.Conditional })
                     }
                 }
             }

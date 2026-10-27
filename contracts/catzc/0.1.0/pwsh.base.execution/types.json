@@ -135,11 +135,23 @@
       "display": [],
       "members": [
         {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
           "name": "ToString",
           "kind": "method"
         },
         {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
           "name": "sites",
+          "kind": "property"
+        },
+        {
+          "name": "skip",
           "kind": "property"
         }
       ]

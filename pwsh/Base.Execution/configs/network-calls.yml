@@ -12,6 +12,8 @@ patterns:
   git-fetch-source: '\$git\s+fetch\b'
   hosting-cli: '\bgh\s+(repo|release|api)\s'
   az-cli: '\bInvoke-Executable\s+["'']az\s+(?!account (show|set)\b|logout\b)|\bInvoke-AzCli\s+["'']account get-access-token\b'
+  nuget-push: '\bdotnet\s+nuget\s+push\b'
+  ps-publish: '\bPublish-PSResource\b'
   pipeline-install-step: '\bRunCommand:\s*["'']?Install-\w+'
 sites:
   pwsh/Tooling.Core/Install-Tool.ps1#Install-Tool:
@@ -199,6 +201,8 @@ sites:
     trigger: pipeline-only
     gated_by: the Install-Bicep step, run only on the pipeline agent
   .github/workflows/release-automation.yml#release:
-    class: git-remote
+    class: release-publish
     trigger: pipeline-only
-    gated_by: the manually dispatched release workflow (git push of the frozen contracts, gh release create)
+    gated_by:
+      the manually dispatched release workflow, pipeline credentials only (git push of the frozen contracts, gh release create, dotnet nuget
+      push, Publish-PSResource)

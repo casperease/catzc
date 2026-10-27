@@ -6,6 +6,7 @@ Describe 'discovery flow logs: every compiled slot' -Tag 'L1', 'integrity' {
             $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
             $slots = @((Get-BicepTemplate discovery).slots)
             $slots.Count | Should -BeGreaterThan 0
+            $environments = (Get-Config -Config azure).environments
             foreach ($slot in $slots) {
                 $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                 $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -14,7 +15,8 @@ Describe 'discovery flow logs: every compiled slot' -Tag 'L1', 'integrity' {
                     $values[$name] = if ($parameters[$name].Contains('value')) { $parameters[$name].value } else { [Catzc.Azure.Templates.ArmExpression]::Unresolved }
                 }
                 $values.flowLogStorageAccountName | Should -Not -BeNullOrEmpty -Because "slot $($slot.name) names its flow-log storage"
-                $flowLogs = @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object {
+                # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                $flowLogs = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region | Where-Object {
                         $_.Type -eq 'Microsoft.Network/networkWatchers/flowLogs' -and -not $_.Conditional
                     })
                 $flowLogs.Count | Should -Be 1 -Because "slot $($slot.name) deploys one flow log on its network"

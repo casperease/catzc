@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Execution;
 
-// The registry of every call site that can reach the network, keyed '<file>#<function or step>' (ADR-AUTO-NET-SITEREGISTRY), so one
-// file can hold sites of different classes, and the network patterns Test-NetworkCalls searches the code for (ADR-AUTO-NET-REGISTRYGATE).
+// The registry of every call site that can reach the network, keyed '<file>#<function or step>' ([ADR-AUTO-NET-SITEREGISTRY](/docs/drs/automation/network-calls.md#rule-adr-auto-net-siteregistry)), so one
+// file can hold sites of different classes, and the network patterns Test-NetworkCalls searches the code for ([ADR-AUTO-NET-REGISTRYGATE](/docs/drs/automation/network-calls.md#rule-adr-auto-net-registrygate)).
 public sealed class NetworkCallsConfig
 {
     static readonly string[] Keys = { "sites", "patterns", "skip" };

@@ -4,6 +4,7 @@ Describe 'discovery security: every compiled slot' -Tag 'L1', 'integrity' {
                 # Its own folder, so a concurrent build of the same template never swaps the files read here.
                 $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'discovery'))[-1]
                 $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
+                $environments = (Get-Config -Config azure).environments
                 foreach ($slot in @((Get-BicepTemplate discovery).slots)) {
                     $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -18,7 +19,9 @@ Describe 'discovery security: every compiled slot' -Tag 'L1', 'integrity' {
                     }
                     [pscustomobject]@{
                         Name      = $slot.name
-                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object { -not $_.Conditional })
+                        # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                        Resources = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region |
+                                Where-Object { -not $_.Conditional })
                     }
                 }
             })

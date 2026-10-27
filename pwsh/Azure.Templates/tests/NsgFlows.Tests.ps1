@@ -4,6 +4,7 @@ Describe 'Security-group flows: every compiled discovery slot' -Tag 'L1', 'integ
                 # Its own folder, so a concurrent build of the same template never swaps the files read here.
                 $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'discovery'))[-1]
                 $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
+                $environments = (Get-Config -Config azure).environments
                 foreach ($slot in @((Get-BicepTemplate discovery).slots)) {
                     $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
                     $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
@@ -17,7 +18,9 @@ Describe 'Security-group flows: every compiled discovery slot' -Tag 'L1', 'integ
                             [Catzc.Azure.Templates.ArmExpression]::Unresolved
                         }
                     }
-                    foreach ($group in @(Get-ArmDeployedResource -Template $main -Values $values | Where-Object Type -EQ 'Microsoft.Network/networkSecurityGroups')) {
+                    # Sent to its environment's region, as Deploy-Bicep's --location sends it, so deployment().location resolves.
+                    $deployed = @(Get-ArmDeployedResource -Template $main -Values $values -Location $environments[$slot.environment].region)
+                    foreach ($group in @($deployed | Where-Object Type -EQ 'Microsoft.Network/networkSecurityGroups')) {
                         [pscustomobject]@{
                             Name  = "$($slot.name) $($group.Path)"
                             Rules = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($group.Resource.properties.securityRules, $group.Scope, $group.Variables, $group.Indexes))

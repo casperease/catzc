@@ -79,8 +79,13 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
             { & $script:make (& $script:site @{ gadget = 'x' }) } | Should -Throw "*unknown key 'gadget'*"
         }
 
-        It 'rejects a class outside the five' {
+        It 'rejects a class outside the six' {
             { & $script:make (& $script:site @{ class = 'gadget-feed' }) } | Should -Throw "*class 'gadget-feed' is not one of*"
+        }
+
+        It 'accepts the release-publish class' {
+            (& $script:make (& $script:site @{ class = 'release-publish'; trigger = 'pipeline-only' })).sites.Values |
+                ForEach-Object class | Should -BeExactly 'release-publish'
         }
 
         It 'rejects a trigger outside the four' {

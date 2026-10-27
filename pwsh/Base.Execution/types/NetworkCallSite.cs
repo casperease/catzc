@@ -4,12 +4,10 @@ using System.Globalization;
 
 namespace Catzc.Base.Execution;
 
-// One function or pipeline step that can reach the network, keyed '<file>#<function or step>', with its class, its trigger and what keeps
-// it off a default path (ADR-AUTO-NET-SITEREGISTRY).
 public sealed class NetworkCallSite
 {
-    static readonly string[] Classes = { "package-install", "price-data", "ado-api", "azure-control-plane", "git-remote" };
-    // offline-guarded: on a default path, with the tool held offline by a generated guard (ADR-AUTO-NET-GENERATEDGUARD).
+    static readonly string[] Classes = { "package-install", "price-data", "ado-api", "azure-control-plane", "git-remote", "release-publish" };
+    // offline-guarded: on a default path, with the tool held offline by a generated guard ([ADR-AUTO-NET-GENERATEDGUARD](/docs/drs/automation/network-calls.md#rule-adr-auto-net-generatedguard)).
     static readonly string[] Triggers = { "on-request", "pipeline-only", "offline-guarded", "default-path" };
     static readonly string[] Keys = { "class", "trigger", "gated_by" };
 
@@ -23,7 +21,7 @@ public sealed class NetworkCallSite
     public string trigger { get; }
     public string gated_by { get; }
 
-    // A default-path site breaks ADR-AUTO-NET-NODEFAULTPATH; it stays registered as it is until its plan step lands.
+    // A default-path site breaks [ADR-AUTO-NET-NODEFAULTPATH](/docs/drs/automation/network-calls.md#rule-adr-auto-net-nodefaultpath); it stays registered as it is until its plan step lands.
     public bool IsViolation => trigger == "default-path";
 
     public NetworkCallSite(string key, IDictionary raw)
