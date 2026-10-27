@@ -292,6 +292,23 @@ Describe 'NetworkConfig' -Tag 'L0' {
             { & $script:make $own } | Should -Throw "*firewall_egress: unknown key 'ip_ranges'*"
         }
 
+        It 'takes the service-tag region names declared once on the type, or the file''s, and refuses a bad one' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            @($config.firewall_egress.service_tags) | Should -Contain 'Storage.{region}'
+            $config.firewall_egress.service_tag_regions['westeurope'] | Should -BeExactly 'WestEurope'
+            $own = Copy-Object $baseConfig
+            $own.firewall_egress = [ordered]@{ service_tag_regions = [ordered]@{ widgetnorth = 'WidgetNorth' } }
+            $config = & $script:make $own
+            @($config.firewall_egress.service_tag_regions.Keys) | Should -Be @('widgetnorth')
+            $config.firewall_egress.service_tag_regions['widgetnorth'] | Should -BeExactly 'WidgetNorth'
+            $own.firewall_egress = [ordered]@{ service_tag_regions = [ordered]@{ widgetnorth = 'GadgetSouth' } }
+            { & $script:make $own } | Should -Throw "*firewall_egress.service_tag_regions: 'widgetnorth: GadgetSouth' must map*"
+            $own.firewall_egress = [ordered]@{ service_tag_regions = [ordered]@{ WidgetNorth = 'WidgetNorth' } }
+            { & $script:make $own } | Should -Throw "*firewall_egress.service_tag_regions: 'WidgetNorth: WidgetNorth' must map*"
+            $own.firewall_egress = [ordered]@{ service_tag_regions = @('widgetnorth') }
+            { & $script:make $own } | Should -Throw '*firewall_egress.service_tag_regions must be a map*'
+        }
+
         It 'takes the security-group flows declared once on the type, or the file''s, and refuses a bad one' {
             $config = & $script:make (Copy-Object $baseConfig)
             @($config.nsg_flows.name) | Should -Be @('workload-to-private-endpoints', 'shared-services-management', 'same-subnet')

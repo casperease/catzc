@@ -75,8 +75,6 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
         }
 
         BeforeEach {
-            # Two firewall declarations, a conditional pair: the count key prices the one that deploys; keyed by symbolic name, as
-            # languageVersion 2.0 compiles them.
             $hub = @{ languageVersion = '2.0'; resources = @{ widget = @{ type = 'Microsoft.Network/azureFirewalls' }; gadget = @{ type = 'Microsoft.Network/azureFirewalls' }; sprocket = @{ type = 'Microsoft.KeyVault/vaults' } } }
             $null = New-Item -ItemType Directory -Path (Join-Path $script:out 'widget') -Force
             Set-Content -LiteralPath (Join-Path $script:out 'widget/main.json') -Value ($hub | ConvertTo-Json -Depth 10)

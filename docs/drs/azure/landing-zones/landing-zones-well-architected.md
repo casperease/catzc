@@ -267,10 +267,11 @@ The baseline is written in three places, each the owner of one part. The Securit
 `policy_enforcement` in `pwsh/Azure/configs/azure.yml` deciding whether they deny or only audit
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)). `discovery` assigns the three
 policies through `policy-assignment.bicep` at subscription scope, with the enforcement mode a fact the build derives from the subscription
-the slot targets (production enforcement where the subscription holds a production environment). No external benchmark initiative is
-assigned to a landing zone and nothing measures a deployed subscription against one. `foundation`'s two resources come from
-`log-analytics.bicep` and `key-vault.bicep` and carry the CAF tags, so they pass the required-tag policy; `expedition` takes every secure
-default of `storage-account.bicep` and `sql-server.bicep` and overrides only `entraOnlyAuthentication`, to keep the break-glass login.
+the slot targets (production enforcement where the subscription holds a production environment). The Microsoft cloud security benchmark
+initiative is assigned beside them in `DoNotEnforce` mode, whatever the subscription, so it measures every resource and denies none
+([ADR-AZ-LZ-CAFSECURITY](../landing-zones.md#rule-adr-az-lz-cafsecurity)). `foundation`'s two resources come from `log-analytics.bicep` and
+`key-vault.bicep` and carry the CAF tags, so they pass the required-tag policy; `expedition` takes every secure default of
+`storage-account.bicep` and `sql-server.bicep` and overrides only `entraOnlyAuthentication`, to keep the break-glass login.
 
 Security is a property of every change
 ([EDR-DORA-SECURITY-SECUREPATHAUTOMATED](../../external/dora/pervasive-security.md#rule-edr-dora-security-securepathautomated)), and the
@@ -371,8 +372,9 @@ rotation is manual. `discovery` uses no secret.
 streams the subscription's activity log there, including the `Administrative`, `Security`, and `Policy` categories, and
 `diagnostic-setting.bicep` sends each resource's logs (category group `allLogs`) and metrics to it; `discovery` sends the virtual network
 and every network security group, and `expedition` the storage account, its blob service, and the database. The workspace keeps 30 days
-(`retentionInDays` default of `log-analytics.bicep`). The vault sends no diagnostics, so secret reads are not logged. No Microsoft Defender
-for Cloud plan, Microsoft Sentinel, or SQL auditing is deployed.
+(`retentionInDays` default of `log-analytics.bicep`). The vault sends no diagnostics, so secret reads are not logged. `discovery` turns on
+the Microsoft Defender for Cloud plans of `defenderPlans` (storage, SQL, Key Vault, and Resource Manager), `sql-server.bicep` sends each
+server's auditing to the workspace, and Microsoft Sentinel is not deployed.
 
 The repository's tests run before deploy, on the code: `Build-Bicep` compiles each template and checks every rendered parameters file
 against its contract, and `Test-AzureNetworkPlan` checks the network plan. None of them reads a security property of the compiled templates,

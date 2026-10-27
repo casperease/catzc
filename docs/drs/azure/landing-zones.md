@@ -73,10 +73,12 @@ same way: hubs, then spokes, then hubs again.
 
 ### Rule ADR-AZ-LZ-GOVERNANCELIMITS
 
-The landing zone governs location, tagging, and exposure, and nothing else. It defines no custom policy, assigns no regulatory initiative
-and no resource-provider or resource-type policy, makes no assignment above a subscription, and grants no role to an application team. A
-repository whose customer carries a regulation, or that must narrow the services a subscription may use, adds the matching built-in
-definition to the landing zone's set, pinned like the others.
+The landing zone governs location, tagging, exposure, data diagnostics, and the storage and virtual machine SKUs, and nothing else. Its one
+custom definition is the CAF-tags rule, defined at subscription scope beside its assignment; every other assignment is a built-in pinned by
+its id, and its one initiative is the Microsoft cloud security benchmark, assigned to audit only. It assigns no regulatory initiative and no
+resource-provider or resource-type policy, makes no assignment above a subscription, and grants roles only as ADR-AZ-LZ-CAFIDENTITY
+declares. A repository whose customer carries a regulation adds the matching built-in initiative to the landing zone's set, pinned like the
+others.
 
 - [Governance limits](landing-zones/landing-zones-topology.md#governance-limits)
 
@@ -115,9 +117,11 @@ supports them. Region, tier, repository, service-level, and purpose tags are not
 
 ### Rule ADR-AZ-LZ-CAFSECURITY
 
-The platform's security is the three subscription policies, one Key Vault per subscription authorized through Azure RBAC, system-assigned
-managed identities, private endpoints for data, and the diagnostics of every resource in the subscription's workspace. Defender for Cloud,
-Sentinel, Purview, customer-managed keys, and every virtual machine control are not deployed.
+The platform's security is the landing zone's policy assignments, one Key Vault per subscription authorized through Azure RBAC,
+system-assigned managed identities, private endpoints for data, the diagnostics of every resource in the subscription's workspace, and
+Defender for Cloud: `discovery` turns on the Defender plans of the services the landing zone runs (`defenderPlans`) and assigns the
+Microsoft cloud security benchmark initiative in `DoNotEnforce` mode, so it measures and never denies. Sentinel, Purview, customer-managed
+keys, and every virtual machine control are not deployed.
 
 - [CAF security](landing-zones/landing-zones-caf.md#caf-security)
 

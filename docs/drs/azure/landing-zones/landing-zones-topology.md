@@ -92,15 +92,14 @@ retention, the serverless pause — are config values.
 
 ## Governance limits
 
-The landing zone assigns built-in definitions only, which Azure publishes at tenant level and every subscription can assign, so no custom
-definition has a hierarchy to live in. A custom definition, if one were ever written, would sit at subscription level beside its assignment
-until the repository gained rights over the tenant's hierarchy.
+The landing zone assigns built-in definitions, which Azure publishes at tenant level and every subscription can assign, and one custom
+definition, the CAF-tags rule of `landing-zone-policies.bicep`, which sits at subscription level beside its assignment, since the repository
+has no rights over the tenant's hierarchy.
 
-The example customers carry no regulatory obligation, so the policy set holds only the three guardrails every subscription needs. The
-`data-classification` tag records how sensitive a workload's data is, but no policy reads it. The assignment module takes an initiative id
-as readily as a definition id, so a regulatory initiative is one more pinned entry in `discovery`'s set. The same holds for a resource-type
-policy: which services a subscription may use is left to the rights of the identity that deploys into it, and nothing registers or restricts
-a resource provider.
+The example customers carry no regulatory obligation, so the policy set holds the guardrails every subscription needs and one audit-only
+initiative, the Microsoft cloud security benchmark. The `data-classification` tag records how sensitive a workload's data is, but no policy
+reads it. The assignment module takes an initiative id as readily as a definition id, so a regulatory initiative is one more pinned entry in
+`discovery`'s set. Nothing registers or restricts a resource provider.
 
 Policy belongs to the landing zone and a workload owns none of it
 ([ADR-AZ-LZ-WORKLOADOWNSNONE](../landing-zones.md#rule-adr-az-lz-workloadownsnone)). The templates grant no role to a team; the only role

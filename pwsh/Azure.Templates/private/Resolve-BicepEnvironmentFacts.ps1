@@ -21,6 +21,11 @@ function Resolve-BicepEnvironmentFacts {
     $environment = $environments[$Slot.environment]
     foreach ($parameter in @($TemplateDescriptor.facts.Keys)) {
         $field = $TemplateDescriptor.facts[$parameter]
+        if ($field -ceq 'module_resource_types') {
+            # The types the shared modules declare, read at build time, so a new module's type needs no list edit.
+            $facts[$parameter] = [string[]] @(Get-BicepModuleResourceTypes)
+            continue
+        }
         $facts[$parameter] = if ($field -cin 'policy_enforcement', 'subscription_production', 'groups') {
             # The subscription's class, not the slot environment's: a subscription that holds a production environment is production.
             if (-not $azure.subscriptions.ContainsKey($Slot.subscription)) {

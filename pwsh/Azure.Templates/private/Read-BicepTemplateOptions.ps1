@@ -67,7 +67,7 @@ function Read-BicepTemplateOptions {
             $errors.Add('facts must be a map of slot parameter -> environment field')
         }
         else {
-            $fields = @([Catzc.Azure.AzureEnvironmentRecord].GetProperties() | Where-Object PropertyType -EQ ([bool]) | ForEach-Object Name) + 'policy_enforcement', 'subscription_production', 'groups'
+            $fields = @([Catzc.Azure.AzureEnvironmentRecord].GetProperties() | Where-Object PropertyType -EQ ([bool]) | ForEach-Object Name) + 'policy_enforcement', 'subscription_production', 'groups', 'module_resource_types'
             foreach ($parameter in @($options.facts.Keys)) {
                 if ("$($options.facts[$parameter])" -cnotin $fields) {
                     $errors.Add("facts.${parameter}: unknown environment field '$($options.facts[$parameter])' (valid: $($fields -join ', '))")

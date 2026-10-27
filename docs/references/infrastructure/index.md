@@ -13,14 +13,14 @@ Design rationale lives in the [Azure ADRs](../../drs/azure/).
 
 ## The articles
 
-| Article                         | In one line                                                               |
-| ------------------------------- | ------------------------------------------------------------------------- |
-| [overview](overview.md)         | The templating system — layout, discovery, build and deploy               |
-| [modules](modules.md)           | The shared bicep modules referenced by templates                          |
-| [foundation](foundation.md)     | Once-per-subscription baseline: Log Analytics and Key Vault               |
-| [discovery](discovery.md)       | CAF landing zone per subscription: hub or spoke network, policies, budget |
-| [expedition](expedition.md)     | Well-Architected workload: storage and SQL behind private endpoints       |
-| [foundation cost model](foundation-cost-model.md) | What foundation's meters are and how its slot is estimated |
-| [discovery cost model](discovery-cost-model.md) | Discovery's meters, the firewall by tier, and the budget derived from the estimate |
-| [expedition cost model](expedition-cost-model.md) | What expedition's meters are and how its slot is estimated |
-| [threat-model](threat-model.md) | The templates and their pipeline by trust boundary and STRIDE category    |
+| Article                                           | In one line                                                                        |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [overview](overview.md)                           | The templating system — layout, discovery, build and deploy                        |
+| [modules](modules.md)                             | The shared bicep modules referenced by templates                                   |
+| [foundation](foundation.md)                       | Once-per-subscription baseline: Log Analytics and Key Vault                        |
+| [discovery](discovery.md)                         | CAF landing zone per subscription: hub or spoke network, policies, budget          |
+| [expedition](expedition.md)                       | Well-Architected workload: storage and SQL behind private endpoints                |
+| [foundation cost model](foundation-cost-model.md) | What foundation's meters are and how its slot is estimated                         |
+| [discovery cost model](discovery-cost-model.md)   | Discovery's meters, the firewall by tier, and the budget derived from the estimate |
+| [expedition cost model](expedition-cost-model.md) | What expedition's meters are and how its slot is estimated                         |
+| [threat-model](threat-model.md)                   | The templates and their pipeline by trust boundary and STRIDE category             |

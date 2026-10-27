@@ -51,8 +51,6 @@ function Get-BicepCostEstimate {
     }
     $table = $prices['prices'] ?? @{}
 
-    # A type whose SKU a config decides reads it at its global address for the subscription; with no subscription to read for, it has none,
-    # and its SKU-bound meters apply nowhere.
     $skus = @{}
     foreach ($type in @($Config.skus.Keys)) {
         $address = $Config.skus[$type]
@@ -101,12 +99,12 @@ function Get-BicepCostEstimate {
     [pscustomobject]@{
         Template     = $Template
         Subscription = $Subscription
-        Currency = $prices['currency'] ?? $Config.currency
-        Region   = $prices['region'] ?? $Config.region
-        AsOf     = $prices['as_of']
-        Monthly  = [System.Math]::Round([double] (($priced | Measure-Object -Property Monthly -Sum).Sum ?? 0), 2)
-        Budget   = [System.Math]::Round([double] (($priced | Measure-Object -Property Monthly -Sum).Sum ?? 0) * $Config.headroom, 2)
-        Lines    = $lines
-        Unpriced = [string[]] @($lines | Where-Object { $null -eq $_.Monthly } | ForEach-Object Meter)
+        Currency     = $prices['currency'] ?? $Config.currency
+        Region       = $prices['region'] ?? $Config.region
+        AsOf         = $prices['as_of']
+        Monthly      = [System.Math]::Round([double] (($priced | Measure-Object -Property Monthly -Sum).Sum ?? 0), 2)
+        Budget       = [System.Math]::Round([double] (($priced | Measure-Object -Property Monthly -Sum).Sum ?? 0) * $Config.headroom, 2)
+        Lines        = $lines
+        Unpriced     = [string[]] @($lines | Where-Object { $null -eq $_.Monthly } | ForEach-Object Meter)
     }
 }

@@ -71,8 +71,11 @@ is planned here, one step each, so no record carries a planned item.
       the `Get-ArmDeployedResource` page list the evaluator's known gaps, so the next L1 author checks them first? Check: the answer is
       recorded, and a yes lands both lines. Verdict (meister, 2026-10-27): yes; the line is in catzc-run step 3 and the gaps are listed on
       `docs/references/pwsh/azure-templates/private/get-arm-deployed-resource.md`.
-- [ ] A cost model per template beside its reference article in `docs/references/infrastructure/`, with the budget amounts derived from it.
-      Check: a budget amount has a model behind it.
+- [x] A cost model per template beside its reference article in `docs/references/infrastructure/`, with the budget amounts derived from it.
+      Check: a budget amount has a model behind it. Verdict (2026-10-27 burst): `<template>-cost-model.md` for foundation, discovery and
+      expedition name the meters and the one derivation (`Get-BicepCostEstimate -Subscription`, `Budget` = total times `headroom`);
+      `Discovery.Budget.Tests.ps1` checks every discovery slot's `budgetAmount` against it offline, passed with Get-BicepCostEstimate.Tests
+      and Update-AzurePriceTable.Tests, 3 of 3.
 - [x] A cost export to storage, a forecast alert and an anomaly alert in `discovery`; `budget.bicep` accepts more than one threshold type.
       Check: `discovery` deploys all three. Verdict (2026-10-27): the export and the forecast thresholds landed with the discovery wiring;
       the anomaly alert stays in its own step below.
@@ -85,7 +88,10 @@ is planned here, one step each, so no record carries a planned item.
       Standard static public IP and zones 1–3; - each with data processed per GB and its resource-specific logs into the workspace; - the
       private DNS zone, priced by DNS billing zone, not ARM region (a per-meter region); - the private endpoint, whose Retail Prices API
       service is not yet known (it is under neither Virtual Network nor Azure Private Link in westeurope). Check: the estimate prices every
-      meter cost-model.yml lists, and prices the firewall by each hub's SKU.
+      meter cost-model.yml lists, and prices the firewall by each hub's SKU. Verdict (2026-10-27 burst): `skus`, `when_sku`, `count` and a
+      per-meter `region` landed on CostModelConfig (CostMeter split to its own file) with the firewall, public-IP and Zone 1 DNS meters; the
+      hub firewall is priced by its tier (Discovery.Budget.Tests, 3 of 3). Open: `Update-AzurePriceTable` is not yet run for the new meters
+      (the table lacks them, so they read as unpriced), and the private endpoint's service is still unknown.
 - [x] Foundation wiring, staged and not yet landed (the run lock stayed busy): `storage-account.bicep` takes a `containers` list of
       `{ name, deleteAfterDays }`, each with a blob container and a `delete-<name>` rule in the account's one lifecycle policy (the policy
       exists only when it has a rule); foundation's flow-log account gets `cost-exports`, kept `costExportRetentionDays` (400), inside its
@@ -113,8 +119,9 @@ is planned here, one step each, so no record carries a planned item.
       of 12, and Invoke-BreakGlassRotation.Tests passed, 9 of 9.
 - [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time fact;
       design first). Check: a new module's type is allowed without editing a list.
-- [ ] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least
-      the estimate times `headroom`. Check: the L1 case reads 0, offline from the checked-in price table.
+- [x] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least
+      the estimate times `headroom`. Check: the L1 case reads 0, offline from the checked-in price table. Verdict (2026-10-27 burst): the
+      cost model is a `<template>-cost-model.md` page beside each article, and `Discovery.Budget.Tests.ps1` reads 0, passed.
 - [x] A DEPLOY pipeline with staged production promotion, so the CD stage deploys no production. Check: no pipeline deploys production in
       the CD stage. Verdict (2026-10-27): `cd-apex.yaml` and `cd-shared.yaml` dropped their prod-subscription targets (psub, prod);
       `deploy-apex.yaml` `prod` deploys psub, then preprod, then prod, and `deploy-shared.yaml` gained `prod` (psub); Test-Pipelines.Tests

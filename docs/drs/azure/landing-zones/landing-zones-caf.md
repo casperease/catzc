@@ -128,8 +128,9 @@ to the tenant's security operations or are served by the retrieval dates of the 
 policy-deployed extensions, security drift, attestation, and just-in-time access have nothing to act on, and no endpoint or user application
 exists for endpoint management, Defender for Cloud Apps, or application onboarding.
 
-The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns three built-in policies at
-subscription level in place of the management-group policy set of the CAF reference landing zone. Access follows Zero Trust through Entra ID
+The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns its policy set at subscription
+level in place of the management-group policy set of the CAF reference landing zone, turns on the Defender for Cloud plans of the services
+it runs, and measures them against the Microsoft cloud security benchmark in audit mode. Access follows Zero Trust through Entra ID
 identities, a service connection per subscription pinned on every deploy, and private endpoints for data, though `foundation`'s vault and
 workspace accept public traffic. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with its
 template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in place of Purview. No workload

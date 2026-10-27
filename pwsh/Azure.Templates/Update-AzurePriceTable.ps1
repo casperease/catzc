@@ -50,8 +50,6 @@ function Update-AzurePriceTable {
         }
     }
 
-    # Each meter takes the first tier priced above 0, since a free allowance is a meter's common first tier; a meter that matches
-    # nothing is reported, never loosened.
     $prices = [ordered]@{}
     $unmatched = [System.Collections.Generic.List[string]]::new()
     foreach ($meter in $Config.meters) {
