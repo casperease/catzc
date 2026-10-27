@@ -78,9 +78,8 @@ a person's name or a secret.
 Every Azure resource name is assembled from one canonical component set, rendered two ways (hyphenated for relaxed types, concatenated for
 tight types). Names are **deterministic** — no random suffixes or hashes.
 
-The binding constraint is the **storage account**: 3–24 chars, lowercase letters + digits only, **no hyphens**, globally unique. Any
-component that appears in a storage name cannot contain hyphens or uppercase, and the assembled name must stay ≤ 24. Relaxed types (resource
-group ≤ 90, most others) never bind.
+The binding constraint is the **storage account**: 3–24 chars, lowercase letters and digits only, globally unique, so a storage name's
+components hold **no hyphen** or uppercase and the name stays ≤ 24. Relaxed types (resource group ≤ 90, most others) never bind.
 
 Two goals shape the standard:
 

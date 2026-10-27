@@ -67,7 +67,7 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
             $hubAddress = $spoke.Values.networks[$spoke.Values.hub.subscription].firewall_private_ip
             $hubAddress | Should -Match '^\d+\.\d+\.\d+\.\d+$' -Because "spoke $($spoke.Name) resolves its hub's firewall address"
             $tables = @($spoke.Resources | Where-Object Type -EQ 'Microsoft.Network/routeTables')
-            $tables.Count | Should -Be 1
+            $tables.Count | Should -Be 1 -Because "spoke $($spoke.Name) deploys one route table"
             $routes = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($tables[0].Resource.properties.routes, $tables[0].Scope, $tables[0].Variables))
             $egress = @($routes | Where-Object { $_.properties.addressPrefix -eq '0.0.0.0/0' })
             $egress.Count | Should -Be 1 -Because "spoke $($spoke.Name) sends its default route to the hub"

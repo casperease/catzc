@@ -50,9 +50,6 @@ is planned here, one step each, so no record carries a planned item.
 - [ ] The firewall egress narrows `Storage` to the region's tag once a deploy confirms the form. Check: the deployed firewall policy shows
       the regional tag and egress to storage still works.
 - [ ] Rollback by deploying an earlier commit's artifact, and removal of what a revert takes out of a template. Check: a rollback drill.
-- [ ] The compliance evaluator evaluates `if()` lazily, only the branch its condition picks, and expands a template's `variables.copy` array
-      (Bicep's for-variables). Today an unresolved unused branch, or a for-variable, leaves the value unresolved. Check: the evaluated
-      `routes` and firewall `sku` assertions return in `HubFirewall.Tests.ps1`.
 - [ ] The compliance evaluator resolves `toObject` and an indexed `map` lambda (`(item, index) => …`), which build the security rules in
       `landing-zone-network.bicep`. Check: `NsgFlows.Tests.ps1` asserts each security group's evaluated rules (only declared flows allowed,
       then the two denies) in place of its binding checks.
@@ -78,16 +75,16 @@ is planned here, one step each, so no record carries a planned item.
       `CostManagement/exports`, `CostManagement/scheduledActions` and `Security/pricings` (catzc-ab agreed). Check: Test-BicepLint,
       Build-Bicep.Integrity, Test-BicepTemplateCompliance.Tests and Test-BicepApiVersions green in one staged burst.
 - [ ] Discovery wiring, after the foundation burst: `budgetForecastThresholds` (default `[100]`) to `budget.bicep`'s `forecastThresholds`;
-      `cost-export.bicep` to foundation's flow-log account (`costExportName`, namer type `cexp` added to Get-AzureResourceTypeSet, limit 64),
-      from `budgetStartDate` for five years; `defender-plans.bicep` with `defenderPlans`; the MCSB initiative
-      (`1f3afdf9-d0c9-4c3d-847f-89da613e70a8`) in `landing-zone-policies.bicep` as `benchmark` (role `bm`), its own `DoNotEnforce`. Check: the
-      same four gates and Get-AzureResourceName tests green in one staged burst.
-- [ ] The anomaly alert (`scheduled-action.bicep`) in discovery: its recipients are a required template input injected at deploy time from
-      a pipeline variable (decided), but no deploy-time parameter injection exists yet, so the mechanism is designed and approved first,
-      then the variable joins the task file's pipeline-setup step. Check: discovery deploys the alert with recipients from the variable and
-      no address in config.
-- [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time
-      fact; design first). Check: a new module's type is allowed without editing a list.
+      `cost-export.bicep` to foundation's flow-log account (`costExportName`, namer type `cexp` added to Get-AzureResourceTypeSet, limit
+      64), from `budgetStartDate` for five years; `defender-plans.bicep` with `defenderPlans`; the MCSB initiative
+      (`1f3afdf9-d0c9-4c3d-847f-89da613e70a8`) in `landing-zone-policies.bicep` as `benchmark` (role `bm`), its own `DoNotEnforce`. Check:
+      the same four gates and Get-AzureResourceName tests green in one staged burst.
+- [ ] The anomaly alert (`scheduled-action.bicep`) in discovery: its recipients are a required template input injected at deploy time from a
+      pipeline variable (decided), but no deploy-time parameter injection exists yet, so the mechanism is designed and approved first, then
+      the variable joins the task file's pipeline-setup step. Check: discovery deploys the alert with recipients from the variable and no
+      address in config.
+- [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time fact;
+      design first). Check: a new module's type is allowed without editing a list.
 - [ ] Expedition: `auditWorkspaceId` on its `sql-server.bicep` call (ask catzc-ab first, after the data-role burst); the CI step in
       `ci-infrastructure.yaml` printing Get-BicepCostEstimate per template and environment (released by catzc-f9; it adds no
       serviceConnection); each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is

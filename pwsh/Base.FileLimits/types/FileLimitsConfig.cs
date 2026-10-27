@@ -42,6 +42,8 @@ public sealed class FileLimitsConfig
         // One record per line is data whose lines cannot wrap, so a delimited table is not measured.
         [".csv"] = Unmeasured,
         [".tsv"] = Unmeasured,
+        // A lock file is a resolver's generated record, written whole, so it is not measured either.
+        [".lock"] = Unmeasured,
         ["LICENSE"] = "prose",
         [".gitkeep"] = Unmeasured,
         ["gitkeep"] = Unmeasured,
