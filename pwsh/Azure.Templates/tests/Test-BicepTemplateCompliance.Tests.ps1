@@ -80,8 +80,8 @@ Describe 'Test-BicepTemplateCompliance' -Tag 'L0', 'logic' {
         & $writeTemplate -ResourceTags $null
         $result = Test-BicepTemplateCompliance -Template widget -Config $config -OutputFolder $out -PassThru
         $result.Issues | Should -BeLike '*(Microsoft.Storage/storageAccounts): *tags*'
-        $untaggable = [Catzc.Azure.Templates.TemplateComplianceConfig]::new(@{ untaggable_types = @('Microsoft.Storage/storageAccounts') })
-        $result = Test-BicepTemplateCompliance -Template widget -Config $untaggable -OutputFolder $out -PassThru
+        $storageWithoutTags = [Catzc.Azure.Templates.TemplateComplianceConfig]::new(@{ untaggable_types = @('Microsoft.Storage/storageAccounts') })
+        $result = Test-BicepTemplateCompliance -Template widget -Config $storageWithoutTags -OutputFolder $out -PassThru
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
@@ -216,7 +216,7 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
             $widget[0].Scope.sizes | Should -BeExactly @('small', 'large')
             # The nested deployment's resource group rides on each of its records; a top-level record has the deployment's own, ''.
             $widget[0].ResourceGroup | Should -BeExactly 'widget-rg'
-            @(Get-ArmDeployedResource -Template $Nested -Values @{ location = 'widget-north' })[0].ResourceGroup | Should -BeExactly ''
+            (Get-ArmDeployedResource -Template $Nested -Values @{ location = 'widget-north' } | Select-Object -First 1).ResourceGroup | Should -BeExactly ''
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved([Catzc.Azure.Templates.ArmExpression]::Evaluate(
                     $widget[0].Resource.location, $widget[0].Scope, $widget[0].Variables, $widget[0].Indexes, $widget[0].Deployment)) | Should -BeTrue
             $unplaced = @(Get-ArmDeployedResource -Template $Template -Values @{ gadgets = @() })
@@ -249,9 +249,11 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
             $items[1].Name | Should -BeExactly 'd61bf936-8844-5b06-b159-3f2725eb4720'
             $items[2].Name | Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
             [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($items[3].Name) | Should -BeTrue
-            @(Get-ArmDeployedResource -Template $Leaf -Values @{} -SubscriptionId '00000000-0000-0000-0000-00000000000a' -ResourceGroupName 'widget-rg')[0].Name |
-                Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
-            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved(@(Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg')[0].Name) | Should -BeTrue
+            $scoped = Get-ArmDeployedResource -Template $Leaf -Values @{} -SubscriptionId '00000000-0000-0000-0000-00000000000a' -ResourceGroupName 'widget-rg' |
+                Select-Object -First 1
+            $scoped.Name | Should -BeExactly '9ce68b74-0af1-5971-bdd4-430f34b1e23c'
+            $unscoped = Get-ArmDeployedResource -Template $Leaf -Values @{} -ResourceGroupName 'widget-rg' | Select-Object -First 1
+            [Catzc.Azure.Templates.ArmExpression]::IsUnresolved($unscoped.Name) | Should -BeTrue
         }
     }
 

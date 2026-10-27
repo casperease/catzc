@@ -73,11 +73,6 @@ Check for each: `Update-AdrCitation` dry run, then the record check.
       alternatives 1/3/10 and 2/7 fold together; HEADPOLICY's carrier detail in `repository/file-meta.md` defers to JSONCARRIER. Check: the
       record check.
 
-### Gate extension (decided by the user, 2026-10-27: yes)
-
-- [ ] `pwsh/Base.Drs/configs/drs-checks.yml` `engine_neutrality.domains`: add `flow: [vendor]` and `design`, `principles`, `thesis`:
-      `[engine, vendor]` (the token sets and their tests landed). Check: `Test-DrsEngineNeutrality` passes on the whole DRS.
-
 ### Records still owed a full prose pass
 
 - [ ] The same in-place tightening for `repository/` (slides-as-markdown, command-contracts, drs-code-language, uniform-formatting,

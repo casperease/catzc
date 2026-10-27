@@ -105,8 +105,8 @@ first covered vendor, not a hardwired assumption.
 
 Build catzc as a **thin platform**: an API/CLI abstraction over a vendor layer (DDR-THINPLAT-THINPLATFORM), kept thin by delegating to the
 vendor's own primitives rather than reimplementing them (DDR-THINPLAT-DELEGATENOTREIMPLEMENT), consumed through a single CLI surface
-(DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (PDR-EAC-EVERYTHINGCOMMITTED), and owned as a reusable
-product over a substrate that stays swappable behind the CLI (DDR-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD
+(DDR-THINPLAT-PLATFORMASCLI), fully represented as one living version of code (PDR-EAC-EVERYTHINGCOMMITTED), and owned as a reusable product
+over a substrate that stays swappable behind the CLI (DDR-THINPLAT-SWAPPABLESUBSTRATE). This is our implementation of the EaC and CD
 principles as a Team-Topologies platform, covering Azure and Azure RM via Bicep plus a curated az CLI.
 
 ### How this holds together

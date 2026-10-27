@@ -87,13 +87,13 @@ as candidates misrepresents the gate as a pass-through.
 **Colour is temporal: it is the commit's state at a moment, and one commit may be drawn at several colours to show its progression.** A
 commit does not own a fixed colour — it starts WIP blue or grey and is recoloured as it moves through the flow (WIP blue → grey → yellow →
 blue → light-blue → light-green → green), or terminates (→ red, or is left as a ghost). Showing the same commit at grey in git, yellow in
-the BVT lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time. Only the GIT
-lane is a real left-to-right time axis: in git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …), while the
-pipeline, discard, and env lanes are organised by _stage_, not by time, so a commit can sit anywhere horizontally there. **A number ties a
-commit's appearances across lanes into one identity** and is the time-code that carries git's ordering into the other lanes: when a diagram
-traces specific commits, each gets a small number (1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline,
-discard, or timeline lane — carries the same number in its state-of-the-moment colour. Each number is one commit's whole story, ending where
-that commit was discarded, abandoned, or promoted.
+the BVT lane, and red in the discard lane is not a contradiction; it is the commit's history rendered as colour-over-time. Only the GIT lane
+is a real left-to-right time axis: in git, horizontal position is actual time (commit `0` precedes `1` precedes `2` …), while the pipeline,
+discard, and env lanes are organised by _stage_, not by time, so a commit can sit anywhere horizontally there. **A number ties a commit's
+appearances across lanes into one identity** and is the time-code that carries git's ordering into the other lanes: when a diagram traces
+specific commits, each gets a small number (1, 2, 3, …) drawn on it, and every later appearance of that commit — in the pipeline, discard,
+or timeline lane — carries the same number in its state-of-the-moment colour. Each number is one commit's whole story, ending where that
+commit was discarded, abandoned, or promoted.
 
 - [Colour as a moment](#colour-as-a-moment)
 - [Commit numbers](#commit-numbers)

@@ -56,11 +56,12 @@ recorded, reproducible, and reviewable. Freedom and control coexist because the 
 
 The repository is the single source of truth for everything the platform manages — automation, configuration, infrastructure, and pinned
 tooling — all represented as code
-([TDR-ONETRUTH-ONESTOREDECIDES](../thesis/one-source-of-truth.md#rule-tdr-onetruth-onestoredecides), `PDR-EAC`). For self-service that
-means editing that source and letting the platform apply it, never clicking a portal or running an out-of-band command. State that diverges
-from the repository is **drift**, and drift is reconciled _to_ the repository, never blessed after the fact: you cannot audit, reproduce, or
-review what is not written down. The moment a second source exists (a console tweak, a hand-run command that leaves no record), the
-guarantees collapse: the audit log is incomplete, the rebuild does not match, and review covered only half the change.
+([PDR-EAC-EVERYTHINGCOMMITTED](../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted), the mechanics of the one source of
+truth). For self-service that means editing that source and letting the platform apply it, never clicking a portal or running an
+out-of-band command. State that diverges from the repository is **drift**, and drift is reconciled _to_ the repository, never blessed after
+the fact: you cannot audit, reproduce, or review what is not written down. The moment a second source exists (a console tweak, a hand-run
+command that leaves no record), the guarantees collapse: the audit log is incomplete, the rebuild does not match, and review covered only
+half the change.
 
 ### Immutable artifacts and provenance
 
@@ -77,12 +78,11 @@ back to a reviewed commit and rebuilt to match.
 
 Trunk-based development is what keeps the single source of truth actually single and actually current. trunkbaseddevelopment.com defines it
 as "a source-control branching model where developers collaborate on code in a single branch called 'trunk' and resist any pressure to
-create other long-lived development branches"
-([PDR-ONELIVE-TRUNKBASED](../principles/one-living-version.md#rule-pdr-onelive-trunkbased)). For self-service, work lands on trunk in
-small batches behind short-lived branches that must pass the CI gate and are deleted after merge, and the guardrails — asserts, the quality
-gates, the generated-file drift checks, and code review — are automated and mandatory, so self-service cannot merge a change that skips
-them. Speed and control are the same mechanism here, not a trade-off. The branching discipline and the no-legacy rule (`PDR-ONELIVE`) are
-two faces of the same commitment: one living version, on trunk, always releasable.
+create other long-lived development branches" ([PDR-ONELIVE-TRUNKBASED](../principles/one-living-version.md#rule-pdr-onelive-trunkbased)).
+For self-service, work lands on trunk in small batches behind short-lived branches that must pass the CI gate and are deleted after merge,
+and the guardrails — asserts, the quality gates, the generated-file drift checks, and code review — are automated and mandatory, so
+self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not a trade-off. The branching discipline
+and the no-legacy rule (`PDR-ONELIVE`) are two faces of the same commitment: one living version, on trunk, always releasable.
 
 ### Safe where control matters
 
@@ -96,10 +96,10 @@ means: the fast path and the compliant path are the same path.
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (TDR-ONETRUTH-ONESTOREDECIDES), applied only through the **thin CLI** (DDR-SELFSERV-CONSUMERSPROVISION), shipped as an
+of truth** (PDR-EAC-EVERYTHINGCOMMITTED), applied only through the **thin CLI** (DDR-SELFSERV-CONSUMERSPROVISION), shipped as an
 **immutable, reproducibly-built artifact with provenance** (DDR-SELFSERV-IMMUTABLEARTIFACT), landed via **trunk-based development behind
-automated, mandatory guardrails** (PDR-ONELIVE-TRUNKBASED). In controlled settings this makes self-service and auditability the
-same mechanism rather than competing ones (DDR-SELFSERV-REGULATEDREPRODUCIBLE).
+automated, mandatory guardrails** (PDR-ONELIVE-TRUNKBASED). In controlled settings this makes self-service and auditability the same
+mechanism rather than competing ones (DDR-SELFSERV-REGULATEDREPRODUCIBLE).
 
 ### How this is enforced
 

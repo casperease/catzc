@@ -25,10 +25,10 @@ holds the authoritative copy; the client holds a working copy.
 **dirty HEAD** — landed but still unverified, or verified-then-failed downstream, and so unsafe to build on. Any consumer that builds on the
 mainline — a developer starting work, a downstream deployable-unit, an upstream integrator — syncs against the **last commit the server
 proved verified** (the BVT-verified server head, the stable sync point), not the raw tip. "Latest" and "safe to build on" are different
-questions; this rule answers the second. A dirty HEAD is provisional: it may be fixed forward by a successor or superseded by a newer
-commit that overtakes it; history is never rewritten. A consumer that built on the verified point never has to reconcile a fixed or
-superseded tip, because the verified history is stable and monotonic (a commit's state only ever advances) and does not move under it; a
-consumer that built on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
+questions; this rule answers the second. A dirty HEAD is provisional: it may be fixed forward by a successor or superseded by a newer commit
+that overtakes it; history is never rewritten. A consumer that built on the verified point never has to reconcile a fixed or superseded tip,
+because the verified history is stable and monotonic (a commit's state only ever advances) and does not move under it; a consumer that built
+on the dirty tip inherits its instability and must reconcile when the tip is later fixed.
 
 - [Integrate from verified](#integrate-from-verified)
 - [Why verified is stable](#why-verified-is-stable)
