@@ -2,17 +2,16 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }
         $script:fixtureAzure = [Catzc.Azure.AzureConfig]::new([ordered]@{
-                org               = 'tst'
-                bicep_min_version = '0.30.0'
-                tenants           = [ordered]@{ fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' } }
-                subscriptions     = [ordered]@{
+                org           = 'tst'
+                tenants       = [ordered]@{ fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' } }
+                subscriptions = [ordered]@{
                     core_lower   = [ordered]@{ id = '50a0ed00-de00-50b0-0000-000000000000'; tenant = 'fixtenant'; environments = @('alpha', 'nsub') }
                     widget_lower = [ordered]@{
                         id = 'a0e00000-de00-50b0-0000-000000000000'; tenant = 'fixtenant'; customer = 'widget'
                         environments = @('alpha', 'beta', 'nsub')
                     }
                 }
-                environments      = [ordered]@{
+                environments  = [ordered]@{
                     alpha = (& $environment 'al')
                     beta  = (& $environment 'bt')
                     nsub  = [ordered]@{ shortcode = 'ns'; region = 'westeurope'; region_code = 'weu'; per_subscription = $true }
@@ -23,10 +22,12 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
             [ordered]@{
                 kind               = 'hub'
                 vnet_address_space = "10.$Octet.0.0/16"
+                firewall_sku       = 'Basic'
                 subnets            = [ordered]@{
-                    GatewaySubnet       = "10.$Octet.0.0/27"
-                    AzureFirewallSubnet = "10.$Octet.0.64/26"
-                    'shared-services'   = "10.$Octet.1.0/24"
+                    GatewaySubnet                 = "10.$Octet.0.0/27"
+                    AzureFirewallSubnet           = "10.$Octet.0.64/26"
+                    AzureFirewallManagementSubnet = "10.$Octet.0.128/26"
+                    'shared-services'             = "10.$Octet.1.0/24"
                 }
             }
         }

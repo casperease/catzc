@@ -1,5 +1,3 @@
-# The repository's front page, .github/README.md, composed by Build-FrontPage from these sections in page order.
-# A fragment is an authored article under docs/explanation/frontpage/; a records section is a table read live from the DRS.
 target: .github/README.md
 title: cats — the thin delivery platform
 tagline: >-
@@ -7,7 +5,11 @@ tagline: >-
   into code you can read, diff, review and query: pipelines, infrastructure, tooling, architecture decisions and tests, all behind one
   command surface. In code the system is **catzc** (the `Catzc.*` modules, namespaces and types); to people it is **cats** — "ask cats".
 badges:
-  - { label: CI, image: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml/badge.svg", to: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml" }
+  - {
+      label: CI,
+      image: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml/badge.svg",
+      to: "https://github.com/casperease/catzc/actions/workflows/ci-pwsh.yml",
+    }
   - { label: thesis, message: one source of truth, color: 3b82f6, to: thesis }
   - { label: design, message: thinnest viable platform, color: 8b5cf6, to: thin-platform }
   - { label: grounded in, message: DORA, color: 22c55e, to: dora }

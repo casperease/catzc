@@ -33,6 +33,10 @@ The ADR registry (Get-Config -Config drs).
 
 The docs/drs/ file index (Get-DrsFileIndex).
 
+### parameter `ExemptDomain`
+
+Domains whose own citations are not held to their dependencies, such as a domain of external records that binds to the records it serves.
+
 ### outputs
 
 `[string[]]` One finding per violation: '`<file>:<line>`: `<rule>` (`<domain>`) cites `<reference>` (`<domain>`); `<domain>` depends on:

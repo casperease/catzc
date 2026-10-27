@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Get-ModuleDependencyEdges.ps1
 
-Returns the module dependency graph as typed [ModuleDependencyEdge](types/module-dependency-edge.md) objects, either the actual edges of
-the code or, with `-Declared`, the allowed edges of `dependencies.yml`. `ConvertTo-ModuleDependencyDiagram` renders them.
+Returns the module dependency graph as typed `ModuleDependencyEdge` objects, either the actual edges of the code or, with `-Declared`, the
+allowed edges of `dependencies.yml`. `ConvertTo-ModuleDependencyDiagram` renders them.
 
 ## help
 

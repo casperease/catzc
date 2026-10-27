@@ -4,8 +4,23 @@ param name string
 @description('Azure region. Defaults to the enclosing resource group location.')
 param location string = resourceGroup().location
 
-@description('Storage SKU name. Standard_ZRS keeps three copies across availability zones; pick an LRS SKU only where the region has no zones.')
+@description('Storage SKU name. Standard_ZRS keeps three copies across availability zones, for production; Standard_LRS keeps three in one datacenter, for a non-production environment or a region with no zones.')
 param skuName string = 'Standard_ZRS'
+
+@description('The default access tier of new blobs.')
+@allowed([
+  'Hot'
+  'Cool'
+])
+param accessTier string = 'Hot'
+
+@description('Days since a blob was last modified before the lifecycle policy moves it to the cool tier; 0 turns the move off.')
+@minValue(0)
+param coolAfterDays int = 0
+
+@description('Days since a blob was last modified before the lifecycle policy moves it to the archive tier; 0 turns the move off.')
+@minValue(0)
+param archiveAfterDays int = 0
 
 @description('Public network access. Disabled by default (and the network rules deny): the account is reached through a private endpoint.')
 @allowed([
@@ -25,7 +40,7 @@ param deleteRetentionDays int = 7
 @description('Resource tags.')
 param tags object = {}
 
-resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+resource sa 'Microsoft.Storage/storageAccounts@2024-01-01' = {
   name: name
   location: location
   tags: tags
@@ -37,7 +52,7 @@ resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     type: 'SystemAssigned'
   }
   properties: {
-    accessTier: 'Hot'
+    accessTier: accessTier
     minimumTlsVersion: 'TLS1_2'
     supportsHttpsTrafficOnly: true
     allowBlobPublicAccess: false
@@ -50,7 +65,7 @@ resource sa 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   }
 }
 
-resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' = {
+resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2024-01-01' = {
   parent: sa
   name: 'default'
   properties: {
@@ -61,6 +76,38 @@ resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01'
     containerDeleteRetentionPolicy: {
       enabled: true
       days: deleteRetentionDays
+    }
+  }
+}
+
+// The tiering rule exists only when a move is set, so an account with both ages at 0 carries no lifecycle policy.
+var tierActions = union(
+  coolAfterDays > 0 ? { tierToCool: { daysAfterModificationGreaterThan: coolAfterDays } } : {},
+  archiveAfterDays > 0 ? { tierToArchive: { daysAfterModificationGreaterThan: archiveAfterDays } } : {}
+)
+
+resource lifecycle 'Microsoft.Storage/storageAccounts/managementPolicies@2024-01-01' = if (coolAfterDays > 0 || archiveAfterDays > 0) {
+  parent: sa
+  name: 'default'
+  properties: {
+    policy: {
+      rules: [
+        {
+          name: 'tier-by-age'
+          enabled: true
+          type: 'Lifecycle'
+          definition: {
+            filters: {
+              blobTypes: [
+                'blockBlob'
+              ]
+            }
+            actions: {
+              baseBlob: tierActions
+            }
+          }
+        }
+      ]
     }
   }
 }

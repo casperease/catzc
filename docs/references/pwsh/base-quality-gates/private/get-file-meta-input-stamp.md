@@ -22,14 +22,6 @@ has no codes: its files hash an empty set and are checked again once the index e
 
 The files to stamp.
 
-### parameter `RepositoryRoot`
-
-The repository root.
-
-### parameter `Config`
-
-The file-meta registry. Default: the loaded one.
-
 ### outputs
 
 `[hashtable]` full path -> the stamp, a SHA-256 in hex.

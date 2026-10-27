@@ -11,17 +11,16 @@ Returns the flow lens's row for a set of ADO pipeline files: one lane per pipeli
 
 ### description
 
-The ADO engine's reader for a flow diagram
-([DDR-VISUAL-FLOWISALENS](../../../drs/design/visual-design.md#rule-ddr-visual-flowisalens)). The point is the diagram's `about.point`:
-one or more repository-relative pipeline files, separated by `;`. Each file becomes a lane: its pipeline type and unit from the file name's
-prefix (ci-, cd-, cde-, deploy-, cron-, input-), its triggers from the top-level `trigger:`, `pr:` and `schedules:` keys (a lane with none
-is run by hand, and a pull request marks it for review), and its templates with the kind each one's folder gives (extends, stage, job, step,
-variables).
+The ADO engine's reader for a flow diagram ([DDR-VISUAL-FLOWISALENS](../../../drs/design/visual-design.md#rule-ddr-visual-flowisalens)). The
+point is the diagram's `about.point`: one or more repository-relative pipeline files, separated by `;`. Each file becomes a lane: its
+pipeline type and unit from the file name's prefix (ci-, cd-, cde-, deploy-, cron-, input-), its triggers from the top-level `trigger:`,
+`pr:` and `schedules:` keys (a lane with none is run by hand, and a pull request marks it for review), and its templates with the kind each
+one's folder gives (extends, stage, job, step, variables).
 
 A lane's environments come from the rungs registry, never from the YAML, whose deploy stages name their environment through template
-expressions: a CD lane holds the rungs with no gate, a DEPLOY lane the gated ones, each named `<unit>-<rung>` and marked for approval
-when its gate is not none. A deploy lane is pinned to the cd lane of the same unit, an edge with the word `pins`, since nothing in its
-trigger points back.
+expressions: a CD lane holds the rungs with no gate, a DEPLOY lane the gated ones, each named `<unit>-<rung>` and marked for approval when
+its gate is not none. A deploy lane is pinned to the cd lane of the same unit, an edge with the word `pins`, since nothing in its trigger
+points back.
 
 ### parameter `Point`
 

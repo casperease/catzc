@@ -25,8 +25,8 @@ Binds to [ADR-AZ-LZ-CAFIDENTITY](../../../azure/landing-zones.md#rule-adr-az-lz-
 
 ### Rule EDR-AZ-CAF-IAM-R02
 
-For applications that need legacy directory protocols, prefer a new Entra managed directory with the legacy protocols turned off over extending
-an on-premises directory that keeps them on.
+For applications that need legacy directory protocols, prefer a new Entra managed directory with the legacy protocols turned off over
+extending an on-premises directory that keeps them on.
 
 Source: learn /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-active-directory-hybrid-identity
 (recommendation 2, retrieved 2026-10-14)

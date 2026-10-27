@@ -41,6 +41,13 @@ public sealed class NetworkEnvironment : Catzc.Base.Objects.DictionaryRecord
         {
             AzureConfig.UnknownKeys(d, AllowedKeys, string.Format("network environment '{0}'", name), own);
             vnet_address_space = Cidr(name, d, "vnet_address_space", own);
+            // Its default subnet lies inside it, so a private vnet keeps the subnet private.
+            if (vnet_address_space != null && !NetworkCidr.IsPrivate(vnet_address_space))
+            {
+                own.Add(string.Format("network environment '{0}' has vnet_address_space '{1}' outside the private ranges ({2})",
+                    name, vnet_address_space, string.Join(", ", NetworkCidr.PrivateRanges)));
+                vnet_address_space = null;
+            }
             default_subnet = Cidr(name, d, "default_subnet", own);
             if (vnet_address_space != null && default_subnet != null && !NetworkCidr.Contains(vnet_address_space, default_subnet))
             {

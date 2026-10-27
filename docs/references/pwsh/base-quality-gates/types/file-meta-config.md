@@ -2,8 +2,8 @@
 
 The typed record of the meta-kind registry `file-meta.yml`: which kinds of derived fact and of config contribution exist is data, never a
 list in an engine ([ADR-REPO-FILEMETA-METAKIND](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
-[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It holds
-the kinds and the head policy per file class.
+[ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It
+holds the kinds and the head policy per file class.
 
 ## Which kinds apply
 

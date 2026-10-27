@@ -21,10 +21,6 @@ The repository root the returned paths are relative to.
 
 Optional files or folders (absolute or relative to the current location) to limit the scope to.
 
-### parameter `Config`
-
-The meta-kind registry.
-
 ### parameter `Resolver`
 
 The carrier resolver. Default: built from the shipped file-carriers and languages registries.

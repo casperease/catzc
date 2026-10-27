@@ -10,11 +10,11 @@ Returns the Azure tag _names_ used to record what was last deployed.
 
 ### description
 
-For ResourceGroup-target templates the tags live on the RG and have generic names (`Deployed_From_Commit`, etc.) — every template that
-deploys into that RG writes the same three tags.
+The names are the `tags.provenance` entries of `azure.yml`, lowercase (`deployed-from-commit`, etc.). For ResourceGroup-target templates the
+tags live on the RG and carry those names as they are — every template that deploys into that RG writes the same three tags.
 
-For Subscription-target templates the tags live on the subscription itself, so they are prefixed with the template name to avoid collisions
-across templates.
+For Subscription-target templates the tags live on the subscription itself, so they are prefixed with the lowercase template name and a
+hyphen (`discovery-deployed-from-commit`) to avoid collisions across templates.
 
 Returned shape:
 

@@ -1,8 +1,8 @@
 # Catzc.Base.TypesSystem
 
 The native C# type system's support layer: it keeps the single committed combined type assembly under `pwsh/.compiled/` clean, computes the
-cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](../base-module-system/index.md) folds into its dependency integrity check.
-It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
+cross-module C# type-reference edges that [Catzc.Base.ModuleSystem](../base-module-system/index.md) folds into its dependency integrity
+check. It deliberately does **not** own the _runtime_ type compilation or loading — that is the importer's `Import-CSharpTypes` (in
 `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`), and the namespace formatter `Format-Types` and the `Test-Formatting` gate that checks it
 live in [Catzc.Base.QualityGates](../base-quality-gates/index.md). The one build it does drive is the editor-facing MSBuild of those same
 sources (`Invoke-BuildForVsCode`), which never feeds the runtime — it exists so VS Code's C# analysis matches the `Add-Type` compile. The

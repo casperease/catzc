@@ -7,19 +7,17 @@ function Get-BicepTrackTagNameSet {
         [string] $Template
     )
 
-    $templateDescriptor = Get-BicepTemplate $Template
-    if ($templateDescriptor.deployment_target -eq 'Subscription') {
-        [ordered]@{
-            commit   = "${Template}_Deployed_From_Commit"
-            build_id = "${Template}_Deployed_From_BuildId"
-            branch   = "${Template}_Deployed_From_Branch"
-        }
+    # The names are azure.yml's tag schema; a subscription-target template prefixes its own, as its subscription holds every template's tags.
+    $provenance = (Get-Config -Config azure).tags.provenance
+    $prefix = if ((Get-BicepTemplate $Template).deployment_target -eq 'Subscription') {
+        "$($Template.ToLowerInvariant())-"
     }
     else {
-        [ordered]@{
-            commit   = 'Deployed_From_Commit'
-            build_id = 'Deployed_From_BuildId'
-            branch   = 'Deployed_From_Branch'
-        }
+        ''
+    }
+    [ordered]@{
+        commit   = "$prefix$($provenance['commit'])"
+        build_id = "$prefix$($provenance['build_id'])"
+        branch   = "$prefix$($provenance['branch'])"
     }
 }

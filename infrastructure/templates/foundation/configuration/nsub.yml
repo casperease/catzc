@@ -1,0 +1,13 @@
+# foundation, shared nonprod subscription (env nsub). One config file ⟷ one resource group.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: nonprod
+        owner: platform
+        cost-center: platform
+        criticality: high
+        data-classification: internal
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_nonprod.id

@@ -10,4 +10,4 @@ follow the role assignments of the subscription.
 
 ## Use
 
-A template references the module with a relative `module` declaration, and `az bicep build` inlines it into the template's `main.json`.
+A template references the module with a relative `module` declaration, and `bicep build` inlines it into the template's `main.json`.

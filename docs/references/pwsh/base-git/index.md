@@ -2,8 +2,8 @@
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the
 repository-root `.gitignore` is rendered in full from a section registry (`gitignore.yml`) — every rule under a titled, explained comment
-block — and never hand-maintained (see [generated-root-configs](../../../drs/repository/generated-root-configs.md)). What it deliberately does
-**not** own is the materialisation: `New-GitIgnore` is a pure renderer that returns content and writes nothing; the `.gitignore` target
+block — and never hand-maintained (see [generated-root-configs](../../../drs/repository/generated-root-configs.md)). What it deliberately
+does **not** own is the materialisation: `New-GitIgnore` is a pure renderer that returns content and writes nothing; the `.gitignore` target
 itself is a managed, committed root file written by [Catzc.Base.RootConfig](../base-root-config/index.md)'s `Build-RootConfig`, which names
 `New-GitIgnore` as that entry's generator.
 
@@ -31,10 +31,10 @@ Pattern text is never rewritten — what the registry says is what git gets.
 
 Which paths are ignored, grouped and explained. The registry is `gitignore.yml`: an ordered list of **sections**, each with an `id`, a
 `title`, a `why`, and either static `patterns` (bare strings or `{ pattern, note }`) or an `inject` provider name. The managed root-config
-copies are the injected section — their list lives in [Catzc.Base.RootConfig](../base-root-config/index.md)'s registry (the `committed: false`
-targets) and is never restated here, which is also what keeps the dependency edge one-way: `Build-RootConfig` computes the injection and
-calls the renderer; `New-GitIgnore` never reads `rootconfig.yml`. The registry is validated when it loads (`GitIgnoreConfig` — exactly one
-of `patterns`/`inject` per section, unique ids), so a malformed section can never produce a run.
+copies are the injected section — their list lives in [Catzc.Base.RootConfig](../base-root-config/index.md)'s registry (the
+`committed: false` targets) and is never restated here, which is also what keeps the dependency edge one-way: `Build-RootConfig` computes
+the injection and calls the renderer; `New-GitIgnore` never reads `rootconfig.yml`. The registry is validated when it loads
+(`GitIgnoreConfig` — exactly one of `patterns`/`inject` per section, unique ids), so a malformed section can never produce a run.
 
 ### responsibility:3 — Repository snapshots
 
@@ -58,17 +58,17 @@ seam and the branch and commit getters in [Catzc.Base.Files](../base-files/index
 
 ### responsibility:5 — The git topic flow
 
-The steps that bring a topic branch to the server's main ([git-topic-flow](../../../drs/flow/git-topic-flow.md)): reading the sync point, the
-BVT-verified server head or, announced, the current server HEAD; saving the working tree as a commit; rebasing the topic onto the sync
+The steps that bring a topic branch to the server's main ([git-topic-flow](../../../drs/flow/git-topic-flow.md)): reading the sync point,
+the BVT-verified server head or, announced, the current server HEAD; saving the working tree as a commit; rebasing the topic onto the sync
 point; and landing it as one commit by squash, rebase and squash, pushed by the workspace variant. Every step but the reading one changes
-the repository, so it runs only at the user's hand ([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)); the
-Bash hook denies those commands to an agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
+the repository, so it runs only at the user's hand ([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit));
+the Bash hook denies those commands to an agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
 
 ### responsibility:6 — Importing a repository
 
 Bringing an outside repository in with its full history, at one landing address under the unordered track
-([DDR-TRACK-UNORDEREDTRACK](../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source ref is kept, so the files
-sorted out of the track later carry their history with them.
+([DDR-TRACK-UNORDEREDTRACK](../../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source ref is kept, so the
+files sorted out of the track later carry their history with them.
 
 ### responsibility:7 — Cleaning generated files
 
@@ -82,9 +82,9 @@ The module makes the repository's ignore rules a reviewed, explained artifact in
 readers. Every rule in the generated `.gitignore` sits under a heading and a rationale, so "why is this ignored?" is answered in the file
 itself, and adding a rule means adding it to a section (or a new section) in `gitignore.yml` — the render carries the explanation along.
 
-The split with [Catzc.Base.RootConfig](../base-root-config/index.md) is the deliberate design: this module knows **what** is ignored and **how
-to say it**; RootConfig knows **which root files are managed** and **owns every write**. The `.gitignore` file is `committed: true` in the
-root-config registry — git must read it at checkout, before any import — so a fresh clone ignores correctly from the first second, the
+The split with [Catzc.Base.RootConfig](../base-root-config/index.md) is the deliberate design: this module knows **what** is ignored and
+**how to say it**; RootConfig knows **which root files are managed** and **owns every write**. The `.gitignore` file is `committed: true` in
+the root-config registry — git must read it at checkout, before any import — so a fresh clone ignores correctly from the first second, the
 importer merely keeps it current, and a source change surfaces as a normal reviewable diff. The injected section closes the loop: opting a
 new root file into management (`committed: false`) puts its ignore line into the next rendered `.gitignore` automatically, with no second
 list to maintain.

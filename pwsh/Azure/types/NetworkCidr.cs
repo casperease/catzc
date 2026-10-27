@@ -34,6 +34,19 @@ public static class NetworkCidr
         return network == address;
     }
 
+    // Azure reserves the network address and the next three in every subnet, so the first address it assigns is the fifth.
+    public const int AzureReservedLeadingAddresses = 4;
+
+    // The first address Azure assigns in a subnet; null when the value is not a valid range or holds no assignable address.
+    public static string FirstAzureHost(string value)
+    {
+        uint network;
+        int prefix;
+        if (!TryParse(value, out network, out prefix) || prefix > 29) { return null; }
+        uint host = network + AzureReservedLeadingAddresses;
+        return string.Format("{0}.{1}.{2}.{3}", host >> 24, (host >> 16) & 255, (host >> 8) & 255, host & 255);
+    }
+
     // True when the inner range lies wholly inside the outer range; false when either is not a valid range.
     public static bool Contains(string outer, string inner)
     {
@@ -51,6 +64,19 @@ public static class NetworkCidr
         if (!TryParse(a, out aNetwork, out aPrefix) || !TryParse(b, out bNetwork, out bPrefix)) { return false; }
         uint mask = Mask(Math.Min(aPrefix, bPrefix));
         return (aNetwork & mask) == (bNetwork & mask);
+    }
+
+    // The private ranges a virtual network may take (RFC 1918); a public, reserved, loopback, link-local or multicast range lies outside all three.
+    public static readonly string[] PrivateRanges = { "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16" };
+
+    // True when the range lies wholly inside one private range; false when it is not a valid range.
+    public static bool IsPrivate(string value)
+    {
+        foreach (string range in PrivateRanges)
+        {
+            if (Contains(range, value)) { return true; }
+        }
+        return false;
     }
 
     // The network mask of a prefix length (a shift by 32 is a no-op in C#, so /0 is its own case).

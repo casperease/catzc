@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-Links.ps1
 
-The link aligner of the repository: it rewrites ADR citations in code comments into canonical code links and repository-rooted markdown links
-into relative ones, in place. `Test-Links` reports what it cannot fix.
+The link aligner of the repository: it rewrites ADR citations in code comments into canonical code links and repository-rooted markdown
+links into relative ones, in place. `Test-Links` reports what it cannot fix.
 
 ## help
 

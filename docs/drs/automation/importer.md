@@ -61,8 +61,7 @@ A language the configuration names and the importer has no handler for stops the
 a language is handled when it is executable and its layout rows place it in a module or its tests runner runs it, so the handled
 implementation languages are PowerShell with its hosted C#, Bash, Python and Go
 ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)). A new language is a handler and a registry
-entry, never a branch
-([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticcore)).
+entry, never a branch ([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE](open-closed-architecture.md#rule-adr-auto-extend-contentagnosticcore)).
 
 - [Growth by entry](#growth-by-entry)
 

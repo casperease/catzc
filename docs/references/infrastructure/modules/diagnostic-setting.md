@@ -9,5 +9,5 @@ metric categories that kind exposes, taking the logs through the `allLogs` categ
 
 ## Related module
 
-The subscription's activity log has its own module, `subscription-diagnostic-setting.bicep`. `az bicep build` inlines this module into the
+The subscription's activity log has its own module, `subscription-diagnostic-setting.bicep`. `bicep build` inlines this module into the
 template that references it.

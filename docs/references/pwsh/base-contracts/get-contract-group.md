@@ -36,5 +36,4 @@ Get-ContractGroup Catzc.Base.Contracts
 ## why the group is not the namespace
 
 The group names where the module lives, never the namespace the module carries, because a namespace can differ from its folder. The
-contracts config ([contracts.yml](configs/contracts.md)) holds the form and the exceptions, such as `pwsh.base.vs_code` for
-Catzc.Base.VSCode.
+contracts config (`contracts.yml`) holds the form and the exceptions, such as `pwsh.base.vs_code` for Catzc.Base.VSCode.

@@ -30,7 +30,8 @@ Test-Automation -Suite infrastructure # one test suite: the infrastructure globs
 A test suite is a named selection declared in `globs.yml`: a globset's `verify:` scope, its modules up to a top tier
 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)).
 `Test-Automation -Suite infrastructure` runs the `Catzc.Azure.Templates` tests up to L2, including the L2 tests that build every shipped
-template with `az bicep build` and check its rendered parameters files against the compiled parameter model; without `az` those tests skip.
+template with `bicep build` and check its rendered parameters files against the compiled parameter model; without the pinned `bicep` those
+tests skip.
 
 Useful parameters (the rest on [Test-Automation's comment page](../../../references/pwsh/base-quality-gates/test-automation.md)):
 

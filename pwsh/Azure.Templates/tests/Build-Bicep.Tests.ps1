@@ -9,20 +9,16 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
             Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep'
         } -ModuleName Catzc.Azure.Templates
 
-        Mock Invoke-AzCli {
-            if (& $script:compileBicepParams $Arguments) {
+        Mock Invoke-Executable {
+            if (& $script:compileBicepParams $Command) {
                 return
             }
-            if ($Arguments -match 'bicep version') {
-                return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
-            }
-            if ($Arguments -match 'bicep build' -and $Arguments -match '--outdir "([^"]+)"') {
+            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
                 [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
             }
         } -ModuleName Catzc.Azure.Templates
-        Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
-        Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        # The bicep binary is resolved through the toolchain; mock the boundary so no version probe runs.
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'bicep' } } -ModuleName Catzc.Azure.Templates
         # Discover from the test fixtures and resolve identity from the test config fixture.
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -69,12 +65,12 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         Join-Path $script:outputRoot 'parameters.beta.json' | Should -Not -Exist
     }
 
-    It 'invokes az bicep build with the template main path and outdir' {
+    It 'invokes bicep build with the template main path and outdir' {
         Build-Bicep sample | Out-Null
-        Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
-            $Arguments -match 'bicep build' -and
-            $Arguments -match 'main\.bicep' -and
-            $Arguments -match 'outdir'
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -ParameterFilter {
+            $Command -match ' build "' -and
+            $Command -match 'main\.bicep' -and
+            $Command -match 'outdir'
         }
     }
 
@@ -88,6 +84,17 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         New-Item -ItemType File -Path (Join-Path $script:outputRoot 'stale.txt') -Force | Out-Null
         Build-Bicep sample -Environments alpha | Out-Null
         Join-Path $script:outputRoot 'stale.txt' | Should -Not -Exist
+    }
+
+    It 'builds into -OutputFolder and returns it, leaving the default folder and another run''s folder untouched' {
+        $first = Join-Path $TestDrive 'run-1'
+        $second = Join-Path $TestDrive 'run-2'
+        Build-Bicep sample -Environments alpha -OutputFolder $first | Should -Be $first
+        Build-Bicep sample -Environments alpha -OutputFolder $second | Should -Be $second
+        Join-Path $first 'parameters.alpha.json' | Should -Exist -Because 'a second run wipes only its own folder'
+        Join-Path $first 'main.json' | Should -Exist
+        Join-Path $second 'main.json' | Should -Exist
+        $script:outputRoot | Should -Not -Exist -Because 'a run-scoped build never touches the default output folder'
     }
 
     It 'throws on an unknown template via ValidateScript' {
@@ -105,21 +112,21 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         { Build-Bicep sample -Environments alpha } | Should -Throw "*Undefined config key 'gadget.size'*"
     }
 
-    It 'asserts the Bicep CLI is available before building' {
-        # The guard throws, so Build-Bicep stops before any az bicep build runs; its own az behaviour is covered in the Cli tests.
-        Mock Assert-AzCliBicep { throw 'Bicep CLI not available. Run az bicep install.' } -ModuleName Catzc.Azure.Templates
-        { Build-Bicep sample -Environments alpha } | Should -Throw '*az bicep install*'
-        Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 0 -ParameterFilter { $Arguments -match 'bicep build' }
+    It 'asserts the bicep binary is installed and at the pinned version before building' {
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $false; VersionOk = $false; Path = $null } } -ModuleName Catzc.Azure.Templates
+        { Build-Bicep sample -Environments alpha } | Should -Throw '*Run Install-Bicep*'
+        Mock Resolve-ToolExecutable {
+            [pscustomobject]@{ Found = $true; VersionOk = $false; Path = 'bicep'; Version = '0.1.0'; Required = '9.9.9' }
+        } -ModuleName Catzc.Azure.Templates
+        { Build-Bicep sample -Environments alpha } | Should -Throw "*pins '9.9.9'*"
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -Times 0
     }
 
-    It 'throws when az bicep build exits 0 but produces no main.json' {
+    It 'throws when bicep build exits 0 but produces no main.json' {
         # Bicep available, but the build emits nothing -> the post-build assert fires at the source.
-        Mock Invoke-AzCli {
-            if (& $script:compileBicepParams $Arguments) {
+        Mock Invoke-Executable {
+            if (& $script:compileBicepParams $Command) {
                 return
-            }
-            if ($Arguments -match 'bicep version') {
-                return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
             }
             # bicep build: simulate exit 0 with no compiled output.
         } -ModuleName Catzc.Azure.Templates
@@ -127,9 +134,9 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
+Describe 'Build-Bicep (real bicep)' -Tag 'L2', 'logic' {
     BeforeAll {
-        # Same isolated root as the mocked-az block; one file runs in one worker, so its blocks never overlap.
+        # Same isolated root as the mocked block; one file runs in one worker, so its blocks never overlap.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'
     }
 
@@ -154,13 +161,10 @@ Describe 'Build-Bicep (real az)' -Tag 'L2', 'logic' {
         }
     }
 
-    It 'produces main.json + parameters.alpha.json with real az bicep build' {
-        if (-not (Get-Command az -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_az_missing'
-            return
-        }
-        if (-not (Test-AzCliBicep)) {
-            Set-ItResult -Skipped -Because 'tool_az_bicep_missing'
+    It 'produces main.json + parameters.alpha.json with real bicep build' {
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        if (-not ($bicep.Found -and $bicep.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         if (Test-Path $script:outputRoot) {

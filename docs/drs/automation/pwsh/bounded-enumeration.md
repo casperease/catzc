@@ -59,8 +59,8 @@ The cost grows with the repository, so a command that is fast today slows down a
 
 The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
 track" is a different question with its own seam, `Get-GitTrackedPath` ([tracked-files-from-the-index](../tracked-files-from-the-index.md),
-`ADR-AUTO-TRACKED-TRACKEDSEAM`). Code that scopes itself by what is committed asks that seam and never walks the folder; code that needs what is
-actually present, such as a build input, a fixture tree, a report folder, or a freshly written file, walks.
+`ADR-AUTO-TRACKED-TRACKEDSEAM`). Code that scopes itself by what is committed asks that seam and never walks the folder; code that needs
+what is actually present, such as a build input, a fixture tree, a report folder, or a freshly written file, walks.
 
 ### Raw .NET, one way
 

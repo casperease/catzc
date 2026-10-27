@@ -83,13 +83,17 @@ Describe 'Remove-OffConfigInstall' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLA
         }
         $script:reads = 0
         Mock Get-RegisteredInstallProduct {
-            [pscustomobject]@{ DisplayName = 'Gadget'; DisplayVersion = '1.0'; ProductCode = '{BF44F985-A720-4EB9-8B4B-6C2F76A30CDB}'; Kind = 'Msi'
-                UninstallCommand = 'msiexec /x {BF44F985-A720-4EB9-8B4B-6C2F76A30CDB} /qn /norestart' }
+            [pscustomobject]@{ DisplayName = 'Gadget'; DisplayVersion = '1.0'; ProductCode = '{6AD6E700-0510-000D-0C70-C0DE00000000}'; Kind = 'Msi'
+                UninstallCommand = 'msiexec /x {6AD6E700-0510-000D-0C70-C0DE00000000} /qn /norestart'
+            }
             [pscustomobject]@{ DisplayName = 'Gadget Setup'; DisplayVersion = '1.0'; ProductCode = '{gadget}'; Kind = 'Other'
-                UninstallCommand = '"C:\gadget\setup.exe" /uninstall /quiet' }
+                UninstallCommand = '"C:\gadget\setup.exe" /uninstall /quiet'
+            }
         } -ModuleName Catzc.Tooling.Toolchain
         $script:printed = [System.Collections.Generic.List[string]]::new()
-        Mock Write-Message { if ($Message -like '  *#*') { $script:printed.Add($Message) } } -ModuleName Catzc.Tooling.Toolchain
+        Mock Write-Message { if ($Message -like '  *#*') {
+                $script:printed.Add($Message)
+            } } -ModuleName Catzc.Tooling.Toolchain
         $call = $script:call
         InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Call = $call } { param($Call) Remove-OffConfigInstall @Call }
         $script:printed.Count | Should -Be 2
@@ -102,7 +106,7 @@ Describe 'Remove-OffConfigInstall' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLA
             @($command.CommandElements | Where-Object { $_ -is [System.Management.Automation.Language.ScriptBlockExpressionAst] }).Count | Should -Be 0
         }
         $guid = $ast = [System.Management.Automation.Language.Parser]::ParseInput($script:printed[0].Trim(), [ref]$null, [ref]$null)
-        $guid.EndBlock.Statements[0].PipelineElements[0].CommandElements[2].Value | Should -Be '{BF44F985-A720-4EB9-8B4B-6C2F76A30CDB}'
+        $guid.EndBlock.Statements[0].PipelineElements[0].CommandElements[2].Value | Should -Be '{6AD6E700-0510-000D-0C70-C0DE00000000}'
     }
 
     It 'without -Force runs no uninstaller and asks for no elevation' {
@@ -139,7 +143,8 @@ Describe 'Remove-OffConfigInstall time limit' -Tag 'L0', 'logic' {
         Mock Write-Message { } -ModuleName Catzc.Tooling.Toolchain
         $expected = Get-TimeoutSeconds -Executable 'msiexec'
         $call = @{ Config = @{ command = 'widget' }; Label = 'Widget'; Tool = 'Widget'; InstallDir = $widgetDir
-            MachineFolders = @([System.IO.Path]::GetFullPath($widgetDir).TrimEnd('\', '/')); ProductPattern = '^Widget' }
+            MachineFolders = @([System.IO.Path]::GetFullPath($widgetDir).TrimEnd('\', '/')); ProductPattern = '^Widget'
+        }
         InModuleScope Catzc.Tooling.Toolchain -Parameters @{ Call = $call } { param($Call) Remove-OffConfigInstall @Call -Force }
         $expected | Should -BeGreaterThan 60
         Should -Invoke Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter { $TimeoutSeconds -eq $expected }

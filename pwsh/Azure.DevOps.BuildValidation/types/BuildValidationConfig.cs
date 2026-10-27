@@ -7,10 +7,14 @@ namespace Catzc.Azure.DevOps.BuildValidation;
 // Every violation is reported at once; a globset name lives in a value, because kebab case cannot be a key.
 public sealed class BuildValidationConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "branch", "validations" };
+    private static readonly string[] RequiredKeys = { "branch", "validations" };
+
+    private static readonly string[] AllowedKeys = { "branch", "validations", "policies" };
 
     // The branch the policies guard.
     public string branch { get; }
+
+    public BranchPolicies policies { get; }
 
     // The policies, in file order — one per globset.
     public IReadOnlyList<BuildValidationEntry> validations { get; }
@@ -28,13 +32,27 @@ public sealed class BuildValidationConfig : Catzc.Base.Objects.DictionaryRecord
                 string key = k == null ? null : k.ToString();
                 if (Array.IndexOf(AllowedKeys, key) < 0)
                 {
-                    errors.Add(string.Format("Unknown top-level key: '{0}' (allowed: branch, validations)", key));
+                    errors.Add(string.Format("Unknown top-level key: '{0}' (allowed: {1})", key, string.Join(", ", AllowedKeys)));
                 }
             }
         }
-        foreach (string key in AllowedKeys)
+        foreach (string key in RequiredKeys)
         {
             if (d == null || !d.Contains(key)) { errors.Add(string.Format("Missing required key: '{0}'", key)); }
+        }
+
+        IDictionary rawPolicies = d != null && d.Contains("policies") ? d["policies"] as IDictionary : null;
+        if (d != null && d.Contains("policies") && d["policies"] != null && rawPolicies == null)
+        {
+            errors.Add("policies must be a mapping");
+        }
+        try
+        {
+            policies = new BranchPolicies(rawPolicies);
+        }
+        catch (ArgumentException ex)
+        {
+            errors.AddRange(ex.Message.Split('\n'));
         }
 
         if (d != null && d.Contains("branch"))

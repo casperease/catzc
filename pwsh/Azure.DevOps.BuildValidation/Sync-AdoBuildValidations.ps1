@@ -35,4 +35,16 @@ function Sync-AdoBuildValidations {
         }
         Register-AdoBuildValidation @params
     }
+
+    # The pull-request policies guard a branch only a pull request reaches; in main-direct no pull request exists to guard.
+    if ((Get-GitWorkspace) -eq 'main-via-pr') {
+        $params = @{ DryRun = $DryRun }
+        foreach ($name in 'Branch', 'Project', 'Organization', 'RepositoryName') {
+            $value = Get-Variable -Name $name -ValueOnly
+            if ($value) {
+                $params[$name] = $value
+            }
+        }
+        Register-AdoBranchPolicies @params
+    }
 }

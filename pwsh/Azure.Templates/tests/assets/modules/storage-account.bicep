@@ -1,6 +1,6 @@
 // Test fixture module — a StorageV2 account, used only by the sample-with-module fixture's
 // `../../modules/storage-account.bicep` reference so the fixture tree is self-contained under
-// tests/assets/. `az bicep build` inlines it into the fixture's compiled main.json. Not a production
+// tests/assets/. `bicep build` inlines it into the fixture's compiled main.json. Not a production
 // module.
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')

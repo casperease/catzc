@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Get-DrsUsage.ps1
 
-The reader of who cites what in the decision records: it lists every ADR citation and ADR link the tracked files make, derived from the
-text and never from a head, so the answer does not depend on a head being current.
+The reader of who cites what in the decision records: it lists every ADR citation and ADR link the tracked files make, derived from the text
+and never from a head, so the answer does not depend on a head being current.
 
 ## help
 

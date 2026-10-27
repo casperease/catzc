@@ -35,6 +35,13 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
         @{ type = 'pep'; limit = 64 }
         @{ type = 'budg'; limit = 63 }
         @{ type = 'pa'; limit = 64 }
+        @{ type = 'ag'; limit = 260 }
+        @{ type = 'alrt'; limit = 260 }
+        @{ type = 'wb'; limit = 128 }
+        @{ type = 'pack'; limit = 63 }
+        @{ type = 'dash'; limit = 160 }
+        @{ type = 'afw'; limit = 56 }
+        @{ type = 'afwp'; limit = 80 }
     ) {
         $entry = (Get-AzureResourceTypeSet)[$type]
         $entry.pattern | Should -Be 'long'

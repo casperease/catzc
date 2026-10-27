@@ -5,4 +5,4 @@ deploys at subscription level (`targetScope = 'subscription'`).
 
 ## Related module
 
-Resource-level settings use `diagnostic-setting.bicep`. `az bicep build` inlines this module into the template that references it.
+Resource-level settings use `diagnostic-setting.bicep`. `bicep build` inlines this module into the template that references it.

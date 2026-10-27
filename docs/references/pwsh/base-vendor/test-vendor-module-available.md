@@ -1,7 +1,7 @@
 # pwsh/Base.Vendor/Test-VendorModuleAvailable.ps1
 
-The querying half of the restorability check for vendored modules: it asks the configured source whether a module, at a given version if
-one is named, is available, and returns a boolean.
+The querying half of the restorability check for vendored modules: it asks the configured source whether a module, at a given version if one
+is named, is available, and returns a boolean.
 
 ## help
 

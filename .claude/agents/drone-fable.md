@@ -2,10 +2,10 @@
 name: drone-fable
 description: >
   A drone on the fable model: it runs one job skill from a coordinator's brief. The brief names the skill (`skill: <name>`), and a skill
-  whose `model_floor` is fable runs on this drone. It edits only the files the brief says it owns, verifies each file before the next,
-  sends every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with a
-  fable floor; a job with another floor goes to drone-haiku, drone-sonnet or drone-opus. Do NOT use it for a brief that names no skill, for
-  a skill whose floor is not fable, or to edit a file the brief does not own.
+  whose `model_floor` is fable runs on this drone. It edits only the files the brief says it owns, verifies each file before the next, sends
+  every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with a fable
+  floor; a job with another floor goes to drone-haiku, drone-sonnet or drone-opus. Do NOT use it for a brief that names no skill, for a
+  skill whose floor is not fable, or to edit a file the brief does not own.
 tools: Bash, Read, Glob, Grep, Write, Edit, Skill
 disallowedTools: ""
 model: fable

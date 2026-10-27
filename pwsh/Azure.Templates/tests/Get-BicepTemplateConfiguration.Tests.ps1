@@ -36,9 +36,10 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         { Get-BicepTemplateConfiguration sample nonexistent } | Should -Throw
     }
 
-    It 'throws when the selected slot does not exist' {
-        # sample has base slots alpha/beta; asking for slot 001 resolves to config 'alpha-001', which it lacks.
-        { Get-BicepTemplateConfiguration sample alpha -Slot 001 } | Should -Throw "*no config 'alpha-001.yml'*"
+    It 'reads the base slot''s config for a named slot with no file of its own (an ephemeral slot)' {
+        # sample has base slots alpha/beta and no alpha-001.yml: slot 001 is ephemeral on alpha's config.
+        $ephemeral = Get-BicepTemplateConfiguration sample alpha -Slot 001
+        ($ephemeral | ConvertTo-Json -Depth 20) | Should -Be ((Get-BicepTemplateConfiguration sample alpha) | ConvertTo-Json -Depth 20)
     }
 
     It 'throws on an unknown template' {
@@ -55,9 +56,10 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         $shared.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusst'
     }
 
-    It 'throws when the config does not exist for that customer' {
-        # acme has alpha (base) but no slot 002.
-        { Get-BicepTemplateConfiguration sample-customer alpha -Slot 002 -Customer acme } |
-            Should -Throw '*alpha-002*'
+    It 'reads a customer''s base config for a named slot with no file, the customer''s own base and not the root''s' {
+        # acme has alpha (base) but no alpha-002.yml: slot 002 is ephemeral on acme's alpha.
+        $ephemeral = Get-BicepTemplateConfiguration sample-customer alpha -Slot 002 -Customer acme
+        ($ephemeral | ConvertTo-Json -Depth 20) |
+            Should -Be ((Get-BicepTemplateConfiguration sample-customer alpha -Customer acme) | ConvertTo-Json -Depth 20)
     }
 }

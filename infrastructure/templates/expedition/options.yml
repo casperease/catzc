@@ -1,2 +1,25 @@
 short_name: exped
 environment_kind: standard
+# The names the build derives from the namer; a slot never writes one (Test-BicepResourceNames).
+names:
+  storageAccountName: { type: st }
+  sqlServerName: { type: sql }
+  sqlDatabaseName: { type: sqldb }
+  blobPrivateEndpointName: { type: pep, role: blb }
+  sqlPrivateEndpointName: { type: pep, role: sql }
+  logAnalyticsName: { type: log, template: foundation }
+  actionGroupName: { type: ag, template: foundation }
+  logAnalyticsResourceGroupName: { type: rg, template: foundation }
+  networkResourceGroupName: { type: rg, template: discovery }
+  virtualNetworkName: { type: vnet, template: discovery }
+  privateDnsZoneResourceGroupName: { type: rg, template: discovery, owner_slot: hub }
+  breakGlassLoginAlertName: { type: alrt, role: bgl }
+  databaseMetricAlertNames:
+    type: alrt
+    roles: { cpu: cpu, deadlock: dlk, failedConnection: con }
+  databaseCapacityAlertNames:
+    type: alrt
+    roles: { storage: sto, compute: cmp }
+# The environment facts the build derives from azure.yml; a slot never writes one.
+facts:
+  deployProductionAlerts: production

@@ -8,7 +8,7 @@ namespace Catzc.Azure;
 // One environments entry of azure.yml, keyed by its readable name.
 public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "shortcode", "region", "region_code", "per_subscription", "staging_for" };
+    private static readonly string[] AllowedKeys = { "shortcode", "region", "region_code", "per_subscription", "staging_for", "production" };
 
     // The environment's readable name (the map key).
     public string name { get; }
@@ -27,6 +27,9 @@ public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
 
     // The environment this one stages: its inactive slot before activation (preprod for prod). Null when absent.
     public string staging_for { get; }
+
+    // True marks the production environment, the one fact every production-only rule and resource reads; absent means false.
+    public bool production { get; }
 
     // Builds the record and throws one ArgumentException listing every violation.
     public AzureEnvironmentRecord(string name, IDictionary d) : this(name, d, null) { }
@@ -79,6 +82,15 @@ public sealed class AzureEnvironmentRecord : Catzc.Base.Objects.DictionaryRecord
                 else
                 {
                     own.Add(string.Format("environment '{0}' has invalid per_subscription '{1}' (must be a boolean: true or false)", name, AzureConfig.Text(d["per_subscription"])));
+                }
+            }
+
+            if (d.Contains("production"))
+            {
+                if (d["production"] is bool) { production = (bool)d["production"]; }
+                else
+                {
+                    own.Add(string.Format("environment '{0}' has invalid production '{1}' (must be a boolean: true or false)", name, AzureConfig.Text(d["production"])));
                 }
             }
 

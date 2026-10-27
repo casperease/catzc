@@ -2,10 +2,10 @@
 name: drone-opus
 description: >
   A drone on the opus model: it runs one job skill from a coordinator's brief. The brief names the skill (`skill: <name>`), and a skill
-  whose `model_floor` is opus runs on this drone. It edits only the files the brief says it owns, verifies each file before the next,
-  sends every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with an
-  opus floor; a job with another floor goes to drone-haiku, drone-sonnet or drone-fable. Do NOT use it for a brief that names no skill, for
-  a skill whose floor is not opus, or to edit a file the brief does not own.
+  whose `model_floor` is opus runs on this drone. It edits only the files the brief says it owns, verifies each file before the next, sends
+  every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with an opus
+  floor; a job with another floor goes to drone-haiku, drone-sonnet or drone-fable. Do NOT use it for a brief that names no skill, for a
+  skill whose floor is not opus, or to edit a file the brief does not own.
 tools: Bash, Read, Glob, Grep, Write, Edit, Skill
 disallowedTools: ""
 model: opus

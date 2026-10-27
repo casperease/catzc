@@ -17,11 +17,14 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
     // The spoke subnet that holds the private endpoints of the workloads in the spoke.
     public const string PrivateEndpointsSubnet = "private-endpoints";
 
-    private static readonly string[] AllowedKeys = { "kind", "vnet_address_space", "subnets" };
+    private static readonly string[] AllowedKeys = { "kind", "vnet_address_space", "firewall_sku", "subnets" };
 
-    private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "shared-services" };
+    private static readonly string[] HubSubnetNames = { "GatewaySubnet", "AzureFirewallSubnet", "AzureFirewallManagementSubnet", "shared-services" };
 
-    // Exactly the two reserved Azure subnets and shared-services.
+    // The tiers a hub firewall takes; both run the one rule set, and only threat intelligence differs (Alert on Basic, Deny on Standard).
+    private static readonly string[] FirewallSkus = { "Basic", "Standard" };
+
+    // Exactly the three reserved Azure subnets and shared-services.
     public static IReadOnlyList<string> HubSubnets => HubSubnetNames;
 
     // The subscription name (the map key; an azure.yml subscription).
@@ -32,6 +35,12 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
 
     // The VNet address space (IPv4 CIDR, e.g. 10.100.0.0/16). Null when missing or invalid.
     public string vnet_address_space { get; }
+
+    // A hub's firewall tier, Basic or Standard; required on a hub, absent on a spoke. Null on a spoke or when invalid.
+    public string firewall_sku { get; }
+
+    // A hub's firewall address: the first one Azure assigns in its AzureFirewallSubnet, which a live deploy must confirm. Null on a spoke.
+    public string firewall_private_ip => kind == Hub && subnets.ContainsKey("AzureFirewallSubnet") ? NetworkCidr.FirstAzureHost(subnets["AzureFirewallSubnet"]) : null;
 
     // The subnets, subnet name -> IPv4 CIDR, in file order. Empty when missing or invalid; an invalid range is left out.
     public IReadOnlyDictionary<string, string> subnets { get; }
@@ -62,6 +71,7 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
             AzureConfig.UnknownKeys(d, AllowedKeys, where, own);
             kind = Kind(where, d, own);
             vnet_address_space = Vnet(where, d, own);
+            firewall_sku = FirewallSku(where, kind, d, own);
             ReadSubnets(where, d, map, own);
             CheckSubnetRanges(where, vnet_address_space, map, own);
             List<string> names = SubnetNames(d);
@@ -85,6 +95,25 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
         return null;
     }
 
+    private static string FirewallSku(string where, string kind, IDictionary d, List<string> errors)
+    {
+        if (kind == Spoke)
+        {
+            if (d.Contains("firewall_sku")) { errors.Add(string.Format("{0} is a spoke with a firewall_sku (only a hub runs a firewall)", where)); }
+            return null;
+        }
+        if (kind != Hub) { return null; }
+        if (!d.Contains("firewall_sku"))
+        {
+            errors.Add(string.Format("{0} is a hub without a firewall_sku ({1})", where, string.Join(" or ", FirewallSkus)));
+            return null;
+        }
+        string value = AzureConfig.Text(d["firewall_sku"]);
+        if (Array.IndexOf(FirewallSkus, value) >= 0) { return value; }
+        errors.Add(string.Format("{0} has invalid firewall_sku '{1}' (must be {2})", where, value, string.Join(" or ", FirewallSkus)));
+        return null;
+    }
+
     private static string Vnet(string where, IDictionary d, List<string> errors)
     {
         if (!d.Contains("vnet_address_space"))
@@ -93,9 +122,18 @@ public sealed class NetworkSubscription : Catzc.Base.Objects.DictionaryRecord
             return null;
         }
         string value = AzureConfig.Text(d["vnet_address_space"]);
-        if (NetworkCidr.IsValid(value)) { return value; }
-        errors.Add(string.Format("{0} has invalid vnet_address_space '{1}' (must be an aligned IPv4 CIDR, e.g. 10.100.0.0/16)", where, value));
-        return null;
+        if (!NetworkCidr.IsValid(value))
+        {
+            errors.Add(string.Format("{0} has invalid vnet_address_space '{1}' (must be an aligned IPv4 CIDR, e.g. 10.100.0.0/16)", where, value));
+            return null;
+        }
+        // Its subnets lie inside it, so a private vnet keeps every subnet private.
+        if (!NetworkCidr.IsPrivate(value))
+        {
+            errors.Add(string.Format("{0} has vnet_address_space '{1}' outside the private ranges ({2})", where, value, string.Join(", ", NetworkCidr.PrivateRanges)));
+            return null;
+        }
+        return value;
     }
 
     // Reads the subnets map; a subnet with an invalid range is reported and left out of the map.

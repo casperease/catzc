@@ -38,8 +38,33 @@ Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
         @{ why = 'a non-bool blocking'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a'; blocking = 'yes' }) } }
         @{ why = 'an empty pipeline'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a'; pipeline = ' ' }) } }
         @{ why = 'a duplicate globset entry'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }, [ordered]@{ globset = 'a' }) } }
+        @{ why = 'a non-mapping policies'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = 'strict' } }
+        @{ why = 'an unknown policy key'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ nope = 1 } } }
+        @{ why = 'a minimum of zero reviewers'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ minimum_reviewers = 0 } } }
+        @{ why = 'an unknown merge type'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ merge_types = @('fast_forward') } } }
+        @{ why = 'no merge type'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ merge_types = @() } } }
+        @{ why = 'a reviewer that is not an id'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ automatic_reviewer_ids = @('widget-team') } } }
+        @{ why = 'a non-bool policy flag'; config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ reset_on_push = 'yes' } } }
     ) {
         { & $script:make $config } | Should -Throw '*build-validation configuration validation failed*'
+    }
+
+    It 'defaults every policy when the config omits policies: one reviewer, author excluded, reset on push, comments resolved, squash only' {
+        $policies = (& $script:make $script:valid).policies
+        $policies.minimum_reviewers | Should -Be 1
+        $policies.creator_vote_counts | Should -BeFalse
+        $policies.reset_on_push | Should -BeTrue
+        $policies.require_comment_resolution | Should -BeTrue
+        @($policies.automatic_reviewer_ids).Count | Should -Be 0
+        $policies.merge_types | Should -Be @('squash')
+    }
+
+    It 'takes a team''s raised floor from its config' {
+        $config = [ordered]@{ branch = 'main'; validations = @([ordered]@{ globset = 'a' }); policies = [ordered]@{ minimum_reviewers = 2; merge_types = @('squash', 'rebase') } }
+        $policies = (& $script:make $config).policies
+        $policies.minimum_reviewers | Should -Be 2
+        $policies.merge_types | Should -Be @('squash', 'rebase')
+        $policies.reset_on_push | Should -BeTrue
     }
 
     It 'collects every violation into one throw' {
@@ -63,6 +88,14 @@ Describe 'Shipped build-validation config integrity' -Tag 'L0', 'integrity' {
         $config | Should -BeOfType [Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig]
         $config.branch | Should -Not -BeNullOrEmpty
         @($config.validations).Count | Should -BeGreaterThan 0
+    }
+
+    It 'declares the main-via-pr policies: at least one reviewer, reset on push, comments resolved, squash only' -Tag 'EDR-AZ-CAF-DEVOPS-R25', 'EDR-AZ-CAF-DEVOPS-R26', 'FDR-GIT-ONESQUASHEDCOMMIT' {
+        $policies = (Get-Config -Config build-validation).policies
+        $policies.minimum_reviewers | Should -BeGreaterOrEqual 1
+        $policies.reset_on_push | Should -BeTrue
+        $policies.require_comment_resolution | Should -BeTrue
+        $policies.merge_types | Should -Be @('squash')
     }
 
     It 'ties every entry to a declared globset that resolves a pipeline' {

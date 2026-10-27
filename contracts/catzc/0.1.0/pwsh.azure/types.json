@@ -10,8 +10,8 @@
           "kind": "property"
         },
         {
-          "name": "bicep_min_version",
-          "kind": "property"
+          "name": "TagErrors",
+          "kind": "method"
         },
         {
           "name": "environments",
@@ -27,6 +27,10 @@
         },
         {
           "name": "subscriptions",
+          "kind": "property"
+        },
+        {
+          "name": "tags",
           "kind": "property"
         },
         {
@@ -99,6 +103,10 @@
           "kind": "property"
         },
         {
+          "name": "production",
+          "kind": "property"
+        },
+        {
           "name": "region_code",
           "kind": "property"
         },
@@ -112,6 +120,25 @@
         },
         {
           "name": "staging_for",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureRole",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "name",
           "kind": "property"
         }
       ]
@@ -171,6 +198,33 @@
       ]
     },
     {
+      "name": "Catzc.Azure.AzureTagSchema",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "DefaultKeys",
+          "kind": "property"
+        },
+        {
+          "name": "DefaultProvenance",
+          "kind": "property"
+        },
+        {
+          "name": "TagErrors",
+          "kind": "method"
+        },
+        {
+          "name": "keys",
+          "kind": "property"
+        },
+        {
+          "name": "provenance",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.AzureTenantRecord",
       "aliases": [],
       "display": [],
@@ -206,6 +260,14 @@
           "kind": "method"
         },
         {
+          "name": "FirstAzureHost",
+          "kind": "method"
+        },
+        {
+          "name": "IsPrivate",
+          "kind": "method"
+        },
+        {
           "name": "IsValid",
           "kind": "method"
         },
@@ -225,7 +287,19 @@
       "display": [],
       "members": [
         {
+          "name": "DefaultNoNsgSubnets",
+          "kind": "property"
+        },
+        {
           "name": "environments",
+          "kind": "property"
+        },
+        {
+          "name": "firewall_egress",
+          "kind": "property"
+        },
+        {
+          "name": "no_nsg_subnets",
           "kind": "property"
         },
         {
@@ -254,12 +328,39 @@
       ]
     },
     {
+      "name": "Catzc.Azure.NetworkFirewallEgress",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Default",
+          "kind": "property"
+        },
+        {
+          "name": "fqdn_tags",
+          "kind": "property"
+        },
+        {
+          "name": "service_tags",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.NetworkSubscription",
       "aliases": [],
       "display": [],
       "members": [
         {
           "name": "HubSubnets",
+          "kind": "property"
+        },
+        {
+          "name": "firewall_private_ip",
+          "kind": "property"
+        },
+        {
+          "name": "firewall_sku",
           "kind": "property"
         },
         {
@@ -276,6 +377,17 @@
         },
         {
           "name": "vnet_address_space",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.RolesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "roles",
           "kind": "property"
         }
       ]

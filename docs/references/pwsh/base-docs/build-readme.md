@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Build-Readme.ps1
 
-The writer of the generated READMEs: for each mapping of the [readme registry](configs/readme.md) it composes the README from its
-authored article and writes it into the mapped folder. It writes only when the composed content differs.
+The writer of the generated READMEs: for each mapping of the readme registry (`readme.yml`) it composes the README from its authored article
+and writes it into the mapped folder. It writes only when the composed content differs.
 
 ## Writing
 

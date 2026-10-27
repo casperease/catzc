@@ -29,6 +29,7 @@ commands:
   Test-FileLimits: 30 # every tracked file in one pass: 5.8 s cold, 3.5 s warm (2026-10-26, out/catzc-5c-widths/measure.ps1)
   Format-FileMeta: 60 # every head-capable file, -NoCache: 5455 files, 1880 heads stripped, 14.3 s (2026-10-26, reference-normal-form 4b)
   Format-Links: 30 # -MoveMap over 4186 files for 1937 moved pages: 4.3 s (2026-10-26, reference-normal-form 4b)
+  Update-AzurePriceTable: 120 # one read-only Retail Prices API GET per cost-model meter, each bounded by this limit
 tests:
   engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360
   run_list_seconds: 300 # one run of a run list under one engine: an engine start and its few commands, under pwsh's 360

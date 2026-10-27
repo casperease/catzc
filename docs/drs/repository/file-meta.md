@@ -341,9 +341,10 @@ repeat the rule and churn with every move, so the head names neither, and an aut
 A file has a language, a track, a module and a role, and each is a fact of its own. Folding the language into the role, a Python script and
 a PowerShell script as two roles, makes the same fact twice and a head that disagrees with itself. So the role says only what the file is
 for: a test, a function, a config, a decision record. The registry holds each role with a one-sentence definition and the globs that select
-it, in the order they are checked, with the subkinds of a role written under it, and it is the one place a glob for a file's role is
-written. It is local to catzc and global to every file, so a generated head and every gate say the same thing about a file, and a consumer
-extends it with a config fragment instead of editing it. A provided contract pins the names, so a consumer's tool may rely on them.
+it, with an optional exclude list of globs that pass a selected path on to the next role, in the order they are checked, with the subkinds
+of a role written under it, and it is the one place a glob for a file's role is written. It is local to catzc and global to every file, so a
+generated head and every gate say the same thing about a file, and a consumer extends it with a config fragment instead of editing it. A
+provided contract pins the names, so a consumer's tool may rely on them.
 
 ### A head shows the facts, never holds them
 

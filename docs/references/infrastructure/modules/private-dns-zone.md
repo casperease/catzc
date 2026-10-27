@@ -10,4 +10,4 @@ in a zone resolves from any linked network. Each link is named after its network
 
 ## Use
 
-`az bicep build` inlines the module into the template that references it.
+`bicep build` inlines the module into the template that references it.

@@ -4,7 +4,8 @@ plan:
   value: medium
   reviewed: 2026-10-22
   class: feature
-  targets: [pwsh/Base.QualityGates/tests/Test-Formatting.Tests.ps1]
+  targets: [pwsh]
+  blocked_on: task-user-runs-and-commits, the final full run, whose results the ranking reads
 ---
 
 # Debt test speed: the slowest Pester files measured and fixed one at a time
@@ -17,21 +18,16 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 ## Open steps
 
-- [ ] `Test-Formatting.Tests.ps1`: its warm path's `Get-FileMetaInputStamp` (2.0 to 2.5 s) and the file-meta step list (1.4 s), measured and
-      fixed one cause at a time, routed through the orchestrator. Check: `Invoke-TestFile` twice, the same test names and `Should` count, an
-      A/B of each cause with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-
-## Open questions
-
-- Should `Build-Bicep` call the bicep binary directly instead of through `Invoke-AzCli`? Each az call pays about 1.7 s of Python start
-  (measured by catzc-68, 2026-10-26: `az bicep version` 1.99 s, `bicep --version` 0.31 s), once per slot plus once for main. Recommendation:
-  measure first, the start cost times the slots of a real build, before deciding.
-- Should a janitor keep `out/` to a retention (old `test-file/`, `burst/` journals, drone scratch)? Every test that walks the disk pays for
-  it: on 2026-10-26 the track lamps' walk held 51,471 files, 36,678 under `out/` (`test-file` 8,788, `drone27-pre` 6,089, `burst` 4,979,
-  `test-generated-files` 2,670, `minimaps` 2,296, `slides` 1,748), measured by catzc-2b. Undecided.
+- [ ] Rank the files of the next full `Test-Automation` run by time and take the slowest one with a lever, measured and fixed one cause at a
+      time; the run above is cleared from `out/`, and a full run is the user's. `Test-Formatting.Tests.ps1` is done: its remaining cost is
+      git's own attribute reads (about 220 ms in each scope). Check: `Invoke-TestFile` twice, the same test names and `Should` count, an A/B
+      with identical output, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Decided
 
+- No `out/` janitor, and the track lamps' walk keeps walking `out/` (the orchestrator, 2026-10-26): the walk took 494 ms over 25,405 files,
+  10,405 of them under `out/` (catzc-f4), and the one test that walks the repository walks once, so skipping `out/` saves about 0.2 s; the
+  out lamp hides and counts the run output file by file, so a skip would change the lamp language for it.
 - The hindsight log gets no decision record (the orchestrator as delegated, 2026-10-23): the `hindsight-log` capability is its one home
   (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
 - `docs/references/pwsh/CLAUDE.md` changes to `Format-Code -Path` (the user, 2026-10-25); the edit is the user's, task-user-runs-and-commits

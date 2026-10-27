@@ -32,6 +32,7 @@ articles:
   - docs/references/infrastructure/index.md
   - docs/references/infrastructure/modules.md
   - docs/references/infrastructure/overview.md
+  - docs/references/infrastructure/threat-model.md
   - docs/references/pwsh/CLAUDE.md
   - docs/references/pwsh/index.md
   - docs/references/pwsh/internal/index.md

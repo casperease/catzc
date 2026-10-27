@@ -163,16 +163,14 @@ capabilities:
   - name: hindsight-log
     invoked_by: brief
     persona: Jack
-    supported_by:
-      [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, PDR-CONFIG-DEFAULTANSWERSINSTANCE]
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, EDR-LEAN-SEVENWASTES, PDR-CONFIG-DEFAULTANSWERSINSTANCE]
     checks: []
 
   # Turning the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only.
   - name: debt-reduce
     invoked_by: brief
     persona: Susan from HR
-    supported_by:
-      [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP, ADR-REPO-PLANS-ONETOPICONEFILE]
+    supported_by: [EDR-LEAN-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP, ADR-REPO-PLANS-ONETOPICONEFILE]
     checks: [Test-Plans, Format-Code, Test-Links]
 
   # Driving the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.

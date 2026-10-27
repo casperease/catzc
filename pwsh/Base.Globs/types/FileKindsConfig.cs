@@ -141,13 +141,14 @@ public sealed class FileKindsConfig
         foreach (object key in entry.Keys)
         {
             string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (name != "definition" && name != "files" && name != "subkinds" && name != "git")
+            if (name != "definition" && name != "files" && name != "exclude" && name != "subkinds" && name != "git")
             {
-                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, files, subkinds, git)");
+                throw new ArgumentException(where + ": unknown key '" + name + "' (allowed: definition, files, exclude, subkinds, git)");
             }
         }
         string definition = Definition(where, entry);
         List<string> files = Files(where, entry, required: false);
+        List<string> exclude = Globs(where, entry, "exclude");
         Git(where, entry, out List<string> gitAttributes, out string gitWhy);
         var subkinds = new List<FileKindEntry>();
         if (entry.Contains("subkinds") && entry["subkinds"] != null)
@@ -162,17 +163,18 @@ public sealed class FileKindsConfig
                 foreach (object key in subEntry.Keys)
                 {
                     string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                    if (name != "definition" && name != "files" && name != "git")
+                    if (name != "definition" && name != "files" && name != "exclude" && name != "git")
                     {
-                        throw new ArgumentException(subWhere + ": unknown key '" + name + "' (allowed: definition, files, git)");
+                        throw new ArgumentException(subWhere + ": unknown key '" + name + "' (allowed: definition, files, exclude, git)");
                     }
                 }
                 Git(subWhere, subEntry, out List<string> subAttributes, out string subWhy);
-                subkinds.Add(new FileKindEntry(kind, subkind, Definition(subWhere, subEntry), Files(subWhere, subEntry, required: true), new FileKindEntry[0], subAttributes, subWhy));
+                subkinds.Add(new FileKindEntry(kind, subkind, Definition(subWhere, subEntry), Files(subWhere, subEntry, required: true),
+                    Globs(subWhere, subEntry, "exclude"), new FileKindEntry[0], subAttributes, subWhy));
             }
         }
         if (files.Count == 0 && subkinds.Count == 0) { throw new ArgumentException(where + " needs globs in 'files', or subkinds that have them"); }
-        return new FileKindEntry(kind, null, definition, files, subkinds, gitAttributes, gitWhy);
+        return new FileKindEntry(kind, null, definition, files, exclude, subkinds, gitAttributes, gitWhy);
     }
 
     // The git attributes the kind's files get in the generated .gitattributes, and why: both or neither.
@@ -210,14 +212,21 @@ public sealed class FileKindsConfig
 
     static List<string> Files(string where, IDictionary entry, bool required)
     {
-        var globs = new List<string>();
-        if (entry.Contains("files") && entry["files"] != null)
-        {
-            if (entry["files"] is string single) { globs.Add(single); }
-            else if (entry["files"] is IEnumerable items) { foreach (object item in items) { globs.Add(Convert.ToString(item, CultureInfo.InvariantCulture)); } }
-        }
-        if (globs.Any(string.IsNullOrWhiteSpace)) { throw new ArgumentException(where + ": a glob in 'files' is empty"); }
+        List<string> globs = Globs(where, entry, "files");
         if (required && globs.Count == 0) { throw new ArgumentException(where + " needs at least one glob in 'files'"); }
+        return globs;
+    }
+
+    // One glob or a list of them under the key; an absent key is an empty list.
+    static List<string> Globs(string where, IDictionary entry, string key)
+    {
+        var globs = new List<string>();
+        if (entry.Contains(key) && entry[key] != null)
+        {
+            if (entry[key] is string single) { globs.Add(single); }
+            else if (entry[key] is IEnumerable items) { foreach (object item in items) { globs.Add(Convert.ToString(item, CultureInfo.InvariantCulture)); } }
+        }
+        if (globs.Any(string.IsNullOrWhiteSpace)) { throw new ArgumentException(where + ": a glob in '" + key + "' is empty"); }
         return globs;
     }
 

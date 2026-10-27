@@ -31,6 +31,10 @@ The repository the diagrams and their points lie in.
 
 The JSON file to write.
 
+### parameter `Config`
+
+The drawing kit's config file; its `flow-readers` map names the PowerShell reader of each track's flow files, for a flow diagram's rows.
+
 ### outputs
 
 `[string]` The path written.
@@ -45,3 +49,12 @@ Write-DiagramQueryRows -Stem docs/drs/.assets/drs-domains -RepositoryRoot (Get-R
 
 A C3 or C4 slide stores its level and its point; its cells are the level's query for that point
 ([DDR-VISUAL-ZOOMISANAXIS](../../../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).
+
+## comment:1
+
+Above `$readers = $null`, written with `#`.
+
+```text
+A C3 or C4 slide stores its level and its point; its cells are the level's query for that point.
+A flow slide stores its point and the flow lens; its lanes are the reader's rows for the track its files belong to.
+```

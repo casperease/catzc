@@ -21,8 +21,8 @@ The user decides, the agent records; nothing unanswered is decided by the agent.
    `Proposed ... Answer: yes or no`); Read each plan's head and open sections.
 2. Write `out/question-round/questionnaire-<date>.md`: one item per question, one to five lines of context, the options, no links; items are
    numbered once and never renumbered; and `out/question-round/decisions-<date>.md` with the head Q, Decision, Rec taken, Outcome, Note.
-3. Ask with AskUserQuestion, four items per call; the first option is the recommendation and says so, and every option's description
-   carries its why and its outcome in the tree; a "clarify" answer gets one reformulated question with the added context.
+3. Ask with AskUserQuestion, four items per call; the first option is the recommendation and says so, and every option's description carries
+   its why and its outcome in the tree; a "clarify" answer gets one reformulated question with the added context.
 4. After each call, one row per answer: the decision, whether the recommendation was taken, the projected outcome in two to ten words, and a
    reframing quoted where it carries a new rule; a reframing answer is re-asked once in the user's terms, and an answer that puts a kind of
    item out of scope removes every item of that kind from the round.

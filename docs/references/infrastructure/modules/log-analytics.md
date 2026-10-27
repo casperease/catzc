@@ -4,4 +4,4 @@ The reusable module for a Log Analytics workspace, the sink that the diagnostic-
 
 ## Use
 
-A template references it with a relative `module` declaration (`../../modules/log-analytics.bicep`), and `az bicep build` inlines it.
+A template references it with a relative `module` declaration (`../../modules/log-analytics.bicep`), and `bicep build` inlines it.

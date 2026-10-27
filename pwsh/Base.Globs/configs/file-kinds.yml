@@ -1,14 +1,18 @@
 kinds:
   comment-page:
     definition: The page that holds the long comments moved out of one code or config file.
+    # A page's name is its source's in kebab case, so a module's or area's article (index.md, CLAUDE.md) never matches.
     files:
-      - docs/references/**/*.ps1.md
-      - docs/references/**/*.psm1.md
-      - docs/references/**/*.psd1.md
-      - docs/references/**/*.cs.md
-      - docs/references/**/*.yml.md
-      - docs/references/**/*.yaml.md
-      - docs/references/**/*.bicep.md
+      - "docs/references/pwsh/[a-z]*/*-*.md"
+      - "docs/references/pwsh/[a-z]*/*/**/*.md"
+      - "docs/references/ado/pipelines/*-*.md"
+      - "docs/references/ado/pipelines/*/**/*.md"
+      - "docs/references/github/workflows/*.md"
+      - "docs/references/infrastructure/*/**/*.md"
+      - "docs/references/python/[a-z]*/*-*.md"
+      - "docs/references/python/[a-z]*/*/**/*.md"
+    # An article whose kebab name only looks like a page's: comment-pages.yml lists it as the pipelines' folder article.
+    exclude: ["docs/references/ado/pipelines/template-folders.md"]
   contract-asset:
     definition: One file of a contract, whose bytes are what its contract check compares.
     files: ["contracts/*/*/**"]
@@ -57,7 +61,7 @@ kinds:
         files: ["pwsh/[A-Z]*/Format-*.ps1"]
       fact:
         definition: A processor that computes one derived fact of a file's meta head.
-        files: ["pwsh/[A-Z]*/private/Get-*FileMetaFact.ps1"]
+        files: ["pwsh/[A-Z]*/Get-*FileMetaFact.ps1"]
     files: ["pwsh/[A-Z]*/*.ps1", "pwsh/[A-Z]*/private/*.ps1"]
   analyzer-rule:
     definition: A PSScriptAnalyzer rule module that enforces a domain rule.

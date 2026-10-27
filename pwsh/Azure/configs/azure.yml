@@ -3,9 +3,6 @@
 # The <org> segment of every Azure resource name; the segment order is the ado_naming variant.
 org: zct
 
-# Asserted before every az bicep build, so a too-old Bicep CLI fails fast instead of emitting no main.json.
-bicep_min_version: "0.43.8"
-
 # The IDs are placeholders: replace them with the real tenant and subscription IDs of each deployment target.
 tenants:
   placeholder:
@@ -30,6 +27,8 @@ environments:
     shortcode: pr
     region: westeurope
     region_code: weu
+    # The one production environment: the compliance check's production rules and the production database alerts read this.
+    production: true
   # One identity environment per subscription: nsub for the nonprod one, psub for the prod one.
   nsub:
     shortcode: ns
@@ -91,3 +90,16 @@ subscriptions:
       - dev
       - test
       - nsub
+
+tags:
+  keys:
+    workload: []
+    environment: [dev, test, nonprod, preprod, prod]
+    owner: []
+    cost-center: []
+    criticality: [low, medium, high]
+    data-classification: [public, internal, confidential, restricted]
+  provenance:
+    commit: deployed-from-commit
+    build_id: deployed-from-buildid
+    branch: deployed-from-branch

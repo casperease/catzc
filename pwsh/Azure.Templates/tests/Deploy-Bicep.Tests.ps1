@@ -129,6 +129,21 @@ function Invoke-BicepPostDeploy {
         }
     }
 
+    It 'gives the resource group the tags parameter of its slot' {
+        $parameters = Join-Path $script:tempArtifacts 'parameters.alpha.json'
+        $original = [System.IO.File]::ReadAllText($parameters)
+        try {
+            [System.IO.File]::WriteAllText($parameters, (@{ parameters = @{ tags = @{ value = [ordered]@{ workload = 'widget'; owner = 'gadget' } } } } | ConvertTo-Json -Depth 5))
+            Deploy-Bicep alpha sample
+            Should -Invoke Deploy-AzureResourceGroup -ModuleName Catzc.Azure.Templates -ParameterFilter {
+                $Tags['workload'] -eq 'widget' -and $Tags['owner'] -eq 'gadget' -and $Tags.Count -eq 2
+            }
+        }
+        finally {
+            [System.IO.File]::WriteAllText($parameters, $original)
+        }
+    }
+
     It 'invokes az deployment group create with the resolved args' {
         Deploy-Bicep alpha sample
         $expectedTemplate = [regex]::Escape("--template-file `"$(Join-Path $script:tempArtifacts 'main.json')`"")

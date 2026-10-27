@@ -2,13 +2,13 @@
 
 The module-system introspection module: the one place the platform turns to reason about its own shape — which modules and functions exist
 on disk, what the module-to-module and function-to-function dependency edges actually are, and whether those edges — together with the
-cross-module C# type edges computed by [Catzc.Base.TypesSystem](../base-types-system/index.md) — conform to the group-aware declared graph in
-`dependencies.yml`. Its quality gates are the mechanical guard that keeps the layering and the module conventions honest (see
+cross-module C# type edges computed by [Catzc.Base.TypesSystem](../base-types-system/index.md) — conform to the group-aware declared graph
+in `dependencies.yml`. Its quality gates are the mechanical guard that keeps the layering and the module conventions honest (see
 [controlling-module-dependencies](../../../drs/automation/controlling-module-dependencies.md),
 [open-closed-architecture](../../../drs/automation/open-closed-architecture.md), and
-[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)); copying the toolset and generating the repository's `importer.ps1`
-entry point complete the module's concern. The native C# type system itself — the compiled-assembly cache and the cross-module
-type-reference scanner — lives in [Catzc.Base.TypesSystem](../base-types-system/index.md).
+[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)); copying the toolset and generating the repository's
+`importer.ps1` entry point complete the module's concern. The native C# type system itself — the compiled-assembly cache and the
+cross-module type-reference scanner — lives in [Catzc.Base.TypesSystem](../base-types-system/index.md).
 
 ## Responsibilities
 
@@ -31,9 +31,9 @@ sites.
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
 traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
-([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the
-cross-module C# type edges that [Catzc.Base.TypesSystem](../base-types-system/index.md) computes, are checked against the declared graph in
-`dependencies.yml`; the whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with
+the cross-module C# type edges that [Catzc.Base.TypesSystem](../base-types-system/index.md) computes, are checked against the declared graph
+in `dependencies.yml`; the whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The
 declared graph is group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its
 `modules:` section lists, per consumer, the allowed targets as group names (loose: any member) or specific module names (tight). The config
 this responsibility owns — `dependencies.yml` — is the platform's single declared layering contract.
@@ -86,8 +86,8 @@ The gates are the mechanical evidence that the [open-closed-architecture](../../
 extending the platform means adding new files, and the gates are what prove no addition created a layering violation or broke a module
 convention. The cross-module C# type edges that PowerShell call-site analysis cannot see are computed by
 [Catzc.Base.TypesSystem](../base-types-system/index.md)'s `Get-CSharpTypeDependency` (see
-[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)) and folded into `Test-ModuleDependency`, completing the edge set it
-runs against.
+[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)) and folded into `Test-ModuleDependency`, completing the edge set
+it runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
 each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges.

@@ -9,9 +9,9 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { throw 'the stamp reads no citation registry' }
         $script:stamp = {
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note); R = $script:root } {
-                param($F, $R)
-                Get-FileMetaInputStamp -File $F -RepositoryRoot $R
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note) } {
+                param($F)
+                Get-FileMetaInputStamp -File $F
             }
         }
     }

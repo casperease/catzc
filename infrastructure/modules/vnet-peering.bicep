@@ -20,11 +20,11 @@ param allowGatewayTransit bool = false
 @description('Use the gateway of the remote VNet (spoke side; needs allowGatewayTransit on the hub side and a deployed gateway).')
 param useRemoteGateways bool = false
 
-resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' existing = {
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: virtualNetworkName
 }
 
-resource peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2023-09-01' = {
+resource peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2024-05-01' = {
   parent: vnet
   name: name
   properties: {

@@ -25,8 +25,8 @@ The default agent and the terminal launcher are entries in `configs/claude-drone
 
 Starting a session is deterministic, so it is a command: it resolves the agent and the terminal as a setting resolves anywhere in catzc, the
 caller's value first, then the config entry, then the default declared on the config type
-([sensible-defaults](../../../drs/automation/sensible-defaults.md)). A model is passed only when asked for, so the agent file's model applies
-otherwise. The launch is shown before it is made: `-DryRun` returns each planned command line and starts nothing
+([sensible-defaults](../../../drs/automation/sensible-defaults.md)). A model is passed only when asked for, so the agent file's model
+applies otherwise. The launch is shown before it is made: `-DryRun` returns each planned command line and starts nothing
 ([prefer-dryrun-over-shouldprocess](../../../drs/automation/pwsh/prefer-dryrun-over-shouldprocess.md)).
 
 ## Division

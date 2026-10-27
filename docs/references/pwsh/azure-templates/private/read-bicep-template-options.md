@@ -43,3 +43,12 @@ Absolute path to the template folder (the one containing `main.bicep`).
 Read-BicepTemplateOptions 'C:\repo\infrastructure\templates\sample-subscription'
 # -> [ordered]@{ deployment_target = 'Subscription' }
 ```
+
+## comment:1
+
+Above `if ($options.Contains('facts')) {`, written with `#`.
+
+```text
+A fact is a boolean field of the azure.yml environment record, read from the type so the record stays the one list of them, or
+policy_enforcement, the enforcement mode of the subscription the slot targets.
+```

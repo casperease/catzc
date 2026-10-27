@@ -10,9 +10,9 @@ Returns a pipeline's type and unit from its file name's prefix.
 
 ### description
 
-A pipeline file's name starts with its type's prefix (ci-, cd-, cde-, deploy-, cron-, input-) and names its unit after it, so `cd-apex`
-is a CD pipeline of the unit apex. The longest prefix is tried first, so `cde-` is never read as `cd-`. A name with no known prefix is of
-type `unknown`, its whole name the unit. Every engine's flow reader asks this one command, so the prefixes are declared once.
+A pipeline file's name starts with its type's prefix (ci-, cd-, cde-, deploy-, cron-, input-) and names its unit after it, so `cd-apex` is a
+CD pipeline of the unit apex. The longest prefix is tried first, so `cde-` is never read as `cd-`. A name with no known prefix is of type
+`unknown`, its whole name the unit. Every engine's flow reader asks this one command, so the prefixes are declared once.
 
 ### parameter `Name`
 

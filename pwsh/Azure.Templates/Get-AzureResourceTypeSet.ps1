@@ -24,5 +24,12 @@ function Get-AzureResourceTypeSet {
         pep   = @{ pattern = 'long'; limit = 64 }   # private endpoint — 2-64, unique in the resource group
         budg  = @{ pattern = 'long'; limit = 63 }   # budget — 1-63 (letters, digits, _ and -), unique in the subscription
         pa    = @{ pattern = 'long'; limit = 64 }   # policy assignment — 1-64 at the subscription, unique there
+        ag    = @{ pattern = 'long'; limit = 260 }  # action group — 1-260, unique in the resource group
+        alrt  = @{ pattern = 'long'; limit = 260 }  # alert rule (metric, activity log, scheduled query) — 1-260, unique in the resource group
+        wb    = @{ pattern = 'long'; limit = 128 }  # workbook display name (the resource name is a GUID derived from it)
+        pack  = @{ pattern = 'long'; limit = 63 }   # Log Analytics query pack — unique in the resource group
+        afw   = @{ pattern = 'long'; limit = 56 }   # Azure Firewall — 1-56, unique in the resource group
+        afwp  = @{ pattern = 'long'; limit = 80 }   # firewall policy — 1-80, unique in the resource group
+        dash  = @{ pattern = 'long'; limit = 160 }  # portal dashboard — letters, digits and hyphens, unique in the resource group
     }
 }

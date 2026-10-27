@@ -52,6 +52,24 @@ Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
         $result.short_name | Should -Be 'smpl'
     }
 
+    It 'parses a facts map whose values are boolean fields of the environment record' {
+        Set-Content (Join-Path $script:folder 'options.yml') -Value "facts:`n  deployWidgetAlerts: production"
+        $result = & $script:invoke $script:folder
+        $result.facts.deployWidgetAlerts | Should -Be 'production'
+    }
+
+    It 'throws on a fact that is no boolean field of the environment record, naming the valid fields' {
+        Set-Content (Join-Path $script:folder 'options.yml') -Value "facts:`n  deployWidgetAlerts: region"
+        { & $script:invoke $script:folder } | Should -Throw "*facts.deployWidgetAlerts: unknown environment field 'region'*production*"
+    }
+
+    It 'parses an addresses map of global config addresses, and throws on a value that is not one' {
+        Set-Content (Join-Path $script:folder 'options.yml') -Value "addresses:`n  widgetRoleId: global.roles.widget.id"
+        (& $script:invoke $script:folder).addresses.widgetRoleId | Should -Be 'global.roles.widget.id'
+        Set-Content (Join-Path $script:folder 'options.yml') -Value "addresses:`n  widgetRoleId: roles.widget.id"
+        { & $script:invoke $script:folder } | Should -Throw "*addresses.widgetRoleId: 'roles.widget.id' is not a global config address*"
+    }
+
     It 'parses a customer_deployment boolean' {
         Set-Content (Join-Path $script:folder 'options.yml') -Value 'customer_deployment: true'
         $result = & $script:invoke $script:folder

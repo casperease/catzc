@@ -16,6 +16,7 @@ Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {
         @{ Name = 'Get-AzResource' }
         @{ Name = 'New-AzVM' }
         @{ Name = 'Remove-AzResourceGroup' }
+        @{ Name = 'Assert-AzBicepValid' }
     ) {
         Test-AzureNaming "function $Name { }" | Should -Not -BeNullOrEmpty
     }
@@ -25,7 +26,6 @@ Describe 'Measure-NoAzModuleNaming' -Tag 'L0', 'logic' {
         @{ Name = 'Deploy-AzureResourceGroup' }
         @{ Name = 'Invoke-AzCli' }             # az CLI wrapper
         @{ Name = 'Assert-AzCliIsConnected' }  # az CLI connectivity
-        @{ Name = 'Assert-AzBicepValid' }      # az bicep check (AzBicep* sanctioned)
         @{ Name = 'Get-BicepTemplate' }        # no Az* prefix at all
     ) {
         Test-AzureNaming "function $Name { }" | Should -BeNullOrEmpty

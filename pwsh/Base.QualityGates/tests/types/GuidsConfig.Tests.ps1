@@ -35,6 +35,19 @@ Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
         $config = New-GuidsConfig ([ordered]@{ guids = $null })
         $config.guids.Count | Should -Be 0
         $config.denied.Count | Should -Be 0
+        $config.registries.Count | Should -Be 0
+    }
+
+    It 'reads the registries it names as repository-relative yml paths' {
+        $config = New-GuidsConfig ([ordered]@{ guids = $null; registries = @('pwsh/Widget/configs/sprockets.yml', 'configs\gadgets.yml') })
+        @($config.registries) | Should -Be @('pwsh/Widget/configs/sprockets.yml', 'configs/gadgets.yml')
+    }
+
+    It 'throws on a registry that is rooted, empty or not a yml file' {
+        $message = Get-ViolationMessage ([ordered]@{ guids = $null; registries = @('C:/sprockets.yml', '', 'configs/gadgets.json') })
+        $message | Should -BeLike "*registry 'C:/sprockets.yml' must be a repository-relative path*"
+        $message | Should -BeLike "*registry '' must be*"
+        $message | Should -BeLike "*registry 'configs/gadgets.json' must be*"
     }
 
     It 'accepts a registry with a denied section' {

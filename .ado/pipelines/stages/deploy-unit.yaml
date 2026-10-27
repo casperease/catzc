@@ -66,6 +66,14 @@ stages:
                             RunId: ${{ parameters.RunId }}
                         - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
+                            DisplayName: "What-if ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})"
+                            Mode: azcli
+                            ServiceConnection: ${{ f.serviceConnection }}
+                            RunCommand:
+                              'Deploy-Bicep -Environment ${{ f.env }} -Template foundation -SubscriptionIdAssertIs ${{
+                              f.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/foundation" -DryRun'
+                        - template: /.ado/pipelines/steps/invoke-automation.yaml
+                          parameters:
                             DisplayName: "Deploy-Bicep ${{ f.env }} foundation (session target, assert ${{ f.subscriptionIdAssertIs }})"
                             Mode: azcli
                             ServiceConnection: ${{ f.serviceConnection }}
@@ -107,6 +115,14 @@ stages:
                             Artifact: discovery
                             ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                             RunId: ${{ parameters.RunId }}
+                        - template: /.ado/pipelines/steps/invoke-automation.yaml
+                          parameters:
+                            DisplayName: "What-if ${{ d.env }} discovery (session target, assert ${{ d.subscriptionIdAssertIs }})"
+                            Mode: azcli
+                            ServiceConnection: ${{ d.serviceConnection }}
+                            RunCommand:
+                              'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{
+                              d.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery" -DryRun'
                         - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
                             DisplayName: "Deploy-Bicep ${{ d.env }} discovery (session target, assert ${{ d.subscriptionIdAssertIs }})"
@@ -157,6 +173,16 @@ stages:
                             - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
                                 DisplayName:
+                                  "What-if ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{ w.subscriptionIdAssertIs
+                                  }})"
+                                Mode: azcli
+                                ServiceConnection: ${{ w.serviceConnection }}
+                                RunCommand:
+                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs
+                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
+                            - template: /.ado/pipelines/steps/invoke-automation.yaml
+                              parameters:
+                                DisplayName:
                                   "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{
                                   w.subscriptionIdAssertIs }})"
                                 Mode: azcli
@@ -188,6 +214,14 @@ stages:
                                 Artifact: expedition
                                 ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
                                 RunId: ${{ parameters.RunId }}
+                            - template: /.ado/pipelines/steps/invoke-automation.yaml
+                              parameters:
+                                DisplayName: "What-if ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"
+                                Mode: azcli
+                                ServiceConnection: ${{ w.serviceConnection }}
+                                RunCommand:
+                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
+                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
                             - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
                                 DisplayName: "Deploy-Bicep ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"

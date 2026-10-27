@@ -46,8 +46,8 @@ gate between them — the check that turns an irreversible delete into a safe on
 the network, is the source of truth: installing writes an exact version into the tree to be committed, and removing refuses to touch
 anything the network cannot give back, so the tree is always reconstructable.
 
-The module sits above [Catzc.Base.Config](../base-config/index.md) (for `vendor.yml`), [Catzc.Base.Repository](../base-repository/index.md) (to
-anchor the vendor root), and [Catzc.Base.Writers](../base-writers/index.md) (for its reporting), and it leans on the bundled
+The module sits above [Catzc.Base.Config](../base-config/index.md) (for `vendor.yml`), [Catzc.Base.Repository](../base-repository/index.md)
+(to anchor the vendor root), and [Catzc.Base.Writers](../base-writers/index.md) (for its reporting), and it leans on the bundled
 `Microsoft.PowerShell.PSResourceGet` rather than adding a vendored dependency of its own. It is the post-import counterpart to the internal
 `Import-VendorModules` loader that the importer runs before any module exists: that one gets the committed modules into the session; this
 one governs which modules are committed in the first place.

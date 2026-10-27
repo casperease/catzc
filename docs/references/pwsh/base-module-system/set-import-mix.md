@@ -1,7 +1,7 @@
 # pwsh/Base.ModuleSystem/Set-ImportMix.ps1
 
-The importer's step that decides the session's [ImportMix](types/import-mix.md) once its modules are loaded, keeps it as the session record,
-and removes the loaded modules whose code languages fall outside it. `Get-ImportMix` returns the kept record.
+The importer's step that decides the session's `ImportMix` once its modules are loaded, keeps it as the session record, and removes the
+loaded modules whose code languages fall outside it. `Get-ImportMix` returns the kept record.
 
 ## help
 

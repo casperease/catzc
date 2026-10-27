@@ -18,19 +18,15 @@ param timeGrain string = 'Monthly'
 @description('First day of the budget, yyyy-MM-dd; it must be the first of a month.')
 param startDate string
 
-@description('Alert thresholds, in percent of the amount.')
+@description('Alert thresholds on actual cost, in percent of the amount.')
 param thresholds array = [
   50
   80
   100
 ]
 
-@description('Compare the thresholds against actual or forecasted cost.')
-@allowed([
-  'Actual'
-  'Forecasted'
-])
-param thresholdType string = 'Actual'
+@description('Alert thresholds on forecasted cost, in percent of the amount; none by default.')
+param forecastThresholds array = []
 
 @description('Subscription roles whose holders receive the alerts.')
 param contactRoles array = [
@@ -46,14 +42,18 @@ resource budget 'Microsoft.Consumption/budgets@2023-11-01' = {
     timePeriod: {
       startDate: startDate
     }
+    // One notification per threshold of each type, keyed by its type and percent, so an actual and a forecast alert never collide.
     notifications: toObject(
-      thresholds,
-      threshold => '${toLower(thresholdType)}-greater-than-${threshold}',
-      threshold => {
+      concat(
+        map(thresholds, threshold => { threshold: threshold, thresholdType: 'Actual' }),
+        map(forecastThresholds, threshold => { threshold: threshold, thresholdType: 'Forecasted' })
+      ),
+      entry => '${toLower(entry.thresholdType)}-greater-than-${entry.threshold}',
+      entry => {
         enabled: true
         operator: 'GreaterThan'
-        threshold: threshold
-        thresholdType: thresholdType
+        threshold: entry.threshold
+        thresholdType: entry.thresholdType
         contactEmails: []
         contactRoles: contactRoles
       }

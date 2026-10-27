@@ -1,0 +1,13 @@
+# foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: nonprod
+        owner: nova
+        cost-center: nova
+        criticality: medium
+        data-classification: confidential
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_nonprod.id

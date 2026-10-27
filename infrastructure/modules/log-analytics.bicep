@@ -15,7 +15,10 @@ param retentionInDays int = 30
 @description('Resource tags (a landing zone that requires a tag denies an untagged workspace).')
 param tags object = {}
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
+@description('Resource-context access: a reader of a resource reads that resource\'s logs without a role on the whole workspace.')
+param enableLogAccessUsingOnlyResourcePermissions bool = true
+
+resource workspace 'Microsoft.OperationalInsights/workspaces@2025-02-01' = {
   name: name
   location: location
   tags: tags
@@ -24,6 +27,9 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
       name: skuName
     }
     retentionInDays: retentionInDays
+    features: {
+      enableLogAccessUsingOnlyResourcePermissions: enableLogAccessUsingOnlyResourcePermissions
+    }
   }
 }
 

@@ -17,10 +17,8 @@ gate).
 
 `generated-files.yml` lists every generated-file writer in the order they re-render in, each with the inputs it reads and the outputs it
 writes. The config type `GeneratedFilesConfig` holds the list and `input_depth`, how deep the walk for a `**` input glob goes below the
-glob's literal folder; its default is declared once, on the type. See
-[the config page](configs/generated-files.md) and the type pages
-[GeneratedWriter](types/generated-writer.md) and
-[GeneratedWriterDue](types/generated-writer-due.md).
+glob's literal folder; its default is declared once, on the type. See [the config page](configs/generated-files.md) and the type pages
+[GeneratedWriter](types/generated-writer.md) and [GeneratedWriterDue](types/generated-writer-due.md).
 
 ### responsibility:2 — Judging which writers are due
 

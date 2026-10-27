@@ -34,12 +34,25 @@ function Get-LinkScope {
     }
     else {
         # A tracked file deleted or moved on disk but not yet staged has nothing to scan, so it is left out.
-        Get-GitTrackedPath '.' | Where-Object { [System.IO.File]::Exists([System.IO.Path]::Combine($root, $_)) }
+        foreach ($tracked in Get-GitTrackedPath '.') {
+            if ([System.IO.File]::Exists([System.IO.Path]::Combine($root, $tracked))) {
+                $tracked
+            }
+        }
     }
 
-    $inRepository = @($files | Where-Object { $_ -notmatch '^\.\./' })
+    # Loops, not Where-Object: a whole-repository scope is thousands of paths.
+    $inRepository = [string[]] @(foreach ($file in $files) {
+            if (-not $file.StartsWith('../')) {
+                $file
+            }
+        })
     # Get-ContentExemptPath returns its paths as one array: assign it, so the set holds the paths, not the array.
     $exemptPaths = Get-ContentExemptPath -RepositoryRoot $root -Path $inRepository
     $exempt = [System.Collections.Generic.HashSet[string]]::new([string[]] @($exemptPaths))
-    @($inRepository | Where-Object { -not $exempt.Contains($_) })
+    @(foreach ($file in $inRepository) {
+            if (-not $exempt.Contains($file)) {
+                $file
+            }
+        })
 }

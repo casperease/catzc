@@ -7,3 +7,11 @@ validations:
   - globset: nova
   - globset: apex
   - globset: flux
+# The pull-request policies of the branch, applied when the git_workspace variant is main-via-pr; an omitted key takes its default.
+policies:
+  minimum_reviewers: 1
+  reset_on_push: true
+  creator_vote_counts: false
+  require_comment_resolution: true
+  automatic_reviewer_ids: []
+  merge_types: [squash]

@@ -58,6 +58,33 @@ Describe 'FileKindsConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         It 'names every file other when no kind is declared' {
             (New-Config $null).Resolve('widgets/part.wdg').role | Should -BeExactly 'other'
         }
+
+        It 'passes a path a kind''s exclude names on to the next kind, and excludes nothing by default' {
+            $excluding = New-Config ([ordered]@{
+                    widget   = [ordered]@{ definition = 'A widget file.'; files = @('widgets/*.wdg'); exclude = @('widgets/spare.wdg') }
+                    sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('**/*.wdg') }
+                })
+            $excluding.Resolve('widgets/spare.wdg').role | Should -BeExactly 'sprocket'
+            $excluding.Resolve('widgets/part.wdg').role | Should -BeExactly 'widget'
+            $excluding.kinds[0].exclude | Should -Be @('widgets/spare.wdg')
+            $script:config.kinds[0].exclude.Count | Should -Be 0
+        }
+
+        It 'takes an excluded path out of a subkind, leaving it to the kind''s own globs' {
+            $excluding = New-Config ([ordered]@{
+                    gadget = [ordered]@{
+                        definition = 'A gadget file.'
+                        subkinds   = [ordered]@{ cog = [ordered]@{ definition = 'A cog.'; files = @('gadgets/cog-*.gdg'); exclude = 'gadgets/cog-spare.gdg' } }
+                        files      = @('gadgets/*.gdg')
+                    }
+                })
+            $excluding.Resolve('gadgets/cog-spare.gdg').Class | Should -BeExactly 'gadget'
+        }
+
+        It 'refuses an empty exclude glob, naming the key' {
+            { New-Config ([ordered]@{ widget = [ordered]@{ definition = 'A widget file.'; files = @('widgets/*.wdg'); exclude = @('') } }) } |
+                Should -Throw -ExpectedMessage "*a glob in 'exclude' is empty*"
+        }
     }
 
     Context 'git attributes' {

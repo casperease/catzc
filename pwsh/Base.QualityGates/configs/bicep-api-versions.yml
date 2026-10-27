@@ -1,0 +1,26 @@
+folders: [infrastructure/modules, infrastructure/templates]
+max_age_months: 36
+allowed:
+  # Diagnostic settings have no stable version newer than 2016-09-01; the preview is the newest Bicep types carry.
+  Microsoft.Insights/diagnosticSettings: ["2021-05-01-preview"]
+  # The newest stable versions Azure publishes for these types; every later one is a preview.
+  Microsoft.Sql/servers: ["2023-08-01"]
+  Microsoft.Sql/servers/databases: ["2023-08-01"]
+  Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies: ["2023-08-01"]
+  Microsoft.Sql/servers/firewallRules: ["2023-08-01"]
+  Microsoft.Sql/servers/auditingSettings: ["2023-08-01"]
+  Microsoft.Authorization/roleAssignments: ["2022-04-01"]
+  # Data Factory v2 has shipped one stable version only.
+  Microsoft.DataFactory/factories: ["2018-06-01"]
+  # The latest stable locks API; Azure has published no newer version (bicep's type index has none past 2020-05-01).
+  Microsoft.Authorization/locks: ["2020-05-01"]
+  # The newest stable alert APIs; every later version bicep's type index carries is a preview.
+  Microsoft.Insights/actionGroups: ["2023-01-01"]
+  Microsoft.Insights/activityLogAlerts: ["2020-10-01"]
+  Microsoft.Insights/metricAlerts: ["2018-03-01"]
+  # The newest stable workbook and query-pack versions; every later one bicep's type index carries is a preview.
+  Microsoft.Insights/workbooks: ["2023-06-01"]
+  Microsoft.OperationalInsights/queryPacks: ["2023-09-01"]
+  Microsoft.OperationalInsights/queryPacks/queries: ["2023-09-01"]
+  # Portal dashboards have no stable version newer than 2020; the newest preview is the one bicep's type index carries.
+  Microsoft.Portal/dashboards: ["2025-04-01-preview"]

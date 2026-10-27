@@ -98,7 +98,8 @@ layout:
    `Assert-Tool 'az_cli'` checks the installed az against it before the wrapper runs az.
 5. **az CLI.** The vendor's control-plane tool, and the one exit to Azure. The resource-group check and create, the deployment and the
    tracking tags all go through it.
-6. **Bicep.** The vendor's templating language. The platform does not generate ARM by hand: az compiles each template with `az bicep build`.
+6. **Bicep.** The vendor's templating language. The platform does not generate ARM by hand: the standalone Bicep CLI, pinned in `tools.yml`,
+   compiles each template with `bicep build`, offline, so the compile is no call to Azure.
 7. **Azure.** The vendor substrate, today the only one cats covers.
 8. **The single exit.** Only one arrow reaches Azure, and it leaves from the az CLI. No automation code imports an Az PowerShell module.
 

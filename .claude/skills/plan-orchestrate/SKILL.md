@@ -16,12 +16,12 @@ metadata:
 
 Run as the main session, never a subagent, which cannot see the peers' replies; edit plan and task files only.
 
-1. On (re)start: `Test-Plans` first, then `plan-master.md` (its list is the order), the task files its open lines name, the `prompt-*`
-   files beside them and the last lines of `out/orchestrator-<date>.log`, which the `Record-SessionMessage` hook writes: output, not input.
+1. On (re)start: `Test-Plans` first, then `plan-master.md` (its list is the order), the task files its open lines name, the `prompt-*` files
+   beside them and the last lines of `out/orchestrator-<date>.log`, which the `Record-SessionMessage` hook writes: output, not input.
 2. `ListAgents` is the roster, the sessions the user started; none is ever spawned. Three one-line messages: `what are you working on?`;
-   `continue with this: <plan> step <n>; owns <files>; check <check>`, never the plan's text; `stop; <reason>`. A reply reads as `working
-   on <chunk>`, `landed <step> with <verdict line>`, `blocked on <what>` or `nothing in hand`; else ask once more, then record it unclear;
-   an idle notice older than the session's last reply is stale.
+   `continue with this: <plan> step <n>; owns <files>; check <check>`, never the plan's text; `stop; <reason>`. A reply reads as
+   `working on <chunk>`, `landed <step> with <verdict line>`, `blocked on <what>` or `nothing in hand`; else ask once more, then record it
+   unclear; an idle notice older than the session's last reply is stale.
 3. One chunk per session, the next open in the master's order whose dependencies are landed and whose files no live session holds; it waits,
    never splits (WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS); at most two heavy runs at a time, lined up on the run lock.
 4. A landed step is ticked in its task file with the verdict line given; a claim without one stays "reported, unverified"; plan checks batch

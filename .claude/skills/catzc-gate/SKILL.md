@@ -1,8 +1,8 @@
 ---
 name: catzc-gate
 description:
-  Run one quality gate, one test file, or small isolated slices of test automation on a named path subset, and report each verdict
-  verbatim; never fixes, never retries larger; input is the gate name with its paths, a test file path, or the paths alone.
+  Run one quality gate, one test file, or small isolated slices of test automation on a named path subset, and report each verdict verbatim;
+  never fixes, never retries larger; input is the gate name with its paths, a test file path, or the paths alone.
 user-invocable: false
 allowed-tools: Bash, Read
 metadata:

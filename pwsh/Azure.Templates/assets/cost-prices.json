@@ -1,0 +1,37 @@
+{
+  "currency": "USD",
+  "region": "westeurope",
+  "as_of": "2026-10-27",
+  "prices": {
+    "log-analytics-ingestion": {
+      "unit_price": 2.99,
+      "unit_of_measure": "1 GB",
+      "sku": "Analytics Logs"
+    },
+    "key-vault-operations": {
+      "unit_price": 0.03,
+      "unit_of_measure": "10K",
+      "sku": "Standard"
+    },
+    "storage-hot-zrs": {
+      "unit_price": 0.024,
+      "unit_of_measure": "1 GB/Month",
+      "sku": "Hot ZRS"
+    },
+    "sql-serverless-vcore": {
+      "unit_price": 0.573934,
+      "unit_of_measure": "1 Hour",
+      "sku": "1 vCore"
+    },
+    "vm-b1s": {
+      "unit_price": 0.016,
+      "unit_of_measure": "1 Hour",
+      "sku": "B1s"
+    },
+    "data-factory-orchestration": {
+      "unit_price": 1.0,
+      "unit_of_measure": "1K",
+      "sku": "Cloud"
+    }
+  }
+}

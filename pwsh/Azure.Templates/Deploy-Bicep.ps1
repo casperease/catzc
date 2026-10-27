@@ -99,13 +99,28 @@ function Deploy-Bicep {
         & $preDeployHook @hookSplat -DryRun:$DryRun
     }
 
-    if ($context.deployment.target -eq 'ResourceGroup') {
-        Deploy-AzureResourceGroup -SubscriptionId $context.environment.subscription.id -Region $context.environment.region -ResourceGroup $context.deployment.resource_group -DryRun:$DryRun | Out-Null
-    }
-
     # Paths are repo-relative or absolute; az runs from the repo root, so either resolves independent of the shell's $PWD.
     $templateFile = $context.artifacts.template_file
     $parametersFile = $context.artifacts.parameters_file
+
+    if ($context.deployment.target -eq 'ResourceGroup') {
+        # The group carries the slot's CAF tags, the same tags parameter its resources get.
+        $slotParameters = [System.IO.File]::ReadAllText((Resolve-RepoPath $parametersFile)) | ConvertFrom-Json -AsHashtable
+        $slotValues = if ($slotParameters -is [System.Collections.IDictionary] -and $slotParameters.Contains('parameters')) {
+            $slotParameters.parameters
+        }
+        else {
+            @{}
+        }
+        $groupTags = if ($slotValues.Contains('tags') -and $slotValues.tags -is [System.Collections.IDictionary] -and
+            $slotValues.tags.Contains('value') -and $slotValues.tags.value -is [System.Collections.IDictionary]) {
+            $slotValues.tags.value
+        }
+        else {
+            @{}
+        }
+        Deploy-AzureResourceGroup -SubscriptionId $context.environment.subscription.id -Region $context.environment.region -ResourceGroup $context.deployment.resource_group -Tags $groupTags -DryRun:$DryRun | Out-Null
+    }
 
     $baseCommand = if ($context.deployment.target -eq 'ResourceGroup') {
         @(

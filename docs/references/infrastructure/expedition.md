@@ -27,12 +27,23 @@ The configuration tree is [data-model](../../drs/azure/azure-data-model.md).
 - **Operational excellence:** every resource sends its logs and metrics to `foundation`'s workspace, and carries the CAF tags.
 - **Performance efficiency:** the database SKU, tier, and vCores are config values per environment class.
 
+## Recovery objectives
+
+The recovery point objective (RPO, the most data a recovery may lose) and the recovery time objective (RTO, the longest a recovery may take)
+per environment class follow from the backups the configuration sets; a change to those backups changes these targets in the same change.
+
+- **`production`:** a fault in one zone loses nothing and recovers by itself, since the database and the storage are zone-redundant. A
+  point-in-time restore inside the 35 days of retention has an RPO of 10 minutes and an RTO of 4 hours. A geo-restore after a regional
+  outage, from the geo-redundant backups, has an RPO of 1 hour and an RTO of 12 hours.
+- **`nonproduction`:** a point-in-time restore inside the 7 days of retention has an RPO of 10 minutes and an RTO of 1 business day; a
+  regional outage is recovered by a redeploy from the repository, with the data rebuilt rather than restored.
+
 ## Configuration
 
 - `short_name`: `exped`; `environment_kind`: `standard` (per environment).
-- `configuration/apex/dev.yml`, `configuration/apex/dev-blu.yml` (the special slot `blu`, a second deployment beside the base one), and
-  `configuration/apex/prod.yml` for apex; `configuration/nova/dev.yml` for nova; `configuration/dev.yml` and `configuration/test.yml` at the
-  configuration root, for the shared platform.
+- `configuration/apex/dev.yml`, the ephemeral slot `dev-blu` on it (a second deployment beside the base one, with no file: cd-apex deploys
+  it from its own target list), and `configuration/apex/prod.yml` for apex; `configuration/nova/dev.yml` for nova; `configuration/dev.yml`
+  and `configuration/test.yml` at the configuration root, for the shared platform.
 - The network is named by resource group, virtual network, and subnet. The hub's subscription id, which holds the private DNS zones, is a
   config address into `azure.yml` (`global.azure.subscriptions.<hub subscription>.id`).
 - The break-glass password is a Key Vault `reference` to `foundation`'s vault in the same subscription.

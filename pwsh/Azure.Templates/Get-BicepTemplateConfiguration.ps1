@@ -51,6 +51,13 @@ function Get-BicepTemplateConfiguration {
     if ([System.IO.File]::Exists($bicepParamFile)) {
         return [ordered]@{ BicepParamFile = $bicepParamFile }
     }
+    # A slot with no file of its own is an ephemeral slot: it reads its base slot's config (Resolve-BicepSlot).
+    if (-not [System.IO.File]::Exists($environmentFile) -and -not [string]::IsNullOrEmpty($Slot)) {
+        $runtime = Resolve-BicepSlot -TemplateDescriptor $templateDescriptor -Environment $Environment -Slot $Slot -Customer $Customer
+        if ($runtime -and $runtime.file -like '*.yml') {
+            $environmentFile = $runtime.file
+        }
+    }
     Assert-PathExist $environmentFile -PathType Leaf -ErrorText "Template '$Template' has no config '$configName.yml' or '$configName.bicepparam' $where ($environmentFile)"
 
     Get-Content $environmentFile -Raw | ConvertFrom-Yaml -Ordered

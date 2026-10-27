@@ -11,12 +11,12 @@ registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config ar
 Constructing the record maps and validates the parsed YAML and gathers every violation into one `ArgumentException`:
 
 - exactly the top-level keys `ado`, `github` and `artifactory` are allowed, and each is required;
-- each key holds a well-formed publish target ([ArtifactsTarget](artifacts-target.md): `enabled` plus that target's coordinates).
+- each key holds a well-formed publish target (`ArtifactsTarget`: `enabled` plus that target's coordinates).
 
 ## Properties
 
-- **`ado`** — the [Azure DevOps Artifacts](ado-artifacts-target.md) target.
-- **`github`** — the [GitHub Packages](github-artifacts-target.md) target.
-- **`artifactory`** — the [JFrog Artifactory](artifactory-artifacts-target.md) target.
+- **`ado`** — the Azure DevOps Artifacts target (`AdoArtifactsTarget`).
+- **`github`** — the GitHub Packages target (`GithubArtifactsTarget`).
+- **`artifactory`** — the JFrog Artifactory target (`ArtifactoryArtifactsTarget`).
 
 No publish code reads the targets yet, so they are inert configuration surface, but the file still loads validated.

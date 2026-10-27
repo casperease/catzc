@@ -14,4 +14,4 @@ uses. Set `assignIdentity` and list the role definition ids, and the module gran
 
 ## Use
 
-`az bicep build` inlines the module into the template that references it.
+`bicep build` inlines the module into the template that references it.

@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/types/BicepParameter.cs
 
-The typed record of one parameter of a compiled Bicep template: the contract `az bicep build` writes into the `parameters` section of
+The typed record of one parameter of a compiled Bicep template: the contract `bicep build` writes into the `parameters` section of
 `main.json`. It holds the type, whether there is a default, whether the parameter is nullable, the `@allowed` values, and the
 `@minValue`/`@maxValue` and `@minLength`/`@maxLength` bounds. `Get-BicepParameterViolations` checks every rendered
 `parameters.<config>.json` value against it, and it nests into `BicepParameterModel`, which parses the whole section.

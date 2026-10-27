@@ -175,8 +175,8 @@ Describe 'Get-BicepTrackTagNameSet (sample-subscription)' -Tag 'L0', 'logic' {
 
     It 'returns template-prefixed tag names for a Subscription-target template' {
         $tags = Get-BicepTrackTagNameSet sample-subscription
-        $tags.commit | Should -Be 'sample-subscription_Deployed_From_Commit'
-        $tags.build_id | Should -Be 'sample-subscription_Deployed_From_BuildId'
-        $tags.branch | Should -Be 'sample-subscription_Deployed_From_Branch'
+        $tags.commit | Should -Be 'sample-subscription-deployed-from-commit'
+        $tags.build_id | Should -Be 'sample-subscription-deployed-from-buildid'
+        $tags.branch | Should -Be 'sample-subscription-deployed-from-branch'
     }
 }

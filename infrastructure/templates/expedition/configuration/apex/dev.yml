@@ -8,16 +8,14 @@ ParametersFile:
         cost-center: apex
         criticality: low
         data-classification: confidential
-    storageAccountName:
-      value: deweuzctexpedapst
-    sqlServerName:
-      value: dev-weu-zct-exped-apex-sql
-    sqlDatabaseName:
-      value: dev-weu-zct-exped-apex-sqldb
-    blobPrivateEndpointName:
-      value: dev-weu-zct-exped-apex-blb-pep
-    sqlPrivateEndpointName:
-      value: dev-weu-zct-exped-apex-sql-pep
+    storageSkuName:
+      value: Standard_LRS
+    storageAccessTier:
+      value: Hot
+    storageCoolAfterDays:
+      value: 30
+    storageArchiveAfterDays:
+      value: 0
     entraAdminLogin:
       value: zct-exped-sql-admins
     entraAdminObjectId:
@@ -47,15 +45,5 @@ ParametersFile:
       value: 60
     databaseMinCapacity:
       value: "0.5"
-    networkResourceGroupName:
-      value: nsub-weu-zct-disco-apex-rg
-    virtualNetworkName:
-      value: nsub-weu-zct-disco-apex-vnet
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
-    privateDnsZoneResourceGroupName:
-      value: nsub-weu-zct-disco-rg
-    logAnalyticsResourceGroupName:
-      value: nsub-weu-zct-fnd-apex-rg
-    logAnalyticsName:
-      value: nsub-weu-zct-fnd-apex-log

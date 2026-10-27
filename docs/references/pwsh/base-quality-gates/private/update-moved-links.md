@@ -13,8 +13,8 @@ Re-points the relative Markdown links that a set of file moves broke.
 
 Reads each Markdown file of `-File` and resolves every relative link from where the file stood before the move (its old path, when the file
 itself moved). A link whose target moved is rewritten to the target's new path, written from where the file stands now; a link neither end
-of which moved is left exactly as written. URLs, rooted paths and anchors-only links are never touched, and the anchor of a rewritten link is
-kept. It writes nothing: the caller writes the returned texts.
+of which moved is left exactly as written. URLs, rooted paths and anchors-only links are never touched, and the anchor of a rewritten link
+is kept. It writes nothing: the caller writes the returned texts.
 
 ### parameter `RepositoryRoot`
 

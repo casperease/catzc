@@ -10,45 +10,17 @@ ParametersFile:
         data-classification: confidential
     subscriptions:
       address: global.azure.subscriptions
-    networkKind:
-      address: global.network.subscriptions.flux_nonprod.kind
-    vnetAddressSpace:
-      address: global.network.subscriptions.flux_nonprod.vnet_address_space
-    subnetPrefixes:
-      address: global.network.subscriptions.flux_nonprod.subnets
-    resourceGroupName:
-      value: nsub-weu-zct-disco-flux-rg
-    virtualNetworkName:
-      value: nsub-weu-zct-disco-flux-vnet
-    networkSecurityGroupNames:
-      value:
-        private-endpoints: nsub-weu-zct-disco-flux-pe-nsg
-        dev: nsub-weu-zct-disco-flux-dev-nsg
-        test: nsub-weu-zct-disco-flux-tst-nsg
-    routeTableName:
-      value: nsub-weu-zct-disco-flux-rt
+    network:
+      address: global.network.subscriptions.flux_nonprod
+    networks:
+      address: global.network.subscriptions
+    firewallEgress:
+      address: global.network.firewall_egress
+    nsgFlows:
+      address: global.network.nsg_flows
     hub:
       value:
         subscription: shared_nonprod
-        resourceGroupName: nsub-weu-zct-disco-rg
-        virtualNetworkName: nsub-weu-zct-disco-vnet
-        peeringName: nsub-weu-zct-disco-flux-hub-peer
-    logAnalyticsResourceGroupName:
-      value: nsub-weu-zct-fnd-flux-rg
-    logAnalyticsName:
-      value: nsub-weu-zct-fnd-flux-log
-    policyEnforcementMode:
-      address: global.azure.policy_enforcement.nonproduction
-    policyAssignmentNames:
-      value:
-        allowedLocations: nsub-weu-zct-disco-flux-loc-pa
-        requireTag: nsub-weu-zct-disco-flux-tag-pa
-        noPublicIp: nsub-weu-zct-disco-flux-pip-pa
-        storageNoPublicAccess: nsub-weu-zct-disco-flux-stpna-pa
-        sqlNoPublicAccess: nsub-weu-zct-disco-flux-sqlpna-pa
-        dataDiagnostics: nsub-weu-zct-disco-flux-diag-pa
-    budgetName:
-      value: nsub-weu-zct-disco-flux-budg
     budgetAmount:
       value: 300
     budgetStartDate:

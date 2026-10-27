@@ -40,9 +40,9 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
         It 'uses generic tag names for RG-target' {
             Set-BicepTrackingTagSet -Environment alpha -Template sample | Out-Null
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
-                $Arguments -match 'Deployed_From_Commit=abc1234567890abc1234567890abc1234567890a' -and
-                $Arguments -match 'Deployed_From_BuildId=CLI_NO_BUILD' -and
-                $Arguments -match 'Deployed_From_Branch=feature/devbox'
+                $Arguments -cmatch 'deployed-from-commit=abc1234567890abc1234567890abc1234567890a' -and
+                $Arguments -cmatch 'deployed-from-buildid=CLI_NO_BUILD' -and
+                $Arguments -cmatch 'deployed-from-branch=devbox$' -and $Arguments -notmatch 'feature/devbox'
             }
         }
 
@@ -118,9 +118,9 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
         It 'uses ADO env vars for tag values' {
             Set-BicepTrackingTagSet -Environment alpha -Template sample | Out-Null
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
-                $Arguments -match 'Deployed_From_Commit=deadbeef1234567890deadbeef1234567890dead' -and
-                $Arguments -match 'Deployed_From_BuildId=4242' -and
-                $Arguments -match 'Deployed_From_Branch=refs/heads/main'
+                $Arguments -cmatch 'deployed-from-commit=deadbeef1234567890deadbeef1234567890dead' -and
+                $Arguments -cmatch 'deployed-from-buildid=4242' -and
+                $Arguments -cmatch 'deployed-from-branch=refs/heads/main'
             }
         }
     }

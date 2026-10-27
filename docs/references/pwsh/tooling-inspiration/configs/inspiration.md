@@ -5,8 +5,8 @@ The inspirations catzc reads for ideas, never as a reference implementation ([AD
 
 ## Default
 
-The file is empty on purpose. The sensible default is declared once on its type, [InspirationConfig](../types/inspiration-config.md), so
-an empty file and an omitted `inspirations` key both yield the one `eac` entry
+The file is empty on purpose. The sensible default is declared once on its type, `InspirationConfig`, so an empty file and an omitted
+`inspirations` key both yield the one `eac` entry
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Set the
 key only to change it.
 

@@ -113,6 +113,36 @@
       ]
     },
     {
+      "name": "Catzc.Azure.DevOps.ServiceConnectionEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "subscription",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.DevOps.ServiceConnectionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "connections",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.DevOps.YamlClassification",
       "aliases": [],
       "display": [],

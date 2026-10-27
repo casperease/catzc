@@ -2,8 +2,8 @@
 name: drawio-renderer
 description:
   Fail-forward render of a given .drawio.png, always a source copy and a result PNG, model XML, a page of asserted text and the slide's
-  minimaps regenerated when asked; for drawio-waves; input is the PNG's repository path, optional model XML, asserted-text path,
-  page, minimaps.
+  minimaps regenerated when asked; for drawio-waves; input is the PNG's repository path, optional model XML, asserted-text path, page,
+  minimaps.
 user-invocable: false
 allowed-tools: Bash, Read
 paths: docs/.assets/**/*.drawio.png, out/drawio/**

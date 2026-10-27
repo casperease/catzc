@@ -8,7 +8,7 @@
     <root>/pwsh/x.ps1, and a file with no counterpart is created. An empty marker <staged>/<path>.burst-delete deletes <root>/<path> instead; its
     target must exist, or the call stops before touching anything, and it is journalled and restored like any swapped file. The call takes the run lock as a burst (Enter-CatzcBurst.ps1), writes a
     backup journal beside the staged folder (<staged>.backup), copies the staged files over their targets, and runs -Command in one
-    Invoke-CatzcCommand -InBurst call, which is the one fresh import. When any command fails, or anything throws, every target is
+    Invoke-CatzcCommand -InBurst call, which is the one fresh import, with the repository root as its working directory. When any command fails, or anything throws, every target is
     restored from the journal (a target the swap created is deleted) and the call exits 1; when all pass, the journal is removed and the
     staged copies stay for the caller to delete. An empty or absent staged folder is a lock-only burst: the commands run under the run lock
     with nothing swapped and no journal.
@@ -180,6 +180,9 @@ if (-not $InBurst) {
     & (Join-Path $PSScriptRoot 'Enter-CatzcBurst.ps1') @enter $step
     exit $LASTEXITCODE
 }
+
+# Every step runs at the repository root, so a command's or a test's repository-relative path resolves there, wherever the caller stood.
+Set-Location -LiteralPath $root
 
 # A journal left by a call killed mid-swap is put back before anything else is swapped.
 if (Test-Path -LiteralPath $manifestPath) {

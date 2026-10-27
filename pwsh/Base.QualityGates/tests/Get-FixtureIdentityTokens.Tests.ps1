@@ -5,7 +5,6 @@ Describe 'Get-FixtureIdentityTokens' -Tag 'L1', 'logic' {
         [void][System.IO.Directory]::CreateDirectory((Join-Path $TestDrive 'repo/pwsh/Catzc.Widget/configs'))
         $script:azure = @'
 org: wdg
-bicep_min_version: "0.30.0"
 tenants:
   gizmo_tenant:
     id: TENANT_GUID

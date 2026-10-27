@@ -16,6 +16,10 @@ public sealed class GuidsConfig : Catzc.Base.Objects.DictionaryRecord
     // Registered entry name -> ManagedGuidEntry, in declaration order; read-only (empty when none).
     public OrderedDictionary guids { get; }
 
+    // Repository-relative yml files that are the one declaration of a set of fixed GUIDs (the built-in role ids): every GUID value in one
+    // counts as registered, so a value is declared once, in its own registry, never here as well. None by default.
+    public IReadOnlyList<string> registries { get; }
+
     public GuidsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -25,7 +29,31 @@ public sealed class GuidsConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "denied" && key != "guids") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: denied, guids)", key)); }
+            if (key != "denied" && key != "guids" && key != "registries")
+            {
+                errors.Add(string.Format("unknown top-level key '{0}' (allowed: denied, guids, registries)", key));
+            }
+        }
+
+        List<string> registryList = new List<string>();
+        object registriesRaw = raw.Contains("registries") ? raw["registries"] : null;
+        if (registriesRaw != null)
+        {
+            IEnumerable items = registriesRaw as IEnumerable;
+            if (items == null || registriesRaw is string) { errors.Add("'registries' must be a list of repository-relative yml paths"); }
+            else
+            {
+                foreach (object item in items)
+                {
+                    string path = item == null ? "" : item.ToString().Trim();
+                    if (path.Length == 0 || System.IO.Path.IsPathRooted(path) || !path.EndsWith(".yml", StringComparison.Ordinal))
+                    {
+                        errors.Add(string.Format("registry '{0}' must be a repository-relative path to a .yml file", path));
+                        continue;
+                    }
+                    registryList.Add(path.Replace('\\', '/'));
+                }
+            }
         }
 
         Dictionary<string, int> valueCount = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -45,6 +73,7 @@ public sealed class GuidsConfig : Catzc.Base.Objects.DictionaryRecord
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         denied = deniedMap.AsReadOnly();
         guids = guidsMap.AsReadOnly();
+        registries = registryList.AsReadOnly();
     }
 
     private static OrderedDictionary ReadSection(IDictionary raw, string section, List<string> errors, Dictionary<string, int> valueCount, List<string> valueOrder)

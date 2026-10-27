@@ -60,6 +60,10 @@ reach.
   `catzc-verify` lists the glossary's family heads once (gate, scope, source, domain, layer, slot, zone), so a new heading avoids a G6 hit
   without a gate round; (3) a drone brief over more than about 15 records is split before spawning, since every such drone hit its 50-turn
   roof. Recommendation: yes to all three.
+- From the debt-reduce session's finalize (2026-10-27), one shrink proposal, not applied: `debt-reduce` gains a last step, "a hindsight file
+  whose every gap and half line is checked closed in the tree is deleted whole", since the log is never edited once appended and the five
+  files of 2026-10-21 to 10-23 rotted to pre-rename paths before anyone pruned them. Recommendation: yes, checked by a Glob of
+  `.claude/hindsight/` after a run.
 
 ## Delegated (the orchestrator, 2026-10-22, on the user's "don't wait, go on")
 

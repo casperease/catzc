@@ -18,16 +18,20 @@ subscriptions:
   shared_nonprod:
     kind: hub
     vnet_address_space: 10.0.0.0/16
+    firewall_sku: Basic
     subnets:
       GatewaySubnet: 10.0.0.0/27
       AzureFirewallSubnet: 10.0.0.64/26
+      AzureFirewallManagementSubnet: 10.0.0.128/26
       shared-services: 10.0.1.0/24
   shared_prod:
     kind: hub
     vnet_address_space: 10.1.0.0/16
+    firewall_sku: Standard
     subnets:
       GatewaySubnet: 10.1.0.0/27
       AzureFirewallSubnet: 10.1.0.64/26
+      AzureFirewallManagementSubnet: 10.1.0.128/26
       shared-services: 10.1.1.0/24
   # Spokes — one per customer subscription, a workload subnet per standard environment it serves.
   apex_nonprod:

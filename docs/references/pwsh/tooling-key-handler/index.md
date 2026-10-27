@@ -3,8 +3,8 @@
 The PSReadLine key-binding module of the Tooling group. PSReadLine on Linux defaults to bash-style line editing, so a developer moving
 between a Windows devbox and a Linux session (or CI) meets two different editing experiences for the same shell. This module carries the
 Windows binding set as version-controlled config and replays it on Linux, so the interactive editing keys behave the same everywhere —
-[devbox/pipeline parity](../../../drs/automation/devbox-pipeline-parity.md) applied to the shell's own input handling. It installs nothing and
-manages no external tool, so — like [Catzc.Tooling.Github](../tooling-github/index.md) — it rests only on the `Base` group, not on
+[devbox/pipeline parity](../../../drs/automation/devbox-pipeline-parity.md) applied to the shell's own input handling. It installs nothing
+and manages no external tool, so — like [Catzc.Tooling.Github](../tooling-github/index.md) — it rests only on the `Base` group, not on
 [Catzc.Tooling.Core](../tooling-core/index.md).
 
 ## Responsibilities
@@ -34,8 +34,8 @@ Both binding sets are the module's own config, read through the one config reade
 config types `KeyHandlerBindingsConfig` / `KeyHandlerSupportedConfig`
 ([module-config-loading](../../../drs/configuration/module-config-loading.md)). The decision — which captured binding is supported on this
 platform — is a pure function, `Select-SupportedKeyHandler`, split out from the side-effecting import so it is deterministic and unit-tested
-on mocks rather than through a live PSReadLine session ([test-automation](../../../drs/automation/test-automation.md) push-left). `Import-` is
-the thin walking skeleton over it: read the two configs, classify, apply the supported ones. `-DryRun` follows
+on mocks rather than through a live PSReadLine session ([test-automation](../../../drs/automation/test-automation.md) push-left). `Import-`
+is the thin walking skeleton over it: read the two configs, classify, apply the supported ones. `-DryRun` follows
 [dry-run](../../../drs/automation/dry-run.md) — a capturable plan, no host narration.
 
 ## Division

@@ -36,6 +36,13 @@ Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
         { Get-AzCliSessionSubscription } | Should -Throw '*not declared in azure.yml*'
     }
 
+    It 'throws when the session sits in a tenant other than the one azure.yml declares for the subscription' {
+        Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
+            [pscustomobject]@{ Id = 'a0e00000-000d-50b0-0000-000000000000'; Name = 'live-acme-lower'; TenantId = '01d6e700-f00e-1600-7e0a-070000000000' }
+        }
+        { Get-AzCliSessionSubscription } | Should -Throw "*tenant 01d6e700-f00e-1600-7e0a-070000000000 is not tenant 'fixtenant'*"
+    }
+
     It 'propagates the no-active-context failure from the session read' {
         Mock Get-CurrentAzSubscription -ModuleName Catzc.Azure.Cli {
             throw 'No active Azure CLI subscription context.'

@@ -1,2 +1,16 @@
 short_name: fnd
 environment_kind: subscription
+# The names the build derives from the namer; a slot never writes one (Test-BicepResourceNames). The vault endpoint's names derive here
+# too; the bootstrap pass turns the endpoint off with deployKeyVaultPrivateEndpoint, not by blanking a name.
+names:
+  keyVaultName: { type: kv }
+  logAnalyticsName: { type: log }
+  actionGroupName: { type: ag }
+  capacityWorkbookName: { type: wb, role: cap }
+  queryPackName: { type: pack }
+  dashboardName: { type: dash }
+  flowLogStorageAccountName: { type: st, role: flo }
+  keyVaultPrivateEndpointName: { type: pep, role: kv }
+  networkResourceGroupName: { type: rg, template: discovery }
+  virtualNetworkName: { type: vnet, template: discovery }
+  privateDnsZoneResourceGroupName: { type: rg, template: discovery, owner_slot: hub }

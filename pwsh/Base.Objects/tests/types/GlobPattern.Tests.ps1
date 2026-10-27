@@ -113,4 +113,22 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             @([Catzc.Base.Objects.GlobPattern]::MatchingPaths($patterns, $paths)) | Should -Be $expected
         }
     }
+
+    Context 'the literal prefix and suffix reject early, never change a verdict' {
+        It 'matches <path> against <pattern> => <expected>' -ForEach @(
+            @{ pattern = 'widget/*.yml'; path = 'widget/spin.yml'; expected = $true }
+            @{ pattern = 'widget/*.yml'; path = 'widget/spin.YML'; expected = $false }
+            @{ pattern = 'widget/*.yml'; path = 'gadget/spin.yml'; expected = $false }
+            @{ pattern = 'widget/Get-*Spin.ps1'; path = 'widget/Get-Spin.ps1'; expected = $true }
+            @{ pattern = 'widget/Get-*Spin.ps1'; path = 'widget/Get-Spin.psm1'; expected = $false }
+            @{ pattern = 'widget/[a-z]*'; path = 'widget/spin'; expected = $true }
+            @{ pattern = 'widget/spin.yml'; path = 'widget/spin.yml'; expected = $true }
+            @{ pattern = 'widget/spin.yml'; path = 'widget/gadget/spin.yml'; expected = $false }
+            @{ pattern = 'widget/**'; path = 'widget/deep/spin.yml'; expected = $true }
+            @{ pattern = '**/*.md'; path = 'README.md'; expected = $true }
+            @{ pattern = '**/*.md'; path = 'docs/README.mdx'; expected = $false }
+        ) {
+            [Catzc.Base.Objects.GlobPattern]::new($pattern).Matches($path) | Should -Be $expected
+        }
+    }
 }

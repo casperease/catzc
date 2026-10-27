@@ -4,9 +4,6 @@ param name string
 @description('Network interface name.')
 param nicName string
 
-@description('Public IP address name.')
-param publicIpName string
-
 @description('Resource id of the subnet the NIC attaches to.')
 param subnetId string
 
@@ -23,20 +20,14 @@ param adminPassword string
 @description('VM size. Standard_B1s is the cheapest burstable size.')
 param vmSize string = 'Standard_B1s'
 
-resource publicIp 'Microsoft.Network/publicIPAddresses@2023-09-01' = {
-  name: publicIpName
-  location: location
-  sku: {
-    name: 'Basic'
-  }
-  properties: {
-    publicIPAllocationMethod: 'Dynamic'
-  }
-}
+@description('Resource tags.')
+param tags object = {}
 
-resource nic 'Microsoft.Network/networkInterfaces@2023-09-01' = {
+// The VM has no public IP: it is reached through the network, and its egress leaves through the hub firewall.
+resource nic 'Microsoft.Network/networkInterfaces@2024-05-01' = {
   name: nicName
   location: location
+  tags: tags
   properties: {
     ipConfigurations: [
       {
@@ -46,18 +37,16 @@ resource nic 'Microsoft.Network/networkInterfaces@2023-09-01' = {
           subnet: {
             id: subnetId
           }
-          publicIPAddress: {
-            id: publicIp.id
-          }
         }
       }
     ]
   }
 }
 
-resource vm 'Microsoft.Compute/virtualMachines@2023-09-01' = {
+resource vm 'Microsoft.Compute/virtualMachines@2024-07-01' = {
   name: name
   location: location
+  tags: tags
   properties: {
     hardwareProfile: {
       vmSize: vmSize

@@ -56,7 +56,8 @@ vendors:
   vscode:
     definition: Visual Studio Code, whose workspace settings the repository keeps under .vscode.
   git:
-    definition: Git and its host, whose root configuration (.gitignore, .gitattributes) and repository settings (.github) the repository keeps.
+    definition:
+      Git and its host, whose root configuration (.gitignore, .gitattributes) and repository settings (.github) the repository keeps.
   pwsh:
     definition: PowerShell, whose third-party modules the repository vendors under pwsh/.vendor.
   bash:

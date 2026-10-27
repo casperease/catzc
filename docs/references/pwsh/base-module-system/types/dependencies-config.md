@@ -11,7 +11,7 @@ Constructing the record maps and validates the parsed YAML and gathers every vio
 self-contained: this one file only, with no file system reads. A declared module that is missing on disk is a `Test-ModuleDependency`
 finding, not a load failure.
 
-- only the top-level keys `groups` (an optional map of [ModuleGroup](module-group.md)) and `modules` (required) are allowed;
+- only the top-level keys `groups` (an optional map of `ModuleGroup`) and `modules` (required) are allowed;
 - every group is well-formed: closed, no self-dependency, acyclic;
 - each module maps to a list of names, never a single string and never itself, and each target is a declared module or a declared group, so
   the declared graph is closed;
@@ -19,8 +19,7 @@ finding, not a load failure.
   layer below and cannot form a module-level cycle.
 
 A module absent from `modules:` is unconstrained. Names match case-insensitively, like the PowerShell ordered dictionary the YAML parses
-into, so a name declared twice in different case is a violation. The list helpers are shared with groups through
-[DependencyGraph](dependency-graph.md).
+into, so a name declared twice in different case is a violation. The list helpers are shared with groups through `DependencyGraph`.
 
 ## Properties
 

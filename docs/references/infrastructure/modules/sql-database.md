@@ -13,5 +13,5 @@ Serverless SKUs (`GP_S_Gen5`) take an auto-pause delay and a minimum capacity.
 
 ## Use
 
-A template references it with a relative `module` declaration (`../../modules/sql-database.bicep`), and `az bicep build` inlines it. The
-server comes from `sql-server.bicep`.
+A template references it with a relative `module` declaration (`../../modules/sql-database.bicep`), and `bicep build` inlines it. The server
+comes from `sql-server.bicep`.

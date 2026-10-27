@@ -8,16 +8,14 @@ ParametersFile:
         cost-center: apex
         criticality: high
         data-classification: confidential
-    storageAccountName:
-      value: ppweuzctexpedapst
-    sqlServerName:
-      value: preprod-weu-zct-exped-apex-sql
-    sqlDatabaseName:
-      value: preprod-weu-zct-exped-apex-sqldb
-    blobPrivateEndpointName:
-      value: preprod-weu-zct-exped-apex-blb-pep
-    sqlPrivateEndpointName:
-      value: preprod-weu-zct-exped-apex-sql-pep
+    storageSkuName:
+      value: Standard_ZRS
+    storageAccessTier:
+      value: Hot
+    storageCoolAfterDays:
+      value: 30
+    storageArchiveAfterDays:
+      value: 180
     entraAdminLogin:
       value: zct-exped-sql-admins
     entraAdminObjectId:
@@ -41,15 +39,5 @@ ParametersFile:
       value: Geo
     databaseBackupRetentionDays:
       value: 35
-    networkResourceGroupName:
-      value: psub-weu-zct-disco-apex-rg
-    virtualNetworkName:
-      value: psub-weu-zct-disco-apex-vnet
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_prod.id
-    privateDnsZoneResourceGroupName:
-      value: psub-weu-zct-disco-rg
-    logAnalyticsResourceGroupName:
-      value: psub-weu-zct-fnd-apex-rg
-    logAnalyticsName:
-      value: psub-weu-zct-fnd-apex-log

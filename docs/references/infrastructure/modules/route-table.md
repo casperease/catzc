@@ -8,4 +8,4 @@ The caller passes the routes in the ARM `routes` shape: `{ name, properties: { a
 
 ## Use
 
-Attach the table to a subnet through `virtual-network.bicep` or `subnet.bicep`. `az bicep build` inlines the module.
+Attach the table to a subnet through `virtual-network.bicep` or `subnet.bicep`. `bicep build` inlines the module.

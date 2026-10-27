@@ -10,5 +10,5 @@ own extra artifacts appear. Paths are repository-root-relative and forward-slash
 
 ## Validation
 
-The file loads through `Get-Config -Config files` into the typed record ([FilesConfig](../types/files-config.md)): a `modules` map whose
-entries ([ModuleFiles](../types/module-files.md)) each hold a non-empty `packages` map with snake_case names and non-empty path lists.
+The file loads through `Get-Config -Config files` into the typed record (`FilesConfig`): a `modules` map whose entries (`ModuleFiles`) each
+hold a non-empty `packages` map with snake_case names and non-empty path lists.

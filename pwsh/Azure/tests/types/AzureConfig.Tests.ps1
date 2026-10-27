@@ -3,19 +3,18 @@ Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture identities distinct from the shipped azure.yml, so editing it never changes these outcomes.
         $script:baseConfig = [ordered]@{
-            org               = 'tst'
-            bicep_min_version = '0.30.0'
-            tenants           = [ordered]@{
+            org           = 'tst'
+            tenants       = [ordered]@{
                 fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
-            subscriptions     = [ordered]@{
+            subscriptions = [ordered]@{
                 core_lower = [ordered]@{
                     id           = '50a0ed00-de00-50b0-0000-000000000000'
                     tenant       = 'fixtenant'
                     environments = @('alpha')
                 }
             }
-            environments      = [ordered]@{
+            environments  = [ordered]@{
                 alpha = [ordered]@{ shortcode = 'al'; region = 'westeurope'; region_code = 'weu' }
             }
         }
@@ -64,7 +63,6 @@ Describe 'AzureConfig' -Tag 'L0' {
         It 'passes for minimal valid config' {
             $config = & $script:make (Copy-Object $baseConfig)
             $config.org | Should -Be 'tst'
-            $config.bicep_min_version | Should -Be '0.30.0'
             $config.tenants['fixtenant'].id | Should -Be 'fa0e0000-7e0a-0700-1d00-000000000000'
             $config.subscriptions['core_lower'] | Should -BeOfType [Catzc.Azure.AzureSubscriptionRecord]
             $config.subscriptions['core_lower'].environments | Should -Be @('alpha')
@@ -194,16 +192,10 @@ Describe 'AzureConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*org*is invalid*'
         }
 
-        It 'throws when bicep_min_version is missing' {
+        It 'rejects bicep_min_version as an unknown key: the bicep pin lives in tools.yml' {
             $bad = Copy-Object $baseConfig
-            $bad.Remove('bicep_min_version')
-            { & $script:make $bad } | Should -Throw "*Missing required top-level key: 'bicep_min_version'*"
-        }
-
-        It 'throws when bicep_min_version is not MAJOR.MINOR.PATCH' {
-            $bad = Copy-Object $baseConfig
-            $bad.bicep_min_version = '0.30'
-            { & $script:make $bad } | Should -Throw '*bicep_min_version*is invalid*'
+            $bad.bicep_min_version = '0.30.0'
+            { & $script:make $bad } | Should -Throw '*bicep_min_version*'
         }
 
         It 'does not require every environment to be served (completeness is a deploy-time concern)' {

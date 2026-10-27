@@ -67,6 +67,8 @@ terms:
       meaning: "Azure subnet resource-name abbreviation (Cloud Adoption Framework 'snet')"
     - term: spoke
       meaning: "the 'spoke' side of a hub-and-spoke network"
+    - term: skus
+      meaning: "SKUs, Azure's stock-keeping units: the sizes and tiers a policy allows (allowedStorageSkus, listOfAllowedSKUs)"
     - term: sqldb
       meaning: "Azure SQL Database resource type (sqldb)"
     - term: subdeploy

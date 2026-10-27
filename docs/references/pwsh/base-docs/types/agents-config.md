@@ -13,7 +13,7 @@ mirrors the YAML mapping, snake_case keys
 Constructing an instance collects every violation into one `ArgumentException`:
 
 - only the top-level keys `agents` (required), `roofs` and `contracts` are allowed;
-- `agents` is a non-empty list of well-formed [AgentEntry](agent-entry.md) mappings with distinct names.
+- `agents` is a non-empty list of well-formed `AgentEntry` mappings with distinct names.
 
 The cross-checks against the agent files, the rule ids, the commands and `.claude/CLAUDE.md` are the quality gate `Test-AgentDefinitions`.
 

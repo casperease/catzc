@@ -329,7 +329,7 @@ selects.
 ### Rule ADR-AUTO-TEST-ONIONOFRINGS
 
 Tests sit in an onion of rings around the code. The **core** is the code alone — L0/L1, every boundary mocked; the L2 ring adds the local
-tools the code drives (`git`, `az bicep build`, `python`, `dotnet`, the test runner); the L3 ring adds the state outside the repository (the
+tools the code drives (`git`, `bicep build`, `python`, `dotnet`, the test runner); the L3 ring adds the state outside the repository (the
 cloud, the user's environment, installed tools); the L4 ring is the released system itself (ADR-AUTO-TEST-TESTINGINPRODUCTION). A **vertical
 test** cuts from an outer ring through to the core: an L2 vertical test crosses the local-tool ring, an L3 vertical system test crosses both
 inner rings. A test's tier is its outermost ring, and a run's top tier is the outermost ring it includes — the BVT includes the core and the
@@ -533,7 +533,7 @@ tier:
 flowchart TB
     subgraph ring4["L4 ring — the released system: pre-prod · production, after final approval"]
         subgraph ring3["L3 ring — state outside the repository: the cloud · the user's environment · installed tools"]
-            subgraph ring2["L2 ring — local tools: git · az bicep build · python · dotnet · the test runner"]
+            subgraph ring2["L2 ring — local tools: git · bicep build · python · dotnet · the test runner"]
                 core(["core — the code alone<br/>L0 / L1, every boundary mocked"])
             end
         end
@@ -547,7 +547,7 @@ flowchart TB
 
 - **L0 / L1 — the core.** Pure logic + orchestration wiring, with every external boundary mocked. Deterministic and hermetic. Run on every
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST-TWOMANDATORYTAGS.)
-- **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `az bicep build`, `python`, `dotnet`, `poetry`, the
+- **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `bicep build`, `python`, `dotnet`, `poetry`, the
   test runner, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool
   is absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud APIs (maybe through
@@ -615,7 +615,7 @@ ADR-AUTO-TEST-TAGBYOUTERMOSTRING), which is also where [reduce-waste](../princip
 slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
-fakes away — a real `az bicep build` resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's
+fakes away — a real `bicep build` resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's
 exit-code contract — so each remaining test buys coverage no L0 test can. Cases that drive the boundary identically and differ only in
 rendered values are a single skeleton plus redundant copies.
 

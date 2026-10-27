@@ -6,7 +6,8 @@
 
 Every **relation** between two files in the repository has a **link direction**: from the file that writes it to the file it names. A
 relation a file writes is one of three: a markdown link (a link in a `.md` file), a code link (a link or a bare citation in a comment of any
-other file), and a docs edge (a file's meta head pointing to its comment page). A string that names a path or a citation is data and no
+other file), and a docs edge (a link to a comment page in a file's meta head, which a head carries only where it costs to derive; a file's
+own page is found by its derived path, so no head is required to point to it). A string that names a path or a citation is data and no
 relation; an image is an embed and no relation; a link to an in-file anchor, a URL, a folder or a missing target is no relation either.
 
 - [Three relations](#three-relations)

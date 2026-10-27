@@ -15,11 +15,9 @@ maps keep file order: a dictionary enumerates in insertion order when nothing is
 
 Constructing an instance validates the file and collects every violation into one `ArgumentException`:
 
-- The keys `org`, `bicep_min_version`, `tenants`, `subscriptions` and `environments` are required, `policy_enforcement` is optional, and no
-  other key is allowed.
+- The keys `org`, `tenants`, `subscriptions` and `environments` are required, `policy_enforcement` is optional, and no other key is allowed.
 - `org` is 2-3 lowercase alphanumeric characters with a leading letter, the org name component
   ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents)).
-- `bicep_min_version` is MAJOR.MINOR.PATCH. `Assert-AzCliBicep` checks the installed CLI against it before every `az bicep build`.
 - `tenants`, `environments` and `subscriptions` are non-empty maps of well-formed `AzureTenantRecord`, `AzureEnvironmentRecord` and
   `AzureSubscriptionRecord` entries.
 - Environment shortcodes are unique.

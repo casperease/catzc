@@ -6,6 +6,7 @@
   'keyVault'
   'networkSecurityGroup'
   'virtualNetwork'
+  'azureFirewall'
 ])
 param resourceKind string
 
@@ -59,10 +60,18 @@ var categories = {
       'AllMetrics'
     ]
   }
+  azureFirewall: {
+    logs: true
+    metrics: [
+      'AllMetrics'
+    ]
+  }
 }
 
 var properties = {
   workspaceId: workspaceId
+  // The firewall's egress logs land in its resource-specific tables (AZFWNetworkRule, AZFWApplicationRule), not AzureDiagnostics.
+  logAnalyticsDestinationType: resourceKind == 'azureFirewall' ? 'Dedicated' : null
   logs: categories[resourceKind].logs
     ? [
         {
@@ -77,11 +86,11 @@ var properties = {
   })
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' existing = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2024-01-01' existing = {
   name: resourceName
 }
 
-resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2023-01-01' existing = {
+resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2024-01-01' existing = {
   parent: storageAccount
   name: 'default'
 }
@@ -95,16 +104,26 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-08-01' existing = {
   name: resourceName
 }
 
-resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
+resource keyVault 'Microsoft.KeyVault/vaults@2024-11-01' existing = {
   name: resourceName
 }
 
-resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-09-01' existing = {
+resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2024-05-01' existing = {
   name: resourceName
 }
 
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-09-01' existing = {
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: resourceName
+}
+
+resource azureFirewall 'Microsoft.Network/azureFirewalls@2024-05-01' existing = {
+  name: resourceName
+}
+
+resource azureFirewallSetting 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (resourceKind == 'azureFirewall') {
+  scope: azureFirewall
+  name: name
+  properties: properties
 }
 
 resource storageAccountSetting 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (resourceKind == 'storageAccount') {

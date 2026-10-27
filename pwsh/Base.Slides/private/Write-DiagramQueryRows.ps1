@@ -16,8 +16,6 @@ function Write-DiagramQueryRows {
         [string] $Config
     )
 
-    # A C3 or C4 slide stores its level and its point; its cells are the level's query for that point.
-    # A flow slide stores its point and the flow lens; its lanes are the reader's rows for the track its files belong to.
     $readers = $null
     $rows = [System.Collections.Generic.List[object]]::new()
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

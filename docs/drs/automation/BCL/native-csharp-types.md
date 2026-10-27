@@ -313,9 +313,9 @@ assembly — one combined hash, one build, paid once on each machine.
 The shadow root holds the current build and any superseded one a process still has loaded. Every tree's sessions share it, and each load
 refreshes its build's write time, so a build loaded within the loader's prune age (`Get-TypesPruneAfter`, declared once) may be another
 tree's current one: the loader's prune and `Clear-ModuleTypeCache` both keep it. `Clear-ModuleTypeCache` removes every deletable superseded
-build older than that and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one yellow
-line; a silent run says nothing. It never throws for a held build, never stops a holder and never waits for one: the held build is that
-process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on the next run after the holder exits.
+build older than that and names each survivor with, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager) in one
+yellow line; a silent run says nothing. It never throws for a held build, never stops a holder and never waits for one: the held build is
+that process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on the next run after the holder exits.
 
 What git guards is the types surface, not a build. A devbox import that compiles regenerates the contract from the compiled assembly and
 writes it only when the surface moved, so equal content leaves git clean; `Test-GeneratedFiles` fails when the committed contract differs
@@ -504,8 +504,7 @@ as well as its files, so the pair is the language's configuration, apart from th
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current build in the shadow root, and any build younger than the prune age, and prunes the older
-  superseded ones. A build a process still holds is
-  named with its holders in one yellow line and left for the run after the holder exits.
+  superseded ones. A build a process still holds is named with its holders in one yellow line and left for the run after the holder exits.
 
 - **`Import-TypesAssembly`** (in `.internal/Catzc.Internal.Types.psm1`) is the one load path — the bootstrap and the `SpellOutIdentifiers`
   analyzer rule both load through the shadow copy, so no session holds a file in the repository. `Import-TypesAssembly.Tests.ps1` covers the

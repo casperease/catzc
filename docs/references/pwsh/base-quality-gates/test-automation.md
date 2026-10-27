@@ -33,11 +33,11 @@ L4 tier, the tests of the released system after final approval
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)); run from a console
 it is a run of that gate outside its pipeline, never a gate verdict. Tests self-skip when their tool or access is absent, so the default
 stays green on a machine that is missing one. Tiers are defined by what a test integrates with (not by speed): L0/L1 = unit tests — pure
-logic with every external boundary mocked. L2 = integrates with a local CLI tool for real (e.g. `az bicep build`, python, dotnet), inside
-the repository. L3 = vertical system tests: they change or depend on state outside the repository — the cloud (e.g. `az deployment create`),
-the user's environment, installed tools — so only the run that owns the working folder runs them. Level 1 runs L0 + L1. Level 2 runs L0 +
-L1 + L2. Level 3 runs all. Every test must carry exactly one tier tag (L0-L3) and one category tag (logic|integrity); tests missing a tag
-are reported before the run (see Get-TestTagViolations).
+logic with every external boundary mocked. L2 = integrates with a local CLI tool for real (e.g. `bicep build`, python, dotnet), inside the
+repository. L3 = vertical system tests: they change or depend on state outside the repository — the cloud (e.g. `az deployment create`), the
+user's environment, installed tools — so only the run that owns the working folder runs them. Level 1 runs L0 + L1. Level 2 runs L0 + L1 +
+L2. Level 3 runs all. Every test must carry exactly one tier tag (L0-L3) and one category tag (logic|integrity); tests missing a tag are
+reported before the run (see Get-TestTagViolations).
 
 ### parameter `Modules`
 

@@ -13,8 +13,8 @@ module storage '../../modules/storage-account.bicep' = {
 }
 ```
 
-`az bicep build` (run by `Build-Bicep`) **inlines** the referenced module into the template's compiled `main.json`, so nothing from this
-folder ships separately at deploy time.
+`bicep build` (run by `Build-Bicep`) **inlines** the referenced module into the template's compiled `main.json`, so nothing from this folder
+ships separately at deploy time.
 
 Modules here are **not** discovered as templates — `Get-BicepTemplates` scans only `infrastructure/templates/`. A folder under `modules/`
 does not need `options.yml`, `configuration/`, or any of the template structure; it is just bicep.
@@ -72,6 +72,29 @@ Every module deploys at resource-group level unless its target scope says otherw
 - `budget.bicep` (target scope `subscription`) — a cost budget of `amount` per `timeGrain` from `startDate` (the first of a month), with an
   alert per entry of `thresholds` (percent; 50, 80, 100 by default). Alerts go to the holders of `contactRoles` (`Owner` by default), so no
   email address is kept in configuration.
+
+## Billing catalogue
+
+What each module's resource is billed by. The meters are Azure's; the prices change and live on the Azure pricing pages, so none is kept
+here. A module whose resource is free still costs where its traffic or data lands.
+
+- `log-analytics.bicep` — data ingested per GB, and retention beyond the included period per GB per month.
+- `key-vault.bicep` — operations per 10,000; an HSM-protected key also per key per month.
+- `storage-account.bicep` — capacity per GB per month by access tier and redundancy (`Standard_ZRS` by default), operations per 10,000, and
+  data retrieved from the cool and archive tiers.
+- `sql-server.bicep` — free; the logical server holds no compute.
+- `sql-database.bicep` — compute per vCore-hour (provisioned) or per vCore-second (serverless, paused time free), data storage per GB per
+  month, and backup storage beyond the free amount (`Geo` redundancy by default).
+- `data-factory.bicep` — orchestration per activity run, data movement per DIU-hour, and pipeline and external activity execution per hour.
+- `diagnostic-setting.bicep` — free; the logs and metrics it sends bill as ingestion in the Log Analytics workspace.
+- `subscription-diagnostic-setting.bicep` — free; the activity log it sends is ingested into Log Analytics at no charge.
+- `virtual-network.bicep`, `subnet.bicep`, `nsg.bicep`, `route-table.bicep` — free.
+- `vnet-peering.bicep` — data transferred per GB, inbound and outbound on each side, at a higher rate across regions.
+- `private-dns-zone.bicep` — hosted zones per zone per month, and DNS queries per million.
+- `private-endpoint.bicep` — per endpoint-hour, and data processed per GB, inbound and outbound.
+- `vm.bicep` — compute per hour by VM size (`Standard_B1s` by default), the managed OS disk per month by disk tier, and the public IP per
+  hour; the NIC is free.
+- `resource-group.bicep`, `policy-assignment.bicep`, `budget.bicep` — free.
 
 ## Well-Architected defaults
 

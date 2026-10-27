@@ -12,25 +12,10 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Save-BurstJournalWrite.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Write-TypesContract.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesContractDrift.ps1')
-
-function Get-TypesShadowRoot {
-    [OutputType([string])]
-    param()
-
-    if ($IsWindows) {
-        Join-Path $env:LOCALAPPDATA 'catzc\types'
-    }
-    else {
-        Join-Path $HOME '.local/share/catzc/types'
-    }
-}
-
-function Get-TypesPruneAfter {
-    [OutputType([TimeSpan])]
-    param()
-
-    [TimeSpan]::FromDays(1)
-}
+. (Join-Path $PSScriptRoot 'assets/types/Get-TypesShadowRoot.ps1')
+. (Join-Path $PSScriptRoot 'assets/types/Get-TypesPruneAfter.ps1')
+. (Join-Path $PSScriptRoot 'assets/types/Register-TypesHold.ps1')
+. (Join-Path $PSScriptRoot 'assets/types/Test-TypesHeld.ps1')
 
 function Get-TypesStampPath {
     [OutputType([string])]
@@ -75,6 +60,10 @@ function Import-TypesAssembly {
     [System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null
     # A build made in the shadow root is its own shadow copy.
     $shadow = [System.IO.Path]::Combine($ShadowRoot, [System.IO.Path]::GetFileName($Path))
+    $name = [System.IO.Path]::GetFileNameWithoutExtension($shadow)
+    if ($name.StartsWith('Catzc.Types.')) {
+        Register-TypesHold -Hash $name.Substring('Catzc.Types.'.Length) -ShadowRoot $ShadowRoot | Out-Null
+    }
     if (-not [System.IO.File]::Exists($shadow)) {
         $tmp = "$shadow.$PID.tmp"
         try {
@@ -102,9 +91,14 @@ function Import-TypesAssembly {
         Write-Verbose "Could not refresh the shadow copy's write time: $shadow"
     }
 
+    # The prune leaves a build that a live process holds: one it loaded, or one it found on disk and is about to load (Register-TypesHold).
     $staleBefore = [DateTime]::UtcNow - $PruneAfter
     foreach ($other in [System.IO.Directory]::EnumerateFiles($ShadowRoot, 'Catzc.Types.*.dll')) {
         if ($other -eq $shadow -or [System.IO.File]::GetLastWriteTimeUtc($other) -ge $staleBefore) {
+            continue
+        }
+        if (Test-TypesHeld -Hash ([System.IO.Path]::GetFileNameWithoutExtension($other).Substring('Catzc.Types.'.Length)) -ShadowRoot $ShadowRoot) {
+            Write-Verbose "Skipped a shadow copy a live process holds: $other"
             continue
         }
         try {
@@ -397,4 +391,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

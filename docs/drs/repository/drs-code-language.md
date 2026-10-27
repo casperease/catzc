@@ -22,8 +22,8 @@ the rule. The kind is always the first part and is one of the closed set of kind
 
 ### Rule ADR-REPO-DRSCODE-UPPERCASESEGMENTS
 
-Every segment of a code is upper case, in a code and in a rule heading alike. The `code_language.capitalization` setting in
-`drs-checks.yml` holds the casing, and `Test-DrsCode` judges a code against it.
+Every segment of a code is upper case, in a code and in a rule heading alike. The `code_language.capitalization` setting in `drs-checks.yml`
+holds the casing, and `Test-DrsCode` judges a code against it.
 
 - [Upper case everywhere](drs-code-language.md#upper-case-everywhere)
 
@@ -39,26 +39,27 @@ its kind, then its code where it has one.
 ### Rule ADR-REPO-DRSCODE-FIXEDPOSITIONS
 
 A code has fixed positions: the kind, the domain where the kind is shared, the record, the rule. No record nests in another record, so a
-record is never a prefix of another record's code, and a family of records is a family of sibling records, each its own code. The one exception is an external record, whose code keeps the path of its source
+record is never a prefix of another record's code, and a family of records is a family of sibling records, each its own code. The one
+exception is an external record, whose code keeps the path of its source
 ([ADR-REPO-DRSCODE-EXTERNALRECORDS](drs-code-language.md#rule-adr-repo-drscode-externalrecords)).
 
 - [Fixed positions](drs-code-language.md#fixed-positions)
 
 ### Rule ADR-REPO-DRSCODE-ADRSEGMENT
 
-The segment after the domain names the record, unique within its parent. The record of outside guidance is the one record that carries
-more than one segment there, its source path.
+The segment after the domain names the record, unique within its parent. The record of outside guidance is the one record that carries more
+than one segment there, its source path.
 
 - [The record names the decision](drs-code-language.md#the-record-names-the-decision)
 
 ### Rule ADR-REPO-DRSCODE-EXTERNALRECORDS
 
-Outside guidance is held as records of the `EDR` kind, which one domain owns, so an `EDR` code carries no domain segment. The
-code keeps the path of its source as group segments after the kind: `EDR-DORA-CI` for a DORA capability, `EDR-AZ-WAF-RE` for a
-Well-Architected pillar, `EDR-AZ-CAF-GOV` for a Cloud Adoption Framework design area, `EDR-PWSH-PESTER` for Pester. An external rule states how
-the repository reads the source item, with a `Source:` line that names it; the repository's own decision stays in the ADR or PDR that cites
-the rule. No `RDR` kind is registered: the DORA research records are `EDR` records, as are the Well-Architected, Cloud Adoption Framework,
-Agile, lean and Pester records.
+Outside guidance is held as records of the `EDR` kind, which one domain owns, so an `EDR` code carries no domain segment. The code keeps the
+path of its source as group segments after the kind: `EDR-DORA-CI` for a DORA capability, `EDR-AZ-WAF-RE` for a Well-Architected pillar,
+`EDR-AZ-CAF-GOV` for a Cloud Adoption Framework design area, `EDR-PWSH-PESTER` for Pester. An external rule states how the repository reads
+the source item, with a `Source:` line that names it; the repository's own decision stays in the ADR or PDR that cites the rule. No `RDR`
+kind is registered: the DORA research records are `EDR` records, as are the Well-Architected, Cloud Adoption Framework, Agile, lean and
+Pester records.
 
 - [Outside guidance is its own kind](drs-code-language.md#outside-guidance-is-its-own-kind)
 
@@ -66,7 +67,8 @@ Agile, lean and Pester records.
 
 A rule of the repository's own records is named, never numbered: its last segment says what the rule says, as spelled-out words joined with
 no separator (the rule "bound every wait" of `ADR-AUTO-FAILFAST` is `ADR-AUTO-FAILFAST-` followed by those three words). A rule of an
-external record answers a source item and takes the source's own id ([ADR-REPO-DRSCODE-NATIVEEXTERNALIDS](drs-code-language.md#rule-adr-repo-drscode-nativeexternalids)).
+external record answers a source item and takes the source's own id
+([ADR-REPO-DRSCODE-NATIVEEXTERNALIDS](drs-code-language.md#rule-adr-repo-drscode-nativeexternalids)).
 
 - [Names, not numbers](drs-code-language.md#names-not-numbers)
 
@@ -90,8 +92,8 @@ the record already says.
 
 A named rule's last segment is unique in the repository, so the rule name alone names exactly one rule and a code can be written short
 without losing its identity: the record and the rule, the kind and the rule, or the rule alone (`Format-DrsCode`). Prose keeps the full code
-([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). Where two rules would share a name, the most
-general keeps the plain name and the other takes a word of its record.
+([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). Where two rules would share a name, the
+most general keeps the plain name and the other takes a word of its record.
 
 - [A rule name is unique](drs-code-language.md#a-rule-name-is-unique)
 
@@ -174,8 +176,8 @@ for the kind marker finds a code and never a word.
 
 The most general part comes first, so the codes of one domain sort together and one prefix search finds them. A code that leaves out its
 domain's prefix, or names another domain than the folder it lives in, breaks both. The kind says before the record is opened whether it is a
-thesis, an axiom, a way of working, a design, a flow, a piece of outside guidance, or an architecture decision; where one domain owns its kind, one
-segment says both and the domain segment would only repeat it.
+thesis, an axiom, a way of working, a design, a flow, a piece of outside guidance, or an architecture decision; where one domain owns its
+kind, one segment says both and the domain segment would only repeat it.
 
 ### Fixed positions
 
@@ -192,8 +194,8 @@ The segment after the domain names the record. Two records under one parent neve
 What a source says is not what the repository decides. A DORA capability, a vendor checklist or a testing framework is guidance the
 repository reads, binds to its own rules, and answers. Holding the sources as one kind keeps them apart from the decisions that cite them,
 so a search for `ADR`, `PDR` or `DDR` finds only the repository's own decisions, and a search for `EDR` finds every source. The source path
-in the code (`EDR-AZ-CAF-GOV`) tells where a rule comes from without opening it, and the one `external` domain owns the kind, so the code needs
-no domain segment.
+in the code (`EDR-AZ-CAF-GOV`) tells where a rule comes from without opening it, and the one `external` domain owns the kind, so the code
+needs no domain segment.
 
 ### Names, not numbers
 
@@ -262,8 +264,8 @@ under the `EDR` kind, and every code is a fact and a selector of everything unde
 
 - **`Test-DrsRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
   start with its domain's prefix, a kind that is not registered, a numbered rule heading, a rule that shares a segment with a sibling ADR, a
-  rule heading outside the casing and the name budget of `drs-checks.yml`, and a rule name that another rule shares are findings. The check's
-  mode is configured in `drs-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
+  rule heading outside the casing and the name budget of `drs-checks.yml`, and a rule name that another rule shares are findings. The
+  check's mode is configured in `drs-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
 - **`Test-DrsCode`** judges one code against the casing, and with `-Rule` against the name budget.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.

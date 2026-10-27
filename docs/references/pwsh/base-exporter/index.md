@@ -1,15 +1,16 @@
 # Catzc.Base.Exporter
 
 The module that builds the catzc platform into one installable, versioned, content-addressed `Catzc` module — build mode's code root
-([run-modes](../../../drs/design/run-modes.md)) — and delivers it: beside a working root outside the mono repo, into the user's module path, or
-as a package for a local-path `Install-PSResource`. The build carries every selected module merged into one file per module, the vendored
+([run-modes](../../../drs/design/run-modes.md)) — and delivers it: beside a working root outside the mono repo, into the user's module path,
+or as a package for a local-path `Install-PSResource`. The build carries every selected module merged into one file per module, the vendored
 dependencies, and the combined-types assembly, so it loads in a bare pwsh 7 with no git repo and no Roslyn. It is the platform-level
 expression of a reproducible, content-addressed, self-service artifact (see [self-service](../../../drs/design/self-service.md)) and of
 build-once / deploy-many (see [cd-discipline-and-promotion-flow](../../../drs/flow/cd-discipline-and-promotion-flow.md)); the identity it
 computes reuses the durable-SHA recipe of [durable-sha-globs](../../../drs/flow/durable-sha-globs.md). The rules it implements are
 [platform-bundle](../../../drs/automation/platform-bundle.md). It is a member of the `Base` group and depends on
-[Catzc.Base.ModuleSystem](../base-module-system/index.md), [Catzc.Base.Config](../base-config/index.md), [Catzc.Base.Globs](../base-globs/index.md),
-[Catzc.Base.Files](../base-files/index.md), [Catzc.Base.Repository](../base-repository/index.md), [Catzc.Base.Writers](../base-writers/index.md), and
+[Catzc.Base.ModuleSystem](../base-module-system/index.md), [Catzc.Base.Config](../base-config/index.md),
+[Catzc.Base.Globs](../base-globs/index.md), [Catzc.Base.Files](../base-files/index.md),
+[Catzc.Base.Repository](../base-repository/index.md), [Catzc.Base.Writers](../base-writers/index.md), and
 [Catzc.Base.Asserts](../base-asserts/index.md).
 
 ## Responsibilities

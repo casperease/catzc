@@ -13,6 +13,18 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
     // Empty when the file has no subscriptions key.
     public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }
 
+    // The subnets Azure does not let a network security group attach to (its gateway, firewall and route-server subnets); every other
+    // subnet carries one. Declared once here; network.yml may override the list.
+    public static IReadOnlyList<string> DefaultNoNsgSubnets { get; } = new[] { "GatewaySubnet", "AzureFirewallSubnet", "AzureFirewallManagementSubnet", "RouteServerSubnet" };
+
+    public IReadOnlyList<string> no_nsg_subnets { get; }
+
+    // The egress every hub firewall allows; the default is declared once on NetworkFirewallEgress.
+    public NetworkFirewallEgress firewall_egress { get; }
+
+    // The inbound flows the security groups allow, by subnet role; the default is declared once on NetworkFlow.
+    public IReadOnlyList<NetworkFlow> nsg_flows { get; }
+
     public NetworkConfig(IDictionary d)
     {
         if (d == null || !d.Contains("environments"))
@@ -21,7 +33,37 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         List<string> errors = new List<string>();
-        AzureConfig.UnknownKeys(d, new[] { "environments", "subscriptions" }, "network.yml", errors);
+        AzureConfig.UnknownKeys(d, new[] { "environments", "subscriptions", "no_nsg_subnets", "firewall_egress", "nsg_flows" }, "network.yml", errors);
+        nsg_flows = NetworkFlow.Default;
+        if (d.Contains("nsg_flows"))
+        {
+            var flows = new List<NetworkFlow>();
+            object raw = d["nsg_flows"];
+            if (raw is IEnumerable list && !(raw is string) && !(raw is IDictionary))
+            {
+                int index = 0;
+                foreach (object item in list)
+                {
+                    NetworkFlow flow = NetworkFlow.Read(index++, item, errors);
+                    if (flow != null) { flows.Add(flow); }
+                }
+            }
+            else { errors.Add("nsg_flows must be a list of { name, to, from, ports, protocol } entries"); }
+            nsg_flows = flows.ToArray();
+        }
+        firewall_egress = d.Contains("firewall_egress") ? new NetworkFirewallEgress(d["firewall_egress"] as IDictionary, errors) : NetworkFirewallEgress.Default;
+        no_nsg_subnets = DefaultNoNsgSubnets;
+        if (d.Contains("no_nsg_subnets"))
+        {
+            var names = new List<string>();
+            object raw = d["no_nsg_subnets"];
+            if (raw is IEnumerable list && !(raw is string) && !(raw is IDictionary))
+            {
+                foreach (object item in list) { names.Add(item == null ? string.Empty : item.ToString()); }
+            }
+            if (names.Count == 0 || names.Exists(string.IsNullOrWhiteSpace)) { errors.Add("no_nsg_subnets must be a non-empty list of subnet names"); }
+            else { no_nsg_subnets = names.ToArray(); }
+        }
 
         Dictionary<string, NetworkEnvironment> environmentMap = new Dictionary<string, NetworkEnvironment>(StringComparer.Ordinal);
         environments = environmentMap;

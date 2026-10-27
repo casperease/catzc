@@ -44,6 +44,9 @@ param allowAzureServices bool = false
 @description('Resource tags.')
 param tags object = {}
 
+@description('Resource id of the Log Analytics workspace that receives the server audit log. Empty means no auditing.')
+param auditWorkspaceId string = ''
+
 resource server 'Microsoft.Sql/servers@2023-08-01' = {
   name: name
   location: location
@@ -76,6 +79,38 @@ resource allowAzure 'Microsoft.Sql/servers/firewallRules@2023-08-01' = if (allow
     startIpAddress: '0.0.0.0'
     endIpAddress: '0.0.0.0'
   }
+}
+
+// Server auditing goes to Azure Monitor; the audit events reach the workspace through the master database's diagnostic setting.
+resource auditing 'Microsoft.Sql/servers/auditingSettings@2023-08-01' = if (!empty(auditWorkspaceId)) {
+  parent: server
+  name: 'default'
+  properties: {
+    state: 'Enabled'
+    isAzureMonitorTargetEnabled: true
+  }
+}
+
+resource master 'Microsoft.Sql/servers/databases@2023-08-01' existing = {
+  parent: server
+  name: 'master'
+}
+
+resource auditToWorkspace 'Microsoft.Insights/diagnosticSettings@2021-05-01-preview' = if (!empty(auditWorkspaceId)) {
+  name: 'audit-to-workspace'
+  scope: master
+  properties: {
+    workspaceId: auditWorkspaceId
+    logs: [
+      {
+        category: 'SQLSecurityAuditEvents'
+        enabled: true
+      }
+    ]
+  }
+  dependsOn: [
+    auditing
+  ]
 }
 
 output id string = server.id

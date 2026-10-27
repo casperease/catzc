@@ -107,8 +107,7 @@ The platform must remain open for extension and closed for modification. Concret
   new vendor dependency is a new folder under `.vendor/`, and a new root concern is a new track. None of these edits the importer, the
   bootstrap module, or any other module's files (ADR-AUTO-EXTEND-ADDNOTEDIT).
 - **The infrastructure knows conventions, not content.** The importer and the bootstrap module discover modules, exports, and visibility
-  from names and locations alone; they never name a specific module, function, or business rule
-  (ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE).
+  from names and locations alone; they never name a specific module, function, or business rule (ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE).
 - **Non-conforming code is fixed, not accommodated.** Code that does not follow file name = function name, folder = module, and root =
   public is not discovered; the remedy is to rename or move it, never to teach the loader an exception
   (ADR-AUTO-EXTEND-MANDATORYCONVENTIONS).

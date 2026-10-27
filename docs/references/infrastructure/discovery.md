@@ -34,8 +34,9 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
 - A peered network is named by its subscription, resource group, and virtual network. Its subscription id comes from `azure.yml` through the
   `subscriptions` parameter, the address `global.azure.subscriptions`. Peering is static and two-sided: a spoke's config names its hub, and
   a hub's config lists its spokes.
-- The policy enforcement mode is the config address `global.azure.policy_enforcement.production` in `psub.yml` and `….nonproduction` in
-  `nsub.yml`, so the repository-wide setting in `azure.yml` decides whether the assignments enforce or only audit.
+- The policy enforcement mode is a fact the build derives (`options.yml` `facts: policyEnforcementMode: policy_enforcement`): a subscription
+  that holds a production environment takes `policy_enforcement.production` of `azure.yml`, every other subscription `.nonproduction`, so no
+  slot writes it and the repository-wide setting decides whether the assignments enforce or only audit.
 - The budget amount and its start date (the first of a month) are config values.
 - No `PrePost.psm1`.
 

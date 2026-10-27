@@ -8,7 +8,7 @@ Strip, split, read once, walk one segment at a time; every wrong turn throws.
 3  Get-ConfigValue              strips global., splits on '.', config name first, keys after
 4  Get-Config                   the one reader: resolves the name, serves the cache, reads once
 5  Resolve-ConfigKeyPath        walks the keys: dictionary key when the node is one, else property
-6  '0.43.8'                     the node global.azure.bicep_min_version resolves to
+6  'zct'                        the node global.azure.org resolves to
 7  rejected at binding          a malformed address never reaches the body
 8  unknown or ambiguous name    no module ships the config, or more than one does
 9  key or property not found    a segment resolves at neither, named with its address
@@ -20,7 +20,7 @@ and ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST (implementation lens).
 Resolving a global config address is three small functions in `Catzc.Base.Config` in a fixed order. `Get-ConfigValue` strips the marker and
 splits the address, `Get-Config` reads the named config once and serves its cache after that, and `Resolve-ConfigKeyPath` walks the keys one
 segment at a time. Every wrong turn throws where it happens: at parameter binding, in the reader, or in the walk. The real example
-`global.azure.bicep_min_version` resolves to `'0.43.8'` on the typed `AzureConfig` object.
+`global.azure.org` resolves to `'zct'` on the typed `AzureConfig` object.
 
 ```yml drawio
 description:
@@ -43,7 +43,7 @@ content:
     - { id: g-value, kind: code, label: Get-ConfigValue, in: band-resolve }
     - { id: g-config, kind: code, label: Get-Config, in: band-resolve }
     - { id: g-walk, kind: code, label: Resolve-ConfigKeyPath, in: band-resolve }
-    - { id: r-node, kind: result, label: "'0.43.8'", in: band-resolve }
+    - { id: r-node, kind: result, label: "'zct'", in: band-resolve }
     - { id: f-binding, kind: failure, label: rejected at binding, in: band-fail }
     - { id: f-name, kind: failure, label: unknown or ambiguous name, in: band-fail }
     - { id: f-key, kind: failure, label: key or property not found, in: band-fail }
@@ -101,8 +101,8 @@ layout:
    `IDictionary` it checks the key through the interface and steps in; otherwise it looks the segment up as a property. A C# dictionary
    inside a typed config, such as `environments`, traverses the same way, so the ADR's own example
    `global.azure.environments.prod.region_code` resolves to `weu`.
-6. **'0.43.8'.** The walk ends on the node and returns it as it is: `bicep_min_version` is a string property of `AzureConfig`, and the
-   caller gets the value `0.43.8` from `azure.yml`. A subtree comes back as the live cached object.
+6. **'zct'.** The walk ends on the node and returns it as it is: `org` is a string property of `AzureConfig`, and the caller gets the value
+   `zct` from `azure.yml`. A subtree comes back as the live cached object.
 7. **rejected at binding.** `global.Azure.x` fails with `Cannot validate argument on parameter 'Address'`: the grammar is checked at the
    call site, not deep in the walk.
 8. **unknown or ambiguous name.** `Resolve-ConfigEntry`, called by `Get-Config`, throws

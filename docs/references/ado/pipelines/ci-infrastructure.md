@@ -7,7 +7,7 @@ infrastructure test suite. It builds and verifies only, with no artifact and no 
 
 - **Triggers** — any change under `infrastructure/**` on `main` or in a pull request, except the README files of the tree
   ([FDR-GLOBS](../../../drs/flow/durable-sha-globs.md)).
-- **No auth** — `az bicep build` is offline, so no mode is set and the pipeline needs no service connection.
+- **No auth** — `bicep build` is offline, so no mode is set and the pipeline needs no service connection.
 - **Per tier** — `Assert-BicepTemplate <tier>` then `Build-Bicep <tier>` (compile, render and verify) for foundation, discovery and
   expedition.
 - **Suite** — `Test-Automation -Suite infrastructure` closes the job. The infrastructure globset's test suite is what it verifies:

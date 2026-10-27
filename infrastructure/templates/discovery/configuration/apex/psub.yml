@@ -10,45 +10,17 @@ ParametersFile:
         data-classification: confidential
     subscriptions:
       address: global.azure.subscriptions
-    networkKind:
-      address: global.network.subscriptions.apex_prod.kind
-    vnetAddressSpace:
-      address: global.network.subscriptions.apex_prod.vnet_address_space
-    subnetPrefixes:
-      address: global.network.subscriptions.apex_prod.subnets
-    resourceGroupName:
-      value: psub-weu-zct-disco-apex-rg
-    virtualNetworkName:
-      value: psub-weu-zct-disco-apex-vnet
-    networkSecurityGroupNames:
-      value:
-        private-endpoints: psub-weu-zct-disco-apex-pe-nsg
-        preprod: psub-weu-zct-disco-apex-pp-nsg
-        prod: psub-weu-zct-disco-apex-prd-nsg
-    routeTableName:
-      value: psub-weu-zct-disco-apex-rt
+    network:
+      address: global.network.subscriptions.apex_prod
+    networks:
+      address: global.network.subscriptions
+    firewallEgress:
+      address: global.network.firewall_egress
+    nsgFlows:
+      address: global.network.nsg_flows
     hub:
       value:
         subscription: shared_prod
-        resourceGroupName: psub-weu-zct-disco-rg
-        virtualNetworkName: psub-weu-zct-disco-vnet
-        peeringName: psub-weu-zct-disco-apex-hub-peer
-    logAnalyticsResourceGroupName:
-      value: psub-weu-zct-fnd-apex-rg
-    logAnalyticsName:
-      value: psub-weu-zct-fnd-apex-log
-    policyEnforcementMode:
-      address: global.azure.policy_enforcement.production
-    policyAssignmentNames:
-      value:
-        allowedLocations: psub-weu-zct-disco-apex-loc-pa
-        requireTag: psub-weu-zct-disco-apex-tag-pa
-        noPublicIp: psub-weu-zct-disco-apex-pip-pa
-        storageNoPublicAccess: psub-weu-zct-disco-apex-stpna-pa
-        sqlNoPublicAccess: psub-weu-zct-disco-apex-sqlpna-pa
-        dataDiagnostics: psub-weu-zct-disco-apex-diag-pa
-    budgetName:
-      value: psub-weu-zct-disco-apex-budg
     budgetAmount:
       value: 800
     budgetStartDate:

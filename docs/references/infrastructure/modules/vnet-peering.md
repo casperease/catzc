@@ -5,5 +5,5 @@ another subscription.
 
 ## Two sides
 
-A peering is two-sided: the hub deploys hub to spoke and the spoke deploys spoke to hub, each with this module. `az bicep build` inlines the
+A peering is two-sided: the hub deploys hub to spoke and the spoke deploys spoke to hub, each with this module. `bicep build` inlines the
 module.

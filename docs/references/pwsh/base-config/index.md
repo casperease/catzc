@@ -60,8 +60,8 @@ how a config value earns a written-down name: a `global.<config>.<key.path>` str
 of use, and its hard line at secrets (everything reachable is in git, so nothing addressable is secret) is what lets a consumer treat an
 address-sourced value as non-secret.
 
-The module is a member of the `Base` group and depends on [Catzc.Base.Repository](../base-repository/index.md) for file-path resolution and on
-[Catzc.Base.Asserts](../base-asserts/index.md) for fail-fast assertions.
+The module is a member of the `Base` group and depends on [Catzc.Base.Repository](../base-repository/index.md) for file-path resolution and
+on [Catzc.Base.Asserts](../base-asserts/index.md) for fail-fast assertions.
 
 The diagram below draws one configuration read from the source. The name resolves to its config file, an overlay fragment is merged unless
 the configuration is sealed, and the registered type is built from the result. The cache key carries the fragment's timestamp, so an edited

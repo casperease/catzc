@@ -22,11 +22,11 @@ param routeTableId string = ''
 ])
 param privateEndpointNetworkPolicies string = 'Enabled'
 
-resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' existing = {
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' existing = {
   name: virtualNetworkName
 }
 
-resource subnet 'Microsoft.Network/virtualNetworks/subnets@2023-09-01' = {
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2024-05-01' = {
   parent: vnet
   name: name
   properties: {

@@ -5,19 +5,15 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-bicepparam'
 
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
-        Mock Invoke-AzCli {
-            if (& $script:compileBicepParams $Arguments) {
+        Mock Invoke-Executable {
+            if (& $script:compileBicepParams $Command) {
                 return
             }
-            if ($Arguments -match 'bicep version') {
-                return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
-            }
-            if ($Arguments -match 'bicep build' -and $Arguments -match '--outdir "([^"]+)"') {
+            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
                 [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
             }
         } -ModuleName Catzc.Azure.Templates
-        Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'bicep' } } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates
@@ -57,6 +53,6 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
 
     It 'compiles every slot through bicep build-params, once per slot' {
         Build-Bicep sample-bicepparam | Out-Null
-        Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 2 -Exactly -ParameterFilter { $Arguments -like 'bicep build-params *' }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Azure.Templates -Times 2 -Exactly -ParameterFilter { $Command -like '* build-params *' }
     }
 }

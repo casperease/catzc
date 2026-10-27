@@ -10,13 +10,13 @@ param registrationEnabled bool = false
 @description('Resource tags.')
 param tags object = {}
 
-resource zone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+resource zone 'Microsoft.Network/privateDnsZones@2024-06-01' = {
   name: name
   location: 'global'
   tags: tags
 }
 
-resource links 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = [
+resource links 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2024-06-01' = [
   for virtualNetworkId in virtualNetworkIds: {
     parent: zone
     name: last(split(virtualNetworkId, '/'))

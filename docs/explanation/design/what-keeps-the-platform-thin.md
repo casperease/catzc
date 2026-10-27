@@ -112,9 +112,8 @@ layout:
 4. **Everything is code.** The DDR requires the automation, configs, tool versions and vendor bindings to live as one living version in the
    repository. No dedicated check holds it, and the Thinnest Viable Platform test ("if a wiki page would do, we do not build a function") is
    a review question too.
-5. **Assert-Tool 'az_cli'.** The tooling contract. `Invoke-AzCli`, `Connect-AzCli` and `Assert-AzCliBicep` assert the `az_cli` pin from
-   `tools.yml` (held by `Catzc.Base.Execution`) at run time, and `Build-Bicep` also asserts the Bicep CLI meets `bicep_min_version` before
-   it builds.
+5. **Assert-Tool 'az_cli'.** The tooling contract. `Invoke-AzCli` and `Connect-AzCli` assert the `az_cli` pin from `tools.yml` (held by
+   `Catzc.Base.Execution`) at run time, and `Build-Bicep` asserts the `bicep` pin from the same file before it builds.
 6. **No reimplementation.** The platform calls the vendor's own tools and never rebuilds them, for example through SDK assemblies. No gate
    checks it.
 7. **az CLI.** The default for every Azure operation, wrapped by `Invoke-AzCli` over `Invoke-Executable`. The code does it, but no gate

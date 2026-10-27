@@ -34,6 +34,22 @@ Describe 'Test-FileShape' -Tag 'L0', 'logic' {
         $finding.Value | Should -Be 125
     }
 
+    It 'reads a relative path against the location, not the process directory, when it checks a string-literal overflow' {
+        $strung = Join-Path $TestDrive 'strung-relative.ps1'
+        [System.IO.File]::WriteAllText($strung, "`$a = '$('w' * 140)'`n`$b = 1 + 2`n")
+        $process = [System.Environment]::CurrentDirectory
+        Push-Location $TestDrive
+        try {
+            # The process directory sits elsewhere, as it does in a burst process whose location is the repository root.
+            [System.Environment]::CurrentDirectory = [System.IO.Path]::GetTempPath()
+            @(Test-FileShape -Path 'strung-relative.ps1').Count | Should -Be 0
+        }
+        finally {
+            [System.Environment]::CurrentDirectory = $process
+            Pop-Location
+        }
+    }
+
     It 'reports nothing for a file within its limits' {
         @(Test-FileShape -Path $script:fine).Count | Should -Be 0
     }

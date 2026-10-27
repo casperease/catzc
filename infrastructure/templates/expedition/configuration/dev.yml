@@ -8,16 +8,14 @@ ParametersFile:
         cost-center: platform
         criticality: low
         data-classification: internal
-    storageAccountName:
-      value: deweuzctexpedst
-    sqlServerName:
-      value: dev-weu-zct-exped-sql
-    sqlDatabaseName:
-      value: dev-weu-zct-exped-sqldb
-    blobPrivateEndpointName:
-      value: dev-weu-zct-exped-blb-pep
-    sqlPrivateEndpointName:
-      value: dev-weu-zct-exped-sql-pep
+    storageSkuName:
+      value: Standard_LRS
+    storageAccessTier:
+      value: Hot
+    storageCoolAfterDays:
+      value: 30
+    storageArchiveAfterDays:
+      value: 0
     entraAdminLogin:
       value: zct-exped-sql-admins
     entraAdminObjectId:
@@ -47,17 +45,7 @@ ParametersFile:
       value: 60
     databaseMinCapacity:
       value: "0.5"
-    networkResourceGroupName:
-      value: nsub-weu-zct-disco-rg
-    virtualNetworkName:
-      value: nsub-weu-zct-disco-vnet
     privateEndpointSubnetName:
       value: shared-services
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
-    privateDnsZoneResourceGroupName:
-      value: nsub-weu-zct-disco-rg
-    logAnalyticsResourceGroupName:
-      value: nsub-weu-zct-fnd-rg
-    logAnalyticsName:
-      value: nsub-weu-zct-fnd-log

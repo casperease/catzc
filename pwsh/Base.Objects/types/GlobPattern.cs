@@ -79,7 +79,14 @@ public sealed class GlobPattern
             literal++;
         }
         LiteralPrefix = literal == 0 ? string.Empty : string.Join("/", parts, 0, literal) + "/";
+        string last = parts[parts.Length - 1];
+        literalSuffix = anyDepth[parts.Length - 1] ? string.Empty : last.Substring(last.LastIndexOfAny(WildcardCharacters) + 1);
     }
+
+    private static readonly char[] WildcardCharacters = { '*', '?', '[', ']' };
+
+    // The literal tail of the last segment, such as '.ps1' of '*.ps1', or empty: every path the pattern matches ends with it.
+    private readonly string literalSuffix;
 
     // The folder path before the first wildcard segment, '/'-terminated, or empty: every path the pattern matches starts with it.
     public string LiteralPrefix { get; }
@@ -112,6 +119,9 @@ public sealed class GlobPattern
     public bool Matches(string repoRelativePath)
     {
         if (string.IsNullOrEmpty(repoRelativePath)) { return false; }
+        // The literal prefix and suffix reject most paths before the split and the segment walk.
+        if (!repoRelativePath.StartsWith(LiteralPrefix, StringComparison.Ordinal)) { return false; }
+        if (!repoRelativePath.EndsWith(literalSuffix, StringComparison.Ordinal)) { return false; }
         return MatchFrom(0, repoRelativePath.Split('/'), 0);
     }
 

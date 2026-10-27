@@ -1,3 +1,55 @@
 short_name: disco
 deployment_target: Subscription
 environment_kind: subscription
+# The facts the build derives from azure.yml; a slot never writes one. A subscription holding a production environment enforces its policies.
+facts:
+  policyEnforcementMode: policy_enforcement
+  # A production hub spreads its firewall over the region's zones.
+  productionSubscription: subscription_production
+# The names the build derives from the namer; a slot never writes one (Test-BicepResourceNames).
+names:
+  resourceGroupName: { type: rg }
+  virtualNetworkName: { type: vnet }
+  routeTableName: { type: rt }
+  firewallName: { type: afw }
+  firewallPolicyName: { type: afwp }
+  firewallPublicIpName: { type: pip, role: fw }
+  firewallManagementPublicIpName: { type: pip, role: fwm }
+  budgetName: { type: budg }
+  logAnalyticsName: { type: log, template: foundation }
+  actionGroupName: { type: ag, template: foundation }
+  logAnalyticsResourceGroupName: { type: rg, template: foundation }
+  flowLogStorageAccountName: { type: st, role: flo, template: foundation }
+  # Objects: one name per key, each key with its role; the NSG names key by the slot's subnets that take an NSG (network.yml no_nsg_subnets).
+  policyAssignmentNames:
+    type: pa
+    roles:
+      {
+        allowedLocations: loc,
+        requireTag: tag,
+        noPublicIp: pip,
+        storageNoPublicAccess: sp,
+        sqlNoPublicAccess: qp,
+        dataDiagnostics: dg,
+        storageSkus: sk,
+        vmSkus: vs,
+      }
+  healthAlertNames:
+    type: alrt
+    roles: { ServiceHealth: svc, ResourceHealth: res }
+  networkSecurityGroupNames:
+    type: nsg
+    keys_from: nsg_subnets
+    roles: { shared-services: ss, private-endpoints: pe, dev: dev, test: tst, preprod: pp, prod: prd }
+  spokes:
+    each: subscription
+    names:
+      resourceGroupName: { type: rg }
+      virtualNetworkName: { type: vnet }
+      peeringName: { type: peer, from: self, role_from: customer_shortcode }
+  hub:
+    each: subscription
+    names:
+      resourceGroupName: { type: rg }
+      virtualNetworkName: { type: vnet }
+      peeringName: { type: peer, from: self, role: hub }

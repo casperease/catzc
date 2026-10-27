@@ -29,13 +29,13 @@ content, the same on every checkout of the same inputs.
 
 Reading the working tree's current git branch and commit, and committing a scoped path set. The branch and commit are read in-process from
 git's ref files through the `GitRefs` reader in [Catzc.Base.Git](../base-git/index.md), so no process starts
-([tracked-files-from-the-index](../../../drs/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing writes,
-so it calls `Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same discipline
-every external command in the platform follows. Branch and commit are intentionally separate getters: they serve different purposes for
-callers (log context, cache keys, CI identifiers) and neither implies the other. It answers which of a set of paths git tracks, which differ
-from HEAD (and whether any does), and where one file stands, from unset to pushed, a state computed on demand and never written into the
-file. Over the tracked files, it finds the callers of a name and renames a set of names as whole tokens, so a rename moves every in-tree
-caller in one change.
+([tracked-files-from-the-index](../../../drs/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing
+writes, so it calls `Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same
+discipline every external command in the platform follows. Branch and commit are intentionally separate getters: they serve different
+purposes for callers (log context, cache keys, CI identifiers) and neither implies the other. It answers which of a set of paths git tracks,
+which differ from HEAD (and whether any does), and where one file stands, from unset to pushed, a state computed on demand and never written
+into the file. Over the tracked files, it finds the callers of a name and renames a set of names as whole tokens, so a rename moves every
+in-tree caller in one change.
 
 ## What the module does
 

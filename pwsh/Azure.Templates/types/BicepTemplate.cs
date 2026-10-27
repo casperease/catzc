@@ -61,6 +61,17 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
 
+    // The names the build derives from the namer, keyed by slot parameter (options.yml names); a slot never writes one. Empty when none.
+    public IReadOnlyDictionary<string, BicepNameEntry> names { get; }
+
+    // The environment facts the build passes as parameters, keyed by slot parameter, valued by the azure.yml environment field
+    // (options.yml facts); a slot never writes one. Empty when none.
+    public IReadOnlyDictionary<string, string> facts { get; }
+
+    // The shared config the build passes as parameters, keyed by slot parameter, valued by the global config address it resolves
+    // (options.yml addresses); a slot never writes one. Empty when none.
+    public IReadOnlyDictionary<string, string> addresses { get; }
+
     // Validates the required keys, so a malformed template cannot produce an instance.
     public BicepTemplate(IDictionary d)
     {
@@ -83,6 +94,19 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
         slots = SlotArr(d, "slots");
         prepost_module = OptStr(d, "prepost_module");
         resources = (d.Contains("resources") && d["resources"] != null) ? StrArr(d, "resources") : null;
+        names = BicepNameEntry.ReadAll(d.Contains("names") ? d["names"] : null, name);
+        Dictionary<string, string> factMap = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (d.Contains("facts") && d["facts"] is IDictionary rawFacts)
+        {
+            foreach (DictionaryEntry entry in rawFacts) { factMap[entry.Key.ToString()] = Convert.ToString(entry.Value, System.Globalization.CultureInfo.InvariantCulture); }
+        }
+        facts = factMap;
+        Dictionary<string, string> addressMap = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (d.Contains("addresses") && d["addresses"] is IDictionary rawAddresses)
+        {
+            foreach (DictionaryEntry entry in rawAddresses) { addressMap[entry.Key.ToString()] = Convert.ToString(entry.Value, System.Globalization.CultureInfo.InvariantCulture); }
+        }
+        addresses = addressMap;
     }
 
     private static BicepSlot[] SlotArr(IDictionary d, string key)

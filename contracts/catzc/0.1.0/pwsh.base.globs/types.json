@@ -90,6 +90,10 @@
           "kind": "property"
         },
         {
+          "name": "exclude",
+          "kind": "property"
+        },
+        {
           "name": "files",
           "kind": "property"
         },

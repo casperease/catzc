@@ -12,10 +12,12 @@ Describe 'NetworkConfig' -Tag 'L0' {
                 widget_core = [ordered]@{
                     kind               = 'hub'
                     vnet_address_space = '10.0.0.0/16'
+                    firewall_sku       = 'Basic'
                     subnets            = [ordered]@{
-                        GatewaySubnet       = '10.0.0.0/27'
-                        AzureFirewallSubnet = '10.0.0.64/26'
-                        'shared-services'   = '10.0.1.0/24'
+                        GatewaySubnet                 = '10.0.0.0/27'
+                        AzureFirewallSubnet           = '10.0.0.64/26'
+                        AzureFirewallManagementSubnet = '10.0.0.128/26'
+                        'shared-services'             = '10.0.1.0/24'
                     }
                 }
                 gadget_edge = [ordered]@{
@@ -90,6 +92,29 @@ Describe 'NetworkConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*invalid vnet_address_space*aligned IPv4 CIDR*'
         }
 
+        It 'throws when an environment vnet is a public or reserved range: <range>' -ForEach @(
+            @{ range = '20.10.0.0/16' }
+            @{ range = '169.254.0.0/16' }
+            @{ range = '127.0.0.0/16' }
+            @{ range = '224.0.0.0/16' }
+            @{ range = '10.0.0.0/7' }
+        ) {
+            $bad = Copy-Object $baseConfig
+            $bad.environments.alpha.vnet_address_space = $range
+            { & $script:make $bad } | Should -Throw "*'alpha' has vnet_address_space '$range' outside the private ranges*"
+        }
+
+        It 'accepts a vnet in each private range' -ForEach @(
+            @{ vnet = '10.10.0.0/16'; subnet = '10.10.0.0/24' }
+            @{ vnet = '172.16.0.0/16'; subnet = '172.16.0.0/24' }
+            @{ vnet = '192.168.0.0/16'; subnet = '192.168.0.0/24' }
+        ) {
+            $ok = Copy-Object $baseConfig
+            $ok.environments.alpha.vnet_address_space = $vnet
+            $ok.environments.alpha.default_subnet = $subnet
+            { & $script:make $ok } | Should -Not -Throw
+        }
+
         It 'throws when an environment default subnet is outside its vnet' {
             $bad = Copy-Object $baseConfig
             $bad.environments.alpha.default_subnet = '10.11.0.0/24'
@@ -137,7 +162,11 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $hub | Should -BeOfType [Catzc.Azure.NetworkSubscription]
             $hub.kind | Should -Be 'hub'
             $hub.vnet_address_space | Should -Be '10.0.0.0/16'
-            @($hub.subnets.Keys) | Should -Be @('GatewaySubnet', 'AzureFirewallSubnet', 'shared-services')
+            @($hub.subnets.Keys) | Should -Be @('GatewaySubnet', 'AzureFirewallSubnet', 'AzureFirewallManagementSubnet', 'shared-services')
+            $hub.firewall_sku | Should -Be 'Basic'
+            $hub.firewall_private_ip | Should -Be '10.0.0.68' -Because 'Azure assigns the fifth address of 10.0.0.64/26 first'
+            $config.subscriptions['gadget_edge'].firewall_private_ip | Should -BeNullOrEmpty
+            $config.subscriptions['gadget_edge'].firewall_sku | Should -BeNullOrEmpty
             $config.subscriptions['gadget_edge'].subnets['private-endpoints'] | Should -Be '10.100.0.0/24'
         }
 
@@ -181,6 +210,12 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.widget_core.peers = 'gadget_edge'
             { & $script:make $bad } | Should -Throw "*network subscription 'widget_core': unknown key 'peers'*"
+        }
+
+        It 'throws when a subscription vnet is a public range' {
+            $bad = Copy-Object $baseConfig
+            $bad.subscriptions.widget_core.vnet_address_space = '52.0.0.0/16'
+            { & $script:make $bad } | Should -Throw "*network subscription 'widget_core' has vnet_address_space '52.0.0.0/16' outside the private ranges*"
         }
 
         It 'throws when a vnet or subnet range is not an aligned CIDR' {
@@ -233,6 +268,43 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' is a hub with subnet 'alpha'*"
         }
 
+        It 'throws when a hub has no firewall SKU or an unknown one, or a spoke has one' {
+            $bad = Copy-Object $baseConfig
+            $bad.subscriptions.widget_core.firewall_sku = 'Premium'
+            $bad.subscriptions.gadget_edge.firewall_sku = 'Basic'
+            $err = { & $script:make $bad } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*network subscription 'widget_core' has invalid firewall_sku 'Premium' (must be Basic or Standard)*"
+            $err.Exception.Message | Should -BeLike "*network subscription 'gadget_edge' is a spoke with a firewall_sku*"
+            $bad.subscriptions.widget_core.Remove('firewall_sku')
+            { & $script:make $bad } | Should -Throw "*network subscription 'widget_core' is a hub without a firewall_sku*"
+        }
+
+        It 'takes the firewall egress declared once on the type, or the file''s' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            @($config.firewall_egress.service_tags) | Should -Contain 'AzureMonitor'
+            @($config.firewall_egress.fqdn_tags) | Should -Be @('WindowsUpdate')
+            $own = Copy-Object $baseConfig
+            $own.firewall_egress = [ordered]@{ service_tags = @('AzureMonitor'); fqdn_tags = @() }
+            $config = & $script:make $own
+            @($config.firewall_egress.service_tags) | Should -Be @('AzureMonitor')
+            @($config.firewall_egress.fqdn_tags).Count | Should -Be 0
+            $own.firewall_egress = [ordered]@{ ip_ranges = @('0.0.0.0/0') }
+            { & $script:make $own } | Should -Throw "*firewall_egress: unknown key 'ip_ranges'*"
+        }
+
+        It 'takes the security-group flows declared once on the type, or the file''s, and refuses a bad one' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            @($config.nsg_flows.name) | Should -Be @('workload-to-private-endpoints', 'shared-services-management', 'same-subnet')
+            $own = Copy-Object $baseConfig
+            $own.nsg_flows = @([ordered]@{ name = 'widget-https'; to = 'workload'; from = 'workload'; ports = @('443'); protocol = 'Tcp' })
+            @((& $script:make $own).nsg_flows.name) | Should -Be @('widget-https')
+            $own.nsg_flows = @([ordered]@{ name = 'Widget'; to = 'internet'; from = 'anywhere'; ports = @('x'); protocol = 'Icmp' })
+            $err = { & $script:make $own } | Should -Throw -PassThru
+            foreach ($part in "invalid name 'Widget'", "invalid to 'internet'", "invalid from 'anywhere'", "invalid protocol 'Icmp'", 'must list its ports') {
+                $err.Exception.Message | Should -BeLike "*nsg_flows``[0``]*$part*"
+            }
+        }
+
         It 'throws when a spoke lacks private-endpoints' {
             $bad = Copy-Object $baseConfig
             $bad.subscriptions.gadget_edge.subnets.Remove('private-endpoints')
@@ -245,6 +317,22 @@ Describe 'NetworkConfig' -Tag 'L0' {
             $bad.subscriptions.gadget_edge.subnets.'shared-services' = '10.100.3.0/24'
             { & $script:make $bad } |
                 Should -Throw "*network subscription 'gadget_edge' is a spoke with workload subnet 'shared-services'*"
+        }
+    }
+
+    Context 'no_nsg_subnets' {
+        It 'takes Azure''s gateway, firewall and route-server subnets by default, and an override when given' {
+            (& $script:make (Copy-Object $baseConfig)).no_nsg_subnets |
+                Should -Be @('GatewaySubnet', 'AzureFirewallSubnet', 'AzureFirewallManagementSubnet', 'RouteServerSubnet')
+            $override = Copy-Object $baseConfig
+            $override['no_nsg_subnets'] = @('GatewaySubnet')
+            (& $script:make $override).no_nsg_subnets | Should -Be @('GatewaySubnet')
+        }
+
+        It 'refuses an empty override' {
+            $bad = Copy-Object $baseConfig
+            $bad['no_nsg_subnets'] = @()
+            { & $script:make $bad } | Should -Throw '*no_nsg_subnets must be a non-empty list of subnet names*'
         }
     }
 }

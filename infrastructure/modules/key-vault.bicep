@@ -20,7 +20,19 @@ param tags object = {}
 @description('Let Azure Resource Manager read secrets during a deployment: a parameter file\'s Key Vault reference (expedition\'s break-glass SQL password) resolves only when this is on.')
 param enabledForTemplateDeployment bool = true
 
-resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
+@description('Public network access: off by default, so the vault is reached only through its private endpoint.')
+@allowed([
+  'Enabled'
+  'Disabled'
+])
+param publicNetworkAccess string = 'Disabled'
+
+@description('Days a deleted secret stays recoverable (7-90).')
+@minValue(7)
+@maxValue(90)
+param softDeleteRetentionInDays int = 90
+
+resource vault 'Microsoft.KeyVault/vaults@2024-11-01' = {
   name: name
   location: location
   tags: tags
@@ -32,6 +44,16 @@ resource vault 'Microsoft.KeyVault/vaults@2023-07-01' = {
     }
     enableRbacAuthorization: true
     enabledForTemplateDeployment: enabledForTemplateDeployment
+    // Purge protection cannot be turned off again once on, so it is no parameter: no deployment can make a vault purgeable.
+    enablePurgeProtection: true
+    enableSoftDelete: true
+    softDeleteRetentionInDays: softDeleteRetentionInDays
+    publicNetworkAccess: publicNetworkAccess
+    // A closed vault network: only its private endpoint and the trusted Azure services (Resource Manager reading a Key Vault reference).
+    networkAcls: {
+      defaultAction: 'Deny'
+      bypass: 'AzureServices'
+    }
     accessPolicies: []
   }
 }

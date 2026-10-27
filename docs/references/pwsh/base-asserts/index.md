@@ -2,7 +2,8 @@
 
 The assertion library. It is the vocabulary every other module uses to state a precondition and stop the moment it is violated. It owns no
 I/O of its own and depends on nothing else — it is the bottom of the stack, the concrete embodiment of
-[fail-fast-with-asserts](../../../drs/automation/fail-fast-with-asserts.md) and [error-handling](../../../drs/automation/pwsh/error-handling.md).
+[fail-fast-with-asserts](../../../drs/automation/fail-fast-with-asserts.md) and
+[error-handling](../../../drs/automation/pwsh/error-handling.md).
 
 ## Responsibilities
 

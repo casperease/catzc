@@ -4,10 +4,7 @@ function Get-FileMetaInputStamp {
     param(
         [Parameter(Mandatory)]
         [AllowEmptyCollection()]
-        [string[]] $File,
-
-        [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string[]] $File
     )
 
     # The engine and its registries decide every head, so a change to either re-imprints every file.

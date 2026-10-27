@@ -13,20 +13,16 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
         $script:betaNetwork = (Get-Config -Config network).environments.beta
 
         . (Join-Path $PSScriptRoot 'BicepParams.Fixture.ps1')
-        Mock Invoke-AzCli {
-            if (& $script:compileBicepParams $Arguments) {
+        Mock Invoke-Executable {
+            if (& $script:compileBicepParams $Command) {
                 return
             }
-            if ($Arguments -match 'bicep version') {
-                return [pscustomobject]@{ Output = 'Bicep CLI version 999.999.999'; ExitCode = 0 }
-            }
-            if ($Arguments -match 'bicep build' -and $Arguments -match '--outdir "([^"]+)"') {
+            if ($Command -match ' build "' -and $Command -match '--outdir "([^"]+)"') {
                 Set-Content -Path (Join-Path $Matches[1] 'main.json') -Value '{}' -NoNewline
             }
         } -ModuleName Catzc.Azure.Templates
-        Mock Assert-Tool { } -ModuleName Catzc.Azure.Templates
-        # The Bicep CLI guard lives in Catzc.Azure.Cli; mock the boundary so its internal az probe never runs.
-        Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        # The bicep binary is resolved through the toolchain; mock the boundary so no version probe runs.
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'bicep' } } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
         } -ModuleName Catzc.Azure.Templates

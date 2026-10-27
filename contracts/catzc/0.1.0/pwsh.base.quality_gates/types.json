@@ -20,6 +20,29 @@
       ]
     },
     {
+      "name": "Catzc.Base.QualityGates.BicepApiVersionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Verdict",
+          "kind": "method"
+        },
+        {
+          "name": "allowed",
+          "kind": "property"
+        },
+        {
+          "name": "folders",
+          "kind": "property"
+        },
+        {
+          "name": "max_age_months",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.QualityGates.CodeLinkRewriter",
       "aliases": [],
       "display": [],
@@ -636,6 +659,10 @@
         {
           "name": "guids",
           "kind": "property"
+        },
+        {
+          "name": "registries",
+          "kind": "property"
         }
       ]
     },
@@ -1227,6 +1254,25 @@
         },
         {
           "name": "value_file",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.QualityGates.SecretPatternsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Matches",
+          "kind": "method"
+        },
+        {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
+          "name": "skip",
           "kind": "property"
         }
       ]

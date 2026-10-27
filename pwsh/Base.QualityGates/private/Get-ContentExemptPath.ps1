@@ -15,8 +15,17 @@ function Get-ContentExemptPath {
         return , [string[]] @()
     }
     $attributes = Get-GitAttributeValue -RepositoryRoot $RepositoryRoot -Path $Path -Attribute $classNames
-    , [string[]] @($Path | Where-Object {
-            $classes = $attributes[$_]
-            $classes -and @($classNames | Where-Object { $classes[$_] -in 'set', 'true' }).Count -gt 0
+    # Loops, not Where-Object: a whole-repository scope is thousands of paths.
+    , [string[]] @(foreach ($file in $Path) {
+            $classes = $attributes[$file]
+            if (-not $classes) {
+                continue
+            }
+            foreach ($name in $classNames) {
+                if ($classes[$name] -in 'set', 'true') {
+                    $file
+                    break
+                }
+            }
         })
 }

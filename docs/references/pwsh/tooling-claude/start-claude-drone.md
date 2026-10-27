@@ -16,9 +16,10 @@ Launches `claude --agent <Agent>` once per -Count, with `--model <Model>` only w
 applies) and -Prompt as the session's first prompt. The agent and the terminal are entries in `configs/claude-drone.yml`, each default
 declared once on its config type. -DryRun starts nothing and returns the planned command lines (ADR-PWSH-DRYRUN-EARLYRETURNBRANCH).
 
-### parameter `Agent`
+### parameter `Skill`
 
-The agent a drone starts as, a file name in `.claude/agents`. Default: claude-drone.yml's agent.
+The job skill the drone runs, a folder in `.claude/skills`. Its `model_floor` picks the drone (Resolve-ClaudeSkillDrone), and the brief
+names it first, as `skill: <name>`.
 
 ### parameter `Model`
 

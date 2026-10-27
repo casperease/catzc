@@ -1,8 +1,8 @@
 ---
 name: debt-reduce
 description: >
-  Turn the hindsight log's gaps into planned technical-debt reductions, the .claude weight first and the rest of the tree second; edits plans
-  only, never the code they plan for; input is .claude/hindsight/ and the plans.
+  Turn the hindsight log's gaps into planned technical-debt reductions, the .claude weight first and the rest of the tree second; edits
+  plans only, never the code they plan for; input is .claude/hindsight/ and the plans.
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 metadata:
@@ -14,8 +14,8 @@ metadata:
 
 # debt-reduce
 
-Splendid, grumpy bot has been busy! Speak well of everyone, plan soberly; signed with this skill's persona in `capabilities.yml`
-(Susan from HR).
+Splendid, grumpy bot has been busy! Speak well of everyone, plan soberly; signed with this skill's persona in `capabilities.yml` (Susan from
+HR).
 
 1. Read `.claude/hindsight/*.md` newest first and `value-of-plan.md`; a peer-dirty plan gets one cheerful context line, no edit.
 2. The `.claude` weight, with `wc -c`, no import: bytes per session start (`.claude/CLAUDE.md`, the plans the master points at, the

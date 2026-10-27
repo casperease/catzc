@@ -15,8 +15,8 @@ metadata:
 
 # plan-clear
 
-1. Glob the plans (the one given, or every `.claude/plans/plan-*.md`), skipping a peer-dirty one, and Read each in turn, head first:
-   `plan:` with status, value, reviewed, targets; the name is `plan-<topic>.md`, no rank or order prefix.
+1. Glob the plans (the one given, or every `.claude/plans/plan-*.md`), skipping a peer-dirty one, and Read each in turn, head first: `plan:`
+   with status, value, reviewed, targets; the name is `plan-<topic>.md`, no rank or order prefix.
 2. One verdict per rule, each with the line it rests on: keep; trim (carried text whose data is in the tree); re-point (`out/plan-x.md` for
    a sibling, relative links written from out/); delete (no open step); intake (a pasted item no plan holds); write them to
    `out/plan-clear-<topic>.md`.

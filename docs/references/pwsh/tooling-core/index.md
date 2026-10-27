@@ -2,9 +2,9 @@
 
 The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external
 command-line tool is locked to which version — the `tools.yml` config and the `ToolConfig` type that models it, both owned by
-[Catzc.Base.Execution](../base-execution/index.md), the module furthest down the stack that reads them — to assert a tool's presence, install
-it, and uninstall it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any specific tool,
-only how to drive one from its config. The rationale is in
+[Catzc.Base.Execution](../base-execution/index.md), the module furthest down the stack that reads them — to assert a tool's presence,
+install it, and uninstall it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any
+specific tool, only how to drive one from its config. The rationale is in
 [controlling-systemwide-deps](../../../drs/automation/controlling-systemwide-deps.md) and
 [uv-python-handler](../../../drs/automation/uv-python-handler.md), and the config is modelled as a native type per
 [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md).
@@ -23,9 +23,9 @@ only how to drive one from its config. The rationale is in
 
 Reading `tools.yml` and resolving, for any named tool, its locked version, the command it provides (and the per-platform command suffix that
 command takes), and the order tools must be installed in to satisfy their declared dependencies. `tools.yml` is the single source of truth;
-the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). Both live in
-[Catzc.Base.Execution](../base-execution/index.md), so a bundle without the Tooling group still locates every managed tool. Because every fact
-about a tool lives in config — its install mechanism, dependencies, and any devbox version relaxation or session PATH hint — adding or
+the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). Both live
+in [Catzc.Base.Execution](../base-execution/index.md), so a bundle without the Tooling group still locates every managed tool. Because every
+fact about a tool lives in config — its install mechanism, dependencies, and any devbox version relaxation or session PATH hint — adding or
 upgrading one is an edit here, not new install code.
 
 ### responsibility:2 — Presence and version control
@@ -38,9 +38,9 @@ A tool whose `tools.yml` entry declares candidate paths (`windows_probes`, `unix
 without starting a process: the candidates for the running platform and run environment first (a pipeline reads the pipeline list, a devbox
 the devbox list), then PATH, skipping every path in `probe_excludes` (for bash, the WSL launcher). Only a located executable runs its
 version command, once per executable file per session (a lazy cache entry), so a check costs file lookups after the first. The probe itself
-is generic and lives in [Catzc.Base.Execution](../base-execution/index.md), which also reads the entry, so a Base module finds a managed tool
-the same way; this module keeps the presence and version decision on top of it. `Test-Tool -PassThru` returns the check as a record (where,
-how, which version against the pin, and the timings), and `Write-ToolProbeReport` renders such records as a table.
+is generic and lives in [Catzc.Base.Execution](../base-execution/index.md), which also reads the entry, so a Base module finds a managed
+tool the same way; this module keeps the presence and version decision on top of it. `Test-Tool -PassThru` returns the check as a record
+(where, how, which version against the pin, and the timings), and `Write-ToolProbeReport` renders such records as a table.
 
 ### responsibility:3 — Install and uninstall engine
 
@@ -80,12 +80,12 @@ concrete tool repeats the same lifecycle shape over this shared engine.
 The four responsibilities stack cleanly. Configuration and mapping turns a tool name into facts; presence and version control reads those
 facts against the live machine; the engine acts on the gap between them; and session reconciliation keeps what is installed resolvable on
 PATH. The per-engine fixture tables sit beside them: the engines are tools too, and the tables keep their parity testable. The `ToolConfig`
-type that carries those facts derives from the shared `DictionaryRecord` base in [Catzc.Base.Objects](../base-objects/index.md), so it gets a
-dictionary view and the extraction helpers without a per-module copy.
+type that carries those facts derives from the shared `DictionaryRecord` base in [Catzc.Base.Objects](../base-objects/index.md), so it gets
+a dictionary view and the extraction helpers without a per-module copy.
 
 The sibling Tooling modules — [Catzc.Tooling.Python](../tooling-python/index.md), [Catzc.Tooling.Node](../tooling-node/index.md),
-[Catzc.Tooling.Toolchain](../tooling-toolchain/index.md), and [Catzc.Tooling.Provisioning](../tooling-provisioning/index.md) — all depend on this
-module and only this module within the group. Core is the engine; they are the per-ecosystem and orchestration surfaces over it.
+[Catzc.Tooling.Toolchain](../tooling-toolchain/index.md), and [Catzc.Tooling.Provisioning](../tooling-provisioning/index.md) — all depend on
+this module and only this module within the group. Core is the engine; they are the per-ecosystem and orchestration surfaces over it.
 
 The diagram below draws tool invocation from the source. Every tool wrapper asserts the locked version from `tools.yml` before it runs the
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces.

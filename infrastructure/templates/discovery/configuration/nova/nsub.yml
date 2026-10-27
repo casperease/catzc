@@ -10,45 +10,17 @@ ParametersFile:
         data-classification: confidential
     subscriptions:
       address: global.azure.subscriptions
-    networkKind:
-      address: global.network.subscriptions.nova_nonprod.kind
-    vnetAddressSpace:
-      address: global.network.subscriptions.nova_nonprod.vnet_address_space
-    subnetPrefixes:
-      address: global.network.subscriptions.nova_nonprod.subnets
-    resourceGroupName:
-      value: nsub-weu-zct-disco-nova-rg
-    virtualNetworkName:
-      value: nsub-weu-zct-disco-nova-vnet
-    networkSecurityGroupNames:
-      value:
-        private-endpoints: nsub-weu-zct-disco-nova-pe-nsg
-        dev: nsub-weu-zct-disco-nova-dev-nsg
-        test: nsub-weu-zct-disco-nova-tst-nsg
-    routeTableName:
-      value: nsub-weu-zct-disco-nova-rt
+    network:
+      address: global.network.subscriptions.nova_nonprod
+    networks:
+      address: global.network.subscriptions
+    firewallEgress:
+      address: global.network.firewall_egress
+    nsgFlows:
+      address: global.network.nsg_flows
     hub:
       value:
         subscription: shared_nonprod
-        resourceGroupName: nsub-weu-zct-disco-rg
-        virtualNetworkName: nsub-weu-zct-disco-vnet
-        peeringName: nsub-weu-zct-disco-nova-hub-peer
-    logAnalyticsResourceGroupName:
-      value: nsub-weu-zct-fnd-nova-rg
-    logAnalyticsName:
-      value: nsub-weu-zct-fnd-nova-log
-    policyEnforcementMode:
-      address: global.azure.policy_enforcement.nonproduction
-    policyAssignmentNames:
-      value:
-        allowedLocations: nsub-weu-zct-disco-nova-loc-pa
-        requireTag: nsub-weu-zct-disco-nova-tag-pa
-        noPublicIp: nsub-weu-zct-disco-nova-pip-pa
-        storageNoPublicAccess: nsub-weu-zct-disco-nova-stpna-pa
-        sqlNoPublicAccess: nsub-weu-zct-disco-nova-sqlpna-pa
-        dataDiagnostics: nsub-weu-zct-disco-nova-diag-pa
-    budgetName:
-      value: nsub-weu-zct-disco-nova-budg
     budgetAmount:
       value: 300
     budgetStartDate:

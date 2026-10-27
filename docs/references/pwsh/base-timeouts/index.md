@@ -54,8 +54,8 @@ The hook compiles this module's own config and verdict types, so it cannot drift
 The first two responsibilities are a value and its enforcement: the configured limits say how long, and the stop-at-the-limit functions and
 the process runner make it so. Exemptions loosen a limit for named work without ever lifting it, and the agent shell safeguard applies the
 same limits to the shell calls an agent makes. The module sits above [Catzc.Base.Config](../base-config/index.md) (for its configs),
-[Catzc.Base.Objects](../base-objects/index.md) (the config types' record base) and [Catzc.Base.Repository](../base-repository/index.md) (the run
-environment), and below [Catzc.Base.Execution](../base-execution/index.md), which asks it for each process's limit.
+[Catzc.Base.Objects](../base-objects/index.md) (the config types' record base) and [Catzc.Base.Repository](../base-repository/index.md) (the
+run environment), and below [Catzc.Base.Execution](../base-execution/index.md), which asks it for each process's limit.
 
 ## Division
 

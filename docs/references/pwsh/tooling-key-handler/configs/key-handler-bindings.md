@@ -5,6 +5,5 @@ It is a top-level sequence of `key` and `function` entries, and only those two k
 
 ## Reading it
 
-`Get-Config -Config key-handler-bindings` returns the typed model, built by
-[KeyHandlerBindingsConfig](../types/key-handler-bindings-config.md). The import filters the entries against
-[key-handler-supported.yml](key-handler-supported.md), so a binding for a Windows-only function is skipped.
+`Get-Config -Config key-handler-bindings` returns the typed model, built by `KeyHandlerBindingsConfig`. The import filters the entries
+against `key-handler-supported.yml`, so a binding for a Windows-only function is skipped.

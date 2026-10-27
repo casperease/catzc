@@ -6,15 +6,15 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
-// The Azure identity part of azure.yml: org, Bicep minimum, and tenants, environments and subscriptions keyed by name.
+// The Azure identity part of azure.yml: org, and tenants, environments and subscriptions keyed by name.
 public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 {
     // A tenant or subscription name: a lower-snake_case identifier.
     internal const string IdentifierPattern = "^[a-z][a-z0-9_]*$";
 
-    private static readonly string[] RequiredKeys = { "org", "bicep_min_version", "tenants", "subscriptions", "environments" };
+    private static readonly string[] RequiredKeys = { "org", "tenants", "subscriptions", "environments" };
 
-    private static readonly string[] AllowedKeys = { "org", "bicep_min_version", "tenants", "subscriptions", "environments", "policy_enforcement" };
+    private static readonly string[] AllowedKeys = { "org", "tenants", "subscriptions", "environments", "policy_enforcement", "tags" };
 
     // The keys of policy_enforcement: the production environments and every other environment.
     private static readonly string[] PolicyEnforcementKeys = { "production", "nonproduction" };
@@ -29,9 +29,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The vertical/organization shortcode — the <org> component of every resource name.
     public string org { get; }
 
-    // The minimum Bicep CLI version (MAJOR.MINOR.PATCH).
-    public string bicep_min_version { get; }
-
     // The Entra tenants, keyed by name.
     public IReadOnlyDictionary<string, AzureTenantRecord> tenants { get; }
 
@@ -43,6 +40,9 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Always complete: a key the file omits takes DefaultPolicyEnforcement.
     public IReadOnlyDictionary<string, string> policy_enforcement { get; }
+
+    // The tag schema; a file without a tags section takes AzureTagSchema's defaults.
+    public AzureTagSchema tags { get; }
 
     public AzureConfig(IDictionary d)
     {
@@ -58,10 +58,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         string orgValue = Text(d["org"]);
         if (Regex.IsMatch(orgValue, "^[a-z][a-z0-9]{1,2}$")) { org = orgValue; }
         else { errors.Add(string.Format("org '{0}' is invalid (must be 2-3 lowercase alphanumeric chars starting with a letter)", orgValue)); }
-
-        string bicep = Text(d["bicep_min_version"]);
-        if (Regex.IsMatch(bicep, "^[0-9]+\\.[0-9]+\\.[0-9]+$")) { bicep_min_version = bicep; }
-        else { errors.Add(string.Format("bicep_min_version '{0}' is invalid (must be MAJOR.MINOR.PATCH, e.g. 0.30.0)", bicep)); }
 
         Dictionary<string, AzureTenantRecord> tenantMap = new Dictionary<string, AzureTenantRecord>(StringComparer.Ordinal);
         foreach (KeyValuePair<string, IDictionary> entry in Entries(d["tenants"], "tenants", errors))
@@ -85,6 +81,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
         subscriptions = subscriptionMap;
 
         policy_enforcement = PolicyEnforcement(d, errors);
+        tags = new AzureTagSchema(d.Contains("tags") ? d["tags"] : null, errors);
 
         CheckShortcodes(errors);
         CheckReferences(errors);
@@ -93,6 +90,9 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (errors.Count > 0) { Fail(errors); }
     }
+
+    // Every way the given tags break the tag schema; empty when they hold to it.
+    public string[] TagErrors(IDictionary resourceTags) { return tags.TagErrors(resourceTags); }
 
     private static void Fail(List<string> errors)
     {

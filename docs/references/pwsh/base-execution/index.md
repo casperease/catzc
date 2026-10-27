@@ -53,22 +53,22 @@ Together they are the mechanism that keeps each `Invoke-Executable` call exit-co
 ## What the module does
 
 The module is the platform's external-process boundary, and it is built around one invariant: before any tool runs, its full command is
-logged. That rule — from [log-before-invoke](../../../drs/automation/log-before-invoke.md) — means a failing run is always diagnosable from the
-log alone, without reconstructing what was called. `Invoke-Executable` enforces it unconditionally; `Invoke-WithProgress` inherits it by
+logged. That rule — from [log-before-invoke](../../../drs/automation/log-before-invoke.md) — means a failing run is always diagnosable from
+the log alone, without reconstructing what was called. `Invoke-Executable` enforces it unconditionally; `Invoke-WithProgress` inherits it by
 delegating there.
 
 The process-running machinery lives in the native C# type `Catzc.Base.Execution.CliRunner` (see
-[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). `CliRunner` is what actually spawns the subprocess and captures its
-streams; `Invoke-Executable` is the PowerShell wrapper that adds logging, exit-code hygiene, and dry-run. When the caller passes
+[native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). `CliRunner` is what actually spawns the subprocess and captures
+its streams; `Invoke-Executable` is the PowerShell wrapper that adds logging, exit-code hygiene, and dry-run. When the caller passes
 `-PassThru`, the result comes back as `Catzc.Base.Execution.CliResult` — a typed object with separated `.Stdout` and `.Stderr` properties
 rather than a mixed output stream. Feature module wrappers such as `Invoke-AzCli` use `-PassThru` when they need to parse tool output; plain
 script calls omit it and let the streams flow through.
 
 Executable location sits in front of execution. The generic check takes plain inputs and returns the `Catzc.Base.Execution.ExecutableProbe`
 record; its version run goes through `Invoke-Executable` like any other process start. The tools.yml reading on top of it is global config
-access, never guarded by module dependencies (see [module-config-loading](../../../drs/configuration/module-config-loading.md)), which is what
-lets the tooling modules' presence checks ([Catzc.Tooling.Core](../tooling-core/index.md)) and the Base modules share one record and one
-reading of an entry.
+access, never guarded by module dependencies (see [module-config-loading](../../../drs/configuration/module-config-loading.md)), which is
+what lets the tooling modules' presence checks ([Catzc.Tooling.Core](../tooling-core/index.md)) and the Base modules share one record and
+one reading of an entry.
 
 The exit-code responsibility (responsibility 3) is a supporting mechanism. `$LASTEXITCODE` is shared state: any external command can leave a
 non-zero code behind. `Reset-LastExitCode` gives the invocation responsibility — and any caller that orchestrates a sequence of external

@@ -4,8 +4,8 @@ The path-anchor module. It is the **single source of truth for where files live*
 and absolute paths, pointing to the dedicated output directory, and naming whether code runs in a pipeline or on a devbox. No other module
 derives these answers independently; callers depend on `$PWD` nowhere (see
 [never-depend-on-pwd](../../../drs/automation/never-depend-on-pwd.md)). What this module deliberately does **not** own is general filesystem
-work (copying trees, checking file locks, reading git facts) — those live in [Catzc.Base.Files](../base-files/index.md). It is a member of the
-`Base` group, depends on [Catzc.Base.Asserts](../base-asserts/index.md), and is a dependency of everything above it.
+work (copying trees, checking file locks, reading git facts) — those live in [Catzc.Base.Files](../base-files/index.md). It is a member of
+the `Base` group, depends on [Catzc.Base.Asserts](../base-asserts/index.md), and is a dependency of everything above it.
 
 ## Responsibilities
 
@@ -26,8 +26,8 @@ anchors, so no function anywhere in the platform depends on the current working 
 
 Whether the code is executing inside a CI pipeline, named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can
 pin. The answer keys environment-dependent settings such as the time-safeguard limits. It is read off the one detection seam, which lives in
-the always-loaded [Catzc.Internal.Loader](../internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module loads
-(see [pipeline-detection](../../../drs/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
+the always-loaded [Catzc.Internal.Loader](../internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module
+loads (see [pipeline-detection](../../../drs/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
 
 ## What the module does
 

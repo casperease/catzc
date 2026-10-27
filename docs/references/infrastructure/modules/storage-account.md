@@ -18,7 +18,7 @@ Reach the account through a private endpoint (`../../modules/private-endpoint.bi
 ## Use
 
 A template references it with a relative `module` declaration, for example `../../modules/storage-account.bicep` from a template's
-`main.bicep`. `az bicep build` inlines the module into each template's `main.json`, so nothing from `infrastructure/modules/` ships
-separately at deploy time.
+`main.bicep`. `bicep build` inlines the module into each template's `main.json`, so nothing from `infrastructure/modules/` ships separately
+at deploy time.
 
 Modules are not discovered as templates: `Get-BicepTemplates` scans only `infrastructure/templates/`.

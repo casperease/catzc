@@ -30,6 +30,12 @@ jobs:
     steps:
       - checkout: self
 
+      # Build-Bicep runs the bicep binary at its tools.yml pin; the hosted image's own bicep may sit at another version.
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: "Install-Bicep (tools.yml pin, user-space)"
+          RunCommand: "Install-Bicep -Force"
+
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Assert-BicepTemplate foundation"

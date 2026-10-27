@@ -4,8 +4,8 @@ The orchestration module of the Tooling group. It converges a whole development 
 order, reports and asserts the aggregate status of every tool, and keeps the machine clean of package managers the platform refuses to
 depend on. It also ships two bespoke installers — Git and Postman — that do not fit Core's generic engine, and it owns the
 `ToolStatus`/`ToolStatusKind` types its status report is built on. It is the layer over the per-tool surfaces in
-[Catzc.Tooling.Core](../tooling-core/index.md), [Catzc.Tooling.Python](../tooling-python/index.md), [Catzc.Tooling.Node](../tooling-node/index.md),
-and [Catzc.Tooling.Toolchain](../tooling-toolchain/index.md). The rationale is in
+[Catzc.Tooling.Core](../tooling-core/index.md), [Catzc.Tooling.Python](../tooling-python/index.md),
+[Catzc.Tooling.Node](../tooling-node/index.md), and [Catzc.Tooling.Toolchain](../tooling-toolchain/index.md). The rationale is in
 [controlling-systemwide-deps](../../../drs/automation/controlling-systemwide-deps.md) and
 [idempotent-state-functions](../../../drs/automation/idempotent-state-functions.md); the status types are native per
 [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md).
@@ -22,8 +22,8 @@ and [Catzc.Tooling.Toolchain](../tooling-toolchain/index.md). The rationale is i
 
 The whole machine rather than one tool: install (and uninstall) the complete locked tool set in the order declared dependencies require,
 report each tool's aggregate status — correct, usable-but-wrong-manager, wrong-version, missing, or unwanted — through the
-`ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)), and assert that status is
-clean. It sits over the per-tool engines, diagnosing and converging.
+`ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)), and assert that status
+is clean. It sits over the per-tool engines, diagnosing and converging.
 
 ### responsibility:2 — Workstation hygiene
 
@@ -37,12 +37,12 @@ install and uninstall shape as a managed tool, so it fits into the orchestration
 
 ## What the module does
 
-The module depends on [Catzc.Tooling.Core](../tooling-core/index.md) and the three ecosystem modules; it reaches their per-tool installers by
-dynamic dispatch rather than a static call, so converging a workstation is just running the lifecycle for every tool in dependency order and
-then reporting where reality diverges from the lock. The status report is the surface a human or an assertion reads to see at a glance what
-needs installing, upgrading, or removing. Install and uninstall are dry-run-able so a run can be previewed before it mutates the machine
-(see [dry-run](../../../drs/automation/dry-run.md)). The same functions run locally and in CI, with no separate provisioning script (see
-[cross-platform](../../../drs/automation/cross-platform.md)).
+The module depends on [Catzc.Tooling.Core](../tooling-core/index.md) and the three ecosystem modules; it reaches their per-tool installers
+by dynamic dispatch rather than a static call, so converging a workstation is just running the lifecycle for every tool in dependency order
+and then reporting where reality diverges from the lock. The status report is the surface a human or an assertion reads to see at a glance
+what needs installing, upgrading, or removing. Install and uninstall are dry-run-able so a run can be previewed before it mutates the
+machine (see [dry-run](../../../drs/automation/dry-run.md)). The same functions run locally and in CI, with no separate provisioning script
+(see [cross-platform](../../../drs/automation/cross-platform.md)).
 
 Provisioning is also where the platform's package-manager support matters for enterprise and air-gapped networks, because the locked tools
 must still install where the public registries are unreachable. The support is uneven by manager: apt-get has full Artifactory support, so

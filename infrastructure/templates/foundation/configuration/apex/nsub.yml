@@ -1,0 +1,13 @@
+# foundation, apex nonprod subscription (env nsub, customer apex).
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: nonprod
+        owner: apex
+        cost-center: apex
+        criticality: medium
+        data-classification: confidential
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_nonprod.id

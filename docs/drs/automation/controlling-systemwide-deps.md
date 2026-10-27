@@ -12,8 +12,8 @@ of base tools (git, vscode) deliberately tracks `latest` and verifies integrity 
 ### Rule ADR-AUTO-DEPS-TOOLTRIAD
 
 Provide one `Install-*` / `Invoke-*` / `Uninstall-*` triad per tool. The installer handles platform differences, the invoker asserts version
-and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule
-ADR-AUTO-DEPS-PREREQUISITEASSERTED): it is asserted, never installed by its own entry, so it has no triad.
+and presence, the uninstaller cleans up. A platform-provided prerequisite is the exception (Rule ADR-AUTO-DEPS-PREREQUISITEASSERTED): it is
+asserted, never installed by its own entry, so it has no triad.
 
 - [2. Platform-aware installers](#2-platform-aware-installers)
 

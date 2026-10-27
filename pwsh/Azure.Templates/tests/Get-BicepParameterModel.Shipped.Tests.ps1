@@ -6,39 +6,17 @@ Describe 'Shipped template parameter model' -Tag 'L2', 'integrity', 'greedy', 'A
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
 
-        # The Bicep CLI is verified once for the whole template set, since each probe is a 2 s child process.
-        if (Get-Command az -ErrorAction Ignore) {
-            Assert-AzCliBicep
-            Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
-        }
-
-        # The same compiler without az's Python start per call; absent or off-version, the real Invoke-AzCli runs.
-        $bicep = Resolve-ToolExecutable bicep
-        if ($bicep.Found -and $bicep.VersionOk) {
-            $script:bicepPath = $bicep.Path
-            Mock Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter { $Arguments -like 'bicep build*' } {
-                # az takes the input as --file; the bicep binary takes it positionally.
-                $tokens = @([regex]::Matches($Arguments.Substring('bicep '.Length), '"([^"]*)"|(\S+)') |
-                        ForEach-Object {
-                            if ($_.Groups[1].Success) {
-                                $_.Groups[1].Value
-                            }
-                            else {
-                                $_.Groups[2].Value
-                            }
-                        } |
-                        Where-Object { $_ -ne '--file' })
-                $output = & $script:bicepPath @tokens 2>&1
-                if ($LASTEXITCODE -ne 0) {
-                    throw "bicep $Arguments failed with exit code ${LASTEXITCODE}:`n$($output -join "`n")"
-                }
-            }
+        # The bicep binary is resolved once for the whole template set, not inside every build.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+        if ($script:bicepReady) {
+            Mock Resolve-ToolExecutable { $bicep }.GetNewClosure() -ModuleName Catzc.Azure.Templates
         }
     }
 
     It 'every rendered parameters file of template <_> satisfies its compiled parameter model' -ForEach $script:templateNames {
-        if (-not (Get-Command az -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_az_missing'
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         Build-Bicep $_ | Out-Null

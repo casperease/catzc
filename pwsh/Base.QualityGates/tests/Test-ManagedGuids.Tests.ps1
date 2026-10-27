@@ -21,7 +21,8 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
                     widget = [pscustomobject]@{ guid = $widgetGuid }
                     gadget = [pscustomobject]@{ guid = $gadgetGuid }
                 }
-                denied = [ordered]@{ empty = [pscustomobject]@{ guid = $deniedGuid } }
+                denied     = [ordered]@{ empty = [pscustomobject]@{ guid = $deniedGuid } }
+                registries = @()
             }
         }
         Mock Get-RepositoryGuids -ModuleName Catzc.Base.QualityGates {
@@ -52,6 +53,31 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
         $message | Should -Match "docs/widget.md:2 $deniedGuid`: a denied guid"
         $message | Should -Match "docs/sprocket.md:3 $strayGuid`: not registered"
         $message | Should -Match 'guids.yml gadget: no tracked file references it'
+    }
+
+    It 'counts every guid of a registry it names as registered, and names a registry that does not exist' {
+        $root = Join-Path $TestDrive 'repo'
+        [System.IO.Directory]::CreateDirectory((Join-Path $root 'configs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $root 'configs/sprockets.yml'), "sprocket: $strayGuid`n")
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $root }.GetNewClosure()
+        Mock Get-GlobSetFile -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'repository' } {
+            @('docs/widget.md', 'docs/gadget.md', 'docs/sprocket.md', 'configs/sprockets.yml', 'configs/cogs.yml',
+                "$(Get-CatzcModulesFolder)/Base.QualityGates/configs/guids.yml")
+        }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'guids' } {
+            [pscustomobject]@{
+                guids      = [ordered]@{ widget = [pscustomobject]@{ guid = $widgetGuid } }
+                denied     = [ordered]@{}
+                registries = @('configs/sprockets.yml', 'configs/cogs.yml')
+            }
+        }
+        Mock Get-RepositoryGuids -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ file = 'docs/widget.md'; line = 1; guid = $widgetGuid }
+            [pscustomobject]@{ file = 'docs/sprocket.md'; line = 3; guid = $strayGuid }
+        }
+        $result = Test-ManagedGuids -OutputFolder $out -PassThru
+        $result.Issues | Should -HaveCount 1
+        $result.Issues[0] | Should -BeLike "*'configs/cogs.yml' does not exist*"
     }
 
     It 'returns the issues under -PassThru instead of throwing' {

@@ -45,7 +45,8 @@ stages:
               - template: /.ado/pipelines/steps/invoke-automation.yaml
                 parameters:
                   DisplayName: "Build-Bicep expedition -Customers ${{ parameters.Customer }}"
-                  RunCommand: "Build-Bicep expedition -Customers ${{ parameters.Customer }}"
+                  # A slotted Expeditions entry is an ephemeral slot with no file: the build renders it from this same list.
+                  RunCommand: "Build-Bicep expedition -Customers ${{ parameters.Customer }} -RuntimeSlotsJson '${{ convertToJson(parameters.Expeditions) }}'"
               - publish: out/template/expedition
                 artifact: expedition
 

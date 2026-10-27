@@ -76,8 +76,13 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                               | `Register-AdoPipeline`           |
 |                                                               | `Get-AdoPipelineDefinitions`     |
 |                                                               | `Sync-AdoEnvironmentApprovals`   |
+|                                                               | `Sync-AdoServiceConnections`     |
+|                                                               | `Test-AdoServiceConnections`     |
 |                                                               | `Assert-AdoDeploymentHistory`    |
+|                                                               | `Update-AdoFlowOccupants`        |
+|                                                               | `Get-AdoDeliveryMetrics`         |
 | config                                                        | `environment-approvals.yml`      |
+|                                                               | `service-connections.yml`        |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |
 |                                                               | `Get-AdoFlowRows`                |

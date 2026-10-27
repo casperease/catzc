@@ -12,9 +12,10 @@ Registers every build-validation branch policy declared in build-validation.yml.
 ### description
 
 The config-driven reconcile: for each entry under 'validations' in build-validation.yml, runs Register-AdoBuildValidation — creating missing
-policies, updating drifted ones, and leaving current ones alone — and emits each result. This is the everything-as-code path for the
-server-side policies: the local config is the source of truth, and this function converges the ADO project to it. The policies are Azure
-DevOps configuration, an adjacent store
+policies, updating drifted ones, and leaving current ones alone — and emits each result. When the git_workspace variant is main-via-pr it
+then runs Register-AdoBranchPolicies with the same overrides, so the pull-request policies under 'policies' converge too; a main-direct
+repository has no pull request to guard. This is the everything-as-code path for the server-side policies: the local config is the source of
+truth, and this function converges the ADO project to it. The policies are Azure DevOps configuration, an adjacent store
 ([TDR-ONETRUTH-REPOSITORYISRECORD](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisrecord)), driven one way from
 the repository and never edited beside the trunk.
 

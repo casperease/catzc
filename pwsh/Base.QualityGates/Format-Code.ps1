@@ -162,7 +162,7 @@ function Format-Code {
         }
         # The file-meta step's verdict also reads the files beside each file, so their stamp joins its key.
         $fileStamp = if ($step -ceq 'file-meta') {
-            Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
+            Get-FileMetaInputStamp -File $candidates
         }
         elseif ($step -ceq 'plan-counts') {
             # The plans' open-step counts join this step's key.

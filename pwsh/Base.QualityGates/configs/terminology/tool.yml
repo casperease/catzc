@@ -105,6 +105,8 @@ terms:
       meaning: "the psscriptanalyzer formatter engine name in languages.yml (PSScriptAnalyzer's Invoke-Formatter)"
     - term: bicepconfig
       meaning: "bicepconfig.json, the Bicep CLI's per-folder configuration file"
+    - term: osv
+      meaning: "OSV (Open Source Vulnerabilities), the advisory database osv-scanner reads lock files against"
     - term: csdevkit
       meaning: "the C# Dev Kit VS Code extension (ms-dotnettools.csdevkit)"
     - term: dpkg

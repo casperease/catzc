@@ -20,6 +20,15 @@ One config file ⟷ one (customer?, env, **slot**) ⟷ one subscription ⟷ one 
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
+### Rule ADR-AZ-DATAMOD-EPHEMERALSLOT
+
+A named slot of a base coordinate needs no file: an **ephemeral slot** deploys its base slot's config under a runtime slot segment, so every
+name it derives carries the segment and nothing else differs. It exists for one run (`Build-Bicep -RuntimeSlots <env>-<slot>`, or a
+pipeline's own deploy-target list through `-RuntimeSlotsJson`) and is listed nowhere else; a blue/green copy (`dev-blu`) and the L3 test
+slot (`l3`) are ephemeral. The resource group it leaves is one no config derives, so `Test-BicepOrphans` reports it until it is removed.
+
+- [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
+
 ### Rule ADR-AZ-DATAMOD-NAMEKEYEDMAPS
 
 All named entities in `azure.yml` are maps keyed by name, so duplicate names are structurally impossible. A configuration subfolder is
@@ -195,7 +204,6 @@ erDiagram
 
     AZURE_CONFIG {
         string org "2-3 alnum, required (name component)"
-        string bicep_min_version "required; MAJOR.MINOR.PATCH — min Bicep CLI, asserted before every build"
         map    policy_enforcement "optional; production/nonproduction -> Default | DoNotEnforce, defaulted on AzureConfig"
     }
     TENANT {
@@ -256,9 +264,9 @@ The setting resolves in the one fixed order of a configurable setting
 ([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): the value in `azure.yml`, else the
 sensible default `{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map,
 a partial map, and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown
-key or mode is rejected at load, with every other violation of the file, in one error. A template reads the mode by config address
-(`global.azure.policy_enforcement.production`, see [Config-addressed parameters](#config-addressed-parameters)), so no template restates it
-and changing it is one edit to `azure.yml`.
+key or mode is rejected at load, with every other violation of the file, in one error. A template takes the mode as a fact the build derives
+(`options.yml` `facts`, value `policy_enforcement`): the subscription a slot targets is production when it holds a production environment,
+so no slot names the class, no template restates the mode, and changing it is one edit to `azure.yml`.
 
 ### The subscription as the unit
 
@@ -315,9 +323,10 @@ its own landing zone, network, budget, workspace, vault, CD pipeline, and servic
 to the hub in a shared subscription, the hub's private DNS zones link to every spoke, and a workload registers its private endpoints in the
 hub's zones ([ADR-AZ-LZ-HUBANDSPOKE](landing-zones.md#rule-adr-az-lz-hubandspoke)). Within one tenant each join needs only a role on the
 other side, and the one SQL administrator group administers every customer's server. A customer whose contract or regulation demands its own
-directory would be a second `tenants` entry and a design change, needing a hub of its own. Experiments run as an extra configuration slot of
-a non-production subscription (`apex/dev-blu.yml` beside `apex/dev.yml`), inside the same tenant and behind the same guardrails; an
-experiment needing what the landing zone denies would be the trigger for a sandbox subscription declared in the same tenant.
+directory would be a second `tenants` entry and a design change, needing a hub of its own. Experiments run as an ephemeral slot of a
+non-production subscription (`dev-blu` on `apex/dev.yml`, [ADR-AZ-DATAMOD-EPHEMERALSLOT](#rule-adr-az-datamod-ephemeralslot)), inside the
+same tenant and behind the same guardrails; an experiment needing what the landing zone denies would be the trigger for a sandbox
+subscription declared in the same tenant.
 
 Everything above the subscription is not adopted, because the repository deploys into subscriptions it is given and needs no right above
 them ([ADR-AZ-LZ-LANDINGZONE](landing-zones.md#rule-adr-az-lz-landingzone)): it holds no billing role and creates no subscription, grants no
@@ -344,7 +353,7 @@ identity, network and policy as the live one.
 `infrastructure/templates/<name>/`
 
 Deployable templates live in `infrastructure/templates/<name>/` (discovered by `Get-BicepTemplates`). Reusable bicep modules live in the
-sibling `infrastructure/modules/` — referenced by templates via a relative `module` declaration and inlined by `az bicep build`; they are
+sibling `infrastructure/modules/` — referenced by templates via a relative `module` declaration and inlined by `bicep build`; they are
 **not** discovered as templates and carry no `options.yml` / `configuration/`.
 
 **One config file ⟷ one (customer?, env, slot) ⟷ one subscription ⟷ one Azure resource group.** A config lives at the configuration ROOT —
@@ -509,7 +518,6 @@ Thin read-only lookups and argument-completers over the two layers (no joins of 
 | `Get-AzureBicepEnvironmentKinds`  | the allowed `environment_kind` values (`standard`, `subscription`)             |
 | `Get-AzureBicepDeploymentModes`   | the allowed `deployment_mode` values for `options.yml` validation              |
 | `Get-AzureBicepDeploymentTargets` | the allowed `deployment_target` values for `options.yml` validation            |
-| `Get-AzureBicepMinVersion`        | `bicep_min_version` from `azure.yml` (asserted by `Assert-AzCliBicep`)         |
 | `Get-BicepTemplateCustomers`      | the distinct customers (configuration subfolders) a template ships (completer) |
 | `Get-BicepTemplateSlots`          | each slot a template declares (completer)                                      |
 

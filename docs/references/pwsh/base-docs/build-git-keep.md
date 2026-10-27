@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Build-GitKeep.ps1
 
 The writer that keeps every `.gitkeep` of the repository a managed copy of one generic asset. It walks the tree, skips `.git` and the
-vendored modules, and rewrites a file only when it drifted. Its tests are in [Build-GitKeep.Tests.ps1](tests/build-git-keep.md).
+vendored modules, and rewrites a file only when it drifted. Its tests are in `Build-GitKeep.Tests.ps1`.
 
 ## help
 

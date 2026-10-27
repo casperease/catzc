@@ -1,8 +1,8 @@
 ---
 name: drs-cite
 description:
-  How to find the rules that govern a set of files and cite them by code without sweeping the DRS; for drs-review and glossary-keep;
-  input is the list of files under review.
+  How to find the rules that govern a set of files and cite them by code without sweeping the DRS; for drs-review and glossary-keep; input
+  is the list of files under review.
 user-invocable: false
 allowed-tools: Read, Grep, Glob
 paths: docs/drs/**

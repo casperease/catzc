@@ -1,3 +1,42 @@
+BeforeAll {
+    # The deploys of one pipeline YAML, and those whose step just before is not the same command with -DryRun.
+    $script:findUnpreviewed = {
+        param([string] $Path)
+        $command = {
+            param($Step)
+            if ($Step -is [System.Collections.IDictionary] -and $Step['parameters'] -is [System.Collections.IDictionary]) {
+                "$($Step['parameters']['RunCommand'])" -replace '\s+', ' '
+            }
+        }
+        $result = [pscustomobject]@{ Deploys = 0; Missing = [System.Collections.Generic.List[string]]::new() }
+        $walk = {
+            param($Node)
+            if ($Node -is [System.Collections.IDictionary]) {
+                foreach ($value in $Node.Values) {
+                    & $walk $value
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                for ($i = 0; $i -lt $Node.Count; $i++) {
+                    $run = & $command $Node[$i]
+                    if ($run -like 'Deploy-Bicep *' -and $run -notlike '* -DryRun') {
+                        $result.Deploys++
+                        $before = if ($i -gt 0) {
+                            & $command $Node[$i - 1]
+                        }
+                        if ($before -ne "$run -DryRun") {
+                            $result.Missing.Add($run)
+                        }
+                    }
+                    & $walk $Node[$i]
+                }
+            }
+        }
+        & $walk (ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Path)) -Ordered)
+        [pscustomobject]@{ Deploys = $result.Deploys; Missing = [string[]] $result.Missing }
+    }
+}
+
 Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
     BeforeAll {
         # Build a classifier record like Get-AdoYamlFiles emits (string props stand in for the C# record).
@@ -125,5 +164,62 @@ Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
 Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
     It 'the shipped .ado/pipelines/ tree satisfies ADR-ADO-NAME (zero violations)' {
         (Test-Pipelines -PassThru -OutputFolder (Join-Path $TestDrive 'pipelines')).IssueCount | Should -Be 0
+    }
+
+    It 'builds a customer''s ephemeral slots from its own Expeditions list: the expedition build passes -RuntimeSlotsJson from it' {
+        $yaml = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) '.ado/pipelines/extends/cd-customer.yaml'))) -Ordered
+        $runs = [System.Collections.Generic.List[string]]::new()
+        $walk = {
+            param($Node)
+            if ($Node -is [System.Collections.IDictionary]) {
+                if ($Node['parameters'] -is [System.Collections.IDictionary] -and $Node['parameters']['RunCommand']) {
+                    $runs.Add("$($Node['parameters']['RunCommand'])")
+                }
+                foreach ($value in $Node.Values) {
+                    & $walk $value
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                foreach ($item in $Node) {
+                    & $walk $item
+                }
+            }
+        }
+        & $walk $yaml
+        $build = @($runs | Where-Object { $_ -like 'Build-Bicep expedition *' })
+        $build.Count | Should -Be 1
+        $build[0] | Should -BeLike "*-RuntimeSlotsJson '`${{ convertToJson(parameters.Expeditions) }}'*"
+    }
+
+    It 'previews every deploy with a what-if: each Deploy-Bicep step follows its own -DryRun sibling' {
+        $found = & $script:findUnpreviewed (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
+        $found.Deploys | Should -BeGreaterThan 0
+        $found.Missing | Should -BeNullOrEmpty -Because 'a pipeline deploy previews its effect with Deploy-Bicep -DryRun first'
+    }
+}
+
+Describe 'the what-if guard on pipeline deploys' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:widgetYaml = {
+            param([string[]] $Steps)
+            $path = Join-Path $TestDrive "$([guid]::NewGuid().ToString('N')).yaml"
+            [System.IO.File]::WriteAllText($path, (@('steps:') + @($Steps | ForEach-Object {
+                            "  - template: /.ado/pipelines/steps/invoke-automation.yaml`n    parameters:`n      RunCommand: '$_'"
+                        })) -join "`n")
+            $path
+        }
+    }
+
+    It 'flags a Deploy-Bicep step with no -DryRun sibling before it' {
+        $found = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Environment widget -Template gadget'))
+        $found.Deploys | Should -Be 1
+        $found.Missing | Should -Be @('Deploy-Bicep -Environment widget -Template gadget')
+    }
+
+    It 'flags a sibling that previews another command, and passes the matching one' {
+        $other = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Template sprocket -DryRun', 'Deploy-Bicep -Template gadget'))
+        $other.Missing | Should -Be @('Deploy-Bicep -Template gadget')
+        $match = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Template gadget -DryRun', 'Deploy-Bicep -Template gadget'))
+        $match.Missing | Should -BeNullOrEmpty
     }
 }

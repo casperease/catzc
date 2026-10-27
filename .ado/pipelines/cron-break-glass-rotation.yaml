@@ -1,0 +1,21 @@
+trigger: none
+pr: none
+
+schedules:
+  - cron: "0 3 1 * *"
+    displayName: Monthly break-glass rotation
+    branches:
+      include: [main]
+    always: true
+
+jobs:
+  - job: rotate
+    displayName: Rotate every production break-glass password
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          Mode: azcli
+          ServiceConnection: sc-apex-prod
+          RunCommand: Invoke-BreakGlassRotation prod

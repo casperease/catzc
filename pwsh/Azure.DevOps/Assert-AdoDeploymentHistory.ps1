@@ -40,17 +40,7 @@ function Assert-AdoDeploymentHistory {
         Where-Object { $null -ne $_ -and "$($_.result)" -eq 'succeeded' }
 
     foreach ($deployment in $deployments) {
-        $run = & $getRun "$($deployment.owner.id)"
-        $parameters = if ($run.PSObject.Properties['templateParameters']) {
-            $run.templateParameters
-        }
-        $source = if ($parameters -and $parameters.PSObject.Properties['CiRunId'] -and "$($parameters.CiRunId)") {
-            & $getRun "$($parameters.CiRunId)"
-        }
-        else {
-            $run
-        }
-        if ("$($source.sourceVersion)" -eq $commit) {
+        if ((Resolve-AdoRunCommit -RunId "$($deployment.owner.id)" -GetRun $getRun) -eq $commit) {
             Write-Message "Commit $commit is certified by '$Environment': run $($deployment.owner.id) deployed it there."
             return [pscustomobject]@{
                 Environment = $Environment

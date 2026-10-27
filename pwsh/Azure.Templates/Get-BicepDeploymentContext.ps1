@@ -65,9 +65,9 @@ function Get-BicepDeploymentContext {
     $customer = $sessionSubscription.customer
 
     # The configuration slot is the session's customer, the environment and the slot; the subscription must serve the environment.
-    $wantSlot = [string]$Slot
-    $slotMatch = @($templateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq $wantSlot -and $_.customer -eq $customer })
-    if ($slotMatch.Count -eq 0) {
+    # A named slot with no file of its own is an ephemeral slot on its base slot's config (Resolve-BicepSlot).
+    $slotMatch = Resolve-BicepSlot -TemplateDescriptor $templateDescriptor -Environment $Environment -Slot $Slot -Customer $customer
+    if (-not $slotMatch) {
         $where = if ([string]::IsNullOrEmpty($customer)) {
             'the shared platform (configuration root)'
         }
@@ -104,7 +104,12 @@ function Get-BicepDeploymentContext {
         $templateDescriptor.output_folder
     }
     else {
-        $built = Build-Bicep -Template $Template -Environments @($Environment)
+        # An ephemeral slot has no file, so the build is told to render it.
+        $buildSplat = @{ Template = $Template; Environments = @($Environment) }
+        if ($slotMatch -notin @($templateDescriptor.slots)) {
+            $buildSplat['RuntimeSlots'] = @("$Environment-$Slot")
+        }
+        $built = Build-Bicep @buildSplat
         $didLocalBuild = $true
         $built
     }

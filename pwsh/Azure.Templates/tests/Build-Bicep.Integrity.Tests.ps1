@@ -81,12 +81,19 @@ Describe 'Every slot compiles through the .bicepparam path to the same parameter
         $differ = [System.Collections.Generic.List[string]]::new()
         $slots = [System.Collections.Generic.List[object]]::new()
         $count = 0
+        $hooks = @{}
+        foreach ($template in $templates) {
+            $hooks[$template.name] = InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template } {
+                param($Template)
+                Get-BicepPrepareHook -TemplateDescriptor $Template
+            }
+        }
         foreach ($template in $templates) {
             foreach ($slot in @($template.slots | Where-Object { $_.format -eq 'yml' })) {
-                $descriptor = Get-BicepTemplateConfiguration $template.name $slot.environment -Slot $slot.slot -Customer $slot.customer
-                $descriptor.ParametersFile.parameters = InModuleScope Catzc.Azure.Templates -Parameters @{ Parameters = $descriptor.ParametersFile.parameters } {
-                    param($Parameters)
-                    Resolve-BicepParameterAddresses -Parameters $Parameters -ConfigFile 'shipped.yml'
+                # The one preparation Build-Bicep runs: addresses, derived names, environment facts, then the template's hook.
+                $descriptor = InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot; Hook = $hooks[$template.name] } {
+                    param($Template, $Slot, $Hook)
+                    Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot -PrepareHook $Hook
                 }
                 $before = $descriptor.ParametersFile | ConvertTo-Json -Depth 10 |
                     ConvertFrom-Json -AsHashtable -DateKind String

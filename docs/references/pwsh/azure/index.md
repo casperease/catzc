@@ -39,9 +39,9 @@ the resolved subscription that serves it. This is the join between the environme
 
 ### responsibility:4 — Global catalog accessors
 
-Whole-estate lookups that aren't tied to one subscription or environment: the list of customers, one customer resolved from either its key
-or its short code, and the minimum Bicep CLI version the estate requires. These are thin readers over the identity model for callers that
-need a catalog rather than a single resolved identity.
+Whole-estate lookups that aren't tied to one subscription or environment: the list of customers, and one customer resolved from either its
+key or its short code. These are thin readers over the identity model for callers that need a catalog rather than a single resolved
+identity.
 
 ## What the module does
 
@@ -160,4 +160,3 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:3 — Environment resolution      | `Get-AzureEnvironment`             |
 | responsibility:4 — Global catalog accessors    | `Get-AzureCustomers`               |
 |                                                | `Get-AzureCustomer`                |
-|                                                | `Get-AzureBicepMinVersion`         |

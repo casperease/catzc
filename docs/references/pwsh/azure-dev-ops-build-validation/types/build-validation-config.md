@@ -14,3 +14,12 @@ Constructing the record checks the file and gathers every violation into one `Ar
 - only the top-level keys `branch` and `validations` are allowed, and both are required;
 - `branch` is not empty;
 - `validations` is a non-empty list of well-formed `BuildValidationEntry` mappings, one per globset, with no globset twice.
+
+## comment:1
+
+Above `public BranchPolicies policies { get; }`, written with `//`.
+
+```text
+The pull-request policies of the branch, applied when the repository is main-via-pr; always complete, a key the file omits takes
+the default on BranchPolicies.
+```

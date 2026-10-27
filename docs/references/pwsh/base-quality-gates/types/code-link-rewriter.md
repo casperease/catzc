@@ -6,9 +6,10 @@ comment text and reports what it found at comment-relative offsets, and the link
 
 ## Canonical forms
 
-A whole decision record becomes `[ADR-<CODE>](../../catzc-base-quality-gates/types/<path>.md)` and one rule becomes `[ADR-<CODE>-<NAME>](../../catzc-base-quality-gates/types/<path>.md#rule-adr-<code>-<name>)`.
-Every other spelling is recognised: a bare, `./`, `../` or rooted `docs/drs` path, an ADR file name alone, a bare citation, a path followed
-by its own citation, and a markdown link in another shape. A numbered citation is reported, since it names no rule.
+A whole decision record becomes `[ADR-<CODE>](../../catzc-base-quality-gates/types/<path>.md)` and one rule becomes
+`[ADR-<CODE>-<NAME>](../../catzc-base-quality-gates/types/<path>.md#rule-adr-<code>-<name>)`. Every other spelling is recognised: a bare,
+`./`, `../` or rooted `docs/drs` path, an ADR file name alone, a bare citation, a path followed by its own citation, and a markdown link in
+another shape. A numbered citation is reported, since it names no rule.
 
 The citation code is the source of truth. The destination is derived from it (`DrsCitationMap`), so a stale path is re-pointed and a text
 and destination mismatch resolves in favour of the code. Inline code spans and the `.EXAMPLE` sections of a PowerShell help block are

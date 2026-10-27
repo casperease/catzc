@@ -21,9 +21,9 @@ sources and generators its registry names; this module is only the pairing and t
 Turning each opted-in registry entry into its root file. An entry obtains the content from its single source of truth — a `source` template
 under the generated-file head that names it and carries the one warning, or a `generator` function's rendered output (dispatched by name, so
 an unknown generator fails loudly) — and writes it through the shared `Write-FileIfChanged` primitive
-([Catzc.Base.Files](../base-files/index.md)): canonical output, EOL-insensitive compare, write only on a real change. That is idempotent, which
-is what lets the importer materialise every managed root file on each load at no steady-state cost, and a target that is a link is stale
-whatever its bytes, so it is deleted and written as a file of its own
+([Catzc.Base.Files](../base-files/index.md)): canonical output, EOL-insensitive compare, write only on a real change. That is idempotent,
+which is what lets the importer materialise every managed root file on each load at no steady-state cost, and a target that is a link is
+stale whatever its bytes, so it is deleted and written as a file of its own
 ([ADR-REPO-ROOTCFG-HEADEDCOPY](../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-headedcopy)).
 
 A generator renders either one file or a set of them. A single-file generator returns the content of its entry's target; a multi-file
@@ -45,9 +45,9 @@ never produce a run. The registry is the single place the pairing is stated; the
 The quality gates ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the
 materialised result. One checks that the registry, `.gitignore`, git's tracked set and the copies agree for every opted-in entry (each
 `source` target is its template under the head, and no target is a link), a wildcard entry once per file its generator renders
-([ADR-REPO-ROOTCFG-THREEWAYAGREEMENT](../../../drs/repository/generated-root-configs.md)); the other checks the consumer contract of the root
-`PSScriptAnalyzerSettings.psd1` — that a consumer opening the root path parses a non-empty settings hashtable under its head. Content drift
-of a generated copy is [Catzc.Base.QualityGates](../base-quality-gates/index.md)' `Test-GeneratedFiles`.
+([ADR-REPO-ROOTCFG-THREEWAYAGREEMENT](../../../drs/repository/generated-root-configs.md)); the other checks the consumer contract of the
+root `PSScriptAnalyzerSettings.psd1` — that a consumer opening the root path parses a non-empty settings hashtable under its head. Content
+drift of a generated copy is [Catzc.Base.QualityGates](../base-quality-gates/index.md)' `Test-GeneratedFiles`.
 
 ## What the module does
 
@@ -58,10 +58,10 @@ instead of prose — so each managed root file is one registry entry, never a be
 Two design points carry the weight. First, **opt-out is the default**: a root file with no entry (or an entry with `optIn: false`) is simply
 not touched, so takeover is always an explicit, reviewable registry change, and the rollout can proceed file by file. Second, **`committed`
 is one boolean, not two systems**: `importer.ps1` cannot be a gitignored copy-in (it is the load entry point itself), but it is still fully
-managed — its `generator` is `New-Importer` ([Catzc.Base.ModuleSystem](../base-module-system/index.md)), and the same materialisation reports
-it drift-free instead of silently rewriting a tracked file. The importer tail runs `Build-RootConfig` as a janitor on every load, so a clean
-tree costs a few file reads and writes nothing. Because the janitor runs on every load, a bad root config breaks every session's next
-import, not just the session that wrote it.
+managed — its `generator` is `New-Importer` ([Catzc.Base.ModuleSystem](../base-module-system/index.md)), and the same materialisation
+reports it drift-free instead of silently rewriting a tracked file. The importer tail runs `Build-RootConfig` as a janitor on every load, so
+a clean tree costs a few file reads and writes nothing. Because the janitor runs on every load, a bad root config breaks every session's
+next import, not just the session that wrote it.
 
 ## Division
 

@@ -183,6 +183,10 @@ function Import-CSharpTypes {
         Get-TypesShadowRoot
     }
     $dll = [System.IO.Path]::Combine($buildDir, ('Catzc.Types.{0}.dll' -f $combinedHash))
+    # Hold the hash before the build is looked for, so another process's prune never removes it between that check and a deferred load.
+    if (-not $PrebuiltOnly) {
+        Register-TypesHold -Hash $combinedHash -ShadowRoot $buildDir | Out-Null
+    }
 
     # Ensure the hash-keyed DLL exists on disk — compile it if missing (a fresh machine, a pruned cache, or a
     # source never built). -OutputAssembly writes the file WITHOUT loading, so this restores the build even

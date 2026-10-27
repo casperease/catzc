@@ -23,5 +23,5 @@ can carry, and a derivable path is not that.
 
 ## What replaces it
 
-Nothing in the file. The page of a source is derived on demand (CommentPagesConfig.PageFor), the same way every other fact about a file
-is. An authored file now carries no head; only a generated file does, with its `immutable` part.
+Nothing in the file. The page of a source is derived on demand (CommentPagesConfig.PageFor), the same way every other fact about a file is.
+An authored file now carries no head; only a generated file does, with its `immutable` part.

@@ -45,8 +45,6 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- types-build-local -> plan-types-build-local.md: the untrack landed; one step left, an agent's: the shadow-cache prune keeps any build a
-  live process loads or is about to load
 - language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
@@ -58,11 +56,10 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; one step
-- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 44 steps each
-- debt-python-test -> plan-debt-python-test.md: Invoke-PythonTest's -Module refuses a folder-named kit module such as diagrams; two steps
+- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, 15 steps each
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- flow-lens -> plan-flow-lens.md: flow lens: CI/CD flow diagrams of the ADO and GitHub pipelines, drawn with a three-symbol glyph set
+- frontpage -> plan-frontpage.md: the generated GitHub front page; three steps (help, rule phrases, module article)
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -1,6 +1,6 @@
-Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greedy' {
+Describe 'Build-Bicep (walking skeleton — real bicep)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
-        # Redirects build output to this file's TestDrive, so the real-az builds never share out/template/<name> with the L0 sample files.
+        # Redirects build output to this file's TestDrive, so the real builds never share out/template/<name> with the L0 sample files.
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
         Mock Get-BicepTemplatesRoot {
             Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -12,10 +12,11 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
         }
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
-        # The Bicep CLI check runs once for the file, not inside every build.
-        if (Get-Command az -ErrorAction Ignore) {
-            Assert-AzCliBicep
-            Mock Assert-AzCliBicep { } -ModuleName Catzc.Azure.Templates
+        # The bicep binary is resolved once for the file, not inside every build.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+        if ($script:bicepReady) {
+            Mock Resolve-ToolExecutable { $bicep }.GetNewClosure() -ModuleName Catzc.Azure.Templates
         }
     }
 
@@ -25,10 +26,10 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
         }
     }
 
-    It 'real az bicep build compiles a multi-slot template to main.json (sample-customer)' {
+    It 'real bicep build compiles a multi-slot template to main.json (sample-customer)' {
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-customer'
-        if (-not (Get-Command az -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_az_missing'
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         if (Test-Path $script:outputRoot) {
@@ -41,8 +42,8 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
 
     It 'a subscription-scoped template compiles end-to-end (targetScope = subscription) (sample-subscription)' {
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-subscription'
-        if (-not (Get-Command az -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_az_missing'
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         if (Test-Path $script:outputRoot) {
@@ -53,10 +54,10 @@ Describe 'Build-Bicep (walking skeleton — real az)' -Tag 'L2', 'logic', 'greed
         Join-Path $script:outputRoot 'main.json' | Should -Exist
     }
 
-    It 'real az inlines a local reusable module into main.json (sample-with-module)' {
+    It 'real bicep inlines a local reusable module into main.json (sample-with-module)' {
         $script:outputRoot = Join-Path $TestDrive 'out/template/sample-with-module'
-        if (-not (Get-Command az -ErrorAction Ignore)) {
-            Set-ItResult -Skipped -Because 'tool_az_missing'
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         if (Test-Path $script:outputRoot) {

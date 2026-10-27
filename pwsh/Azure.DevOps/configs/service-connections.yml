@@ -1,0 +1,19 @@
+connections:
+  sc-shared-nonprod:
+    subscription: shared_nonprod
+    description: The shared platform's non-production subscription.
+  sc-shared-prod:
+    subscription: shared_prod
+    description: The shared platform's production subscription.
+  sc-apex-nonprod:
+    subscription: apex_nonprod
+    description: The apex customer's non-production subscription.
+  sc-apex-prod:
+    subscription: apex_prod
+    description: The apex customer's production subscription.
+  sc-nova-nonprod:
+    subscription: nova_nonprod
+    description: The nova customer's non-production subscription.
+  sc-flux-nonprod:
+    subscription: flux_nonprod
+    description: The flux customer's non-production subscription.

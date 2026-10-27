@@ -51,7 +51,7 @@ function Set-BicepTrackingTagSet {
         [ordered]@{
             commit   = Get-GitCurrentCommit
             build_id = 'CLI_NO_BUILD'
-            branch   = Get-GitCurrentBranch
+            branch   = 'devbox'
         }
     }
 

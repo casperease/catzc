@@ -4,8 +4,8 @@ The quality-gate module. It **runs every check the repository applies to itself*
 reporting), the repository-wide quality gates, the spell-checker, the Markdown linter, the formatters, the terminology registry, and the
 managed-GUID registry. What it deliberately does **not** own is the tests themselves (each module keeps its own `tests/` folder), the
 quality gates whose property belongs to another module (the module-graph quality gates live in
-[Catzc.Base.ModuleSystem](../base-module-system/index.md)), or the per-tool configuration (cSpell, markdownlint, and Prettier each carry their
-own config at the repository root). A quality gate collects every issue, writes its report through
+[Catzc.Base.ModuleSystem](../base-module-system/index.md)), or the per-tool configuration (cSpell, markdownlint, and Prettier each carry
+their own config at the repository root). A quality gate collects every issue, writes its report through
 [Catzc.Base.Reports](../base-reports/index.md), and throws once listing them all
 ([test-automation](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)); the tier and category tag rules the Pester
 runner enforces are the subject of the same ADR.
@@ -58,13 +58,13 @@ Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, 
 adapter per engine; [configure-not-program](../../../drs/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
 lint and type quality gates (`Test-PythonLint`, `ruff check`; `Test-PythonTypes`, `pyright`, the engine Pylance runs in the editor) over
 every `.py` file the repository holds, the shell-script quality gate (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over
-every shell script it tracks ([bash-test-artifacts](../../../drs/automation/bash/bash-test-artifacts.md)), the idiomatic-names quality gate and
-its assertion (`Test-IdiomaticNames`, `Assert-IdiomaticNames`: every tracked file and its folders named in its language's idiom;
-[idiomatic-names](../../../drs/automation/idiomatic-names.md)), and the link aligner and quality gate, which keep code links repository-rooted
-and markdown links relative and resolving ([markdown-links](../../../drs/repository/markdown-links.md)), and the comment converters and their
-quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write the annotated view
-([comments-in-docs](../../../drs/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
-its per-tool configuration.
+every shell script it tracks ([bash-test-artifacts](../../../drs/automation/bash/bash-test-artifacts.md)), the idiomatic-names quality gate
+and its assertion (`Test-IdiomaticNames`, `Assert-IdiomaticNames`: every tracked file and its folders named in its language's idiom;
+[idiomatic-names](../../../drs/automation/idiomatic-names.md)), and the link aligner and quality gate, which keep code links
+repository-rooted and markdown links relative and resolving ([markdown-links](../../../drs/repository/markdown-links.md)), and the comment
+converters and their quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write
+the annotated view ([comments-in-docs](../../../drs/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool,
+not the tool itself or its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
 
@@ -98,12 +98,12 @@ covers the full tree regardless of which subset is requested.
 The runner reaches past PowerShell for the Go and Python tests, through one language bridge. Discovery maps each Go test module and Python
 test folder to the catzc module it is named for (in kebab case), so module selection, test suites, ordering, and protection treat it like
 that module's `tests/` folder, and a test folder that names no catzc module stops the run. The bridge reads the tests from their source, so
-discovery needs no tool, and runs them once per module through [Catzc.Base.Languages](../base-languages/index.md): every test becomes one `L2`
-Pester test with the category its name gives, and passes, fails with the tool output, or skips as the test did. The run's source session
-locates the tools once — the managed `go`, `uv` with the pinned interpreter, and the bash engine — and hands them to the bridge; without
-one, that language's tests skip with `tool_go_missing`, `tool_uv_missing` or `tool_bash_missing`. The Go and Python tests run once under
-each of the three execution engines, pwsh, bash and zsh; the Bash tests run under bash only. In a build run the bridge hands the build's
-entry script on, so the tests start the built engine.
+discovery needs no tool, and runs them once per module through [Catzc.Base.Languages](../base-languages/index.md): every test becomes one
+`L2` Pester test with the category its name gives, and passes, fails with the tool output, or skips as the test did. The run's source
+session locates the tools once — the managed `go`, `uv` with the pinned interpreter, and the bash engine — and hands them to the bridge;
+without one, that language's tests skip with `tool_go_missing`, `tool_uv_missing` or `tool_bash_missing`. The Go and Python tests run once
+under each of the three execution engines, pwsh, bash and zsh; the Bash tests run under bash only. In a build run the bridge hands the
+build's entry script on, so the tests start the built engine.
 
 Responsibility 3 is a set of thin wrappers, one per external tool, deliberately kept separate so each can be run in isolation;
 `Test-Formatting` (responsibility 2) runs every formatter in its report-only mode as one gate. A `Format-*` function is both a check and a
@@ -219,6 +219,9 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-ConfigIdentityHygiene`  |
 |                                                 | `Test-ParameterConsistency`   |
 |                                                 | `Test-Plans`                  |
+|                                                 | `Test-ReferencePages`         |
+|                                                 | `Test-BicepLint`              |
+|                                                 | `Test-SecretScan`             |
 |                                                 | `New-Plan`                    |
 |                                                 | `Get-DrsUsage`                |
 |                                                 | `Measure-QualityGates`        |

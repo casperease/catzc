@@ -220,12 +220,12 @@ Describe 'Shipped asset integrity' -Tag 'L1', 'integrity' {
 }
 ```
 
-An L2 vertical test (it crosses the local-tool ring — drives `az bicep build`), tagged and self-skipping:
+An L2 vertical test (it crosses the local-tool ring — drives `bicep build`), tagged and self-skipping:
 
 ```powershell
-Describe 'sample (real az)' -Tag 'L2', 'logic' {
-    It 'compiles with az bicep build' {
-        if (-not (Get-Command az -ErrorAction Ignore)) { Set-ItResult -Skipped -Because 'tool_az_missing'; return }
+Describe 'sample (real bicep)' -Tag 'L2', 'logic' {
+    It 'compiles with bicep build' {
+        if (-not (Resolve-ToolExecutable -Tool bicep).Found) { Set-ItResult -Skipped -Because 'tool_bicep_missing'; return }
         Build-Bicep sample -Environments alpha | Out-Null
         Join-Path $outputRoot 'main.json' | Should -Exist
     }

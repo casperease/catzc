@@ -16,18 +16,12 @@ schema by filename alone and wrongly demands a `name` key.
 order of the name components is not in this file: it is a durable tooling setting in code, `Get-AzureNameOrderSet`, and changing it means
 re-editing every typed name in the configs.
 
-## bicep_min_version
-
-The minimum Bicep CLI version required to build and deploy templates, as MAJOR.MINOR.PATCH. `Assert-AzCliBicep` checks it before every
-`az bicep build`, so a too-old or missing Bicep CLI fails fast with `az bicep upgrade` or `az bicep install` instead of silently emitting no
-`main.json`.
-
 ## policy_enforcement
 
 `policy_enforcement` is the `enforcementMode` of the policy assignments the templates make, per environment class: `Default` enforces and
 `DoNotEnforce` only audits. The key is optional, and omitted keys take the default declared on `AzureConfig`: production `Default`,
-nonproduction `DoNotEnforce`. A stricter repository sets `nonproduction: Default`. Templates read it by config address,
-`global.azure.policy_enforcement.<key>`
+nonproduction `DoNotEnforce`. A stricter repository sets `nonproduction: Default`. Templates take it as the `policy_enforcement` fact, which
+picks the key by the class of the subscription a slot targets
 ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
 
 ## environments
@@ -74,3 +68,12 @@ environment, `nsub` xor `psub`.
 resolves to exactly one of them: nonprod serves dev, test and `nsub`, and prod serves preprod, prod and `psub`. The customer subscriptions
 carry a `customer` key, and their configs live under the `configuration/<customer>/` subfolder. There is one pair per customer, and some
 customers are nonprod-only.
+
+## comment:1
+
+Above `tags:`, written with `#`.
+
+```text
+The tag schema, declared once: the CAF keys every taggable resource carries (an empty list takes any lowercase value) and the provenance
+tag names a deploy writes; a subscription-target template prefixes its name and a hyphen.
+```

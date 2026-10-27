@@ -22,4 +22,4 @@ password as a Key Vault reference.
 
 ## Use
 
-A template references it with a relative `module` declaration, and `az bicep build` inlines it.
+A template references it with a relative `module` declaration, and `bicep build` inlines it.

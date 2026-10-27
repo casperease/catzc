@@ -1,0 +1,15 @@
+# foundation, shared prod subscription (env psub). One config file ⟷ one resource group.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: prod
+        owner: platform
+        cost-center: platform
+        criticality: high
+        data-classification: internal
+    logAnalyticsRetentionInDays:
+      value: 90
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_prod.id

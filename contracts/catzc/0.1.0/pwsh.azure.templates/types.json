@@ -1,6 +1,21 @@
 {
   "types": [
     {
+      "name": "Catzc.Azure.Templates.ArmExpression",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Evaluate",
+          "kind": "method"
+        },
+        {
+          "name": "IsUnresolved",
+          "kind": "method"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.Templates.BicepArtifacts",
       "aliases": [],
       "display": [],
@@ -81,6 +96,76 @@
         },
         {
           "name": "template",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepItemName",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "from",
+          "kind": "property"
+        },
+        {
+          "name": "role_from",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepNameEntry",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ReadAll",
+          "kind": "method"
+        },
+        {
+          "name": "each",
+          "kind": "property"
+        },
+        {
+          "name": "item_names",
+          "kind": "property"
+        },
+        {
+          "name": "keys_from",
+          "kind": "property"
+        },
+        {
+          "name": "owner_slot",
+          "kind": "property"
+        },
+        {
+          "name": "parameter",
+          "kind": "property"
+        },
+        {
+          "name": "roles",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "template",
+          "kind": "property"
+        },
+        {
+          "name": "type",
           "kind": "property"
         }
       ]
@@ -262,6 +347,10 @@
       "display": [],
       "members": [
         {
+          "name": "addresses",
+          "kind": "property"
+        },
+        {
           "name": "bicep_files",
           "kind": "property"
         },
@@ -298,11 +387,19 @@
           "kind": "property"
         },
         {
+          "name": "facts",
+          "kind": "property"
+        },
+        {
           "name": "folder",
           "kind": "property"
         },
         {
           "name": "main",
+          "kind": "property"
+        },
+        {
+          "name": "names",
           "kind": "property"
         },
         {
@@ -331,6 +428,138 @@
         },
         {
           "name": "subscriptions",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.CompliancePropertyRule",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "absent",
+          "kind": "property"
+        },
+        {
+          "name": "equals",
+          "kind": "property"
+        },
+        {
+          "name": "path",
+          "kind": "property"
+        },
+        {
+          "name": "reason",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.CostMeter",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "id",
+          "kind": "property"
+        },
+        {
+          "name": "meter",
+          "kind": "property"
+        },
+        {
+          "name": "product",
+          "kind": "property"
+        },
+        {
+          "name": "quantity",
+          "kind": "property"
+        },
+        {
+          "name": "service",
+          "kind": "property"
+        },
+        {
+          "name": "sku",
+          "kind": "property"
+        },
+        {
+          "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.CostModelConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "currency",
+          "kind": "property"
+        },
+        {
+          "name": "headroom",
+          "kind": "property"
+        },
+        {
+          "name": "meters",
+          "kind": "property"
+        },
+        {
+          "name": "region",
+          "kind": "property"
+        },
+        {
+          "name": "request_pause_ms",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.TemplateComplianceConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsTaggable",
+          "kind": "method"
+        },
+        {
+          "name": "NeedsDiagnostics",
+          "kind": "method"
+        },
+        {
+          "name": "diagnostic_types",
+          "kind": "property"
+        },
+        {
+          "name": "known_findings",
+          "kind": "property"
+        },
+        {
+          "name": "property_rules",
+          "kind": "property"
+        },
+        {
+          "name": "public_access_properties",
+          "kind": "property"
+        },
+        {
+          "name": "tls_properties",
+          "kind": "property"
+        },
+        {
+          "name": "untaggable_types",
+          "kind": "property"
+        },
+        {
+          "name": "zone_properties",
           "kind": "property"
         }
       ]

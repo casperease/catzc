@@ -40,6 +40,6 @@ Get-ContractCommandRoot -Module Catzc.Base.Languages -RepositoryRoot $root
 
 ## from group to module
 
-The contract group is the group of an exception in the [contracts config](../configs/contracts.md), or else the module's track and its
-folder in the normal form (the form Get-ContractGroup writes). The track renders the folder in PowerShell's folder case and gives back the
-module's full name.
+The contract group is the group of an exception in the contracts config (`contracts.yml`), or else the module's track and its folder in the
+normal form (the form Get-ContractGroup writes). The track renders the folder in PowerShell's folder case and gives back the module's full
+name.

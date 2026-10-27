@@ -12,6 +12,20 @@ Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
         Mock Register-AdoBuildValidation {
             [pscustomobject]@{ GlobSet = $GlobSet; Action = 'Unchanged' }
         } -ModuleName Catzc.Azure.DevOps.BuildValidation
+        Mock Register-AdoBranchPolicies { [pscustomobject]@{ Policy = 'widget'; Action = 'Unchanged' } } -ModuleName Catzc.Azure.DevOps.BuildValidation
+        Mock Get-GitWorkspace { 'main-direct' } -ModuleName Catzc.Azure.DevOps.BuildValidation
+    }
+
+    It 'applies the branch policies only when the git_workspace variant is main-via-pr, with the same overrides' {
+        Sync-AdoBuildValidations -DryRun -Branch release | Out-Null
+        Should -Invoke Register-AdoBranchPolicies -ModuleName Catzc.Azure.DevOps.BuildValidation -Times 0 -Exactly
+
+        Mock Get-GitWorkspace { 'main-via-pr' } -ModuleName Catzc.Azure.DevOps.BuildValidation
+        $result = @(Sync-AdoBuildValidations -DryRun -Branch release)
+        $result.Count | Should -Be 3
+        Should -Invoke Register-AdoBranchPolicies -ModuleName Catzc.Azure.DevOps.BuildValidation -Times 1 -Exactly -ParameterFilter {
+            $DryRun -and $Branch -eq 'release'
+        }
     }
 
     It 'registers every configured entry and emits each result' {

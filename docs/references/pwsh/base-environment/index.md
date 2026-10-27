@@ -19,8 +19,8 @@ Reading and writing the durable PATH — the value kept in the operating-system 
 in-session copy. This responsibility reads the current persistent PATH, replaces it wholesale, and adds or removes individual entries by
 name. Changes here survive shell restarts because they target the system store directly; they do not appear in the running session until the
 session PATH is re-synced (see [responsibility:2](#responsibility2--session-path-synchronization)). See
-[environment-variables](../../../drs/automation/environment-variables.md) for the conventions that govern how the platform reads and writes OS
-environment state.
+[environment-variables](../../../drs/automation/environment-variables.md) for the conventions that govern how the platform reads and writes
+OS environment state.
 
 ### responsibility:2 — Session PATH synchronization
 

@@ -1,9 +1,9 @@
 # Catzc.Tooling.Inspiration
 
 The inspiration module of the Tooling group: one checked way to find the sibling repositories catzc reads for ideas, never as a reference
-implementation ([inspiration](../../../drs/repository/inspiration.md)). It declares each inspiration in config, resolves where it lives on this
-machine, and reports whether it is there, so an agent or a human asks the module instead of trusting a path written into prose. It reads
-nothing inside an inspiration and decides nothing from it; catzc's own ADRs decide. Like
+implementation ([inspiration](../../../drs/repository/inspiration.md)). It declares each inspiration in config, resolves where it lives on
+this machine, and reports whether it is there, so an agent or a human asks the module instead of trusting a path written into prose. It
+reads nothing inside an inspiration and decides nothing from it; catzc's own ADRs decide. Like
 [Catzc.Tooling.KeyHandler](../tooling-key-handler/index.md), it installs nothing, so it rests only on the `Base` group.
 
 ## Responsibilities
@@ -32,8 +32,8 @@ default, the one `eac` entry, is declared once on the config type, so an empty f
 
 ## What the module does
 
-The module turns a policy into a query. The [inspiration](../../../drs/repository/inspiration.md) ADR says a sibling may be read for ideas and
-that its absence costs nothing; the module makes the sibling's location configuration rather than prose, and makes its absence a value
+The module turns a policy into a query. The [inspiration](../../../drs/repository/inspiration.md) ADR says a sibling may be read for ideas
+and that its absence costs nothing; the module makes the sibling's location configuration rather than prose, and makes its absence a value
 rather than an error. The config is read through the one config reader, `Get-Config`, and validated on load by its C# config type
 ([module-config-loading](../../../drs/configuration/module-config-loading.md)).
 

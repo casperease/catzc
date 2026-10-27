@@ -42,11 +42,10 @@ Real:
 - `ci-pwsh.yaml` — pure CI for the pwsh modules (`Test-Automation`); the CI exemplar.
 - `ci-pwsh-expected-failures.yaml` — proves the CI guardrails fire (steps expected to go amber).
 
-Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is
-(`az bicep build` is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one
-has placeholder subscription GUIDs; the `sc-…` names are illustrative). They wire the templates that the infra plan (`out/infra-plan.md`)
-built, per the [pipeline-types](../../drs/flow/pipeline-types.md) and [naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md)
-ADRs:
+Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is (`bicep build`
+is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one has placeholder
+subscription GUIDs; the `sc-…` names are illustrative). They wire the templates that the infra plan (`out/infra-plan.md`) built, per the
+[pipeline-types](../../drs/flow/pipeline-types.md) and [naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md) ADRs:
 
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
   infrastructure unit's native projection (`infrastructure/**`).

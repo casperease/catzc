@@ -133,7 +133,7 @@ $script:readBicepParams = {
 # A literal-only stand-in for `bicep build-params` that throws on any other line, never guessing; the real compile is proven at L2.
 $script:compileBicepParams = {
     param([string] $Arguments)
-    if ($Arguments -notmatch 'bicep build-params --file "(?<file>[^"]+)" --outfile "(?<out>[^"]+)"') {
+    if ($Arguments -notmatch ' build-params "(?<file>[^"]+)" --outfile "(?<out>[^"]+)"') {
         return $false
     }
     $file = $Matches['file']

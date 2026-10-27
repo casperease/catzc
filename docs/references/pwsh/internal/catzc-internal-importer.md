@@ -2,9 +2,9 @@
 
 The importer overlay — the single living copy of the toolset's whole load sequence. It exports one function, `Invoke-Importer`, whose
 parameter block **is** the importer's public switch surface. The root `importer.ps1` is a thin, generated shim (produced by `New-Importer`
-in [Catzc.Base.ModuleSystem](../base-module-system/index.md)) that carries the same parameter block, sets `$env:RepositoryRoot`, and
-delegates here — so the committed entry point can never drift from the load logic it delegates to (see
-[one-living-version](../../../drs/principles/one-living-version.md)). A bundle's entry runs the same body in its `-Bundle` mode
+in `Catzc.Base.ModuleSystem`) that carries the same parameter block, sets `$env:RepositoryRoot`, and delegates here — so the committed entry
+point can never drift from the load logic it delegates to (see [one-living-version](../../../drs/principles/one-living-version.md)). A
+bundle's entry runs the same body in its `-Bundle` mode
 ([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)). Like the
 bootstrap, this overlay is import-time orchestration, not shared library code: the shim removes it once `Invoke-Importer` returns.
 
@@ -16,8 +16,8 @@ bootstrap, this overlay is import-time orchestration, not shared library code: t
    shipped in 7.4), set strict mode, and set the fail-fast error and warning preferences (`-AllowWarnings` relaxes warnings to `Continue`).
 2. **Console detection** — walk the call stack to tell a direct console session from a load inside a script, so a console session gets the
    end-of-load timer while a script does not.
-3. **Shared modules** — with the Loader already imported by the shim, load [Bootstrap](catzc-internal-bootstrap.md),
-   [Types](catzc-internal-types.md), and [Vendor](catzc-internal-vendor.md) (with `-Force`, honouring the re-import invalidation boundary).
+3. **Shared modules** — with the Loader already imported by the shim, load `Bootstrap`, `Types`, and `Vendor` (with `-Force`, honouring the
+   re-import invalidation boundary).
 4. **Dependencies and modules** — install the custom error view, load the vendored dependencies (`Import-VendorModules`, deferring Pester
    and PSScriptAnalyzer as lazy), optionally wipe the compiled type DLLs first (`-ClearCompiledTypes`), then discover and import every
    `pwsh/*` module (`Import-AllModules`, which compiles the combined C# type assembly once before any module's functions).
@@ -92,10 +92,9 @@ This establishes the session every entry loads into
 Every lasting change to the caller's session is announced
 ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
 the preferences and the error view, then the two roots and the internal modules that stay loaded. `RepositoryRoot` is set by the shim and
-the modules by `Import-InternalModule`, which both delegate their announcement here. This is where `Write-ImporterMessage`
-([Loader](catzc-internal-loader.md)) first announces; like every announcement of the importer's own load, the lines go on its verbose
-record. A redirected session writes UTF-8 (`Set-RedirectedOutputEncoding`), the encoding the process relays stream, so a captured log has
-one encoding.
+the modules by `Import-InternalModule`, which both delegate their announcement here. This is where `Write-ImporterMessage` (`Loader`) first
+announces; like every announcement of the importer's own load, the lines go on its verbose record. A redirected session writes UTF-8
+(`Set-RedirectedOutputEncoding`), the encoding the process relays stream, so a captured log has one encoding.
 
 The loader is already imported by the shim. Bootstrap does the import-time discovery and is removed at the end; the loader, Types and Vendor
 stay in the session, so post-import cover functions can `Import-InternalModule` the same shared code and delegate to it.
@@ -136,6 +135,5 @@ The module-internal helpers `Invoke-Importer` drives (not exported):
 
 - ADR: [one-living-version](../../../drs/principles/one-living-version.md) — why the shim is a generated copy of this one body.
 - ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
-- Reference: [Catzc.Base.ModuleSystem](../base-module-system/index.md) — `New-Importer` generates the `importer.ps1` shim from this block;
-  [Bootstrap](catzc-internal-bootstrap.md), [Vendor](catzc-internal-vendor.md), and [Types](catzc-internal-types.md) — the shared modules it
-  drives; the [internal area overview](index.md).
+- Reference: `Catzc.Base.ModuleSystem` — `New-Importer` generates the `importer.ps1` shim from this block; `Bootstrap`, `Vendor`, and
+  `Types` — the shared modules it drives; the internal area overview.

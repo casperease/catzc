@@ -1,10 +1,10 @@
 # Catzc.Base.Drs
 
 The decision-record registry module. It owns `drs.yml`, the one source of the ADR domain structure: each domain, its role and the domains it
-depends on, and each ADR's citation code ([drs-code-language](../../../drs/repository/drs-code-language.md)). From it the module generates the
-ADR index, resolves every citation to its ADR and rule, checks that the registry and the rule files agree, and rewrites citations when an
-ADR moves. What it deliberately does **not** own is the ADRs themselves, which are authored under `docs/drs/`, nor the offline browser over
-them, which is Show-Cats ([Catzc.Base.Docs](../base-docs/index.md)).
+depends on, and each ADR's citation code ([drs-code-language](../../../drs/repository/drs-code-language.md)). From it the module generates
+the ADR index, resolves every citation to its ADR and rule, checks that the registry and the rule files agree, and rewrites citations when
+an ADR moves. What it deliberately does **not** own is the ADRs themselves, which are authored under `docs/drs/`, nor the offline browser
+over them, which is Show-Cats ([Catzc.Base.Docs](../base-docs/index.md)).
 
 ## Responsibilities
 
@@ -19,8 +19,8 @@ them, which is Show-Cats ([Catzc.Base.Docs](../base-docs/index.md)).
 ### responsibility:1 — ADR registry
 
 The ADR domain structure as typed data. `drs.yml` declares each domain, its role and its `depends_on` domains, and each ADR's rule set with
-its citation code; it loads through [Catzc.Base.Config](../base-config/index.md) into one validated record, so a malformed entry or a cycle in
-the domain graph fails when the registry loads, never in a reader. This responsibility returns the flat set of rule sets and the domain
+its citation code; it loads through [Catzc.Base.Config](../base-config/index.md) into one validated record, so a malformed entry or a cycle
+in the domain graph fails when the registry loads, never in a reader. This responsibility returns the flat set of rule sets and the domain
 dependency graph as typed edges, and renders that graph as a diagram or a table. The grammar of a code, the kinds the registry declares and
 the segments a rule's code has at least, is one compiled form, so every reader and checker matches codes the same way
 ([ADR-REPO-DRSCODE](../../../drs/repository/drs-code-language.md)).
@@ -33,8 +33,8 @@ exactly one rule file per registered rule set, headed by its registered code, an
 page cites only its own domain or one it depends on, that every rule set outside an exempt ADR domain is explained once in its domain's DORA
 file, and that every code and rule heading follows the code language. The engine-neutrality check confirms that the rule summaries of the
 configured ADR domains state a rule, never one engine's syntax
-([ADR-AUTO-ENGINE-THREEENGINES](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Each check's mode, a failure
-or a report, is configured in `drs-checks.yml`.
+([ADR-AUTO-ENGINE-THREEENGINES](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Each check's mode, a
+failure or a report, is configured in `drs-checks.yml`.
 
 ### responsibility:3 — Citation map
 
@@ -78,6 +78,9 @@ The module's public surface, sorted into the responsibilities above.
 | config                                | `drs.yml`                    |
 | responsibility:2 — Registry checks    | `Test-DrsRegistry`           |
 |                                       | `Test-DrsEngineNeutrality`   |
+|                                       | `Assert-DrsCode`             |
+|                                       | `Test-DrsCode`               |
+|                                       | `Format-DrsCode`             |
 | config                                | `drs-checks.yml`             |
 | responsibility:3 — Citation map       | `Get-CatsDrsIndex`           |
 |                                       | `Get-CatsDrsRules`           |
@@ -87,3 +90,4 @@ The module's public surface, sorted into the responsibilities above.
 |                                       | `Build-DrsCodeDictionary`    |
 | config                                | `drs-index.yml`              |
 | responsibility:5 — Citation rewriting | `Update-DrsCitation`         |
+|                                       | `ConvertTo-DrsCode`          |

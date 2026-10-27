@@ -59,3 +59,12 @@ The scope is the az session's subscription, the same session-determined target t
 The tag call passes `-NoAssert` and takes the result in hand, so a failure throws from the command with its context: the scope, the command
 and az's stderr. The real cause shows up in az's stderr, a `RequestDisallowedByPolicy` tag-policy collision, a dropped connection or an auth
 problem, so it must travel in the thrown error and not only the console stream.
+
+## comment:1
+
+Above `[ordered]@{` (occurrence 2), written with `#`.
+
+```text
+A devbox branch is often named after a person, and a tag is readable by every reader of the subscription, so a devbox deploy
+records that it came from a devbox, never which branch.
+```

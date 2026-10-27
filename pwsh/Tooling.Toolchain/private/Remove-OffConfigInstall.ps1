@@ -78,7 +78,7 @@ function Remove-OffConfigInstall {
             }
             Write-Message "  $line   # $($product.DisplayName) $($product.DisplayVersion) [$($product.Kind)]"
         }
-        Write-Message "It runs them one at a time, re-reads the registrations, then removes what is left."
+        Write-Message 'It runs them one at a time, re-reads the registrations, then removes what is left.'
         return
     }
 

@@ -27,8 +27,8 @@ install and uninstall shape over Core's engine, pinned to its locked version. Th
 
 ## What the module does
 
-The module depends on [Catzc.Tooling.Core](../tooling-core/index.md) and only that module within the group. Every per-tool function hands its
-tool name to Core's engine, which reads `tools.yml` for the locked version and the npm identifier and then installs, asserts, or removes
+The module depends on [Catzc.Tooling.Core](../tooling-core/index.md) and only that module within the group. Every per-tool function hands
+its tool name to Core's engine, which reads `tools.yml` for the locked version and the npm identifier and then installs, asserts, or removes
 idempotently — there is no Node-specific install logic outside that delegation.
 
 The two responsibilities are the runtime and what rides on it. Responsibility 1 owns Node and npm — the package manager responsibility 2

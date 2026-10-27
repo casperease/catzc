@@ -61,6 +61,90 @@ Describe 'Import-TypesAssembly' -Tag 'L1', 'logic' {
     }
 }
 
+Describe 'The shadow-cache prune and the holds' -Tag 'L1', 'logic' {
+    BeforeAll {
+        # A loaded build stays locked, so the shadow roots live outside the test drive, removed as far as the locks allow.
+        $script:roots = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-hold-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+    }
+    AfterAll {
+        Remove-Item -LiteralPath $script:roots -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    BeforeEach {
+        $script:root = Join-Path $roots ([guid]::NewGuid().ToString('N').Substring(0, 8))
+        [System.IO.Directory]::CreateDirectory($root) | Out-Null
+        $script:widget = Join-Path $root 'Catzc.Types.0000a1d9.dll'
+        [System.IO.File]::WriteAllBytes($widget, [byte[]] @(0x4d, 0x5a))
+        [System.IO.File]::SetLastWriteTimeUtc($widget, [DateTime]::UtcNow.AddDays(-2))
+        $script:gadget = Join-Path $roots "Catzc.Types.$([guid]::NewGuid().ToString('N').Substring(0, 8)).dll"
+        Add-Type -TypeDefinition "namespace CatzcHold$([guid]::NewGuid().ToString('N')) { public class Gadget { } }" -OutputAssembly $gadget -OutputType Library
+    }
+
+    It 'keeps a stale build that a live process holds' {
+        Register-TypesHold -Hash '0000a1d9' -ShadowRoot $root | Should -Be (Join-Path $root "Catzc.Types.0000a1d9.$PID.hold")
+        Import-TypesAssembly -Path $gadget -ShadowRoot $root | Out-Null
+        [System.IO.File]::Exists($widget) | Should -BeTrue
+    }
+
+    It 'prunes a stale build whose holder is gone and deletes the dead hold' {
+        $dead = Join-Path $root 'Catzc.Types.0000a1d9.2147483646.hold'
+        [System.IO.File]::WriteAllBytes($dead, [byte[]] @())
+        Import-TypesAssembly -Path $gadget -ShadowRoot $root | Out-Null
+        [System.IO.File]::Exists($widget) | Should -BeFalse
+        [System.IO.File]::Exists($dead) | Should -BeFalse
+    }
+
+    It 'holds the hash of the build it loads' {
+        Import-TypesAssembly -Path $gadget -ShadowRoot $root | Out-Null
+        $hash = [System.IO.Path]::GetFileNameWithoutExtension($gadget).Substring('Catzc.Types.'.Length)
+        Test-TypesHeld -Hash $hash -ShadowRoot $root | Should -BeTrue
+    }
+}
+
+Describe 'The shadow-cache prune across processes' -Tag 'L2', 'logic' {
+    It 'lets two processes load a stale build while a third prunes, with no missing-assembly error' {
+        # A loaded build stays locked, so the shared shadow root lives outside the test drive, removed as far as the locks allow.
+        $root = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-hold-shared-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        [System.IO.Directory]::CreateDirectory($root) | Out-Null
+        $hash = 'w' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $widget = Join-Path $root "Catzc.Types.$hash.dll"
+        Add-Type -TypeDefinition "namespace CatzcWidget$hash { public class Widget { } }" -OutputAssembly $widget -OutputType Library
+        [System.IO.File]::SetLastWriteTimeUtc($widget, [DateTime]::UtcNow.AddDays(-2))
+        $go = Join-Path $root 'go'
+        $module = Join-Path $PSScriptRoot '..\Catzc.Internal.Types.psm1'
+        # Each importer holds the hash, waits until the prune has run, then loads the build it held.
+        $script = @"
+Import-Module '$module' -Force
+Register-TypesHold -Hash '$hash' -ShadowRoot '$root' | Out-Null
+`$deadline = [DateTime]::UtcNow.AddSeconds(20)
+while (-not [System.IO.File]::Exists('$go') -and [DateTime]::UtcNow -lt `$deadline) { Start-Sleep -Milliseconds 50 }
+Import-TypesAssembly -Path '$widget' -ShadowRoot '$root' | Out-Null
+"@
+        $self = (Get-Process -Id $PID).Path
+        $importers = @(1..2 | ForEach-Object {
+                Start-Process -FilePath $self -ArgumentList '-NoProfile', '-Command', $script -PassThru -WindowStyle Hidden
+            })
+        try {
+            $deadline = [DateTime]::UtcNow.AddSeconds(20)
+            while (@([System.IO.Directory]::EnumerateFiles($root, "Catzc.Types.$hash.*.hold")).Count -lt 2 -and [DateTime]::UtcNow -lt $deadline) {
+                Start-Sleep -Milliseconds 50
+            }
+            $gadget = Join-Path $root "g$hash.source.dll"
+            Add-Type -TypeDefinition "namespace CatzcGadget$hash { public class Gadget { } }" -OutputAssembly $gadget -OutputType Library
+            Import-TypesAssembly -Path $gadget -ShadowRoot $root | Out-Null
+            [System.IO.File]::Exists($widget) | Should -BeTrue
+            [System.IO.File]::WriteAllBytes($go, [byte[]] @())
+            foreach ($importer in $importers) {
+                $importer.WaitForExit(30000) | Should -BeTrue
+                $importer.ExitCode | Should -Be 0
+            }
+        }
+        finally {
+            $importers | Where-Object { -not $_.HasExited } | Stop-Process -Force -ErrorAction SilentlyContinue
+            Remove-Item -LiteralPath $root -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+}
+
 Describe 'Get-TypesShadowRoot' -Tag 'L0', 'logic' {
     It 'is the per-user catzc types folder' {
         $expected = if ($IsWindows) {

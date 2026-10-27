@@ -384,11 +384,35 @@ function Wait-CatzcRunLock {
     }
     finally {
         [System.IO.File]::Delete($ticket)
-        try {
-            # The last waiter out removes the empty queue folder; one with tickets left stays.
-            [System.IO.Directory]::Delete($queue)
+        # The last waiter out removes the empty queue folder; one with tickets left stays. The check comes first because a
+        # caught throw still lands in $Error, which a run's summary counts as an error.
+        $empty = $false
+        if ([System.IO.Directory]::Exists($queue)) {
+            try {
+                $entries = [System.IO.Directory]::EnumerateFileSystemEntries($queue).GetEnumerator()
+                $empty = -not $entries.MoveNext()
+                $entries.Dispose()
+            }
+            catch [System.IO.DirectoryNotFoundException] {
+                # A peer removed it between the two calls: nothing is left to remove. Only this caught record leaves $Error.
+                if ($global:Error.Count -gt 0 -and [object]::ReferenceEquals($global:Error[0], $_)) {
+                    $global:Error.RemoveAt(0)
+                }
+            }
         }
-        catch [System.IO.IOException] {
+        if ($empty) {
+            try {
+                [System.IO.Directory]::Delete($queue)
+            }
+            catch [System.IO.IOException] {
+                # A peer queued between the check and the delete: the folder stays, and only this caught record leaves $Error.
+                if ($global:Error.Count -gt 0 -and [object]::ReferenceEquals($global:Error[0], $_)) {
+                    $global:Error.RemoveAt(0)
+                }
+                Write-Verbose "Wait-CatzcRunLock: $queue took a ticket as it emptied, so it stays."
+            }
+        }
+        else {
             Write-Verbose "Wait-CatzcRunLock: $queue still holds tickets, so it stays."
         }
     }

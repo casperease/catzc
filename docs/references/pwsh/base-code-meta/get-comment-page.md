@@ -1,8 +1,8 @@
 # pwsh/Base.CodeMeta/Get-CommentPage.ps1
 
 The one place a file's path is turned into its comment page's path. It walks the `pages:` entries of `comment-pages.yml` in order and the
-first entry that covers the path decides, so the export, the view and the gates all agree on where a page lives. See
-[comment-pages.yml](configs/comment-pages.md) for the entries.
+first entry that covers the path decides, so the export, the view and the gates all agree on where a page lives. See `comment-pages.yml` for
+the entries.
 
 ## help
 
@@ -20,6 +20,14 @@ it, and the first pages entry that covers the path decides.
 
 The file's path, relative to the repository root. An empty path maps to nothing.
 
+### parameter `Page`
+
+A page's path, relative to the repository root; the command returns the sources that render to it.
+
+### parameter `TrackedPath`
+
+The tracked files, relative to the repository root, that are mapped forward to find the page's sources; may be empty.
+
 ### parameter `Config`
 
 The comment-pages config: a Catzc.Base.CodeMeta.CommentPagesConfig.
@@ -36,5 +44,5 @@ Get-CommentPage -Path 'pwsh/Base.CodeMeta/Get-CommentPage.ps1' -Config (Get-Conf
 
 ## Page back to its sources
 
-With `-Page` and `-TrackedPath` the command answers the other way and returns the sources that render to the page: the tracked files map forward once through the pages entries and the result is inverted, since the
-normal form reads back to no file name.
+With `-Page` and `-TrackedPath` the command answers the other way and returns the sources that render to the page: the tracked files map
+forward once through the pages entries and the result is inverted, since the normal form reads back to no file name.

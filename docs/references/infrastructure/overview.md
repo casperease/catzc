@@ -9,7 +9,7 @@ Bicep for the templating system, in two folders:
   deployments. The subscription is resolved from the coordinate — at deploy time it is the az session's, guarded by
   `-SubscriptionIdAssertIs`.
 - **`modules/`** — reusable bicep modules shared across templates. Referenced from a template's `main.bicep` via a relative `module`
-  declaration (`../../modules/<x>.bicep`) and inlined by `az bicep build`. Not discovered as templates.
+  declaration (`../../modules/<x>.bicep`) and inlined by `bicep build`. Not discovered as templates.
 
 The system is documented in [the Catzc.Azure.Templates reference](../pwsh/azure-templates/index.md); the design rationale lives in
 [`docs/drs/azure/`](../../drs/azure/).

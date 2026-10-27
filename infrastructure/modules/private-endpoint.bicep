@@ -19,7 +19,7 @@ param privateDnsZoneIds array = []
 @description('Resource tags.')
 param tags object = {}
 
-resource endpoint 'Microsoft.Network/privateEndpoints@2023-09-01' = {
+resource endpoint 'Microsoft.Network/privateEndpoints@2024-05-01' = {
   name: name
   location: location
   tags: tags
@@ -41,7 +41,7 @@ resource endpoint 'Microsoft.Network/privateEndpoints@2023-09-01' = {
   }
 }
 
-resource zoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-09-01' = if (!empty(privateDnsZoneIds)) {
+resource zoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2024-05-01' = if (!empty(privateDnsZoneIds)) {
   parent: endpoint
   name: 'default'
   properties: {

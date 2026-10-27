@@ -2,10 +2,10 @@
 name: drone-haiku
 description: >
   A drone on the haiku model: it runs one job skill from a coordinator's brief. The brief names the skill (`skill: <name>`), and a skill
-  whose `model_floor` is haiku runs on this drone. It edits only the files the brief says it owns, verifies each file before the next,
-  sends every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with a
-  haiku floor; a job with another floor goes to drone-sonnet, drone-opus or drone-fable. Do NOT use it for a brief that names no skill, for
-  a skill whose floor is not haiku, or to edit a file the brief does not own.
+  whose `model_floor` is haiku runs on this drone. It edits only the files the brief says it owns, verifies each file before the next, sends
+  every question to the coordinator and never to the user, and ends with the fixed report. Reach for it for any job skill with a haiku
+  floor; a job with another floor goes to drone-sonnet, drone-opus or drone-fable. Do NOT use it for a brief that names no skill, for a
+  skill whose floor is not haiku, or to edit a file the brief does not own.
 tools: Bash, Read, Glob, Grep, Write, Edit, Skill
 disallowedTools: ""
 model: haiku

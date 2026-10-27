@@ -71,5 +71,4 @@ A console session's janitors run once the first prompt has shown. `Enable-Deferr
 - ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
 - ADR: [caching](../../../drs/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
 - ADR: [pipeline-detection](../../../drs/flow/pipeline-detection.md) — the one detection function the loader carries.
-- Reference: the [internal area overview](index.md) and the shared modules it loads — [Types](catzc-internal-types.md),
-  [Vendor](catzc-internal-vendor.md), [Bootstrap](catzc-internal-bootstrap.md), [TestKit](catzc-internal-test-kit.md).
+- Reference: the internal area overview and the shared modules it loads — `Types`, `Vendor`, `Bootstrap`, `TestKit`.

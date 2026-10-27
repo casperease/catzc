@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/configs/environment-approvals.yml
 
 The approval checks that `Sync-AdoEnvironmentApprovals` applies to Azure DevOps environments, mirrored by the `EnvironmentApprovalsConfig`
-type. The how-to [apply environment approvals](../../../../how-to/automation/apply-environment-approvals.md) walks the apply.
+type. The how-to `docs/how-to/automation/apply-environment-approvals.md` walks the apply.
 
 ## Keys
 

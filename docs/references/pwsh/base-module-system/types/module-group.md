@@ -3,7 +3,7 @@
 One declared module group of `dependencies.yml` (`groups: <name>: <member>: [members]`): a named set of on-disk modules with its own
 internal member-to-member graph. A group is a concept, not a disk module
 ([ADR-AUTO-DEPM-TWOSECTIONS](../../../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-twosections)).
-[DependenciesConfig](dependencies-config.md) builds one per group.
+`DependenciesConfig` builds one per group.
 
 ## Validation
 

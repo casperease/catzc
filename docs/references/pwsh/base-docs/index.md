@@ -115,6 +115,8 @@ The module's public surface, sorted into the responsibilities above.
 | ----------------------------------------- | ----------------------- |
 | responsibility:1 — README materialisation | `Build-Readme`          |
 |                                           | `Test-GeneratedReadmes` |
+|                                           | `Build-FrontPage`       |
+|                                           | `Get-FrontPageSection`  |
 | responsibility:2 — README map             | `readme.yml`            |
 | responsibility:3 — Managed .gitkeep files | `Build-GitKeep`         |
 | responsibility:4 — Controlled vocabulary  | `Get-Glossary`          |

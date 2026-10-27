@@ -1,0 +1,50 @@
+# Each metered resource type the templates deploy, its retail meter as the Retail Prices API names it, and the monthly quantity one
+# resource uses. Update-AzurePriceTable reads the prices for these meters into assets/cost-prices.json; Get-BicepCostEstimate prices a
+# compiled template through both. currency, region and headroom keep their defaults on CostModelConfig.
+request_pause_ms: 5000 # the Retail Prices API refused the fifth request at the 1000 ms default (2026-10-27)
+meters:
+  - id: log-analytics-ingestion
+    type: Microsoft.OperationalInsights/workspaces
+    service: Log Analytics
+    meter: Analytics Logs Data Ingestion
+    quantity: 5 # GB a month
+  - id: key-vault-operations
+    type: Microsoft.KeyVault/vaults
+    service: Key Vault
+    meter: Operations
+    sku: Standard
+    quantity: 10 # 10,000-operation units a month
+  - id: storage-hot-zrs
+    type: Microsoft.Storage/storageAccounts
+    service: Storage
+    meter: Hot ZRS Data Stored
+    product: General Block Blob v2
+    quantity: 100 # GB a month
+  - id: sql-serverless-vcore
+    type: Microsoft.Sql/servers/databases
+    service: SQL Database
+    meter: vCore
+    product: SQL Database General Purpose - Serverless - Compute Gen5
+    sku: 1 vCore
+    quantity: 10 # vCore-hours a month: 10 active hours at one vCore
+  - id: private-endpoint-hours
+    type: Microsoft.Network/privateEndpoints
+    service: Virtual Network
+    meter: Standard Private Endpoint
+    quantity: 730 # hours a month
+  - id: private-dns-zone
+    type: Microsoft.Network/privateDnsZones
+    service: Azure DNS
+    meter: Private Zone
+    quantity: 1 # zones a month
+  - id: vm-b1s
+    type: Microsoft.Compute/virtualMachines
+    service: Virtual Machines
+    meter: B1s
+    product: Virtual Machines BS Series Windows
+    quantity: 730 # hours a month
+  - id: data-factory-orchestration
+    type: Microsoft.DataFactory/factories
+    service: Azure Data Factory v2
+    meter: Cloud Orchestration Activity Run
+    quantity: 1 # 1,000-run units a month

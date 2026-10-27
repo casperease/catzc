@@ -277,9 +277,9 @@ nudge. The same nudges made at every shell open are part of the load record, not
 time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets the
 session-wide information preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`
 (ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES); a common parameter would reach only the janitor's scope, while the preference reaches the writer
-chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose`
-shows the nudges and the advisory beside the rest of the record. The janitor itself still announces unconditionally, which is what the
-analyzer rule checks.
+chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose` shows
+the nudges and the advisory beside the rest of the record. The janitor itself still announces unconditionally, which is what the analyzer
+rule checks.
 
 ## Decision
 

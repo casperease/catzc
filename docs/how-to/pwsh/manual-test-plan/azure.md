@@ -99,8 +99,8 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 **Checks:**
 
-- Each template, discovered with `Get-BicepTemplateNames`, builds with the real `az bicep build` into the test's own output folder; without
-  `az` the test skips (`tool_az_missing`).
+- Each template, discovered with `Get-BicepTemplateNames`, builds with the real `bicep build` into the test's own output folder; without the
+  pinned `bicep` the test skips (`tool_bicep_missing`).
 - `Get-BicepParameterViolations` reports nothing for the rendered parameters files: every value has the declared type, lies within its
   `@allowed` values and bounds, and names a declared parameter; every parameter without a default is supplied; a secure parameter carries a
   well-formed Key Vault reference, never a literal.

@@ -1,7 +1,7 @@
 # pwsh/.internal/Catzc.Internal.Bootstrap.psm1
 
-The import-time engine. It does the heavy lifting the [Importer overlay](catzc-internal-importer.md) delegates to: discovering the modules
-on disk, generating each module's manifest, compiling and loading every module's native C# types into one assembly, and guarding against
+The import-time engine. It does the heavy lifting the Importer overlay (`Catzc.Internal.Importer`) delegates to: discovering the modules on
+disk, generating each module's manifest, compiling and loading every module's native C# types into one assembly, and guarding against
 function-name collisions — all before any `pwsh/*` module's functions exist. It is **transient**: loaded early and removed at the tail of
 `Invoke-Importer`, so its import-time functions do not linger in the session. The console writer the whole importer routes output through,
 `Write-ImporterMessage`, lives in the resident loader, so a line printed after the import still reaches it.
@@ -24,13 +24,13 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the combined
-  source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never drift),
-  enforces the loader's poka-yokes (a dotted filename or a namespace that does not match the module folder is rejected — the same invariant
-  the `Test-Formatting` gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn
-  once per hash, verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades
-  gracefully when a live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI
-  a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)
-  ADR and the [BCL type-system reference](../../BCL/types-system.md).
+  source hash from `Catzc.Internal.Types` (the same hash the cache janitor uses, so the two can never drift), enforces the loader's
+  poka-yokes (a dotted filename or a namespace that does not match the module folder is rejected — the same invariant the `Test-Formatting`
+  gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn once per hash,
+  verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades gracefully when a
+  live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI a stale-types
+  load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) ADR and the BCL
+  type-system reference (`docs/references/BCL/types-system.md`).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
   automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal` module).
@@ -93,6 +93,5 @@ The module-internal engine `Import-AllModules` drives (not exported):
 - ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and [caching](../../../drs/automation/caching.md) — the one
   combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
 - ADR: [uniform-formatting](../../../drs/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
-- Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../../BCL/types-system.md);
-  [Catzc.Base.ModuleSystem](../base-module-system/index.md) — the post-import dependency-graph check over the same modules; the
-  [internal area overview](index.md).
+- Reference: `Catzc.Internal.Types` — the shared hash; the BCL type-system reference (`docs/references/BCL/types-system.md`);
+  `Catzc.Base.ModuleSystem` — the post-import dependency-graph check over the same modules; the internal area overview.

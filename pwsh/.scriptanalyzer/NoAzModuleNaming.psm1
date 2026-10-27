@@ -18,9 +18,9 @@ function Measure-NoAzModuleNaming {
     $functions = $ScriptBlockAst.FindAll($isFunctionDefinition, $true)
 
     foreach ($fn in $functions) {
-        if ($fn.Name -match '^\w+-Az' -and $fn.Name -notmatch '^\w+-Az(ure|Cli|Bicep)') {
+        if ($fn.Name -match '^\w+-Az' -and $fn.Name -notmatch '^\w+-Az(ure|Cli)') {
             $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                    Message  = "Function '$($fn.Name)' uses Az PowerShell module naming (Verb-Az*). Name Azure-platform functions Verb-Azure<Noun>; the only sanctioned Az* prefixes are AzCli* (az CLI wrappers) and AzBicep* (az bicep checks)."
+                    Message  = "Function '$($fn.Name)' uses Az PowerShell module naming (Verb-Az*). Name Azure-platform functions Verb-Azure<Noun>; the only sanctioned Az* prefix is AzCli* (az CLI wrappers)."
                     Extent   = $fn.Extent
                     RuleName = 'Measure-NoAzModuleNaming'
                     Severity = 'Warning'

@@ -40,6 +40,14 @@ configs:
     type: Catzc.Base.QualityGates.ParameterConsistencyConfig
   plans:
     type: Catzc.Base.QualityGates.PlansConfig
+  bicep-api-versions:
+    type: Catzc.Base.QualityGates.BicepApiVersionsConfig
+  secret-patterns:
+    type: Catzc.Base.QualityGates.SecretPatternsConfig
+  template-compliance:
+    type: Catzc.Azure.Templates.TemplateComplianceConfig
+  cost-model:
+    type: Catzc.Azure.Templates.CostModelConfig
   markdownlint:
     type: Catzc.Base.QualityGates.MarkdownlintConfig
   identity-tokens:
@@ -149,10 +157,14 @@ configs:
     type: Catzc.Azure.AzureConfig
   network:
     type: Catzc.Azure.NetworkConfig
+  roles:
+    type: Catzc.Azure.RolesConfig
   pipeline-env:
     type: Catzc.Azure.DevOps.PipelineEnvConfig
   environment-approvals:
     type: Catzc.Azure.DevOps.EnvironmentApprovalsConfig
+  service-connections:
+    type: Catzc.Azure.DevOps.ServiceConnectionsConfig
   artifacts:
     type: Catzc.Base.ModuleSystem.ArtifactsConfig
   vscode-settings:

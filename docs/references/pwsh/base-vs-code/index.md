@@ -3,8 +3,8 @@
 The declarative editor-config module. It owns the rule that **the editor is glued to the tooling**: every file in `.vscode/` —
 `settings.json`, `extensions.json`, `launch.json`, the Azure Pipelines schema, and the markdown-preview CSS — is a gitignored, generated
 artifact derived from an authored source in this module, so the editor's behaviour cannot drift from the tooling it mirrors (see
-[generated-root-configs](../../../drs/repository/generated-root-configs.md)). What it deliberately does **not** own is the materialisation: the
-renderers are pure functions that return content and write nothing; the `.vscode/` targets are managed entries written by
+[generated-root-configs](../../../drs/repository/generated-root-configs.md)). What it deliberately does **not** own is the materialisation:
+the renderers are pure functions that return content and write nothing; the `.vscode/` targets are managed entries written by
 [Catzc.Base.RootConfig](../base-root-config/index.md)'s `Build-RootConfig`, which names each renderer as its entry's generator (the CSS is a
 `source` entry — the `.vscode/` file is a headed copy of this module's asset).
 

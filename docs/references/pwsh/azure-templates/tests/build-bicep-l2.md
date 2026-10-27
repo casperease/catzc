@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.L2.Tests.ps1
 
-The walking-skeleton L2 tests of `Build-Bicep`: the few real `az bicep build` threads that exercise something the mocked-az L0 tests cannot.
+The walking-skeleton L2 tests of `Build-Bicep`: the few real `bicep build` threads that exercise something the mocked-bicep L0 tests cannot.
 
 ## What lives where
 
@@ -23,7 +23,7 @@ gotchas warn about. `main.json` is the last, stable write.
 
 ## Skipping and isolation
 
-Each `It` self-skips when `az` is absent
+Each `It` self-skips when the pinned `bicep` is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)); the skip key is
 the constrained `tool_az_missing` grammar.
 
@@ -34,7 +34,7 @@ template tree is redirected to `tests/assets/templates` and the azure and networ
 `Get-BicepTemplatesOutputRoot` seam, so the real-az builds never share `out/template/<name>` with the L0 sample files. Pester cleans
 `$TestDrive`, so the per-test output teardown is belt and braces only.
 
-The file is greedy, not serial: it drives real `az bicep build` child processes, which consume the machine beyond this process
+The file is greedy, not serial: it drives real `bicep build` child processes, which consume the machine beyond this process
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)), but it shares no
 mutable state. The shared output path is what previously forced the serial tag.
 

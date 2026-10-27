@@ -1,8 +1,8 @@
 ---
 name: drawio-declaration
 description:
-  Put, get, sync, theme and stale-rebuild a diagram from its <name>.drawio.yml; for drawio-edit, drawio-waves and
-  artifact-print; input is the diagram's repository path (its .drawio.yml) and the direction or switch to run.
+  Put, get, sync, theme and stale-rebuild a diagram from its <name>.drawio.yml; for drawio-edit, drawio-waves and artifact-print; input is
+  the diagram's repository path (its .drawio.yml) and the direction or switch to run.
 user-invocable: false
 allowed-tools: Bash, Read
 paths: docs/**/.assets/*.drawio.yml, docs/**/.assets/*.drawio.png, out/drawio/**

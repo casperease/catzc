@@ -32,7 +32,7 @@ function Format-FileMeta {
         $byFullPath[[System.IO.Path]::GetFullPath((Join-Path $root $entry.Path))] = $entry
     }
     $inScope = [string[]] @($byFullPath.Keys)
-    $split = Split-CachedFile -File $inScope -Cache $cache -Stamp $stamp -RepositoryRoot $root -FileStamp (Get-FileMetaInputStamp -File $inScope -RepositoryRoot $root)
+    $split = Split-CachedFile -File $inScope -Cache $cache -Stamp $stamp -RepositoryRoot $root -FileStamp (Get-FileMetaInputStamp -File $inScope)
     $pending = @($split.Pending)
     $verb = $DryRun ? 'Checking' : 'Formatting'
     Write-Message "$verb the meta block of $($pending.Count) file(s) ($($split.CachedCount) unchanged since their last check)..."

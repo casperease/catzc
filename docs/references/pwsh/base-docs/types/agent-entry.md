@@ -5,7 +5,7 @@ and the gate and check functions it runs or guards
 ([ADR-REPO-AGENTS-BACKEDBYRULE](../../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule)). It mirrors the YAML
 mapping, snake_case keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
-[AgentsConfig](agents-config.md) builds one per entry and prefixes every violation with the entry's index.
+`AgentsConfig` builds one per entry and prefixes every violation with the entry's index.
 
 ## Validation
 

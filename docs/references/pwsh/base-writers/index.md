@@ -3,8 +3,8 @@
 The console output module. It owns the **one colour-aware writer family** the entire platform logs through — every status line, header,
 table, and object dump flows through this module's stream — and the diagnostic renderers that surface exceptions, call stacks, bound
 parameters, and the environment when something goes wrong. It is a member of the `Base` group alongside
-[Catzc.Base.Asserts](../base-asserts/index.md) and depends on [Catzc.Base.Objects](../base-objects/index.md) for the object-shaping helpers that
-`Write-Object` delegates to. The design contract that governs these writers is the subject of
+[Catzc.Base.Asserts](../base-asserts/index.md) and depends on [Catzc.Base.Objects](../base-objects/index.md) for the object-shaping helpers
+that `Write-Object` delegates to. The design contract that governs these writers is the subject of
 [console-output-matters](../../../drs/automation/console-output-matters.md).
 
 ## Responsibilities
@@ -46,9 +46,9 @@ failure self-diagnosable without requiring a debugger. Both responsibilities wri
 the rest of the run's output rather than a raw error wall.
 
 `Write-Object` is the one function in this module that crosses a module boundary by design. The writing belongs here; the object-shaping
-work — sorting dictionary keys, converting to YAML-safe form — belongs to [Catzc.Base.Objects](../base-objects/index.md), and that is where it
-lives. Beyond that dependency and the shared `Base`-group membership with [Catzc.Base.Asserts](../base-asserts/index.md), this module has no
-outbound dependencies: its writers know nothing about configuration, external processes, or any feature module above them.
+work — sorting dictionary keys, converting to YAML-safe form — belongs to [Catzc.Base.Objects](../base-objects/index.md), and that is where
+it lives. Beyond that dependency and the shared `Base`-group membership with [Catzc.Base.Asserts](../base-asserts/index.md), this module has
+no outbound dependencies: its writers know nothing about configuration, external processes, or any feature module above them.
 
 ## Division
 

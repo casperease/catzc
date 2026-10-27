@@ -13,4 +13,4 @@ Each subnet may carry a network security group (`nsg.bicep`) and a route table (
 
 ## Use
 
-A template references it with a relative `module` declaration (`../../modules/virtual-network.bicep`), and `az bicep build` inlines it.
+A template references it with a relative `module` declaration (`../../modules/virtual-network.bicep`), and `bicep build` inlines it.

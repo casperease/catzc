@@ -24,10 +24,10 @@ For each target slot (one per `configuration/[<customer>/]<config>.yml`):
 5. Renders the resulting `.ParametersFile` to `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
    comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
-Then runs `az bicep build --file <main.bicep> --outdir <out>` once for the template, producing `main.json`. Finally copies the per-template
+Then runs `bicep build <main.bicep> --outdir <out>` once for the template, producing `main.json`. Finally copies the per-template
 `PrePost.psm1` (if any) and the contents of `resources/` (if any) into the output folder.
 
-The output folder is wiped and recreated on every call.
+The output folder, `-OutputFolder` or the template's `out/template/<name>`, is wiped and recreated on every call and returned.
 
 ### parameter `Template`
 
@@ -46,6 +46,12 @@ Optional filter — build only the named customers' slots (their configuration s
 
 Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with -Customers as a union; with neither
 filter every slot builds.
+
+### parameter `OutputFolder`
+
+The folder to build into, wiped first. Defaults to the template's `out/template/<name>`, the folder the pipelines publish and the deploy
+reads; a reader that only inspects the build (a gate, a test) passes a folder of its own, so a concurrent build of the same template never
+swaps the files it reads.
 
 ### example 1
 
@@ -78,9 +84,9 @@ customer's subfolder slots, or the root slots), unioned when both are given.
 
 ## Precondition
 
-The Bicep CLI must be available before the output is wiped and the parameters are rendered, otherwise `az bicep build` can exit 0 while
-writing no `main.json`, for example after a missing or blocked auto-install. The check also warms the install in its own call, separate from
-the build (`Assert-AzCliBicep`).
+The bicep binary must be installed at the `tools.yml` pin before the output is wiped and the parameters are rendered. The command resolves
+it once (`Resolve-ToolExecutable -Tool bicep`) and runs every compile through that path, so no compile pays az's Python start or a version
+probe; a missing or older binary throws, naming `Install-Bicep`.
 
 ## The PrePost hook
 
@@ -109,6 +115,6 @@ Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a `.
 
 ## The compiled template
 
-`az bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the real
+`bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the real
 culprit here, not later as a generic missing file in `Get-BicepDeploymentContext`. The Bicep CLI was proved available above, so a missing
 `main.json` is an unexpected build failure and not a missing install, and the message says exactly that.

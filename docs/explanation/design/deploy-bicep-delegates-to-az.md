@@ -9,10 +9,10 @@ Deploy-Bicep adds the guards and the config lookup, and hands every vendor step 
 4   azure.yml, options.yml        the configuration: environments and template overrides
 5   Get-BicepDeploymentContext    composes the one context every later step reads
 6   Get-AzCliSessionSubscription  resolves the az session's subscription against azure.yml
-7   Build-Bicep                   builds the template on a devbox
-8   Invoke-AzCli                  the az wrapper every vendor step goes through
-9   az CLI                        compiles, deploys, or previews with --what-if
-10  Bicep                         the templating language az compiles
+7   Build-Bicep                   builds the template on a devbox with the bicep binary
+8   Invoke-AzCli                  the az wrapper every control-plane step goes through
+9   az CLI                        deploys, or previews with --what-if
+10  Bicep                         the templating language, compiled by its own binary
 
 Supports DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI (implementation lens).
 ```
@@ -58,7 +58,7 @@ content:
     - { from: c-context, to: c-session, kind: flow, label: calls }
     - { from: c-context, to: c-build, kind: flow, label: calls }
     - { from: c-session, to: f-configuration, kind: flow, label: "" }
-    - { from: c-build, to: c-invoke, kind: flow, label: calls }
+    - { from: c-build, to: x-bicep, kind: flow, label: calls }
     - { from: c-invoke, to: x-azure-command, kind: flow, label: "" }
     - { from: x-azure-command, to: x-bicep, kind: flow, label: calls }
   markers:
@@ -112,15 +112,16 @@ layout:
 6. **Get-AzCliSessionSubscription.** Reads the az session's subscription (through `Invoke-AzCli`) and resolves it against `azure.yml`,
    throwing when `azure.yml` does not declare it. The context then throws when `-SubscriptionIdAssertIs` names a different one.
 7. **Build-Bicep.** Runs on a devbox only, unless `-DoNotRebuild` reuses the last build; a pipeline uses the downloaded artifacts. It first
-   asserts that the Bicep CLI meets `bicep_min_version`, then runs `az bicep build` to `main.json`.
+   resolves the bicep binary at its `tools.yml` pin, then runs `bicep build` to `main.json`.
 8. **Invoke-AzCli.** The az wrapper. It asserts `Assert-Tool 'az_cli'`, turns off az's dynamic extension install for the call, and runs az
    through `Invoke-Executable`.
-9. **az CLI.** Runs `bicep build`, then `deployment group create` or `deployment sub create`, with `--what-if` under `-DryRun`.
-10. **Bicep.** The templating language az compiles; cats never writes ARM by hand.
+9. **az CLI.** Runs `deployment group create` or `deployment sub create`, with `--what-if` under `-DryRun`.
+10. **Bicep.** The templating language, compiled by the bicep binary at its `tools.yml` pin; cats never writes ARM by hand.
 
 ## Why it holds
 
-- Thin comes from delegation: Bicep templates, compiled by az, and az for every control-plane step (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
+- Thin comes from delegation: Bicep templates, compiled by the bicep binary, and az for every control-plane step
+  (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
 - `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly (DDR-THINPLAT-PLATFORMASCLI).
 
 ## Where the code and the decision record differ

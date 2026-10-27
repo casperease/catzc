@@ -1,0 +1,25 @@
+roles:
+  owner:
+    id: 8e3af657-a8ff-443c-a75c-2fe8c4bcb635
+    description: Owner — full access, including role assignment; the action group's receivers.
+  contributor:
+    id: b24988ac-6180-42a0-ab88-20f7382dd24c
+    description: Contributor — manage every resource, but grant no access.
+  reader:
+    id: acdd72a7-3385-48ef-bd42-f606fba81ae7
+    description: Reader — view every resource, change nothing.
+  log_analytics_reader:
+    id: 73c42c96-874c-492b-b04d-ab87d138a893
+    description: Log Analytics Reader — read the workspace's data and settings.
+  rbac_administrator:
+    id: f58310d9-a9f6-439a-9e8d-f62e7b41a168
+    description: Role Based Access Control Administrator — assign roles, constrained by a condition to the data roles below.
+  storage_blob_data_reader:
+    id: 2a2b9908-6ea1-4ae2-8e65-a410df84e7d1
+    description: Storage Blob Data Reader — read blob containers and their data.
+  storage_blob_data_contributor:
+    id: ba92f5b4-2d11-453d-a403-e96b0029c9fe
+    description: Storage Blob Data Contributor — read, write and delete blob containers and their data.
+  key_vault_secrets_user:
+    id: 4633458b-17de-408a-b874-0445c86b69e6
+    description: Key Vault Secrets User — read secret contents.

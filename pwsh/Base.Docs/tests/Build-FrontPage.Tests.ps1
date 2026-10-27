@@ -50,7 +50,7 @@ Describe 'FrontPageConfig' -Tag 'L0', 'logic' {
     It 'rejects a badge that leads to no section' {
         { [Catzc.Base.Docs.FrontPageConfig]::new(@{
                     target = 'w/README.md'; title = 't'; tagline = 't'; closing = 'c'
-                    badges = @(@{ label = 'x'; message = 'y'; color = '000000'; to = 'gadget' })
+                    badges   = @(@{ label = 'x'; message = 'y'; color = '000000'; to = 'gadget' })
                     sections = @(@{ id = 'rest'; kind = 'contents'; title = 'Rest' })
                 }) } | Should -Throw '*neither a URL nor a section id*'
     }

@@ -99,6 +99,21 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         @($order) | Should -Be @('widget', 'gadget', 'sprocket')
     }
 
+    It 'leaves a queue folder that still holds a peer ticket, and adds nothing to $Error' {
+        $queue = Get-QueueFolder $script:lockName
+        [System.IO.Directory]::CreateDirectory($queue) | Out-Null
+        # A live peer queued behind this waiter: a later ticket of this process.
+        $peer = Join-Path $queue ('{0:D20}-{1}-{2}.ticket' -f ([datetime]::UtcNow.AddMinutes(5).Ticks), $PID,
+            ([guid]::NewGuid().ToString('N')))
+        [System.IO.File]::WriteAllText($peer, '')
+        $before = $global:Error.Count
+        $null = Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 60 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken
+        $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
+        $global:Error.Count | Should -Be $before
+        Test-Path $peer | Should -BeTrue
+        [System.IO.Directory]::Delete($queue, $true)
+    }
+
     It 'drops the ticket of a waiter whose process is gone, so the queue does not stall behind it' {
         $queue = Get-QueueFolder $script:lockName
         [System.IO.Directory]::CreateDirectory($queue) | Out-Null

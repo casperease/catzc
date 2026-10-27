@@ -1,5 +1,8 @@
 # cspell:ignore oilzstgq
 
+# Files that are the one declaration of a set of fixed GUIDs: each GUID in one counts as registered, and is never listed below as well.
+registries: [pwsh/Azure/configs/roles.yml]
+
 denied:
   guid_zero:
     guid: 00000000-0000-0000-0000-000000000000
@@ -31,9 +34,6 @@ guids:
   policy_allowed_locations:
     guid: e56962a6-4747-49cd-b67b-bf8b01975c4c
     description: Azure built-in policy definition 'Allowed locations' (discovery main.bicep)
-  policy_require_tag_on_resources:
-    guid: 871b6d14-10aa-478d-b590-94f262ecfa99
-    description: Azure built-in policy definition 'Require a tag on resources' (discovery main.bicep)
   policy_nic_no_public_ip:
     guid: 83a86a26-fd1f-447c-b59d-e51f44264114
     description: Azure built-in policy definition 'Network interfaces should not have public IPs' (discovery main.bicep)
@@ -43,6 +43,12 @@ guids:
   policy_sql_no_public_access:
     guid: 1b8ca024-1d5c-4dec-8995-b1a932b41780
     description: Azure built-in policy definition 'Public network access on Azure SQL Database should be disabled' (discovery main.bicep)
+  policy_allowed_storage_skus:
+    guid: 7433c107-6db4-4ad1-b57a-a76dce0154a1
+    description: Azure built-in policy definition 'Storage accounts should be limited by allowed SKUs' (discovery main.bicep)
+  policy_allowed_vm_sizes:
+    guid: cccc23c7-8427-4f53-ad12-b6a63eb452b3
+    description: Azure built-in policy definition 'Allowed virtual machine size SKUs' (discovery main.bicep)
   policy_audit_diagnostic_setting:
     guid: 7f89b1eb-583c-429a-8828-af049802c1d9
     description: Azure built-in policy definition 'Audit diagnostic setting for selected resource types' (discovery main.bicep)
@@ -52,6 +58,10 @@ guids:
     guid: fa0e0000-7e0a-0700-1d00-000000000000
     sentence: fake tenant id
     description: shipped azure.yml 'placeholder' tenant id — echoed by ado.yml, fixtures, and function help examples
+  tenant_foreign_fixture:
+    guid: 01d6e700-f00e-1600-7e0a-070000000000
+    sentence: widget foreign tenant
+    description: a tenant no azure.yml declares — the session's tenant in Get-AzCliSessionSubscription's tenant-mismatch test
   subscription_shared_nonprod:
     guid: 50a0ed00-de00-50b0-0000-000000000000
     sentence: shared dev sub
@@ -119,6 +129,10 @@ guids:
     description: Assert-IsGuid comment-based-help example value
 
   # -- minted with ConvertTo-Guid: the value spells the sentence, one word per dash group ------------------
+  minted_gadget_msi_product_code:
+    guid: 6ad6e700-0510-000d-0c70-c0de00000000
+    sentence: gadget msi product code
+    description: Remove-OffConfigInstall test fixture, the MSI product code of the Gadget install
   minted_sample_test_data:
     guid: 5a001e00-7e57-da7a-0000-000000000000
     sentence: sample test data

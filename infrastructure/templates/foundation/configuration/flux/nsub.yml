@@ -1,0 +1,13 @@
+# foundation, flux nonprod subscription (env nsub, customer flux). flux is dev-only -> nonprod only.
+ParametersFile:
+  parameters:
+    tags:
+      value:
+        workload: foundation
+        environment: nonprod
+        owner: flux
+        cost-center: flux
+        criticality: medium
+        data-classification: confidential
+    privateDnsZoneSubscriptionId:
+      address: global.azure.subscriptions.shared_nonprod.id

@@ -4,9 +4,9 @@
 Type an address and get its value back; a wrong address throws its message at the call.
 
 1  Get-ConfigValue               the command: one address in, its value out
-2  '0.43.8'                      what global.azure.bicep_min_version returns
+2  'zct'                         what global.azure.org returns
 3  Write-EnvironmentSet          addresses and secrets into a child's environment
-4  BICEP = 0.43.8 · TOK = ***    the lines it prints: the value with its address, the secret masked
+4  ORG = zct · TOK = ***         the lines it prints: the value with its address, the secret masked
 5  Build-Bicep                   resolves the { address: … } parameters of every template config
 6  parameters.<config>.json      the rendered parameters file, addresses replaced by values
 7  wrong address throws          a malformed address, an unknown config or a bad key, at the call
@@ -45,8 +45,8 @@ content:
     - { id: g-value, kind: code, label: Get-ConfigValue, in: band-command }
     - { id: g-env, kind: code, label: Write-EnvironmentSet, in: band-command }
     - { id: g-build, kind: code, label: Build-Bicep, in: band-command }
-    - { id: r-value, kind: result, label: "'0.43.8'", in: band-see }
-    - { id: r-lines, kind: result, label: BICEP = 0.43.8 · TOK = ***, in: band-see }
+    - { id: r-value, kind: result, label: "'zct'", in: band-see }
+    - { id: r-lines, kind: result, label: ORG = zct · TOK = ***, in: band-see }
     - { id: r-params, kind: result, label: parameters.<config>.json, in: band-see }
     - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
     - { id: f-invalid, kind: failure, label: invalid addressed parameters, in: band-fail }
@@ -85,17 +85,17 @@ layout:
 
 ## Walkthrough
 
-1. **Get-ConfigValue.** The command you type: `Get-ConfigValue -Address 'global.azure.bicep_min_version'`. Add `-Module` only for a config
-   name that two modules ship.
-2. **'0.43.8'.** The value comes straight back: the string `0.43.8` from `azure.yml`. An address with no keys, such as `global.azure`,
-   returns the whole typed config, and a subtree address returns that subtree.
-3. **Write-EnvironmentSet.** `Write-EnvironmentSet -Set @{ BICEP = 'global.azure.bicep_min_version'; TOK = $secure } -ScriptBlock { … }`
-   takes two kinds of entry: a `global.…` address, resolved through `Get-ConfigValue`, and a `[SecureString]` secret. A bare literal string
-   in `-Set` throws and points you to `-Value`, so a literal is never mistaken for a secret or an address.
-4. **BICEP = 0.43.8 · TOK = \*\*\*.** It prints one line per variable:
-   `Setting environment variable: BICEP = 0.43.8 (from global.azure.bicep_min_version)` for the address, and
-   `Setting environment variable: TOK = ***` for the secret, whose plaintext is never logged or returned. A subtree address fans out under
-   its prefix, uppercased with `.` as `_`. When the script block ends, every variable is restored, and one that was unset before is removed.
+1. **Get-ConfigValue.** The command you type: `Get-ConfigValue -Address 'global.azure.org'`. Add `-Module` only for a config name that two
+   modules ship.
+2. **'zct'.** The value comes straight back: the string `zct` from `azure.yml`. An address with no keys, such as `global.azure`, returns the
+   whole typed config, and a subtree address returns that subtree.
+3. **Write-EnvironmentSet.** `Write-EnvironmentSet -Set @{ ORG = 'global.azure.org'; TOK = $secure } -ScriptBlock { … }` takes two kinds of
+   entry: a `global.…` address, resolved through `Get-ConfigValue`, and a `[SecureString]` secret. A bare literal string in `-Set` throws
+   and points you to `-Value`, so a literal is never mistaken for a secret or an address.
+4. **ORG = zct · TOK = \*\*\*.** It prints one line per variable: `Setting environment variable: ORG = zct (from global.azure.org)` for the
+   address, and `Setting environment variable: TOK = ***` for the secret, whose plaintext is never logged or returned. A subtree address
+   fans out under its prefix, uppercased with `.` as `_`. When the script block ends, every variable is restored, and one that was unset
+   before is removed.
 5. **Build-Bicep.** `Build-Bicep -Template discovery` loads each slot's config and resolves every parameter written as
    `{ address: global.<config>.<key>… }` into `{ value: … }`; the shipped `discovery` configs address `global.azure.subscriptions` and
    `global.azure.policy_enforcement.production`, for example. A secure parameter takes a Key Vault `reference`, never an address.

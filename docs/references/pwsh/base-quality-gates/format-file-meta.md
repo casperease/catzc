@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/Format-FileMeta.ps1
 
-The formatter that brings the meta block of every in-scope file to its head policy: it derives the facts, imprints the parts the engine owns,
-and leaves the authored `config` part alone. `Test-FileMeta` is its checking half.
+The formatter that brings the meta block of every in-scope file to its head policy: it derives the facts, imprints the parts the engine
+owns, and leaves the authored `config` part alone. `Test-FileMeta` is its checking half.
 
 ## help
 

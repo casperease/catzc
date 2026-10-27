@@ -13,7 +13,7 @@ param disableBgpRoutePropagation bool = false
 @description('Resource tags.')
 param tags object = {}
 
-resource routeTable 'Microsoft.Network/routeTables@2023-09-01' = {
+resource routeTable 'Microsoft.Network/routeTables@2024-05-01' = {
   name: name
   location: location
   tags: tags

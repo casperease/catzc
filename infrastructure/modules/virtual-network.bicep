@@ -37,7 +37,7 @@ param subnets subnetSpec[] = [
 @description('Resource tags.')
 param tags object = {}
 
-resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' = {
+resource vnet 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   name: name
   location: location
   tags: tags
@@ -57,6 +57,8 @@ resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' = {
             : { id: subnet.networkSecurityGroupId! }
           routeTable: empty(subnet.?routeTableId ?? '') ? null : { id: subnet.routeTableId! }
           privateEndpointNetworkPolicies: subnet.?privateEndpointNetworkPolicies ?? 'Enabled'
+          // No implicit outbound address: egress leaves only through a route, a spoke's to the hub firewall.
+          defaultOutboundAccess: false
         }
       }
     ]

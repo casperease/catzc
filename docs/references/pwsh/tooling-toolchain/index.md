@@ -4,8 +4,8 @@ The build-toolchain module of the Tooling group. It owns the compiled-language a
 runtime, the Go toolchain, and Terraform — plus uv (Astral's Python handler) and the Azure CLI binary, each installed and version-locked
 through the generic engine in [Catzc.Tooling.Core](../tooling-core/index.md). It ships the vendored `dotnet-install.{ps1,sh}` scripts under
 `assets/scripts/` that .NET installs from. What it deliberately does **not** own is the az _session_: installing the `az` binary lives here,
-but using it — logging in, running commands, selecting a subscription, verifying — belongs to [Catzc.Azure.Cli](../azure-cli/index.md). uv and
-the Azure CLI install user-space per [uv-python-handler](../../../drs/automation/uv-python-handler.md); the build tools use their native
+but using it — logging in, running commands, selecting a subscription, verifying — belongs to [Catzc.Azure.Cli](../azure-cli/index.md). uv
+and the Azure CLI install user-space per [uv-python-handler](../../../drs/automation/uv-python-handler.md); the build tools use their native
 managers per [use-proper-package-managers](../../../drs/automation/use-proper-package-managers.md).
 
 ## Responsibilities
@@ -24,11 +24,11 @@ the vendored official `dotnet-install` script this module ships under `assets/sc
 newest stable patch of the locked version, verified against the SHA-256 the go.dev release feed publishes, extracted into a user-space home
 (Windows `%LOCALAPPDATA%\go`, Unix `~/.go`), the same on every platform and with no administrator; `Invoke-Go` runs the executable the tool
 check located, so the asserted Go is the one that runs. Java and Terraform come from the platform's native package manager — winget (user
-scope) on Windows, Homebrew on macOS, apt on Linux (see [use-proper-package-managers](../../../drs/automation/use-proper-package-managers.md)).
-ShellCheck, the shell-script analyzer, comes the same way, user scope on Windows, and so does the Bicep CLI, the formatter engine for the
-Bicep templates, which has no Linux package. The bats-core test runner the Bash tests run on is not installed but vendored in the
-repository; this module rebuilds that copy from the release and archive digest `bash.yml` pins
-([bash-test-artifacts](../../../drs/automation/bash/bash-test-artifacts.md)).
+scope) on Windows, Homebrew on macOS, apt on Linux (see
+[use-proper-package-managers](../../../drs/automation/use-proper-package-managers.md)). ShellCheck, the shell-script analyzer, comes the
+same way, user scope on Windows, and so does the Bicep CLI, the formatter engine for the Bicep templates, which has no Linux package. The
+bats-core test runner the Bash tests run on is not installed but vendored in the repository; this module rebuilds that copy from the release
+and archive digest `bash.yml` pins ([bash-test-artifacts](../../../drs/automation/bash/bash-test-artifacts.md)).
 
 ### responsibility:2 — uv, the Python handler
 
@@ -54,10 +54,10 @@ removes idempotently. The one piece this module adds of its own is the vendored 
 package manager across platforms, so the official install script is checked in under `assets/scripts/` (excluded from the spelling and lint
 quality gates) and the engine runs it as a script-based install.
 
-The binary-versus-session split is the deliberate counterpart to [Catzc.Azure.Cli](../azure-cli/index.md): this module owns the `az` **binary**
-(install as a uv tool, uninstall, and the `tools.yml` version lock asserted by Core's `Assert-Tool`), while that module owns the `az`
-**session**. The az CLI is just one more managed tool here; its connect-and-verify life is one layer up. The same per-tool functions run
-locally and in CI, with no separate provisioning path (see [cross-platform](../../../drs/automation/cross-platform.md)).
+The binary-versus-session split is the deliberate counterpart to [Catzc.Azure.Cli](../azure-cli/index.md): this module owns the `az`
+**binary** (install as a uv tool, uninstall, and the `tools.yml` version lock asserted by Core's `Assert-Tool`), while that module owns the
+`az` **session**. The az CLI is just one more managed tool here; its connect-and-verify life is one layer up. The same per-tool functions
+run locally and in CI, with no separate provisioning path (see [cross-platform](../../../drs/automation/cross-platform.md)).
 
 ## Division
 

@@ -14,9 +14,9 @@ Describe 'Get-BicepTrackTagNameSet' -Tag 'L0', 'logic' {
 
     It 'returns generic tag names for ResourceGroup-target templates' {
         $names = Get-BicepTrackTagNameSet sample
-        $names.commit   | Should -Be 'Deployed_From_Commit'
-        $names.build_id | Should -Be 'Deployed_From_BuildId'
-        $names.branch   | Should -Be 'Deployed_From_Branch'
+        $names.commit   | Should -Be 'deployed-from-commit'
+        $names.build_id | Should -Be 'deployed-from-buildid'
+        $names.branch   | Should -Be 'deployed-from-branch'
     }
 
     It 'returns template-prefixed names for Subscription-target templates' {
@@ -26,9 +26,9 @@ Describe 'Get-BicepTrackTagNameSet' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
 
         $names = Get-BicepTrackTagNameSet sample
-        $names.commit   | Should -Be 'sample_Deployed_From_Commit'
-        $names.build_id | Should -Be 'sample_Deployed_From_BuildId'
-        $names.branch   | Should -Be 'sample_Deployed_From_Branch'
+        $names.commit   | Should -Be 'sample-deployed-from-commit'
+        $names.build_id | Should -Be 'sample-deployed-from-buildid'
+        $names.branch   | Should -Be 'sample-deployed-from-branch'
     }
 
     It 'rejects an unknown template' {

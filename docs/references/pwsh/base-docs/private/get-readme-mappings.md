@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/private/Get-ReadmeMappings.ps1
 
-The resolver of the [readme registry](../configs/readme.md): it turns the patterns and mappings into the concrete folder-to-source list
-that `Build-Readme` generates and `Test-GeneratedReadmes` checks.
+The resolver of the readme registry (`readme.yml`): it turns the patterns and mappings into the concrete folder-to-source list that
+`Build-Readme` generates and `Test-GeneratedReadmes` checks.
 
 ## Expanding a pattern
 

@@ -31,6 +31,6 @@ catzc-run says, one script per layer, its output read from the file; change noth
 4. Repo: what every session runs at start (the profile, `.vscode/settings.json`, `.vscode/tasks.json`, `importer.ps1` and the console path
    of `Invoke-Importer`), the run lock, and the one types hash (`Get-CombinedTypeHash`) against the index's `pwsh/.compiled`.
 5. Read the exthost activation list and a log's head before any log search; correlate the layers within one minute of each death, a death
-   preceded by a reload being its effect; name a cause only where a line shows it, else "no line shows a crash" and each untested
-   hypothesis with its probe.
+   preceded by a reload being its effect; name a cause only where a line shows it, else "no line shows a crash" and each untested hypothesis
+   with its probe.
 6. Report a timeline table (time, layer, line verbatim, reading), the verdict, and the one change recommended, labelled as such.

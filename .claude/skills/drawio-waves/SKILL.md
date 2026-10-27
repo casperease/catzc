@@ -15,14 +15,14 @@ metadata:
 
 # drawio-waves
 
-Read `python/diagrams/assets/STYLE.md` and the diagram-waves plan in `.claude/plans/` (the backlog) first; words come only from the
-sources, never an invented number, part or loop; "domain rules" and "cats" in prose.
+Read `python/diagrams/assets/STYLE.md` and the diagram-waves plan in `.claude/plans/` (the backlog) first; words come only from the sources,
+never an invented number, part or loop; "domain rules" and "cats" in prose.
 
 1. Wave 0: at most 4 read-only scouts split by area return the style rules (exact hex values, verbatim style strings) and at most 6
    candidates each (filename, finding, source ADR, box sketch); the lead ranks them, picks at most 12, and keeps the rest as the backlog in
    the plan; every wave launches in one message, never more than 12 agents in flight, the lead preps the next briefs while a wave runs and
-   never polls or predicts; a session spawns at most 20 subagents in all, and a fan-out writes its brief once to a file and sends each
-   agent one line naming it.
+   never polls or predicts; a session spawns at most 20 subagents in all, and a fan-out writes its brief once to a file and sends each agent
+   one line naming it.
 2. Wave N: each maker is a drone-sonnet with exactly this brief: read STYLE.md and its quality-bar diagram; verify each claim against the
    ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / DRS-only); write
    `out/diagrams/wave-N/<subfolder>/<name>.drawio.yml` (`description:`, `about:`, `content:`, `layout:` only where the grid would misplace a

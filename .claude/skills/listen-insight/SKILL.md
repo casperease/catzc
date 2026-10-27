@@ -1,8 +1,8 @@
 ---
 name: listen-insight
 description:
-  How one note of the editor becomes a pattern and a repository-wide plan in the listen mode; for listen-process;
-  input is one note and the plans folder.
+  How one note of the editor becomes a pattern and a repository-wide plan in the listen mode; for listen-process; input is one note and the
+  plans folder.
 user-invocable: false
 allowed-tools: Bash, Read, Edit, Write, Agent
 metadata:

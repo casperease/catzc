@@ -230,6 +230,19 @@ bicep:
   unix_probes:
     - "%HOME%/.local/bin/bicep"
 
+osv_scanner:
+  version: "2.0"
+  command: osv-scanner
+  depends_on: winget
+  winget_id: "Google.OSVScanner"
+  winget_scope: user
+  brew_formula: "osv-scanner"
+  version_command: "osv-scanner --version"
+  version_pattern: "osv-scanner version: (?<ver>[\\d.]+)"
+  # Linux: the verified release binary Install-OsvScanner places in the user bin, probed before PATH is re-read.
+  unix_probes:
+    - "%HOME%/.local/bin/osv-scanner"
+
 uv:
   version: "0.11"
   command: uv

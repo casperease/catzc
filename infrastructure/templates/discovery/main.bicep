@@ -34,6 +34,12 @@ type policyAssignmentNameSet = {
 
   @description('The diagnostic-setting-on-data-resources audit assignment.')
   dataDiagnostics: string
+
+  @description('The allowed-storage-account-SKUs assignment.')
+  storageSkus: string
+
+  @description('The allowed-virtual-machine-size-SKUs assignment.')
+  vmSkus: string
 }
 
 @description('Azure region of the resource group and its resources. Defaults to the deployment location.')
@@ -45,18 +51,26 @@ param tags object
 @description('The azure.yml subscriptions, by config address: resolves the subscription id of a peered network.')
 param subscriptions object
 
-@description('Kind of the network of this subscription, from network.yml: a hub (shared) or a spoke (customer).')
-@allowed([
-  'hub'
-  'spoke'
-])
-param networkKind string
+@description('The network of this subscription, its network.yml record by config address: kind, address space, subnets and a hub\'s firewall.')
+param network object
 
-@description('Address space of the virtual network, from network.yml.')
-param vnetAddressSpace string
+@description('Every subscription\'s network.yml record, by config address: the hub\'s firewall address for a spoke, the spokes\' address spaces for a hub.')
+param networks object
 
-@description('The subnets of the virtual network, name to CIDR, from network.yml.')
-param subnetPrefixes object
+@description('Whether this subscription holds a production environment (options.yml facts); a production hub spreads its firewall over the zones.')
+param productionSubscription bool
+
+@description('Hub only: names of the firewall, its policy and its two public IPs; every slot receives its derived names.')
+param firewallName string
+param firewallPolicyName string
+param firewallPublicIpName string
+param firewallManagementPublicIpName string
+
+@description('The egress every hub firewall allows, network.yml firewall_egress by config address.')
+param firewallEgress object
+
+@description('The inbound flows the security groups allow, by subnet role: network.yml nsg_flows by config address.')
+param nsgFlows array
 
 @description('Resource group that holds the network.')
 param resourceGroupName string
@@ -67,7 +81,7 @@ param virtualNetworkName string
 @description('Network security group name per subnet; a subnet absent here gets none.')
 param networkSecurityGroupNames object
 
-@description('Name of the route table attached to every spoke subnet. Unused by a hub.')
+@description('Name of the route table attached to every spoke subnet. Unused by a hub, which still receives its derived name.')
 param routeTableName string = ''
 
 @description('Spoke only: the hub network this spoke peers to.')
@@ -82,7 +96,19 @@ param logAnalyticsResourceGroupName string
 @description('Name of foundation\'s Log Analytics workspace.')
 param logAnalyticsName string
 
-@description('Enforcement mode of the policy assignments, from azure.yml policy_enforcement by config address.')
+@description('Name of foundation\'s flow-log storage account, in the workspace\'s resource group; derived by the PrePost hook, empty deploys no flow log.')
+param flowLogStorageAccountName string = ''
+
+@description('Name of foundation\'s action group, in the workspace\'s resource group: the health alerts notify it.')
+param actionGroupName string
+
+@description('Name of each health alert, keyed by its category (ServiceHealth, ResourceHealth); derived by the namer.')
+param healthAlertNames object
+
+@description('The resource group Azure keeps its Network Watchers in; the flow log of the network lives under the region\'s watcher there.')
+param networkWatcherResourceGroupName string = 'NetworkWatcherRG'
+
+@description('Enforcement mode of the policy assignments: a fact the build derives from the subscription the slot targets (options.yml facts).')
 @allowed([
   'Default'
   'DoNotEnforce'
@@ -92,8 +118,26 @@ param policyEnforcementMode string
 @description('Names of the policy assignments.')
 param policyAssignmentNames policyAssignmentNameSet
 
-@description('The tag every resource must carry; the CAF tags include it.')
-param requiredTagName string = 'cost-center'
+@description('The CAF tags every resource must carry: the keys of the azure.yml tag schema.')
+param requiredTagNames array = [
+  'workload'
+  'environment'
+  'owner'
+  'cost-center'
+  'criticality'
+  'data-classification'
+]
+
+@description('The storage SKUs the landing zone allows: zone-redundant for production, locally redundant for the rest.')
+param allowedStorageSkus array = [
+  'Standard_LRS'
+  'Standard_ZRS'
+]
+
+@description('The virtual machine sizes the landing zone allows: the burstable size vm.bicep defaults to.')
+param allowedVmSizes array = [
+  'Standard_B1s'
+]
 
 @description('Budget name.')
 param budgetName string
@@ -112,107 +156,15 @@ param budgetThresholds array = [
   100
 ]
 
-var isHub = networkKind == 'hub'
-var subnetNames = objectKeys(subnetPrefixes)
+var isHub = network.kind == 'hub'
+var subnetNames = objectKeys(network.subnets)
 var networkSecurityGroupSubnetNames = filter(subnetNames, subnetName => contains(networkSecurityGroupNames, subnetName))
 
-// Built-in policy definitions (tenant-level ids, fixed by Azure).
-var policyDefinitions = {
-  allowedLocations: {
-    id: 'e56962a6-4747-49cd-b67b-bf8b01975c4c'
-    parameters: {
-      listOfAllowedLocations: {
-        value: [
-          location
-        ]
-      }
-    }
-    message: 'Resources in this landing zone deploy to its region only.'
-  }
-  requireTag: {
-    id: '871b6d14-10aa-478d-b590-94f262ecfa99'
-    parameters: {
-      tagName: {
-        value: requiredTagName
-      }
-    }
-    message: 'Every resource in this landing zone carries the ${requiredTagName} tag.'
-  }
-  noPublicIp: {
-    id: '83a86a26-fd1f-447c-b59d-e51f44264114'
-    parameters: {}
-    message: 'Network interfaces in this landing zone have no public IP address.'
-  }
-  storageNoPublicAccess: {
-    id: 'b2982f36-99f2-4db5-8eff-283140c09693'
-    parameters: {
-      effect: {
-        value: 'Deny'
-      }
-    }
-    message: 'Storage accounts in this landing zone have public network access off.'
-  }
-  sqlNoPublicAccess: {
-    id: '1b8ca024-1d5c-4dec-8995-b1a932b41780'
-    parameters: {
-      effect: {
-        value: 'Deny'
-      }
-    }
-    message: 'SQL servers in this landing zone have public network access off.'
-  }
-  dataDiagnostics: {
-    id: '7f89b1eb-583c-429a-8828-af049802c1d9'
-    parameters: {
-      listOfResourceTypes: {
-        value: dataResourceTypes
-      }
-    }
-    message: 'Every data resource in this landing zone has a diagnostic setting.'
-  }
-}
-
-// The data resource kinds the diagnostic-setting audit covers.
-var dataResourceTypes = [
-  'Microsoft.Storage/storageAccounts'
-  'Microsoft.Sql/servers/databases'
-  'Microsoft.KeyVault/vaults'
-  'Microsoft.DataFactory/factories'
-]
-
-// The private DNS zones of the private-link services the workloads use (SQL Database and Blob Storage).
+// The private DNS zones of the private-link services the workloads use (SQL Database, Blob Storage and Key Vault).
 var privateDnsZoneNames = [
   'privatelink${environment().suffixes.sqlServerHostname}'
   'privatelink.blob.${environment().suffixes.storage}'
-]
-
-var securityRules = [
-  {
-    name: 'allow-virtual-network-inbound'
-    properties: {
-      priority: 100
-      direction: 'Inbound'
-      access: 'Allow'
-      protocol: '*'
-      sourceAddressPrefix: 'VirtualNetwork'
-      sourcePortRange: '*'
-      destinationAddressPrefix: 'VirtualNetwork'
-      destinationPortRange: '*'
-    }
-  }
-  {
-    name: 'deny-internet-inbound'
-    properties: {
-      priority: 4000
-      direction: 'Inbound'
-      access: 'Deny'
-      protocol: '*'
-      sourceAddressPrefix: 'Internet'
-      sourcePortRange: '*'
-      destinationAddressPrefix: '*'
-      destinationPortRange: '*'
-    }
-  }
+  'privatelink${replace(environment().suffixes.keyvaultDns, '.vault.', '.vaultcore.')}'
 ]
 
 var hubNetworkId = isHub
@@ -233,7 +185,7 @@ var spokeNetworkIds = [
   )
 ]
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' existing = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2025-02-01' existing = {
   name: logAnalyticsName
   scope: resourceGroup(logAnalyticsResourceGroupName)
 }
@@ -247,106 +199,61 @@ module networkResourceGroup '../../modules/resource-group.bicep' = {
   }
 }
 
-module networkSecurityGroups '../../modules/nsg.bicep' = [
-  for subnetName in networkSecurityGroupSubnetNames: {
-    name: 'nsg-${subnetName}'
+// The network of the landing zone: security groups, route table, virtual network, peerings, the hub's private DNS zones and their locks.
+module landingZoneNetwork '../../modules/landing-zone-network.bicep' = {
+  name: 'network'
+  scope: resourceGroup(resourceGroupName)
+  dependsOn: [
+    networkResourceGroup
+  ]
+  params: {
+    location: location
+    tags: tags
+    networkKind: network.kind
+    vnetAddressSpace: network.vnet_address_space
+    subnetPrefixes: network.subnets
+    virtualNetworkName: virtualNetworkName
+    networkSecurityGroupNames: networkSecurityGroupNames
+    routeTableName: routeTableName
+    hubPeeringName: hub.?peeringName ?? ''
+    hubNetworkId: hubNetworkId
+    spokes: spokes
+    spokeNetworkIds: spokeNetworkIds
+    privateDnsZoneNames: privateDnsZoneNames
+    firewallPrivateIp: isHub ? network.firewall_private_ip : networks[hub!.subscription].firewall_private_ip
+    firewallSku: isHub ? network.firewall_sku : ''
+    spokeAddressSpaces: [for spoke in spokes: networks[spoke.subscription].vnet_address_space]
+    firewallEgress: firewallEgress
+    firewallName: firewallName
+    firewallPolicyName: firewallPolicyName
+    firewallPublicIpName: firewallPublicIpName
+    firewallManagementPublicIpName: firewallManagementPublicIpName
+    firewallZones: productionSubscription ? ['1', '2', '3'] : []
+    workspaceId: workspace.id
+    nsgFlows: nsgFlows
+    hubSharedServicesPrefix: isHub ? '' : networks[hub!.subscription].subnets['shared-services']
+  }
+}
+
+// Service Health and Resource Health of the subscription notify foundation's action group, so they reach the subscription's Owner role.
+module healthAlerts '../../modules/health-alert.bicep' = [
+  for category in [
+    'ServiceHealth'
+    'ResourceHealth'
+  ]: {
+    name: 'alert-${toLower(category)}'
     scope: resourceGroup(resourceGroupName)
     dependsOn: [
       networkResourceGroup
     ]
     params: {
-      name: networkSecurityGroupNames[subnetName]
-      location: location
-      securityRules: securityRules
-      tags: tags
-    }
-  }
-]
-
-module routeTable '../../modules/route-table.bicep' = if (!isHub) {
-  name: 'route-table'
-  scope: resourceGroup(resourceGroupName)
-  dependsOn: [
-    networkResourceGroup
-  ]
-  params: {
-    name: routeTableName
-    location: location
-    tags: tags
-  }
-}
-
-module virtualNetwork '../../modules/virtual-network.bicep' = {
-  name: 'virtual-network'
-  scope: resourceGroup(resourceGroupName)
-  dependsOn: [
-    networkResourceGroup
-    networkSecurityGroups
-    routeTable
-  ]
-  params: {
-    name: virtualNetworkName
-    location: location
-    addressPrefix: vnetAddressSpace
-    subnets: [
-      for subnetName in subnetNames: {
-        name: subnetName
-        addressPrefix: subnetPrefixes[subnetName]
-        networkSecurityGroupId: contains(networkSecurityGroupNames, subnetName)
-          ? resourceId(
-              subscription().subscriptionId,
-              resourceGroupName,
-              'Microsoft.Network/networkSecurityGroups',
-              networkSecurityGroupNames[subnetName]
-            )
-          : null
-        routeTableId: isHub
-          ? null
-          : resourceId(
-              subscription().subscriptionId,
-              resourceGroupName,
-              'Microsoft.Network/routeTables',
-              routeTableName
-            )
-      }
-    ]
-    tags: tags
-  }
-}
-
-module hubPeering '../../modules/vnet-peering.bicep' = if (!isHub) {
-  name: 'peering-hub'
-  scope: resourceGroup(resourceGroupName)
-  params: {
-    virtualNetworkName: virtualNetwork.outputs.name
-    name: hub.?peeringName ?? ''
-    remoteVirtualNetworkId: hubNetworkId
-  }
-}
-
-module spokePeerings '../../modules/vnet-peering.bicep' = [
-  for (spoke, index) in (isHub ? spokes : []): {
-    name: 'peering-${spoke.subscription}'
-    scope: resourceGroup(resourceGroupName)
-    params: {
-      virtualNetworkName: virtualNetwork.outputs.name
-      name: spoke.peeringName
-      remoteVirtualNetworkId: spokeNetworkIds[index]
-    }
-  }
-]
-
-module privateDnsZones '../../modules/private-dns-zone.bicep' = [
-  for zoneName in (isHub ? privateDnsZoneNames : []): {
-    name: 'dns-${zoneName}'
-    scope: resourceGroup(resourceGroupName)
-    params: {
-      name: zoneName
-      virtualNetworkIds: concat(
-        [
-          virtualNetwork.outputs.id
-        ],
-        spokeNetworkIds
+      name: healthAlertNames[category]
+      category: category
+      actionGroupId: resourceId(
+        subscription().subscriptionId,
+        logAnalyticsResourceGroupName,
+        'Microsoft.Insights/actionGroups',
+        actionGroupName
       )
       tags: tags
     }
@@ -365,8 +272,41 @@ module virtualNetworkDiagnostics '../../modules/diagnostic-setting.bicep' = {
   scope: resourceGroup(resourceGroupName)
   params: {
     resourceKind: 'virtualNetwork'
-    resourceName: virtualNetwork.outputs.name
+    resourceName: landingZoneNetwork.outputs.virtualNetworkName
     workspaceId: workspace.id
+  }
+}
+
+module networkWatcherResourceGroup '../../modules/resource-group.bicep' = if (!empty(flowLogStorageAccountName)) {
+  name: 'network-watcher-resource-group'
+  params: {
+    name: networkWatcherResourceGroupName
+    location: location
+    tags: tags
+  }
+}
+
+// The network's flow log, to foundation's flow-log storage, with Traffic Analytics into the workspace.
+module flowLog '../../modules/flow-log.bicep' = if (!empty(flowLogStorageAccountName)) {
+  name: 'flow-log'
+  scope: resourceGroup(networkWatcherResourceGroupName)
+  dependsOn: [
+    networkWatcherResourceGroup
+  ]
+  params: {
+    name: '${virtualNetworkName}-flow-log'
+    location: location
+    targetResourceId: landingZoneNetwork.outputs.virtualNetworkId
+    storageAccountId: resourceId(
+      subscription().subscriptionId,
+      logAnalyticsResourceGroupName,
+      'Microsoft.Storage/storageAccounts',
+      flowLogStorageAccountName
+    )
+    workspaceResourceId: workspace.id
+    workspaceRegion: workspace.location
+    workspaceCustomerId: workspace.properties.customerId
+    tags: tags
   }
 }
 
@@ -376,24 +316,24 @@ module networkSecurityGroupDiagnostics '../../modules/diagnostic-setting.bicep' 
     scope: resourceGroup(resourceGroupName)
     params: {
       resourceKind: 'networkSecurityGroup'
-      resourceName: networkSecurityGroups[index].outputs.name
+      resourceName: landingZoneNetwork.outputs.networkSecurityGroupResourceNames[index]
       workspaceId: workspace.id
     }
   }
 ]
 
-module policyAssignments '../../modules/policy-assignment.bicep' = [
-  for policy in items(policyDefinitions): {
-    name: 'policy-${policy.key}'
-    params: {
-      name: policyAssignmentNames[policy.key]
-      policyDefinitionId: tenantResourceId('Microsoft.Authorization/policyDefinitions', policy.value.id)
-      parameters: policy.value.parameters
-      enforcementMode: policyEnforcementMode
-      nonComplianceMessage: policy.value.message
-    }
+// The CAF-tags definition and the policy assignments of the landing zone.
+module policies '../../modules/landing-zone-policies.bicep' = {
+  name: 'policies'
+  params: {
+    location: location
+    policyEnforcementMode: policyEnforcementMode
+    policyAssignmentNames: policyAssignmentNames
+    requiredTagNames: requiredTagNames
+    allowedStorageSkus: allowedStorageSkus
+    allowedVmSizes: allowedVmSizes
   }
-]
+}
 
 module budget '../../modules/budget.bicep' = {
   name: 'budget'
@@ -406,8 +346,6 @@ module budget '../../modules/budget.bicep' = {
 }
 
 output resourceGroupName string = networkResourceGroup.outputs.name
-output virtualNetworkId string = virtualNetwork.outputs.id
-output subnetIds object = virtualNetwork.outputs.subnetIds
-output privateDnsZoneIds array = [
-  for (zoneName, index) in (isHub ? privateDnsZoneNames : []): privateDnsZones[index].outputs.id
-]
+output virtualNetworkId string = landingZoneNetwork.outputs.virtualNetworkId
+output subnetIds object = landingZoneNetwork.outputs.subnetIds
+output privateDnsZoneIds array = landingZoneNetwork.outputs.privateDnsZoneIds

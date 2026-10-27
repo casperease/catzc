@@ -14,6 +14,10 @@ function Get-AzCliSessionSubscription {
     }
 
     $subscription = Get-AzureSubscription $declared[0]
+    # The session must sit in the tenant azure.yml declares for the subscription: a session signed in elsewhere is the wrong estate.
+    if ("$($current.TenantId)" -ne "$($subscription.tenant.id)") {
+        throw "The az session's tenant $($current.TenantId) is not tenant '$($subscription.tenant.name)' ($($subscription.tenant.id)), which azure.yml declares for subscription '$($subscription.name)' — sign in to that tenant (az login --tenant $($subscription.tenant.id))"
+    }
 
     [ordered]@{
         name     = $subscription.name

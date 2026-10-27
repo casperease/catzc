@@ -1,12 +1,47 @@
 {
   "types": [
     {
+      "name": "Catzc.Azure.DevOps.BuildValidation.BranchPolicies",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "automatic_reviewer_ids",
+          "kind": "property"
+        },
+        {
+          "name": "creator_vote_counts",
+          "kind": "property"
+        },
+        {
+          "name": "merge_types",
+          "kind": "property"
+        },
+        {
+          "name": "minimum_reviewers",
+          "kind": "property"
+        },
+        {
+          "name": "require_comment_resolution",
+          "kind": "property"
+        },
+        {
+          "name": "reset_on_push",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig",
       "aliases": [],
       "display": [],
       "members": [
         {
           "name": "branch",
+          "kind": "property"
+        },
+        {
+          "name": "policies",
           "kind": "property"
         },
         {

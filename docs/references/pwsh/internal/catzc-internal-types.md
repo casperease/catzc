@@ -3,7 +3,7 @@
 The single implementation of the combined C# type-source hash, and of the shared work around the combined types assembly it names. Its core
 export, `Get-CombinedTypeHash`, enumerates, orders, and hashes every module's `types/*.cs` exactly the way the committed
 `pwsh/.compiled/Catzc.Types.<hash>.dll` is keyed. It lives in `.internal` because two layers must agree on that hash byte-for-byte — the
-**loader** ([`Import-CSharpTypes`](catzc-internal-bootstrap.md), which builds and keys the DLL) and the **cache janitor**
+**loader** (`Import-CSharpTypes` in `Catzc.Internal.Bootstrap`, which builds and keys the DLL) and the **cache janitor**
 (`Clear-ModuleTypeCache`, a `Catzc` module, which decides which DLLs to keep). The algorithm used to be copied into both and mirrored again
 in tests, with a standing "keep them identical" note; it now lives here once and both call it through `Import-InternalModule Types` (see
 [one-living-version](../../../drs/principles/one-living-version.md)). It is **resident** — kept in the session, not removed with the
@@ -26,8 +26,8 @@ culture-aware `Sort-Object`).
 
 What it deliberately does **not** do is validate namespaces or reject dotted filenames — those are the loader's poka-yokes, kept out of the
 shared enumerator on purpose, because the janitor must never throw on a source that is malformed. The full contract of the combined assembly
-and its committed prebuild is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) ADR and the
-[BCL type-system reference](../../BCL/types-system.md).
+and its committed prebuild is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) ADR and the BCL type-system
+reference (`docs/references/BCL/types-system.md`).
 
 ## Loading the assembly
 
@@ -102,6 +102,15 @@ A lazy load defers the types until a catzc command is first used:
 - ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) — the single combined assembly and its hash key.
 - ADR: [caching](../../../drs/automation/caching.md) — the committed compiled-type prebuild this hash names.
 - ADR: [one-living-version](../../../drs/principles/one-living-version.md) — why the algorithm lives here once.
-- Reference: [Catzc.Internal.Bootstrap](catzc-internal-bootstrap.md) — the loader (`Import-CSharpTypes`) that consumes this hash;
-  [Catzc.Base.TypesSystem](../base-types-system/index.md) — the module whose `Clear-ModuleTypeCache` janitor also calls it; the
-  [BCL type-system reference](../../BCL/types-system.md) and the [internal area overview](index.md).
+- Reference: `Catzc.Internal.Bootstrap` — the loader (`Import-CSharpTypes`) that consumes this hash; `Catzc.Base.TypesSystem` — the module
+  whose `Clear-ModuleTypeCache` janitor also calls it; the BCL type-system reference (`docs/references/BCL/types-system.md`) and the
+  internal area overview.
+
+## comment:1
+
+Above `[System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null`, written with `#`.
+
+```text
+A process that loads or is about to load a build holds its hash for its lifetime: an empty Catzc.Types.<hash>.<pid>.hold the prune
+of any other process honours while that process lives. A dead holder's file is the prune's to delete.
+```

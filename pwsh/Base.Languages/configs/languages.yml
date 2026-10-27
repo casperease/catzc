@@ -149,7 +149,7 @@ languages:
     extensions: [.bicep, .bicepparam]
     tag: bicep
     formatter: bicep
-    checks: [Test-Formatting, Test-Spelling, Test-Comments]
+    checks: [Test-Formatting, Test-Spelling, Test-Comments, Test-BicepApiVersions, Test-BicepLint]
   python:
     extensions: [.py]
     tag: py

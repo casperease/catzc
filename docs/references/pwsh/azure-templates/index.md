@@ -50,15 +50,20 @@ here too.
 
 Taking a built template to Azure: ensuring the target resource group exists, running the pre-deploy hook, executing the deployment
 (honouring a dry-run preview), applying the tracking tags that scope the deployment, and running the post-deploy hook. This is the only
-state-changing responsibility, and it verifies the session targets the configured subscription before it acts.
+state-changing responsibility, and it verifies the session targets the configured subscription before it acts. It also rotates the
+break-glass SQL password of the deployed expedition slots, server first and vault second (run monthly by the CRON pipeline
+cron-break-glass-rotation).
 
 ### responsibility:6 — Template integrity validation
 
 Checking that a template is internally consistent and conforms to the model — that its configuration sits under defined subscriptions
 serving the right environments, that its class and slots are valid, that its name renders within budget, and that every parameters file it
 renders satisfies the parameter model of its compiled `main.json` (see
-[data-model](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run across
-every shipped template.
+[data-model](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run
+across every shipped template. Three gates hold the compiled templates and the configuration tree to the landing-zone rules: the compliance
+gate (CAF tags, a diagnostic setting per data kind, public access off, TLS 1.2, production zone redundancy, against a ratchet of known
+findings), the names gate (a slot never writes a name its template derives from the namer), and the orphans gate (a resource group no config
+derives).
 
 ## What the module does
 
@@ -266,5 +271,9 @@ and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Deploy-AzureResourceGroup`       |
 |                                                                   | `Set-BicepTrackingTagSet`         |
 |                                                                   | `Get-BicepTrackTagNameSet`        |
+|                                                                   | `Invoke-BreakGlassRotation`       |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
+|                                                                   | `Test-BicepTemplateCompliance`    |
+|                                                                   | `Test-BicepResourceNames`         |
+|                                                                   | `Test-BicepOrphans`               |

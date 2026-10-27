@@ -9,4 +9,4 @@ Azure default rules (allow virtual network and load-balancer inbound, deny all o
 
 ## Use
 
-Attach the group to a subnet through `virtual-network.bicep` or `subnet.bicep`. `az bicep build` inlines the module.
+Attach the group to a subnet through `virtual-network.bicep` or `subnet.bicep`. `bicep build` inlines the module.

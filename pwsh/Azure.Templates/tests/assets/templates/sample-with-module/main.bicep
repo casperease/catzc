@@ -1,5 +1,5 @@
 // Fixture: a module-consuming template. References ../../modules/storage-account.bicep (the fixture
-// module under tests/assets/modules/) so `az bicep build` inlines it into main.json — exercising the
+// module under tests/assets/modules/) so `bicep build` inlines it into main.json — exercising the
 // reusable-module path entirely within the test fixture tree.
 
 param storageAccountName string

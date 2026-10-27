@@ -8,11 +8,11 @@ A module of a deployable track ([DDR-TRACKTYPE-ONEROLE](../design/track-types.md
 that holds it, by one resolver, `Get-CatzcModule`. The track is the one the longest place names
 ([DDR-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-ddr-tracktype-longestplacewins)); the module's root is a place of that track
 plus the module's name; its module type is one the track type admits
-([DDR-MODTYPE-TRACKTYPEADMITS](../design/module-types.md#rule-ddr-modtype-tracktypeadmits)). The resolver returns, for
-each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type. No other command derives
-a module's name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads the track. A
-place whose modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the resolver returns
-those modules only when asked to include internal ones, and never infers internal from where a place sits.
+([DDR-MODTYPE-TRACKTYPEADMITS](../design/module-types.md#rule-ddr-modtype-tracktypeadmits)). The resolver returns, for each module, its
+name, track, root, shape (a folder or one file), files, languages and engines, as one native type. No other command derives a module's name,
+root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads the track. A place whose modules
+are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the resolver returns those modules only
+when asked to include internal ones, and never infers internal from where a place sits.
 
 - [One resolver through the track](#one-resolver-through-the-track)
 
@@ -67,8 +67,8 @@ never sorts again. A load order is no dependency order, because a module declare
 A check and a test of a module are resolved by the file language, from the language registry, and never by a branch on a language in a
 command: a new language adds a registry entry and its handlers ([ADR-AUTO-EXTEND](open-closed-architecture.md),
 [PDR-CONFIG](../principles/configure-not-program.md)). The build of a module into a bundle is the bundle's
-([ADR-AUTO-BUNDLE-ISBUILD](platform-bundle.md#rule-adr-auto-bundle-isbuild)): it is code in the closed builder, not a handler,
-and this rule does not cover it.
+([ADR-AUTO-BUNDLE-ISBUILD](platform-bundle.md#rule-adr-auto-bundle-isbuild)): it is code in the closed builder, not a handler, and this rule
+does not cover it.
 
 - [Handlers by language](#handlers-by-language)
 
