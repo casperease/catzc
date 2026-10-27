@@ -17,8 +17,8 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
             Should -Be 1
     }
 
-    It 'returns the comment pages comment-pages.yml roots, by Format-Code, a module placeholder as one wildcard folder' {
-        foreach ($expected in 'docs/references/pwsh/*/**', 'docs/references/infrastructure/**',
+    It 'returns the comment pages comment-pages.yml roots, by Format-Code' {
+        foreach ($expected in 'docs/references/pwsh/**', 'docs/references/infrastructure/**',
             'docs/references/ado/pipelines/**') {
             $script:targets.Where({ $_.path -ceq $expected -and $_.generator -ceq 'Format-Code' }).Count |
                 Should -Be 1 -Because "comment-pages.yml declares the root of $expected"

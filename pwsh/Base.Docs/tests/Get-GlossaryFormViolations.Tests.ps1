@@ -74,11 +74,18 @@ Describe 'Get-GlossaryFormViolations' -Tag 'L0', 'logic' {
         & $script:scan @{ 'docs/alpha.md' = $text } | Should -BeNullOrEmpty
     }
 
-    It 'reads no meta block in the front matter as prose, and still reads the rest of the front matter' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'reads no meta block in the front matter as prose, and still reads a prose key of the front matter' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $text = @('---', 'catzc:', '  immutable:', '    path: docs/explanation/pick-sprocket-widget.md',
-            '    kind: explanation', 'note: a sprocket widget', '---', '', '# Alpha')
+            '    kind: explanation', 'description: a sprocket widget', '---', '', '# Alpha')
         $found = & $script:scan @{ 'docs/alpha.md' = $text }
         $found | Should -Be @("docs/alpha.md:6 says `"sprocket widget`" — $script:tail")
+    }
+
+    It 'reads a front-matter key as prose only when the source declares it prose' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {
+        $text = @('---', 'name: sprocket-widget', 'description: >', '  Turns the gizmo', '  widget.', '---', '', '# Alpha')
+        $found = & $script:scan @{ 'docs/alpha.md' = $text }
+        $found | Should -Be @("docs/alpha.md:4 says `"gizmo widget`" — $script:tail")
+        & $script:scan @{ 'docs/alpha.md' = $text } @{ front_matter_prose = @() } | Should -BeNullOrEmpty
     }
 
     It 'reads no immutable block of a code head as prose, and still reads the rest of the head' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS', 'ADR-REPO-FILEMETA-HEADPOLICY' {

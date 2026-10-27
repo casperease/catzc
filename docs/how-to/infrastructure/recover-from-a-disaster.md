@@ -20,7 +20,7 @@ The targets it must meet, the recovery point and the recovery time per environme
    1. `Deploy-Bicep <environment> foundation`: the Log Analytics workspace and the Key Vault. When the network is lost too, this is the
       bootstrap pass, with `deployKeyVaultPrivateEndpoint: { value: false }` set in the slot's yml until the network is back.
    2. `Deploy-Bicep <environment> discovery`: the hub, then each spoke, with their peering and private DNS zones.
-   3. `Deploy-Bicep <environment> foundation` again: the vault's private endpoint, now that the network and the hub's vaultcore zone exist.
+   3. `Deploy-Bicep <environment> foundation` again: the vault's private endpoint, now that the network and the hub's vaultcore DNS zone exist.
       The vault has public network access off from its first deploy, so this is its only way in.
    4. Seed the secrets the rebuilt vault lacks, through its endpoint (see [seed a secret](seed-a-secret.md)).
    5. `Deploy-Bicep <environment> expedition`: the workload's storage account and SQL server, with an empty database; it reads the seeded
@@ -31,7 +31,7 @@ The targets it must meet, the recovery point and the recovery time per environme
 
 3. Restore the data. For a deleted or corrupted database, restore it to a point in time before the fault. For a lost region, geo-restore it
    from the geo-redundant backup into the rebuilt server. Then point the workload at the restored database.
-4. Check that the service answers, that every resource sends its diagnostics to the workspace, and that the compliance gate
+4. Check that the service answers, that every resource sends its diagnostics to the workspace, and that the compliance quality gate
    (`Test-BicepTemplateCompliance`) passes.
 5. Record the recovery point reached and the time taken in the incident, against the targets.
 

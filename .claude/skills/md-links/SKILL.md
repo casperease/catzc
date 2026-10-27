@@ -15,7 +15,7 @@ metadata:
 
 # md-links
 
-1. Run `Test-Links -Path <file>` through catzc-gate; each finding names line, column, kind and target.
+1. Run `Test-Links -Path <file>` through `catzc-gate`; each finding names line, column, kind and target.
 2. A relative link resolves from the file's own folder: re-point only the target, never the link text, with Edit, one link at a time;
    `Format-Links -Path <file>` for the mechanical forms the gate names.
 3. Re-run `Test-Links` on the file; one file per step, never a sweep.

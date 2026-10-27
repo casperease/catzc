@@ -41,7 +41,7 @@ function Get-LinkScope {
         }
     }
 
-    # Loops, not Where-Object: a whole-repository scope is thousands of paths.
+    # Loops, not Where-Object: a scan of the whole repository is thousands of paths.
     $inRepository = [string[]] @(foreach ($file in $files) {
             if (-not $file.StartsWith('../')) {
                 $file

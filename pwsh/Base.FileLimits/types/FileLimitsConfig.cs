@@ -172,7 +172,6 @@ public sealed class FileLimitsConfig
             IDictionary extensionsRaw = Section(raw, "extensions", errors);
             if (extensionsRaw != null)
             {
-                extensionsValue.Clear();
                 foreach (object key in extensionsRaw.Keys)
                 {
                     string name = Convert.ToString(key, CultureInfo.InvariantCulture);

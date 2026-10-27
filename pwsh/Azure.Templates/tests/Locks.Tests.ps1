@@ -1,6 +1,6 @@
 Describe 'CanNotDelete locks: every compiled slot' -Tag 'L1', 'integrity' {
     BeforeAll {
-        # The resources each slot deploys, by the compliance gate's evaluator, for a template's compiled main.json and slot parameters.
+        # The resources each slot deploys, by the compliance quality gate's evaluator, for a template's compiled main.json and slot parameters.
         function script:Get-SlotResource {
             param([string] $Template)
             InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $Template } {

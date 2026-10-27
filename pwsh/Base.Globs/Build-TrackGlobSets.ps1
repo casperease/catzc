@@ -15,6 +15,7 @@ function Build-TrackGlobSets {
     $authored = [System.IO.File]::ReadAllText($declared) | ConvertFrom-Yaml -Ordered
     $sets = @($authored.globsets.Keys | Where-Object { $authored.globsets[$_].Contains('track') })
 
+    $root = Get-RepositoryRoot
     $tracks = @(Get-Track)
     $targets = @(Get-GeneratedTarget)
     # A nested track keeps its files in the parent's set unless a set of its own starts a pipeline for it.
@@ -36,7 +37,9 @@ function Build-TrackGlobSets {
         $include = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
         $exclude = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($member in $track.members) {
-            $pattern = if ($member.glob) {
+            # A member that names a file is matched as itself; only a folder takes everything under it.
+            $isFile = [System.IO.File]::Exists([System.IO.Path]::Combine($root, $member.path))
+            $pattern = if ($member.glob -or $isFile) {
                 $member.path
             }
             else {
@@ -45,7 +48,8 @@ function Build-TrackGlobSets {
             if ($member.generated) {
                 [void] $exclude.Add($pattern)
             }
-            elseif (-not $member.glob) {
+            elseif (-not $member.glob -and $member.committed) {
+                # A file the repository does not hold never changes in a commit, so it triggers nothing.
                 [void] $include.Add($pattern)
             }
         }

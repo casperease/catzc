@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fd1c8477c683
+    with_body_sha: "53d4d5f346f8"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1241,7 +1241,8 @@ A Bicep configuration slot — one config file of a template (`<env>[-<slot>].ym
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 - **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
   `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, `yml slot`, `bicepparam slot`,
-  and the bare `slot`
+  `named slot`, `ephemeral slot`, `runtime slot`, `test slot`, `l3 slot`, `compiled slot`, `shipped slot`, `production slot`,
+  `foundation slot`, `discovery slot`, `expedition slot`, `hub slot`, `spoke slot`, and the bare `slot`
 
 ### spoke
 

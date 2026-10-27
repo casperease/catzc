@@ -100,7 +100,7 @@ function Get-ArmDeployedResource {
                         }
                     }
                 }
-                # A nested template starts its own copy scope: its copyIndex() names its own loops.
+                # A nested template numbers its own copy loops: its copyIndex() names its own loops.
                 Get-ArmDeployedResource -Template $resource.properties.template -Values $passed -Path "$Path/$label" -Conditional:$uncertain
                 continue
             }

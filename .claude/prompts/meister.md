@@ -24,6 +24,8 @@ While running:
   results XML. A false pass or a broken import stops the queue until its owner fixes it.
 - Run ListAgents before re-pinging a silent worker; never reassign a burst that is already running. An idle worker with no free chunk gets
   "stop".
+- A repeated idle-notice timestamp means the worker has not finished a new turn: it waits on a background run, or holds a message for my
+  approval in prompting mode. Do not re-ping it.
 - When new work arrives (my directive, a worker's finding), land it as open steps with checks in a plan: a new `plan-<topic>.md`, plus its
   row in value-of-plan.md and its line in plan-master.md. Batch the turn's plan edits into one Format-Code and Test-Plans run.
 - Steps that only I can take (git mv scripts, commits, case renames, VS Code checks) go in `task-user-runs-and-commits.md` as ready-to-run

@@ -21,9 +21,8 @@ function Get-GeneratedTarget {
     # The comment pages are Format-Code's output, one tree per page root.
     $pageRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($page in (Get-Config -Config comment-pages).pages) {
-        $root = $page.docs -replace '\{[^}]+\}', '*'
-        if ($pageRoots.Add($root)) {
-            [Catzc.Base.Variants.GeneratedTarget]::new("$root/**", 'Format-Code')
+        if ($pageRoots.Add($page.docs)) {
+            [Catzc.Base.Variants.GeneratedTarget]::new("$($page.docs)/**", 'Format-Code')
         }
     }
 

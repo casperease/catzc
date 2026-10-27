@@ -148,6 +148,11 @@ public static class GlossaryScan
         Catzc.Base.Objects.GlobPattern[] scope = source.Options.scope.Select(p => new Catzc.Base.Objects.GlobPattern(p)).ToArray();
         Catzc.Base.Objects.GlobPattern[] exclude = source.Options.exclude.Select(p => new Catzc.Base.Objects.GlobPattern(p)).ToArray();
         HashSet<string> surfaces = new HashSet<string>(source.Options.surfaces, StringComparer.OrdinalIgnoreCase);
+        // A front-matter key's segment is read with the markdown surface, and only when the source declares the key prose.
+        if (surfaces.Contains("markdown"))
+        {
+            foreach (string key in source.Options.front_matter_prose) { surfaces.Add(GlossaryProse.FrontMatterSurface + key); }
+        }
         foreach (string file in trackedFiles)
         {
             bool isMarkdown = file.EndsWith(".md", StringComparison.OrdinalIgnoreCase);

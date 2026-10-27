@@ -1,6 +1,6 @@
 Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
     BeforeAll {
-        # The compiled main.json of a template and, per slot, the resources it deploys by the compliance gate's evaluator.
+        # The compiled main.json of a template and, per slot, the resources it deploys by the compliance quality gate's evaluator.
         function script:Get-SlotResource {
             param([string] $Template)
             InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $Template } {

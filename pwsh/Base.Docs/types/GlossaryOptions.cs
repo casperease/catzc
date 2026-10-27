@@ -23,6 +23,9 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         ".claude/hindsight/**", ".claude/learnings/**"
     };
 
+    // The front-matter keys whose values are prose: every other key's value is an identifier or a registry entry.
+    public static readonly IReadOnlyList<string> DefaultFrontMatterProse = new[] { "description" };
+
     private static readonly Regex DriveRe = new Regex("^[A-Za-z]:", RegexOptions.Compiled);
 
     // The glossary checks this source's concepts take part in. Default: all of Checks.
@@ -37,6 +40,9 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
     // The text surfaces the scan reads. Default: all of Surfaces.
     public IReadOnlyList<string> surfaces { get; }
 
+    // The front-matter keys of a markdown file the scan reads as prose. Default: DefaultFrontMatterProse.
+    public IReadOnlyList<string> front_matter_prose { get; }
+
     public GlossaryOptions(IDictionary d)
     {
         List<string> errors = new List<string>();
@@ -46,9 +52,9 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
             foreach (object k in d.Keys)
             {
                 string key = k == null ? null : k.ToString();
-                if (key != "checks" && key != "scope" && key != "exclude" && key != "surfaces")
+                if (key != "checks" && key != "scope" && key != "exclude" && key != "surfaces" && key != "front_matter_prose")
                 {
-                    errors.Add(string.Format("options: unknown key '{0}' (allowed: checks, scope, exclude, surfaces)", key));
+                    errors.Add(string.Format("options: unknown key '{0}' (allowed: checks, scope, exclude, surfaces, front_matter_prose)", key));
                 }
             }
         }
@@ -56,6 +62,7 @@ public sealed class GlossaryOptions : Catzc.Base.Objects.DictionaryRecord
         checks = ClosedList(d, "checks", Checks, errors);
         surfaces = ClosedList(d, "surfaces", Surfaces, errors);
         scope = (d != null && d.Contains("scope")) ? GlobList(d, "scope", errors) : DefaultScope;
+        front_matter_prose = (d != null && d.Contains("front_matter_prose")) ? StrArr(d, "front_matter_prose") : DefaultFrontMatterProse;
 
         List<string> excludes = new List<string>(DefaultExclude);
         if (d != null && d.Contains("exclude"))

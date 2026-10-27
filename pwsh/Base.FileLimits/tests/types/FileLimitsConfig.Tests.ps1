@@ -128,6 +128,12 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         { $config.ResolveFile('a/b.unknown', $null) } | Should -Throw '*is unclassified*'
     }
 
+    It 'merges an extensions entry over the defaults, keeping every other default' {
+        $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ '.gadget' = 'config' } })
+        $config.ResolveFile('a/b.gadget', $null).file_class | Should -Be 'config'
+        $config.ResolveFile('a/b.csv', $null).file_class | Should -Be 'none'
+    }
+
     It 'rejects an override that is a path or names an undeclared class' {
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ 'widget/gadget' = 'config' } }) } |
             Should -Throw '*a bare file name*'

@@ -9,8 +9,6 @@ terms:
         the namespace, DDR-TRACK-MODULENAMESPACE)"
     - term: frontpage
       meaning: "the front page's config name, frontpage.yml in Catzc.Base.Docs, as Get-Config -Config frontpage names it"
-    - term: spawnable
-      meaning: "able to be spawned as a sub-agent; an agent file is spawnable only in a session started after it lands"
     - term: getcommandcontract
       meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
     - term: drsonly

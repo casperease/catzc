@@ -56,7 +56,7 @@ function Build-Bicep {
         $environment, $slotName = $runtime -split '-', 2
         $bases = @($targetSlots | Where-Object { $_.environment -eq $environment -and $_.slot -eq '' })
         if ($bases.Count -eq 0) {
-            throw "Runtime slot '$runtime' of template '$Template' has no base slot '$environment' among the selected slots"
+            throw "Runtime slot '$runtime' of template '$Template' has no base slot '$environment' among the slots selected"
         }
         foreach ($base in $bases) {
             $ephemeral = Resolve-BicepSlot -TemplateDescriptor $templateDescriptor -Environment $environment -Slot $slotName -Customer $base.customer

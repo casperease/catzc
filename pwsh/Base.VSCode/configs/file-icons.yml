@@ -31,6 +31,7 @@ icons:
   table: { label: CSV, color: "#3fb950", extensions: [csv, tsv] }
   text: { label: TXT, color: "#8c8c8c", extensions: [txt, log] }
   archive: { label: GZ, color: "#6b6b6b", extensions: [gz] }
+  lockfile: { label: LOCK, color: "#6b6b6b", extensions: [lock] }
   generated: { glyph: generated, color: "#6b6b6b", language: stamp, extensions: [frozen] }
   signature: { label: SIG, color: "#6b6b6b", extensions: [p7s] }
   license: { label: LIC, color: "#d4a72c", names: [LICENSE] }

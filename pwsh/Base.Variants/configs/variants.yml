@@ -54,7 +54,7 @@ tracks:
       members: [infrastructure],
       type: infrastructure,
       vendor: azure,
-      languages: [bicep, yaml, markdown],
+      languages: [bicep, yaml, markdown, powershell, json],
       kinds: { templates: infrastructure/templates, configs: "infrastructure/templates/*/configuration", modules: infrastructure/modules },
     }
   vendor_ado.pipelines: { members: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }
@@ -66,7 +66,7 @@ tracks:
     {
       members: [python, { path: .ruff_cache, committed: false }],
       type: modules,
-      languages: [python, html, markdown, xml, yaml],
+      languages: [python, html, markdown, xml, yaml, asset],
       namespace: catzc,
       join: _,
     }

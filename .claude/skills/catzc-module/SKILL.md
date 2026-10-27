@@ -32,7 +32,7 @@ metadata:
    cites the code lacks is deleted); an optional registry key lands with its type test case and its registry page in one pass, and a
    file-meta engine test follows the script-scope `Get-<Kind>FileMetaFact` precedent in `Invoke-FileMetaEngine.Tests.ps1`; a test reads a
    property over a maybe-empty result with `ForEach-Object <Property>`, since `@(…).Property` throws under strict mode.
-3. Edit one file, run its test file through catzc-gate, then the next; never a sweep; strict-mode clean; an ADR the code cites is read in
+3. Edit one file, run its test file through `catzc-gate`, then the next; never a sweep; strict-mode clean; an ADR the code cites is read in
    full first and cited by its full rule code, `ADR-<DOMAIN>-<ADR>-<RULE>`; a validation attribute also runs when the function reassigns its
    parameter, so put a computed default in a local; a new member goes after an existing member, never between a comment and its line, since
    the comments step moves the joined run onto the page; a C# type past its limit splits into public static helper types, never partial

@@ -39,4 +39,6 @@ metadata:
    regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the session's name, since peers' scripts
    share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats test or shell script hands to Windows
    tools goes through `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as `uv run --no-sync --project python python …`; a
-   word check pipes a scratch word list to `cspell stdin` in one call, since cspell skips every file under the ignored `out/`.
+   word check pipes a scratch word list to `cspell stdin` in one call, since cspell skips every file under the ignored `out/`. A "0
+   warnings" claim on bicep is proven only by `Test-BicepLint`, since bicep warns on stderr with exit 0, and a read-only check builds with
+   `Build-Bicep -OutputFolder`.

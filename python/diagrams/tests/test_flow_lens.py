@@ -25,6 +25,12 @@ def ids(model):
     return set(re.findall(r'<mxCell id="([^"]+)"', model))
 
 
+def found(pattern, model):
+    match = re.search(pattern, model)
+    assert match is not None, pattern
+    return match
+
+
 def flow_declaration(**content):
     return {
         "about": {"lens": "flow", "point": ".ado/pipelines/ci-widget.yml"},
@@ -76,15 +82,15 @@ def test_each_lane_draws_its_triggers_its_pipeline_its_templates_and_its_environ
 
 
 def test_an_environment_is_a_rhombus_and_a_word_is_an_embedded_image(sample_model):
-    env = re.search(r'<mxCell id="cd-widget-env-1"[^>]*style="([^"]*)"', sample_model).group(1)
+    env = found(r'<mxCell id="cd-widget-env-1"[^>]*style="([^"]*)"', sample_model).group(1)
     assert env.startswith("rhombus;")
-    word = re.search(r'<mxCell id="ci-widget-pipeline"[^>]*style="([^"]*)"', sample_model).group(1)
+    word = found(r'<mxCell id="ci-widget-pipeline"[^>]*style="([^"]*)"', sample_model).group(1)
     assert "shape=image" in word and "image=data:image/svg+xml," in word
 
 
 def test_a_rhombus_prints_its_occupant_commit_in_that_commits_state_colour(sample_model):
     def env(cid):
-        return re.search(rf'<mxCell id="{cid}" value="([^"]*)"[^>]*style="([^"]*)"', sample_model).groups()
+        return found(rf'<mxCell id="{cid}" value="([^"]*)"[^>]*style="([^"]*)"', sample_model).groups()
 
     value, style = env("cd-widget-env-1")
     assert value == "a1b2c3d" and style.startswith("rhombus;")  # the short sha, the rung's own state by default
@@ -107,7 +113,7 @@ def test_the_spanners_name_the_type_review_and_each_gated_environment(sample_mod
 
 
 def test_the_deploy_lane_is_pinned_to_its_cd_lane_and_the_full_flow_runs_from_o_to_0(sample_model):
-    edge = re.search(r'<mxCell id="e-deploy-widget-cd-widget"[^>]*>', sample_model).group(0)
+    edge = found(r'<mxCell id="e-deploy-widget-cd-widget"[^>]*>', sample_model).group(0)
     assert 'source="deploy-widget-pipeline"' in edge and 'target="cd-widget-pipeline"' in edge and "pins" in edge
     assert {"flow-start", "flow-end", "flow-line"} <= ids(sample_model)
 

@@ -16,6 +16,10 @@ public static class GlossaryProse
     static readonly Regex PathLabel = new Regex(@"\[[^\]\s]*/[^\]\s]*\.[A-Za-z0-9]+\]", RegexOptions.Compiled);
     // A reference-style link definition (`[3]: ../path.md`) holds a destination, not prose.
     static readonly Regex LinkDefinition = new Regex(@"^\s{0,3}\[[^\]]+\]:\s*\S+", RegexOptions.Compiled);
+    // A top-level front-matter key and its inline value; indented lines below it continue the value.
+    static readonly Regex FrontMatterKey = new Regex(@"^(?<key>[A-Za-z_][\w-]*):[ \t]*(?<value>.*)$", RegexOptions.Compiled);
+    // The surface of a front-matter key's segment: the prefix, then the key.
+    public const string FrontMatterSurface = "front-matter:";
     static readonly Regex HelpKeyword = new Regex(@"(?im)^\s*\.(SYNOPSIS|DESCRIPTION)\b", RegexOptions.Compiled);
     static readonly Regex Mentions = new Regex(Span("`", "`") + "|" + Span("\"", "\"") + "|" + Span("“", "”"), RegexOptions.Compiled);
     static readonly HashSet<string> Writers = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "Write-Message", "Write-Warning", "Write-Error", "Write-Host" };
@@ -44,14 +48,39 @@ public static class GlossaryProse
         // The meta block (the `catzc:` key and everything indented under it) holds derived facts and config, not prose.
         bool inFrontMatter = lines.Length > 1 && lines[0] == "---";
         bool inMeta = false;
+        // Every other front-matter key becomes its own segment, so a source reads only the keys it declares prose.
+        List<GlossarySegment> keys = new List<GlossarySegment>();
+        string key = null;
+        int keyLine = 0;
+        StringBuilder value = new StringBuilder();
         for (int i = 0; i < lines.Length; i++)
         {
             if (inFrontMatter && i > 0)
             {
-                if (lines[i] == "---") { inFrontMatter = false; inMeta = false; continue; }
+                if (lines[i] == "---")
+                {
+                    if (key != null) { keys.Add(Segment(FrontMatterSurface + key, keyLine, value.ToString())); }
+                    inFrontMatter = false;
+                    inMeta = false;
+                    continue;
+                }
                 if (lines[i] == "catzc:") { inMeta = true; lines[i] = string.Empty; continue; }
                 if (inMeta && lines[i].Length > 0 && char.IsWhiteSpace(lines[i][0])) { lines[i] = string.Empty; continue; }
                 inMeta = false;
+                Match pair = FrontMatterKey.Match(lines[i]);
+                if (pair.Success)
+                {
+                    if (key != null) { keys.Add(Segment(FrontMatterSurface + key, keyLine, value.ToString())); }
+                    key = pair.Groups["key"].Value;
+                    keyLine = i + 1;
+                    value.Clear().Append(pair.Groups["value"].Value);
+                }
+                else if (key != null)
+                {
+                    value.Append('\n').Append(lines[i]);
+                }
+                lines[i] = string.Empty;
+                continue;
             }
             Match marker = FenceMarker.Match(lines[i].TrimStart());
             if (fence == null)
@@ -73,7 +102,8 @@ public static class GlossaryProse
             if (marker.Success && marker.Value.StartsWith(fence, StringComparison.Ordinal)) { fence = null; }
             lines[i] = string.Empty;
         }
-        return new[] { new GlossarySegment("markdown", 1, RemoveMentions(string.Join("\n", lines))) };
+        keys.Insert(0, new GlossarySegment("markdown", 1, RemoveMentions(string.Join("\n", lines))));
+        return keys.ToArray();
     }
 
     public static GlossarySegment[] PowerShell(string path)

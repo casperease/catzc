@@ -59,7 +59,7 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $shipped = Get-Config -Config file-meta
         $shipped.head_policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
         @($shipped.ImprintKeys()) |
-            Should -Be @('docs') -Because 'an authored head shows its comment page and nothing else: no with_body_sha, no rule codes'
+            Should -BeNullOrEmpty -Because 'an authored file carries no head: its comment page is derived on demand, never imprinted'
         $shipped.PolicyFor('agent') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)

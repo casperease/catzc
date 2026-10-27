@@ -41,7 +41,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             $outcome.Changed | Should -Be @($script:widget)
             $outcome.Unfixable.Count | Should -Be 0
             [System.IO.File]::ReadAllText($script:widget) |
-                Should -BeLike "---`ncatzc:`n  shade: blue`n  header: `"generated`"`n---*# Widget*"
+                Should -BeLike "---`ncatzc:`n  shade: blue`n---*# Widget*"
         }
 
         It 'changes nothing under -DryRun, and still names the file it would change' {

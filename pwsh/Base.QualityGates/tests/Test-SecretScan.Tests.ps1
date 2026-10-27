@@ -14,14 +14,16 @@ Describe 'Test-SecretScan' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { $script:tracked }
         $script:config = [Catzc.Base.QualityGates.SecretPatternsConfig]::new(@{})
+        # Assembled at run time, so the tracked test file never carries a secret shape for the real-tree scan to find.
+        $script:plantedKey = 'AKIA' + 'WIDGETGADGET1234'
     }
 
     It 'fails on a planted key, naming the shape and the line, never the matched text' {
-        Set-WidgetFile 'widgets/gadget.ps1' "`$name = 'gadget'`n`$key = 'AKIAWIDGETGADGET1234'`n"
+        Set-WidgetFile 'widgets/gadget.ps1' "`$name = 'gadget'`n`$key = '$script:plantedKey'`n"
         $result = Test-SecretScan -Config $script:config -OutputFolder $script:out -PassThru
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -BeLike 'widgets/gadget.ps1:2: a aws-access-key*'
-        $result.Issues[0] | Should -Not -BeLike '*AKIAWIDGETGADGET1234*'
+        $result.Issues[0] | Should -Not -BeLike "*$script:plantedKey*"
         { Test-SecretScan -Config $script:config -OutputFolder $script:out } | Should -Throw '*Test-SecretScan failed: 1 issue(s)*'
     }
 
@@ -32,7 +34,7 @@ Describe 'Test-SecretScan' -Tag 'L0', 'logic' {
     }
 
     It 'leaves a declared skip path and a binary file unread' {
-        Set-WidgetFile 'widgets/tests/x/assets/sample.pem' "-----BEGIN PRIVATE KEY-----`n"
+        Set-WidgetFile 'widgets/tests/x/assets/sample.pem' ('-----BEGIN ' + "PRIVATE KEY-----`n")
         $binary = Join-Path $script:repo 'widgets/gadget.bin'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($binary))
         [System.IO.File]::WriteAllBytes($binary, [byte[]] @(0, 65, 75, 73, 65))

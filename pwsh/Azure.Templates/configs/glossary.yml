@@ -24,6 +24,19 @@ concepts:
         region,
         yml,
         bicepparam,
+        named,
+        ephemeral,
+        runtime,
+        test,
+        l3,
+        compiled,
+        shipped,
+        production,
+        foundation,
+        discovery,
+        expedition,
+        hub,
+        spoke,
       ]
   landing zone:
     key: landing_zone

@@ -12,6 +12,7 @@ categories:
       - "docs/references/pwsh/base-contracts/index.md"
       - "pwsh/Base.Drs/configs/drs.yml"
       - "pwsh/Base.FileLimits/types/FileLimitsConfig.cs"
+      - "pwsh/Base.QualityGates/Test-Spelling.ps1"
       - "docs/drs/repository/conventional-folders.md"
       - "pwsh/Base.VSCode/configs/file-icons.yml"
       - "pwsh/Base.Languages/configs/languages.yml"

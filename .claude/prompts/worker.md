@@ -16,6 +16,7 @@ For each chunk:
 - Change only the files the chunk names. Before editing a file another session has dirty, ask the orchestrator.
 - Swap C# and import-path changes in with Invoke-StagedBurst -Stage, and only when the orchestrator says it is your turn. Edit .ps1 and .yml
   in place, and parse-check each one.
+- Edit a template or import-run file only in a staged folder, never live mid-step, since a half edit breaks every peer's proof.
 - Verify with the tests of the files you touched. Report counts from the results-shard XML, never the verdict line.
 - Report to the orchestrator when the chunk lands: what changed, the counts, and anything left that is not yours. Then say you are idle.
 

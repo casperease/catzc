@@ -394,6 +394,10 @@
           "kind": "property"
         },
         {
+          "name": "front_matter_prose",
+          "kind": "property"
+        },
+        {
           "name": "scope",
           "kind": "property"
         },

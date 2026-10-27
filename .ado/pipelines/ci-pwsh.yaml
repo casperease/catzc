@@ -2,7 +2,7 @@ trigger:
   branches:
     include: [main]
   paths:
-    include: [pwsh/**]
+    include: [importer.ps1, pwsh/**]
     exclude:
       - pwsh/*/*.psd1
       - pwsh/*/README.md
@@ -17,7 +17,7 @@ pr:
   branches:
     include: [main]
   paths:
-    include: [pwsh/**]
+    include: [importer.ps1, pwsh/**]
     exclude:
       - pwsh/*/*.psd1
       - pwsh/*/README.md

@@ -285,8 +285,8 @@ subscription id cannot enter the tree unreviewed; a GUID is an identifier, not a
 never name a live identity ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 Deployment is staged: each CD pipeline deploys `foundation`, then `discovery`, then `expedition`, non-production before production, each
 through the service connection of its subscription and pinned by `-SubscriptionIdAssertIs`
-([az-session-verification](../az-session-verification.md)). The secret-scan gate (`Test-SecretScan`) fails a change that carries a key, a
-private key or a connection string with a password, and the Bicep linter gate (`Test-BicepLint`) checks every template and module. The
+([az-session-verification](../az-session-verification.md)). The secret-scan quality gate (`Test-SecretScan`) fails a change that carries a key, a
+private key or a connection string with a password, and the Bicep linter quality gate (`Test-BicepLint`) checks every template and module. The
 threat model of the templates is [threat-model](../../../references/infrastructure/threat-model.md). There is no dependency scan.
 
 Every config of the three templates sets the CAF tag `data-classification` beside `workload`, `environment`, `owner`, `cost-center`, and

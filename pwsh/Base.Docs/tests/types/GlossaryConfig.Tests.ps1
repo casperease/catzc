@@ -31,6 +31,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.concepts[0].avoid.Count | Should -Be 0
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
+        $c.options.front_matter_prose | Should -Be @('description')
         $c.options.scope | Should -Be @('**')
         $c.options.exclude | Should -Be @('docs/drs/external/dora/**', 'docs/references/dora/**', 'out/**', '.unordered/**',
             '**/.vendor/**', '.claude/plans/**', '.claude/hindsight/**', '.claude/learnings/**')

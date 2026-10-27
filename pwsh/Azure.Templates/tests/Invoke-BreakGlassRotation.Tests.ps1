@@ -12,7 +12,7 @@ Describe 'Invoke-BreakGlassRotation' -Tag 'L0', 'logic' {
                 )
             }
         }
-        # The cog slot has no Key Vault reference: a slot without a break-glass password.
+        # The slot of cog has no Key Vault reference: a slot without a break-glass password.
         Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates -RemoveParameterValidation Template, Environment, Customer, Slot -ParameterFilter { $Customer -eq 'cog' } {
             [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ administratorLoginPassword = [ordered]@{ value = 'not-a-reference' } } } }
         }

@@ -90,7 +90,7 @@ here. A module whose resource is free still costs where its traffic or data land
 - `subscription-diagnostic-setting.bicep` — free; the activity log it sends is ingested into Log Analytics at no charge.
 - `virtual-network.bicep`, `subnet.bicep`, `nsg.bicep`, `route-table.bicep` — free.
 - `vnet-peering.bicep` — data transferred per GB, inbound and outbound on each side, at a higher rate across regions.
-- `private-dns-zone.bicep` — hosted zones per zone per month, and DNS queries per million.
+- `private-dns-zone.bicep` — hosted DNS zones per zone per month, and DNS queries per million.
 - `private-endpoint.bicep` — per endpoint-hour, and data processed per GB, inbound and outbound.
 - `vm.bicep` — compute per hour by VM size (`Standard_B1s` by default), the managed OS disk per month by disk tier, and the public IP per
   hour; the NIC is free.

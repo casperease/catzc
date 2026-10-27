@@ -11,6 +11,9 @@ YAML mapping, snake_case keys
 - **`scope`** and **`exclude`** — where its avoided phrasings are scanned. The default excludes (external language, generated output,
   vendored code) are always added to a source's own, so no source can scan DORA's research text or `out/`.
 - **`surfaces`** — which kinds of text are read there.
+- **`front_matter_prose`** — which front-matter keys of a markdown file are read as prose, with the markdown surface; default
+  `[description]`. Every other key's value is an identifier or a registry entry (a skill's `name:` equals its folder name), so a name such
+  as `catzc-gate` is never read as a use of a term.
 
 Scope and exclude globs are repo-relative: '/'-separated, no leading '/', no drive, no '..', never a URL
 ([ADR-REPO-VOCAB-SOURCESINREPOSITORY](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)).

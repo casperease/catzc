@@ -38,7 +38,7 @@ Describe 'Test-BicepOrphans' -Tag 'L0', 'logic' {
     }
 
     It 'passes when every resource group of the org in the subscription comes from a template config' {
-        $script:derived.Count | Should -BeGreaterThan 0 -Because 'the fixture subscription must serve at least one resource-group slot'
+        $script:derived.Count | Should -BeGreaterThan 0 -Because 'the fixture subscription must serve at least one slot deployed to a resource group'
         $result = Test-BicepOrphans -PassThru -OutputFolder (Join-Path $TestDrive 'orphans')
         $result.IssueCount | Should -Be 0
         $result.Facts['Expected'] | Should -Be $script:derived.Count

@@ -60,10 +60,10 @@ Checking that a template is internally consistent and conforms to the model — 
 serving the right environments, that its class and slots are valid, that its name renders within budget, and that every parameters file it
 renders satisfies the parameter model of its compiled `main.json` (see
 [data-model](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run
-across every shipped template. Three gates hold the compiled templates and the configuration tree to the landing-zone rules: the compliance
-gate (CAF tags, a diagnostic setting per data kind, public access off, TLS 1.2, production zone redundancy, against a ratchet of known
-findings), the names gate (a slot never writes a name its template derives from the namer), and the orphans gate (a resource group no config
-derives).
+across every shipped template. Three quality gates hold the compiled templates and the configuration tree to the landing-zone rules: the compliance
+quality gate (CAF tags, a diagnostic setting per data kind, public access off, TLS 1.2, availability zone redundancy in production, against a
+ratchet of known findings), the names quality gate (a slot never writes a name its template derives from the namer), and the orphans quality
+gate (a resource group no config derives).
 
 ## What the module does
 

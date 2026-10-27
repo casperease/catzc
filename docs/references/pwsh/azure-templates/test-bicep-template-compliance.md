@@ -7,7 +7,7 @@ it cannot resolve reported rather than passed.
 
 ### synopsis
 
-Checks the CAF tags, diagnostic settings, public network access, TLS minimum and production zone redundancy of every compiled template slot.
+Checks the CAF tags, diagnostic settings, public network access, TLS minimum and, in production, the availability zone redundancy of every compiled template slot.
 
 ### description
 

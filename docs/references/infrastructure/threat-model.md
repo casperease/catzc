@@ -23,7 +23,7 @@ are the [Azure ADRs](../../drs/azure/).
 ## Tampering
 
 - Holds: every resource is declared in Bicep under version control, so a change is a reviewed commit; the Bicep linter and the API-version
-  gate check every template and module (`Test-BicepLint`, `Test-BicepApiVersions`); each deploy tags its target with the commit, the build
+  quality gate check every template and module (`Test-BicepLint`, `Test-BicepApiVersions`); each deploy tags its target with the commit, the build
   id and the branch, so drift from the tree can be traced.
 - Open: no what-if runs before a pipeline deploy, so a deploy's effect is not shown before it applies.
 
@@ -36,7 +36,7 @@ are the [Azure ADRs](../../drs/azure/).
 
 - Holds: a secure parameter is a Key Vault reference, never a literal, and the parameter contract is checked on every rendered parameters
   file; the vault, the storage account and the SQL server have public network access off and are reached through private endpoints; the
-  `discovery` policies deny storage and SQL with public network access and a public IP on a network interface; the secret-scan gate
+  `discovery` policies deny storage and SQL with public network access and a public IP on a network interface; the secret-scan quality gate
   (`Test-SecretScan`) fails a change that carries a key, a private key or a connection string with a password.
 - Open: no dependency scan checks the pinned tools and lock files against advisories.
 

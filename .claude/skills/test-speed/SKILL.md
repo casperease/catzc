@@ -1,7 +1,7 @@
 ---
 name: test-speed
 description: >
-  Make the test suite faster one measured file at a time by the ADR-AUTO-TEST speed rules, without losing a test or an assertion; the
+  Make all tests faster one measured file at a time by the ADR-AUTO-TEST speed rules, without losing a test or an assertion; the
   timeouts.yml limits are roofs, never raised; input is a test run, or a named slow test file.
 user-invocable: false
 allowed-tools: Bash, Read, Grep, Edit, Write
@@ -18,7 +18,7 @@ metadata:
 1. Quote the roofs from `pwsh/Base.Timeouts/configs/timeouts.yml` (`tests.run_seconds`, `tests.level_ms`, `limits.devbox.bash.background`);
    measure from the latest `out/test-automation/<run>/` (`results-shard-*.xml`, `rows-shard-*.json`): per-file, per-module and per-shard
    seconds, the slowest 25 tests with tier, every test over its tier's `level_ms`; never start a full `Test-Automation` run.
-2. Take the costliest file not yet worked on, skipping a peer-dirty one; run it alone twice with `Invoke-TestFile` through catzc-gate and
+2. Take the costliest file not yet worked on, skipping a peer-dirty one; run it alone twice with `Invoke-TestFile` through `catzc-gate` and
    keep the second timing; time `BeforeAll`, `BeforeEach` and each `It` with a Stopwatch in a scratch copy under `out/`, count process
    launches, imports and per-test cache rebuilds, find `Get-ChildItem`, `Copy-Item -Recurse`, `New-Item`, `Set-Content` on hot paths and
    repository-wide scans where one file would do; name the cause in one sentence with its evidence (ADR-AUTO-TEST-MEASUREFIRST).

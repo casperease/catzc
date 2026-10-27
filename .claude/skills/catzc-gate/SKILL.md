@@ -12,7 +12,7 @@ metadata:
       needs: [pwsh]
 ---
 
-# catzc-gate
+# `catzc-gate`
 
 Run the gates the brief names and report each verdict as seen; read-only: never fix, never retry larger, never claim a pass unseen.
 
