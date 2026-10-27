@@ -40,6 +40,13 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[filter(parameters('missing'), lambda('x', true()))]", @{})) | Should -BeTrue
     }
 
+    It 'builds an object by createObject, as Bicep wraps a conditional module parameter, read through an index chosen by a parameter' {
+        $parameters = @{ open = $false; owner = @{ id = 'gadget' }; widgets = @{ gadget = @{ address = '10.0.0.4' } } }
+        $wrapped = & $eval "[if(parameters('open'), createObject('value', 'none'), createObject('value', parameters('widgets')[parameters('owner').id].address))]" $parameters
+        $wrapped.value | Should -Be '10.0.0.4'
+        & $isUnresolved (& $eval "[createObject('value')]") | Should -BeTrue
+    }
+
     It 'reads a property or key of an object, an index of a list, and copyIndex() inside its loop' {
         $parameters = @{ names = [ordered]@{ cpu = 'widget-alrt'; storage = 'gadget-alrt' }; kinds = @('cpu', 'storage') }
         [Catzc.Azure.Templates.ArmExpression]::Evaluate("[parameters('names').cpu]", $parameters) | Should -Be 'widget-alrt'
@@ -55,6 +62,20 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
     It 'stops a variable that names itself instead of recursing forever' {
         $loop = @{ widget = "[variables('widget')]" }
         & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('widget')]", @{}, $loop)) | Should -BeTrue
+    }
+
+    It 'takes the branch an if() condition picks, whatever the other branch is' {
+        [Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(true(), 'widget', reference('gadget').id)]", @{}) | Should -Be 'widget'
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(false(), 'widget', reference('gadget').id)]", @{})) | Should -BeTrue
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[if(parameters('missing'), 'widget', 'gadget')]", @{})) | Should -BeTrue
+    }
+
+    It 'expands a for-variable from variables.copy, one input per index' {
+        $variables = @{ copy = @(@{ name = 'routes'; count = "[length(parameters('hops'))]"; input = @{ hop = "[parameters('hops')[copyIndex('routes')]]" } }) }
+        $routes = [Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('routes')]", @{ hops = @('widget', 'gadget') }, $variables)
+        $routes.Count | Should -Be 2
+        $routes[1].hop | Should -Be 'gadget'
+        & $isUnresolved ([Catzc.Azure.Templates.ArmExpression]::Evaluate("[variables('missing')]", @{}, $variables)) | Should -BeTrue
     }
 
     It 'is unresolved outside the subset, never a guess' {
