@@ -14,8 +14,6 @@ is planned here, one step each, so no record carries a planned item.
 
 ## Open steps
 
-- [ ] Policy enforcement derived from the subscription a slot targets (a prod subscription takes production enforcement), so the `discovery`
-      slots stop addressing `global.azure.policy_enforcement.*` by hand. Check: build-params identical for every `discovery` slot.
 - [ ] A health model per workload, its tool chosen when the work begins. Check: the health model is deployed with the workload.
 - [ ] Role assignments as code, after catzc-ab's `addresses:` map in options.yml lands: a new `modules/role-assignment.bicep` (scope kind
       subscription | resourceGroup | storageAccount | keyVault | sqlServer | workspace, like `lock.bicep`; principalType Group |
