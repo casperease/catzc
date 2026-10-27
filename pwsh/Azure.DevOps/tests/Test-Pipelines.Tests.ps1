@@ -1,6 +1,6 @@
 BeforeAll {
     # The deploys of one pipeline YAML, and those whose step just before is not the same command with -DryRun.
-    $script:findUnpreviewed = {
+    $script:findDeploysWithoutDryRun = {
         param([string] $Path)
         $command = {
             param($Step)
@@ -39,12 +39,12 @@ BeforeAll {
     # The deploy targets of one pipeline YAML (every mapping that pins a subscription) whose subscription is in the production list.
     $script:findProductionTargets = {
         param([string] $Path, [string[]] $ProductionSubscriptionIds)
-        $found = [System.Collections.Generic.List[string]]::new()
+        $targets = [System.Collections.Generic.List[pscustomobject]]::new()
         $walk = {
             param($Node)
             if ($Node -is [System.Collections.IDictionary]) {
-                if ($Node.Contains('subscriptionIdAssertIs') -and "$($Node['subscriptionIdAssertIs'])" -in $ProductionSubscriptionIds) {
-                    $found.Add("$($Node['env'])")
+                if ($Node.Contains('subscriptionIdAssertIs')) {
+                    $targets.Add([pscustomobject]@{ Subscription = "$($Node['subscriptionIdAssertIs'])"; Env = "$($Node['env'])" })
                 }
                 foreach ($value in $Node.Values) {
                     & $walk $value
@@ -57,7 +57,7 @@ BeforeAll {
             }
         }
         & $walk (ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Path)) -Ordered)
-        [string[]] $found
+        [string[]] @($targets | Where-Object { $_.Subscription -in $ProductionSubscriptionIds } | ForEach-Object { $_.Env })
     }
 
     # The ids of the subscriptions that host a production environment, or stage for one, as azure.yml declares them.
@@ -224,7 +224,7 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
     }
 
     It 'previews every deploy with a what-if: each Deploy-Bicep step follows its own -DryRun sibling' {
-        $found = & $script:findUnpreviewed (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
+        $found = & $script:findDeploysWithoutDryRun (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
         $found.Deploys | Should -BeGreaterThan 0
         $found.Missing | Should -BeNullOrEmpty -Because 'a pipeline deploy previews its effect with Deploy-Bicep -DryRun first'
     }
@@ -233,15 +233,16 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
         $ids = & $script:productionSubscriptionIds
         $ids | Should -Not -BeNullOrEmpty
         $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
-        $offenders = foreach ($file in Get-ChildItem -LiteralPath $root -Filter '*.yaml' -File -Recurse) {
-            $targets = @(& $script:findProductionTargets $file.FullName $ids)
-            if ($targets.Count -gt 0 -and $file.Name -notlike 'deploy-*.yaml') {
-                "$($file.Name): $($targets -join ', ')"
+        $offenders = foreach ($file in Get-ChildPath $root -File -Filter '*.yaml' -Depth 4) {
+            $targets = @(& $script:findProductionTargets $file $ids)
+            $name = [System.IO.Path]::GetFileName($file)
+            if ($targets.Count -gt 0 -and $name -notlike 'deploy-*.yaml') {
+                "${name}: $($targets -join ', ')"
             }
         }
         @($offenders) | Should -BeNullOrEmpty -Because 'progression toward prod leaves CD and enters DEPLOY (FDR-CD-PRODPROGRESSIONISDEPLOY)'
-        $deploys = @(Get-ChildItem -LiteralPath $root -Filter 'deploy-*.yaml' -File | Where-Object {
-                @(& $script:findProductionTargets $_.FullName $ids).Count -gt 0
+        $deploys = @(Get-ChildPath $root -File -Filter 'deploy-*.yaml' -Depth 1 | Where-Object {
+                @(& $script:findProductionTargets $_ $ids).Count -gt 0
             })
         $deploys | Should -Not -BeNullOrEmpty -Because 'some DEPLOY pipeline carries the production rung'
     }
@@ -249,17 +250,18 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
     It 'gives every production DEPLOY a rollback target that runs the prod path, certified by a production environment''s history' {
         $ids = & $script:productionSubscriptionIds
         $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
-        foreach ($file in Get-ChildItem -LiteralPath $root -Filter 'deploy-*.yaml' -File) {
+        foreach ($path in Get-ChildPath $root -File -Filter 'deploy-*.yaml' -Depth 1) {
+            $file = [System.IO.FileInfo] $path
             if (@(& $script:findProductionTargets $file.FullName $ids).Count -eq 0) {
                 continue
             }
             $yaml = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($file.FullName)) -Ordered
-            $target = @($yaml['parameters'] | Where-Object { $_['name'] -eq 'Target' })[0]
+            $target = $yaml['parameters'] | Where-Object { $_['name'] -eq 'Target' } | Select-Object -First 1
             $target['values'] | Should -Contain 'rollback' -Because "$($file.Name) carries a production rung"
             $keys = @($yaml['stages'] | ForEach-Object { $_.Keys })
             $keys | Should -Contain "`${{ if in(parameters.Target, 'prod', 'rollback') }}" -Because 'a rollback runs the one prod path'
-            $first = @($yaml['stages'] | Where-Object { $_.Contains("`${{ if in(parameters.Target, 'prod', 'rollback') }}") })[0]
-            $stage = @($first["`${{ if in(parameters.Target, 'prod', 'rollback') }}"])[0]['parameters']
+            $first = $yaml['stages'] | Where-Object { $_.Contains("`${{ if in(parameters.Target, 'prod', 'rollback') }}") } | Select-Object -First 1
+            $stage = ($first["`${{ if in(parameters.Target, 'prod', 'rollback') }}"] | Select-Object -First 1)['parameters']
             $certified = $stage["`${{ if eq(parameters.Target, 'rollback') }}"]
             $certified | Should -Not -BeNullOrEmpty -Because "$($file.Name) asserts the earlier commit ran in production before it redeploys it"
             "$($certified['CertifiedBy'])" | Should -Not -BeNullOrEmpty
@@ -313,15 +315,15 @@ Describe 'the what-if guard on pipeline deploys' -Tag 'L0', 'logic' {
     }
 
     It 'flags a Deploy-Bicep step with no -DryRun sibling before it' {
-        $found = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Environment widget -Template gadget'))
+        $found = & $script:findDeploysWithoutDryRun (& $script:widgetYaml @('Deploy-Bicep -Environment widget -Template gadget'))
         $found.Deploys | Should -Be 1
         $found.Missing | Should -Be @('Deploy-Bicep -Environment widget -Template gadget')
     }
 
     It 'flags a sibling that previews another command, and passes the matching one' {
-        $other = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Template sprocket -DryRun', 'Deploy-Bicep -Template gadget'))
+        $other = & $script:findDeploysWithoutDryRun (& $script:widgetYaml @('Deploy-Bicep -Template sprocket -DryRun', 'Deploy-Bicep -Template gadget'))
         $other.Missing | Should -Be @('Deploy-Bicep -Template gadget')
-        $match = & $script:findUnpreviewed (& $script:widgetYaml @('Deploy-Bicep -Template gadget -DryRun', 'Deploy-Bicep -Template gadget'))
+        $match = & $script:findDeploysWithoutDryRun (& $script:widgetYaml @('Deploy-Bicep -Template gadget -DryRun', 'Deploy-Bicep -Template gadget'))
         $match.Missing | Should -BeNullOrEmpty
     }
 }
