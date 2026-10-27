@@ -14,3 +14,6 @@ names:
   networkResourceGroupName: { type: rg, template: discovery }
   virtualNetworkName: { type: vnet, template: discovery }
   privateDnsZoneResourceGroupName: { type: rg, template: discovery, owner_slot: hub }
+# The role the action group notifies, from roles.yml; a slot never writes it.
+addresses:
+  ownerRoleId: global.roles.roles.owner.id

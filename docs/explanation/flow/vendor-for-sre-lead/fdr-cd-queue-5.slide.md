@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../flow/.assets/a-merge-runs-cd-to-prod.drawio.png
+      source: ../../flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -28,8 +28,8 @@ from code.
 
 ## Caption
 
-From the catalogue, reduced: a merge runs cd to prod.
+From the catalogue, reduced: a merge runs cd through non-prod.
 
 ## Notes
 
-Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-to-prod.drawio.png.
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png.

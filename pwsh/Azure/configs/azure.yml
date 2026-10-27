@@ -91,6 +91,44 @@ subscriptions:
       - test
       - nsub
 
+# The Entra groups the templates assign built-in roles to, never a user: shared for the shared subscriptions, else the customer key, then
+# the environment class. The ids are placeholders: replace them with the tenant's real group object ids.
+groups:
+  shared:
+    nonproduction:
+      readers: 50a0ed00-de00-0000-0000-00000000000a
+      operators: 50a0ed00-de00-0000-0000-00000000000b
+      data_readers: 50a0ed00-de00-0000-0000-00000000000c
+      data_writers: 50a0ed00-de00-0000-0000-00000000000d
+    production:
+      readers: 50a0ed00-000d-0000-0000-00000000000a
+      operators: 50a0ed00-000d-0000-0000-00000000000b
+      data_readers: 50a0ed00-000d-0000-0000-00000000000c
+      data_writers: 50a0ed00-000d-0000-0000-00000000000d
+  apex:
+    nonproduction:
+      readers: a0e00000-de00-0000-0000-00000000000a
+      operators: a0e00000-de00-0000-0000-00000000000b
+      data_readers: a0e00000-de00-0000-0000-00000000000c
+      data_writers: a0e00000-de00-0000-0000-00000000000d
+    production:
+      readers: a0e00000-000d-0000-0000-00000000000a
+      operators: a0e00000-000d-0000-0000-00000000000b
+      data_readers: a0e00000-000d-0000-0000-00000000000c
+      data_writers: a0e00000-000d-0000-0000-00000000000d
+  nova:
+    nonproduction:
+      readers: 000a0000-de00-0000-0000-00000000000a
+      operators: 000a0000-de00-0000-0000-00000000000b
+      data_readers: 000a0000-de00-0000-0000-00000000000c
+      data_writers: 000a0000-de00-0000-0000-00000000000d
+  flux:
+    nonproduction:
+      readers: f1000000-de00-0000-0000-00000000000a
+      operators: f1000000-de00-0000-0000-00000000000b
+      data_readers: f1000000-de00-0000-0000-00000000000c
+      data_writers: f1000000-de00-0000-0000-00000000000d
+
 tags:
   keys:
     workload: []

@@ -14,7 +14,10 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
     private static readonly string[] RequiredKeys = { "org", "tenants", "subscriptions", "environments" };
 
-    private static readonly string[] AllowedKeys = { "org", "tenants", "subscriptions", "environments", "policy_enforcement", "tags" };
+    private static readonly string[] AllowedKeys = { "org", "tenants", "subscriptions", "environments", "policy_enforcement", "tags", "groups" };
+
+    // The owner key of the groups the shared subscriptions' slots take; every other owner key is a customer key.
+    public const string SharedGroupOwner = "shared";
 
     // The keys of policy_enforcement: the production environments and every other environment.
     private static readonly string[] PolicyEnforcementKeys = { "production", "nonproduction" };
@@ -43,6 +46,10 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The tag schema; a file without a tags section takes AzureTagSchema's defaults.
     public AzureTagSchema tags { get; }
+
+    // The Entra groups the templates assign roles to, by owner (shared or a customer key), then environment class (production,
+    // nonproduction). Empty when the file has no groups section: the templates then assign no role.
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, AzureGroupSet>> groups { get; }
 
     public AzureConfig(IDictionary d)
     {
@@ -82,6 +89,7 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
 
         policy_enforcement = PolicyEnforcement(d, errors);
         tags = new AzureTagSchema(d.Contains("tags") ? d["tags"] : null, errors);
+        groups = Groups(d, errors);
 
         CheckShortcodes(errors);
         CheckReferences(errors);
@@ -126,6 +134,44 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
             else { modes[key] = mode; }
         }
         return new ReadOnlyDictionary<string, string>(modes);
+    }
+
+    // Owner, then class, then the group set; an owner is shared or a lower-case key, and a class is a policy_enforcement key.
+    private static IReadOnlyDictionary<string, IReadOnlyDictionary<string, AzureGroupSet>> Groups(IDictionary d, List<string> errors)
+    {
+        Dictionary<string, IReadOnlyDictionary<string, AzureGroupSet>> owners =
+            new Dictionary<string, IReadOnlyDictionary<string, AzureGroupSet>>(StringComparer.Ordinal);
+        if (!d.Contains("groups")) { return owners; }
+        IDictionary map = d["groups"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add("groups must be a map of owner (shared or a customer key) to environment class to group role");
+            return owners;
+        }
+        foreach (object k in map.Keys)
+        {
+            string owner = Text(k);
+            if (!Regex.IsMatch(owner, IdentifierPattern))
+            {
+                errors.Add(string.Format("groups: owner '{0}' is invalid (shared or a customer key)", owner));
+                continue;
+            }
+            IDictionary classes = map[k] as IDictionary;
+            if (classes == null)
+            {
+                errors.Add(string.Format("groups.{0} must be a map of environment class ({1}) to group role", owner, string.Join(", ", PolicyEnforcementKeys)));
+                continue;
+            }
+            UnknownKeys(classes, PolicyEnforcementKeys, "groups." + owner, errors);
+            Dictionary<string, AzureGroupSet> sets = new Dictionary<string, AzureGroupSet>(StringComparer.Ordinal);
+            foreach (string environmentClass in PolicyEnforcementKeys)
+            {
+                if (!classes.Contains(environmentClass)) { continue; }
+                sets[environmentClass] = new AzureGroupSet("groups." + owner + "." + environmentClass, classes[environmentClass] as IDictionary, errors);
+            }
+            owners[owner] = new ReadOnlyDictionary<string, AzureGroupSet>(sets);
+        }
+        return owners;
     }
 
     private void CheckShortcodes(List<string> errors)

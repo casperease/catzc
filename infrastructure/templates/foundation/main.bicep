@@ -15,6 +15,9 @@ param costExportRetentionDays int = 400
 @description('The subscription\'s action group, addressed to its Owner role; every alert of the subscription notifies it.')
 param actionGroupName string
 
+@description('The Owner role id the action group notifies, roles.yml by config address (options.yml addresses).')
+param ownerRoleId string
+
 @description('Days the workspace keeps its logs (30-730): a config value per environment class, longer in production.')
 @minValue(30)
 @maxValue(730)
@@ -159,6 +162,9 @@ module actionGroup '../../modules/action-group.bicep' = {
   params: {
     name: actionGroupName
     shortName: 'owner'
+    roleIds: [
+      ownerRoleId
+    ]
     tags: tags
   }
 }

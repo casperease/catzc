@@ -42,11 +42,16 @@ is planned here, one step each, so no record carries a planned item.
       `cd-customer.yaml`). Check: the connection listing names each subscription's landing-zone, read-only and workload connections, and an
       L1 that every `serviceConnection` in `.ado/pipelines` resolves to a derived connection whose identity fits what its stage deploys
       (landing-zone for foundation and discovery, workload for expedition, read-only for `-DryRun` previews).
-- [ ] Defender for Cloud as a landing-zone resource, a benchmark initiative in audit mode, and a policy denying resource types outside the
-      shared modules; Defender for Cloud plans for the services in use and SQL server auditing to the workspace. Check: the compliance
-      evaluator finds the benchmark assignment, the Defender plans and the auditing in the compiled templates.
-- [ ] The firewall egress narrows `Storage` to the region's tag, its form taken from the Azure service-tag documentation. Check: the
-      compliance evaluator finds the regional tag in the compiled firewall policy's storage rule.
+- [ ] Defender for Cloud as a landing-zone resource and the benchmark initiative in audit mode (built with the discovery wiring; SQL server
+      auditing now through `sql-server.bicep`'s required `auditWorkspaceId`, `sql-audit.bicep` deleted, verdict 2026-10-27 burst:
+      Test-BicepLint on the touched paths, Test-BicepApiVersions, Build-Bicep.Integrity and Test-BicepTemplateCompliance passed). Check:
+      Discovery.Security.Tests (Defender pricings, benchmark assignment `DoNotEnforce`) and Alerts.Tests (one auditing setting per
+      expedition slot) pass offline on the compiled templates; ADR-AZ-LZ-CAFSECURITY, ADR-AZ-LZ-GOVERNANCELIMITS and the well-architected
+      page's "no external benchmark" passage are rewritten to match.
+- [ ] The firewall egress narrows `Storage` to the region's tag: `NetworkFirewallEgress`'s default `Storage.{region}`, which
+      `firewall-policy.bicep` fills with its location (in HEAD; the working tree's type was restored to `Storage` by a failed burst, staged
+      copy kept in drone-opus's scratchpad `s2`). Check: HubFirewall.Tests' "regional Storage.<region> tag" case and NetworkConfig.Tests
+      pass in one staged burst with the type swapped in, once the peer's CostMeter/CostModelConfig types compile.
 - [x] Rollback by deploying an earlier commit's artifact. Check: a pipeline test that every production DEPLOY offers `rollback` on its prod
       path, certified by a production environment's deployment history. Verdict (2026-10-27): `deploy-apex.yaml` and `deploy-shared.yaml`
       gained `Target: rollback`; Test-Pipelines.Tests passed, 23 of 23.
@@ -102,8 +107,7 @@ is planned here, one step each, so no record carries a planned item.
       Discovery.FlowLog passed, 6 of 6.
 - [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time fact;
       design first). Check: a new module's type is allowed without editing a list.
-- [ ] Expedition: `auditWorkspaceId` on its `sql-server.bicep` call (ask catzc-ab first, after the data-role burst); each template article's
-      "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least the estimate times `headroom`.
+- [ ] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least the estimate times `headroom`.
       Check: the L1 case reads 0, offline from the checked-in price table.
 - [x] A DEPLOY pipeline with staged production promotion, so the CD stage deploys no production. Check: no pipeline deploys production in
       the CD stage. Verdict (2026-10-27): `cd-apex.yaml` and `cd-shared.yaml` dropped their prod-subscription targets (psub, prod);

@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../flow/.assets/a-merge-runs-cd-to-prod.drawio.png
+      source: ../../flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png
       scale: 0.4
 ---
 
@@ -26,8 +26,8 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Caption
 
-From the catalogue, reduced: a merge runs cd to prod.
+From the catalogue, reduced: a merge runs cd through non-prod.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-to-prod.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png.

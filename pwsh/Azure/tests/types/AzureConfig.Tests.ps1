@@ -328,6 +328,37 @@ Describe 'AzureConfig' -Tag 'L0' {
             { & $script:make $bad } | Should -Throw '*policy_enforcement must be a map*'
         }
 
+        It 'defaults groups to empty when the file omits them' -Tag 'ADR-AZ-LZ-CAFIDENTITY' {
+            $config = & $script:make (Copy-Object $baseConfig)
+            $config.groups.Count | Should -Be 0
+        }
+
+        It 'reads groups by owner and environment class, an absent role null' -Tag 'ADR-AZ-LZ-CAFIDENTITY' {
+            $ok = Copy-Object $baseConfig
+            $ok.groups = [ordered]@{ widget = [ordered]@{ production = [ordered]@{ readers = '0a000000-0000-0000-0000-00000000000a' } } }
+            $config = & $script:make $ok
+            $config.groups['widget']['production'].readers | Should -Be '0a000000-0000-0000-0000-00000000000a'
+            $config.groups['widget']['production'].operators | Should -BeNullOrEmpty
+            $config.groups['widget'].ContainsKey('nonproduction') | Should -BeFalse
+        }
+
+        It 'rejects an unknown class, an unknown role and a non-GUID id in one throw' -Tag 'ADR-AZ-LZ-CAFIDENTITY' {
+            $bad = Copy-Object $baseConfig
+            $bad.groups = [ordered]@{ widget = [ordered]@{ staging = @{}; production = [ordered]@{ owners = '0a000000-0000-0000-0000-00000000000a'; readers = 'gadget' } } }
+            $err = { & $script:make $bad } | Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*groups.widget: unknown key 'staging'*"
+            $err.Exception.Message | Should -BeLike "*groups.widget.production: unknown key 'owners'*"
+            $err.Exception.Message | Should -BeLike "*groups.widget.production.readers: 'gadget' is not an Entra group object id*"
+        }
+
+        It 'rejects groups that are not a map, and an invalid owner' -Tag 'ADR-AZ-LZ-CAFIDENTITY' {
+            $bad = Copy-Object $baseConfig
+            $bad.groups = 'widget'
+            { & $script:make $bad } | Should -Throw '*groups must be a map*'
+            $bad.groups = [ordered]@{ 'Widget-1' = @{} }
+            { & $script:make $bad } | Should -Throw "*groups: owner 'Widget-1' is invalid*"
+        }
+
         It 'reports every violation in one throw' {
             $bad = Copy-Object $baseConfig
             $bad.org = 'TOOLONG'

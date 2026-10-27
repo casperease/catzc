@@ -18,6 +18,10 @@
           "kind": "property"
         },
         {
+          "name": "groups",
+          "kind": "property"
+        },
+        {
           "name": "org",
           "kind": "property"
         },
@@ -120,6 +124,29 @@
         },
         {
           "name": "staging_for",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.AzureGroupSet",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "data_readers",
+          "kind": "property"
+        },
+        {
+          "name": "data_writers",
+          "kind": "property"
+        },
+        {
+          "name": "operators",
+          "kind": "property"
+        },
+        {
+          "name": "readers",
           "kind": "property"
         }
       ]

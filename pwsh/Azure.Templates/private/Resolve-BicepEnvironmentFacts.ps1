@@ -21,7 +21,7 @@ function Resolve-BicepEnvironmentFacts {
     $environment = $environments[$Slot.environment]
     foreach ($parameter in @($TemplateDescriptor.facts.Keys)) {
         $field = $TemplateDescriptor.facts[$parameter]
-        $facts[$parameter] = if ($field -cin 'policy_enforcement', 'subscription_production') {
+        $facts[$parameter] = if ($field -cin 'policy_enforcement', 'subscription_production', 'groups') {
             # The subscription's class, not the slot environment's: a subscription that holds a production environment is production.
             if (-not $azure.subscriptions.ContainsKey($Slot.subscription)) {
                 throw "facts of template '$($TemplateDescriptor.name)': slot '$($Slot.name)' targets subscription '$($Slot.subscription)', which azure.yml does not declare"
@@ -39,7 +39,31 @@ function Resolve-BicepEnvironmentFacts {
                 else {
                     'nonproduction'
                 }
-                $azure.policy_enforcement[$class]
+                if ($field -ceq 'groups') {
+                    # The slot's owner's groups in the subscription's class; a role with no group is empty, and the template assigns nothing to it.
+                    $owner = if ($Slot.customer) {
+                        $Slot.customer
+                    }
+                    else {
+                        [Catzc.Azure.AzureConfig]::SharedGroupOwner
+                    }
+                    $set = if ($azure.groups.ContainsKey($owner) -and $azure.groups[$owner].ContainsKey($class)) {
+                        $azure.groups[$owner][$class]
+                    }
+                    $groups = [ordered]@{}
+                    foreach ($role in [Catzc.Azure.AzureGroupSet]::GroupRoles) {
+                        $groups[$role] = if ($set) {
+                            "$($set.$role)"
+                        }
+                        else {
+                            ''
+                        }
+                    }
+                    $groups
+                }
+                else {
+                    $azure.policy_enforcement[$class]
+                }
             }
         }
         else {

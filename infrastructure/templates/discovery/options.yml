@@ -6,6 +6,11 @@ facts:
   policyEnforcementMode: policy_enforcement
   # A production hub spreads its firewall over the region's zones.
   productionSubscription: subscription_production
+  # The Entra groups of the slot's owner (shared or its customer) in the subscription's class; the subscription's role assignments go to them.
+  groups: groups
+# The role ids every slot assigns, from roles.yml; a slot never writes one.
+addresses:
+  roles: global.roles.roles
 # The names the build derives from the namer; a slot never writes one (Test-BicepResourceNames).
 names:
   resourceGroupName: { type: rg }

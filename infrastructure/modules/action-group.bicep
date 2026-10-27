@@ -5,10 +5,8 @@ param name string
 @maxLength(12)
 param shortName string
 
-@description('Azure built-in roles whose members the group notifies by email, by role definition id. Default: Owner.')
-param roleIds array = [
-  '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
-]
+@description('Azure built-in roles whose members the group notifies by email, by role definition id from roles.yml; never a literal.')
+param roleIds array
 
 @description('Resource tags.')
 param tags object = {}

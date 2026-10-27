@@ -10,11 +10,11 @@ public sealed class NetworkFirewallEgress : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "service_tags", "fqdn_tags" };
 
-    // Declared once: the platform services a workload reaches outbound; storage only in the firewall's own region.
+    // Declared once: the platform services a workload reaches outbound.
     public static NetworkFirewallEgress Default { get; } = new NetworkFirewallEgress(
-        new[] { "AzureMonitor", "AzureActiveDirectory", "Storage.{region}" }, new[] { "WindowsUpdate" });
+        new[] { "AzureMonitor", "AzureActiveDirectory", "Storage" }, new[] { "WindowsUpdate" });
 
-    // Service tags allowed outbound, in network rules; the firewall policy turns a {region} into its own location.
+    // Service tags allowed outbound, in network rules.
     public IReadOnlyList<string> service_tags { get; }
 
     // FQDN tags allowed outbound over HTTPS, in application rules.
