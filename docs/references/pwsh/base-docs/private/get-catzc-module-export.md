@@ -1,8 +1,8 @@
 # pwsh/Base.Docs/private/Get-CatzcModuleExport.ps1
 
 The private export lister of `Show-Catzc`: it reads the loaded session and returns each catzc module with its exported functions. It answers
-what the session has loaded and exports, which is a different question from `Get-CatzcModule` in `Catzc.Base.Modules`, the module model
-read from the tracks and the files on disk.
+what the session has loaded and exports, which is a different question from `Get-CatzcModule` in `Catzc.Base.Modules`, the module model read
+from the tracks and the files on disk.
 
 ## What counts as a module
 

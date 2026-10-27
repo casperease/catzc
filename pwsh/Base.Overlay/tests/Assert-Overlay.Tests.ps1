@@ -39,7 +39,7 @@ function Get-Widget {
     }
 
     It 'passes when there is no overlay' {
-        Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
+        Mock Get-OverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
         { Assert-Overlay } | Should -Not -Throw
     }
 

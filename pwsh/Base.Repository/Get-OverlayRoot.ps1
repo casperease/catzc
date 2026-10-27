@@ -1,4 +1,4 @@
-function Get-CatzcOverlayRoot {
+function Get-OverlayRoot {
     [CmdletBinding()]
     [OutputType([string])]
     param()

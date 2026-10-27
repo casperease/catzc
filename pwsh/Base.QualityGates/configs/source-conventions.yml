@@ -47,7 +47,7 @@ track_root_literal:
     pwsh/Base.Exporter/Install-Catzc.ps1:
       its out/ area pwsh/built is named after the track (Q6), renamed with the output-formats.yml areas in P4
     pwsh/Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1: it proves the resolver's fallback is the bootstrap constant
-    pwsh/Base.Repository/tests/Get-CatzcOverlayRoot.Tests.ps1:
+    pwsh/Base.Repository/tests/Get-OverlayRoot.Tests.ps1:
       its consumer fixture is a source tree and an overlay named by the bootstrap constant, which the run mode and the overlay compare with
     pwsh/Base.Repository/tests/Get-CatzcRunMode.Tests.ps1:
       it proves the run mode compares against the source modules folder, the same constant

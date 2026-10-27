@@ -45,7 +45,7 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
             Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget.yml') -Value 'limit: 5'
         }
         BeforeEach {
-            Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlay }
+            Mock Get-OverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlay }
         }
 
         It 'returns the overlay''s file for an asset it replaces' {

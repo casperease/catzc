@@ -13,8 +13,8 @@ DLL with its sources (`.compiled`) and the package entry points.
 
 It is a `.internal` multi-function module, so the one-function-per-file convention does not apply. It loads on demand
 (`Import-InternalModule Builder`) from `Build-Modules` after a normal source-mode import, so it calls the public catzc functions
-(`Get-ModuleProfile`, `Write-FileIfChanged`, `Get-InternalAssetDependency`, `Get-ContentHash` and others). It reads the per-function
-source tree, so it never ships in a build itself. The larger build functions live one per file in `assets/builder/` and share its scope.
+(`Get-ModuleProfile`, `Write-FileIfChanged`, `Get-InternalAssetDependency`, `Get-ContentHash` and others). It reads the per-function source
+tree, so it never ships in a build itself. The larger build functions live one per file in `assets/builder/` and share its scope.
 
 ## The merged file name
 

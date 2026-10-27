@@ -38,7 +38,7 @@ Describe 'Get-Overlay' -Tag 'L0', 'logic' {
     }
 
     It 'returns nothing when there is no overlay' {
-        Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
+        Mock Get-OverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
         @(Get-Overlay) | Should -BeNullOrEmpty
     }
 }

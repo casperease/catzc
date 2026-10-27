@@ -13,7 +13,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
 
     BeforeEach {
         & (Get-Module Catzc.Base.Config) { $script:configOverlayAnchors = $null }
-        Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Config -MockWith { "overlay-of:$env:RepositoryRoot" }
+        Mock Get-OverlayRoot -ModuleName Catzc.Base.Config -MockWith { "overlay-of:$env:RepositoryRoot" }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
     }
 
@@ -28,7 +28,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
             $fragments = Join-Path $env:RepositoryRoot '.catzc/widgetry'
             [System.IO.Directory]::CreateDirectory($fragments) | Out-Null
             & $run | Should -Be ([System.IO.Path]::GetFullPath($fragments))
-            Should -Invoke Get-CatzcOverlayRoot -ModuleName Catzc.Base.Config -Times 0
+            Should -Invoke Get-OverlayRoot -ModuleName Catzc.Base.Config -Times 0
         }
 
         It 'returns nothing when the repository holds no fragment folder' {
@@ -41,7 +41,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
         $env:RepositoryRoot = Join-Path $TestDrive 'widget-consumer'
         & $run | Should -Be "overlay-of:$(Join-Path $TestDrive 'widget-consumer')"
         & $run | Should -Be "overlay-of:$(Join-Path $TestDrive 'widget-consumer')"
-        Should -Invoke Get-CatzcOverlayRoot -ModuleName Catzc.Base.Config -Times 1 -Exactly
+        Should -Invoke Get-OverlayRoot -ModuleName Catzc.Base.Config -Times 1 -Exactly
     }
 
     It 'derives it again when an anchor changes' {
@@ -49,6 +49,6 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
         $null = & $run
         $env:RepositoryRoot = Join-Path $TestDrive 'gadget-consumer'
         & $run | Should -Be "overlay-of:$(Join-Path $TestDrive 'gadget-consumer')"
-        Should -Invoke Get-CatzcOverlayRoot -ModuleName Catzc.Base.Config -Times 2 -Exactly
+        Should -Invoke Get-OverlayRoot -ModuleName Catzc.Base.Config -Times 2 -Exactly
     }
 }

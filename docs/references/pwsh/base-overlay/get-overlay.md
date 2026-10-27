@@ -22,9 +22,9 @@ tests/<path>            LocalTest                    a local test of the module 
 anything else           Unknown                      not an override point (Assert-Overlay rejects it)
 ```
 
-A folder that names no bundled module is a LocalModule. Nothing is loaded or checked here; the inventory is what Assert-Overlay checks
-and Import-Overlay applies, and what a reader asks to see what a session changed. Returns nothing when there is no overlay (source
-mode, or no .catzc/automation/).
+A folder that names no bundled module is a LocalModule. Nothing is loaded or checked here; the inventory is what Assert-Overlay checks and
+Import-Overlay applies, and what a reader asks to see what a session changed. Returns nothing when there is no overlay (source mode, or no
+.catzc/automation/).
 
 ### outputs
 

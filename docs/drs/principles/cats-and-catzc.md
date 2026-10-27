@@ -107,8 +107,8 @@ token carries meaning. The catzc modules root is not the repository root, and a 
 token tells two things apart, and dropping it would make one name mean two things. Where the noun is a plain domain object, a DRS index, a
 rule enforcer, a command lookup, the module that owns it is the namespace, and a prefix only repeats it. A catzc prefix also stays where it
 marks a name as the system's in a space with no module namespace: MSBuild properties, loader and script-scope variables, `PrivateData` keys,
-and helpers in a script outside any module. The cats form is a person's word,
-so it stays out of identifiers; a pwsh entry point a person calls by hand speaks cats in its messages and help, not in its name.
+and helpers in a script outside any module. The cats form is a person's word, so it stays out of identifiers; a pwsh entry point a person
+calls by hand speaks cats in its messages and help, not in its name.
 
 ## Decision
 

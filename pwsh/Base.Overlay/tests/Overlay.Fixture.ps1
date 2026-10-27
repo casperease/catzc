@@ -61,7 +61,7 @@ function script:Remove-OverlayFixture {
 
 # The overlay functions find the fixture through the same seams they find a real overlay.
 $script:useFixtureRoots = {
-    Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { $overlayRoot }
+    Mock Get-OverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { $overlayRoot }
     Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Overlay -MockWith { $modulesRoot }
     Mock Write-Message -ModuleName Catzc.Base.Overlay -MockWith { }
     Mock Get-Config -ModuleName Catzc.Base.Overlay -ParameterFilter { $Config -eq 'configs' } -MockWith {

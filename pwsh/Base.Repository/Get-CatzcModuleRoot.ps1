@@ -17,7 +17,7 @@ function Get-CatzcModuleRoot {
     }
     Assert-NotNull $loaded -ErrorText "Get-CatzcModuleRoot found no loaded module$(if ($Module) { " '$Module'" } else { '; called from outside a module, pass -Module <name>' })."
     $moduleRoot = $loaded.ModuleBase
-    $overlayRoot = Get-CatzcOverlayRoot
+    $overlayRoot = Get-OverlayRoot
     # A consumer's local module is a dynamic module with no file, named for its overlay folder (it carries no namespace).
     if (-not [System.IO.File]::Exists($loaded.Path) -and $overlayRoot -and [System.IO.Directory]::Exists([System.IO.Path]::Combine($overlayRoot, $loaded.Name))) {
         $moduleRoot = [System.IO.Path]::Combine($overlayRoot, $loaded.Name)

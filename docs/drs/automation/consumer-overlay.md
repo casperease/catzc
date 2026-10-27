@@ -146,9 +146,9 @@ not exist, so they are sealed in the one place every config is registered.
 
 ### Checked as a whole
 
-`Assert-Overlay` checks every entry against these rules and reports every violation at once; `Import-Overlay` runs it before it
-applies anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there
-is no bundle to change — the catzc tree is `pwsh/` itself — so only the overlay's config fragments are read, merged by `Get-Config`.
+`Assert-Overlay` checks every entry against these rules and reports every violation at once; `Import-Overlay` runs it before it applies
+anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there is no
+bundle to change — the catzc tree is `pwsh/` itself — so only the overlay's config fragments are read, merged by `Get-Config`.
 
 ### Local modules
 
@@ -164,10 +164,10 @@ is what an override is for.
 - **`Catzc.Base.Repository`** derives the overlay root (`Get-OverlayRoot`, build mode only), returns an overlay asset from
   `Get-CatzcModuleRoot`, and resolves a local module's folder in the overlay.
 - **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, refuses a
-  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and discovers a
-  local module's configs.
-- **`Catzc.Base.Overlay`** inventories the overlay (`Get-Overlay`), checks it (`Assert-Overlay`, with the shared function-file
-  check `Get-FunctionFileViolation`, the contract check, and the local-module check), and applies function overrides and loads local modules
+  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and discovers a local
+  module's configs.
+- **`Catzc.Base.Overlay`** inventories the overlay (`Get-Overlay`), checks it (`Assert-Overlay`, with the shared function-file check
+  `Get-FunctionFileViolation`, the contract check, and the local-module check), and applies function overrides and loads local modules
   (`Import-Overlay`), which the importer runs at the end of a bundle load.
 - **Tests** prove the merge, the sealing, the asset lookup, every check, a function override reaching every caller, and a local module
   loading with its configs, in a built bundle.

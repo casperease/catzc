@@ -46,7 +46,7 @@ function Get-Widget {
         BeforeEach {
             # Discovery reaches the fixture overlay only through its own seams, so the test never reads a real consumer's overlay.
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
-            Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
+            Mock Get-OverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
             & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
         }
         AfterEach {
@@ -92,7 +92,7 @@ function Get-Widget {
     }
 
     It 'does nothing without an overlay' {
-        Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
+        Mock Get-OverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
         @(Import-Overlay) | Should -BeNullOrEmpty
     }
 }

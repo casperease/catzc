@@ -8,7 +8,7 @@ function Get-ConfigOverlayRoot {
     if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayAnchors') -ne $anchors) {
         $script:configOverlayRoot = if ((Get-CatzcRunMode) -eq 'build') {
             # A build reads the consumer's overlay, which may also hold function and asset overrides.
-            Get-CatzcOverlayRoot
+            Get-OverlayRoot
         }
         else {
             # A source run reads only this repository's own fragments, so a consumer's overlay never leaks into the source tree.

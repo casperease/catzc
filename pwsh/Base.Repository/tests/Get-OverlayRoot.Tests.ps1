@@ -1,4 +1,4 @@
-Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
+Describe 'Get-OverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot
         $script:originalRepositoryRoot = $env:RepositoryRoot
@@ -17,18 +17,18 @@ Describe 'Get-CatzcOverlayRoot' -Tag 'L0', 'logic' {
     It 'is the working root''s .catzc/pwsh in build mode' {
         $env:RepositoryRoot = $consumer
         $env:CatzcModulesRoot = $bundle
-        Get-CatzcOverlayRoot | Should -Be ([System.IO.Path]::GetFullPath($overlay))
+        Get-OverlayRoot | Should -Be ([System.IO.Path]::GetFullPath($overlay))
     }
 
     It 'is nothing in source mode, even with a .catzc/ folder present' {
         $env:RepositoryRoot = $consumer
         $env:CatzcModulesRoot = Join-Path $consumer 'pwsh'
-        Get-CatzcOverlayRoot | Should -BeNullOrEmpty
+        Get-OverlayRoot | Should -BeNullOrEmpty
     }
 
     It 'is nothing in build mode when the working root has no overlay' {
         $env:RepositoryRoot = Join-Path $TestDrive 'gizmo-consumer'
         $env:CatzcModulesRoot = $bundle
-        Get-CatzcOverlayRoot | Should -BeNullOrEmpty
+        Get-OverlayRoot | Should -BeNullOrEmpty
     }
 }

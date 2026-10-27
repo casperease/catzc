@@ -25,8 +25,8 @@ The build's integrity guard
 - modules: the module folders are exactly build.json's modules; each has its `<Module>.psd1` and merged `<Module>.functions.ps1`, the
   manifest's NestedModules is exactly that one file (a nested `<Module>.ps1` would load a second module named `<Module>`, which Get-Module,
   Mock -ModuleName and InModuleScope reject), and every FunctionsToExport name resolves to a top-level function in the merged file (AST);
-- content: Get-ContentHash over the tree (build.json excluded — it carries the hash) equals build.json contentHash, so nothing drifted
-  after the build.
+- content: Get-ContentHash over the tree (build.json excluded — it carries the hash) equals build.json contentHash, so nothing drifted after
+  the build.
 
 Collects every violation and throws once. Build-Modules runs it on its own output; Install-Catzc runs it on the build before touching a
 destination.

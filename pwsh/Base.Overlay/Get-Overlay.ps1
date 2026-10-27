@@ -3,7 +3,7 @@ function Get-Overlay {
     [OutputType([pscustomobject])]
     param()
 
-    $overlayRoot = Get-CatzcOverlayRoot
+    $overlayRoot = Get-OverlayRoot
     if (-not $overlayRoot) {
         return
     }

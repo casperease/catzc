@@ -240,9 +240,9 @@ effect of building or loading.
   repository checked out with CRLF and with LF and prove the same hash.
 - **The CI pipeline** builds the `full` bundle on Windows, Linux, and macOS and fails when the content hashes differ.
 - **`Catzc.Base.Exporter`** owns the artifact: `Build-Modules`, `Resolve-CatzcBuildVersion`, `Install-Catzc`, `Export-Catzc`,
-  `Assert-CatzcBundle`, `Get-ContentHash`, and the `exporter.yml` config with its named bundles (`ExporterConfig`, `ExporterBundle`,
-  which validate it on load). `Build-Modules` self-checks with `Assert-CatzcBundle`; the walking-skeleton integrity test builds the full
-  profile, loads it in a fresh session, and calls into every module.
+  `Assert-CatzcBundle`, `Get-ContentHash`, and the `exporter.yml` config with its named bundles (`ExporterConfig`, `ExporterBundle`, which
+  validate it on load). `Build-Modules` self-checks with `Assert-CatzcBundle`; the walking-skeleton integrity test builds the full profile,
+  loads it in a fresh session, and calls into every module.
 - **The build run** (`Test-CatzcBuild`, [test-automation](test-automation.md)) runs the same tests against the build that the source run
   runs against source.
 - **Code review** keeps the split honest: a scan of catzc's own code anchored on `RepositoryRoot` rather than `CatzcModulesRoot`, or a
