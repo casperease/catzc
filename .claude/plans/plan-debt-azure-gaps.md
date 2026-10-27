@@ -23,16 +23,16 @@ is planned here, one step each, so no record carries a planned item.
       Build-Bicep.Integrity and Test-BicepTemplateCompliance passed, 7 of 7.
 - [ ] Role assignments in `expedition` (the templates drone owns its `main.bicep`): `options.yml` gains `facts: groups: groups` and
       `addresses: roles: global.roles.roles`, and `main.bicep` the `roles` and `groups` object params and three `role-assignment.bicep`
-      calls, each `if (!empty(<group>))`: `data_readers` to `storage_blob_data_reader` and `data_writers` to
-      `storage_blob_data_contributor` on the account (`resourceKind: storageAccount`), and `data_writers` to `key_vault_secrets_user` on
-      foundation's vault (`resourceKind: keyVault`, scope foundation's resource group). Check: Test-BicepLint, Test-BicepApiVersions,
-      Build-Bicep.Integrity and Test-BicepTemplateCompliance green in one staged burst.
+      calls, each `if (!empty(<group>))`: `data_readers` to `storage_blob_data_reader` and `data_writers` to `storage_blob_data_contributor`
+      on the account (`resourceKind: storageAccount`), and `data_writers` to `key_vault_secrets_user` on foundation's vault
+      (`resourceKind: keyVault`, scope foundation's resource group). Check: Test-BicepLint, Test-BicepApiVersions, Build-Bicep.Integrity and
+      Test-BicepTemplateCompliance green in one staged burst.
 - [ ] A read-only public `Get-BicepRoleAssignmentPlan` in Azure.Templates lists principal, role and scope across templates and slots, read
       from the compiled templates through the compliance evaluator, its output a contract type and its provided contract under
       `contracts/catzc/<v>/pwsh.azure.templates/`, landed by staged burst with its L0. Then an L1 that every slot's assignments are the
       declared set (discovery: readers `reader` and workspace `log_analytics_reader`, operators `contributor` and conditioned
-      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Check: the
-      L0 and the L1 green.
+      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Check:
+      the L0 and the L1 green.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`
@@ -101,17 +101,20 @@ is planned here, one step each, so no record carries a planned item.
       the same four gates and Get-AzureResourceName tests green in one staged burst. Verdict (2026-10-27 burst): Test-BicepLint,
       Test-BicepApiVersions, Build-Bicep.Integrity, Test-BicepTemplateCompliance, Get-AzureResourceName and Discovery.FlowLog passed, 6
       of 6.
-- [ ] The anomaly alert's pipeline seed: discovery deploys the alert (`anomalyAlertName`, namer `alert`/`ano`) with
+- [x] The anomaly alert's pipeline seed: discovery deploys the alert (`anomalyAlertName`, namer `alert`/`ano`) with
       `anomalyAlertRecipients`, a required `@secure()` comma-separated string that every slot reads as a Key Vault reference to its
       subscription's foundation vault, secret `disco-anomaly-recipients` (the one deploy-time mechanism, recorded in
       ADR-AZ-DATAMOD-PARAMETERCONTRACT); what is left is the pipeline-setup step that seeds that secret from the pipeline variable, joined
       to the task file's pipeline-setup step. Check: a pipeline-YAML test finds the seed reading the variable. Verdict (2026-10-27 burst):
       Test-BicepLint, Test-BicepApiVersions, Build-Bicep.Integrity, Test-BicepTemplateCompliance, Test-BicepResourceNames and
-      Discovery.FlowLog passed, 6 of 6.
+      Discovery.FlowLog passed, 6 of 6. Verdict (2026-10-27 seed burst): every discovery job of `stages/deploy-unit.yaml` runs
+      `Set-AnomalyAlertRecipientSecret` with `$(AnomalyAlertRecipients)` before its what-if, writing through the shared private
+      `Set-KeyVaultSecretValue` that break-glass now calls; Set-AnomalyAlertRecipientSecret.Tests (with the pipeline-YAML case) passed, 12
+      of 12, and Invoke-BreakGlassRotation.Tests passed, 9 of 9.
 - [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time (a new build-time fact;
       design first). Check: a new module's type is allowed without editing a list.
-- [ ] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least the estimate times `headroom`.
-      Check: the L1 case reads 0, offline from the checked-in price table.
+- [ ] Expedition: each template article's "Cost model" section from the estimate; an L1 case that every discovery `budgetAmount` is at least
+      the estimate times `headroom`. Check: the L1 case reads 0, offline from the checked-in price table.
 - [x] A DEPLOY pipeline with staged production promotion, so the CD stage deploys no production. Check: no pipeline deploys production in
       the CD stage. Verdict (2026-10-27): `cd-apex.yaml` and `cd-shared.yaml` dropped their prod-subscription targets (psub, prod);
       `deploy-apex.yaml` `prod` deploys psub, then preprod, then prod, and `deploy-shared.yaml` gained `prod` (psub); Test-Pipelines.Tests

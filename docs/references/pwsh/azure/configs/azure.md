@@ -77,3 +77,12 @@ Above `tags:`, written with `#`.
 The tag schema, declared once: the CAF keys every taggable resource carries (an empty list takes any lowercase value) and the provenance
 tag names a deploy writes; a subscription-target template prefixes its name and a hyphen.
 ```
+
+## comment:2
+
+Above `groups:`, written with `#`.
+
+```text
+The Entra groups the templates assign built-in roles to, never a user: shared for the shared subscriptions, else the customer key, then
+the environment class. The ids are placeholders: replace them with the tenant's real group object ids.
+```

@@ -61,4 +61,69 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
         { [Catzc.Azure.Templates.CostModelConfig]::new(@{ meters = @(@{ id = 'widget'; type = 'Microsoft.KeyVault/vaults'; service = 'Key Vault'; meter = 'Operations' }) }) } |
             Should -Throw '*quantity must be a positive number*'
     }
+
+    Context 'a type whose SKU a config decides' {
+        BeforeAll {
+            $script:skued = [Catzc.Azure.Templates.CostModelConfig]::new(@{
+                    skus   = @{ 'Microsoft.Network/azureFirewalls' = 'global.widget.subscriptions.{subscription}.tier' }
+                    meters = @(
+                        @{ id = 'widget-basic-hours'; type = 'Microsoft.Network/azureFirewalls'; service = 'Gadget'; meter = 'Basic Deployment'; when_sku = 'Basic'; quantity = 730 }
+                        @{ id = 'widget-standard-hours'; type = 'Microsoft.Network/azureFirewalls'; service = 'Gadget'; meter = 'Standard Deployment'; when_sku = 'Standard'; count = 1; quantity = 730 }
+                        @{ id = 'widget-vault-ops'; type = 'Microsoft.KeyVault/vaults'; service = 'Key Vault'; meter = 'Operations'; quantity = 10 }
+                    )
+                })
+        }
+
+        BeforeEach {
+            # Two firewall declarations, a conditional pair: the count key prices the one that deploys; keyed by symbolic name, as
+            # languageVersion 2.0 compiles them.
+            $hub = @{ languageVersion = '2.0'; resources = @{ widget = @{ type = 'Microsoft.Network/azureFirewalls' }; gadget = @{ type = 'Microsoft.Network/azureFirewalls' }; sprocket = @{ type = 'Microsoft.KeyVault/vaults' } } }
+            $null = New-Item -ItemType Directory -Path (Join-Path $script:out 'widget') -Force
+            Set-Content -LiteralPath (Join-Path $script:out 'widget/main.json') -Value ($hub | ConvertTo-Json -Depth 10)
+            Set-Content -LiteralPath $script:prices -Value (@{
+                    prices = @{ 'widget-basic-hours' = @{ unit_price = 0.5 }; 'widget-standard-hours' = @{ unit_price = 1 }; 'widget-vault-ops' = @{ unit_price = 0.03 } }
+                } | ConvertTo-Json -Depth 5)
+            Mock Get-ConfigValue -ModuleName Catzc.Azure.Templates {
+                @{ 'global.widget.subscriptions.gadget_hub.tier' = 'Basic'; 'global.widget.subscriptions.sprocket_hub.tier' = 'Standard'; 'global.widget.subscriptions.gadget_spoke.tier' = $null }[$Address]
+            }
+        }
+
+        It 'prices the meter of the SKU the subscription''s config names, by the declarations counted' {
+            $estimate = Get-BicepCostEstimate widget -Config $script:skued -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_hub
+            $estimate.Subscription | Should -Be 'gadget_hub'
+            $estimate.Lines.Meter | Should -Be @('widget-basic-hours', 'widget-vault-ops')
+            ($estimate.Lines | Where-Object Meter -EQ 'widget-basic-hours').Sku | Should -Be 'Basic'
+            ($estimate.Lines | Where-Object Meter -EQ 'widget-basic-hours').Monthly | Should -Be 730
+        }
+
+        It 'prices a meter with a count for that many resources, not the declarations' {
+            $estimate = Get-BicepCostEstimate widget -Config $script:skued -PricesPath $script:prices -OutputRoot $script:out -Subscription sprocket_hub
+            $estimate.Lines.Meter | Should -Be @('widget-standard-hours', 'widget-vault-ops')
+            ($estimate.Lines | Where-Object Meter -EQ 'widget-standard-hours').Monthly | Should -Be 730
+            Should -Invoke Get-ConfigValue -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter { $Address -eq 'global.widget.subscriptions.sprocket_hub.tier' }
+        }
+
+        It 'applies no SKU-bound meter where the config names no SKU, or with no subscription to read it for' {
+            (Get-BicepCostEstimate widget -Config $script:skued -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_spoke).Lines.Meter |
+                Should -Be @('widget-vault-ops')
+            (Get-BicepCostEstimate widget -Config $script:skued -PricesPath $script:prices -OutputRoot $script:out).Lines.Meter | Should -Be @('widget-vault-ops')
+            Should -Invoke Get-ConfigValue -ModuleName Catzc.Azure.Templates -Times 1 -Exactly
+        }
+
+        It 'refuses a when_sku on a type skus does not name' {
+            { [Catzc.Azure.Templates.CostModelConfig]::new(@{ meters = @(@{ id = 'widget'; type = 'Microsoft.KeyVault/vaults'; service = 'Key Vault'; meter = 'Operations'; when_sku = 'Basic'; quantity = 1 }) }) } |
+                Should -Throw '*when_sku needs skus to name where the SKU of*'
+        }
+
+        It 'refuses a skus entry that is not a resource type mapped to a global address' {
+            { [Catzc.Azure.Templates.CostModelConfig]::new(@{ skus = @{ 'Microsoft.Network/azureFirewalls' = 'widget.tier' } }) } | Should -Throw '*must map to a global address*'
+            { [Catzc.Azure.Templates.CostModelConfig]::new(@{ skus = @{ widget = 'global.widget.tier' } }) } | Should -Throw '*must be a resource type*'
+            { [Catzc.Azure.Templates.CostModelConfig]::new(@{ skus = 'global.widget.tier' }) } | Should -Throw '*skus must be a mapping*'
+        }
+
+        It 'refuses a count that is not a whole number of at least 1' {
+            { [Catzc.Azure.Templates.CostModelConfig]::new(@{ meters = @(@{ id = 'widget'; type = 'Microsoft.KeyVault/vaults'; service = 'Key Vault'; meter = 'Operations'; count = 0; quantity = 1 }) }) } |
+                Should -Throw '*count must be a whole number of at least 1*'
+        }
+    }
 }

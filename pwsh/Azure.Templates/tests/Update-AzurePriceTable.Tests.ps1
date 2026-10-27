@@ -76,6 +76,15 @@ Describe 'Update-AzurePriceTable' -Tag 'L0', 'logic' {
         $script:config.meters[0].sku | Should -BeNullOrEmpty
     }
 
+    It 'reads a meter in its own billing region when it names one, in place of the model''s region' {
+        $zoned = [Catzc.Azure.Templates.CostModelConfig]::new(@{
+                meters = @(@{ id = 'widget-zone'; type = 'Microsoft.Network/privateDnsZones'; service = 'Azure DNS'; meter = 'Private Zone'; region = 'Zone 1'; quantity = 1 })
+            })
+        $null = Update-AzurePriceTable -Config $zoned -PricesPath $script:path
+        [uri]::UnescapeDataString($script:uris[0]) | Should -BeLike "*meterName eq 'Private Zone' and armRegionName eq 'Zone 1'*"
+        $zoned.meters[0].region | Should -Be 'Zone 1'
+    }
+
     It 'reports a meter its filter matches nothing for, and leaves it unpriced' {
         $result = Update-AzurePriceTable -Config $script:config -PricesPath $script:path
         $result.Unmatched | Should -Be @('widget-gadget')

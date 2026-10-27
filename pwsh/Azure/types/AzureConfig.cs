@@ -47,8 +47,6 @@ public sealed class AzureConfig : Catzc.Base.Objects.DictionaryRecord
     // The tag schema; a file without a tags section takes AzureTagSchema's defaults.
     public AzureTagSchema tags { get; }
 
-    // The Entra groups the templates assign roles to, by owner (shared or a customer key), then environment class (production,
-    // nonproduction). Empty when the file has no groups section: the templates then assign no role.
     public IReadOnlyDictionary<string, IReadOnlyDictionary<string, AzureGroupSet>> groups { get; }
 
     public AzureConfig(IDictionary d)

@@ -34,7 +34,12 @@ function Set-AnomalyAlertRecipientSecret {
             throw "-SubscriptionIdAssertIs failed: the az session targets subscription '$($session.name)' ($($session.id)), not $SubscriptionIdAssertIs."
         }
     }
-    $customer = if ([string]::IsNullOrEmpty($session.customer)) { '' } else { $session.customer }
+    $customer = if ([string]::IsNullOrEmpty($session.customer)) {
+        ''
+    }
+    else {
+        $session.customer
+    }
 
     # The secret's name is the one discovery's configuration references; the vault is foundation's, by the namer.
     $parameters = (Get-BicepTemplateConfiguration discovery $Environment -Customer $customer).ParametersFile.parameters

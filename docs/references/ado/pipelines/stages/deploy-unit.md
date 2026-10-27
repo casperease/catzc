@@ -21,5 +21,5 @@ pipeline of a unit and its DEPLOY pipeline both include it: foundation, then dis
 
 Every entry becomes one deployment job: it checks out, asserts the deployment history of `CertifiedBy` when set, downloads the tier's
 artifact, and runs `Deploy-Bicep` under the entry's service connection with `-SubscriptionIdAssertIs` pinned. A discovery job first runs
-`Set-AnomalyAlertRecipientSecret` with the secret pipeline variable `AnomalyAlertRecipients`, which seeds the secret its anomaly alert
-reads from the foundation vault, so the what-if resolves the reference.
+`Set-AnomalyAlertRecipientSecret` with the secret pipeline variable `AnomalyAlertRecipients`, which seeds the secret its anomaly alert reads
+from the foundation vault, so the what-if resolves the reference.

@@ -118,12 +118,13 @@ stages:
                         # The secret pipeline variable AnomalyAlertRecipients seeds the secret discovery's anomaly alert references.
                         - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
-                            DisplayName: "Seed ${{ d.env }} anomaly alert recipients (session target, assert ${{ d.subscriptionIdAssertIs }})"
+                            DisplayName:
+                              "Seed ${{ d.env }} anomaly alert recipients (session target, assert ${{ d.subscriptionIdAssertIs }})"
                             Mode: azcli
                             ServiceConnection: ${{ d.serviceConnection }}
                             RunCommand:
-                              'Set-AnomalyAlertRecipientSecret -Environment ${{ d.env }} -SubscriptionIdAssertIs ${{ d.subscriptionIdAssertIs
-                              }} -Value "$(AnomalyAlertRecipients)"'
+                              'Set-AnomalyAlertRecipientSecret -Environment ${{ d.env }} -SubscriptionIdAssertIs ${{
+                              d.subscriptionIdAssertIs }} -Value "$(AnomalyAlertRecipients)"'
                         - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
                             DisplayName: "What-if ${{ d.env }} discovery (session target, assert ${{ d.subscriptionIdAssertIs }})"

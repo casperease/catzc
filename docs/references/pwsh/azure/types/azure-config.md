@@ -60,3 +60,12 @@ Completeness, every environment being served, and root-config uniqueness are dis
 
 A private helper reads the entries of a required, non-empty top-level map as name and mapping pairs. A non-mapping entry passes null on, so
 its record reports it.
+
+## comment:1
+
+Above `public IReadOnlyDictionary<string, IReadOnlyDictionary<string,...`, written with `//`.
+
+```text
+The Entra groups the templates assign roles to, by owner (shared or a customer key), then environment class (production,
+nonproduction). Empty when the file has no groups section: the templates then assign no role.
+```

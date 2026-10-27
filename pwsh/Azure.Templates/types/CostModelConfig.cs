@@ -7,36 +7,13 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure.Templates;
 
-// One retail meter of a resource type: what the Retail Prices API names it, and how much of it one resource uses a month.
-public sealed class CostMeter
-{
-    public string id { get; }
-    public string type { get; }
-    public string service { get; }
-    public string meter { get; }
-    public string product { get; }
-    // The retail SKU the meter is read for, when one meter name is sold as several SKUs; empty matches any.
-    public string sku { get; }
-    public double quantity { get; }
-
-    public CostMeter(string id, string type, string service, string meter, string product, string sku, double quantity)
-    {
-        this.id = id;
-        this.type = type;
-        this.service = service;
-        this.meter = meter;
-        this.product = product;
-        this.sku = sku;
-        this.quantity = quantity;
-    }
-}
-
 public sealed class CostModelConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "cost-model configuration validation failed:\n";
-    private static readonly string[] AllowedKeys = { "currency", "region", "headroom", "request_pause_ms", "meters" };
-    private static readonly string[] MeterKeys = { "id", "type", "service", "meter", "product", "sku", "quantity" };
+    private static readonly string[] AllowedKeys = { "currency", "region", "headroom", "request_pause_ms", "skus", "meters" };
+    private static readonly string[] MeterKeys = { "id", "type", "service", "meter", "product", "sku", "quantity", "region", "when_sku", "count" };
     private static readonly Regex Id = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$");
+    private static readonly Regex Address = new Regex("^global\\.[a-z0-9]+(-[a-z0-9]+)*(\\.[^.]+)+$");
 
     // The currency the prices are read in.
     public string currency { get; } = "USD";
@@ -49,6 +26,9 @@ public sealed class CostModelConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The pause between two Retail Prices API requests, in milliseconds, so a refresh stays under the service's rate limit.
     public int request_pause_ms { get; } = 1000;
+
+    // The resource types whose SKU a config decides, each with the global address of that value; {subscription} stands for the subscription the estimate is for.
+    public IReadOnlyDictionary<string, string> skus { get; } = new Dictionary<string, string>(StringComparer.Ordinal);
 
     // The metered resource types; a type with no meter is free, or not yet modelled.
     public IReadOnlyList<CostMeter> meters { get; } = new CostMeter[0];
@@ -89,6 +69,24 @@ public sealed class CostModelConfig : Catzc.Base.Objects.DictionaryRecord
             if (Number(raw["request_pause_ms"], out pause) && pause >= 0 && pause <= 60000 && pause == Math.Floor(pause)) { request_pause_ms = (int)pause; }
             else { errors.Add("request_pause_ms must be a whole number of milliseconds from 0 to 60000"); }
         }
+        if (raw.Contains("skus"))
+        {
+            IDictionary map = raw["skus"] as IDictionary;
+            var sources = new Dictionary<string, string>(StringComparer.Ordinal);
+            if (map == null) { errors.Add("skus must be a mapping of resource type to a global address"); }
+            else
+            {
+                foreach (object k in map.Keys)
+                {
+                    string type = k == null ? string.Empty : k.ToString();
+                    string address = map[k] == null ? string.Empty : map[k].ToString().Trim();
+                    if (type.IndexOf('/') < 1) { errors.Add(string.Format(CultureInfo.InvariantCulture, "skus: '{0}' must be a resource type, such as Microsoft.Network/azureFirewalls", type)); }
+                    else if (!Address.IsMatch(address)) { errors.Add(string.Format(CultureInfo.InvariantCulture, "skus: '{0}' must map to a global address, such as global.<config>.<key>", type)); }
+                    else { sources[type] = address; }
+                }
+            }
+            skus = sources;
+        }
         if (raw.Contains("meters"))
         {
             var list = new List<CostMeter>();
@@ -123,7 +121,17 @@ public sealed class CostModelConfig : Catzc.Base.Objects.DictionaryRecord
                     {
                         errors.Add(string.Format(CultureInfo.InvariantCulture, "meters[{0}]: quantity must be a positive number", index));
                     }
-                    list.Add(new CostMeter(id, type, service, meter, Text(entry, "product"), Text(entry, "sku"), quantity));
+                    string whenSku = Text(entry, "when_sku");
+                    if (whenSku.Length > 0 && !skus.ContainsKey(type))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "meters[{0}]: when_sku needs skus to name where the SKU of '{1}' is configured", index, type));
+                    }
+                    double count = 0;
+                    if (entry.Contains("count") && (!Number(entry["count"], out count) || count < 1 || count != Math.Floor(count)))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "meters[{0}]: count must be a whole number of at least 1", index));
+                    }
+                    list.Add(new CostMeter(id, type, service, meter, Text(entry, "product"), Text(entry, "sku"), quantity, Text(entry, "region"), whenSku, (int)count));
                 }
             }
             meters = list.ToArray();

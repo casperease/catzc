@@ -9,7 +9,9 @@ function Get-BicepCostEstimate {
 
         [string] $PricesPath = (Join-Path $PSScriptRoot 'assets/cost-prices.json'),
 
-        [string] $OutputRoot = (Get-BicepTemplatesOutputRoot)
+        [string] $OutputRoot = (Get-BicepTemplatesOutputRoot),
+
+        [string] $Subscription
     )
 
     # The estimate reads the template as Build-Bicep compiled it, so a module's resources count where the module is inlined.
@@ -20,7 +22,14 @@ function Get-BicepCostEstimate {
     $counts = @{}
     $walk = {
         param($Resources)
-        foreach ($resource in @($Resources)) {
+        # A languageVersion 2.0 template keys its resources by symbolic name; an older one lists them.
+        $list = if ($Resources -is [System.Collections.IDictionary]) {
+            @($Resources.Values)
+        }
+        else {
+            @($Resources)
+        }
+        foreach ($resource in $list) {
             if ($resource -isnot [System.Collections.IDictionary]) {
                 continue
             }
@@ -42,9 +51,33 @@ function Get-BicepCostEstimate {
     }
     $table = $prices['prices'] ?? @{}
 
+    # A type whose SKU a config decides reads it at its global address for the subscription; with no subscription to read for, it has none,
+    # and its SKU-bound meters apply nowhere.
+    $skus = @{}
+    foreach ($type in @($Config.skus.Keys)) {
+        $address = $Config.skus[$type]
+        $skus[$type] = if ($address.Contains('{subscription}')) {
+            if ($Subscription) {
+                "$(Get-ConfigValue $address.Replace('{subscription}', $Subscription))"
+            }
+        }
+        else {
+            "$(Get-ConfigValue $address)"
+        }
+    }
+
     $lines = foreach ($meter in $Config.meters) {
         if (-not $counts.ContainsKey($meter.type)) {
             continue
+        }
+        if ($meter.when_sku -and $meter.when_sku -cne $skus[$meter.type]) {
+            continue
+        }
+        $count = if ($meter.count -gt 0) {
+            $meter.count
+        }
+        else {
+            $counts[$meter.type]
         }
         $price = $table[$meter.id]
         $unit = if ($price) {
@@ -53,11 +86,12 @@ function Get-BicepCostEstimate {
         [pscustomobject]@{
             Meter     = $meter.id
             Type      = $meter.type
-            Count     = $counts[$meter.type]
+            Sku       = $skus[$meter.type]
+            Count     = $count
             Quantity  = $meter.quantity
             UnitPrice = $unit
             Monthly   = if ($null -ne $unit) {
-                [System.Math]::Round($counts[$meter.type] * $meter.quantity * $unit, 2)
+                [System.Math]::Round($count * $meter.quantity * $unit, 2)
             }
         }
     }
@@ -65,7 +99,8 @@ function Get-BicepCostEstimate {
     $priced = @($lines | Where-Object { $null -ne $_.Monthly })
 
     [pscustomobject]@{
-        Template = $Template
+        Template     = $Template
+        Subscription = $Subscription
         Currency = $prices['currency'] ?? $Config.currency
         Region   = $prices['region'] ?? $Config.region
         AsOf     = $prices['as_of']

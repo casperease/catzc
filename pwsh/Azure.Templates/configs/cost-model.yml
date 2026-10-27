@@ -2,7 +2,56 @@
 # resource uses. Update-AzurePriceTable reads the prices for these meters into assets/cost-prices.json; Get-BicepCostEstimate prices a
 # compiled template through both. currency, region and headroom keep their defaults on CostModelConfig.
 request_pause_ms: 5000 # the Retail Prices API refused the fifth request at the 1000 ms default (2026-10-27)
+# The types whose SKU a config decides: a hub's firewall tier, and the public IPs its tier needs, come from network.yml.
+skus:
+  Microsoft.Network/azureFirewalls: global.network.subscriptions.{subscription}.firewall_sku
+  Microsoft.Network/publicIPAddresses: global.network.subscriptions.{subscription}.firewall_sku
 meters:
+  - id: firewall-basic-deployment
+    type: Microsoft.Network/azureFirewalls
+    service: Azure Firewall
+    meter: Basic Deployment
+    when_sku: Basic
+    quantity: 730 # hours a month
+  - id: firewall-basic-data-processed
+    type: Microsoft.Network/azureFirewalls
+    service: Azure Firewall
+    meter: Basic Data Processed
+    when_sku: Basic
+    quantity: 100 # GB a month
+  - id: firewall-standard-deployment
+    type: Microsoft.Network/azureFirewalls
+    service: Azure Firewall
+    meter: Standard Deployment
+    when_sku: Standard
+    quantity: 730 # hours a month
+  - id: firewall-standard-data-processed
+    type: Microsoft.Network/azureFirewalls
+    service: Azure Firewall
+    meter: Standard Data Processed
+    when_sku: Standard
+    quantity: 100 # GB a month
+  - id: firewall-log-ingestion
+    type: Microsoft.Network/azureFirewalls
+    service: Log Analytics
+    meter: Analytics Logs Data Ingestion
+    quantity: 10 # GB a month of resource-specific firewall logs into the workspace
+  - id: firewall-basic-public-ip
+    type: Microsoft.Network/publicIPAddresses
+    service: Virtual Network
+    meter: Standard IPv4 Static Public IP
+    product: IP Addresses
+    when_sku: Basic
+    count: 2 # the egress and the management address
+    quantity: 730 # hours a month
+  - id: firewall-standard-public-ip
+    type: Microsoft.Network/publicIPAddresses
+    service: Virtual Network
+    meter: Standard IPv4 Static Public IP
+    product: IP Addresses
+    when_sku: Standard
+    count: 1 # the egress address; a Standard firewall takes no management address
+    quantity: 730 # hours a month
   - id: log-analytics-ingestion
     type: Microsoft.OperationalInsights/workspaces
     service: Log Analytics
@@ -36,6 +85,7 @@ meters:
     type: Microsoft.Network/privateDnsZones
     service: Azure DNS
     meter: Private Zone
+    region: Zone 1 # Azure DNS sells by DNS billing zone, not by ARM region
     quantity: 1 # zones a month
   - id: vm-b1s
     type: Microsoft.Compute/virtualMachines
