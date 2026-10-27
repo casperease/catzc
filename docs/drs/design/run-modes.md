@@ -130,18 +130,18 @@ A developer moves between the modes in one shell — the repository's importer, 
 and as often as needed. Two copies of one module from different roots in the same session would make every call ambiguous, so the
 importer enforces mutual exclusion:
 
-- **Evict before loading.** Before it loads a root, the importer removes every loaded catzc module (a `Catzc.*` module or the `Catzc`
-  package) whose base lies outside that root, together with the root's own stale modules. The `.internal` loader modules are reloaded from
-  the new root, so the loader itself always belongs to the active mode.
-- **Assert after loading.** `Assert-CatzcRunModeExclusive` runs at the importer tail in both modes and throws, naming the offending modules
-  and both roots, when any loaded catzc module lies outside the active code root.
-- **Caches reset by construction.** An evicted module takes its script scope with it, so a switched session never sees a cache from the
-  other mode. Vendored modules are reloaded from the active mode's `.vendor/`.
-- **Types are the exception.** A loaded .NET assembly cannot be unloaded. Every build ships the full type set — the same `types/*.cs`
-  sources and the same hash-named DLL as the source tree, whatever its module selection — so when the sources are unchanged the type
-  identities are the same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded
-  type set with the sources the new root needs; when a source differs (a `types/*.cs` edited between the two loads), the native-types
-  contract applies: a devbox keeps the loaded types and asks for a fresh PowerShell, and a pipeline throws.
+- **Evict before loading.** Before it loads a root, the importer removes every loaded catzc module whose base lies outside that root,
+  together with the root's own stale modules. The internal loader modules are reloaded from the new root, so the loader itself always
+  belongs to the active mode.
+- **Assert after loading.** An exclusivity check runs at the importer tail in both modes and throws, naming the offending modules and both
+  roots, when any loaded catzc module lies outside the active code root.
+- **Caches reset by construction.** An evicted module takes its state with it, so a switched session never sees a cache from the other
+  mode. Vendored modules are reloaded from the active mode's vendor folder.
+- **Types are the exception.** A loaded assembly cannot be unloaded. Every build ships the full type set — the same type sources and the
+  same hash-named assembly as the source tree, whatever its module selection — so when the sources are unchanged the type identities are the
+  same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded type set with the
+  sources the new root needs; when a source differs, the native-types contract applies: a devbox keeps the loaded types and asks for a fresh
+  session, and a pipeline throws.
 
 ### One body of tests
 

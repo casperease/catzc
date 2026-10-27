@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ea9b86be2d35
+    with_body_sha: beb00f00cb2c
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -124,7 +124,6 @@ implement it.
 | Code           | ADR                                                                          |
 | -------------- | ---------------------------------------------------------------------------- |
 | `FDR-CD`       | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
-| `FDR-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
 | `FDR-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
 | `FDR-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
 | `FDR-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
@@ -206,8 +205,8 @@ the types is the pwsh domain's.
 ### automation/pwsh/
 
 PowerShell 7 as one of catzc's execution engines: how the automation rules are realised in pwsh — module files and manifests, parameter and
-error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh, the
-analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
+error design, streams and console output, caching in script scope, working directory and environment mechanics, cross-platform pwsh,
+pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one engine and never redefines them.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `bcl`.
 
@@ -241,6 +240,7 @@ analyzer, and Pester. It applies the engine-agnostic `automation/` rules to one 
 | `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](automation/pwsh/idempotent-state-mechanics.md)                 |
 | `ADR-PWSH-CONFIG`   | [config-reading](automation/pwsh/config-reading.md)                                         |
 | `ADR-PWSH-ADOFUNC`  | [ado-pipeline-functions](automation/pwsh/ado-pipeline-functions.md)                         |
+| `ADR-PWSH-DETECT`   | [pipeline-detection](automation/pwsh/pipeline-detection.md)                                 |
 
 ### configuration/
 
@@ -260,8 +260,9 @@ implementation domain its single way to read configuration.
 ### ado/
 
 The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets ado pipeline
-output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template is
-warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
+output variables and which agent variable marks a run, how ado pipelines and template folders are named and placed under `.ado/pipelines/`,
+how they trigger on path filters, build validation, schedules and parameters, and when an ADO YAML template is warranted. It binds the
+vendor-neutral `flow/` rules to Azure DevOps without redefining them; `github/` is its GitHub counterpart.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
@@ -273,18 +274,21 @@ warranted. It binds the vendor-neutral `flow/` rules to Azure DevOps without red
 | `ADR-ADO-TEMPLATE` | [custom-template-discipline](ado/custom-template-discipline.md)       |
 | `ADR-ADO-APPROVAL` | [environment-approvals](ado/environment-approvals.md)                 |
 | `ADR-ADO-RUNNER`   | [pipeline-runner-pattern](ado/pipeline-runner-pattern.md)             |
+| `ADR-ADO-TRIGGER`  | [pipeline-triggers](ado/pipeline-triggers.md)                         |
 
 ### github/
 
 The GitHub extensions to the flow model: the manually dispatched release workflow that builds the catzc package and publishes it to GitHub
-Releases, GitHub Packages, and optionally the PowerShell Gallery. It applies the `flow/` rules to GitHub Actions under `.github/workflows/`
-and publishes the bundle the automation domain defines; `ado/` is its Azure DevOps counterpart.
+Releases, GitHub Packages, and optionally the PowerShell Gallery, and the run mark and `on.*.paths` triggers of a workflow. It applies the
+`flow/` rules to GitHub Actions under `.github/workflows/` and publishes the bundle the automation domain defines; `ado/` is its Azure
+DevOps counterpart.
 
 **Role:** `implementation` — **depends on:** `external`, `principles`, `process`, `design`, `automation`, `flow`.
 
 | Code             | ADR                                        |
 | ---------------- | ------------------------------------------ |
 | `ADR-GH-RELEASE` | [github-release](github/github-release.md) |
+| `ADR-GH-ACTIONS` | [github-actions](github/github-actions.md) |
 
 ### azure/
 
