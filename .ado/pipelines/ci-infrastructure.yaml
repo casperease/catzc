@@ -70,8 +70,12 @@ jobs:
           RunCommand: "Get-BicepCostEstimate foundation"
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
-          DisplayName: "Get-BicepCostEstimate discovery"
-          RunCommand: "Get-BicepCostEstimate discovery"
+          DisplayName: "Get-BicepCostEstimate discovery shared_nonprod"
+          RunCommand: "Get-BicepCostEstimate discovery -Subscription shared_nonprod"
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: "Get-BicepCostEstimate discovery shared_prod"
+          RunCommand: "Get-BicepCostEstimate discovery -Subscription shared_prod"
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Get-BicepCostEstimate expedition"

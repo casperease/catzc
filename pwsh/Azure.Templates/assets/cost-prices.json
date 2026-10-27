@@ -3,6 +3,41 @@
   "region": "westeurope",
   "as_of": "2026-10-27",
   "prices": {
+    "firewall-basic-deployment": {
+      "unit_price": 0.395,
+      "unit_of_measure": "1 Hour",
+      "sku": "Basic"
+    },
+    "firewall-basic-data-processed": {
+      "unit_price": 0.065,
+      "unit_of_measure": "1 GB",
+      "sku": "Basic"
+    },
+    "firewall-standard-deployment": {
+      "unit_price": 1.25,
+      "unit_of_measure": "1 Hour",
+      "sku": "Standard"
+    },
+    "firewall-standard-data-processed": {
+      "unit_price": 0.016,
+      "unit_of_measure": "1 GB",
+      "sku": "Standard"
+    },
+    "firewall-log-ingestion": {
+      "unit_price": 2.99,
+      "unit_of_measure": "1 GB",
+      "sku": "Analytics Logs"
+    },
+    "firewall-basic-public-ip": {
+      "unit_price": 0.005,
+      "unit_of_measure": "1 Hour",
+      "sku": "Standard"
+    },
+    "firewall-standard-public-ip": {
+      "unit_price": 0.005,
+      "unit_of_measure": "1 Hour",
+      "sku": "Standard"
+    },
     "log-analytics-ingestion": {
       "unit_price": 2.99,
       "unit_of_measure": "1 GB",
@@ -22,6 +57,11 @@
       "unit_price": 0.573934,
       "unit_of_measure": "1 Hour",
       "sku": "1 vCore"
+    },
+    "private-dns-zone": {
+      "unit_price": 0.5,
+      "unit_of_measure": "1",
+      "sku": "Private"
     },
     "vm-b1s": {
       "unit_price": 0.016,

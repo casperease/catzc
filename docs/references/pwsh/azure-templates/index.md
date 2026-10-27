@@ -273,6 +273,7 @@ and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Get-BicepTrackTagNameSet`        |
 |                                                                   | `Invoke-BreakGlassRotation`       |
 |                                                                   | `Set-AnomalyAlertRecipientSecret` |
+|                                                                   | `Remove-BicepOrphanResources`     |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
 |                                                                   | `Test-BicepTemplateCompliance`    |

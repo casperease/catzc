@@ -27,7 +27,7 @@ budget, which alerts and never stops a resource. Whether the policies deny or au
 settings are typed parameters: `databaseTier` is `@allowed`, `databaseBackupRetentionDays` is bounded 1 to 35, `budgetAmount` has a minimum
 of 1, and every rendered parameters file is checked against those bounds
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). `databaseSkuName` is a free string, and
-no policy restricts resource types or SKUs. `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview, and a CD pipeline deploys through one
+the policies restrict the resource types, the storage SKUs and the virtual machine sizes. `Deploy-Bicep -DryRun` runs Azure's `--what-if` preview, and a CD pipeline deploys through one
 service connection per subscription and asserts the target with `-SubscriptionIdAssertIs`. `foundation`'s SKUs are module defaults
 (`PerGB2018`, `standard`).
 
@@ -172,8 +172,8 @@ Vault, logs in its workspace, the network and private DNS zones in the landing z
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). `foundation` deploys two managed services
 (`log-analytics.bicep`, `key-vault.bicep`), passing names and tags and keeping every module default, and neither exposes a redundancy
 setting. `discovery` deploys only platform networking and governance resources: a resource group, a virtual network with inline subnets, a
-network security group per workload subnet, a route table on a spoke, peerings, the hub's two private DNS zones, three built-in policy
-assignments, the activity-log diagnostic setting, and a budget, with no custom policy definition to maintain. `expedition` deploys a
+network security group per workload subnet, a route table on a spoke, peerings, the hub's two private DNS zones, the policy assignments of
+`landing-zone-policies.bicep` with one custom definition (the CAF tags), the activity-log diagnostic setting, and a budget. `expedition` deploys a
 `Standard_ZRS` storage account (`storage-account.bicep`) and an Azure SQL logical server with one database (`sql-server.bicep`,
 `sql-database.bicep`) reached through two private endpoints, with no virtual machine and no self-managed database.
 

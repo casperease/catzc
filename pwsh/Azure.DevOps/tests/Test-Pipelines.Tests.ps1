@@ -274,8 +274,14 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
         $runs = @($yaml['jobs'][0]['steps'] | Where-Object { $_ -is [System.Collections.IDictionary] -and $_['parameters'] } |
                 ForEach-Object { "$($_['parameters']['RunCommand'])" })
         foreach ($template in Get-BicepTemplateNames) {
-            $estimate = [array]::IndexOf($runs, "Get-BicepCostEstimate $template")
-            $estimate | Should -BeGreaterThan ([array]::IndexOf($runs, "Build-Bicep $template")) -Because "CI prices $template once it is compiled"
+            $estimates = @($runs | Where-Object { $_ -like "Get-BicepCostEstimate $template*" })
+            $estimates | Should -Not -BeNullOrEmpty -Because "CI prices $template"
+            foreach ($estimate in $estimates) {
+                [array]::IndexOf($runs, $estimate) | Should -BeGreaterThan ([array]::IndexOf($runs, "Build-Bicep $template")) -Because "CI prices $template once it is compiled"
+            }
+        }
+        foreach ($hub in 'shared_nonprod', 'shared_prod') {
+            $runs | Should -Contain "Get-BicepCostEstimate discovery -Subscription $hub" -Because "the hub $hub's firewall tier prices only when the estimate knows the subscription"
         }
         @($runs | Where-Object { $_ -like '*Update-AzurePriceTable*' }) | Should -BeNullOrEmpty -Because 'CI reads the checked-in price table'
     }

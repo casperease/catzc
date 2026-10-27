@@ -77,6 +77,7 @@ meters:
     type: Microsoft.Network/privateEndpoints
     service: Virtual Network
     meter: Standard Private Endpoint
+    product: Virtual Network Private Link
     quantity: 730 # hours a month
   - id: private-dns-zone
     type: Microsoft.Network/privateDnsZones

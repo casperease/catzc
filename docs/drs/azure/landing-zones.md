@@ -26,12 +26,16 @@ of every range, and the landing zone reads the kind, the address space, and the 
 
 ### Rule ADR-AZ-LZ-THREEBUILTINPOLICIES
 
-Every landing zone assigns three built-in policies: allowed locations (its region), a required tag on resources, and no public IP address on
-a network interface. Whether they enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with
-its sensible default declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)).
-The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic setting the landing zone deploys,
-never through a deploy-if-not-exists policy. The policies are built-in only, each pinned by its definition id in `discovery/main.bicep` and
-registered in `guids.yml`, and each is assigned once per subscription, with no exclusion and no exemption.
+Every landing zone assigns the policies of `landing-zone-policies.bicep`: allowed locations (its region), the CAF tags required on resources
+(one custom definition, deny), no public IP address on a network interface, no public network access on a storage account and on a SQL
+server, a diagnostic setting on every data resource, the allowed storage SKUs, the allowed virtual machine sizes, the allowed resource types
+(the types the shared modules declare), and the Microsoft cloud security benchmark initiative, assigned to audit only. Whether the
+assignments enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default
+declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); the benchmark is
+`DoNotEnforce` whatever the setting. The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic
+setting the landing zone deploys, never through a deploy-if-not-exists policy. Apart from the CAF-tags definition the policies are
+built-in, each pinned by its definition id in `landing-zone-policies.bicep`, and each is assigned once per subscription, with no exclusion
+and no exemption.
 
 - [Guardrails](landing-zones/landing-zones-topology.md#guardrails)
 - [How this is enforced](landing-zones/landing-zones-operations.md#how-this-is-enforced)
@@ -102,8 +106,10 @@ Monitoring is one Log Analytics workspace per subscription, not one central work
 
 Management is one Log Analytics workspace per subscription from `foundation`, kept 30 days, with the subscription's activity log and the
 diagnostics of every resource sent there by a diagnostic setting the owning template deploys, never by policy. It adds no virtual machine
-tooling, no on-premises forwarding, no alert rule, no lock, and no flow log; a customer with a longer retention obligation or a virtual
-machine adds the matching piece to the template that owns the resource.
+tooling and no on-premises forwarding. The templates add what the resources need: Service Health and Resource Health alerts, SQL database
+metric alerts and a break-glass sign-in alert, delete locks on the hub network, the private DNS zones and the Key Vault, and a virtual
+network flow log where a flow-log storage account is configured. A customer with a longer retention obligation or a virtual machine adds the
+matching piece to the template that owns the resource.
 
 - [CAF management](landing-zones/landing-zones-caf.md#caf-management)
 
