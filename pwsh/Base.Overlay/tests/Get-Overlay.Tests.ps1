@@ -1,4 +1,4 @@
-Describe 'Get-CatzcOverlay' -Tag 'L0', 'logic' {
+Describe 'Get-Overlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')
     }
@@ -20,7 +20,7 @@ Describe 'Get-CatzcOverlay' -Tag 'L0', 'logic' {
         Set-OverlayFile 'Base.Widget/README.md' '# no'
         Set-OverlayFile 'Widget.Local/Get-Local.ps1' 'function Get-Local { }'
 
-        $entries = @(Get-CatzcOverlay)
+        $entries = @(Get-Overlay)
         $rows = @($entries | ForEach-Object { '{0}|{1}|{2}|{3}' -f $_.Kind, $_.Module, $_.Target, $_.Visibility })
         $rows | Should -Be @(
             'FunctionOverride|Catzc.Base.Widget|Get-Widget|public'
@@ -39,6 +39,6 @@ Describe 'Get-CatzcOverlay' -Tag 'L0', 'logic' {
 
     It 'returns nothing when there is no overlay' {
         Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
-        @(Get-CatzcOverlay) | Should -BeNullOrEmpty
+        @(Get-Overlay) | Should -BeNullOrEmpty
     }
 }

@@ -47,6 +47,14 @@ Optional filter — build only the named customers' slots (their configuration s
 Optional filter — build the configuration-root (shared-platform, non-customer) slots. Combines with -Customers as a union; with neither
 filter every slot builds.
 
+### parameter `RuntimeSlots`
+
+Ephemeral slots to build too, as `<env>-<slot>`: each on every selected base slot of that environment, with no file of its own.
+
+### parameter `RuntimeSlotsJson`
+
+The same, as a pipeline's deploy-target list in JSON (`[{ env, slot?, ... }]`): every entry with a slot is a runtime slot.
+
 ### parameter `OutputFolder`
 
 The folder to build into, wiped first. Defaults to the template's `out/template/<name>`, the folder the pipelines publish and the deploy

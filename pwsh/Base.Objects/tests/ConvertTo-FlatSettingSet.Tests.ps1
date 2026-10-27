@@ -1,10 +1,10 @@
-class CatzcFlatSettingSetDb {
+class GadgetSettingSetDb {
     [string] $Host
     [int] $Port
 }
-class CatzcFlatSettingSetRoot {
+class GadgetSettingSetRoot {
     [string] $Name
-    [CatzcFlatSettingSetDb] $Database
+    [GadgetSettingSetDb] $Database
 }
 
 Describe 'ConvertTo-FlatSettingSet' -Tag 'L0', 'logic' {
@@ -126,9 +126,9 @@ Describe 'ConvertTo-FlatSettingSet' -Tag 'L0', 'logic' {
     }
 
     It 'flattens a typed CLR object by reflecting over its public members' {
-        $object = [CatzcFlatSettingSetRoot]::new()
+        $object = [GadgetSettingSetRoot]::new()
         $object.Name = 'app'
-        $object.Database = [CatzcFlatSettingSetDb]::new()
+        $object.Database = [GadgetSettingSetDb]::new()
         $object.Database.Host = 'db1'
         $object.Database.Port = 5432
 

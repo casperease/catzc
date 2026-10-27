@@ -33,13 +33,18 @@ run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bice
 
 ## Open steps
 
-- [ ] Measure what the shared import costs each test run a second time: a lone `Invoke-TestFile` run's `run.json` `durationSeconds` against
-      its `files-shard-0.json` `DurationMs` is the worker's start, import and Pester load. The first sample, `Test-BicepTemplateCompliance`
-      alone in place (`out/test-file/20261027-160116-0cf782`), is 52.4 s against 46.6 s: 5.8 s per worker, so about 70 s of the run's 12
-      workers. Check: a second lone run of one small file, its number recorded here.
-- [ ] `Build-Bicep` runs every slot's `bicep build-params` and the `main.bicep` build one after another, each a full compile of the template
-      in its own bicep process; send them through `Invoke-ExecutableParallel` (`CliRunner.RunMany`, the throttle of `timeouts.yml`
-      `parallel.processes`), as `Build-Bicep.Integrity.Tests.ps1` already compiles its slots side by side. It speeds every caller,
+- [x] Second sample (drone-opus, 2026-10-27): `Build-Bicep.SampleSubscription.Tests.ps1` alone (`out/test-file/20261027-161502-bbdc9b`) is
+      8.05 s against 1.67 s, 6.4 s per worker, and two `Test-BicepTemplateCompliance` runs give 5.7 s and 5.9 s: about 6 s per worker start,
+      import and Pester load. Measure what the shared import costs each test run a second time: a lone `Invoke-TestFile` run's `run.json`
+      `durationSeconds` against its `files-shard-0.json` `DurationMs` is the worker's start, import and Pester load. The first sample,
+      `Test-BicepTemplateCompliance` alone in place (`out/test-file/20261027-160116-0cf782`), is 52.4 s against 46.6 s: 5.8 s per worker, so
+      about 70 s of the run's 12 workers. Check: a second lone run of one small file, its number recorded here.
+- [x] Verdict (drone-opus, 2026-10-27): `Test-BicepTemplateCompliance.Tests.ps1` alone went from 44.5 s Pester / 50.6 s wall
+      (`out/test-file/20261027-161103-a2a1b1`) to 17.3 s / 23.0 s and 18.3 s / 24.1 s (`20261027-161527-4fbfad`, `20261027-161754-83337d`),
+      11 tests passing each; the `foundation` build is byte-identical to a serial compile (7 of 7 JSON files). `Build-Bicep` runs every
+      slot's `bicep build-params` and the `main.bicep` build one after another, each a full compile of the template in its own bicep
+      process; send them through `Invoke-ExecutableParallel` (`CliRunner.RunMany`, the throttle of `timeouts.yml` `parallel.processes`), as
+      `Build-Bicep.Integrity.Tests.ps1` already compiles its slots side by side. It speeds every caller,
       `Test-BicepTemplateCompliance.Tests.ps1` (53.8 s) and `Foundation.PrePost.Tests.ps1` (13.3 s) first. The seven
       `Build-Bicep*.Tests.ps1` files mock `Invoke-Executable` for the build-params calls and move to a mock of `Invoke-ExecutableParallel`,
       and `private/Invoke-BicepParamsBuild.ps1` goes, its existence assert kept in `Build-Bicep`. Check: both files twice with

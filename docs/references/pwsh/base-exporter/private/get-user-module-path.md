@@ -1,4 +1,4 @@
-# pwsh/Base.Exporter/private/Get-CatzcUserModulePath.ps1
+# pwsh/Base.Exporter/private/Get-UserModulePath.ps1
 
 The private resolver of the current user's PowerShell 7 module folder, where `Install-Catzc -Scope CurrentUser` places Catzc.
 

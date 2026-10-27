@@ -68,7 +68,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 
     Context 'fixture' -Tag 'logic' {
         It 'compiles fresh modules, loads their types, and caches ONE combined DLL' -Tag 'L1' {
-            $namespace = "CatzcTestA$runId"
+            $namespace = "WidgetTestA$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Alpha = 'public class Alpha { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
 
@@ -80,7 +80,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'compiles MULTIPLE sources in ONE module into ONE assembly (intra-module base + derived)' {
-            $namespace = "CatzcTestB$runId"
+            $namespace = "WidgetTestB$runId"
             $root = New-FixtureRoot @{
                 $namespace = @{
                     Base  = 'public abstract class Base { public int Tag() { return 7; } }'
@@ -95,8 +95,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'compiles types ACROSS modules into one assembly (cross-module base + derived)' {
-            $baseNamespace = "CatzcTestBase$runId"
-            $derivedNamespace = "CatzcTestDer$runId"
+            $baseNamespace = "WidgetTestBase$runId"
+            $derivedNamespace = "WidgetTestDer$runId"
             $root = New-FixtureRoot @{
                 $baseNamespace    = @{ Record = 'public abstract class Record { public int Tag() { return 9; } }' }
                 $derivedNamespace = @{ Leaf = "public sealed class Leaf : $baseNamespace.Record { }" }
@@ -110,14 +110,14 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'announces a real compile with a "Built ..." message' {
-            $namespace = "CatzcTestZeta$runId"
+            $namespace = "WidgetTestZeta$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Zeta = 'public class Zeta { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -like 'Built *' }
         }
 
         It 'writes the types manifest beside the DLL it builds' {
-            $namespace = "CatzcTestManifest$runId"
+            $namespace = "WidgetTestManifest$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Omega = 'public class Omega { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $manifest = Get-FixtureManifest -Root $root
@@ -126,7 +126,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'restores a missing manifest beside a DLL that predates it' {
-            $namespace = "CatzcTestRestore$runId"
+            $namespace = "WidgetTestRestore$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Psi = 'public class Psi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $manifest = Get-FixtureManifest -Root $root
@@ -136,7 +136,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'throws for a bundle whose manifest is missing and never writes one' {
-            $namespace = "CatzcTestBundle$runId"
+            $namespace = "WidgetTestBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $manifest = Copy-FixtureBundleBuild -Root $root
@@ -147,7 +147,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'verifies but does not load the types for a console host, and the first Initialize-Types loads them' {
-            $namespace = "CatzcTestLazy$runId"
+            $namespace = "WidgetTestLazy$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Lambda = 'public class Lambda { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
 
@@ -162,7 +162,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'defers a console bundle load too, from the prebuilt DLL and manifest, without compiling' {
-            $namespace = "CatzcTestLazyBundle$runId"
+            $namespace = "WidgetTestLazyBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
             $dll = [System.IO.Path]::ChangeExtension((Copy-FixtureBundleBuild -Root $root), 'dll')
@@ -177,7 +177,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'stacks a changed build beside the loaded one up to the generations cap, then keeps the old types' {
-            $namespace = "CatzcTestStack$runId"
+            $namespace = "WidgetTestStack$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $cap = @{ Generations = 2 }
             Mock Get-TypesLoadPolicy {
@@ -201,7 +201,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'loads at import when the policy names an eager type, and refuses a name no module declares' {
-            $namespace = "CatzcTestEager$runId"
+            $namespace = "WidgetTestEager$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Nu = 'public class Nu { }' } }
             $eager = @{ Name = 'Nope.Missing' }
             Mock Get-TypesLoadPolicy {
@@ -218,7 +218,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'is a no-op when the types are already loaded with unchanged sources' {
-            $namespace = "CatzcTestDelta$runId"
+            $namespace = "WidgetTestDelta$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Delta = 'public class Delta { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
@@ -226,7 +226,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'does not trip the changed-since-loaded guard on a pure CRLF/LF line-ending flip' {
-            $namespace = "CatzcTestEol$runId"
+            $namespace = "WidgetTestEol$runId"
             # Source carries an explicit CRLF so the flip below is a real line-ending change to neutralize.
             $root = New-FixtureRoot @{ $namespace = @{ Eta = "public class Eta {`r`n}" } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -253,11 +253,11 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'a load from a different ModulesRoot does not poison another root''s changed-since-loaded guard' {
-            $namespaceA = "CatzcTestRootA$runId"
+            $namespaceA = "WidgetTestRootA$runId"
             $rootA = New-FixtureRoot @{ $namespaceA = @{ Apple = 'public class Apple { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
 
-            $namespaceB = "CatzcTestRootB$runId"
+            $namespaceB = "WidgetTestRootB$runId"
             $rootB = New-FixtureRoot @{ $namespaceB = @{ Pear = 'public class Pear { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootB } { param($R) Import-CSharpTypes -ModulesRoot $R }
 
@@ -277,7 +277,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
                 Set-ItResult -Skipped -Because 'windows_not_dlllock'; return
             }
 
-            $namespace = "CatzcTestEpsilon$runId"
+            $namespace = "WidgetTestEpsilon$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Epsilon = 'public class Epsilon { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $dll = [System.IO.Path]::ChangeExtension((Get-FixtureManifest -Root $root), 'dll')
@@ -296,7 +296,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:TF_BUILD = ''
             $env:GITHUB_ACTIONS = ''
             try {
-                $namespace = "CatzcTestGamma$runId"
+                $namespace = "WidgetTestGamma$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
@@ -317,7 +317,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:TF_BUILD = ''
             $env:GITHUB_ACTIONS = ''
             try {
-                $namespace = "CatzcTestGammaAdd$runId"
+                $namespace = "WidgetTestGammaAdd$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"),
@@ -335,7 +335,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $savedTfBuild = $env:TF_BUILD
             $env:TF_BUILD = 'True'
             try {
-                $namespace = "CatzcTestGammaCi$runId"   # fresh namespace: a type persists for the process, so the first import must load it clean
+                $namespace = "WidgetTestGammaCi$runId"   # fresh namespace: a type persists for the process, so the first import must load it clean
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
@@ -355,7 +355,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:GITHUB_ACTIONS = ''
             $env:TERM_PROGRAM = 'vscode'
             try {
-                $namespace = "CatzcTestGammaCode$runId"
+                $namespace = "WidgetTestGammaCode$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 $loadedHash = (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly)[[System.IO.Path]::GetFullPath($root)].Hash
@@ -382,7 +382,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:GITHUB_ACTIONS = ''
             $env:TERM_PROGRAM = 'vscode'
             try {
-                $namespace = "CatzcTestGammaCodeAdd$runId"
+                $namespace = "WidgetTestGammaCodeAdd$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"),
@@ -402,7 +402,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:TF_BUILD = 'True'
             $env:TERM_PROGRAM = 'vscode'
             try {
-                $namespace = "CatzcTestGammaCodeCi$runId"
+                $namespace = "WidgetTestGammaCodeCi$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"),
@@ -416,7 +416,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'throws when a file does not produce the type named by its filename' {
-            $namespace = "CatzcTestBeta$runId"
+            $namespace = "WidgetTestBeta$runId"
             # Beta.cs declares class Different, so the wrapped <module>.Beta is never produced.
             $root = New-FixtureRoot @{ $namespace = @{ Beta = 'public class Different { }' } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
@@ -424,14 +424,14 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'throws when a type file declares the WRONG namespace (not its module folder)' {
-            $namespace = "CatzcTestNs$runId"
+            $namespace = "WidgetTestNs$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Widget = "namespace Other;`npublic class Widget { }" } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Throw '*must declare*'
         }
 
         It 'throws when a type file uses a BLOCK-scoped namespace' {
-            $namespace = "CatzcTestBlock$runId"
+            $namespace = "WidgetTestBlock$runId"
             # Block-scoped is not the shape this repo authors; the loader requires a file-scoped declaration.
             $root = New-FixtureRoot @{ $namespace = @{ Widget = "namespace $namespace { public class Widget { } }" } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
@@ -439,7 +439,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'throws when a type file declares NO namespace' {
-            $namespace = "CatzcTestNoNs$runId"
+            $namespace = "WidgetTestNoNs$runId"
             $root = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))
             $typesDirectory = Join-Path (Join-Path $root $namespace) 'types'
             [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
@@ -449,7 +449,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         }
 
         It 'throws when a type filename carries a dotted prefix' {
-            $namespace = "CatzcTestDot$runId"
+            $namespace = "WidgetTestDot$runId"
             # 'Other.Widget.cs' is the old fully-qualified style — the filename must be the bare type name only.
             $root = New-FixtureRoot @{ $namespace = @{ 'Other.Widget' = 'public class Widget { }' } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |

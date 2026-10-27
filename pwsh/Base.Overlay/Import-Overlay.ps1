@@ -1,13 +1,13 @@
-function Import-CatzcOverlay {
+function Import-Overlay {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param()
 
-    $entries = @(Get-CatzcOverlay)
+    $entries = @(Get-Overlay)
     if ($entries.Count -eq 0) {
         return
     }
-    Assert-CatzcOverlay -Entry $entries
+    Assert-Overlay -Entry $entries
 
     foreach ($override in @($entries | Where-Object { $_.Kind -eq 'FunctionOverride' })) {
         $module = Get-Module $override.Module

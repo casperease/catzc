@@ -189,7 +189,7 @@ Describe 'Get-Config' -Tag 'L0' {
     Context 'registry types' -Tag 'logic' {
         BeforeAll {
             Add-Type -TypeDefinition @'
-namespace CatzcGetConfigTest {
+namespace WidgetConfigTest {
     public class FixtureConfig {
         public System.Collections.IDictionary Raw;
         public FixtureConfig(System.Collections.IDictionary d) { Raw = d; }
@@ -206,10 +206,10 @@ namespace CatzcGetConfigTest {
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'fixtype' } -MockWith {
                 @{ Name = 'fixtype'; Module = 'Catzc.Base.Config'; Path = (Join-Path $dir 'fixtype.yml') }
             }
-            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { @{ fixtype = @{ type = 'CatzcGetConfigTest.FixtureConfig' } } }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { @{ fixtype = @{ type = 'WidgetConfigTest.FixtureConfig' } } }
 
             $result = Get-Config -Config fixtype
-            $result -is [CatzcGetConfigTest.FixtureConfig] | Should -BeTrue
+            $result -is [WidgetConfigTest.FixtureConfig] | Should -BeTrue
             $result.Raw['k'] | Should -Be 'v'
         }
 
@@ -220,7 +220,7 @@ namespace CatzcGetConfigTest {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = $null }
             }
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
-                [ordered]@{ 'widget-bare' = @{ type = 'CatzcGetConfigTest.FixtureConfig' }; 'widget-bare-merged' = @{ type = 'CatzcGetConfigTest.FixtureConfig' } }
+                [ordered]@{ 'widget-bare' = @{ type = 'WidgetConfigTest.FixtureConfig' }; 'widget-bare-merged' = @{ type = 'WidgetConfigTest.FixtureConfig' } }
             }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
             Mock Get-Module -ModuleName Catzc.Base.Config -ParameterFilter { $Name -eq 'Catzc.Base.Widget' } -MockWith {

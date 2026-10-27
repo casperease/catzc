@@ -1,4 +1,4 @@
-Describe 'Assert-CatzcOverlay' -Tag 'L0', 'logic' {
+Describe 'Assert-Overlay' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Overlay.Fixture.ps1')
         $script:validOverride = @'
@@ -35,12 +35,12 @@ function Get-Widget {
         Set-OverlayFile 'Widget.Local/private/Get-LocalCore.ps1' 'function Get-LocalCore { }'
         Set-OverlayFile 'Widget.Local/configs/widget-local.yml' 'limit: 1'
         Set-OverlayFile 'Widget.Local/tests/Get-Local.Tests.ps1' "Describe 'x' { }"
-        { Assert-CatzcOverlay } | Should -Not -Throw
+        { Assert-Overlay } | Should -Not -Throw
     }
 
     It 'passes when there is no overlay' {
         Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { }
-        { Assert-CatzcOverlay } | Should -Not -Throw
+        { Assert-Overlay } | Should -Not -Throw
     }
 
     It 'rejects <Case>' -ForEach @(
@@ -61,7 +61,7 @@ function Get-Widget {
         @{ Case = 'a local module with no function file'; File = 'Widget.Local/configs/widget-local.yml'; Content = 'limit: 1'; Expected = '*Widget.Local: a local module has at least one function file*' }
     ) {
         Set-OverlayFile $File $Content
-        { Assert-CatzcOverlay } | Should -Throw -ExpectedMessage $Expected
+        { Assert-Overlay } | Should -Throw -ExpectedMessage $Expected
     }
 
     It 'rejects an override that breaks the contract: <Case>' -ForEach @(
@@ -71,13 +71,13 @@ function Get-Widget {
         @{ Case = 'another output type'; Params = "[Parameter(Mandatory)]`n        [string] `$Name,`n        [int] `$Count"; Output = '[OutputType([int])]'; Expected = '*declares `[OutputType(System.Int32)`], but Get-Widget declares `[OutputType(System.String)`]*' }
     ) {
         Set-OverlayFile 'Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    $Output`n    param(`n        $Params`n    )`n    'overridden'`n}"
-        { Assert-CatzcOverlay } | Should -Throw -ExpectedMessage $Expected
+        { Assert-Overlay } | Should -Throw -ExpectedMessage $Expected
     }
 
     It 'reports every violation in one throw' {
         Set-OverlayFile 'Base.Widget/types/Lever.cs' 'class Lever { }'
         Set-OverlayFile 'Base.Widget/configs/gadget.yml' 'limit: 5'
-        $failure = { Assert-CatzcOverlay } | Should -Throw -PassThru
+        $failure = { Assert-Overlay } | Should -Throw -PassThru
         $failure.Exception.Message | Should -BeLike '*breaks 2 rule(s) of ADR-AUTO-OVERLAY*'
         $failure.Exception.Message | Should -BeLike '*not an override point*'
         $failure.Exception.Message | Should -BeLike "*config 'gadget' is sealed*"

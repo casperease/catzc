@@ -69,7 +69,7 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         }
 
         It 'reuses the loaded types silently when every digest matches, and records the new root' {
-            $namespace = "CatzcTestTwin$runId"
+            $namespace = "WidgetTestTwin$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -80,7 +80,7 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         }
 
         It 'on a devbox, a differing digest warns naming the changed types, keeps the old types, and does not record' {
-            $namespace = "CatzcTestSplit$runId"
+            $namespace = "WidgetTestSplit$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { public int Gear; }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -94,7 +94,7 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
 
         It 'in a pipeline, a differing digest is a hard throw naming both roots' {
             $env:TF_BUILD = 'True'
-            $namespace = "CatzcTestSplitCi$runId"
+            $namespace = "WidgetTestSplitCi$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { public int Gear; }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -103,7 +103,7 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         }
 
         It 'on a devbox, a type the second root needs but the AppDomain lacks (a subset loaded first) is a hard throw' {
-            $namespace = "CatzcTestSubset$runId"
+            $namespace = "WidgetTestSubset$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }'; Gadget = 'public class Gadget { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }
@@ -113,7 +113,7 @@ Describe 'Import-CSharpTypes cross-root types guard' -Tag 'L0' {
         }
 
         It 'a subset root after the full root reuses the loaded types (every needed digest matches)' {
-            $namespace = "CatzcTestSuperset$runId"
+            $namespace = "WidgetTestSuperset$runId"
             $rootA = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }'; Gadget = 'public class Gadget { }' } }
             $rootB = New-FixtureRoot @{ $namespace = @{ Widget = 'public class Widget { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $rootA } { param($R) Import-CSharpTypes -ModulesRoot $R }

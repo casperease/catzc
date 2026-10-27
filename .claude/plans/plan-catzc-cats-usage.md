@@ -27,13 +27,14 @@ catzc-prefixed names left over from old disk names, where the current folder dro
 - [ ] `docs/references/pwsh/base-docs/index.md`: its Division row of the ask-cats responsibility names the retired command name; it becomes
       `Show-Catzc`, the one caller the rename left to the front-page owner of that article. Check: `Test-Links` and `Format-Code` pass on
       that article.
-- [ ] `Catzc.Base.Overlay`: `Get-CatzcOverlay` → `Get-Overlay`, `Import-CatzcOverlay` → `Import-Overlay`, `Assert-CatzcOverlay` →
+- [x] `Catzc.Base.Overlay`: `Get-CatzcOverlay` → `Get-Overlay`, `Import-CatzcOverlay` → `Import-Overlay`, `Assert-CatzcOverlay` →
       `Assert-Overlay`; the overlay is the consumer's, and the module already qualifies it
       ([PDR-CATS-IDENTIFIERNAMESTHESYSTEM](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-identifiernamesthesystem)). Each
       function file, its test file and its `docs/references/pwsh/base-overlay/` page (and `tests/` page) take the new name; callers
       `pwsh/.internal/Catzc.Internal.Importer.psm1`, `pwsh/Base.QualityGates/configs/source-conventions.yml`,
       `docs/references/pwsh/base-overlay/index.md`, `private/get-local-module-violation.md`, `docs/drs/automation/consumer-overlay.md`. The
-      new exported files land by staged burst. Check: `pwsh/Base.Overlay/tests/*.Tests.ps1` pass, then a fresh import.
+      new exported files land by staged burst. Check: `pwsh/Base.Overlay/tests/*.Tests.ps1` pass, then a fresh import. Verdict
+      2026-10-27: `[Invoke-StagedBurst] swapped 14 staged file(s) in and 4 command(s) passed`; fresh import `1 of 1 passed`.
 - [ ] `Catzc.Base.Exporter`: `Get-CatzcContentHash` → `Get-ContentHash` (hashes any folder's content), private `Get-CatzcUserModulePath` →
       `Get-UserModulePath` (the user's own module path). Each function file, test file and `docs/references/pwsh/base-exporter/` page take
       the new name; callers `Install-Catzc.ps1`, `Assert-CatzcBundle.ps1` and their tests, `pwsh/.internal/Catzc.Internal.Builder.psm1`,
@@ -49,7 +50,7 @@ catzc-prefixed names left over from old disk names, where the current folder dro
       `pwsh/Base.Repository/tests/*.Tests.ps1`, `pwsh/Base.Overlay/tests/*.Tests.ps1` and
       `pwsh/Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1` pass, then a fresh import.
 
-- [ ] Test fixture type names: `CatzcTest*`, `CatzcGetConfigTest`, `CatzcFlatSettingSet*`, `CatzcHold`, `CatzcBuildWidget`,
+- [x] Test fixture type names: `CatzcTest*`, `CatzcGetConfigTest`, `CatzcFlatSettingSet*`, `CatzcHold`, `CatzcBuildWidget`,
       `CatzcBuildGadget`, `CatzcWidget` and `catzc_widget` become neutral Widget/Gadget names
       ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)); each fixture and the
       test files that read it change in one pass. Check: each touched test file passes.

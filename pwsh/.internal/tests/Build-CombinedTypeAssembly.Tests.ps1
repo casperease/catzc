@@ -36,8 +36,8 @@ Describe 'Get-CombinedTypeHash module selection' -Tag 'L0', 'logic' {
 Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
     BeforeAll {
         $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
-        $script:widget = "CatzcBuildWidget$runId"
-        $script:gadget = "CatzcBuildGadget$runId"
+        $script:widget = "WidgetBuildWidget$runId"
+        $script:gadget = "WidgetBuildGadget$runId"
         $script:root = Join-Path $TestDrive 'widget-modules'
         foreach ($entry in @(@($widget, 'Sprocket'), @($gadget, 'Lever'))) {
             $typesDirectory = Join-Path $root "$($entry[0])/types"

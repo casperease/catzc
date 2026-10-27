@@ -269,10 +269,10 @@ function Invoke-ConsumerOverlay {
                 $script:modulesFolder))) {
         return
     }
-    if (-not (Get-Command Import-CatzcOverlay -ErrorAction Ignore)) {
+    if (-not (Get-Command Import-Overlay -ErrorAction Ignore)) {
         throw "The working root '$RepositoryRoot' has a consumer overlay (.catzc/$($script:modulesFolder)/), but this bundle does not carry Catzc.Base.Overlay, which applies it. Use a bundle whose profile includes Catzc.Base.Overlay, or remove the overlay."
     }
-    $applied = @(Import-CatzcOverlay)
+    $applied = @(Import-Overlay)
     $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count
     $locals = @($applied | Where-Object { $_.Kind -eq 'LocalModule' }).Count
     if ($applied.Count -gt 0) {

@@ -76,7 +76,7 @@ Describe 'The shadow-cache prune and the holds' -Tag 'L1', 'logic' {
         [System.IO.File]::WriteAllBytes($widget, [byte[]] @(0x4d, 0x5a))
         [System.IO.File]::SetLastWriteTimeUtc($widget, [DateTime]::UtcNow.AddDays(-2))
         $script:gadget = Join-Path $roots "Catzc.Types.$([guid]::NewGuid().ToString('N').Substring(0, 8)).dll"
-        Add-Type -TypeDefinition "namespace CatzcHold$([guid]::NewGuid().ToString('N')) { public class Gadget { } }" -OutputAssembly $gadget -OutputType Library
+        Add-Type -TypeDefinition "namespace WidgetHold$([guid]::NewGuid().ToString('N')) { public class Gadget { } }" -OutputAssembly $gadget -OutputType Library
     }
 
     It 'keeps a stale build that a live process holds' {
@@ -107,7 +107,7 @@ Describe 'The shadow-cache prune across processes' -Tag 'L2', 'logic' {
         [System.IO.Directory]::CreateDirectory($root) | Out-Null
         $hash = 'w' + [guid]::NewGuid().ToString('N').Substring(0, 8)
         $widget = Join-Path $root "Catzc.Types.$hash.dll"
-        Add-Type -TypeDefinition "namespace CatzcWidget$hash { public class Widget { } }" -OutputAssembly $widget -OutputType Library
+        Add-Type -TypeDefinition "namespace WidgetHash$hash { public class Widget { } }" -OutputAssembly $widget -OutputType Library
         [System.IO.File]::SetLastWriteTimeUtc($widget, [DateTime]::UtcNow.AddDays(-2))
         $go = Join-Path $root 'go'
         $module = Join-Path $PSScriptRoot '..\Catzc.Internal.Types.psm1'

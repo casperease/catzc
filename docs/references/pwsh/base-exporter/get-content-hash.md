@@ -1,4 +1,4 @@
-# pwsh/Base.Exporter/Get-CatzcContentHash.ps1
+# pwsh/Base.Exporter/Get-ContentHash.ps1
 
 The command that computes the durable content hash of a directory tree: the content-addressed identity of a bundle.
 
@@ -29,7 +29,7 @@ part of the content it identifies.
 ### example 1
 
 ```powershell
-Get-CatzcContentHash -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666') -Exclude 'build.json'
+Get-ContentHash -Path (Join-Path (Get-OutputRoot) 'automation/built/full/Catzc/6.6.666') -Exclude 'build.json'
 ```
 
 ## The walk

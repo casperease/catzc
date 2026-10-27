@@ -44,7 +44,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
     Context 'traversal over a typed object' -Tag 'logic' {
         BeforeAll {
             Add-Type -TypeDefinition @'
-namespace CatzcGetConfigValueTest {
+namespace WidgetConfigValueTest {
     public class Node {
         public string Name;
         public Node Child;
@@ -56,8 +56,8 @@ namespace CatzcGetConfigValueTest {
         }
 
         It 'walks properties on a typed (non-dictionary) node' {
-            $obj = [CatzcGetConfigValueTest.Node]::new('root')
-            $obj.Child = [CatzcGetConfigValueTest.Node]::new('leaf')
+            $obj = [WidgetConfigValueTest.Node]::new('root')
+            $obj.Child = [WidgetConfigValueTest.Node]::new('leaf')
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $obj }
 
             Get-ConfigValue -Address 'global.myconfig.Child.Name' | Should -Be 'leaf'
