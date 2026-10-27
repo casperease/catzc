@@ -58,7 +58,10 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
             [ordered]@{
                 deployment  = [ordered]@{ target = $script:target; resource_group = 'widget-rg' }
                 artifacts   = [ordered]@{ template_file = $script:templateFile; parameters_file = $script:parametersFile }
-                environment = [ordered]@{ subscription = [ordered]@{ id = '00000000-0000-0000-0000-00000000000a' } }
+                environment = [ordered]@{
+                    subscription = [ordered]@{ id = '00000000-0000-0000-0000-00000000000a' }
+                    region       = 'widget-north'
+                }
             }
         }
         Mock Write-Message -ModuleName Catzc.Azure.Templates { $script:messages.Add("$Message") }

@@ -112,4 +112,4 @@ terms:
     - term: operationalinsights
       meaning: "the Microsoft.OperationalInsights resource provider namespace of Log Analytics"
     - term: timechart
-      meaning: "the Kusto (KQL) timechart render operator, used in Log Analytics queries"
+      meaning: "the KQL timechart render operator, used in Log Analytics queries"

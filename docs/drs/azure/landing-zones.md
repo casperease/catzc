@@ -109,8 +109,10 @@ Management is one Log Analytics workspace per subscription from `foundation`, ke
 diagnostics of every resource sent there by a diagnostic setting the owning template deploys, never by policy. It adds no virtual machine
 tooling and no on-premises forwarding. The templates add what the resources need: Service Health and Resource Health alerts, SQL database
 metric alerts and a break-glass sign-in alert, delete locks on the hub network, the private DNS zones and the Key Vault, and a virtual
-network flow log where a flow-log storage account is configured. A customer with a longer retention obligation or a virtual machine adds the
-matching piece to the template that owns the resource.
+network flow log where a flow-log storage account is configured. Each workload's health model is an Azure Monitor workbook in its own
+template, `health-workbook.bicep` through `workbook.bicep`, over the Resource Health and the fired alerts of the workload's resource group;
+never an Azure Monitor health model, which is in preview and builds on Service Groups at tenant level. A customer with a longer retention
+obligation or a virtual machine adds the matching piece to the template that owns the resource.
 
 - [CAF management](landing-zones/landing-zones-caf.md#caf-management)
 

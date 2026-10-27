@@ -42,8 +42,8 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
   every name round-trips (ADR-AUTO-IDIOM-ROUNDTRIP); an acronym is one ordinary word, never a list (ADR-AUTO-IDIOM-ACRONYMISWORD).
 - A test folder is its module's normal form in its language's folder case (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM).
 - Contracts in `0.1.0` use the normal form for the command file name, the module folder, parameters, sets and types; `cats` takes the POSIX
-  rendering, kebab (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE, -NOPLACEMENTFACTS, -CHECKERPERLANGUAGE, -CONTRACTONEREADER, ADR-REPO-CONTRACT-LAYOUT). No
-  `catzc` version is released, so the draft changes in place with every caller (PDR-ONELIVE).
+  rendering, kebab (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE, -NOPLACEMENTFACTS, -CHECKERPERLANGUAGE, -CONTRACTONEREADER,
+  ADR-REPO-CONTRACT-LAYOUT). No `catzc` version is released, so the draft changes in place with every caller (PDR-ONELIVE).
 
 ## Open steps
 

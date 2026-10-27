@@ -18,7 +18,7 @@ terms:
     - term: gadgetspin
       meaning: "fixture DRS code segment 'GADGETSPIN', a glued gadget + spin word in the code-word splitter tests"
     - term: gadgetxqz
-      meaning: "fixture DRS code segment 'GADGETXQZ', a gadget word plus an unsplittable tail in the code-word splitter tests"
+      meaning: "fixture DRS code segment 'GADGETXQZ', a gadget word plus a tail that has no split in the code-word splitter tests"
     - term: spinlever
       meaning: "fixture DRS code segment 'SPINLEVER', a glued spin + lever word in the code-word splitter tests"
     - term: spinleverlever

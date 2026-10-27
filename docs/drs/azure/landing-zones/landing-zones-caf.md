@@ -80,8 +80,12 @@ plan falls under the same check ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-mod
 Recommendations that assume a virtual machine (Site Recovery, Update Manager, Machine Configuration) or a hybrid link (ExpressRoute, an
 on-premises monitoring system) have nothing to act on: `vm.bicep` exists among the shared modules but no template uses it, the hub's
 `GatewaySubnet` holds nothing, every environment maps to one region, and every log stays in Azure. A workload sits in one resource group of
-one subscription, named by the `workload` tag, which gives the grouping an Azure Service Group would add; Azure Monitor health models are in
-preview and build on Service Groups, so the tool of a health model is chosen when that work begins.
+one subscription, named by the `workload` tag, which gives the grouping an Azure Service Group would add. So a workload's health model is an
+Azure Monitor workbook in the workload's own template, `health-workbook.bicep` through `workbook.bicep`, scoped to that resource group: the
+availability of each resource now (Resource Graph `HealthResources`), its Resource Health events over time (the activity log in the
+subscription's workspace), and the alerts its rules fired (Resource Graph `AlertsManagementResources`). Azure Monitor health models are in
+preview and build on Service Groups at tenant level, which the landing zone never deploys
+([ADR-AZ-LZ-LANDINGZONE](../landing-zones.md#rule-adr-az-lz-landingzone)).
 
 ## CAF tags
 
