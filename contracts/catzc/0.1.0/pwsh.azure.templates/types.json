@@ -557,6 +557,21 @@
       ]
     },
     {
+      "name": "Catzc.Azure.Templates.OrphanRemovalConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "IsAzureCreated",
+          "kind": "method"
+        },
+        {
+          "name": "azure_created",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Azure.Templates.TemplateComplianceConfig",
       "aliases": [],
       "display": [],
