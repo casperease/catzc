@@ -82,9 +82,9 @@ The module's public surface, sorted into the responsibilities above.
 |                                       | `Test-DrsCode`               |
 |                                       | `Format-DrsCode`             |
 | config                                | `drs-checks.yml`             |
-| responsibility:3 — Citation map       | `Get-CatsDrsIndex`           |
-|                                       | `Get-CatsDrsRules`           |
-|                                       | `Get-CatsDrsRuleIds`         |
+| responsibility:3 — Citation map       | `Get-DrsIndex`               |
+|                                       | `Get-DrsRules`               |
+|                                       | `Get-DrsRuleIds`             |
 |                                       | `Get-DrsCitationMap`         |
 | responsibility:4 — Generated pages    | `Build-DrsIndex`             |
 |                                       | `Build-DrsCodeDictionary`    |

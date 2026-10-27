@@ -156,6 +156,14 @@ Describe 'LanguagesConfig naming and layout' -Tag 'L0' {
             $naming.IsFileIdiomatic('Get-Gadget.l2.Tests') | Should -BeFalse
             $naming.IsFileIdiomatic('Get-Gadget.Spec') | Should -BeFalse
         }
+
+        It 'judges a kebab file past its .test suffix, the JavaScript test idiom' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
+            $naming = [Catzc.Base.Languages.LanguageNaming]::new(@(), @('kebab'), @())
+            $naming.IsFileIdiomatic('widget-gadget.test') | Should -BeTrue
+            $naming.IsFileIdiomatic('widget.test') | Should -BeTrue
+            $naming.IsFileIdiomatic('WidgetGadget.test') | Should -BeFalse
+            $naming.IsFileIdiomatic('widget.gadget.test') | Should -BeFalse
+        }
     }
 
     Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {

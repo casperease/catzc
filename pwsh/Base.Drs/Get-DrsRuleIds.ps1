@@ -1,16 +1,16 @@
-function Get-CatsDrsRuleIds {
+function Get-DrsRuleIds {
     [OutputType([string[]])]
     [CmdletBinding()]
     param(
         [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config drs).Root)/index.md")
     )
 
-    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrRuleIdsCache')) {
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:drsRuleIdsCache')) {
         # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
-        $script:catsAdrRuleIdsCache = @{}
+        $script:drsRuleIdsCache = @{}
     }
-    if ($script:catsAdrRuleIdsCache.ContainsKey($IndexPath)) {
-        return , $script:catsAdrRuleIdsCache[$IndexPath]
+    if ($script:drsRuleIdsCache.ContainsKey($IndexPath)) {
+        return , $script:drsRuleIdsCache[$IndexPath]
     }
 
     Assert-PathExist $IndexPath
@@ -18,14 +18,14 @@ function Get-CatsDrsRuleIds {
     # Index rows are relative to the index's own folder, so a fixture index beside fixture records resolves the same way.
     $adrRoot = Split-Path $IndexPath -Parent
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($entry in (Get-CatsDrsIndex -IndexPath $IndexPath)) {
+    foreach ($entry in (Get-DrsIndex -IndexPath $IndexPath)) {
         $adrFile = Join-Path $adrRoot $entry.Path
-        foreach ($rule in (Get-CatsDrsRules -DrsPath $adrFile)) {
+        foreach ($rule in (Get-DrsRules -DrsPath $adrFile)) {
             [void]$ids.Add($rule.Id)
         }
     }
 
     $ret = @($ids | Sort-Object)
-    $script:catsAdrRuleIdsCache[$IndexPath] = $ret
+    $script:drsRuleIdsCache[$IndexPath] = $ret
     , $ret
 }

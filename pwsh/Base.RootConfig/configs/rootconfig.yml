@@ -16,7 +16,7 @@ files:
     committed: true
     optIn: true
   - target: pwsh/.internal/assets/importer-commands.sh
-    generator: New-CatsCommandLookup
+    generator: New-CommandLookup
     sources:
       - contracts/catzc/0.1.0
     committed: true

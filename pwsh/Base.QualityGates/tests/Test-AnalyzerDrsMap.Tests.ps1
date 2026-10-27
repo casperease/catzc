@@ -17,7 +17,7 @@ Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Get-CatsDrsRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN', 'ADR-TST-WIDGET-TURN' }
+        Mock Get-DrsRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN', 'ADR-TST-WIDGET-TURN' }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'analyzer-drs-map' } {
             [pscustomobject]@{ analyzers = [ordered]@{
                     'Measure-Widget' = @('ADR-TST-WIDGET-SPIN')
@@ -62,7 +62,7 @@ Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
     }
 
     It 'returns the issues under -PassThru instead of throwing' {
-        Mock Get-CatsDrsRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN' }
+        Mock Get-DrsRuleIds -ModuleName Catzc.Base.QualityGates { 'ADR-TST-WIDGET-SPIN' }
         $result = Test-AnalyzerDrsMap -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'analyzer-drs-map'
         $result.Issues | Should -HaveCount 1

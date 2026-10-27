@@ -1,6 +1,6 @@
-# pwsh/Base.Drs/tests/Get-CatsDrsRuleIds.Tests.ps1
+# pwsh/Base.Drs/tests/Get-DrsRuleIds.Tests.ps1
 
-The tests of `Get-CatsDrsRuleIds`.
+The tests of `Get-DrsRuleIds`.
 
 ## Fixtures
 

@@ -1,4 +1,4 @@
-Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
+Describe 'Get-CatzcModules' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:modulesRoot = Join-Path $TestDrive 'modules'
         $outsideRoot = Join-Path $TestDrive 'elsewhere'
@@ -20,7 +20,7 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
             $fixture.Name
         }
 
-        $script:modules = & (Get-Module Catzc.Base.Docs) { param($root) Get-CatsModules -ModulesRoot $root } $script:modulesRoot
+        $script:modules = & (Get-Module Catzc.Base.Docs) { param($root) Get-CatzcModules -ModulesRoot $root } $script:modulesRoot
     }
 
     AfterAll {
@@ -47,9 +47,9 @@ Describe 'Get-CatsModules' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+Describe 'Get-CatzcModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
-        $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatsModules }
+        $script:modules = & (Get-Module Catzc.Base.Docs) { Get-CatzcModules }
     }
 
     It 'lists this module with exactly the functions it exports' {
@@ -61,7 +61,7 @@ Describe 'Get-CatsModules — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR
 
     It 'never lists a private function' {
         ($script:modules | Where-Object { $_.Module -eq 'Catzc.Base.Docs' }).Functions |
-            Should -Not -Contain 'Get-CatsModules'
+            Should -Not -Contain 'Get-CatzcModules'
     }
 
     It 'lists only modules loaded from the code root, never the dot-prefixed infrastructure' {

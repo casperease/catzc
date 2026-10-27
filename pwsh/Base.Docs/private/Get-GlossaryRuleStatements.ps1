@@ -8,8 +8,8 @@ function Get-GlossaryRuleStatements {
 
     $adrRoot = Split-Path $IndexPath -Parent
     $statements = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
-    foreach ($adr in (Get-CatsDrsIndex -IndexPath $IndexPath)) {
-        foreach ($rule in (Get-CatsDrsRules -DrsPath (Join-Path $adrRoot $adr.Path))) {
+    foreach ($adr in (Get-DrsIndex -IndexPath $IndexPath)) {
+        foreach ($rule in (Get-DrsRules -DrsPath (Join-Path $adrRoot $adr.Path))) {
             $statements[$rule.Id] = $rule.Statement -replace '`[^`]*`', ''
         }
     }

@@ -1,4 +1,4 @@
-function New-CatsCommandLookup {
+function New-CommandLookup {
     [CmdletBinding()]
     [OutputType([string])]
     param(

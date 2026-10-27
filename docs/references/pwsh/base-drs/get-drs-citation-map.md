@@ -10,8 +10,8 @@ Builds the ADR citation map: every citation code to its ADR's path and declared 
 
 ### description
 
-Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-CatsDrsIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
-(Get-CatsDrsRules), and returns one immutable `[Catzc.Base.Drs.DrsCitationMap]`: code -> repository-relative ADR path and rule numbers, the
+Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-DrsIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
+(Get-DrsRules), and returns one immutable `[Catzc.Base.Drs.DrsCitationMap]`: code -> repository-relative ADR path and rule numbers, the
 reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/drs/ (so a stale path to a moved ADR resolves by
 its file name). The link engine derives every code link's destination from it
 ([ADR-REPO-LINK-CODELINKS](../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).

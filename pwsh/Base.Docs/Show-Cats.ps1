@@ -24,19 +24,19 @@ function Show-Cats {
         }
         'adr' {
             # Plain assignment: the getter returns a comma-wrapped array, and @() would nest it a level too deep.
-            $entries = Get-CatsDrsIndex
+            $entries = Get-DrsIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
                 if ($matched.Count -eq 0) {
                     Write-Message "No ADR matches '$Query'. Run 'Show-Cats adr' for the full list." -NoHeader
                     break
                 }
-                $enforcers = Get-CatsRuleEnforcers
+                $enforcers = Get-RuleEnforcers
                 $root = (Get-Config -Config drs).Root
                 foreach ($entry in $matched) {
                     Write-Message "$($entry.Code)  $($entry.Title)" -NoHeader -ForegroundColor Cyan
                     Write-Message "  $root/$($entry.Path)" -NoHeader
-                    $rules = @(Get-CatsDrsRules -DrsPath (Resolve-RepoPath "$root/$($entry.Path)"))
+                    $rules = @(Get-DrsRules -DrsPath (Resolve-RepoPath "$root/$($entry.Path)"))
                     foreach ($rule in $rules) {
                         $summary = if ($rule.Summary.Length -gt 100) {
                             $rule.Summary.Substring(0, 97) + '...'
@@ -78,7 +78,7 @@ function Show-Cats {
             break
         }
         { $_ -in 'module', 'modules' } {
-            $modules = Get-CatsModules
+            $modules = Get-CatzcModules
             if ($Query) {
                 $matched = @($modules | Where-Object { $_.Module -like "*$Query*" })
                 if ($matched.Count -eq 0) {
@@ -107,7 +107,7 @@ function Show-Cats {
             break
         }
         { $_ -in 'verb', 'verbs' } {
-            $modules = Get-CatsModules
+            $modules = Get-CatzcModules
             $counts = @{}
             foreach ($module in $modules) {
                 foreach ($function in $module.Functions) {

@@ -1,4 +1,4 @@
-function Get-CatsModules {
+function Get-CatzcModules {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(

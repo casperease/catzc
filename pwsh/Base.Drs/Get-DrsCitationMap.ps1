@@ -21,11 +21,11 @@ function Get-DrsCitationMap {
     Assert-PathExist $indexPath -PathType Leaf
 
     $entries = @{}
-    foreach ($row in (Get-CatsDrsIndex -IndexPath $indexPath)) {
+    foreach ($row in (Get-DrsIndex -IndexPath $indexPath)) {
         $adrFile = Join-Path $adrRoot $row.Path
         $entries[$row.Code] = @{
             path  = "$records/" + ($row.Path -replace '\\', '/')
-            rules = [string[]] @(Get-CatsDrsRules -DrsPath $adrFile | ForEach-Object Id)
+            rules = [string[]] @(Get-DrsRules -DrsPath $adrFile | ForEach-Object Id)
         }
     }
 

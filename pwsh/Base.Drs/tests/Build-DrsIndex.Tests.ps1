@@ -1,6 +1,6 @@
 Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
-        $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-CatsDrsIndex }
+        $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-DrsIndex }
         $script:ruleSets = Get-DrsRuleSet
         $script:adrRoot = Resolve-RepoPath 'docs/drs'
     }
@@ -25,7 +25,7 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'sourc
     It 'every drs.yml ruleset is one parseable index row (codes agree with the flattened rule-sets)' {
         (@($script:indexEntries.Code) | Sort-Object) -join ',' |
             Should -Be ((@($script:ruleSets.External) | Sort-Object) -join ',') -Because (
-                'the index is a projection of drs.yml — every external code is one row, in the format Get-CatsDrsIndex parses')
+                'the index is a projection of drs.yml — every external code is one row, in the format Get-DrsIndex parses')
     }
 
     It 'every domain heading is followed by its drs.yml description' {

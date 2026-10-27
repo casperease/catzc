@@ -44,5 +44,5 @@ takes any set of globs, so a language lamp is one set per language and no new ru
 
 ## Open steps
 
-- [ ] Install and reload; tick two languages, put one out, veto the other, untick both. Check: the user's eye on the title row and the
-      status line.
+- [ ] Reload VS Code (`catzc-track-lamps` 0.26.0 is installed); tick two languages, put one out, veto the other, untick both. Check: the
+      user's eye on the title row and the status line.

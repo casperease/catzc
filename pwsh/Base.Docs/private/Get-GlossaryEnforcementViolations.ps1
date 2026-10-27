@@ -5,7 +5,7 @@ function Get-GlossaryEnforcementViolations {
         [AllowEmptyCollection()]
         [Catzc.Base.Docs.GlossaryEntry[]] $Entry = (Get-Glossary),
 
-        [hashtable] $Enforcer = (Get-CatsRuleEnforcers)
+        [hashtable] $Enforcer = (Get-RuleEnforcers)
     )
 
     $violations = [System.Collections.Generic.List[string]]::new()

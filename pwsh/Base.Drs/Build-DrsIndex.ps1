@@ -64,7 +64,7 @@ function Build-DrsIndex {
     $indexPath = "$($adrs.Root)/index.md"
     $fileOf = (Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot $adrDocsRoot).FileOf
 
-    # One aligned code table per domain, in declared order, each row in the exact shape Get-CatsDrsIndex parses.
+    # One aligned code table per domain, in declared order, each row in the exact shape Get-DrsIndex parses.
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $path = $fileOf[$ruleSet.External]

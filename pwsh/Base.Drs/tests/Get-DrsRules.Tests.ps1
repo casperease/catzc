@@ -1,4 +1,4 @@
-Describe 'Get-CatsDrsRules' -Tag 'L0', 'logic' {
+Describe 'Get-DrsRules' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:adrPath = Join-Path $TestDrive 'alpha-thing.md'
         $content = @(
@@ -24,7 +24,7 @@ Describe 'Get-CatsDrsRules' -Tag 'L0', 'logic' {
             '## Context'
         ) -join "`n"
         [System.IO.File]::WriteAllText($script:adrPath, $content)
-        $script:rules = & (Get-Module Catzc.Base.Drs) { param($p) Get-CatsDrsRules -DrsPath $p } $script:adrPath
+        $script:rules = & (Get-Module Catzc.Base.Drs) { param($p) Get-DrsRules -DrsPath $p } $script:adrPath
     }
 
     It 'returns one entry per rule heading with its first-line summary' {

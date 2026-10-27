@@ -52,7 +52,7 @@ function Write-TestAutomationArtifacts {
 
     # Rule coverage unions the tagged tests' and the analyzer rules' enforcers over every rule id; report-only, so a failure never fails the run.
     try {
-        $ruleIds = Get-CatsDrsRuleIds
+        $ruleIds = Get-DrsRuleIds
         Write-TestAutomationRuleCoverage -Rows $Rows -AnalyzerCoverage @(Get-AnalyzerDrsCoverage) `
             -AllRuleIds @($ruleIds) -OutputFolder $RunDirectory
     }

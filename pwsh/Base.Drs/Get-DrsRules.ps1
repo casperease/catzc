@@ -1,4 +1,4 @@
-function Get-CatsDrsRules {
+function Get-DrsRules {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(

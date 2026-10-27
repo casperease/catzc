@@ -1,4 +1,4 @@
-# pwsh/Base.Drs/Get-CatsDrsRuleIds.ps1
+# pwsh/Base.Drs/Get-DrsRuleIds.ps1
 
 Returns the set of every rule id the ADRs declare, the authoritative list a rule citation is validated against.
 
@@ -10,10 +10,10 @@ The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 
 
 ### description
 
-Unions the rule ids of every ADR the index ([index](../../../drs/index.md)) lists: for each index row (Get-CatsDrsIndex) it reads that ADR
-file (Get-CatsDrsRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon,
-e.g. 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an
-analyzer mapping that names a rule absent from this set is a dead reference.
+Unions the rule ids of every ADR the index ([index](../../../drs/index.md)) lists: for each index row (Get-DrsIndex) it reads that ADR file
+(Get-DrsRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon, e.g.
+'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an analyzer
+mapping that names a rule absent from this set is a dead reference.
 
 Ids are returned in registry (`:`) form; a caller comparing a citation, which is spelled in `#` form (e.g.
 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS', the [index](../../../drs/index.md) citation grammar), canonicalizes the separator before lookup.

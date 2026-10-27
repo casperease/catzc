@@ -59,7 +59,7 @@ function Get-TestTagViolations {
             }
             if ($null -eq $validRuleIds) {
                 $validRuleIds = [System.Collections.Generic.HashSet[string]]::new(
-                    [string[]] (Get-CatsDrsRuleIds), [System.StringComparer]::Ordinal)
+                    [string[]] (Get-DrsRuleIds), [System.StringComparer]::Ordinal)
             }
             if (-not $validRuleIds.Contains($tag)) {
                 $reasons += "unknown ADR rule '$tag' — no such rule in $((Get-Config -Config drs).Root)"

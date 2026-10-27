@@ -85,7 +85,7 @@ languages:
       exempt: [importer.ps1]
     formatter: psscriptanalyzer
     adr_folder: automation/pwsh
-    checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
+    checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments, Test-IdiomaticNames]
     imprint: [ps-help]
     layout:
       - { folder: ".", role: public-function, extensions: [.ps1], shipped: false }
@@ -157,7 +157,7 @@ languages:
     naming: { folder: snake, file: snake, function: snake, type: pascal }
     formatter: ruff
     adr_folder: automation/python
-    checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling]
+    checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling, Test-IdiomaticNames]
     tests: { runner: Invoke-PythonTest, pattern: "test_*.py", tools: [uv, python], executable_parameter: UvExecutable }
     layout:
       - { folder: ".", role: script, extensions: [.py] }
@@ -175,7 +175,7 @@ languages:
     naming: { folder: flat, file: snake, function: [pascal, camel], type: [pascal, camel] }
     formatter: gofmt
     adr_folder: automation/go
-    checks: [Test-Formatting, Test-Spelling]
+    checks: [Test-Formatting, Test-Spelling, Test-IdiomaticNames]
     tests: { runner: Invoke-GoTest, pattern: "*_test.go", tools: [go], executable_parameter: GoExecutable }
     layout:
       - { folder: ".", role: source, extensions: [.go] }
@@ -186,7 +186,7 @@ languages:
     naming: { folder: kebab, file: kebab }
     no_formatter: no engine is configured for Bash yet
     adr_folder: automation/bash
-    checks: [Test-ShellScripts]
+    checks: [Test-ShellScripts, Test-IdiomaticNames]
     tests: { runner: Invoke-BashTest, pattern: "*.bats", engine: bash, executable_parameter: EngineExecutable }
     layout:
       - { folder: ".", role: script, extensions: [.sh] }

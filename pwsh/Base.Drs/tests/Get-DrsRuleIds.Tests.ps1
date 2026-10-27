@@ -1,4 +1,4 @@
-Describe 'Get-CatsDrsRuleIds' -Tag 'L0', 'logic' {
+Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         # An index beside two records it lists, plus a third it does not, so only listed records may contribute.
         $script:adrRoot = Join-Path $TestDrive 'adr'
@@ -50,12 +50,12 @@ Describe 'Get-CatsDrsRuleIds' -Tag 'L0', 'logic' {
     }
 
     It 'unions the rule ids of every indexed ADR, distinct and sorted in registry form' {
-        $ids = Get-CatsDrsRuleIds -IndexPath $script:indexPath
+        $ids = Get-DrsRuleIds -IndexPath $script:indexPath
         $ids | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG')
     }
 
     It 'contributes rule ids only from ADRs the index lists' {
-        $ids = Get-CatsDrsRuleIds -IndexPath $script:indexPath
+        $ids = Get-DrsRuleIds -IndexPath $script:indexPath
         $ids | Should -Not -Contain 'ADR-WIDGET-BOLT-STOP'
     }
 }

@@ -226,8 +226,8 @@ function Test-AgentDefinitions {
     foreach ($file in $files) {
         [void]$fileNames.Add([System.IO.Path]::GetFileNameWithoutExtension($file))
     }
-    # Get-CatsDrsRuleIds returns its array as one object (`, $ret`); the assignment takes that array as is.
-    [string[]] $ruleIdList = Get-CatsDrsRuleIds
+    # Get-DrsRuleIds returns its array as one object (`, $ret`); the assignment takes that array as is.
+    [string[]] $ruleIdList = Get-DrsRuleIds
     $ruleIds = [System.Collections.Generic.HashSet[string]]::new($ruleIdList, [System.StringComparer]::Ordinal)
     foreach ($entry in $config.agents) {
         if (-not $fileNames.Contains($entry.name)) {

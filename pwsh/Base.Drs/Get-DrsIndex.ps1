@@ -1,16 +1,16 @@
-function Get-CatsDrsIndex {
+function Get-DrsIndex {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(
         [string] $IndexPath = (Get-Config -Config drs).IndexPath((Get-RepositoryRoot))
     )
 
-    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:drsIndexCache')) {
         # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
-        $script:catsAdrIndexCache = @{}
+        $script:drsIndexCache = @{}
     }
-    if ($script:catsAdrIndexCache.ContainsKey($IndexPath)) {
-        return , $script:catsAdrIndexCache[$IndexPath]
+    if ($script:drsIndexCache.ContainsKey($IndexPath)) {
+        return , $script:drsIndexCache[$IndexPath]
     }
 
     Assert-PathExist $IndexPath
@@ -29,6 +29,6 @@ function Get-CatsDrsIndex {
     }
 
     $ret = @($ret)
-    $script:catsAdrIndexCache[$IndexPath] = $ret
+    $script:drsIndexCache[$IndexPath] = $ret
     , $ret
 }

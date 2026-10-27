@@ -12,8 +12,8 @@ Formats a front-page records section as its intro and a record-and-rule table.
 ### description
 
 Looks each named code up in the DRS index and takes the first sentence of the record's first rule, its links rebased from the record to
-the page. A link that names a record by its code is renamed by the record's title (Get-FrontPageRecordTitle), so the reader meets
-sentences. The table is padded the way the formatter pads one. A code the index does not list, or a record with no rule, throws.
+the page. A link that names a record by its code is renamed by the record's title (Get-FrontPageRecordTitle), and one that names a rule by
+the rule's short phrase (Get-FrontPageRuleTitle), so the reader meets sentences. The table is padded the way the formatter pads one. A code the index does not list, or a record with no rule, throws.
 
 ### parameter `Section`
 

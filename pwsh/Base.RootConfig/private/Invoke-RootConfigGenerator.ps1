@@ -108,9 +108,9 @@ function Invoke-RootConfigGenerator {
         'New-Solution' {
             New-Solution
         }
-        'New-CatsCommandLookup' {
+        'New-CommandLookup' {
             # The lookup cats checks a call against, from the command contracts (Catzc.Base.Contracts).
-            New-CatsCommandLookup
+            New-CommandLookup
         }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."

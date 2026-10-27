@@ -1,4 +1,4 @@
-function Get-CatsRuleEnforcers {
+function Get-RuleEnforcers {
     [OutputType([hashtable])]
     [CmdletBinding()]
     param()
@@ -6,7 +6,7 @@ function Get-CatsRuleEnforcers {
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
     Assert-SourceTree
 
-    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:catsRuleEnforcersCache')
+    $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:ruleEnforcersCache')
     if ($null -ne $cached) {
         return $cached
     }
@@ -77,6 +77,6 @@ function Get-CatsRuleEnforcers {
         }
     }
 
-    $script:catsRuleEnforcersCache = $enforcers
+    $script:ruleEnforcersCache = $enforcers
     $enforcers
 }

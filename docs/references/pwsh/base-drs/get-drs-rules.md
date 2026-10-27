@@ -1,4 +1,4 @@
-# pwsh/Base.Drs/Get-CatsDrsRules.ps1
+# pwsh/Base.Drs/Get-DrsRules.ps1
 
 Reads one ADR file and lists its rules, each with its id, its one-line summary and its normative statement.
 

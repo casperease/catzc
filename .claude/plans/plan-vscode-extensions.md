@@ -44,9 +44,8 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 The small extensions folded into cats extensions.
 
-- [ ] Prove `catzc-drs-links` and `catzc-ansi-logs` in the editor, once the extensions are rebuilt and installed (`Build-VsCodeExtension`,
-      `Install-VsCodeExtension`). Check: a `/docs/drs/` link opens on click, and a coloured log in `out/` renders its colours with the
-      escapes hidden.
+- [ ] Reload VS Code (`catzc-drs-links` 0.1.0 and `catzc-ansi-logs` 0.1.0 are installed). Check: a `/docs/drs/` link opens on click, and a
+      coloured log in `out/` renders its colours with the escapes hidden; the user looks.
 
 ## Decided (the user, 2026-10-25)
 

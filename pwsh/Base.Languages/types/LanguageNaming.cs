@@ -12,8 +12,8 @@ public sealed class LanguageNaming
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // A role suffix sits outside the case, with one optional qualifier naming a tier or fixture: Get-Foo.Tests and Get-Foo.L2.Tests are verb-noun files.
-    private static readonly Regex RoleSuffix = new Regex("(\\.[A-Z][A-Za-z0-9]*)?\\.Tests$");
+    // A role suffix sits outside the case, with one optional qualifier naming a tier or fixture: Get-Foo.Tests and Get-Foo.L2.Tests are verb-noun files, and widget-gadget.test is a kebab file (the JavaScript test idiom).
+    private static readonly Regex RoleSuffix = new Regex("((\\.[A-Z][A-Za-z0-9]*)?\\.Tests|\\.test)$");
 
     // The cases a folder on the path of one of the language's files may take; empty when the language judges no folder.
     public IReadOnlyList<string> folder { get; }
