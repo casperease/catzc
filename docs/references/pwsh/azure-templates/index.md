@@ -52,7 +52,7 @@ Taking a built template to Azure: ensuring the target resource group exists, run
 (honouring a dry-run preview), applying the tracking tags that scope the deployment, and running the post-deploy hook. This is the only
 state-changing responsibility, and it verifies the session targets the configured subscription before it acts. It also rotates the
 break-glass SQL password of the deployed expedition slots, server first and vault second (run monthly by the CRON pipeline
-cron-break-glass-rotation).
+cron-break-glass-rotation), and seeds the anomaly alert's recipients into the foundation vault before each discovery deploy.
 
 ### responsibility:6 — Template integrity validation
 
@@ -272,6 +272,7 @@ and `network.yml` (owned by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Set-BicepTrackingTagSet`         |
 |                                                                   | `Get-BicepTrackTagNameSet`        |
 |                                                                   | `Invoke-BreakGlassRotation`       |
+| | `Set-AnomalyAlertRecipientSecret` |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
 |                                                                   | `Test-BicepTemplateCompliance`    |

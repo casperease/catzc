@@ -26,16 +26,9 @@ function Invoke-SlotBreakGlassRotation {
         throw "Could not set the new password on SQL server $server (slot $($Target.Slot), az exit code $($update.ExitCode)); the server and the vault keep the old one."
     }
 
-    $file = [System.IO.Path]::GetTempFileName()
-    try {
-        [System.IO.File]::WriteAllText($file, $password, [System.Text.UTF8Encoding]::new($false))
-        $secret = Invoke-AzCli "keyvault secret set --vault-name $vault --name $secretName --file `"$file`" --encoding utf-8 --output none" -PassThru -NoAssert -Silent
-    }
-    finally {
-        [System.IO.File]::Delete($file)
-    }
-    if ($secret.ExitCode -ne 0) {
-        throw "SQL server $server has a new password, but writing it to secret $secretName in vault $vault failed (slot $($Target.Slot), az exit code $($secret.ExitCode)); run the rotation again, which sets a fresh password on both."
+    $exitCode = Set-KeyVaultSecretValue -Vault $vault -Name $secretName -Value $password
+    if ($exitCode -ne 0) {
+        throw "SQL server $server has a new password, but writing it to secret $secretName in vault $vault failed (slot $($Target.Slot), az exit code $exitCode); run the rotation again, which sets a fresh password on both."
     }
     Write-Message "Rotated the break-glass password of SQL server $server (slot $($Target.Slot)); secret $secretName in vault $vault holds it"
 }

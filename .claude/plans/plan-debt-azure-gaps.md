@@ -15,21 +15,24 @@ is planned here, one step each, so no record carries a planned item.
 ## Open steps
 
 - [ ] A health model per workload, its tool chosen when the work begins. Check: the workload's compiled template holds the health model.
-- [ ] Role assignments as code (the `addresses:` map is in the tree: Read-BicepTemplateOptions and BicepTemplate take it): a new
-      `modules/role-assignment.bicep` (scope kind subscription | resourceGroup | storageAccount | keyVault | sqlServer | workspace, like
-      `lock.bicep`; principalType Group | ServicePrincipal; an optional attribute-based condition; name `guid(scope, principal, role)`),
-      every role id addressed from `roles.yml` through the template's `addresses:`, never a literal. The Entra group object ids per customer
-      and environment class go under the customer in `azure.yml` (AzureConfig/AzureCustomer gain a `groups:` map; `entraAdminObjectId` is
-      the precedent). The standard set is declared once: `discovery` (subscription) readers to `reader`, operators to `contributor`,
-      workspace readers to `log_analytics_reader`, and operators to `rbac_administrator` with an attribute-based condition limiting the
-      assignable roles to the data roles; `expedition` (resource) data readers and writers to `storage_blob_data_reader`/`_contributor` on
-      the account and `key_vault_secrets_user` on the vault. `action-group.bicep`'s Owner literal moves to the `roles.yml` address the same
-      way. ADR-AZ-LZ-CAFIDENTITY is rewritten in the same change ("the templates assign built-in roles to groups and managed identities,
-      never to users; no group, user, custom role or directory object is created"), with landing-zones-well-architected.md's "the templates
-      make no role assignments" passage; attribute-based conditions for the data roles is rejected there with its reason (no
-      tagged-container model). The managed-identity grant is dropped (YAGNI) and the module's doc says it serves one. A read-only
-      `Get-BicepRoleAssignmentPlan` lists principal, role and scope across templates and slots. Check: an L1 that every slot's assignments
-      are the declared set, the plan command's L0, and a user step to review the stacked assignments.
+- [x] Role assignments as code, the discovery slice: `role-assignment.bicep` (resource-group scope: resourceGroup | storageAccount |
+      keyVault | sqlServer | workspace) and `subscription-role-assignment.bicep` (bicep refuses a subscription assignment from a
+      resource-group file, BCP139), the `azure.yml` `groups:` map on AzureConfig/AzureGroupSet with its `groups` fact, discovery's standard
+      set, `action-group.bicep`'s Owner by `roles.yml` address, and ADR-AZ-LZ-CAFIDENTITY rewritten. Check: one staged burst. Verdict
+      (2026-10-27 burst): AzureConfig, Resolve-BicepEnvironmentFacts, Read-BicepTemplateOptions, Test-BicepLint, Test-BicepApiVersions,
+      Build-Bicep.Integrity and Test-BicepTemplateCompliance passed, 7 of 7.
+- [ ] Role assignments in `expedition` (the templates drone owns its `main.bicep`): `options.yml` gains `facts: groups: groups` and
+      `addresses: roles: global.roles.roles`, and `main.bicep` the `roles` and `groups` object params and three `role-assignment.bicep`
+      calls, each `if (!empty(<group>))`: `data_readers` to `storage_blob_data_reader` and `data_writers` to
+      `storage_blob_data_contributor` on the account (`resourceKind: storageAccount`), and `data_writers` to `key_vault_secrets_user` on
+      foundation's vault (`resourceKind: keyVault`, scope foundation's resource group). Check: Test-BicepLint, Test-BicepApiVersions,
+      Build-Bicep.Integrity and Test-BicepTemplateCompliance green in one staged burst.
+- [ ] A read-only public `Get-BicepRoleAssignmentPlan` in Azure.Templates lists principal, role and scope across templates and slots, read
+      from the compiled templates through the compliance evaluator, its output a contract type and its provided contract under
+      `contracts/catzc/<v>/pwsh.azure.templates/`, landed by staged burst with its L0. Then an L1 that every slot's assignments are the
+      declared set (discovery: readers `reader` and workspace `log_analytics_reader`, operators `contributor` and conditioned
+      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Check: the
+      L0 and the L1 green.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`
