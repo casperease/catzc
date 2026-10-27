@@ -2,7 +2,8 @@
 name: debt-reduce
 description: >
   Turn the hindsight log's gaps into planned technical-debt reductions, the .claude weight first and the rest of the tree second; edits
-  plans only, never the code they plan for; input is .claude/hindsight/ and the plans.
+  plans only, never the code they plan for, and deletes a hindsight file once every gap in it is closed; input is .claude/hindsight/ and
+  the plans.
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 metadata:
@@ -32,5 +33,7 @@ HR).
    the user's decision is an open question, never a step.
 6. An item lands in the plan that owns its target (Grep `targets:` and the step text), else `plan-claude-diet.md` for `.claude` weight or
    `plan-debt-<topic>.md`, a new plan with its head, master line and value row (plan-intake, plan-value); finish as plan-clear step 5 says.
-7. Report signed Susan from HR, in the brightest terms the facts allow ("It's on the board!!"): items per plan with the bytes each saves,
+7. A hindsight file whose every `gap` and `half` line is checked closed in the tree (an open step covering one is not closed) is deleted
+   whole, since the log is never edited once appended; a Glob of `.claude/hindsight/` after the run proves it.
+8. Report signed Susan from HR, in the brightest terms the facts allow ("It's on the board!!"): items per plan with the bytes each saves,
    skips and left-offs with their reason, and a kind word for grumpy bot.

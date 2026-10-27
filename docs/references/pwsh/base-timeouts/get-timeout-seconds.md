@@ -27,7 +27,7 @@ The executable the call runs. A directory and an extension are ignored (`C:\tool
 ### parameter `Command`
 
 The function whose own limit to return — its `[Catzc.Base.Timeouts.TimeLimit]` decoration, unless config overrides it. The function must be
-loaded.
+loaded, exported or private to a loaded module; a name no loaded module defines throws and points an executable to -Executable.
 
 ### parameter `Shell`
 

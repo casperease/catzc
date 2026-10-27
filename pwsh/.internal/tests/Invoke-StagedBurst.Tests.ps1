@@ -259,6 +259,13 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
         Test-Path -LiteralPath "$inside.backup" | Should -BeFalse
     }
 
+    It 'refuses to stage into a folder inside the root, such as out/, before copying anything' {
+        $inside = Join-Path $script:root 'out/widget/staged'
+        { & $script:burst -StagedFolder $inside -RepositoryRoot $script:root -Stage 'widgets/gadget.txt' } |
+            Should -Throw '*is inside the repository*'
+        Test-Path -LiteralPath (Join-Path $inside 'widgets/gadget.txt') | Should -BeFalse
+    }
+
     It 'names no command, and stops' {
         { & $script:burst -StagedFolder $script:staged -RepositoryRoot $script:root -LockName $script:lockName } |
             Should -Throw '*at least one command*'

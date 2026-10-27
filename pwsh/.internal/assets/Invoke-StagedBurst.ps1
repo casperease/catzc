@@ -93,6 +93,11 @@ if ($Stage) {
     else {
         [System.IO.Path]::GetFullPath((Join-Path $stageRoot $StagedFolder))
     }
+    # A copy staged inside the repository, such as under out/, which is cleared by hand, could never be swapped in, so it
+    # is refused before anything is copied.
+    if ($stageFolder.StartsWith($stageRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Invoke-StagedBurst: the staged folder '$stageFolder' is inside the repository, where a cleanup can delete it and no swap takes it; stage in a folder outside '$stageRoot', such as the session scratchpad."
+    }
     foreach ($relative in $Stage) {
         $source = Join-Path $stageRoot $relative
         if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
