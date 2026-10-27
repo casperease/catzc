@@ -22,6 +22,9 @@ param allowedStorageSkus array
 @description('The virtual machine sizes the landing zone allows.')
 param allowedVmSizes array
 
+@description('The resource types the landing zone allows: the types the shared modules declare, a fact the build derives.')
+param allowedResourceTypes array
+
 resource cafTagsDefinition 'Microsoft.Authorization/policyDefinitions@2025-01-01' = {
   name: guid(subscription().id, 'require-caf-tags')
   properties: {
@@ -111,6 +114,15 @@ var policyDefinitions = {
       }
     }
     message: 'Virtual machines in this landing zone use a listed size only.'
+  }
+  resourceTypes: {
+    id: tenantResourceId('Microsoft.Authorization/policyDefinitions', 'a08ec900-254a-4555-9bf5-e42af04b5c5c')
+    parameters: {
+      listOfResourceTypesAllowed: {
+        value: allowedResourceTypes
+      }
+    }
+    message: 'Resources in this landing zone are of a type a shared module deploys.'
   }
   // The Microsoft cloud security benchmark initiative, assigned to audit only: it reports, and never denies.
   benchmark: {

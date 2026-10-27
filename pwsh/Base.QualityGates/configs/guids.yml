@@ -66,7 +66,10 @@ guids:
     description: Azure built-in policy definition 'Audit diagnostic setting for selected resource types' (discovery main.bicep)
   policy_cloud_security_benchmark:
     guid: 1f3afdf9-d0c9-4c3d-847f-89da613e70a8
-    description: Azure built-in policy set definition 'Microsoft cloud security benchmark' (landing-zone-policies.bicep, planned)
+    description: Azure built-in policy set definition 'Microsoft cloud security benchmark' (landing-zone-policies.bicep)
+  policy_allowed_resource_types:
+    guid: a08ec900-254a-4555-9bf5-e42af04b5c5c
+    description: Azure built-in policy definition 'Allowed resource types' (landing-zone-policies.bicep)
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:

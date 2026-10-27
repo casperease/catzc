@@ -30,6 +30,7 @@ stages:
         parameters:
           Unit: apex
           StageSuffix: _preprod
+          RemoveOrphans: true
           ${{ if eq(parameters.Target, 'rollback') }}:
             CertifiedBy: apex-prod
           Foundations:
@@ -49,6 +50,7 @@ stages:
         parameters:
           Unit: apex
           StageSuffix: _prod
+          RemoveOrphans: true
           Expeditions:
             - {
                 env: prod,

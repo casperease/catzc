@@ -156,6 +156,14 @@ region, and a resource group never mixes regions.
 
 - [The subscription as the unit](#the-subscription-as-the-unit)
 
+### Rule ADR-AZ-DATAMOD-ORPHANREMOVALNEEDSRESOLVEDNAMES
+
+A resource that a slot's resource group holds and its compiled template no longer declares is removed after the deploy, never by a
+`Complete` mode; the removal deletes only when every evaluated resource of the template has a name that resolves offline, and otherwise
+deletes nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists only.
+
+- [Orphan removal](#orphan-removal)
+
 ## Context
 
 `Catzc.Azure.Templates` is configured by **two layers**:
@@ -452,6 +460,15 @@ Resource names for a template's own parameters are written **statically** in
 `infrastructure/templates/<name>/configuration/[<customer>/]<env>[-<slot>].yml` under `ParametersFile.parameters`. The build passes them
 through unchanged — it does not generate or validate them. (Automated generation/validation of in-template names against the builder is
 intentionally deferred; the resource-group name above is the only name the system derives.)
+
+### Orphan removal
+
+Every template deploys `Incremental`, so a resource a reverted change takes out of a template stays in its slot's resource group.
+`Remove-BicepOrphanResources` compares the group's resources with the compiled template's resources, evaluated offline with the slot's
+parameter values, and deletes each one no evaluated resource names. The comparison is by name, and a name the evaluator cannot resolve
+(`format()`, `resourceId()` and the other functions outside its subset) could stand for any deployed resource, so one unresolved name makes
+every deletion unsafe: the command then deletes nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists
+only. The DEPLOY pipelines run it after each resource-group deploy on the production and rollback paths, the listing first.
 
 ### Config-addressed parameters
 

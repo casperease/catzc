@@ -80,7 +80,7 @@ Describe 'Hub firewall and routes: every compiled discovery slot' -Tag 'L1', 'in
         }
     }
 
-    It 'lets each hub''s egress reach storage only by the regional Storage.<Region> tag of its own location, spelled as the tag list does' {
+    It 'lets each hub''s egress reach storage only by the regional Storage tag of its own location, spelled as the tag list does (Storage.WestEurope)' {
         foreach ($hub in $script:hubs) {
             $group = $hub.Resources | Where-Object Type -EQ 'Microsoft.Network/firewallPolicies/ruleCollectionGroups' | Select-Object -First 1
             $collections = @([Catzc.Azure.Templates.ArmExpression]::Evaluate($group.Resource.properties.ruleCollections, $group.Scope, $group.Variables))

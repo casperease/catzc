@@ -57,6 +57,16 @@ Describe 'Resolve-BicepEnvironmentFacts' -Tag 'L0', 'logic' {
         $facts.widgetZoned | Should -Be $expected
     }
 
+    It 'passes the types the shared modules declare, as an array even when there is one: <types>' -ForEach @(
+        @{ types = @('Widget.Parts/widgets') }
+        @{ types = @('Widget.Parts/gadgets', 'Widget.Parts/widgets') }
+    ) {
+        Mock Get-BicepModuleResourceTypes -ModuleName Catzc.Azure.Templates { $types }
+        $facts = & $script:resolve ([ordered]@{ widgetTypes = 'module_resource_types' }) 'cog'
+        , $facts.widgetTypes | Should -BeOfType ([string[]])
+        $facts.widgetTypes | Should -Be $types
+    }
+
     It 'passes the slot environment''s field as the parameter: <environment> -> <expected>' -ForEach @(
         @{ environment = 'gadget'; expected = $true }
         @{ environment = 'sprocket'; expected = $false }

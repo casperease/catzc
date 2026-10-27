@@ -14,7 +14,13 @@ is planned here, one step each, so no record carries a planned item.
 
 ## Open steps
 
-- [ ] A health model per workload, its tool chosen when the work begins. Check: the workload's compiled template holds the health model.
+- [ ] A health model per workload. Tool (drone-opus, 2026-10-27, by ADR-AZ-LZ-LANDINGZONE and landing-zones-caf.md's CAF management
+      passage): an Azure Monitor workbook through `workbook.bicep`, over the workload's Resource Health and its alert rules, in the
+      workload's own template; not Azure Monitor health models, which are preview and build on Service Groups at tenant level, which the
+      landing zone never deploys. Waits on the expedition `main.bicep` owner (the backlog drone). Lands with the rule line in
+      ADR-AZ-LZ-CAFMANAGEMENT and the CAF management passage's "chosen when that work begins" rewritten. Check: an L1 that expedition's
+      compiled template holds one `Microsoft.Insights/workbooks` per slot, Test-BicepLint, Build-Bicep.Integrity and
+      Test-BicepTemplateCompliance green in one staged burst.
 - [x] Role assignments as code, the discovery slice: `role-assignment.bicep` (resource-group scope: resourceGroup | storageAccount |
       keyVault | sqlServer | workspace) and `subscription-role-assignment.bicep` (bicep refuses a subscription assignment from a
       resource-group file, BCP139), the `azure.yml` `groups:` map on AzureConfig/AzureGroupSet with its `groups` fact, discovery's standard
@@ -31,8 +37,10 @@ is planned here, one step each, so no record carries a planned item.
       from the compiled templates through the compliance evaluator, its output a contract type and its provided contract under
       `contracts/catzc/<v>/pwsh.azure.templates/`, landed by staged burst with its L0. Then an L1 that every slot's assignments are the
       declared set (discovery: readers `reader` and workspace `log_analytics_reader`, operators `contributor` and conditioned
-      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Check:
-      the L0 and the L1 green.
+      `rbac_administrator`; expedition: the three data roles), and a user step in the task file to review the stacked assignments. Its
+      output type, `types/BicepRoleAssignment.cs` (template, slot, principal, role, scope, condition), compiles in every import, so it lands
+      in the same staged burst as the command; the evaluated assignments come from `Get-ArmDeployedResource` filtered on
+      `Microsoft.Authorization/roleAssignments`, as Discovery.Security.Tests reads its slots. Check: the L0 and the L1 green.
 - [ ] The identity split (the firewall burst is in the tree; the pipeline order still waits on catzc-ab's `cd-customer.yaml` part B):
       `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
       (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`

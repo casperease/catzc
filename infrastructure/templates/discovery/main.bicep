@@ -43,6 +43,9 @@ type policyAssignmentNameSet = {
 
   @description('The Microsoft cloud security benchmark assignment, in audit mode.')
   benchmark: string
+
+  @description('The allowed-resource-types assignment.')
+  resourceTypes: string
 }
 
 @description('Azure region of the resource group and its resources. Defaults to the deployment location.')
@@ -141,6 +144,9 @@ param allowedStorageSkus array = [
 param allowedVmSizes array = [
   'Standard_B1s'
 ]
+
+@description('The resource types the landing zone allows: the types the shared modules declare, a fact the build derives (options.yml facts).')
+param allowedResourceTypes array
 
 @description('Budget name.')
 param budgetName string
@@ -405,6 +411,7 @@ module policies '../../modules/landing-zone-policies.bicep' = {
     requiredTagNames: requiredTagNames
     allowedStorageSkus: allowedStorageSkus
     allowedVmSizes: allowedVmSizes
+    allowedResourceTypes: allowedResourceTypes
   }
 }
 

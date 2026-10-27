@@ -36,4 +36,17 @@ Describe 'discovery security: every compiled slot' -Tag 'L1', 'integrity' {
                 Should -Be 'DoNotEnforce' -Because "slot $($slot.Name)'s benchmark audits and never denies"
         }
     }
+
+    It 'allows exactly the resource types the shared modules declare in every slot' {
+        $declared = @(InModuleScope Catzc.Azure.Templates { Get-BicepModuleResourceTypes })
+        $declared.Count | Should -BeGreaterThan 0
+        foreach ($slot in $script:slots) {
+            $allowed = @($slot.Resources | Where-Object Type -EQ 'Microsoft.Authorization/policyAssignments' | Where-Object {
+                    "$([Catzc.Azure.Templates.ArmExpression]::Evaluate($_.Resource.properties.policyDefinitionId, $_.Scope, $_.Variables))" -like '*a08ec900-254a-4555-9bf5-e42af04b5c5c'
+                })
+            $allowed.Count | Should -Be 1 -Because "slot $($slot.Name) assigns the allowed resource types once"
+            $parameters = [Catzc.Azure.Templates.ArmExpression]::Evaluate($allowed[0].Resource.properties.parameters, $allowed[0].Scope, $allowed[0].Variables)
+            @($parameters.listOfResourceTypesAllowed.value) | Should -Be $declared -Because "slot $($slot.Name) allows the modules' types, derived at build time"
+        }
+    }
 }

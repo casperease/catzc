@@ -8,6 +8,8 @@ facts:
   productionSubscription: subscription_production
   # The Entra groups of the slot's owner (shared or its customer) in the subscription's class; the subscription's role assignments go to them.
   groups: groups
+  # The types the shared modules declare, read at build time; the allowed-resource-types policy admits them.
+  allowedResourceTypes: module_resource_types
 # The role ids every slot assigns, from roles.yml; a slot never writes one.
 addresses:
   roles: global.roles.roles
@@ -41,6 +43,7 @@ names:
         storageSkus: sk,
         vmSkus: vs,
         benchmark: bm,
+        resourceTypes: ty,
       }
   healthAlertNames:
     type: alert

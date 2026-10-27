@@ -31,6 +31,7 @@ stages:
         parameters:
           Unit: shared
           StageSuffix: _prod
+          RemoveOrphans: true
           ${{ if eq(parameters.Target, 'rollback') }}:
             CertifiedBy: shared-psub
           Foundations:
