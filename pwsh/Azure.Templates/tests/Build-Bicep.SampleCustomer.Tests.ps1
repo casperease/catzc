@@ -63,6 +63,25 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         Join-Path $script:outputRoot 'parameters.alpha.json' | Should -Not -Exist
     }
 
+    It 'throws once when one slot fails to compile, naming that slot and its customer' {
+        Mock Invoke-ExecutableParallel {
+            foreach ($line in $Command) {
+                if ($line -like '*parameters.acme.alpha-001.bicepparam*') {
+                    [Catzc.Base.Execution.CliResult]::new('', 'widget error', 1)
+                    continue
+                }
+                if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                    [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{}')
+                }
+                [Catzc.Base.Execution.CliResult]::new('', '', 0)
+            }
+        } -ModuleName Catzc.Azure.Templates
+        $message = { Build-Bicep sample-customer | Out-Null } | Should -Throw -PassThru |
+            ForEach-Object { $_.Exception.Message }
+        $message | Should -BeLike "*1 of * bicep compile(s) failed*slot '*alpha-001*' (customer 'acme') failed with exit code 1*widget error*"
+        ([regex]::Matches($message, 'failed with exit code')).Count | Should -Be 1 -Because 'only the one failing slot is named'
+    }
+
     It 'builds only the configuration-root slots with -Shared' {
         Build-Bicep sample-customer -Shared | Out-Null
         Join-Path $script:outputRoot 'parameters.alpha.json' | Should -Exist
