@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: beb00f00cb2c
+    with_body_sha: "9c641c99663d"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -239,6 +239,7 @@ pipeline detection, the analyzer, and Pester. It applies the engine-agnostic `au
 | `ADR-PWSH-TYPES`    | [hosting-csharp-types](automation/pwsh/hosting-csharp-types.md)                             |
 | `ADR-PWSH-IDEM`     | [idempotent-state-mechanics](automation/pwsh/idempotent-state-mechanics.md)                 |
 | `ADR-PWSH-CONFIG`   | [config-reading](automation/pwsh/config-reading.md)                                         |
+| `ADR-PWSH-RUNMODE`  | [run-mode-mechanics](automation/pwsh/run-mode-mechanics.md)                                 |
 | `ADR-PWSH-ADOFUNC`  | [ado-pipeline-functions](automation/pwsh/ado-pipeline-functions.md)                         |
 | `ADR-PWSH-DETECT`   | [pipeline-detection](automation/pwsh/pipeline-detection.md)                                 |
 

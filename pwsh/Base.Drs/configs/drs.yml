@@ -230,6 +230,7 @@ domains:
       hosting-csharp-types: { external: ADR-PWSH-TYPES, concern: [automation, build] }
       idempotent-state-mechanics: { external: ADR-PWSH-IDEM }
       config-reading: { external: ADR-PWSH-CONFIG }
+      run-mode-mechanics: { external: ADR-PWSH-RUNMODE, concern: [automation, build] }
       ado-pipeline-functions: { external: ADR-PWSH-ADOFUNC }
       pipeline-detection: { external: ADR-PWSH-DETECT }
 
