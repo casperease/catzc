@@ -1,33 +1,32 @@
-# The customer CD pipeline builds once, then deploys the prod tier itself
+# The customer CD pipeline builds once, then deploys non-prod only
 
 ```text
-The customer CD pipeline builds once, then deploys the prod tier itself.
+The customer CD pipeline builds once, then deploys non-prod only.
 
 1  Build-Bicep                       the CI stage builds each of the three templates once
 2  foundation, discovery, expedition the three artifacts it publishes, untagged
 3  Deploy_Foundation                 the first of three deploy stages, main only
 4  dependsOn                         the chain Foundation -> Discovery -> Expedition
-5  nsub, dev, test                   the non-prod targets
-6  psub, prod                        the prod-tier targets, deployed in the same run
+5  nsub, dev, test                   the non-prod targets, the last rung CD reaches
 
-Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD
-and FDR-CD-TWOENVIRONMENTACTIVATION (implementation lens).
+Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI and FDR-CD-CDSTAYSINNONPROD (implementation lens).
 ```
 
 Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/extends/cd-customer.yaml`. The thin root pipelines
 (`cd-apex.yaml`, `cd-nova.yaml`, `cd-flux.yaml`) supply only the customer key and the per-deployment environment, slot, service connection
 and subscription assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages
-that apply them in dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
+that apply them in dependency order. Each deploy stage reaches the non-prod targets and no others; the prod subscription is the manual DEPLOY
+pipeline's.
 
 ```yml drawio
 description:
   The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages apply the published
-  artifacts, reaching the non-prod targets and the prod tier in the same run.
+  artifacts to the non-prod targets and stop there.
 about:
-  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWOENVIRONMENTACTIVATION]
+  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD]
   lens: implementation
 content:
-  title: The customer CD pipeline builds once, then deploys the prod tier itself
+  title: The customer CD pipeline builds once, then deploys non-prod only
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -51,7 +50,6 @@ content:
     - { id: g-deploy-discovery, kind: runner, label: Deploy_Discovery, in: band-deploy }
     - { id: g-deploy-expedition, kind: runner, label: Deploy_Expedition, in: band-deploy }
     - { id: e-non-prod, kind: env, label: nsub · dev · test, in: band-targets }
-    - { id: e-prod-tier, kind: env, label: psub · prod, in: band-targets }
   edges:
     - { from: g-build-bicep, to: r-foundation, kind: flow, label: "" }
     - { from: g-build-bicep, to: r-discovery, kind: flow, label: "" }
@@ -62,14 +60,12 @@ content:
     - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: feeds }
     - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: feeds }
     - { from: g-deploy-foundation, to: e-non-prod, kind: flow, label: "" }
-    - { from: g-deploy-expedition, to: e-prod-tier, kind: flow, label: "" }
   markers:
     - { at: g-build-bicep, number: 1 }
     - { at: r-foundation, number: 2 }
     - { at: g-deploy-foundation, number: 3 }
     - { at: g-deploy-discovery, number: 4 }
     - { at: e-non-prod, number: 5 }
-    - { at: e-prod-tier, number: 6 }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -84,10 +80,9 @@ layout:
   g-deploy-discovery: { x: 470, y: 258, w: 200, h: 48 }
   g-deploy-expedition: { x: 470, y: 348, w: 200, h: 48 }
   e-non-prod: { x: 960, y: 160, w: 220, h: 56 }
-  e-prod-tier: { x: 960, y: 340, w: 220, h: 56 }
 ```
 
-![The customer CD pipeline builds once, then deploys the prod tier itself](.assets/cd-builds-once-then-deploys-prod-itself.drawio.png)
+![The customer CD pipeline builds once, then deploys non-prod only](.assets/cd-builds-once-then-deploys-non-prod.drawio.png)
 
 ## Walkthrough
 
@@ -103,31 +98,24 @@ layout:
 5. **Non-prod targets.** Through the `sc-<customer>-nonprod` service connection, foundation and discovery deploy per subscription to `nsub`,
    and the expedition template deploys to `dev`, into the main-uat rung's `<unit>-main-uat` environment. `cd-apex` also deploys the
    expedition's special slot `dev-blu`; `cd-nova` carries non-prod entries only, and `cd-flux` has no expedition. The standalone
-   `cd-shared.yaml` deploys `shared-nsub`, `shared-main-uat` and `shared-test`.
-6. **Prod-tier targets.** Through the `sc-<customer>-prod` service connection, `cd-apex` deploys foundation and discovery to `psub` and the
-   expedition to `prod`, and `cd-shared.yaml` deploys `shared-psub`. The jobs come from `${{ each }}` and share each stage with no order
-   between them, so prod-tier jobs run beside the non-prod ones. The approval check on a prod-tier environment is configured in the
-   execution engine, by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`; this
-   repository ships the config and the apply but runs none (FDR-CD-PRODAPPROVALGATE).
+   `cd-shared.yaml` deploys `shared-nsub`, `shared-main-uat` and `shared-test`. The prod subscription's targets (`psub`, `preprod`, `prod`)
+   are `deploy-apex.yaml`'s and `deploy-shared.yaml`'s, reached by a manual run: the exact artifact a certifying CD run built goes to
+   pre-prod, then to prod (FDR-CD-TWOENVIRONMENTACTIVATION), and an approval check on a prod-tier environment is configured in the execution
+   engine through `Sync-AdoEnvironmentApprovals` (FDR-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 
 - The CI component builds the artifact once and every downstream deploy consumes it unchanged (FDR-CD-SEPARATEPIPELINEKINDS).
 - A CD pipeline always contains the CI component and then takes the artifact in a direction (FDR-CD-CDCONTAINSCI).
 - CD's direction stays entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
-- Deploy to prod stages the artifact inactive in pre-prod before activating it live (FDR-CD-TWOENVIRONMENTACTIVATION).
 
 ## Where the code and the decision record differ
 
-- The FDR keeps CD entirely within non-prod and says CD never touches production; `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
-  `cd-apex.yaml` deploys the expedition to `prod`, from the CD run.
-- The FDR stages the artifact inactive in pre-prod before production; in code no CD pipeline has a pre-prod target, and the prod-tier jobs
-  run in the same stages as the non-prod ones.
-- No pipeline tags the artifact, and none runs the on-demand L3 environment, main-uat or release-uat by those names, RC, RBC or DEPLOY.
+- No pipeline tags the artifact, and none runs the on-demand L3 environment or certifies RC or RBC.
 
 ## See also
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
+  [operations](a-merge-runs-cd-through-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

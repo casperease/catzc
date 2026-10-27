@@ -142,10 +142,10 @@ layout:
 ## Where the code and the decision record differ
 
 The decision records describe `main-UAT`, release-uat and pre-prod as always-on environments with occupants and RC and RBC gates. The CD
-pipelines define none of them: a main commit that passes its CI stage is deployed to every target of a stage at once, non-prod and prod tier
-side by side (`nsub` and `psub`, or the expedition's `dev` and `prod`). The approval check on a prod-tier environment is the engine's,
-configured by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`; this repository
-runs none. FDR-LIFE-FAILEDSTAYSUPSTREAM holds in code only between pipeline stages, through `succeeded()` conditions, not between
+pipelines define none of them: a main commit that passes its CI stage is deployed to every non-prod target of a stage at once (`nsub`, or
+the expedition's `dev`), and the prod subscription is reached only by the manual `deploy-apex.yaml` and `deploy-shared.yaml`. The approval
+check on a prod-tier environment is the engine's, configured by the adopting team's apply of the shipped `environment-approvals.yml`
+through `Sync-AdoEnvironmentApprovals`; this repository runs none. FDR-LIFE-FAILEDSTAYSUPSTREAM holds in code only between pipeline stages, through `succeeded()` conditions, not between
 environment rungs. No pipeline defines the on-demand L3 environment. The decision records also spell the environment `main-UAT` in the
 commit lifecycle and `main-uat` in the promotion flow.
 

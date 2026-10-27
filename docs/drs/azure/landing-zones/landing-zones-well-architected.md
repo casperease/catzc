@@ -313,10 +313,14 @@ storage account refuses shared-key and SAS authorization (`allowSharedKeyAccess:
 (`enableRbacAuthorization: true`, no access policies). A SQL server's administrator is an Entra ID group, so access follows group membership
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)): `expedition` sets `entraAdminLogin: zct-exped-sql-admins`
 with its `entraAdminObjectId`, `entraAdminPrincipalType` left at `Group`, and `entraOnlyAuthentication: false` to keep the break-glass login
-`exped-break-glass`, the one non-identity credential, whose password lives in `foundation`'s vault. The templates make no role assignments:
-no Key Vault, storage, or SQL data role is granted in code, the managed identities receive no role, the permission that lets a deploy
-resolve the break-glass reference and the roles of the vault's readers are granted outside the repository, and conditional access,
-just-in-time access, and access reviews are tenant settings. The policy assignments carry no managed identity, because none of the three
+`exped-break-glass`, the one non-identity credential, whose password lives in `foundation`'s vault. The templates assign built-in roles
+to groups, never to users, through `role-assignment.bicep` and `subscription-role-assignment.bicep`, each assignment named
+`guid(scope, principal, role)` and its role id addressed from `roles.yml`: `discovery` gives the subscription's readers `reader` and its
+workspace `log_analytics_reader`, and its operators `contributor` and `rbac_administrator` under an attribute-based condition that lets them
+grant only the data roles. The data roles carry no condition of their own, since there is no tagged-container model to condition them on.
+The modules take a managed identity as principal too, which no template grants yet. The permission that lets a deploy resolve the
+break-glass reference is granted outside the repository, and conditional access, just-in-time access, and access reviews are tenant
+settings. The policy assignments carry no managed identity, because none of the three
 policies deploys or modifies a resource; `policy-assignment.bicep` grants remediation roles only when `assignIdentity` is set.
 
 The workload is private by default. `storage-account.bicep` and `sql-server.bicep` set `publicNetworkAccess: 'Disabled'`, the storage

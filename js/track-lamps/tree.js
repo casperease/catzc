@@ -67,14 +67,23 @@ const extensionOf = (/** @type {string} */ place) => {
 function hiddenEntries(files, folders, shown) {
     /** @type {Set<string>} */
     const live = new Set();
-    for (const place of shown) for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) live.add(at);
+    // Every walk up stops at a folder already added, since the walk that added it went on to the root; the same holds below.
+    for (const place of shown)
+        for (let at = path.posix.dirname(place); at !== "." && !live.has(at); at = path.posix.dirname(at)) live.add(at);
     const showing = new Set(shown);
-    /** @type {(place: string) => string | undefined} */
-    const topmostDead = (place) => {
-        let dead;
-        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) if (!live.has(at)) dead = at;
+    // A folder's topmost dead folder, itself included, kept per folder, since every file under it asks again.
+    /** @type {Map<string, string | undefined>} */
+    const deadAt = new Map();
+    /** @type {(folder: string) => string | undefined} */
+    const deadOf = (folder) => {
+        if (folder === ".") return undefined;
+        if (deadAt.has(folder)) return deadAt.get(folder);
+        const dead = deadOf(path.posix.dirname(folder)) ?? (live.has(folder) ? undefined : folder);
+        deadAt.set(folder, dead);
         return dead;
     };
+    /** @type {(place: string) => string | undefined} */
+    const topmostDead = (place) => deadOf(path.posix.dirname(place));
     // Each extension's folders that hold a shown file or a live folder of it (a glob hides a folder whose name it matches), at any depth,
     // the root as '.'.
     const shownUnder = new Set();
@@ -82,7 +91,11 @@ function hiddenEntries(files, folders, shown) {
         const extension = key(extensionOf(place));
         if (!extension) continue;
         shownUnder.add(`${extension}|.`);
-        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) shownUnder.add(`${extension}|${key(at)}`);
+        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) {
+            const entry = `${extension}|${key(at)}`;
+            if (shownUnder.has(entry)) break;
+            shownUnder.add(entry);
+        }
     }
     // Each extension's folders that hold a shown file directly, for the one-level form '<folder>/*<ext>' (a module's functions hidden
     // while its tests, the same extension one folder down, show).
@@ -111,7 +124,11 @@ function hiddenEntries(files, folders, shown) {
     for (const place of [...shown, ...live]) {
         const name = key(path.posix.basename(place));
         namedUnder.add(`${name}|.`);
-        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) namedUnder.add(`${name}|${key(at)}`);
+        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) {
+            const entry = `${name}|${key(at)}`;
+            if (namedUnder.has(entry)) break;
+            namedUnder.add(entry);
+        }
     }
     const deadEntry = (/** @type {string} */ folder) => {
         const name = path.posix.basename(folder);
@@ -133,7 +150,8 @@ function hiddenEntries(files, folders, shown) {
     // A folder with no file below it at all stays in the tree: no lamp claims it, so nothing hides it (DDR-FILTER-EVERYFILECLAIMED), and
     // writing it would cost an entry in every state. A folder the lamps emptied holds files, so it still leaves the tree.
     const populated = new Set();
-    for (const place of files) for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) populated.add(at);
+    for (const place of files)
+        for (let at = path.posix.dirname(place); at !== "." && !populated.has(at); at = path.posix.dirname(at)) populated.add(at);
     for (const place of folders) if (!live.has(place) && populated.has(place)) entries.add(deadEntry(topmostDead(place) ?? place));
     return [...entries].sort();
 }

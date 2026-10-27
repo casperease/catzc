@@ -167,6 +167,13 @@ param budgetForecastThresholds array = [
 @description('Name of the subscription\'s daily cost export; derived by the namer.')
 param costExportName string
 
+@description('Name of the subscription\'s cost anomaly alert; derived by the namer.')
+param anomalyAlertName string
+
+@description('Comma-separated email addresses that receive the cost anomaly alert: a Key Vault reference to foundation\'s vault, seeded at deploy time, so no address is in config.')
+@secure()
+param anomalyAlertRecipients string
+
 @description('Defender for Cloud plans turned on for the services the landing zone runs.')
 param defenderPlans array = [
   'StorageAccounts'
@@ -177,6 +184,9 @@ param defenderPlans array = [
 
 // The cost export runs from the budget's first day for five years, the longest schedule kept between renewals.
 var costExportEndDate = dateTimeAdd('${budgetStartDate}T00:00:00Z', 'P5Y', 'yyyy-MM-dd')
+
+// The anomaly alert runs from the budget's first day for a year, the longest schedule Cost Management takes.
+var anomalyAlertEndDate = dateTimeAdd('${budgetStartDate}T00:00:00Z', 'P1Y', 'yyyy-MM-dd')
 
 var isHub = network.kind == 'hub'
 var subnetNames = objectKeys(network.subnets)
@@ -381,6 +391,17 @@ module costExport '../../modules/cost-export.bicep' = if (!empty(flowLogStorageA
     )
     startDate: budgetStartDate
     endDate: costExportEndDate
+  }
+}
+
+// A daily anomaly alert over the subscription's cost, emailed to the recipients the deploy reads from foundation's vault.
+module anomalyAlert '../../modules/scheduled-action.bicep' = {
+  name: 'anomaly-alert'
+  params: {
+    name: anomalyAlertName
+    recipients: map(split(anomalyAlertRecipients, ','), recipient => trim(recipient))
+    startDate: budgetStartDate
+    endDate: anomalyAlertEndDate
   }
 }
 

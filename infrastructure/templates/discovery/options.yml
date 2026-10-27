@@ -17,6 +17,7 @@ names:
   firewallManagementPublicIpName: { type: pip, role: fwm }
   budgetName: { type: budg }
   costExportName: { type: cexp }
+  anomalyAlertName: { type: alert, role: ano }
   logAnalyticsName: { type: log, template: foundation }
   actionGroupName: { type: ag, template: foundation }
   logAnalyticsResourceGroupName: { type: rg, template: foundation }

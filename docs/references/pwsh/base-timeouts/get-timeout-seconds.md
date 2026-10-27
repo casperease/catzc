@@ -76,3 +76,12 @@ Get-TimeoutSeconds -Budget $budget          # the pwsh limit, or the exemption c
 ```powershell
 Get-TimeoutSeconds -Command Test-Automation # Test-Automation's own limit, from its [TimeLimit] unless config overrides it
 ```
+
+## comment:1
+
+Above `$function = Get-Module | Where-Object { $null -ne $_.SessionState } |...`, written with `#`.
+
+```text
+A module's private function is visible only inside its own module, so each loaded module with a session state
+is asked; a nested script file, such as a module's loader, has none of its own.
+```

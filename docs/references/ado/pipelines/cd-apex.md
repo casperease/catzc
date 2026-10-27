@@ -6,12 +6,14 @@ The CD pipeline of the customer apex: a thin root that picks what to deploy and 
 ## What it supplies
 
 - **Customer key** — `apex`.
-- **Foundations and Discoveries** — the apex spoke at `nsub` and `psub`.
-- **Expeditions** — `dev` (with its ADO environment), the named configuration slot `blu` of `dev`, and `prod`.
+- **Foundations and Discoveries** — the apex spoke at `nsub`.
+- **Expeditions** — `dev` (with its ADO environment) and the named configuration slot `blu` of `dev`.
 - **Per deployment** — the service connection the run logs in with and the `subscriptionIdAssertIs` GUID (from `azure.yml`) that pins the
   target subscription, so a connection pointing at the wrong subscription fails the run.
 
-The lists name exactly the configs apex has: apex has both tiers, nonprod and prod. The service connection names (`sc-apex-*`) are
+The lists name apex's non-prod configs only: CD stays in non-prod
+([FDR-CD-CDSTAYSINNONPROD](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod)), and the prod subscription's
+targets (`psub`, `preprod`, `prod`) are `deploy-apex.yaml`'s, as a pipeline test checks. The service connection names (`sc-apex-*`) are
 illustrative until real service connections and a non-placeholder `azure.yml` exist.
 
 ## Why it is shaped so

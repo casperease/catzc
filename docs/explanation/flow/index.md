@@ -22,8 +22,8 @@ One artifact is built once and climbs to production unchanged
 | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | meta           | [One artifact is built once and climbs to production unchanged](one-artifact-climbs-unchanged.md)                       |
 | architecture   | [CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](pipeline-kinds-keyed-by-one-artifact.md) |
-| implementation | [The customer CD pipeline builds once, then deploys the prod tier itself](cd-builds-once-then-deploys-prod-itself.md)   |
-| operations     | [A merge to main runs the CD pipeline all the way to prod, with no approval](a-merge-runs-cd-to-prod.md)                |
+| implementation | [The customer CD pipeline builds once, then deploys non-prod only](cd-builds-once-then-deploys-non-prod.md)              |
+| operations     | [A merge to main runs the CD pipeline through non-prod and stops there](a-merge-runs-cd-through-non-prod.md)            |
 | governance     | [The CI budget is the only promotion rule a quality gate checks](ci-budget-is-the-only-quality-gate.md)                 |
 | flow           | [A pwsh commit runs CI, is certified by CD, and deploy climbs the gated rungs](ci-pwsh-to-deploy-apex.md)               |
 

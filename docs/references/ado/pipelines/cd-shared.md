@@ -17,7 +17,9 @@ yml from the filter; `Test-GlobSetAffected` is the exact backstop ([FDR-GLOBS](.
   `out/template/<name>`, and the pipeline publishes that folder as the artifact the deploy stages consume. `-Shared` limits the build to the
   configuration slots at the configuration root; customer subfolders are built by their own customer CD.
 - **Deploy** — the unit's one deploy path in `deploy-unit.yaml`, shared with its DEPLOY pipeline: foundation, then discovery, then
-  expedition. Foundations and discoveries run at `nsub` and `psub`; expeditions at `dev` (ADO environment `shared-main-uat`) and `test`.
+  expedition. Foundations and discoveries run at `nsub`; expeditions at `dev` (ADO environment `shared-main-uat`) and `test`. The prod
+  subscription's `psub` is `deploy-shared.yaml`'s, since CD stays in non-prod
+  ([FDR-CD-CDSTAYSINNONPROD](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod)).
 
 ## Why it is shaped so
 

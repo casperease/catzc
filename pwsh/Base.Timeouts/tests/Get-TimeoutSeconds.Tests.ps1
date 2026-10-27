@@ -146,8 +146,26 @@ Describe 'Get-TimeoutSeconds' -Tag 'L0', 'logic' {
             Should -Invoke Get-TimeoutExemption -ModuleName Catzc.Base.Timeouts -Times 0
         }
 
-        It 'throws for a function that is not loaded' {
-            { Get-TimeoutSeconds -Command Sync-Nothing } | Should -Throw "*no loaded function named 'Sync-Nothing'*"
+        It "resolves a module's private function, which only its own module sees" {
+            $module = New-Module -Name 'Catzc.Widget.Fixture' -ScriptBlock {
+                function Sync-Sprocket {
+                    [CmdletBinding()]
+                    [Catzc.Base.Timeouts.TimeLimit(130, Pipeline = 950)]
+                    param()
+                }
+                Export-ModuleMember -Function @()
+            } | Import-Module -PassThru
+            try {
+                Get-Command -Name Sync-Sprocket -ErrorAction Ignore | Should -BeNullOrEmpty
+                Get-TimeoutSeconds -Command Sync-Sprocket | Should -Be 130
+            }
+            finally {
+                Remove-Module -ModuleInfo $module
+            }
+        }
+
+        It 'throws for a function that is not loaded, pointing an executable to -Executable' {
+            { Get-TimeoutSeconds -Command Sync-Nothing } | Should -Throw "*no loaded function named 'Sync-Nothing'; for an executable use -Executable*"
         }
     }
 }

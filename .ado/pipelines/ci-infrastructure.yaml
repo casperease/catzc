@@ -63,6 +63,20 @@ jobs:
           DisplayName: "Build-Bicep expedition (compile + render + verify)"
           RunCommand: "Build-Bicep expedition"
 
+      # The pre-deploy cost estimate prices each compiled template from the checked-in price table; nothing contacts the Retail Prices API.
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: "Get-BicepCostEstimate foundation"
+          RunCommand: "Get-BicepCostEstimate foundation"
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: "Get-BicepCostEstimate discovery"
+          RunCommand: "Get-BicepCostEstimate discovery"
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          DisplayName: "Get-BicepCostEstimate expedition"
+          RunCommand: "Get-BicepCostEstimate expedition"
+
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           DisplayName: "Test-Automation -Suite infrastructure"

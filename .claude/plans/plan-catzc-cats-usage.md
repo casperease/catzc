@@ -16,14 +16,12 @@ catzc-prefixed names left over from old disk names, where the current folder dro
 `contracts/catzc/`, `.catzc`, extension ids, git attribute classes, temp prefixes, and the test fixtures that mirror them (`Catzc.Widget`,
 `catzc-widget`, `CATZC_WIDGET_ROOT`).
 
-## Open questions
-
-- Should `docs/drs/principles/cats-and-catzc.md` carry a short table of the live catzc forms (namespace, `contracts/catzc/`, `.catzc`,
-  `CATZC_` env vars, extension ids, git attribute classes, mirrored fixtures), so the next cleanup reads one table instead of re-mapping
-  15,850 hits? Recommended: yes, one table on the rule page; it shrinks the next session's map to the forms that are not in it.
-
 ## Open steps
 
+- [ ] `docs/drs/principles/cats-and-catzc.md`: one short table of the live catzc forms (namespace, `contracts/catzc/`, `.catzc`, `CATZC_`
+      env vars, extension ids, git attribute classes, mirrored fixtures), so the next cleanup reads one table instead of re-mapping 15,850
+      hits (decided by [PDR-CATS-CATZCISSOURCENAME](../../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename): the rule
+      page holds the live forms). Check: `Test-Links` and `Format-Code` pass on that page.
 - [x] `docs/references/pwsh/base-docs/index.md`: its Division row of the ask-cats responsibility names the retired command name; it becomes
       `Show-Catzc`, the one caller the rename left to the front-page owner of that article. Check: `Test-Links` and `Format-Code` pass on
       that article.

@@ -10,7 +10,6 @@ CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
 5  release-uat           where DEPLOY-Non-Prod drives the artifact for a release branch
 6  RBC                   Release Branch Certification: the human gate at release-uat
 7  pre-prod, production  DEPLOY-Prod stages the artifact inactive, then activates it live
-8  the CD run's path     the apex and shared CD pipelines deploy the prod tier themselves today
 
 Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES
 and FDR-CD-PREPRODRUNG (architecture lens).
@@ -19,12 +18,12 @@ and FDR-CD-PREPRODRUNG (architecture lens).
 Cats does not build one giant pipeline from commit to production. CI, CD and DEPLOY are separate pipeline kinds, each with its own trigger,
 governance and history, and they compose into one promotion flow because they share a single key: the immutable, tagged artifact that the CI
 component builds once and every downstream kind consumes unchanged. Read from left to right, the flow puts the two release gates between the
-kinds rather than inside them, and it shows the path the CD pipelines in the repository take today.
+kinds rather than inside them.
 
 ```yml drawio
 description:
   CI, CD and DEPLOY are separate pipeline kinds keyed together by one tagged artifact that CI builds once; the two release gates sit between
-  the kinds, and the CD run's own path to production runs below them.
+  the kinds.
 about:
   adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG]
   lens: architecture
@@ -66,13 +65,6 @@ content:
     - { from: g-release-uat, to: g-rbc, kind: adr, label: "" }
     - { from: g-rbc, to: g-pre-prod, kind: adr, label: "" }
     - { from: g-pre-prod, to: g-production, kind: adr, label: "" }
-    - from: g-artifact
-      to: g-production
-      kind: flow
-      label: ""
-      via:
-        - [265, 292]
-        - [1195, 292]
   markers:
     - { at: g-ci, number: 1 }
     - { at: g-artifact, number: 2 }
@@ -81,7 +73,6 @@ content:
     - { at: g-release-uat, number: 5 }
     - { at: g-rbc, number: 6 }
     - { at: g-pre-prod, number: 7 }
-    - { at: g-production, number: 8, corner: bottom-right }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
@@ -113,14 +104,14 @@ layout:
 4. **RC.** Release Certification is a manual gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
    A gate decides whether the artifact may proceed; it is not a pipeline.
 5. **release-uat.** DEPLOY-Non-Prod drives the artifact into the non-prod acceptance environments, here the release-uat environment of a
-   release branch. No DEPLOY pipeline exists in the repository yet.
+   release branch. In the repository, the `release-uat` target of `deploy-apex.yaml` and `deploy-shared.yaml` is that path.
 6. **RBC.** Release Branch Certification is the second manual gate, at release-uat, and it clears when release-AT is verified.
 7. **Pre-prod and production.** DEPLOY-Prod drives the RBC-cleared artifact first into pre-prod, staged but not serving, and then activates
    the same bytes live in production.
-8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as
-   non-prod, with no DEPLOY in between: `psub` for both, and the expedition `prod` for apex. No CD pipeline deploys a pre-prod target, so
-   the path ends on production. The approval check on a prod-tier environment is the engine's, configured by the adopting team's apply of
-   the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals` (FDR-CD-PRODAPPROVALGATE).
+   In the repository, `deploy-apex.yaml` and `deploy-shared.yaml` are the only pipelines that reach the prod subscription (`psub`,
+   `preprod`, `prod`), by a `Target` of `prod` or `rollback`; the approval check on a prod-tier environment is the engine's, configured by
+   the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`
+   (FDR-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 
@@ -137,16 +128,14 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The FDR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
-  run, with no DEPLOY pipeline.
 - The FDR gives a solo CI pipeline a tagged artifact as its output, while the pipeline-types FDR says a solo CI produces only a pass/fail
   signal; the solo CI pipelines in the repository publish no artifact.
-- The artifact carries no tag, and no pipeline runs the on-demand L3 environment, release-uat, RC, RBC or DEPLOY.
+- The artifact carries no tag, and no pipeline runs the on-demand L3 environment or certifies RC or RBC.
 
 ## See also
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
   [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it builds on.
-- The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [implementation](cd-builds-once-then-deploys-prod-itself.md),
-  [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
+- The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [implementation](cd-builds-once-then-deploys-non-prod.md),
+  [operations](a-merge-runs-cd-through-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

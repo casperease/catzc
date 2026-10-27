@@ -85,8 +85,10 @@ coordinate resolves to exactly one subscription) is enforced at discovery by `Ge
 Every parameters file a template build renders satisfies the parameter contract of the template's compiled `main.json`: each value has the
 declared type, lies within its `@allowed` values and its value and length bounds, and names a declared parameter; every parameter without a
 default is supplied, by the config or by the template's PrePost hook; and a `secureString`/`secureObject` parameter carries a well-formed
-Key Vault reference, never a literal value. A template with a PrePost hook takes no `.bicepparam` slot, since the hook's input is the yml
-descriptor; discovery refuses the pair, naming the template and the file.
+Key Vault reference, never a literal value. A value kept out of the repository that is not a secret, such as an alert's email recipients,
+takes the same one deploy-time path: a `@secure()` parameter without a default whose every slot carries a Key Vault reference to
+`foundation`'s vault, seeded at deploy time, so the repository holds the reference and never the value. A template with a PrePost hook takes
+no `.bicepparam` slot, since the hook's input is the yml descriptor; discovery refuses the pair, naming the template and the file.
 
 - [Validation](#validation)
 

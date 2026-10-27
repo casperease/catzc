@@ -50,10 +50,19 @@ run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bice
       and `private/Invoke-BicepParamsBuild.ps1` goes, its existence assert kept in `Build-Bicep`. Check: both files twice with
       `Invoke-TestFile`, the same test names and `Should` count, the compiled `main.json` and parameter files identical to a serial build,
       and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `catzc-track-lamps.Tests.ps1` (13.5 s): measure whether its four L1 walks of the real repository can share one walk in `BeforeAll`
-      (ADR-AUTO-TEST-SETUPONCE) without changing what each proves. Check: `Invoke-TestFile` twice, the same test names and `Should` count.
-- [ ] `SourceConventionScan.Tests.ps1` (12.0 s): measure the one test that parses every PowerShell file, and whether a parse is repeated.
-      Check: `Invoke-TestFile` twice, the same test names and `Should` count.
+- [x] Verdict (drone-opus, 2026-10-27): `TrackLamps.Tests.ps1` went from 25.0 s / 23.3 s Pester (`out/test-file/20261027-163210-4b28be`,
+      `20261027-163317-379c22`) to 18.4 s / 20.1 s (`20261027-163728-886a3d`, `20261027-163753-acf387`), 7 tests passing, the test file
+      unchanged. Only two node processes walk the disk, once each (0.5 s over 31,000 files); the cost was each lamp state's `hiddenEntries`
+      (205 ms) and census `entryClaimer` (150 ms), every file walking its folders up. The lever was product code in `js/track-lamps`: the
+      walks up stop at a folder already added, and a folder's dead and claimed verdicts are kept per call. The census test went from
+      11.7-12.8 s to 7.6-8.5 s and the roof test from 5.2-5.6 s to 3.8-4.1 s; the old and new engine agree on 60 real states and 256 toy
+      trees, and the 39 node tests pass. The rest is one evaluate and one `hiddenEntries` per lamp state, the work the tests prove.
+- [x] Verdict (drone-opus, 2026-10-27): `SourceConventionScan.Tests.ps1` went from 12.6 s / 13.2 s Pester
+      (`out/test-file/20261027-163241-906b79`, `20261027-163346-89988c`) to 2.4 s / 2.2 s (`20261027-163552-dfac5c`,
+      `20261027-163601-1d9516`), 3 tests passing, the same names and `Should` count. No parse was repeated (2163 files parsed in 0.2-0.3 s,
+      the scan 0.03 s): the three `FindAll` predicates were script blocks called per node (4.2-5.5 s) and the extent keys a `ForEach-Object`
+      pipeline per node (2.3-3.7 s). The predicates are compiled expression trees now and the lists compare by `SequenceEqual` on the nodes
+      themselves, which holds every extent equal too.
 
 ## Decided
 

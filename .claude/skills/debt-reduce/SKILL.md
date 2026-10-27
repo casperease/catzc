@@ -2,8 +2,8 @@
 name: debt-reduce
 description: >
   Turn the hindsight log's gaps into planned technical-debt reductions, the .claude weight first and the rest of the tree second; edits
-  plans only, never the code they plan for, and deletes a hindsight file once every gap in it is closed; input is .claude/hindsight/ and
-  the plans.
+  plans only, never the code they plan for, and deletes a hindsight file once every gap in it is closed; input is .claude/hindsight/ and the
+  plans.
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 metadata:

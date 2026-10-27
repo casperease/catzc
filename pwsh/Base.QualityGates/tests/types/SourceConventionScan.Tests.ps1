@@ -24,29 +24,30 @@ Describe 'Widget' -Tag 'L0' {
 Describe 'SourceConventionScan over the repository' -Tag 'L1', 'integrity' {
     It 'collects exactly the nodes Ast.FindAll finds, by extent, in every PowerShell file of the tree' {
         $files = @(Get-ChildPath (Get-CatzcModulesRoot) -File -Filter '*.ps1', '*.psm1', '*.psd1' -Depth 8 -PruneVendor $false)
-        $isList = [System.Func[System.Management.Automation.Language.Ast, bool]] {
-            param($node)
-            $node -is [System.Management.Automation.Language.AttributeAst] -or
-            $node -is [System.Management.Automation.Language.ArrayLiteralAst] -or
-            $node -is [System.Management.Automation.Language.SwitchStatementAst]
-        }
-        $isBlock = [System.Func[System.Management.Automation.Language.Ast, bool]] {
-            param($node)
-            $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in 'Describe', 'Context', 'It'
-        }
-        $isString = [System.Func[System.Management.Automation.Language.Ast, bool]] {
-            param($node)
-            $node -is [System.Management.Automation.Language.StringConstantExpressionAst] -or
-            $node -is [System.Management.Automation.Language.ExpandableStringExpressionAst]
-        }
-        $key = { param($Nodes) (@($Nodes | ForEach-Object { "$($_.Extent.StartOffset):$($_.Extent.EndOffset):$($_.GetType().Name)" }) -join ',') }
+        # The FindAll predicates are compiled expression trees: a script block called per node of every tree costs seconds.
+        $expression = [System.Linq.Expressions.Expression]
+        $node = $expression::Parameter([System.Management.Automation.Language.Ast], 'node')
+        $isA = { param([type] $Type) $expression::TypeIs($node, $Type) }
+        $predicate = { param($Body) $expression::Lambda[System.Func[System.Management.Automation.Language.Ast, bool]]($Body, $node).Compile() }
+        $isList = & $predicate $expression::OrElse($expression::OrElse((& $isA ([System.Management.Automation.Language.AttributeAst])),
+                (& $isA ([System.Management.Automation.Language.ArrayLiteralAst]))), (& $isA ([System.Management.Automation.Language.SwitchStatementAst])))
+        $name = $expression::Call($expression::Convert($node, [System.Management.Automation.Language.CommandAst]),
+            [System.Management.Automation.Language.CommandAst].GetMethod('GetCommandName'))
+        $named = { param([string] $Block) $expression::Call([string].GetMethod('Equals', [type[]] @([string], [string], [System.StringComparison])),
+                $name, $expression::Constant($Block), $expression::Constant([System.StringComparison]::OrdinalIgnoreCase)) }
+        $isBlock = & $predicate $expression::AndAlso((& $isA ([System.Management.Automation.Language.CommandAst])),
+            $expression::OrElse($expression::OrElse((& $named 'Describe'), (& $named 'Context')), (& $named 'It')))
+        $isString = & $predicate $expression::OrElse((& $isA ([System.Management.Automation.Language.StringConstantExpressionAst])),
+            (& $isA ([System.Management.Automation.Language.ExpandableStringExpressionAst])))
+        # The same nodes in the same order, by reference, which holds every extent equal too.
+        $same = { param($Scanned, $Found) [System.Linq.Enumerable]::SequenceEqual[System.Management.Automation.Language.Ast]($Scanned, $Found) }
         $differ = [System.Collections.Generic.List[string]]::new()
         foreach ($file in $files) {
             $ast = [System.Management.Automation.Language.Parser]::ParseFile($file, [ref] $null, [ref] $null)
             $scan = [Catzc.Base.QualityGates.SourceConventionScan]::Scan($ast)
-            if ((& $key $scan.ListNodes) -cne (& $key $ast.FindAll($isList, $true)) -or
-                (& $key $scan.BlockCommands) -cne (& $key $ast.FindAll($isBlock, $true)) -or
-                (& $key $scan.Strings) -cne (& $key $ast.FindAll($isString, $true))) {
+            if (-not (& $same $scan.ListNodes $ast.FindAll($isList, $true)) -or
+                -not (& $same $scan.BlockCommands $ast.FindAll($isBlock, $true)) -or
+                -not (& $same $scan.Strings $ast.FindAll($isString, $true))) {
                 $differ.Add($file)
             }
         }

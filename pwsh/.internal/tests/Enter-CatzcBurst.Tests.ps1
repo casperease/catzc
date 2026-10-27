@@ -3,7 +3,7 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'
         $script:exit = Join-Path $PSScriptRoot '../assets/Exit-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
-        $script:importer = Join-Path $TestDrive 'importer.ps1'
+        $script:importer = Join-Path $TestDrive 'widget-importer.ps1'
         [System.IO.File]::WriteAllText($script:importer,
             "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # Runs a burst on another thread, the way a session's background call would, and waits until it holds the lock.
@@ -176,7 +176,7 @@ Describe 'Enter-CatzcBurst — in a child pwsh process' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
-        $script:importer = Join-Path $TestDrive 'importer.ps1'
+        $script:importer = Join-Path $TestDrive 'widget-importer.ps1'
         [System.IO.File]::WriteAllText($script:importer,
             "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
     }

@@ -186,9 +186,6 @@ if (-not $InBurst) {
     exit $LASTEXITCODE
 }
 
-# Every step runs at the repository root, so a command's or a test's repository-relative path resolves there, wherever the caller stood.
-Set-Location -LiteralPath $root
-
 # A journal left by a call killed mid-swap is put back before anything else is swapped.
 if (Test-Path -LiteralPath $manifestPath) {
     Restore-Journal

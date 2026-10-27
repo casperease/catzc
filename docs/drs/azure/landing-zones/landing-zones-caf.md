@@ -204,9 +204,9 @@ A CI pipeline builds and tests every template, as a pull-request check and again
 and checked against its parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 Globset-triggered CD pipelines deploy the templates in order, and every commit to `main` that touches a deployable-unit is deployed to its
 non-production subscriptions; production deploys in the same stage as non-production instead of by promotion. Each deploy runs through the
-service connection of its own subscription and asserts that subscription. The one deploy-time secret is a Key Vault reference resolved by
-Azure Resource Manager. Every deployment job names an Azure DevOps environment per template target, whose checks and approvals are not
-declared in the repository. `Deploy-Bicep -DryRun` runs the Azure what-if preview.
+service connection of its own subscription and asserts that subscription. The deploy-time values, the break-glass password and the anomaly
+alert's recipients, are Key Vault references resolved by Azure Resource Manager. Every deployment job names an Azure DevOps environment per
+template target, whose checks and approvals are not declared in the repository. `Deploy-Bicep -DryRun` runs the Azure what-if preview.
 
 The pipelines are `.ado/pipelines/ci-infrastructure.yaml` (CI for all three templates, which runs `Assert-BicepTemplate` and `Build-Bicep`
 for each, then the infrastructure test suite), `cd-shared.yaml` for the shared platform, and thin customer pipelines (`cd-apex.yaml`,

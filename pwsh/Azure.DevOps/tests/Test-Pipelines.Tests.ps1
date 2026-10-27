@@ -35,6 +35,38 @@ BeforeAll {
         & $walk (ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Path)) -Ordered)
         [pscustomobject]@{ Deploys = $result.Deploys; Missing = [string[]] $result.Missing }
     }
+
+    # The deploy targets of one pipeline YAML (every mapping that pins a subscription) whose subscription is in the production list.
+    $script:findProductionTargets = {
+        param([string] $Path, [string[]] $ProductionSubscriptionIds)
+        $found = [System.Collections.Generic.List[string]]::new()
+        $walk = {
+            param($Node)
+            if ($Node -is [System.Collections.IDictionary]) {
+                if ($Node.Contains('subscriptionIdAssertIs') -and "$($Node['subscriptionIdAssertIs'])" -in $ProductionSubscriptionIds) {
+                    $found.Add("$($Node['env'])")
+                }
+                foreach ($value in $Node.Values) {
+                    & $walk $value
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                foreach ($item in $Node) {
+                    & $walk $item
+                }
+            }
+        }
+        & $walk (ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Path)) -Ordered)
+        [string[]] $found
+    }
+
+    # The ids of the subscriptions that host a production environment, or stage for one, as azure.yml declares them.
+    $script:productionSubscriptionIds = {
+        $azure = Get-Config -Config azure
+        $production = @($azure.environments.Keys | Where-Object { $azure.environments[$_].production })
+        [string[]] @($azure.subscriptions.Values | Where-Object { @($_.environments | Where-Object { $_ -in $production }).Count -gt 0 } |
+                ForEach-Object id)
+    }
 }
 
 Describe 'Test-Pipelines' -Tag 'L0', 'logic' {
@@ -195,6 +227,70 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
         $found = & $script:findUnpreviewed (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
         $found.Deploys | Should -BeGreaterThan 0
         $found.Missing | Should -BeNullOrEmpty -Because 'a pipeline deploy previews its effect with Deploy-Bicep -DryRun first'
+    }
+
+    It 'deploys production only from a DEPLOY pipeline: no other pipeline targets a production subscription (FDR-CD-CDSTAYSINNONPROD)' {
+        $ids = & $script:productionSubscriptionIds
+        $ids | Should -Not -BeNullOrEmpty
+        $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
+        $offenders = foreach ($file in Get-ChildItem -LiteralPath $root -Filter '*.yaml' -File -Recurse) {
+            $targets = @(& $script:findProductionTargets $file.FullName $ids)
+            if ($targets.Count -gt 0 -and $file.Name -notlike 'deploy-*.yaml') {
+                "$($file.Name): $($targets -join ', ')"
+            }
+        }
+        @($offenders) | Should -BeNullOrEmpty -Because 'progression toward prod leaves CD and enters DEPLOY (FDR-CD-PRODPROGRESSIONISDEPLOY)'
+        $deploys = @(Get-ChildItem -LiteralPath $root -Filter 'deploy-*.yaml' -File | Where-Object {
+                @(& $script:findProductionTargets $_.FullName $ids).Count -gt 0
+            })
+        $deploys | Should -Not -BeNullOrEmpty -Because 'some DEPLOY pipeline carries the production rung'
+    }
+
+    It 'gives every production DEPLOY a rollback target that runs the prod path, certified by a production environment''s history' {
+        $ids = & $script:productionSubscriptionIds
+        $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
+        foreach ($file in Get-ChildItem -LiteralPath $root -Filter 'deploy-*.yaml' -File) {
+            if (@(& $script:findProductionTargets $file.FullName $ids).Count -eq 0) {
+                continue
+            }
+            $yaml = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($file.FullName)) -Ordered
+            $target = @($yaml['parameters'] | Where-Object { $_['name'] -eq 'Target' })[0]
+            $target['values'] | Should -Contain 'rollback' -Because "$($file.Name) carries a production rung"
+            $keys = @($yaml['stages'] | ForEach-Object { $_.Keys })
+            $keys | Should -Contain "`${{ if in(parameters.Target, 'prod', 'rollback') }}" -Because 'a rollback runs the one prod path'
+            $first = @($yaml['stages'] | Where-Object { $_.Contains("`${{ if in(parameters.Target, 'prod', 'rollback') }}") })[0]
+            $stage = @($first["`${{ if in(parameters.Target, 'prod', 'rollback') }}"])[0]['parameters']
+            $certified = $stage["`${{ if eq(parameters.Target, 'rollback') }}"]
+            $certified | Should -Not -BeNullOrEmpty -Because "$($file.Name) asserts the earlier commit ran in production before it redeploys it"
+            "$($certified['CertifiedBy'])" | Should -Not -BeNullOrEmpty
+            @(@($stage['Foundations']) + @($stage['Discoveries']) + @($stage['Expeditions']) | Where-Object { $_ } |
+                    ForEach-Object { "$($_['subscriptionIdAssertIs'])" } | Where-Object { $_ -in $ids }) |
+                    Should -Not -BeNullOrEmpty -Because 'the first rollback stage deploys into the production subscription'
+        }
+    }
+
+    It 'prints a pre-deploy cost estimate in CI for every template, after its build and from no network' {
+        $yaml = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) '.ado/pipelines/ci-infrastructure.yaml'))) -Ordered
+        $runs = @($yaml['jobs'][0]['steps'] | Where-Object { $_ -is [System.Collections.IDictionary] -and $_['parameters'] } |
+                ForEach-Object { "$($_['parameters']['RunCommand'])" })
+        foreach ($template in Get-BicepTemplateNames) {
+            $estimate = [array]::IndexOf($runs, "Get-BicepCostEstimate $template")
+            $estimate | Should -BeGreaterThan ([array]::IndexOf($runs, "Build-Bicep $template")) -Because "CI prices $template once it is compiled"
+        }
+        @($runs | Where-Object { $_ -like '*Update-AzurePriceTable*' }) | Should -BeNullOrEmpty -Because 'CI reads the checked-in price table'
+    }
+}
+
+Describe 'the production-target finder' -Tag 'L0', 'logic' {
+    It 'lists the targets pinned to a production subscription and ignores the rest' {
+        $path = Join-Path $TestDrive 'widget.yaml'
+        [System.IO.File]::WriteAllText($path, @(
+                'Foundations:'
+                '  - { env: widget, subscriptionIdAssertIs: 00000000-0000-0000-0000-00000000000a }'
+                '  - { env: gadget, subscriptionIdAssertIs: 00000000-0000-0000-0000-00000000000b }'
+            ) -join "`n")
+        & $script:findProductionTargets $path @('00000000-0000-0000-0000-00000000000b') | Should -Be @('gadget')
+        & $script:findProductionTargets $path @() | Should -BeNullOrEmpty
     }
 }
 

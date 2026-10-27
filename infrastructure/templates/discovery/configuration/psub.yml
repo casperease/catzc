@@ -25,3 +25,8 @@ ParametersFile:
       value: 1000
     budgetStartDate:
       value: "2026-11-01"
+    anomalyAlertRecipients:
+      reference:
+        keyVault:
+          id: /subscriptions/50a0ed00-000d-50b0-0000-000000000000/resourceGroups/psub-weu-zct-fnd-rg/providers/Microsoft.KeyVault/vaults/ps-weu-zct-fnd-kv
+        secretName: disco-anomaly-recipients

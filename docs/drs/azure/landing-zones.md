@@ -123,9 +123,11 @@ Sentinel, Purview, customer-managed keys, and every virtual machine control are 
 
 ### Rule ADR-AZ-LZ-CAFIDENTITY
 
-Every principal the templates name is a group or a role, never a user, and services authenticate as system-assigned managed identities. The
-templates create no group, user, role assignment, custom role, or directory resource; the tenant's directory, its sign-in policies, and its
-privileged access belong to the tenant's administrators.
+The templates assign built-in roles to groups and managed identities, never to users; no group, user, custom role or directory object is
+created. Each role id is addressed from `roles.yml`, each group object id from the `groups:` map of `azure.yml` by owner and environment
+class, and services authenticate as system-assigned managed identities. Operators grant roles only under an attribute-based condition that
+limits them to the data roles; the data roles themselves carry no condition, because no tagged-container model exists to condition them on.
+The tenant's directory, its groups' membership, its sign-in policies, and its privileged access belong to the tenant's administrators.
 
 - [CAF identity](landing-zones/landing-zones-caf.md#caf-identity)
 

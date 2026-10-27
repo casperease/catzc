@@ -22,6 +22,7 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
 - Three policy assignments of built-in definitions — allowed locations (the deployment region), a required tag on resources, and no public
   IP address on a network interface — `policy-assignment.bicep`
 - Budget with alerts at 50, 80, and 100 percent, sent to the subscription `Owner` role — `budget.bicep`
+- A daily cost anomaly alert, emailed to its recipients for a year from the budget's start date — `scheduled-action.bicep`
 
 ## Configuration
 
@@ -38,6 +39,9 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
   that holds a production environment takes `policy_enforcement.production` of `azure.yml`, every other subscription `.nonproduction`, so no
   slot writes it and the repository-wide setting decides whether the assignments enforce or only audit.
 - The budget amount and its start date (the first of a month) are config values.
+- The anomaly alert's recipients are a required secure parameter, comma-separated, that every config supplies as a Key Vault reference to
+  its subscription's `foundation` vault (secret `disco-anomaly-recipients`), seeded at deploy time, so no address is in config
+  ([seed a secret](../../how-to/infrastructure/seed-a-secret.md)).
 - No `PrePost.psm1`.
 
 ## Modules used

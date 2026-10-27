@@ -8,7 +8,8 @@ parameters:
   - name: Target
     displayName: "The rung to deploy"
     type: string
-    values: [release-uat, prod]
+    # rollback runs the prod path with an earlier certifying run: the commit must already be in apex-prod's deployment history.
+    values: [release-uat, prod, rollback]
 
 stages:
   - ${{ if eq(parameters.Target, 'release-uat') }}:
@@ -24,11 +25,17 @@ stages:
               }
           ArtifactPipeline: cd-apex
           RunId: ${{ parameters.CiRunId }}
-  - ${{ if eq(parameters.Target, 'prod') }}:
+  - ${{ if in(parameters.Target, 'prod', 'rollback') }}:
       - template: /.ado/pipelines/stages/deploy-unit.yaml
         parameters:
           Unit: apex
           StageSuffix: _preprod
+          ${{ if eq(parameters.Target, 'rollback') }}:
+            CertifiedBy: apex-prod
+          Foundations:
+            - { env: psub, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+          Discoveries:
+            - { env: psub, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
           Expeditions:
             - {
                 env: preprod,

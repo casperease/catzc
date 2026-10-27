@@ -10,7 +10,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 5  ci-infrastructure   Assert-BicepTemplate, Build-Bicep, then the infrastructure suite
 6  L3 system test     the CI+ test, run against the deploy stages; no pipeline step, nothing passes level 3
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
-8  Deploy_Discovery    one stage that deploys nsub and psub side by side
+8  Deploy_Discovery    one stage that deploys its non-prod targets
 
 Supports FDR-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
 ```
@@ -122,9 +122,8 @@ layout:
    `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
    previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's `Test-GlobSetAffected`
    answer to be true, so an untouched unit skips every deploy. Every deploy calls `Deploy-Bicep` with `-SubscriptionIdAssertIs`.
-8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
-   parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),
-   `cd-shared` has 2, 2 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.
+8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, to `nsub`. Counted as foundation, discovery and expedition jobs, apex has 1, 1 and 2 (expedition `dev`
+   and `dev-blu`), `cd-shared` has 1, 1 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.
 
 ## Why it holds
 
@@ -133,11 +132,10 @@ every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deplo
 
 ## Where the code and the decision record differ
 
-- Past BVT there is no promotion ladder: a stage deploys its non-prod and prod-tier targets together (`nsub` and `psub`, or apex's
-  expedition `dev` and `prod`), where the FDR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a time.
+- A CD stage deploys its non-prod targets together, where the FDR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a
+  time; the DEPLOY pipelines `deploy-apex.yaml` and `deploy-shared.yaml` carry the rungs past CD.
 - No pipeline runs the L3 tier.
-- No environment is named `main-uat` or `release-uat`, and no RC or RBC approval exists.
-- No CD pipeline has a pre-prod target that stays inactive until it is activated.
+- No CD pipeline has a pre-prod target; the pre-prod target that stays inactive until it is activated is in `deploy-apex.yaml` only.
 
 ## See also
 

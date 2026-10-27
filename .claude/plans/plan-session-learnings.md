@@ -4,21 +4,14 @@ plan:
   value: medium
   reviewed: 2026-10-21
   class: feature
-  targets:
-    [
-      .claude/learnings,
-      .claude/skills,
-      .claude/skills/plan-decide/SKILL.md,
-      .claude/skills/catzc-module/SKILL.md,
-      pwsh/Base.Docs/Add-SessionLearning.ps1,
-    ]
+  targets: [.claude/hooks, .claude/skills/catzc-run/SKILL.md]
 ---
 
 # Session learnings: the forward-memory log the finalizer writes
 
 `Add-SessionLearning` appends each session's "What I learned" lines to `.claude/learnings/`, a first-in, first-out log of `learned<sha>.md`
-files (5 files of 50 learnings, declared on `LearningsConfig`), written to pass the markdown lint. Left: one session's lines that have not
-arrived, and two ideas for the next step.
+files (5 files of 50 learnings, declared on `LearningsConfig`), written to pass the markdown lint. Left: one finalize proposal, a "one
+editor" claim for a shared config, which needs a hook of its own.
 
 ## Why its value is medium
 
@@ -44,28 +37,9 @@ reach.
 
 ## Open steps
 
-- [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first; no
-      copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
-      `Test-Markdownlint -Path '.claude/**/*.md'`).
-
-## Open questions
-
-- From the orchestrator's finalize (2026-10-26), four shrink proposals, not applied: (1) `Get-TimeoutSeconds -Command` resolves a module's
-  private function too, or refuses with "use -Executable", so the next private caller cannot throw at run time; (2) the `catzc-verify` skill
-  gains one line, "a comment-only edit is proven by a diff showing only comment lines, never by a parse"; (3) `Invoke-StagedBurst` refuses a
-  staged folder under `out/`, which the user clears by hand; (4) a lock-only "one editor" claim for a shared config (`timeouts.yml`,
-  `dependencies.yml`) during a session's edit. Recommendation: yes to all four, each with its own check.
-- From catzc-68's finalize (2026-10-26), three shrink proposals, not applied: (1) the `catzc-drone` brief pattern gains "write every file
-  with the Edit tool; a script that writes files is refused", since three drones generated records by script and one dropped facts; (2)
-  `catzc-verify` lists the glossary's family heads once (gate, scope, source, domain, layer, slot, zone), so a new heading avoids a G6 hit
-  without a gate round; (3) a drone brief over more than about 15 records is split before spawning, since every such drone hit its 50-turn
-  roof. Recommendation: yes to all three.
-- From the debt-reduce session's finalize (2026-10-27), one shrink proposal, not applied: `debt-reduce` gains a last step, "a hindsight file
-  whose every gap and half line is checked closed in the tree is deleted whole", since the log is never edited once appended and the five
-  files of 2026-10-21 to 10-23 rotted to pre-rename paths before anyone pruned them. Recommendation: yes, checked by a Glob of
-  `.claude/hindsight/` after a run.
-
-## Delegated (the orchestrator, 2026-10-22, on the user's "don't wait, go on")
-
-- Every finalize proposal above is taken as one step; the `globs.yml` word in plan-debt-full-run-failures is already `file-kinds.yml` where
-  it names the overlaps (line 26), so that proposal is dropped; the line-ending clause is taken as a capability line, not an analyzer rule.
+- [ ] `.claude/hooks` and `.claude/skills/catzc-run/SKILL.md`: a lock-only "one editor" claim for a shared config (`timeouts.yml`,
+      `dependencies.yml`) while a session edits it (decided 2026-10-27, the coordinator). The run lock (`Local\catzc-run`, a named mutex
+      `Wait-CatzcRunLock` takes) is released when its process exits, so it cannot span an edit across tool calls: the claim is a file-backed
+      record (session, path, expiry within `run_lock.wait_seconds` roofs) the Edit hook checks, refusing another session's Edit of a claimed
+      path and passing the claimant's; the new hook folder lands in a burst, since every import builds it (check: `Invoke-TestFile` on the
+      hook's test file shows a second session's Edit of a claimed `timeouts.yml` denied and the claimant's allowed).

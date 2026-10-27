@@ -183,6 +183,8 @@ module sqlServer '../../modules/sql-server.bicep' = {
     entraOnlyAuthentication: false
     administratorLogin: administratorLogin
     administratorLoginPassword: administratorLoginPassword
+    // The server's logins and statements are audited into the workspace, so the use of the break-glass login is on record.
+    auditWorkspaceId: workspace.id
     tags: tags
   }
 }
@@ -264,20 +266,11 @@ module sqlDatabaseDiagnostics '../../modules/diagnostic-setting.bicep' = {
   }
 }
 
-// The server's logins and statements are audited into the workspace, so the use of the break-glass login is on record.
-module sqlAudit '../../modules/sql-audit.bicep' = {
-  name: 'sql-audit'
-  params: {
-    serverName: sqlServer.outputs.name
-    workspaceId: workspace.id
-  }
-}
-
 // Any sign-in of the break-glass login pages the subscription's Owner role: its use is always an event.
 module breakGlassLoginAlert '../../modules/login-alert.bicep' = if (!empty(administratorLogin)) {
   name: 'break-glass-login-alert'
   dependsOn: [
-    sqlAudit
+    sqlServer
   ]
   params: {
     name: breakGlassLoginAlertName

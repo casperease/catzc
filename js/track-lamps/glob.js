@@ -90,7 +90,8 @@ function claimer(sets) {
 }
 
 // A claim test for written entries, read as the Explorer reads them: an entry hides what it matches and everything under it, so a path
-// is claimed when it or one of its folders is a written path or matches a written glob.
+// is claimed when it or one of its folders is a written path or matches a written glob. A folder's verdict is kept, since every file under
+// it asks again.
 /**
  * @param {string[]} entries
  * @returns {(place: string) => boolean}
@@ -98,13 +99,22 @@ function claimer(sets) {
 function entryClaimer(entries) {
     const places = new Set(entries.filter((entry) => !isGlob(entry)).map(key));
     const matchers = entries.filter(isGlob).map(globMatcher);
+    /** @type {Map<string, boolean>} */
+    const folders = new Map();
+    /** @type {(at: string) => boolean} */
+    const claims = (at) => {
+        if (at === ".") return false;
+        const known = folders.get(at);
+        if (known !== undefined) return known;
+        const parts = at.split("/");
+        const claimed = places.has(key(at)) || matchers.some((matches) => matches(at, parts)) || claims(path.posix.dirname(at));
+        folders.set(at, claimed);
+        return claimed;
+    };
     return (place) => {
-        for (let at = place; at !== "."; at = path.posix.dirname(at)) {
-            if (places.has(key(at))) return true;
-            const parts = at.split("/");
-            if (matchers.some((matches) => matches(at, parts))) return true;
-        }
-        return false;
+        if (place === ".") return false;
+        const parts = place.split("/");
+        return places.has(key(place)) || matchers.some((matches) => matches(place, parts)) || claims(path.posix.dirname(place));
     };
 }
 

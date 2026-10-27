@@ -8,7 +8,8 @@ parameters:
   - name: Target
     displayName: "The rung to deploy"
     type: string
-    values: [release-uat]
+    # rollback runs the prod path with an earlier certifying run: the commit must already be in shared-psub's deployment history.
+    values: [release-uat, prod, rollback]
 
 stages:
   - ${{ if eq(parameters.Target, 'release-uat') }}:
@@ -22,5 +23,19 @@ stages:
                 serviceConnection: sc-shared-nonprod,
                 subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000,
               }
+          ArtifactPipeline: cd-shared
+          RunId: ${{ parameters.CiRunId }}
+  # The shared prod subscription hosts no shared expedition, so its prod rung is the landing zone at psub.
+  - ${{ if in(parameters.Target, 'prod', 'rollback') }}:
+      - template: /.ado/pipelines/stages/deploy-unit.yaml
+        parameters:
+          Unit: shared
+          StageSuffix: _prod
+          ${{ if eq(parameters.Target, 'rollback') }}:
+            CertifiedBy: shared-psub
+          Foundations:
+            - { env: psub, serviceConnection: sc-shared-prod, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
+          Discoveries:
+            - { env: psub, serviceConnection: sc-shared-prod, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
           ArtifactPipeline: cd-shared
           RunId: ${{ parameters.CiRunId }}

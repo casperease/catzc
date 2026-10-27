@@ -1,7 +1,7 @@
 Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
-        $script:importer = Join-Path $TestDrive 'importer.ps1'
+        $script:importer = Join-Path $TestDrive 'widget-importer.ps1'
         [System.IO.File]::WriteAllText($script:importer,
             "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Test-Doohickey { param([string[]] `$Issue = @(), [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Subject = 'doohickey'; IssueCount = @(`$Issue).Count; Issues = `$Issue; ReportPath = 'out/doohickey' } } }`nfunction Test-Gizmo { param([string[]] `$Outcome) foreach (`$each in `$Outcome) { [pscustomobject]@{ Name = 'gizmo'; Outcome = `$each } } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # An importer that throws, so a run that must not import shows it did not.

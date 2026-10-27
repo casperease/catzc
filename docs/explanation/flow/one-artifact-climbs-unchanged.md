@@ -8,7 +8,6 @@ One artifact is built once and climbs to production unchanged.
 3  non-prod          the same bytes tested in non-prod, automated
 4  human gate        a person certifies the artifact; it clears or holds, never half
 5  production        past the gate, DEPLOY rolls the same artifact to prod
-6  the shortcut      the CD pipelines deploy production themselves today, in the same run
 
 Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY,
 FDR-CD-TWORELEASEGATES and FDR-CD-GATEDEFINED (meta lens).
@@ -16,13 +15,13 @@ FDR-CD-TWORELEASEGATES and FDR-CD-GATEDEFINED (meta lens).
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
 and then let into production by a manual gate. Because nothing downstream rebuilds it, production runs exactly the bytes that non-prod
-certified. The flow splits into an automated side and a governed side, and the CD pipelines in the repository today deploy the prod tier
-themselves, in the same run.
+certified. The flow splits into an automated side and a governed side: the CD pipelines in the repository stop in non-prod, and the prod tier
+is reached only by the manual DEPLOY pipelines.
 
 ```yml drawio
 description:
   One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production runs exactly the
-  bytes non-prod certified; today the CD pipelines also deploy production themselves, in the same run.
+  bytes non-prod certified; the CD pipelines stop in non-prod and only DEPLOY reaches production.
 about:
   adrs:
     - FDR-CD-SHORTINTEGRATIONCYCLE
@@ -63,7 +62,6 @@ content:
     - { from: r-artifact, to: e-non-prod, kind: flow, label: "" }
     - { from: e-non-prod, to: a-human-gate, kind: adr, label: "" }
     - { from: a-human-gate, to: e-production, kind: adr, label: "" }
-    - { from: r-artifact, to: e-production, kind: flow, label: 6 · the shortcut }
   markers:
     - { at: g-build, number: 1 }
     - { at: r-artifact, number: 2 }
@@ -94,9 +92,9 @@ layout:
 4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. The approval
    check lives in the execution engine: the adopting team applies the shipped `environment-approvals.yml` with
    `Sync-AdoEnvironmentApprovals` (FDR-CD-PRODAPPROVALGATE), and this repository ships that tooling but runs no apply.
-5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears.
-6. **The shortcut.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as non-prod; the
-   approval check on those environments is the engine's, configured by the adopting team's apply.
+5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears. In the
+   repository, `deploy-apex.yaml` and `deploy-shared.yaml` are the only pipelines that reach `psub`, `preprod` and `prod`, by a `Target` of
+   `prod` or `rollback`.
 
 ## Why it holds
 
@@ -110,14 +108,12 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The FDR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
-  run.
 - No pipeline tags the artifact or runs the on-demand environment with system tests.
 
 ## See also
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [implementation](cd-builds-once-then-deploys-prod-itself.md), [operations](a-merge-runs-cd-to-prod.md) and
+  [implementation](cd-builds-once-then-deploys-non-prod.md), [operations](a-merge-runs-cd-through-non-prod.md) and
   [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

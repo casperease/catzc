@@ -28,11 +28,11 @@ metadata:
    and a cross-module type call first reads `dependencies.yml` for a cycle; a C# type edit that adds a call and its member lands in one
    Edit. A new folder under `.claude/hooks` is an import-path change too, since every import builds each hook folder with a csproj, so it is
    drafted outside the tree and lands in a burst, and a change to a file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml` key)
-   runs `Build-AgentHook` in that same burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows; the
-   glossary's family heads (gate, scope, source, domain, layer, slot, zone) are written in a declared qualified form, so a new heading or
-   page draws no G6 hit, and a hit is fixed with a declared form, never a new one; a comment-only edit is proven by a diff showing only
-   comment lines changed, never by a parse. A test file red on HEAD is fixed inside the burst that
-   touches its subject; a burst leaves out only files red for commit state or a named race, each listed in its step.
+   runs `Build-AgentHook` in that same burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows;
+   the glossary's family heads (gate, scope, source, domain, layer, slot, zone) are written in a declared qualified form, so a new heading
+   or page draws no G6 hit, and a hit is fixed with a declared form, never a new one; a comment-only edit is proven by a diff showing only
+   comment lines changed, never by a parse. A test file red on HEAD is fixed inside the burst that touches its subject; a burst leaves out
+   only files red for commit state or a named race, each listed in its step.
 2. At the end on the owned files, each at 0: `Test-ScriptAnalyzer -Path <ps1> -PassThru`, `Test-Spelling -Path <files> -PassThru`,
    `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <files>` (before any fresh import: formatting a C# type
    changes the types hash; a new test file or a new or changed comment page puts its code file in that `-Path` to re-imprint it, since the

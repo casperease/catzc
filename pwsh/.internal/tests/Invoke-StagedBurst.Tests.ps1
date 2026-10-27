@@ -14,7 +14,7 @@ Describe 'Invoke-StagedBurst' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:target, 'original')
         [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/gadget.txt'), 'staged')
         [System.IO.File]::WriteAllText((Join-Path $script:staged 'widgets/sprocket.txt'), 'new')
-        $script:importer = Join-Path $script:root 'importer.ps1'
+        $script:importer = Join-Path $script:root 'widget-importer.ps1'
         $script:doomed = Join-Path $script:root 'widgets/cog.txt'
         [System.IO.File]::WriteAllText($script:doomed, 'cog')
         $gadget = $script:target.Replace("'", "''")

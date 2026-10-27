@@ -29,7 +29,12 @@ function Get-TimeoutSeconds {
     }
     if ($PSCmdlet.ParameterSetName -eq 'Command') {
         $function = Get-Command -Name $Command -CommandType Function -ErrorAction Ignore
-        Assert-NotNull $function -ErrorText "Get-TimeoutSeconds: no loaded function named '$Command'."
+        if (-not $function) {
+            $function = Get-Module | Where-Object { $null -ne $_.SessionState } | ForEach-Object {
+                & $_ { param($Name) Get-Command -Name $Name -CommandType Function -ErrorAction Ignore } $Command
+            } | Select-Object -First 1
+        }
+        Assert-NotNull $function -ErrorText "Get-TimeoutSeconds: no loaded function named '$Command'; for an executable use -Executable."
         $decoration = $function.ScriptBlock.Attributes |
             Where-Object { $_ -is [Catzc.Base.Timeouts.TimeLimitAttribute] } | Select-Object -First 1
         $seconds = $config.SecondsForCommand($Command)

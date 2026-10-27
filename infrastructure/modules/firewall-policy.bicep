@@ -13,7 +13,7 @@ param sku string
 @description('The workload subnets the egress rules allow traffic from.')
 param sourceAddresses array
 
-@description('Service tags allowed outbound, in network rules.')
+@description('Service tags allowed outbound, in network rules; a `{region}` in a tag becomes the policy\'s location, so `Storage.{region}` is the regional `Storage.<region>` tag.')
 param serviceTags array
 
 @description('FQDN tags allowed outbound over HTTPS, in application rules.')
@@ -58,7 +58,7 @@ resource egress 'Microsoft.Network/firewallPolicies/ruleCollectionGroups@2024-05
                     'TCP'
                   ]
                   sourceAddresses: sourceAddresses
-                  destinationAddresses: serviceTags
+                  destinationAddresses: map(serviceTags, serviceTag => replace(serviceTag, '{region}', location))
                   destinationPorts: [
                     '443'
                   ]

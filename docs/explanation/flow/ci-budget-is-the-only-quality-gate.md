@@ -116,14 +116,14 @@ layout:
    `tests.run_seconds` (180 seconds by default), is reported and never fails the run. The GitHub mirror runs `Test-Automation -Level 2`
    without `-EnforceTimings`, so the gate binds the Azure DevOps pipeline only.
 3. **CD.** CD runs the CI component, then takes the artifact through non-prod and stays there. Code review is meant to check both this and
-   build-once. The code keeps build-once, since every deploy job downloads the artifact the CI stage published, but the apex and shared CD
-   pipelines also deploy the prod tier: `psub`, and for apex the expedition `prod`.
+   build-once. The code keeps both: every deploy job downloads the artifact the CI stage published, and no CD pipeline lists a prod-subscription
+   target.
 4. **RC.** Release Certification is the manual gate at main-uat, cleared when main-AT is verified. No pipeline or check carries it.
 5. **DEPLOY-Non-Prod.** DEPLOY is the actuator that rolls the artifact on once a gate clears; DEPLOY-Non-Prod drives it into the non-prod
-   acceptance environments. There is no DEPLOY pipeline in the repository.
+   acceptance environments. In the repository, the `release-uat` target of `deploy-apex.yaml` and `deploy-shared.yaml` is that path.
 6. **RBC.** Release Branch Certification is the manual gate at release-uat, cleared when release-AT is verified. Only the FDR states it.
 7. **DEPLOY-Prod.** DEPLOY-Prod stages the artifact inactive in pre-prod, validates the exact bytes, then activates them live in production.
-   Only the FDR states it.
+   The `prod` target of `deploy-apex.yaml` does so; `deploy-shared.yaml` deploys its landing zone at `psub`.
 8. **Reviewer.** Code review is the only enforcer the FDR names for the whole flow. No test or analyzer rule in `pwsh/` checks an FDR-CD
    rule; the code cites the FDR only in the DRS registry, two glossary entries and comments.
 
@@ -141,16 +141,14 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The FDR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with no
-  gate.
 - The FDR's budget is the 5–10 minute integration cycle; the quality gate enforces per-test level limits instead, and only in the Azure
   DevOps pipeline.
-- No pipeline tags the artifact, and no RC, RBC, release-uat, DEPLOY pipeline or pre-prod-first activation exists.
+- No pipeline tags the artifact, and no pipeline certifies RC or RBC.
 
 ## See also
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
   [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it rests on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [implementation](cd-builds-once-then-deploys-prod-itself.md) and [operations](a-merge-runs-cd-to-prod.md).
+  [implementation](cd-builds-once-then-deploys-non-prod.md) and [operations](a-merge-runs-cd-through-non-prod.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -16,7 +16,8 @@ rebuilt, and when a secret is rotated.
 2. Sign in as a principal that holds the `Key Vault Secrets Officer` role on that vault. The vault uses Azure role-based access, not access
    policies, so no other right writes a secret.
 3. Generate the value with a password generator outside the repository, never in a script that is committed or in a shell history file.
-4. Write it under the name the consuming template's configuration names, for `expedition` `exped-sql-admin-password`:
+4. Write it under the name the consuming template's configuration names, for `expedition` `exped-sql-admin-password`, and for `discovery`
+   `disco-anomaly-recipients`, the anomaly alert's email recipients, comma-separated, which the pipeline setup seeds from its variable:
 
    ```powershell
    $value = Read-Host -AsSecureString 'secret value'

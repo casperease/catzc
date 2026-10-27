@@ -10,6 +10,8 @@ infrastructure test suite. It builds and verifies only, with no artifact and no 
 - **No auth** — `bicep build` is offline, so no mode is set and the pipeline needs no service connection.
 - **Per tier** — `Assert-BicepTemplate <tier>` then `Build-Bicep <tier>` (compile, render and verify) for foundation, discovery and
   expedition.
+- **Cost** — `Get-BicepCostEstimate <tier>` prints each compiled template's pre-deploy monthly estimate, priced from the checked-in price
+  table, so CI contacts no price service.
 - **Suite** — `Test-Automation -Suite infrastructure` closes the job. The infrastructure globset's test suite is what it verifies:
   `Catzc.Azure.Templates` up to L2 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)). The
   L2 test builds every shipped template and checks its rendered parameters files against the compiled parameter model
