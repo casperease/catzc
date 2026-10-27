@@ -30,10 +30,10 @@ background exists.
 The render is fail-forward. `Build-SlideDeck` always writes `out/slides/<deck>/`: the deck tree the Slides artifact type reads and
 `<deck>.script.md`, the speaker notes in order. A missing required field, a field the pattern does not know, a pattern that does not exist
 and a field with more items than the pattern holds are each reported with the file and the field; nothing shrinks and nothing is guessed
-([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)). The render never publishes. The diagram kit's
-build is fail-forward the same way and reports every finding it makes (a conflict, a refused put, an undeclared slide, an orphan, a Supports
-drift, a drawn line through a cell) as an error with an `E_` code, and the one setting `renderer: findings-fail` of its `drawio.yml` makes
-every such error fail the run: the kit has no warning.
+([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)). The render never publishes. The diagram kit's build is
+fail-forward the same way and reports every finding it makes (a conflict, a refused put, an undeclared slide, an orphan, a Supports drift, a
+drawn line through a cell) as an error with an `E_` code, and the one setting `renderer: findings-fail` of its `drawio.yml` makes every such
+error fail the run: the kit has no warning.
 
 - [Render forward, publish by hand](#render-forward-publish-by-hand)
 
@@ -85,11 +85,11 @@ bars with the bands each covers, the groups, which may nest, the glyphs with the
 legend and which minimaps it shows. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's
 `drawio.yml` (the lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside
 it fails validation with the list the author may choose from
-([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)). A cell without a layout entry is placed by the
-grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no article: articles and slides embed its
-png, any number of them, and the build finds them by what embeds it. The kit prints a declaration with each leaf node (a mapping or list
-whose children are all scalars) as one flow line in Prettier's form when that line, its indent and key included, fits the `max_line_length`
-of the root `.editorconfig`'s `[*.md]` section, and in block style otherwise.
+([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)). A cell without a layout entry is placed by the grid; a
+cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no article: articles and slides embed its png, any
+number of them, and the build finds them by what embeds it. The kit prints a declaration with each leaf node (a mapping or list whose
+children are all scalars) as one flow line in Prettier's form when that line, its indent and key included, fits the `max_line_length` of the
+root `.editorconfig`'s `[*.md]` section, and in block style otherwise.
 
 The declaration has two carriers, one per diagram. The default is a fenced block in an article, the way a `mermaid` block renders where it
 stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the kit finds exactly that block, and it sits directly above

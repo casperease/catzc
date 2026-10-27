@@ -124,8 +124,8 @@ layout:
   (ADR-AUTO-TEST-QUALITYGATE).
 
 The remaining rules, which keep module and system dependencies apart and pin, vendor and stitch external code
-(ADR-AUTO-DEPS-TWODEPENDENCYKINDS, ADR-AUTO-DEPM-EXACTVERSIONPINS, ADR-AUTO-DEPM-INTERNALVENDORED, ADR-AUTO-DEPM-EXTERNALSTITCHEDATBUILD
-and ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
+(ADR-AUTO-DEPS-TWODEPENDENCYKINDS, ADR-AUTO-DEPM-EXACTVERSIONPINS, ADR-AUTO-DEPM-INTERNALVENDORED, ADR-AUTO-DEPM-EXTERNALSTITCHEDATBUILD and
+ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
 
 ## Where the code and the decision record differ
 
