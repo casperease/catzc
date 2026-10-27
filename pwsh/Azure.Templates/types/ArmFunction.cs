@@ -17,7 +17,7 @@ public static class ArmFunction
         {
             "filter", "map", "toObject", "parameters", "variables", "if", "copyIndex", "lambdaVariables", "true", "false", "createArray",
             "equals", "not", "and", "or", "createObject", "add", "sub", "mul", "concat", "objectKeys", "length", "empty", "contains",
-            "null", "items", "tryGet", "coalesce", "format", "replace", "join",
+            "null", "items", "tryGet", "coalesce", "format", "replace", "join", "tenantResourceId",
         };
         var known = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string name in names) { known[name] = name; }
@@ -56,6 +56,14 @@ public static class ArmFunction
                 return entries.ToArray();
             case "tryGet":
                 return TryGet(args);
+            case "tenantResourceId":
+                // '/providers/<namespace>/<type>/<name>[/<child type>/<name>…]': it reads no deployment scope, so it resolves offline.
+                if (args.Count < 2 || !args.TrueForAll(a => a is string)) { return unresolved; }
+                string[] typeSegments = ((string)args[0]).Split('/');
+                if (typeSegments.Length != args.Count || Array.Exists(typeSegments, string.IsNullOrEmpty)) { return unresolved; }
+                var id = new System.Text.StringBuilder("/providers/").Append(typeSegments[0]);
+                for (int i = 1; i < typeSegments.Length; i++) { id.Append('/').Append(typeSegments[i]).Append('/').Append((string)args[i]); }
+                return id.ToString();
             case "format":
                 return Format(args);
             case "replace":

@@ -13,7 +13,7 @@ Describe 'Remove-BicepOrphanResources' -Tag 'L0', 'logic' {
             parameters = @{ widgetName = @{ type = 'string' } }
             resources  = @(
                 @{ type = 'Microsoft.Storage/storageAccounts'; name = "[parameters('widgetName')]" }
-                @{ type = 'Microsoft.Network/networkSecurityGroups'; name = "[format('{0}-nsg', parameters('widgetName'))]" }
+                @{ type = 'Microsoft.Network/networkSecurityGroups'; name = "[format('{0}-nsg', uniqueString(parameters('widgetName')))]" }
             )
         }
         $script:parametersFile = Join-Path $TestDrive 'parameters.widget.json'

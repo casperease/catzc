@@ -162,11 +162,15 @@
           "kind": "property"
         },
         {
-          "name": "function",
+          "name": "gated_by",
           "kind": "property"
         },
         {
-          "name": "gated_by",
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "path",
           "kind": "property"
         },
         {

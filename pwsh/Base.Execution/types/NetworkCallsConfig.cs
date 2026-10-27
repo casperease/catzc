@@ -5,7 +5,8 @@ using System.Globalization;
 
 namespace Catzc.Base.Execution;
 
-// The registry of every call site that can reach the network, keyed by its repository-relative file (ADR-AUTO-NET-SITEREGISTRY).
+// The registry of every call site that can reach the network, keyed '<file>#<function or step>' (ADR-AUTO-NET-SITEREGISTRY), so one
+// file can hold sites of different classes.
 public sealed class NetworkCallsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -29,11 +30,11 @@ public sealed class NetworkCallsConfig
             if (raw.Contains("sites") && raw["sites"] != null)
             {
                 var section = raw["sites"] as IDictionary ?? throw new ArgumentException(
-                    "network-calls config: sites must be a map of repository-relative file to site");
+                    "network-calls config: sites must be a map of '<file>#<function or step>' to site");
                 foreach (object key in section.Keys)
                 {
-                    string path = Convert.ToString(key, CultureInfo.InvariantCulture);
-                    parsed[path] = new NetworkCallSite(path, section[key] as IDictionary);
+                    string site = Convert.ToString(key, CultureInfo.InvariantCulture);
+                    parsed[site] = new NetworkCallSite(site, section[key] as IDictionary);
                 }
             }
         }

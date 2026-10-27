@@ -3,7 +3,7 @@
 The cleanup that removes what a revert takes out of a template. Every template deploys `Incremental`, and ARM has no `Complete` mode at
 subscription scope, so a resource a template no longer declares stays in Azure until it is deleted; this command deletes it. The production
 and rollback paths of the DEPLOY pipelines run it after each resource-group deploy, with `-DryRun` first
-([orphan removal](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-orphanremovalneedsresolvednames)).
+([orphan removal](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-orphansneedresolvednames)).
 
 ## help
 
@@ -17,8 +17,10 @@ Resolves the deployment the way `Deploy-Bicep` does (`Get-BicepDeploymentContext
 `-SubscriptionIdAssertIs` (required in a pipeline), the slot's resource group and the compiled template and parameters file. It evaluates
 the template's resources with the slot's parameter values offline (the compliance evaluator), lists the group's resources
 (`az resource list`), and takes every listed resource whose type and name no evaluated resource carries as an orphan, matched without regard
-to case. When the name of any evaluated resource does not resolve offline, such as one built by `format()` or `resourceId()`, the command
-deletes nothing: it returns the orphan candidates and then fails, naming the unresolved resources. Otherwise it deletes each orphan by id
+to case. Only what the listing can return is compared: the template's extension resources (any with a `scope`, such as role assignments,
+locks and diagnostic settings) and child proxies (a child resource without a `location`) are left out, and a listed resource Azure creates
+itself, named in `orphan-removal.yml` (a SQL server's `master` database by default), is never an orphan. When the name of any listable
+evaluated resource does not resolve offline, such as one built by `format()` or `resourceId()`, the command deletes nothing: it returns the orphan candidates and then fails, naming the unresolved resources. Otherwise it deletes each orphan by id
 (`az resource delete`) and returns the ids it deleted. A template deployed at subscription scope is refused, since several templates share
 that scope, and a `DoNotRun` template is skipped.
 

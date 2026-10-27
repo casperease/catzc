@@ -26,14 +26,16 @@ Must not exceed MaxLevel.
 
 ### parameter `MaxLevel`
 
-Maximum test level to run (alias: -Level). Defaults to 3: every tier the run's location allows. A run that owns the working folder runs
-L0-L3; a run in a snapshot (another run holds the working folder, or -Isolated) skips L3 and says so
+Maximum test level to run (alias: -Level). Defaults to 2 (TestTiers.DefaultTop): L0-L2, the offline tiers. L3, the live tier, runs only when
+asked with -MaxLevel 3, by a pipeline step or by hand
+([ADR-AUTO-NET-TESTSOFFLINE](../../../drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)); a run that owns the working folder
+then runs L0-L3, and a run in a snapshot (another run holds the working folder, or -Isolated) skips L3 and says so
 ([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). 4 adds the opt-in
 L4 tier, the tests of the released system after final approval
 ([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)); run from a console
-it is a run of that gate outside its pipeline, never a gate verdict. Tests self-skip when their tool or access is absent, so the default
-stays green on a machine that is missing one. Tiers are defined by what a test integrates with (not by speed): L0/L1 = unit tests — pure
-logic with every external boundary mocked. L2 = integrates with a local CLI tool for real (e.g. `bicep build`, python, dotnet), inside the
+it is a run of that gate outside its pipeline, never a gate verdict. Tests self-skip when their tool or access is absent, so a run stays
+green on a machine that is missing one. Tiers are defined by what a test integrates with (not by speed): L0/L1 = unit tests — pure logic
+with every external boundary mocked. L2 = integrates with a local CLI tool for real (e.g. `bicep build`, python, dotnet), inside the
 repository. L3 = vertical system tests: they change or depend on state outside the repository — the cloud (e.g. `az deployment create`), the
 user's environment, installed tools — so only the run that owns the working folder runs them. Level 1 runs L0 + L1. Level 2 runs L0 + L1 +
 L2. Level 3 runs all. Every test must carry exactly one tier tag (L0-L3) and one category tag (logic|integrity); tests missing a tag are
@@ -132,7 +134,7 @@ Test-Automation -Isolated -KeepSandbox   # run in a frozen snapshot of the worki
 ### example 3
 
 ```powershell
-Test-Automation -Level 2
+Test-Automation -MaxLevel 3   # opt in to L3, the live tier
 ```
 
 ### example 4

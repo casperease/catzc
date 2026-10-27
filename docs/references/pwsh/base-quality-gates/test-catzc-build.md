@@ -44,8 +44,8 @@ Minimum test tier. Defaults to 0.
 
 ### parameter `MaxLevel`
 
-Maximum test tier (alias: -Level). Defaults to 3, as in Test-Automation: L0-L3 when the run owns the working folder, L0-L2 in a snapshot,
-which skips L3 and says so
+Maximum test tier (alias: -Level). Defaults to 2, as in Test-Automation: L3, the live tier, runs only when asked with -MaxLevel 3, and then
+L0-L3 when the run owns the working folder, L0-L2 in a snapshot, which skips L3 and says so
 ([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)). 4 adds the opt-in
 L4 tier.
 

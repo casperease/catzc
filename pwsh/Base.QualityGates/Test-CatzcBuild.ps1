@@ -13,7 +13,7 @@ function Test-CatzcBuild {
 
         [ValidateSet(0, 1, 2, 3, 4)]
         [Alias('Level')]
-        [int] $MaxLevel = 3,
+        [int] $MaxLevel = [Catzc.Base.Timeouts.TestTiers]::DefaultTop,
 
         [ValidateSet('Logic', 'Integrity', 'Both')]
         [string] $Category = 'Both',

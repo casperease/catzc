@@ -273,11 +273,12 @@ isolates, is the L3 tier's, and only the run that owns the working folder runs L
 **L3 holds the vertical system tests**: a test that changes or depends on state outside the repository — the cloud, the user's environment
 (the user `PATH`, other persistent environment variables, the registry), installed tools — is L3, and only the run that owns the working
 folder (the in-place location) **and** the user's system-test lock (`Enter-SystemTestLock`, one per user account, taken without waiting)
-runs L3. A run's top tier defaults to 3 and its location caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier
-runs; a snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated`
-included — and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that
-reason. Every L3 test keeps its logic covered below it: the code it drives reaches the outside state through a mockable seam, and an L1 test
-mocks that seam.
+runs L3. A run's top tier defaults to 2, so L3 runs only when asked with `-MaxLevel 3`, by a pipeline step or by hand
+(ADR-AUTO-NET-TESTSOFFLINE), and its location caps it (`Resolve-TestRunMaxLevel`): in place with the lock every requested tier runs; a
+snapshot run, or an in-place run while another checkout's run holds the lock, skips L3 — an explicit `-MaxLevel 3` and `-Isolated` included
+— and says so, naming who holds the working folder or the lock; a run that asks only for L3 when it cannot run it fails with that reason.
+Every L3 test keeps its logic covered below it: the code it drives reaches the outside state through a mockable seam, and an L1 test mocks
+that seam.
 
 - [System tests](#system-tests)
 

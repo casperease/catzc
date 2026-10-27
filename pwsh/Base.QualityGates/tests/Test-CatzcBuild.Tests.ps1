@@ -75,11 +75,11 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS'
         }
     }
 
-    It 'asks for every tier the location allows (L3 runs in place only), both categories' {
+    It 'asks for L0 to L2 by default, L3 being opt-in, both categories' -Tag 'ADR-AUTO-NET-TESTSOFFLINE' {
         Test-CatzcBuild
 
         Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            $MinLevel -eq 0 -and $MaxLevel -eq 3 -and $Category -eq 'Both'
+            $MinLevel -eq 0 -and $MaxLevel -eq 2 -and $Category -eq 'Both'
         }
     }
 

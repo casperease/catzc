@@ -116,14 +116,15 @@ layout:
 6. **L3 system test.** The inner CI loop is L0 to L2 and the BVT, and the yellow BVT commit is inside it. The L3 vertical system test is the
    CI+ test, the outer loop that starts after the BVT and runs in the CD pipeline's post-commit path against the deployed environment
    (FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD), so it sits under the CI+ span with the deploy stages. It is drawn dashed because no
-   pipeline step exists: `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but no pipeline
+   pipeline step exists: `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 2), but no pipeline
    passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
    `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
    previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's `Test-GlobSetAffected`
    answer to be true, so an untouched unit skips every deploy. Every deploy calls `Deploy-Bicep` with `-SubscriptionIdAssertIs`.
-8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, to `nsub`. Counted as foundation, discovery and expedition jobs, apex has 1, 1 and 2 (expedition `dev`
-   and `dev-blu`), `cd-shared` has 1, 1 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.
+8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, to `nsub`. Counted as foundation,
+   discovery and expedition jobs, apex has 1, 1 and 2 (expedition `dev` and `dev-blu`), `cd-shared` has 1, 1 and 2, nova has 1, 1 and 1, and
+   flux has 1, 1 and none.
 
 ## Why it holds
 
@@ -132,8 +133,8 @@ every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deplo
 
 ## Where the code and the decision record differ
 
-- A CD stage deploys its non-prod targets together, where the FDR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a
-  time; the DEPLOY pipelines `deploy-apex.yaml` and `deploy-shared.yaml` carry the rungs past CD.
+- A CD stage deploys its non-prod targets together, where the FDR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at
+  a time; the DEPLOY pipelines `deploy-apex.yaml` and `deploy-shared.yaml` carry the rungs past CD.
 - No pipeline runs the L3 tier.
 - No CD pipeline has a pre-prod target; the pre-prod target that stays inactive until it is activated is in `deploy-apex.yaml` only.
 

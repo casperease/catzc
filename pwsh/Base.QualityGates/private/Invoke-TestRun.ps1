@@ -13,7 +13,7 @@ function Invoke-TestRun {
         [int] $MinLevel = 0,
 
         [ValidateSet(0, 1, 2, 3, 4)]
-        [int] $MaxLevel = 3,
+        [int] $MaxLevel = [Catzc.Base.Timeouts.TestTiers]::DefaultTop,
 
         [AllowEmptyCollection()]
         [string[]] $Modules = @(),

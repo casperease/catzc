@@ -8,7 +8,7 @@ function Test-Automation {
 
         [ValidateSet(0, 1, 2, 3, 4)]
         [Alias('Level')]
-        [int] $MaxLevel = 3,
+        [int] $MaxLevel = [Catzc.Base.Timeouts.TestTiers]::DefaultTop,
 
         [ArgumentCompleter({ (Get-CatzcModule -EngineTrack).name })]
         [ValidateScript({ $_ -in (Get-CatzcModule -EngineTrack).name })]

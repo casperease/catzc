@@ -83,7 +83,7 @@ function Remove-BicepOrphanResources {
             }
         })
 
-    # An unresolved name could match any deployed resource, so a deletion is refused and the candidates are only listed (ADR-AZ-DATAMOD-ORPHANREMOVALNEEDSRESOLVEDNAMES).
+    # An unresolved name could match any deployed resource, so a deletion is refused and the candidates are only listed (ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES).
     if ($unresolvedNames.Count -gt 0) {
         $orphans
         throw "Remove-BicepOrphanResources lists $($orphans.Count) candidates in resource group $group but deletes none: the names of $($unresolvedNames.Count) evaluated resources of '$Template' do not resolve offline: $($unresolvedNames -join ', ')."

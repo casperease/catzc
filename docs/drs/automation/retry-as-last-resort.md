@@ -4,8 +4,9 @@
 
 ### Rule ADR-AUTO-RETRY-NEVERINTESTS
 
-Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or move the test behind an explicit tier (L3,
-skipped when its dependency is unavailable). A test below L3 does not depend on external connectivity.
+Never retry in a test. A flake must surface; make the dependency deterministic (mock it) or move the test to the opt-in tier L3, which runs
+only when asked with `-MaxLevel 3` and is skipped when its dependency is unavailable. Only an opt-in L3 test may depend on external
+connectivity (ADR-AUTO-NET-TESTSOFFLINE).
 
 - [Decision](#decision)
 
@@ -64,7 +65,7 @@ A retry is a **last-ditch** mechanism for a genuinely-transient external failure
 ## Consequences
 
 - Failures are honest and fast by default; the tests and the logs stay trustworthy.
-- Tests never hide flakiness: a flaky or unavailable external dependency is handled by mocking or by an explicit, skippable tier (L3) — not
+- Tests never hide flakiness: a flaky or unavailable external dependency is handled by mocking or by the opt-in, skippable tier (L3) — not
   by re-running until green.
 - When a retry _is_ used it is surgical (lowest level), bounded, logged, and idempotent — easy to spot in review and to reason about, with a
   contained blast radius.

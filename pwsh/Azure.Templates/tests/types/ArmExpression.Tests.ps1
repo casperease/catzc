@@ -142,6 +142,12 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $isUnresolved (& $eval "[join(createArray('widget', 7), '-')]") | Should -BeTrue
     }
 
+    It 'builds a tenant resource id, which reads no deployment scope, and leaves a type and name count mismatch unresolved' {
+        & $eval "[tenantResourceId('Widget.Parts/widgets', 'gadget')]" | Should -BeExactly '/providers/Widget.Parts/widgets/gadget'
+        & $eval "[tenantResourceId('Widget.Parts/widgets/gadgets', 'widget', 'sprocket')]" | Should -BeExactly '/providers/Widget.Parts/widgets/widget/gadgets/sprocket'
+        & $isUnresolved (& $eval "[tenantResourceId('Widget.Parts/widgets/gadgets', 'widget')]") | Should -BeTrue
+    }
+
     It 'is unresolved outside the subset, never a guess' {
         & $isUnresolved (& $eval "[guid('widget', 'gadget')]") | Should -BeTrue
         & $isUnresolved (& $eval '[resourceGroup().location]') | Should -BeTrue

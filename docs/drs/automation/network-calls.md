@@ -14,17 +14,19 @@ set.
 
 ### Rule ADR-AUTO-NET-SANCTIONEDCLASSES
 
-Every network call belongs to exactly one class: `package-install`, `price-data`, `ado-api`, `azure-control-plane` or `git-remote`. A call
-that fits none of them is refused until a decision adds a class; a class is never inferred from the code that happens to make the call.
+Every network call belongs to exactly one of five sanctioned classes: `package-install`, `price-data`, `ado-api`, `azure-control-plane` or
+`git-remote`. `azure-control-plane` and `git-remote` are sanctioned for explicit commands and pipeline steps only, never for a default path.
+A call that fits none of them is refused until a decision adds a class; a class is never inferred from the code that happens to make the
+call.
 
 - [The classes](#the-classes)
 
 ### Rule ADR-AUTO-NET-PACKAGEINSTALL
 
 A `package-install` call fetches a tool, a runtime or a package through a package manager or a verified download, and runs only from a
-tooling command (`Install-*`, `Uninstall-*`, the status and advisory commands of the tooling modules). A direct download goes through
-`Save-VerifiedDownload` (ADR-AUTO-PKGMGR-VERIFYDOWNLOADS), and nothing contacts a package manager outside the tooling system
-(ADR-AUTO-PKGMGR-NUGETINTOOLINGONLY).
+tooling command (`Install-*`, `Uninstall-*`, the status and advisory commands of the tooling modules, `Test-DependencyAdvisories` among
+them) or from the vendoring command `Install-VendorModule`, each on request. A direct download goes through `Save-VerifiedDownload`
+(ADR-AUTO-PKGMGR-VERIFYDOWNLOADS), and nothing contacts a package manager outside the tooling system (ADR-AUTO-PKGMGR-NUGETINTOOLINGONLY).
 
 - [The classes](#the-classes)
 
@@ -60,9 +62,10 @@ local path is no network call and takes no entry.
 
 ### Rule ADR-AUTO-NET-TESTSOFFLINE
 
-A test never calls out. It mocks the call at its request function, or it reads checked-in data (a recorded response, a price table, a
-fixture repository on disk). A check against a live endpoint is a command run on request or by a pipeline, never a tier of the default test
-run.
+A test in the default run never calls out. It mocks the call at its request function, or it reads checked-in data (a recorded response, a
+price table, a fixture repository on disk). `Test-Automation` runs L0 to L2 by default; L3, the live tier, runs only when asked with
+`-MaxLevel 3`, by a pipeline step or by hand, and only an L3 test may depend on connectivity. A check against a live endpoint is a command
+run on request or by a pipeline, or an opt-in L3 test, never part of the default test run.
 
 - [Tests](#tests)
 
@@ -77,10 +80,10 @@ or opened; ADR-AUTO-PKGMGR-NUGETINTOOLINGONLY is the precedent for `dotnet`.
 ### Rule ADR-AUTO-NET-SITEREGISTRY
 
 Every call site that can reach the network is one entry in one config registry, `network-calls.yml`, owned by the Base.Execution module: its
-file and function, its class, its trigger and the guard, parameter or config that keeps it off a default path. A trigger is `on-request`,
-`pipeline-only`, `offline-guarded` (on a default path with the tool held offline by a generated guard) or `default-path`, which marks a site
-that breaks ADR-AUTO-NET-NODEFAULTPATH and stays registered as it is until its fix lands. The registry is the inventory; this page carries
-only a summary of it.
+key, `<file>#<function or pipeline job>` so one file holds sites of different classes, its class, its trigger and the guard, parameter or
+config that keeps it off a default path. A trigger is `on-request`, `pipeline-only`, `offline-guarded` (on a default path with the tool held
+offline by a generated guard) or `default-path`, which marks a site that breaks ADR-AUTO-NET-NODEFAULTPATH and stays registered as it is
+until its fix lands. The registry is the inventory; this page carries only a summary of it.
 
 - [The registry](#the-registry)
 
@@ -118,9 +121,9 @@ of them may. A call on request is a decision: a person types `Install-Uv`, or a 
 | `azure-control-plane` | a tenant or subscription through `az`             | the deploy, session and resource commands          |
 | `git-remote`          | a git remote or the hosting service               | the topic and publishing commands                  |
 
-The first three are the paths the product sanctions by name. `azure-control-plane` and `git-remote` are real network calls of their own: a
-deploy talks to a subscription and a topic push talks to a server, and neither is an Azure DevOps API call or a package install, so each is
-classified in the open rather than hidden inside another class.
+All five are sanctioned. `azure-control-plane` and `git-remote` are real network calls of their own: a deploy talks to a subscription and a
+topic push talks to a server, and neither is an Azure DevOps API call or a package install, so each is classified in the open rather than
+hidden inside another class, and each is limited to the explicit commands and pipeline steps that name its target, never a default path.
 
 ### Offline switches
 
@@ -135,7 +138,9 @@ file that file is generated from the declared tool versions, so it cannot drift 
 `A test proves the code, not the network`
 
 A test that calls out fails when the host is down, passes against whatever the host returns that day, and spends its time on the wire. The
-call is mocked at its one request function, or the response is checked in, so a test run is fast, repeatable and offline.
+call is mocked at its one request function, or the response is checked in, so a test run is fast, repeatable and offline. The default run
+stops at L2 for that reason: the live tier, L3, is a choice a pipeline step or a person makes with `-MaxLevel 3`, so connectivity is a
+dependency only of a run that asked for it.
 
 ### The registry
 

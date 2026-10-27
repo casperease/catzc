@@ -72,7 +72,7 @@ is planned here, one step each, so no record carries a planned item.
       listing, run by the DEPLOY prod and rollback paths after the deploy. Check: the command's L0 against a widget template and a mocked
       resource list, and a pipeline test that each production DEPLOY stage runs the cleanup after its deploy, with `-DryRun` first. Verdict
       (2026-10-27 burst): `Remove-BicepOrphanResources` (resource-group templates; refuses deletion on an unresolved name,
-      ADR-AZ-DATAMOD-ORPHANREMOVALNEEDSRESOLVEDNAMES) runs in the foundation and expedition jobs of `stages/deploy-unit.yaml` under
+      ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES) runs in the foundation and expedition jobs of `stages/deploy-unit.yaml` under
       `RemoveOrphans`, which `deploy-apex.yaml` and `deploy-shared.yaml` set on prod and rollback; Remove-BicepOrphanResources.Tests (12 L0,
       4 pipeline-YAML) passed 16 of 16, with Test-Parsing, Test-Contracts and Test-Pipelines.Tests. Discovery (subscription scope) has no
       cleanup.
@@ -138,7 +138,7 @@ is planned here, one step each, so no record carries a planned item.
       `Set-AnomalyAlertRecipientSecret` with `$(AnomalyAlertRecipients)` before its what-if, writing through the shared private
       `Set-KeyVaultSecretValue` that break-glass now calls; Set-AnomalyAlertRecipientSecret.Tests (with the pipeline-YAML case) passed, 12
       of 12, and Invoke-BreakGlassRotation.Tests passed, 9 of 9.
-- [ ] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time. Built in the tree
+- [x] The allowed-resource-types assignment, its list derived from the types the shared modules deploy at build time. Built in the tree
       (drone-opus, 2026-10-27): the fact `module_resource_types` (private `Get-BicepModuleResourceTypes`, read by
       `Resolve-BicepEnvironmentFacts`, admitted by `Read-BicepTemplateOptions`), discovery's `allowedResourceTypes` fact and
       `policyAssignmentNames.resourceTypes` (role `ty`), `landing-zone-policies.bicep`'s `resourceTypes` entry (built-in

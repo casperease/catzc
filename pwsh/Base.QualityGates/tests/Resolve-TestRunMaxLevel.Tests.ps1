@@ -27,8 +27,8 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'runs every tier in place by default' {
-        Invoke-Resolve $script:inPlace $null | Should -Be 3
+    It 'runs the default top tier, L2, in place when none is asked for' -Tag 'ADR-AUTO-NET-TESTSOFFLINE' {
+        Invoke-Resolve $script:inPlace $null | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
@@ -47,7 +47,7 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     }
 
     It 'caps a snapshot run at L2 and says it skips L3, naming the holder' {
-        Invoke-Resolve $script:snapshot $null | Should -Be 2
+        Invoke-Resolve $script:snapshot 3 | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like 'Skipping L3:*working folder itself*Test-Automation (pid 4242) holds it*'
         }
@@ -58,7 +58,7 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     }
 
     It 'caps an -Isolated snapshot (no holder) and still says so' {
-        Invoke-Resolve $script:isolated $null | Should -Be 2
+        Invoke-Resolve $script:isolated 3 | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -like 'Skipping L3:*working folder itself.' }
     }
 
@@ -68,7 +68,7 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
     }
 
     It 'caps an in-place run at L2 when another checkout holds the system-test lock, naming it' {
-        Invoke-Resolve $script:inPlaceLocked $null | Should -Be 2
+        Invoke-Resolve $script:inPlaceLocked 3 | Should -Be 2
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like 'Skipping L3:*pid 4343, in C:\widget-clone*system-test lock*'
         }
@@ -81,7 +81,7 @@ Describe 'Resolve-TestRunMaxLevel' -Tag 'L0', 'logic' {
 
     It 'fails an L3-only run that cannot take the system-test lock, naming the holder' {
         $parameters = @{ L = $script:inPlaceLocked }
-        { InModuleScope Catzc.Base.QualityGates -Parameters $parameters { param($L) Resolve-TestRunMaxLevel -Location $L -MinLevel 3 } } |
+        { InModuleScope Catzc.Base.QualityGates -Parameters $parameters { param($L) Resolve-TestRunMaxLevel -Location $L -Requested 3 -MinLevel 3 } } |
             Should -Throw -ExpectedMessage '*pid 4343*holds the system-test lock*'
     }
 }

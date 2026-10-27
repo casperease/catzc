@@ -33,9 +33,9 @@ server, a diagnostic setting on every data resource, the allowed storage SKUs, t
 assignments enforce or only audit is the repository-wide setting `policy_enforcement`, read by config address, with its sensible default
 declared once ([ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](azure-data-model.md#rule-adr-az-datamod-policyenforcementmode)); the benchmark is
 `DoNotEnforce` whatever the setting. The subscription's activity log streams to `foundation`'s Log Analytics workspace through a diagnostic
-setting the landing zone deploys, never through a deploy-if-not-exists policy. Apart from the CAF-tags definition the policies are
-built-in, each pinned by its definition id in `landing-zone-policies.bicep`, and each is assigned once per subscription, with no exclusion
-and no exemption.
+setting the landing zone deploys, never through a deploy-if-not-exists policy. Apart from the CAF-tags definition the policies are built-in,
+each pinned by its definition id in `landing-zone-policies.bicep`, and each is assigned once per subscription, with no exclusion and no
+exemption.
 
 - [Guardrails](landing-zones/landing-zones-topology.md#guardrails)
 - [How this is enforced](landing-zones/landing-zones-operations.md#how-this-is-enforced)
@@ -77,12 +77,13 @@ same way: hubs, then spokes, then hubs again.
 
 ### Rule ADR-AZ-LZ-GOVERNANCELIMITS
 
-The landing zone governs location, tagging, exposure, data diagnostics, and the storage and virtual machine SKUs, and nothing else. Its one
-custom definition is the CAF-tags rule, defined at subscription scope beside its assignment; every other assignment is a built-in pinned by
-its id, and its one initiative is the Microsoft cloud security benchmark, assigned to audit only. It assigns no regulatory initiative and no
-resource-provider or resource-type policy, makes no assignment above a subscription, and grants roles only as ADR-AZ-LZ-CAFIDENTITY
-declares. A repository whose customer carries a regulation adds the matching built-in initiative to the landing zone's set, pinned like the
-others.
+The landing zone governs location, tagging, exposure, data diagnostics, the storage and virtual machine SKUs, and the resource types, and
+nothing else. Its one custom definition is the CAF-tags rule, defined at subscription scope beside its assignment; every other assignment is
+a built-in pinned by its id, and its one initiative is the Microsoft cloud security benchmark, assigned to audit only. The allowed resource
+types are derived at build time from the types the shared modules deploy (the `module_resource_types` fact), never a hand-kept list. It
+assigns no regulatory initiative and no resource-provider policy, makes no assignment above a subscription, and grants roles only as
+ADR-AZ-LZ-CAFIDENTITY declares. A repository whose customer carries a regulation adds the matching built-in initiative to the landing zone's
+set, pinned like the others.
 
 - [Governance limits](landing-zones/landing-zones-topology.md#governance-limits)
 

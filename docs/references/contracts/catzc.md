@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38324f64ec98"
+    with_body_sha: c7b3c344ba4d
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -250,6 +250,7 @@ The current version: edited in place
 | `pwsh.tooling.python`                 | `install_poetry.command.yml`                     | `pwsh/Tooling.Python/Install-Poetry.ps1`                               | provided  | command contract | `version: string, force: switch`                                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.tooling.python`                 | `install_py_spark.command.yml`                   | `pwsh/Tooling.Python/Install-PySpark.ps1`                              | provided  | command contract | `version: string, force: switch`                                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.tooling.python`                 | `install_python.command.yml`                     | `pwsh/Tooling.Python/Install-Python.ps1`                               | provided  | command contract | `version: string, force: switch`                                                                                                                                                                                                                                                                                                                                    |
+| `pwsh.tooling.python`                 | `install_python_workspace.command.yml`           | `pwsh/Tooling.Python/Install-PythonWorkspace.ps1`                      | provided  | command contract | `reinstall_package: string[]`                                                                                                                                                                                                                                                                                                                                       |
 | `pwsh.tooling.python`                 | `invoke_poetry.command.yml`                      | `pwsh/Tooling.Python/Invoke-Poetry.ps1`                                | provided  | command contract | `arguments: string!, pass_thru: switch, no_assert: switch, silent: switch, dry_run: switch`                                                                                                                                                                                                                                                                         |
 | `pwsh.tooling.python`                 | `remove_python.command.yml`                      | `pwsh/Tooling.Python/Remove-Python.ps1`                                | provided  | command contract | `install_dir: string, force: switch`                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.tooling.python`                 | `uninstall_poetry.command.yml`                   | `pwsh/Tooling.Python/Uninstall-Poetry.ps1`                             | provided  | command contract | `no parameters`                                                                                                                                                                                                                                                                                                                                                     |
@@ -589,6 +590,8 @@ Notes:
 - `pwsh.tooling.python/install_poetry.command.yml`: Installs Poetry as an isolated uv tool.
 - `pwsh.tooling.python/install_py_spark.command.yml`: Installs PySpark into the uv-managed Python via uv pip.
 - `pwsh.tooling.python/install_python.command.yml`: Provisions Python via uv.
+- `pwsh.tooling.python/install_python_workspace.command.yml`: Syncs the Python test workspace's one environment through uv, online, so test
+  runs and the Python checks read it offline.
 - `pwsh.tooling.python/invoke_poetry.command.yml`: Runs poetry with the given arguments.
 - `pwsh.tooling.python/remove_python.command.yml`: Removes a manually installed Python and cleans up system PATH.
 - `pwsh.tooling.python/uninstall_poetry.command.yml`: Uninstalls Poetry.

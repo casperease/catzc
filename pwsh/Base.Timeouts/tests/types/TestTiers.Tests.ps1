@@ -3,9 +3,9 @@ Describe 'TestTiers' -Tag 'L0', 'logic' {
         [Catzc.Base.Timeouts.TestTiers]::Names | Should -Be @('L0', 'L1', 'L2', 'L3', 'L4')
     }
 
-    It 'names the highest tier, and a default top tier below it (L4 is opt-in)' {
+    It 'names the highest tier, and a default top tier of L2 (L3 and L4 are opt-in)' -Tag 'ADR-AUTO-NET-TESTSOFFLINE' {
         [Catzc.Base.Timeouts.TestTiers]::Highest | Should -Be ([Catzc.Base.Timeouts.TestTiers]::Names.Count - 1)
-        [Catzc.Base.Timeouts.TestTiers]::DefaultTop | Should -Be 3
+        [Catzc.Base.Timeouts.TestTiers]::DefaultTop | Should -Be 2
     }
 
     It 'names the first tier that may launch a real process, so L0 and L1 are the process-free tiers' {

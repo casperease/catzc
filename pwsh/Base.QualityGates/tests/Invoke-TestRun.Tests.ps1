@@ -128,8 +128,17 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
     }
 
     Context 'the location decides the top tier (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE)' {
-        It 'runs every tier, L3 included, in place by default' {
+        It 'stops at L2 when no level is asked for, since L3 is opt-in' -Tag 'ADR-AUTO-NET-TESTSOFFLINE' {
             Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $ExcludeTag -contains 'L3' -and $Location.Mode -eq 'in-place'
+            }
+            Should -Invoke Write-TestAutomationHeader -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $MaxLevel -eq 2 }
+        }
+
+        It 'runs L3 in place when -MaxLevel 3 asks for it' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 3 } | Out-Null
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 $ExcludeTag -notcontains 'L3' -and $Location.Mode -eq 'in-place'
@@ -139,7 +148,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
 
         It 'skips L3 in a snapshot, says so, and records the level it ran' {
             $script:locationMode = 'snapshot'
-            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true }
+            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 3 }
 
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ExcludeTag -contains 'L3' }
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Skipping L3:*' }
@@ -170,7 +179,7 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
 
         It 'refuses an L3-only run in a snapshot, and still releases the location' {
             $script:locationMode = 'snapshot'
-            { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3 } } |
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; MinLevel = 3; MaxLevel = 3 } } |
                 Should -Throw '*snapshot, which skips L3*'
             Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
             Should -Invoke Exit-TestRunLocation -ModuleName Catzc.Base.QualityGates -Times 1

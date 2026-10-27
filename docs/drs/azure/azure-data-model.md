@@ -156,11 +156,14 @@ region, and a resource group never mixes regions.
 
 - [The subscription as the unit](#the-subscription-as-the-unit)
 
-### Rule ADR-AZ-DATAMOD-ORPHANREMOVALNEEDSRESOLVEDNAMES
+### Rule ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES
 
 A resource that a slot's resource group holds and its compiled template no longer declares is removed after the deploy, never by a
-`Complete` mode; the removal deletes only when every evaluated resource of the template has a name that resolves offline, and otherwise
-deletes nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists only.
+`Complete` mode. The comparison covers only what `az resource list` returns: an extension resource (one with a `scope`, such as a role
+assignment, a lock or a diagnostic setting) and a child proxy (a child resource without a `location`) are left out, and a resource Azure
+creates itself, declared in `orphan-removal.yml`, is skipped. The removal deletes only when every listable resource of the template has a
+name that resolves offline, and otherwise deletes nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists
+only.
 
 - [Orphan removal](#orphan-removal)
 
@@ -465,10 +468,15 @@ intentionally deferred; the resource-group name above is the only name the syste
 
 Every template deploys `Incremental`, so a resource a reverted change takes out of a template stays in its slot's resource group.
 `Remove-BicepOrphanResources` compares the group's resources with the compiled template's resources, evaluated offline with the slot's
-parameter values, and deletes each one no evaluated resource names. The comparison is by name, and a name the evaluator cannot resolve
-(`format()`, `resourceId()` and the other functions outside its subset) could stand for any deployed resource, so one unresolved name makes
-every deletion unsafe: the command then deletes nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists
-only. The DEPLOY pipelines run it after each resource-group deploy on the production and rollback paths, the listing first.
+parameter values, and deletes each one no evaluated resource names. Only the resources `az resource list` can return take part: the
+listing never holds an extension resource, which a `scope` attaches to another resource (role assignments, locks, diagnostic settings), nor
+a child proxy, a child resource without a `location` that lives inside its parent (a storage account's `blobServices`), so the template's
+own resources of those kinds are left out of the comparison. A child Azure creates with its parent, such as a SQL server's `master`
+database, is listed but declared by no template; `orphan-removal.yml` names each such type and name, and the command skips them. The
+comparison is by name, and a name the evaluator cannot resolve (`format()`, `resourceId()` and the other functions outside its subset)
+could stand for any listed resource, so one unresolved name on a listable resource makes every deletion unsafe: the command then deletes
+nothing, lists the candidates and fails, naming the unresolved resources. `-DryRun` lists only. The DEPLOY pipelines run it after each
+resource-group deploy on the production and rollback paths, the listing first.
 
 ### Config-addressed parameters
 

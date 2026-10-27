@@ -12,12 +12,13 @@ that asserts such a value passes on nothing. The next L1 author checks this list
 its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 
 - `reference()`, `list*()` and every runtime lookup: a value read from a deployed resource or a module output.
-- `format()`, which Bicep string interpolation (`'${a}-${b}'`) compiles to, so an interpolated name or property stays unresolved.
-- `toLower()`, `toUpper()`, `replace()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other string
-  and array helpers.
-- `union()`, `coalesce()`, `tryGet()` and `range()`, which the safe-access (`.?`) and coalesce (`??`) operators and the `for … in range`
-  loops compile to.
+- `format()` with a format specifier (`{0:N2}`) or over an argument that is not a string or an integer; plain `{n}` holes, which Bicep
+  string interpolation compiles to, resolve.
+- `toLower()`, `toUpper()`, `split()`, `substring()`, `take()`, `skip()`, `first()`, `last()`, `indexOf()` and the other string and array
+  helpers.
+- `union()` and `range()`, which the object spread and the `for … in range` loops compile to.
 - `resourceId()`, `subscriptionResourceId()`, `tenantResourceId()`, `extensionResourceId()`, `resourceGroup()`, `subscription()` and
   `deployment()`: the scope and identity of the deployment.
-- `guid()`, `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time.
+- `guid()`, left out until it is computed exactly as ARM does (a name-based UUID over the joined arguments, which no offline check here
+  confirms), and `uniqueString()`, `utcNow()` and `dateTimeAdd()`, whose values exist only at deploy time.
 - The comparisons `greater()`, `less()` and their `OrEquals` forms, and `json()`, `string()` and `int()`.
