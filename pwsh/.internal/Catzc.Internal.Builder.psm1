@@ -260,7 +260,7 @@ function Invoke-ModuleBuild {
         throw ("Invoke-ModuleBuild: the build's types surface is not the committed contract:`n  " + ($drift -join "`n  "))
     }
 
-    $contentHash = Get-CatzcContentHash -Path $buildRoot -Exclude 'build.json'
+    $contentHash = Get-ContentHash -Path $buildRoot -Exclude 'build.json'
     $record = [ordered]@{
         name         = 'Catzc'
         bundle       = $Bundle

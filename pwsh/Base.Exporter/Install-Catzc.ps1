@@ -26,7 +26,7 @@ function Install-Catzc {
 
     $importer = $null
     if ($Scope -eq 'CurrentUser') {
-        $moduleTarget = Join-Path (Get-CatzcUserModulePath) "Catzc/$version"
+        $moduleTarget = Join-Path (Get-UserModulePath) "Catzc/$version"
     }
     else {
         $moduleTarget = Join-Path $Root ".vendor/Catzc/$version"

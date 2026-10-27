@@ -1,4 +1,4 @@
-function Get-CatzcContentHash {
+function Get-ContentHash {
     [CmdletBinding()]
     [OutputType([string])]
     param(

@@ -41,7 +41,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
                 typeSources = @('.compiled/types/Catzc.Base.Gadget/Gadget.cs', 'Catzc.Base.Widget/types/Widget.cs')
                 modules     = @('Catzc.Base.Widget')
             }
-            $build.contentHash = Get-CatzcContentHash -Path $root
+            $build.contentHash = Get-ContentHash -Path $root
             & $write 'build.json' ($build | ConvertTo-Json)
             [pscustomobject]@{ Root = $root; TypesHash = $typesHash; Build = $build }
         }
@@ -51,7 +51,7 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             param($fixture)
             $buildFile = Join-Path $fixture.Root 'build.json'
             [System.IO.File]::Delete($buildFile)
-            $fixture.Build.contentHash = Get-CatzcContentHash -Path $fixture.Root
+            $fixture.Build.contentHash = Get-ContentHash -Path $fixture.Root
             [System.IO.File]::WriteAllText($buildFile, ($fixture.Build | ConvertTo-Json))
         }
     }

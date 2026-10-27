@@ -1,4 +1,4 @@
-function Get-CatzcUserModulePath {
+function Get-UserModulePath {
     [CmdletBinding()]
     [OutputType([string])]
     param()

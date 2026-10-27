@@ -326,7 +326,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             $record.vendorPolicy | Should -Be 'runtime'
             @($record.modules) | Should -Be @('Catzc.Base.Gadget', 'Catzc.Base.Widget')
             $record.contentHash | Should -Be $result.ContentHash
-            $result.ContentHash | Should -Be (Get-CatzcContentHash -Path $root -Exclude 'build.json')
+            $result.ContentHash | Should -Be (Get-ContentHash -Path $root -Exclude 'build.json')
         }
 
         It 'is idempotent: a rebuild of unchanged sources writes nothing and yields the same content hash' {

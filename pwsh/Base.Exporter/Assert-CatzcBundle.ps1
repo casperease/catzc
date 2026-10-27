@@ -125,7 +125,7 @@ function Assert-CatzcBundle {
         }
 
         if ($build['contentHash']) {
-            $actual = Get-CatzcContentHash -Path $root -Exclude 'build.json'
+            $actual = Get-ContentHash -Path $root -Exclude 'build.json'
             if ($actual -ne "$($build['contentHash'])") {
                 $violations.Add("content hash mismatch: build.json records $($build['contentHash']) but the tree hashes to $actual")
             }

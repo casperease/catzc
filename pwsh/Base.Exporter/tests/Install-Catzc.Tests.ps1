@@ -15,7 +15,7 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         $script:root = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
         $script:userModules = Join-Path $TestDrive "$([System.Guid]::NewGuid().ToString('N'))"
         Mock Assert-CatzcBundle { } -ModuleName Catzc.Base.Exporter
-        Mock Get-CatzcUserModulePath { $userModules } -ModuleName Catzc.Base.Exporter
+        Mock Get-UserModulePath { $userModules } -ModuleName Catzc.Base.Exporter
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
     }
 
