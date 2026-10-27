@@ -17,7 +17,7 @@ authority for a catzc decision.
 
 - [Not a reference implementation](#not-a-reference-implementation)
 
-### Rule ADR-REPO-INSPIRE-CATZCADRSDECIDE
+### Rule ADR-REPO-INSPIRE-CATZCRECORDSDECIDE
 
 Catzc's ADRs decide. An idea from an inspiration is weighed against the domain rules of the aspect it touches, and the work says where the
 idea came from. An idea in an area where catzc has made no decision, such as Go, opens a question for the user and is never a precedent.

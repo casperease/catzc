@@ -6,8 +6,6 @@ using System.Text;
 
 namespace Catzc.Tooling.Claude;
 
-// One session's claim to be the one editor of a shared config until it expires. The run lock is a mutex its process lets go on exit, so
-// it cannot span an edit across tool calls; the claim is a file instead, one per claimed path, beside the run lock's queue folder.
 public sealed class EditorClaim
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -87,8 +85,6 @@ public sealed class EditorClaim
         return expires > now.ToUniversalTime() ? new EditorClaim(parts[0], parts[2], expires) : null;
     }
 
-    // Claims the path for the session until expires, and returns the claim that holds the path afterwards: this session's, renewed when
-    // it held it already, or another session's live claim, which is left alone.
     public static EditorClaim Claim(string folder, string path, string session, DateTime expires, DateTime now)
     {
         EditorClaim claim = new EditorClaim(session, path, expires);
@@ -124,8 +120,6 @@ public sealed class EditorClaim
         return claim;
     }
 
-    // Releases the session's claim on the path and returns null, or returns another session's live claim, which is left alone. A path
-    // with no live claim releases as nothing to do.
     public static EditorClaim Release(string folder, string path, string session, DateTime now)
     {
         EditorClaim held = Read(folder, path, now);

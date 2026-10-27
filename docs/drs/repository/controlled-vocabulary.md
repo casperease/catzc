@@ -19,9 +19,9 @@ part in, where and on which text surfaces its avoided phrasings are scanned — 
 
 ### Rule ADR-REPO-VOCAB-SOURCESINREPOSITORY
 
-Every glossary source is in the repository, and so is everything it refers to: the defining rule is an ADR under `docs/drs/`, a realization
-pattern and a scan glob are repo-relative, a contrast or relation target is another defined term. A source never holds a URL, and external
-vocabulary (DORA) enters only through its in-repository reference and the ADR that cites it.
+Every glossary source is in the repository, and so is everything it refers to: the defining rule is a rule of a decision record under
+`docs/drs/`, a realization pattern and a scan glob are repo-relative, a contrast or relation target is another defined term. A source never
+holds a URL, and external vocabulary (DORA) enters only through its in-repository reference and the record that cites it.
 
 - [Everything in the repository](#everything-in-the-repository)
 
@@ -73,22 +73,22 @@ language id; no other spelling of the name appears in code, configuration or a p
 
 ## Context
 
-The repository already controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
+The repository controls its words at the spelling level: `terminology.yml` approves every token, and `Test-Terminology` and the
 spell-checker keep that list honest ([spell-out-names](../automation/spell-out-names.md)). Spelling is not meaning. A correctly spelled word
 can still carry several meanings — "suite" names every test in the repository, a tier, a category, a run mode, a gate's own tests, and a
 pipeline payload, all in the same tree — and nothing in a spelling list can tell those apart.
 
 Meaning is fixed in prose. The process domain's flow vocabulary is the model: one article that pins the flow terms so the other process
 decision records can reason with them. But prose alone leaves three things unchecked: which rule defines a term, whether other text drifts
-to a different word for it, and whether the concept a term names is enforced anywhere. This ADR turns the glossary discipline into a
+to a different word for it, and whether the concept a term names is enforced anywhere. This record turns the glossary discipline into a
 controlled vocabulary those three questions can be asked of mechanically.
 
 ### One term, one rule
 
-A definition belongs to an ADR, because an ADR owns decisions and their rationale ([index](../index.md#authoring-conventions)). The glossary
-does not restate the definition; it points at the one rule that holds it (`defined_by`) and adds a one-line summary for readers and
-messages. Anchoring every term on one rule makes the definition findable and makes a second definition detectable — two rules that both bold
-the same term as its definition is the contradiction the rule forbids.
+A definition belongs to a decision record, because a record owns decisions and their rationale ([index](../index.md#authoring-conventions)).
+The glossary does not restate the definition; it points at the one rule that holds it (`defined_by`) and adds a one-line summary for readers
+and messages. Anchoring every term on one rule makes the definition findable and makes a second definition detectable — two rules that both
+bold the same term as its definition is the contradiction the rule forbids.
 
 ### Opt-in sources
 
@@ -122,7 +122,7 @@ is declared once and shown on both entries (PDR-ONELIVE), so the two sides canno
 `Avoided phrasings name their replacement`
 
 A phrasing that blurs a defined term is listed as avoided, with the wording to use instead, so a violation always carries its fix. The rule
-is about _use_, not _mention_: the ADR that defines a term, the glossary itself, and guidance that says "avoid `X`" all need to write the
+is about _use_, not _mention_: the record that defines a term, the glossary itself, and guidance that says "avoid `X`" all need to write the
 avoided phrase, and they do so inside backticks or quotes.
 
 ### Qualified forms
@@ -158,8 +158,8 @@ is explicit rather than an absence.
 ### Domain rules
 
 The vocabulary starts with the name of the rules themselves. A convention here is a decision with a rationale and a citation code, recorded
-in an ADR and checked where it can be — not a habit of the house. Calling the conventions **domain rules**, or DRS rules when the source
-matters, keeps that link visible in every conversation and review, and gives the glossary a first concept that is used everywhere and
+in a decision record and checked where it can be — not a habit of the house. Calling the conventions **domain rules**, or DRS rules when the
+source matters, keeps that link visible in every conversation and review, and gives the glossary a first concept that is used everywhere and
 realized nowhere in code (`prose-only`).
 
 ## Decision
@@ -186,12 +186,12 @@ with their replacements. A source's options default sensibly, and a source overr
   message per violation.
 
 - **`Get-GlossaryAnchorViolations`** (`Catzc.Base.Docs`) checks that every term is anchored on its defining rule: its `defined_by` names a
-  rule of an indexed ADR, and that rule's normative summary bolds the term (ADR-REPO-VOCAB-DEFINEDTERM). Only the normative summary counts —
-  bold text in the ADR body, in the rule's linked bullets, or inside a code span never anchors a term.
+  rule of an indexed record, and that rule's normative summary bolds the term (ADR-REPO-VOCAB-DEFINEDTERM). Only the normative summary
+  counts — bold text in the record body, in the rule's linked bullets, or inside a code span never anchors a term.
 
 - **`Get-GlossaryDefinitionViolations`** (`Catzc.Base.Docs`) checks that no rule other than the defining one defines the term a second time
   — a normative summary that says `**<term>** is` (ADR-REPO-VOCAB-DEFINEDTERM). A rule that merely bolds the term is not a definition, and
-  ADR bodies are never read.
+  record bodies are never read.
 
 - **`Get-GlossaryEnforcementViolations`** (`Catzc.Base.Docs`) checks that every concept realized in code has an enforcer: an analyzer rule
   or a test that cites its defining rule, found through the same rule-citation link `Show-Catzc` reports (ADR-REPO-VOCAB-REALIZEDBY). A
@@ -223,19 +223,19 @@ with their replacements. A source's options default sensibly, and a source overr
 
 ## Consequences
 
-- A defined term has one findable home — its defining rule — and a reader meets the same meaning in every ADR, help text, and message.
+- A defined term has one findable home — its defining rule — and a reader meets the same meaning in every record, help text, and message.
 - Near-neighbour terms come with their differences spelled out, so the common confusions are answered where the terms are defined.
 - A blurring phrasing carries its replacement, so fixing one is a mechanical edit rather than a judgement call.
 - Vocabulary control is opt-in per module: a module with no glossary source pays nothing, and a source that needs less — a scope that is
   narrower, or fewer checks — says so in its options.
-- The cost is a second artifact beside the ADR for every defined term — a glossary entry — and one sentence per contrasted pair, written to
-  read on either term's entry.
+- The cost is a second artifact beside the record for every defined term — a glossary entry — and one sentence per contrasted pair, written
+  to read on either term's entry.
 
 ## Related
 
 - [spell-out-names](../automation/spell-out-names.md) (`ADR-AUTO-SPELL`) — the spelling-level registry (`terminology.yml`), which controls
   tokens, not meanings.
-- [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this ADR
-  fixes what the words themselves mean.
+- [domain-language-separation](domain-language-separation.md) (`ADR-REPO-LANG`) — which identities belong in which language zone; this
+  record fixes what the words themselves mean.
 - [module-config-loading](../configuration/module-config-loading.md) (`ADR-CONF-LOADING`) — how a module's `configs/glossary.yml` is
   discovered and validated.

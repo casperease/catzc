@@ -19,7 +19,7 @@ Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERADRMAPPING' {
+Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING' {
     BeforeAll {
         $script:result = Test-AnalyzerDrsMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-drs-map')
     }

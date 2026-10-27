@@ -55,7 +55,7 @@ title. The scope follows the repository's own file classes: every tracked `.md` 
 
 A Markdown heading below the title is plain words with an anchor unique in its document. A trailing parenthesized group that holds only code
 spans and separators — a file name, a path, a citation — sits on its own line directly below the heading instead, groups joined by `·` and a
-citation written as a link to its ADR; code that is the heading's subject stays in it. In a `dora-explains.md` file, each entry's DORA
+citation written as a link to its record; code that is the heading's subject stays in it. In a `dora-explains.md` file, each entry's DORA
 paragraph is a `>` blockquote, so paraphrased research reads as grey text. `Format-MarkdownTitle` writes this form and `Test-MarkdownTitle`
 checks it.
 
@@ -95,14 +95,13 @@ every run, and `Test-FileMeta` checks it, over the files the scope rule selects
 
 The repository holds many file types — PowerShell (`.ps1`/`.psm1`/`.psd1`), Bicep, YAML pipelines, Markdown, JSON, C#. When formatting is
 inconsistent, every pull request carries two kinds of change: the actual logic change and incidental formatting noise. Reviewers must
-mentally separate the two, and they will miss real changes hidden in reformatting. This is the single biggest waste of review time in any
-codebase without enforced formatting — and it is not language-specific, so the fix must not be either.
+mentally separate the two, and they miss real changes hidden in reformatting. The waste is not language-specific, so the fix is not either.
 
 Inconsistent formatting also poisons `git blame`: a reformatted line shows the reformatter as the last author, not the person who wrote the
 logic. `git diff` becomes noisy, `git log -p` unreadable, and bisecting across formatting changes painful.
 
-The fix is simple and repo-wide: pick one standard, enforce it mechanically for every file type, and never discuss it again. The specific
-choices matter far less than that every file — whatever its language — obeys the same baseline.
+So one standard is enforced mechanically for every file type. The specific choices matter far less than that every file, whatever its
+language, obeys the same baseline.
 
 ### The cross-language baseline
 
@@ -122,8 +121,9 @@ save.
 
 The baseline is the floor. Each language adds its own `.editorconfig` section (indent width, line length) and, where it has one, a formatter
 engine and an analyzer. The exact per-language values live in `.editorconfig`, and which engine formats each language lives in the
-file-language registry, `pwsh/Base.Languages/configs/languages.yml`; this ADR restates neither. Beyond the engines, PowerShell is governed
-by `PSScriptAnalyzerSettings.psd1`, Markdown by `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check `Test-Pipelines`.
+file-language registry, `pwsh/Base.Languages/configs/languages.yml`; this record restates neither. Beyond the engines, PowerShell is
+governed by `PSScriptAnalyzerSettings.psd1`, Markdown by `.markdownlint.yml`, and pipeline YAML by the naming-and-placement check
+`Test-Pipelines`.
 
 ### Formatting is configured per language
 
@@ -191,7 +191,7 @@ Those trailing groups are reference material, not the heading's words, so they m
 and a citation becomes a checked link instead of an inert code span. Only a group of code spans and separators moves; a group holding prose,
 or code that is the heading's subject (`` `$Matches` — capture immediately ``), is the author's wording and stays. Duplicate anchors are
 reported, never renumbered: GitHub's `-1` suffix is an anchor nobody can predict, and choosing distinct words is the author's call. A rule's
-registry heading (`### Rule ADR-<CODE>:<n>`) already has the form its citations need.
+registry heading (`### Rule <full code>`) has the form its citations need.
 
 Cited or paraphrased content reads grey. A `dora-explains.md` entry's opening paragraph restates DORA's research rather than this
 repository's decision, so it is a blockquote — the one Markdown construct GitHub renders as muted text, and the repository's VS Code preview
@@ -209,16 +209,15 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 tests. For Markdown it is markdownlint (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline
-  YAML (`.yaml`) it is Prettier (the same engine as Markdown, checked by the `Test-Formatting` gate in an L2 test) plus the
-  naming-and-placement quality gate `Test-Pipelines` (an L1 integrity test) — both run in every CI test run, so drifted or misplaced
-  pipeline YAML fails CI.
+  YAML (`.yaml`) it is Prettier, checked by `Test-Formatting` in an L2 test, plus the naming-and-placement gate `Test-Pipelines` in an L1
+  test, so drifted or misplaced pipeline YAML fails CI.
 - **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load
   (`LanguagesConfig`); `Format-Code` runs the engines and `Test-Formatting` reports every file an engine would change, and an L0 integrity
   test asserts every engine the registry may name has its adapter.
 - **Generated artifacts** — a build-generated artifact is emitted canonical by its generator (the module-manifest emitter), and an L2 test
   asserts the formatter is a no-op over generated output, so its bytes cannot drift from the standard.
 - **Links** — `Format-Links` aligns every link mechanically (code links repository-rooted, markdown links relative, rule citations spelled
-  `ADR-<CODE>#<n>`) and `Test-Links` checks them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
+  as their full code) and `Test-Links` checks them; an L2 test asserts `Format-Links` is a no-op over the tracked tree
   ([markdown-links](markdown-links.md)).
 - **Markdown titles** — `Format-MarkdownTitle` makes the H1 of every in-scope Markdown file its title (promoting the code-span line under a
   path H1), brings its headings into normal form (moving trailing reference groups out, quoting `dora-explains` paragraphs, and re-pointing

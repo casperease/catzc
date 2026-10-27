@@ -105,9 +105,8 @@ own.
 `One config entry per kind, one default, an instance deviates only explicitly`
 
 Each kind of work has one mechanism in code and each instance of it is a registry entry
-([configure-not-program](../principles/configure-not-program.md)), and materialization follows: the kind declares it, with its default
-declared once on the config type, and a call never decides it in code. An instance that needs another value says so in its own entry, so the
-deviation is visible as a line in a config rather than a branch in a function.
+([configure-not-program](../principles/configure-not-program.md)), so a call never decides materialization in code, and an instance's
+deviation is a visible line in a config rather than a branch in a function.
 
 ### The loud fallback
 

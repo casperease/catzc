@@ -394,16 +394,16 @@ making its slowest test files faster (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipel
 
 [Fail fast with inline assertions](fail-fast-with-asserts.md) makes the case that automation code is mostly _impure_ — it orchestrates
 external systems — so assertions and integration runs catch the failure modes that matter, and **mock-heavy tests are fragile and
-misleading**. That ADR is about where confidence comes from. This one is about the tests that remain: there is real _pure_ logic in this
-codebase — name assembly (`Get-AzureResourceName`), config resolution (`Get-AzureSubscription`, `Resolve-BicepConfigName`), discovery
-shaping (`Get-BicepTemplates`), the cross-layer joins — and that logic deserves fast, deterministic tests. The question this ADR answers is
-**what those tests may depend on**.
+misleading**. That record is about where confidence comes from; this record is about the tests that remain. There is real _pure_ logic in
+this codebase — name assembly (`Get-AzureResourceName`), config resolution (`Get-AzureSubscription`, `Resolve-BicepConfigName`), discovery
+shaping (`Get-BicepTemplates`), the cross-layer joins — and it deserves fast, deterministic tests. The question here is **what those tests
+may depend on**.
 
 ### Logic vs integrity tests
 
 `Two kinds of test with opposite dependencies`
 
-A test in this repo is one of two things, and conflating them is the mistake to avoid:
+A test is one of two things, and conflating them is the mistake to avoid:
 
 - **Logic / unit test** — verifies what a _function_ does. It must be **isolated from the shipped configuration**: editing
   `configs/azure.yml` (renaming an environment, dropping a customer, changing a shortcode) must never change the outcome of a test for
@@ -455,7 +455,7 @@ line:
   whose vault id is built from the _fixture's_ resolved subscription — fixture identities (ADR-AUTO-TEST-DISTINCTFIXTURES), asserted against
   the fixture, binding to nothing in production.
 
-This is the same coupling-break as the rest of this ADR (logic tests own their inputs; integrity tests read reality), applied to the
+This is the same coupling-break as the rest of this record (logic tests own their inputs; integrity tests read reality), applied to the
 template _name_ dimension: production identities flow into the generic check as discovered data, never as literals a test pins.
 
 ### Isolation through seams
@@ -518,10 +518,9 @@ so a missing mechanical enforcer is a prompt, not a defect — but the data is s
 
 ### Test tiers: the test onion
 
-Vendor test tooling is lazy-loaded to protect importer time. Tests are tagged by **what they integrate with**, not by speed — and what a
-test integrates with is a ring of an onion around the code (ADR-AUTO-TEST-ONIONOFRINGS). The core holds the code alone; each ring outward
-adds a kind of dependency; a vertical test cuts from its outermost ring through to the core, and a run includes every ring up to its top
-tier:
+Tests are tagged by **what they integrate with**, not by speed, and what a test integrates with is a ring of an onion around the code
+(ADR-AUTO-TEST-ONIONOFRINGS). The core holds the code alone; each ring outward adds a kind of dependency; a vertical test cuts from its
+outermost ring through to the core, and a run includes every ring up to its top tier:
 
 ```mermaid
 flowchart TB
@@ -543,7 +542,7 @@ flowchart TB
   change. (The tier tag is mandatory — there is no default; see ADR-AUTO-TEST-TWOMANDATORYTAGS.)
 - **L2 — vertical, through the local-tool ring.** Drives a local tool for real — `git`, `bicep build`, `python`, `dotnet`, `poetry`, the
   test runner, … No cloud. Runs on a devbox **and in fast CI** (where the tools are installed); a test **self-skips** when its specific tool
-  is absent. The pipelines pin `-Level 2`, the CI gate's fast build validation and the BVT; `-Level 1` excludes L2 for a core-only pass.
+  is absent. The pipelines pin `-Level 2`; `-Level 1` excludes L2 for a core-only pass.
 - **L3 — vertical system tests, through both rings.** Changes or depends on state outside the repository: the real cloud APIs (maybe through
   a CLI tool, e.g. `az deployment create` / `az account show`), the user's persistent environment, installed tools. It **self-skips** when
   its prerequisite (cloud access, the platform) is missing, and runs only in the working folder itself (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE),
@@ -597,13 +596,12 @@ integration tier keeps a thin **walking skeleton** that drives the real tool onc
 
 This is sound because the state under test is **the-state-of-this-commit**. Everything here is code — IaC templates, the `*.yml` configs,
 the module/type/function graph — so what a test checks is a static, hermetic property of the committed artifacts
-([everything-as-code](../principles/everything-as-code.md)): which parameter file a template renders, what name a resource resolves to,
-which slots a config set discovers. The files in the commit fix all of that, so a mocked L0 test checks it in milliseconds. The one thing
-the real tool decides that the files do not is the _integration concern itself_ — what the compiler, CLI, or cloud actually does with those
-artifacts — and that is exactly, and only, what the walking skeleton covers. [Fail-fast](fail-fast-with-asserts.md) argues that confidence
-comes from the integration run; this keeps that run thin and pushes everything it does not uniquely prove down to the fast tiers
-(ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER, ADR-AUTO-TEST-TAGBYOUTERMOSTRING), which is also where
-[reduce-waste](../principles/reduce-waste.md) points — the inner loop pays for the slow tier on every change.
+([everything-as-code](../principles/everything-as-code.md)), which a mocked L0 test checks in milliseconds. The one thing the real tool
+decides that the files do not is the _integration concern itself_ — what the compiler, CLI, or cloud does with those artifacts — and that
+is exactly, and only, what the walking skeleton covers. The integration run [fail-fast](fail-fast-with-asserts.md) relies on stays thin,
+and everything it does not uniquely prove moves to the fast tiers (ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER,
+ADR-AUTO-TEST-TAGBYOUTERMOSTRING), where [reduce-waste](../principles/reduce-waste.md) points too: the inner
+loop pays for the slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
 fakes away — a real `bicep build` resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's
@@ -683,7 +681,7 @@ is free, for a deterministic run against the tree as it was when the run started
 
 A snapshot isolates the repository, not the machine or the cloud. A test that changes state outside the repository — the user `PATH` or
 another persistent environment variable, installed tools, a cloud resource — collides with the same test in any concurrent run, snapshot or
-not. Such a test is an L3 vertical system test, and the run's location already decides who may run it: only the run that owns the working
+not. Such a test is an L3 vertical system test, and the run's location decides who may run it: only the run that owns the working
 folder runs L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and
 says so, naming who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
 
@@ -752,8 +750,7 @@ A Python test folder runs the same way through the same bridge ([python-test-art
 ([bash-test-artifacts](bash/bash-test-artifacts.md)): each `@test` is one test, a name starting `integrity:` is `integrity`, the tests run
 on the vendored bats under the bash engine only, and without bash the bridge skips with `tool_bash_missing`. The Go and Python tests run
 once per execution engine, each title ending in `[pwsh]`, `[bash]` or `[zsh]` ([execution-engines](execution-engines.md)). The bridge is one
-mechanism with one entry per language, so a further test language adds an entry, not a second bridge; in pwsh it is one test-runner
-container.
+mechanism with one entry per language, so a further test language adds an entry, not a second bridge.
 
 ### Tests and test files
 
@@ -765,7 +762,7 @@ own smallest unit, and each maps that unit to exactly one test, so a run that mi
 
 A test file is what a run schedules (ADR-AUTO-TEST-TESTFILE). It belongs to one catzc module, which is how a selection by module reaches it,
 and it is never split: a whole file goes to one worker, and a phase tag on any of its tests moves the whole file. A module's own test files
-live in its `tests/` folder, one per function in pwsh; a Go, Python, or Bash test folder counts as one test file of the module it maps to.
+live in its `tests/` folder, one per function; a Go, Python, or Bash test folder counts as one test file of the module it maps to.
 Between the two, a test language may group tests inside a file, and the tags resolve along those groups (ADR-AUTO-TEST-TWOMANDATORYTAGS).
 
 ### Build Verification Test
@@ -793,12 +790,12 @@ commit built, byte-identical for a given commit.
 
 A devbox run is the loop a person waits on, and it shares a fixed window with the slower work that follows it, so its length is a limit, not
 a trend to watch (ADR-AUTO-TEST-DEVBOXRUNBUDGET). The budget is `tests.run_seconds` in `timeouts.yml`, measured over the workers' run — the
-wall clock the run already reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is
-the same as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof
+wall clock the run reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the
+same as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof
 where it is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
 
-A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline already stops a stage that
-outlives its timeout.
+A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline stops a stage that outlives
+its timeout.
 
 ## Decision
 
@@ -809,11 +806,9 @@ on by nothing). Mock only at module boundaries, mock whole functions, and let pu
 
 `The idioms and gotchas are the language layer`
 
-The doctrine above says what a test may depend on and how a run executes it; each test language says how the test is written. For pwsh — the
-seam mocks, mocking at module boundaries, testing privates through the module, the file convention, how each rule above is written in
-Pester, and the engine gotchas that repeatedly bite — that is the pwsh twin of this ADR. Two of those gotchas bite in every data-driven
-test: a `<name>` title template expands only from a key of the case's hashtable, and a hyphenated hashtable key is quoted
-(`@{ 'private-function' = … }`), or it parses as a subtraction.
+The doctrine above says what a test may depend on and how a run executes it; each test language's twin of this record says how the test is
+written: the seam mocks, mocking at module boundaries, testing privates through the module, the file convention, how each rule above is
+spelled in its test framework, and the language's gotchas.
 
 ### How this is enforced
 

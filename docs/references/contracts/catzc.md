@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c03b4634c27b
+    with_body_sha: "91d9cbbb4289"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -449,8 +449,8 @@ Notes:
   source.
 - `pwsh.base.docs/test_glossary.command.yml`: Checks the controlled vocabulary against the repository with every glossary check, every issue
   in one report.
-- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Checks that the rule summaries of the configured `ADR` domains carry no
-  engine-specific syntax.
+- `pwsh.base.drs/test_drs_engine_neutrality.command.yml`: Checks that no rule summary of an engine-neutral domain carries engine-specific
+  syntax.
 - `pwsh.base.drs/test_drs_registry.command.yml`: Checks that the DRS registry (drs.yml) and the decision records agree.
 - `pwsh.base.flow/actionable-fact.schema.json`: The schema of one actionable fact, verifiable by the truth store, address and moment its
   origin names, and actionable by the one change or report it calls for.

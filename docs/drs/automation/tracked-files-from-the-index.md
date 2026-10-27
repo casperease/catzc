@@ -100,8 +100,8 @@ means.
 When each caller asks git on its own, each one also quotes paths, splits output, drops blank lines, and decides how a folder path matches,
 and small differences between those copies become different answers to the same question. One seam gives one answer and one place to test
 it; the domain functions that need a named universe wrap the seam and keep only what is genuinely theirs (an exclusion list, a file-type
-filter). Literal paths keep the seam's contract small: the callers pass folders and files they already know, and a pattern language would
-only add a second way to say the same thing.
+filter). Literal paths keep the seam's contract small: the callers pass folders and files they know, and a pattern language would only add
+a second way to say the same thing.
 
 ### Plain git ls-files is the index
 
@@ -145,11 +145,10 @@ The index is not the only small, documented git format. Refs are text files: `HE
 costs a file read where `git rev-parse` costs a process start, about 40 ms each, and a test that reads them stays a logic test.
 
 The object store is different. Objects are zlib-compressed and packed as delta chains behind an index, and a reader for that would be a
-large second copy of git. It would also be slower to get right than git, which already decompresses every object in a stream. What makes a
-history scan slow is reading the same object again for every revision that holds it, not the decompression. Measured on this repository (684
-commits, 9,122 distinct file contents), `git grep` over every revision took about 8.1 s, while one `cat-file` pass over every object took
-0.64 s. The scan built on that pass, searching each distinct content once, takes about 1.7 s end to end. So the scan takes git's one stream
-and does the indexing, walking and searching itself.
+large second copy of git, slower to get right than git's own stream of every object. What makes a history scan slow is reading the same
+object again for every revision that holds it, not the decompression: over a history of 684 commits and 9,122 distinct file contents,
+`git grep` over every revision takes about 8.1 s, one `cat-file` pass over every object 0.64 s, and the scan built on that pass, searching
+each distinct content once, about 1.7 s end to end. So the scan takes git's one stream and does the indexing, walking and searching itself.
 
 Writing is never in-process. A clone, a push or a commit changes state that git owns, and a second writer would be a second copy of git's
 consistency rules.

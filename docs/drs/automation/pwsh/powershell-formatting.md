@@ -47,7 +47,7 @@ version indents it identically.
 
 - [Scriptblock arguments](#scriptblock-arguments)
 
-### Rule ADR-PWSH-FORMAT-ANALYZERADRMAPPING
+### Rule ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING
 
 The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-drs-map.yml`,
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
@@ -319,7 +319,7 @@ permitted for chaining statements on a single line, in `for` loop headers, and i
   `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
-- **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERADRMAPPING), run by its integrity test.
+- **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING), run by its integrity test.
 - **PSScriptAnalyzer built-in rule `PSAvoidSemicolonsAsLineTerminators`** — catches trailing semicolons
   (ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS); enabled in `PSScriptAnalyzerSettings.psd1`.
 

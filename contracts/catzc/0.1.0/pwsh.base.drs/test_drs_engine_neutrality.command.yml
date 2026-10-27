@@ -1,4 +1,4 @@
-description: Checks that the rule summaries of the configured `ADR` domains carry no engine-specific syntax.
+description: Checks that no rule summary of an engine-neutral domain carries engine-specific syntax.
 parameters:
   output_folder: string
   pass_thru: switch

@@ -126,10 +126,8 @@ visible and reviewed.
 
 ### One normal form under the idioms
 
-Under the idioms sits one form that belongs to no single place it is used: the repository normal form. Every idiomatic name is a rendering
-of it, so a name has one identity whichever language spells it, and a place that speaks to several languages — a command contract, the
-command lookup, a test folder — uses the normal form and lets each language render its own. The round trip is what makes the rendering safe:
-a name that cannot go to the normal form and come back unchanged has two identities, and the gate refuses it.
+A normal form that belongs to no single language gives a name one identity whichever language spells it. The round trip is what makes the
+rendering safe: a name that cannot go to the normal form and come back unchanged has two identities.
 
 ### Why snake
 
@@ -141,8 +139,8 @@ language's own idiom, Python's, which costs nothing: a normal form that happens 
 ### Places have one short form
 
 A projection names places in a row only a few dozen characters wide, such as a diagram's sidebar. Left to whatever shows it, each place is
-cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is
-already a path, and a path is already one entity ([ADR-AUTO-PATH](path-representation.md)); what is missing is one short way to write it.
+cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is a
+path, and a path is one entity ([ADR-AUTO-PATH](path-representation.md)); the place normal form is one short way to write it.
 Dropping the prefix every module shares and writing the module in the repository normal form gives a row that is still a path, shorter, and
 one that reads the same wherever a name appears; keeping the dot for the path join alone means a row splits into track, module and folders
 without a guess. A module's folders share its row because the module is what a reader looks for. When even that is too long, whole names are
@@ -153,8 +151,8 @@ places prints the same rows, and its budget stays one setting.
 
 A list of acronyms to capitalise would make the round trip depend on a list that grows by reflex: `PSScriptAnalyzer` splits as `ps`,
 `script`, `analyzer` only if the list knows `PS`, and renders back only if the list agrees. Treating an acronym as an ordinary word keeps
-every case total and every name's round trip a property of the name alone, and it is how the PowerShell names in the tree already spell them
-(`Get-AdoBuildValidations`). A vendor's capitalised name is the vendor's, and is exempt where it lives.
+every case total and every name's round trip a property of the name alone (`Get-AdoBuildValidations`). A vendor's capitalised name is the
+vendor's, and is exempt where it lives.
 
 ### Test folders
 

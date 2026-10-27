@@ -45,7 +45,7 @@ an aspect; it never recomputes one, and a row that allows ADR to ADR says in `be
 
 - [Declared graphs stay where they are declared](#declared-graphs-stay-where-they-are-declared)
 
-### Rule ADR-REPO-LINKS-ADRSLINKGROUNDINGONLY
+### Rule ADR-REPO-LINKS-RECORDSLINKGROUNDINGONLY
 
 An ADR links other ADRs, the DRS index and the glossary, and the references it is grounded in: the DORA, CAF and WAF references. It never
 links code, a how-to, an explanation or any other reference.

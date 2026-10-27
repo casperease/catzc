@@ -60,5 +60,8 @@ engine).
 - [ ] Haiku review rounds of every rendered png, batches of 10 in repository order, skipping the glyph legend: one haiku per png reports (a)
       straight vs diagonal arrows and which box to move, (b) the "Where does it live?" rows verbatim, drawn boxes with no row, rows that
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
-      minimap/router fixes; restart from batch 1 on the fresh renders. Check: a per-diagram list per batch, and each next batch's brief
-      sharpened from the last.
+      minimap/router fixes; restart from batch 1 on the fresh renders. Round 1 over all 570 pngs is complete: about 224 diagonal pngs,
+      119 title-mismatch pngs, 9 place-count mismatches, 13 missing "Where" panels, about 45 chip, clip, typo or count findings, 38 tilted
+      renders; by root cause in out/diagram-findings.md, and the next round covers only what it lists as unchecked (rows and titles on
+      lines 181-570). Check: a per-diagram list per batch, each next batch's brief sharpened from the last, and (n) the drawn title
+      matches the file topic.

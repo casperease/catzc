@@ -5,8 +5,6 @@ using System.Text.Json;
 
 namespace Catzc.Tooling.Claude;
 
-// The decision of the Assert-EditClaim hook: a file-editing tool call on a path another session has claimed is denied, and every other
-// call goes on, the claimant's own included.
 public static class EditorClaimGuard
 {
     private static readonly string[] EditTools = { "Edit", "Write", "MultiEdit", "NotebookEdit" };

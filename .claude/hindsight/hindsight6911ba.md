@@ -76,7 +76,7 @@ Started 2026-10-27T19:36:12.6403161+01:00.
   wiring a CLI into a generator run.
 - 2026-10-27 Jack: If only the enum adder had started fresh: declared, `.claude/CLAUDE.md` says C# type edits need a fresh pwsh process to
   recompile, so a dot-sourced dry run reads the old enum.
-- 2026-10-27 Jack: If only the Pester titler had read a neighbour: half,
+- 2026-10-27 Jack: If only the Pester title author had read a neighbour: half,
   `pwsh/Azure.Templates/tests/Get-AzureResourceName.Content.Tests.ps1:6` binds a template name in an It title, and no testing how-to warns
   about literal angle-bracket names.
 - 2026-10-27 Jack: If only the generator checker had scoped it: declared, `docs/how-to/pwsh/manual-test-plan/adr-registry.md:44` runs

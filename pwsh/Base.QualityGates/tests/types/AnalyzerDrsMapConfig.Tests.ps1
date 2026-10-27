@@ -1,4 +1,4 @@
-Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT-ANALYZERADRMAPPING' {
+Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)

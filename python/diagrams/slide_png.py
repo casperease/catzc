@@ -9,7 +9,7 @@ A fact slide (`pattern: fact` in the slides kit) states one checkable propositio
   mode: redraw   the diagram drawn again from its declaration by one named, isolated variation (variation, words, moves, scale)
   rotate: <deg>  turned in the page plane (z) afterwards; tilt: { y: <0..1>, shear: <-1..1> } foreshortens and leans it (an x-y view angle)
 
-`picture` writes the picture beside the slide file where the slide's `## Image` names it; `render` draws the slide itself at the deck's size
+`picture` writes the picture beside the slide file where the slide's `## Image` links to it; `render` draws the slide itself at the deck's size
 with the kit's tokens and lands it beside the slide too, so the source catalogue holds what the person reads.
 
 usage (repo root, background):
@@ -37,6 +37,7 @@ MODES = ("reduce", "zoom", "redraw")
 VARIATIONS = ("ladder-strip",)
 FACT, STRIP = SLIDES["fact"], SLIDES["strip"]  # every size of the fact picture and the ladder strip, declared once in slides.yml
 FONTS["bold"] = ("segoeuib.ttf", "arialbd.ttf", "DejaVuSans-Bold.ttf")
+IMAGE_LINK = re.compile(r"\[[^\]]+\]\(([^)\s]+)\)")
 
 
 def head_and_fields(path):
@@ -56,6 +57,15 @@ def head_and_fields(path):
         elif current:
             fields[current] = (fields[current] + " " + line.strip()).strip()
     return head.get("config", {}), fields
+
+
+def image_of(slide, fields):
+    """The path the slide's `## Image` links to: the section holds one markdown link, `[<stem>](<path>)`, and anything else is refused."""
+    shown = fields.get("image", "")
+    match = IMAGE_LINK.fullmatch(shown)
+    if not match:
+        raise SystemExit(f"{slide}: the ## Image section holds one markdown link, [<stem>](<path>); found '{shown}'")
+    return slide.parent / match.group(1)
 
 
 def font(face, size):
@@ -183,7 +193,7 @@ def picture(slide):
             img = img.crop((x, y, x + w, y + h))
         img = scaled(img, scale)
     img = viewed(img, spec, token["bg_deep"])
-    dst = slide.parent / fields["image"]
+    dst = image_of(slide, fields)
     dst.parent.mkdir(parents=True, exist_ok=True)
     img.save(dst)
     return dst
@@ -197,7 +207,7 @@ def render(slide, out=None):
     pic_w, pic_h, wide, gap = int(FACT["picture_width"]), int(FACT["picture_height"]), float(FACT["wide_ratio"]), int(FACT["gap"])
     img = Image.new("RGB", (width, height), token["bg_deep"])
     d = ImageDraw.Draw(img)
-    shown = slide.parent / fields["image"]
+    shown = image_of(slide, fields)
     pic = Image.open(shown).convert("RGB") if shown.exists() else None
     under = pic is not None and pic.width > wide * pic.height  # a wide picture lies under the text at the full inner width
     column = width - 2 * gutter if under else width - 2 * gutter - pic_w - gap

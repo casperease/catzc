@@ -66,7 +66,7 @@ capabilities:
   # Building the inspiration module to the inspiration policy.
   - name: inspiration-build
     invoked_by: brief
-    supported_by: [ADR-REPO-INSPIRE-SIBLINGFORIDEAS, ADR-REPO-INSPIRE-CATZCADRSDECIDE]
+    supported_by: [ADR-REPO-INSPIRE-SIBLINGFORIDEAS, ADR-REPO-INSPIRE-CATZCRECORDSDECIDE]
     checks: [Invoke-TestFile, Test-ShippedConfigs, Test-ModuleDependency]
 
   # Measuring what a session cost and why and proposing the changes; writes only to out/ and the plan's lever lines.

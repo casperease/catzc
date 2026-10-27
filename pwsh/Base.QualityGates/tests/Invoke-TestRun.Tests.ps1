@@ -30,6 +30,9 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             )
         }
 
+        # No language test folder holds the fixture, so the real repository's language folders, a 250 ms walk per run, are never listed.
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates { }
+
         # The entry points pass their own limit; a test that does not care gives every phase the devbox one.
         function Invoke-Run {
             param([hashtable] $Arguments)

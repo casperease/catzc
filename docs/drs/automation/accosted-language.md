@@ -35,7 +35,7 @@ and any other argument that names a write target is rejected. An accosted file h
 
 The word accosted is reserved, as the catzc token is
 ([PDR-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)): it names this language and nothing else, so
-it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, the diagram tooling
+it appears only in the language's row, its extension, this record, its glossary entry, its module types and their tests, the diagram tooling
 and the action diagrams that prove themselves through it, and the plans and session logs that name it. The places are the scope of the
 `reserved` terminology category, and a gate fails the word anywhere else.
 
@@ -82,8 +82,8 @@ formatter must be taught.
 
 ### The contract form, and nothing else
 
-The contracts already write a command's call interface in the repository normal form. Writing each call in that same form keeps one notation
-for "a command and its arguments", and lets the reader check every call against the contract it names.
+The contracts write a command's call interface in the repository normal form. Writing each call in that same form keeps one notation for "a
+command and its arguments", and lets the reader check every call against the contract it names.
 
 ### Harmless is a verb list
 
@@ -106,9 +106,9 @@ bound and reported, never waited on.
 
 ### A rendering, not a copy
 
-An article that shows a call to a reader wants the PowerShell spelling, and a hand-written spelling is a second statement of the call that
-drifts from the first. Producing the fragment from the contract form through the one reader keeps a single statement and makes the article a
-view of it, so the proof an article shows is the proof that runs.
+An article that shows a call to a reader wants an engine's own spelling, and a hand-written spelling is a second statement of the call that
+drifts from the first. Producing the fragment from the contract form keeps a single statement, so the proof an article shows is the proof
+that runs.
 
 ## Decision
 

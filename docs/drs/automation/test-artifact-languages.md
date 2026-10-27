@@ -70,24 +70,20 @@ The builder reads the engine's track, so the layout is the guarantee that no tes
 
 ### One root
 
-Every language's root follows the same convention, declared once on its config type ([sensible-defaults](sensible-defaults.md)), so a reader
-who knows one language's layout knows them all. The root is the track's folder when the repository has one
-([tracks](../design/tracks.md#rule-ddr-track-onetracktype)), and the dot-prefixed fallback, as the tooling folders are named, keeps a
-repository without that folder from growing one for tests alone. The same folder-case rendering
-([idiomatic-names](idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)) lets the harness map a test folder to its catzc module with no
-mapping file.
+One convention for every language's root ([sensible-defaults](sensible-defaults.md)) means a reader who knows one language's layout knows
+them all. The track's folder is the natural root ([tracks](../design/tracks.md#rule-ddr-track-onetracktype)), and the dot-prefixed
+fallback, as the tooling folders are named, keeps a repository without that folder from growing one for tests alone.
 
 ### A black box
 
 A test knows two things about the engine, both from the environment its runner sets: how to start it and the repository it works on. The
-start comes from the execution engine model ([execution-engines](execution-engines.md)): it starts the engine non-interactively, loads the
-entry with its output discarded, and ends in the command text, where the test puts its command. A test that never builds a command line
-holds no engine's quoting rule, so it runs unchanged under every engine. A language whose users load an entry of their own tests that path
-instead, the way its user takes it, and so runs under its own engine only. The variables are an external contract between the run and the
-processes it starts ([environment-variables](environment-variables.md#rule-adr-auto-envvar-setonlyfortools)).
+start comes from the execution engine model ([execution-engines](execution-engines.md)), so a test that never builds a command line holds no
+engine's quoting rule and runs unchanged under every engine. A language whose users load an entry of their own tests that path, the way its
+user takes it. The variables are an external contract between the run and the processes it starts
+([environment-variables](environment-variables.md#rule-adr-auto-envvar-setonlyfortools)).
 
-The entry is the only difference between the two runs ([run-modes](../design/run-modes.md)): the repository's in a source run, the build's
-in a build run. The tests are the same files in both, so "works in both modes" holds for the engine as a process too.
+The entry is the only difference between the two runs ([run-modes](../design/run-modes.md)), and the tests are the same files in both, so
+"works in both modes" holds for the engine as a process too.
 
 ### One bridge
 

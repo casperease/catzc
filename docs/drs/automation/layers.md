@@ -55,35 +55,31 @@ the loaded modules, and in every case it resolves in the one resolution order of
 
 ## Context
 
-One word, automation, carried four meanings: the doctrine of the `ADR-AUTO-*` rules, the value-chain row and concern, the folder that holds
-the PowerShell modules, and the layer those modules form. A reader could not tell from a sentence which was meant, and a rule that said
-"automation" bound either everything or one folder. The repository runs under three engines and tests in four languages, so the PowerShell
-code is one implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once, and
-giving each its own word, lets every later rule say which one it binds.
+One word that means the doctrine, the value-chain row, a code folder and the layer of modules at once binds either everything or one
+folder, and a reader cannot tell which. The repository runs under three engines and tests in four languages, so any one language's code is
+an implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once, each with its
+own word, lets every other rule say which one it binds.
 
 ### Five layers, one word each
 
 Automation is what the repository offers. A contract states a command's interface at the boundary, so a consumer can rely on it. A language
 is what a command's source is written in. An engine is the shell the code runs under. The importer brings a chosen mix of them into a
-session. Reading down the list answers "what, interface, how written, how run, how assembled"; each answer stands on the one above and adds
-nothing to it, the stance the PowerShell rules already take toward the automation rules. The importer layer's mix is decided by
-[ADR-AUTO-IMPORTER-DECIDESMIX](importer.md#rule-adr-auto-importer-decidesmix).
+session ([ADR-AUTO-IMPORTER-DECIDESMIX](importer.md#rule-adr-auto-importer-decidesmix)). Each layer stands on the one above and adds nothing
+to it, as a language's own records stand on the automation rules.
 
 ### What the word covers
 
 The decision-record domain, the value-chain row and the concern keep the word, because each names the abstract: the rules that govern every
 implementation, the row of the stack every concern crosses, and the first stage of the chain, loading the modules and reading the
-configuration. About ten thousand citations of `ADR-AUTO-*` codes stay as they are; a code is a stable locator
-([one-living-version](../principles/one-living-version.md)), and the layer an ADR belongs to is recorded beside it, never by renaming it.
+configuration. A code is a stable locator ([one-living-version](../principles/one-living-version.md)), so the layer a record belongs to is
+recorded beside its code, never by renaming it.
 
 ### Named by the stack
 
-A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-ddr-track-onetechstack)): `go`, `python` and `bash`
-are the test-artifact tracks, and the PowerShell track is `pwsh`, the name of the engine that runs it and of nothing else. The word
-automation then means the abstract wherever it appears, and a path that names a track names its stack. The code track's folder is the one
-place that still carries the old name; moving it is a single change, made in one quiet window, and every reader of the root reads it from
-the track registry ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](module-model.md#rule-adr-auto-module-deployabletrackmodule)), so the move
-changes a folder and nothing else.
+A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-ddr-track-onetechstack)), so the word automation means
+the abstract wherever it appears and a path that names a track names its stack. Every reader of a track's root reads it from the track
+registry ([ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](module-model.md#rule-adr-auto-module-deployabletrackmodule)), so a track's folder is one
+fact.
 
 ### Layer membership is data
 
@@ -98,9 +94,7 @@ importer how a session is assembled. The track is named by its stack. Layer memb
 
 ## Consequences
 
-- The glossary carries automation, command, implementation language and pwsh as defined terms, each by its rule here; the layer family gains
+- The glossary carries automation, command, implementation language and pwsh as defined terms, each by its rule here; the layer family has
   contract, engine and importer as its forms.
-- `drs.yml` carries a `layer` per automation ADR, validated by `DrsConfig`; the index and the codes are unchanged.
-- The code track's folder is renamed to `pwsh` in one quiet window; every root is read through the track registry, so the rename is the only
-  change.
+- `drs.yml` carries a `layer` per automation record, validated by `DrsConfig`.
 - `languages.yml` names its formatter tools `formatters`, so engine means an execution engine and nothing else.

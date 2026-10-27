@@ -51,7 +51,7 @@ The published deck is a projection of the slide files. The files are the deck's 
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)), and no state of the deck lives outside them
 ([PDR-EAC-NOUNVERSIONEDSTATE](../principles/everything-as-code.md#rule-pdr-eac-nounversionedstate)): the deck is replaced whole on publish,
 and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a verify record of its own, because
-rule 4 derives what such a record would hold.
+ADR-REPO-SLIDES-CHECKABLECLAIMS derives what such a record would hold.
 
 - [One source of truth for a deck](#one-source-of-truth-for-a-deck)
 
@@ -132,10 +132,8 @@ one. The base is read from git, never stamped into the files
 ### Rule ADR-REPO-SLIDES-LENSPICKSPATH
 
 **The declaration's `about.lens` picks the renderer path.** The lens `action` (DDR-VISUAL-ACTIONISALENS) takes the action path, and every
-other lens takes the band path; both belong to the one renderer and the one declaration format. Put, get, conflicts and the stale rebuild
-apply to both unchanged: put renders the yml into the embedded model and the raster, get folds a hand edit back, a pair whose yml and png
-both moved is a conflict the author settles by name, and `Build-Diagrams -Stale` rebuilds a stale derived cell. A value outside the closed
-list of lenses fails validation with the list the author may choose from.
+other lens takes the band path; both belong to the one renderer and the one declaration format, so put, get, the conflict check and the
+stale rebuild apply to both unchanged. A value outside the closed list of lenses fails validation with the list the author may choose from.
 
 - [One renderer, two paths](#one-renderer-two-paths)
 
@@ -199,11 +197,11 @@ line keeps at least `renderer.edge-deadzone-min-line` (12 px) between the heads;
 ## Context
 
 A deck is prose with a layout. Written straight into a presentation tool, the prose is reachable only through that tool, its claims are
-checked by nobody, and a change to a rule it quotes never reaches it. The repository already carries one answer to that problem for
-diagrams: a `.drawio.png` is drawn from a kit, the `diagrams` module of the python track, with a style guide and a template, rendered
-forward into `out/`, described beside the article it illustrates, and never landed without a person asking. A deck is the same kind of thing
-with words instead of glyphs, so it gets the same shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails
-forward, and checks that tie every claim to the rule it states.
+checked by nobody, and a change to a rule it quotes never reaches it. Diagrams answer the same problem: a `.drawio.png` is drawn from a kit,
+the `diagrams` module of the python track, with a style guide and a template, rendered forward into `out/`, described beside the article it
+illustrates, and never landed without a person asking. A deck is the same kind of thing with words instead of glyphs, so it gets the same
+shape: files in the tree as the truth, patterns as the vocabulary, a renderer that fails forward, and checks that tie every claim to the
+rule it states.
 
 ## Decision
 
@@ -240,7 +238,7 @@ approved.
 `A quoted rule is the registry's text or a reported drift`
 
 A slide that states a rule cites its code, and the renderer reads that rule from the registry. The text on the slide is the registry's text,
-verbatim, or the render says where the two differ, so a rule edited in its ADR is a reported drift on the slide that quotes it, never a
+verbatim, or the render says where the two differ, so a rule edited in its record is a reported drift on the slide that quotes it, never a
 silent one. The gate runs the same checks per file, so a slide can be wrong only until the next run.
 
 ### One source of truth for a deck
@@ -313,23 +311,25 @@ the commit it crosses, and the picture in the editor is the picture in the png.
 
 ### How this is enforced
 
-- **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (rule 3).
-- **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
-- **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
-- **`Build-Diagrams`** rebuilds one diagram, or every `*.drawio.yml` it finds under `docs/**/.assets/`, through the kit's renderer, one
-  render per diagram, and warns for each embedding page whose Supports line disagrees with the declaration (rule 7); with `-FromDrawing` it
-  syncs named diagrams after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict
-  before put (rule 10); with `-Stale` it rebuilds only the diagrams `Test-Diagrams` reports as carrying stale minimaps (rule 9);
-  **`Move-Diagram`** moves a diagram's pair with its links re-pointed.
-- **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (rules 8 and 9); its tests
-  prove the two round trips, the vocabulary refusals, the nested group and the grid placement. Its check names the cells of a conflicted
-  pair against the `HEAD` base (rule 10), and the bulk put skips that pair. Its tests prove that a lane, a row and its skip expand and fold
-  back to the shorthand, and that a rule names itself in the legend (rule 14), and that a line crossing a commit or a discard arrow passes
-  beneath it, in the model and in the raster (rule 15).
+- **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (ADR-REPO-SLIDES-FAILFORWARDRENDER).
+- **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break ADR-REPO-SLIDES-SLIDEFILE,
+  ADR-REPO-SLIDES-PATTERN or ADR-REPO-SLIDES-CHECKABLECLAIMS.
+- **`Get-FileKind`** places slide files and the kit by ADR-REPO-SLIDES-SLIDEFILEKIND, and the file-kind reachability test keeps both kinds
+  reachable.
+- **`Build-Diagrams`** rebuilds one diagram, or every `*.drawio.yml` it finds under `docs/**/.assets/`, one render per diagram, and warns
+  for each embedding page whose Supports line disagrees with the declaration (ADR-REPO-SLIDES-ONEBUILDCOMMAND); with `-FromDrawing` it syncs
+  named diagrams after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict before put
+  (ADR-REPO-SLIDES-CONFLICTNEEDSAPICK); with `-Stale` it rebuilds only the diagrams `Test-Diagrams` reports as carrying stale minimaps
+  (ADR-REPO-SLIDES-TWODIRECTIONS); **`Move-Diagram`** moves a diagram's pair with its links re-pointed.
+- **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (ADR-REPO-SLIDES-DECLARATION,
+  ADR-REPO-SLIDES-TWODIRECTIONS); its tests prove the two round trips, the vocabulary refusals, the nested group and the grid placement. Its
+  check names the cells of a conflicted pair against the `HEAD` base, and the bulk put skips that pair. Its tests prove that a lane, a row
+  and its skip expand and fold back to the shorthand, that a rule names itself in the legend (ADR-REPO-SLIDES-TIMEAXIS), and that a line
+  crossing a commit or a discard arrow passes beneath it, in the model and in the raster (ADR-REPO-SLIDES-PAINTORDER).
 
 ## Consequences
 
 - A deck is reviewed as files in a pull request, and its history is git's.
-- A rule edited in its ADR shows up as a drift on every slide that quotes it, at the next render or gate run.
+- A rule edited in its record shows up as a drift on every slide that quotes it, at the next render or gate run.
 - A new layout costs one pattern file and one style-guide line; a new slide costs one markdown file.
 - The published deck can be deleted and rebuilt from the tree at any time, and nothing is lost.

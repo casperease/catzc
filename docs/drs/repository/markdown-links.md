@@ -21,7 +21,7 @@ slugs it.
 
 ### Rule ADR-REPO-LINK-CODELINKS
 
-Every rule citation in a comment is a code link: `[ADR-<CODE>](/docs/drs/<path>.md)` for a whole ADR, or
+Every rule citation in a comment is a code link: `[ADR-<CODE>](/docs/drs/<path>.md)` for a whole record, or
 `[ADR-<CODE>-<NAME>](/docs/drs/<path>.md#rule-adr-<code>-<name>)` for one rule. The text is the citation; the repository-rooted destination
 is derived from it, so the same checked-in text resolves from any file depth wherever it is rendered as markdown.
 
@@ -31,15 +31,15 @@ is derived from it, so the same checked-in text resolves from any file depth whe
 
 ### Rule ADR-REPO-LINK-ONEWAY
 
-Code links point one way: out of code, into an ADR. A comment never links to a reference article or how-to, and an ADR never links into
-code: its "How this is enforced" section names the enforcing functions in code spans.
+Code links point one way: out of code, into a decision record. A comment never links to a reference article or how-to, and a record never
+links into code: its "How this is enforced" section names the enforcing functions in code spans.
 
 - [References point one way](#references-point-one-way)
 
 ### Rule ADR-REPO-LINK-ONECITATIONSPELLING
 
 A citation is the code itself, spelled the same everywhere — code comments, test tags, configuration, and document prose, and the rule's own
-`### Rule` heading — and names a code in the DRS index or a rule that ADR declares. The code's grammar is ADR-REPO-DRSCODE. In markdown a
+`### Rule` heading — and names a code in the DRS index or a rule that record declares. The code's grammar is ADR-REPO-DRSCODE. In markdown a
 cited code links inline, `[CODE](target)`, when its line fits the file's declared width, and as a reference, `[CODE][r1]` with its
 `[r1]: target` definition at the end of the file, when it does not: the visible spelling is the same code either way, and the width alone
 picks the form. The label is plumbing, `r1`, `r2`, ... in order of first use in the file: a target keeps the label it has, and a new target
@@ -72,10 +72,10 @@ configured setting with a sensible default.
 
 ## Context
 
-The repository's rationale lives in its decision records, and code points at that rationale constantly — a function's help names the ADR it
+The repository's rationale lives in its decision records, and code points at that rationale constantly — a function's help names the record it
 implements, a comment cites the rule that forbids the obvious alternative. Those pointers are only useful while they resolve. A bare path
-such as `docs/drs/automation/caching.md` in a comment is not a link anywhere: nothing renders it, nothing checks it, and when an ADR moves
-folder the path silently rots. Citation codes rot the same way when a rule is renumbered or a code is renamed.
+such as `docs/drs/automation/caching.md` in a comment is not a link anywhere: nothing renders it, nothing checks it, and when a record moves
+folder the path silently rots. Citation codes rot the same way when a rule or a code is renamed.
 
 GitHub resolves links in every rendered file by one documented rule: "A relative link is a link that is relative to the current file", and
 "Links starting with `/` will be relative to the repository root" — both following whatever branch is being viewed. GitHub does not render
@@ -110,8 +110,8 @@ hosted renderer follows a comment, and the editor that does reads the working fo
 
 A `#fragment` names a heading as GitHub slugs it: inline markup reduced to its text, lowercased, every character other than a letter, digit,
 space, hyphen, or underscore removed, and each space turned into a hyphen; duplicate headings take `-1`, `-2` suffixes; a heading inside a
-fenced block is not a heading; an explicit `<a id="…">` is an anchor too. A rule's anchor is therefore `#rule-<code><n>` — the code
-lowercased and the `:` dropped. markdownlint's own fragment rule (MD051) cannot reproduce these slugs, so it stays off and `Test-Links`
+fenced block is not a heading; an explicit `<a id="…">` is an anchor too. A rule's anchor is therefore `#rule-<code>`, the code
+lowercased. markdownlint's own fragment rule (MD051) cannot reproduce these slugs, so it stays off and `Test-Links`
 checks every fragment against the target's headings instead.
 
 ### Repository-rooted code links
@@ -121,7 +121,7 @@ checks every fragment against the target's headings instead.
 A comment cannot know how deep its file sits relative to `docs/drs/`, and a relative path would change with every file move. The
 repository-rooted destination `/docs/drs/<path>.md` is one string from any file at any depth, and it is the tail of the file's GitHub URL on
 every branch. An absolute `https://github.com/<owner>/<repo>/blob/main/…` URL is rejected: it pins one host, one owner, and one branch, so a
-reader on another branch, an older commit, a fork, or an exported copy is sent to a different version of the ADR.
+reader on another branch, an older commit, a fork, or an exported copy is sent to a different version of the record.
 
 The leading `/` is link syntax meaning "the repository root"; the path after it is the communication form of
 [path-representation](../automation/path-representation.md), not a third path form.
@@ -130,10 +130,10 @@ The leading `/` is link syntax meaning "the repository root"; the path after it 
 
 `The citation is the source of truth`
 
-The link text is the citation — `ADR-REPO-DRSCODE-PATHOFSEGMENTS`, or `ADR-REPO-DRSCODE` for a whole ADR — and the destination is derived
-from it through the DRS index, exactly as `Format-Types` derives a type's namespace from its folder. When an ADR moves, one `Format-Links`
-run re-points every link to it; when a link's destination disagrees with its citation, the citation wins. A link to an ADR-folder document
-with no code of its own (the index, a domain's `dora-explains`) takes the file name as its text.
+The link text is the citation — `ADR-REPO-DRSCODE-PATHOFSEGMENTS`, or `ADR-REPO-DRSCODE` for a whole record — and the destination is
+derived from it through the DRS index, exactly as `Format-Types` derives a type's namespace from its folder. When a record moves, one
+`Format-Links` run re-points every link to it; when a link's destination disagrees with its citation, the citation wins. A link to a DRS
+document with no code of its own (the index, a domain's `dora-explains`) takes the file name as its text.
 
 ### Code links in the editor
 
@@ -141,8 +141,7 @@ VS Code's built-in link detection does not read markdown links outside `.md` fil
 Ctrl+clickable. The repository ships its own: the `catzc-drs-links` extension, declared in `pwsh/Base.VSCode/configs/vscode-extensions.yml`
 and built like every other cats extension, matches `[…](/docs/drs/<path>.md…)` in any file and opens `docs/drs/<path>.md` with its `#rule-…`
 fragment kept. It relies only on the repository's own layout — every target exists at its rooted path in the checked-out workspace — so it
-works in any clone once the cats extensions are installed. Markdown links need no provider; the built-in markdown support already resolves
-them.
+works in any clone once the cats extensions are installed. Markdown links need no provider; the built-in markdown support resolves them.
 
 The same registry turns on VS Code's built-in markdown link validation (`markdown.validate.*`), so a dangling file or a bad `#fragment` in a
 `.md` file shows as a warning while it is being written, and `markdown.updateLinksOnFileMove` offers to re-point relative links when a file
@@ -152,7 +151,7 @@ reference links. The editor feedback is early warning only; `Test-Links` stays t
 
 ### References point one way
 
-Code cites the decisions it implements; the decisions do not track their implementations. An ADR's "How this is enforced" section names the
+Code cites the decisions it implements; the decisions do not track their implementations. A record's "How this is enforced" section names the
 enforcing functions in code spans, and a comment links only into `docs/drs/` — reference articles and how-tos are written for readers, not
 cited by code. A file's way to its comment page is no link in the code either: the page is derived into the file's meta head
 ([comments-in-docs](comments-in-docs.md)).
@@ -184,9 +183,8 @@ mechanically and `Test-Links` checks them.
 
 ### How this is enforced
 
-- **`Format-Links`** (in `Catzc.Base.QualityGates`) — the aligner and the repository-wide migration in one command. With no arguments it
-  rewrites every git-tracked file in place: every ADR reference in a comment, in any older spelling, becomes a canonical code link; a rooted
-  link in a `.md` file becomes relative. A numbered citation has no rule to point at, so it is reported, never respelled. `-Kind` takes the
+- **`Format-Links`** (in `Catzc.Base.QualityGates`) — the aligner. With no arguments it rewrites every git-tracked file in place: every
+  citation in a comment, in any off-form spelling, becomes a canonical code link; a rooted link in a `.md` file becomes relative. A numbered citation has no rule to point at, so it is reported, never respelled. `-Kind` takes the
   fixed `LinkKind` set.
 - **Wrapping is configured** — `configs/links.yml` sets how a comment line that outgrows its limit is wrapped (`break` or `off`, default
   `break`); the limit itself comes from `.editorconfig`'s `max_line_length`. The defaults are declared once on the config type, per
@@ -198,8 +196,8 @@ mechanically and `Test-Links` checks them.
   declares for the file as a reference, reusing the label of a definition of the same target and numbering a new one `rN`; `Test-Links`
   checks a reference definition's target and anchor as it checks an inline link, markdownlint's MD052 and MD053 check that every label is
   defined and used, and `Test-FileLimits` reports an inline citation whose line has grown past the width.
-- **`Test-LinkDirections`** — the link-direction quality gate for ADR-REPO-LINK-ONEWAY: it fails a comment that links anything but an ADR
-  and an ADR that links into code, from the same walk of the same files ([links-in-repository](links-in-repository.md)).
+- **`Test-LinkDirections`** — the link-direction quality gate for ADR-REPO-LINK-ONEWAY: it fails a comment that links anything but a
+  record and a record that links into code, from the same walk of the same files ([links-in-repository](links-in-repository.md)).
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
   from `Get-DrsCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
 - **The VS Code registries** — `vscode-extensions.yml` declares the `catzc-drs-links` extension that makes code links clickable, and
@@ -208,11 +206,11 @@ mechanically and `Test-Links` checks them.
 
 ## Consequences
 
-- Every pointer from code to a decision is checked: a moved ADR, a renamed code, or a renumbered rule fails `Test-Links` and is repaired by
+- Every pointer from code to a decision is checked: a moved record or a renamed code or rule fails `Test-Links` and is repaired by
   `Format-Links` rather than found by a reader.
-- Comment lines grow. A code link is longer than the bare citation it replaces, so many comment lines are wrapped onto a second line; the
+- Comment lines grow. A code link is longer than a bare citation, so many comment lines are wrapped onto a second line; the
   aligner breaks before a link, never inside it.
-- In VS Code a code link is Ctrl+clickable through the `catzc-drs-links` extension; it opens the ADR file at the rule's fragment. Without
+- In VS Code a code link is Ctrl+clickable through the `catzc-drs-links` extension; it opens the record file at the rule's fragment. Without
   the extension the link is plain text in the editor, but nothing breaks.
 - GitHub's source view does not render markdown in code files, so there a code link is text; it is a valid link wherever the text is
   rendered as markdown, and its rooted destination reads as the file's repository path.

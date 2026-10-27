@@ -33,7 +33,7 @@ and action `Run Uninstall-Chocolatey`.
 
 ### Rule ADR-AUTO-PKGMGR-PLATFORMNATIVEMANAGERS
 
-Use platform-native managers on other platforms — `brew` on macOS, `apt-get` on Linux. This ADR only constrains the Windows choice.
+Use platform-native managers on other platforms — `brew` on macOS, `apt-get` on Linux. This record only constrains the Windows choice.
 
 - [Other platforms](#other-platforms)
 
@@ -65,13 +65,10 @@ Windows, the choice of package manager matters because not all options carry the
 
 `Chocolatey's security model is structurally weak`
 
-Chocolatey installs packages by downloading and executing PowerShell scripts as administrator. Both the package script
-(`chocolateyInstall.ps1`) and the installer it fetches are attack surface — effectively doubling the vectors compared to a manager that only
-runs signed installers.
+Chocolatey installs packages by downloading and executing scripts as administrator. Both the package script (`chocolateyInstall.ps1`) and
+the installer it fetches are attack surface, twice the vectors of a manager that only runs signed installers:
 
-Specific problems:
-
-1. **Arbitrary script execution.** Every Chocolatey install runs community-authored PowerShell as SYSTEM. There is no sandboxing, no code
+1. **Arbitrary script execution.** Every Chocolatey install runs a community-authored script as SYSTEM. There is no sandboxing, no code
    signing by default, and no process isolation between the package script and the host.
 
 2. **Community repository trust.** The public Chocolatey repository accepts submissions from anyone. Moderation exists but has lag —
@@ -89,14 +86,14 @@ Specific problems:
 
 [serpent]: https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/
 
-Chocolatey for Business mitigates some of these issues with internal repositories, package internalization, and runtime malware scanning —
-but that is a paid product, and none of those controls exist in the free tier that most setups use.
+Chocolatey for Business mitigates some of these with internal repositories, package internalization and runtime malware scanning, but it
+is a paid product, and the free tier has none of those controls.
 
 ### Winget's security model
 
 `Winget is structurally more secure`
 
-Winget ships with Windows 11 and Windows 10 (via App Installer). It is the first-party Microsoft package manager.
+Winget is the first-party Microsoft package manager, shipped with Windows 11 and Windows 10 (via App Installer).
 
 - **Hash-verified installers.** Every manifest in the `winget-pkgs` repository requires a SHA256 hash. Winget downloads standard installer
   formats (MSI, MSIX, EXE) and verifies the hash before execution. No arbitrary script execution.
@@ -110,7 +107,7 @@ Winget ships with Windows 11 and Windows 10 (via App Installer). It is the first
 
 ### Other platforms
 
-macOS uses Homebrew (`brew`), Linux uses apt-get. These are the established platform-native managers and are not affected by this decision.
+Homebrew and apt-get are the established platform-native managers of macOS and Linux, and carry none of Chocolatey's weaknesses.
 
 ### NuGet in the tooling modules
 
@@ -129,8 +126,7 @@ Windows tool installation uses `winget`. Chocolatey is not used.
 
 ## Consequences
 
-- Windows installations use the same trust model as the OS itself — Microsoft-moderated, hash-verified, no arbitrary script execution.
-- Package installation is limited to signed installer formats; no arbitrary PowerShell script execution occurs.
-- Tools not yet available in the winget repository must be installed via direct download with checksum verification, or the team must submit
-  a winget manifest upstream.
-- Any Chocolatey install on a target machine is removed automatically by `Install-DevBoxTools`. No manual intervention required.
+- Windows installations use the same trust model as the OS itself: Microsoft-moderated, hash-verified, signed installer formats, no
+  arbitrary script execution.
+- A tool missing from the winget repository is installed by a verified direct download, or the team submits a winget manifest upstream.
+- `Install-DevBoxTools` removes any Chocolatey install on a target machine with no manual step.

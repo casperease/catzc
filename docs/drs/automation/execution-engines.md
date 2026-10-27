@@ -7,7 +7,7 @@
 An **execution engine** is a shell the repository's own code runs under, and there are exactly three: pwsh, bash and zsh, where pwsh is
 PowerShell 7. They are declared once, in the `ExecutionEngines` model (`Catzc.Base.Engines`); every list of engines in the codebase — config
 keys per shell, the columns of a per-engine fixture table, an engine argument's allowed values — is that model's `Names`, never a restated
-literal list. The set is closed: a fourth engine is a decision for this ADR, not a value added to a list.
+literal list. The set is closed: a fourth engine is a decision for this record, not a value added to a list.
 
 - [Three engines](#three-engines)
 
@@ -74,14 +74,13 @@ PowerShell is the engine every module runs under. Bash is the shell the Claude C
 agent, and the shell `importer.sh` brings the repository's commands to. zsh is the default login shell on macOS and the interactive shell of
 many developers elsewhere, so a user's own terminal reaches catzc from it as often as from bash. What differs between the engines, left to
 each place that needs it, becomes a `pwsh -NoProfile -Command` string in each black-box test, a `"bash", "pwsh"` list in each config type
-that keys a setting per shell, and a quote rule in each place that builds a command line. Each copy is a place to get another engine wrong,
-and nothing keeps the copies in step.
+and a quote rule in each place that builds a command line: copies that drift apart.
 
 ### Three engines
 
-There are three engines and the set is closed. Another engine means another set of quoting, strict-mode, and start rules for everything the
-repository runs; it is a decision for this ADR, not a value someone adds to a list. So the list lives in one place, `ExecutionEngines`, and
-every other list is read from it. `ExecutionEngine` has no public constructor: the model's three instances are the only engines there are.
+Another engine means another set of quoting, strict-mode and start rules for everything the repository runs, so the set is closed and the
+list lives in `ExecutionEngines` alone. `ExecutionEngine` has no public constructor: the model's three instances are the only engines there
+are.
 
 zsh earns its place beside bash because it is where a macOS user types, and because it costs little: it shares bash's POSIX quoting, its GNU
 `timeout` safeguard, its LF and executable-bit needs, and its importer entry, so most of its column repeats bash's and the model states the
@@ -169,10 +168,7 @@ as every `*.sh` is, and checked by `Test-ShellScripts` (ADR-AUTO-BASH-SHELLSCRIP
 ### Leaving the engine open
 
 Most work does not care which engine runs it; it only needs one. Naming pwsh, bash or zsh where any would do pins a choice the caller never
-made, and the pin outlives the reason. So a setting or argument that takes an engine accepts `auto`, the value that leaves the choice open:
-the caller gets whatever engine the setting's sensible default resolves to, declared once on its config type
-(ADR-AUTO-DEFAULT-ONERESOLUTIONORDER). Naming an engine is for work that needs that one. `auto` is a value, not an engine: the model's three
-instances stay the only engines there are.
+made, and the pin outlives the reason. `auto` leaves the choice to the setting's sensible default, declared once on its config type.
 
 ## Decision
 

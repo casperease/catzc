@@ -86,7 +86,7 @@ every module, and tooling can rely on it.
 
 - [Why convention](#why-convention)
 
-### Rule ADR-REPO-FOLDERS-NEWFOLDERNEEDSADR
+### Rule ADR-REPO-FOLDERS-NEWFOLDERNEEDSRECORD
 
 New module-level folder roles require an ADR amendment. Adding a role beyond those of `private/`, `tests/`, `assets/`, `configs/`, `types/`
 adds a setting to a track's default configuration, which every tool serving the track reads; renaming an existing one is an override, not an
