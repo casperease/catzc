@@ -292,7 +292,7 @@ module monitoring '../../modules/landing-zone-monitoring.bicep' = {
     healthAlertNames: healthAlertNames
     flowLogStorageAccountName: flowLogStorageAccountName
     networkWatcherResourceGroupName: networkWatcherResourceGroupName
-    virtualNetworkName: landingZoneNetwork.outputs.virtualNetworkName
+    virtualNetworkName: virtualNetworkName
     virtualNetworkId: landingZoneNetwork.outputs.virtualNetworkId
     networkSecurityGroupSubnetNames: networkSecurityGroupSubnetNames
     networkSecurityGroupResourceNames: landingZoneNetwork.outputs.networkSecurityGroupResourceNames
@@ -358,28 +358,14 @@ module defender '../../modules/defender-plans.bicep' = {
   }
 }
 
-module subscriptionRoles '../../modules/subscription-role-assignment.bicep' = [
-  for assignment in subscriptionAssignments: if (!empty(assignment.principalId)) {
-    name: 'role-${assignment.purpose}'
-    params: {
-      principalId: assignment.principalId
-      roleId: assignment.roleId
-      condition: assignment.condition
-      assignmentDescription: assignment.purpose
-    }
-  }
-]
-
-// The readers read the workspace's data too, on foundation's workspace in its own resource group.
-module workspaceReaders '../../modules/role-assignment.bicep' = if (!empty(groups.readers)) {
-  name: 'role-readers-log-analytics-reader'
-  scope: resourceGroup(logAnalyticsResourceGroupName)
+// The access of the landing zone: the readers' and operators' subscription roles and the readers' workspace role.
+module access '../../modules/landing-zone-access.bicep' = {
+  name: 'access'
   params: {
-    resourceKind: 'workspace'
-    resourceName: logAnalyticsName
-    principalId: groups.readers
-    roleId: roles.log_analytics_reader.id
-    assignmentDescription: 'readers-log-analytics-reader'
+    roles: roles
+    groups: groups
+    logAnalyticsResourceGroupName: logAnalyticsResourceGroupName
+    logAnalyticsName: logAnalyticsName
   }
 }
 

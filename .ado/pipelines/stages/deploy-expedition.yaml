@@ -68,8 +68,8 @@ stages:
                         - template: /.ado/pipelines/steps/invoke-automation.yaml
                           parameters:
                             DisplayName:
-                              "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{
-                              w.subscriptionIdAssertIs }})"
+                              "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{ w.subscriptionIdAssertIs
+                              }})"
                             Mode: azcli
                             ServiceConnection: ${{ w.serviceConnection }}
                             RunCommand:
@@ -141,13 +141,12 @@ stages:
                         - ${{ if parameters.RemoveOrphans }}:
                             - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
-                                DisplayName:
-                                  "List ${{ w.env }} expedition orphans (session target, assert ${{ w.subscriptionIdAssertIs }})"
+                                DisplayName: "List ${{ w.env }} expedition orphans (session target, assert ${{ w.subscriptionIdAssertIs }})"
                                 Mode: azcli
                                 ServiceConnection: ${{ w.serviceConnection }}
                                 RunCommand:
-                                  'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs
-                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
+                                  'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
+                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
                             - template: /.ado/pipelines/steps/invoke-automation.yaml
                               parameters:
                                 DisplayName:
@@ -155,5 +154,5 @@ stages:
                                 Mode: azcli
                                 ServiceConnection: ${{ w.serviceConnection }}
                                 RunCommand:
-                                  'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs
-                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
+                                  'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
+                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'

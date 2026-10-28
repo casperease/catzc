@@ -231,9 +231,9 @@ and each reads its part only to compare it with what would be written. A key ano
 ## Context
 
 A file in this repository is more than its text. A Markdown agent definition declares a name, a description and its tools. A decision record
-sits in a domain with a concern. A C# type file and a PowerShell function file each belong to a module
-and a place in its tree. Some of these facts are stated twice, once in the file and once in a registry that has to be kept in step, and some
-can be computed from the file and the repository but are not written anywhere a reader could see them.
+sits in a domain with a concern. A C# type file and a PowerShell function file each belong to a module and a place in its tree. Some of
+these facts are stated twice, once in the file and once in a registry that has to be kept in step, and some can be computed from the file
+and the repository but are not written anywhere a reader could see them.
 
 Two needs follow. Facts that can be computed are derived on demand, and a file shows only the few a reader needs to step on from it without
 running anything: that a generated file is not to be edited, and where it comes from. Values an author states belong where the thing is, and
@@ -244,7 +244,8 @@ Markdown convention and a code file has comments.
 ## Decision
 
 A file carries one meta block, with the carrier its kind of file has, in parts that never mix: `immutable`, written by its writer, the
-edges, written by the formatter, and, in Markdown only, `config`, written by the author. Which kinds of fact and config exist is a registry. Who computes or reads each kind is a function a module ships.
+edges, written by the formatter, and, in Markdown only, `config`, written by the author. Which kinds of fact and config exist is a registry.
+Who computes or reads each kind is a function a module ships.
 
 ### One block, two carriers
 
@@ -264,10 +265,11 @@ metadata:
 A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
 value. `name` and `description` belong to the skill tooling and are untouched. A tool that reads front matter keeps working, because the
 reserved key is one extra key it does not know. A tool that rejects a top-level key it does not know, as an editor's skill validator does,
-leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`): the tooling writes the parent key when the file lacks it and leaves every sibling under it alone, and
-a parent written as a flow mapping cannot take a nested block, which is a finding for the author, never a rewrite. The code carrier, the
-form of a head in a C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why it has none,
-is one registry, `file-carriers.yml`, so a gap in the coverage is a visible entry.
+leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`): the
+tooling writes the parent key when the file lacks it and leaves every sibling under it alone, and a parent written as a flow mapping cannot
+take a nested block, which is a finding for the author, never a rewrite. The code carrier, the form of a head in a C# or PowerShell file, is
+in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why it has none, is one registry, `file-carriers.yml`, so a
+gap in the coverage is a visible entry.
 
 ### The meta-kind registry
 
@@ -314,8 +316,8 @@ wrote the head afterwards, the two would disagree on every run, so the writer wr
 calls. The head carries the one warning, so a reader is told not to edit the file in the same words everywhere, and while git tracks the
 file it tells the reader what to run and what to edit instead. A reader of a png on a review page or in an editor has no resolver at hand,
 so the stamp is the one step from the picture to its declaration. The stamp is projected from the writer row and never read back, so it is a
-note, not a second registry: a stale head misleads a person for one render at most and no command at all. One renderer means a Python
-writer and a PowerShell writer stamp the same bytes.
+note, not a second registry: a stale head misleads a person for one render at most and no command at all. One renderer means a Python writer
+and a PowerShell writer stamp the same bytes.
 
 ### Property carriers
 
