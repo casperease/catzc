@@ -161,12 +161,13 @@ def test_an_edge_that_skips_a_zone_runs_through_the_margin_clear_of_every_note()
     edge = re.search(r'<mxCell id="e-effect-index-effect-far" [^\n]*\n\s*<mxGeometry[^\n]*\n\s*<Array as="points">\s*((?:<mxPoint [^\n]*\n\s*)+)</Array>', model)
     assert edge is not None
     points = [(int(p.group(1)), int(p.group(2))) for p in re.finditer(r'<mxPoint x="(-?\d+)" y="(-?\d+)"', edge.group(1))]
-    assert len(points) == 2 and points[0][1] == points[1][1]  # one run across the margin
+    assert len(points) == 4 and points[1][1] == points[2][1]  # out level, up or down, one run across the margin, back, in level
+    assert points[0][0] == points[1][0] and points[2][0] == points[3][0]  # every bend square
     frame = re.search(r'<mxCell id="frame" [^\n]*\n\s*<mxGeometry x="\d+" y="(\d+)" width="\d+" height="(\d+)"', model)
     assert frame is not None
     top, height = int(frame.group(1)), int(frame.group(2))
     inner_top, inner_bottom = top + declaration.LABEL_ROW, top + height - declaration.PAD
-    assert inner_top < points[0][1] < inner_top + declaration.ACTION_MARGIN or inner_bottom - declaration.ACTION_MARGIN < points[0][1] < inner_bottom
+    assert inner_top < points[1][1] < inner_top + declaration.ACTION_MARGIN or inner_bottom - declaration.ACTION_MARGIN < points[1][1] < inner_bottom
     a, b = boxes["effect-index"], boxes["effect-far"]
     path = [(a[0] + a[2], a[1] + a[3] // 2), *points, (b[0], b[1] + b[3] // 2)]
     for cid, (x, y, w, h) in boxes.items():
@@ -318,7 +319,8 @@ def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring_
     cause = re.search(r'<mxCell id="cause" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="\d+" height="(\d+)"', model)
     assert bubble is not None and ring is not None and cause is not None
     bx, by = int(bubble.group(1)) + int(bubble.group(3)) / 2, int(bubble.group(2)) + int(bubble.group(4)) / 2
-    cx, cy, r = int(cause.group(1)), int(cause.group(2)) + int(cause.group(3)) / 2, int(ring.group(3)) / 2
+    r = int(ring.group(3)) / 2
+    cx, cy = int(ring.group(1)) + r, int(ring.group(2)) + r  # the ring's own centre, on the cause's rim
     assert abs(math.hypot(bx - cx, by - cy) - r) <= 1.5  # centred on the first ring the line crosses
     assert re.search(r'<mxCell id="e-action-effect-index" value="&lt;b&gt;executes&lt;/b&gt;"', model)  # into zone 1 the word stays beside the line
     back = declaration.get(model, kind="explanation")
@@ -482,4 +484,29 @@ def test_a_pill_stands_at_the_middle_of_its_line_when_the_ring_crossing_would_co
     bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
     assert bubble is not None
     centre = (int(bubble.group(1)) + int(bubble.group(3)) / 2, int(bubble.group(2)) + int(bubble.group(4)) / 2)
-    assert abs(centre[0] - 638.5) <= 1.5 and abs(centre[1] - 359.5) <= 1.5  # halfway between the two boxes' facing sides
+    box = lambda cid: [int(v) for v in re.search(rf'<mxCell id="{cid}" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model).groups()]
+    a, b, ring = box("effect-index"), box("effect-recount"), box("ring-1")
+    r = ring[2] / 2
+    assert a[0] + a[2] < centre[0] < b[0]  # between the two boxes' facing sides
+    assert abs(math.hypot(centre[0] - ring[0] - r, centre[1] - ring[1] - r) - r) > int(bubble.group(3)) / 2  # off the ring crossing
+
+
+def test_every_action_edge_runs_square_from_its_box_with_its_word_in_a_pill_and_skips_a_zone_only_round_a_note():
+    raw = sample()
+    raw["content"]["action"]["call"] = {"publish_gadget": {"path": "gadgets/Widget.Gadgetry/catalogue/widgets.catalogue.yml"}}
+    for effect in raw["content"]["effects"]:
+        effect["show"] = "words"
+    cells = {c["id"]: c for c in declaration.place(normalised(raw))[0]}
+    edges = [c for i, c in cells.items() if c["edge"] and i.startswith("e-action-")]
+    assert len(edges) == 3
+    for edge in edges:
+        style = dict(kv.split("=", 1) for kv in edge["style"].strip(";").split(";") if "=" in kv)
+        a, b = cells[edge["source"]], cells[edge["target"]]
+        start = (a["x"] + a["w"] * float(style["exitX"]), a["y"] + a["h"] * float(style["exitY"]))
+        end = (b["x"] + b["w"] * float(style["entryX"]), b["y"] + b["h"] * float(style["entryY"]))
+        points = [start, *[tuple(p) for p in edge.get("via") or []], end]
+        for p, q in itertools.pairwise(points):  # the painter joins the points straight, so every bend is a waypoint
+            assert abs(p[0] - q[0]) < 1 or abs(p[1] - q[1]) < 1, f"{edge['id']} runs aslant from {p} to {q}"
+        assert f"{edge['id']}-word" in cells, f"{edge['id']} carries a bare word, not a pill"
+        if edge["target"] == "effect-catalogue":  # its level line passes between the zone-1 notes, so no margin detour
+            assert all(a["y"] <= y <= a["y"] + a["h"] for _, y in points), f"{edge['id']} detours through the margin"

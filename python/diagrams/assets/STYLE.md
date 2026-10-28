@@ -141,6 +141,12 @@ reads as a second marker.
 - Pills avoid glyph tags, band titles, group names and marker spots.
 - Markers and chips avoid group names, band titles, arrowheads (12 px) and bare words; when no spot is free they fall back to the top edge,
   left of the tag row.
+- A marker on a band or a group stands inside its frame, centred on its name's row just right of the name, as tall as the name is drawn, and
+  steps right past whatever holds that room, so it covers neither the name nor the page title and subtitle above the frame.
+- In the action lens every bend of an operator's line is a waypoint, since the painter joins points straight. Two boxes that share no height
+  and stand too close for a stepped line to hold the pill join by one turn: out of the source's top or bottom side, into the target's left
+  side, the level leg long enough for the pill. A line skips a zone through the margin only when its own line would pass behind a note.
+- The glyph library's legend keeps every glyph and phrase clear of every other, one free slot per glyph.
 - A straight top-side line end keeps 8 px left of the tag row.
 - A wide tag row stays 4 px inside its band or group.
 - A side-panel header is shortened in its drawn weight, with a 4 px gap.

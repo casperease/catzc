@@ -4,6 +4,7 @@
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/diagrams/tests/test_drawio_png.py
 """
 
+import itertools
 import sys
 
 from catzc.diagrams import drawio_png, drawio_png_base
@@ -250,6 +251,22 @@ def test_a_legend_folder_renders_the_glyph_library_painted_in_the_default_theme(
     model = drawio_png.decode(drawio_png.mxfile_chunk(Image.open(target)))
     assert "@" not in model and 'id="e-read"' in model and 'id="g-set"' in model
     assert drawio_png.tokens()["mauve"] in model  # the named set's fill, painted
+
+
+def test_no_glyph_or_phrase_of_the_glyph_library_stands_on_another():
+    import xml.etree.ElementTree as ET
+
+    from catzc.diagrams import drawio_forward
+    from catzc.diagrams.declaration_cells import TAG_ID
+
+    boxes = {}
+    for c in ET.fromstring(drawio_forward.legend_model()).iter("mxCell"):
+        g, cid = c.find("mxGeometry"), c.get("id")
+        if c.get("vertex") == "1" and c.get("parent") == "1" and cid.startswith("g-") and not TAG_ID.search(cid) and not cid.endswith("-tag"):
+            boxes[cid] = tuple(float(g.get(k, 0)) for k in ("x", "y", "width", "height"))
+    meet = lambda a, b: a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]
+    hits = [(i, j) for (i, a), (j, b) in itertools.combinations(boxes.items(), 2) if meet(a, b)]
+    assert "g-env-flow" in boxes and not hits, f"legend glyphs overlap: {hits}"
 
 
 def test_an_edge_stops_short_of_each_box_by_its_perimeter_spacing_whatever_its_heads():

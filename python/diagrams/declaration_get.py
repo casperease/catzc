@@ -251,8 +251,8 @@ def get(model, kind=None):
     glyph_ids = [g[0] for g in glyphs]
     kind_of = dict(glyphs)
 
-    # Where put centres a marker: a corner of a box (named), beside a diamond's top point or inside a band's or group's top-left
-    # corner (the default, no name), or the middle of an edge.
+    # Where put centres a marker: a corner of a box (named), beside a diamond's top point (the default, no name), or the middle of an
+    # edge; a band's or group's default marker, beside its name, carries its holder in catzcAt.
     def anchors(g):
         x, y, w, h = geo[g]["x"], geo[g]["y"], geo[g]["w"], geo[g]["h"]
         corners = [
@@ -261,9 +261,7 @@ def get(model, kind=None):
             ("bottom-left", (x + 1, y + h)),
             ("bottom-right", (x + w - 1, y + h)),
         ]
-        if g not in kind_of:
-            return [(None, (x + 15, y))] + corners
-        return ([(None, (x + w // 2 - 29, y + 7))] if kind_of[g] == "gate" else []) + corners
+        return ([(None, (x + w // 2 - 29, y + 7))] if kind_of.get(g) == "gate" else []) + corners
 
     edge_ends = [
         (c.get("source"), c.get("target")) for cid, c in cells.items() if c.get("edge") == "1" and not cid.startswith(("lg-", "lane-"))
@@ -285,6 +283,9 @@ def get(model, kind=None):
     for m in sorted(markers, key=lambda m: int(plain(cells[m].get("value")))):
         centre = centre_of(m)
         at, name, _ = min(places, key=lambda p: abs(p[2][0] - centre[0]) + abs(p[2][1] - centre[1]))
+        holder = style_map(cells[m].get("style") or "").get("catzcAt")  # a band's or group's marker beside its name, at its default
+        if holder in (*bands, *groups):
+            at, name = holder, None
         marker = {"at": at, "number": int(plain(cells[m].get("value")))}
         if name not in (None, "edge"):
             sources = [geo[s] for s, t in edge_ends if t == at and s in geo]

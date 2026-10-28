@@ -4,6 +4,7 @@
 lens, and the operators and legend box they draw."""
 
 import html
+import itertools
 import math
 import re
 
@@ -21,7 +22,9 @@ from .declaration_constants import (
     BAND,
     DEFAULT_SHOW,
     GAP,
+    LABEL_HEAD_CLEAR,
     LABEL_ROW,
+    LABEL_TAIL_CLEAR,
     PAD,
     PAGE,
     PROOF_ENGINES,
@@ -31,7 +34,7 @@ from .declaration_constants import (
     TEXT,
 )
 from .declaration_finish import finish
-from .declaration_routes import cross_circle, label_spot, marker_xy, transition
+from .declaration_routes import WORD_MARGIN, cross_circle, label_spot, marker_xy, segment_hits_rect, transition
 from .declaration_vocabulary import LIB, DeclarationError
 
 
@@ -215,14 +218,13 @@ def place_action(declaration):
             source = e.get("after", "action")
             box_of[e["id"]] = {"x": x, "y": y, "w": note_w, "h": h}
             zone_of[e["id"]] = k
-            skip = (cy, lane_half, ACTION_MARGIN) if k - zone_of[source] > 1 else None  # a zone skipped: the margin carries the edge
-            edge = operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip)
-            a, b = box_of[source], box_of[e["id"]]
-            line = [
-                (a["x"] + a["w"], a["y"] + a["h"] / 2),
-                *[(vx, vy) for vx, vy in edge.get("via", [])],
-                (b["x"], b["y"] + b["h"] / 2),
-            ]
+            cid = f"e-{source}-{e['id']}"
+            edge, line = operator_edge(cid, operator(source, e), labelled, source, e["id"], box_of)
+            # A zone skipped: the margin carries the edge, but only when its own line would pass behind a note it skips.
+            others = [v for n, v in box_of.items() if n not in (source, e["id"])]
+            behind = any(segment_hits_rect(p, q, (v["x"], v["y"], v["w"], v["h"])) for p, q in itertools.pairwise(line) for v in others)
+            if k - zone_of[source] > 1 and behind:
+                edge, line = operator_edge(cid, operator(source, e), labelled, source, e["id"], box_of, (cy, lane_half, ACTION_MARGIN))
             at = cross_circle(line, (cx, cy), r0 + zone_of[source] * gap) if zone_of[source] >= 1 else None
             if (
                 declaration_settings.EDGE_LABEL == "pill"
@@ -299,25 +301,44 @@ def proof_cells(cells, action, x, y, w):
 
 
 def operator_edge(cid, word, style, source, target, box_of, skip=None):
-    """An operator's edge, drawn from chosen points: it leaves the source's right side at the height nearest its target (a cause at
-    its round's apex) and enters the target's left side at the height nearest its source, each clamped inside the middle half of the
-    box; its word sits a quarter of the way along, above the line when the edge climbs or runs level, below it when the edge falls.
-    An edge that skips a zone (`skip` is the lane's centre line and half-height, and the margin's height) runs through the margin
-    instead of behind the notes it passes: up or down beside its source, across the margin, and down or up into its target, with its
-    word on the run across."""
+    """An operator's edge, drawn from chosen points, and the run it draws: it leaves the source's right side at the height nearest its
+    target (a cause at its round's apex) and enters the target's left side at the height nearest its source, each clamped inside the
+    middle half of the box, every bend a waypoint, since the painter joins the points straight; its word sits a quarter of the way
+    along, above the line when the edge climbs or runs level, below it when the edge falls. Two boxes that share no height and stand
+    too close for a stepped line to hold the word join by one turn instead: out of the source's top or bottom side and into the
+    target's left side, the turn far enough left that the level leg holds the word. An edge that skips a zone (`skip` is the lane's
+    centre line and half-height, and the margin's height) runs through the margin instead of behind the notes it passes: out level,
+    up or down beside its source, across the margin, and down or up beside its target into it, with its word on the run across."""
     a, b = box_of[source], box_of[target]
     a_mid, b_mid = a["y"] + a["h"] / 2, b["y"] + b["h"] / 2
+    a_right, b_left = a["x"] + a["w"], b["x"]
     clamp = lambda t: round(min(0.75, max(0.25, t)), 2)
     if skip:
         cy, lane_half, margin = skip
         above = b_mid <= cy
-        run = cy - lane_half - margin / 2 if above else cy + lane_half + margin / 2
+        run = round(cy - lane_half - margin / 2 if above else cy + lane_half + margin / 2)
+        out, into = round(a_right + 20), round(b_left - 20)
         edge = edge_cell(cid, f"<b>{word}</b>", style + "exitX=1;exitY=0.5;entryX=0;entryY=0.5;", source, target)
-        edge["via"] = [[round(a["x"] + a["w"] + 20), round(run)], [round(b["x"] - 20), round(run)]]
+        edge["via"] = [[out, round(a_mid)], [out, run], [into, run], [into, round(b_mid)]]
         edge["label_at"] = (0, -12 if above else 12)
-        return edge
+        return edge, [(a_right, a_mid), *[tuple(p) for p in edge["via"]], (b_left, b_mid)]
+    # The level line a pill centred on it needs: the word's pill and, on both sides, the larger of the clearances its ends keep.
+    reach = 6.2 * len(word) + 2 * WORD_MARGIN + 2 * max(LABEL_TAIL_CLEAR, LABEL_HEAD_CLEAR)
+    if source != "cause" and (b_mid < a["y"] or b_mid > a["y"] + a["h"]) and b_left - a_right < reach:
+        turn_x = max(a["x"] + a["w"] / 4, b_left - reach - 8)
+        exit_x, exit_y = round((turn_x - a["x"]) / a["w"], 2), 0 if b_mid < a["y"] else 1
+        start = (a["x"] + a["w"] * exit_x, a["y"] + a["h"] * exit_y)
+        edge = edge_cell(cid, f"<b>{word}</b>", style + f"exitX={exit_x};exitY={exit_y};entryX=0;entryY=0.5;", source, target)
+        edge["via"] = [[round(start[0]), round(b_mid)]]
+        edge["label_at"] = (0, -12 if exit_y == 0 else 12)
+        return edge, [start, (start[0], b_mid), (b_left, b_mid)]
     exit_y = 0.5 if source == "cause" else clamp((b_mid - a["y"]) / a["h"])
     entry_y = clamp((a_mid - b["y"]) / b["h"])
+    start, end = (a_right, a["y"] + a["h"] * exit_y), (b_left, b["y"] + b["h"] * entry_y)
     edge = edge_cell(cid, f"<b>{word}</b>", style + f"exitX=1;exitY={exit_y};entryX=0;entryY={entry_y};", source, target)
     edge["label_at"] = (-0.5, 12 if b_mid > a_mid else -12)  # a level edge reads like a climbing one: the word above
-    return edge
+    if abs(start[1] - end[1]) < 1:
+        return edge, [start, end]
+    middle = round((start[0] + end[0]) / 2)  # a step across the gap's middle: out level, plumb, in level
+    edge["via"] = [[middle, round(start[1])], [middle, round(end[1])]]
+    return edge, [start, *[tuple(p) for p in edge["via"]], end]

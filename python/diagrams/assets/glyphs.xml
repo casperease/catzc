@@ -83,10 +83,10 @@
     </mxCell>
     <mxCell id="g-env-flow"
       value="&lt;b&gt;environment&lt;/b&gt;"
-      style="rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=12;"
+      style="rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=10;spacing=0;spacingLeft=0;spacingRight=0;"
       vertex="1"
       parent="1">
-      <mxGeometry x="890" y="160" width="80" height="80" as="geometry" />
+      <mxGeometry x="568" y="152" width="112" height="96" as="geometry" />
     </mxCell>
     <mxCell id="g-external"
       value="&lt;b&gt;external tool&lt;/b&gt;"
@@ -128,14 +128,14 @@
       style="ellipse;html=1;fillColor=@commit;strokeColor=@commit-rim;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=@mark-ink;"
       vertex="1"
       parent="1">
-      <mxGeometry x="610" y="184" width="28" height="28" as="geometry" />
+      <mxGeometry x="685" y="184" width="28" height="28" as="geometry" />
     </mxCell>
     <mxCell id="g-commit-red"
       value="4"
       style="ellipse;html=1;fillColor=@red;strokeColor=@red-rim;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=@title;"
       vertex="1"
       parent="1">
-      <mxGeometry x="646" y="184" width="28" height="28" as="geometry" />
+      <mxGeometry x="721" y="184" width="28" height="28" as="geometry" />
     </mxCell>
     <mxCell id="g-command-sample"
       value="&lt;b&gt;Get-FileLanguage&lt;/b&gt;"
@@ -153,10 +153,10 @@
     </mxCell>
     <mxCell id="g-commit-text"
       value="commit (locked palette; red: discarded)"
-      style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
+      style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
       vertex="1"
       parent="1">
-      <mxGeometry x="682" y="188" width="240" height="20" as="geometry" />
+      <mxGeometry x="757" y="180" width="153" height="36" as="geometry" />
     </mxCell>
     <mxCell id="band-marks"
       value="LINES AND MARKS"

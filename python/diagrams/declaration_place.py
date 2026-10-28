@@ -88,6 +88,29 @@ def auto_marker_spot(box, sources, free, span=None):
         spots.append((round(span[0]) - size[0] - 4, box["y"] - 11))
     return next((s for s in spots if free((s[0], s[1], size[0], size[1]))), spots[0])
 
+
+def holder_title(cells, holder_id):
+    """The rectangle a band's or a group's name takes: a band's title box, as tall as it is drawn, or a group's name under its frame's
+    top-left corner."""
+    title = next((c for c in cells if c["id"] == f"{holder_id}-title" and c["style"] == BAND_TITLE), None)
+    if title:
+        return (title["x"], title["y"], title["w"], title["h"])
+    return group_label_room(next(c for c in cells if c["id"] == holder_id))
+
+
+def holder_marker_spot(box, title, free):
+    """Where a marker on a band or a group stands: centred on its name's row, just right of the name, stepping right past whatever
+    holds the room, so it covers neither the name nor the page title and subtitle above the frame; just right of the name when no
+    spot inside the frame is free."""
+    w, h = LIB["marks"]["marker"]["size"]
+    first = round(title[0] + title[2] + 4)
+    y = round(title[1] + title[3] / 2 - h / 2)
+    for x in range(first, round(box["x"] + box["w"]) - w - 3, 4):
+        if free((x, y, w, h)):
+            return x, y
+    return first, y
+
+
 def place_spans(frame):
     """The span bars over what they cover, and the room for them: returns how far the drawing area moved down."""
     content, cells, band_box, upright, drop = frame.content, frame.cells, frame.band_box, frame.upright, frame.drop
@@ -216,7 +239,11 @@ def place_edges(frame, delta, check_routes):
     # glyph's marker will take, found as place_marks finds it against the same room.
     room = held_room(cells)
     for m in content["markers"]:
-        if m["at"] in box_of and any(g["id"] == m["at"] and g["kind"] != "gate" for g in content["glyphs"]):
+        holds = m["at"] in box_of and not any(g["id"] == m["at"] for g in content["glyphs"])  # a band or a group
+        if holds and "corner" not in m:
+            mx, my = holder_marker_spot(box_of[m["at"]], holder_title(cells, m["at"]), lambda rect: not any(overlaps(rect, r, 0) for r in room))
+            room.append((mx, my, *LIB["marks"]["marker"]["size"]))
+        elif m["at"] in box_of and any(g["id"] == m["at"] and g["kind"] != "gate" for g in content["glyphs"]):
             box = box_of[m["at"]]
             if "corner" in m:
                 mx, my = marker_xy(box, m["corner"])
@@ -359,14 +386,16 @@ def place_marks(frame, delta):
             mx, my = marker_xy(box, m["corner"])
         elif kind == "gate":  # a diamond's corner is empty space, so its marker sits beside its top point
             mx, my = box["x"] + box["w"] // 2 - 40, box["y"] - 4
-        elif not kind:  # a band or a group: just inside its top-left corner, so it never widens the page
-            mx, my = box["x"] + 4, box["y"] - 11
+        elif not kind:  # a band or a group: on its name's row, just right of the name, so it never widens the page
+            mx, my = holder_marker_spot(box, holder_title(cells, m["at"]), free)
         else:  # the corner away from the arriving edges, else the first spot whose room is free
             sources = [box_of[e["from"]] for e in content["edges"] if e["to"] == m["at"] and e["from"] in box_of]
             mx, my = auto_marker_spot(box, sources, free, spans.get(m["at"]))
             auto = "catzcAuto=1;"  # the corner is the kit's choice, so get names none
         taken.append((mx, my, size[0], size[1]))
         style = LIB["marks"]["marker"]["style"] + (auto if "corner" not in m and kind not in ("", "gate") else "")
+        if "corner" not in m and not kind:  # the spot beside the name moves with the name's length, so get reads the holder from it
+            style += f"catzcAt={m['at']};"
         cells.append(cell(f"mark-{m['number']}", str(m["number"]), style, mx, my, size[0], size[1]))
     placed = {}
     for c in content["chips"]:

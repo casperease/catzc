@@ -132,6 +132,25 @@ def test_a_marker_steps_off_every_arrowhead_and_bare_word_and_no_pill_stands_on_
             assert not meet(boxes[pill], boxes[other]), f"{pill} stands on {other}"
 
 
+def test_a_marker_on_a_band_or_a_group_stands_beside_its_name_inside_the_frame_and_reads_back_onto_it():
+    body = GROUPED.replace("- { at: f-widget, number: 1 }", "- { at: band-widgets, number: 1 }").replace(
+        "- { at: t-widget, number: 2 }", "- { at: grp-gadgets, number: 2 }"
+    )
+    model = put(body)
+    boxes = absolute(cells_of(model))
+    group = boxes["grp-gadgets"]
+    names = {
+        "mark-1": (boxes["band-widgets"], boxes["band-widgets-title"]),
+        "mark-2": (group, (group[0] + 4, group[1], 6.5 * len("Catzc.Widget.Gadgetry") + 12, 18)),
+    }
+    for mark, (frame, name) in names.items():
+        x, y, w, h = boxes[mark]
+        assert not meet(boxes[mark], name), f"{mark} stands on its holder's name"
+        assert frame[0] < x and x + w < frame[0] + frame[2] and frame[1] - 4 <= y, f"{mark} reaches out of its holder above the name row"
+    markers = declaration.get(model, kind="explanation")["content"]["markers"]
+    assert markers == [{"at": "band-widgets", "number": 1}, {"at": "grp-gadgets", "number": 2}]
+
+
 def test_a_tag_row_wider_than_its_glyph_stays_inside_the_band_that_holds_it():
     cells = cells_of(put(CROWDED.replace("w-first: { x: 30, y: 114, w: 150, h: 40 }", "w-first: { x: 22, y: 114, w: 40, h: 40 }")))
     boxes = absolute(cells)
