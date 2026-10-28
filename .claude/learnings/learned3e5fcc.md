@@ -47,3 +47,11 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   Test-Plans rejects it as a check.
 - 2026-10-28 Cats: Token tip: Next time, save tokens by: listing named paths with one git ls-files | grep -io segment count instead of
   several probes.
+- 2026-10-28 Cats: The generated fact lives in six configs: generated-files.yml, every module configs/generated.yml, rootconfig.yml,
+  readme.yml, comment-pages.yml and the variants members generated/committed flags; Get-GeneratedTarget merges four of them.
+- 2026-10-28 Cats: PNG is 100 of 130 MB tracked; the image chain (drawio.yml or a yml drawio article block, then .drawio.png, slide picture
+  .png, .slide.png) is written by Build-Diagrams and python/diagrams/slide_png.py, mostly unregistered as writers.
+- 2026-10-28 Cats: filters.yml already has a generated view resolved by Get-RepositoryFilter, so roll-off needs no new entity.
+- 2026-10-28 Cats: file-carriers.yml marks png, svg and xml carrier none, so no image can carry a generated head today.
+- 2026-10-28 Cats: A generated head is a one-way note to people: no tool decides anything from it.
+- 2026-10-28 Cats: Token tip: answer what is generated from Get-GeneratedTarget and file-carriers.yml before sweeping git ls-files.
