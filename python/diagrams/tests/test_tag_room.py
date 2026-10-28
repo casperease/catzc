@@ -47,15 +47,15 @@ def meet(a, b):
 
 def absolute(cells):
     """Each cell's rectangle on the page: a child's geometry is relative to its parent frame, so the frames' origins are added."""
-    rects = {}
+    boxes = {}
     for i, c in cells.items():
         x, y, w, h = c["rect"]
         parent = cells.get(c["parent"])
         while parent:
             x, y = x + parent["rect"][0], y + parent["rect"][1]
             parent = cells.get(parent["parent"])
-        rects[i] = (x, y, w, h)
-    return rects
+        boxes[i] = (x, y, w, h)
+    return boxes
 
 
 GROUPED = """
@@ -81,11 +81,11 @@ layout:
 
 def test_a_marker_steps_off_the_name_of_the_group_that_holds_its_glyph():
     cells = cells_of(put(GROUPED))
-    rects = absolute(cells)
-    x, y = rects["grp-gadgets"][:2]
+    boxes = absolute(cells)
+    x, y = boxes["grp-gadgets"][:2]
     label = (x + 4, y, 6.5 * len("Catzc.Widget.Gadgetry") + 12, 18)  # the bold 11 px name under the frame's top-left corner
-    for mark in (i for i in rects if i.startswith("mark-")):
-        assert not meet(rects[mark], label), f"{mark} stands on the group name"
+    for mark in (i for i in boxes if i.startswith("mark-")):
+        assert not meet(boxes[mark], label), f"{mark} stands on the group name"
 
 
 CROWDED = """
@@ -116,28 +116,28 @@ layout:
 
 def test_a_marker_steps_off_every_arrowhead_and_bare_word_and_no_pill_stands_on_a_tag_a_title_or_a_marker():
     cells = cells_of(put(CROWDED))
-    rects = absolute(cells)
-    marks = [i for i in rects if i.startswith("mark-")]
-    pills = [i for i in rects if i.endswith("-word")]
-    tags = [i for i in rects if TAG_ID.search(i)]
-    titles = [i for i in rects if i.endswith("-title") and i.startswith("band-")]
+    boxes = absolute(cells)
+    marks = [i for i in boxes if i.startswith("mark-")]
+    pills = [i for i in boxes if i.endswith("-word")]
+    tags = [i for i in boxes if TAG_ID.search(i)]
+    titles = [i for i in boxes if i.endswith("-title") and i.startswith("band-")]
     assert tags and marks
     heads = [(r["points"][-1][0] - 6, r["points"][-1][1] - 6, 12, 12) for r in LAST_ROUTES]
     words = [r["word"] for r in LAST_ROUTES if r.get("word")]
     for mark in marks:
         for n, head in enumerate(heads + words):
-            assert not meet(rects[mark], head), f"{mark} stands on the end or the word of line {n}"
+            assert not meet(boxes[mark], head), f"{mark} stands on the end or the word of line {n}"
     for pill in pills:
         for other in tags + titles + marks:
-            assert not meet(rects[pill], rects[other]), f"{pill} stands on {other}"
+            assert not meet(boxes[pill], boxes[other]), f"{pill} stands on {other}"
 
 
 def test_a_tag_row_wider_than_its_glyph_stays_inside_the_band_that_holds_it():
     cells = cells_of(put(CROWDED.replace("w-first: { x: 30, y: 114, w: 150, h: 40 }", "w-first: { x: 22, y: 114, w: 40, h: 40 }")))
-    rects = absolute(cells)
-    band = rects["band-widgets"]
-    for tag in (i for i in rects if TAG_ID.search(i) and i.startswith("w-first")):
-        x, _, w, _ = rects[tag]
+    boxes = absolute(cells)
+    band = boxes["band-widgets"]
+    for tag in (i for i in boxes if TAG_ID.search(i) and i.startswith("w-first")):
+        x, _, w, _ = boxes[tag]
         assert band[0] < x and x + w < band[0] + band[2], f"{tag} pokes out of its band"
 
 
@@ -160,9 +160,9 @@ layout:
 
 def test_a_plumb_line_into_a_tagged_top_side_ends_left_of_the_tags():
     cells = cells_of(put(PLUMB))
-    rects = absolute(cells)
-    tag = rects["w-load-tag"]
+    boxes = absolute(cells)
+    tag = boxes["w-load-tag"]
     route = next(r for r in LAST_ROUTES if r["to"] == "w-load")
     tip_x = route["points"][-1][0]
     assert tip_x < tag[0] - 4, f"the line ends at x={tip_x} on or beside the tag {tag}"  # TAG_CLEAR, less the fractions' rounding
-    assert rects["w-load"][0] < tip_x, "the line still ends on its target"
+    assert boxes["w-load"][0] < tip_x, "the line still ends on its target"

@@ -136,13 +136,23 @@ preview.
 overlapping the rim, never on the top edge and never within 40 px of a marker. Both are small numbered shapes, so a chip beside a marker
 reads as a second marker.
 
+**Tag room.** Tags keep clear of each other and of the text around them:
+
+- Pills avoid glyph tags, band titles, group names and marker spots.
+- Markers and chips avoid group names, band titles, arrowheads (12 px) and bare words; when no spot is free they fall back to the top edge,
+  left of the tag row.
+- A straight top-side line end keeps 8 px left of the tag row.
+- A wide tag row stays 4 px inside its band or group.
+- A side-panel header is shortened in its drawn weight, with a 4 px gap.
+
 The slide's own module is a band (chrome), not a `catzc module` frame. `external tool` stays a vendor tool (az, git, dotnet), never a catzc
 module.
 
 - **Chrome** is not a kind: band `band` / `band-rim` (`arcSize=3`, label `band-label`), legend and outer panel `panel` / `panel-rim`
   (`arcSize=6`), `ink`, `quiet`, `line`.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
-- **A drift is not a kind.** A record's claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
+- **A drift is not a kind.** A record's claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states
+  it.
 
 **Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from DDR-VISUAL-FIXEDCOMMITPALETTE: the `commits:`
 block of [`configs/drawio.yml`](../configs/drawio.yml) gives each state (topic, landed, bvt, l3, main-uat, release-uat, prod, discarded) its
@@ -198,9 +208,10 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
 The user's standard, from the wave-1 review: the information must be **verified against the record AND the code AND the configs**, and the
 picture must be **simple**. A diagram that is only true to the record's prose is not done.
 
-1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the record,
-   the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.verify.md` beside the
-   staged folder in `out/diagrams/wave-N/`: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / DRS-only**.
+1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the
+   record, the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.verify.md`
+   beside the staged folder in `out/diagrams/wave-N/`: a table with the columns claim → source (`file:line`) → **confirmed / contradicted /
+   DRS-only**.
 2. **Code wins on facts. The record wins on intent.**
    - If the code contradicts the drawing, fix the drawing and report the contradiction.
    - If the decision record states something the code doesn't do yet, keep it only when it's essential to the finding, and mark it DRS-only
@@ -219,8 +230,8 @@ what was cut.
 
 Lessons from wave 4:
 
-- **Run the record's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the record's example address threw (a typed
-  `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
+- **Run the record's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the record's example address threw (a
+  typed `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
 - **Every title is ≤ 60 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
 - **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow the runner's colour for it. Use the
   neutral glyph unless the palette has a role for it.
@@ -241,8 +252,8 @@ doesn't need. It never adds claims the source or its sources don't support.
   It drops rationale and record wording.
 - **`operations`** (≤ 8 boxes) shows what a person or pipeline runs and sees: entry commands, outputs, failure messages. It drops internals
   nobody operates directly.
-- **`governance`** (≤ 8 boxes) shows which rule constrains each stage, which gate checks it, and what is DRS-only. It drops mechanics
-  and paths.
+- **`governance`** (≤ 8 boxes) shows which rule constrains each stage, which gate checks it, and what is DRS-only. It drops mechanics and
+  paths.
 
 - Name the files `<name>.<lens>.xml` / `<name>.<lens>.drawio.png`. The title states the lens's finding, e.g. "Meta: …".
 
@@ -389,9 +400,9 @@ The article and the description are read by people, so they carry no audit trail
 
 `<page>.md`
 
-Write it as a short explanation article, in the voice of the records: plain English, present tense, active voice, full sentences, one idea per
-paragraph. Use the record's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
-image removed.
+Write it as a short explanation article, in the voice of the records: plain English, present tense, active voice, full sentences, one idea
+per paragraph. Use the record's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well
+with the image removed.
 
 ```markdown
 # <the finding, as a sentence-style title>
@@ -407,8 +418,8 @@ image removed.
 
 ## Why it holds
 
-<A short paragraph, or 2–4 bullets, each restating one rule in plain words with its citation code: "Every dependency is declared before
-it is used (ADR-AUTO-DEPM-CODEBUILTFROM).">
+<A short paragraph, or 2–4 bullets, each restating one rule in plain words with its citation code: "Every dependency is declared before it
+is used (ADR-AUTO-DEPM-CODEBUILTFROM).">
 
 ## Where the code and the record differ
 
@@ -469,9 +480,9 @@ the staged folder in `out/`, and nothing in `docs/` links to it.
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
-- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several records share a slide) beside the box that a rule
-  governs, never inside the box name. The legend gives the chips one row that names the letter → record mapping. A rule no gate checks gets a
-  dashed chip, legend `dashed rule chip: DRS-only (no gate)`.
+- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several records share a slide) beside the box that a
+  rule governs, never inside the box name. The legend gives the chips one row that names the letter → record mapping. A rule no gate checks
+  gets a dashed chip, legend `dashed rule chip: DRS-only (no gate)`.
 
 **Lessons from wave 5 (apply them):**
 
@@ -521,8 +532,8 @@ An approved slide lands as its pair and its article; the `.verify.md` stays in `
   `../index.md#how-to-read-the-diagrams`. The diagram links nothing.
 - **Checks:** run `Test-Diagrams -Path <folder>` on the folder, and `Test-Links` and `Test-Spelling` on the article. Report unknown words;
   never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare angle brackets
-  fail markdownlint MD033). Example names copied from a record that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the record
-  does; never split a word across markup (`Co(nfig)` flags `nfig`).
+  fail markdownlint MD033). Example names copied from a record that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the
+  record does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
 Quality bar for this format: `docs/explanation/automation/three-layers-edges-point-down.md` with its folder
 `docs/explanation/automation/.assets/three-layers-edges-point-down/`.
@@ -562,9 +573,9 @@ both the preview and draw.io. A bent edge (e.g. a return into a gate earlier in 
 
 ## Reporting drift found while verifying
 
-Verification regularly finds the record, the code or the code comments out of step: a file the record names that doesn't exist, a rule the checker
-enforces more loosely, a comment citing the wrong rule. Draw the side the brief says (normally what the code does). List every drift in the
-reply and the `.verify.md` table. The lead collects these for the user. Never fix them from a maker.
+Verification regularly finds the record, the code or the code comments out of step: a file the record names that doesn't exist, a rule the
+checker enforces more loosely, a comment citing the wrong rule. Draw the side the brief says (normally what the code does). List every drift
+in the reply and the `.verify.md` table. The lead collects these for the user. Never fix them from a maker.
 
 ## Layout
 

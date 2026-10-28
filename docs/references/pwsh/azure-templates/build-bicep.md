@@ -25,8 +25,8 @@ For each target slot (one per `configuration/[<customer>/]<config>.yml`):
    comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
 Before the slots render, copies `main.bicep` and every file it reaches (modules, imports, loaded files and the `bicepconfig.json` between
-them) into `<out>/bicep/`, keeping their layout, so the output folder is self-contained. Then runs `bicep build <copied main.bicep> --outdir
-<out>` once for the template, producing `main.json`. Finally copies the per-template
+them) into `<out>/bicep/`, keeping their layout, so the output folder is self-contained. Then runs
+`bicep build <copied main.bicep> --outdir <out>` once for the template, producing `main.json`. Finally copies the per-template
 `PrePost.psm1` (if any) and the contents of `resources/` (if any) into the output folder.
 
 The output folder, `-OutputFolder` or the template's `out/template/<name>`, is wiped and recreated on every call and returned.
