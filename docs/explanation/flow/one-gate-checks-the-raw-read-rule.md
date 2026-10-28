@@ -20,7 +20,7 @@ one reader outside PowerShell, rest on the FDR alone.
 ```yml drawio
 description:
   "Five rules govern pipeline detection: the analyzer rule checks the raw-read rule over every PowerShell file, a test pins that the answer
-  is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the ADR alone, drawn dashed."
+  is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the FDR alone, drawn dashed."
 about:
   rules:
     - ADR-PWSH-DETECT-NODIRECTVARIABLECHECK

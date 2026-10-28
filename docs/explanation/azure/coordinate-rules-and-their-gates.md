@@ -1,7 +1,7 @@
-# Two ADRs rule the coordinate; one shared check and the integrity tests hold them
+# Two records rule the coordinate; one shared check and the integrity tests hold them
 
 ```text
-Two ADRs rule the coordinate; one shared check and the integrity tests hold them.
+Two records rule the coordinate; one shared check and the integrity tests hold them.
 
 1  config file                            the coordinate: root or customer subfolder, env and slot in the name (D1, D2, C6)
 2  Get-BicepTemplates                     discovery runs the shared check per file, fail-fast (D8)
@@ -37,7 +37,7 @@ about:
     - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
   lens: governance
 content:
-  title: Two ADRs rule the coordinate; one shared check and the integrity tests hold them
+  title: Two records rule the coordinate; one shared check and the integrity tests hold them
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -95,7 +95,7 @@ layout:
   e-group: { x: 1050, y: 304, w: 180, h: 52 }
 ```
 
-![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](.assets/coordinate-rules-and-their-gates.drawio.png)
+![Two records rule the coordinate; one shared check and the integrity tests hold them](.assets/coordinate-rules-and-their-gates.drawio.png)
 
 ## Walkthrough
 

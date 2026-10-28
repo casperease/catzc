@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
   lens: governance
 content:
-  title: Three gates check the projection, while generation is held by the ADR alone
+  title: Three gates check the projection, while generation is held by the FDR alone
   kind: explanation
   flow: left-to-right
   theme: dark

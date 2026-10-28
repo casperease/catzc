@@ -27,7 +27,7 @@ worth knowing before relying on either.
 description:
   A globset flows from the registry through the validated config load into the scan program and from there into the native projection, the
   git reflection and the live identity; gates check the source and the trigger projection, while the git reflection and the identity are
-  held by the ADR rules alone.
+  held by the DRS rules alone.
 about:
   rules:
     - FDR-GLOBS-NAMEDGLOBSETS

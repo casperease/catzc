@@ -65,7 +65,7 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
             "(?m)^\s*(?:module\s+\S+\s+|using\s+|extends\s+)'(?<path>[^']+)'|\bfrom\s+'(?<path>[^']+)'|\bload\w+\(\s*'(?<path>[^']+)'")
         $files = @(Get-ChildPath -Path $script:outputRoot -Depth 8 -Filter '*.bicep', '*.bicepparam' -File)
         $files | ForEach-Object { [System.IO.Path]::GetExtension($_) } | Sort-Object -Unique |
-            Should -BeExactly @('.bicep', '.bicepparam') -Because 'the build copies main.bicep and its module beside the rendered slots'
+            Should -BeExactly @('.bicep', '.bicepparam') -Because 'the build copies main.bicep and its module beside the rendered bicepparam slots'
         $leaving = [System.Collections.Generic.List[string]]::new()
         $resolved = 0
         foreach ($file in $files) {

@@ -1,7 +1,7 @@
-# Every load stage but the unload has an ADR rule and a gate
+# Every load stage but the unload has a DRS rule and a gate
 
 ```text
-Every load stage but the unload has an ADR rule and a gate.
+Every load stage but the unload has a DRS rule and a gate.
 
 1  Shim                    generated importer.ps1; gate New-Importer.Tests
 2  Session                 preferences and two roots; gate code review
@@ -37,7 +37,7 @@ about:
     - ADR-PWSH-TYPES-JANITORSBYCALLER
   lens: governance
 content:
-  title: Every load stage but the unload has an ADR rule and a gate
+  title: Every load stage but the unload has a DRS rule and a gate
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -88,7 +88,7 @@ layout:
   g-janitors: { x: 600, y: 456, w: 400, h: 48 }
 ```
 
-![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage.drawio.png)
+![Every load stage but the unload has a DRS rule](.assets/rule-and-gate-per-load-stage.drawio.png)
 
 Each stage has its own band, and a stage's gate sits in its band beside the rules it checks.
 

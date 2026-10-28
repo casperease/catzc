@@ -22,7 +22,7 @@ passes before it lands here as a rule.
 
 ```yml drawio
 description:
-  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning ADR decides, and it lands here
+  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning decision record decides, and it lands here
   rebuilt to this repository's rules as one living version.
 about:
   rules:
