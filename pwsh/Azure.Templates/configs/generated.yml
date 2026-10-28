@@ -1,0 +1,8 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # It prices the cost model's meters from the Azure retail prices API, read outside the tree.
+  Update-AzurePriceTable:
+    class: snapshot
+    check: none
+    inputs: [pwsh/Azure.Templates/configs/cost-model.yml]
+    outputs: [pwsh/Azure.Templates/assets/cost-prices.json]

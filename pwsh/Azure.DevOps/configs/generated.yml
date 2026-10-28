@@ -1,0 +1,7 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # It writes the about.occupants of a flow declaration from the pipeline runs Azure DevOps holds, read outside the tree.
+  Update-AdoFlowOccupants:
+    class: snapshot
+    check: none
+    outputs: [docs/explanation/flow/.assets/ci-pwsh-to-deploy-apex.drawio.yml]

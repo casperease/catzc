@@ -20,4 +20,5 @@ writers:
     outputs: ["**/.gitkeep"]
   Build-FrontPage:
     class: rollable
+    inputs: [pwsh/Base.Docs/configs/frontpage.yml, docs/explanation/frontpage/*.md, docs/drs/**, pwsh/Base.Docs/**]
     outputs: [.github/README.md]

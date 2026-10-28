@@ -1,0 +1,15 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # The extension folders under the output folder are rendered from these alone, so the render is skipped while none of them changed.
+  New-VsCodeExtensionFolder:
+    class: untracked
+    check: none
+    inputs:
+      - js/**
+      - pwsh/Base.VSCode/configs/vscode-extensions.yml
+      - pwsh/Base.VSCode/configs/lamp-palette.yml
+      - pwsh/Base.VSCode/configs/file-icons.yml
+      - pwsh/Base.VSCode/private/**
+      - pwsh/Base.VSCode/types/**
+      - pwsh/Base.Globs/configs/filters.yml
+    outputs: [out/vscode-extensions/**]

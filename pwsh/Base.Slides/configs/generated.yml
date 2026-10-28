@@ -1,5 +1,40 @@
-# What this module's writers write (Get-GeneratedTarget reads every module's generated.yml): each diagram's png, put from its yml.
+# What this module's writers write (Get-GeneratedTarget reads every module's generated.yml): the image chain, a diagram's png put from its
+# declaration, a slide's picture from that png, and the slide png from the slide and its picture.
 writers:
+  # A diagram's declaration is its .drawio.yml, or a yml drawio block above its image in an article.
   Build-Diagrams:
     class: rollable
-    outputs: ["docs/**/.assets/*.drawio.png"]
+    check: none
+    outputs:
+      - path: docs/**/.assets/*.drawio.png
+        inputs: [docs/**/.assets/*.drawio.yml, docs/**/*.md, python/diagrams/configs/drawio.yml, python/diagrams/assets/flow/*.svg]
+  # The flow lens's word glyphs, one per flow-glyphs entry of the kit's drawio.yml.
+  flow_glyphs.py:
+    class: rollable
+    check: none
+    outputs:
+      - path: python/diagrams/assets/flow/*.svg
+        inputs: [python/diagrams/configs/drawio.yml, python/diagrams/flow_glyphs.py]
+  # A slide's picture, made by its head's picture from its source png (or, redrawn, from that png's declaration), lands where its Image links.
+  slide_png picture:
+    class: rollable
+    check: none
+    outputs:
+      - path: docs/explanation/flow/*/.assets/*.png
+        inputs:
+          - docs/explanation/flow/*/*.slide.md
+          - docs/**/.assets/*.drawio.png
+          - docs/**/.assets/*.drawio.yml
+          - python/diagrams/slide_png.py
+          - python/diagrams/assets/slides/slides.yml
+  # The slide drawn at the deck's size from the slide file and its picture, beside the slide.
+  slide_png render:
+    class: rollable
+    check: none
+    outputs:
+      - path: docs/explanation/flow/*/.assets/*.slide.png
+        inputs:
+          - docs/explanation/flow/*/*.slide.md
+          - docs/explanation/flow/*/.assets/*.png
+          - python/diagrams/slide_png.py
+          - python/diagrams/assets/slides/slides.yml

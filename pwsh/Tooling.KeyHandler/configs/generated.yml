@@ -1,0 +1,7 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # It captures the live session's PSReadLine key handlers, read outside the tree.
+  Save-PsReadLineKeyHandlerSet:
+    class: snapshot
+    check: none
+    outputs: [pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml]

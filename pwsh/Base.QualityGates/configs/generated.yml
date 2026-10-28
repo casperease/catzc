@@ -1,0 +1,32 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # The cspell word lists are gitignored, one per terminology category.
+  Build-TerminologyDictionary:
+    class: untracked
+    at_import: true
+    inputs: [pwsh/Base.QualityGates/**]
+    outputs: [".cspell/*.txt"]
+  # It flattens the English tries of the installed cspell, read from the global node_modules outside the tree.
+  Build-EnglishDictionary:
+    class: snapshot
+    check: english-dictionary
+    inputs: [pwsh/Base.Execution/configs/tools.yml, pwsh/Base.QualityGates/**]
+    outputs: [pwsh/Base.QualityGates/assets/english.*]
+  # The annotated view of each source file with its comment page folded back in, under the output folder.
+  Build-CommentView:
+    class: untracked
+    check: none
+    inputs: [pwsh/Base.CodeMeta/configs/comment-pages.yml, pwsh/Base.QualityGates/configs/comments.yml, docs/references/**]
+    outputs: [out/annotated/**]
+  # It moves long comments onto the authored comment pages; a page keeps what the code no longer holds, so the tree cannot render it back.
+  Export-Comments:
+    class: snapshot
+    check: none
+    expands: comment-pages
+    inputs: [pwsh/Base.CodeMeta/configs/comment-pages.yml, pwsh/Base.QualityGates/configs/comments.yml]
+    outputs:
+      - docs/references/pwsh/**
+      - docs/references/ado/pipelines/**
+      - docs/references/infrastructure/**
+      - docs/references/python/**
+      - docs/references/github/workflows/**

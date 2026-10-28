@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3385864a205e"
+#     with_body_sha: d2377412b707
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -19,7 +19,10 @@ globsets:
       - "pwsh/.internal/assets/bin/**"
       - "pwsh/.internal/assets/importer-commands.sh"
       - "pwsh/.internal/assets/obj/**"
+      - "pwsh/Azure.Templates/assets/cost-prices.json"
       - "pwsh/Base.Globs/configs/globs/track-sets.yml"
+      - "pwsh/Base.QualityGates/assets/english.*"
+      - "pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml"
   infrastructure:
     include:
       - "infrastructure/**"

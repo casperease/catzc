@@ -1,0 +1,102 @@
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # Import-critical, since git and the bootstrap read the root files before the importer runs; rootconfig.yml expands its targets.
+  Build-RootConfig:
+    class: import-critical
+    at_import: true
+    check: root-config
+    expands: rootconfig
+    # Its targets are inputs too, so a target drifted by hand, ignored by git or not, makes the run that writes it back due.
+    inputs:
+      - pwsh/Base.Contracts/**
+      - pwsh/Base.Git/**
+      - pwsh/Base.Languages/Format-GeneratedFileHead.ps1
+      - pwsh/Base.Languages/New-GoWorkspace.ps1
+      - pwsh/Base.Languages/New-PythonProject.ps1
+      - pwsh/Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Base.FileLimits/configs/file-limits.yml
+      - pwsh/Base.FileLimits/Build-WidthConfigs.ps1
+      - pwsh/Base.Languages/configs/generated-head.yml
+      - pwsh/Base.Languages/configs/go.yml
+      - pwsh/Base.Languages/configs/languages.yml
+      - pwsh/Base.Languages/configs/python.yml
+      - pwsh/Base.RootConfig/**
+      - pwsh/Base.VSCode/**
+      - contracts/catzc/0.1.0/**
+      - pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
+      - pwsh/.internal/Catzc.Internal.Importer.psm1
+      - pwsh/Base.Execution/configs/tools.yml
+      - pwsh/Base.Globs/configs/file-kinds.yml
+      - pwsh/Base.Globs/configs/filters.yml
+      - pwsh/Base.Globs/configs/globs/*.yml
+      - pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml
+      - pwsh/Base.Variants/configs/variants.yml
+      - PSScriptAnalyzerSettings.psd1
+      - importer.ps1
+      - importer.sh
+      - pwsh/.internal/assets/importer-commands.sh
+      - .vscode/settings.json
+      - .vscode/extensions.json
+      - .vscode/launch.json
+      - .vscode/tasks.json
+      - .vscode/markdown-preview-dark.css
+      - go.work
+      - "*/tests/*/go.mod"
+      - "*/*/go.mod"
+      - "*/pyproject.toml"
+      - "*/tests/*/pyproject.toml"
+      - "*/*/pyproject.toml"
+      - .editorconfig
+      - .markdownlint.yml
+      - .markdownlintignore
+      - .prettierrc.yml
+      - .prettierignore
+      - .cspell/.gitignore
+      - cspell.yml
+      - dotnet-tools.json
+      - pwsh/.internal/assets/Catzc.Types.csproj
+      - nuget.config
+      - Directory.Build.props
+      - catzc.sln
+      - .gitattributes
+      - .gitignore
+    outputs:
+      - PSScriptAnalyzerSettings.psd1
+      - importer.ps1
+      - importer.sh
+      - pwsh/.internal/assets/importer-commands.sh
+      - .editorconfig
+      - jsconfig.json
+      - jsconfig.lenient.json
+      - .vscode/*
+      - go.work
+      - "*/tests/*/go.mod"
+      - "*/*/go.mod"
+      - "*/pyproject.toml"
+      - "*/tests/*/pyproject.toml"
+      - "*/*/pyproject.toml"
+      - .markdownlint.yml
+      - .markdownlintignore
+      - .prettierrc.yml
+      - .prettierignore
+      - .cspell/.gitignore
+      - cspell.yml
+      - dotnet-tools.json
+      - pwsh/.internal/assets/Catzc.Types.csproj
+      - nuget.config
+      - Directory.Build.props
+      - catzc.sln
+      - .gitattributes
+      - .gitignore
+  # The root generator Build-RootConfig calls for .gitattributes; its linguist-generated lines read the writer registry.
+  New-GitAttributes:
+    class: import-critical
+    check: none
+    expands: rootconfig
+    inputs:
+      - pwsh/Base.RootConfig/assets/root/.gitattributes-template
+      - pwsh/Base.Globs/configs/file-kinds.yml
+      - pwsh/Base.Variants/configs/track-types.yml
+      - pwsh/Base.GeneratedFiles/configs/generated-files.yml
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
+    outputs: [.gitattributes]
