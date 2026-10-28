@@ -7,7 +7,7 @@ a check.
 
 | #   | Tier | Check                                                        |
 | --- | ---- | ------------------------------------------------------------ |
-| 1   | L1   | [analyzer-adr-map integrity][c1]                             |
+| 1   | L1   | [analyzer-drs-map integrity][c1]                             |
 | 2   | L2   | [PSScriptAnalyzer][c2]                                       |
 | 3   | L2   | [Get-DynamicManifestContent is formatter-stable][c3]         |
 | 4   | L2   | [Format-Code (real vendored analyzer and settings)][c4]      |
@@ -28,7 +28,7 @@ a check.
 | 19  | L1   | [Test-SecretScan (real tree)][c19]                           |
 | 20  | L1   | [SourceConventionScan over the repository][c20]              |
 
-[c1]: #1-analyzer-adr-map-integrity
+[c1]: #1-analyzer-drs-map-integrity
 [c2]: #2-psscriptanalyzer
 [c3]: #3-get-dynamicmanifestcontent-is-formatter-stable
 [c4]: #4-format-code-real-vendored-analyzer-and-settings
@@ -51,9 +51,9 @@ a check.
 
 ## Checks
 
-### 1. analyzer-adr-map integrity
+### 1. analyzer-drs-map integrity
 
-**Test file:** `pwsh/Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1` (L1), block `analyzer-adr-map integrity`.
+**Test file:** `pwsh/Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1` (L1), block `analyzer-drs-map integrity`.
 
 **Guards:** `Test-AnalyzerDrsMap` reports 0 issues: every analyzer→rule mapping cites a real rule, and every custom analyzer rule is listed
 in analyzer-drs-map.yml.

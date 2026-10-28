@@ -209,7 +209,7 @@ A parallel-run flake root-caused to a shared resource is fixed by tagging it ser
 ### Rule ADR-AUTO-TEST-PROVENANCETAGS
 
 An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` citation tags naming the DRS rule(s) it enforces — the
-`docs/drs/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
+`docs/drs/index.md` `#` citation form, so the rule-code marker greps to both a rule's prose and its enforcing tests. Absence is never a
 violation. A **present** citation is validated (`Get-TestTagViolations`): it must be well-formed and resolve to a real rule
 (`Get-DrsRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
 (nearest contributing group wins), provenance is **set-valued and additive**: `Get-TestRuleTags` **unions** the citations across a test's
@@ -496,7 +496,7 @@ provenance citations of the next section, and the `source-only` build-run opt-ou
 
 A test may also declare **which DRS rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
 a rule to the tests that pin it. The citation is a tag in the `docs/drs/index.md` `#` form — `ADR-AUTO-CACHE-READONLYVALUES` — chosen so the
-one reserved `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier
+one reserved rule-code marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier
 and category in two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is
 never a violation — a mandatory citation would pressure forced cites for tests that enforce loose behaviour, the junk-drawer failure the
 [spell-out registry](spell-out-names.md) warns against. And it is **set-valued**: a test can enforce several rules, and a rule on the
@@ -504,7 +504,7 @@ outermost group and a rule on one inner test both hold, so `Get-TestRuleTags` **
 than taking the nearest like the single-valued axes.
 
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
-that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-DrsRuleIds` (the flat set
+that enforces the mandatory axes — rejects any rule-code tag that is malformed or names a rule absent from `Get-DrsRuleIds` (the flat set
 parsed from every record's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy
 — it reads the DRS only when a test actually carries a citation — so a test run with none stays hermetic.
 

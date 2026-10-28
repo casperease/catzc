@@ -23,7 +23,7 @@ It reads the DRS tree and the .scriptanalyzer rule files, which exist only in th
 
 ### parameter `OutputFolder`
 
-The report base folder. Defaults to out/test-analyzer-adr-map/ (Write-QualityGateReport).
+The report base folder. Defaults to out/test-analyzer-drs-map/ (Write-QualityGateReport).
 
 ### parameter `PassThru`
 

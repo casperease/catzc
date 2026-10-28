@@ -105,7 +105,7 @@ def finish(cells, content, content_bottom, declaration):
             )
         )
         cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 64, y - 1, SIDEBAR_W - 72, 20))
-    # The sidebar: the three minimaps, drawn from their claims and embedded, and the lens badge. The ADR codes live in the subtitle
+    # The sidebar: the three minimaps, drawn from their claims and embedded, and the lens badge. The rule codes live in the subtitle
     # alone.
     height = max(PAGE["min_height"], legend_y + band_h + GAP, SIDEBAR[-1][1] + SIDEBAR[-1][2] + GAP)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))

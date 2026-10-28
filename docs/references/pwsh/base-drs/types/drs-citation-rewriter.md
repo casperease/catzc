@@ -6,7 +6,7 @@ maps. This type does the rewriting.
 ## What it rewrites
 
 - record and rule codes, in a citation or a `### Rule` heading alike;
-- rule anchors, `rule-adr-<code>-<name>`;
+- rule anchors, `rule-<code>-<name>`;
 - markdown and code link destinations into `docs/drs/`;
 - plain path mentions of a moved record file or folder.
 

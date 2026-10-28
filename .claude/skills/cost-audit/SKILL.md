@@ -19,8 +19,8 @@ Measure, report and propose; never change a rule you measure. Plain `wc`, `grep`
 1. With a pasted summary: split each model's input, output, cache read and cache write tokens using the usual ratios to the input price
    (cache read 0.1x, 5-minute write 1.25x, 1-hour write 2x, output 5x; the summary's prompt-cache line says which TTL); report each bucket's
    share as a ratio estimate, never a price you did not read this session. Without a summary, skip this step.
-2. Measure the context inputs: the ADR-reading line of `.claude/CLAUDE.md` quoted with its line number; bytes and file counts under
-   `docs/drs/` (all, `research/`, the five largest files) and of `docs/drs/index.md`; the `.claude` weight as debt-reduce step 2 says.
+2. Measure the context inputs: the decision-record reading line of `.claude/CLAUDE.md` quoted with its line number; bytes and file counts
+   under `docs/drs/` (all, `research/`, the five largest files) and of `docs/drs/index.md`; the `.claude` weight as debt-reduce step 2 says.
 3. Count the denials in `out/time-safeguard.log` by command shape (importer call, Pester run, background call without a prefix, other) with
    the top repeats; an absent log is said.
 4. For each lever of the plan: `done`, `open`, `regressed` with the evidence, or `not measurable from the tree`; a missing plan is said and

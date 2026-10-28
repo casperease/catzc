@@ -157,6 +157,7 @@ def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_pa
     # A widget registry with two kinds: a rule heading under either is a rule, one under an undeclared kind is not.
     registry = tmp_path / module_path("Catzc.Base.Drs", "configs", "drs.yml")
     registry.parent.mkdir(parents=True)
+    # cspell:disable-next-line
     registry.write_text("kinds:\n  ADR: {}\n  GDR: {}\n", encoding="utf-8")
     (tmp_path / "docs/drs/widget").mkdir(parents=True)
     (tmp_path / "docs/drs/widget/gadget.md").write_text(

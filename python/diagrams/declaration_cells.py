@@ -115,7 +115,7 @@ def in_paint_order(cells):
 
 def chrome(content, cells):
     """The chrome every diagram opens with: the lens once, as the chip that opens the title row, the title, and under it the subtitle,
-    the ADR codes alone. Returns how far a wrapped subtitle drops the drawing area."""
+    the rule codes alone. Returns how far a wrapped subtitle drops the drawing area."""
     chip_w = 16 + 8 * len(content["lens"])
     cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
     title_x = PAGE["x"] + chip_w + 12

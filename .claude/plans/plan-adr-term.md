@@ -60,20 +60,17 @@ brief and every message meets the wrong word first.
 
 "The Grep above" below means a Grep for a bare word ADR or ADRs (no hyphen, no backtick next to it), every hit a kind mention.
 
-### The generators and the record titles
-
 ### The gate, last
 
-- [ ] `pwsh/Base.Drs/configs/glossary.yml` (new source, `Catzc.Base.Drs` owns the DRS): the concept `architecture decision record` (key
-      `adr`, domain `repository`, `defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM`, which bolds it once the rule step lands,
-      `realized_by: { kind: prose-only }`), with
-      `avoid: [{ phrase: ADR, say: "decision record / DRS record; the DRS for the system; the kind in backticks" }, { phrase: ADRs, say: decision records }]`
-      and no folder excludes; and `pwsh/Base.Docs/configs/glossary/repository.yml` drops the `ADR system` avoid it subsumes. Check:
-      `Test-Glossary` reports 0 issues, `Build-Glossary`.
-- [ ] The identifier half: `pwsh/Base.RootConfig/assets/root/cspell-template.yml` gains `flagWords: [adr, adrs]` with an `ignoreRegExpList`
-      entry for the rule codes (`(?:ADR|TDR|PDR|WDR|DDR|FDR|EDR)(?:-[A-Z0-9*<>]+)+`), the `#rule-adr-` anchors and the code-named slide
-      files, a HOLD first. Check: a scratch word list through `cspell stdin` flags `adrRoot` and passes `ADR-AUTO-TEST-ONECATEGORY`, then
-      `Test-Spelling` reports 0 issues.
+- [ ] `.claude/CLAUDE.md` line 44 says "docs and ADR structure": the user rewords it to "docs and decision-record structure", the last
+      `Test-Glossary` finding. Check: `Test-Glossary` reports 0 issues.
+- [ ] The identifier half: `pwsh/Base.RootConfig/assets/root/cspell-template.yml` gains `flagWords: [adr, adrs]` with `ignoreRegExpList`
+      entries for the rule codes (`(?:ADR|TDR|PDR|WDR|DDR|FDR|EDR)(?:-[A-Z0-9*<>]+)+`), the anchors (`#rule-[a-z0-9-]+`), the kind in
+      backticks (`` `(?:ADR|TDR|PDR|WDR|DDR|FDR|EDR)` ``, since flagWords match case-insensitively) and the code-named slide files
+      (`(?<![\w-])adr(?:-[a-z0-9]+)+(?:\.slide)?`), a HOLD first; it lands only with the 262 hits a probe burst found fixed at their sources
+      first (the identifier renames above in code, types, tests and configs, the bare kind words in prose, the `terminology/product.yml`
+      `adrs` and `terminology/rule-code.yml` `adr` entries), each import-path file by staged burst with its tests. Check: `Test-Spelling`
+      reports 0 issues.
 
 ## Refs
 

@@ -9,7 +9,7 @@ One function owns the credential precedence, and ado.yml anchors every proof.
 4  an ADO API function     the command's call to the Azure DevOps REST API
 5  Invoke-AdoRestMethod    the one caller of the header function
 6  Pipeline token          the first source, proved against the ado.yml organization
-7  PAT                     the second source, bound to the org only by the ADR
+7  PAT                     the second source, bound to the org only by the record
 8  az CLI                  the last source, proved against the ado.yml tenant
 9  Catzc.Azure.Cli         the module whose Assert-AzCliConnected checks the session
 10 ado.yml                 the config every proof is checked against

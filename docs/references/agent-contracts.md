@@ -9,8 +9,7 @@ contracts: [ADR-REPO-AI]
 ```
 
 It declared that the robot reads ADR-REPO-AI first: the contract every agent and skill acts on, one line to act on plus the why, with rule
-codes as pointers. The plan for that record (`.claude/plans/plan-adr-ai.md`) intended the same key on every robot and every capability,
-checked by `Test-AgentDefinitions`.
+codes as pointers. The plan for that record intended the same key on every robot and every capability, checked by `Test-AgentDefinitions`.
 
 ## Why it is not a per-file key
 

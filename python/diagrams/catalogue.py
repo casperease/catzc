@@ -24,12 +24,12 @@ for p in sorted(glob.glob("out/diagrams/wave-*/*/*.drawio.png")):
     v = {"wave": wave, "png": rel, "w": w, "h": h}
     vm = p[: -len(".drawio.png")] + ".verify.md"
     if os.path.exists(vm):
-        counts = {"confirmed": 0, "adr": 0, "contradicted": 0}
+        counts = {"confirmed": 0, "drs_only": 0, "contradicted": 0}
         for line in pathlib.Path(vm).read_text(encoding="utf-8").splitlines(keepends=True):
             if not line.startswith("|") or line.startswith(("|---", "| #")):
                 continue
             verdict = [c.strip() for c in line.strip().strip("|").split("|")][-1].lower().lstrip("*")
-            for key, word in (("confirmed", "confirmed"), ("adr", "drs-only"), ("contradicted", "contradicted")):
+            for key, word in (("confirmed", "confirmed"), ("drs_only", "drs-only"), ("contradicted", "contradicted")):
                 if verdict.startswith(word):
                     counts[key] += 1
         v["verify"] = rel[: -len(".drawio.png")] + ".verify.md"

@@ -103,7 +103,7 @@ function — see [test-automation](../../../../drs/automation/test-automation.md
 
 ### Citing the enforced rule
 
-`Optionally cite the ADR rule a test enforces`
+`Optionally cite the DRS rule a test enforces`
 
 A test may also declare the DRS rule(s) it enforces, as an **optional** third tag — so each test is traceable to the rule behind it and
 back. Cite the rule in the index's `#` form (`ADR-<CODE>#<n>`, e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) as a `-Tag` beside the tier and

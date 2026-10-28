@@ -15,8 +15,8 @@ plans stay the durable record; task files and this master are derived from them 
 
 ## Process (the planner's own rules)
 
-- Sources: `plan-*.md` and `value-of-plan.md`; decisions live in their ADRs. Never a signal lost: a step leaves a plan only when its task
-  file carries it, and the plan keeps the checkbox until the work lands in the tree.
+- Sources: `plan-*.md` and `value-of-plan.md`; decisions live in their decision records. Never a signal lost: a step leaves a plan only when
+  its task file carries it, and the plan keeps the checkbox until the work lands in the tree.
 - A task file is `task-<topic>.md`, at most 50 in the folder, one chunk each: head (`task:` with status, plans, value, blocked_on, targets),
   then numbered steps. Every step names one file, the exact edit, and the check that proves it. One file per step, verified before the next.
   A chunk gets a task file when its plan's open steps are not executable as written; otherwise the plan's open steps are the executable.
@@ -55,8 +55,11 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- adr-term -> plan-adr-term.md: ADR means only a record of the ADR kind: generic uses in prose, identifiers and generated pages say DRS,
+- adr-term -> plan-adr-term.md: `ADR` means only a record of the `ADR` kind: generic uses in prose, identifiers and generated pages say DRS,
   decision record or rule, and Test-Glossary holds the prose
+- generated-artifacts -> plan-generated-artifacts.md: every generated artifact in one per-module registry with a derived order, a stamp
+  head on every committed generated file (never read back), and Remove-Generated / Restore-Generated over the `generated` view; 22 steps,
+  determinism proof first
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

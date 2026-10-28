@@ -7,7 +7,7 @@ namespace Catzc.Base.CodeMeta;
 public static class PlainText
 {
     static readonly Regex Link = new Regex(@"\[([^\]]*)\]\([^)]*\)", RegexOptions.CultureInvariant);
-    static readonly Regex Code = new Regex(@"\b(?:ADR|DDR|PDR|FDR|TDR)(?:-[A-Z0-9]+)+\b", RegexOptions.CultureInvariant);
+    static readonly Regex Code = new Regex(@"\b[ADPFT]DR(?:-[A-Z0-9]+)+\b", RegexOptions.CultureInvariant);
     static readonly Regex EmptyBrackets = new Regex(@"\(\s*[,;]?\s*\)", RegexOptions.CultureInvariant);
     static readonly Regex Markup = new Regex(@"[`*_]", RegexOptions.CultureInvariant);
     static readonly Regex Space = new Regex(@"\s+", RegexOptions.CultureInvariant);

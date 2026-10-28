@@ -303,7 +303,7 @@ def save(folder, declaration):
         held = normalise(load_yaml(text) or {}, where=str(where))
         if not declaration.get("description"):
             declaration = {**declaration, "description": held["description"]}
-        # The drawing carries the ADR codes of `about:` in its subtitle; a drawing without them keeps the source's.
+        # The drawing carries the rule codes of `about:` in its subtitle; a drawing without them keeps the source's.
         about = {
             "lens": declaration["about"]["lens"],
             **{key: declaration["about"][key] or held["about"][key] for key in minimaps.ABOUT_KEYS},

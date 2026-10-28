@@ -59,7 +59,7 @@ content:
     - { id: r-rebuilt, kind: result, label: "rebuilt to catzc's rules, one living version, nothing ported alongside", in: band-this }
     - id: a-this-own
       kind: drsonly
-      label: "keeps its own: a rule is an ADR cited by code, .unordered is where an import lands"
+      label: "keeps its own: a rule is a record rule cited by code, .unordered is where an import lands"
       in: band-this
   edges:
     - { from: s-sibling, to: g-owner, kind: flow, label: "an idea, named where it is used" }

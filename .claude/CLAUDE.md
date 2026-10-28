@@ -41,10 +41,10 @@ far larger than a context window, so never sweep it, and never sweep `research/`
 ## Inspiration
 
 If `C:\projects\eac` is available (the same project family, a sibling checkout), you may read it for **inspiration on every aspect**: module
-and command design, docs and ADR structure, contracts, specs, testing, pipelines, tooling. It is **not a reference implementation**. It is a
-similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority. Catzc's own decision
-records decide. Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea came from it. If it is
-absent, carry on without it.
+and command design, docs and decision-record structure, contracts, specs, testing, pipelines, tooling. It is **not a reference
+implementation**. It is a similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority.
+Catzc's own decision records decide. Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea
+came from it. If it is absent, carry on without it.
 
 The domain rules in [`docs/drs/index.md`](../docs/drs/index.md) decide each aspect you might take an idea for. Two need saying here:
 

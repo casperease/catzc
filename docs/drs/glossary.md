@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e4949d09b199
+    with_body_sha: "41b8cea298e0"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1687,7 +1687,8 @@ A contract an outside consumer may rely on — the repository's only public API,
 
 ### record kind
 
-The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or EDR), registered in drs.yml; together the XDR kinds.
+The first segment of a decision record code (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR` or `EDR`), registered in drs.yml; together the XDR
+kinds.
 
 - **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

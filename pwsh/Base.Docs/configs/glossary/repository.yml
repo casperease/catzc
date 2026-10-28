@@ -24,7 +24,7 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short:
-      "The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or EDR), registered in drs.yml; together the XDR kinds."
+      "The first segment of a decision record code (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR` or `EDR`), registered in drs.yml; together the XDR kinds."
     realized_by: { kind: prose-only }
   workstream:
     key: workstream

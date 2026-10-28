@@ -39,10 +39,10 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 2. One ci-pwsh pipeline run, now that `.ado/pipelines/steps/cache-types.yaml` is committed (the types cache). Check: the second run of a job
    restores the types cache (Cache@2 "Cache restored") and skips the DLL build.
 3. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
-   Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
-   colours, not escape codes. In the same reload (plan-language-lamps step 5): rebuild and install `catzc-track-lamps`, press the languages
-   button, tick two languages, put one out, veto the other, untick both. Check: each lamp appears, lights, vetoes and disappears with no
-   reload.
+   Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its decision record and the
+   log shows colours, not escape codes. In the same reload (plan-language-lamps step 5): rebuild and install `catzc-track-lamps`, press the
+   languages button, tick two languages, put one out, veto the other, untick both. Check: each lamp appears, lights, vetoes and disappears
+   with no reload.
 4. plan-vscode-session-binding: when the PowerShell extension's session hangs again, run `Get-VsCodeSession` in a sibling terminal of the
    hung session and paste its one line to a session. Check: the line names the session's types binding; a day in VS Code without a hang
    closes the plan.

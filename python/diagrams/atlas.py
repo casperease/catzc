@@ -27,11 +27,11 @@ by_stem = {v["stem"]: v for v in slugs.values()}
 fan = []
 for p in sorted((D / "fan-out").glob("*.drawio.png")):
     stem = p.name[: -len(".drawio.png")]
-    adr, _, rest = stem.partition("--")
+    group, _, rest = stem.partition("--")
     lens = stem.rsplit("--", 1)[-1]
     meta = by_stem.get(stem, {})
     minis = [rel(m) for m in (D / f"fan-out/{stem}.{view}.png" for view in ("grid", "tree", "chain")) if m.exists()]
-    fan.append({"src": rel(p), "group": adr.upper(), "lens": lens, "title": meta.get("title", stem), "minimaps": minis})
+    fan.append({"src": rel(p), "group": group.upper(), "lens": lens, "title": meta.get("title", stem), "minimaps": minis})
 
 lenses = []
 for p in sorted(D.glob("lenses/*/*.drawio.png")):

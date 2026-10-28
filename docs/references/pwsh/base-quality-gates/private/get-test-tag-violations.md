@@ -16,7 +16,7 @@ an axis resolves to zero tags (missing) or to more than one on its nearest contr
 
 It also validates the optional provenance axis — the '`ADR-<CODE>#<n>`' rule citations a test may carry to say which rule(s) it enforces.
 Absence is never a violation (the axis is optional), but a PRESENT citation must be well-formed and resolve to a real rule: any tag carrying
-the reserved 'ADR-' marker that is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-DrsRuleIds, is a violation.
+the reserved rule-code marker that is not a well-formed '`ADR-<CODE>#<n>`', or that names a rule absent from Get-DrsRuleIds, is a violation.
 The rule-id set is resolved lazily (only when a well-formed citation is present), so tests with no citation stay hermetic — they never read
 the shipped DRS tree.
 
@@ -35,6 +35,6 @@ logic tests hermetic. The ids are in registry form, with a colon.
 
 ## Provenance axis
 
-The provenance axis is optional. Every candidate citation, meaning any tag carrying the reserved `ADR-` marker, is collected across the
+The provenance axis is optional. Every candidate citation, meaning any tag carrying the reserved rule-code marker, is collected across the
 block chain (the test's own tags plus its ancestor blocks, root excluded), and each is then classified. A malformed candidate never needs
 the rule-id set, and a well-formed one triggers its lazy resolution.

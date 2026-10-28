@@ -13,8 +13,8 @@ function Build-ContractReference {
 
     $pageFolder = 'docs/references/contracts'
     $records = (Get-Config -Config drs).Root
-    $adr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
-    $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder,
+    $apiRecord = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
+    $commandRecord = [System.IO.Path]::GetRelativePath($pageFolder,
         "$records/repository/command-contracts.md").Replace('\', '/')
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract'; Types = 'types surface' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
@@ -72,7 +72,7 @@ function Build-ContractReference {
             $lines.Add($line)
         }
         $lines.Add('')
-        foreach ($line in (Format-MarkdownParagraph -Text "Layout, kinds, and directions: [api-contracts]($adr); command contracts: [command-contracts]($commandAdr).")) {
+        foreach ($line in (Format-MarkdownParagraph -Text "Layout, kinds, and directions: [api-contracts]($apiRecord); command contracts: [command-contracts]($commandRecord).")) {
             $lines.Add($line)
         }
 
@@ -83,7 +83,7 @@ function Build-ContractReference {
             $lines.Add('')
             $lines.Add("## $version")
             $lines.Add('')
-            $immutable = "[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE]($adr#rule-adr-repo-contract-releasedimmutable)"
+            $immutable = "[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE]($apiRecord#rule-adr-repo-contract-releasedimmutable)"
             $state = if ($version -ceq '0.1.0') {
                 "The current version: edited in place ($immutable)."
             }

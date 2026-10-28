@@ -96,8 +96,8 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         }
 
         It 'rewrites a standalone anchor through the rule map, then the code map' {
-            & $script:update 'notes/anchor.md' 'rule-adr-widget-gadget-fold rule-adr-widget-sprocket-spin rule-adr-widget-sprocket-spins rule-adr-widget-gadget-lift' |
-                Should -BeExactly 'rule-adr-gizmo-gadget-fold rule-adr-gizmo-lever-spin rule-adr-widget-sprocket-spins rule-adr-widget-sprocket-drop'
+            & $script:update 'notes/anchor.md' '#rule-adr-widget-gadget-fold #rule-adr-widget-sprocket-spin #rule-adr-widget-sprocket-spins #rule-adr-widget-gadget-lift' |
+                Should -BeExactly '#rule-adr-gizmo-gadget-fold #rule-adr-gizmo-lever-spin #rule-adr-widget-sprocket-spins #rule-adr-widget-sprocket-drop'
         }
     }
 

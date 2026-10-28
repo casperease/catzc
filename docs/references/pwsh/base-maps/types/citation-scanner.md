@@ -9,8 +9,8 @@ highlight.
 
 A citation is a code of the shape `DrsCodeForm` defines, and it counts only when the index lists its code. A look-alike is not one: a code
 the index does not list, a code glued to a letter, digit, underscore or hyphen on either side (a link anchor such as
-`rule-adr-bcl-types-snakecasemirrorsyaml`, a letter before the code, a wildcard `ADR-...-*`), and lowercase text. Only the file kinds that
-cite are read (`CitingExtensions`: `.cs`, `.md`, `.ps1`, `.yaml`, `.yml`).
+`rule-adr-bcl-types-snakecasemirrorsyaml`, a letter before the code, a wildcard code), and lowercase text. Only the file kinds that cite are
+read (`CitingExtensions`: `.cs`, `.md`, `.ps1`, `.yaml`, `.yml`).
 
 ## The index
 

@@ -17,7 +17,7 @@ def model(subtitle):
 
 @pytest.fixture
 def repo(tmp_path, monkeypatch):
-    """A repository whose ADR index knows ADR-WIDGET and ADR-GADGET, standing in for the real one."""
+    """A repository whose DRS index knows ADR-WIDGET and ADR-GADGET, standing in for the real one."""
     index = tmp_path / "docs" / "drs" / "index.md"
     index.parent.mkdir(parents=True)
     index.write_text("| `ADR-WIDGET` | widget |\n| `ADR-GADGET` | gadget |\n", encoding="utf-8")
@@ -25,7 +25,7 @@ def repo(tmp_path, monkeypatch):
     return tmp_path
 
 
-def test_each_rule_code_names_its_adr(repo):
+def test_each_rule_code_names_its_record(repo):
     assert drawio_forward.slide_facts(model("ADR-WIDGET-TURN · ADR-WIDGET-SPIN · ADR-GADGET-FOLD · architecture")) == (
         ["ADR-GADGET", "ADR-WIDGET"],
         "architecture",
@@ -33,11 +33,11 @@ def test_each_rule_code_names_its_adr(repo):
     )
 
 
-def test_a_rule_name_with_digits_names_its_adr(repo):
+def test_a_rule_name_with_digits_names_its_record(repo):
     assert drawio_forward.slide_facts(model("ADR-WIDGET-RE01 · meta"))[0] == ["ADR-WIDGET"]
 
 
-def test_a_numbered_citation_is_reported_and_its_adr_still_read(repo):
+def test_a_numbered_citation_is_reported_and_its_record_still_read(repo):
     records, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET#3 · meta"))
     assert (records, lens) == (["ADR-WIDGET"], "meta")
     assert len(problems) == 1
@@ -111,7 +111,7 @@ def test_a_supports_line_naming_other_codes_is_drift(article):
     assert "says Supports ['ADR-GADGET', 'ADR-WIDGET'] (meta lens)" in finding
 
 
-def test_a_supports_line_citing_rules_agrees_at_the_adr_level(article):
+def test_a_supports_line_citing_rules_agrees_at_the_record_level(article):
     folder = article("Supports ADR-WIDGET-TURN and ADR-WIDGET-SPIN (meta lens).")
     assert drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta") is None
 

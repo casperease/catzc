@@ -6,8 +6,8 @@
 
 The **decision records system** (DRS) is the one system that holds every **decision record**: the domains of every record kind, their
 records and rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in
-`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, an
-**architecture decision record**: the system is the DRS, and a record of any kind is a decision record.
+`drs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `EDR`), and the kinds together are called "XDR". the word `ADR` names the `ADR` kind
+only, an **architecture decision record**: the system is the DRS, and a record of any kind is a decision record.
 
 - [One system holds every record](drs-code-language.md#one-system-holds-every-record)
 
@@ -130,9 +130,9 @@ is never reused; a rule whose meaning changes takes a new name.
 ### Rule ADR-REPO-DRSCODE-NOSUBSETSPELLING
 
 A citation names a set only by a prefix. There is no group, list, or range syntax inside a code: several facts are several codes. A list
-that a tool derives (a file head's `adrs:`) writes a code that covers every rule of a record as the record's code; hand-written prose never
-collapses. In a diagram subtitle a record code names the record a slide supports, not every rule of it: the article's Supports line names
-the rules.
+that a tool derives (the rules a file head cites) writes a code that covers every rule of a record as the record's code; hand-written prose
+never collapses. In a diagram subtitle a record code names the record a slide supports, not every rule of it: the article's Supports line
+names the rules.
 
 - [No subset spelling](drs-code-language.md#no-subset-spelling)
 
@@ -158,7 +158,7 @@ sees is the only hint, before opening the record, of what that citation asks for
 ### One system holds every record
 
 The repository's decisions are of seven kinds, from the thesis to the architecture of one implementation domain, and one index, one registry
-and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a kind and everything, so the system has
+and one grammar serve them all. Naming that whole after one of its kinds would make `ADR` mean both a kind and everything, so the system has
 its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind codes, X standing for the kind's letter.
 
 ### One path for every level

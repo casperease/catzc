@@ -109,9 +109,9 @@ Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
-        $result = Move-Diagram docs/drs/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
+        $result = Move-Diagram docs/drs/index.md docs/gadget/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
-        $result.Moves.To | Should -Be @('docs/adr/.assets/widget/index.md')
+        $result.Moves.To | Should -Be @('docs/gadget/.assets/widget/index.md')
         @($result.Pages).Count | Should -Be 0
     }
 

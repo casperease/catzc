@@ -64,8 +64,9 @@ def tracks():
 
 @cache
 def kinds():
-    """The record kinds as one regex group, e.g. (?:ADR|TDR), from drs.yml's kinds; with none declared, the one shared kind ADR."""
-    declared = registry(module_path("Catzc.Base.Drs", "configs", "drs.yml")).get("kinds") or {"ADR": {}}
+    """The record kinds as one regex group from drs.yml's kinds; with none declared, the one shared kind `ADR`."""
+    # cspell:disable-next-line
+    declared =registry(module_path("Catzc.Base.Drs", "configs", "drs.yml")).get("kinds") or {"ADR": {}}
     return "(?:" + "|".join(declared) + ")"
 
 
