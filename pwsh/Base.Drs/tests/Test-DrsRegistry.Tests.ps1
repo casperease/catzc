@@ -287,7 +287,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     }
 }
 
-Describe 'Test-DrsRegistry — real ADRs' -Tag 'L2', 'integrity', 'source-only' {
+Describe 'Test-DrsRegistry — real records' -Tag 'L2', 'integrity', 'source-only' {
     It 'Test-DrsRegistry passes over the real registry and ADRs' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-DrsRegistry -OutputFolder (Join-Path $TestDrive 'registry') } | Should -Not -Throw
     }

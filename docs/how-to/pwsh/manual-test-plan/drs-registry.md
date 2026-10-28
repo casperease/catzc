@@ -55,14 +55,14 @@ specialised agent.
 
 ### 4. Test-DrsEngineNeutrality — real records
 
-**Test file:** `pwsh/Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1` (L2), block `Test-DrsEngineNeutrality — real ADRs`.
+**Test file:** `pwsh/Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1` (L2), block `Test-DrsEngineNeutrality — real records`.
 
 **Guards:** `Test-DrsEngineNeutrality` reports 0 issues: the rule summaries of the configured decision-record domains carry no
 engine-specific syntax.
 
 ### 5. Test-DrsRegistry — real records
 
-**Test file:** `pwsh/Base.Drs/tests/Test-DrsRegistry.Tests.ps1` (L2), block `Test-DrsRegistry — real ADRs`.
+**Test file:** `pwsh/Base.Drs/tests/Test-DrsRegistry.Tests.ps1` (L2), block `Test-DrsRegistry — real records`.
 
 **Guards:** `Test-DrsRegistry` reports 0 issues: the DRS registry (drs.yml) and the DRS rule files under docs/drs/ agree.
 

@@ -50,8 +50,8 @@ subscription is the session pointed at. Collapsing them produces functions that 
 or that quietly log you in as a side effect of a check — both of which make failures hard to reason about and couple modules that should not
 depend on each other.
 
-This record records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az PowerShell
-modules) and [dual-authentication](../ado/dual-authentication.md) (how an ADO token is selected and proven against `ado.yml`).
+This record records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az
+PowerShell modules) and [dual-authentication](../ado/dual-authentication.md) (how an ADO token is selected and proven against `ado.yml`).
 
 ## Decision
 
@@ -98,14 +98,14 @@ correctness check is config-driven, the config keys that express it (tenant, sub
 ### One tenant at deploy
 
 Each deploy proves its subscription: `Get-AzCliSessionSubscription` resolves the session's subscription against `azure.yml` and throws on
-one the file does not declare ([ADR-AZ-SESSION-SEPARATECONCERNS](#rule-adr-az-session-separateconcerns)), and
-`-SubscriptionIdAssertIs` pins the expected one. The CD pipelines carry one service connection per subscription. The tenant is declared
-beside the subscription, but the deploy path compares the subscription only; `Assert-AzCliIsConnected` compares both tenant and subscription
-([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](#rule-adr-az-session-configdefinescorrect)) and the deploy path does not call it, so a subscription
-created in another directory deploys, and its first sign of trouble is a SQL server whose administrator group does not exist there. Some
-resources fix their tenant at creation (the Key Vault and SQL server modules default to `subscription().tenantId`), so a later change of
-directory leaves the vault stale and the administrator group in the old directory. There is no separate test tenant; changes reach
-non-production subscriptions before production ones.
+one the file does not declare ([ADR-AZ-SESSION-SEPARATECONCERNS](#rule-adr-az-session-separateconcerns)), and `-SubscriptionIdAssertIs` pins
+the expected one. The CD pipelines carry the service connections `Get-BicepServiceConnections` derives, one per deployment identity in each
+subscription. The tenant is declared beside the subscription, but the deploy path compares the subscription only; `Assert-AzCliIsConnected`
+compares both tenant and subscription ([ADR-AZ-SESSION-CONFIGDEFINESCORRECT](#rule-adr-az-session-configdefinescorrect)) and the deploy path
+does not call it, so a subscription created in another directory deploys, and its first sign of trouble is a SQL server whose administrator
+group does not exist there. Some resources fix their tenant at creation (the Key Vault and SQL server modules default to
+`subscription().tenantId`), so a later change of directory leaves the vault stale and the administrator group in the old directory. There is
+no separate test tenant; changes reach non-production subscriptions before production ones.
 
 ## How this is enforced
 

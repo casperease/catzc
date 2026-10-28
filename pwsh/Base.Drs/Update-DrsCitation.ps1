@@ -37,10 +37,10 @@ function Update-DrsCitation {
     $ruleRows = Import-DrsCitationMapFile (Resolve-RepoPath $RuleMap) -Header 'old_rule', 'new_rule', 'kind', 'why'
     $citations = Get-DrsCitationMap -RepositoryRoot $root
     $records = (Get-Config -Config drs).Root
-    $adrRoot = Join-Path $root $records
-    $treeFiles = [string[]] @(if (Test-Path -LiteralPath $adrRoot -PathType Container) {
-            foreach ($adrFile in Get-ChildPath $adrRoot -File -Depth 8) {
-                [System.IO.Path]::GetRelativePath($root, $adrFile).Replace('\', '/')
+    $drsRoot = Join-Path $root $records
+    $treeFiles = [string[]] @(if (Test-Path -LiteralPath $drsRoot -PathType Container) {
+            foreach ($recordFile in Get-ChildPath $drsRoot -File -Depth 8) {
+                [System.IO.Path]::GetRelativePath($root, $recordFile).Replace('\', '/')
             }
         })
     # A markdown file's citations take the reference form where a respelled line outgrows the file's declared width.

@@ -149,10 +149,12 @@ The tenant's directory, its groups' membership, its sign-in policies, and its pr
 
 Everything that builds, tests, deploys, or documents the platform is code in one Git repository, developed trunk-based on `main` with
 short-lived branches, built and tested on every change under `infrastructure/`, and deployed only by pipelines on Microsoft-hosted agents,
-save a job that writes a foundation vault, which runs on the agent pool inside the hub network (`NetworkAgentPool`, declared once), through one service connection per subscription. Pipelines hold no secret, and no service connection holds one either: every connection
-authenticates by workload identity federation, the only scheme `service-connections.yml` can express, and `Sync-AdoServiceConnections`
-applies that file to Azure DevOps the way `Sync-AdoEnvironmentApprovals` applies the environments' checks, so the connections are code in
-the repository like the rest. The server's branch policies are created outside the repository.
+save a job that writes a foundation vault, which runs on the agent pool inside the hub network (`NetworkAgentPool`, declared once), through
+the service connections `Get-BicepServiceConnections` derives, one per deployment identity in each subscription. Pipelines hold no secret,
+and no service connection holds one either: every connection authenticates by workload identity federation, the only scheme
+`service-connections.yml` can express, and `Sync-AdoServiceConnections` applies that file to Azure DevOps the way
+`Sync-AdoEnvironmentApprovals` applies the environments' checks, so the connections are code in the repository like the rest. The server's
+branch policies are created outside the repository.
 
 - [CAF delivery](landing-zones/landing-zones-caf.md#caf-delivery)
 

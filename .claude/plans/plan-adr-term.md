@@ -67,32 +67,20 @@ brief and every message meets the wrong word first.
       record at a time, at most 15 records per drone brief. Check: `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`, `Test-Glossary` after
       every 15 records.
 
-### Code, one module per step, by staged burst
-
-Each step renames the module's identifiers per the scheme above, its comments and messages in the same pass, its contract and every in-tree
-caller in the same change (PDR-ONELIVE); a module on the importer path (`Catzc.Base.Drs`, `Catzc.Base.Docs`, `Catzc.Base.Languages`,
-`Catzc.Base.Globs`, every `types/*.cs`) lands by `Invoke-StagedBurst` with `Test-Parsing` first and a fresh full import after.
-
-- [ ] `pwsh/Base.Drs/Update-DrsCitation.ps1` and `pwsh/Base.Drs/tests/Update-DrsCitation.Tests.ps1`: the `Drs`/`Record` renames (`$adrRoot`,
-      `$adrFile`). Check: `Invoke-TestFile` on that test file, `Test-DrsRegistry`.
-
 ### Prose, one area per step
 
 - [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
       controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
       Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-- [ ] `docs/references/` leftovers: `pwsh/base-drs/update-drs-citation.md` with the Update-DrsCitation step, and "checked DRS domains" in
-      `contracts/catzc/0.1.0/pwsh.base.drs/test_drs_engine_neutrality.command.yml` -> "checked DRS domains", then `Build-ContractReference`
-      rebuilds `contracts/catzc.md`. Check: the Grep over `docs/references`, `Test-Links`.
+- [ ] `docs/references/` leftovers: "checked DRS domains" in `contracts/catzc/0.1.0/pwsh.base.drs/test_drs_engine_neutrality.command.yml` ->
+      "checked DRS domains", then `Build-ContractReference` rebuilds `contracts/catzc.md`. Check: the Grep over `docs/references`,
+      `Test-Links`.
 - [ ] `docs/explanation/` leftovers inside the diagram declarations: the titles of `automation/rule-and-gate-per-load-stage.md` and
       `azure/coordinate-rules-and-their-gates.md` (h1, lead line, `yml drawio` title, png alt; re-render with the title), the `description:`
       lines of `design/a-sibling-is-an-idea-never-a-reference.md`, `design/which-rung-gates-exist-in-code.md`,
       `flow/drift-is-gated-generation-is-drs-only.md`, `flow/gates-check-source-and-trigger.md`,
       `flow/one-gate-checks-the-raw-read-rule.md`, and the link class `kind: adr` -> `kind: record` in every `yml drawio` block. Check: the
       Grep over `docs/explanation`, `Test-Links`.
-- [ ] `.claude/skills/catzc-module/SKILL.md` ("an ADR the code cites" and `ADR-<DOMAIN>-<ADR>-<RULE>` -> `ADR-<DOMAIN>-<RECORD>-<RULE>`) and
-      `.claude/skills/plan-orchestrate/SKILL.md` ("the governing ADRs"), both dirty from a peer when the rest landed, `.claude/plans/*.md`
-      (the stale `Update-AdrCitation` -> `Update-DrsCitation`). Check: `Test-AgentDefinitions`, `Test-Plans`.
 
 ### The gate, last
 

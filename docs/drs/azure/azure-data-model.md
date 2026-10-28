@@ -152,9 +152,9 @@ Access), and cross-tenant tooling (Lighthouse, B2B) sit above the repository and
 ### Rule ADR-AZ-DATAMOD-SUBSCRIPTIONUNIT
 
 The subscription is the unit of management, and `azure.yml` is its model: one landing zone, one workspace, one Key Vault, one budget, and
-one service connection per subscription (**subscription vending** is a pull request, not a creation), grouped by customer and environment
-class and never under management groups. Production and non-production are separated by subscription, every environment deploys to one
-region, and a resource group never mixes regions.
+its own service connections, one per deployment identity (**subscription vending** is a pull request, not a creation), grouped by customer
+and environment class and never under management groups. Production and non-production are separated by subscription, every environment
+deploys to one region, and a resource group never mixes regions.
 
 - [The subscription as the unit](#the-subscription-as-the-unit)
 

@@ -23,8 +23,8 @@ settings are typed parameters: `databaseTier` is `@allowed`, `databaseBackupRete
 of 1, and every rendered parameters file is checked against those bounds
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). `databaseSkuName` is a free string, and
 the policies restrict the resource types, the storage SKUs and the virtual machine sizes. `Deploy-Bicep -DryRun` runs Azure's `--what-if`
-preview, and a CD pipeline deploys through one service connection per subscription and asserts the target with `-SubscriptionIdAssertIs`.
-`foundation`'s SKUs are module defaults (`PerGB2018`, `standard`).
+preview, and a CD pipeline deploys through the service connections `Get-BicepServiceConnections` derives, one per deployment identity in
+each subscription, and asserts the target with `-SubscriptionIdAssertIs`. `foundation`'s SKUs are module defaults (`PerGB2018`, `standard`).
 
 Rates are the billing account's. Every resource is pay-as-you-go: the workspace on `PerGB2018`, the vault on `standard`, a provisioned
 `GP_Gen5` production database at 2 vCores (the one candidate for a reservation, bought at the billing account), and nothing in `discovery`
@@ -282,7 +282,7 @@ text is a registered entry in the managed-GUID registry
 subscription id cannot enter the tree unreviewed; a GUID is an identifier, not a credential, so this is not secret scanning. Logic tests
 never name a live identity ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 Deployment is staged: each CD pipeline deploys `foundation`, then `discovery`, then `expedition`, non-production before production, each
-through the service connection of its subscription and pinned by `-SubscriptionIdAssertIs`
+through the service connection of its subscription and deployment identity and pinned by `-SubscriptionIdAssertIs`
 ([az-session-verification](../az-session-verification.md)). The secret-scan quality gate (`Test-SecretScan`) fails a change that carries a
 key, a private key or a connection string with a password, and the Bicep linter quality gate (`Test-BicepLint`) checks every template and
 module. The threat model of the templates is [threat-model](../../../references/infrastructure/threat-model.md). There is no dependency
@@ -298,14 +298,14 @@ The segments come from the data model and the network plan. Each customer has it
 ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). The landing zones form a
 hub-and-spoke network ([ADR-AZ-NETWORK-PERSUBSCRIPTION](../azure-network-model.md#rule-adr-az-network-persubscription)) whose ranges never
 overlap ([ADR-AZ-NETWORK-NOOVERLAP](../azure-network-model.md#rule-adr-az-network-nooverlap)), and spokes peer only to their hub, never to
-each other. Each subscription has its own service connection (`sc-apex-nonprod`, `sc-apex-prod`, and so on), and every deploy pins its
-subscription with `-SubscriptionIdAssertIs`. `foundation` gives each subscription one workspace and one vault, so a customer's logs and
-secrets never share a resource with another customer's. A spoke gets a network security group on `private-endpoints` and on each workload
-subnet (`dev`, `test`), and the hub one on `shared-services`, all with the same two rules: `allow-virtual-network-inbound`, which uses the
-`VirtualNetwork` service tag that covers every peered network and so leaves east-west traffic between a spoke and the hub open, and a deny
-of inbound traffic from the internet. `expedition` has its own resource group per configuration slot and its private endpoints in its
-customer's `private-endpoints` subnet, or the hub's `shared-services` subnet for the shared platform. Management groups are left to the
-tenant's administrators.
+each other. Each subscription has its own service connections, one per deployment identity (`nsub-weu-zct-ado-lz-sc`, `…-wl-sc`, `…-ro-sc`),
+and every deploy pins its subscription with `-SubscriptionIdAssertIs`. `foundation` gives each subscription one workspace and one vault, so
+a customer's logs and secrets never share a resource with another customer's. A spoke gets a network security group on `private-endpoints`
+and on each workload subnet (`dev`, `test`), and the hub one on `shared-services`, all with the same two rules:
+`allow-virtual-network-inbound`, which uses the `VirtualNetwork` service tag that covers every peered network and so leaves east-west
+traffic between a spoke and the hub open, and a deny of inbound traffic from the internet. `expedition` has its own resource group per
+configuration slot and its private endpoints in its customer's `private-endpoints` subnet, or the hub's `shared-services` subnet for the
+shared platform. Management groups are left to the tenant's administrators.
 
 Microsoft Entra ID is the one identity provider. The storage account and the SQL server each have a system-assigned managed identity, the
 storage account refuses shared-key and SAS authorization (`allowSharedKeyAccess: false`), and the Key Vault authorizes through Azure RBAC

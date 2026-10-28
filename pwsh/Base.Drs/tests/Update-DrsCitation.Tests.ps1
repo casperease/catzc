@@ -26,8 +26,8 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         }
 
         & $script:writeText 'docs/drs/index.md' ((@(
-                    '| Code | ADR |'
-                    '| ---- | --- |'
+                    '| Code | Record |'
+                    '| ---- | ------ |'
                     '| `ADR-WIDGET-SPROCKET` | [sprocket-rules](widget/sprocket-rules.md) |'
                     '| `ADR-WIDGET-COG` | [cog-rules](widget/cog-rules.md) |'
                     '| `ADR-GIZMO-GADGET` | [gadget-rules](gizmo/gadget-rules.md) |'
@@ -54,7 +54,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
                 Should -BeExactly "See DDR-COG-SPINS in [cog](../docs/drs/widget/cog-rules.md#rule-ddr-cog-spins).`n"
         }
 
-        It 'carries a rule and its heading with its ADR''s code through the code map' {
+        It 'carries a rule and its heading with its record''s code through the code map' {
             & $script:update 'notes/rename.md' "See ADR-WIDGET-GADGET-FOLD.`n### Rule ADR-WIDGET-GADGET-FOLD`n" |
                 Should -BeExactly "See ADR-GIZMO-GADGET-FOLD.`n### Rule ADR-GIZMO-GADGET-FOLD`n"
         }
@@ -90,7 +90,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
     }
 
     Context 'codes and anchors' {
-        It 'renames an ADR code and leaves a longer one alone' {
+        It 'renames a record code and leaves a longer one alone' {
             & $script:update 'notes/code.md' 'ADR-WIDGET-GADGET, ADR-WIDGET-GADGETS, ADR-WIDGET-SPROCKET' |
                 Should -BeExactly 'ADR-GIZMO-GADGET, ADR-WIDGET-GADGETS, ADR-WIDGET-SPROCKET'
         }
@@ -112,12 +112,12 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
             & $script:update $File "[x]($Link)" | Should -BeExactly "[x]($Expected)"
         }
 
-        It 'follows a rule anchor to the file of the rule''s new ADR' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
+        It 'follows a rule anchor to the file of the rule''s new record' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
             & $script:update 'docs/drs/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket-spin) [g](sub/gadget-rules.md#rule-adr-widget-gadget-lift)' |
                 Should -BeExactly '[s](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) [g](sprocket-rules.md#rule-adr-widget-sprocket-drop)'
         }
 
-        It 'sends an in-file anchor of a rule that leaves the ADR to the rule''s new file' {
+        It 'sends an in-file anchor of a rule that leaves the record to the rule''s new file' {
             $text = "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](#rule-adr-widget-sprocket-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
             & $script:update 'docs/drs/widget/sprocket-rules.md' $text |
                 Should -BeExactly "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
@@ -130,7 +130,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         }
 
         It 'leaves an off-repository URL and an unmapped link alone' {
-            $text = '[u](https://example.com/docs/adr/widget/sub/gadget-rules.md) [k](docs/adr/widget/sprocket-rules.md#rule-adr-widget-sprocket-turn)'
+            $text = '[u](https://example.com/docs/drs/widget/sub/gadget-rules.md) [k](docs/drs/widget/sprocket-rules.md#rule-adr-widget-sprocket-turn)'
             & $script:update 'untouched-links.md' $text | Should -BeExactly $text
         }
     }
@@ -147,7 +147,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
             & $script:update 'docs/drs/plain.md' $Text | Should -BeExactly $Expected
         }
 
-        It 'leaves a path that only ends like an ADR folder alone' {
+        It 'leaves a path that only ends like a DRS folder alone' {
             & $script:update 'docs/drs/plain-other.md' 'docs/guide/widget/sub/page.md and out/widget/sub' |
                 Should -BeExactly 'docs/guide/widget/sub/page.md and out/widget/sub'
         }
@@ -177,7 +177,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
 
         It 'inside docs/drs, moves a real page of the folder and leaves a module path of the same name alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
-            $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-',
+            $codeMap = & $script:writeText 'maps/module-folder-in-drs-code-map.tsv' ($header + "`n" + (@('-', '-',
                         "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md',
                         'folder') -join "`t") + "`n")
             & $script:writeText 'docs/drs/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
@@ -221,7 +221,7 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
         }
 
         It 'leaves a longer path that only contains the root alone' {
-            $text = "See site/docs/adr and docs/adrs and docs/adr-notes.`n"
+            $text = "See site/docs/drs and docs/drs2 and docs/drs-notes.`n"
             & $script:moveRoot 'notes/longer.md' $text | Should -BeExactly $text
         }
 

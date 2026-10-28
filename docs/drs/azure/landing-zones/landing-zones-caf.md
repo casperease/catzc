@@ -136,12 +136,13 @@ exists for endpoint management, Defender for Cloud Apps, or application onboardi
 The shared Bicep modules are the allowlist of services, each with secure defaults. The landing zone assigns its policy set at subscription
 level in place of the management-group policy set of the CAF reference landing zone, turns on the Defender for Cloud plans of the services
 it runs, and measures them against the Microsoft cloud security benchmark in audit mode. Access follows Zero Trust through Entra ID
-identities, a service connection per subscription pinned on every deploy, and private endpoints for data, though `foundation`'s vault and
-workspace accept public traffic. Each workload deploys the diagnostic settings of its own resources, so its monitoring travels with its
-template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in place of Purview. No workload
-has public ingress, so the Zero Trust application delivery pattern and the accelerators' network variants do not apply; workload networking
-is private by plan (`network.yml`, a security group per workload subnet, private endpoints). Sentinel, its identity feeds, and threat
-hunting are the tenant's security operations; `foundation`'s workspace is where Sentinel would attach and the repository supplies the logs.
+identities, service connections per deployment identity pinned to their subscription on every deploy, and private endpoints for data, though
+`foundation`'s vault and workspace accept public traffic. Each workload deploys the diagnostic settings of its own resources, so its
+monitoring travels with its template. Data at rest uses Microsoft-managed keys, and the `data-classification` tag labels each resource in
+place of Purview. No workload has public ingress, so the Zero Trust application delivery pattern and the accelerators' network variants do
+not apply; workload networking is private by plan (`network.yml`, a security group per workload subnet, private endpoints). Sentinel, its
+identity feeds, and threat hunting are the tenant's security operations; `foundation`'s workspace is where Sentinel would attach and the
+repository supplies the logs.
 
 Key Vault is federated: `foundation` deploys one vault per subscription from one module, so every customer and tier has its own vault with
 the same configuration and no policy is needed. No vault is central to the tenant, though a workload's secret sits in the platform's vault.
@@ -178,16 +179,17 @@ owns, the break-glass SQL login keeps a SQL server reachable. Every subscription
 no role and creates no group, role assignment, or user-assigned identity, and the repository defines no custom role and owns no management
 group. Key Vault and storage authorize their data plane through Entra ID and Azure RBAC, and SQL through its Entra ID administrator group.
 
-Every `expedition` config names the same SQL administrator group, and the environments of one tier share their service connection, their
+Every `expedition` config names the same SQL administrator group, and the environments of one tier share their service connections, their
 vault secret, and the SQL administrator group. Managed identities are system-assigned to one resource of one configuration slot, so none is
 shared; the storage account and the SQL server carry them, but nothing grants them a role (`storage-account.bicep` and `sql-server.bicep`
 output the `principalId`). `policy-assignment.bicep` gives a remediating policy, when `assignIdentity` is set, a system-assigned identity
 and grants each id in `roleDefinitionIds` directly to its principal (`principalType: 'ServicePrincipal'`) on the subscription, and no
-landing-zone policy needs it. Every deploy runs through the service connection of its subscription (`sc-<owner>-nonprod`,
-`sc-<owner>-prod`), handed to `AzureCLI@2` or `AzurePowerShell@5` by `.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, pinned
-by `-SubscriptionIdAssertIs`, and the infrastructure CI builds offline in mode `none` and needs no Azure identity; the environments of one
-subscription (`nsub`, `dev`, `test`) share its one service connection. No template deploys an application that users sign in to, so the
-Microsoft identity platform and its checklist are not a template concern.
+landing-zone policy needs it. Every deploy runs through the service connection of its subscription and deployment identity
+(`nsub-weu-zct-ado-lz-sc` for the landing zone, `…-wl-sc` for workloads, `…-ro-sc` for read-only checks), handed to `AzureCLI@2` or
+`AzurePowerShell@5` by `.ado/pipelines/steps/invoke-automation.yaml` in `azcli` mode, pinned by `-SubscriptionIdAssertIs`, and the
+infrastructure CI builds offline in mode `none` and needs no Azure identity; the environments of one subscription (`nsub`, `dev`, `test`)
+share its service connections. No template deploys an application that users sign in to, so the Microsoft identity platform and its
+checklist are not a template concern.
 
 ## CAF delivery
 
@@ -210,9 +212,10 @@ A CI pipeline builds and tests every template, as a pull-request check and again
 and checked against its parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 Globset-triggered CD pipelines deploy the templates in order, and every commit to `main` that touches a deployable-unit is deployed to its
 non-production subscriptions; production deploys in the same stage as non-production instead of by promotion. Each deploy runs through the
-service connection of its own subscription and asserts that subscription. The deploy-time values, the break-glass password and the anomaly
-alert's recipients, are Key Vault references resolved by Azure Resource Manager. Every deployment job names an Azure DevOps environment per
-template target, whose checks and approvals are not declared in the repository. `Deploy-Bicep -DryRun` runs the Azure what-if preview.
+service connection of its own subscription and deployment identity and asserts that subscription. The deploy-time values, the break-glass
+password and the anomaly alert's recipients, are Key Vault references resolved by Azure Resource Manager. Every deployment job names an
+Azure DevOps environment per template target, whose checks and approvals are not declared in the repository. `Deploy-Bicep -DryRun` runs the
+Azure what-if preview.
 
 The pipelines are `.ado/pipelines/ci-infrastructure.yaml` (CI for all three templates, which runs `Assert-BicepTemplate` and `Build-Bicep`
 for each, then the infrastructure test suite), `cd-shared.yaml` for the shared platform, and thin customer pipelines (`cd-apex.yaml`,

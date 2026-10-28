@@ -49,7 +49,7 @@ separation.
 The forbidden live-identity set is **derived from the shipped config** (`Get-LiveIdentityTokens` reads `customer.yml`, `azure.yml`,
 `ado.yml`, and the shipped templates), never hand-listed, so it is always current — add a customer and it is immediately banned from logic
 tests. The terminology registry's per-category `scope` is the machine-readable **zone map** the gate reads to know which category is
-`fixture` vs `azure-live` vs `adr-example`; it is a declaration of zone membership, not itself a cspell rule.
+`fixture` vs `azure-live` vs `rule-code-example`; it is a declaration of zone membership, not itself a cspell rule.
 
 - [The forbidden set](#the-forbidden-set)
 
@@ -141,7 +141,7 @@ structure, not text.
 The set of live identities a logic test may not name is not a maintained list — it is read from the shipped config, so it cannot drift: a
 customer added to `customer.yml` is banned from logic tests the moment it exists, and one renamed updates the ban automatically. The
 terminology registry's per-category `scope` ([spell-out-names](../automation/spell-out-names.md)) declares which zone each vocabulary
-category belongs to — `fixture` is the test zone, `azure-live` the live zone, `adr-example` the design zone. That map is the
+category belongs to — `fixture` is the test zone, `azure-live` the live zone, `rule-code-example` the design zone. That map is the
 machine-readable statement of intent, and the gate consumes it.
 
 ### Exact, conservative, staged

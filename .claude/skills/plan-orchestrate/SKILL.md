@@ -26,8 +26,8 @@ Run as the main session, never a subagent, which cannot see the peers' replies; 
    never splits (WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS); at most two heavy runs at a time, lined up on the run lock.
 4. A landed step is ticked in its task file with the verdict line given; a claim without one stays "reported, unverified"; plan checks batch
    into one `Test-Plans` run per report.
-5. Every question, a worker's or a plan's, is decided after reading the governing ADRs and recorded as delegated in the owning plan; a
-   recommendation is a decision, never a question; only git, settings.json and CLAUDE.md reach the user.
+5. Every question, a worker's or a plan's, is decided after reading the governing decision records and recorded as delegated in the owning
+   plan; a recommendation is a decision, never a question; only git, settings.json and CLAUDE.md reach the user.
 6. Two sessions on one file: the later gets `stop; <session> holds <file>`, recorded in both task files; an import-path burst runs under
    `Enter-CatzcBurst.ps1`, whose run lock holds every peer; no HOLD or GO is broadcast. A session in prompting mode holds its messages until
    the user approves them, so a repeated idle timestamp reads as a message waiting on that approval, never a reason to re-ping or reassign;

@@ -169,8 +169,8 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
     }
 }
 
-Describe 'Test-DrsEngineNeutrality — real ADRs' -Tag 'L2', 'integrity', 'source-only' {
-    It 'Test-DrsEngineNeutrality passes over the real ADRs' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+Describe 'Test-DrsEngineNeutrality — real records' -Tag 'L2', 'integrity', 'source-only' {
+    It 'Test-DrsEngineNeutrality passes over the real records' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-DrsEngineNeutrality -OutputFolder (Join-Path $TestDrive 'neutrality') } | Should -Not -Throw
     }
 }

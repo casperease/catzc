@@ -57,11 +57,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; 0 steps
-- debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, one step each
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- catzc-cats-usage -> plan-catzc-cats-usage.md: cats out of identifiers, one glob-set name checked, a stale plan line, and the decision on
-  Verb-CatzcNoun and glued identifiers
 - adr-term -> plan-adr-term.md: ADR means only a record of the ADR kind: generic uses in prose, identifiers and generated pages say DRS,
   decision record or rule, and Test-Glossary holds the prose
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.

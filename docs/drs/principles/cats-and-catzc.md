@@ -97,6 +97,20 @@ The consumer overlay root and this repository's own config-fragment root are `.c
 folder name is read by a resolver, not a person, so it takes the source-level name, and it has no friendly alias, because one path with two
 spellings is two sources of truth ([one-living-version](one-living-version.md)).
 
+### The live forms
+
+These forms say catzc on purpose, each by the rule above:
+
+| Form                                     | Where it lives                                                                       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------ |
+| `Catzc.` namespace and type accelerators | C# namespaces, `Catzc.<Area>.<Name>` module names                                    |
+| `contracts/catzc/`                       | the contracts the system authors                                                     |
+| `.catzc/`                                | the consumer overlay root and the config-fragment root                               |
+| `CATZC_` environment variables           | process switches such as `CATZC_BLOCK_REAL_PROCESS`                                  |
+| extension ids                            | the `catzc.` ids in `js/*/extension.js`, such as `catzc.lamps`                       |
+| git attribute classes                    | the `catzc-*` classes in `.gitattributes`, such as `catzc-contract`                  |
+| mirrored test fixtures                   | `Catzc.Widget`, `catzc-widget` and `CATZC_WIDGET_ROOT`, which mirror the forms above |
+
 ### Identifiers
 
 A command, a variable or a type name is read by a loader and a resolver, so it takes the source-level name, and it takes it only when the
