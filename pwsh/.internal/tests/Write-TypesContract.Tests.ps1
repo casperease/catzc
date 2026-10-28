@@ -38,7 +38,7 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         $text | Should -Not -Match "`r"
         $text.EndsWith("`n") | Should -BeTrue
         $json = $text | ConvertFrom-Json -AsHashtable
-        $json.Keys | Should -Be @('types')
+        $json.Keys | Should -Be @('//', 'types')
         @($json['types'].ForEach({ $_['name'] })) | Should -Be @('Catzc.Widgets.Cog', 'Catzc.Widgets.Widget')
         @($json['types'][1]['aliases']) | Should -Be @('Catzc.Widget')
         @($json['types'][1]['members'].ForEach({ "$($_['name']):$($_['kind'])" })) | Should -Be @('Name:property', 'Spin:method')
@@ -47,6 +47,16 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         $text | Should -Match '(?m)^          "name": "Spin",$'
         @(([System.IO.File]::ReadAllText($gadgets.Path) | ConvertFrom-Json -AsHashtable)['types'].ForEach({ $_['name'] })) |
             Should -Be @('Catzc.GadgetBox.Gadget')
+    }
+
+    It 'stamps the "//" head with the warning, the regenerate command and the sha of the body without the stamp' {
+        $rows = @(& $script:write $script:surface)
+        $text = [System.IO.File]::ReadAllText(($rows | Where-Object Path -Like '*gizmos.widgets*types.json').Path)
+        $stamp = ($text | ConvertFrom-Json -AsHashtable)['//']
+        $stamp | Should -BeLike "catzc:`n  immutable:`n    warning: `"$((Get-Config -Config generated-head).warning)`"`n    regenerate: `". ./importer.ps1`"`n    with_body_sha: *"
+        $body = [Catzc.Base.CodeMeta.PropertyHead]::Parse($text, '//').WithFacts([ordered]@{}, [ordered]@{})
+        $body | Should -Not -BeLike '*"//"*'
+        $stamp | Should -BeLike "*with_body_sha: *$([Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body))*"
     }
 
     It 'leaves a file alone when its surface did not move, and writes only the moved one when a member is added' {

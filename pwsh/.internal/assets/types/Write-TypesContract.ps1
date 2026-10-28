@@ -43,6 +43,24 @@ function Write-TypesContract {
         }
         "$Indent`"$Key`": [`n" + ((@($Values) | ForEach-Object { "$Indent  $(& $quote $_)" }) -join ",`n") + "`n$Indent]$Tail"
     }
+    # A scalar of the head block is plain when the block renderer would leave it plain, else a double-quoted string.
+    $scalar = { param([string] $Value)
+        if ($Value -cmatch '^[A-Za-z_][A-Za-z0-9_./#@+-]*$') {
+            return $Value
+        }
+        & $quote $Value
+    }
+    # The head's keys, warning and regenerate template are declared once in generated-head.yml, and this writer's row may override the command.
+    $configs = [System.IO.Path]::Combine($PSScriptRoot, '..', '..', '..')
+    $head = ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($configs, 'Base.Languages', 'configs', 'generated-head.yml')))
+    $row = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($configs, 'Base.TypesSystem', 'configs', 'generated.yml'))))['writers']['Write-TypesContract']
+    $regenerate = if ($row.Contains('regenerate')) {
+        $row['regenerate']
+    }
+    else {
+        $head['regenerate']
+    }
+    $head = @{ order = @($head['keys']); warning = $head['warning'] }
     $texts = [ordered]@{}
     foreach ($group in @((Get-TypesAssemblyManifest -Path $Path).Types | Group-Object -Property {
                 $_.Name.Substring(0, $_.Name.LastIndexOf('.'))
@@ -64,7 +82,19 @@ function Write-TypesContract {
                 (& $strings '      ' 'display' $_.Display ',') + "`n" +
                 "$memberText`n    }"
             })
-        $texts[$contract] = "{`n  `"types`": [`n" + ($blocks -join ",`n") + "`n  ]`n}`n"
+        $body = "{`n  `"types`": [`n" + ($blocks -join ",`n") + "`n  ]`n}`n"
+        # The stamp is the json carrier's "//" property, a note for a reader and never read back; it is built here because
+        # Format-GeneratedFileHead is not loaded yet. The body sha hashes the text without the stamp, as the one body hash does.
+        $sha = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData(
+                [System.Text.Encoding]::UTF8.GetBytes($body.Replace("`r`n", "`n").TrimStart("`n"))), 0, 6).ToLowerInvariant()
+        $relative = [System.IO.Path]::GetRelativePath($RepositoryRoot, $contract) -replace '\\', '/'
+        $values = @{
+            warning       = $head.warning
+            regenerate    = $regenerate.Replace('{writer}', 'Write-TypesContract').Replace('{path}', $relative)
+            with_body_sha = $sha
+        }
+        $lines = @('catzc:', '  immutable:') + @($head.order | ForEach-Object { "    ${_}: $(& $scalar $values[$_])" })
+        $texts[$contract] = "{`n  `"//`": $(& $quote ($lines -join "`n")),`n" + $body.Substring(2)
     }
 
     foreach ($contract in $texts.Keys) {

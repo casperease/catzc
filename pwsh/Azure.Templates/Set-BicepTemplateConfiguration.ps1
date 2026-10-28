@@ -88,7 +88,7 @@ function Set-BicepTemplateConfiguration {
     # One config file is one resource group; the head carries the one warning.
     $relative = ConvertTo-RepoRelativePath $configFile
     $yaml = (ConvertTo-Yaml $config) -replace "`r`n", "`n"
-    $content = Format-GeneratedFileHead -Text $yaml -Path $relative
+    $content = Format-GeneratedFileHead -Text $yaml -Path $relative -Writer Set-BicepTemplateConfiguration
 
     if ($DryRun) {
         Write-Message "[DryRun] would write $configFile"

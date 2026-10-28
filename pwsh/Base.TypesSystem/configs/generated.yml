@@ -7,6 +7,7 @@ writers:
   Write-TypesContract:
     class: rollable
     check: none
+    regenerate: ". ./importer.ps1"
     inputs: [pwsh/*/types/*.cs, pwsh/.internal/assets/types/*.ps1]
     outputs: ["contracts/catzc/0.1.0/*/types.json"]
   dotnet build:

@@ -45,7 +45,8 @@ type-system reference (`docs/references/BCL/types-system.md`).
   so a save mid-compile cannot make the DLL name differ from its bytes. `Get-LoadedTypeDrift` compares the types loaded in the process with
   a code root's sources: a loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
 - **Contract** — `Write-TypesContract` writes the types surface (each public type's name, aliases, display and public members) to each
-  module group's provided contract, `types.json`, only where the surface moved; `Get-TypesContractDrift` names how a built assembly differs
+  module group's provided contract, `types.json`, only where the surface moved, each file stamped with the generated head in its json `"//"` property (built in place, since the head function is
+  not loaded yet; the schema allows the property, and the drift check reads only `types`); `Get-TypesContractDrift` names how a built assembly differs
   from the committed contracts, and `Get-TypesContractPath` finds a namespace's contract path (it runs in the bootstrap, before the tracks
   can be read). `Save-BurstJournalWrite` records a file a writer is about to write in the journal of the staged burst the process runs in,
   so a failed burst restores exactly what its import wrote; outside a burst it does nothing.

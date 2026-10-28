@@ -37,6 +37,14 @@ Describe 'Get-TypesContractDrift' -Tag 'L0', 'logic' {
         @(& $script:drift) | Should -BeNullOrEmpty
     }
 
+    It 'skips the "//" stamp: a stamp that says anything leaves the surface in agreement' {
+        & $script:writeContract $script:contract $script:surface
+        $text = [System.IO.File]::ReadAllText($script:contract)
+        [System.IO.File]::WriteAllText($script:contract, $text.Insert($text.IndexOf('{') + 1, "`n  `"//`": `"catzc:\n  immutable:\n    warning: widget`","))
+        ([System.IO.File]::ReadAllText($script:contract) | ConvertFrom-Json -AsHashtable).ContainsKey('//') | Should -BeTrue
+        @(& $script:drift) | Should -BeNullOrEmpty
+    }
+
     It 'names every added, removed and changed type, a changed member included, in one reason' {
         & $script:writeContract $script:contract @(
             [pscustomobject]@{ Name = 'Catzc.Widgets.Gadget'; Aliases = @(); Display = @('Name'); Members = @() },

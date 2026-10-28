@@ -55,6 +55,14 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
         $findings.Count | Should -Be 0
     }
 
+    It 'freezes a json asset without its generated "//" stamp, byte for byte the body' {
+        $body = "{`n  `"widget`": 1`n}`n"
+        Add-File 'contracts/catzc/0.1.0/widgets/stamped.sample.json' "{`n  `"//`": `"catzc:\n  immutable:\n    warning: gadget`",`n  `"widget`": 1`n}`n"
+        $null = Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'contracts/catzc/1.2.3/widgets/stamped.sample.json')) | Should -BeExactly $body
+        [System.IO.File]::ReadAllText((Join-Path $script:root 'contracts/catzc/0.1.0/widgets/stamped.sample.json')) | Should -BeLike '*"//"*'
+    }
+
     It 'leaves the current version as it was' {
         $before = @(Get-Tree 'contracts/catzc/0.1.0')
         $null = Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root

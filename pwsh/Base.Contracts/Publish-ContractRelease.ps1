@@ -47,7 +47,19 @@ function Publish-ContractRelease {
         foreach ($file in $files) {
             $copy = Join-Path $target ([System.IO.Path]::GetRelativePath($source, $file))
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($copy))
-            [System.IO.File]::Copy($file, $copy)
+            # A frozen asset carries no generated head: the json "//" stamp of a current-version file stays behind.
+            $text = if ($file.EndsWith('.json', [System.StringComparison]::OrdinalIgnoreCase)) {
+                $stripped = [Catzc.Base.CodeMeta.PropertyHead]::Parse([System.IO.File]::ReadAllText($file), '//').WithFacts([ordered]@{}, [ordered]@{})
+                if ($stripped -cne [System.IO.File]::ReadAllText($file)) {
+                    $stripped
+                }
+            }
+            if ($null -ne $text) {
+                [System.IO.File]::WriteAllText($copy, $text, [System.Text.UTF8Encoding]::new($false))
+            }
+            else {
+                [System.IO.File]::Copy($file, $copy)
+            }
         }
 
         $hashes = Get-ContractFileHashes -Folder $target

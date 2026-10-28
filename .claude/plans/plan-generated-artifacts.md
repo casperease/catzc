@@ -74,23 +74,23 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### Stamp heads
 
-- [ ] `Write-TypesContract` stamps the json `"//"` head (it runs in the bootstrap before `Format-GeneratedFileHead` loads), with
+- [x] `Write-TypesContract` stamps the json `"//"` head (it runs in the bootstrap before `Format-GeneratedFileHead` loads), with
       `types.schema.json` widened to allow `"//"` and `Get-TypesContractDrift` skipping it; `Set-BicepTemplateConfiguration` gains its
       registry row and `-Writer`. Check: `Test-GeneratedFiles`, `Test-FileMeta` and `Test-Contracts` report 0 issues.
 
 ### Roll off, roll on
 
-- [ ] The writers with no dry run (`Build-Diagrams`, `flow_glyphs.py`, `slide_png picture`, `slide_png render`,
-      `Catzc.Internal.Bootstrap`) get a drift check in the registry: their row's `check` names the gate that already proves them
-      (`Test-Diagrams`, `Test-Slides`, the flow-glyph test) or a dry run, so `Test-GeneratedFiles` reports none as unguarded; and
-      `docs/explanation/file-meta.md` (lines ~64, ~210) and the `Invoke-GeneratedFilesJanitor` comment say the stamp is the fast path and
-      a miss renders its writer. Check: `Test-GeneratedFiles` lists no writer as skipped for want of a dry run.
-- [ ] `pwsh/Base.GeneratedFiles/Remove-Generated.ps1` (new public, staged burst): deletes the rollable files of the `generated` view,
+- [ ] The writers with no dry run (`Build-Diagrams`, `flow_glyphs.py`, `slide_png picture`, `slide_png render`, `Catzc.Internal.Bootstrap`)
+      get a drift check in the registry: their row's `check` names the gate that already proves them (`Test-Diagrams`, `Test-Slides`, the
+      flow-glyph test) or a dry run, so `Test-GeneratedFiles` reports none as unguarded; and `docs/explanation/file-meta.md` (lines ~64,
+      ~210) and the `Invoke-GeneratedFilesJanitor` comment say the stamp is the fast path and a miss renders its writer. Check:
+      `Test-GeneratedFiles` lists no writer as skipped for want of a dry run.
+- [x] `pwsh/Base.GeneratedFiles/Remove-Generated.ps1` (new public, staged burst): deletes the rollable files of the `generated` view,
       resolved from the registry and never from a head, from the working copy; `-WhatIf` lists them. Check: its Pester test passes on a
       fixture tree.
-- [ ] `pwsh/Base.GeneratedFiles/Restore-Generated.ps1` (new public, staged burst): runs the writers of the missing or stale rollable files
+- [x] `pwsh/Base.GeneratedFiles/Restore-Generated.ps1` (new public, staged burst): runs the writers of the missing or stale rollable files
       in graph order. Check: its Pester test passes on a fixture tree.
-- [ ] A commit guard refuses staged deletions of generated files the view says stay committed. Check: its Pester test passes.
+- [x] A commit guard refuses staged deletions of generated files the view says stay committed. Check: its Pester test passes.
 - [ ] The round trip on the real tree: `Remove-Generated`, `Restore-Generated`, `git status --porcelain` empty. Check: the user's full run.
 
 ## Refs
