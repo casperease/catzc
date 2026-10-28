@@ -38,7 +38,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
         ) -join "`n"
         [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'widgets/beta-thing.md'), $beta)
 
-        # An ADR the index does not reference — its rule id must never appear.
+        # A record the index does not reference — its rule id must never appear.
         $gamma = @(
             '# ADR: Gamma'
             ''

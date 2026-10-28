@@ -16,7 +16,7 @@ function Get-DrsFileIndex {
     $folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}
-    # An ADR sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
+    # A decision record sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
     foreach ($file in Get-ChildPath $DrsRoot -File -Filter '*.md' -Depth 4) {
         $relative = $file.Substring($DrsRoot.Length).TrimStart('\', '/').Replace('\', '/')
         $relativePaths.Add($relative)

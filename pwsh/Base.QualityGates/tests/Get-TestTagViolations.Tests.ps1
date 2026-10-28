@@ -101,7 +101,7 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
 
     Context 'the optional ADR provenance axis' -Tag 'ADR-AUTO-TEST-PROVENANCETAGS' {
         BeforeAll {
-            # A fixture rule-id set keeps the validation off the shipped ADR tree.
+            # A fixture rule-id set keeps the validation off the shipped DRS tree.
             Mock Get-DrsRuleIds { @('ADR-WIDGET-GADGET-TURN',
                     'ADR-WIDGET-SPROCKET-COG') } -ModuleName Catzc.Base.QualityGates
 

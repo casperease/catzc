@@ -99,7 +99,7 @@ function Get-CombinedTypeHash {
     }
 
     # Deterministic, culture-independent order: sort by <module>/<bare type> ORDINALLY (Sort-Object is
-    # culture-aware — cross-platform ADR — so use an ordinal comparer over the keys).
+    # culture-aware — cross-platform record — so use an ordinal comparer over the keys).
     $sortedFiles = [object[]]$files.ToArray()
     [System.Array]::Sort($sortedFiles, [System.Comparison[object]] { param($a,
                 $b) [System.StringComparer]::Ordinal.Compare($a.Key, $b.Key) })

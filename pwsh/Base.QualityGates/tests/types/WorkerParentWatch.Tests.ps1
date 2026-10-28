@@ -45,7 +45,7 @@ Describe 'WorkerParentWatch' -Tag 'logic' {
         }
     }
 
-    # greedy: starts real pwsh processes of its own (see the test-automation ADR's greedy tag).
+    # greedy: starts real pwsh processes of its own (see the test-automation record's greedy tag).
     Context 'a real worker whose parent dies' -Tag 'L2', 'greedy' {
         BeforeAll {
             $script:started = [System.Collections.Generic.List[System.Diagnostics.Process]]::new()

@@ -29,8 +29,8 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn once per hash,
   verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades gracefully when a
   live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI a stale-types
-  load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) ADR and the BCL
-  type-system reference (`docs/references/BCL/types-system.md`).
+  load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) decision record
+  and the BCL type-system reference (`docs/references/BCL/types-system.md`).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
   automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal` module).
@@ -88,10 +88,11 @@ The module-internal engine `Import-AllModules` drives (not exported):
 
 ## Related
 
-- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the enforcement;
-  Bootstrap is itself a sanctioned `.psm1`.
-- ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and [caching](../../../drs/automation/caching.md) — the one
-  combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
-- ADR: [uniform-formatting](../../../drs/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
+- Decision record: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the
+  enforcement; Bootstrap is itself a sanctioned `.psm1`.
+- Decision records: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and
+  [caching](../../../drs/automation/caching.md) — the one combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes`
+  loads by.
+- Decision record: [uniform-formatting](../../../drs/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
 - Reference: `Catzc.Internal.Types` — the shared hash; the BCL type-system reference (`docs/references/BCL/types-system.md`);
   `Catzc.Base.ModuleSystem` — the post-import dependency-graph check over the same modules; the internal area overview.

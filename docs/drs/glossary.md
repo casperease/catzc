@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bde3a27eec07
+    with_body_sha: e4949d09b199
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1284,6 +1284,19 @@ One authored comment line that gives a reader the clue the code cannot say, why 
 | `narration comment`  | an algorithmical insight / a clue |
 | `diagnostic comment` | an algorithmical insight / a clue |
 
+### architecture decision record
+
+A decision record of the `ADR` kind, the kind the implementation domains share; never the DRS itself, and never a record of any kind.
+
+- **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Base.Drs/configs/glossary.yml`
+
+| Avoid  | Say instead                                                                 |
+| ------ | --------------------------------------------------------------------------- |
+| `adr`  | decision record / DRS record; the DRS for the system; the kind in backticks |
+| `adrs` | decision records                                                            |
+
 ### capability
 
 One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model floor
@@ -1394,10 +1407,6 @@ The DRS: the one system that holds every decision record, its index and its regi
 - **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
-
-| Avoid        | Say instead |
-| ------------ | ----------- |
-| `adr system` | the DRS     |
 
 ### deck file
 

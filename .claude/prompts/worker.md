@@ -11,8 +11,8 @@ messages, and send every question back to it with your recommendation, never to 
 
 For each chunk:
 
-- Read docs/drs/index.md and the ADRs that govern the files you touch, and follow .claude/CLAUDE.md (time safeguard, one file per Edit, no
-  git mutations).
+- Read docs/drs/index.md and the decision records that govern the files you touch, and follow .claude/CLAUDE.md (time safeguard, one file
+  per Edit, no git mutations).
 - Change only the files the chunk names. Before editing a file another session has dirty, ask the orchestrator.
 - Swap C# and import-path changes in with Invoke-StagedBurst -Stage, and only when the orchestrator says it is your turn. Edit .ps1 and .yml
   in place, and parse-check each one.

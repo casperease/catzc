@@ -18,7 +18,7 @@ function Group-DrsUsage {
             $documents = [string[]] @($group.Group.Path | Sort-Object -Unique -CaseSensitive)
             [pscustomobject]@{ Code = $first.Code; Rule = $first.Rule; Count = $documents.Count; Documents = $documents }
         }
-        # The whole ADR sorts before its rules: an empty rule key is the smallest.
+        # The whole record sorts before its rules: an empty rule key is the smallest.
         $result | Sort-Object -CaseSensitive -Property Code, @{ Expression = { "$($_.Rule)" } }
         return
     }

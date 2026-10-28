@@ -36,7 +36,7 @@ function Invoke-ImporterJanitors {
         })
     $due = Get-DueWriterRow -Name $atImport
     $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
-    # Keep the generated ADR pages current (Catzc.Base.Docs): `docs/drs/index.md` from drs.yml and
+    # Keep the generated DRS pages current (Catzc.Base.Docs): `docs/drs/index.md` from drs.yml and
     # `docs/drs/glossary.md` from the glossary sources — committed so GitHub has them, rebuilt BEFORE
     # Build-Readme (the docs/drs README is generated from the index). See
     # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).

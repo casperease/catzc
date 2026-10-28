@@ -26,7 +26,7 @@ system-installed copy. For each module it:
 
 `-VendorRoot` is the vendor directory (it skips silently when the path does not exist). Vendoring modules this way — checked-in versions
 loaded without a gallery restore — is the subject of the
-[vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md) ADR.
+[vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md) decision record.
 
 ## Enumeration and announcements
 
@@ -46,8 +46,9 @@ on the importer's verbose record
 
 ## Related
 
-- ADR: [vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md) — determinism without a restore step.
+- Decision record: [vendor-toolset-dependencies](../../../drs/automation/pwsh/vendor-toolset-dependencies.md) — determinism without a
+  restore step.
 - Principle: [one-living-version](../../../drs/principles/one-living-version.md) — why the loader is shared by both layers.
-- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
+- Decision record: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`.
 - Reference: `Catzc.Base.Vendor` — the post-import cover functions that add, remove, and validate vendored modules and delegate here; the
   internal area overview.

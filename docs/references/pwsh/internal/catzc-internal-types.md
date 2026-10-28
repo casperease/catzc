@@ -26,8 +26,8 @@ culture-aware `Sort-Object`).
 
 What it deliberately does **not** do is validate namespaces or reject dotted filenames — those are the loader's poka-yokes, kept out of the
 shared enumerator on purpose, because the janitor must never throw on a source that is malformed. The full contract of the combined assembly
-and its committed prebuild is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) ADR and the BCL type-system
-reference (`docs/references/BCL/types-system.md`).
+and its committed prebuild is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) decision record and the BCL
+type-system reference (`docs/references/BCL/types-system.md`).
 
 ## Loading the assembly
 
@@ -99,8 +99,9 @@ A lazy load defers the types until a catzc command is first used:
 
 ## Related
 
-- ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) — the single combined assembly and its hash key.
-- ADR: [caching](../../../drs/automation/caching.md) — the committed compiled-type prebuild this hash names.
+- Decision record: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) — the single combined assembly and its hash
+  key.
+- Decision record: [caching](../../../drs/automation/caching.md) — the committed compiled-type prebuild this hash names.
 - Principle: [one-living-version](../../../drs/principles/one-living-version.md) — why the algorithm lives here once.
 - Reference: `Catzc.Internal.Bootstrap` — the loader (`Import-CSharpTypes`) that consumes this hash; `Catzc.Base.TypesSystem` — the module
   whose `Clear-ModuleTypeCache` janitor also calls it; the BCL type-system reference (`docs/references/BCL/types-system.md`) and the

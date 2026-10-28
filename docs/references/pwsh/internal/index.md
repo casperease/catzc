@@ -40,8 +40,8 @@ Listed in load order.
 
 ## Related
 
-- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — why these are the only sanctioned `.psm1` files.
+- Decision record: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — why these are the only sanctioned `.psm1` files.
 - Principle: [one-living-version](../../../drs/principles/one-living-version.md) — why the two-layer shared code lives here once.
-- ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and [caching](../../../drs/automation/caching.md) — the
-  combined type assembly and its committed prebuild that Bootstrap and Types implement.
+- Decision records: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and
+  [caching](../../../drs/automation/caching.md) — the combined type assembly and its committed prebuild that Bootstrap and Types implement.
 - Reference: the [BCL area](../../BCL/index.md) — the C# type system these loaders compile and load.

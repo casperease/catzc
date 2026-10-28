@@ -63,7 +63,7 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         & $script:violations @($rule) | Should -BeNullOrEmpty
         $adr = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET' }) })
         $found = & $script:violations @($adr)
-        $found.Count | Should -Be 1 -Because 'two segments name an ADR, not a rule'
+        $found.Count | Should -Be 1 -Because 'two segments name a record, not a rule'
         $found[0] |
             Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-COG-GADGET' is not a rule's code*"
     }

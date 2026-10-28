@@ -64,7 +64,7 @@ Modules are layered — a module may only call into the modules it declares in `
 - **[Catzc.Base.QualityGates](base-quality-gates/index.md)**: The repository's quality gates — tests, spelling, markdownlint, formatting
 - **[Catzc.Base.Exporter](base-exporter/index.md)**: The installable-bundle exporter — bundle version and content-addressed identity
 - **[Catzc.Base.Docs](base-docs/index.md)**: Generated module READMEs, copy-in from a docs source, gitignored
-- **[Catzc.Base.Drs](base-drs/index.md)**: The ADR registry — `drs.yml`, the generated index, the citation map, `Test-DrsRegistry`, and
+- **[Catzc.Base.Drs](base-drs/index.md)**: The DRS registry — `drs.yml`, the generated index, the citation map, `Test-DrsRegistry`, and
   citation rewriting
 - **[Catzc.Base.Contracts](base-contracts/index.md)**: The repository's contracts made binding — asset listing, checking, the release
   freeze, and the contract reference

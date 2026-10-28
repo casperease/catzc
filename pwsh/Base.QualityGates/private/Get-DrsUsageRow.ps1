@@ -59,7 +59,7 @@ function Get-DrsUsageRow {
         })
 
     foreach ($citation in $adrs) {
-        # A fixture code or a placeholder named in a comment is no usage of an ADR.
+        # A fixture code or a placeholder named in a comment is no usage of a record.
         if (-not ($Map.HasCode($citation) -or $Map.IsDomainCode($citation))) {
             continue
         }

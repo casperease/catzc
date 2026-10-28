@@ -134,6 +134,6 @@ The module-internal helpers `Invoke-Importer` drives (not exported):
 ## Related
 
 - Principle: [one-living-version](../../../drs/principles/one-living-version.md) — why the shim is a generated copy of this one body.
-- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
+- Decision record: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
 - Reference: `Catzc.Base.ModuleSystem` — `New-Importer` generates the `importer.ps1` shim from this block; `Bootstrap`, `Vendor`, and
   `Types` — the shared modules it drives; the internal area overview.
