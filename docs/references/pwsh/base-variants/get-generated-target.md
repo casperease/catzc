@@ -11,8 +11,8 @@ Lists every file a generator of this repository writes, with the command that wr
 
 ### description
 
-The targets come from the registries that declare them: the opted-in root configs of rootconfig.yml, the READMEs readme.yml names, the
-comment-page roots, and every other generator's targets as its module's generated.yml declares them.
+The targets come from the registries that declare them: the opted-in root configs of rootconfig.yml, the READMEs readme.yml names, and every
+other generator's targets as its module's generated.yml declares them.
 
 ### outputs
 
@@ -23,6 +23,4 @@ comment-page roots, and every other generator's targets as its module's generate
 - **Root configs** — each opted-in `rootconfig.yml` target, by its generator. A target copied from its source asset names no generator of
   its own; `Build-RootConfig` is what writes it.
 - **READMEs** — the files `readme.yml` names.
-- **Comment pages** — the trees Format-Code's comment imprint writes, one per page root `comment-pages.yml` declares; a `{kebab}` root is
-  one folder per module. The pages belong to the tool, so they count as generated, like the READMEs.
 - **Every other generator** — the targets its module's `generated.yml` declares.

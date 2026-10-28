@@ -7,10 +7,11 @@
 Every file on disk is **format-managed**: a `Format-*` command covers it and decides its **head policy**, whether it carries one **meta
 block** and which, and a file no format command covers is a finding. A file is covered when its file language has a formatter or states its
 `no_formatter` reason, or when `file-carriers.yml` declares a file class for it. The default is no head; a head is printed only where it
-carries a fact worth its lines. A **generated file**, Markdown included, carries the head with the do-not-edit warning, and while git tracks
-the file the head also carries `with_body_sha`, the body it is immutable with, and nothing else; an untracked generated file carries the
-warning only, no sha ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored doc**, a Markdown file
-tracked in git, has no edges and so carries no head for facts: its comment page is found by its derived path
+carries a fact worth its lines. A **generated file**, Markdown and pictures included, carries the stamp head with the do-not-edit warning,
+and while git tracks the file the stamp also names its regenerate and remove commands, its sources and `with_body_sha`, the body it is
+immutable with; an untracked generated file carries the warning only
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored doc**, a Markdown file tracked in git, has no
+edges and so carries no head for facts: its comment page is found by its derived path
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace),
 [ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)). An **authored code or config file** tracked in git carries the navigation
 head, its one `docs` edge to its comment page, and none when it has no page
@@ -19,9 +20,10 @@ rule codes (the codes a file cites are derived from its text on demand, [ADR-REP
 no `with_body_sha`, no `test` or `code` edge. A head an authored file does carry, a code file's navigation head or the authored `config`
 part of a capability or a slide, closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once
 on the meta-kind registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated
-file alone, and a file with no fact to show carries no head for the note alone. A binary file is format-managed with no head possible. Every
-other file carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values, set per file
-class in `file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty; **forbidden**, no
+file alone, and a file with no fact to show carries no head for the note alone. A binary file is format-managed with no head possible, but
+for a generated picture, whose format has a carrier ([ADR-REPO-FILEMETA-EVERYFORMATCARRIES](#rule-adr-repo-filemeta-everyformatcarries)).
+Every other file carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values, set per
+file class in `file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty; **forbidden**, no
 `catzc` block at all, for an agent definition, whose front matter belongs to the tool that loads it, and for a diagram declaration; and
 **config**, a block holding only the authored `config` part, for a capability definition and a slide, which keep their own tool's front
 matter as authored ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block disagrees with
@@ -32,9 +34,10 @@ file's head under `immutable`, an authored file's edges at the block's first lev
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)); where
 another tool validates the front matter, the key nests at the path the carrier registry declares (`key`, such as `metadata.catzc`), the
 block's own key `catzc` either way, and a parent key written as a flow mapping or a scalar is never rewritten. A JSON file's carrier is its
-ignored property ([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier)), a code file's its meta head
-([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns: every
-other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
+ignored property ([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier)), a generated png's, svg's or xml's the place its
+format keeps for foreign text ([ADR-REPO-FILEMETA-EVERYFORMATCARRIES](#rule-adr-repo-filemeta-everyformatcarries)), a code file's its meta
+head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns:
+every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
 - [One block, two carriers](#one-block-two-carriers)
@@ -59,7 +62,7 @@ The edges, the block's first-level keys the imprint kinds own, are imprinted by 
 in the registry's order, values in canonical form, no timestamp and no run identifier. The `immutable` part is no imprinted part: only a
 generated head has it, and its writer writes it ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). A hash is
 allowed only when it changes exactly when something a reader cares about changes: `with_body_sha`, the hash of the body below the head,
-opens the head of a generated file git tracks. An authored head carries none: a body hash there changes on every edit and tells a reader
+closes the head of a generated file git tracks. An authored head carries none: a body hash there changes on every edit and tells a reader
 nothing, so the imprint writes only the edges ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). A hash an author keeps
 in the `config` part is the author's, left alone and never maintained. A second run changes no file. The output is stable under the
 formatter of the file's language, so the formatter and the imprint never undo each other
@@ -101,31 +104,37 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 
 ### Rule ADR-REPO-FILEMETA-COMPOSEDFILES
 
-A file the automation composes whole — a root-config copy, a generator's output, a `.gitkeep` — carries the **generated-file head** instead
-of an imprinted block. Its writer composes the content bare and writes the head through the one head function, in the carrier the file's
-class has, tracked or not. The head holds, in this order, `with_body_sha` while git tracks the file (the hash of the content below it,
-whatever the file's language and carrier, so the file says which text its writer composed and the drift check compares the stamp with the
-hash of the content before it compares the content) and the `warning`
-([ADR-REPO-FILEMETA-PROVENANCEINHEAD](#rule-adr-repo-filemeta-provenanceinhead)), and nothing else: no role, track, generator, source, edge
-or `cites`. Every other fact about the file, the command that composed it and the authored files it comes from included, is derived on
-demand from the writer registry. A generated file is told from an authored one by its writer's entry in the writer registry
-(`generated-files.yml`) and its `linguist-generated` attribute, never by a kind of its own and never by its head
-([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). No writer hand-words a banner. The imprint engine leaves these files
-alone ([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte of them. A comment page is no
-generated file: it is an authored file ([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so
-the head policy gives it a head only when it has a fact to show, and a comment page has no comment page of its own
+A file the automation composes whole — a root-config copy, a generator's output, a picture rendered from a declaration, a `.gitkeep` —
+carries the **generated-file head**, a stamp, instead of an imprinted block. Its writer composes the content bare and stamps the head
+through the one head renderer, in the carrier the file's class has. Every committed generated file carries the stamp, and its keys are, in
+this order: `warning`, `regenerate` (the command that renders the file again), `sources` (the file's own inputs, as its writer row declares
+them for this output), `remove` (the command that takes the file off the working copy) and `with_body_sha` (the hash of the content below
+the head, whatever the file's language and carrier); nothing else, no role, track, module, edge or `cites`. An untracked generated file,
+which no commit compares and no roll-off reaches, carries the `warning` alone. The two commands are templates declared once in
+`generated-head.yml` (`"{writer} -Path {path}"`), filled from the writer row, and a writer row overrides a template only where its call
+differs, so no writer words its own head and no writer hand-words a banner. One renderer, the head's C# type, renders the head text for
+every writer: a PowerShell writer calls it through the head function, and a Python writer calls the one command that exposes it, never a
+copy of its logic. A generated file is told from an authored one by its writer's row in the writer registry, each module's
+`configs/generated.yml`, and its `linguist-generated` attribute, never by a kind of its own and never by its head
+([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The imprint engine leaves these files alone
+([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte of them. A comment page is no generated
+file: it is an authored file ([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the head
+policy gives it a head only when it has a fact to show, and a comment page has no comment page of its own
 ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)).
 
 - [Generated files](#generated-files)
 
 ### Rule ADR-REPO-FILEMETA-PROVENANCEINHEAD
 
-A generated file states its provenance once, in the head: the `warning`, the one string "Do Not Edit, this file is generated" that every
-generated head carries, declared once as the default of the head's config type (`GeneratedHeadConfig`,
-[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)) and written in the
-file's own carrier. Which command composed the file and which authored files it comes from are the writer registry's to answer, never
-written into the file. The body below the head is the content alone: no "generated from" line, no link to the source and no "edit the
-source" note, since each would state in the file what the registry answers.
+A generated file states its provenance once, in the head, as a one-way note to a person: the `warning`, the one string "Do Not Edit, this
+file is generated" that every generated head carries, declared once as the default of the head's config type (`GeneratedHeadConfig`,
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), the commands that
+render it again and take it off, and the files it comes from, projected from its writer row when the writer writes the file and written in
+the file's own carrier ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The head is never a source: it may be out
+of step with the registry, so no command decides anything from it ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)).
+Which files are generated, which a roll-off deletes and which a roll-on renders come from the writer registry alone, and a file with a head
+on no declared path is authored as far as every tool is concerned. The body below the head is the content alone: no "generated from" line,
+no link to the source and no "edit the source" note, since the head says it once.
 
 - [Generated files](#generated-files)
 
@@ -134,10 +143,11 @@ source" note, since each would state in the file what the registry answers.
 A generated file changes only in tune with its generator: rendering the file from the tree at hand gives exactly the bytes on disk. A change
 to the file, or to an input of its generator, is legal when the writer has rendered the file again; any other change, a hand edit or a
 generator input changed without the file rendered anew, fails the full run, every time and never as a warning. The check is the writer's own
-dry run, with the stamp, `with_body_sha`, as its fast path where a head exists, and a generated file with no head is guarded by the dry run
-alone ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The import prints one line for each stale generated file,
-naming the file and its regenerate command, and the session starts: a session that cannot import cannot regenerate, so the fail belongs to
-the full run.
+dry run, walked over the writer registry and never over the heads, with `with_body_sha` as its fast path where a head exists, falling back
+to the full render on any mismatch, and a generated file with no head is guarded by the dry run alone
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The head is rendered with the body, so a stale or hand-edited
+head is drift like any other. The import prints one line for each stale generated file, naming the file and its regenerate command, and the
+session starts: a session that cannot import cannot regenerate, so the fail belongs to the full run.
 
 - [Generated files](#generated-files)
 
@@ -147,6 +157,17 @@ A JSON file has no comments, so its carrier is an ignored top-level property tha
 Schema): the first property of the object, holding the same `catzc` block as text. No file class keeps its block in a sidecar beside it: a
 diagram declaration carries no head ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)), and a file class with no carrier
 is an `exclude` entry of the carrier registry with the reason.
+
+- [Property carriers](#property-carriers)
+
+### Rule ADR-REPO-FILEMETA-EVERYFORMATCARRIES
+
+Every format the automation commits a generated file in has a carrier in the carrier registry, `file-carriers.yml`, so every committed
+generated file carries its stamp ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). A png carries it in a `tEXt`
+chunk keyed `catzc`, and its `with_body_sha` hashes the image without that chunk; an svg in a `<metadata>` element; an xml file in a
+`<?catzc ...?>` processing instruction; a JSON file in its ignored property
+([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier)); a text format in its comment head. A generated format with no
+carrier is never committed.
 
 - [Property carriers](#property-carriers)
 
@@ -182,18 +203,18 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 ### Rule ADR-REPO-FILEMETA-FILEISNODE
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
-the head needs, and only a generated head has any: its `with_body_sha` while git tracks it and its `warning`, written by its writer
-([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part and holds the `header`
-note ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place fact, what the repository's own configuration
-makes of the file's location, is derived on demand from a registry and never shown. An **edge** is a named relation leaving the file to
-another file. An authored doc has none, and an authored code or config file has the one `docs` edge of its navigation head
+the head needs, and only a generated head has any: its `warning`, and while git tracks it its commands, sources and `with_body_sha`, written
+by its writer ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part and holds
+the `header` note ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place fact, what the repository's own
+configuration makes of the file's location, is derived on demand from a registry and never shown. An **edge** is a named relation leaving
+the file to another file. An authored doc has none, and an authored code or config file has the one `docs` edge of its navigation head
 ([ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly)): its comment page is also found by
 its derived path ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), a test by convention,
 and the codes a file cites are read from its text on demand by the commands that need them
 ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). `immutable` is written by the file's writer, never by hand, and is
 fixed by the file: a place fact until the file moves or a registry changes. An edge, where a registry declares one, is written on its source
 only, so the target holds no copy, and an edge is named for the relation, never for the type of its target. A tracked generated file's
-`immutable` opens with `with_body_sha`, the hash of the body below the head
+`immutable` closes with `with_body_sha`, the hash of the body below the head
 ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)). A head holds no `repo_status`: whether a file is generated is
 told by the writer registry, and the states only git knows, edited, staged, committed and pushed, and `ready` (tracked and unchanged), are
 computed on demand by `Get-RepoStatus` from git, read-only, since writing them would change them. An imprint kind of the registry writes the
@@ -219,10 +240,10 @@ and a place in its tree. Some of these facts are stated twice, once in the file 
 can be computed from the file and the repository but are not written anywhere a reader could see them.
 
 Two needs follow. Facts that can be computed are derived on demand, and a file shows only the few a reader needs to step on from it without
-running anything: that a generated file is not to be edited. Values an author states belong where the thing is, and a config can read them
-from there ([markdown-config-contributions](../configuration/markdown-config-contributions.md)). Both need a place in the file that the
-tooling owns without touching what other tools own, and that place differs by kind of file, because front matter is a Markdown convention
-and a code file has comments.
+running anything: that a generated file is not to be edited, and where it comes from. Values an author states belong where the thing is, and
+a config can read them from there ([markdown-config-contributions](../configuration/markdown-config-contributions.md)). Both need a place in
+the file that the tooling owns without touching what other tools own, and that place differs by kind of file, because front matter is a
+Markdown convention and a code file has comments.
 
 ## Decision
 
@@ -302,11 +323,15 @@ the reader that hands the declarations down.
 `The writer owns the head, the engine stays out`
 
 A generated file is rewritten whole on every run, and the drift check compares it with what its writer would compose now. If an imprint step
-wrote the head afterwards, the two would disagree on every run, so the writer writes the head itself, with the same function every writer
-calls. The head carries the one warning, so a reader is told not to edit the file in the same words everywhere, and the body stamp while git
-tracks it; which command composed the file and which authored files it comes from are one question to the writer registry, so the head does
-not repeat them. The carrier is the file class's own, named by the root-config entry or found from the file language, and no banner is
-hand-worded, because a banner would be a second statement of what the head says.
+wrote the head afterwards, the two would disagree on every run, so the writer writes the head itself, through the one renderer every writer
+calls. The head carries the one warning, so a reader is told not to edit the file in the same words everywhere, and while git tracks the
+file it tells the reader what to run and what to edit instead: the command that renders the file again, the command that takes it off, the
+file's own inputs and the body stamp. A reader of a png on a review page or in an editor has no resolver at hand, so the stamp is the one
+step from the picture to its declaration. The stamp is projected from the writer row and never read back, so it is a note, not a second
+registry: a stale head misleads a person for one render at most and no command at all, and the drift check renders it with the body, so a
+stale one is a finding. The commands are templates declared once, so the head reads the same in every file a writer writes, and one renderer
+means a Python writer and a PowerShell writer stamp the same bytes. The carrier is the file class's own, named by the root-config entry or
+found from the file language, and no banner is hand-worded, because a banner would be a second statement of what the head says.
 
 ### Property carriers
 
@@ -314,8 +339,11 @@ hand-worded, because a banner would be a second statement of what the head says.
 
 JSON has no comment syntax, and a leading `//` block makes it invalid, so the block is a property a reader of the data ignores. The property
 holds the block as text, so one parser serves it as it serves a comment head, and a JSON Schema, whose `$comment` must be a string, takes
-the same form. A diagram's facts are all in its declaration's body, its codes in `about.rules`, so neither the picture nor the declaration
-carries a block.
+the same form. A diagram's facts are all in its declaration's body, its codes in `about.rules`, so the declaration carries no block, while
+the picture rendered from it is a generated file and carries the stamp. A picture has no comment syntax either, so each committed format
+keeps the stamp where its own readers skip foreign text: a png in a `tEXt` chunk, which every viewer ignores, with the body sha taken over
+the image less that chunk so the stamp never hashes itself; an svg in its `<metadata>` element; an xml file in a processing instruction. A
+format with no such place cannot say it is generated, so it is never committed.
 
 ### Place facts and edges
 
@@ -362,11 +390,11 @@ remove blocks freely. The imprint reads the block only to say that it differs fr
 
 A block is worth its bytes where a reader cannot easily derive what it says, and a head on every file is noise most readers and every agent
 read past on each file they open, and churn on every edit of the body. So the default is no head, and a format run prints one only where it
-pays. A generated file's warning tells a reader not to edit it, and an untracked generated file, which no commit compares, needs no body
-stamp. An authored doc's head would show only what is derived (page path, test, cited codes) or churns on every edit (a body hash). An
-authored code or config file shows the one `docs` edge a reader of the code cannot follow otherwise ([code-file-meta](code-file-meta.md)). A
-diagram declaration's facts are all in its own body, and a binary has no place for a head. An agent, skill or slide definition's front
-matter is its own tool's keys, so the policy leaves it as authored.
+pays. A generated file's warning tells a reader not to edit it and its stamp what to run instead, and an untracked generated file, which no
+commit compares, needs the warning alone. An authored doc's head would show only what is derived (page path, test, cited codes) or churns on
+every edit (a body hash). An authored code or config file shows the one `docs` edge a reader of the code cannot follow otherwise
+([code-file-meta](code-file-meta.md)). A diagram declaration's facts are all in its own body, and a binary has no place for a head but a
+generated picture's carrier. An agent, skill or slide definition's front matter is its own tool's keys, so the policy leaves it as authored.
 
 ### How this is enforced
 

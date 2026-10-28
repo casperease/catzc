@@ -31,9 +31,9 @@ reviewable diff. The difference between the two is one boolean, not two systems.
 ### Rule ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
 
 Every managed root file — a `source` copy or a `generator`'s output — carries the unified generated-file head
-([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): `with_body_sha` while git tracks the file and the
-one warning that the file is generated, and nothing else. Which command wrote the file and which template or inputs it comes from are the
-writer registry's and `rootconfig.yml`'s to answer, never the head's
+([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): the one warning that the file is generated, and
+while git tracks the file its regenerate and remove commands, its sources (the template or the generator's inputs) and `with_body_sha`,
+projected from its writer row and never read back
 ([ADR-REPO-FILEMETA-PROVENANCEINHEAD](file-meta.md#rule-adr-repo-filemeta-provenanceinhead)). `Build-RootConfig` writes the head, in the
 carrier its `carrier` key names (default: the carrier of the target's file language), so a generator renders its content bare and no entry
 and no template hand-words a banner or a managed-file marker. The head is strictly a leading block: config formats have no portable in-body
@@ -68,6 +68,36 @@ reports each file on its own, and the drift check compares each on its own. A wi
 exactly one. A wildcard is for a generator only, since a `source` entry has one file to copy.
 
 - [One entry, many files](#one-entry-many-files)
+
+### Rule ADR-REPO-ROOTCFG-ONECLASSPERWRITER
+
+Every writer of a generated file, `Build-RootConfig` among them, is one row of the writer registry, its own module's
+`configs/generated.yml`: its name, its inputs, its outputs with the inputs each output reads, its class and its check. `rootconfig.yml`,
+`readme.yml` and `comment-pages.yml` stay the configs that expand a writer's instances, and its row points at them. A writer has exactly one
+class: `rollable`, whose files a roll-off may take out of the working copy and its writer render back; `import-critical`, the importer, the
+root configs, the track-sets and the module manifests, never rolled off, since the session that restores them must first import; `snapshot`,
+a writer that reads outside the tree (`Update-AzurePriceTable`, `Update-AdoFlowOccupants`), never rolled off, since the tree alone cannot
+render it back; and `untracked`, a writer whose output git never tracks (`out/`, `bin/` and `obj/`, `.venv`).
+
+- [Writers and their classes](#writers-and-their-classes)
+
+### Rule ADR-REPO-ROOTCFG-DERIVEDRENDERORDER
+
+The order writers render in is derived from the writer registry's input and output graph, a topological order in which a writer runs after
+every writer whose output it reads, and is never listed by hand; a cycle in the graph is a registry error. The same graph answers which
+writer and which inputs a generated file comes from and whether it is stale against its inputs, a picture as much as a text file.
+
+- [One graph, one order](#one-graph-one-order)
+
+### Rule ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP
+
+Roll-off and roll-on are one operation over the `generated` filter view
+([DDR-FILTER-VIEWOVERMODEL](../design/repository-filters.md#rule-ddr-filter-viewovermodel)), resolved from the writer registry and never
+from a head: `Remove-Generated` deletes the view's `rollable` files from the working copy, so git shows them deleted, and
+`Restore-Generated` runs their writers in the derived order. The proof that every rollable file is reproducible from the tree is the round
+trip: `Remove-Generated`, then `Restore-Generated`, then a `git status` that shows no change.
+
+- [The round trip](#the-round-trip)
 
 ## Context
 
@@ -125,6 +155,36 @@ generator, which discovers the folders, renders one record per file (`Get-RootCo
 then takes the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when
 stale, and `Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside the
 entry's pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
+
+### Writers and their classes
+
+`One row per writer, one class per row`
+
+A root config is one kind of generated file among many: pages, contracts, dictionaries and pictures come from writers too. The question "is
+this file generated, and by what" has one answer only when every writer is declared in one place, its own module's row, so the registry is
+read the same way for a root file and for a slide picture ([one-living-version](../principles/one-living-version.md)). The class says what a
+writer's files may go through. Most can leave the working copy and come back from the tree alone. A file the importer needs cannot, because
+nothing renders it before the session that would render it has imported; a file read from outside the tree cannot, because the tree does not
+hold what it reads; and a file git never tracks has nothing to roll. One class per writer keeps the answer a lookup, never a judgement per
+file.
+
+### One graph, one order
+
+`The inputs and outputs decide the order`
+
+A picture is rendered from a declaration, a slide picture from that picture, a slide from its picture: a chain whose order is a fact of the
+inputs and outputs. A hand-kept list of that order is a second statement of the graph and drifts the first time a writer gains an input, so
+the order is sorted from the graph each time it is needed. The graph that orders the writers also answers where a file comes from and
+whether it is stale, so the source of a file, its staleness and its render order never disagree.
+
+### The round trip
+
+`Take it off, render it back, see nothing change`
+
+A generated file that cannot be rendered back from the tree is an authored file under another name. Taking every rollable file off and
+rendering it back is the direct test: when `git status` is clean afterwards, every one of them is reproducible, and a writer that misses a
+file, reads an undeclared input or renders differently shows as a change. The set comes from the registry and the filter view, never from
+the heads, so a hand-made file with a stray head is never deleted, and a generated file whose head is stale is rolled like any other.
 
 ### Always current
 

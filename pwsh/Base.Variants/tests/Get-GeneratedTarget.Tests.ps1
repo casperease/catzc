@@ -17,12 +17,11 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
             Should -Be 1
     }
 
-    It 'returns the comment pages comment-pages.yml roots, by Format-Code' {
-        foreach ($expected in 'docs/references/pwsh/**', 'docs/references/infrastructure/**',
-            'docs/references/ado/pipelines/**') {
-            $script:targets.Where({ $_.path -ceq $expected -and $_.generator -ceq 'Format-Code' }).Count |
-                Should -Be 1 -Because "comment-pages.yml declares the root of $expected"
-        }
+    It 'returns no comment page, since a page is authored (ADR-REPO-COMMENTS-PAGEISAUTHORED)' {
+        $roots = @(foreach ($page in (Get-Config -Config comment-pages).pages) {
+                "$($page.docs)/**"
+            })
+        $script:targets.Where({ $_.path -cin $roots -or $_.generator -ceq 'Format-Code' }) | Should -BeNullOrEmpty
     }
 
     It 'returns every module''s declared generated targets' {

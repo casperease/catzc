@@ -18,14 +18,6 @@ function Get-GeneratedTarget {
         [Catzc.Base.Variants.GeneratedTarget]::new("$($mapping.folder)/README.md", 'Build-Readme')
     }
 
-    # The comment pages are Format-Code's output, one tree per page root.
-    $pageRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($page in (Get-Config -Config comment-pages).pages) {
-        if ($pageRoots.Add($page.docs)) {
-            [Catzc.Base.Variants.GeneratedTarget]::new("$($page.docs)/**", 'Format-Code')
-        }
-    }
-
     # Every other generator's targets, each declared once in its module's generated.yml.
     foreach ($owner in @(Get-Config -Config generated -ListOwners)) {
         foreach ($target in (Get-Config -Config generated -Module $owner.Module).targets) {
