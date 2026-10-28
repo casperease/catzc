@@ -10,11 +10,13 @@ A fact slide (`pattern: fact` in the slides kit) states one checkable propositio
   rotate: <deg>  turned in the page plane (z) afterwards; tilt: { y: <0..1>, shear: <-1..1> } foreshortens and leans it (an x-y view angle)
 
 `picture` writes the picture beside the slide file where the slide's `## Image` links to it; `render` draws the slide itself at the deck's size
-with the kit's tokens and lands it beside the slide too, so the source catalogue holds what the person reads.
+with the kit's tokens and lands it beside the slide too, so the source catalogue holds what the person reads. Each png written is stamped
+through the one head renderer with its writer's row, `slide_png picture` or `slide_png render`; a png in place of the slide names the slide
+it was made for, which is how its stamp's regenerate command renders it again.
 
 usage (repo root, background):
-  uv run --no-sync --project python python -m catzc.diagrams.slide_png picture <slide.md>
-  uv run --no-sync --project python python -m catzc.diagrams.slide_png render <slide.md> [<out.png>]
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png picture <slide.md | its picture.png>
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png render <slide.md | its .slide.png> [<out.png>]
 (render lands in the source catalogue, beside the slide at .assets/<id>.slide.png, unless <out.png> says otherwise: a costly render is a
 committed build output, never parked under out/)
 """
@@ -26,7 +28,7 @@ from pathlib import Path
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 
-from . import declaration
+from . import declaration, stamp
 from .module_paths import KIT
 
 SLIDES = yaml.safe_load((KIT / "assets" / "slides" / "slides.yml").read_text(encoding="utf-8"))
@@ -38,6 +40,8 @@ VARIATIONS = ("ladder-strip",)
 FACT, STRIP = SLIDES["fact"], SLIDES["strip"]  # every size of the fact picture and the ladder strip, declared once in slides.yml
 FONTS["bold"] = ("segoeuib.ttf", "arialbd.ttf", "DejaVuSans-Bold.ttf")
 IMAGE_LINK = re.compile(r"\[[^\]]+\]\(([^)\s]+)\)")
+# Each mode's row in the writer registry, whose head the one renderer stamps on the png the mode writes.
+WRITERS = {"picture": "slide_png picture", "render": "slide_png render"}
 
 
 def head_and_fields(path):
@@ -250,12 +254,32 @@ def render(slide, out=None):
     return dst
 
 
+def slide_of(path, mode):
+    """The slide a call names: a slide file as it is, or the png the mode made for it. A render lands at <deck>/.assets/<id>.slide.png
+    beside <deck>/<id>.slide.md; a picture is the png exactly one slide of its deck links in ## Image, and any other count is refused."""
+    if path.name.endswith(".slide.md"):
+        return path
+    if mode == "render":
+        return path.parent.parent / f"{path.name.removesuffix('.slide.png')}.slide.md"
+    target = path.resolve()
+    linking = []
+    for slide in sorted(path.parent.parent.glob("*.slide.md")):
+        match = IMAGE_LINK.fullmatch(head_and_fields(slide)[1].get("image", ""))
+        if match and (slide.parent / match.group(1)).resolve() == target:
+            linking.append(slide)
+    if len(linking) != 1:
+        raise SystemExit(f"{path}: {len(linking)} slide(s) of its deck link it in ## Image; a picture is made for exactly one")
+    return linking[0]
+
+
 def main():
     args = sys.argv[1:]
-    if len(args) >= 2 and args[0] == "picture":
-        print(f"picture {picture(Path(args[1]))}")
-    elif len(args) >= 2 and args[0] == "render":
-        print(f"render {render(Path(args[1]), args[2] if len(args) > 2 else None)}")
+    if len(args) >= 2 and args[0] in WRITERS:
+        mode = args[0]
+        slide = slide_of(Path(args[1]), mode)
+        dst = picture(slide) if mode == "picture" else render(slide, args[2] if len(args) > 2 else None)
+        stamp.stamp([dst], WRITERS[mode])
+        print(f"{mode} {dst}")
     else:
         raise SystemExit(__doc__)
 

@@ -35,7 +35,7 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
 
     It 'describes the one head a file carries, a generated file''s, its warning under immutable and no authored key' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         @($script:sample['catzc'].Keys) | Should -Be @('immutable')
-        @($script:sample['catzc']['immutable'].Keys) | Should -Be @('with_body_sha', 'warning')
+        @($script:sample['catzc']['immutable'].Keys) | Should -Be @((Get-Config -Config generated-head).order)
         $script:schema['properties']['catzc']['properties'].Contains('warning') |
             Should -BeFalse -Because 'only a generated file carries a warning, under immutable'
         foreach ($gone in 'docs', 'header') {

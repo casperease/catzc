@@ -1,8 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0a9003265d43"
 #     warning: "Do Not Edit, this file is generated"
+#     regenerate: "Build-TrackGlobSets -Path pwsh/Base.Globs/configs/globs/track-sets.yml"
+#     with_body_sha: "0a9003265d43"
 # ---
 
 # The derived patterns of every whole track's set that globs.yml declares (FDR-GLOBS-TRACKSETDERIVED).

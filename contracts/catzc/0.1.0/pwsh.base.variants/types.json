@@ -91,10 +91,6 @@
           "kind": "property"
         },
         {
-          "name": "remove",
-          "kind": "property"
-        },
-        {
           "name": "result_path",
           "kind": "property"
         }

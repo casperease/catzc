@@ -1,8 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "26f75ab42483"
 #     warning: "Do Not Edit, this file is generated"
+#     regenerate: "Build-RootConfig -Path importer.sh"
+#     with_body_sha: "26f75ab42483"
 # ---
 
 # shellcheck shell=bash

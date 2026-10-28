@@ -12,5 +12,5 @@ function Get-RootConfigCopyContent {
     Assert-PathExist $SourcePath -PathType Leaf
     # The template is read as LF, so the copy is the same whatever line endings the checkout gave the template.
     $content = [System.IO.File]::ReadAllText($SourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-    Format-GeneratedFileHead -Text $content -Path $Entry.target -Carrier $Entry.carrier
+    Format-GeneratedFileHead -Text $content -Path $Entry.target -Carrier $Entry.carrier -Writer Build-RootConfig
 }

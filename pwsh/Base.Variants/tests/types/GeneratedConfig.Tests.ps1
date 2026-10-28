@@ -26,7 +26,6 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         @($row.inputs) | Should -HaveCount 0
         $row.expands | Should -BeNullOrEmpty
         $row.regenerate | Should -BeNullOrEmpty
-        $row.remove | Should -BeNullOrEmpty
     }
 
     It 'reads every key a row may set' {
@@ -34,7 +33,7 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
                 writers = [ordered]@{
                     'Build-Widget' = [ordered]@{
                         class = 'import-critical'; check = 'file'; result_path = 'Widget'; at_import = $true; inputs = @('widgets/*.yml')
-                        outputs = @('widgets/x.md'); expands = 'widgets'; regenerate = 'Build-Widget'; remove = 'Remove-Widget'
+                        outputs = @('widgets/x.md'); expands = 'widgets'; regenerate = 'Build-Widget'
                     }
                 }
             }).writers[0]
@@ -43,7 +42,6 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         $row.at_import | Should -BeTrue
         $row.expands | Should -Be 'widgets'
         $row.regenerate | Should -Be 'Build-Widget'
-        $row.remove | Should -Be 'Remove-Widget'
     }
 
     It 'gives a check other than file no result path' {
@@ -72,6 +70,7 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         @{ Case = 'writers as a list'; Raw = [ordered]@{ writers = @('Build-Widget') }; Message = '*writers must be a mapping*' }
         @{ Case = 'a row that is no mapping'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = 'widgets/x.md' } }; Message = "*writer 'Build-Widget' must be a mapping*" }
         @{ Case = 'an unknown row key'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = @('w'); committed = $true } } }; Message = "*unknown key 'committed'*" }
+        @{ Case = 'a remove command, which the registry answers'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = @('w'); remove = 'Remove-Widget' } } }; Message = "*unknown key 'remove'*" }
         @{ Case = 'a row without a class'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ outputs = @('w') } } }; Message = '*must name one of: rollable*' }
         @{ Case = 'an unknown class'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'gadget'; outputs = @('w') } } }; Message = "*class 'gadget'*" }
         @{ Case = 'an unknown check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'gadget'; outputs = @('w') } } }; Message = "*unknown check 'gadget'*" }

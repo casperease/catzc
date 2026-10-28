@@ -9,7 +9,7 @@ function Get-GeneratedStampDrift {
 
         [switch] $Changed,
 
-        [Catzc.Base.QualityGates.FileCarrierResolver] $Resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
+        [Catzc.Base.Languages.FileCarrierResolver] $Resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
@@ -40,7 +40,7 @@ function Get-GeneratedStampDrift {
     foreach ($file in $generated) {
         $relative = $file -replace '\\', '/'
         $carrier = $Resolver.For($relative)
-        # A binary has no head of its own to stamp, and a banner holds no body hash.
+        # A carrier of kind none holds no head, and a banner holds no body hash.
         if ($null -eq $carrier -or $carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner) {
             continue
         }
@@ -48,10 +48,22 @@ function Get-GeneratedStampDrift {
         if (-not [System.IO.File]::Exists($full)) {
             continue
         }
-        $text = [System.IO.File]::ReadAllText($full)
         $hasHead = $false
         $bodyHash = $null
-        $headText = $text
+        # A png holds its head in a tEXt chunk, so it is read as bytes; a file that is no png has no chunk to read and is skipped.
+        if ($carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::PngText) {
+            $bytes = [System.IO.File]::ReadAllBytes($full)
+            if (-not [Catzc.Base.Languages.PngTextCarrier]::IsPng($bytes)) {
+                continue
+            }
+            $headText = [Catzc.Base.Languages.PngTextCarrier]::Text($bytes)
+            $hasHead = $null -ne $headText
+            $bodyHash = [Catzc.Base.Languages.PngTextCarrier]::HashOf([Catzc.Base.Languages.PngTextCarrier]::Body($bytes))
+        }
+        else {
+            $text = [System.IO.File]::ReadAllText($full)
+            $headText = $text
+        }
         switch ($carrier.carrier) {
             ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
                 $state = Get-MarkdownMetaState -Text $text -Key $carrier.key
@@ -76,6 +88,17 @@ function Get-GeneratedStampDrift {
                     $body = Format-PropertyMetaHead -Text $text -Property $carrier.property -Strip $carrier.strip -Immutable ([ordered]@{})
                     $bodyHash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
                 }
+            }
+            # An svg and an xml file hold the head in one element their carrier type strips, so the stripped text is the body.
+            ([Catzc.Base.Languages.CarrierKind]::Metadata) {
+                $body = [Catzc.Base.Languages.SvgMetadataCarrier]::Body($text)
+                $hasHead = $body -cne $text
+                $bodyHash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
+            }
+            ([Catzc.Base.Languages.CarrierKind]::ProcessingInstruction) {
+                $body = [Catzc.Base.Languages.XmlInstructionCarrier]::Body($text)
+                $hasHead = $body -cne $text
+                $bodyHash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($body)
             }
         }
         $match = if ($hasHead) {

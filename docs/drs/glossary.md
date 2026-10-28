@@ -1,8 +1,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41b8cea298e0"
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-Glossary -Path docs/drs/glossary.md"
+    with_body_sha: "41b8cea298e0"
 ---
 
 # docs/drs/glossary.md

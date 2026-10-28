@@ -38,6 +38,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             [pscustomobject]@{ ExitCode = 0; Output = $rows -join "`n" }
         }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
+        Mock Set-GeneratedFileHead -ModuleName Catzc.Base.Slides { }
         $script:build = {
             param([hashtable] $Arguments = @{})
             Build-Diagrams -Kit kit -RepositoryRoot $script:widgetRoot -PassThru @Arguments
@@ -197,6 +198,24 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             Should -Throw '*renderer failed on docs/widgets/.assets/widget-a (exit 1)*Traceback: widget*'
     }
 
+    It 'stamps every png the renderer delivered through the one head renderer, findings included, and none it did not' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        $script:exitOf = @{ 'widget-a' = 0; 'widget-b' = 2; 'gizmo' = 3 }
+        Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
+            $rows = @([regex]::Matches(($Command -split '--all ', 2)[1], '"([^"]+)"') | ForEach-Object {
+                    @{ diagram = $_.Groups[1].Value; exit = $script:exitOf[(Split-Path $_.Groups[1].Value -Leaf)] } | ConvertTo-Json -Compress
+                })
+            [pscustomobject]@{ ExitCode = 2; Output = $rows -join "`n" }
+        }
+        { & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo' } } |
+            Should -Throw '*reported findings on docs/widgets/.assets/widget-b*'
+        foreach ($stamped in 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b') {
+            Should -Invoke Set-GeneratedFileHead -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
+                $Writer -ceq 'Build-Diagrams' -and $Path -ceq (Join-Path $script:widgetRoot "$stamped.drawio.png")
+            }
+        }
+        Should -Invoke Set-GeneratedFileHead -ModuleName Catzc.Base.Slides -Times 2 -Exactly
+    }
+
     It 'stops when the kit has no renderer' {
         { Build-Diagrams -Kit missing -RepositoryRoot $script:widgetRoot } | Should -Throw '*no drawio_forward.py*'
     }
@@ -222,6 +241,10 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
                 $Command -like '*python -m catzc.kit.declaration sync "docs/widgets/.assets/widget-b"'
             }
             Should -Invoke Test-Diagrams -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Path -ceq 'docs/widgets/.assets/widget-b' }
+            # The put wrote the png bare, so it is stamped through the one head renderer.
+            Should -Invoke Set-GeneratedFileHead -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
+                $Writer -ceq 'Build-Diagrams' -and $Path -ceq (Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-b.drawio.png')
+            }
         }
 
         It 'stops on a conflict before put, naming the cells, and runs no drift gate' {

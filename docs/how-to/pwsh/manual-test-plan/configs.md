@@ -251,7 +251,7 @@ and excludes).
 
 ### 23. resolves with the shipped registries, every language file to its entry
 
-**Test file:** `pwsh/Base.QualityGates/tests/types/FileCarrierResolver.Tests.ps1` (L0), block
+**Test file:** `pwsh/Base.Languages/tests/types/FileCarrierResolver.Tests.ps1` (L0), block
 `resolves with the shipped registries, every language file to its entry`.
 
 **Guards:** `FileCarrierResolver`, built from the shipped file-carriers.yml and languages.yml, resolves a real file of each kind to its

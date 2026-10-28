@@ -8,8 +8,6 @@ namespace Catzc.Base.Variants;
 // One writer of generated files, as its module's generated.yml declares it; every default of a row is declared here once.
 public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 {
-    // What a roll-off may do with the writer's files
-    // ([ADR-REPO-ROOTCFG-ONECLASSPERWRITER](/docs/drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-oneclassperwriter)).
     public static readonly string[] Classes = { "rollable", "import-critical", "snapshot", "untracked" };
 
     // The shape of the writer's report a drift check reads; 'none' for a writer no drift check reads.
@@ -19,7 +17,7 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 
     public const string DefaultResultPath = "Path";
 
-    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "inputs", "outputs", "expands", "regenerate", "remove" };
+    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "inputs", "outputs", "expands", "regenerate" };
 
     // The writer's command or tool name.
     public string name { get; }
@@ -47,9 +45,6 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 
     // The command that renders a file again, where it differs from the generated-head.yml template. Default: the template.
     public string regenerate { get; }
-
-    // The command that takes a file off the working copy, where it differs from the generated-head.yml template. Default: the template.
-    public string remove { get; }
 
     public GeneratedWriterRow(string name, object raw)
     {
@@ -95,7 +90,6 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
         inputs = StrArr(entry, "inputs");
         expands = OptStr(entry, "expands");
         regenerate = OptStr(entry, "regenerate");
-        remove = OptStr(entry, "remove");
 
         List<GeneratedOutput> list = new List<GeneratedOutput>();
         object value = entry.Contains("outputs") ? entry["outputs"] : null;

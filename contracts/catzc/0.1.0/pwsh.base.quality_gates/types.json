@@ -357,25 +357,6 @@
       ]
     },
     {
-      "name": "Catzc.Base.QualityGates.FileCarrierResolver",
-      "aliases": [],
-      "display": [],
-      "members": [
-        {
-          "name": "For",
-          "kind": "method"
-        },
-        {
-          "name": "IsExcluded",
-          "kind": "method"
-        },
-        {
-          "name": "ToString",
-          "kind": "method"
-        }
-      ]
-    },
-    {
       "name": "Catzc.Base.QualityGates.FileHeadPolicy",
       "aliases": [],
       "display": [],

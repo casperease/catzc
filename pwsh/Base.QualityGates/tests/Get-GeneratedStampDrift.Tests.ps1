@@ -23,10 +23,29 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
         $yamlForm = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')
         $yamlHash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf((Get-CodeMetaState -Text $yamlBody -Form $yamlForm).Rest)
         & $script:write 'widget/current.yml' (Format-CodeMetaHead -Text $yamlBody -Form $yamlForm -Immutable ([ordered]@{ with_body_sha = $yamlHash; repo_status = 'locked'; path = 'widget/current.yml'; kind = 'config' }))
-        # A binary has no head to stamp.
+        # A file named png that is no png has no chunk to hold a head.
         [System.IO.File]::WriteAllBytes((Join-Path $script:root 'widget/picture.png'), [byte[]] @(137, 80, 78, 71))
+        # The smallest png, its signature, a 1x1 IHDR and an IEND, stamped in its catzc tEXt chunk with the hash of the image without it.
+        $chunk = {
+            param([string] $Type, [byte[]] $Data)
+            $body = [byte[]] @([System.Text.Encoding]::ASCII.GetBytes($Type) + $Data)
+            $crc = [Catzc.Base.Languages.PngTextCarrier]::Crc($body, 0, $body.Length)
+            [byte[]] @([System.BitConverter]::GetBytes([uint32] $Data.Length)[3..0] + $body + [System.BitConverter]::GetBytes([uint32] $crc)[3..0])
+        }
+        $png = [byte[]] @(
+            [byte[]] @(0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A)
+            (& $chunk 'IHDR' ([byte[]] @(0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0, 0, 0)))
+            (& $chunk 'IEND' ([byte[]] @()))
+        )
+        $pngHash = [Catzc.Base.Languages.PngTextCarrier]::HashOf($png)
+        [System.IO.File]::WriteAllBytes((Join-Path $script:root 'widget/stamped.png'),
+            [Catzc.Base.Languages.PngTextCarrier]::With($png, "catzc:`n  immutable:`n    with_body_sha: `"$pngHash`""))
+        # An svg stamped in its metadata element with the hash of the drawing without it.
+        $svg = "<svg xmlns=`"http://www.w3.org/2000/svg`"><rect width=`"1`"/></svg>`n"
+        $svgHash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($svg)
+        & $script:write 'widget/drawing.svg' ([Catzc.Base.Languages.SvgMetadataCarrier]::With($svg, "catzc:`n  immutable:`n    with_body_sha: `"$svgHash`""))
 
-        $script:all = 'docs/current.md', 'docs/stale.md', 'docs/bare.md', 'docs/unstamped.md', 'widget/current.yml', 'widget/picture.png'
+        $script:all = 'docs/current.md', 'docs/stale.md', 'docs/bare.md', 'docs/unstamped.md', 'widget/current.yml', 'widget/picture.png', 'widget/stamped.png', 'widget/drawing.svg'
         $script:run = {
             param([string[]] $Path)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $Path } {
@@ -50,9 +69,16 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
             Should -BeLike 'docs/stale.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, *; regenerate the file with its writer'
     }
 
-    It 'lists a file with no head or no stamp as unstamped, not as an issue, and skips a binary' {
+    It 'passes a png and an svg whose stamp, read through their carriers, is the hash of the body' -Tag 'ADR-REPO-FILEMETA-EVERYFORMATCARRIES' {
+        $result = & $script:run @('widget/stamped.png', 'widget/drawing.svg')
+        $result.Issues | Should -BeNullOrEmpty
+        $result.Stamped | Should -Be 2
+        $result.Unstamped | Should -BeNullOrEmpty
+    }
+
+    It 'lists a file with no head or no stamp as unstamped, not as an issue, and skips a png file that is no png' {
         $result = & $script:run $script:all
-        $result.Stamped | Should -Be 3
+        $result.Stamped | Should -Be 5
         $result.Issues.Count | Should -Be 1
         $result.Unstamped | Should -Be @('docs/bare.md', 'docs/unstamped.md')
     }

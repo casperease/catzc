@@ -116,8 +116,9 @@ One name, written in each language's idiom. A name in a language's own case conv
 
 ### responsibility:8 — Generated-file heads
 
-The head of a generated file, saying which generator or source wrote it, in the one form every generator writes. Its keys and their order
-are declared in `generated-head.yml`.
+The stamp of a generated file, saying not to edit it, how it is rendered again and taken off, and what it comes from, in the one form every
+writer stamps, a writer outside PowerShell through the one command that exposes the renderer. Its keys, their order and the command
+templates are declared in `generated-head.yml`, and a png, an svg and an xml file each carry it in a carrier of their own.
 
 ## What the module does
 
@@ -161,4 +162,5 @@ The module's public functions and configuration files, sorted into the responsib
 | responsibility:7 — Names across languages | `ConvertTo-NormalName`     |
 |                                           | `ConvertFrom-NormalName`   |
 | responsibility:8 — Generated-file heads   | `Format-GeneratedFileHead` |
+|                                           | `Set-GeneratedFileHead`    |
 | config                                    | `generated-head.yml`       |

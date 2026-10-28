@@ -1,4 +1,4 @@
-"""The path a slide's `## Image` section links to, and the refusal of any other form.
+"""The path a slide's `## Image` section links to, the refusal of any other form, and the slide a written png names.
 
 usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/diagrams/tests/test_slide_png.py
 """
@@ -45,6 +45,20 @@ def test_a_text_only_fact_slide_renders_at_the_deck_size(tmp_path):
         column = img.convert("RGB").crop((width - gutter - int(fact["picture_width"]), gutter, width - gutter, height // 2))
         background = ImageColor.getrgb(slide_png.SLIDES["token"]["bg_deep"])
         assert any(colour != background for _, colour in column.getcolors(maxcolors=column.width * column.height))
+
+
+def test_a_png_names_the_slide_it_was_made_for(tmp_path):
+    path = slide(tmp_path, "[widget](.assets/widget.png)")
+    (tmp_path / "gadget.slide.md").write_text("# Gadget\n\n## Image\n\n[gadget](.assets/gadget.png)\n", encoding="utf-8", newline="\n")
+    assert slide_png.slide_of(path, "picture") == path
+    assert slide_png.slide_of(tmp_path / ".assets" / "widget.png", "picture") == path
+    assert slide_png.slide_of(tmp_path / ".assets" / "widget.slide.png", "render") == path
+
+
+def test_a_picture_no_slide_links_is_refused(tmp_path):
+    slide(tmp_path, "[widget](.assets/widget.png)")
+    with pytest.raises(SystemExit, match=r"0 slide\(s\) of its deck link it"):
+        slide_png.slide_of(tmp_path / ".assets" / "sprocket.png", "picture")
 
 
 def test_an_image_embed_is_refused(tmp_path):

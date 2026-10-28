@@ -83,7 +83,7 @@ function Build-TrackGlobSets {
     }
 
     $relative = ConvertTo-RepoRelativePath $target
-    $text = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $relative
+    $text = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path $relative -Writer Build-TrackGlobSets
     $changed = Write-FileIfChanged $target $text -DryRun:$DryRun
     if ($changed -and -not $Silent) {
         Write-Message "$(if ($DryRun) { 'would write' } else { 'wrote' }) $relative"

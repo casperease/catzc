@@ -47,13 +47,13 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
         $text |
-            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nalpha: 1\nbeta: 2\n$'
+            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\nalpha: 1\nbeta: 2\n$'
     }
 
     It 'renders a generator entry through the dispatch, under the generated head' {
         Build-RootConfig | Out-Null
         [System.IO.File]::ReadAllText($script:genTarget) |
-            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\nrendered output\n$'
+            Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\nrendered output\n$'
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -136,7 +136,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         # The generated head over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Body)
-            '^# ---\n# catzc:\n#   immutable:\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?#     warning: "Do Not Edit, this file is generated"\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
+            '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
         }
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }

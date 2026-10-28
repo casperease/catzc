@@ -24,6 +24,10 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             $noForm = @($carriers.carriers | Where-Object { $_.carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead -and $null -eq $_.Form() })
             @($noForm | ForEach-Object id) |
                 Should -BeNullOrEmpty -Because 'every comment-head entry yields a head form'
+            $carriers.Find('diagram-render').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::PngText) -Because 'a committed generated format has a carrier'
+            $carriers.Find('png').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::PngText)
+            $carriers.Find('svg').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Metadata)
+            $carriers.Find('xml').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::ProcessingInstruction)
             foreach ($glob in @($carriers.carriers | ForEach-Object { $_.exclude.Keys })) {
                 { [Catzc.Base.Objects.GlobPattern]::new($glob) } |
                     Should -Not -Throw -Because "exclude '$glob' is a valid glob"
@@ -140,7 +144,7 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; shade = 1 }) } |
                 Should -Throw "*unknown key 'shade'*"
             { & $script:one ([ordered]@{ carrier = 'gizmo' }) } |
-                Should -Throw "*unknown carrier 'gizmo' (one of: front-matter, comment-head, property, banner, none)*"
+                Should -Throw "*unknown carrier 'gizmo' (one of: front-matter, comment-head, property, banner, png-text, metadata, processing-instruction, none)*"
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'middle' }) } |
                 Should -Throw "*unknown anchor 'middle' (one of: start, after-shebang, after-prolog, after-preamble)*"
             { & $script:one ([ordered]@{ carrier = '0' }) } | Should -Throw '*unknown carrier*'
@@ -148,7 +152,20 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
 
         It 'needs a carrier' {
             { & $script:one ([ordered]@{ line = '#' }) } |
-                Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, banner, none)*'
+                Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, banner, png-text, metadata, processing-instruction, none)*'
+        }
+
+        It 'reads a png, svg and xml stamp carrier, each taking no key of a text carrier' -Tag 'ADR-REPO-FILEMETA-EVERYFORMATCARRIES' -ForEach @(
+            @{ Name = 'png-text'; Kind = 'PngText' }, @{ Name = 'metadata'; Kind = 'Metadata' }, @{ Name = 'processing-instruction'; Kind = 'ProcessingInstruction' }
+        ) {
+            $config = & $script:one ([ordered]@{ files = @('docs/*.wdg'); carrier = $Name })
+            $config.Find('widget').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::$Kind)
+            $config.Find('widget').Form() | Should -BeNullOrEmpty
+            $config.Find('widget').key | Should -BeNullOrEmpty
+            { & $script:one ([ordered]@{ carrier = $Name; line = '#' }) } | Should -Throw '*line and block belong to a comment-head carrier*'
+            { & $script:one ([ordered]@{ carrier = $Name; property = '//' }) } | Should -Throw '*property is required, and only allowed*'
+            { & $script:one ([ordered]@{ carrier = $Name; reason = 'binary' }) } | Should -Throw '*reason is required, and only allowed*'
+            { & $script:one ([ordered]@{ carrier = $Name; strip = @('catzc') }) } | Should -Throw '*strip belongs to a comment-head or property carrier*'
         }
 
         It 'needs exactly one of line and block for a comment head, and rejects a bad delimiter' {

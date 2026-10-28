@@ -32,8 +32,8 @@ reviewable diff. The difference between the two is one boolean, not two systems.
 
 Every managed root file — a `source` copy or a `generator`'s output — carries the unified generated-file head
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)): the one warning that the file is generated, and
-while git tracks the file its regenerate and remove commands, its sources (the template or the generator's inputs) and `with_body_sha`,
-projected from its writer row and never read back
+while git tracks the file its regenerate command and `with_body_sha`, projected from its writer row and never read back; what the file comes
+from is the writer registry's to answer, never the head's
 ([ADR-REPO-FILEMETA-PROVENANCEINHEAD](file-meta.md#rule-adr-repo-filemeta-provenanceinhead)). `Build-RootConfig` writes the head, in the
 carrier its `carrier` key names (default: the carrier of the target's file language), so a generator renders its content bare and no entry
 and no template hand-words a banner or a managed-file marker. The head is strictly a leading block: config formats have no portable in-body

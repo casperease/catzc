@@ -16,7 +16,7 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
                     }
                 }
             })
-        $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($script:carriers, $script:languages)
+        $script:resolver = [Catzc.Base.Languages.FileCarrierResolver]::new($script:carriers, $script:languages)
     }
 
     It 'resolves a path by its file language when no class selects it' {
@@ -48,7 +48,7 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
     }
 
     It 'resolves with the shipped registries, every language file to its entry' -Tag 'integrity' {
-        $shipped = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers),
+        $shipped = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers),
             (Get-Config -Config languages))
         $modulesFolder = Get-CatzcModulesFolder
         $shipped.For("$modulesFolder/Catzc.Base.QualityGates/Format-Code.ps1").id | Should -BeExactly 'powershell'

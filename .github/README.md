@@ -1,8 +1,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "86c309ada353"
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-FrontPage -Path .github/README.md"
+    with_body_sha: "86c309ada353"
 ---
 
 # cats — the thin delivery platform

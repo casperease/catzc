@@ -25,7 +25,7 @@ function Invoke-ImprintStep {
             if ($File.Count -eq 0) {
                 return $outcome
             }
-            $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers),
+            $resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers),
                 (Get-Config -Config languages))
             $entries = foreach ($path in $File) {
                 $relative = [System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/'

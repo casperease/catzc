@@ -16,5 +16,5 @@ function Get-ReadmeContent {
 
     # The head says not to edit the copy, so the body is the article alone.
     $readme = "$($Mapping.folder)/README.md"
-    Format-GeneratedFileHead -Text $body -Path $readme
+    Format-GeneratedFileHead -Text $body -Path $readme -Writer Build-Readme
 }

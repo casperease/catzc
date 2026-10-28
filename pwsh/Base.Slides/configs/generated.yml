@@ -10,6 +10,8 @@ writers:
   flow_glyphs.py:
     class: rollable
     check: none
+    # One run renders every glyph, so the command names no path.
+    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.flow_glyphs"
     outputs:
       - path: python/diagrams/assets/flow/*.svg
         inputs: [python/diagrams/configs/drawio.yml, python/diagrams/flow_glyphs.py]
@@ -17,6 +19,8 @@ writers:
   slide_png picture:
     class: rollable
     check: none
+    # The kit's script takes the picture it made in place of its slide.
+    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png picture {path}"
     outputs:
       - path: docs/explanation/flow/*/.assets/*.png
         inputs:
@@ -29,6 +33,7 @@ writers:
   slide_png render:
     class: rollable
     check: none
+    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png render {path}"
     outputs:
       - path: docs/explanation/flow/*/.assets/*.slide.png
         inputs:

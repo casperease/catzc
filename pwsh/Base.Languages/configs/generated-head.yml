@@ -1,3 +1,6 @@
 keys:
-  - with_body_sha
   - warning
+  - regenerate
+  - with_body_sha
+warning: "Do Not Edit, this file is generated"
+regenerate: "{writer} -Path {path}"

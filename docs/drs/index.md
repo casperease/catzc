@@ -1,8 +1,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bc0e81059220
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-DrsIndex -Path docs/drs/index.md"
+    with_body_sha: bc0e81059220
 ---
 
 # DRS index and rule-citation registry

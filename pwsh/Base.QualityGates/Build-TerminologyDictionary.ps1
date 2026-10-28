@@ -41,7 +41,7 @@ function Build-TerminologyDictionary {
         else {
             ''
         }
-        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list
+        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Writer Build-TerminologyDictionary
 
         # The fixed path cspell.yml names, a gitignored generated file.
         $dictPath = Join-Path $cspellDir "$category.txt"

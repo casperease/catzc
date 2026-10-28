@@ -151,7 +151,7 @@ function Build-ContractReference {
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$rootName.md"
-        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$rootName.md"
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$rootName.md" -Writer Build-ContractReference
         $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
                 Root = $rootName; Path = "$pageFolder/$rootName.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun

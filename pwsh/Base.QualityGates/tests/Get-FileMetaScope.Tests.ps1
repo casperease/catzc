@@ -17,9 +17,12 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
                     gadget = @{ carrier = 'front-matter' }
                     stamp  = @{ carrier = 'none'; reason = 'written whole' }
                     data   = @{ carrier = 'property'; property = '//' }
+                    pic    = @{ files = @('**/*.pic'); carrier = 'png-text' }
+                    vec    = @{ files = @('**/*.vec'); carrier = 'metadata' }
+                    mark   = @{ files = @('**/*.mark'); carrier = 'processing-instruction' }
                 }
             })
-        $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($carriers, $languages)
+        $script:resolver = [Catzc.Base.Languages.FileCarrierResolver]::new($carriers, $languages)
         $script:scope = {
             param([string[]] $Path)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Resolver = $script:resolver; Path = $Path } {
@@ -32,7 +35,8 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeEach {
         Mock Get-GitTrackedPath {
             'widgets/Widget/get.wdg', 'widgets/Widget/tests/get.wdg', 'widgets/Widget/assets/vendor.wdg', 'docs/read.gdg', 'docs/own.gdg',
-            'docs/value.stp', 'docs/spin.cog', 'docs/plain.txt', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic'
+            'docs/value.stp', 'docs/spin.cog', 'docs/plain.txt', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic', 'docs/glyph.vec',
+            'docs/layout.mark'
         } -ModuleName Catzc.Base.QualityGates
         Mock Get-GitAttributeValue {
             @{
@@ -62,6 +66,13 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
         $found = & $script:scope
         $found.Path | Should -Be @('widgets/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat') -Because 'no kind narrows the scope'
         ($found | Where-Object Path -EQ 'docs/read.gdg').Class | Should -Be 'read-doc'
+    }
+
+    It 'leaves out a png, svg or xml stamp carrier, which only a writer fills' -Tag 'ADR-REPO-FILEMETA-EVERYFORMATCARRIES' {
+        $found = & $script:scope
+        foreach ($stamped in 'docs/image.pic', 'docs/glyph.vec', 'docs/layout.mark') {
+            $found.Path | Should -Not -Contain $stamped
+        }
     }
 
     It 'asks .gitattributes about the exempt classes and the opt-out for the candidates only' {

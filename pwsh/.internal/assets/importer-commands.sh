@@ -1,8 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2dab338c697f"
 #     warning: "Do Not Edit, this file is generated"
+#     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-commands.sh"
+#     with_body_sha: e397deab62dc
 # ---
 
 # shellcheck shell=bash
@@ -154,6 +155,8 @@ set_anomaly_alert_recipient_secret	environment	string	0	1	0	contracts/catzc/0.1.
 set_anomaly_alert_recipient_secret	value	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	value	Set-AnomalyAlertRecipientSecret	Value
 set_anomaly_alert_recipient_secret	subscription_id_assert_is	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	subscription-id-assert-is	Set-AnomalyAlertRecipientSecret	SubscriptionIdAssertIs
 set_anomaly_alert_recipient_secret	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	dry-run	Set-AnomalyAlertRecipientSecret	DryRun
+set_generated_file_head	path	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.languages/set_generated_file_head.command.yml			set-generated-file-head	path	Set-GeneratedFileHead	Path
+set_generated_file_head	writer	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.languages/set_generated_file_head.command.yml			set-generated-file-head	writer	Set-GeneratedFileHead	Writer
 start_claude_drone	skill	string	0	1	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	skill	Start-ClaudeDrone	Skill
 start_claude_drone	model	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	model	Start-ClaudeDrone	Model
 start_claude_drone	prompt	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	prompt	Start-ClaudeDrone	Prompt

@@ -10,8 +10,8 @@ Lists the tracked files that carry a meta block, each with the carrier entry tha
 
 ### description
 
-A file is in scope when its class has a front-matter or comment-head carrier, the class does not leave it out, an imprint kind's globs match
-it, and `.gitattributes` does not exempt it or opt it out.
+A file is in scope when its class has a front-matter, comment-head or property carrier (a banner and a png, svg or xml stamp are a writer's
+alone), the class does not leave it out, an imprint kind's globs match it, and `.gitattributes` does not exempt it or opt it out.
 
 ### parameter `RepositoryRoot`
 

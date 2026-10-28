@@ -19,8 +19,9 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "59e4b30b0d11"
-    warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
+    warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-RootConfig -Path pwsh/.internal/assets/Catzc.Types.csproj"
+    with_body_sha: "59e4b30b0d11"]]></CatzcMeta>
   </PropertyGroup>
 
   <PropertyGroup>

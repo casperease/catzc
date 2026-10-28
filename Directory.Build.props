@@ -2,8 +2,9 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "8abe3961b0bd"
-    warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
+    warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-RootConfig -Path Directory.Build.props"
+    with_body_sha: "8abe3961b0bd"]]></CatzcMeta>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>

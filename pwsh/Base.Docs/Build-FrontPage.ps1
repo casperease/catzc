@@ -65,7 +65,7 @@ function Build-FrontPage {
 
     $relativePath = ConvertTo-RepoRelativePath $Path
     $body = Format-MarkdownTablePadding -Text (Format-LongMarkdownLines -Text (($lines -join "`n") + "`n"))
-    $content = Format-GeneratedFileHead -Text $body -Path $relativePath
+    $content = Format-GeneratedFileHead -Text $body -Path $relativePath -Writer Build-FrontPage
     $changed = Write-FileIfChanged $Path $content -DryRun:$DryRun
 
     if ($changed -and -not $Silent) {

@@ -49,9 +49,9 @@ take the generated files out of a working copy and render them back, and a reade
   and never read back (ADR-REPO-FILEMETA-NOREADBACK). It is a one-way note to a person and may be out of sync, so no command decides
   anything from it: which files are generated, which `Remove-Generated` deletes and which `Restore-Generated` renders come from the registry
   alone, and a file with a head on no declared path is authored as far as every tool is concerned. `with_body_sha` stays only as the drift
-  check's fast path, which falls back to the full render on any mismatch. Keys, in order: `warning`, `regenerate`, `sources` (this file's
-  own inputs), `remove`, `with_body_sha`. The commands are templates declared once in `generated-head.yml` (`"{writer} -Path {path}"`), a
-  writer row overriding where its call differs; no writer words its own head.
+  check's fast path, which falls back to the full render on any mismatch. Keys, in order: `warning`, `regenerate`, `with_body_sha`; no
+  `sources` and no `remove`, which the registry answers. The `regenerate` command is a template declared once in `generated-head.yml`
+  (`"{writer} -Path {path}"`), a writer row overriding where its call differs; no writer words its own head.
 - One head renderer: the C# type renders the head text; PowerShell and Python writers both stamp through it, Python by calling the one
   command, never by a copy of the logic.
 - A carrier for every committed generated format: png a `tEXt` chunk keyed `catzc` (the body sha hashes the image without it), svg a
@@ -74,13 +74,9 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### Stamp heads
 
-- [ ] `pwsh/Base.Languages/types/GeneratedHeadConfig.cs` knows `warning`, `regenerate`, `sources`, `remove`, `with_body_sha` and the command
-      templates; `pwsh/Base.Languages/configs/generated-head.yml` lists them. Check: `Invoke-Pester pwsh/Base.Languages/tests` passes.
-- [ ] `pwsh/Base.Languages/configs/file-carriers.yml`: `diagram-render` and `asset` (generated png) get a `png-text` carrier, svg a
-      `metadata` carrier, `xml` a `processing-instruction` carrier; the carrier kinds land in the carrier type. Check:
-      `Test-ConfigValidators` reports 0 issues.
-- [ ] `pwsh/Base.Languages/Format-GeneratedFileHead.ps1` fills the head from the writer row and writes the three new carriers; a command
-      exposes the renderer to Python. Check: `Invoke-Pester pwsh/Base.Languages/tests` passes.
+- [ ] Every PowerShell writer in the registry (Build-DrsIndex, Build-Glossary, Build-GitKeep, Build-RootConfig, Build-ContractReference,
+      Write-TypesContract, Build-FrontPage, the rest) passes `-Writer` to `Format-GeneratedFileHead`, one burst for all, then each writer
+      re-renders its files with the full head. Check: `Test-GeneratedFiles` and `Test-FileMeta` report 0 issues.
 - [ ] `pwsh/Base.Slides/Build-Diagrams.ps1`, `python/diagrams/slide_png.py`, `python/diagrams/flow_glyphs.py` stamp through the one
       renderer. Check: `Test-Diagrams` reports 0 issues and `Test-PythonLint` passes.
 - [ ] `pwsh/Base.QualityGates/Test-FileMeta.ps1` (or `Test-GeneratedFiles`) walks the registry, never the heads: for every tracked path in

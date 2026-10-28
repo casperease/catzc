@@ -18,8 +18,8 @@ carriers:
   python: { carrier: comment-head, line: "#", anchor: after-shebang }
   bash: { carrier: comment-head, line: "#", anchor: after-shebang }
 
-  # XML carries no block, for the reason it states; HTML takes its block below the doctype, which must stay first.
-  xml: { carrier: none, reason: "an XML comment may not contain '--', so the front matter fence would make the file invalid" }
+  # An XML comment may not contain '--', so a generated XML file's stamp is a <?catzc ...?> processing instruction; HTML takes its block below the doctype, which must stay first.
+  xml: { carrier: processing-instruction }
   html: { carrier: comment-head, block: ["<!--", "-->"], anchor: after-prolog }
   msbuild-project: { files: ["pwsh/.internal/assets/Catzc.Types.csproj", "Directory.Build.props"], carrier: property, property: CatzcMeta }
   # NuGet's config is XML too, so its block rides the same labelled property group, an element NuGet reads past.
@@ -38,12 +38,13 @@ carriers:
 
   jsonl: { carrier: none, reason: "one record per line by definition, so a head would be a record" }
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
-  asset: { carrier: none, reason: "a binary file, so the description beside it carries what a reader needs" }
+  # The png and svg entries below take those files, so the asset language keeps the binaries no format of ours can stamp.
+  asset: { carrier: none, reason: "a pdf or an archive, so the description beside it carries what a reader needs" }
 
-  diagram-render:
-    files: ["docs/**/.assets/*.drawio.png"]
-    carrier: none
-    reason: "the <name>.drawio.yml beside it is the diagram's one source"
+  # A generated picture's stamp rides a tEXt chunk keyed catzc, and its body hash hashes the image without that chunk.
+  diagram-render: { files: ["docs/**/.assets/*.drawio.png"], carrier: png-text }
+  png: { files: ["**/*.png"], carrier: png-text }
+  svg: { files: ["**/*.svg"], carrier: metadata }
   dotfile:
     {
       files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],

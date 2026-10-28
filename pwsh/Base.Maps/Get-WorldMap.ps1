@@ -48,7 +48,7 @@ function Get-WorldMap {
         $script:worldMapTextCache = @{}
     }
     $texts = @{}
-    $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), $languages)
+    $resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers), $languages)
     $commentPages = Get-Config -Config comment-pages
     foreach ($path in $paths) {
         if (-not [Catzc.Base.Maps.CitationScanner]::Cites($path)) {

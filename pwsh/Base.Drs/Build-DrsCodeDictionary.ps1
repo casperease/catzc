@@ -41,7 +41,7 @@ function Build-DrsCodeDictionary {
     else {
         ''
     }
-    $content = Format-GeneratedFileHead -Text $text -Path $relative -Carrier word-list
+    $content = Format-GeneratedFileHead -Text $text -Path $relative -Writer Build-DrsCodeDictionary
     $existing = if (Test-Path -LiteralPath $path) {
         [System.IO.File]::ReadAllText($path)
     }

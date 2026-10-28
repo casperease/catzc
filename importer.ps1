@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f253655e0c6"
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-RootConfig -Path importer.ps1"
+    with_body_sha: "2f253655e0c6"
 ---
 #>
 

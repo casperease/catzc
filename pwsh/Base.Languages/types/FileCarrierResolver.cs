@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Catzc.Base.Objects;
-using Catzc.Base.Languages;
 
-namespace Catzc.Base.QualityGates;
+namespace Catzc.Base.Languages;
 
 // Every glob compiled once, so a scan of all tracked files stays cheap.
 public sealed class FileCarrierResolver

@@ -1,8 +1,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cb1b9d92872a
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-ContractReference -Path docs/references/contracts/catzc.md"
+    with_body_sha: b4f850d28fe4
 ---
 
 # docs/references/contracts/catzc.md
@@ -162,6 +163,7 @@ The current version: edited in place
 | `pwsh.base.languages`                 | `invoke_python_test.command.yml`                 | `pwsh/Base.Languages/Invoke-PythonTest.ps1`                            | provided  | command contract | `module: string!, entry_script: string, uv_executable: string, engine: string, engine_executable: string, folder: string -> catzc.base.languages.python_test_result`                                                                                                                                                                                                |
 | `pwsh.base.languages`                 | `new_go_workspace.command.yml`                   | `pwsh/Base.Languages/New-GoWorkspace.ps1`                              | provided  | command contract | `target: string = * -> catzc.base.languages.go_workspace_file`                                                                                                                                                                                                                                                                                                      |
 | `pwsh.base.languages`                 | `new_python_project.command.yml`                 | `pwsh/Base.Languages/New-PythonProject.ps1`                            | provided  | command contract | `line_length: int!, target: string = * -> catzc.base.languages.python_workspace_file`                                                                                                                                                                                                                                                                               |
+| `pwsh.base.languages`                 | `set_generated_file_head.command.yml`            | `pwsh/Base.Languages/Set-GeneratedFileHead.ps1`                        | provided  | command contract | `path: string!, writer: string!`                                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.base.languages`                 | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.base.maps`                      | `export_world_map_pdf.command.yml`               | `pwsh/Base.Maps/Export-WorldMapPdf.ps1`                                | provided  | command contract | `view: string[], rule: string[]! in rule, path: string[]! in path; default set plain -> string`                                                                                                                                                                                                                                                                     |
 | `pwsh.base.maps`                      | `minimap.sample.json`                            | none                                                                   | provided  | sample payload   | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -494,6 +496,8 @@ Notes:
   folder, from the go config.
 - `pwsh.base.languages/new_python_project.command.yml`: Renders the Python test workspace, the uv workspace root pyproject.toml and one
   member pyproject.toml per Python test folder.
+- `pwsh.base.languages/set_generated_file_head.command.yml`: Stamps the generated-file head on a file its writer has written, filled from
+  the writer's row of the writer registry.
 - `pwsh.base.maps/export_world_map_pdf.command.yml`: Writes the world map as PDFs, the grid view, the tree view or both, optionally with a
   highlight.
 - `pwsh.base.maps/minimap.schema.json`: The schema of one minimap's data, the axes and cells the maps module writes and the diagram kit
@@ -519,10 +523,10 @@ Notes:
   headings into normal form.
 - `pwsh.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-  on when it reads the `catzc` block of a head. Only a wholly generated file carries a head: under `immutable`, its `with_body_sha` while
-  git tracks the file, then `warning`. An authored file carries none, its comment page derived from its path. The rule codes a file cites
-  are read from its text, never from a head, and every other fact about a file is derived on demand, never shown. No key is required, and a
-  fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
+  on when it reads the `catzc` block of a head. Only a wholly generated file carries a head: under `immutable`, its `warning`, then while
+  git tracks the file its `regenerate` command and the closing `with_body_sha`. An authored file carries none, its comment page derived from
+  its path. The rule codes a file cites are read from its text, never from a head, and every other fact about a file is derived on demand,
+  never shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
 - `pwsh.base.quality_gates/head.schema.json`: The schema of a file's meta head, the keys of the catzc block a tool may rely on, none of them
   required.
 - `pwsh.base.quality_gates/test_analyzer_drs_map.command.yml`: Checks that analyzer-drs-map.yml cites only real DRS rules and maps every

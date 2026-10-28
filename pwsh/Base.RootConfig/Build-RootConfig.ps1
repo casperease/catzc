@@ -61,7 +61,7 @@ function Build-RootConfig {
                 Assert-PathExist (Resolve-RepoPath $listed)
             }
             $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
-                    $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier
+                    $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier -Writer Build-RootConfig
                     [pscustomobject]@{ Target = $file.Target; Content = $content; From = "$($entry.generator) (generator)" }
                 })
         }

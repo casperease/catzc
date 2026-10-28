@@ -1,0 +1,4 @@
+description: Stamps the generated-file head on a file its writer has written, filled from the writer's row of the writer registry.
+parameters:
+  path: string!
+  writer: string!

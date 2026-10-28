@@ -1,10 +1,11 @@
 # Provided sample of a file's meta head
 # ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-# on when it reads the `catzc` block of a head. Only a wholly generated file carries a head: under `immutable`, its `with_body_sha` while git
-# tracks the file, then `warning`. An authored file carries none, its comment page derived from its path. The rule codes a file cites are read
-# from its text, never from a head, and every other fact about a file is derived on demand, never shown. No key is required, and a fact a file
-# has no value for is left out. Its schema, head.schema.json, lists the keys.
+# on when it reads the `catzc` block of a head. Only a wholly generated file carries a head: under `immutable`, its `warning`, then while git
+# tracks the file its `regenerate` command and the closing `with_body_sha`. An authored file carries none, its comment page derived from its
+# path. The rule codes a file cites are read from its text, never from a head, and every other fact about a file is derived on demand, never
+# shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists the keys.
 catzc:
   immutable:
-    with_body_sha: fdcdabe91e35
     warning: "Do Not Edit, this file is generated"
+    regenerate: "Build-Widget -Path docs/widget.md"
+    with_body_sha: fdcdabe91e35

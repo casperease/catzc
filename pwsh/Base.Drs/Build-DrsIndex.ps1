@@ -108,7 +108,7 @@ function Build-DrsIndex {
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path $indexPath
+    $content = Format-GeneratedFileHead -Text $content -Path $indexPath -Writer Build-DrsIndex
     $target = Resolve-RepoPath $indexPath
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

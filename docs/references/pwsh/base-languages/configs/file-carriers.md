@@ -9,8 +9,12 @@ and its omitted keys take the defaults declared once on the type
 ## Entries
 
 - **`carriers`** — one entry per file class. A class with `files:` wins over a language of the same file.
-- **`diagram-render`** — a class of files that belongs to no language. A diagram's render carries no block: the `<name>.drawio.yml` beside
-  it is the diagram's one source.
+- **`diagram-render`**, **`png`** — a generated picture carries its writer's stamp in a `tEXt` chunk keyed `catzc`, and its body hash hashes
+  the image without that chunk
+  ([ADR-REPO-FILEMETA-EVERYFORMATCARRIES](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-everyformatcarries)).
+- **`svg`** — the stamp is a `<metadata>` element. **`xml`** — an XML comment may not contain `--`, so the stamp is a `<?catzc ...?>`
+  processing instruction.
+- **`asset`** — the binaries left once `png` and `svg` take theirs, a pdf or an archive, carry no block.
 - **`msbuild-project`** — an XML comment cannot hold the fence and an editor's project loader refuses a processing instruction, so the block
   is a CDATA property of the project's first labelled property group.
 

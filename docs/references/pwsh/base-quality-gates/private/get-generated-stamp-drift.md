@@ -14,8 +14,9 @@ Compares the body hash in every generated tracked file's head with the hash of i
 A generated tracked file opens with `with_body_sha`, the hash of the content below its head
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)), so the drift check can
 read the stamp before the content. This reads every file .gitattributes marks `linguist-generated` (or the paths it is given), finds the
-head through the file's carrier, and reports one issue per file whose stamp is not the hash of its body. A file whose carrier holds no head
-(a binary) is skipped; a file with a head carrier but no stamp is listed as unstamped and is no issue, since its writer does not write a
+head through the file's carrier, and reports one issue per file whose stamp is not the hash of its body. A png is read as bytes, its stamp
+from the catzc tEXt chunk and its body hash over the image without it; an svg or xml stamp is read from the element its carrier type
+strips. A file whose carrier holds no head, or a png file that is no png, is skipped; a file with a head carrier but no stamp is listed as unstamped and is no issue, since its writer does not write a
 head yet.
 
 Private helper of Test-GeneratedFiles; not exported.

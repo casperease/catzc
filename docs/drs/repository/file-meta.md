@@ -8,10 +8,9 @@ Every file on disk is **format-managed**: a `Format-*` command covers it and dec
 block** and which, and a file no format command covers is a finding. A file is covered when its file language has a formatter or states its
 `no_formatter` reason, or when `file-carriers.yml` declares a file class for it. The default is no head; a head is printed only where it
 carries a fact worth its lines. A **generated file**, Markdown and pictures included, carries the stamp head with the do-not-edit warning,
-and while git tracks the file the stamp also names its regenerate and remove commands, its sources and `with_body_sha`, the body it is
-immutable with; an untracked generated file carries the warning only
-([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored doc**, a Markdown file tracked in git, has no
-edges and so carries no head for facts: its comment page is found by its derived path
+and while git tracks the file the stamp also names its regenerate command and `with_body_sha`, the body it is immutable with; an untracked
+generated file carries the warning only ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored doc**, a
+Markdown file tracked in git, has no edges and so carries no head for facts: its comment page is found by its derived path
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace),
 [ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)). An **authored code or config file** tracked in git carries the navigation
 head, its one `docs` edge to its comment page, and none when it has no page
@@ -106,19 +105,19 @@ meta-kind registry ([controlling-module-dependencies](../automation/controlling-
 A file the automation composes whole — a root-config copy, a generator's output, a picture rendered from a declaration, a `.gitkeep` —
 carries the **generated-file head**, a stamp, instead of an imprinted block. Its writer composes the content bare and stamps the head
 through the one head renderer, in the carrier the file's class has. Every committed generated file carries the stamp, and its keys are, in
-this order: `warning`, `regenerate` (the command that renders the file again), `sources` (the file's own inputs, as its writer row declares
-them for this output), `remove` (the command that takes the file off the working copy) and `with_body_sha` (the hash of the content below
-the head, whatever the file's language and carrier); nothing else, no role, track, module, edge or `cites`. An untracked generated file,
-which no commit compares and no roll-off reaches, carries the `warning` alone. The two commands are templates declared once in
-`generated-head.yml` (`"{writer} -Path {path}"`), filled from the writer row, and a writer row overrides a template only where its call
-differs, so no writer words its own head and no writer hand-words a banner. One renderer, the head's C# type, renders the head text for
-every writer: a PowerShell writer calls it through the head function, and a Python writer calls the one command that exposes it, never a
-copy of its logic. A generated file is told from an authored one by its writer's row in the writer registry, each module's
-`configs/generated.yml`, and its `linguist-generated` attribute, never by a kind of its own and never by its head
-([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The imprint engine leaves these files alone
-([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte of them. A comment page is no generated
-file: it is an authored file ([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the head
-policy gives it a head only when it has a fact to show, and a comment page has no comment page of its own
+this order: `warning`, `regenerate` (the command that renders the file again) and `with_body_sha` (the hash of the content below the head,
+whatever the file's language and carrier); nothing else, no sources, no remove command, no role, track, module, edge or `cites`, since the
+writer registry answers what a file comes from and what a roll-off takes. An untracked generated file, which no commit compares and no
+roll-off reaches, carries the `warning` alone. The `regenerate` command is a template declared once in `generated-head.yml`
+(`"{writer} -Path {path}"`), filled from the writer row, and a writer row overrides it only where its call differs, so no writer words its
+own head and no writer hand-words a banner. One renderer, the head's C# type, renders the head text for every writer: a PowerShell writer
+calls it through the head function, and a Python writer calls the one command that exposes it, never a copy of its logic. A generated file
+is told from an authored one by its writer's row in the writer registry, each module's `configs/generated.yml`, and its `linguist-generated`
+attribute, never by a kind of its own and never by its head ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The
+imprint engine leaves these files alone ([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte
+of them. A comment page is no generated file: it is an authored file
+([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the head policy gives it a head only
+when it has a fact to show, and a comment page has no comment page of its own
 ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)).
 
 - [Generated files](#generated-files)
@@ -127,13 +126,13 @@ policy gives it a head only when it has a fact to show, and a comment page has n
 
 A generated file states its provenance once, in the head, as a one-way note to a person: the `warning`, the one string "Do Not Edit, this
 file is generated" that every generated head carries, declared once as the default of the head's config type (`GeneratedHeadConfig`,
-[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), the commands that
-render it again and take it off, and the files it comes from, projected from its writer row when the writer writes the file and written in
-the file's own carrier ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The head is never a source: it may be out
-of step with the registry, so no command decides anything from it ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)).
-Which files are generated, which a roll-off deletes and which a roll-on renders come from the writer registry alone, and a file with a head
-on no declared path is authored as far as every tool is concerned. The body below the head is the content alone: no "generated from" line,
-no link to the source and no "edit the source" note, since the head says it once.
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and the command that
+renders it again, projected from its writer row when the writer writes the file and written in the file's own carrier
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The head is never a source: it may be out of step with the
+registry, so no command decides anything from it ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). Which files are
+generated, what each comes from, which a roll-off deletes and which a roll-on renders come from the writer registry alone, and a file with a
+head on no declared path is authored as far as every tool is concerned. The body below the head is the content alone: no "generated from"
+line, no link to the source and no "edit the source" note, since the head says it once.
 
 - [Generated files](#generated-files)
 
@@ -202,8 +201,8 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 ### Rule ADR-REPO-FILEMETA-FILEISNODE
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
-the head needs, and only a generated head has any: its `warning`, and while git tracks it its commands, sources and closing `with_body_sha`
-([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)), written by its writer
+the head needs, and only a generated head has any: its `warning`, and while git tracks it its `regenerate` command and closing
+`with_body_sha` ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)), written by its writer
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part and holds the `header`
 note ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place fact, what the repository's own configuration
 makes of the file's location, is derived on demand from a registry and never shown. An **edge** is a named relation leaving the file to

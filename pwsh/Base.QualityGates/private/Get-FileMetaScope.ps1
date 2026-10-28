@@ -7,7 +7,7 @@ function Get-FileMetaScope {
 
         [string[]] $Path,
 
-        [Catzc.Base.QualityGates.FileCarrierResolver] $Resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
+        [Catzc.Base.Languages.FileCarrierResolver] $Resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
@@ -25,8 +25,8 @@ function Get-FileMetaScope {
         if ($null -eq $carrier) {
             continue
         }
-        # A banner is written whole by its generator and holds no meta block.
-        if ($carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner) {
+        # Only a text head is imprinted: a banner and a png, svg or xml stamp are each a writer's alone.
+        if ($carrier.carrier -notin [Catzc.Base.Languages.CarrierKind]::FrontMatter, [Catzc.Base.Languages.CarrierKind]::CommentHead, [Catzc.Base.Languages.CarrierKind]::Property) {
             continue
         }
         if ($Resolver.IsExcluded($carrier, $tracked)) {

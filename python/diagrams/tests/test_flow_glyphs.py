@@ -1,6 +1,7 @@
-"""The flow glyphs: every word of drawio.yml's flow-glyphs renders exactly as its committed SVG, and a wrong word is refused naming it."""
+"""The flow glyphs: every word of drawio.yml's flow-glyphs renders exactly as its committed SVG below the stamp, and a wrong word is refused naming it."""
 
 import base64
+import re
 
 import pytest
 from catzc.diagrams import embed_images, flow_glyphs
@@ -11,8 +12,10 @@ from catzc.diagrams.drawio_png_base import tokens
 @pytest.mark.parametrize("entry", flow_glyphs.glyphs(), ids=lambda entry: entry["id"])
 def test_every_flow_glyph_renders_as_its_committed_svg(entry):
     committed = flow_glyphs.ASSETS / f"{entry['id']}.svg"
-    assert committed.is_file(), f"no committed {committed.name}; run flow_glyphs.write_all()"
-    assert flow_glyphs.render(entry["word"]) == committed.read_text(encoding="utf-8")
+    assert committed.is_file(), f"no committed {committed.name}; run python -m catzc.diagrams.flow_glyphs"
+    # The committed file carries its stamp in a <metadata id="catzc"> element, the head renderer's, which render never writes.
+    body = re.sub(r'<metadata id="catzc">.*?</metadata>', "", committed.read_text(encoding="utf-8"), flags=re.DOTALL)
+    assert flow_glyphs.render(entry["word"]) == body
 
 
 def test_a_word_is_three_symbols_long():
@@ -34,7 +37,7 @@ def test_the_dotted_circle_is_the_empty_one_with_a_dot():
 def test_lines_at_two_heights_join_with_a_riser_and_strokes_are_the_ink_token():
     text = flow_glyphs.render("O_-")
     assert text.count("<line") == 3  # the bottom line, the middle line and the riser between them
-    assert "#" not in text.split("\n", 1)[1]  # no hex colour: every stroke is @ink
+    assert "#" not in text  # no hex colour: every stroke is @ink
 
 
 def test_the_flow_environment_is_a_rhombus_glyph_of_the_kit():

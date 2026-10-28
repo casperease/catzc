@@ -1,8 +1,9 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9f58ee1bb1c3"
 #     warning: "Do Not Edit, this file is generated"
+#     regenerate: "Build-RootConfig -Path .gitignore"
+#     with_body_sha: "9f58ee1bb1c3"
 # ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────

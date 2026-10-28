@@ -127,6 +127,10 @@ function Build-Diagrams {
                 -not $row.PSObject.Properties['error']) -ErrorText "Build-Diagrams: the sync of $folderPath stopped: $(if ($row -and $row.PSObject.Properties['error']) { $row.error } else { @($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ' })"
             $run.Stage = "sync ($(@($row.ran) -join ', '))"
             $run.Status = 'clean'
+            # A sync that put wrote the png bare, so it takes its stamp through the one head renderer.
+            if (@($row.ran) -ccontains 'put') {
+                Set-GeneratedFileHead -Path (Join-Path $root "$folderPath.drawio.png") -Writer Build-Diagrams
+            }
             Write-Message "sync $($runs.Count)/$($folders.Count) $folderPath clean ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
         }
         if (-not $DryRun -and $folders.Count -gt 0) {
@@ -181,6 +185,10 @@ function Build-Diagrams {
         }
         if (-not $DryRun) {
             Write-Message "render: $($folders.Count) folder(s) across $Workers worker(s) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
+            # The renderer writes each png bare, findings or not, so every delivered png takes its stamp through the one head renderer.
+            foreach ($run in @($runs | Where-Object Status -In 'clean', 'findings')) {
+                Set-GeneratedFileHead -Path (Join-Path $root "$($run.Folder).drawio.png") -Writer Build-Diagrams
+            }
             $findingFolders = @($runs | Where-Object Status -EQ 'findings' | ForEach-Object Folder)
             $failedFolders = @($runs | Where-Object Status -EQ 'failed' | ForEach-Object Folder)
             Assert-True ($findingFolders.Count -eq 0) -ErrorText "Build-Diagrams: the renderer reported findings on $($findingFolders -join ', '), each an error; see their bulk reports under out/drawio/."

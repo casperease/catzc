@@ -81,6 +81,8 @@ def paint_svg(d, svg, x0, y0, x1, y1):
             d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=fill, outline=outline, width=width if outline else 0)
         elif tag == "line":
             d.line([at(a["x1"], a["y1"]), at(a["x2"], a["y2"])], fill=a["stroke"], width=width)
+        elif tag == "metadata":
+            continue  # a generated svg's stamp (ADR-REPO-FILEMETA-EVERYFORMATCARRIES) draws nothing
         else:
             raise SystemExit(f"embedded svg element <{tag}> is outside the raster's subset of circle and line")
 

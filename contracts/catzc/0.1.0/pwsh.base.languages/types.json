@@ -186,6 +186,25 @@
       ]
     },
     {
+      "name": "Catzc.Base.Languages.FileCarrierResolver",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "For",
+          "kind": "method"
+        },
+        {
+          "name": "IsExcluded",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.Languages.FileCarriersConfig",
       "aliases": [],
       "display": [],
@@ -305,6 +324,10 @@
       "members": [
         {
           "name": "order",
+          "kind": "property"
+        },
+        {
+          "name": "regenerate",
           "kind": "property"
         },
         {
@@ -786,6 +809,37 @@
       ]
     },
     {
+      "name": "Catzc.Base.Languages.PngTextCarrier",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Body",
+          "kind": "method"
+        },
+        {
+          "name": "Crc",
+          "kind": "method"
+        },
+        {
+          "name": "HashOf",
+          "kind": "method"
+        },
+        {
+          "name": "IsPng",
+          "kind": "method"
+        },
+        {
+          "name": "Text",
+          "kind": "method"
+        },
+        {
+          "name": "With",
+          "kind": "method"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.Languages.PythonConfig",
       "aliases": [],
       "display": [],
@@ -886,6 +940,36 @@
         },
         {
           "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.SvgMetadataCarrier",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Body",
+          "kind": "method"
+        },
+        {
+          "name": "With",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.XmlInstructionCarrier",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Body",
+          "kind": "method"
+        },
+        {
+          "name": "With",
           "kind": "method"
         }
       ]
