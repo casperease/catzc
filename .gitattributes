@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e43f7789c8ae
+#     with_body_sha: "5656bf8abd15"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -65,19 +65,25 @@ pwsh/.vendor/** linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
 # in pull-request diffs so review lands on their sources (see docs/drs/repository/generated-root-configs.md). The
-# lines below the compiled types are rendered from the registries that declare what is generated: every writer's
-# outputs in generated-files.yml, then every root config rootconfig.yml declares committed.
+# lines below the compiled types are rendered from the registries that declare what is generated: the outputs of
+# every tracked writer in a module's generated.yml, then every root config rootconfig.yml declares committed.
 pwsh/.compiled/** linguist-generated
-/pwsh/Base.Globs/configs/globs/track-sets.yml linguist-generated
+**/.gitkeep linguist-generated
+/pwsh/*/*.psd1 linguist-generated
+/pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml linguist-generated
+/docs/explanation/flow/.assets/ci-pwsh-to-deploy-apex.drawio.yml linguist-generated
+/pwsh/Azure.Templates/assets/cost-prices.json linguist-generated
+/python/diagrams/assets/flow/*.svg linguist-generated
 /docs/drs/index.md linguist-generated
 /docs/drs/glossary.md linguist-generated
-/docs/references/contracts/*.md linguist-generated
-**/README.md linguist-generated
-**/.gitkeep linguist-generated
-/.cspell/*.txt linguist-generated
-/.cspell/drs-codes.txt linguist-generated
+/pwsh/Base.Globs/configs/globs/track-sets.yml linguist-generated
 /contracts/catzc/0.1.0/*/types.json linguist-generated
+/docs/references/contracts/*.md linguist-generated
+/docs/**/.assets/*.drawio.png linguist-generated
 /pwsh/Base.QualityGates/assets/english.* linguist-generated
+/.github/README.md linguist-generated
+/docs/explanation/flow/*/.assets/*.png linguist-generated
+/docs/explanation/flow/*/.assets/*.slide.png linguist-generated
 /importer.ps1 linguist-generated
 /importer.sh linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated

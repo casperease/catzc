@@ -30,8 +30,6 @@ configs:
     type: Catzc.Base.QualityGates.EditRemindersConfig
   file-meta:
     type: Catzc.Base.QualityGates.FileMetaConfig
-  generated-files:
-    type: Catzc.Base.GeneratedFiles.GeneratedFilesConfig
   generated-head:
     type: Catzc.Base.Languages.GeneratedHeadConfig
   test-policy:

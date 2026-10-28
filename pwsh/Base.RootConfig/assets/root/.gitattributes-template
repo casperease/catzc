@@ -58,8 +58,8 @@ pwsh/.vendor/** linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
 # in pull-request diffs so review lands on their sources (see docs/drs/repository/generated-root-configs.md). The
-# lines below the compiled types are rendered from the registries that declare what is generated: every writer's
-# outputs in generated-files.yml, then every root config rootconfig.yml declares committed.
+# lines below the compiled types are rendered from the registries that declare what is generated: the outputs of
+# every tracked writer in a module's generated.yml, then every root config rootconfig.yml declares committed.
 pwsh/.compiled/** linguist-generated
 {{generated-files}}
 

@@ -26,11 +26,10 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
             }
         }
         # The warm-run skip reads the one writer memo, kept inside the fake root.
-        $script:writers = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
-                    'Build-RootConfig' = [ordered]@{ inputs = @('sources/fixture.yml', 'fixture.yml', 'generated.txt') }
-                }
+        $script:writers = [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-RootConfig', [ordered]@{
+                class = 'import-critical'; inputs = @('sources/fixture.yml', 'fixture.yml', 'generated.txt'); outputs = @('*')
             })
-        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:writers }
         Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
     }
@@ -155,11 +154,10 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
                 )
             }
         }
-        $script:writers = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
-                    'Build-RootConfig' = [ordered]@{ inputs = @('widgets/*/gadget.txt') }
-                }
+        $script:writers = [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-RootConfig', [ordered]@{
+                class = 'import-critical'; inputs = @('widgets/*/gadget.txt'); outputs = @('widgets/*/gadget.txt')
             })
-        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:writers }
         Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
     }

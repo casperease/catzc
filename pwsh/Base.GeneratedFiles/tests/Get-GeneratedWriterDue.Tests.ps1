@@ -2,16 +2,17 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
         $script:memo = Join-Path $TestDrive 'cache/generated-writers.json'
-        $script:config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
-                    'Build-Widget'   = [ordered]@{ inputs = @('widget/**'); outputs = @('docs/index.md') }
-                    'Build-Gadget'   = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
-                    # A writer whose ignored target is one of its own inputs, as the root configs declare theirs.
-                    'Build-Sprocket' = [ordered]@{ inputs = @('.sprocket.yml'); outputs = @('.sprocket.yml') }
-                    # A writer that writes one file into every folder a wildcard claims, as the root configs write each pyproject.toml.
-                    'Build-Cog'      = [ordered]@{ inputs = @('cogs/*/cog.toml') }
-                    'Build-Gizmo'    = $null
-                }
-            })
+        # The writer rows in the order the registry's graph renders them, as Get-GeneratedWriterOrder answers.
+        $script:rows = @(
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; inputs = @('widget/**'); outputs = @('docs/index.md') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Gadget', [ordered]@{ class = 'rollable'; inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') })
+            # A writer whose ignored target is one of its own inputs, as the root configs declare theirs.
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Sprocket', [ordered]@{ class = 'import-critical'; inputs = @('.sprocket.yml'); outputs = @('.sprocket.yml') })
+            # A writer that writes one file into every folder a wildcard claims, as the root configs write each pyproject.toml.
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Cog', [ordered]@{ class = 'rollable'; inputs = @('cogs/*/cog.toml'); outputs = @('cogs/*/cog.lock') })
+            # A writer whose output reads its own inputs, which the walk and the stamp count with the writer's.
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Gizmo', [ordered]@{ class = 'rollable'; outputs = @([ordered]@{ path = 'gizmo/*.png'; inputs = @('gizmo/*.yml') }) })
+        )
         $script:write = {
             param([string] $Path, [string] $Text)
             $full = Join-Path $script:root $Path
@@ -38,7 +39,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:config }
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:rows }
         Remove-Item -LiteralPath $script:root, $script:memo -Recurse -ErrorAction Ignore
         & $script:write 'docs/index.md' 'widget'
         & $script:write 'widget/spin.txt' 'gadget'
@@ -50,8 +51,14 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run) 'Build-Widget' | Should -BeFalse
         & $script:write 'widget/spin.txt' 'gadget, wound'
         & $script:due @(& $script:run) 'Build-Widget' | Should -BeTrue
-        & $script:due @(& $script:run @('widget/spin.txt')) 'Build-Gizmo' |
-            Should -BeTrue -Because 'a writer with neither list is due whenever anything changed'
+    }
+
+    It 'is due when an input only an output declares changed' {
+        & $script:write 'gizmo/cog.yml' 'gizmo: 1'
+        & $script:ran 'Build-Gizmo'
+        & $script:due @(& $script:run) 'Build-Gizmo' | Should -BeFalse
+        & $script:write 'gizmo/cog.yml' 'gizmo: 2'
+        & $script:due @(& $script:run) 'Build-Gizmo' | Should -BeTrue
     }
 
     It 'is not due when only an output changed' {
@@ -100,29 +107,20 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run @('unrelated/b.txt')) 'Build-Gadget' | Should -BeTrue
     }
 
-    It 'says which writers have no lists, and is not due for them when nothing changed' {
-        & $script:ran 'Build-Widget'
-        $rows = @(& $script:run @())
-        ($rows | Where-Object Name -eq 'Build-Gizmo').HasLists | Should -BeFalse
-        & $script:due $rows 'Build-Gizmo' | Should -BeFalse
-        ($rows | Where-Object Name -eq 'Build-Widget').HasLists | Should -BeTrue
-        & $script:due $rows 'Build-Widget' | Should -BeFalse
-    }
-
-    It 'emits one typed record per writer, in declaration order' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
+    It 'emits one typed record per writer, in the render order of the registry, each declaring its lists' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         $rows = @(& $script:run @())
         $rows | Should -HaveCount 5
         $rows[0] | Should -BeOfType [Catzc.Base.GeneratedFiles.GeneratedWriterDue]
         @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Sprocket', 'Build-Cog', 'Build-Gizmo')
+        @($rows | Where-Object { -not $_.HasLists }) | Should -HaveCount 0
     }
 
-    It 'reads git, once, when no changed set is given and a writer declares no lists' {
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles { 'gadget/a.yml' }
+    It 'judges only the writers it is named, and stores the stamp of a named writer only' {
         $rows = @(InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Memo = $script:memo } {
                 param($Root, $Memo)
-                Get-GeneratedWriterDue -RepositoryRoot $Root -MemoPath $Memo
+                Get-GeneratedWriterDue -Name 'Build-Gadget' -ChangedPath @() -RepositoryRoot $Root -MemoPath $Memo
             })
-        & $script:due $rows 'Build-Gizmo' | Should -BeTrue
-        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly
+        @($rows.Name) | Should -Be @('Build-Gadget')
+        { & $script:ran 'Build-Widgets' } | Should -Throw "*'Build-Widgets' is not a writer of any module's generated.yml*"
     }
 }

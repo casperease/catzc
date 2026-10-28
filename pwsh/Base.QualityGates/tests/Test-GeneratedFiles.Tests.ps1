@@ -6,6 +6,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $false; DryRun = $true } }
         Mock Build-ContractReference -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/contracts/widget.md'; Changed = $false; DryRun = $true } }
         Mock Build-GitKeep -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'widget/.gitkeep'; Changed = $false; DryRun = $true } }
+        Mock Build-FrontPage -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'widget/README.md'; Changed = $false; DryRun = $true; SectionCount = 1 } }
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Category = 'widget'; Path = '.cspell/widget.txt'; WordCount = 3; Changed = $false; DryRun = $true } }
         Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates { '10' }
         Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
@@ -48,7 +49,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Should -Be 'widget/README.md: stale — Build-Readme would change it; regenerate with: Build-Readme'
         $known = InModuleScope Catzc.Base.QualityGates { @(Get-GeneratedFileGenerator).Count }
         $result.Facts['Generators'] |
-            Should -Be $known -Because 'the count is every writer of generated-files.yml plus every root-file generator of rootconfig.yml'
+            Should -Be $known -Because 'the count is every writer row of the modules'' generated.yml plus every root-file generator of rootconfig.yml'
     }
 
     It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
@@ -64,11 +65,14 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1
     }
 
-    It 'lists the writers of generated-files.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'lists the writer rows of every module''s generated.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $known = InModuleScope Catzc.Base.QualityGates { Get-GeneratedFileGenerator }
         $known | Should -Contain 'Build-DrsIndex'
         $known | Should -Contain 'Build-RootConfig'
         $known | Should -Contain 'New-PythonProject'
+        foreach ($name in @(Get-GeneratedWriterOrder | ForEach-Object name)) {
+            $known | Should -Contain $name
+        }
         @($known | Select-Object -Unique).Count | Should -Be $known.Count
 
         $rootGenerators = @((Get-Config -Config rootconfig).files | Where-Object { $_.optIn -and $_.generator } |
@@ -147,7 +151,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             # Get-GeneratedWriterDue decides which writers are due; each case names them here.
             $script:due = @('Build-DrsIndex')
             Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates {
-                foreach ($name in (Get-Config -Config generated-files).writers.Keys) {
+                foreach ($name in @(Get-GeneratedWriterOrder | ForEach-Object name)) {
                     [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($name, $name -in $script:due, $true)
                 }
             }

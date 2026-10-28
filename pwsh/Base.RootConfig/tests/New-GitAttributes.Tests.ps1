@@ -44,11 +44,11 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                 )
             }
         }
-        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'generated-files' } {
-            [pscustomobject]@{ writers = [ordered]@{
-                    'Build-Widget' = [pscustomobject]@{ outputs = @('docs/widget.md', '**/GADGET.md') }
-                }
-            }
+        # A tracked writer's outputs are its files; an untracked writer's never reach git, and an expanding writer's name places only.
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.RootConfig {
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; outputs = @('docs/widget.md', '**/GADGET.md') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Gadget', [ordered]@{ class = 'untracked'; outputs = @('out/gadget/**') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Cog', [ordered]@{ class = 'import-critical'; expands = 'cogs'; outputs = @('*') })
         }
         $script:roots = "{{generated-files}}`n"
         $script:generated = "/docs/widget.md linguist-generated`n**/GADGET.md linguist-generated`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
@@ -138,8 +138,8 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
             $text |
                 Should -Match "(?m)^/$([regex]::Escape($root.target)) linguist-generated$" -Because "$($root.target) is a committed root config"
         }
-        foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
-            foreach ($output in @($writer.outputs)) {
+        foreach ($writer in @(Get-GeneratedWriterOrder | Where-Object { -not $_.expands -and $_.class -cne 'untracked' })) {
+            foreach ($output in @($writer.outputs | ForEach-Object path)) {
                 $line = if ($output.StartsWith('**/')) {
                     $output
                 }

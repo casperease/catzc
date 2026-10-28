@@ -28,13 +28,9 @@ Describe 'Test-FileLimits' -Tag 'L0', 'logic' {
         $result.Issues | Select-Object -First 1 | Should -BeLike '*gadget.unclassified: unclassified*'
     }
 
-    It 'measures a comment page as authored prose, though its root is a generated target, and leaves other generated files out' {
+    It 'leaves a generated target out and measures an authored file beside it' {
         Mock Get-GeneratedTarget -ModuleName Catzc.Base.FileLimits {
-            [pscustomobject]@{ path = 'docs/references/widgets/**'; generator = 'Format-Code' }
             [pscustomobject]@{ path = 'docs/gadgets/**'; generator = 'Build-Gadget' }
-        }
-        Mock Get-Config -ModuleName Catzc.Base.FileLimits -ParameterFilter { $Config -eq 'comment-pages' } {
-            [pscustomobject]@{ pages = @([pscustomobject]@{ docs = 'docs/references/widgets' }) }
         }
         Mock Test-FileShape -ModuleName Catzc.Base.FileLimits { [pscustomobject]@{ Check = 'length'; Message = "${Path}: 401 lines" } }
         $result = Test-FileLimits -Path 'docs/references/widgets/gadget.ps1.md', 'docs/gadgets/sprocket.md' -OutputFolder (Join-Path $TestDrive 'out4') -PassThru

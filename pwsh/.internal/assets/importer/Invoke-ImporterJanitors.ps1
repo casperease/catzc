@@ -28,11 +28,9 @@ function Invoke-ImporterJanitors {
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
     # A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it
-    # considers, in order, and
-    # the lists are generated-files.yml's (at_import).
-    $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
-            (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } |
-                ForEach-Object { $_.name }
+    # considers are the at_import rows of the modules' generated.yml, in the render order their graph derives.
+    $atImport = @(if (Get-Command Get-GeneratedWriterOrder -ErrorAction Ignore) {
+            Get-GeneratedWriterOrder | Where-Object { $_.at_import } | ForEach-Object { $_.name }
         })
     $due = Get-DueWriterRow -Name $atImport
     $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore

@@ -31,6 +31,7 @@ writers:
       - pwsh/Base.Globs/configs/globs/*.yml
       - pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml
       - pwsh/Base.Variants/configs/variants.yml
+      - pwsh/*/configs/generated.yml
       - PSScriptAnalyzerSettings.psd1
       - importer.ps1
       - importer.sh

@@ -20,10 +20,11 @@ function Test-GeneratedFiles {
     $known = @(Get-GeneratedFileGenerator)
     foreach ($name in $Generator) {
         Assert-True ($name -in $known) `
-            -ErrorText "Unknown generator '$name'. The generators are: $($known -join ', ') (generated-files.yml lists the writers, rootconfig.yml the root-file generators)."
+            -ErrorText "Unknown generator '$name'. The generators are: $($known -join ', ') (each module's generated.yml lists its writers, rootconfig.yml the root-file generators)."
     }
-    $writers = (Get-Config -Config generated-files).writers
-    $rootConfigGenerators = @($known | Where-Object { -not $writers.Contains($_) })
+    $writers = @(Get-GeneratedWriterOrder)
+    $writerNames = @($writers | ForEach-Object name)
+    $rootConfigGenerators = @($known | Where-Object { $_ -cnotin $writerNames })
     # @() around the whole if: a one-generator selection must stay an array (.Count under strict mode).
     $selected = @(if ($Generator) {
             $Generator
@@ -55,7 +56,7 @@ function Test-GeneratedFiles {
 
     # Each writer runs by its registered check; @() keeps an empty result an array under strict mode.
     $checkedWriters = @(if (-not $StampOnly) {
-            $writers.Values
+            $writers
         })
     foreach ($writer in $checkedWriters) {
         $writerName = $writer.name

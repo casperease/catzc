@@ -3,7 +3,16 @@ writers:
   Build-DrsIndex:
     class: rollable
     at_import: true
-    inputs: [docs/drs/**, pwsh/Base.Drs/**]
+    # The records in the domain folders and the authored text, never the index it writes or the pages beside it.
+    inputs:
+      - docs/drs/*/*.md
+      - docs/drs/*/*/*.md
+      - docs/drs/*/*/*/*.md
+      - pwsh/Base.Drs/configs/drs.yml
+      - pwsh/Base.Drs/configs/drs-index.yml
+      - pwsh/Base.Drs/Build-DrsIndex.ps1
+      - pwsh/Base.Drs/private/Get-DrsFileIndex.ps1
+      - pwsh/Base.Drs/types/*.cs
     outputs: [docs/drs/index.md]
   Build-DrsCodeDictionary:
     class: untracked

@@ -3,20 +3,52 @@ writers:
   Build-Glossary:
     class: rollable
     at_import: true
-    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/*/configs/glossary/*.yml, pwsh/Base.Docs/**]
+    # The glossary sources and the records its rule links resolve against, never the page itself.
+    inputs:
+      - pwsh/*/configs/glossary.yml
+      - pwsh/*/configs/glossary/*.yml
+      - pwsh/Base.Drs/configs/drs.yml
+      - docs/drs/index.md
+      - docs/drs/*/*.md
+      - docs/drs/*/*/*.md
+      - docs/drs/*/*/*/*.md
+      - pwsh/Base.Docs/Build-Glossary.ps1
+      - pwsh/Base.Docs/Get-Glossary.ps1
+      - pwsh/Base.Docs/private/Get-GlossarySources.ps1
+      - pwsh/Base.Docs/types/Glossary*.cs
+      - pwsh/Base.Drs/Get-DrsCitationMap.ps1
     outputs: [docs/drs/glossary.md]
-  # The READMEs are gitignored copies, one per folder readme.yml names.
+  # The READMEs are gitignored copies, one per folder readme.yml names; the outputs bound the depths its patterns and mappings reach.
   Build-Readme:
     class: untracked
     at_import: true
     result_path: Readme
     expands: readme
-    inputs: [docs/references/**, docs/drs/index.md, pwsh/Base.Docs/**]
-    outputs: ["**/README.md"]
+    inputs:
+      - pwsh/Base.Docs/configs/readme.yml
+      - pwsh/Base.CodeMeta/configs/comment-pages.yml
+      - docs/drs/index.md
+      - docs/references/*.md
+      - docs/references/ado/pipelines.md
+      - docs/references/ado/pipelines/template-folders.md
+      - docs/references/infrastructure/*.md
+      - docs/references/pwsh/*/index.md
+      - docs/references/python/*/index.md
+      - pwsh/Base.Docs/Build-Readme.ps1
+      - pwsh/Base.Docs/private/Get-ReadmeContent.ps1
+      - pwsh/Base.Docs/private/Get-ReadmeMappings.ps1
+      - pwsh/Base.Docs/private/Format-LongMarkdownLines.ps1
+      - pwsh/Base.Docs/types/Doc*.cs
+    outputs:
+      - "*/README.md"
+      - "*/*/README.md"
+      - .ado/pipelines/*/README.md
+      - infrastructure/templates/*/README.md
+  # It reads its template, never the tree's keep files it writes.
   Build-GitKeep:
     class: rollable
     at_import: true
-    inputs: [pwsh/Base.Docs/**]
+    inputs: [pwsh/Base.Docs/Build-GitKeep.ps1, pwsh/Base.Docs/assets/gitkeep]
     outputs: ["**/.gitkeep"]
   Build-FrontPage:
     class: rollable

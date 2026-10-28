@@ -13,7 +13,7 @@ function Get-GeneratedWriterInputFile {
     $files = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $walks = @{}
-    $inputDepth = (Get-Config -Config generated-files).input_depth
+    $inputDepth = [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::InputDepth
     foreach ($glob in @($InputGlob | Where-Object { $_ })) {
         if ($glob.IndexOfAny([char[]] '*?[') -lt 0) {
             if ([System.IO.File]::Exists((Join-Path $RepositoryRoot $glob))) {

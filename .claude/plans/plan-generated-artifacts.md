@@ -74,8 +74,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### One registry
 
-- [ ] `pwsh/Base.GeneratedFiles/types/GeneratedFilesConfig.cs` reads the module rows and derives the order by a topological sort over inputs
-      and outputs, failing on a cycle. Check: `Invoke-Pester pwsh/Base.GeneratedFiles/tests` passes.
 - [ ] `pwsh/Base.GeneratedFiles/configs/generated-files.yml` is deleted and every reader (`Test-GeneratedFiles`, `Get-GeneratedWriterDue`,
       `Build-TrackGlobSets`, `Build-RootConfig`'s `.gitattributes` render) reads the one registry in the same change, by staged burst
       (import path). Check: `Test-GeneratedFiles` reports 0 issues in a fresh import.

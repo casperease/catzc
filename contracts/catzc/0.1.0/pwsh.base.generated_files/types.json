@@ -1,56 +1,6 @@
 {
   "types": [
     {
-      "name": "Catzc.Base.GeneratedFiles.GeneratedFilesConfig",
-      "aliases": [],
-      "display": [],
-      "members": [
-        {
-          "name": "RenderOrder",
-          "kind": "method"
-        },
-        {
-          "name": "input_depth",
-          "kind": "property"
-        },
-        {
-          "name": "writers",
-          "kind": "property"
-        }
-      ]
-    },
-    {
-      "name": "Catzc.Base.GeneratedFiles.GeneratedWriter",
-      "aliases": [],
-      "display": [],
-      "members": [
-        {
-          "name": "at_import",
-          "kind": "property"
-        },
-        {
-          "name": "check",
-          "kind": "property"
-        },
-        {
-          "name": "inputs",
-          "kind": "property"
-        },
-        {
-          "name": "name",
-          "kind": "property"
-        },
-        {
-          "name": "outputs",
-          "kind": "property"
-        },
-        {
-          "name": "result_path",
-          "kind": "property"
-        }
-      ]
-    },
-    {
       "name": "Catzc.Base.GeneratedFiles.GeneratedWriterDue",
       "aliases": [],
       "display": [],
@@ -69,6 +19,21 @@
         },
         {
           "name": "ToString",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedWriterGraph",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Inputs",
+          "kind": "method"
+        },
+        {
+          "name": "RenderOrder",
           "kind": "method"
         }
       ]

@@ -49,7 +49,8 @@ function New-GitAttributes {
         }
     }
 
-    # What is generated has one source, its writer's declaration: every writer output, then every committed root config.
+    # What is generated has one source, its writer's row: every output of a tracked writer whose outputs are its files, then every committed
+    # root config; a writer that expands its instances from another config names places there, never files.
     $generatedPlaceholder = '{{generated-files}}'
     if (@($template -split "`n" | Where-Object { $_ -eq $generatedPlaceholder }).Count -ne 1) {
         throw "The .gitattributes template must hold the line '$generatedPlaceholder' exactly once: $templatePath"
@@ -61,9 +62,9 @@ function New-GitAttributes {
             "/$Glob"
         } }
     $generated = [System.Collections.Generic.List[string]]::new()
-    foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
-        foreach ($output in @($writer.outputs)) {
-            $generated.Add("$(& $anchor $output) linguist-generated")
+    foreach ($writer in @(Get-GeneratedWriterOrder | Where-Object { -not $_.expands -and $_.class -cne 'untracked' })) {
+        foreach ($output in $writer.outputs) {
+            $generated.Add("$(& $anchor $output.path) linguist-generated")
         }
     }
     foreach ($file in @((Get-Config -Config rootconfig).files | Where-Object { $_.committed })) {

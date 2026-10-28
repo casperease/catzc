@@ -3,5 +3,12 @@ writers:
   Build-ContractReference:
     class: rollable
     at_import: true
-    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Base.Contracts/**]
+    # The assets in the root and version folders and the module's code, never the contracts folder's README copy.
+    inputs:
+      - contracts/*/*/**
+      - docs/drs/repository/*-contracts.md
+      - pwsh/Base.Contracts/*.ps1
+      - pwsh/Base.Contracts/private/*.ps1
+      - pwsh/Base.Contracts/configs/*.yml
+      - pwsh/Base.Contracts/types/*.cs
     outputs: [docs/references/contracts/*.md]

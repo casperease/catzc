@@ -6,5 +6,5 @@ function Get-GeneratedWriterOrder {
     $rows = foreach ($owner in @(Get-Config -Config generated -ListOwners)) {
         (Get-Config -Config generated -Module $owner.Module).writers
     }
-    [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::RenderOrder([Catzc.Base.Variants.GeneratedWriterRow[]] @($rows))
+    [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::RenderOrder([Catzc.Base.Variants.GeneratedWriterRow[]] @($rows))
 }

@@ -12,14 +12,14 @@ function Get-GeneratedWriterDue {
     )
 
     # A dirty tree is not a stale output: only a missing output or a changed input stamp makes a writer due.
-    $writers = @((Get-Config -Config generated-files).writers.Values | Where-Object { -not $Name -or $_.name -in $Name })
+    $writers = @(Get-GeneratedWriterOrder | Where-Object { -not $Name -or $_.name -in $Name })
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
-    $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { @($_.inputs) }) -RepositoryRoot $RepositoryRoot
-    $stamps = Get-GeneratedWriterStamp -Writer @($writers | Where-Object { @($_.inputs | Where-Object { $_ }).Count -gt 0 }) -Walk $walk -RepositoryRoot $RepositoryRoot
+    $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($_) }) -RepositoryRoot $RepositoryRoot
+    $stamps = Get-GeneratedWriterStamp -Writer @($writers | Where-Object { [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($_).Count -gt 0 }) -Walk $walk -RepositoryRoot $RepositoryRoot
     $changed = $null
     foreach ($writer in $writers) {
-        $inputs = @($writer.inputs | Where-Object { $_ })
-        $outputs = @($writer.outputs | Where-Object { $_ })
+        $inputs = [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($writer)
+        $outputs = @($writer.outputs | ForEach-Object path)
         $hasLists = ($inputs.Count + $outputs.Count) -gt 0
         if (-not $hasLists) {
             if ($null -eq $changed) {

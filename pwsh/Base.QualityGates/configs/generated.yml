@@ -16,7 +16,15 @@ writers:
   Build-CommentView:
     class: untracked
     check: none
-    inputs: [pwsh/Base.CodeMeta/configs/comment-pages.yml, pwsh/Base.QualityGates/configs/comments.yml, docs/references/**]
+    # The comment pages in the docs folders comment-pages.yml maps, never another reference page.
+    inputs:
+      - pwsh/Base.CodeMeta/configs/comment-pages.yml
+      - pwsh/Base.QualityGates/configs/comments.yml
+      - docs/references/pwsh/**/*.md
+      - docs/references/ado/pipelines/**/*.md
+      - docs/references/infrastructure/**/*.md
+      - docs/references/python/**/*.md
+      - docs/references/github/workflows/**/*.md
     outputs: [out/annotated/**]
   # It moves long comments onto the authored comment pages; a page keeps what the code no longer holds, so the tree cannot render it back.
   Export-Comments:

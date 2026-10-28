@@ -5,11 +5,12 @@ writers:
     class: untracked
     check: none
     inputs:
-      - js/**
+      - js/*/*.js
+      - js/*/assets/*.svg
       - pwsh/Base.VSCode/configs/vscode-extensions.yml
       - pwsh/Base.VSCode/configs/lamp-palette.yml
       - pwsh/Base.VSCode/configs/file-icons.yml
-      - pwsh/Base.VSCode/private/**
-      - pwsh/Base.VSCode/types/**
+      - pwsh/Base.VSCode/private/*.ps1
+      - pwsh/Base.VSCode/types/*.cs
       - pwsh/Base.Globs/configs/filters.yml
     outputs: [out/vscode-extensions/**]

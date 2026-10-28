@@ -1,60 +1,23 @@
-// The registry of writers Test-GeneratedFiles checks; the generators of the managed root files come from the root-config registry, not from here.
+// The input and output graph of the writer registry: the order its writers render in, sorted from what each reads and writes.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 
 namespace Catzc.Base.GeneratedFiles;
 
-public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
+public static class GeneratedWriterGraph
 {
-    private const string Failed = "generated-files configuration validation failed:\n";
-
-    // Writer command name -> GeneratedWriter, in declaration order; read-only.
-    public OrderedDictionary writers { get; }
-
     // How deep the walk for a writer's '**' input glob goes below the glob's literal folder.
-    public const int DefaultInputDepth = 16;
-    public int input_depth { get; }
+    public const int InputDepth = 16;
 
-    public GeneratedFilesConfig(IDictionary raw)
+    // The globs a writer reads: its own inputs and those of each of its outputs, each once.
+    public static string[] Inputs(Catzc.Base.Variants.GeneratedWriterRow row)
     {
-        List<string> errors = new List<string>();
-        if (raw == null) { throw new ArgumentException(Failed + "the configuration must be a mapping"); }
-
-        foreach (object k in raw.Keys)
-        {
-            string key = k == null ? null : k.ToString();
-            if (key != "writers" && key != "input_depth") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: writers, input_depth)", key)); }
-        }
-
-        int depth = DefaultInputDepth;
-        if (raw.Contains("input_depth") && !(int.TryParse(Convert.ToString(raw["input_depth"], System.Globalization.CultureInfo.InvariantCulture), out depth) && depth > 0))
-        {
-            errors.Add("'input_depth' must be a positive whole number");
-        }
-        input_depth = depth;
-
-        OrderedDictionary map = new OrderedDictionary(StringComparer.Ordinal);
-        IDictionary source = raw.Contains("writers") ? raw["writers"] as IDictionary : null;
-        if (source == null || source.Count == 0)
-        {
-            errors.Add("'writers' must be a non-empty map of <Verb-Noun>: { [check], [result_path], [inputs], [outputs] }");
-        }
-        else
-        {
-            foreach (object k in source.Keys)
-            {
-                string name = k == null ? "" : k.ToString();
-                try { map[name] = new GeneratedWriter(name, source[k]); }
-                catch (ArgumentException ex) { errors.Add(ex.Message); }
-            }
-        }
-
-        if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
-        writers = map.AsReadOnly();
+        if (row == null) { return new string[0]; }
+        List<string> inputs = new List<string>(row.inputs);
+        foreach (Catzc.Base.Variants.GeneratedOutput output in row.outputs) { inputs.AddRange(output.inputs); }
+        return inputs.Where(glob => !string.IsNullOrWhiteSpace(glob)).Distinct(StringComparer.Ordinal).ToArray();
     }
 
     public static IReadOnlyList<Catzc.Base.Variants.GeneratedWriterRow> RenderOrder(Catzc.Base.Variants.GeneratedWriterRow[] rows)
@@ -67,9 +30,7 @@ public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
             if (row == null) { continue; }
             if (byName.ContainsKey(row.name)) { throw new ArgumentException(string.Format("the writer registry declares the writer '{0}' twice", row.name)); }
             byName[row.name] = row;
-            List<string> inputs = new List<string>(row.inputs);
-            foreach (Catzc.Base.Variants.GeneratedOutput output in row.outputs) { inputs.AddRange(output.inputs); }
-            reads[row.name] = Patterns(row.name, inputs);
+            reads[row.name] = Patterns(row.name, Inputs(row));
             writes[row.name] = Patterns(row.name, row.outputs.Select(output => output.path));
         }
 

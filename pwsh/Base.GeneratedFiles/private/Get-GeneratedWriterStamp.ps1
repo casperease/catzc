@@ -21,7 +21,7 @@ function Get-GeneratedWriterStamp {
     $salts = [System.Collections.Generic.List[string]]::new()
     foreach ($entry in $Writer) {
         # Salted with the folders a wildcard leaf could be written into, so a new folder that should get a file makes the writer due.
-        $globs = [string[]] @($entry.inputs | Where-Object { $_ })
+        $globs = [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($entry)
         $matched = [Catzc.Base.Objects.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
         $folderGlobs = [string[]] @(foreach ($glob in $globs) {
                 $slash = $glob.LastIndexOf('/')

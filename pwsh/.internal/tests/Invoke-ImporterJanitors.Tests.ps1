@@ -79,7 +79,7 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
             $script:writers[$name] = [pscustomobject]@{ name = $name; at_import = $true }
         }
         $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false }
-        Mock Get-Config { [pscustomobject]@{ writers = $script:writers } } -ModuleName Catzc.Internal.Importer -ParameterFilter { $Config -eq 'generated-files' }
+        Mock Get-GeneratedWriterOrder { $script:writers.Values } -ModuleName Catzc.Internal.Importer
         Mock Build-EnglishDictionary { } -ModuleName Catzc.Internal.Importer
         # A writer the janitor runs stores its stamp; the test keeps that out of the repository's memo.
         Mock Save-GeneratedWriterStamp { } -ModuleName Catzc.Internal.Importer
@@ -121,7 +121,7 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }
 
-    It 'considers only the writers generated-files.yml marks at_import, none of its own list' {
+    It 'considers only the writer rows marked at_import, none of its own list' {
         Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
         $script:writers['Build-Glossary'].at_import = $false
 

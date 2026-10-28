@@ -7,7 +7,7 @@ writers:
   Write-TypesContract:
     class: rollable
     check: none
-    inputs: [pwsh/*/types/**, pwsh/.internal/assets/types/**]
+    inputs: [pwsh/*/types/*.cs, pwsh/.internal/assets/types/*.ps1]
     outputs: ["contracts/catzc/0.1.0/*/types.json"]
   dotnet build:
     class: untracked
