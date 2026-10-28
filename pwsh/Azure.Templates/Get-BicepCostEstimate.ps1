@@ -7,7 +7,7 @@ function Get-BicepCostEstimate {
 
         [Catzc.Azure.Templates.CostModelConfig] $Config = (Get-Config -Config cost-model),
 
-        [string] $PricesPath = (Join-Path $PSScriptRoot 'assets/cost-prices.json'),
+        [string] $PricesPath = (Get-CatzcModuleRoot -ChildPath 'assets/cost-prices.json'),
 
         [string] $OutputRoot = (Get-BicepTemplatesOutputRoot),
 
@@ -23,12 +23,12 @@ function Get-BicepCostEstimate {
     $walk = {
         param($Resources)
         # A languageVersion 2.0 template keys its resources by symbolic name; an older one lists them.
-        $list = if ($Resources -is [System.Collections.IDictionary]) {
-            @($Resources.Values)
-        }
-        else {
-            @($Resources)
-        }
+        $list = @(if ($Resources -is [System.Collections.IDictionary]) {
+                $Resources.Values
+            }
+            else {
+                $Resources
+            })
         foreach ($resource in $list) {
             if ($resource -isnot [System.Collections.IDictionary]) {
                 continue

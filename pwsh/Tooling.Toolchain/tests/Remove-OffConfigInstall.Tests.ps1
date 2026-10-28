@@ -40,7 +40,7 @@ Describe 'Remove-OffConfigInstall' -Tag 'L0', 'logic', 'ADR-AUTO-REMOVE-THREEPLA
         }
         Should -Invoke Get-RegisteredInstallProduct -ModuleName Catzc.Tooling.Toolchain -Times 2 -Exactly
         Should -Invoke Remove-SystemInstallation -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly
-        (Get-ChildPath (Join-Path $TestDrive 'remove-widget') -Filter *.log -File | Get-Content -Raw) | Should -BeLike '*widget uninstalled*exit 0*'
+        (Get-ChildPath (Join-Path $TestDrive 'remove-widget') -Filter *.log -File | ForEach-Object { Get-Content -Raw -LiteralPath $_ }) | Should -BeLike '*widget uninstalled*exit 0*'
     }
 
     It 'stops on an uninstaller that fails, naming the transcript, and deletes nothing' {

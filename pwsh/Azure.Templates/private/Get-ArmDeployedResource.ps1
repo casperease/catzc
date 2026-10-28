@@ -72,18 +72,15 @@ function Get-ArmDeployedResource {
 
     # languageVersion 2.0 writes resources as a symbolic-name map, the classic form as an array.
     $symbolic = $Template.resources -is [System.Collections.IDictionary]
-    $resources = if ($symbolic) {
-        @($Template.resources.Values)
-    }
-    else {
-        @($Template.resources)
-    }
-    $symbols = if ($symbolic) {
-        @($Template.resources.Keys)
-    }
-    else {
-        @()
-    }
+    $resources = @(if ($symbolic) {
+            $Template.resources.Values
+        }
+        else {
+            $Template.resources
+        })
+    $symbols = @(if ($symbolic) {
+            $Template.resources.Keys
+        })
     $outer = $Indexes
     $position = 0
     foreach ($resource in $resources) {

@@ -18,6 +18,10 @@ from the deployed commit's commit time to the deployment's finish; the commit is
 deployment recovery time is the median, in hours, from a failed deployment to the next succeeded one. A unit whose production environment
 does not exist, or saw no deployment, reports zero deployments and empty metrics.
 
+### parameter `RepositoryRoot`
+
+The repository whose git history gives each commit's time. Default: the loaded repository root.
+
 ### parameter `Unit`
 
 The deployable units. Default: every unit a deploy pipeline (`.ado/pipelines/deploy-<unit>.yaml`) names.
@@ -41,10 +45,6 @@ The Azure DevOps organization URL. Default: ado.yml's `organization`.
 ### parameter `Top`
 
 The most deployment records read per environment. Default: 1000.
-
-### parameter `RepositoryRoot`
-
-The repository whose git history gives each commit's time. Default: the loaded repository root.
 
 ### outputs
 

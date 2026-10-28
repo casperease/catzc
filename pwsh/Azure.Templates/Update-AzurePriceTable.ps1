@@ -4,7 +4,7 @@ function Update-AzurePriceTable {
     param(
         [Catzc.Azure.Templates.CostModelConfig] $Config = (Get-Config -Config cost-model),
 
-        [string] $PricesPath = (Join-Path $PSScriptRoot 'assets/cost-prices.json'),
+        [string] $PricesPath = (Get-CatzcModuleRoot -ChildPath 'assets/cost-prices.json'),
 
         [datetime] $Today = [datetime]::UtcNow.Date,
 

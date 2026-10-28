@@ -22,7 +22,13 @@ function Resolve-BicepDerivedNames {
             }
             $raw = $SlotParameters[$parameter].value
             $single = $raw -is [System.Collections.IDictionary]
-            $items = foreach ($item in @(if ($single) { , $raw } else { $raw })) {
+            $entries = @(if ($single) {
+                    , $raw
+                }
+                else {
+                    $raw
+                })
+            $items = foreach ($item in $entries) {
                 $itemSlot = @($TemplateDescriptor.slots | Where-Object subscription -EQ $item[$entry.each]) | Select-Object -First 1
                 if (-not $itemSlot) {
                     throw "names.${parameter} of template '$($TemplateDescriptor.name)': slot '$($Slot.name)' names $($entry.each) '$($item[$entry.each])', which no slot of the template serves"
@@ -33,7 +39,12 @@ function Resolve-BicepDerivedNames {
                         throw "Slot '$($Slot.name)' of template '$($TemplateDescriptor.name)' writes $parameter.$field, a name the namer derives (options.yml names): delete it from the slot"
                     }
                     $name = $entry.item_names[$field]
-                    $render = if ($name.from -eq 'self') { $Slot } else { $itemSlot }
+                    $render = if ($name.from -eq 'self') {
+                        $Slot
+                    }
+                    else {
+                        $itemSlot
+                    }
                     $itemSplat = @{ Template = $TemplateDescriptor.name; Environment = $render.environment; Type = $name.type }
                     if ($render.customer) {
                         $itemSplat['Customer'] = $render.customer
@@ -50,7 +61,7 @@ function Resolve-BicepDerivedNames {
             }
             # Assigned apart, not from an if expression, which would unroll a one-item list into the item itself.
             if ($single) {
-                $derived[$parameter] = @($items)[0]
+                $derived[$parameter] = $items | Select-Object -First 1
             }
             else {
                 $derived[$parameter] = [object[]] @($items)
@@ -99,14 +110,14 @@ function Resolve-BicepDerivedNames {
             continue
         }
         # A roles entry is an object: one name per key, each with its key's role; nsg_subnets keys it by the slot's subnets that take an NSG.
-        $keys = if ($entry.keys_from -eq 'nsg_subnets') {
-            $network = Get-Config -Config network
-            $subnets = $network.subscriptions[$Slot.subscription].subnets
-            @($subnets.Keys | Where-Object { $_ -notin $network.no_nsg_subnets })
-        }
-        else {
-            @($entry.roles.Keys)
-        }
+        $keys = @(if ($entry.keys_from -eq 'nsg_subnets') {
+                $network = Get-Config -Config network
+                $subnets = $network.subscriptions[$Slot.subscription].subnets
+                $subnets.Keys | Where-Object { $_ -notin $network.no_nsg_subnets }
+            }
+            else {
+                $entry.roles.Keys
+            })
         $object = [ordered]@{}
         foreach ($key in $keys) {
             if (-not $entry.roles.ContainsKey($key)) {
