@@ -4,6 +4,72 @@ The comments of the file that outgrew one line, one section per comment, verbati
 (Export-Comments), and Build-CommentView puts every comment back there for reading. Prose written above the first section survives every
 later export.
 
+## help
+
+### synopsis
+
+Lists the resources a compiled ARM template deploys, each with its evaluated name, scope and copy indexes.
+
+### description
+
+Walks a compiled template's resources, classic array or languageVersion 2.0 symbolic map, and returns one record per deployed resource
+instance: its type, path, resource, resolved name, the evaluated scope, variables and indexes, the deployment facts, the resource group and
+whether its deployment is conditional. A parameter the caller omits takes its default, evaluated over the passed ones; one with neither is
+unresolved.
+
+An `existing` resource is skipped. A copy loop yields one instance per index, none when the count resolves to 0 and one uncertain instance
+when it does not resolve. A condition that resolves to false skips the resource; one that does not resolve marks it conditional. A nested
+deployment is not returned itself: its template is read in turn with the parameters, location, subscription and resource group the module
+passes, and its evaluated outputs are kept for a later reference() of it. When `-Outputs` is given it is filled with the template's
+evaluated outputs, each with its type and value.
+
+### parameter `Template`
+
+The compiled template as a dictionary.
+
+### parameter `Values`
+
+The parameter values the deployment passes, by name.
+
+### parameter `Path`
+
+The path prefix of each record, default `main`; a nested deployment extends it with its label.
+
+### parameter `Conditional`
+
+Marks every record as conditional, set for a nested deployment whose own condition does not resolve.
+
+### parameter `Indexes`
+
+The copy indexes in force where the template is read; a top-level template has none.
+
+### parameter `Location`
+
+The location the deployment is sent to, which deployment().location reads in a template above the resource group.
+
+### parameter `SubscriptionId`
+
+The subscription the deployment is sent to; empty leaves subscription() and the ids unresolved.
+
+### parameter `ResourceGroupName`
+
+The resource group of a resource-group deployment, empty when none is known, or unresolved when a nested deployment's expression does not
+resolve.
+
+### parameter `Outputs`
+
+A dictionary filled with the template's evaluated outputs, each with its type and value.
+
+### outputs
+
+`[pscustomobject]`
+
+### example 1
+
+```powershell
+Get-ArmDeployedResource -Template $compiled -Values @{ environment = 'dev' } | Select-Object Type, Name, Conditional
+```
+
 ## Known gaps of the evaluator
 
 The resources this function lists are read through `Catzc.Azure.Templates.ArmExpression` and `Catzc.Azure.Templates.ArmFunction`, which
