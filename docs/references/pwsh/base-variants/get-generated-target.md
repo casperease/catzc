@@ -24,3 +24,12 @@ other generator's targets as its module's generated.yml declares them.
   its own; `Build-RootConfig` is what writes it.
 - **READMEs** — the files `readme.yml` names.
 - **Every other generator** — the targets its module's `generated.yml` declares.
+
+## comment:1
+
+Above `foreach ($owner in @(Get-Config -Config generated -ListOwners)) {`, written with `#`.
+
+```text
+Every other writer's outputs, each row declared once in its module's generated.yml; a row that expands its
+instances from a config of its own is answered above.
+```

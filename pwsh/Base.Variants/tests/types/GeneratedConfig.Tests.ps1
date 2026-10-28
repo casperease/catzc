@@ -3,7 +3,7 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         $config = [Catzc.Base.Variants.GeneratedConfig]::new([ordered]@{
                 writers = [ordered]@{
                     'Build-WidgetIndex' = [ordered]@{ class = 'rollable'; inputs = @('widgets/*.yml'); outputs = @('widgets/index.md') }
-                    'Build-Gadget' = [ordered]@{ class = 'untracked'; check = 'none'; outputs = @('gadgets/**') }
+                    'Build-Gadget'      = [ordered]@{ class = 'untracked'; check = 'none'; outputs = @('gadgets/**') }
                 }
             })
         @($config.writers | ForEach-Object name) | Should -Be @('Build-WidgetIndex', 'Build-Gadget')

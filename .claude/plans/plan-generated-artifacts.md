@@ -74,10 +74,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### One registry
 
-- [ ] `pwsh/Base.Variants/types/GeneratedConfig.cs`: a target row becomes a writer row (name, inputs, outputs with per-output inputs, class,
-      check, at_import, command overrides), validated in the constructor. Check: `Invoke-Pester pwsh/Base.Variants/tests` passes.
-- [ ] Each module `configs/generated.yml` (Contracts, Docs, Drs, Globs, ModuleSystem, Repository, Slides, TypesSystem, Tooling.Python) takes
-      its writers' rows from `generated-files.yml`, one file at a time. Check: `Test-ConfigValidators` reports 0 issues after each file.
 - [ ] `pwsh/Base.Slides/configs/generated.yml` declares the image chain: `Build-Diagrams` (inputs `*.drawio.yml` and article `yml drawio`
       blocks), `slide_png picture` (the slide head and its source png), `slide_png render` (the slide md and its picture), each per output.
       Check: `Test-Diagrams` and `Test-Slides` report 0 issues.
