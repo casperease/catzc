@@ -13,9 +13,9 @@ Lists the resources a compiled ARM template deploys, each with its evaluated nam
 ### description
 
 Walks a compiled template's resources, classic array or languageVersion 2.0 symbolic map, and returns one record per deployed resource
-instance: its type, path, resource, resolved name, the evaluated scope, variables and indexes, the deployment facts, the resource group and
-whether its deployment is conditional. A parameter the caller omits takes its default, evaluated over the passed ones; one with neither is
-unresolved.
+instance: its type, path, resource, resolved name, its scope once evaluated, variables and indexes, the deployment facts, the resource group
+and whether its deployment is conditional. A parameter the caller omits takes its default, evaluated over the passed ones; one with neither
+is unresolved.
 
 An `existing` resource is skipped. A copy loop yields one instance per index, none when the count resolves to 0 and one uncertain instance
 when it does not resolve. A condition that resolves to false skips the resource; one that does not resolve marks it conditional. A nested

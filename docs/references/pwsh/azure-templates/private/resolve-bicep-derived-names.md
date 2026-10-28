@@ -15,8 +15,8 @@ and returns them as an ordered dictionary keyed by parameter.
 
 A plain entry renders one name of its type and role, for the template and the slot's environment, slot and customer. An entry that names
 another template renders for that template's slot on this slot's subscription, and throws when it has none; with `owner_slot` set to `hub`
-it follows the hub subscription that owner slot's parameters name. An entry with roles renders an object with one name per key, each with
-its key's role; `keys_from` set to `nsg_subnets` keys it by the slot's subnets that take an NSG, and a key without a role throws.
+it follows the hub subscription that the owning slot's parameters name. An entry with roles renders an object with one name per key, each
+with its key's role; `keys_from` set to `nsg_subnets` keys it by the slot's subnets that take an NSG, and a key without a role throws.
 
 An `each` entry renders one item per entry of the slot's own parameter of that name, a single object staying one object and a list staying a
 list. Each item names another slot of the template by its subscription and throws when none serves it; a field renders from that slot
