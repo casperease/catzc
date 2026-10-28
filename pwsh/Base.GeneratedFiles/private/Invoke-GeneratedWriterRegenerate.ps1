@@ -25,13 +25,23 @@ function Invoke-GeneratedWriterRegenerate {
     }
     $arguments = $line.Substring($tool.Length)
 
-    $runs = if ($line.Contains('{path}')) {
+    $paths = [string[]] @()
+    if ($line.Contains('{path}') -or $line.Contains('{paths}')) {
         # The outputs are gone after a roll-off, so the paths come from the git index and the disk, never from a walk of the outputs alone.
         $globs = [string[]] @($Writer.outputs | ForEach-Object path)
         $folders = [string[]] @($globs | ForEach-Object { [Catzc.Base.Objects.GlobPattern]::new($_).LiteralPrefix } | ForEach-Object { $_ ? $_ : '.' })
         $candidates = [string[]] @(@(Get-GitTrackedPath -Path $folders) + @((Get-GeneratedWriterInputFile -InputGlob $globs -RepositoryRoot $RepositoryRoot).File))
-        foreach ($path in @(Get-GeneratedWriterOutputPath -Writer $Writer -Writers $Writers -Path $candidates)) {
-            $arguments.Replace('{path}', "`"$path`"")
+        $paths = [string[]] @(Get-GeneratedWriterOutputPath -Writer $Writer -Writers $Writers -Path $candidates | ForEach-Object { "`"$_`"" })
+    }
+    $runs = if ($line.Contains('{paths}')) {
+        # One run takes every path, so a writer that pays a start-up per run pays it once.
+        if ($paths.Count -gt 0) {
+            $arguments.Replace('{paths}', $paths -join ' ')
+        }
+    }
+    elseif ($line.Contains('{path}')) {
+        foreach ($path in $paths) {
+            $arguments.Replace('{path}', $path)
         }
     }
     else {

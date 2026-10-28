@@ -257,6 +257,17 @@ def test_an_untracked_pair_is_never_a_conflict(tmp_path):
     assert declaration.committed(tmp_path) is None
 
 
+def test_a_committed_pair_whose_png_was_removed_renders_from_its_yml_alone(tmp_path):
+    base = committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
+    declaration.slide_of(tmp_path).unlink()
+    assert declaration.conflict(tmp_path, base) == []
+    declaration.put_png(tmp_path, declaration.load(tmp_path))
+    assert declaration.model_of(tmp_path) == base[1]
+    declaration.slide_of(tmp_path).unlink()
+    assert declaration.sync(tmp_path, base) == ["put"]
+    assert declaration.drift(tmp_path) == ([], [])
+
+
 def test_sync_after_a_drawio_edit_gets_then_puts_and_leaves_no_drift(tmp_path):
     source = __import__("yaml").safe_load(WIDGETS)
     base = committed_pair(tmp_path, source)

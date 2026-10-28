@@ -19,7 +19,10 @@ Each module declares its own writers in its `configs/generated.yml`, each row wi
 (ADR-REPO-ROOTCFG-ONECLASSPERWRITER). `Get-GeneratedWriterOrder` reads every module's rows and answers them in the order they render in,
 which `GeneratedWriterGraph` sorts from the input and output graph (ADR-REPO-ROOTCFG-DERIVEDRENDERORDER); the type also declares, once, how
 deep the walk for a `**` input glob goes below the glob's literal folder. See [Get-GeneratedWriterOrder](get-generated-writer-order.md) and
-the type pages [GeneratedWriterGraph](types/generated-writer-graph.md) and [GeneratedWriterDue](types/generated-writer-due.md).
+`Get-GeneratedWriterOutputPath` answers which of a set of paths a writer's outputs claim against every other writer's outputs, the most
+literal glob first, for the regenerate, due and tracked-path checks alike
+([Get-GeneratedWriterOutputPath](get-generated-writer-output-path.md)); the type pages
+[GeneratedWriterGraph](types/generated-writer-graph.md) and [GeneratedWriterDue](types/generated-writer-due.md).
 
 ### responsibility:2 — Judging which writers are due
 
@@ -42,8 +45,9 @@ and get the same answer instead of each keeping its own list.
 
 The module's public functions and configuration, sorted into the responsibilities above.
 
-| Responsibility                                   | Function                    |
-| ------------------------------------------------ | --------------------------- |
-| responsibility:1 — The writer registry           | `Get-GeneratedWriterOrder`  |
-| responsibility:2 — Judging which writers are due | `Get-GeneratedWriterDue`    |
-| responsibility:3 — Storing the input stamp       | `Save-GeneratedWriterStamp` |
+| Responsibility                                   | Function                        |
+| ------------------------------------------------ | ------------------------------- |
+| responsibility:1 — The writer registry           | `Get-GeneratedWriterOrder`      |
+|                                                  | `Get-GeneratedWriterOutputPath` |
+| responsibility:2 — Judging which writers are due | `Get-GeneratedWriterDue`        |
+| responsibility:3 — Storing the input stamp       | `Save-GeneratedWriterStamp`     |

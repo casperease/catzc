@@ -6,10 +6,11 @@ function Get-DrsRules {
         [string] $DrsPath
     )
 
-    Assert-PathExist $DrsPath
+    $text = Read-RepositoryText $DrsPath
+    Assert-True ($null -ne $text) -ErrorText "Path does not exist: $DrsPath"
 
     $ruleHeading = "^###\s+Rule\s+(?<id>$((Get-Config -Config drs).CodeForm.Rule))\s*$"
-    $lines = [System.IO.File]::ReadAllLines($DrsPath)
+    $lines = [string[]] ($text -split '\r\n|\r|\n')
     $ret = for ($i = 0; $i -lt $lines.Count; $i++) {
         if ($lines[$i] -cnotmatch $ruleHeading) {
             continue

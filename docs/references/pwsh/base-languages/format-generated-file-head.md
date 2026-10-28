@@ -38,8 +38,8 @@ entry whose globs take Path, else the entry of its file language.
 ### parameter `Writer`
 
 The name of the writer in the registry, as its row in the module's generated.yml names it. On a tracked file its row is read: its name and
-the regenerate template of generated-head.yml, or the row's own regenerate, fill the regenerate command. Default: none, so the head holds no
-command.
+the regenerate template of generated-head.yml, or the row's own regenerate, fill the regenerate command, the file's path in place of
+`{path}`, and of a row's `{paths}` too, since the head renders its one file again. Default: none, so the head holds no command.
 
 ### parameter `Carriers`
 

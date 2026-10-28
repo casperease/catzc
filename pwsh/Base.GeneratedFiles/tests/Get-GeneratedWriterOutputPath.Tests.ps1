@@ -6,10 +6,7 @@ Describe 'Get-GeneratedWriterOutputPath' -Tag 'L0', 'logic' {
         )
         $script:claim = {
             param([int] $Index, [string[]] $Path)
-            InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Rows = $script:rows; Index = $Index; Path = $Path } {
-                param($Rows, $Index, $Path)
-                Get-GeneratedWriterOutputPath -Writer $Rows[$Index] -Writers $Rows -Path $Path
-            }
+            Get-GeneratedWriterOutputPath -Writer $script:rows[$Index] -Writers $script:rows -Path $Path
         }
         $script:paths = @('docs/deck/.assets/gadget.slide.png', 'docs/deck/.assets/gadget.png', 'docs/deck/gadget.slide.md', 'docs\deck\.assets\widget.png')
     }

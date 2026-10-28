@@ -5,7 +5,7 @@ writers:
     outputs: [pwsh/.compiled/**]
   # Written by the importer after a compile on a devbox (Import-CSharpTypes); Test-BuildArtifact -Facet Types checks it.
   Write-TypesContract:
-    class: rollable
+    class: import-critical
     check: none
     regenerate: ". ./importer.ps1"
     inputs: [pwsh/*/types/*.cs, pwsh/.internal/assets/types/*.ps1]

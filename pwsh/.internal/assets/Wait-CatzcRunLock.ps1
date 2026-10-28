@@ -17,6 +17,11 @@
     Remove-CatzcRunLockHolder deletes it before the lock is let go. The wait, the stale-ticket age and the budget are the run_lock entry
     of timeouts.yml (Get-CatzcRunLockSetting), read here without an import.
 
+    A caller that holds the lock names itself, by process id and start time (Get-CatzcRunLockHoldValue), in an environment variable of
+    its own lock (Get-CatzcRunLockInheritName) for as long as it holds it, so only the processes it starts inherit it. A run started under
+    that hold, such as a writer's nested Invoke-CatzcCommand, finds it with Test-CatzcRunLockInherited and runs under its ancestor's
+    lock instead of waiting for it; an unrelated session never sees the variable, and one naming a gone process counts for nothing.
+
     . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
     $settings = Get-CatzcRunLockSetting
     $lock = [ref] $null
@@ -148,6 +153,43 @@ function Remove-CatzcRunLockHolder {
     catch [System.UnauthorizedAccessException] {
         Write-Verbose "Remove-CatzcRunLockHolder: $path is not deletable; the next holder overwrites it."
     }
+}
+
+function Get-CatzcRunLockInheritName {
+    param(
+        [Parameter(Mandatory)]
+        [string] $LockName
+    )
+
+    # One variable per lock, so a test's own lock never overwrites the hold on the machine's lock that the test inherited.
+    'CATZC_RUN_LOCK_HOLD_' + ($LockName -replace '[^A-Za-z0-9]', '_')
+}
+
+function Get-CatzcRunLockHoldValue {
+    # What a holder sets its lock's variable to while it holds the lock: its process id and start time, so a reused id
+    # never passes for it.
+    "$PID|$(Get-CatzcRunLockProcessStart -ProcessId $PID)"
+}
+
+function Test-CatzcRunLockInherited {
+    param(
+        [Parameter(Mandatory)]
+        [string] $LockName
+    )
+
+    # True while the variable names another live process with the same start time: an ancestor of this process that
+    # holds the lock, since only the processes it starts inherit the variable. A gone holder, or a reused id, holds
+    # nothing, and neither does this process itself, whose other threads queue for the lock like any run.
+    $value = [System.Environment]::GetEnvironmentVariable((Get-CatzcRunLockInheritName -LockName $LockName))
+    $parts = @("$value" -split '\|')
+    $holderId = 0
+    $holderStart = 0L
+    if ($parts.Count -ne 2 -or -not [int]::TryParse($parts[0], [ref] $holderId) -or
+        -not [long]::TryParse($parts[1], [ref] $holderStart) -or $holderId -eq $PID) {
+        return $false
+    }
+    $started = Get-CatzcRunLockProcessStart -ProcessId $holderId
+    $started -ne 0 -and $started -eq $holderStart
 }
 
 function Format-CatzcRunLockTime {

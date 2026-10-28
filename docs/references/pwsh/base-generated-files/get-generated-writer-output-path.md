@@ -1,7 +1,7 @@
-# pwsh/Base.GeneratedFiles/private/Get-GeneratedWriterOutputPath.ps1
+# pwsh/Base.GeneratedFiles/Get-GeneratedWriterOutputPath.ps1
 
-The private claim behind a regenerate command that names `{path}`: of the candidate paths, the ones a writer's outputs claim against every
-other writer's outputs.
+The claim rule behind a regenerate command that names `{path}`, the due check and the tracked-path walk: of the candidate paths, the ones a
+writer's outputs claim against every other writer's outputs.
 
 ## help
 

@@ -26,7 +26,8 @@ it draws are the subject of [tracks](../../../drs/design/tracks.md).
 Building the world map: one row per track and one for the root files, one column per file language and one for the unlisted files, and every
 tracked file in exactly one cell. The root folder of a file gives its track and its extension gives its file language. A cell that holds a
 live file whose file language its track does not declare is a stack violation; test files and vendored files never make one. The map is
-returned as an object or as JSON, so a tool reads it without PowerShell.
+returned as an object or as JSON, so a tool reads it without PowerShell. A map for a commit reads all of its inputs from that commit, never
+from the working tree, and the work around it can run in the same commit's scope.
 
 ### responsibility:2 — Lit cells
 
@@ -98,6 +99,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 | Responsibility                            | Function                             |
 | ----------------------------------------- | ------------------------------------ |
 | responsibility:1 — World-map placement    | `Get-WorldMap`                       |
+|                                           | `Use-WorldMapRevision`               |
 | responsibility:2 — Lit cells              | `Get-WorldMapHighlight`              |
 | responsibility:3 — World-map quality gate | `Test-WorldMap`                      |
 | responsibility:4 — Value-chain map        | `Get-ValueChainMap`                  |

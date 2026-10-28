@@ -49,6 +49,26 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
         $map.HasCode('ADR-TST-SPROCKET') | Should -BeFalse
     }
 
+    It 'reads the index, the records and the document list from the active source, memoized apart from the working tree''s' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { $script:root }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Drs { $script:root }
+        $commit = @{
+            Name = 'c' * 40
+            Path = [string[]] @('docs/drs/index.md', 'docs/drs/sprocket/sprocket-rules.md', 'docs/drs/widget/widget-rules.md')
+            Text = @{
+                'docs/drs/index.md'                   = "| Code | Record |`n| ---- | ------ |`n| ``ADR-TST-SPROCKET`` | [sprocket-rules](sprocket/sprocket-rules.md) |`n"
+                'docs/drs/sprocket/sprocket-rules.md' = "# Sprocket`n`n### Rule ADR-TST-SPROCKET-SPIN`n`nOne.`n"
+            }
+        }
+        $committed = Use-RepositoryTextSource @commit -ScriptBlock { Get-DrsCitationMap -RepositoryRoot $script:root }
+        $committed.HasCode('ADR-TST-SPROCKET') | Should -BeTrue
+        $committed.HasCode('ADR-TST-WIDGET') | Should -BeFalse -Because 'the working tree''s index is not the commit''s'
+        $committed.RulesOf('ADR-TST-SPROCKET') | Should -Be @('ADR-TST-SPROCKET-SPIN')
+        $committed.IsDocument('docs/drs/widget/widget-rules.md') | Should -BeTrue
+        $committed.IsDocument('docs/drs/gadget/gadget-rules.md') | Should -BeFalse
+        (Get-DrsCitationMap -RepositoryRoot $script:root).HasCode('ADR-TST-WIDGET') | Should -BeTrue
+    }
+
     It 'resolves a unique file name and refuses an ambiguous one' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.PathOfSlug('gadget-rules') | Should -BeExactly 'docs/drs/gadget/gadget-rules.md'
         $map.PathOfSlug('widget-notes') | Should -BeNullOrEmpty

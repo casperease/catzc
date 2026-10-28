@@ -24,7 +24,7 @@ writers:
     check: gate
     gate: Test-Slides
     # The kit's script takes the picture it made in place of its slide.
-    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png picture {path}"
+    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png picture {paths}"
     outputs:
       - path: docs/explanation/flow/*/.assets/*.png
         inputs:
@@ -38,7 +38,7 @@ writers:
     class: rollable
     check: gate
     gate: Test-Slides
-    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png render {path}"
+    regenerate: "uv run --no-sync --project python python -m catzc.diagrams.slide_png render {paths}"
     outputs:
       - path: docs/explanation/flow/*/.assets/*.slide.png
         inputs:

@@ -82,9 +82,13 @@ if ($null -eq $lock) {
 $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset,
     "$LockName-burst")
 $failed = $false
+$inherit = Get-CatzcRunLockInheritName -LockName $LockName
+$priorHold = [System.Environment]::GetEnvironmentVariable($inherit)
 try {
     # The burst's own steps, and the processes they start, import inside the swap; every other import waits it out (Wait-ImportBurst).
     $env:CATZC_IN_BURST = '1'
+    # A run they start without -InBurst, such as a writer's stamp call, runs under the burst's hold (Test-CatzcRunLockInherited).
+    [System.Environment]::SetEnvironmentVariable($inherit, (Get-CatzcRunLockHoldValue))
     if ($Run) {
         "[Enter-CatzcBurst] holding the run lock for up to $Seconds s; running $($Run.Count) -Run steps"
         $limit = [datetime]::UtcNow.AddSeconds($Seconds)
@@ -125,6 +129,7 @@ try {
 }
 finally {
     $env:CATZC_IN_BURST = $null
+    [System.Environment]::SetEnvironmentVariable($inherit, $priorHold)
     $burst.Dispose()
     Remove-CatzcRunLockHolder -LockName $LockName
     $lock.ReleaseMutex()

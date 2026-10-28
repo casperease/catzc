@@ -15,6 +15,7 @@ Describe 'Wait-CatzcRunLock — with a real caller process' -Tag 'L2', 'logic' {
             $script:taken.Value.Dispose()
         }
         Remove-CatzcRunLockHolder -LockName $script:lockName
+        Remove-Item -LiteralPath (Get-QueueFolder $script:lockName) -Recurse -Force -ErrorAction Ignore
     }
 
     It 'never takes the lock once the caller that started it is gone, though the lock falls free after' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {

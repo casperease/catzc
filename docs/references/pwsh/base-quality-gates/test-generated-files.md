@@ -92,6 +92,14 @@ Test-GeneratedFiles
 Each registered writer is run by its check. The registry (the writer rows of the modules' `generated.yml`) says which check, and for a file
 result which property holds the path. The list is wrapped in `@()` as a whole so that an empty list stays an array under strict mode.
 
+## Gate freshness
+
+A writer whose check is `gate` has no dry run, so the full run (not `-Changed`) also proves it fresh from the commits
+(Get-GeneratedGateDrift). The writer is stale when a generated input, the output of another writer whose glob is one of this writer's
+inputs, was committed after the last commit of its own outputs: its outputs were rendered from an older input. The judgement is per writer,
+not per file: a stale writer is one issue naming the upstream writer and the newer commit, whatever number of its files there are. An
+authored input is not judged here, and a writer with no committed output is not stale.
+
 ## Changed only
 
 With `-Changed`, only the writers that Get-GeneratedWriterDue names run their dry run, with those whose changed outputs miss their stamp.

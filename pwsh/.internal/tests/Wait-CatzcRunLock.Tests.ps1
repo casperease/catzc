@@ -15,6 +15,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
             $script:taken.Value.Dispose()
         }
         Remove-CatzcRunLockHolder -LockName $script:lockName
+        Remove-Item -LiteralPath (Get-QueueFolder $script:lockName) -Recurse -Force -ErrorAction Ignore
     }
 
     It 'takes a free lock with no waiting line, and leaves no queue folder' {
@@ -22,6 +23,54 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         $out.Count | Should -Be 0
         $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
         Test-Path (Get-QueueFolder $script:lockName) | Should -BeFalse
+    }
+
+    It 'reads a hold in its own lock''s variable only, named by the holder''s process id and start time' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $inherit = Get-CatzcRunLockInheritName -LockName $script:lockName
+        $inherit | Should -Match '^CATZC_RUN_LOCK_HOLD_[A-Za-z0-9_]+$'
+        Get-CatzcRunLockHoldValue | Should -BeExactly "$PID|$(Get-CatzcRunLockProcessStart -ProcessId $PID)"
+        # This process's own hold never counts (its other threads queue like any run); its parent's does.
+        [System.Environment]::SetEnvironmentVariable($inherit, (Get-CatzcRunLockHoldValue))
+        Test-CatzcRunLockInherited -LockName $script:lockName | Should -BeFalse
+        $parent = (Get-Process -Id $PID).Parent.Id
+        [System.Environment]::SetEnvironmentVariable($inherit, "$parent|$(Get-CatzcRunLockProcessStart -ProcessId $parent)")
+        try {
+            Test-CatzcRunLockInherited -LockName $script:lockName | Should -BeTrue
+            Test-CatzcRunLockInherited -LockName "$script:lockName-gadget" | Should -BeFalse
+        }
+        finally {
+            [System.Environment]::SetEnvironmentVariable($inherit, $null)
+        }
+        Test-CatzcRunLockInherited -LockName $script:lockName | Should -BeFalse
+    }
+
+    It 'counts a hold for a live ancestor, never for a gone or reused holder: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
+        # Windows process ids are multiples of four, so an odd id names no process.
+        @{ case = 'gone'; Value = '4194303|1'; Expected = $false }
+        @{ case = 'reused'; Value = 'own|1'; Expected = $false }
+        @{ case = 'unreadable'; Value = 'widget'; Expected = $false }
+        @{ case = 'ancestor'; Value = 'parent'; Expected = $true }
+    ) {
+        $inherit = Get-CatzcRunLockInheritName -LockName $script:lockName
+        $parent = (Get-Process -Id $PID).Parent.Id
+        $text = switch ($Value) {
+            'own|1' {
+                "$PID|1"
+            }
+            'parent' {
+                "$parent|$(Get-CatzcRunLockProcessStart -ProcessId $parent)"
+            }
+            default {
+                $Value
+            }
+        }
+        [System.Environment]::SetEnvironmentVariable($inherit, $text)
+        try {
+            Test-CatzcRunLockInherited -LockName $script:lockName | Should -Be $Expected
+        }
+        finally {
+            [System.Environment]::SetEnvironmentVariable($inherit, $null)
+        }
     }
 
     It 'serves waiters in the order they came, not as the lock falls free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {

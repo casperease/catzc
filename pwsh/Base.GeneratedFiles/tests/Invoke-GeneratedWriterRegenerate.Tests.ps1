@@ -48,6 +48,21 @@ Describe 'Invoke-GeneratedWriterRegenerate' -Tag 'L0', 'logic' {
         Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly -ParameterFilter { $Path -ceq 'docs/deck/.assets/' }
     }
 
+    It 'runs once with every committed output the writer claims, quoted and in order, when {paths} names them' {
+        $picture = & $script:make 'widget picture' 'gadget picture {paths}' @('docs/deck/.assets/*.png')
+        $render = & $script:make 'widget render' 'gadget render {paths}' @('docs/deck/.assets/*.slide.png')
+        & $script:run $picture @($picture, $render)
+        @($script:seen) | Should -Be @('"C:/tools/gadget.exe" picture "docs/deck/.assets/gadget.png" "docs/deck/.assets/widget.png"')
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly
+    }
+
+    It 'runs nothing when {paths} names them and the writer claims no output' {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles { @('docs/deck/widget.slide.md') }
+        $writer = & $script:make 'widget render' 'gadget render {paths}' @('docs/deck/.assets/*.slide.png')
+        & $script:run $writer @($writer)
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.GeneratedFiles -Times 0 -Exactly
+    }
+
     It 'throws, naming the writer and the output, when a run fails' {
         $script:exit = 2
         $writer = & $script:make 'widget_kit.py' 'gadget run widget' @('gadgets/*.svg')

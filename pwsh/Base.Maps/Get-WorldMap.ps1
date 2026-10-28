@@ -2,11 +2,29 @@ function Get-WorldMap {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Maps.WorldMap], [string])]
     param(
-        [switch] $AsJson
+        [switch] $AsJson,
+
+        [ValidatePattern('^[0-9a-f]{40}$')]
+        [string] $Revision
     )
 
+    # A revision reads every input from its commit: the configs, tracks, aspects, records and globsets as well as the cited texts.
+    $source = Get-RepositoryTextSource
+    if ($Revision -and -not ($source -and $source.Name -ceq $Revision)) {
+        return Use-WorldMapRevision -Revision $Revision -ScriptBlock { Get-WorldMap -Revision $Revision -AsJson:$AsJson }
+    }
+
     $tracks = @(Get-Track)
-    $paths = @(Get-GitTrackedPath '.')
+    # A revision reads its paths and texts from that commit alone; without one, the index and the working tree.
+    $tree = if ($Revision) {
+        Get-GitCommitTree -Revision $Revision
+    }
+    $paths = [string[]] @(if ($Revision) {
+            $tree.Keys
+        }
+        else {
+            Get-GitTrackedPath '.'
+        })
     $languages = Get-Config -Config languages
 
     $aspects = [ordered]@{}
@@ -50,13 +68,39 @@ function Get-WorldMap {
     $texts = @{}
     $resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers), $languages)
     $commentPages = Get-Config -Config comment-pages
-    foreach ($path in $paths) {
-        if (-not [Catzc.Base.Maps.CitationScanner]::Cites($path)) {
-            continue
+    $citing = [string[]] @($paths | Where-Object { [Catzc.Base.Maps.CitationScanner]::Cites($_) })
+    # A commit's texts are read in one git process and keyed by blob id: an index-only path or a working-tree edit never counts.
+    $pageOf = @{}
+    foreach ($path in $citing) {
+        $pageOf[$path] = Get-CommentPage -Path $path -Config $commentPages
+    }
+    $blobTexts = if ($Revision) {
+        $pageBlobs = foreach ($page in $pageOf.Values) {
+            if ($page -and $tree.Contains($page)) {
+                $tree[$page]
+            }
         }
-        if (-not $script:worldMapTextCache.ContainsKey($path)) {
+        Get-GitBlobText -Blob @(@($citing | ForEach-Object { $tree[$_] }) + @($pageBlobs))
+    }
+    foreach ($path in $citing) {
+        $page = $pageOf[$path]
+        # A commit's text is keyed by its blob ids, so it is never stale; the working tree's by path, for the session.
+        $key = if ($Revision) {
+            '{0}|{1}|{2}' -f $path, $tree[$path], $(if ($page -and $tree.Contains($page)) {
+                    $tree[$page]
+                })
+        }
+        else {
+            $path
+        }
+        if (-not $script:worldMapTextCache.ContainsKey($key)) {
             $full = Join-Path $root $path
-            $text = [System.IO.File]::Exists($full) ? [System.IO.File]::ReadAllText($full) : $null
+            $text = if ($Revision) {
+                $blobTexts[$tree[$path]]
+            }
+            elseif ([System.IO.File]::Exists($full)) {
+                [System.IO.File]::ReadAllText($full)
+            }
             # A file's head is derived from its citations, never read back as them: the file cites from its body.
             $carrier = $resolver.For($path)
             $form = if ($null -ne $text -and $carrier -and -not $resolver.IsExcluded($carrier, $path)) {
@@ -65,16 +109,18 @@ function Get-WorldMap {
             if ($form) {
                 $text = (Get-CodeMetaState -Text $text -Form $form).Body
             }
-            $page = if ($null -ne $text) {
-                Get-CommentPage -Path $path -Config $commentPages
+            if ($null -ne $text -and $page) {
+                if ($Revision -and $tree.Contains($page)) {
+                    $text += "`n" + $blobTexts[$tree[$page]]
+                }
+                elseif (-not $Revision -and [System.IO.File]::Exists((Join-Path $root $page))) {
+                    $text += "`n" + [System.IO.File]::ReadAllText((Join-Path $root $page))
+                }
             }
-            if ($page -and [System.IO.File]::Exists((Join-Path $root $page))) {
-                $text += "`n" + [System.IO.File]::ReadAllText((Join-Path $root $page))
-            }
-            $script:worldMapTextCache[$path] = $text
+            $script:worldMapTextCache[$key] = $text
         }
-        if ($null -ne $script:worldMapTextCache[$path]) {
-            $texts[$path] = $script:worldMapTextCache[$path]
+        if ($null -ne $script:worldMapTextCache[$key]) {
+            $texts[$path] = $script:worldMapTextCache[$key]
         }
     }
 

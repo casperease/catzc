@@ -20,3 +20,9 @@ The cases show that a declared deadline bounds the wait without deciding when th
 - The record names a dead process declared until 120 s from now, past the waiter's 5 s budget; the lock itself falls free in 1.5 s.
 - The holder's own process lives and its record runs 120 s, but the caller named in the record is killed: an orphan holds no one (a
   caller-process case).
+
+## A hold passes to the processes the holder starts
+
+A run or a burst that holds the lock names its process in the lock's own environment variable while it holds it, so only its child
+processes inherit it and a nested run waits for no ancestor. The cases show that only a live ancestor's hold counts: a variable naming a gone
+process, a reused process id, or text it cannot read holds nothing, and a hold on another lock never stands in for this one.

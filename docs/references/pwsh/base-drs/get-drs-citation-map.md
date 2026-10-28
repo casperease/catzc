@@ -18,6 +18,8 @@ by its file name). The link engine derives every code link's destination from it
 
 A pure function of the files on disk, memoized per resolved repository root for the session (re-run the importer to refresh — see
 [ADR-AUTO-CACHE](../../../drs/automation/caching.md)); a test passes a fixture root, so the fixture map and the real one never collide.
+Inside Use-RepositoryTextSource, such as a commit, the index, the records and the document list are that source's, and the memo key carries
+the source's name.
 
 ### parameter `RepositoryRoot`
 

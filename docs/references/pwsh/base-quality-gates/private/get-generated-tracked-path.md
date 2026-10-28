@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-GeneratedTrackedPath.ps1
 
 A private helper of Test-GeneratedFiles. It names the generated files among the paths it is given, each with the writer and class of the
-first writer-registry target that takes it, so the drift check walks the registry and never the heads.
+writer-registry target that claims it, so the drift check walks the registry and never the heads.
 
 ## help
 
@@ -15,7 +15,10 @@ A file is generated when a writer row's output takes it, read through Get-Genera
 selects ([ADR-REPO-FILEMETA-PROVENANCEINHEAD](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-provenanceinhead)). No file is
 opened, so a head on a path no output takes leaves the file authored as far as the check is concerned
 ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). A path two targets take is
-named once, by the first in registry order. No paths read no registry.
+named once, by the writer whose glob holds the most literal characters, the first in registry order on a tie: the claim rule the writer
+registry's own regenerate and due checks use (Get-GeneratedWriterOutputPath), run with each writer's targets as one row, so
+`docs/explanation/flow/*/.assets/*.slide.png` belongs to the slide render and never to the picture writer whose broader `*.png` also takes
+it. No paths read no registry.
 
 Private helper of Test-GeneratedFiles; not exported.
 

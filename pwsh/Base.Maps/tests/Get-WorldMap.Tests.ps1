@@ -34,6 +34,8 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         }
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Maps { $script:root }
+        # The fixture root stands for the repository, so a shipped config lies outside it and reads from disk in a revision too.
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { $script:root }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Maps { Join-Path $script:root 'widgets' }
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'files' } { $script:files }
     }
@@ -112,6 +114,113 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         finally {
             Remove-Item -LiteralPath $code, (Split-Path $page -Parent) -Recurse -Force
         }
+    }
+
+    It 'reads a revision''s paths and texts from its commit alone: a working-tree edit and an index-only path change nothing' {
+        Mock Get-GitCommitTree -ModuleName Catzc.Base.Maps {
+            [ordered]@{ 'importer.ps1' = '1' * 40; 'widgets/Alpha/Get-Widget.ps1' = '2' * 40 }
+        }
+        Mock Get-GitBlobText -ModuleName Catzc.Base.Maps {
+            $known = @{ ('1' * 40) = '# the entry point'; ('2' * 40) = '# ADR-WIDGET-GADGET-SPIN' }
+            $texts = @{}
+            foreach ($id in $Blob) {
+                $texts[$id] = $known[$id]
+            }
+            $texts
+        }
+        $before = Get-WorldMap -Revision ('c' * 40) -AsJson
+        # A working-tree edit and a path only the index holds.
+        Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-BEND' -NoNewline
+        try {
+            InModuleScope Catzc.Base.Maps { $script:worldMapTextCache = $null }
+            $after = Get-WorldMap -Revision ('c' * 40) -AsJson
+        }
+        finally {
+            Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-SPIN' -NoNewline
+        }
+        $after | Should -BeExactly $before
+        ($after | ConvertFrom-Json).file_count | Should -Be 2 -Because 'the index-only widget.json and gone.ps1 are not in the commit'
+        (Get-WorldMap -Revision ('c' * 40)).Placement('widgets/Alpha/Get-Widget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
+        Should -Invoke Get-GitCommitTree -ModuleName Catzc.Base.Maps -ParameterFilter { $Revision -eq ('c' * 40) }
+    }
+
+    It 'reads every input class from the revision: a working-tree edit to each leaves the JSON byte-equal' {
+        # Each registry stand-in reads its one varying fact through the repository text seam, as the real readers do through Get-Config.
+        $inputs = [ordered]@{
+            track    = @{ Commit = 'widgets'; Working = 'gizmos'; Edited = 'sprockets' }
+            language = @{ Commit = '.ps1'; Working = '.psm1'; Edited = '.psd1' }
+            aspect   = @{ Commit = '*.ps1'; Working = '*.json'; Edited = '*.txt' }
+            domain   = @{ Commit = 'widgetry'; Working = 'gadgetry'; Edited = 'sprocketry' }
+            record   = @{ Commit = 'widgetry'; Working = 'gadgetry'; Edited = 'sprocketry' }
+            globset  = @{ Commit = 'widgets/**'; Working = 'gizmos/**'; Edited = 'sprockets/**' }
+            owner    = @{ Commit = 'importer.ps1'; Working = 'other.ps1'; Edited = 'third.ps1' }
+            exclude  = @{ Commit = 'nothing/**'; Working = 'widgets/**'; Edited = '**' }
+        }
+        $tree = [ordered]@{ 'importer.ps1' = '1' * 40; 'widgets/Alpha/Get-Widget.ps1' = '2' * 40; 'widgets/Alpha/widget.json' = '3' * 40 }
+        $known = @{ ('1' * 40) = '# the entry point'; ('2' * 40) = '# ADR-WIDGET-GADGET-SPIN'; ('3' * 40) = '{ "note": "ADR-WIDGET-GADGET" }' }
+        $index = 0
+        foreach ($name in $inputs.Keys) {
+            $index++
+            $blob = '{0:x40}' -f $index
+            $tree["inputs/configs/$name.yml"] = $blob
+            $known[$blob] = $inputs[$name].Commit
+            $full = Join-Path $script:root "inputs/configs/$name.yml"
+            New-Item -ItemType Directory -Path (Split-Path $full -Parent) -Force | Out-Null
+            Set-Content -LiteralPath $full -Value $inputs[$name].Working -NoNewline
+        }
+        $script:read = { param($Name) Read-RepositoryText "inputs/configs/$Name.yml" }
+        Mock Get-GitCommitTree -ModuleName Catzc.Base.Maps { $tree }
+        Mock Get-GitBlobText -ModuleName Catzc.Base.Maps {
+            $texts = @{}
+            foreach ($id in $Blob) {
+                $texts[$id] = $known[$id]
+            }
+            $texts
+        }
+        Mock Get-Track -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Variants.VariantTrack]::new((& $script:read track), @('widgets'), 'modules', $null, @('widget-script'))
+        }
+        Mock Get-FileLanguage -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @(& $script:read language), $null, 'fixture', $null, $null, $null)
+        }
+        Mock Get-Aspect -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Variants.VariantAspect]::new('live', @(& $script:read aspect))
+            [Catzc.Base.Variants.VariantAspect]::new('tests', @('**'))
+        }
+        Mock Test-AspectDeclaration -ModuleName Catzc.Base.Maps { $true }
+        Mock Get-DrsRuleSet -ModuleName Catzc.Base.Maps { [pscustomobject]@{ External = 'ADR-WIDGET-GADGET'; Domain = (& $script:read domain) } }
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.Maps {
+            $folder = & $script:read record
+            [pscustomobject]@{ Folder = $folder } |
+                Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/drs/$($this.Folder)/$($Code.ToLowerInvariant()).md" } -PassThru
+        }
+        Mock Get-GlobSet -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @(& $script:read globset), @(), @(), @(), -1, 'ci-widgets')
+        }
+        Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'files' } {
+            [pscustomobject]@{ modules = [ordered]@{ Alpha = [pscustomobject]@{ packages = [ordered]@{ entry = @(& $script:read owner) } } } }
+        }
+        Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } {
+            [pscustomobject]@{ highlight = [pscustomobject]@{ citation_exclude = @(& $script:read exclude) } }
+        }
+        $commit = 'c' * 40
+        $before = Get-WorldMap -Revision $commit -AsJson
+        foreach ($name in $inputs.Keys) {
+            Set-Content -LiteralPath (Join-Path $script:root "inputs/configs/$name.yml") -Value $inputs[$name].Edited -NoNewline
+        }
+        Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-BEND' -NoNewline
+        try {
+            InModuleScope Catzc.Base.Maps { $script:worldMapTextCache = $null }
+            $after = Get-WorldMap -Revision $commit -AsJson
+            $working = Get-WorldMap -AsJson
+        }
+        finally {
+            Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-SPIN' -NoNewline
+            Remove-Item -LiteralPath (Join-Path $script:root 'inputs') -Recurse -Force
+        }
+        $after | Should -BeExactly $before
+        $working | Should -Not -BeExactly $before -Because 'the edited working tree is a different set of inputs'
+        $before | Should -Not -Match 'gizmos|sprockets|gadgetry|sprocketry'
     }
 
     It 'emits JSON with -AsJson' {

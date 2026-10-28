@@ -215,10 +215,16 @@ def supports_drift(folder, records, lens):
     return None
 
 
+def legend_stems():
+    """The legend diagrams drawio.yml roles: names, by resolved stem: each is drawn from the glyph library alone, so it is a diagram
+    before its png exists."""
+    return {(REPO / stem).resolve() for stem, role in DEFAULTS.get("roles", {}).items() if role == "legend"}
+
+
 def diagrams(root):
     """The diagrams under a root, by stem, or the root itself when it names one: each `<article-folder>/.assets/<name>` with a
-    `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, or a `yml drawio` block in an article above an
-    image of it, which needs no png yet. The root may be a stem or a file of a pair."""
+    `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, a `yml drawio` block in an article above an
+    image of it, or a legend roles: names, which need no png yet. The root may be a stem or a file of a pair."""
     from . import declaration
 
     root = Path(root)
@@ -226,15 +232,19 @@ def diagrams(root):
         if root.name.endswith(suffix):
             root = root.with_name(root.name[: -len(suffix)])
     root = root.resolve()
+    legends = legend_stems()
     # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
-    if any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)) or (
-        root.parent.name == ".assets" and root in {s.resolve() for s in declaration.article_stems(root.parent.parent)}
+    if (
+        any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE))
+        or root in legends
+        or (root.parent.name == ".assets" and root in {s.resolve() for s in declaration.article_stems(root.parent.parent)})
     ):
         return [root]
     if not root.is_dir():
         return []
     found = {p.with_name(p.name[: -len(suffix)]) for suffix in (SLIDE, SOURCE) for p in root.rglob(f"*{suffix}") if p.parent.name == ".assets"}
     found |= {stem.resolve() for stem in declaration.article_stems(root)}
+    found |= {stem for stem in legends if stem.is_relative_to(root) and stem.parent.is_dir()}
     return sorted(found)
 
 

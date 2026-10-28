@@ -172,6 +172,17 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
         $text | Should -BeLike "*#     regenerate: `"Build-Gadget -All`"`n#     with_body_sha: *"
     }
 
+    It 'names the one file in place of {paths}, the many-file form of a row''s own regenerate command' {
+        $script:sprocket = [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Sprocket', [ordered]@{
+                class      = 'rollable'
+                outputs    = @('docs/**/*.wdg')
+                regenerate = 'Build-Sprocket render {paths}'
+            })
+        Mock Get-GeneratedWriterRow -ModuleName Catzc.Base.Languages { $script:sprocket }
+        $text = Format-GeneratedFileHead -Text "body`n" -Path 'docs/sub/gen.wdg' -Writer Build-Sprocket @script:arguments
+        $text | Should -BeLike "*#     regenerate: `"Build-Sprocket render docs/sub/gen.wdg`"`n#     with_body_sha: *"
+    }
+
     It 'writes no command and no source on an untracked file, and reads no writer row for it' {
         $script:tracked = $false
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Writer Build-Widget @script:arguments

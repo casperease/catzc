@@ -16,7 +16,9 @@
     is taken before the import, so a waiting run holds no import, and waiters take it in the order they came (Wait-CatzcRunLock.ps1). A
     run that finds the lock held says so in one line and waits up to -LockSeconds; one that still cannot take it stops with a "run lock
     busy" line and exit code 1, importing and running nothing. While a session's Enter-CatzcBurst holds the lock, a waiting run says so
-    and waits as long as the burst lasts, then up to -LockSeconds more; the burst's own checks pass -InBurst. A run that holds the lock
+    and waits as long as the burst lasts, then up to -LockSeconds more; the burst's own checks pass -InBurst. A run started by a
+    process that holds the lock, such as a writer's stamp call under Restore-Generated, takes none: it runs under its ancestor's hold
+    (Test-CatzcRunLockInherited), while an unrelated session still waits. A run that holds the lock
     ends its process once the caller that started it is gone, such as a stopped background call, so the lock falls free at once.
 
     timeout 300 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-Plans" "Test-Links -Path docs/how-to/index.md"
@@ -66,6 +68,7 @@ if ($Command.Count -eq 0) {
     throw 'Invoke-CatzcCommand: name at least one command to run.'
 }
 
+. (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
 # A burst's own checks run under the lock its Enter-CatzcBurst holds, so they take none of their own.
 $lock = $null
 $owned = $false
@@ -77,10 +80,14 @@ if ($InBurst) {
     $burst.Dispose()
     $owned = $true
 }
+elseif (Test-CatzcRunLockInherited -LockName $LockName) {
+    # A run that an ancestor holding the lock started, such as a writer's stamp call, runs under that hold: waiting for
+    # it would wait for itself until the budget ran out.
+    $owned = $true
+}
 else {
     # The lock is taken before the import, so a waiting run holds no import; the waiting lines pass through as they
     # happen.
-    . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
     $settings = Get-CatzcRunLockSetting
     # Filled in here, not as parameter defaults: the settings reader is dot-sourced just above, after the param block
     # has bound.
@@ -103,7 +110,14 @@ if (-not $owned) {
 $failed = 0
 $runFinished = $null
 $watcher = $null
+$inherit = Get-CatzcRunLockInheritName -LockName $LockName
+$priorHold = [System.Environment]::GetEnvironmentVariable($inherit)
 try {
+    # The processes a run that took the lock starts, such as a writer's stamp call, run under its hold
+    # (Test-CatzcRunLockInherited).
+    if ($lock) {
+        [System.Environment]::SetEnvironmentVariable($inherit, (Get-CatzcRunLockHoldValue))
+    }
     # A run whose caller is stopped serves no one, so a watcher on its own thread ends the process once the caller is
     # gone, and the lock falls free (abandoned, which the next waiter takes) instead of being held until the work ends.
     $callerProcess = if ($lock) {
@@ -228,6 +242,7 @@ finally {
         $runFinished.Dispose()
     }
     if ($lock) {
+        [System.Environment]::SetEnvironmentVariable($inherit, $priorHold)
         Remove-CatzcRunLockHolder -LockName $LockName
         $lock.ReleaseMutex()
         $lock.Dispose()

@@ -12,7 +12,11 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
             [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Cog', [ordered]@{ class = 'rollable'; inputs = @('cogs/*/cog.toml'); outputs = @('cogs/*/cog.lock') })
             # A writer whose output reads its own inputs, which the walk and the stamp count with the writer's.
             [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Gizmo', [ordered]@{ class = 'rollable'; outputs = @([ordered]@{ path = 'gizmo/*.png'; inputs = @('gizmo/*.yml') }) })
+            # An untracked writer whose broad glob overlaps the narrower glob of Build-Cog, which claims the paths both match.
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Sprue', [ordered]@{ class = 'untracked'; inputs = @('sprue.yml'); outputs = @('cogs/**') })
         )
+        # The paths the mocked git index tracks.
+        $script:indexed = @()
         $script:write = {
             param([string] $Path, [string] $Text)
             $full = Join-Path $script:root $Path
@@ -39,6 +43,8 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:rows }
+        $script:indexed = @()
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles { $script:indexed }
         Remove-Item -LiteralPath $script:root, $script:memo -Recurse -ErrorAction Ignore
         & $script:write 'docs/index.md' 'widget'
         & $script:write 'widget/spin.txt' 'gadget'
@@ -54,6 +60,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
 
     It 'is due when an input only an output declares changed' {
         & $script:write 'gizmo/cog.yml' 'gizmo: 1'
+        & $script:write 'gizmo/cog.png' 'gizmo'
         & $script:ran 'Build-Gizmo'
         & $script:due @(& $script:run) 'Build-Gizmo' | Should -BeFalse
         & $script:write 'gizmo/cog.yml' 'gizmo: 2'
@@ -82,6 +89,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
 
     It 'is due when a new folder appears that a wildcard input could write into, before the file exists' {
         & $script:write 'cogs/alpha/cog.toml' 'cog: alpha'
+        & $script:write 'cogs/alpha/cog.lock' 'lock: alpha'
         & $script:ran 'Build-Cog'
         & $script:due @(& $script:run) 'Build-Cog' | Should -BeFalse
         [void] [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'cogs/beta'))
@@ -108,11 +116,44 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run) 'Build-Gadget' | Should -BeTrue
     }
 
+    It 'is due when the index tracks a path under a wildcard output that is gone from disk, with its stamp current' -Tag 'ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP' {
+        & $script:write 'cogs/alpha/cog.toml' 'cog: alpha'
+        & $script:write 'cogs/alpha/cog.lock' 'lock: alpha'
+        & $script:ran 'Build-Cog'
+        $script:indexed = @('cogs/alpha/cog.lock')
+        & $script:due @(& $script:run) 'Build-Cog' | Should -BeFalse
+        $script:indexed = @('cogs/alpha/cog.lock', 'cogs/beta/cog.lock')
+        & $script:due @(& $script:run) 'Build-Cog' | Should -BeTrue
+        Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Path -ccontains 'cogs/' -and $Path -ccontains 'gizmo/' }
+    }
+
+    It 'is not due for a tracked path gone from disk that a narrower glob of another writer claims' {
+        & $script:write 'sprue.yml' 'sprue: 1'
+        & $script:write 'cogs/alpha/cog.lock' 'lock: alpha'
+        & $script:ran 'Build-Sprue'
+        $script:indexed = @('cogs/alpha/cog.lock', 'cogs/beta/cog.lock')
+        & $script:due @(& $script:run) 'Build-Sprue' | Should -BeFalse
+    }
+
+    It 'is due when a rollable wildcard output matches nothing on disk, though the index lists none of it, with its stamp current' -Tag 'ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP' {
+        & $script:write 'gizmo/cog.yml' 'gizmo: 1'
+        & $script:ran 'Build-Gizmo'
+        & $script:due @(& $script:run) 'Build-Gizmo' | Should -BeTrue
+        & $script:write 'gizmo/cog.png' 'gizmo'
+        & $script:due @(& $script:run) 'Build-Gizmo' | Should -BeFalse
+    }
+
+    It 'is not due when a wildcard output of a writer that is not rollable matches nothing on disk' {
+        & $script:write 'sprue.yml' 'sprue: 1'
+        & $script:ran 'Build-Sprue'
+        & $script:due @(& $script:run) 'Build-Sprue' | Should -BeFalse
+    }
+
     It 'emits one typed record per writer, in the render order of the registry' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         $rows = @(& $script:run)
-        $rows | Should -HaveCount 5
+        $rows | Should -HaveCount 6
         $rows[0] | Should -BeOfType [Catzc.Base.GeneratedFiles.GeneratedWriterDue]
-        @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Sprocket', 'Build-Cog', 'Build-Gizmo')
+        @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Sprocket', 'Build-Cog', 'Build-Gizmo', 'Build-Sprue')
     }
 
     It 'judges only the writers it is named, and stores the stamp of a named writer only' {

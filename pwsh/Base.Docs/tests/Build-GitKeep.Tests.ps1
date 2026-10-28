@@ -18,6 +18,10 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
         Set-GitTrackedPathMock
+        # The writer's own index read: one tracked keep file gone from disk, and tracked ones below out/ and a vendored module it never writes.
+        $script:tracked = @('contracts/.gitkeep', 'widgets/gone/.gitkeep', 'widgets/gadget.txt', 'out/.gitkeep', 'out/deep/gone/.gitkeep',
+            "$(Get-CatzcModulesFolder)/.vendor/Gone/.gitkeep")
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { $script:tracked }
     }
 
     AfterAll {
@@ -56,6 +60,18 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText($probe) | Should -Match 'stale again'
         Build-GitKeep | Out-Null   # restore for the other tests
     }
+
+    It 'writes back a tracked .gitkeep gone from disk, and only a keep file outside out/ and the vendored modules' {
+        $gone = Join-Path $script:fake.Root 'widgets/gone/.gitkeep'
+        [System.IO.File]::Delete($gone)
+        $report = @(Build-GitKeep -PassThru)
+        ($report | Where-Object Path -EQ 'widgets/gone/.gitkeep').Changed | Should -BeTrue
+        [System.IO.File]::ReadAllText($gone) | Should -BeLike '*fixture .gitkeep*'
+        $report | ForEach-Object Path | Should -Not -Contain 'widgets/gadget.txt'
+        $report | ForEach-Object Path | Should -Not -Contain 'out/deep/gone/.gitkeep'
+        $report | ForEach-Object Path | Should -Not -Contain "$(Get-CatzcModulesFolder)/.vendor/Gone/.gitkeep"
+        [System.IO.File]::Exists((Join-Path $script:fake.Root 'out/deep/gone/.gitkeep')) | Should -BeFalse
+    }
 }
 
 Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
@@ -64,8 +80,9 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         # -WorkingRootOnly: the .gitkeep files live in the fixture working root, while the asset under test is the shipped one.
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
-        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        # The fake root is no git checkout, so neither the generated head nor the writer reads a file as tracked.
         Set-GitTrackedPathMock
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { }
     }
 
     AfterAll {

@@ -14,6 +14,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GeneratedTrackedPath -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-GeneratedGateDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $false; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $false; DryRun = $true }
@@ -293,6 +294,7 @@ Describe 'Test-GeneratedFiles — a widget writer over a fixture tree' -Tag 'L0'
             [Catzc.Base.Variants.GeneratedTarget]::new('gadget/prices.json', 'Update-Gadget', 'snapshot')
         }
         Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates { [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new('Build-Widget', $false) }
+        Mock Get-GeneratedGateDrift -ModuleName Catzc.Base.QualityGates { }
         # The widget writer's dry run: every output it would write, changed where the bytes on disk differ, head included.
         Mock Build-Widget -ModuleName Catzc.Base.QualityGates {
             foreach ($name in 'edited', 'stale', 'synced') {
@@ -330,6 +332,18 @@ Describe 'Test-GeneratedFiles — a widget writer over a fixture tree' -Tag 'L0'
         $result.Facts['Skipped'] | Should -BeNullOrEmpty
         $result.IssueCount | Should -Be 0
         Should -Invoke Build-Widget -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+        Should -Invoke Get-GeneratedGateDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Writer.name -ceq 'Build-Widget' }
+    }
+
+    It 'fails a gate-checked writer whose generated input was committed after its outputs, naming its regenerate command' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; check = 'gate'; gate = 'Test-Widgets'; regenerate = 'Build-Widget -All'; outputs = @('widget/*.yml') })
+        }
+        Mock Get-GeneratedGateDrift -ModuleName Catzc.Base.QualityGates { 'Update-Gadget committed its output in abc1234 after the last commit of these outputs' }
+
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Be @('widget/*.yml: stale — Update-Gadget committed its output in abc1234 after the last commit of these outputs; regenerate with: Build-Widget -All')
+        Should -Invoke Get-GeneratedGateDrift -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly -ParameterFilter { $Generated.Count -eq 0 }
     }
 
     It 'with -Changed renders a writer that is not due when a changed output''s stamp misses' {

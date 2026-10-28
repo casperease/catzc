@@ -11,8 +11,9 @@ Parses the DRS index ([index](../../../drs/index.md)) into the code -> record en
 ### description
 
 Reads the rule-citation registry tables in [index](../../../drs/index.md) and returns one entry per record: its citation code, its title
-slug, and its index-relative path. A pure function of the file on disk, memoized per resolved index path for the session (re-run the
-importer to refresh — see [ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Inline code-span mentions of a code (in prose) are not
+slug, and its index-relative path. A pure function of the file, read through Read-RepositoryText and memoized per resolved index path for
+the session (re-run the importer to refresh — see [ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Inside Use-RepositoryTextSource the
+file is the source's, such as a commit's, and the memo key carries the source's name. Inline code-span mentions of a code (in prose) are not
 table rows and are ignored.
 
 ### parameter `IndexPath`

@@ -11,6 +11,8 @@ from .module_paths import MODULES_TRACK, REPO, module_file
 ENTRY = REPO / MODULES_TRACK / ".internal" / "assets" / "Invoke-CatzcCommand.ps1"
 # The entry script bounds its own run by the run lock's budget; the call outlives it only by the time its process takes to end.
 EXIT_GRACE_SECONDS = 10
+# Windows ends a process's command line at 32,767 characters; a call stays under this safe share of it.
+COMMAND_LINE_BUDGET = 30000
 
 
 def _quoted(text):
@@ -23,10 +25,30 @@ def _relative(path):
     return Path(path).resolve().relative_to(REPO).as_posix()
 
 
-def command(paths, writer):
-    """The entry script's call: one Set-GeneratedFileHead line per path, all of them run in its one imported session."""
-    lines = [f"Set-GeneratedFileHead -Path {_quoted(_relative(path))} -Writer {_quoted(writer)}" for path in paths]
-    return ["pwsh", "-NoProfile", "-File", str(ENTRY), *lines]
+def _line(relatives, writer):
+    """One command line for the writer: its paths as a PowerShell array, each stamped through Set-GeneratedFileHead, whose -Path is one
+    string."""
+    array = ", ".join(_quoted(relative) for relative in relatives)
+    return f"@({array}) | ForEach-Object {{ Set-GeneratedFileHead -Path $_ -Writer {_quoted(writer)} }}"
+
+
+def commands(paths, writer):
+    """The entry script's calls: each carries one line for the writer with its paths as an array, and a call is closed before its command
+    line passes COMMAND_LINE_BUDGET, so any number of paths fits; one call when they all do."""
+    relatives = [_relative(path) for path in paths]
+    head = ["pwsh", "-NoProfile", "-File", str(ENTRY)]
+    overhead = sum(len(part) + 1 for part in head) + len(_line([], writer)) + 3
+    calls, chunk, size = [], [], overhead
+    for relative in relatives:
+        cost = len(_quoted(relative)) + 2
+        if chunk and size + cost > COMMAND_LINE_BUDGET:
+            calls.append([*head, _line(chunk, writer)])
+            chunk, size = [], overhead
+        chunk.append(relative)
+        size += cost
+    if chunk:
+        calls.append([*head, _line(chunk, writer)])
+    return calls
 
 
 def budget_seconds():
@@ -41,16 +63,10 @@ def stamp(paths, writer):
     inside = [Path(path) for path in paths if Path(path).resolve().is_relative_to(REPO)]
     if not inside:
         return []
-    run = subprocess.run(
-        command(inside, writer),
-        cwd=REPO,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        timeout=budget_seconds() + EXIT_GRACE_SECONDS,
-        check=False,
-    )
-    if run.returncode != 0:
-        tail = " | ".join((run.stdout + run.stderr).strip().splitlines()[-5:])
-        raise SystemExit(f"stamp: Set-GeneratedFileHead refused the {writer} head of {len(inside)} file(s): {tail}")
+    timeout = budget_seconds() + EXIT_GRACE_SECONDS
+    for call in commands(inside, writer):
+        run = subprocess.run(call, cwd=REPO, capture_output=True, text=True, encoding="utf-8", timeout=timeout, check=False)
+        if run.returncode != 0:
+            tail = " | ".join((run.stdout + run.stderr).strip().splitlines()[-5:])
+            raise SystemExit(f"stamp: Set-GeneratedFileHead refused the {writer} head of {len(inside)} file(s): {tail}")
     return inside

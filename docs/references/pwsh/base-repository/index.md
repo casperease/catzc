@@ -13,6 +13,7 @@ the `Base` group, depends on [Catzc.Base.Asserts](../base-asserts/index.md), and
 | ---------------- | -------- | ------------------------------------------------------------------------------------------ |
 | responsibility:1 | paths    | [Repository and output path anchors](#responsibility1--repository-and-output-path-anchors) |
 | responsibility:2 | pipeline | [Pipeline context detection](#responsibility2--pipeline-context-detection)                 |
+| responsibility:3 | source   | [Repository text source](#responsibility3--repository-text-source)                         |
 
 ### responsibility:1 — Repository and output path anchors
 
@@ -28,6 +29,13 @@ Whether the code is executing inside a CI pipeline, named as a run environment (
 pin. The answer keys environment-dependent settings such as the time-safeguard limits. It is read off the one detection seam, which lives in
 the always-loaded [Catzc.Internal.Loader](../internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module
 loads (see [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md)). Callers never probe CI environment variables directly.
+
+### responsibility:3 — Repository text source
+
+What a repository file says. A reader that must answer for one commit, and not for the working tree, reads its files and lists its folders
+through this one seam. A caller that has loaded the commit's texts runs its work inside a scoped source. Inside that scope, a repository
+path reads the source's text, and a path the source lacks is absent. Outside any scope, the seam reads the disk. The module never runs git:
+the caller hands it the texts.
 
 ## What the module does
 
@@ -68,3 +76,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Test-IsRunningAsAgent`      |
 |                                                       | `Get-CatzcRunMode`           |
 |                                                       | `Assert-SourceTree`          |
+| responsibility:3 — Repository text source             | `Read-RepositoryText`        |
+|                                                       | `Get-RepositoryTextFile`     |
+|                                                       | `Use-RepositoryTextSource`   |
+|                                                       | `Get-RepositoryTextSource`   |

@@ -53,6 +53,45 @@ Describe 'Get-Config' -Tag 'L0' {
             { Get-Config -Config widget-clash } | Should -Throw "*key 'widget' is set by more than one part*"
         }
 
+        It 'reads a file and a folder''s parts from the active source, cached apart from the working tree''s' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $root 'configs/widget-parts') -Force | Out-Null
+            Set-Content -Path (Join-Path $root 'configs/widget-source.yml') -Value 'gadget: working'
+            Set-Content -Path (Join-Path $root 'configs/widget-parts/a.yml') -Value @('parts:', '  gadget: working')
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { $root }
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-source' } -MockWith {
+                @{ Name = 'widget-source'; Module = 'Catzc.Base.Config'; Path = (Join-Path $root 'configs/widget-source.yml') }
+            }
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-source-parts' } -MockWith {
+                @{ Name = 'widget-source-parts'; Module = 'Catzc.Base.Config'; Path = (Join-Path $root 'configs/widget-parts') }
+            }
+            $commit = @{
+                Name = 'c' * 40
+                Path = [string[]] @('configs/widget-source.yml', 'configs/widget-parts/b.yml')
+                Text = @{ 'configs/widget-source.yml' = 'gadget: committed'; 'configs/widget-parts/b.yml' = "parts:`n  sprocket: committed" }
+            }
+            (Get-Config -Config widget-source).gadget | Should -BeExactly 'working'
+            $read = Use-RepositoryTextSource @commit -ScriptBlock {
+                (Get-Config -Config widget-source).gadget
+                @((Get-Config -Config widget-source-parts).parts.Keys)
+            }
+            $read | Should -Be @('committed', 'sprocket')
+            (Get-Config -Config widget-source).gadget | Should -BeExactly 'working'
+            @((Get-Config -Config widget-source-parts).parts.Keys) | Should -Be @('gadget')
+        }
+
+        It 'throws for a shipped file the active source does not hold, naming the source' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $root | Out-Null
+            Set-Content -Path (Join-Path $root 'widget-new.yml') -Value 'k: v'
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { $root }
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-new' } -MockWith {
+                @{ Name = 'widget-new'; Module = 'Catzc.Base.Config'; Path = (Join-Path $root 'widget-new.yml') }
+            }
+            { Use-RepositoryTextSource -Name ('c' * 40) -Path @() -Text @{} -ScriptBlock { Get-Config -Config widget-new } } |
+                Should -Throw "*widget-new.yml (in source $('c' * 40))*"
+        }
+
         It 'throws for an unknown config name' {
             { Get-Config -Config does-not-exist } | Should -Throw '*No config*'
         }

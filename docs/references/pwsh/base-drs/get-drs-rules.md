@@ -15,6 +15,7 @@ body (Summary, the one-liner Show-Catzc lists), and the whole first paragraph of
 blank-line-padding authoring convention ([index](../../../drs/index.md)) makes that paragraph the rule's normative summary, ending at the
 blank line before its linked bullets, so Statement never includes them. The glossary checks read Statement: a term bolded on a wrapped line
 still belongs to the rule ([ADR-REPO-VOCAB-DEFINEDTERM](../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)).
+The file is read through Read-RepositoryText, so inside Use-RepositoryTextSource it is that source's record, such as a commit's.
 
 ### parameter `DrsPath`
 

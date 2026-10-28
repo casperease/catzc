@@ -15,10 +15,10 @@ Gathers the repository's own registries and builds the map with Catzc.Base.Maps.
 [DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)), the file languages (Get-FileLanguage,
 [DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), the tracked files from the git index
 (Get-GitTrackedPath, [ADR-AUTO-TRACKED](../../../drs/automation/tracked-files-from-the-index.md)), each configured track's aspects
-(Get-Aspect), the DRS index (Get-DrsRuleSet: record code to domain), each record code's own file (Get-DrsCitationMap, the map the link engine
-uses; a record lights its own file, never its domain's), the owners of the repository-root files (files.yml, read through Get-Config), the
-globsets (Get-GlobSet), and the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude; by default the
-generated slide descriptions under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under
+(Get-Aspect), the DRS index (Get-DrsRuleSet: record code to domain), each record code's own file (Get-DrsCitationMap, the map the link
+engine uses; a record lights its own file, never its domain's), the owners of the repository-root files (files.yml, read through
+Get-Config), the globsets (Get-GlobSet), and the globs of the files whose citations light nothing (maps.yml highlight.citation_exclude; by
+default the generated slide descriptions under docs/.assets/, the explanation articles under docs/explanation/ and the drawing tooling under
 python/diagrams/, so a slide's minimap lights the repository's citations of its rules, never the slide's own words).
 
 The root folder gives a file's track and its extension gives its file language; a file under no track or in no file language lands in a
@@ -34,6 +34,14 @@ until the importer runs again
 
 Return the map as JSON (axes, cells and per-file placements) instead of the object, so a tool reads it without PowerShell
 ([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
+
+### parameter `Revision`
+
+A full commit id. The commit's tree gives the paths and its blobs give the texts. The map runs inside Use-WorldMapRevision, so every config
+it reads, and with them the tracks, aspects, file languages, DRS rule sets and globsets, plus the DRS index and records, comes from the same
+commit. The map depends on that commit alone, never on the index, the working tree or a peer's edit. The texts are cached under their blob
+ids, so a cached text is never stale. Without it, the paths come from the git index and every input from the working tree, which is what a
+gate such as Test-WorldMap checks. The diagram minimap data passes the HEAD commit.
 
 ### outputs
 

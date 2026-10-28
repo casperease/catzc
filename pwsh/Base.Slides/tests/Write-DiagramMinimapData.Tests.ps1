@@ -16,7 +16,11 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         # The layers lit: the citing files' layers, which a test widens to stand for a new citing file.
         $script:lit = [System.Collections.Generic.List[string]]::new([string[]] @('automation', 'contract'))
         Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
+        Mock Get-GitCurrentCommit -ModuleName Catzc.Base.Slides { 'c' * 40 }
+        Mock Get-GitCommitTree -ModuleName Catzc.Base.Slides { [ordered]@{ 'docs/widget.md' = '1' * 40 } }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { throw 'the minimap data reads the commit, never the index' }
         Mock Get-WorldMap -ModuleName Catzc.Base.Slides { }
+        Mock Use-WorldMapRevision -ModuleName Catzc.Base.Slides { & $ScriptBlock }
         Mock Get-WorldMapHighlight -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Cells = @() } }
         Mock Get-MinimapFact -ModuleName Catzc.Base.Slides { @{} }
         Mock Get-LayerStackMinimapData -ModuleName Catzc.Base.Slides {
@@ -62,6 +66,13 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         }
         Get-DrawnLit -Stem $script:gadget | Should -Be @('automation', 'contract', 'pipeline')
         [System.IO.File]::ReadAllText($source) | Should -BeExactly $before
+    }
+
+    It 'builds its world map from the HEAD commit it resolved once, never the index or the working tree' {
+        $null = Invoke-Writer -Stem $script:widget
+        Should -Invoke Get-WorldMap -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Revision -eq ('c' * 40) }
+        Should -Invoke Get-GitCurrentCommit -ModuleName Catzc.Base.Slides -Times 1 -Exactly
+        Should -Invoke Use-WorldMapRevision -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Revision -eq ('c' * 40) }
     }
 
     It 'refuses a declaration that maps its minimaps to stored cells' {

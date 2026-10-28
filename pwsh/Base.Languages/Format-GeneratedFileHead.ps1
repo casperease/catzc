@@ -66,7 +66,7 @@ function Format-GeneratedFileHead {
         else {
             $Head.regenerate
         }
-        $values['regenerate'] = $regenerate.Replace('{writer}', $row.name).Replace('{path}', $relative)
+        $values['regenerate'] = $regenerate.Replace('{writer}', $row.name).Replace('{path}', $relative).Replace('{paths}', $relative)
     }
     if ($tracked) {
         # The body below the carrier's head, so a second run over the written file finds the same hash.

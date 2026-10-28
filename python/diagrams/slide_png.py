@@ -12,13 +12,14 @@ A fact slide (`pattern: fact` in the slides kit) states one checkable propositio
 `picture` writes the picture beside the slide file where the slide's `## Image` links to it; `render` draws the slide itself at the deck's size
 with the kit's tokens and lands it beside the slide too, so the source catalogue holds what the person reads. Each png written is stamped
 through the one head renderer with its writer's row, `slide_png picture` or `slide_png render`; a png in place of the slide names the slide
-it was made for, which is how its stamp's regenerate command renders it again.
+it was made for, which is how its stamp's regenerate command renders it again. One call takes many slides and stamps every png it wrote in
+one head run, so a whole deck pays one cats import.
 
 usage (repo root, background):
-  uv run --no-sync --project python python -m catzc.diagrams.slide_png picture <slide.md | its picture.png>
-  uv run --no-sync --project python python -m catzc.diagrams.slide_png render <slide.md | its .slide.png> [<out.png>]
-(render lands in the source catalogue, beside the slide at .assets/<id>.slide.png, unless <out.png> says otherwise: a costly render is a
-committed build output, never parked under out/)
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png picture <slide.md | its picture.png> ...
+  uv run --no-sync --project python python -m catzc.diagrams.slide_png render <slide.md | its .slide.png> ...
+(render lands in the source catalogue, beside the slide at .assets/<id>.slide.png: a costly render is a committed build output, never
+parked under out/)
 """
 
 import re
@@ -272,14 +273,22 @@ def slide_of(path, mode):
     return linking[0]
 
 
+def write(mode, paths):
+    """Every named slide's png made by the mode, then all of them stamped in one head run, since each run of the head renderer is a cats
+    import; returns the pngs written."""
+    written = []
+    for path in paths:
+        slide = slide_of(Path(path), mode)
+        written.append(picture(slide) if mode == "picture" else render(slide))
+    stamp.stamp(written, WRITERS[mode])
+    return written
+
+
 def main():
     args = sys.argv[1:]
     if len(args) >= 2 and args[0] in WRITERS:
-        mode = args[0]
-        slide = slide_of(Path(args[1]), mode)
-        dst = picture(slide) if mode == "picture" else render(slide, args[2] if len(args) > 2 else None)
-        stamp.stamp([dst], WRITERS[mode])
-        print(f"{mode} {dst}")
+        for dst in write(args[0], args[1:]):
+            print(f"{args[0]} {dst}")
     else:
         raise SystemExit(__doc__)
 

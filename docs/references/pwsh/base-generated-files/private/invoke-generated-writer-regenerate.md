@@ -7,14 +7,17 @@ row, through the managed tool its first word names.
 
 ### synopsis
 
-Runs a writer row's regenerate command, once, or once per output path when the command names `{path}`.
+Runs a writer row's regenerate command, once, once per output path when the command names `{path}`, or once with every output path when
+it names `{paths}`.
 
 ### description
 
 The first word of the command line names a tool `tools.yml` declares, run by its managed path from `Resolve-ToolExecutable`; the rest are
 its arguments, so no free text is evaluated. `Invoke-Executable` runs each command from the repository root, bounded by the tool's time
 limit. A command that names `{path}` runs once per output the writer claims (`Get-GeneratedWriterOutputPath`), in ordinal order, the path
-quoted in place of `{path}`. A failed run throws, naming the writer, the command and its output.
+quoted in place of `{path}`. A command that names `{paths}` runs once, every output the writer claims quoted in ordinal order in place of
+`{paths}`, so a writer that pays a start-up per run, such as a cats import to stamp its heads, pays it once; with no output claimed it does
+not run. A failed run throws, naming the writer, the command and its output.
 
 ### parameter `Writer`
 
@@ -40,6 +43,6 @@ Invoke-GeneratedWriterRegenerate -Writer $row -Writers $rows -RepositoryRoot $ro
 
 ## Why the paths come from the git index
 
-`{path}` is the output file, as in the generated-file head the row's command fills. After `Remove-Generated` the outputs are gone, so a walk
+`{path}` is the output file, as in the generated-file head the row's command fills, where `{paths}` names that one file too. After `Remove-Generated` the outputs are gone, so a walk
 of the disk finds none; the git index still names every committed output, and the disk adds one not yet committed. The index is read at the
 session's repository root.

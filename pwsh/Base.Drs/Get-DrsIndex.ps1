@@ -9,14 +9,23 @@ function Get-DrsIndex {
         # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
         $script:drsIndexCache = @{}
     }
-    if ($script:drsIndexCache.ContainsKey($IndexPath)) {
-        return , $script:drsIndexCache[$IndexPath]
+    # A source, such as a commit, has its own index, so its name joins the key.
+    $source = Get-RepositoryTextSource
+    $key = if ($source) {
+        "$IndexPath|source:$($source.Name)"
+    }
+    else {
+        $IndexPath
+    }
+    if ($script:drsIndexCache.ContainsKey($key)) {
+        return , $script:drsIndexCache[$key]
     }
 
-    Assert-PathExist $IndexPath
+    $text = Read-RepositoryText $IndexPath
+    Assert-True ($null -ne $text) -ErrorText "Path does not exist: $IndexPath"
 
     $row = "^\|\s*``(?<code>$((Get-Config -Config drs).CodeForm.Cited))``\s*\|\s*\[(?<title>[^\]]+)\]\((?<path>[^)]+)\)"
-    $lines = [System.IO.File]::ReadAllLines($IndexPath)
+    $lines = $text -split '\r\n|\r|\n'
     $ret = foreach ($line in $lines) {
         if ($line -notmatch $row) {
             continue
@@ -29,6 +38,6 @@ function Get-DrsIndex {
     }
 
     $ret = @($ret)
-    $script:drsIndexCache[$IndexPath] = $ret
+    $script:drsIndexCache[$key] = $ret
     , $ret
 }

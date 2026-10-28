@@ -282,8 +282,9 @@ def conflict(folder, base):
     """The cells of a pair whose two sides both moved from the committed pair and now disagree: the yml differs from the base's,
     the png's model differs from the base's, and get of the png states other content than the yml. Empty when only one side moved,
     when the sides agree, or when there is no base (base None: an untracked pair is never a conflict). A conflicted pair is put or
-    got only by name, so the author picks the side that wins; nothing merges."""
-    if base is None:
+    got only by name, so the author picks the side that wins; nothing merges. A pair whose png is absent has one side, the yml, so put
+    renders the png from it alone and it is never a conflict."""
+    if base is None or not slide_of(folder).is_file():
         return []
     # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
     source, model = load(folder), model_of(folder)
@@ -302,14 +303,14 @@ def conflict(folder, base):
 def sync(folder, base):
     """The sync after an edit: get when the drawing moved from the base (or there is no base), then put, so the yml and the png
     agree again; put alone when only the yml moved. The directions run, in order. A conflicted pair runs nothing and fails with
-    its cells, so the author picks the side by name."""
+    its cells, so the author picks the side by name. A pair whose png is absent has no drawing to get, so it is put alone."""
     both = conflict(folder, base)
     if both:
         raise DeclarationError(
             f"{folder}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}; put or get it by name"
         )
     ran = []
-    if base is None or model_of(folder) != base[1]:
+    if slide_of(folder).is_file() and (base is None or model_of(folder) != base[1]):
         save(folder, get(model_of(folder), kind_of(folder)))
         ran.append("get")
     put_png(folder, load(folder))

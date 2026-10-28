@@ -16,16 +16,22 @@ function Build-GitKeep {
     $repositoryRoot = Get-RepositoryRoot
 
     # The bounded walker lists every .gitkeep below the root; out/ is pruned, so its own keep file is added by hand.
-    $found = [System.Collections.Generic.List[string]]::new()
+    $found = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($keepPath in Get-ChildPath $repositoryRoot -Depth 32 -File -Filter '.gitkeep' -Exclude @('.git', '.vendor',
             'out') -PruneVendor $true) {
-        $found.Add((ConvertTo-RepoRelativePath $keepPath))
+        [void] $found.Add((ConvertTo-RepoRelativePath $keepPath))
     }
     $outputKeep = [System.IO.Path]::Combine($repositoryRoot, 'out', '.gitkeep')
     if ([System.IO.File]::Exists($outputKeep)) {
-        $found.Add((ConvertTo-RepoRelativePath $outputKeep))
+        [void] $found.Add((ConvertTo-RepoRelativePath $outputKeep))
     }
-    $found.Sort([System.StringComparer]::Ordinal)
+    # A tracked keep file gone from disk is written back too, so a restore after a roll-off brings the index's set back whole.
+    foreach ($tracked in @(Get-GitTrackedPath -Path '.')) {
+        $segments = $tracked.Split('/')
+        if ($segments[-1] -ceq '.gitkeep' -and ($tracked -ceq 'out/.gitkeep' -or -not ($segments | Where-Object { $_ -in '.git', '.vendor', 'out' }))) {
+            [void] $found.Add($tracked)
+        }
+    }
 
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 

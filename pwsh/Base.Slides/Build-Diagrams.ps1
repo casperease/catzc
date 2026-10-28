@@ -50,6 +50,12 @@ function Build-Diagrams {
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
     # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
     $found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates | Where-Object { $found -cnotcontains $_ })
+    # A legend diagram has no yml and is drawn from the glyph library alone, so drawio.yml naming its stem under roles finds it before its png.
+    $kitConfig = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($diagramKit.Config)) -Ordered
+    $legends = @(if ($kitConfig -and $kitConfig.Contains('roles') -and $kitConfig['roles']) {
+            $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' }
+        })
+    $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
                     $relative = ([System.IO.Path]::GetRelativePath($root,

@@ -141,7 +141,13 @@ function Test-GeneratedFiles {
                 }
             }
             'gate' {
-                # The writer's row names the gate that proves it, which runs on its own; no render here.
+                # The row's gate proves the render; the full run proves it fresh from the commits, since a gate never compares dates.
+                if ($renderAll -and $writerName -in $selected) {
+                    $command = $writer.regenerate ? $writer.regenerate : $writerName
+                    foreach ($reason in @(Get-GeneratedGateDrift -Writer $writer -Writers $writers -Generated $generated -RepositoryRoot (Get-RepositoryRoot))) {
+                        $issues.Add("$(@($writer.outputs | ForEach-Object path) -join ', '): stale — $reason; regenerate with: $command")
+                    }
+                }
             }
             'root-config' {
                 # The managed root files: the writer selects them all, a generator only the files it renders.

@@ -79,6 +79,25 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             'docs/gizmos/.assets/gizmo')
     }
 
+    It 'finds a legend drawio.yml roles names before its png exists, so an empty tree renders it from the glyph library' -Tag 'ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP' {
+        $config = Join-Path $script:widgetRoot 'kit/configs/drawio.yml'
+        $page = Join-Path $script:widgetRoot 'docs/widgets/key.md'
+        $shipped = [System.IO.File]::ReadAllText($config)
+        try {
+            [System.IO.File]::WriteAllText($config, "$($shipped)roles:`n  docs/widgets/.assets/widget-key: legend`n  docs/widgets/.assets/widget-a: slide`n")
+            [System.IO.File]::WriteAllText($page, "# Key`n`n![Key](.assets/widget-key.drawio.png)`n")
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked | Where-Object { $_ -notlike 'docs/gadgets/*' }) + 'docs/widgets/key.md' }
+            $runs = @(& $script:build)
+        }
+        finally {
+            [System.IO.File]::WriteAllText($config, $shipped)
+            [System.IO.File]::Delete($page)
+        }
+        $runs.Folder | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b',
+            'docs/gizmos/.assets/gizmo', 'docs/widgets/.assets/widget-key')
+        @($runs | Where-Object Folder -EQ 'docs/widgets/.assets/widget-key').Status | Should -Be 'clean'
+    }
+
     It 'calls the kit''s renderer through uv in the kit''s own project, every folder absolute, in one call' {
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly

@@ -194,6 +194,14 @@ Describe 'Enter-CatzcBurst — in a child pwsh process' -Tag 'L2', 'logic' {
         $lines[-1] | Should -BeExactly '[Enter-CatzcBurst] released the run lock: the 1 -Run steps passed'
     }
 
+    It 'lets a run a -Run step starts without -InBurst, such as a writer''s stamp call, run under the burst''s hold' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $child = "pwsh -NoProfile -File '$script:entry' -LockName '$script:lockName' -LockSeconds 1 -BudgetSeconds 5 -Importer '$script:importer' Get-Widget"
+        $lines = @(& $script:enter -Seconds 30 -LockName $script:lockName -LockSeconds 1 $child)
+        $LASTEXITCODE | Should -Be 0
+        $lines | Should -Contain '[Invoke-CatzcCommand] passed: Get-Widget'
+        $lines[-1] | Should -BeExactly '[Enter-CatzcBurst] released the run lock: the 1 -Run steps passed'
+    }
+
     It 'binds each step given through pwsh -File as its own step, never as the lock''s name' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $lines = @(& pwsh -NoProfile -File $script:enter -Seconds 30 -LockName $script:lockName -LockSeconds 1 "'one'" "'two'")
         $LASTEXITCODE | Should -Be 0

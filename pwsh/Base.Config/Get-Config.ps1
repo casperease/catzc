@@ -55,6 +55,11 @@ function Get-Config {
             $cacheKey = "$cacheKey|$candidate|$($stamp.LastWriteTimeUtc.Ticks)|$($stamp.Length)"
         }
     }
+    # Inside a source, such as a commit, the key carries its name, so the working tree's entry is never served.
+    $source = Get-RepositoryTextSource
+    if ($source) {
+        $cacheKey = "$cacheKey|source:$($source.Name)"
+    }
 
     # Keyed by the resolved file, so two names for one file share one parsed object and one file never yields two.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
@@ -67,20 +72,19 @@ function Get-Config {
 
     $raw = if ($entry.Path -and [System.IO.Directory]::Exists($entry.Path)) {
         # A split config: its parts merge in ordinal name order, and a key two parts both set fails the load.
-        $parts = [string[]] @([System.IO.Directory]::GetFiles($entry.Path, '*.yml'))
-        [System.Array]::Sort($parts, [System.StringComparer]::Ordinal)
+        $parts = [string[]] @(Get-RepositoryTextFile $entry.Path -Filter '*.yml')
         Assert-True ($parts.Count -gt 0) -ErrorText "Config folder '$($entry.Path)' holds no *.yml part."
         $merged = [ordered]@{}
         foreach ($part in $parts) {
-            $partRaw = [System.IO.File]::ReadAllText($part) | ConvertFrom-Yaml -Ordered
+            $partRaw = Read-RepositoryText $part | ConvertFrom-Yaml -Ordered
             Assert-True ($partRaw -is [System.Collections.IDictionary]) -ErrorText "Config part '$part' must be a map."
             $merged = Merge-ConfigFragment -Base $merged -Fragment $partRaw -Disjoint
         }
         $merged
     }
     elseif ($entry.Path) {
-        Assert-PathExist $entry.Path
-        $text = [System.IO.File]::ReadAllText($entry.Path)
+        $text = Read-RepositoryText $entry.Path
+        Assert-True ($null -ne $text) -ErrorText "Path does not exist: $($entry.Path)$(if ($source) { " (in source $($source.Name))" })"
         Assert-True ($text.Length -gt 0) -ErrorText "Config file '$($entry.Path)' is empty (0 bytes): the read raced a writer, or the file was truncated on disk."
         $text | ConvertFrom-Yaml -Ordered
     }

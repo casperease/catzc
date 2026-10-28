@@ -52,3 +52,12 @@ the excluded cells; nothing computed is written back to the declaration.
 The world map is built once for every folder of the call, and the file facts of every folder's subject are read in one call; a minimap that
 draws on either is handed it rather than building its own. The drawing's own glyphs are handed to the minimaps that place them: the labels
 as written, resolved by the maps module, never stored.
+
+## comment:1
+
+Above `$commit = Get-GitCurrentCommit`, written with `#`.
+
+```text
+The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
+The data is the committed HEAD's alone, resolved once: never the index, the working tree or a moving HEAD.
+```

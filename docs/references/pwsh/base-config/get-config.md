@@ -14,7 +14,7 @@ Loads, validates, and caches a module's config by its global lowercase name.
 The single reader for any module's internal config (`configs/<name>.yml`). Existence is discovered by scanning `<module>/configs/` under the
 loaded code root, Get-CatzcModulesRoot (cached, via Resolve-ConfigEntry); -Module disambiguates the rare case of the same config name in two
 modules. The parsed config (ConvertFrom-Yaml -Ordered) is cached per resolved path for the session (re-run the importer to clear) and the
-same reference is returned on repeat calls.
+same reference is returned on repeat calls. Inside Use-RepositoryTextSource the file is read from that source, such as a commit.
 
 A config registered in configs/configs.yml (`<name>: { type: <C# FQN> }`) is constructed as `[type]::new($dict`), which maps and validates
 it; every shipped config is registered (Test-ShippedConfigs). An unregistered config — a fixture, or one a PowerShell validator checks
@@ -74,6 +74,10 @@ probed strict-clean
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)). In build mode
 the key also carries the stamp of the consumer overlay's fragment ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)), so an
 edited fragment is never served from a stale merge.
+
+Inside Use-RepositoryTextSource, such as a commit that Use-WorldMapRevision loads, the shipped file and a split config's parts are read
+through Read-RepositoryText and Get-RepositoryTextFile from that source, and the key carries the source's name. A commit's config and the
+working tree's never share an entry. The overlay fragment is not part of the repository, so it is always read from disk.
 
 ## Typed construction
 

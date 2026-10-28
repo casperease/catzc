@@ -163,6 +163,15 @@ def test_a_legend_png_is_stale_only_when_the_glyph_library_moved_from_it(roles, 
     assert drawio_forward.legend_stale(legend) is True
 
 
+def test_a_legend_roles_names_is_a_diagram_before_its_png_exists_and_renders_from_the_glyph_library(roles, repo):
+    legend, slide = roles
+    assert not drawio_forward.slide_of(legend).exists()
+    assert drawio_forward.diagrams(legend) == [legend.resolve()]
+    assert drawio_forward.diagrams(repo / "docs") == [legend.resolve()]
+    assert drawio_forward.diagrams(slide) == []
+    assert drawio_forward.put_legend(legend).is_file()
+
+
 def test_a_legend_without_a_declaration_is_no_finding(roles):
     legend, _ = roles
     assert drawio_forward.undeclared_findings(legend, "widget-legend.drawio.yml") == []

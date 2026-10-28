@@ -74,6 +74,25 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### Roll off, roll on
 
+- [x] A `check: gate` writer is proven fresh, not only named: `Test-GeneratedFiles` flags a gate-checked output older than its inputs (63
+      committed `*.slide.png` were stale against their pictures and no gate saw it). Check: its Pester test with a stale fixture output.
+- [x] The minimap reads only HEAD: `Get-WorldMap`'s configs, tracks, aspects, DRS rule sets and globsets, and `Get-MinimapFact`, read the
+      commit, not the working copy. `Build-Diagrams` discovery (`Get-GitChangedPath`) stays on the working copy, since it is not a minimap
+      input and it lets a new diagram get its first put. Check: a working-copy edit leaves a `Build-Diagrams -Path` render byte-equal in a
+      fixture test.
+- [x] `stamp.py` passes one `-Path` array per writer, so a batched stamp stays under the 32,767-character command line at any slide count.
+      Check: its python test with 400 paths makes one call under the limit.
+- [x] `Write-TypesContract` is rewritten by every import: its class is `import-critical`, not `rollable`. Check: `Test-GeneratedFiles` 0
+      issues and `Restore-Generated.Tests.ps1` passes.
+- [x] `Get-GeneratedTrackedPath` claims a path by the most literal glob (`Get-GeneratedWriterOutputPath`), so `*.slide.png` belongs to
+      `slide_png render`. Check: its Pester test with overlapping globs.
+- [x] The run-lock tests remove their own `catzc-test-*.holder` records. Check: `Wait-CatzcRunLock.Tests.ps1` passes and leaves no test
+      holder in `%TEMP%\catzc-run-queue`.
+- [x] The output-claim rule is public: `Get-GeneratedWriterOutputPath` leaves `Base.GeneratedFiles/private/` for a public home both
+      `Get-GeneratedTrackedPath` and `Restore-Generated` call, so no module calls another's private function. Check: both test files pass
+      and `Test-ModuleDependency` reports 0 issues.
+- [x] `Get-GeneratedGateDrift` has its comment page and `test-generated-files.md` describes the gate freshness check. Check: `Test-Spelling`
+      and `Test-Links` on both pages report 0 issues.
 - [ ] The round trip on the real tree: `Remove-Generated`, `Restore-Generated`, `git status --porcelain` empty. Check: the user's full run.
 
 ## Refs

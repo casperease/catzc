@@ -1,11 +1,34 @@
-"""The path a slide's `## Image` section links to, the refusal of any other form, and the slide a written png names.
+"""The path a slide's `## Image` section links to, the refusal of any other form, the slide a written png names, and one stamp per call.
 
 usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/diagrams/tests/test_slide_png.py
 """
 
 import pytest
-from catzc.diagrams import slide_png
+from catzc.diagrams import slide_png, stamp
 from PIL import Image, ImageColor
+
+
+@pytest.fixture
+def stamps(tmp_path, monkeypatch):
+    """The head runs a call starts, each the argument list it hands the entry script; the repository is the test's folder."""
+    calls = []
+
+    def run(arguments, **_):
+        calls.append(arguments)
+        return type("Run", (), {"returncode": 0, "stdout": "", "stderr": ""})()
+
+    monkeypatch.setattr(stamp, "REPO", tmp_path)
+    monkeypatch.setattr(stamp.subprocess, "run", run)
+    return calls
+
+
+def fact(tmp_path, name, image=None):
+    """A fact slide named name; with an image, its head reduces the deck's source png into it."""
+    head = "---\ncatzc:\n  config:\n    pattern: fact\n    picture: { mode: reduce, source: source.png, scale: 1 }\n---\n\n" if image else ""
+    shown = f"## Image\n\n[{name}]({image})\n\n" if image else ""
+    path = tmp_path / f"{name}.slide.md"
+    path.write_text(f"{head}# The {name} spins\n\n## Lead\n\nA {name} spins when wound.\n\n{shown}", encoding="utf-8", newline="\n")
+    return path
 
 
 def slide(tmp_path, image):
@@ -66,3 +89,28 @@ def test_an_image_embed_is_refused(tmp_path):
     _, fields = slide_png.head_and_fields(path)
     with pytest.raises(SystemExit, match="found '!\\[widget\\]"):
         slide_png.image_of(path, fields)
+
+
+def test_a_render_of_two_slides_stamps_both_in_one_head_run(tmp_path, stamps):
+    paths = [fact(tmp_path, "widget"), fact(tmp_path, "gadget")]
+    written = slide_png.write("render", [str(path) for path in paths])
+    assert written == [tmp_path / ".assets" / "widget.slide.png", tmp_path / ".assets" / "gadget.slide.png"]
+    assert all(png.exists() for png in written)
+    assert len(stamps) == 1
+    assert stamps[0][4:] == [
+        "@('.assets/widget.slide.png', '.assets/gadget.slide.png') | ForEach-Object { Set-GeneratedFileHead -Path $_ -Writer 'slide_png render' }",
+    ]
+
+
+def test_a_picture_of_two_slides_stamps_both_in_one_head_run(tmp_path, stamps):
+    Image.new("RGB", (4, 2), "white").save(tmp_path / "source.png")
+    fact(tmp_path, "widget", ".assets/widget.png")
+    fact(tmp_path, "gadget", ".assets/gadget.png")
+    written = slide_png.write("picture", [str(tmp_path / ".assets" / "widget.png"), str(tmp_path / ".assets" / "gadget.png")])
+    assert written == [tmp_path / ".assets" / "widget.png", tmp_path / ".assets" / "gadget.png"]
+    with Image.open(written[0]) as img:
+        assert img.size == (4, 2)
+    assert len(stamps) == 1
+    assert stamps[0][4:] == [
+        "@('.assets/widget.png', '.assets/gadget.png') | ForEach-Object { Set-GeneratedFileHead -Path $_ -Writer 'slide_png picture' }",
+    ]

@@ -9,6 +9,9 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
         # Each run takes a lock of its own, so a real run holding the machine's lock never touches the test.
         $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
+        # The variable a lock holder passes to the processes it starts, set and cleared by the cases that need it.
+        . (Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1')
+        $script:inherit = Get-CatzcRunLockInheritName -LockName $script:lockName
         # Holds the lock on another thread for the given milliseconds, the way another run would.
         function script:Start-LockHolder {
             param([string] $Name, [int] $Milliseconds)
@@ -158,6 +161,55 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'runs at once under the hold of the live ancestor its lock variable names, leaving the hold to that ancestor' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        # The parent process stands in for the ancestor whose hold this process inherited.
+        $parent = (Get-Process -Id $PID).Parent.Id
+        [System.Environment]::SetEnvironmentVariable($script:inherit, "$parent|$(Get-CatzcRunLockProcessStart -ProcessId $parent)")
+        try {
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+            $LASTEXITCODE | Should -Be 0
+            $lines | Should -Be @('[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
+            [System.Environment]::GetEnvironmentVariable($script:inherit) | Should -BeLike "$parent|*"
+        }
+        finally {
+            [System.Environment]::SetEnvironmentVariable($script:inherit, $null)
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+        }
+    }
+
+    It 'waits as any run does when its lock variable names <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
+        # Windows process ids are multiples of four, so an odd id names no process.
+        @{ case = 'a gone process'; Value = { '4194303|1' }; Other = $false }
+        @{ case = 'a reused process id'; Value = { "$PID|1" }; Other = $false }
+        @{ case = 'nothing it can read'; Value = { 'gadget' }; Other = $false }
+        @{ case = 'this process itself'; Value = { "$PID|$(Get-CatzcRunLockProcessStart -ProcessId $PID)" }; Other = $false }
+        @{ case = 'the live holder of another lock'; Value = { $parent = (Get-Process -Id $PID).Parent.Id; "$parent|$(Get-CatzcRunLockProcessStart -ProcessId $parent)" }; Other = $true }
+    ) {
+        $name = if ($Other) {
+            Get-CatzcRunLockInheritName -LockName "$script:lockName-widget"
+        }
+        else {
+            $script:inherit
+        }
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        [System.Environment]::SetEnvironmentVariable($name, (& $Value))
+        try {
+            $lines = @(& $script:entry 'throw "ran"' -Importer $script:throwingImporter -LockName $script:lockName -LockSeconds 1)
+            $LASTEXITCODE | Should -Be 1
+            $lines | Should -Be @(
+                '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
+                '[Invoke-CatzcCommand] run lock busy: another run held it for 1 s, so nothing ran'
+            )
+        }
+        finally {
+            [System.Environment]::SetEnvironmentVariable($name, $null)
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+        }
+    }
+
     It 'stops with run lock busy, importing and running nothing, when the lock stays held past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
         try {
@@ -172,5 +224,28 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
             $holder.Shell.EndInvoke($holder.Handle)
             $holder.Shell.Dispose()
         }
+    }
+}
+
+Describe 'Invoke-CatzcCommand — in a child pwsh process' -Tag 'L2', 'logic' {
+    BeforeAll {
+        $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
+        $script:importer = Join-Path $TestDrive 'widget-importer.ps1'
+        [System.IO.File]::WriteAllText($script:importer,
+            "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
+        . (Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1')
+    }
+
+    BeforeEach {
+        # Each test takes a lock of its own, so a real run on the machine never touches it.
+        $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
+    }
+
+    It 'passes its hold to a nested run it starts in a child process, which runs at once, and ends the hold with the run' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $nested = "`$out = @(pwsh -NoProfile -NonInteractive -File '$script:entry' 'Get-Widget' -Importer '$script:importer' -LockName '$script:lockName' -LockSeconds 1 -BudgetSeconds 5); if (`$LASTEXITCODE -ne 0) { throw (`$out -join ' / ') }"
+        $lines = @(& $script:entry $nested -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $LASTEXITCODE | Should -Be 0
+        $lines[-1] | Should -BeExactly '[Invoke-CatzcCommand] 1 of 1 passed'
+        [System.Environment]::GetEnvironmentVariable((Get-CatzcRunLockInheritName -LockName $script:lockName)) | Should -BeNullOrEmpty
     }
 }
