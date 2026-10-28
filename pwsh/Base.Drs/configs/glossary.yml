@@ -1,0 +1,12 @@
+concepts:
+  architecture decision record:
+    key: adr
+    domain: repository
+    defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
+    short:
+      A decision record of the `ADR` kind, the kind the implementation domains share; never the DRS itself, and never a record of any
+      kind.
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: ADR, say: "decision record / DRS record; the DRS for the system; the kind in backticks" }
+      - { phrase: ADRs, say: decision records }

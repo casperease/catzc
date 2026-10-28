@@ -13,8 +13,6 @@ concepts:
     defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short: "The DRS: the one system that holds every decision record, its index and its registry, under docs/drs/."
     realized_by: { kind: prose-only }
-    avoid:
-      - { phrase: ADR system, say: the DRS }
   decision record:
     key: decision_record
     domain: repository
