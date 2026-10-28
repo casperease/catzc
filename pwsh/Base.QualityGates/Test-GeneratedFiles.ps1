@@ -34,15 +34,70 @@ function Test-GeneratedFiles {
             $known
         })
 
-    $issues = [System.Collections.Generic.List[string]]::new()
-    # With -Changed, only the writers Get-GeneratedWriterDue names run their dry run.
-    $dueNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    # A stamp-only check runs no writer, so it reads no due rows (the import's janitor has its own).
+    # The tracked generated paths come from the writer registry alone, never from a head; -Changed narrows them to what git reports changed.
+    $tracked = [string[]] @(Get-GitTrackedPath '.')
+    if ($Changed) {
+        $changedSet = [System.Collections.Generic.HashSet[string]]::new([string[]] @(Get-GitChangedPath), [System.StringComparer]::Ordinal)
+        $tracked = [string[]] @($tracked | Where-Object { $changedSet.Contains($_) })
+    }
+    $generated = @(Get-GeneratedTrackedPath -Path $tracked)
+
+    # The row whose dry run renders a path: its writer's own, or for an expanded root file the rootconfig expander's check.
+    $rowOf = [System.Collections.Generic.Dictionary[string, object]]::new([System.StringComparer]::Ordinal)
+    foreach ($writer in $writers) {
+        $rowOf[$writer.name] = $writer
+    }
+    $rootChecker = $writers | Where-Object { $_.expands -ceq 'rootconfig' -and $_.check -cne 'none' } | Select-Object -First 1 | ForEach-Object name
+    $skipped = [System.Collections.Generic.List[string]]::new()
+    $pathsOf = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[string]]]::new([System.StringComparer]::Ordinal)
+    foreach ($target in $generated) {
+        $row = if ($rowOf.ContainsKey($target.generator)) {
+            $rowOf[$target.generator]
+        }
+        $checker = if ($null -eq $row -or ($row.check -ceq 'none' -and $row.expands -ceq 'rootconfig')) {
+            $rootChecker
+        }
+        elseif ($row.check -cne 'none') {
+            $row.name
+        }
+        # A snapshot writer reads outside the tree and no other writer with no check has a dry run, so their files are skipped, never failed.
+        if (-not $checker) {
+            $reason = if ($row -and $row.class -ceq 'snapshot') {
+                'snapshot'
+            }
+            else {
+                'no dry run'
+            }
+            $entry = "$($target.generator) ($reason)"
+            if (-not $skipped.Contains($entry)) {
+                $skipped.Add($entry)
+            }
+            continue
+        }
+        if (-not $pathsOf.ContainsKey($checker)) {
+            $pathsOf[$checker] = [System.Collections.Generic.List[string]]::new()
+        }
+        $pathsOf[$checker].Add($target.path)
+    }
+
+    # The full run renders every writer; -Changed renders the due ones, and both render a writer one of whose files misses the stamp.
+    $renderAll = -not $Changed -and -not $StampOnly
+    $renderNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     if ($Changed -and -not $StampOnly) {
         foreach ($row in @(Get-GeneratedWriterDue | Where-Object Due)) {
-            [void]$dueNames.Add($row.Name)
+            [void]$renderNames.Add($row.Name)
         }
     }
+    if (-not $renderAll) {
+        $root = Get-RepositoryRoot
+        foreach ($checker in @($pathsOf.Keys)) {
+            if (@(Get-GeneratedStampDrift -RepositoryRoot $root -Path $pathsOf[$checker].ToArray()).Count -gt 0) {
+                [void]$renderNames.Add($checker)
+            }
+        }
+    }
+
+    $issues = [System.Collections.Generic.List[string]]::new()
     # A writer reports absolute or repository-relative paths; an issue names the repository-relative one.
     $addStale = {
         param([string] $Path, [string] $Name, [string] $Command)
@@ -55,13 +110,10 @@ function Test-GeneratedFiles {
         $issues.Add("${relative}: stale — $Name would change it; regenerate with: $Command")
     }
 
-    # Each writer runs by its registered check; @() keeps an empty result an array under strict mode.
-    $checkedWriters = @(if (-not $StampOnly) {
-            $writers
-        })
-    foreach ($writer in $checkedWriters) {
+    # Each writer runs by its registered check, and its dry run renders every file, head included, so a byte difference is a finding.
+    foreach ($writer in $writers) {
         $writerName = $writer.name
-        if ($Changed -and -not $dueNames.Contains($writerName)) {
+        if (-not $renderAll -and -not $renderNames.Contains($writerName)) {
             continue
         }
         switch ($writer.check) {
@@ -104,12 +156,6 @@ function Test-GeneratedFiles {
         }
     }
 
-    # The stamp of every generated tracked file against its body; a file with no head yet is counted, not failed.
-    $stamps = Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot) -Changed:$Changed
-    foreach ($issue in $stamps.Issues) {
-        $issues.Add($issue)
-    }
-
     Write-QualityGateReport -Subject generated-files -Title Test-GeneratedFiles -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ Generators = $selected.Count; Stamped = $stamps.Stamped; Unstamped = $stamps.Unstamped.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ Generators = $selected.Count; Tracked = $generated.Count; Skipped = [string[]] @($skipped) }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

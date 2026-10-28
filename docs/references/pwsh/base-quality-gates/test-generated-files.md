@@ -32,10 +32,14 @@ Build-RootConfig             every opted-in managed root file (rootconfig.yml); 
                              multi-file generator, e.g. each go/tests/<folder>/go.mod)
 ```
 
-Then the stamp check ([ADR-REPO-FILEMETA-COMPOSEDFILES](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)): every
-tracked file .gitattributes marks linguist-generated opens with with_body_sha, the hash of the content below its head, and a stamp that is
-not the hash of the body is one issue (Get-GeneratedStampDrift). A generated file whose writer writes no head yet is counted as unstamped in
-the report's facts, never failed.
+The walk is over the writer registry, never over the heads
+([ADR-REPO-FILEMETA-INTUNEWITHGENERATOR](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-intunewithgenerator)): the tracked
+generated paths are those a writer row's output takes (Get-GeneratedTrackedPath, the answer the `generated` filter view selects), and a file
+with a head on no declared output is authored, so it is never read. A writer's dry run renders each file whole, head included, so a stale
+body and a hand-edited head are drift alike. A writer of the snapshot class reads outside the tree and a writer with no check has no dry
+run, so their files are listed in the report's Skipped fact, never failed. The head's with_body_sha is the fast path of the changed-only
+checks alone (Get-GeneratedStampDrift): a changed file whose stamp is the hash of its body needs no render of its own, and any miss renders
+its writer. The full run renders every writer, so no cached verdict stands in for the render.
 
 Collects every stale file and ends with Write-QualityGateReport: the report lands in out/test-generated-files/, and the gate throws once
 listing every issue (or returns the result with -PassThru). The generators read and write the source tree, so the gate needs the source mode
@@ -48,14 +52,15 @@ selects only that generator's files.
 
 ### parameter `Changed`
 
-Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift -Changed),
-and a writer's dry run runs only when Get-GeneratedWriterDue says it is due, by a missing output or a changed stamp of the inputs of its
-writer row. Catches a hand edit of a generated file and a generator change whose output was not re-rendered.
+Check only what git reports changed against HEAD: a writer's dry run runs when Get-GeneratedWriterDue says it is due, by a missing output or
+a changed stamp of the inputs of its writer row, or when one of its changed tracked outputs misses its stamp. Catches a generator change
+whose output was not re-rendered and a hand edit of a generated file's body; a head edited by hand over an intact body is the full run's to
+find.
 
 ### parameter `StampOnly`
 
-Run the stamp check alone and no writer's dry run: the cheap check the import janitor makes, about 0.3 s over the changed set. Combine it
-with Changed; the writers' dry runs stay the full run's.
+Ask no due rows: only a writer one of whose tracked outputs misses its stamp renders, the cheap check the import janitor makes over the
+changed set. Combine it with Changed; the writers' due renders stay the full run's.
 
 ### parameter `OutputFolder`
 
@@ -63,7 +68,8 @@ The report base folder. Defaults to Write-QualityGateReport's (out/test-generate
 
 ### parameter `PassThru`
 
-Return the gate result { Subject; IssueCount; Issues; ReportPath; Generators } instead of throwing on issues.
+Return the gate result { Subject; IssueCount; Issues; ReportPath; Facts } instead of throwing on issues; its facts are Generators, Tracked
+(the tracked generated paths read) and Skipped (each writer whose files no dry run checks, with why).
 
 ### outputs
 
@@ -88,5 +94,5 @@ result which property holds the path. The list is wrapped in `@()` as a whole so
 
 ## Changed only
 
-With `-Changed`, only the writers that Get-GeneratedWriterDue names run their dry run. That is the one reading of the writers' inputs and
-outputs lists.
+With `-Changed`, only the writers that Get-GeneratedWriterDue names run their dry run, with those whose changed outputs miss their stamp.
+That is the one reading of the writers' inputs and outputs lists.

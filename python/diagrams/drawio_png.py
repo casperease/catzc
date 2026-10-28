@@ -67,7 +67,10 @@ def paint_svg(d, svg, x0, y0, x1, y1):
     """An embedded SVG of the kit's own subset, circles and lines in hex colours (the flow glyphs), painted into its box; the raster
     draws no other SVG, so an element outside the subset is refused naming it."""
     tree = ET.fromstring(re.sub(r"<!--.*?-->", "", svg, flags=re.DOTALL))
-    _, _, vw, vh = (float(v) for v in tree.get("viewBox").split())
+    view_box = tree.get("viewBox")
+    if view_box is None:
+        raise ValueError("an embedded SVG carries no viewBox, so its box cannot be scaled")
+    _, _, vw, vh = (float(v) for v in view_box.split())
     sx, sy = (x1 - x0) / vw, (y1 - y0) / vh
     at = lambda x, y: (x0 + float(x) * sx, y0 + float(y) * sy)
     for element in tree:

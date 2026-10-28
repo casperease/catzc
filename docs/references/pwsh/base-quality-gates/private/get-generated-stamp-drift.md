@@ -1,23 +1,23 @@
 # pwsh/Base.QualityGates/private/Get-GeneratedStampDrift.ps1
 
-A private helper of Test-GeneratedFiles. It compares the body hash in the head of every generated tracked file with the hash of its body and
-reports one issue per file where the two differ.
+A private helper of Test-GeneratedFiles, its fast path. It names the generated files whose head's body hash is not the hash of their body,
+so their writers render them; a file whose stamp holds needs no render of its own.
 
 ## help
 
 ### synopsis
 
-Compares the body hash in every generated tracked file's head with the hash of its body.
+Names the generated files whose head's body hash is not the hash of their body, for their writers to render.
 
 ### description
 
-A generated tracked file opens with `with_body_sha`, the hash of the content below its head
-([ADR-REPO-FILEMETA-COMPOSEDFILES](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)), so the drift check can
-read the stamp before the content. This reads every file .gitattributes marks `linguist-generated` (or the paths it is given), finds the
-head through the file's carrier, and reports one issue per file whose stamp is not the hash of its body. A png is read as bytes, its stamp
-from the catzc tEXt chunk and its body hash over the image without it; an svg or xml stamp is read from the element its carrier type
-strips. A file whose carrier holds no head, or a png file that is no png, is skipped; a file with a head carrier but no stamp is listed as unstamped and is no issue, since its writer does not write a
-head yet.
+The stamp is the drift check's fast path and never its verdict
+([ADR-REPO-FILEMETA-INTUNEWITHGENERATOR](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-intunewithgenerator)): a file whose
+`with_body_sha` is the hash of its body passes, and every other file is a miss that sends its writer's dry run to decide. This reads the
+given paths, which the writer registry names (Get-GeneratedTrackedPath), finds the head through each file's carrier and compares the stamp
+with the body. A png is read as bytes, its stamp from the catzc tEXt chunk and its body hash over the image without it; an svg or xml stamp
+is read from the element its carrier type strips. A file with no head, no stamp, no carrier that holds one, a png file that is no png, and a
+file missing from the disk is a miss, since only the render can tell.
 
 Private helper of Test-GeneratedFiles; not exported.
 
@@ -27,12 +27,7 @@ The repository root the paths are relative to.
 
 ### parameter `Path`
 
-The repository-relative files to check. Default: every tracked file .gitattributes marks linguist-generated.
-
-### parameter `Changed`
-
-Read only the files git reports changed against HEAD (worktree and index), so the check costs the changed set, not the tree. Combines with
-Path by intersection.
+The repository-relative generated files to read.
 
 ### parameter `Resolver`
 
@@ -40,10 +35,10 @@ The carrier resolver. Default: built from the shipped file-carriers and language
 
 ### outputs
 
-`[pscustomobject]` @{ Stamped; Unstamped; Issues } — the count of stamped files, the unstamped paths, and one issue per stale stamp.
+`[string]` The repository-relative path of each miss, in the order given.
 
 ### example 1
 
 ```powershell
-Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot)
+Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot) -Path 'docs/drs/index.md'
 ```

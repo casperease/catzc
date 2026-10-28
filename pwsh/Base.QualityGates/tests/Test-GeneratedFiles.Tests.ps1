@@ -10,7 +10,10 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Category = 'widget'; Path = '.cspell/widget.txt'; WordCount = 3; Changed = $false; DryRun = $true } }
         Mock Get-ConfigValue -ModuleName Catzc.Base.QualityGates { '10' }
         Mock Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates { }
-        Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Stamped = 2; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @() } }
+        # The tracked generated paths and their stamp misses; each case that reads them names them here.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-GeneratedTrackedPath -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { }
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $false; DryRun = $true }
             [pscustomobject]@{ Target = 'gadget.json'; Source = 'assets/gadget.json'; Generator = $null; Changed = $false; DryRun = $true }
@@ -50,19 +53,6 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $known = InModuleScope Catzc.Base.QualityGates { @(Get-GeneratedFileGenerator).Count }
         $result.Facts['Generators'] |
             Should -Be $known -Because 'the count is every writer row of the modules'' generated.yml plus every root-file generator of rootconfig.yml'
-    }
-
-    It 'reports a generated file whose head stamp is not the hash of its body, and counts the stamped and unstamped files' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
-        Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates {
-            [pscustomobject]@{ Stamped = 3; Unstamped = [string[]] @('docs/widget/plain.md'); Issues = [string[]] @('docs/widget/index.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, 111111111111; regenerate the file with its writer') }
-        }
-
-        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
-        $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -BeLike 'docs/widget/index.md: stale — the head''s with_body_sha 000000000000*'
-        $result.Facts['Stamped'] | Should -Be 3
-        $result.Facts['Unstamped'] | Should -Be 1
-        Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1
     }
 
     It 'lists the writer rows of every module''s generated.yml and the generators of rootconfig.yml, so no generator is left out' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -170,14 +160,34 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             }
         }
 
-        It 'fails a hand edit: a changed output whose writer would change it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        It 'fails a hand edit: a changed output whose stamp misses renders its writer, not due, and the render finds it' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+            $script:due = @()
             Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md'; 'docs/drs/other.md' }
+            Mock Get-GeneratedTrackedPath -ModuleName Catzc.Base.QualityGates {
+                [Catzc.Base.Variants.GeneratedTarget]::new('docs/drs/index.md', 'Build-DrsIndex', 'rollable')
+            } -ParameterFilter { "$Path" -ceq 'docs/drs/index.md' }
+            Mock Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
             $result.Issues |
-                Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
-            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Changed }
+                Should -Be @('docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex')
+            $result.Facts['Tracked'] | Should -Be 1
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { "$Path" -ceq 'docs/drs/index.md' }
+            Should -Invoke Build-GitKeep -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+        }
+
+        It 'skips the render of a changed output whose stamp is the hash of its body, when its writer is not due' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+            $script:due = @()
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Get-GeneratedTrackedPath -ModuleName Catzc.Base.QualityGates { [Catzc.Base.Variants.GeneratedTarget]::new('docs/drs/index.md', 'Build-DrsIndex', 'rollable') }
+
+            $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+            $result.IssueCount | Should -Be 0
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+            Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
         }
 
         It 'passes a generator change whose output was re-rendered, and does not run a writer none of the changed paths touch' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -189,14 +199,17 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Should -Invoke Build-GitKeep -ModuleName Catzc.Base.QualityGates -Times 0
         }
 
-        It 'with -StampOnly runs the stamp check over the changed set and no writer' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        It 'with -StampOnly reads the changed set''s stamps, asks no due rows and renders no writer while every stamp holds' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Get-GeneratedTrackedPath -ModuleName Catzc.Base.QualityGates { [Catzc.Base.Variants.GeneratedTarget]::new('docs/drs/index.md', 'Build-DrsIndex', 'rollable') }
 
             $result = Test-GeneratedFiles -Changed -StampOnly -PassThru -OutputFolder $script:reportFolder
             $result.IssueCount | Should -Be 0
+            Should -Invoke Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
             Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
             Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
-            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Changed }
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
         }
 
         It 'refuses -StampOnly together with -Generator, which the parameter sets keep apart' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
@@ -225,6 +238,103 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder | Out-Null
             Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1
         }
+    }
+}
+
+Describe 'Test-GeneratedFiles — a widget writer over a fixture tree' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+    BeforeAll {
+        # The stub the widget writer's mock attaches to; the gate calls a writer by its row's name, and only the mock ever answers.
+        function global:Build-Widget {
+            param([switch] $DryRun, [switch] $PassThru, [switch] $Silent)
+            throw "Build-Widget is the widget writer's stub, called unmocked with -DryRun:$DryRun -PassThru:$PassThru -Silent:$Silent."
+        }
+        $script:root = Join-Path $TestDrive 'widget-tree'
+        foreach ($folder in 'widget', 'gadget') {
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:root $folder)) | Out-Null
+        }
+        $script:form = [Catzc.Base.CodeMeta.HeadForm]::ForLine('#')
+        $script:warning = (Get-Config -Config generated-head).warning
+        # What the widget writer composes for a path: the body under the head the one head renderer stamps.
+        $script:render = {
+            param([string] $Path, [string] $Body)
+            $hash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf((Get-CodeMetaState -Text $Body -Form $script:form).Rest)
+            Format-CodeMetaHead -Text $Body -Form $script:form -Immutable ([ordered]@{ warning = $script:warning; regenerate = "Build-Widget -Path $Path"; with_body_sha = $hash })
+        }
+        $script:write = {
+            param([string] $Relative, [string] $Text)
+            [System.IO.File]::WriteAllText((Join-Path $script:root $Relative), $Text, [System.Text.UTF8Encoding]::new($false))
+        }
+        $body = "widget: gadget`n"
+        & $script:write 'widget/synced.yml' (& $script:render 'widget/synced.yml' $body)
+        # A body edited by hand under the head of the body before it.
+        & $script:write 'widget/stale.yml' ((& $script:render 'widget/stale.yml' $body).Replace('widget: gadget', 'widget: sprocket'))
+        # A head edited by hand over the body it was stamped for, so its body sha still holds.
+        & $script:write 'widget/edited.yml' ((& $script:render 'widget/edited.yml' $body).Replace('Build-Widget -Path widget/edited.yml', 'Build-Gadget'))
+        # A head on a path no writer row declares, its stamp stale: an authored file as far as the gate is concerned.
+        & $script:write 'gadget/notes.yml' ((& $script:render 'gadget/notes.yml' $body).Replace('widget: gadget', 'widget: cog'))
+        & $script:write 'gadget/prices.json' "{}`n"
+        $script:tracked = 'gadget/notes.yml', 'gadget/prices.json', 'widget/edited.yml', 'widget/stale.yml', 'widget/synced.yml'
+    }
+
+    AfterAll {
+        Remove-Item -Path Function:\Build-Widget -ErrorAction Ignore
+    }
+
+    BeforeEach {
+        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { $script:tracked }
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; outputs = @('widget/*.yml') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Update-Gadget', [ordered]@{ class = 'snapshot'; check = 'none'; outputs = @('gadget/prices.json') })
+        }
+        Mock Get-GeneratedTarget -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/*.yml', 'Build-Widget', 'rollable')
+            [Catzc.Base.Variants.GeneratedTarget]::new('gadget/prices.json', 'Update-Gadget', 'snapshot')
+        }
+        Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates { [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new('Build-Widget', $false) }
+        # The widget writer's dry run: every output it would write, changed where the bytes on disk differ, head included.
+        Mock Build-Widget -ModuleName Catzc.Base.QualityGates {
+            foreach ($name in 'edited', 'stale', 'synced') {
+                $relative = "widget/$name.yml"
+                $expected = & $script:render $relative "widget: gadget`n"
+                [pscustomobject]@{ Path = $relative; Changed = [System.IO.File]::ReadAllText((Join-Path $script:root $relative)) -cne $expected; DryRun = $true }
+            }
+        }
+        $script:reportFolder = Join-Path $TestDrive 'generated-files'
+    }
+
+    It 'fails a stale body and a hand-edited head, passes the file in sync, and never reads a head on an undeclared path' {
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Be @(
+            'widget/edited.yml: stale — Build-Widget would change it; regenerate with: Build-Widget'
+            'widget/stale.yml: stale — Build-Widget would change it; regenerate with: Build-Widget'
+        )
+        $result.Facts['Tracked'] | Should -Be 4 -Because 'the registry declares three widget outputs and the gadget prices, and gadget/notes.yml on no output'
+        Should -Invoke Build-Widget -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $PassThru -and $Silent }
+    }
+
+    It 'reports a snapshot writer as skipped, never as a finding, and runs no dry run of it' {
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Facts['Skipped'] | Should -Be @('Update-Gadget (snapshot)')
+        $result.Issues | Should -Not -BeLike '*gadget/*'
+    }
+
+    It 'with -Changed renders a writer that is not due when a changed output''s stamp misses' {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'widget/stale.yml'; 'gadget/notes.yml' }
+
+        $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+        $result.Issues | Should -Contain 'widget/stale.yml: stale — Build-Widget would change it; regenerate with: Build-Widget'
+        $result.Facts['Tracked'] | Should -Be 1
+        Should -Invoke Build-Widget -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+    }
+
+    It 'with -Changed skips the render of a writer that is not due when every changed output''s stamp holds' {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'widget/synced.yml'; 'gadget/notes.yml' }
+
+        $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+        $result.IssueCount | Should -Be 0
+        Should -Invoke Build-Widget -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 }
 

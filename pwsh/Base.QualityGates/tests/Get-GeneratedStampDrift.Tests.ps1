@@ -55,60 +55,24 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
         }
     }
 
-    It 'passes a page and a comment-head file whose stamp is the hash of the body' {
-        $result = & $script:run @('docs/current.md', 'widget/current.yml')
-        $result.Issues | Should -BeNullOrEmpty
-        $result.Stamped | Should -Be 2
-        $result.Unstamped | Should -BeNullOrEmpty
+    It 'lets a page and a comment-head file whose stamp is the hash of the body pass, so their writer need not render' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+        @(& $script:run @('docs/current.md', 'widget/current.yml')) | Should -BeNullOrEmpty
     }
 
-    It 'reports a stamp that is not the hash of the body, naming both hashes and the file' {
-        $result = & $script:run @('docs/stale.md')
-        $result.Issues.Count | Should -Be 1
-        $result.Issues[0] |
-            Should -BeLike 'docs/stale.md: stale — the head''s with_body_sha 000000000000 is not the hash of the body, *; regenerate the file with its writer'
+    It 'names a file whose stamp is not the hash of its body as a miss, for its writer to render' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+        @(& $script:run @('docs/stale.md')) | Should -Be @('docs/stale.md')
     }
 
-    It 'passes a png and an svg whose stamp, read through their carriers, is the hash of the body' -Tag 'ADR-REPO-FILEMETA-EVERYFORMATCARRIES' {
-        $result = & $script:run @('widget/stamped.png', 'widget/drawing.svg')
-        $result.Issues | Should -BeNullOrEmpty
-        $result.Stamped | Should -Be 2
-        $result.Unstamped | Should -BeNullOrEmpty
+    It 'lets a png and an svg pass whose stamp, read through their carriers, is the hash of the body' -Tag 'ADR-REPO-FILEMETA-EVERYFORMATCARRIES' {
+        @(& $script:run @('widget/stamped.png', 'widget/drawing.svg')) | Should -BeNullOrEmpty
     }
 
-    It 'lists a file with no head or no stamp as unstamped, not as an issue, and skips a png file that is no png' {
-        $result = & $script:run $script:all
-        $result.Stamped | Should -Be 5
-        $result.Issues.Count | Should -Be 1
-        $result.Unstamped | Should -Be @('docs/bare.md', 'docs/unstamped.md')
+    It 'names a file with no head, no stamp, no carrier to read or no file on disk as a miss, since only the render can tell' -Tag 'ADR-REPO-FILEMETA-INTUNEWITHGENERATOR' {
+        @(& $script:run ($script:all + 'widget/gone.yml')) |
+            Should -Be @('docs/stale.md', 'docs/bare.md', 'docs/unstamped.md', 'widget/picture.png', 'widget/gone.yml')
     }
 
-    It 'with -Changed flags a changed stale file and does not read an untouched one' {
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/stale.md' }
-        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $script:all } {
-            param($Root, $Path)
-            Get-GeneratedStampDrift -RepositoryRoot $Root -Path $Path -Changed
-        }
-        $result.Issues.Count | Should -Be 1
-        $result.Issues[0] | Should -BeLike 'docs/stale.md: stale*'
-        $result.Stamped | Should -Be 1
-        $result.Unstamped | Should -BeNullOrEmpty
-    }
-
-    It 'with -Changed and nothing changed reads nothing' {
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { }
-        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $script:all } {
-            param($Root, $Path)
-            Get-GeneratedStampDrift -RepositoryRoot $Root -Path $Path -Changed
-        }
-        $result.Stamped | Should -Be 0
-        $result.Issues | Should -BeNullOrEmpty
-    }
-
-    It 'returns empty counts for no paths' {
-        $result = & $script:run @()
-        $result.Stamped | Should -Be 0
-        $result.Unstamped | Should -BeNullOrEmpty
-        $result.Issues | Should -BeNullOrEmpty
+    It 'reads nothing for no paths' {
+        @(& $script:run @()) | Should -BeNullOrEmpty
     }
 }

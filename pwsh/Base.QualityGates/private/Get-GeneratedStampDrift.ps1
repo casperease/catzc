@@ -1,59 +1,36 @@
 function Get-GeneratedStampDrift {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([string])]
     param(
         [Parameter(Mandatory)]
         [string] $RepositoryRoot,
 
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
         [string[]] $Path,
-
-        [switch] $Changed,
 
         [Catzc.Base.Languages.FileCarrierResolver] $Resolver = [Catzc.Base.Languages.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    # -Changed reads only the files git reports changed against HEAD, so the check costs the changed set, not the tree.
-    $changedSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    if ($Changed) {
-        $changedSet.UnionWith([string[]] @(Get-GitChangedPath))
-    }
-    # @() around the whole if: an empty list must stay an array (.Count under strict mode).
-    $generated = @(if ($PSBoundParameters.ContainsKey('Path')) {
-            $Path | Where-Object { -not $Changed -or $changedSet.Contains(($_ -replace '\\', '/')) }
-        }
-        else {
-            $tracked = [string[]] @(Get-GitTrackedPath '.' | Where-Object { -not $Changed -or $changedSet.Contains($_) })
-            if ($tracked.Count -gt 0) {
-                $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $tracked -Attribute linguist-generated
-                $tracked | Where-Object {
-                    $classes = $attributes[$_]
-                    $classes -and $classes['linguist-generated'] -in 'set', 'true'
-                }
-            }
-        })
-
-    $stamped = 0
-    $unstamped = [System.Collections.Generic.List[string]]::new()
-    $issues = [System.Collections.Generic.List[string]]::new()
     $stampPattern = [regex] 'with_body_sha:\s*\\?"?(?<hash>[0-9a-f]{12})'
-    foreach ($file in $generated) {
+    # Only a stamp that is the hash of its body lets a file pass; anything else is a miss, which its writer's render decides.
+    foreach ($file in $Path) {
         $relative = $file -replace '\\', '/'
         $carrier = $Resolver.For($relative)
-        # A carrier of kind none holds no head, and a banner holds no body hash.
-        if ($null -eq $carrier -or $carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner) {
-            continue
-        }
         $full = Join-Path $root $relative
-        if (-not [System.IO.File]::Exists($full)) {
+        if ($null -eq $carrier -or $carrier.carrier -in [Catzc.Base.Languages.CarrierKind]::None, [Catzc.Base.Languages.CarrierKind]::Banner -or
+            -not [System.IO.File]::Exists($full)) {
+            $relative
             continue
         }
         $hasHead = $false
         $bodyHash = $null
-        # A png holds its head in a tEXt chunk, so it is read as bytes; a file that is no png has no chunk to read and is skipped.
+        # A png holds its head in a tEXt chunk, so it is read as bytes; a file that is no png has no chunk to read.
         if ($carrier.carrier -eq [Catzc.Base.Languages.CarrierKind]::PngText) {
             $bytes = [System.IO.File]::ReadAllBytes($full)
             if (-not [Catzc.Base.Languages.PngTextCarrier]::IsPng($bytes)) {
+                $relative
                 continue
             }
             $headText = [Catzc.Base.Languages.PngTextCarrier]::Text($bytes)
@@ -104,20 +81,8 @@ function Get-GeneratedStampDrift {
         $match = if ($hasHead) {
             $stampPattern.Match($headText)
         }
-        if (-not $hasHead -or -not $match.Success) {
-            $unstamped.Add($relative)
-            continue
+        if (-not $hasHead -or -not $match.Success -or $match.Groups['hash'].Value -cne $bodyHash) {
+            $relative
         }
-        $stamped++
-        $written = $match.Groups['hash'].Value
-        if ($written -cne $bodyHash) {
-            $issues.Add("${relative}: stale — the head's with_body_sha $written is not the hash of the body, $bodyHash; regenerate the file with its writer")
-        }
-    }
-
-    [pscustomobject]@{
-        Stamped   = $stamped
-        Unstamped = [string[]] @($unstamped)
-        Issues    = [string[]] @($issues)
     }
 }
