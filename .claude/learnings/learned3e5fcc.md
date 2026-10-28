@@ -39,3 +39,11 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   grep to the files that name a retired code
 - 2026-10-27 Cats: Token tip: brief drones with the domain dependency list and the importer-path hold rule up front instead of correcting
   them mid-run
+- 2026-10-28 Cats: In hindsight I wish I knew this fact: the only catzc-named files outside namespace modules and command names are
+  contracts/catzc/, the .claude/skills/catzc-* skills, the two analyzer entry rules, cats.bats and a-day-in-cats/.
+- 2026-10-28 Cats: In hindsight I wish I knew this fact: CatzcRules.psm1 and CatzcSpelling.psm1 are entry-rule wrappers; their names are
+  read by PSScriptAnalyzerSettings.psd1 and three Base.QualityGates readers.
+- 2026-10-28 Cats: In hindsight I wish I knew this fact: the markdown link gate is Test-Links; Test-MarkdownLinks does not exist and
+  Test-Plans rejects it as a check.
+- 2026-10-28 Cats: Token tip: Next time, save tokens by: listing named paths with one git ls-files | grep -io segment count instead of
+  several probes.
