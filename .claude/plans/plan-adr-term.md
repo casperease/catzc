@@ -72,9 +72,8 @@ brief and every message meets the wrong word first.
 - [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
       controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
       Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-- [ ] `docs/explanation/` diagram declarations: the link class `kind: adr` -> `kind: record` in every `yml drawio` block, and the
-      `label:` "the owning ADR decides" of `design/a-sibling-is-an-idea-never-a-reference.md`. Check: the Grep over `docs/explanation`,
-      `Test-Links`.
+- [ ] `docs/explanation/` diagram declarations: the link class `kind: adr` -> `kind: record` in every `yml drawio` block, and the `label:`
+      "the owning ADR decides" of `design/a-sibling-is-an-idea-never-a-reference.md`. Check: the Grep over `docs/explanation`, `Test-Links`.
 
 ### The gate, last
 

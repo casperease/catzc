@@ -205,7 +205,7 @@ def test_the_gold_panel_border_is_a_token_that_holds_three_to_one_on_the_minimap
 
 def test_the_column_headers_of_a_matrix_never_run_together_lit_or_dim():
     _, d = minimaps.canvas(240, 160)
-    cols = ["Base.Widgets", "Base.Gadgets", "Base.Widgeteers", "Base.Gadgetry"]
+    cols = ["Base.Widgets", "Base.Gadgets", "Base.WidgetStore", "Base.GadgetShelf"]
     lit = {("subject", "Base.Widgets"), ("subject", "Base.Gadgets")}  # the lit headers are bold, so wider than the dim ones
     headers = minimaps.column_headers(d, cols, lit, 70, (240 - 70 - 8) / len(cols))
     assert [on for _, _, on in headers] == [True, True, False, False]

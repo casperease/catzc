@@ -34,13 +34,14 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                        | Needed docs                                                                       | Needed tests                                                                                  | State                                            |
-| ------ | --------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| high   | plan-repo-filters           | none (filters are a tool view; DDR-ASPECT already holds the units it gates)       | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps | landed; the user's look, one step left           |
-| high   | plan-idiomatic-names        | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written) | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                              | folders renamed; wiring and the normal form open |
-| medium | plan-debt-test-speed        | none (test files only)                                                            | the measured test files, twice each                                                           | 0 steps                                          |
-| medium | plan-diagram-review         | the visual-design rules each answer changes                                       | Test-Diagrams after every answer, the kit suite                                               | new                                              |
-| medium | plan-vscode-session-binding |                                                                                   |                                                                                               | new                                              |
+| Value  | Plan                           | Needed docs                                                                       | Needed tests                                                                                  | State                                            |
+| ------ | ------------------------------ | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| high   | plan-repo-filters              | none (filters are a tool view; DDR-ASPECT already holds the units it gates)       | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps | landed; the user's look, one step left           |
+| high   | plan-idiomatic-names           | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written) | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                              | folders renamed; wiring and the normal form open |
+| medium | plan-debt-test-speed           | none (test files only)                                                            | the measured test files, twice each                                                           | 0 steps                                          |
+| medium | plan-diagram-review            | the visual-design rules each answer changes                                       | Test-Diagrams after every answer, the kit suite                                               | new                                              |
+| medium | plan-vscode-session-binding    |                                                                                   |                                                                                               | new                                              |
+| low    | plan-analyzer-entry-rule-names | the two scriptanalyzer reference pages, renamed                                   | CustomRuleWiring.Tests.ps1, Get-ScriptAnalyzerInputs.Tests.ps1, Test-AnalyzerDrsMap.Tests.ps1 | new                                              |
 
 ## Pending deletion
 
