@@ -1,5 +1,10 @@
 # The toolchain's own output, declared as generated so a tool's environment and caches are never taken for authored files.
-targets:
-  - { path: python/.venv/**, generator: uv }
-  - { path: python/uv.lock, generator: uv }
-  - { path: "**/.ruff_cache/**", generator: ruff }
+writers:
+  uv:
+    class: untracked
+    check: none
+    outputs: [python/.venv/**, python/uv.lock]
+  ruff:
+    class: untracked
+    check: none
+    outputs: ["**/.ruff_cache/**"]

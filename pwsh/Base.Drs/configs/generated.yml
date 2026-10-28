@@ -1,3 +1,12 @@
-# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml).
-targets:
-  - { path: docs/drs/index.md, generator: Build-DrsIndex }
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  Build-DrsIndex:
+    class: rollable
+    at_import: true
+    inputs: [docs/drs/**, pwsh/Base.Drs/**]
+    outputs: [docs/drs/index.md]
+  Build-DrsCodeDictionary:
+    class: untracked
+    at_import: true
+    inputs: [docs/drs/**, pwsh/Base.Drs/**]
+    outputs: [.cspell/drs-codes.txt]

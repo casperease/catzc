@@ -1,3 +1,7 @@
-# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml).
-targets:
-  - { path: docs/references/contracts/**, generator: Build-ContractReference }
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  Build-ContractReference:
+    class: rollable
+    at_import: true
+    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Base.Contracts/**]
+    outputs: [docs/references/contracts/*.md]

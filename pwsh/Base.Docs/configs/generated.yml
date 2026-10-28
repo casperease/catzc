@@ -1,5 +1,23 @@
-# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml); the READMEs are declared by readme.yml.
-targets:
-  - { path: docs/drs/glossary.md, generator: Build-Glossary }
-  - { path: .github/README.md, generator: Build-FrontPage }
-  - { path: "**/.gitkeep", generator: Build-GitKeep }
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  Build-Glossary:
+    class: rollable
+    at_import: true
+    inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/*/configs/glossary/*.yml, pwsh/Base.Docs/**]
+    outputs: [docs/drs/glossary.md]
+  # The READMEs are gitignored copies, one per folder readme.yml names.
+  Build-Readme:
+    class: untracked
+    at_import: true
+    result_path: Readme
+    expands: readme
+    inputs: [docs/references/**, docs/drs/index.md, pwsh/Base.Docs/**]
+    outputs: ["**/README.md"]
+  Build-GitKeep:
+    class: rollable
+    at_import: true
+    inputs: [pwsh/Base.Docs/**]
+    outputs: ["**/.gitkeep"]
+  Build-FrontPage:
+    class: rollable
+    outputs: [.github/README.md]

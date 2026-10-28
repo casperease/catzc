@@ -10,7 +10,22 @@
           "kind": "method"
         },
         {
-          "name": "targets",
+          "name": "writers",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.GeneratedOutput",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "inputs",
+          "kind": "property"
+        },
+        {
+          "name": "path",
           "kind": "property"
         }
       ]
@@ -30,6 +45,53 @@
         },
         {
           "name": "path",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Variants.GeneratedWriterRow",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "at_import",
+          "kind": "property"
+        },
+        {
+          "name": "check",
+          "kind": "property"
+        },
+        {
+          "name": "class",
+          "kind": "property"
+        },
+        {
+          "name": "expands",
+          "kind": "property"
+        },
+        {
+          "name": "inputs",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "outputs",
+          "kind": "property"
+        },
+        {
+          "name": "regenerate",
+          "kind": "property"
+        },
+        {
+          "name": "remove",
+          "kind": "property"
+        },
+        {
+          "name": "result_path",
           "kind": "property"
         }
       ]

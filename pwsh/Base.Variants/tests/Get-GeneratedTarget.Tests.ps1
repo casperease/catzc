@@ -31,6 +31,17 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
         }
     }
 
+    It 'returns a writer row''s outputs only where no config of its own expands its instances' {
+        foreach ($owner in @(Get-Config -Config generated -ListOwners)) {
+            foreach ($writer in (Get-Config -Config generated -Module $owner.Module).writers.Where({ $_.expands })) {
+                foreach ($output in $writer.outputs) {
+                    $script:targets.Where({ $_.path -ceq $output.path -and $_.generator -ceq $writer.name }) |
+                        Should -BeNullOrEmpty -Because "$($writer.expands) expands $($writer.name)'s instances"
+                }
+            }
+        }
+    }
+
     It 'names a generator for every target' {
         $script:targets.Where({ [string]::IsNullOrWhiteSpace($_.generator) }) | Should -BeNullOrEmpty
     }

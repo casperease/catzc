@@ -1,3 +1,6 @@
 # What the repository's runs write (Get-GeneratedTarget reads every module's generated.yml): the output folder under Get-OutputRoot.
-targets:
-  - { path: out/**, generator: Get-OutputRoot }
+writers:
+  Get-OutputRoot:
+    class: untracked
+    check: none
+    outputs: [out/**]

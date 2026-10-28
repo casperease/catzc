@@ -18,10 +18,13 @@ function Get-GeneratedTarget {
         [Catzc.Base.Variants.GeneratedTarget]::new("$($mapping.folder)/README.md", 'Build-Readme')
     }
 
-    # Every other generator's targets, each declared once in its module's generated.yml.
+    # Every other writer's outputs, each row declared once in its module's generated.yml; a row that expands its
+    # instances from a config of its own is answered above.
     foreach ($owner in @(Get-Config -Config generated -ListOwners)) {
-        foreach ($target in (Get-Config -Config generated -Module $owner.Module).targets) {
-            $target
+        foreach ($writer in (Get-Config -Config generated -Module $owner.Module).writers.Where({ -not $_.expands })) {
+            foreach ($output in $writer.outputs) {
+                [Catzc.Base.Variants.GeneratedTarget]::new($output.path, $writer.name)
+            }
         }
     }
 }

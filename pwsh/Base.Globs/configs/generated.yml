@@ -1,3 +1,15 @@
-# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml).
-targets:
-  - { path: pwsh/Base.Globs/configs/globs/track-sets.yml, generator: Build-TrackGlobSets }
+# This module's writers of generated files (Get-GeneratedTarget reads every module's generated.yml).
+writers:
+  # Import-critical, since every reader of the globs config needs the derived part it writes.
+  Build-TrackGlobSets:
+    class: import-critical
+    at_import: true
+    inputs:
+      - pwsh/Base.Globs/Build-TrackGlobSets.ps1
+      - pwsh/Base.Globs/configs/globs/globs.yml
+      - pwsh/Base.Variants/configs/variants.yml
+      - pwsh/*/configs/generated.yml
+      - pwsh/Base.Docs/configs/readme.yml
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Base.CodeMeta/configs/comment-pages.yml
+    outputs: [pwsh/Base.Globs/configs/globs/track-sets.yml]
