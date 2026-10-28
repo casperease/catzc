@@ -107,9 +107,10 @@ layout:
 7. **Set-AdoPipelineVariable.** Writes a `##vso` logging command in a pipeline and, on a devbox, only a verbose line saying it skipped it.
    Twenty more call sites follow the same shape, among them `Get-SessionActor`, `Deploy-Bicep`, `Sync-SessionTools`, `Protect-GlobSet` and
    `Install-Python`, plus the bootstrap's types pre-pass and the module builder.
-8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/EntryRule.psm1`
-   beside the spelling pass's own entry rule.
-9. **EntryRule.psm1.** The entry rule of every check but spelling: it runs every repository check once per file, and `NoRawPipelineDetection` is on its list.
+8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/EntryRule.psm1` beside
+   the spelling pass's own entry rule.
+9. **EntryRule.psm1.** The entry rule of every check but spelling: it runs every repository check once per file, and
+   `NoRawPipelineDetection` is on its list.
 10. **Measure-NoRawPipelineDetection.** Walks every variable expression in the file. A `$env:TF_BUILD` or `$env:GITHUB_ACTIONS` whose
     ancestors include no function named `Test-IsRunningInPipeline` is reported as an error that names the variable and the function to call
     instead. `*.Tests.ps1` files are exempt, because they set and restore the variables to drive the detector through both contexts.
@@ -119,7 +120,8 @@ layout:
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, and the analyzer rule makes the check mechanical
   (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 - Detection is boolean, not modal: either variable set means a pipeline, otherwise not (ADR-PWSH-DETECT-BOOLEANNOTMODAL).
-- The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation (ADR-PWSH-DETECT-FASTDETECTION).
+- The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation
+  (ADR-PWSH-DETECT-FASTDETECTION).
 
 ## Where the code and the decision record differ
 

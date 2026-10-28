@@ -13,9 +13,9 @@ Runs PSScriptAnalyzer over a file list in two cached passes, sharded across back
 
 The analysis engine behind Test-ScriptAnalyzer. The settings hand the engine two entry rules: `Measure-EntryRule` runs every custom check
 but the spelling one, and `Measure-SpellingEntryRule` runs the spelling check, which reads the spelling oracle's word lists. So the analysis
-runs as two passes, `rules` (every rule but `Measure-SpellingEntryRule`) and `spelling` (that rule alone), each with its own result cache under
-out/cache/ (`script-analyzer.json`, `script-analyzer-spelling.json`). A pass skips every file it last found clean whose bytes and the pass's
-inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
+runs as two passes, `rules` (every rule but `Measure-SpellingEntryRule`) and `spelling` (that rule alone), each with its own result cache
+under out/cache/ (`script-analyzer.json`, `script-analyzer-spelling.json`). A pass skips every file it last found clean whose bytes and the
+pass's inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
 ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)); only clean files are
 recorded, so a cached run reports exactly the diagnostics a full run would. A dictionary edit changes only the spelling pass's inputs, so it
 re-runs that pass alone. A pipeline starts without the cache.
