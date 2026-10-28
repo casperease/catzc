@@ -30,7 +30,7 @@ def proof_action(cells):
 
 
 def get_proof(cells, kind):
-    """The proof lens read back: the title and ADR codes from the chrome, and the action from the Proof box's cats rows."""
+    """The proof lens read back: the title and rule codes from the chrome, and the action from the Proof box's cats rows."""
     value = lambda cid: plain(cells[cid].get("value"))
     if not any(re.fullmatch(r"proof-\d+-cats", cid) for cid in cells):
         raise DeclarationError("get needs the Proof box's cats rows in a proof drawing; none is drawn")
@@ -41,12 +41,12 @@ def get_proof(cells, kind):
         "action": proof_action(cells),
         "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],
     }
-    adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
-    return normalise({"about": {"rules": adrs, "lens": PROOF_LENS}, "content": content}, where="the drawing")
+    rules = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
+    return normalise({"about": {"rules": rules, "lens": PROOF_LENS}, "content": content}, where="the drawing")
 
 
 def get_action(cells, geo, glyph_sigs, kind):
-    """The action lens read back: the title and ADR codes from the chrome, the cause's label, the action's call or its call site's rows,
+    """The action lens read back: the title and rule codes from the chrome, the cause's label, the action's call or its call site's rows,
     and each effect's note with its where chip and its proof line; an effect's ring is read from its distance to the action's centre
     and its order from its angle, top to bottom, so a moved note folds back to a ring and an order, never to coordinates."""
     value = lambda cid: plain(cells[cid].get("value"))
@@ -118,5 +118,5 @@ def get_action(cells, geo, glyph_sigs, kind):
     }
     if ("proof" in cells) != PROOF_SHOWN:  # the Proof box is drawn or not; the key is kept only where it differs from the default
         content["proof"] = "shown" if "proof" in cells else "hidden"
-    adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
-    return normalise({"about": {"rules": adrs, "lens": ACTION_LENS}, "content": content}, where="the drawing")
+    rules = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
+    return normalise({"about": {"rules": rules, "lens": ACTION_LENS}, "content": content}, where="the drawing")

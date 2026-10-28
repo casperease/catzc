@@ -42,7 +42,7 @@ every value; the first theme, dark, is the committed raster, and any other rende
 ## Ids and words
 
 - Ids are semantic kebab/underscore slugs (`title`, `note`, `step-build`, `edge-build-test`). Never random ids.
-- Every word comes from the source ADR or code, using its exact terms. Don't invent numbers, parts or loops.
+- Every word comes from the source record or code, using its exact terms. Don't invent numbers, parts or loops.
 - Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g. `(FDR-CD-SEPARATEPIPELINEKINDS)`.
   Write an em dash as `&#8212;`.
 - The first cell after the root is a `title` text whose words are the finding the reader should leave with, not just the topic.
@@ -142,7 +142,7 @@ module.
 - **Chrome** is not a kind: band `band` / `band-rim` (`arcSize=3`, label `band-label`), legend and outer panel `panel` / `panel-rim`
   (`arcSize=6`), `ink`, `quiet`, `line`.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
-- **A drift is not a kind.** An ADR claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
+- **A drift is not a kind.** A record's claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
 
 **Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from DDR-VISUAL-FIXEDCOMMITPALETTE: the `commits:`
 block of [`configs/drawio.yml`](../configs/drawio.yml) gives each state (topic, landed, bvt, l3, main-uat, release-uat, prod, discarded) its
@@ -195,23 +195,23 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
 
 ## Every diagram: verify, then simplify (applies to ALL makers)
 
-The user's standard, from the wave-1 review: the information must be **verified against the ADR AND the code AND the configs**, and the
-picture must be **simple**. A diagram that is only true to the ADR prose is not done.
+The user's standard, from the wave-1 review: the information must be **verified against the record AND the code AND the configs**, and the
+picture must be **simple**. A diagram that is only true to the record's prose is not done.
 
-1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the ADR,
+1. **Verify first.** For every claim in the picture (each box, edge, order, name, parameter, path and number), find its source in the record,
    the code (`pwsh/**`, `importer.ps1`, root scripts) and the configs (`configs/*.yml`, pipeline YAML). Write `<name>.verify.md` beside the
    staged folder in `out/diagrams/wave-N/`: a table with the columns claim → source (`file:line`) → **confirmed / contradicted / DRS-only**.
-2. **Code wins on facts. The ADR wins on intent.**
+2. **Code wins on facts. The record wins on intent.**
    - If the code contradicts the drawing, fix the drawing and report the contradiction.
    - If the decision record states something the code doesn't do yet, keep it only when it's essential to the finding, and mark it DRS-only
      in the table.
-   - Never silently "fix" the ADR or the code.
+   - Never silently "fix" the record or the code.
 3. **Get the order from the code.** For sequences (load order, precedence, pipeline steps), the call order in the code is the authority.
 4. **Real names only.** Every function, parameter, env var, file path and task version must exist exactly as spelled. If the brief names
    something that doesn't exist (e.g. `Build-Catzc`), use the real name and report it.
-5. **Hold terminology that is under review.** Don't rename or coin terms. Keep the ADR's current words and flag them. "Build mode" is
+5. **Hold terminology that is under review.** Don't rename or coin terms. Keep the record's current words and flag them. "Build mode" is
    currently being re-split (possibly into cached / installed / saved / temporary), so don't invent states for it.
-6. **Then simplify** to the readability rules below. Cut detail into one footer line or leave it to the ADR. A cut is fine; a wrong or
+6. **Then simplify** to the readability rules below. Cut detail into one footer line or leave it to the record. A cut is fine; a wrong or
    invented claim is not.
 
 The maker's reply gives: the path, the title, the claim counts (confirmed / contradicted / DRS-only), each contradiction in one line, and
@@ -219,7 +219,7 @@ what was cut.
 
 Lessons from wave 4:
 
-- **Run the ADR's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the ADR's example address threw (a typed
+- **Run the record's own example when it's cheap.** Reading `Get-ConfigValue` passed, but running the record's example address threw (a typed
   `Dictionary` has no `Contains`). Run probes in the background behind `timeout <s>`, from a script in your own output folder.
 - **Every title is ≤ 60 characters on one line**, not only fan-out drawings. Shorten the brief's draft title when you have to, and say so.
 - **Check the result colour.** A fail-open "proceed" result isn't a pipeline/runner, so don't borrow the runner's colour for it. Use the
@@ -238,28 +238,28 @@ doesn't need. It never adds claims the source or its sources don't support.
 - **`architecture`** (≤ 8 boxes) shows the components or layers, their boundaries, and who depends on whom. It drops the call order inside a
   component, and parameters.
 - **`implementation`** (≤ 10 boxes) shows the real functions, files, configs and parameters in code order, each verified to a `file:line`.
-  It drops rationale and ADR wording.
+  It drops rationale and record wording.
 - **`operations`** (≤ 8 boxes) shows what a person or pipeline runs and sees: entry commands, outputs, failure messages. It drops internals
   nobody operates directly.
-- **`governance`** (≤ 8 boxes) shows which ADR rule constrains each stage, which gate checks it, and what is DRS-only. It drops mechanics
+- **`governance`** (≤ 8 boxes) shows which rule constrains each stage, which gate checks it, and what is DRS-only. It drops mechanics
   and paths.
 
 - Name the files `<name>.<lens>.xml` / `<name>.<lens>.drawio.png`. The title states the lens's finding, e.g. "Meta: …".
 
 ### The `source` lens (wave 9 onward)
 
-A sixth lens, drawn from the code alone rather than split from an ADR diagram. It draws one responsibility of one module.
+A sixth lens, drawn from the code alone rather than split from a rule diagram. It draws one responsibility of one module.
 
 - **`source`** (≤ 10 boxes) shows the module's real public functions, private helpers, `configs/*.yml`, C# types and the other catzc modules
   they call, in call order. Every box is a name that exists today (a Glob hit). Every edge is a call site (`file:line`) in the `.verify.md`,
-  and an edge without one is not drawn. It drops ADR wording and rationale.
-- **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the ADRs the drawn code cites (ADR codes in its comments and
+  and an edge without one is not drawn. It drops record wording and rationale.
+- **Subtitle:** `Module <Name> · source lens`. The **Supports** chips name the records the drawn code cites (rule codes in its comments and
   error messages), found by grep, not guessed.
-- **Name:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no ADR prefix and no lens suffix. It lands as the pair
+- **Name:** `<finding-slug>` (3–7 kebab words, ≤ 48 chars), with no record prefix and no lens suffix. It lands as the pair
   `docs/references/pwsh/<module-kebab>/.assets/<finding-slug>.drawio.yml` and `<finding-slug>.drawio.png`; the verify notes stay in `out/`.
   There is no `docs/explanation/` article: the module's reference article embeds the png under `## What the module does` with a
-  one-paragraph lead-in, and carries the words (Reading path, Where the code and the ADR differ).
-- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`); the ADR codes are in the
+  one-paragraph lead-in, and carries the words (Reading path, Where the code and the record differ).
+- **No minimaps** on source slides yet (wave 9 decision D4). The sidebar holds only the lens badge (`SRC`); the rule codes are in the
   subtitle, their one place on a slide.
 - **Save legend rows.** Source slides reach the 8-entry legend cap fast (code unit, private helper, C# type, catzc module, file, failure,
   flow, marker). A glyph and its own edge kind share one row (`failure, and its failure path`). The `catzc module` frame needs no row when
@@ -277,7 +277,7 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
   and writes UTF-8 explicitly (`encoding="utf-8"`), or a replace on `·` silently misses on Windows.
 - **One input, many readers.** When one config type feeds three or more readers, frame the readers on one row and end a single edge on the
   frame. Put a second input band (such as the live session) above that row, so its edge drops in without a crossing.
-- **Supports holds only the ADRs that govern what is drawn.** Leave out codes the drawn code cites only for parts the slide doesn't draw,
+- **Supports holds only the records that govern what is drawn.** Leave out codes the drawn code cites only for parts the slide doesn't draw,
   and list them in the verify file.
 - **A module whose members fall in two bands** gets one tall `catzc module` frame spanning both bands, never two frames with the same name.
 - **The Supports panel sets only the word `Supports` bold** (`<b>Supports</b>`), with the codes in regular weight at 11 px. Don't set
@@ -301,7 +301,7 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - Lens variants live in `out/diagrams/lenses/<name>/`, one diagram pair per lens; at fan-in the lead reviews them in lens order, and a lens
   with nothing honest to show is listed as skipped.
 
-## Fan-out: ADR-support drawings with three minimaps
+## Fan-out: record-support drawings with three minimaps
 
 A diagram shows exactly three minimaps in its right column, above the minimap legend (ADR-REPO-SLIDES-MINIMAPSFROMDATA). They are the ones
 its declaration names in `content.minimaps`, or else its kind's three defaults: each diagram kind, explanation or reference, has a pool of
@@ -309,9 +309,9 @@ minimap ids and three defaults, declared once in `maps.yml`. Every id is one of 
 `layer-stack`, `lifecycle-position`, `track-placement`, `engine-strip` and `module-neighbourhood`; an id outside them fails validation,
 naming the eight.
 
-**The data is computed, never drawn.** A diagram's subject is the ADR codes in its `about.rules` and the files that cite them.
+**The data is computed, never drawn.** A diagram's subject is the rule codes in its `about.rules` and the files that cite them.
 `Catzc.Base.Maps` projects that subject onto each minimap's axes with the data command `maps.yml` names for its id, reading a registry (the
-world map, the value chain, the ADR layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
+world map, the value chain, the DRS layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
 carries the file and the requested code that light it. The data is contract JSON
 (`contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
 at least one reason. `Build-Diagrams` and `Test-Diagrams` write it to `out/minimaps/`; the kit validates it against the schema
@@ -341,8 +341,8 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
 - **Display:** the drawing is at most 1572 × 1000 px. That's the 1300 px content area plus a 272 px right column, which fits a 1920 × 1080
   screen at 100 %. The minimum height is 360 px.
 - **Right column** (x 1300–1572): four slots, the three minimaps and the minimap legend, laid out by the renderer from the declaration; no
-  ADR codes, since the subtitle is their one place on a diagram.
-- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, the ADR codes of `about.rules`.
+  rule codes, since the subtitle is their one place on a diagram.
+- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, the rule codes of `about.rules`.
 - **Boxes:**
   - name ≤ 28 chars;
   - body ≤ 2 lines × 40 chars;
@@ -355,7 +355,7 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
 
 ### Who does what, and how to rerun
 
-- A maker writes the `<name>.drawio.yml`: `description:`, `about:` (the lens and the ADR codes), `content:` and, where a cell must sit
+- A maker writes the `<name>.drawio.yml`: `description:`, `about:` (the lens and the rule codes), `content:` and, where a cell must sit
   somewhere the grid would not put it, `layout:`.
 - `Build-Diagrams -Path <folder>` computes the minimap data and puts the folder; `-FromDrawing` folds a draw.io edit back first;
   `-Theme <name>` renders another theme to `out/drawio/themes/<name>/`; `-Stale` rebuilds the stale set. Each runs in the background under
@@ -368,7 +368,7 @@ A fan-out drawing is a **slide**: glyphs on the picture, words in prose. A slide
 
 - **`.assets/<name>.drawio.yml`**
   - Reader: the author, the gates
-  - Holds: the **declaration**: `description:`, `about:` (the ADR codes and the lens), `content:`, `layout:`
+  - Holds: the **declaration**: `description:`, `about:` (the rule codes and the lens), `content:`, `layout:`
 - **`.assets/<name>.drawio.png`**
   - Reader: everyone
   - Holds: the slide put from the declaration: glyphs, names, markers, chips, the legend and the sidebar
@@ -389,8 +389,8 @@ The article and the description are read by people, so they carry no audit trail
 
 `<page>.md`
 
-Write it as a short explanation article, in the voice of the ADRs: plain English, present tense, active voice, full sentences, one idea per
-paragraph. Use the ADR's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
+Write it as a short explanation article, in the voice of the records: plain English, present tense, active voice, full sentences, one idea per
+paragraph. Use the record's own terms (and the glossary's), real names in backticks, and "cats" for the system in prose. It reads well with the
 image removed.
 
 ```markdown
@@ -407,17 +407,17 @@ image removed.
 
 ## Why it holds
 
-<A short paragraph, or 2–4 bullets, each restating one ADR rule in plain words with its citation code: "Every dependency is declared before
+<A short paragraph, or 2–4 bullets, each restating one rule in plain words with its citation code: "Every dependency is declared before
 it is used (ADR-AUTO-DEPM-CODEBUILTFROM).">
 
-## Where the code and the ADR differ
+## Where the code and the record differ
 
-<Only when drift exists: one present-tense sentence per drift, saying what the ADR states and what the code does. Omit the section
+<Only when drift exists: one present-tense sentence per drift, saying what the record states and what the code does. Omit the section
 otherwise.>
 
 ## See also
 
-- [<ADR title>](<relative path to the ADR>) — the decision this slide supports.
+- [<record title>](<relative path to the record>) — the decision this slide supports.
 ```
 
 - The Walkthrough follows the markers in reading order; every marker has exactly one step and every step has a marker.
@@ -445,7 +445,7 @@ description: >-
 `out/diagrams/wave-N/<name>.verify.md`
 
 A table of every claim on the slide and in the article: claim → source (`file:line`) → **confirmed / contradicted / DRS-only**, followed by
-`## Corrections` (what changed against the previous wave, one line each) and `## Drift` (ADR vs code, one line each). Re-verify every
+`## Corrections` (what changed against the previous wave, one line each) and `## Drift` (record vs code, one line each). Re-verify every
 number, name, path and order against the repository as it is today; the repository moves between waves. It is a review note: it stays beside
 the staged folder in `out/`, and nothing in `docs/` links to it.
 
@@ -469,8 +469,8 @@ the staged folder in `out/`, and nothing in `docs/` links to it.
 - **span bars** over the bands when the flow has named stages (CI, CD, DEPLOY), as the commit-story's top axis does;
 - **every edge that exists in the code is drawn**: a failure glyph has its failure-path edge from the glyph that raises it, a result has the
   edge from what produces it. An unconnected glyph is a defect unless the article says why it stands alone;
-- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several ADRs share a slide) beside the box that a rule
-  governs, never inside the box name. The legend gives the chips one row that names the letter → ADR mapping. A rule no gate checks gets a
+- **rule chips** on governance slides: a short white chip (`#3`, or `L4` / `T35` when several records share a slide) beside the box that a rule
+  governs, never inside the box name. The legend gives the chips one row that names the letter → record mapping. A rule no gate checks gets a
   dashed chip, legend `dashed rule chip: DRS-only (no gate)`.
 
 **Lessons from wave 5 (apply them):**
@@ -480,7 +480,7 @@ the staged folder in `out/`, and nothing in `docs/` links to it.
 - Legend entries longer than about 40 chars go in column 3, not column 4, or they run into the panel edge.
 - A label under a circle that a vertical edge leaves is struck through: put it beside the circle, away from the edge.
 - A fraction on a short horizontal edge is struck through by the preview line: put it as a bold chip just above the edge.
-- An ADR claim the code contradicts is NOT red (red is failure only). Draw it as its normal glyph with its numbered marker; the article
+- A record's claim the code contradicts is NOT red (red is failure only). Draw it as its normal glyph with its numbered marker; the article
   states the drift. (Dashes and thick rims already mean "no gate" and "gate".)
 - `dashed` means one thing on every slide: "DRS-only: no code runs or checks it" (no gate). Don't reuse dashes for anything else. The
   preview ignores `verticalAlign=bottom` on hexagons: put a commit dot above the centre, never on the centred label. The preview draws a
@@ -502,26 +502,26 @@ own **map key** in the sidebar.
 
 An approved slide lands as its pair and its article; the `.verify.md` stays in `out/diagrams/wave-N/`.
 
-- **`docs/explanation/<adr-domain>/<explanation>.md`**
+- **`docs/explanation/<drs-domain>/<explanation>.md`**
   - From: the article
   - Shape: path H1 (ADR-REPO-FORMAT-MARKDOWNTITLE), the title in backticks, a `text` overview block, then the article
-- **`docs/explanation/<adr-domain>/.assets/<name>.drawio.yml`**
+- **`docs/explanation/<drs-domain>/.assets/<name>.drawio.yml`**
   - From: the staged declaration
   - Shape: copied, never over an existing file
-- **`docs/explanation/<adr-domain>/.assets/<name>.drawio.png`**
+- **`docs/explanation/<drs-domain>/.assets/<name>.drawio.png`**
   - From: `Build-Diagrams -Path <the yml>`
   - Shape: built in place, never copied, so its minimaps are computed for its address
 
-- `<adr-domain>` is the drs.yml domain of the slide's first ADR code; `<explanation>` is the finding as a kebab slug.
+- `<drs-domain>` is the drs.yml domain of the slide's first rule code; `<explanation>` is the finding as a kebab slug.
 - **The `text` overview** of an article: the finding in one line; a blank line; one line per marker, `<n>  <name>  <what it is>`, names
   padded to one column; a blank line; `Supports <ADR-CODE>#a, #b and #c (<lens> lens).` Plain ASCII inside the block (`->`, not `→`).
-- **Words by audience:** the article uses the ADR's and glossary's terms (group, module, gate as the ADR names it); the declaration's
+- **Words by audience:** the article uses the record's and glossary's terms (group, module, gate as the record names it); the declaration's
   `description:` uses the glyph library's phrases (named set, code unit). Neither uses the other's vocabulary.
-- **Links:** the article links its image `.assets/<name>.drawio.png`, the ADR, its sibling lenses, its domain index and
+- **Links:** the article links its image `.assets/<name>.drawio.png`, the record, its sibling lenses, its domain index and
   `../index.md#how-to-read-the-diagrams`. The diagram links nothing.
 - **Checks:** run `Test-Diagrams -Path <folder>` on the folder, and `Test-Links` and `Test-Spelling` on the article. Report unknown words;
   never edit `terminology.yml` from a maker. A quoted message holding `<name>`-style placeholders goes in a code span (bare angle brackets
-  fail markdownlint MD033). Example names copied from an ADR that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the ADR
+  fail markdownlint MD033). Example names copied from a record that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the record
   does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
 Quality bar for this format: `docs/explanation/automation/three-layers-edges-point-down.md` with its folder
@@ -543,12 +543,12 @@ promotion-flow, globset-roles, bundle, importer, dependency-groups, auth and run
 - **One reading direction.** Use left → right (or top → down) bands, as in commit-promotion-states. Never let the flow snake right, then
   down, then left, then back up.
 - **No crossing or long diagonal edges.** If an edge must cross the picture, re-lay out the boxes instead.
-- **Boxes: one bold name plus ≤ 2 short lines.** Move detail into one footer note. Don't put an ADR code on every box: give one in the title
+- **Boxes: one bold name plus ≤ 2 short lines.** Move detail into one footer note. Don't put a rule code on every box: give one in the title
   or the band label.
 - **Bands with labels** (light containers with a caps-style label, e.g. "PROMOTION LADDER — left → right") group the stages.
 - **Colour = meaning, and the legend uses swatches** (a small shape plus its text), not a text-only legend. Gates and checks are NOT red.
   Red is only for failure, throw or discard.
-- About 12 boxes at most. More than that means the picture is two pictures, or the detail belongs in the ADR.
+- About 12 boxes at most. More than that means the picture is two pictures, or the detail belongs in the record.
 
 ## Preview tool caveats
 
@@ -562,7 +562,7 @@ both the preview and draw.io. A bent edge (e.g. a return into a gate earlier in 
 
 ## Reporting drift found while verifying
 
-Verification regularly finds the ADR, the code or the code comments out of step: a file the ADR names that doesn't exist, a rule the checker
+Verification regularly finds the record, the code or the code comments out of step: a file the record names that doesn't exist, a rule the checker
 enforces more loosely, a comment citing the wrong rule. Draw the side the brief says (normally what the code does). List every drift in the
 reply and the `.verify.md` table. The lead collects these for the user. Never fix them from a maker.
 

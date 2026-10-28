@@ -19,14 +19,14 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
         $script:worldHighlight = [Catzc.Base.Maps.WorldMapHighlight]::ForRecord($script:worldMap, @('ADR-WIDGET-GADGET'),
             @(), @())
 
-        $adr = {
+        $record = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
             [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
                 $Concerns, $Concerns)
         }
         $script:chain = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha', 'beta'), @(
-                & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha')
-                & $adr 'ADR-WIDGET-SPROCKET' 'BOTTOM' @('beta')
+                & $record 'ADR-WIDGET-GADGET' 'TOP' @('alpha')
+                & $record 'ADR-WIDGET-SPROCKET' 'BOTTOM' @('beta')
             ))
         $script:chainHighlight = [Catzc.Base.Maps.ValueChainHighlight]::ForRecord($script:chain, 'ADR-WIDGET-GADGET')
     }
@@ -40,7 +40,7 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
         & $script:conforms $data.ToJson() | Should -BeTrue
     }
 
-    It 'serializes the axis to the minimap schema, lit by the requested ADR' {
+    It 'serializes the axis to the minimap schema, lit by the requested record' {
         $data = [Catzc.Base.Maps.MinimapData]::FromValueChain($script:chain, $script:chainHighlight)
         $data.Id | Should -Be 'axis'
         $data.Axes.Name | Should -Be @('stack', 'concern')

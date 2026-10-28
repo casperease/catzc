@@ -1,6 +1,6 @@
 Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:adr = {
+        $script:record = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
             [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
                 $Concerns, $Concerns)
@@ -8,9 +8,9 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         $script:rows = @('TOP', 'BOTTOM')
         $script:columns = @('alpha', 'beta', 'gamma')
         $script:map = [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @(
-                & $script:adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'gamma')
-                & $script:adr 'ADR-WIDGET-SPROCKET' 'BOTTOM' @('beta')
-                & $script:adr 'ADR-WIDGET-COG' 'TOP' @('gamma')
+                & $script:record 'ADR-WIDGET-GADGET' 'TOP' @('alpha', 'gamma')
+                & $script:record 'ADR-WIDGET-SPROCKET' 'BOTTOM' @('beta')
+                & $script:record 'ADR-WIDGET-COG' 'TOP' @('gamma')
             ))
         $script:counts = { param($Map) @($Map.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern) = $($_.RecordCount)" }) }
     }
@@ -24,25 +24,25 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         )
     }
 
-    It 'lists the ADRs of a cell in the given order' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
+    It 'lists the records of a cell in the given order' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         $script:map.Cell('TOP', 'gamma').Records | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
         $script:map.Cell('TOP', 'delta') | Should -BeNullOrEmpty
     }
 
-    It 'answers the cells an ADR sits in, in the map''s order, and nothing for a code it does not hold' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
+    It 'answers the cells a record sits in, in the map''s order, and nothing for a code it does not hold' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
         @($script:map.CellsOf('ADR-WIDGET-GADGET') | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) |
             Should -Be @('TOP x alpha', 'TOP x gamma')
         $script:map.CellsOf('ADR-WIDGET-GIZMO') | Should -BeNullOrEmpty
-        $script:map.RecordCount| Should -Be 3
+        $script:map.RecordCount | Should -Be 3
         $script:map.Unplaced | Should -BeNullOrEmpty
         $script:map.Strays | Should -BeNullOrEmpty
     }
 
-    It 'records a row or value-chain concern the axes lack, and an ADR that sits in no cell' -Tag 'ADR-REPO-VALUECHAIN-CONCERN' {
+    It 'records a row or value-chain concern the axes lack, and a record that sits in no cell' -Tag 'ADR-REPO-VALUECHAIN-CONCERN' {
         $map = [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @(
-                & $script:adr 'ADR-WIDGET-GADGET' 'MIDDLE' @('alpha')
-                & $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha', 'delta')
-                & $script:adr 'ADR-WIDGET-GIZMO' 'TOP' @('delta')
+                & $script:record 'ADR-WIDGET-GADGET' 'MIDDLE' @('alpha')
+                & $script:record 'ADR-WIDGET-COG' 'TOP' @('alpha', 'delta')
+                & $script:record 'ADR-WIDGET-GIZMO' 'TOP' @('delta')
             ))
         $map.Strays | Should -Be @(
             "ADR-WIDGET-GADGET: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM)"
@@ -53,9 +53,9 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         $map.Cell('TOP', 'alpha').Records | Should -Be @('ADR-WIDGET-COG')
     }
 
-    It 'throws on a repeated ADR code, a repeated axis name, an empty axis, or an item that is not an ADR' {
+    It 'throws on a repeated record code, a repeated axis name, an empty axis, or an item that is not a record' {
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns,
-                @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
+                @((& $script:record 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:record 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
             Should -Throw "*the record code 'ADR-WIDGET-COG' is empty or repeated*"
         { [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'TOP'), $script:columns, @()) } |
             Should -Throw "*row of the value-chain stack 'TOP' is empty or repeated*"

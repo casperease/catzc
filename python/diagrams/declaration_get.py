@@ -60,7 +60,7 @@ def get(model, kind=None):
     module_sig = signature(LIB["module"])
     content: dict = {"title": "", "kind": kind or KINDS[0], "flow": FLOWS[0]}
     lens = "meta"
-    adrs: list = []
+    rules: list = []
     content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
     content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
     # The drawing carries each minimap's view, not what its author excludes: save() keeps the source's entries.
@@ -90,7 +90,7 @@ def get(model, kind=None):
         if cid == "title":
             content["title"] = value
         elif cid == "subtitle":
-            adrs = [p.strip() for p in value.split("·") if p.strip()]
+            rules = [p.strip() for p in value.split("·") if p.strip()]
         elif style_map(style).get("noteBlock") == "1":
             notes.append(cid)
         elif matches(signature(BAND), style):
@@ -299,7 +299,7 @@ def get(model, kind=None):
         at = ch.removeprefix(f"chip-{kind}-").rsplit("-", 1)[0]
         value = plain(cells[ch].get("value"))
         if kind == "rule":
-            chip = {"at": at, "kind": "rule", "rule": adrs[int(value.lstrip("#")) - 1]}
+            chip = {"at": at, "kind": "rule", "rule": rules[int(value.lstrip("#")) - 1]}
             if style_map(style).get("dashed") == "1":
                 chip["gated"] = False
         else:
@@ -348,7 +348,7 @@ def get(model, kind=None):
                 edge["label"] = content["relation"]
         content["relation"] = ""
         content["states"] = False  # the word is each edge's label, never a state diagram's relation
-    about = {"rules": adrs, "lens": lens}
+    about = {"rules": rules, "lens": lens}
     if "zoom-badge" in cells:  # the zoom badge prints the level, so the drawing carries it back
         about["zoom"] = plain(cells["zoom-badge"].get("value"))
     # The query's cells are its rows', never the source's: the drawing gives them back to nobody (DDR-VISUAL-ZOOMISANAXIS).

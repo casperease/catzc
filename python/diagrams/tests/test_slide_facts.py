@@ -38,8 +38,8 @@ def test_a_rule_name_with_digits_names_its_adr(repo):
 
 
 def test_a_numbered_citation_is_reported_and_its_adr_still_read(repo):
-    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET#3 · meta"))
-    assert (adrs, lens) == (["ADR-WIDGET"], "meta")
+    records, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET#3 · meta"))
+    assert (records, lens) == (["ADR-WIDGET"], "meta")
     assert len(problems) == 1
     assert "cites a rule by number" in problems[0]
 
@@ -60,8 +60,8 @@ def test_every_lens_of_the_closed_set_is_accepted_with_or_without_the_word_lens(
 
 
 def test_a_lens_outside_the_closed_set_is_reported_and_read_as_none(repo):
-    adrs, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET-TURN · sprocket"))
-    assert (adrs, lens) == (["ADR-WIDGET"], None)
+    records, lens, problems = drawio_forward.slide_facts(model("ADR-WIDGET-TURN · sprocket"))
+    assert (records, lens) == (["ADR-WIDGET"], None)
     assert len(problems) == 1
     assert "'sprocket', not a lens of drawio.yml" in problems[0]
 

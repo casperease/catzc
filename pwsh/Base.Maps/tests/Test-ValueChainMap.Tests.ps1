@@ -1,6 +1,6 @@
 Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
     BeforeAll {
-        $adr = {
+        $record = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
             [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack,
                 $Concerns, $Concerns)
@@ -8,12 +8,12 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $stacks = @([Catzc.Base.Drs.DrsConfig]::Stacks)
         $concerns = @([Catzc.Base.Drs.DrsConfig]::Concerns)
         $script:cleanMap = [Catzc.Base.Maps.ValueChainMap]::Build($stacks, $concerns, @(
-                & $adr 'ADR-WIDGET-GADGET' $stacks[0] @($concerns[0], $concerns[1])
-                & $adr 'ADR-WIDGET-COG' $stacks[1] @($concerns[1])
+                & $record 'ADR-WIDGET-GADGET' $stacks[0] @($concerns[0], $concerns[1])
+                & $record 'ADR-WIDGET-COG' $stacks[1] @($concerns[1])
             ))
         $script:brokenMap = [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'BOTTOM'), @('alpha'), @(
-                & $adr 'ADR-WIDGET-GADGET' 'TOP' @('alpha')
-                & $adr 'ADR-WIDGET-COG' 'MIDDLE' @('alpha')
+                & $record 'ADR-WIDGET-GADGET' 'TOP' @('alpha')
+                & $record 'ADR-WIDGET-COG' 'MIDDLE' @('alpha')
             ))
         $script:fullGlossary = @(foreach ($term in 'widget', 'gadget box', 'sprocket') {
                 [pscustomobject]@{ Concept = [pscustomobject]@{ term = $term } }
@@ -47,7 +47,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 3
     }
 
-    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
+    It 'reports axes that are not the registry''s closed sets, a stray row, and a record in no cell' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $script:map = $script:brokenMap
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(

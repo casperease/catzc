@@ -84,7 +84,7 @@ terms:
     - term: worldmap
       meaning: "a world-map image the draw.io atlas helper (python/diagrams/atlas.py) draws on"
     - term: adrs
-      meaning: "ADRs — plural of ADR; the drs.yml registry of ADR domain structure and citation codes"
+      meaning: "ADRs — plural of ADR; the drs.yml registry of DRS domain structure and citation codes"
     - term: ast
       meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
     - term: trie

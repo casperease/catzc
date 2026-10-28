@@ -572,7 +572,7 @@
       vertex="1"
       parent="1"><mxGeometry x="1328" y="552" width="14" height="14" as="geometry" /></mxCell>
     <mxCell id="mk-lit-t"
-      value="lit: what the slide's ADRs select"
+      value="lit: what the slide's rules select"
       style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=@quiet;"
       vertex="1"
       parent="1"><mxGeometry x="1350" y="549" width="200" height="20" as="geometry" /></mxCell>
@@ -592,7 +592,7 @@
       vertex="1"
       parent="1"><mxGeometry x="1328" y="588" width="14" height="14" as="geometry" /></mxCell>
     <mxCell id="mk-adr-t"
-      value="lit ADR file (dark rim)"
+      value="lit record file (dark rim)"
       style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=@quiet;"
       vertex="1"
       parent="1"><mxGeometry x="1350" y="585" width="200" height="20" as="geometry" /></mxCell>

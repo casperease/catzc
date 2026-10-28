@@ -15,7 +15,8 @@ function Test-TypesHeld {
             continue
         }
         $process = Get-Process -Id $holder -ErrorAction SilentlyContinue
-        if ($process -and $process.StartTime.ToUniversalTime() -le [System.IO.File]::GetLastWriteTimeUtc($hold)) {
+        # A holder is always this user's own process; one that hides its StartTime reused a dead holder's id.
+        if ($process -and $null -ne $process.StartTime -and $process.StartTime.ToUniversalTime() -le [System.IO.File]::GetLastWriteTimeUtc($hold)) {
             $held = $true
             continue
         }

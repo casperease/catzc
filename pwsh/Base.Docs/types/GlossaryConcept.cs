@@ -28,7 +28,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // One qualifier word in a concept's forms ('quality', 'CI').
     public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);
 
-    // An ADR domain key, as drs.yml spells it ('automation', 'repository').
+    // A DRS domain key, as drs.yml spells it ('automation', 'repository').
     private static readonly Regex DomainRe = new Regex("^[a-z]+(-[a-z]+)*$", RegexOptions.Compiled);
 
     // The canonical term (the concepts: map key). Required.

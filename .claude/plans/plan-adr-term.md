@@ -75,13 +75,6 @@ caller in the same change (PDR-ONELIVE); a module on the importer path (`Catzc.B
 
 - [ ] `pwsh/Base.Drs/Update-DrsCitation.ps1` and `pwsh/Base.Drs/tests/Update-DrsCitation.Tests.ps1`: the `Drs`/`Record` renames (`$adrRoot`,
       `$adrFile`). Check: `Invoke-TestFile` on that test file, `Test-DrsRegistry`.
-- [ ] `python/diagrams` leftovers of the Base.Slides step: the `drawio_forward.py` identifiers (`ADR_CODE`, `known_adrs`, `adrs_of`, the
-      `adrs` locals), the `adrs` locals in `declaration_get.py` and `declaration_get_action.py`, the generic ADR prose in
-      `python/diagrams/assets/STYLE.md` and `python/diagrams/assets/slides/STYLE.md`, and the text of `template-slide.xml`. Each edit by
-      hand, one file at a time. Check: `Invoke-PythonTest` on `python/diagrams`.
-- [ ] `pwsh/Base.Maps` leftovers: the generic ADR test names and `$adr` locals in the value-chain tests (`ValueChainMap`,
-      `ValueChainHighlight`, `MinimapData`, `Test-ValueChainMap`, `Get-ValueChainMap` `.Tests.ps1`), one file at a time. Check:
-      `Invoke-TestFile` on each touched test file.
 
 ### Prose, one area per step
 

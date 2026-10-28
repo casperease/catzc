@@ -36,7 +36,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
 
 # It reads only drs.yml, so its answer cannot differ between the run modes: source-only.
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'places every ADR of drs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
+    It 'places every record of drs.yml in at least one cell of its DRS domain''s row' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $map = Get-ValueChainMap
         $ruleSets = @(Get-DrsRuleSet)
         $map.RecordCount | Should -Be $ruleSets.Count

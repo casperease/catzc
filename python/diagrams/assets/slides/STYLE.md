@@ -131,12 +131,12 @@ A bare path or anything else there is a render fault naming the slide file.
   verbatim; the renderer reports any drift. A slide that paraphrases a rule does not quote it, and says so in its notes.
 - **Words, not numbers.** A count or a list on a slide is traceable to a registry, an index paragraph or a config file; nothing is
   estimated.
-- **Plain English, present tense,** the authoring conventions of the ADR index. No "it's not X, it's Y" drama, no changelog words.
+- **Plain English, present tense,** the authoring conventions of the DRS index. No "it's not X, it's Y" drama, no changelog words.
 - **Under capacity.** A body over its words is two slides, not a smaller font.
 - **Notes are the voice.** The notes say what the presenter adds, in plain English. A dialect, a joke or a performance is not kept in the
   tree.
 
-The head's `config` takes `pattern`, `deck` and `order`, and `quotes` when the body is one rule's text taken verbatim from its ADR: the
+The head's `config` takes `pattern`, `deck` and `order`, and `quotes` when the body is one rule's text taken verbatim from its record: the
 render compares the body to the registry and reports any difference. A slide that paraphrases a rule carries no `quotes`.
 
 ## The deck folder

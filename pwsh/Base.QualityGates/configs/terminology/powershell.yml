@@ -64,7 +64,7 @@ terms:
     - term: psscriptroot
       meaning: "PowerShell $PSScriptRoot automatic variable"
     - term: pwsh
-      meaning: "PowerShell 7+ executable (pwsh); also the PWSH ADR domain code (composes ADR-PWSH-<NAME>)"
+      meaning: "PowerShell 7+ executable (pwsh); also the PWSH DRS domain code (composes ADR-PWSH-<NAME>)"
     - term: runspace
       meaning: "PowerShell runspace"
     - term: runspaces

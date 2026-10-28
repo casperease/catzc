@@ -45,7 +45,7 @@ from .drawio_forward_single import FINDINGS_EXIT, FORWARD, REPO, SLIDE, forward_
 from .drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 from .module_paths import KIT
 
-ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
+RECORD_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
 SOURCE = ".drawio.yml"
 ROLES = ("slide", "legend")  # the closed set of diagram roles drawio.yml may name
@@ -59,7 +59,7 @@ def slide_of(stem):
 
 
 def slide_facts(model):
-    """What a slide says it supports, from its `subtitle` cell alone (`<codes> · <lens>`): the ADR codes the index knows, the
+    """What a slide says it supports, from its `subtitle` cell alone (`<codes> · <lens>`): the record codes the index knows, the
     lens, and every problem with the line. The sidebar's chips, badge and page name are outputs of these, never inputs."""
     subtitle = next(
         (
@@ -82,7 +82,7 @@ def slide_facts(model):
         problems.append(
             f"the subtitle cites a rule by number, a rule is cited by its name (ADR-REPO-DRSCODE): {subtitle!r}"
         )
-    return adrs_of(subtitle), lens, problems
+    return records_of(subtitle), lens, problems
 
 
 def diagram_role(folder):
@@ -166,16 +166,16 @@ def undeclared_findings(folder, source):
 
 
 def subtitle_facts(folder, model):
-    """slide_facts for a slide, with each problem as an E_SUBTITLE finding; a legend names no ADR and carries no subtitle, so it has none."""
+    """slide_facts for a slide, with each problem as an E_SUBTITLE finding; a legend names no record and carries no subtitle, so it has none."""
     if diagram_role(folder) == "legend":
         return [], None, []
-    adrs, lens, problems = slide_facts(model)
+    records, lens, problems = slide_facts(model)
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
-    return adrs, lens, [f"E_SUBTITLE {path}: {p}" for p in problems]
+    return records, lens, [f"E_SUBTITLE {path}: {p}" for p in problems]
 
 
-def known_adrs():
-    """The ADR codes the index's code tables list; a code quoted in its prose is no entry."""
+def known_records():
+    """The record codes the index's code tables list; a code quoted in its prose is no entry."""
     return set(
         re.findall(
             r"(?m)^\|\s*`(" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+)`",
@@ -184,11 +184,11 @@ def known_adrs():
     )
 
 
-def adrs_of(text, known=None):
-    """The ADRs a text cites, sorted: each code's longest prefix the index lists, so a rule's code names its ADR."""
-    known = known_adrs() if known is None else known
+def records_of(text, known=None):
+    """The records a text cites, sorted: each code's longest prefix the index lists, so a rule's code names its record."""
+    known = known_records() if known is None else known
     found = set()
-    for code in ADR_CODE.findall(text):
+    for code in RECORD_CODE.findall(text):
         while code not in known and "-" in code:
             code = code.rsplit("-", 1)[0]
         if code in known:
@@ -196,7 +196,7 @@ def adrs_of(text, known=None):
     return sorted(found)
 
 
-def supports_drift(folder, adrs, lens):
+def supports_drift(folder, records, lens):
     """The article's `Supports … (<lens> lens)` line against the subtitle: the article is the one page beside the diagram's
     `.assets` that embeds the slide. Returns the finding, or None when they agree or no article line exists."""
     slide = slide_of(folder).resolve()
@@ -208,9 +208,9 @@ def supports_drift(folder, adrs, lens):
         line = re.search(r"^Supports (.+?) \((\w+) lens\)\.?$", text, flags=re.MULTILINE)
         if line is None:
             return None
-        said = (adrs_of(line.group(1)), line.group(2))
-        if said != (adrs, lens):
-            return f"{page.relative_to(REPO).as_posix()} says Supports {said[0]} ({said[1]} lens), the subtitle {adrs} ({lens} lens)"
+        said = (records_of(line.group(1)), line.group(2))
+        if said != (records, lens):
+            return f"{page.relative_to(REPO).as_posix()} says Supports {said[0]} ({said[1]} lens), the subtitle {records} ({lens} lens)"
         return None
     return None
 
@@ -295,10 +295,10 @@ def bulk(root, theme=None, bases=None):
     for f in folders:
         if not model_of(f).is_file():
             continue
-        adrs, lens, subtitle_findings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
+        records, lens, subtitle_findings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
         findings += subtitle_findings
-        if adrs and lens is not None:
-            drift = supports_drift(f, adrs, lens)
+        if records and lens is not None:
+            drift = supports_drift(f, records, lens)
             if drift:
                 findings.append(f"E_SUPPORTS {drift}")
         findings += undeclared_findings(f, declaration.source_of(f).name if declaration.carrier_of(f) == "file" else f"`{declaration.FENCE}` block")

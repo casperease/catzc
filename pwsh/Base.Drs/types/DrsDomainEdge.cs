@@ -14,15 +14,15 @@ public sealed class DrsDomainEdge
     {
         if (string.IsNullOrWhiteSpace(from))
         {
-            throw new ArgumentException("an ADR domain edge requires a non-empty 'From' domain");
+            throw new ArgumentException("a DRS domain edge requires a non-empty 'From' domain");
         }
         if (string.IsNullOrWhiteSpace(to))
         {
-            throw new ArgumentException(string.Format("ADR domain edge from '{0}' requires a non-empty 'To' domain", from));
+            throw new ArgumentException(string.Format("DRS domain edge from '{0}' requires a non-empty 'To' domain", from));
         }
         if (string.Equals(from, to, StringComparison.Ordinal))
         {
-            throw new ArgumentException(string.Format("ADR domain '{0}' cannot depend on itself", from));
+            throw new ArgumentException(string.Format("DRS domain '{0}' cannot depend on itself", from));
         }
 
         From = from;

@@ -4,7 +4,7 @@ exempt:
     a three-way filter on a track member's committed fact (Get-TrackMember; true, false or unset) versus the opt-in to snapshot committed
     files only (New-RepositorySnapshot)
   Config: a config's name to load (Get-Config) versus a loaded config's content to validate (Invoke-ConfigValidator)
-  Edge: the edges of a diagram, typed per diagram domain (ADR domains versus module dependencies)
+  Edge: the edges of a diagram, typed per diagram domain (DRS domains versus module dependencies)
   GlobSet: a loaded globset to read versus the name of a globset an Azure DevOps build validation registers
   Probe: tool-probe records to report versus a probe scriptblock a test target runs
   Value: the value a single-value command sets or checks versus the variable set an environment writer applies
