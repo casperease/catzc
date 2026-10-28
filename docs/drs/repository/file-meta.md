@@ -32,11 +32,11 @@ where the policy calls for it or present where it does not, is a finding. A Mark
 ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a capability's authored config contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)); where
 another tool validates the front matter, the key nests at the path the carrier registry declares (`key`, such as `metadata.catzc`), the
-block's own key `catzc` either way, and a parent key written as a flow mapping or a scalar is never rewritten. A JSON file's carrier is its
-ignored property ([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier)), a generated png's, svg's or xml's the place its
-format keeps for foreign text ([ADR-REPO-FILEMETA-EVERYFORMATCARRIES](#rule-adr-repo-filemeta-everyformatcarries)), a code file's its meta
-head ([code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns:
-every other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
+block's own key `catzc` either way, and a parent key written as a flow mapping or a scalar is never rewritten. Every other carrier is its
+format's own ([ADR-REPO-FILEMETA-JSONCARRIER](#rule-adr-repo-filemeta-jsoncarrier),
+[ADR-REPO-FILEMETA-EVERYFORMATCARRIES](#rule-adr-repo-filemeta-everyformatcarries),
+[code-file-meta](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)). The block is the only part of the file the tooling owns: every
+other front-matter key belongs to the tool that reads it, and the tooling never reads, orders or rewrites one.
 
 - [Decision](#decision)
 - [One block, two carriers](#one-block-two-carriers)
@@ -313,11 +313,9 @@ parameters and sit below the reader, where the reader can call them.
 
 A generated file is rewritten whole on every run, and the drift check compares it with what its writer would compose now. If an imprint step
 wrote the head afterwards, the two would disagree on every run, so the writer writes the head itself, through the one renderer every writer
-calls. The head carries the one warning, so a reader is told not to edit the file in the same words everywhere, and while git tracks the
-file it tells the reader what to run and what to edit instead. A reader of a png on a review page or in an editor has no resolver at hand,
-so the stamp is the one step from the picture to its declaration. The stamp is projected from the writer row and never read back, so it is a
-note, not a second registry: a stale head misleads a person for one render at most and no command at all. One renderer means a Python writer
-and a PowerShell writer stamp the same bytes.
+calls. A reader of a png on a review page or in an editor has no resolver at hand, so the stamp is the one step from the picture to its
+declaration. The stamp is projected from the writer row and never read back, so it is a note, not a second registry: a stale head misleads a
+person for one render at most and no command at all. One renderer means a Python writer and a PowerShell writer stamp the same bytes.
 
 ### Property carriers
 
@@ -344,8 +342,7 @@ second a set of directed, named edges leaving it. Both are asked of the reposito
 `A file's companions are found by convention and derivation, never named in the head`
 
 A reader wants a file's test and its comment page one step away. A reader of a code file on GitHub or in an editor has no resolver at hand,
-so the code file's navigation head shows its page as the one `docs` edge, while an authored doc, read with its links, shows none, and the
-test is never named.
+so the code file's navigation head shows its page as the one `docs` edge, while an authored doc is read with its links.
 
 ### File kinds
 
@@ -353,9 +350,9 @@ test is never named.
 
 A file has a language, a track, a module and a role, and each is a fact of its own. Folding the language into the role, a Python script and
 a PowerShell script as two roles, makes the same fact twice and a head that disagrees with itself. So the role says only what the file is
-for: a test, a function, a config, a decision record. A role's entry may carry an exclude list of globs that pass a selected path on to the
-next role, and the subkinds of a role are written under it. One registry for every file means every gate says the same thing about a file,
-and the pinned names let a consumer's tool rely on them.
+for. A role's entry may carry an exclude list of globs that pass a selected path on to the next role, and the subkinds of a role are written
+under it. One registry for every file means every gate says the same thing about a file, and the pinned names let a consumer's tool rely on
+them.
 
 ### A head shows the facts, never holds them
 
@@ -382,13 +379,11 @@ authored code or config file shows the one `docs` edge a reader of the code cann
 - **`Test-FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an
   earlier one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
-- **`Test-LinkDirections`** fails a link that points the wrong way (ADR-REPO-FILEMETA-FEWLINKS): a comment page outside the file's own
-  module section of `docs/references`, or a module that links another by file path instead of naming it
-  ([links-in-repository](links-in-repository.md)).
+- **`Test-LinkDirections`** fails a link that points the wrong way (ADR-REPO-FILEMETA-FEWLINKS,
+  [links-in-repository](links-in-repository.md)).
 
 ## Consequences
 
-- A computable fact is asked of the repository, and a head shows only the few a reader needs, the same on every run: no head changes on an
-  edit of an authored body.
+- A computable fact is asked of the repository, and a head shows only the few a reader needs.
 - A fact an author states is written once, in the file of the thing, and the config that needs it gathers it from there.
 - The formatter and the pure scanners are testable on strings alone, because they read no config and touch no file.
