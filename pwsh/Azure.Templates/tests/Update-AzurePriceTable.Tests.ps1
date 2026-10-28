@@ -120,3 +120,22 @@ Describe 'Update-AzurePriceTable' -Tag 'L0', 'logic' {
         { [Catzc.Azure.Templates.CostModelConfig]::new(@{ request_pause_ms = 1.5 }) } | Should -Throw '*request_pause_ms must be a whole number*'
     }
 }
+
+Describe 'Update-AzurePriceTable — shipped assets/cost-prices.json' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    BeforeAll {
+        # The price service is mocked away; the table compared against is the one shipped in the loaded module.
+        $script:shippedPath = Get-CatzcModuleRoot 'assets/cost-prices.json' -Module Catzc.Azure.Templates
+        Mock Start-Sleep -ModuleName Catzc.Azure.Templates { }
+        Mock Invoke-RestMethod -ModuleName Catzc.Azure.Templates { [pscustomobject]@{ Items = @(); NextPageLink = $null } }
+    }
+
+    It 'compares against the shipped table when no prices path is given, and -DryRun leaves it as it is' {
+        $before = [System.IO.File]::ReadAllText($script:shippedPath)
+        $result = Update-AzurePriceTable -DryRun
+        $result.Path | Should -Be $script:shippedPath
+        # Every meter came back unmatched, so the table it would write differs from the shipped one.
+        $result.Changed | Should -BeTrue
+        $result.Priced | Should -Be 0
+        [System.IO.File]::ReadAllText($script:shippedPath) | Should -BeExactly $before
+    }
+}

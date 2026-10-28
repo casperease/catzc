@@ -33,7 +33,7 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
                 $Arguments -match '^tag update' -and
                 $Arguments -match '--operation Merge' -and
-                $Arguments -match '/subscriptions/[0-9a-f-]+/resourceGroups/alpha-weu-tst-smpl-rg'
+                $Arguments -match '/subscriptions/[0-9a-f-]+/resourceGroups/alpha-weu-fxo-smpl-rg'
             }
         }
 
@@ -54,7 +54,7 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
         It 'tags the slot-derived resource group for a special slot' {
             Set-BicepTrackingTagSet -Environment alpha -Template sample-indexed -Slot 001 | Out-Null
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -ParameterFilter {
-                $Arguments -match '/resourceGroups/alpha-001-weu-tst-sidx-rg'
+                $Arguments -match '/resourceGroups/alpha-001-weu-fxo-sidx-rg'
             }
         }
     }
@@ -77,7 +77,7 @@ Describe 'Set-BicepTrackingTagSet' -Tag 'L0', 'logic' {
 
             $err = { Set-BicepTrackingTagSet -Environment alpha -Template sample } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*Failed to write tracking tags*'
-            $err.Exception.Message | Should -BeLike '*alpha-weu-tst-smpl-rg*'
+            $err.Exception.Message | Should -BeLike '*alpha-weu-fxo-smpl-rg*'
             $err.Exception.Message | Should -BeLike '*Connection aborted*'
             $err.Exception.Message | Should -BeLike '*exited 1*'
             Should -Invoke Invoke-AzCli -ModuleName Catzc.Azure.Templates -Times 1

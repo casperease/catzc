@@ -1,6 +1,21 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: e198fcf5c758",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"92d508c1ae49\"",
   "types": [
+    {
+      "name": "Catzc.Azure.Templates.AnomalyAlertConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "configuration_template",
+          "kind": "property"
+        },
+        {
+          "name": "vault_template",
+          "kind": "property"
+        }
+      ]
+    },
     {
       "name": "Catzc.Azure.Templates.ArmExpression",
       "aliases": [],

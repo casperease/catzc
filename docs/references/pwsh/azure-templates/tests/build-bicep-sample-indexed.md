@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.SampleIndexed.Tests.ps1
 
-<!-- cspell:ignore weutstsidxst -->
+<!-- cspell:ignore weufxosidxst -->
 
 The L0 tests of `Build-Bicep` against the `sample-indexed` fixture template, whose slots are indexed.
 

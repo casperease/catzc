@@ -24,7 +24,8 @@ go test -json -count=1 ./...   runs every test, uncached, as a test2json event s
 ```
 
 Every go command runs offline: the module proxy is off and `-mod=mod` is set, which keeps it on the module cache, writing go.sum from it,
-and GOTOOLCHAIN=local keeps it on the managed toolchain. A module missing from the cache fails the run with the explicit fetch that fills
+and GOTOOLCHAIN=local keeps it on the managed toolchain. GOWORK=off runs each command in its own module rather than the root go.work, which
+is the editors' layout and whose workspace mode refuses `-mod=mod`. A module missing from the cache fails the run with the explicit fetch that fills
 it, `Invoke-Go '-C <folder> mod download'`.
 
 The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment

@@ -48,6 +48,8 @@ configs:
     type: Catzc.Azure.Templates.CostModelConfig
   orphan-removal:
     type: Catzc.Azure.Templates.OrphanRemovalConfig
+  anomaly-alert:
+    type: Catzc.Azure.Templates.AnomalyAlertConfig
   markdownlint:
     type: Catzc.Base.QualityGates.MarkdownlintConfig
   identity-tokens:

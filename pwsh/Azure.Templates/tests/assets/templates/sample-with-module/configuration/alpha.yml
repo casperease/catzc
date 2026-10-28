@@ -1,8 +1,8 @@
-# cspell:ignore alweutstsmodst
+# cspell:ignore alweufxosmodst
 # Config for 'sample-with-module', base slot of env alpha (config 'alpha'). One config file ⟷ one RG.
 # storageAccountName is written statically here (in-template name generation is intentionally deferred).
 
 ParametersFile:
   parameters:
     storageAccountName:
-      value: alweutstsmodst
+      value: alweufxosmodst

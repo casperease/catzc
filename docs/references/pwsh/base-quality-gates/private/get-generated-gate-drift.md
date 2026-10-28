@@ -18,7 +18,10 @@ that very glob; for each such upstream writer, a commit of its committed files a
 writer and the short hash of its newer commit. An authored input is never judged here, the gate's own checks prove it. A writer with no
 committed output has nothing to be older than anything and answers nothing.
 
-The judgement is per writer, never per file: one newer upstream commit makes the writer stale as a whole.
+A writer with a `*.slide.md` input is a slide writer, and it is judged per output file: each output is stale only against its own inputs,
+the slide file and the pictures that slide names (`Get-SlideInputPath`), so a commit of a picture no slide uses flags nothing. Every other
+writer is judged as a whole: one newer upstream commit makes the writer stale. One `git log` over the involved globs gives the commit order
+of every path.
 
 ### parameter `Writer`
 
@@ -38,7 +41,8 @@ The repository the git history is read in. Default: the repository root.
 
 ### outputs
 
-`[string]` One line per upstream writer committed after the writer's last render; none when the writer is fresh.
+`[string]` One line per upstream writer committed after the writer's last render, or, for a slide writer, one line per input committed after
+its output; none when the writer is fresh.
 
 ### example 1
 

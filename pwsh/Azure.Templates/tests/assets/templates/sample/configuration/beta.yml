@@ -1,8 +1,8 @@
-# cspell:ignore btweutstsmplst
+# cspell:ignore btweufxosmplst
 # Config for the 'sample' fixture template, base slot of env beta. One config file ⟷ one RG.
 # Resource names are written statically here (in-template name generation is intentionally deferred).
 
 ParametersFile:
   parameters:
     storageAccountName:
-      value: btweutstsmplst
+      value: btweufxosmplst

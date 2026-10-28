@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
 
-<!-- cspell:ignore alweutstscusacst alweutstscusst -->
+<!-- cspell:ignore alweufxoscusacst alweufxoscusst -->
 
 The L0 tests of the per-slot config loader.
 

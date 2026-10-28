@@ -125,3 +125,29 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
         }
     }
 }
+
+Describe 'Get-BicepCostEstimate — shipped assets/cost-prices.json' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    BeforeAll {
+        # The default price table is the one shipped in the loaded module; the compiled template is a fixture.
+        $script:out = Join-Path $TestDrive 'compiled'
+        $script:shipped = ConvertFrom-Json -AsHashtable -InputObject ([System.IO.File]::ReadAllText(
+                (Get-CatzcModuleRoot 'assets/cost-prices.json' -Module Catzc.Azure.Templates)))
+        $script:model = Get-Config -Config cost-model
+        # Every type the shipped model meters without a SKU condition, so each line is priced without a subscription.
+        $types = @($script:model.meters | Where-Object { -not $_.when_sku } | ForEach-Object type | Sort-Object -Unique)
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:out 'widget') -Force
+        Set-Content -LiteralPath (Join-Path $script:out 'widget/main.json') -Value (@{
+                resources = @($types | ForEach-Object { @{ type = $_ } })
+            } | ConvertTo-Json -Depth 5)
+    }
+
+    It 'prices every line from the shipped table when no prices path is given' {
+        $estimate = Get-BicepCostEstimate widget -OutputRoot $script:out
+        $script:shipped['as_of'] | Should -Not -BeNullOrEmpty
+        $estimate.AsOf | Should -Be $script:shipped['as_of']
+        @($estimate.Lines).Count | Should -BeGreaterThan 0
+        foreach ($line in $estimate.Lines) {
+            $line.UnitPrice | Should -Be ([double] $script:shipped['prices'][$line.Meter]['unit_price']) -Because $line.Meter
+        }
+    }
+}

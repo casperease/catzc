@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
 
-<!-- cspell:ignore toolong gmweutstsmplst alweutstsmplst -->
+<!-- cspell:ignore toolong gmweufxosmplst alweufxosmplst -->
 
 The L0 tests of the command that writes a template's per-slot config.
 

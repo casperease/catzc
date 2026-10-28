@@ -27,8 +27,11 @@ articles:
   - docs/references/infrastructure/CLAUDE.md
   - docs/references/infrastructure/_template.md
   - docs/references/infrastructure/discovery.md
+  - docs/references/infrastructure/discovery-cost-model.md
   - docs/references/infrastructure/expedition.md
+  - docs/references/infrastructure/expedition-cost-model.md
   - docs/references/infrastructure/foundation.md
+  - docs/references/infrastructure/foundation-cost-model.md
   - docs/references/infrastructure/index.md
   - docs/references/infrastructure/modules.md
   - docs/references/infrastructure/overview.md

@@ -84,7 +84,7 @@ Describe 'Resolve-BicepParameterAddresses' -Tag 'L0', 'logic' {
 
 Describe 'Resolve-BicepParameterAddresses (through the config reader)' -Tag 'L0', 'logic' {
     BeforeAll {
-        # The real Get-ConfigValue over the module's test identity fixture (tests/assets/config/azure.yml, org 'tst').
+        # The real Get-ConfigValue over the module's test identity fixture (tests/assets/config/azure.yml, org 'fxo').
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) "tests/assets/config/$Config.yml"
@@ -107,7 +107,7 @@ Describe 'Resolve-BicepParameterAddresses (through the config reader)' -Tag 'L0'
 
     It 'resolves a leaf of a typed config' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
         (& $script:resolve ([ordered]@{ org = [ordered]@{ address = 'global.azure.org' } })).org.value |
-            Should -Be 'tst'
+            Should -Be 'fxo'
     }
 
     It 'resolves the defaulted policy enforcement mode the config file omits' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS', 'ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE' {

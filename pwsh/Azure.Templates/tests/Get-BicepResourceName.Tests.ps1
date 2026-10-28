@@ -1,4 +1,4 @@
-# cspell:ignore alweutstsmplst alweutstsmplacst
+# cspell:ignore alweufxosmplst alweufxosmplacst
 Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     # Read-only resolver: mocks and the cache reset run once, since a per-test reset would re-derive the fixture config cold (~80 ms) every test.
     BeforeAll {
@@ -14,26 +14,26 @@ Describe 'Get-BicepResourceName' -Tag 'L0', 'logic' {
     }
 
     It 'generates the relaxed resource-group name (env name) for a base slot' {
-        Get-BicepResourceName -Template sample -Environment alpha -Type rg | Should -Be 'alpha-weu-tst-smpl-rg'
+        Get-BicepResourceName -Template sample -Environment alpha -Type rg | Should -Be 'alpha-weu-fxo-smpl-rg'
     }
 
     It 'generates the tight storage-account name (shortcode, concatenated, no hyphens)' {
-        Get-BicepResourceName -Template sample -Environment alpha -Type st | Should -Be 'alweutstsmplst'
+        Get-BicepResourceName -Template sample -Environment alpha -Type st | Should -Be 'alweufxosmplst'
     }
 
     It 'includes the slot for a special slot' {
         Get-BicepResourceName -Template sample-indexed -Environment alpha -Slot 001 -Type rg |
-            Should -Be 'alpha-001-weu-tst-sidx-rg'
+            Should -Be 'alpha-001-weu-fxo-sidx-rg'
     }
 
     It 'inserts a customer (readable key) and role in a relaxed name' {
         Get-BicepResourceName -Template sample -Environment alpha -Type rg -Customer acme -Role hot |
-            Should -Be 'alpha-weu-tst-smpl-acme-hot-rg'
+            Should -Be 'alpha-weu-fxo-smpl-acme-hot-rg'
     }
 
     It 'renders the customer SHORTCODE in a tight (restricted) name' {
         Get-BicepResourceName -Template sample -Environment alpha -Type st -Customer acme |
-            Should -Be 'alweutstsmplacst'
+            Should -Be 'alweufxosmplacst'
     }
 
     It 'rejects an unknown customer' {

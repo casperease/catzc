@@ -13,7 +13,7 @@ setup() {
 }
 
 @test "a contract group lists one checked asset per pipeline file it applies to" {
-    run cats Get-Contract -Root catzc -Group catzc.azure.dev_ops
+    run cats Get-Contract -Root catzc -Group pwsh.azure.dev_ops
     [ "$status" -eq 0 ] || {
         echo "Get-Contract exited $status: $output" >&2
         return 1

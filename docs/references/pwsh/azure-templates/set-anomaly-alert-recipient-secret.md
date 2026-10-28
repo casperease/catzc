@@ -15,7 +15,8 @@ Writes the anomaly alert's recipients to the secret discovery references, in the
 
 Checks the value is comma-separated email addresses, then reads the target from the az session: the subscription, pinned by
 `-SubscriptionIdAssertIs` (required in a pipeline), and its customer. The secret's name is the one discovery's configuration for the
-environment and customer references; the vault is foundation's, named by the namer, and a reference to another vault is an error. The
+environment and customer references; the vault is foundation's, named by the namer, and a reference to another vault is an error. Both
+templates are the `anomaly-alert.yml` config's `configuration_template` and `vault_template`, discovery and foundation by default. The
 trimmed recipients reach the vault through a file deleted right after, by the same writer the break-glass rotation uses, and no message or
 error names a recipient.
 

@@ -6,7 +6,7 @@ Describe 'Get-GeneratedWriterOutputPath' -Tag 'L0', 'logic' {
         )
         $script:claim = {
             param([int] $Index, [string[]] $Path)
-            Get-GeneratedWriterOutputPath -Writer $script:rows[$Index] -Writers $script:rows -Path $Path
+            Get-GeneratedWriterOutputPath -WriterRow $script:rows[$Index] -Writers $script:rows -Path $Path
         }
         $script:paths = @('docs/deck/.assets/gadget.slide.png', 'docs/deck/.assets/gadget.png', 'docs/deck/gadget.slide.md', 'docs\deck\.assets\widget.png')
     }

@@ -73,7 +73,7 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
 
     It 'deployment.resource_group is derived from the slot + naming standard for RG-target templates' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
-        $context.deployment.resource_group | Should -Be 'alpha-weu-tst-smpl-rg'
+        $context.deployment.resource_group | Should -Be 'alpha-weu-fxo-smpl-rg'
     }
 
     It 'artifacts.did_local_build is true on devbox (Build-Bicep is invoked)' {
@@ -181,7 +181,7 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
         } -ModuleName Catzc.Azure.Templates
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
         $context.deployment.resource_group |
-            Should -Be 'alpha-weu-tst-scus-acme-rg'   # customer from the session subscription
+            Should -Be 'alpha-weu-fxo-scus-acme-rg'   # customer from the session subscription
         $context.deployment.name | Should -BeLike 'sample-customer-alpha-*'
         $context.environment.subscription.name | Should -Be 'acme_lower'
         $context.artifacts.parameters_file | Should -BeLike '*parameters.acme.alpha.json'
@@ -194,7 +194,7 @@ Describe 'Get-BicepDeploymentContext (per-customer)' -Tag 'L0', 'logic' {
             }
         } -ModuleName Catzc.Azure.Templates
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample-customer
-        $context.deployment.resource_group | Should -Be 'alpha-weu-tst-scus-rg'   # no customer on core_lower
+        $context.deployment.resource_group | Should -Be 'alpha-weu-fxo-scus-rg'   # no customer on core_lower
         $context.environment.subscription.name | Should -Be 'core_lower'
         $context.artifacts.parameters_file | Should -BeLike '*parameters.alpha.json'
     }

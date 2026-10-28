@@ -12,7 +12,7 @@ tokens:
   - config: azure
     path: org
     kind: org
-    suggest: the fixture org (tst)
+    suggest: the fixture org (fxo)
   - config: azure
     path: subscriptions
     take: keys

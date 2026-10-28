@@ -1,10 +1,10 @@
-# cspell:ignore toolong alweutstsmplst weutstsmplst sttstsmplalweu alweutstsmplachotst weuabcdiscwachotst alweusmplvm weuwkspvm
+# cspell:ignore toolong alweufxosmplst weufxosmplst stfxosmplalweu alweufxosmplachotst weuabcdiscwachotst alweusmplvm weuwkspvm
 # Big data-driven case set for the Azure resource-name generator/validator (Get-AzureResourceName).
 # Each case has an `input` (a splat for Get-AzureResourceName) and EITHER an `expected` name string
 # OR an `error` wildcard (the message a bad input should throw).
 # Consumed by tests/Get-AzureResourceName.Content.Tests.ps1.
 #
-# Fixture vocabulary (ADR-AUTO-TEST-DISTINCTFIXTURES): Greek env names (alpha/gamma), org tst, customer acme — deliberately
+# Fixture vocabulary (ADR-AUTO-TEST-DISTINCTFIXTURES): Greek env names (alpha/gamma), org fxo, customer acme — deliberately
 # distinct from the shipped dev/test/preprod/prod, zct, apex, so a shipped-config edit cannot change this
 # logic test. Get-AzureResourceName is a pure assembler of the components passed in.
 #
@@ -14,46 +14,46 @@
 cases:
   # --- long pattern: relaxed (hyphenated), renders the env NAME ---
   - name: long rg, base slot
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
-    expected: alpha-weu-tst-smpl-rg
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
+    expected: alpha-weu-fxo-smpl-rg
   - name: long rg, slot 001
-    input: { Env: alpha, Slot: "001", RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
-    expected: alpha-001-weu-tst-smpl-rg
+    input: { Env: alpha, Slot: "001", RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
+    expected: alpha-001-weu-fxo-smpl-rg
   - name: long rg, classic with slot
-    input: { Env: alpha, Slot: "001", RegionCode: weu, Org: tst, ShortName: smpl, Type: rg, Order: classic }
-    expected: rg-tst-smpl-alpha-weu-001
+    input: { Env: alpha, Slot: "001", RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg, Order: classic }
+    expected: rg-fxo-smpl-alpha-weu-001
   - name: long rg, classic base slot (slot dropped)
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg, Order: classic }
-    expected: rg-tst-smpl-alpha-weu
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg, Order: classic }
+    expected: rg-fxo-smpl-alpha-weu
   - name: long vnet
-    input: { Env: gamma, RegionCode: weu, Org: tst, ShortName: smpl, Type: vnet }
-    expected: gamma-weu-tst-smpl-vnet
+    input: { Env: gamma, RegionCode: weu, Org: fxo, ShortName: smpl, Type: vnet }
+    expected: gamma-weu-fxo-smpl-vnet
   - name: long rg with customer and role
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Customer: acme, Role: hot, Type: rg }
-    expected: alpha-weu-tst-smpl-acme-hot-rg
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Customer: acme, Role: hot, Type: rg }
+    expected: alpha-weu-fxo-smpl-acme-hot-rg
 
   # --- kv pattern: hyphenated but restricted-budget → renders the SHORTCODE ---
   - name: kv, base slot
-    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: tst, ShortName: smpl, Type: kv }
-    expected: al-weu-tst-smpl-kv
+    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: fxo, ShortName: smpl, Type: kv }
+    expected: al-weu-fxo-smpl-kv
   - name: kv, slot 001
-    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: tst, ShortName: smpl, Type: kv }
-    expected: al-001-weu-tst-smpl-kv
+    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: fxo, ShortName: smpl, Type: kv }
+    expected: al-001-weu-fxo-smpl-kv
 
   # --- storage pattern: tight (concatenated) → SHORTCODE ---
   - name: storage, base slot
-    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: tst, ShortName: smpl, Type: st }
-    expected: alweutstsmplst
+    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: fxo, ShortName: smpl, Type: st }
+    expected: alweufxosmplst
   - name: storage, slot 001
-    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: tst, ShortName: smpl, Type: st }
-    expected: al001weutstsmplst
+    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: fxo, ShortName: smpl, Type: st }
+    expected: al001weufxosmplst
   - name: storage, classic with slot
-    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: tst, ShortName: smpl, Type: st, Order: classic }
-    expected: sttstsmplalweu001
+    input: { Env: alpha, Shortcode: al, Slot: "001", RegionCode: weu, Org: fxo, ShortName: smpl, Type: st, Order: classic }
+    expected: stfxosmplalweu001
   - name: storage with customer and role, base slot (customer renders the SHORTCODE)
     input:
-      { Env: alpha, Shortcode: al, RegionCode: weu, Org: tst, ShortName: smpl, Customer: acme, CustomerShortcode: ac, Role: hot, Type: st }
-    expected: alweutstsmplachotst
+      { Env: alpha, Shortcode: al, RegionCode: weu, Org: fxo, ShortName: smpl, Customer: acme, CustomerShortcode: ac, Role: hot, Type: st }
+    expected: alweufxosmplachotst
   - name: storage full house (slot + customer + role, short5) now FITS at 23
     input:
       {
@@ -72,7 +72,7 @@ cases:
 
   # --- vm pattern: tight, capped at 15 → SHORTCODE; omits org/customer/role (RG-encoded) ---
   - name: vm, base slot (org dropped)
-    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: tst, ShortName: smpl, Type: vm }
+    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: fxo, ShortName: smpl, Type: vm }
     expected: alweusmplvm
   - name: vm, slotted per-customer — omits org/customer/role, fits 15
     input:
@@ -81,7 +81,7 @@ cases:
         Shortcode: al,
         Slot: "001",
         RegionCode: weu,
-        Org: tst,
+        Org: fxo,
         ShortName: wksp,
         Customer: acme,
         CustomerShortcode: ac,
@@ -92,37 +92,37 @@ cases:
 
   # --- validation failures (expected output is a thrown error) ---
   - name: restricted type without a shortcode
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: st }
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: st }
     error: "*needs a -Shortcode*"
   - name: rejects an uppercase env name
-    input: { Env: Alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
+    input: { Env: Alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
     error: "*Invalid Env*"
   - name: rejects a 1-char env name
-    input: { Env: d, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
+    input: { Env: d, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
     error: "*Invalid Env*"
   - name: rejects a 3-char shortcode
-    input: { Env: alpha, Shortcode: xyz, RegionCode: weu, Org: tst, ShortName: smpl, Type: st }
+    input: { Env: alpha, Shortcode: xyz, RegionCode: weu, Org: fxo, ShortName: smpl, Type: st }
     error: "*Invalid Shortcode*"
   - name: rejects a non-3-letter region code
-    input: { Env: alpha, RegionCode: westeurope, Org: tst, ShortName: smpl, Type: rg }
+    input: { Env: alpha, RegionCode: westeurope, Org: fxo, ShortName: smpl, Type: rg }
     error: "*Invalid RegionCode*"
   - name: rejects a too-long short_name
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: toolong, Type: rg }
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: toolong, Type: rg }
     error: "*Invalid ShortName*"
   - name: rejects a 4-char slot
-    input: { Env: alpha, Slot: zzzz, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
+    input: { Env: alpha, Slot: zzzz, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
     error: "*Invalid Slot*"
   - name: rejects an uppercase slot
-    input: { Env: alpha, Slot: AB, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg }
+    input: { Env: alpha, Slot: AB, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg }
     error: "*Invalid Slot*"
   - name: rejects an unknown resource type
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: zzz }
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: zzz }
     error: "*Unknown resource type*"
   - name: rejects an unknown name order
-    input: { Env: alpha, RegionCode: weu, Org: tst, ShortName: smpl, Type: rg, Order: fancy }
+    input: { Env: alpha, RegionCode: weu, Org: fxo, ShortName: smpl, Type: rg, Order: fancy }
     error: "*Unknown name order*"
   - name: restricted type with a customer but no customer shortcode
-    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: tst, ShortName: smpl, Customer: acme, Type: st }
+    input: { Env: alpha, Shortcode: al, RegionCode: weu, Org: fxo, ShortName: smpl, Customer: acme, Type: st }
     error: "*needs a -CustomerShortcode*"
   - name: throws when a hyphenated kv name overflows the type limit (full house)
     input:

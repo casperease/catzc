@@ -27,6 +27,8 @@ The managed root config files, the importer drift guard, `.gitignore`, and the V
 | 18  | L1   | [Get-GeneratedTarget — the real repository][c18]                       |
 | 19  | L1   | [Build-WidthConfigs][c19]                                              |
 | 20  | L1   | [New-JsConfig — the editor declarations match the manifests][c20]      |
+| 21  | L1   | [Build-WidthConfigs — shipped assets/root templates][c21]              |
+| 22  | L1   | [Restore-Generated (shipped writer registry)][c22]                     |
 
 [c1]: #1-build-rootconfig--real-rootconfigyml
 [c2]: #2-root-psscriptanalyzersettingspsd1-copy
@@ -48,6 +50,8 @@ The managed root config files, the importer drift guard, `.gitignore`, and the V
 [c18]: #18-get-generatedtarget--the-real-repository
 [c19]: #19-build-widthconfigs
 [c20]: #20-new-jsconfig--the-editor-declarations-match-the-manifests
+[c21]: #21-build-widthconfigs--shipped-assetsroot-templates
+[c22]: #22-restore-generated-shipped-writer-registry
 
 ## Checks
 
@@ -154,7 +158,7 @@ paths.
 
 ### 16. catzc-track-lamps — the real repository
 
-**Test file:** `pwsh/Base.VSCode/tests/catzc-track-lamps.Tests.ps1` (L1), block `catzc-track-lamps — the real repository`.
+**Test file:** `pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1` (L1), block `catzc-track-lamps — the real repository`.
 
 **Guards:** The track-lamps extension lights the real tree's files by the shipped filters and tracks.
 
@@ -198,3 +202,14 @@ paths.
 
 **Guards:** `Build-WidthConfigs` renders every target from the template the loaded RootConfig module ships, with each width token filled
 (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+### 22. Restore-Generated (shipped writer registry)
+
+**Test file:** `pwsh/Base.GeneratedFiles/tests/Restore-Generated.Tests.ps1` (L1), block `Restore-Generated (shipped writer registry)`.
+
+**Guards:** every rollable writer in the shipped registry can be run by `Restore-Generated` on its own (ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP).
+
+**Checks:**
+
+- Every rollable writer is a command of the session, or declares a regenerate command whose tool `tools.yml` declares.
+- No rollable writer that is a command has a mandatory parameter, so each runs with no argument.

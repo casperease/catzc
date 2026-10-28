@@ -262,6 +262,8 @@ def test_no_glyph_or_phrase_of_the_glyph_library_stands_on_another():
     boxes = {}
     for c in ET.fromstring(drawio_forward.legend_model()).iter("mxCell"):
         g, cid = c.find("mxGeometry"), c.get("id")
+        if g is None or cid is None:
+            continue
         if c.get("vertex") == "1" and c.get("parent") == "1" and cid.startswith("g-") and not TAG_ID.search(cid) and not cid.endswith("-tag"):
             boxes[cid] = tuple(float(g.get(k, 0)) for k in ("x", "y", "width", "height"))
     meet = lambda a, b: a[0] < b[0] + b[2] and b[0] < a[0] + a[2] and a[1] < b[1] + b[3] and b[1] < a[1] + a[3]

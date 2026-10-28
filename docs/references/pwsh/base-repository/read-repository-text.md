@@ -6,7 +6,7 @@ The one text reader for a repository file that a source may stand in for.
 
 ### synopsis
 
-Returns the text of a repository file, from the active source or the working tree, or nothing when the file is absent.
+Returns the text of a repository file, from the active text source or the working tree, or nothing when the file is absent.
 
 ### description
 

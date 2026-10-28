@@ -380,7 +380,11 @@ def test_a_pill_stands_at_the_middle_of_its_line_when_the_ring_crossing_would_co
     bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
     assert bubble is not None
     centre = (int(bubble.group(1)) + int(bubble.group(3)) / 2, int(bubble.group(2)) + int(bubble.group(4)) / 2)
-    box = lambda cid: [int(v) for v in re.search(rf'<mxCell id="{cid}" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model).groups()]
+    def box(cid):
+        found = re.search(rf'<mxCell id="{cid}" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model)
+        assert found is not None
+        return [int(v) for v in found.groups()]
+
     a, b, ring = box("effect-index"), box("effect-recount"), box("ring-1")
     r = ring[2] / 2
     assert a[0] + a[2] < centre[0] < b[0]  # between the two boxes' facing sides

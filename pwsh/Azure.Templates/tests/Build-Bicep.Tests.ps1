@@ -1,4 +1,4 @@
-# cspell:ignore alweutstsmplst
+# cspell:ignore alweufxosmplst
 Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
@@ -56,7 +56,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     It 'passes the configured storageAccountName through to parameters.json' {
         Build-Bicep sample -Environments alpha | Out-Null
         $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.storageAccountName.value | Should -Be 'alweutstsmplst'
+        $json.parameters.storageAccountName.value | Should -Be 'alweufxosmplst'
     }
 
     It 'filters environments when -Environments is provided' {

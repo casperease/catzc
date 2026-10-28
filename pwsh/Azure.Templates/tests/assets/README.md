@@ -16,7 +16,7 @@ would be collected as a test.
 
   `Get-Config` caches by resolved path, so reset its cache first (`InModuleScope Catzc.Base.Config { $script:configCache = $null }`) to load
   the fixture fresh; the fixture and the shipped `configs/azure.yml` never collide. Uses deliberately distinct identities (envs
-  `alpha`/`beta`/`gamma`/`delta`, customers `acme`/`globex`, org `tst`) so editing the shipped `azure.yml` can never change a logic-test
+  `alpha`/`beta`/`gamma`/`delta`, customers `acme`/`globex`, org `fxo`) so editing the shipped `azure.yml` can never change a logic-test
   outcome. The shipped assets are validated separately by `tests/Get-Config.Integrity.Tests.ps1`.
 
 - `templates/<name>/` — fixture bicep templates (their configs use the `config/` fixture's envs + customers). Tests redirect discovery here

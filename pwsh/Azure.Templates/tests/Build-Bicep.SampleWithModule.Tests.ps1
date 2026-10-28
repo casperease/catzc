@@ -1,4 +1,4 @@
-# cspell:ignore alweutstsmodst
+# cspell:ignore alweufxosmodst
 Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
     # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
@@ -49,13 +49,13 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
 
     It 'uses a statically-configured name that matches Get-BicepResourceName' {
         $expected = Get-BicepResourceName -Template sample-with-module -Environment alpha -Type st
-        $expected | Should -Be 'alweutstsmodst'
+        $expected | Should -Be 'alweufxosmodst'
     }
 
     It 'renders the configured storageAccountName into parameters.alpha.json' {
         Build-Bicep sample-with-module -Environments alpha | Out-Null
         $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.storageAccountName.value | Should -Be 'alweutstsmodst'
+        $json.parameters.storageAccountName.value | Should -Be 'alweufxosmodst'
     }
 
     It 'builds a self-contained output folder: every path a built .bicep or .bicepparam names resolves inside it' {

@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.Tests.ps1
 
-<!-- cspell:ignore alweutstsmplst -->
+<!-- cspell:ignore alweufxosmplst -->
 
 The L0 tests of `Build-Bicep` against the `sample` fixture template, in a mocked-compiler block and a block for the real bicep binary.
 

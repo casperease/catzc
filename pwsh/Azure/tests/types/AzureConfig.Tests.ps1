@@ -3,7 +3,7 @@ Describe 'AzureConfig' -Tag 'L0' {
     BeforeAll {
         # Fixture identities distinct from the shipped azure.yml, so editing it never changes these outcomes.
         $script:baseConfig = [ordered]@{
-            org           = 'tst'
+            org           = 'fxo'
             tenants       = [ordered]@{
                 fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' }
             }
@@ -62,7 +62,7 @@ Describe 'AzureConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'passes for minimal valid config' {
             $config = & $script:make (Copy-Object $baseConfig)
-            $config.org | Should -Be 'tst'
+            $config.org | Should -Be 'fxo'
             $config.tenants['fixtenant'].id | Should -Be 'fa0e0000-7e0a-0700-1d00-000000000000'
             $config.subscriptions['core_lower'] | Should -BeOfType [Catzc.Azure.AzureSubscriptionRecord]
             $config.subscriptions['core_lower'].environments | Should -Be @('alpha')

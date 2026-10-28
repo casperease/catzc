@@ -65,6 +65,10 @@ terms:
       meaning: "fixture compound word the qualified-forms check (G6) must not split"
     - term: widgetry
       meaning: "fixture longer word the qualified-forms check (G6) must not match"
+    - term: sprocketry
+      meaning: "fixture domain value 'sprocketry', the edited-state domain in the world-map tests"
+    - term: configsx
+      meaning: "fixture folder 'configsx', a near-miss of configs/ the repository text-file tests must not match"
     - term: faketool
       meaning: "placeholder tool name 'faketool' in Resolve-SessionToolHint tests"
     - term: hintbin
@@ -149,7 +153,7 @@ terms:
       meaning: "placeholder learning file name 'learnedgizmo' in Add-SessionLearning tests"
     - term: sbpp
       meaning: "short name of the sample-bicepparam test template (sbpp) in Catzc.Azure.Templates test assets"
-    - term: btweutstsbppst
+    - term: btweufxosbppst
       meaning: "a resource name composed from the sample-bicepparam template's shortcodes in Get-BicepTemplateConfiguration tests"
     - term: rulename
       meaning: "placeholder for a rule's name part in a rule code template (<code>-<RULENAME>) in the how-to docs"

@@ -55,7 +55,7 @@ Describe 'Build-Bicep (sample-with-prepost merge seam)' -Tag 'L0', 'logic' {
     }
 
     It 'passes the configured vnetName through alongside the merged ranges' {
-        $script:alphaJson.parameters.vnetName.value | Should -Be 'alpha-weu-tst-sppp-vnet'
+        $script:alphaJson.parameters.vnetName.value | Should -Be 'alpha-weu-fxo-sppp-vnet'
     }
 
     It 'merges the per-environment ranges (alpha and beta differ)' {

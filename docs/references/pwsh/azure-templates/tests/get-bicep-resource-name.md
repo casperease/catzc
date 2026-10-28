@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Get-BicepResourceName.Tests.ps1
 
-<!-- cspell:ignore alweutstsmplst alweutstsmplacst -->
+<!-- cspell:ignore alweufxosmplst alweufxosmplacst -->
 
 The L0 tests of the template-slot resource-name function.
 

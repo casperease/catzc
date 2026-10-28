@@ -36,7 +36,7 @@ Module._load = function (request, ...rest) {
     return request === "vscode" ? vscode : original.call(this, request, ...rest);
 };
 
-const LOG = "\x1b[1;92mwidget passed\x1b[0m\nplain line\n\x1b[31mgadget failed\x1b[0m and \x1b[33mone warning\x1b[39m\n";
+const LOG = "\x1b[1;92mwidget passed\x1b[0m\nplain line\n\x1b[31mgadget failed\x1b[0m and \x1b[33m" + "one warning\x1b[39m\n";
 
 // An editor of the text at the path, recording each decoration type's ranges as the extension sets them.
 const editorOf = (/** @type {string} */ fsPath, /** @type {string} */ text) => {

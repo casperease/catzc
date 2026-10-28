@@ -7,7 +7,7 @@
 # never change a logic-test outcome. The shipped azure.yml is validated
 # separately by tests/Get-Config.Integrity.Tests.ps1.
 
-org: tst
+org: fxo
 
 tenants:
   fixtenant:

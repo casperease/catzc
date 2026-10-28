@@ -41,16 +41,19 @@ function Set-AnomalyAlertRecipientSecret {
         $session.customer
     }
 
-    # The secret's name is the one discovery's configuration references; the vault is foundation's, by the namer.
-    $parameters = (Get-BicepTemplateConfiguration discovery $Environment -Customer $customer).ParametersFile.parameters
+    # The secret's name is the one the configuration template references; the vault is the vault template's, by the namer.
+    $templates = Get-Config -Config anomaly-alert
+    $configurationTemplate = $templates.configuration_template
+    $vaultTemplate = $templates.vault_template
+    $parameters = (Get-BicepTemplateConfiguration $configurationTemplate $Environment -Customer $customer).ParametersFile.parameters
     if (-not $parameters.Contains('anomalyAlertRecipients') -or -not $parameters['anomalyAlertRecipients'].Contains('reference')) {
-        throw "Discovery's configuration for $Environment$(if ($customer) { " (customer '$customer')" }) has no Key Vault reference for anomalyAlertRecipients, so there is no secret to seed."
+        throw "The $configurationTemplate configuration for $Environment$(if ($customer) { " (customer '$customer')" }) has no Key Vault reference for anomalyAlertRecipients, so there is no secret to seed."
     }
     $reference = $parameters['anomalyAlertRecipients'].reference
-    $vault = Get-BicepResourceName -Template foundation -Environment $Environment -Type kv -Customer $customer
+    $vault = Get-BicepResourceName -Template $vaultTemplate -Environment $Environment -Type kv -Customer $customer
     $referencedVault = ($reference.keyVault.id -split '/')[-1]
     if ($referencedVault -ne $vault) {
-        throw "Discovery's configuration for $Environment references vault '$referencedVault', but foundation's vault there is '$vault'; correct the reference."
+        throw "The $configurationTemplate configuration for $Environment references vault '$referencedVault', but the $vaultTemplate vault there is '$vault'; correct the reference."
     }
     $secretName = $reference.secretName
 

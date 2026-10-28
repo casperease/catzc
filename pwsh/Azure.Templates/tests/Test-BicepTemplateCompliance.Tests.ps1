@@ -326,7 +326,7 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L1', 'integrity' {
+Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L2', 'integrity' {
     It 'every compiled template slot holds to the compliance rules, but for the known findings, and every known finding still occurs' {
         $bicep = Resolve-ToolExecutable -Tool bicep
         if (-not ($bicep.Found -and $bicep.VersionOk)) {

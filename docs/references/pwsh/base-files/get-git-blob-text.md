@@ -13,8 +13,8 @@ Returns the texts of the given blobs as a map of blob id to text.
 Reads every blob not read before in one `git cat-file --batch` through Invoke-Executable, the ids on its standard input, inside git's time
 limit. A fresh marker heads each object, since the decoded text cannot count git's byte sizes, and the marker itself is asked for last, so
 its 'missing' answer closes the stream and no trim reaches the last text. The text is UTF-8, without a leading byte-order mark, as
-[System.IO.File]::ReadAllText reads a file. Texts are cached under their blob id, which names its content, so a cached text is never stale.
-An id the repository does not hold throws, and nothing of that call is cached.
+`[System.IO.File]::ReadAllText` reads a file. Texts are cached under their blob id, which names its content, so a cached text is never
+stale. An id the repository does not hold throws, and nothing of that call is cached.
 
 ### parameter `Blob`
 

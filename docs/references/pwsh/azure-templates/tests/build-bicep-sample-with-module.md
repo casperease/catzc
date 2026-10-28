@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.SampleWithModule.Tests.ps1
 
-<!-- cspell:ignore alweutstsmodst -->
+<!-- cspell:ignore alweufxosmodst -->
 
 The L0 tests of `Build-Bicep` against the `sample-with-module` fixture template, which carries a local reusable module.
 

@@ -48,6 +48,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                     Toolchain  = $env:GOTOOLCHAIN
                     Proxy      = $env:GOPROXY
                     Flags      = $env:GOFLAGS
+                    Work       = $env:GOWORK
                 })
             switch -Wildcard ($Command) {
                 '* mod download' {
@@ -181,6 +182,26 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
             }
             Test-Path Env:GOPROXY | Should -BeFalse
             Test-Path Env:GOFLAGS | Should -BeFalse
+        }
+
+        It 'runs every go command outside the generated go.work, since workspace mode refuses -mod=mod' {
+            $null = Invoke-GoTest Catzc.Widget
+            $script:seen.Count | Should -Be 3
+            foreach ($call in $script:seen) {
+                $call.Work | Should -Be 'off'
+            }
+            Test-Path Env:GOWORK | Should -BeFalse
+        }
+
+        It 'restores the caller''s GOWORK afterwards' {
+            $env:GOWORK = 'widget.work'
+            try {
+                $null = Invoke-GoTest Catzc.Widget
+                $env:GOWORK | Should -Be 'widget.work'
+            }
+            finally {
+                Remove-Item Env:GOWORK -ErrorAction Ignore
+            }
         }
 
         It 'throws naming the explicit download command when a module is not in the cache, running nothing more' {

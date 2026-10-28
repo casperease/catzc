@@ -296,27 +296,7 @@ terms:
       meaning: "DejaVu fonts, the slide renderer's fallback off Windows"
     - term: tomoki
       meaning: "VS Code extension publisher id (tomoki1207.pdf) in the extensions plan"
-    - term: pkief
-      meaning: "VS Code extension publisher id (PKief.material-icon-theme)"
-    - term: hnrobert
-      meaning: "VS Code extension publisher id (hnrobert) in the extensions plan"
-    - term: hilleer
-      meaning: "VS Code extension publisher id (hilleer) in the extensions plan"
-    - term: yzane
-      meaning: "VS Code extension publisher id (yzane.markdown-pdf)"
-    - term: mechatroner
-      meaning: "VS Code extension publisher id (mechatroner.rainbow-csv)"
-    - term: clysto
-      meaning: "VS Code extension publisher id (clysto) in the extensions plan"
-    - term: cucumberopen
-      meaning: "VS Code extension publisher id (CucumberOpen.cucumber-official)"
-    - term: getgauge
-      meaning: "VS Code extension publisher id (getgauge.gauge)"
-    - term: eridem
-      meaning: "VS Code extension publisher id (eridem) in the extensions plan"
-    - term: donjayamanne
-      meaning: "VS Code extension publisher id (donjayamanne.githistory)"
     - term: githistory
-      meaning: "VS Code extension name (donjayamanne.githistory)"
+      meaning: "the Git History VS Code extension's name (githistory)"
     - term: azurecli
       meaning: "VS Code extension name (ms-vscode.azurecli)"

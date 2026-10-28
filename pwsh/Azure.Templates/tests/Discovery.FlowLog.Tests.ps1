@@ -1,5 +1,15 @@
-Describe 'discovery flow logs: every compiled slot' -Tag 'L1', 'integrity' {
+Describe 'discovery flow logs: every compiled slot' -Tag 'L2', 'integrity' {
+    BeforeAll {
+        # The bicep binary is resolved once for the file; the real build runs only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+    }
+
     It 'deploys a flow log on the slot''s virtual network, under the region''s Network Watcher' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         InModuleScope Catzc.Azure.Templates {
             # Its own folder, so a concurrent build of the same template never swaps the files read here.
             $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'discovery'))[-1]

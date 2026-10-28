@@ -67,7 +67,9 @@ def test_a_text_only_fact_slide_renders_at_the_deck_size(tmp_path):
         # With no picture the text runs into the column a picture would hold, so that column carries ink, not only the background.
         column = img.convert("RGB").crop((width - gutter - int(fact["picture_width"]), gutter, width - gutter, height // 2))
         background = ImageColor.getrgb(slide_png.SLIDES["token"]["bg_deep"])
-        assert any(colour != background for _, colour in column.getcolors(maxcolors=column.width * column.height))
+        colours = column.getcolors(maxcolors=column.width * column.height)
+        assert colours is not None
+        assert any(colour != background for _, colour in colours)
 
 
 def test_a_png_names_the_slide_it_was_made_for(tmp_path):

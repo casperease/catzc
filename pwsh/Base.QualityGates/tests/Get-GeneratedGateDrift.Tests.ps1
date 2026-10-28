@@ -68,4 +68,73 @@ Describe 'Get-GeneratedGateDrift' -Tag 'L2', 'logic', 'ADR-REPO-FILEMETA-INTUNEW
         & $script:commit 'widget/cog.slide.png' 'slide two'
         @(& $script:drift 'Render-Widget') | Should -BeNullOrEmpty
     }
+
+    Context 'a slide output, judged on its own slide and picture' {
+        BeforeEach {
+            if ($script:skip) {
+                return
+            }
+            $script:slideRows = @(
+                [Catzc.Base.Variants.GeneratedWriterRow]::new('Crop-Gadget', [ordered]@{ class = 'rollable'; check = 'gate'; gate = 'Test-Gadgets'; inputs = @('deck/*.slide.md', 'gadget/*.png'); outputs = @('deck/.assets/*.png') })
+                [Catzc.Base.Variants.GeneratedWriterRow]::new('Frame-Gadget', [ordered]@{ class = 'rollable'; check = 'gate'; gate = 'Test-Gadgets'; inputs = @('deck/*.slide.md', 'deck/.assets/*.png'); outputs = @('deck/.assets/*.slide.png') })
+            )
+            $script:slideGenerated = @(
+                [Catzc.Base.Variants.GeneratedTarget]::new('deck/.assets/one.png', 'Crop-Gadget', 'rollable')
+                [Catzc.Base.Variants.GeneratedTarget]::new('deck/.assets/two.png', 'Crop-Gadget', 'rollable')
+                [Catzc.Base.Variants.GeneratedTarget]::new('deck/.assets/one.slide.png', 'Frame-Gadget', 'rollable')
+                [Catzc.Base.Variants.GeneratedTarget]::new('deck/.assets/two.slide.png', 'Frame-Gadget', 'rollable')
+            )
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'deck/.assets')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'gadget')) | Out-Null
+            foreach ($name in 'one', 'two') {
+                & $script:commit "gadget/$name.png" "source $name"
+                & $script:commit "deck/$name.slide.md" "---`ncatzc:`n  config:`n    picture:`n      source: ../gadget/$name.png`n---`n`n# Gadget $name`n`n## Image`n`n[$name](.assets/$name.png)`n"
+                & $script:commit "deck/.assets/$name.png" "picture $name"
+                & $script:commit "deck/.assets/$name.slide.png" "slide $name"
+            }
+            $script:slideDrift = {
+                param([string] $Name)
+                InModuleScope Catzc.Base.QualityGates -Parameters @{ Name = $Name; Rows = $script:slideRows; Generated = $script:slideGenerated; Root = $script:widgetRoot } {
+                    param($Name, $Rows, $Generated, $Root)
+                    Get-GeneratedGateDrift -Writer ($Rows | Where-Object name -CEQ $Name | Select-Object -First 1) -Writers $Rows -Generated $Generated -RepositoryRoot $Root
+                }
+            }
+        }
+
+        It 'passes when no slide input is newer than its output' {
+            if ($script:skip) {
+                Set-ItResult -Skipped -Because $script:skip; return
+            }
+            @(& $script:slideDrift 'Crop-Gadget') | Should -BeNullOrEmpty
+            @(& $script:slideDrift 'Frame-Gadget') | Should -BeNullOrEmpty
+        }
+
+        It 'flags only the picture whose source changed' {
+            if ($script:skip) {
+                Set-ItResult -Skipped -Because $script:skip; return
+            }
+            & $script:commit 'gadget/two.png' 'source two, changed'
+            $reasons = @(& $script:slideDrift 'Crop-Gadget')
+            $reasons | Should -HaveCount 1
+            $reasons[0] | Should -BeLike 'gadget/two.png committed in * after deck/.assets/two.png'
+        }
+
+        It 'flags only the slide whose picture changed' {
+            if ($script:skip) {
+                Set-ItResult -Skipped -Because $script:skip; return
+            }
+            & $script:commit 'deck/.assets/one.png' 'picture one, changed'
+            $reasons = @(& $script:slideDrift 'Frame-Gadget')
+            $reasons | Should -HaveCount 1
+            $reasons[0] | Should -BeLike 'deck/.assets/one.png committed in * after deck/.assets/one.slide.png'
+        }
+
+        It 'flags the slide whose own file changed' {
+            if ($script:skip) {
+                Set-ItResult -Skipped -Because $script:skip; return
+            }
+            & $script:commit 'deck/two.slide.md' "---`ncatzc:`n  config:`n    picture:`n      source: ../gadget/two.png`n---`n`n# Gadget two, reworded`n`n## Image`n`n[two](.assets/two.png)`n"
+            @(& $script:slideDrift 'Frame-Gadget') | Should -HaveCount 1
+        }
+    }
 }

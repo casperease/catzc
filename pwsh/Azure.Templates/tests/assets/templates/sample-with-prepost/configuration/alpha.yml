@@ -7,4 +7,4 @@
 ParametersFile:
   parameters:
     vnetName:
-      value: alpha-weu-tst-sppp-vnet
+      value: alpha-weu-fxo-sppp-vnet

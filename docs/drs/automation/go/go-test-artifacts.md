@@ -18,7 +18,8 @@ The Go workspace is generated and gitignored: nothing Go-specific is committed b
 wildcard root-config entry, drift-checked by `Test-GeneratedFiles`. `go.work` sits at the repository root and lists every Go test module
 explicitly, and every go command runs inside its module folder, so every editor loads either layout with no setting. The `go.sum` files come
 from `go mod download`, which a Go test run makes first, offline (the module proxy off, `-mod=mod`, `GOTOOLCHAIN=local`) from the module
-cache; `Invoke-Go '-C <folder> mod download'` is the command that fills that cache. A test dependency is declared in `go.yml` with its
+cache, and outside the workspace (`GOWORK=off`), since `go.work` is the editors' layout and workspace mode refuses `-mod=mod`;
+`Invoke-Go '-C <folder> mod download'` is the command that fills that cache. A test dependency is declared in `go.yml` with its
 version, never added by `go get` or `go mod tidy`.
 
 - [A generated workspace](#a-generated-workspace)

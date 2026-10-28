@@ -1,5 +1,9 @@
-Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
+Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
     BeforeAll {
+        # The bicep binary is resolved once for the file; the real builds below run only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+
         # The compiled main.json of a template and, per slot, the resources it deploys by the compliance quality gate's evaluator.
         function script:Get-SlotResource {
             param([string] $Template)
@@ -37,6 +41,10 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'gives every foundation slot one action group, addressed to the Owner role' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $slots = @(Get-SlotResource -Template foundation)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
@@ -47,6 +55,10 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'audits every expedition SQL server into the workspace and alerts on any sign-in of its break-glass login' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $slots = @(Get-SlotResource -Template expedition)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
@@ -57,6 +69,10 @@ Describe 'Alerts: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'gives every discovery slot a Service Health and a Resource Health alert, notifying the action group' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $slots = @(Get-SlotResource -Template discovery)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {

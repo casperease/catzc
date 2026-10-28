@@ -1,4 +1,4 @@
-# cspell:ignore toolong gmweutstsmplst alweutstsmplst
+# cspell:ignore toolong gmweufxosmplst alweufxosmplst
 Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureTemplates = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
@@ -75,12 +75,12 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
 
         It 'creates a new configuration-root config file for a new environment' {
             # gamma resolves to core_upper (the one non-customer subscription serving it).
-            $result = Set-BicepTemplateConfiguration sample gamma -Parameters @{ storageAccountName = 'gmweutstsmplst' }
+            $result = Set-BicepTemplateConfiguration sample gamma -Parameters @{ storageAccountName = 'gmweufxosmplst' }
             $result.Written | Should -BeTrue
             $result.Path | Should -Exist
             $result.Path | Should -Match 'configuration[\\/]gamma\.yml'
             $configuration = Get-Content $result.Path -Raw | ConvertFrom-Yaml -Ordered
-            $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'gmweutstsmplst'
+            $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'gmweufxosmplst'
         }
 
         It 'throws on a bicepparam slot, naming its file, and writes nothing' {
@@ -97,7 +97,7 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
             $configuration = Get-Content (Join-Path $script:templatesRoot 'sample/configuration/alpha.yml') -Raw |
                 ConvertFrom-Yaml -Ordered
             $configuration.ParametersFile.parameters.keyVaultName.value | Should -Be 'al-weu-kv'
-            $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstsmplst'
+            $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweufxosmplst'
         }
 
         It 'writes the generated head with the one warning, and no generator: the writer is derived on demand' {

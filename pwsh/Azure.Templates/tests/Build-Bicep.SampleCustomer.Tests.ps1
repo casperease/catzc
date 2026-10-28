@@ -1,4 +1,4 @@
-# cspell:ignore alweutstscusst alweutstscusacst
+# cspell:ignore alweufxoscusst alweufxoscusacst
 Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
     # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
@@ -53,8 +53,8 @@ Describe 'sample-customer (per-customer build)' -Tag 'L0', 'logic' {
         Build-Bicep sample-customer | Out-Null
         $shared = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $acme = Get-Content (Join-Path $script:outputRoot 'parameters.acme.alpha.json') -Raw | ConvertFrom-Json
-        $shared.parameters.storageAccountName.value | Should -Be 'alweutstscusst'
-        $acme.parameters.storageAccountName.value | Should -Be 'alweutstscusacst'
+        $shared.parameters.storageAccountName.value | Should -Be 'alweufxoscusst'
+        $acme.parameters.storageAccountName.value | Should -Be 'alweufxoscusacst'
     }
 
     It 'builds only the named customer with -Customers' {

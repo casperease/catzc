@@ -1,5 +1,9 @@
-Describe 'CanNotDelete locks: every compiled slot' -Tag 'L1', 'integrity' {
+Describe 'CanNotDelete locks: every compiled slot' -Tag 'L2', 'integrity' {
     BeforeAll {
+        # The bicep binary is resolved once for the file; the real builds below run only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+
         # The resources each slot deploys, by the compliance quality gate's evaluator, for a template's compiled main.json and slot parameters.
         function script:Get-SlotResource {
             param([string] $Template)
@@ -34,6 +38,10 @@ Describe 'CanNotDelete locks: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'locks the hub''s virtual network and each of its private DNS zones' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $hubs = @(Get-SlotResource -Template discovery | Where-Object { $_.Values.network.kind -eq 'hub' })
         $hubs.Count | Should -BeGreaterThan 0
         foreach ($slot in $hubs) {
@@ -46,12 +54,20 @@ Describe 'CanNotDelete locks: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'locks nothing in a spoke' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         foreach ($slot in @(Get-SlotResource -Template discovery | Where-Object { $_.Values.network.kind -ne 'hub' })) {
             @($slot.Resources | Where-Object Type -EQ 'Microsoft.Authorization/locks').Count | Should -Be 0 -Because "spoke slot $($slot.Slot) locks nothing"
         }
     }
 
     It 'locks foundation''s Key Vault in every slot' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $slots = @(Get-SlotResource -Template foundation)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {

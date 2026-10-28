@@ -146,7 +146,8 @@ Describe 'SystemProbe' -Tag 'L3', 'logic' {
         $repositoryTest = [System.IO.Path]::GetFullPath(
             (Get-CatzcModuleRoot 'tests/Convert-TestRunLocationPath.Tests.ps1' -Module Catzc.Base.QualityGates))
 
-        $run = Invoke-TestFile $fixture, $repositoryTest -Isolated -Output Minimal -PassThru
+        # L3 is asked for, since the default top tier leaves it out before the snapshot could skip it.
+        $run = Invoke-TestFile $fixture, $repositoryTest -Isolated -MaxLevel 3 -Output Minimal -PassThru
 
         $run.Result | Should -Be 'Passed'
         $run.Location | Should -Be 'snapshot'

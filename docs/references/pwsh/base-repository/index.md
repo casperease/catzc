@@ -33,9 +33,9 @@ loads (see [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.
 ### responsibility:3 — Repository text source
 
 What a repository file says. A reader that must answer for one commit, and not for the working tree, reads its files and lists its folders
-through this one seam. A caller that has loaded the commit's texts runs its work inside a scoped source. Inside that scope, a repository
-path reads the source's text, and a path the source lacks is absent. Outside any scope, the seam reads the disk. The module never runs git:
-the caller hands it the texts.
+through this one seam. A caller that has loaded the commit's texts runs its work inside a scoped text source. Inside that scope, a
+repository path reads the source's text, and a path the source lacks is absent. Outside any scope, the seam reads the disk. The module never
+runs git: the caller hands it the texts.
 
 ## What the module does
 

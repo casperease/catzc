@@ -34,6 +34,7 @@ categories:
       - "docs/drs/design/visual-design.md"
       - "docs/drs/repository/slides-as-markdown.md"
       - "docs/**/.assets/*.drawio.yml"
+      - "docs/**/.assets/*accosted*.png"
       - "python/diagrams/**"
       - "docs/explanation/flow/for-developer/rdr-dora-trunk-4.slide.md"
       - "docs/explanation/flow/jokes-automation/sarah-and-the-accosted.slide.md"

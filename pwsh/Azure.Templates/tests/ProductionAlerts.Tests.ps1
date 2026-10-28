@@ -1,5 +1,9 @@
-Describe 'Production database alerts: every compiled expedition and discovery slot' -Tag 'L1', 'integrity' {
+Describe 'Production database alerts: every compiled expedition and discovery slot' -Tag 'L2', 'integrity' {
     BeforeAll {
+        # The bicep binary is resolved once for the file; the real builds run only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+
         $script:slotsOf = {
             param([string] $Template)
             InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $Template } {
@@ -34,11 +38,19 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
         }
         # The evaluator labels each resource by its resolved name, the last segment of its path.
         $script:nameOf = { param($Resource) ($Resource.Path -split '/')[-1] }
-        $script:expedition = @(& $script:slotsOf expedition)
-        $script:discovery = @(& $script:slotsOf discovery)
+        $script:expedition = @(if ($script:bicepReady) {
+                & $script:slotsOf expedition
+            })
+        $script:discovery = @(if ($script:bicepReady) {
+                & $script:slotsOf discovery
+            })
     }
 
     It 'deploys the five database metric and capacity alerts in every production slot, and in no other slot' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         @($script:expedition | Where-Object Production).Count | Should -BeGreaterThan 0 -Because 'a production expedition slot exists to prove it'
         foreach ($slot in $script:expedition) {
             $alerts = @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/metricAlerts')
@@ -53,6 +65,10 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
     }
 
     It 'names each database alert through the namer: every deployed alert carries one of the slot''s derived alert names' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         foreach ($slot in $script:expedition) {
             @($slot.Values.databaseMetricAlertNames.Keys | Sort-Object) | Should -Be @('cpu', 'deadlock', 'failedConnection')
             @($slot.Values.databaseCapacityAlertNames.Keys | Sort-Object) | Should -Be @('compute', 'storage')
@@ -70,6 +86,10 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
     }
 
     It 'names the break-glass login alert through the namer in every slot with a break-glass login' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         foreach ($slot in @($script:expedition | Where-Object { $_.Values.administratorLogin })) {
             @($slot.Resources | Where-Object { $_.Type -eq 'Microsoft.Insights/scheduledQueryRules' -and (& $script:nameOf $_) -eq $slot.Values.breakGlassLoginAlertName }).Count |
                 Should -Be 1 -Because "slot $($slot.Name) names its login alert"
@@ -77,6 +97,10 @@ Describe 'Production database alerts: every compiled expedition and discovery sl
     }
 
     It 'names the two health alerts through the namer in every discovery slot, bound by category' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         foreach ($slot in $script:discovery) {
             @($slot.Values.healthAlertNames.Keys | Sort-Object) | Should -Be @('ResourceHealth', 'ServiceHealth')
             foreach ($name in @($slot.Values.healthAlertNames.Values)) {

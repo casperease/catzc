@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Build-Bicep.SampleCustomer.Tests.ps1
 
-<!-- cspell:ignore alweutstscusst alweutstscusacst -->
+<!-- cspell:ignore alweufxoscusst alweufxoscusacst -->
 
 The L0 tests of `Build-Bicep` against the `sample-customer` fixture template.
 

@@ -7,4 +7,4 @@
 ParametersFile:
   parameters:
     resourceGroupName:
-      value: alpha-weu-tst-ssub-rg
+      value: alpha-weu-fxo-ssub-rg

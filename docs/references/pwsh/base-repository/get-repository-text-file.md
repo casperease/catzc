@@ -6,7 +6,7 @@ The listing of a folder's own files that a source may stand in for.
 
 ### synopsis
 
-Returns the full paths of a folder's own files that match a filter, in ordinal order, from the active source or the working tree.
+Returns the full paths of a folder's own files that match a filter, in ordinal order, from the active text source or the working tree.
 
 ### description
 

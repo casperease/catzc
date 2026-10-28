@@ -44,6 +44,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 35  | L1   | [Get-FileLimit (shipped registry)][c35]                                       |
 | 36  | L1   | [FileLimitsConfig (shipped file-limits.yml)][c36]                             |
 | 37  | L1   | [TrackTypesConfig — the shipped track types][c37]                             |
+| 38  | L0   | [integrity (shipped network-calls.yml)][c38]                                  |
 
 [c1]: #1-config-conventions
 [c2]: #2-discovery--raw-default
@@ -82,6 +83,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 [c35]: #35-get-filelimit-shipped-registry
 [c36]: #36-filelimitsconfig-shipped-file-limitsyml
 [c37]: #37-tracktypesconfig--the-shipped-track-types
+[c38]: #38-integrity-shipped-network-callsyml
 
 ## Checks
 
@@ -223,7 +225,7 @@ reason.
 
 ### 19. the shipped registry seals the engine-intrinsic configs
 
-**Test file:** `pwsh/Base.Config/tests/Get-Config.Tests.ps1` (L0), block `the shipped registry seals the engine-intrinsic configs`.
+**Test file:** `pwsh/Base.Config/tests/types/ConfigsConfig.Tests.ps1` (L0), block `the shipped registry seals the engine-intrinsic configs`.
 
 **Guards:** The shipped configs.yml registry (`ConfigsConfig`) seals the engine-intrinsic configs: configs, dependencies, profiles,
 exporter, and glossary.
@@ -381,3 +383,13 @@ config's cleared feeds alone.
 **Checks:**
 
 - The output type is declared, and it is a holder that admits no module type.
+
+### 38. integrity (shipped network-calls.yml)
+
+**Test file:** `pwsh/Base.Execution/tests/types/NetworkCallsConfig.Tests.ps1` (L0), block `integrity (shipped network-calls.yml)`.
+
+**Guards:** the shipped network-calls.yml registry loads as its type.
+
+**Checks:**
+
+- The shipped `network-calls.yml` loads as a `NetworkCallsConfig` without throwing.

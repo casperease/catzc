@@ -4,4 +4,4 @@
 ParametersFile:
   parameters:
     resourceGroupName:
-      value: beta-weu-tst-ssub-rg
+      value: beta-weu-fxo-ssub-rg

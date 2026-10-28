@@ -4,34 +4,42 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 ## Index
 
-| #   | Tier | Check                                                                                  |
-| --- | ---- | -------------------------------------------------------------------------------------- |
-| 1   | L0   | [integrity (shipped azure.yml)][c1]                                                    |
-| 2   | L0   | [integrity (shipped network.yml)][c2]                                                  |
-| 3   | L0   | [Shipped template integrity][c3]                                                       |
-| 4   | L0   | [Shipped asset integrity][c4]                                                          |
-| 5   | L0   | [integrity (shipped customer.yml)][c5]                                                 |
-| 6   | L0   | [Azure network plan sync][c6]                                                          |
-| 7   | L2   | [Shipped template parameter model][c7]                                                 |
-| 8   | L1   | [Get-BicepTemplatesRoot — the real repository][c8]                                     |
-| 9   | L2   | [BicepParamWriter — bicep format leaves the render unchanged][c9]                      |
-| 10  | L2   | [ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it][c10] |
-| 11  | L2   | [Every slot compiles through the .bicepparam path to the same parameters][c11]         |
-| 12  | L1   | [Catzc.Azure.RolesConfig — shipped roles.yml][c12]                                     |
-| 13  | L1   | [Get-BicepServiceConnections — shipped service-connections.yml][c13]                   |
-| 14  | L1   | [Alerts: every compiled slot][c14]                                                     |
-| 15  | L3   | [Deploy-Bicep to an ephemeral l3 slot (live Azure)][c15]                               |
-| 16  | L1   | [discovery flow logs: every compiled slot][c16]                                        |
-| 17  | L1   | [foundation PrePost: every compiled slot][c17]                                         |
-| 18  | L1   | [Hub firewall and routes: every compiled discovery slot][c18]                          |
-| 19  | L1   | [The break-glass rotation pipeline][c19]                                               |
-| 20  | L1   | [CanNotDelete locks: every compiled slot][c20]                                         |
-| 21  | L1   | [Monitoring views: every compiled foundation slot][c21]                                |
-| 22  | L1   | [Security-group flows: the compiled discovery template][c22]                           |
-| 23  | L1   | [Production database alerts: every compiled expedition and discovery slot][c23]        |
-| 24  | L1   | [Test-BicepResourceNames (real templates)][c24]                                        |
-| 25  | L1   | [Test-BicepTemplateCompliance (real templates)][c25]                                   |
-| 26  | L1   | [Test-BicepApiVersions (real modules)][c26]                                            |
+| #   | Tier | Check                                                                                          |
+| --- | ---- | ---------------------------------------------------------------------------------------------- |
+| 1   | L0   | [integrity (shipped azure.yml)][c1]                                                            |
+| 2   | L0   | [integrity (shipped network.yml)][c2]                                                          |
+| 3   | L0   | [Shipped template integrity][c3]                                                               |
+| 4   | L0   | [Shipped asset integrity][c4]                                                                  |
+| 5   | L0   | [integrity (shipped customer.yml)][c5]                                                         |
+| 6   | L0   | [Azure network plan sync][c6]                                                                  |
+| 7   | L2   | [Shipped template parameter model][c7]                                                         |
+| 8   | L1   | [Get-BicepTemplatesRoot — the real repository][c8]                                             |
+| 9   | L2   | [BicepParamWriter — bicep format leaves the render unchanged][c9]                              |
+| 10  | L2   | [ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it][c10]         |
+| 11  | L2   | [Every slot compiles through the .bicepparam path to the same parameters][c11]                 |
+| 12  | L1   | [Catzc.Azure.RolesConfig — shipped roles.yml][c12]                                             |
+| 13  | L1   | [Get-BicepServiceConnections — shipped service-connections.yml][c13]                           |
+| 14  | L2   | [Alerts: every compiled slot][c14]                                                             |
+| 15  | L3   | [Deploy-Bicep to an ephemeral l3 slot (live Azure)][c15]                                       |
+| 16  | L2   | [discovery flow logs: every compiled slot][c16]                                                |
+| 17  | L2   | [foundation PrePost: every compiled slot][c17]                                                 |
+| 18  | L2   | [Hub firewall and routes: every compiled discovery slot][c18]                                  |
+| 19  | L1   | [The break-glass rotation pipeline][c19]                                                       |
+| 20  | L2   | [CanNotDelete locks: every compiled slot][c20]                                                 |
+| 21  | L2   | [Monitoring views: every compiled foundation slot][c21]                                        |
+| 22  | L2   | [Security-group flows: every compiled discovery slot][c22]                                     |
+| 23  | L2   | [Production database alerts: every compiled expedition and discovery slot][c23]                |
+| 24  | L1   | [Test-BicepResourceNames (real templates)][c24]                                                |
+| 25  | L2   | [Test-BicepTemplateCompliance (real templates)][c25]                                           |
+| 26  | L1   | [Test-BicepApiVersions (real modules)][c26]                                                    |
+| 27  | L2   | [Health model: every compiled expedition slot][c27]                                            |
+| 28  | L2   | [Discovery budget: every compiled slot against its cost model][c28]                            |
+| 29  | L2   | [discovery security: every compiled slot][c29]                                                 |
+| 30  | L2   | [Role assignments: every compiled discovery and expedition slot assigns the declared set][c30] |
+| 31  | L1   | [Get-BicepCostEstimate — shipped assets/cost-prices.json][c31]                                 |
+| 32  | L1   | [Update-AzurePriceTable — shipped assets/cost-prices.json][c32]                                |
+| 33  | L1   | [The orphan removal in the production deploy pipelines][c33]                                   |
+| 34  | L1   | [The anomaly alert recipients seed in the deploy pipelines][c34]                               |
 
 [c1]: #1-integrity-shipped-azureyml
 [c2]: #2-integrity-shipped-networkyml
@@ -54,11 +62,19 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 [c19]: #19-the-break-glass-rotation-pipeline
 [c20]: #20-cannotdelete-locks-every-compiled-slot
 [c21]: #21-monitoring-views-every-compiled-foundation-slot
-[c22]: #22-security-group-flows-the-compiled-discovery-template
+[c22]: #22-security-group-flows-every-compiled-discovery-slot
 [c23]: #23-production-database-alerts-every-compiled-expedition-and-discovery-slot
 [c24]: #24-test-bicepresourcenames-real-templates
 [c25]: #25-test-biceptemplatecompliance-real-templates
 [c26]: #26-test-bicepapiversions-real-modules
+[c27]: #27-health-model-every-compiled-expedition-slot
+[c28]: #28-discovery-budget-every-compiled-slot-against-its-cost-model
+[c29]: #29-discovery-security-every-compiled-slot
+[c30]: #30-role-assignments-every-compiled-discovery-and-expedition-slot-assigns-the-declared-set
+[c31]: #31-get-bicepcostestimate--shipped-assetscost-pricesjson
+[c32]: #32-update-azurepricetable--shipped-assetscost-pricesjson
+[c33]: #33-the-orphan-removal-in-the-production-deploy-pipelines
+[c34]: #34-the-anomaly-alert-recipients-seed-in-the-deploy-pipelines
 
 ## Checks
 
@@ -179,7 +195,7 @@ expedition has a slot.
 
 ### 14. Alerts: every compiled slot
 
-**Test file:** `pwsh/Azure.Templates/tests/Alerts.Tests.ps1` (L1), block `Alerts: every compiled slot`.
+**Test file:** `pwsh/Azure.Templates/tests/Alerts.Tests.ps1` (L2), block `Alerts: every compiled slot`.
 
 **Guards:** The compiled templates deploy the alerting every slot needs.
 
@@ -201,13 +217,13 @@ expedition has a slot.
 
 ### 16. discovery flow logs: every compiled slot
 
-**Test file:** `pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1` (L1), block `discovery flow logs: every compiled slot`.
+**Test file:** `pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1` (L2), block `discovery flow logs: every compiled slot`.
 
 **Guards:** Every discovery slot deploys a flow log on its virtual network, under the region's Network Watcher.
 
 ### 17. foundation PrePost: every compiled slot
 
-**Test file:** `pwsh/Azure.Templates/tests/Foundation.PrePost.Tests.ps1` (L1), block `foundation PrePost: every compiled slot`.
+**Test file:** `pwsh/Azure.Templates/tests/Foundation.PrePost.Tests.ps1` (L2), block `foundation PrePost: every compiled slot`.
 
 **Guards:** The foundation Key Vault private endpoint is deployed exactly where the slot asks for it.
 
@@ -218,7 +234,7 @@ expedition has a slot.
 
 ### 18. Hub firewall and routes: every compiled discovery slot
 
-**Test file:** `pwsh/Azure.Templates/tests/HubFirewall.Tests.ps1` (L1), block `Hub firewall and routes: every compiled discovery slot`.
+**Test file:** `pwsh/Azure.Templates/tests/HubFirewall.Tests.ps1` (L2), block `Hub firewall and routes: every compiled discovery slot`.
 
 **Guards:** Hub egress goes through one firewall, and every spoke routes to it.
 
@@ -236,7 +252,7 @@ expedition has a slot.
 
 ### 20. CanNotDelete locks: every compiled slot
 
-**Test file:** `pwsh/Azure.Templates/tests/Locks.Tests.ps1` (L1), block `CanNotDelete locks: every compiled slot`.
+**Test file:** `pwsh/Azure.Templates/tests/Locks.Tests.ps1` (L2), block `CanNotDelete locks: every compiled slot`.
 
 **Guards:** The compiled templates lock exactly the resources that must not be deleted.
 
@@ -248,13 +264,13 @@ expedition has a slot.
 
 ### 21. Monitoring views: every compiled foundation slot
 
-**Test file:** `pwsh/Azure.Templates/tests/MonitoringViews.Tests.ps1` (L1), block `Monitoring views: every compiled foundation slot`.
+**Test file:** `pwsh/Azure.Templates/tests/MonitoringViews.Tests.ps1` (L2), block `Monitoring views: every compiled foundation slot`.
 
 **Guards:** Every foundation slot deploys the capacity workbook, the saved-query pack and the dashboard, each under its derived name.
 
-### 22. Security-group flows: the compiled discovery template
+### 22. Security-group flows: every compiled discovery slot
 
-**Test file:** `pwsh/Azure.Templates/tests/NsgFlows.Tests.ps1` (L1), block `Security-group flows: the compiled discovery template`.
+**Test file:** `pwsh/Azure.Templates/tests/NsgFlows.Tests.ps1` (L2), block `Security-group flows: every compiled discovery slot`.
 
 **Guards:** The discovery security groups allow only the declared flows.
 
@@ -265,7 +281,7 @@ expedition has a slot.
 
 ### 23. Production database alerts: every compiled expedition and discovery slot
 
-**Test file:** `pwsh/Azure.Templates/tests/ProductionAlerts.Tests.ps1` (L1), block
+**Test file:** `pwsh/Azure.Templates/tests/ProductionAlerts.Tests.ps1` (L2), block
 `Production database alerts: every compiled expedition and discovery slot`.
 
 **Guards:** Production slots carry the database alerts, and every alert is named through the namer.
@@ -283,7 +299,7 @@ expedition has a slot.
 
 ### 25. Test-BicepTemplateCompliance (real templates)
 
-**Test file:** `pwsh/Azure.Templates/tests/Test-BicepTemplateCompliance.Tests.ps1` (L1), block
+**Test file:** `pwsh/Azure.Templates/tests/Test-BicepTemplateCompliance.Tests.ps1` (L2), block
 `Test-BicepTemplateCompliance (real templates)`.
 
 **Guards:** Every compiled template slot holds to the compliance rules but for the known findings, and every known finding still occurs.
@@ -293,3 +309,94 @@ expedition has a slot.
 **Test file:** `pwsh/Base.QualityGates/tests/Test-BicepApiVersions.Tests.ps1` (L1), block `Test-BicepApiVersions (real modules)`.
 
 **Guards:** Every API version the shipped Bicep modules reference is current, stable or pinned.
+
+### 27. Health model: every compiled expedition slot
+
+**Test file:** `pwsh/Azure.Templates/tests/HealthModel.Tests.ps1` (L2), block `Health model: every compiled expedition slot`.
+
+**Guards:** Every expedition slot deploys one health workbook, displayed by its derived `wb` name, with its health queries.
+
+### 28. Discovery budget: every compiled slot against its cost model
+
+**Test file:** `pwsh/Azure.Templates/tests/Discovery.Budget.Tests.ps1` (L2), block
+`Discovery budget: every compiled slot against its cost model`.
+
+**Guards:** Every discovery slot's budget covers the cost estimate of its compiled plan.
+
+**Checks:**
+
+- Each slot finds its `network.yml` subscription.
+- Every `budgetAmount` is at least the estimate times the cost model's headroom.
+- Each hub's firewall is priced by its `network.yml` tier.
+
+### 29. discovery security: every compiled slot
+
+**Test file:** `pwsh/Azure.Templates/tests/Discovery.Security.Tests.ps1` (L2), block `discovery security: every compiled slot`.
+
+**Guards:** Every discovery slot turns on its security baseline.
+
+**Checks:**
+
+- Defender for Cloud plans are on in every slot.
+- The Microsoft cloud security benchmark is assigned in audit mode in every slot.
+- The allowed resource types are exactly the ones the shared modules declare.
+
+### 30. Role assignments: every compiled discovery and expedition slot assigns the declared set
+
+**Test file:** `pwsh/Azure.Templates/tests/RoleAssignments.Tests.ps1` (L2), block
+`Role assignments: every compiled discovery and expedition slot assigns the declared set`.
+
+**Guards:** Every compiled slot assigns exactly the roles its declared groups hold.
+
+**Checks:**
+
+- Each discovery slot assigns its readers' and operators' roles and no others.
+- Each expedition slot assigns the data roles of the groups it declares, on its account and on foundation's vault.
+
+### 31. Get-BicepCostEstimate — shipped assets/cost-prices.json
+
+**Test file:** `pwsh/Azure.Templates/tests/Get-BicepCostEstimate.Tests.ps1` (L1), block
+`Get-BicepCostEstimate — shipped assets/cost-prices.json`.
+
+**Guards:** the price table the module ships prices every metered line of an estimate (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+**Checks:**
+
+- With no prices path, the estimate takes its `as_of` and every line's unit price from the shipped `cost-prices.json`.
+
+### 32. Update-AzurePriceTable — shipped assets/cost-prices.json
+
+**Test file:** `pwsh/Azure.Templates/tests/Update-AzurePriceTable.Tests.ps1` (L1), block
+`Update-AzurePriceTable — shipped assets/cost-prices.json`.
+
+**Guards:** the price table refresh compares against the table the module ships (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+**Checks:**
+
+- With no prices path, `Update-AzurePriceTable -DryRun` compares against the shipped `cost-prices.json` and leaves it unchanged.
+
+### 33. The orphan removal in the production deploy pipelines
+
+**Test file:** `pwsh/Azure.Templates/tests/Remove-BicepOrphanResources.Tests.ps1` (L1), block
+`The orphan removal in the production deploy pipelines`.
+
+**Guards:** the shipped deploy pipelines remove orphaned resources on the production and rollback path only, preview first.
+
+**Checks:**
+
+- Every stage template on the `prod` and `rollback` path of `deploy-apex.yaml` and `deploy-shared.yaml` gets `RemoveOrphans: true`, and the
+  release path does not.
+- After the deploy of every foundation and expedition job, the `-DryRun` listing runs, then the removal.
+- The unit's deploy path passes `RemoveOrphans` on to its expedition stage template.
+
+### 34. The anomaly alert recipients seed in the deploy pipelines
+
+**Test file:** `pwsh/Azure.Templates/tests/Set-AnomalyAlertRecipientSecret.Tests.ps1` (L1), block
+`The anomaly alert recipients seed in the deploy pipelines`.
+
+**Guards:** the shipped deploy pipeline seeds the anomaly alert recipients secret before the discovery what-if.
+
+**Checks:**
+
+- In every discovery job of `deploy-unit.yaml`, `Set-AnomalyAlertRecipientSecret` runs before the discovery what-if, with the
+  `AnomalyAlertRecipients` variable as its value.

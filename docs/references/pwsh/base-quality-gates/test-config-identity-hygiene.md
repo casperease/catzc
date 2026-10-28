@@ -12,7 +12,7 @@ the language-zone separation.
 
 ### description
 
-A shipped `configs/*.yml` or `infrastructure/**` file is the live zone: it names real identities. A fixture identity (acme/globex, tst,
+A shipped `configs/*.yml` or `infrastructure/**` file is the live zone: it names real identities. A fixture identity (acme/globex, fxo,
 alpha, core_lower, widget, …) appearing in one is a leak — a test fixture committed as production data. The forbidden set is DERIVED from
 the fixture configs (Get-FixtureIdentityTokens), so it is always current.
 

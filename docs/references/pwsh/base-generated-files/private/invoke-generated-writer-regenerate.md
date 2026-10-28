@@ -7,8 +7,8 @@ row, through the managed tool its first word names.
 
 ### synopsis
 
-Runs a writer row's regenerate command, once, once per output path when the command names `{path}`, or once with every output path when
-it names `{paths}`.
+Runs a writer row's regenerate command, once, once per output path when the command names `{path}`, or once with every output path when it
+names `{paths}`.
 
 ### description
 
@@ -43,6 +43,6 @@ Invoke-GeneratedWriterRegenerate -Writer $row -Writers $rows -RepositoryRoot $ro
 
 ## Why the paths come from the git index
 
-`{path}` is the output file, as in the generated-file head the row's command fills, where `{paths}` names that one file too. After `Remove-Generated` the outputs are gone, so a walk
-of the disk finds none; the git index still names every committed output, and the disk adds one not yet committed. The index is read at the
-session's repository root.
+`{path}` is the output file, as in the generated-file head the row's command fills, where `{paths}` names that one file too. After
+`Remove-Generated` the outputs are gone, so a walk of the disk finds none; the git index still names every committed output, and the disk
+adds one not yet committed. The index is read at the session's repository root.

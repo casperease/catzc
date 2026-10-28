@@ -15,7 +15,7 @@ are the real-customer-shaped names the demo deployment maps to). A token from on
 
 A **logic** test names **fixture** identities, never **live** ones. Using a real customer, subscription, org, template, or ADO-project name
 as a value in a logic test couples it to the shipped config and blurs the test/live vocabulary; it uses `acme`/`globex`, `alpha`/`beta`,
-`tst`, `sample`, `widget` instead.
+`fxo`, `sample`, `widget` instead.
 
 - [The test/live boundary](#the-testlive-boundary)
 
@@ -84,7 +84,7 @@ flowchart TB
         d["discovery · expedition · survey<br/>Contoso · Globex<br/>develop · preprod"]
     end
     subgraph test["TEST — **/*.Tests.ps1 (logic)"]
-        t["alpha · beta · gamma · delta<br/>acme · globex · tst<br/>sample · widget · gadget · faketool"]
+        t["alpha · beta · gamma · delta<br/>acme · globex · fxo<br/>sample · widget · gadget · faketool"]
     end
     subgraph live["CONFIG / LIVE — configs/**, infrastructure/**"]
         l["apex · nova · flux · dusk · warp · volt<br/>zct · foundation · CatzcProject<br/>shared_nonprod · apex_nonprod …"]
@@ -96,7 +96,7 @@ flowchart TB
 
 The design zone is the highest level of abstraction — the _why_ — and its illustrations are obviously-fictional and theme-consistent so a
 reader knows at a glance they are examples. The test zone is hermetic: its identities are chosen to be visibly-distinct from anything real,
-so a reviewer who sees `acme`/`alpha`/`tst` knows nothing production is in play. The live zone is the deliberate opposite — it maps to
+so a reviewer who sees `acme`/`alpha`/`fxo` knows nothing production is in play. The live zone is the deliberate opposite — it maps to
 real-customer-shaped identities because it is the demonstration deployment, and it must read like a real one. The three are rarely
 connected; the one sanctioned crossing is an integrity test, which reaches from the test tree into the live config on purpose.
 

@@ -43,6 +43,6 @@ Describe 'Build-Bicep (sample-subscription)' -Tag 'L0', 'logic' {
     It 'passes the configured resourceGroupName through to parameters.json' {
         Build-Bicep sample-subscription -Environments alpha | Out-Null
         $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
-        $json.parameters.resourceGroupName.value | Should -Be 'alpha-weu-tst-ssub-rg'
+        $json.parameters.resourceGroupName.value | Should -Be 'alpha-weu-fxo-ssub-rg'
     }
 }

@@ -31,7 +31,7 @@ function Invoke-GeneratedWriterRegenerate {
         $globs = [string[]] @($Writer.outputs | ForEach-Object path)
         $folders = [string[]] @($globs | ForEach-Object { [Catzc.Base.Objects.GlobPattern]::new($_).LiteralPrefix } | ForEach-Object { $_ ? $_ : '.' })
         $candidates = [string[]] @(@(Get-GitTrackedPath -Path $folders) + @((Get-GeneratedWriterInputFile -InputGlob $globs -RepositoryRoot $RepositoryRoot).File))
-        $paths = [string[]] @(Get-GeneratedWriterOutputPath -Writer $Writer -Writers $Writers -Path $candidates | ForEach-Object { "`"$_`"" })
+        $paths = [string[]] @(Get-GeneratedWriterOutputPath -WriterRow $Writer -Writers $Writers -Path $candidates | ForEach-Object { "`"$_`"" })
     }
     $runs = if ($line.Contains('{paths}')) {
         # One run takes every path, so a writer that pays a start-up per run pays it once.

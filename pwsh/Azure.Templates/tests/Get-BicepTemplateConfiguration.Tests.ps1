@@ -1,4 +1,4 @@
-# cspell:ignore alweutstscusacst alweutstscusst
+# cspell:ignore alweufxoscusacst alweufxoscusst
 Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
@@ -29,7 +29,7 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         $bicepparam.BicepParamFile | Should -BeLike '*sample-bicepparam*configuration*alpha.bicepparam'
         $bicepparam.Contains('ParametersFile') | Should -BeFalse
         (Get-BicepTemplateConfiguration sample-bicepparam beta).ParametersFile.parameters.storageAccountName.value |
-            Should -BeExactly 'btweutstsbppst'
+            Should -BeExactly 'btweufxosbppst'
     }
 
     It 'throws on an environment not in the template list' {
@@ -48,12 +48,12 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
 
     It 'loads a config from the customer subfolder' {
         $configuration = Get-BicepTemplateConfiguration sample-customer alpha -Customer acme
-        $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusacst'
+        $configuration.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweufxoscusacst'
     }
 
     It 'loads the configuration-root config distinct from the customer one' {
         $shared = Get-BicepTemplateConfiguration sample-customer alpha
-        $shared.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweutstscusst'
+        $shared.ParametersFile.parameters.storageAccountName.value | Should -Be 'alweufxoscusst'
     }
 
     It 'reads a customer''s base config for a named slot with no file, the customer''s own base and not the root''s' {

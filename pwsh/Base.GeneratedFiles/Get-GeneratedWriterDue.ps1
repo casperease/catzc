@@ -30,7 +30,7 @@ function Get-GeneratedWriterDue {
                 $known = [Catzc.Base.Objects.GlobPattern]::MatchingPaths([string[]] @($output), $tracked)
                 $gone = [string[]] @($known | Where-Object { -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $_)) })
                 # A tracked path another writer's narrower glob claims is that writer's to render.
-                $due = $gone.Count -gt 0 -and @(Get-GeneratedWriterOutputPath -Writer $writer -Writers $order -Path $gone).Count -gt 0
+                $due = $gone.Count -gt 0 -and @(Get-GeneratedWriterOutputPath -WriterRow $writer -Writers $order -Path $gone).Count -gt 0
                 # A rollable glob with nothing left on disk was rolled off whole, even when the index no longer lists it.
                 if (-not $due -and $writer.class -ceq 'rollable' -and $known.Count -eq $gone.Count) {
                     $found = (Get-GeneratedWriterInputFile -InputGlob @($output) -RepositoryRoot $RepositoryRoot).File

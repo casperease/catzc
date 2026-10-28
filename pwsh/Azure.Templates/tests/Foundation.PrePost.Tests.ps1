@@ -34,22 +34,31 @@ Describe 'foundation PrePost: the vault endpoint subnet' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'foundation PrePost: every compiled slot' -Tag 'L1', 'integrity' {
+Describe 'foundation PrePost: every compiled slot' -Tag 'L2', 'integrity' {
     BeforeAll {
-        $script:compiled = InModuleScope Catzc.Azure.Templates {
-            # Its own folder, so a concurrent build of the same template never swaps the files read here.
-            $outputFolder = @(Build-Bicep foundation -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'foundation'))[-1]
-            $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
-            $slots = foreach ($slot in @((Get-BicepTemplate foundation).slots)) {
-                $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
-                $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
-                $values = @{}
-                foreach ($name in @($parameters.Keys)) {
-                    $values[$name] = $parameters[$name].value
+        # The bicep binary is resolved once for the file; the real build runs only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+
+        $script:compiled = if (-not $script:bicepReady) {
+            [pscustomobject]@{ Main = $null; Slots = @() }
+        }
+        else {
+            InModuleScope Catzc.Azure.Templates {
+                # Its own folder, so a concurrent build of the same template never swaps the files read here.
+                $outputFolder = @(Build-Bicep foundation -OutputFolder (Join-Path (Get-PSDrive TestDrive).Root 'foundation'))[-1]
+                $main = [System.IO.File]::ReadAllText((Join-Path $outputFolder 'main.json')) | ConvertFrom-Json -AsHashtable
+                $slots = foreach ($slot in @((Get-BicepTemplate foundation).slots)) {
+                    $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
+                    $parameters = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters
+                    $values = @{}
+                    foreach ($name in @($parameters.Keys)) {
+                        $values[$name] = $parameters[$name].value
+                    }
+                    [pscustomobject]@{ Name = $slot.name; Values = $values }
                 }
-                [pscustomobject]@{ Name = $slot.name; Values = $values }
+                [pscustomobject]@{ Main = $main; Slots = @($slots) }
             }
-            [pscustomobject]@{ Main = $main; Slots = @($slots) }
         }
         $script:endpoints = {
             param($Values)
@@ -61,6 +70,10 @@ Describe 'foundation PrePost: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'deploys the vault''s private endpoint, under its derived name, in every foundation slot' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $script:compiled.Slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $script:compiled.Slots) {
             $expected = "main/key-vault-private-endpoint/$($slot.Values.keyVaultPrivateEndpointName)"
@@ -69,6 +82,10 @@ Describe 'foundation PrePost: every compiled slot' -Tag 'L1', 'integrity' {
     }
 
     It 'deploys no endpoint on the bootstrap pass, a slot that sets deployKeyVaultPrivateEndpoint to false' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         foreach ($slot in $script:compiled.Slots) {
             $bootstrap = @{} + $slot.Values
             $bootstrap.deployKeyVaultPrivateEndpoint = $false

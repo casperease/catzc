@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-Glossary -Path docs/drs/glossary.md"
-    with_body_sha: "41b8cea298e0"
+    with_body_sha: d90996c322d8
 ---
 
 # docs/drs/glossary.md
@@ -1774,7 +1774,7 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
   `combined source`, `committed source`, `shipped source`, `tracked source`, `fixture source`, `comparison source`, `primary source`,
   `raw source`, `install source`, `rule source`, `docs source`, `derived source`, `current source`, `real source`, `configured source`,
   `public source`, `single source`, `token source`, `relative source`, `repo source`, `authoritative source`, `cross source`,
-  `vendored source`, `input source`, and the bare `source`, with its verb forms
+  `vendored source`, `input source`, `text source`, and the bare `source`, with its verb forms
 - **Contrasts:**
   - [source of truth](#source-of-truth): The source of truth is the one store that decides what is true about the delivered system, the
     repository; a source, always qualified, names where one thing comes from.

@@ -17,7 +17,7 @@ its rule segment alone.
 
 The rule code, from the pipeline or by position.
 
-### parameter `Form`
+### parameter `Part`
 
 `Full` (the default) for the whole code, `RecordRule` for the last two segments, `KindRule` for the first and the last, `Rule` for the last
 alone.

@@ -6,13 +6,13 @@ function Format-DrsCode {
         [string] $Code,
 
         [ValidateSet('Full', 'RecordRule', 'KindRule', 'Rule')]
-        [string] $Form = 'Full'
+        [string] $Part = 'Full'
     )
 
     process {
         Assert-DrsCode $Code -Rule
         $segments = $Code.Split('-')
-        switch ($Form) {
+        switch ($Part) {
             'Full' {
                 $Code
             }

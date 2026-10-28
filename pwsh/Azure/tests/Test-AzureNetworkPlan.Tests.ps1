@@ -2,7 +2,7 @@ Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {
     BeforeAll {
         $environment = { param($code) [ordered]@{ shortcode = $code; region = 'westeurope'; region_code = 'weu' } }
         $script:fixtureAzure = [Catzc.Azure.AzureConfig]::new([ordered]@{
-                org           = 'tst'
+                org           = 'fxo'
                 tenants       = [ordered]@{ fixtenant = [ordered]@{ id = 'fa0e0000-7e0a-0700-1d00-000000000000' } }
                 subscriptions = [ordered]@{
                     core_lower   = [ordered]@{ id = '50a0ed00-de00-50b0-0000-000000000000'; tenant = 'fixtenant'; environments = @('alpha', 'nsub') }

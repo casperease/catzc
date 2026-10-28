@@ -144,6 +144,7 @@ by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Set-AnomalyAlertRecipientSecret` |
 |                                                                   | `Remove-BicepOrphanResources`     |
 | config                                                            | `orphan-removal.yml`              |
+|                                                                   | `anomaly-alert.yml`               |
 | responsibility:6 — Template integrity validation                  | `Assert-BicepTemplate`            |
 |                                                                   | `Get-BicepParameterModel`         |
 |                                                                   | `Test-BicepTemplateCompliance`    |

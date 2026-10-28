@@ -29,8 +29,6 @@ terms:
       meaning: "the Diagnoser half of BenchmarkDotNet's MemoryDiagnoser, quoted in the unboxing reference"
     - term: claudecode
       meaning: "the CLAUDECODE environment variable Claude Code sets in its shells (Test-IsRunningAsAgent)"
-    - term: levett
-      meaning: "the Regex Robin extension's Marketplace publisher (DanLevett.regex-robin), named by the plan that replaced it"
     - term: untracking
       meaning: "removing a committed file from git's index while keeping it on disk (git rm --cached)"
     - term: backticked
@@ -73,6 +71,14 @@ terms:
       meaning: "a PowerShell data file (.psd1 manifest)"
     - term: gitignore
       meaning: "a .gitignore file"
+    - term: objectname
+      meaning: "git's %(objectname) format atom, the blob id git cat-file --batch prints before each blob"
+    - term: ihdr
+      meaning: "IHDR, the png header chunk that opens every png after its signature"
+    - term: iend
+      meaning: "IEND, the png chunk that closes every png"
+    - term: pypi
+      meaning: "PyPI, the Python package index, as the ecosystem name and the pkg:pypi package-url type"
     - term: wildmatch
       meaning: "git's wildmatch pattern syntax — the glob dialect .gitignore/.gitattributes patterns use"
     - term: markdownlint

@@ -1,7 +1,7 @@
-# cspell:ignore btweutstsbppst
+# cspell:ignore btweufxosbppst
 # The yml slot of the sample-bicepparam fixture, base slot of env beta.
 
 ParametersFile:
   parameters:
     storageAccountName:
-      value: btweutstsbppst
+      value: btweufxosbppst

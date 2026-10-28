@@ -1,11 +1,13 @@
 """Black-box tests of Catzc.Base.Repository.
 
-Each test starts the engine as its own process the way the run's engine contract says — CATZC_ENGINE_EXECUTABLE, with
-the CATZC_ENGINE_START arguments, which load the run's entry (the repository's importer.ps1 in a source run, the
-build's Import-Catzc.ps1 in a build run) — and asserts on what the engine prints. Invoke-PythonTest sets the contract
-and CATZC_REPOSITORY_ROOT for the uv commands it runs.
+The engine starts as its own process the way the run's engine contract says — CATZC_ENGINE_EXECUTABLE, with the
+CATZC_ENGINE_START arguments, which load the run's entry (the repository's importer.ps1 in a source run, the build's
+Import-Catzc.ps1 in a build run) — and the tests assert on what the engine prints. One start answers each command once
+per test run, and every test asserting on that command reads the one answer (ADR-AUTO-TEST-ONEIMPORTPERCASE).
+Invoke-PythonTest sets the contract and CATZC_REPOSITORY_ROOT for the uv commands it runs.
 """
 
+import functools
 import json
 import os
 import subprocess
@@ -23,6 +25,7 @@ def require_env(name: str) -> str:
     return value
 
 
+@functools.cache
 def run_engine(command: str) -> str:
     """Start the engine the contract names, which loads the entry with its output discarded, run the command, and
     return what the command printed, trimmed."""

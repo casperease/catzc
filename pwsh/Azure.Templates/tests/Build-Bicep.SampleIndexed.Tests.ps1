@@ -1,4 +1,4 @@
-# cspell:ignore weutstsidxst
+# cspell:ignore weufxosidxst
 Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
     # Mocks and the config-cache reset run once; only the build output folder is wiped per test, since the tests write into it.
     BeforeAll {
@@ -63,15 +63,15 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         Build-Bicep sample-indexed | Out-Null
         $a001 = Get-Content (Join-Path $script:outputRoot 'parameters.alpha-001.json') -Raw | ConvertFrom-Json
         $a002 = Get-Content (Join-Path $script:outputRoot 'parameters.alpha-002.json') -Raw | ConvertFrom-Json
-        $a001.parameters.storageAccountName.value | Should -Be 'al001weutstsidxst'
-        $a002.parameters.storageAccountName.value | Should -Be 'al002weutstsidxst'
+        $a001.parameters.storageAccountName.value | Should -Be 'al001weufxosidxst'
+        $a002.parameters.storageAccountName.value | Should -Be 'al002weufxosidxst'
     }
 
     It 'derives a distinct resource group per slot (one config file maps to one RG)' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-indexed -Environment alpha -Slot 001 } |
-            Should -Be 'alpha-001-weu-tst-sidx-rg'
+            Should -Be 'alpha-001-weu-fxo-sidx-rg'
         & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-indexed -Environment alpha -Slot 002 } |
-            Should -Be 'alpha-002-weu-tst-sidx-rg'
+            Should -Be 'alpha-002-weu-fxo-sidx-rg'
     }
 
     It 'builds one parameters file per slot (two RGs for one env)' {

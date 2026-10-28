@@ -1,4 +1,4 @@
-// cspell:ignore alweutstsbppst
+// cspell:ignore alweufxosbppst
 using '../main.bicep'
 
-param storageAccountName = 'alweutstsbppst'
+param storageAccountName = 'alweufxosbppst'

@@ -2,7 +2,7 @@ Describe 'Get-BicepServiceConnections' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:identities = [ordered]@{
             base = [ordered]@{ role = 'ba'; templates = @('widget'); azure_role = 'owner'; description = 'Deploys the widget.' }
-            app  = [ordered]@{ role = 'ap'; templates = @('gadget'); azure_role = 'contributor'; description = 'Deploys the gadget.' }
+            app  = [ordered]@{ role = 'gx'; templates = @('gadget'); azure_role = 'contributor'; description = 'Deploys the gadget.' }
             view = [ordered]@{ role = 'vw'; templates = @('widget', 'gadget'); azure_role = 'reader'; description = 'Previews both.' }
         }
         Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'azure' } {
@@ -52,7 +52,7 @@ Describe 'Get-BicepServiceConnections' -Tag 'L0', 'logic' {
     It 'derives one connection per identity in each subscription that hosts a slot of its templates, in subscription then identity order' {
         $connections = @(Get-BicepServiceConnections)
         @($connections | ForEach-Object name) | Should -Be @(
-            'nsub-weu-wco-ado-ba-sc', 'nsub-weu-wco-ado-ap-sc', 'nsub-weu-wco-ado-vw-sc'
+            'nsub-weu-wco-ado-ba-sc', 'nsub-weu-wco-ado-gx-sc', 'nsub-weu-wco-ado-vw-sc'
             'psub-weu-wco-ado-ba-sc', 'psub-weu-wco-ado-vw-sc'
             'nsub-weu-wco-ado-gadget-ba-sc', 'nsub-weu-wco-ado-gadget-vw-sc'
         )
@@ -62,7 +62,7 @@ Describe 'Get-BicepServiceConnections' -Tag 'L0', 'logic' {
     It 'carries the identity''s role, Azure role, templates and description onto each connection' {
         $app = Get-BicepServiceConnections | Where-Object identity -EQ 'app'
         $app.subscription | Should -BeExactly 'widget_nonprod'
-        $app.role | Should -BeExactly 'ap'
+        $app.role | Should -BeExactly 'gx'
         $app.azure_role | Should -BeExactly 'contributor'
         @($app.templates) | Should -Be @('gadget')
         $app.description | Should -BeExactly 'Deploys the gadget.'

@@ -27,6 +27,7 @@ a check.
 | 18  | L1   | [Test-TrackNamespace — the real tree][c18]                   |
 | 19  | L1   | [Test-SecretScan (real tree)][c19]                           |
 | 20  | L1   | [SourceConventionScan over the repository][c20]              |
+| 21  | L1   | [Test-NetworkCalls (real tree)][c21]                         |
 
 [c1]: #1-analyzer-drs-map-integrity
 [c2]: #2-psscriptanalyzer
@@ -48,6 +49,7 @@ a check.
 [c18]: #18-test-tracknamespace--the-real-tree
 [c19]: #19-test-secretscan-real-tree
 [c20]: #20-sourceconventionscan-over-the-repository
+[c21]: #21-test-networkcalls-real-tree
 
 ## Checks
 
@@ -219,3 +221,10 @@ The files that name the product keep it, each declared once in the track's `name
 **Test file:** `pwsh/Base.QualityGates/tests/types/SourceConventionScan.Tests.ps1` (L1), block `SourceConventionScan over the repository`.
 
 **Guards:** `SourceConventionScan` collects exactly the nodes `Ast.FindAll` finds, by extent, in every PowerShell file of the tree.
+
+### 21. Test-NetworkCalls (real tree)
+
+**Test file:** `pwsh/Base.QualityGates/tests/Test-NetworkCalls.Tests.ps1` (L1), block `Test-NetworkCalls (real tree)`.
+
+**Guards:** every network call in the tree is one entry of the network-calls registry, and none sits on a default path
+(ADR-AUTO-NET-REGISTRYGATE).

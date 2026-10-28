@@ -1,6 +1,6 @@
 # pwsh/Azure.Templates/tests/Get-AzureResourceName.Tests.ps1
 
-<!-- cspell:ignore alweutstsmplst weuwkspvm sttstsmplalweu alweusmplvm vmsmplalweu weutstsmplst -->
+<!-- cspell:ignore alweufxosmplst weuwkspvm stfxosmplalweu alweusmplvm vmsmplalweu weufxosmplst -->
 
 The L0 tests of `Get-AzureResourceName`.
 

@@ -14,16 +14,16 @@ Describe 'Get-BicepResourceGroupName' -Tag 'L0', 'logic' {
 
     It 'derives env-region-org-short-rg for a base slot' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample -Environment alpha } |
-            Should -Be 'alpha-weu-tst-smpl-rg'
+            Should -Be 'alpha-weu-fxo-smpl-rg'
     }
 
     It 'includes the slot for a special slot' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-indexed -Environment alpha -Slot 001 } |
-            Should -Be 'alpha-001-weu-tst-sidx-rg'
+            Should -Be 'alpha-001-weu-fxo-sidx-rg'
     }
 
     It 'includes the customer (readable key) for a per-customer RG' {
         & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-customer -Environment alpha -Customer acme } |
-            Should -Be 'alpha-weu-tst-scus-acme-rg'
+            Should -Be 'alpha-weu-fxo-scus-acme-rg'
     }
 }

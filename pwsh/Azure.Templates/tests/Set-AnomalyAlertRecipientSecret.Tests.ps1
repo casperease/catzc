@@ -6,6 +6,9 @@ Describe 'Set-AnomalyAlertRecipientSecret' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'azure' } {
             [pscustomobject]@{ environments = @{ widget = @{} } }
         }
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'anomaly-alert' } {
+            [Catzc.Azure.Templates.AnomalyAlertConfig]::new([ordered]@{ configuration_template = 'sample'; vault_template = 'gadget' })
+        }
         Mock Test-IsRunningInPipeline -ModuleName Catzc.Azure.Templates { $false }
         Mock Get-AzCliSessionSubscription -ModuleName Catzc.Azure.Templates {
             [pscustomobject]@{ id = '00000000-0000-0000-0000-00000000000a'; name = 'widget_sub'; customer = 'sprocket' }
@@ -43,13 +46,13 @@ Describe 'Set-AnomalyAlertRecipientSecret' -Tag 'L0', 'logic' {
         $messages | Should -Match 'Wrote 2 anomaly alert recipients to secret gadget-recipients in vault widget-kv'
     }
 
-    It 'names the vault by the namer, for foundation, the environment and the session''s customer' {
+    It 'names the vault by the namer, for the configured templates, the environment and the session''s customer' {
         Set-AnomalyAlertRecipientSecret widget -Value 'a@widget.example'
         Should -Invoke Get-BicepResourceName -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter {
-            $Template -eq 'foundation' -and $Environment -eq 'widget' -and $Type -eq 'kv' -and $Customer -eq 'sprocket'
+            $Template -eq 'gadget' -and $Environment -eq 'widget' -and $Type -eq 'kv' -and $Customer -eq 'sprocket'
         }
         Should -Invoke Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter {
-            $Template -eq 'discovery' -and $Customer -eq 'sprocket'
+            $Template -eq 'sample' -and $Customer -eq 'sprocket'
         }
     }
 

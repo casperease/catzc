@@ -3,7 +3,7 @@ function Get-GeneratedWriterOutputPath {
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.Variants.GeneratedWriterRow] $Writer,
+        [Catzc.Base.Variants.GeneratedWriterRow] $WriterRow,
 
         [Parameter(Mandatory)]
         [Catzc.Base.Variants.GeneratedWriterRow[]] $Writers,
@@ -14,7 +14,7 @@ function Get-GeneratedWriterOutputPath {
     )
 
     # Every row's output glob competes for a path; the one with the most literal characters claims it, the first in the rows on a tie.
-    $globs = @(foreach ($row in @(@($Writer) + @($Writers | Where-Object { $_.name -cne $Writer.name }))) {
+    $globs = @(foreach ($row in @(@($WriterRow) + @($Writers | Where-Object { $_.name -cne $WriterRow.name }))) {
             foreach ($output in $row.outputs) {
                 [pscustomobject] @{
                     Name    = $row.name
@@ -33,7 +33,7 @@ function Get-GeneratedWriterOutputPath {
                 $best = $glob.Literal
             }
         }
-        if ($owner -ceq $Writer.name) {
+        if ($owner -ceq $WriterRow.name) {
             [void] $claimed.Add($file)
         }
     }

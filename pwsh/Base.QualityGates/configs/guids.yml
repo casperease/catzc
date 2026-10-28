@@ -70,6 +70,10 @@ guids:
   policy_allowed_resource_types:
     guid: a08ec900-254a-4555-9bf5-e42af04b5c5c
     description: Azure built-in policy definition 'Allowed resource types' (landing-zone-policies.bicep)
+  arm_guid_namespace:
+    guid: 11fb06fb-712d-4ddd-98c7-e71bbd588830
+    description:
+      ARM's fixed namespace UUID for the template function guid() — the RFC 4122 version 5 namespace ArmFunction hashes every name under
 
   # -- shipped placeholder topology: the minted ids in the shipped azure.yml demo config -------------------
   tenant_placeholder:
@@ -108,6 +112,78 @@ guids:
     guid: 59100000-ad01-0000-6000-000000000000
     sentence: sql admin group
     description: shipped placeholder object id of the Entra ID SQL administrator group in the expedition configs
+  group_shared_nonprod_readers:
+    guid: 50a0ed00-de00-0000-0000-00000000000a
+    description: shipped azure.yml groups.shared.nonproduction.readers placeholder object id
+  group_shared_nonprod_operators:
+    guid: 50a0ed00-de00-0000-0000-00000000000b
+    description: shipped azure.yml groups.shared.nonproduction.operators placeholder object id
+  group_shared_nonprod_data_readers:
+    guid: 50a0ed00-de00-0000-0000-00000000000c
+    description: shipped azure.yml groups.shared.nonproduction.data_readers placeholder object id
+  group_shared_nonprod_data_writers:
+    guid: 50a0ed00-de00-0000-0000-00000000000d
+    description: shipped azure.yml groups.shared.nonproduction.data_writers placeholder object id
+  group_shared_prod_readers:
+    guid: 50a0ed00-000d-0000-0000-00000000000a
+    description: shipped azure.yml groups.shared.production.readers placeholder object id
+  group_shared_prod_operators:
+    guid: 50a0ed00-000d-0000-0000-00000000000b
+    description: shipped azure.yml groups.shared.production.operators placeholder object id
+  group_shared_prod_data_readers:
+    guid: 50a0ed00-000d-0000-0000-00000000000c
+    description: shipped azure.yml groups.shared.production.data_readers placeholder object id
+  group_shared_prod_data_writers:
+    guid: 50a0ed00-000d-0000-0000-00000000000d
+    description: shipped azure.yml groups.shared.production.data_writers placeholder object id
+  group_apex_nonprod_readers:
+    guid: a0e00000-de00-0000-0000-00000000000a
+    description: shipped azure.yml groups.apex.nonproduction.readers placeholder object id
+  group_apex_nonprod_operators:
+    guid: a0e00000-de00-0000-0000-00000000000b
+    description: shipped azure.yml groups.apex.nonproduction.operators placeholder object id
+  group_apex_nonprod_data_readers:
+    guid: a0e00000-de00-0000-0000-00000000000c
+    description: shipped azure.yml groups.apex.nonproduction.data_readers placeholder object id
+  group_apex_nonprod_data_writers:
+    guid: a0e00000-de00-0000-0000-00000000000d
+    description: shipped azure.yml groups.apex.nonproduction.data_writers placeholder object id
+  group_apex_prod_readers:
+    guid: a0e00000-000d-0000-0000-00000000000a
+    description: shipped azure.yml groups.apex.production.readers placeholder object id
+  group_apex_prod_operators:
+    guid: a0e00000-000d-0000-0000-00000000000b
+    description: shipped azure.yml groups.apex.production.operators placeholder object id
+  group_apex_prod_data_readers:
+    guid: a0e00000-000d-0000-0000-00000000000c
+    description: shipped azure.yml groups.apex.production.data_readers placeholder object id
+  group_apex_prod_data_writers:
+    guid: a0e00000-000d-0000-0000-00000000000d
+    description: shipped azure.yml groups.apex.production.data_writers placeholder object id
+  group_nova_nonprod_readers:
+    guid: 000a0000-de00-0000-0000-00000000000a
+    description: shipped azure.yml groups.nova.nonproduction.readers placeholder object id
+  group_nova_nonprod_operators:
+    guid: 000a0000-de00-0000-0000-00000000000b
+    description: shipped azure.yml groups.nova.nonproduction.operators placeholder object id
+  group_nova_nonprod_data_readers:
+    guid: 000a0000-de00-0000-0000-00000000000c
+    description: shipped azure.yml groups.nova.nonproduction.data_readers placeholder object id
+  group_nova_nonprod_data_writers:
+    guid: 000a0000-de00-0000-0000-00000000000d
+    description: shipped azure.yml groups.nova.nonproduction.data_writers placeholder object id
+  group_flux_nonprod_readers:
+    guid: f1000000-de00-0000-0000-00000000000a
+    description: shipped azure.yml groups.flux.nonproduction.readers placeholder object id
+  group_flux_nonprod_operators:
+    guid: f1000000-de00-0000-0000-00000000000b
+    description: shipped azure.yml groups.flux.nonproduction.operators placeholder object id
+  group_flux_nonprod_data_readers:
+    guid: f1000000-de00-0000-0000-00000000000c
+    description: shipped azure.yml groups.flux.nonproduction.data_readers placeholder object id
+  group_flux_nonprod_data_writers:
+    guid: f1000000-de00-0000-0000-00000000000d
+    description: shipped azure.yml groups.flux.nonproduction.data_writers placeholder object id
 
   # -- test fixtures and documentation examples -------------------------------------------------------------
   fixture_widget_build:
@@ -145,6 +221,39 @@ guids:
     guid: a55e0700-a000-601d-0000-000000000000
     sentence: assert a guid
     description: Assert-IsGuid comment-based-help example value
+  fixture_subscription_a:
+    guid: 00000000-0000-0000-0000-00000000000a
+    description: the first placeholder subscription id of Azure.Templates and Azure.DevOps logic tests (Test-Pipelines, ArmExpression, orphan and compliance tests)
+  fixture_subscription_b:
+    guid: 00000000-0000-0000-0000-00000000000b
+    description: the second placeholder subscription id of logic tests — a subscription other than fixture_subscription_a
+  fixture_role_reader:
+    guid: 00000000-0000-0000-0000-0000000000a1
+    description: Get-BicepRoleAssignmentPlan test fixture — a role definition id the role map names
+  fixture_role_unnamed:
+    guid: 00000000-0000-0000-0000-0000000000b2
+    description: Get-BicepRoleAssignmentPlan test fixture — a role definition id the role map does not name
+  fixture_group_widget_readers:
+    guid: 0a000000-0000-0000-0000-00000000000a
+    description: AzureConfig type test fixture — the widget customer's production readers group object id
+  fixture_arm_subscription_explicit:
+    guid: 11111111-2222-3333-4444-555555555555
+    description: ArmExpression test fixture — the explicit subscription id passed to resourceId() and subscriptionResourceId()
+  arm_guid_widget_log_workspace:
+    guid: d61bf936-8844-5b06-b159-3f2725eb4720
+    description: Bicep's guid() of the widget-log workspace resource id — the expected workbook name in ArmExpression and compliance tests
+  arm_guid_scoped_workbook:
+    guid: 9ce68b74-0af1-5971-bdd4-430f34b1e23c
+    description: Bicep's guid() workbook name over a scoped resource id — the expected name in compliance and orphan-removal tests
+  arm_guid_letter_a:
+    guid: 3703365d-5a9f-59b4-bca7-b9681389e4c1
+    description: Bicep's guid('a') — the ArmExpression guid() test's single-argument expected value
+  arm_guid_widget_gadget:
+    guid: 861d683b-b864-5597-a1a6-790d56697302
+    description: Bicep's guid('widget', 'gadget') = guid('widget-gadget') — the ArmExpression guid() join test's expected value
+  arm_guid_empty_subscription_reader:
+    guid: c5d25c8c-603a-553a-bb0e-2f2e44314cd1
+    description: Bicep's guid() of the all-zero subscription's rg scope and 'Reader' — the ArmExpression guid() test's expected value
 
   # -- minted with ConvertTo-Guid: the value spells the sentence, one word per dash group ------------------
   minted_gadget_msi_product_code:

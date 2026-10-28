@@ -24,15 +24,16 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short:
-      "The first segment of a decision record code (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR` or `EDR`), registered in drs.yml; together the XDR kinds."
+      "The first segment of a decision record code (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR` or `EDR`), registered in drs.yml; together the
+      XDR kinds."
     realized_by: { kind: prose-only }
   workstream:
     key: workstream
     domain: repository
     defined_by: ADR-REPO-OUTDIR-PLANNOTES
     short:
-      One labeled section of a plan's work breakdown (`.claude/plans/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands as one
-      change.
+      One labeled section of a plan's work breakdown (`.claude/plans/plan-*.md`) — its own `### W<n>:` heading, order, and gate — that lands
+      as one change.
     realized_by: { kind: prose-only }
   robot:
     key: robot
@@ -145,6 +146,7 @@ concepts:
         cross,
         vendored,
         input,
+        text,
       ]
     verbs: true
     contrasts:

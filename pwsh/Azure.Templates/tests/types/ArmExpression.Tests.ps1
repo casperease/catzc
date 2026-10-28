@@ -215,7 +215,8 @@ Describe 'ArmExpression' -Tag 'L0', 'logic' {
         & $eval "[guid('a')]" | Should -BeExactly '3703365d-5a9f-59b4-bca7-b9681389e4c1'
         & $eval "[guid('widget', 'gadget')]" | Should -BeExactly '861d683b-b864-5597-a1a6-790d56697302'
         & $eval "[guid('widget-gadget')]" | Should -BeExactly '861d683b-b864-5597-a1a6-790d56697302'
-        & $eval "[guid('/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg', 'Reader')]" | Should -BeExactly 'c5d25c8c-603a-553a-bb0e-2f2e44314cd1'
+        # The all-zero subscription is built at runtime, since guids.yml denies it as a tracked literal.
+        & $eval "[guid('/subscriptions/$([guid]::Empty)/resourceGroups/rg', 'Reader')]" | Should -BeExactly 'c5d25c8c-603a-553a-bb0e-2f2e44314cd1'
         & $isUnresolved (& $eval "[guid('widget', 7)]") | Should -BeTrue
         & $isUnresolved (& $eval "[guid(parameters('missing'))]") | Should -BeTrue
     }

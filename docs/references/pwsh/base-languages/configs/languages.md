@@ -13,7 +13,9 @@ generator sets each language's VS Code default formatter to its engine's extensi
 `Format-Code` run the same engine
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
-## Per formatter (`formatters:`)
+## Per formatter
+
+`formatters:`
 
 - **`vscode_extension`** — the VS Code extension that runs the engine in the editor; omitted means the editor has none.
 - **`settings`** — the repository files whose content decides what the engine writes: its configuration and the tool registry whose pin
@@ -22,7 +24,9 @@ generator sets each language's VS Code default formatter to its engine's extensi
 PSScriptAnalyzer's formatter runs through the PowerShell extension, whose `codeFormatting` settings (`vscode-settings.yml`) mirror the
 analyzer settings file. The vendored module's manifest names its version.
 
-## Per language (`languages:`)
+## Per language
+
+`languages:`
 
 - **`extensions`** — the extensions that name the language, lowercase, each with its leading dot.
 - **`formatter`** — the formatter engine: `prettier`, `gofmt`, `ruff`, `psscriptanalyzer`, `dotnet-format` or `bicep`.

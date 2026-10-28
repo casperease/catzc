@@ -1,22 +1,34 @@
-Describe 'Role assignments: every compiled discovery and expedition slot assigns the declared set' -Tag 'L1', 'integrity' {
+Describe 'Role assignments: every compiled discovery and expedition slot assigns the declared set' -Tag 'L2', 'integrity' {
     BeforeAll {
+        # The bicep binary is resolved once for the file; the real builds run only when it is there.
+        $bicep = Resolve-ToolExecutable -Tool bicep
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+
         # Its own folder, so a concurrent build of the same template never swaps the files read here.
         $script:root = Join-Path (Get-PSDrive TestDrive).Root 'role-plan'
-        $script:slots = @(InModuleScope Catzc.Azure.Templates -Parameters @{ Root = $script:root } {
-                param($Root)
-                $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path $Root 'discovery'))[-1]
-                foreach ($slot in @((Get-BicepTemplate discovery).slots)) {
-                    $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
-                    [pscustomobject]@{
-                        Coordinate = (@($slot.customer, $slot.environment, $slot.slot) | Where-Object { $_ }) -join '.'
-                        Groups     = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters.groups.value
+        $script:slots = @(if ($script:bicepReady) {
+                InModuleScope Catzc.Azure.Templates -Parameters @{ Root = $script:root } {
+                    param($Root)
+                    $outputFolder = @(Build-Bicep discovery -OutputFolder (Join-Path $Root 'discovery'))[-1]
+                    foreach ($slot in @((Get-BicepTemplate discovery).slots)) {
+                        $file = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer)
+                        [pscustomobject]@{
+                            Coordinate = (@($slot.customer, $slot.environment, $slot.slot) | Where-Object { $_ }) -join '.'
+                            Groups     = ([System.IO.File]::ReadAllText($file) | ConvertFrom-Json -AsHashtable).parameters.groups.value
+                        }
                     }
                 }
             })
-        $script:plan = @(Get-BicepRoleAssignmentPlan discovery -OutputRoot $script:root)
+        $script:plan = @(if ($script:bicepReady) {
+                Get-BicepRoleAssignmentPlan discovery -OutputRoot $script:root
+            })
     }
 
     It 'assigns each slot exactly the readers'' and operators'' roles' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $script:slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $script:slots) {
             $groupOf = @{}
@@ -42,6 +54,10 @@ Describe 'Role assignments: every compiled discovery and expedition slot assigns
     }
 
     It 'assigns each expedition slot the data roles of the groups it declares, on its account and on foundation''s vault' {
+        if (-not $script:bicepReady) {
+            Set-ItResult -Skipped -Because 'tool_bicep_missing'
+            return
+        }
         $root = Join-Path (Get-PSDrive TestDrive).Root 'role-plan-expedition'
         $slots = @(InModuleScope Catzc.Azure.Templates -Parameters @{ Root = $root } {
                 param($Root)

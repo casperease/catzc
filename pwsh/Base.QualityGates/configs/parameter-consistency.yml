@@ -7,4 +7,6 @@ exempt:
   Edge: the edges of a diagram, typed per diagram domain (DRS domains versus module dependencies)
   GlobSet: a loaded globset to read versus the name of a globset an Azure DevOps build validation registers
   Probe: tool-probe records to report versus a probe scriptblock a test target runs
+  Rule: the opt-in that a DRS code must name a rule (Assert-DrsCode, Test-DrsCode) versus the rule code a diagram or minimap highlights
+  Text: a file's text to read or format versus the in-memory path-to-text map a repository text source serves (Use-RepositoryTextSource)
   Value: the value a single-value command sets or checks versus the variable set an environment writer applies

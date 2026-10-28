@@ -32,6 +32,8 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:writers }
         Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
+        # The wildcard output reads the index, which the fake root has none of: nothing is tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles { }
     }
 
     AfterAll {
@@ -160,6 +162,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.GeneratedFiles { $script:writers }
         Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
+        # The wildcard output reads the index, which the fake root has none of: nothing is tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.GeneratedFiles { }
     }
 
     AfterAll {

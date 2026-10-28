@@ -1,4 +1,4 @@
-# cspell:ignore alweutstsbppst btweutstsbppst
+# cspell:ignore alweufxosbppst btweufxosbppst
 Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Azure.Templates
@@ -37,8 +37,8 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
         Build-Bicep sample-bicepparam | Out-Null
         $alpha = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $beta = Get-Content (Join-Path $script:outputRoot 'parameters.beta.json') -Raw | ConvertFrom-Json
-        $alpha.parameters.storageAccountName.value | Should -BeExactly 'alweutstsbppst'
-        $beta.parameters.storageAccountName.value | Should -BeExactly 'btweutstsbppst'
+        $alpha.parameters.storageAccountName.value | Should -BeExactly 'alweufxosbppst'
+        $beta.parameters.storageAccountName.value | Should -BeExactly 'btweufxosbppst'
     }
 
     It 'writes each slot as a .bicepparam whose using names the copy of main.bicep inside the output folder' {

@@ -12,9 +12,9 @@ Stamps the generated-file head on a file its writer has written, filled from the
 ### description
 
 Reads the file and renders its head through `Format-GeneratedFileHead` with the writer's name, which reads the writer's row and finds the
-file's carrier entry in file-carriers.yml through `FileCarrierResolver` (an entry whose globs match the path wins, otherwise the entry of its
-file language), and writes it back only when it changes. A png is stamped as bytes, every other file as text with its own line ends. A path no entry names is
-refused.
+file's carrier entry in file-carriers.yml through `FileCarrierResolver` (an entry whose globs match the path wins, otherwise the entry of
+its file language), and writes it back only when it changes. A png is stamped as bytes, every other file as text with its own line ends. A
+path no entry names is refused.
 
 ### parameter `Path`
 

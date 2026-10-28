@@ -14,7 +14,7 @@ The candidate paths a writer row's outputs claim, in ordinal order.
 Every output glob of every row competes for each candidate path. The glob with the most literal characters (all but `*`, `?`, `[` and `]`)
 claims it, and on a tie the writer named first: the writer itself, then the rows in their order. A path no output matches is dropped.
 
-### parameter `Writer`
+### parameter `WriterRow`
 
 The writer row whose paths are wanted.
 
@@ -33,7 +33,7 @@ The candidate repository-relative paths, with '/' or '\' separators.
 ### example 1
 
 ```powershell
-Get-GeneratedWriterOutputPath -Writer $picture -Writers $rows -Path $tracked
+Get-GeneratedWriterOutputPath -WriterRow $picture -Writers $rows -Path $tracked
 ```
 
 ## Why the most literal glob claims

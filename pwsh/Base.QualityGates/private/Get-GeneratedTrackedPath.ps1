@@ -31,7 +31,7 @@ function Get-GeneratedTrackedPath {
         if ($mine.Count -eq 0) {
             continue
         }
-        $owned = Get-GeneratedWriterOutputPath -Writer $row -Writers $rows -Path $mine
+        $owned = Get-GeneratedWriterOutputPath -WriterRow $row -Writers $rows -Path $mine
         foreach ($file in @($owned)) {
             if ($claimed.Add($file)) {
                 [Catzc.Base.Variants.GeneratedTarget]::new($file, $row.name, $row.class)

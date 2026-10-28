@@ -13,7 +13,7 @@ is one or the other — a test file needing both puts each kind in its own group
 ### Rule ADR-AUTO-TEST-DISTINCTFIXTURES
 
 Fixtures own their inputs and use deliberately distinct identities under `tests/assets/` (envs `alpha`/`beta`, customers `acme`/`globex`,
-org `tst`) so they cannot collide with production.
+org `fxo`) so they cannot collide with production.
 
 - [Isolation through seams](#isolation-through-seams)
 
@@ -846,7 +846,7 @@ spelled in its test framework, and the language's gotchas.
   template, including ones added later, with no per-template test to write.
 - One body of tests proves both run modes: a module that breaks only when merged into the build turns the build run red, with no second set
   of tests to keep in step.
-- Distinct fixture identities make a test's independence visible — a reviewer sees `alpha`/`acme`/`tst` and knows nothing production is in
+- Distinct fixture identities make a test's independence visible — a reviewer sees `alpha`/`acme`/`fxo` and knows nothing production is in
   play.
 - The cost: two artifacts to maintain (fixture config + shipped config). They are independent by design; the fixture tracks the test's
   needs, the shipped file tracks reality, and the integrity test guards the latter.
