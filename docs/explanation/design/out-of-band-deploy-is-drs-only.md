@@ -24,7 +24,7 @@ description:
   The out-of-band deploy of a topic commit, which no gate checks, beside the one gate in code on deploys, main-only, and the climb from the
   topic commit through main and the BVT to a BVT-verified commit.
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - DDR-VISUAL-BRANCHDIRECTIONISROLE

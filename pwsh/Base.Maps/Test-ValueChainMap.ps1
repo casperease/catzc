@@ -21,12 +21,12 @@ function Test-ValueChainMap {
         }
     }
 
-    # The ADRs: each sits in a cell, and declares only rows and value-chain concerns the map prints.
+    # The records: each sits in a cell, and declares only rows and value-chain concerns the map prints.
     foreach ($stray in $map.Strays) {
         $issues.Add("stray value: $stray (ADR-REPO-VALUECHAIN-CONCERN)")
     }
-    foreach ($adr in $map.Unplaced) {
-        $issues.Add("unplaced ADR: $adr sits in no cell of the value-chain map (ADR-REPO-VALUECHAIN-CONCERN)")
+    foreach ($record in $map.Unplaced) {
+        $issues.Add("unplaced record: $record sits in no cell of the value-chain map (ADR-REPO-VALUECHAIN-CONCERN)")
     }
 
     # Printed labels: each value_chain_ label names a glossary term.
@@ -50,12 +50,12 @@ function Test-ValueChainMap {
 
     $nonEmptyCells = 0
     foreach ($cell in $map.Cells) {
-        if ($cell.AdrCount -gt 0) {
+        if ($cell.RecordCount -gt 0) {
             $nonEmptyCells++
         }
     }
     $facts = [ordered]@{
-        Adrs          = $map.AdrCount
+        Records       = $map.RecordCount
         Rows          = $map.Stacks.Count
         Columns       = $map.Concerns.Count
         NonEmptyCells = $nonEmptyCells

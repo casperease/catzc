@@ -21,7 +21,7 @@ description:
   "What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes its report or throws once
   with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."
 about:
-  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
+  rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: operations
 content:
   title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam

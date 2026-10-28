@@ -1,6 +1,6 @@
 # pwsh/Base.Maps/types/CitationSite.cs
 
-One place a file cites an ADR: the file, the 1-based line, the canonical citation and the kind of text it sits in. A highlight uses it to
+One place a file cites a record: the file, the 1-based line, the canonical citation and the kind of text it sits in. A highlight uses it to
 say where a lit file cites the request and whether that citation is the file's subject or a passing mention. `CitationScanner.Sites` finds
 them.
 

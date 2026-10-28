@@ -26,7 +26,7 @@ description:
   Each entry script only fixes the code root and calls the one importer function, which hands the root to three load steps and reads the run
   mode back from the same root; a foreign module left loaded stops the load.
 about:
-  adrs: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-THREEBUILDKINDS]
+  rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-THREEBUILDKINDS]
   lens: implementation
 content:
   title: Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it

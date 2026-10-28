@@ -1,4 +1,4 @@
-# ADR: Use proper package managers
+# Automation: Use proper package managers
 
 ## Rules: ADR-AUTO-PKGMGR
 
@@ -86,8 +86,8 @@ the installer it fetches are attack surface, twice the vectors of a manager that
 
 [serpent]: https://www.bleepingcomputer.com/news/security/serpent-malware-campaign-abuses-chocolatey-windows-package-manager/
 
-Chocolatey for Business mitigates some of these with internal repositories, package internalization and runtime malware scanning, but it
-is a paid product, and the free tier has none of those controls.
+Chocolatey for Business mitigates some of these with internal repositories, package internalization and runtime malware scanning, but it is
+a paid product, and the free tier has none of those controls.
 
 ### Winget's security model
 

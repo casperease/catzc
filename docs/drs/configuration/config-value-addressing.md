@@ -1,4 +1,4 @@
-# ADR: Config value addressing — a by-reference handle into a named config
+# Configuration: Config value addressing — a by-reference handle into a named config
 
 ## Rules: ADR-CONF-ADDRESSING
 

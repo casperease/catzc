@@ -22,8 +22,8 @@ metadata:
    shows it.
 3. A new agent type appears only in a session started after its file lands; a new job skill is tried at once through a drone that loads it
    by name, never by waiting for a new robot. A brief says every file is written with the Edit tool (Write for a new one) and a script that
-   writes files is refused, since a scripted writer drops facts; a brief over about 15 records is split before spawning, since a drone past
-   that hits its turn roof.
+   writes files is refused, since a scripted writer drops facts; a brief over about 15 records is split before spawning, and a
+   decision-record review brief holds under ten records, since it reads each in full; a drone past that hits its turn roof.
 4. The report, three lists and nothing beyond them. Files touched: one repository-relative path per line, marked created, edited or deleted,
    and a shared file the brief did not own listed under asks with the exact entry wanted. Checks run: each gate or test with its verdict
    line verbatim and its report path, and a check not run listed as not run, with why. Left undone: what the brief asked that did not land,

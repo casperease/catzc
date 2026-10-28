@@ -25,7 +25,7 @@ description:
   Only ingress is checked by gates, a local guard and a server branch policy; the rules that the server main is the truth and that consumers
   integrate from the verified point rest on code review alone.
 about:
-  adrs:
+  rules:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-INTEGRATEFROMVERIFIED

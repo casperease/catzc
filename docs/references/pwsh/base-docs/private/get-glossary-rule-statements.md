@@ -7,24 +7,24 @@ removed, so a mention in backticks never counts as a definition.
 
 ### synopsis
 
-Maps every indexed ADR rule id to the text of its normative summary that can define a term.
+Maps every indexed rule code to the text of its normative summary that can define a term.
 
 ### description
 
-Walks the ADRs the index lists (Get-DrsIndex) and reads each one's rules (Get-DrsRules), keeping each rule's Statement — its whole
+Walks the records the index lists (Get-DrsIndex) and reads each one's rules (Get-DrsRules), keeping each rule's Statement — its whole
 normative summary on one line — with inline code spans removed. A code span is a mention, never a definition
 ([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)),
 so `A **<term>** is …` written in backticks neither anchors nor defines a term. This is the one text the anchoring (G2) and
 single-definition (G3) checks match against
-([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)); ADR bodies are never
+([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)); record bodies are never
 read.
 
 Private helper for the glossary checks; not exported.
 
 ### parameter `IndexPath`
 
-Absolute path to the ADR index. ADR paths in it resolve against the index's own folder, so a test can point this at a fixture index beside
-fixture ADR files.
+Absolute path to the DRS index. Record paths in it resolve against the index's own folder, so a test can point this at a fixture index
+beside fixture record files.
 
 ### outputs
 

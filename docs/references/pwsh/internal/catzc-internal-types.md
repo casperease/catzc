@@ -101,7 +101,7 @@ A lazy load defers the types until a catzc command is first used:
 
 - ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) — the single combined assembly and its hash key.
 - ADR: [caching](../../../drs/automation/caching.md) — the committed compiled-type prebuild this hash names.
-- ADR: [one-living-version](../../../drs/principles/one-living-version.md) — why the algorithm lives here once.
+- Principle: [one-living-version](../../../drs/principles/one-living-version.md) — why the algorithm lives here once.
 - Reference: `Catzc.Internal.Bootstrap` — the loader (`Import-CSharpTypes`) that consumes this hash; `Catzc.Base.TypesSystem` — the module
   whose `Clear-ModuleTypeCache` janitor also calls it; the BCL type-system reference (`docs/references/BCL/types-system.md`) and the
   internal area overview.

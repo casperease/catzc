@@ -28,7 +28,7 @@ description:
   Every Azure name comes out of one resolver, which gathers the components from three config sources, and one namer, which reads three
   registries and assembles and checks the name; the resource-group name is the one in-tree consumer.
 about:
-  adrs:
+  rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
     - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
     - ADR-AZ-NAMING-ORDERISVARIANT

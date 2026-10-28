@@ -14,7 +14,7 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
         }
 
         It 'a link climbing out of the source folder' {
-            & $script:rebase '[r](../../adr/widget/rules.md)' | Should -BeExactly '[r](../docs/adr/widget/rules.md)'
+            & $script:rebase '[r](../../drs/widget/rules.md)' | Should -BeExactly '[r](../docs/drs/widget/rules.md)'
         }
 
         It 'a link into the copy''s own folder, which shortens' {

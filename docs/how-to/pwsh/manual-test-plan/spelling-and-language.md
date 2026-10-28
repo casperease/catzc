@@ -91,8 +91,8 @@ modules' configs/glossary.yml sources.
 
 **Test file:** `pwsh/Base.Docs/tests/Test-Glossary.Tests.ps1` (L2), block `Test-Glossary — real glossary sources`.
 
-**Guards:** At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real ADRs, tests, and
-tracked files.
+**Guards:** At least one glossary source exists, and the real sources pass every glossary check (G1–G5) over the real decision records,
+tests, and tracked files.
 
 ### 8. Build-Glossary — shipped configs/drs.yml and types
 

@@ -1,4 +1,4 @@
-# ADR: Dynamic module manifests — the pwsh rules over open-closed-architecture
+# PowerShell: Dynamic module manifests — the pwsh rules over open-closed-architecture
 
 ## Rules: ADR-PWSH-MANIFEST
 

@@ -24,7 +24,7 @@ description:
   A local clone leaves from the verified point, commits and pushes upward to its own topic branch on the server remote, and the pull request
   authenticates and verifies that topic HEAD before merging it into HEAD.
 about:
-  adrs:
+  rules:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-PULLREQUESTISINGRESS

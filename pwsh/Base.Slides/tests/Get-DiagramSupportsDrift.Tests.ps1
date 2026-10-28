@@ -3,7 +3,7 @@ Describe 'Get-DiagramSupportsDrift' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLARA
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/widgets/.assets')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/.assets/widget-flow.drawio.yml'),
-            "about:`n  adrs: [ADR-WIDGET-ONE, ADR-WIDGET-TWO]`n  lens: architecture`ncontent:`n  title: Widgets`n")
+            "about:`n  rules: [ADR-WIDGET-ONE, ADR-WIDGET-TWO]`n  lens: architecture`ncontent:`n  title: Widgets`n")
         $script:page = 'docs/widgets/widget-flow.md'
         $script:drift = {
             param([string] $Text)

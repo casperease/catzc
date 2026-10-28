@@ -26,7 +26,7 @@ description:
   "Get-Aspect answers each track's aspect order from variants.yml, naming the remainder: the code track ends in tests, the deployment track
   ends in live, and a wrong order fails the next time the config loads."
 about:
-  adrs: [DDR-ASPECT-TRACKPICKSCATCHALL]
+  rules: [DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: operations
 content:
   title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads

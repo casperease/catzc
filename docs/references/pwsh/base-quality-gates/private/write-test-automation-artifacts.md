@@ -12,7 +12,7 @@ Writes a run's report artifacts and the skip report — best-effort, never maski
 ### description
 
 Persists summary.md + tests.csv beside the per-shard results (Write-TestAutomationReport), points latest.txt at the run, renders the
-end-of-run skip report (Write-TestAutomationSkipReport), and writes the ADR rule-enforcement coverage (Write-TestAutomationRuleCoverage —
+end-of-run skip report (Write-TestAutomationSkipReport), and writes the DRS rule-enforcement coverage (Write-TestAutomationRuleCoverage —
 rule-coverage.md/.csv). Each part is try/catch-guarded independently: a rendering error is reported as a yellow line and swallowed, so a
 failing run still throws for its own reason, not a reporting one.
 
@@ -72,6 +72,6 @@ excluded it.
 
 ## Rule coverage
 
-The ADR rule-enforcement coverage is report-only, under the same best-effort rule. It unions the enforcers of tagged tests (each row's Rules
+The DRS rule-enforcement coverage is report-only, under the same best-effort rule. It unions the enforcers of tagged tests (each row's Rules
 column) with the enforcers among the analyzer rules (Get-AnalyzerDrsCoverage) over the full rule universe. A plain assignment receives the
 comma-wrapped getter intact, and the `:` of a registry id becomes `#` so it matches the tags.

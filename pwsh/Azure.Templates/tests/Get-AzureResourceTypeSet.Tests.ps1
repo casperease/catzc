@@ -42,6 +42,7 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
         @{ type = 'dash'; limit = 160 }
         @{ type = 'afw'; limit = 56 }
         @{ type = 'afwp'; limit = 80 }
+        @{ type = 'sc'; limit = 256 }
     ) {
         $entry = (Get-AzureResourceTypeSet)[$type]
         $entry.pattern | Should -Be 'long'

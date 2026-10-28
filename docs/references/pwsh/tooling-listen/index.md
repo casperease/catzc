@@ -55,56 +55,6 @@ The module is the deterministic half of the listen mode. The editor's correction
 tested, free to run, and never late because something was thinking. Understanding stays with the processor agent, which reads the notes on
 its own time.
 
-```yml drawio
-description:
-  "The listen mode: each writer leaves its trace in a ledger, the listener notes every settled change with who wrote it, and the processor
-  plans from the editor's notes alone."
-about:
-  adrs: [ADR-REPO-AI-EDITORISFACT, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
-  lens: meta
-content:
-  title: Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone
-  kind: explanation
-  flow: left-to-right
-  theme: dark
-  bands:
-    - { id: band-writers, label: WRITERS }
-    - { id: band-ledgers, label: LEDGERS }
-    - { id: band-listener, label: LISTENER }
-    - { id: band-processor, label: PROCESSOR }
-  glyphs:
-    - { id: a-editor, kind: actor, label: the editor (VS Code), in: band-writers }
-    - { id: a-agents, kind: actor, label: agent sessions, in: band-writers }
-    - { id: s-saves, kind: store, label: editor-saves.jsonl, in: band-ledgers }
-    - { id: s-writes, kind: store, label: agent-writes.jsonl, in: band-ledgers }
-    - { id: r-listener, kind: runner, label: Start-DocListener, in: band-listener }
-    - { id: f-notes, kind: file, label: "notes, tagged by source", in: band-listener }
-    - { id: g-editor-only, kind: gate, label: editor notes only, in: band-processor }
-    - { id: r-processor, kind: runner, label: the processor, in: band-processor }
-    - { id: r-plans, kind: result, label: plan-listen-*.md, in: band-processor }
-  edges:
-    - { from: a-editor, to: s-saves, kind: flow, label: save }
-    - { from: a-agents, to: s-writes, kind: flow, label: write }
-    - { from: r-listener, to: s-saves, kind: flow, label: reads }
-    - { from: r-listener, to: s-writes, kind: flow, label: reads }
-    - { from: r-listener, to: f-notes, kind: flow, label: "" }
-    - { from: f-notes, to: g-editor-only, kind: flow, label: "" }
-    - { from: g-editor-only, to: r-processor, kind: flow, label: feeds }
-    - { from: r-processor, to: r-plans, kind: thick, label: plans }
-  legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
-layout:
-  a-editor: { x: 110, y: 140, w: 90, h: 70 }
-  a-agents: { x: 110, y: 270, w: 90, h: 70 }
-  s-saves: { x: 380, y: 145, w: 220, h: 60 }
-  s-writes: { x: 380, y: 275, w: 220, h: 60 }
-  r-listener: { x: 690, y: 160, w: 110, h: 150 }
-  f-notes: { x: 690, y: 340, w: 110, h: 50 }
-  g-editor-only: { x: 1010, y: 330, w: 120, h: 70 }
-  r-processor: { x: 1010, y: 240, w: 120, h: 44 }
-  r-plans: { x: 1000, y: 150, w: 140, h: 44 }
-```
-
 ![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone][diagram]
 
 [diagram]: ../.assets/listen-mode-flow.drawio.png

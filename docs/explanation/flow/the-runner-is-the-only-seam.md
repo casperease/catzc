@@ -23,7 +23,7 @@ description:
   "The one crossing from pipeline YAML into PowerShell: root pipelines call one step template, the template selects one task, the task calls
   one runner script that loads the importer, and a developer reaches the same importer from a terminal."
 about:
-  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
+  rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: architecture
 content:
   title: The runner is the only seam from pipeline YAML into PowerShell

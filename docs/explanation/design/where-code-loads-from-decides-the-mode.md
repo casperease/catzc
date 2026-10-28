@@ -21,7 +21,7 @@ description:
   The repository and a built package are the two places the code loads from; both go through one importer into the same modules, and the
   place it loaded from is the run mode, which nothing stores.
 about:
-  adrs: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST]
+  rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST]
   lens: meta
 content:
   title: Where the code loads from decides the run mode

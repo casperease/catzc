@@ -24,7 +24,7 @@ description:
   A pull request run builds in a CI stage but its Deploy stages carry a main-only condition and skip, so only the run on main deploys and no
   topic commit is deployed by a pipeline.
 about:
-  adrs: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
+  rules: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
   lens: implementation
 content:
   title: Every Deploy stage runs only from main, so no topic commit is deployed

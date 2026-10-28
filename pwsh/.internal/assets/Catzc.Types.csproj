@@ -13,13 +13,13 @@
   Add-Type into one committed assembly (pwsh/.compiled/Catzc.Types.<hash>.dll); nothing here is shipped
   or required to run the toolset. The project's only job is to make the editor's feedback equal the runtime's
   — everything-as-code. To stay faithful, it mirrors Add-Type's compile: Nullable and ImplicitUsings OFF (the
-  runtime enables neither). Build output (obj/, bin/) is gitignored. See ADR native-csharp-types (code types).
+  runtime enables neither). Build output (obj/, bin/) is gitignored. See the decision record native-csharp-types (code types).
 -->
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "985eb8479914"
+    with_body_sha: "59e4b30b0d11"
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
@@ -50,7 +50,7 @@
   <!--
     Reference System.Management.Automation from the pwsh HOST, not a package. The runtime compile
     (Add-Type) gets SMA for free — it is in Add-Type's default reference set, and the compiled assembly
-    only ever loads inside a pwsh process where SMA is loaded by definition (ADR native-csharp-types,
+    only ever loads inside a pwsh process where SMA is loaded by definition (decision record native-csharp-types,
     "host-guaranteed assemblies"). There is no NuGet in this toolset, so the IDE build mirrors that
     contract the same way the runtime satisfies it: ask the pwsh on PATH for the SMA assembly it actually
     loads ([psobject].Assembly.Location — deliberately $-free so the command survives both cmd and sh)
@@ -77,7 +77,7 @@
   <!--
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
     pwsh/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
-    types/*.cs (ADR caching,
+    types/*.cs (decision record caching,
     [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
     hash IS the assembly's identity. The project asks the one living measure for it, Get-CombinedTypeHash in
     Catzc.Internal.Types (PDR-ONELIVE: a copy of the algorithm kept here drifted the moment the loader left the

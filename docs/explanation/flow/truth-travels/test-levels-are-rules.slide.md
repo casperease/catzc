@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../flow/.assets/globs-projects-and-three-consumers-read.drawio.png
+      source: ../../automation/.assets/two-gates-check-the-layer-pins.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ roofs.
 
 ## Image
 
-.assets/test-levels-are-rules.png
+[test-levels-are-rules](.assets/test-levels-are-rules.png)
 
 ## Caption
 
-From the catalogue, reduced: globs projects and three consumers read.
+From the catalogue, reduced: two gates check the layer pins.
 
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/globs-projects-and-three-consumers-read.drawio.png.
+docs/explanation/automation/.assets/two-gates-check-the-layer-pins.drawio.png.

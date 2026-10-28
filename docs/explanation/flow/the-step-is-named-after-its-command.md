@@ -23,7 +23,7 @@ description:
   "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
   full exception, and a developer copies the command from the label with no gate checking that."
 about:
-  adrs: [ADR-ADO-RUNNER-THINSTEPTEMPLATES, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
+  rules: [ADR-ADO-RUNNER-THINSTEPTEMPLATES, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: operations
 content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs

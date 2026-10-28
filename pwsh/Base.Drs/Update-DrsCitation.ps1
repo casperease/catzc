@@ -13,6 +13,8 @@ function Update-DrsCitation {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string[]] $Exclude = @('.claude/learnings/', '.claude/hindsight/'),
+
         [switch] $DryRun
     )
 
@@ -27,6 +29,9 @@ function Update-DrsCitation {
     $repoPath = [System.IO.Path]::GetRelativePath($root, $file).Replace('\', '/')
     $isOutside = $repoPath -eq '..' -or $repoPath.StartsWith('../') -or [System.IO.Path]::IsPathRooted($repoPath)
     Assert-False $isOutside -ErrorText "$file is outside the repository root $root"
+    if (@($Exclude | Where-Object { $repoPath.StartsWith($_, [System.StringComparison]::Ordinal) }).Count) {
+        return
+    }
 
     $codeRows = Import-DrsCitationMapFile (Resolve-RepoPath $CodeMap) -Header 'old_code', 'new_code', 'old_path', 'new_path', 'kind'
     $ruleRows = Import-DrsCitationMapFile (Resolve-RepoPath $RuleMap) -Header 'old_rule', 'new_rule', 'kind', 'why'

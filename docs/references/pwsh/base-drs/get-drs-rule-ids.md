@@ -1,17 +1,17 @@
 # pwsh/Base.Drs/Get-DrsRuleIds.ps1
 
-Returns the set of every rule id the ADRs declare, the authoritative list a rule citation is validated against.
+Returns the set of every rule id the decision records declare, the authoritative list a rule citation is validated against.
 
 ## help
 
 ### synopsis
 
-The flat set of every declared ADR rule id across all ADRs (registry form, e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR').
+The flat set of every declared rule id across all records (registry form, e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR').
 
 ### description
 
-Unions the rule ids of every ADR the index ([index](../../../drs/index.md)) lists: for each index row (Get-DrsIndex) it reads that ADR file
-(Get-DrsRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon, e.g.
+Unions the rule ids of every record the index ([index](../../../drs/index.md)) lists: for each index row (Get-DrsIndex) it reads that record
+file (Get-DrsRules) and collects the `### Rule <CODE>:<n>` ids, returning them distinct and ordinally sorted in registry form (colon, e.g.
 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS'). This is the authoritative set a rule citation is validated against — a test tag or an analyzer
 mapping that names a rule absent from this set is a dead reference.
 
@@ -19,13 +19,13 @@ Ids are returned in registry (`:`) form; a caller comparing a citation, which is
 'ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS', the [index](../../../drs/index.md) citation grammar), canonicalizes the separator before lookup.
 
 A pure function of the files on disk, memoized per resolved index path for the session (re-run the importer to refresh — see
-[ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Built on the two existing ADR parsers rather than re-scanning the tree
+[ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Built on the two existing record parsers rather than re-scanning the tree
 ([PDR-REDUCEVAR](../../../drs/principles/reduce-variability.md)).
 
 ### parameter `IndexPath`
 
-Absolute path to the ADR index. Defaults to [index](../../../drs/index.md) under the repository root. ADR file paths in the index are
-resolved relative to the index's own folder, so a test can point this at a fixture index beside fixture ADR files; the cache keys on the
+Absolute path to the DRS index. Defaults to [index](../../../drs/index.md) under the repository root. Record file paths in the index are
+resolved relative to the index's own folder, so a test can point this at a fixture index beside fixture record files; the cache keys on the
 path, so a fixture path and the real path never collide.
 
 ### outputs
@@ -39,5 +39,5 @@ The result is memoized per index path in a script-scope table. The lazy entry is
 
 ## Path resolution
 
-Index rows carry ADR paths relative to the index's own folder (`docs/drs/`), so the command resolves against that folder rather than a
-hardcoded `docs/drs`. That keeps a fixture index beside fixture ADR files working the same way.
+Index rows carry record paths relative to the index's own folder (`docs/drs/`), so the command resolves against that folder rather than a
+hardcoded `docs/drs`. That keeps a fixture index beside fixture record files working the same way.

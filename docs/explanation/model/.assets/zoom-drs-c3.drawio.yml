@@ -1,6 +1,6 @@
 description: The record domains and the citations between them, drawn from the domain query at every build.
 about:
-  adrs: [ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
   lens: governance
   zoom: C3
   point: docs/drs

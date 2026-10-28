@@ -59,6 +59,11 @@ The rule map file (absolute, repository-relative, or under out/).
 The repository whose ADR index supplies the paths the code map does not name, and against which -Path and relative links resolve. Defaults
 to the loaded repository root.
 
+### parameter `Exclude`
+
+The repository-relative folder prefixes whose files are left as written and report no change: by default the session learnings and the
+hindsight log, which are append-only and keep a citation as it stood when the line was written.
+
 ### parameter `DryRun`
 
 Return the changes without writing the file. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).

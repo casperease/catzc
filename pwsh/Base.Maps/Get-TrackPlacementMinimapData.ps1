@@ -3,7 +3,7 @@ function Get-TrackPlacementMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -17,7 +17,7 @@ function Get-TrackPlacementMinimapData {
     $types = [string[]] @($tracks | ForEach-Object type | Select-Object -Unique)
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['track']) {
             continue
         }

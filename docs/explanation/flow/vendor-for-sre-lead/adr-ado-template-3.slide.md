@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../../../../docs/drs/flow/.assets/sync-point.drawio.png
+      source: ../.assets/no-gate-checks-rules-one-and-four.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -24,12 +24,13 @@ automation runs locally.
 
 ## Image
 
-.assets/adr-ado-template-3.png
+[adr-ado-template-3](.assets/adr-ado-template-3.png)
 
 ## Caption
 
-From the catalogue, reduced: sync point.
+From the catalogue, reduced: no gate checks rules one and four.
 
 ## Notes
 
-Check it: the record ADR-ADO-TEMPLATE in docs/drs/index.md, and the diagram docs/drs/flow/.assets/sync-point.drawio.png.
+Check it: the record ADR-ADO-TEMPLATE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four.drawio.png.

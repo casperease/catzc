@@ -29,7 +29,7 @@ description:
   The promotion ladder as ten rungs climbing left to right, the three manual queues drawn as gates marked manual, BVT as the one code gate,
   and the slot switch as an automated runner before production.
 about:
-  adrs:
+  rules:
     - FDR-QUEUE-THREEQUEUES
     - FDR-QUEUE-AUTHORINGISTHEFIRST
     - FDR-QUEUE-SIGNATUREISTHEGATE

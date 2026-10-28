@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsCitationScanner.cs
 
-Scans a text for the ADR codes it cites and the rules it defines.
+Scans a text for the record codes it cites and the rules it defines.
 
 ## Citations
 

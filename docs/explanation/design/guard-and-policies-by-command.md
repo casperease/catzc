@@ -24,7 +24,7 @@ description:
   A person turns on the local guard by setting one variant and re-running the importer, which then skips the generated-file commit on main;
   an admin syncs the server's branch policies with one command and lists what the server holds.
 about:
-  adrs: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
+  rules: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: operations
 content:
   title: A person turns on the local guard with one variant; an admin syncs the server policies with one command

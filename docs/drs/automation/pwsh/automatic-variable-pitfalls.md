@@ -1,4 +1,4 @@
-# ADR: Automatic variable pitfalls
+# PowerShell: Automatic variable pitfalls
 
 ## Rules: ADR-PWSH-AUTOVAR
 
@@ -168,8 +168,8 @@ Assert-Success   # passes even when az exited non-zero
 # without error in PS 7.4+ — $? is still True.
 ```
 
-`$LASTEXITCODE` _is_ set correctly by the native call, but code that checks `$?` (or an `Assert-Success` that checks `$?`) will never see
-the failure.
+`$LASTEXITCODE` _is_ set correctly by the native call, but code that checks `$?` (or an `Assert-Success` that checks `$?`) never sees the
+failure.
 
 ```powershell
 # Correct — use Invoke-Executable -PassThru, then parse the result
@@ -177,13 +177,8 @@ $result = Invoke-Executable 'az account show --output json' -PassThru
 $myvar = $result.Output | ConvertFrom-Json
 ```
 
-**Rules:**
-
-- **Always reset before invoking.** Prevents a stale exit code from a prior call from leaking into your check.
-- **Always check (or assert) immediately after invoking.** No intervening statements between the native call and the exit code check.
-- **Always reset after checking.** Prevents your exit code from leaking to the next caller.
-- **Prefer `Invoke-Executable`.** It encapsulates all three steps. Only use raw `$LASTEXITCODE` when you need `-NoAssert` for expected
-  failures.
+Each step of the cycle closes one leak: the reset before keeps a prior call's code out of the check, the check right after leaves no
+statement between the call and its code, and the reset after keeps this code from the next caller.
 
 ---
 
@@ -210,8 +205,6 @@ $name = $Matches[1]
 $header -match 'version=(\d+)'
 $version = $Matches[1]
 ```
-
-**Rule:** If you use `-match`, capture `$Matches` into a named local on the very next line.
 
 ---
 
@@ -244,9 +237,6 @@ $users | ForEach-Object {
 }
 ```
 
-**Rule:** When nesting pipelines or mixing pipeline with `catch`/`switch`, always capture `$_` in a named local at the top of the outer
-block.
-
 ---
 
 ### `$Error`
@@ -255,18 +245,16 @@ block.
 `$Error` — never use for control flow
 ```
 
-`$Error` is a global list that **accumulates every error** across the entire session. It is not scoped to your function or script.
+`$Error` is a global list that **accumulates every error** across the session, not scoped to a function or script:
 
-- It contains errors from the importer, from modules loading, from previous commands the user ran interactively.
-- `$Error[0]` is only "your" error if nothing else has errored since — which you cannot guarantee.
-- `$Error.Clear()` affects the global session state and may break other code that inspects `$Error`.
+- It holds errors from the importer, from module loads, and from commands the user ran interactively.
+- `$Error[0]` is the function's own error only if nothing else has errored since, which nothing guarantees.
+- `$Error.Clear()` changes global session state and can break other code that inspects `$Error`.
 
-**What to do instead:** Use `try`/`catch` to handle errors structurally. The caught exception in `catch` is scoped and unambiguous. See
-[error-handling](error-handling.md).
+`try`/`catch` handles errors structurally instead: the caught exception is scoped and unambiguous ([error-handling](error-handling.md)).
 
-**Exception:** `Catzc.Base.Writers/Write-Exception.ps1` reads `$global:Error[$GlobalErrorIndex]` (default index `0`) as a fallback when
-called with no `ErrorRecord` — a deliberate diagnostic convenience for displaying the most recent error. This is infrastructure/diagnostic
-code with a legitimate need to read the global error list; it is not control flow.
+**Exception:** `Catzc.Base.Writers/Write-Exception.ps1` reads `$global:Error[$GlobalErrorIndex]` (default index `0`) when called with no
+`ErrorRecord`, to display the most recent error. That is diagnostic code reading the list, not control flow.
 
 ---
 
@@ -309,9 +297,6 @@ Both `$value = if` forms yield a scalar and are safe. A branch that yields a lis
 the assignment unrolls a one-item or empty list (the analyzer rule `Measure-NoUnrolledArrayBranch`,
 [ADR-PWSH-ERROR-STRICTCLEAN](error-handling.md#rule-adr-pwsh-error-strictclean)).
 
-**Rule:** never use `??` to default a `[string]`-typed parameter or variable — use an `if`/`IsNullOrEmpty` guard. Reserve `??` for genuinely
-nullable operands (untyped variables, object/hashtable properties).
-
 ---
 
 ### `Validate*` parameters
@@ -339,8 +324,8 @@ The bug is silent at author time and only surfaces at runtime; the error names t
 value for the `Subscription` variable"). A parameter with only an `ArgumentCompleter` (no `Validate*`) is unaffected — this bites the typed
 producers whose `-Subscription`/`-Environment` carry a `ValidateScript`.
 
-**Rule:** give the derived value a fresh local name (`$subscriptionDescriptor`, `$environmentDescriptor`) — never the validated parameter's
-name. Grep the `param()` block for `Validate` before reusing a name.
+A derived value takes a fresh local name (`$subscriptionDescriptor`, `$environmentDescriptor`); a search of the `param()` block for
+`Validate` before reusing a name finds the trap.
 
 ---
 
@@ -360,5 +345,5 @@ name. Grep the `param()` block for `Validate` before reusing a name.
 
 - Eliminates the "stale read" class of bugs where automatic variables reflect a different operation than the author intended.
 - `Invoke-Executable` is the standard entry point for native executables — callers never need to think about `$LASTEXITCODE` lifecycle.
-- The `$?` ban is enforced statically by PSScriptAnalyzer. Other variables are enforced by code review and this ADR.
+- The `$?` ban is enforced statically by PSScriptAnalyzer; the other variables by code review against this record.
 - All error handling follows the patterns in [error-handling](error-handling.md).

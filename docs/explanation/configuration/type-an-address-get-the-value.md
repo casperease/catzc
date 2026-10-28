@@ -26,7 +26,7 @@ description:
   "Three commands dereference a global config address and show the same two things: Get-ConfigValue returns the value, Write-EnvironmentSet
   prints it with secrets masked, and Build-Bicep renders it into a parameters file; a wrong address throws a message at the call."
 about:
-  adrs:
+  rules:
     - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
     - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
     - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST

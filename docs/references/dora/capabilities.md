@@ -30,7 +30,7 @@ Each entry gives:
 - **Predicts or drives**: what the page (or a linked DORA report page) says the capability predicts, drives, or amplifies.
 - **Evidence**: the report years the site attributes the finding to, linked to [publications.md](publications.md). "On page" means the
   capability page cites that year; "report page" means the report's own archive page names the capability.
-- **Repo ADR**: the repository's summary ADR and its rule code.
+- **Repo record**: the repository's summary record and its rule code.
 
 ## Summary
 
@@ -38,177 +38,177 @@ Each entry gives:
   - Category: AI
   - Tags: AI
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-AIDATA](../../drs/external/dora/ai-accessible-internal-data.md)
+  - Repo record: [EDR-DORA-AIDATA](../../drs/external/dora/ai-accessible-internal-data.md)
 - **[Clear and communicated AI stance](#clear-and-communicated-ai-stance)**
   - Category: AI
   - Tags: AI
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-AISTANCE](../../drs/external/dora/clear-and-communicated-ai-stance.md)
+  - Repo record: [EDR-DORA-AISTANCE](../../drs/external/dora/clear-and-communicated-ai-stance.md)
 - **[Healthy data ecosystems](#healthy-data-ecosystems)**
   - Category: AI
   - Tags: AI
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-DATAECO](../../drs/external/dora/healthy-data-ecosystems.md)
+  - Repo record: [EDR-DORA-DATAECO](../../drs/external/dora/healthy-data-ecosystems.md)
 - **[Platform engineering](#platform-engineering)**
   - Category: AI
   - Tags: AI
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-PLATFORM](../../drs/external/dora/platform-engineering.md)
+  - Repo record: [EDR-DORA-PLATFORM](../../drs/external/dora/platform-engineering.md)
 - **[User-centric focus](#user-centric-focus)**
   - Category: AI
   - Tags: AI
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-USERFOCUS](../../drs/external/dora/user-centric-focus.md)
+  - Repo record: [EDR-DORA-USERFOCUS](../../drs/external/dora/user-centric-focus.md)
 - **[Code maintainability](#code-maintainability)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: climate for learning
-  - Repo ADR: [EDR-DORA-MAINTAIN](../../drs/external/dora/code-maintainability.md)
+  - Repo record: [EDR-DORA-MAINTAIN](../../drs/external/dora/code-maintainability.md)
 - **[Documentation quality](#documentation-quality)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: climate for learning
-  - Repo ADR: [EDR-DORA-DOCS](../../drs/external/dora/documentation-quality.md)
+  - Repo record: [EDR-DORA-DOCS](../../drs/external/dora/documentation-quality.md)
 - **[Generative organizational culture](#generative-organizational-culture)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: climate for learning
-  - Repo ADR: [EDR-DORA-CULTURE](../../drs/external/dora/generative-organizational-culture.md)
+  - Repo record: [EDR-DORA-CULTURE](../../drs/external/dora/generative-organizational-culture.md)
 - **[Job satisfaction](#job-satisfaction)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: outcome (well-being)
-  - Repo ADR: [EDR-DORA-JOBSAT](../../drs/external/dora/job-satisfaction.md)
+  - Repo record: [EDR-DORA-JOBSAT](../../drs/external/dora/job-satisfaction.md)
 - **[Learning culture](#learning-culture)**
   - Category: Climate for learning
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-LEARNING](../../drs/external/dora/learning-culture.md)
+  - Repo record: [EDR-DORA-LEARNING](../../drs/external/dora/learning-culture.md)
 - **[Team experimentation](#team-experimentation)**
   - Category: Climate for learning
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-EXPERIMENT](../../drs/external/dora/team-experimentation.md)
+  - Repo record: [EDR-DORA-EXPERIMENT](../../drs/external/dora/team-experimentation.md)
 - **[Teams empowered to choose tools](#teams-empowered-to-choose-tools)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: climate for learning
-  - Repo ADR: [EDR-DORA-TOOLCHOICE](../../drs/external/dora/teams-empowered-to-choose-tools.md)
+  - Repo record: [EDR-DORA-TOOLCHOICE](../../drs/external/dora/teams-empowered-to-choose-tools.md)
 - **[Transformational leadership](#transformational-leadership)**
   - Category: Climate for learning
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-LEADERSHIP](../../drs/external/dora/transformational-leadership.md)
+  - Repo record: [EDR-DORA-LEADERSHIP](../../drs/external/dora/transformational-leadership.md)
 - **[Well-being](#well-being)**
   - Category: Climate for learning
   - Tags: core
   - Core Model: outcome
-  - Repo ADR: [EDR-DORA-WELLBEING](../../drs/external/dora/well-being.md)
+  - Repo record: [EDR-DORA-WELLBEING](../../drs/external/dora/well-being.md)
 - **[Continuous delivery](#continuous-delivery)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-CD](../../drs/external/dora/continuous-delivery.md)
+  - Repo record: [EDR-DORA-CD](../../drs/external/dora/continuous-delivery.md)
 - **[Database change management](#database-change-management)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-DBCHANGE](../../drs/external/dora/database-change-management.md)
+  - Repo record: [EDR-DORA-DBCHANGE](../../drs/external/dora/database-change-management.md)
 - **[Deployment automation](#deployment-automation)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-DEPLOY](../../drs/external/dora/deployment-automation.md)
+  - Repo record: [EDR-DORA-DEPLOY](../../drs/external/dora/deployment-automation.md)
 - **[Flexible infrastructure](#flexible-infrastructure)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-FLEXINFRA](../../drs/external/dora/flexible-infrastructure.md)
+  - Repo record: [EDR-DORA-FLEXINFRA](../../drs/external/dora/flexible-infrastructure.md)
 - **[Loosely coupled teams](#loosely-coupled-teams)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-LOOSETEAMS](../../drs/external/dora/loosely-coupled-teams.md)
+  - Repo record: [EDR-DORA-LOOSETEAMS](../../drs/external/dora/loosely-coupled-teams.md)
 - **[Streamlining change approval](#streamlining-change-approval)**
   - Category: Fast flow
   - Tags: core
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-APPROVAL](../../drs/external/dora/streamlining-change-approval.md)
+  - Repo record: [EDR-DORA-APPROVAL](../../drs/external/dora/streamlining-change-approval.md)
 - **[Trunk-based development](#trunk-based-development)**
   - Category: Fast flow
   - Tags: none
   - Core Model: removed in V2
-  - Repo ADR: [EDR-DORA-TRUNK](../../drs/external/dora/trunk-based-development.md)
+  - Repo record: [EDR-DORA-TRUNK](../../drs/external/dora/trunk-based-development.md)
 - **[Version control](#version-control)**
   - Category: Fast flow
   - Tags: core, AI
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-VCS](../../drs/external/dora/version-control.md)
+  - Repo record: [EDR-DORA-VCS](../../drs/external/dora/version-control.md)
 - **[Visual management](#visual-management)**
   - Category: Fast flow
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-VISUAL](../../drs/external/dora/visual-management.md)
+  - Repo record: [EDR-DORA-VISUAL](../../drs/external/dora/visual-management.md)
 - **[WIP limits](#wip-limits)**
   - Category: Fast flow
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-WIP](../../drs/external/dora/wip-limits.md)
+  - Repo record: [EDR-DORA-WIP](../../drs/external/dora/wip-limits.md)
 - **[Working in small batches](#working-in-small-batches)**
   - Category: Fast flow
   - Tags: core, AI
   - Core Model: fast flow
-  - Repo ADR: [EDR-DORA-SMALLBATCH](../../drs/external/dora/working-in-small-batches.md)
+  - Repo record: [EDR-DORA-SMALLBATCH](../../drs/external/dora/working-in-small-batches.md)
 - **[Continuous integration](#continuous-integration)**
   - Category: Fast feedback
   - Tags: core
   - Core Model: fast feedback
-  - Repo ADR: [EDR-DORA-CI](../../drs/external/dora/continuous-integration.md)
+  - Repo record: [EDR-DORA-CI](../../drs/external/dora/continuous-integration.md)
 - **[Customer feedback](#customer-feedback)**
   - Category: Fast feedback
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-FEEDBACK](../../drs/external/dora/customer-feedback.md)
+  - Repo record: [EDR-DORA-FEEDBACK](../../drs/external/dora/customer-feedback.md)
 - **[Monitoring and observability](#monitoring-and-observability)**
   - Category: Fast feedback
   - Tags: core
   - Core Model: fast feedback
-  - Repo ADR: [EDR-DORA-OBSERV](../../drs/external/dora/monitoring-and-observability.md)
+  - Repo record: [EDR-DORA-OBSERV](../../drs/external/dora/monitoring-and-observability.md)
 - **[Monitoring systems](#monitoring-systems)**
   - Category: Fast feedback
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-MONITOR](../../drs/external/dora/monitoring-systems.md)
+  - Repo record: [EDR-DORA-MONITOR](../../drs/external/dora/monitoring-systems.md)
 - **[Pervasive security](#pervasive-security)**
   - Category: Fast feedback
   - Tags: core
   - Core Model: fast feedback
-  - Repo ADR: [EDR-DORA-SECURITY](../../drs/external/dora/pervasive-security.md)
+  - Repo record: [EDR-DORA-SECURITY](../../drs/external/dora/pervasive-security.md)
 - **[Proactive failure notification](#proactive-failure-notification)**
   - Category: Fast feedback
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-FAILALERT](../../drs/external/dora/proactive-failure-notification.md)
+  - Repo record: [EDR-DORA-FAILALERT](../../drs/external/dora/proactive-failure-notification.md)
 - **[Test automation](#test-automation)**
   - Category: Fast feedback
   - Tags: core
   - Core Model: fast feedback
-  - Repo ADR: [EDR-DORA-TESTAUTO](../../drs/external/dora/test-automation.md)
+  - Repo record: [EDR-DORA-TESTAUTO](../../drs/external/dora/test-automation.md)
 - **[Test data management](#test-data-management)**
   - Category: Fast feedback
   - Tags: core
   - Core Model: fast feedback
-  - Repo ADR: [EDR-DORA-TESTDATA](../../drs/external/dora/test-data-management.md)
+  - Repo record: [EDR-DORA-TESTDATA](../../drs/external/dora/test-data-management.md)
 - **[Work visibility in value stream](#work-visibility-in-value-stream)**
   - Category: Fast feedback
   - Tags: none
   - Core Model: not in Core
-  - Repo ADR: [EDR-DORA-WORKVIS](../../drs/external/dora/work-visibility-in-value-stream.md)
+  - Repo record: [EDR-DORA-WORKVIS](../../drs/external/dora/work-visibility-in-value-stream.md)
 - **[Reliability engineering](#reliability-engineering)**
   - Category: (no page)
   - Tags: (none)
   - Core Model: fast feedback
-  - Repo ADR: none
+  - Repo record: none
 
 ## AI
 
@@ -226,7 +226,7 @@ effect on outcomes. See [ai.md](ai.md) for the model's connections.
   deprecated patterns, and data exposure.
 - **Evidence:** [2025 State of AI-assisted Software Development](publications.md#2025-state-of-ai-assisted-software-development) and
   [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page).
-- **Repo ADR:** [EDR-DORA-AIDATA](../../drs/external/dora/ai-accessible-internal-data.md)
+- **Repo record:** [EDR-DORA-AIDATA](../../drs/external/dora/ai-accessible-internal-data.md)
 
 ### Clear and communicated AI stance
 
@@ -242,7 +242,7 @@ effect on outcomes. See [ai.md](ai.md) for the model's connections.
   [2025 Impact of Generative AI](publications.md#2025-impact-of-generative-ai-in-software-development) found clear acceptable-use policies
   associated with a 451% increase in AI adoption (report page), and the
   [2024 AI preview](publications.md#2024-accelerate-state-of-devops-report) found mixed views of organizational transparency about AI.
-- **Repo ADR:** [EDR-DORA-AISTANCE](../../drs/external/dora/clear-and-communicated-ai-stance.md)
+- **Repo record:** [EDR-DORA-AISTANCE](../../drs/external/dora/clear-and-communicated-ai-stance.md)
 
 ### Healthy data ecosystems
 
@@ -255,7 +255,7 @@ effect on outcomes. See [ai.md](ai.md) for the model's connections.
 - **Evidence:** [2025 State of AI-assisted Software Development](publications.md#2025-state-of-ai-assisted-software-development) and
   [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page). The page also lists the
   [2016](publications.md#2016-state-of-devops-report) and [2017](publications.md#2017-state-of-devops-report) reports as further reading.
-- **Repo ADR:** [EDR-DORA-DATAECO](../../drs/external/dora/healthy-data-ecosystems.md)
+- **Repo record:** [EDR-DORA-DATAECO](../../drs/external/dora/healthy-data-ecosystems.md)
 
 ### Platform engineering
 
@@ -272,7 +272,7 @@ effect on outcomes. See [ai.md](ai.md) for the model's connections.
   [2025](publications.md#2025-state-of-ai-assisted-software-development): 90% of organizations use a platform and 76% have dedicated
   platform teams, and "clear feedback on the outcome of my tasks" is the platform trait most correlated with a positive experience (on
   page). [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page).
-- **Repo ADR:** [EDR-DORA-PLATFORM](../../drs/external/dora/platform-engineering.md)
+- **Repo record:** [EDR-DORA-PLATFORM](../../drs/external/dora/platform-engineering.md)
 
 ### User-centric focus
 
@@ -287,7 +287,7 @@ effect on outcomes. See [ai.md](ai.md) for the model's connections.
   in 2024). [2024](publications.md#2024-accelerate-state-of-devops-report): more productive, more satisfied, and less burnout (report page).
   [2025 State of AI-assisted Software Development](publications.md#2025-state-of-ai-assisted-software-development) and
   [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page).
-- **Repo ADR:** [EDR-DORA-USERFOCUS](../../drs/external/dora/user-centric-focus.md)
+- **Repo record:** [EDR-DORA-USERFOCUS](../../drs/external/dora/user-centric-focus.md)
 
 ## Climate for learning
 
@@ -303,7 +303,7 @@ experimentation, transformational leadership, and well-being here.
   dependencies without breaking things.
 - **Predicts or drives:** contributes to [continuous delivery](#continuous-delivery), one of the technical practices that predict it.
 - **Evidence:** [2019](publications.md#2019-accelerate-state-of-devops-report) (on page).
-- **Repo ADR:** [EDR-DORA-MAINTAIN](../../drs/external/dora/code-maintainability.md)
+- **Repo record:** [EDR-DORA-MAINTAIN](../../drs/external/dora/code-maintainability.md)
 
 ### Documentation quality
 
@@ -320,7 +320,7 @@ experimentation, transformational leadership, and well-being here.
   [2022](publications.md#2022-accelerate-state-of-devops-report) (on page), [2023](publications.md#2023-accelerate-state-of-devops-report)
   (report page), [2024](publications.md#2024-accelerate-state-of-devops-report) (a 25% increase in AI adoption is associated with a 7.5%
   rise in documentation quality; infographic).
-- **Repo ADR:** [EDR-DORA-DOCS](../../drs/external/dora/documentation-quality.md)
+- **Repo record:** [EDR-DORA-DOCS](../../drs/external/dora/documentation-quality.md)
 
 ### Generative organizational culture
 
@@ -337,7 +337,7 @@ experimentation, transformational leadership, and well-being here.
   [2022](publications.md#2022-accelerate-state-of-devops-report) (high-trust, low-blame cultures and security practices; report page),
   [2023](publications.md#2023-accelerate-state-of-devops-report) (30% higher organizational performance; report page). The Quick Check names
   it one of three capabilities worth assessing first.
-- **Repo ADR:** [EDR-DORA-CULTURE](../../drs/external/dora/generative-organizational-culture.md)
+- **Repo record:** [EDR-DORA-CULTURE](../../drs/external/dora/generative-organizational-culture.md)
 
 ### Job satisfaction
 
@@ -351,7 +351,7 @@ experimentation, transformational leadership, and well-being here.
   [2024](publications.md#2024-accelerate-state-of-devops-report) (AI adoption and transformational leadership raise it; report page),
   [2025 Impact of Generative AI](publications.md#2025-impact-of-generative-ai-in-software-development) (heavy AI users report higher job
   satisfaction; report page).
-- **Repo ADR:** [EDR-DORA-JOBSAT](../../drs/external/dora/job-satisfaction.md)
+- **Repo record:** [EDR-DORA-JOBSAT](../../drs/external/dora/job-satisfaction.md)
 
 ### Learning culture
 
@@ -362,7 +362,7 @@ experimentation, transformational leadership, and well-being here.
 - **Predicts or drives:** software delivery performance (higher deployment frequency; shorter lead time, time to restore, and lower change
   fail rate), strong team culture, and organizational performance.
 - **Evidence:** the page cites no report year.
-- **Repo ADR:** [EDR-DORA-LEARNING](../../drs/external/dora/learning-culture.md)
+- **Repo record:** [EDR-DORA-LEARNING](../../drs/external/dora/learning-culture.md)
 
 ### Team experimentation
 
@@ -375,7 +375,7 @@ experimentation, transformational leadership, and well-being here.
 - **Evidence:** the page cites no year. The lean product management findings it summarizes appear in
   [2016](publications.md#2016-state-of-devops-report) (an experimental approach to product development) and
   [2017](publications.md#2017-state-of-devops-report) (report pages).
-- **Repo ADR:** [EDR-DORA-EXPERIMENT](../../drs/external/dora/team-experimentation.md)
+- **Repo record:** [EDR-DORA-EXPERIMENT](../../drs/external/dora/team-experimentation.md)
 
 ### Teams empowered to choose tools
 
@@ -384,7 +384,7 @@ experimentation, transformational leadership, and well-being here.
 - **Definition:** teams make informed choices about the tools and technologies they use for their work.
 - **Predicts or drives:** better continuous delivery, higher software delivery performance, and higher job satisfaction.
 - **Evidence:** [2017](publications.md#2017-state-of-devops-report) (on page).
-- **Repo ADR:** [EDR-DORA-TOOLCHOICE](../../drs/external/dora/teams-empowered-to-choose-tools.md)
+- **Repo record:** [EDR-DORA-TOOLCHOICE](../../drs/external/dora/teams-empowered-to-choose-tools.md)
 
 ### Transformational leadership
 
@@ -398,7 +398,7 @@ experimentation, transformational leadership, and well-being here.
   [2018](publications.md#2018-accelerate-state-of-devops-report) (leadership and autonomy; report page),
   [2024](publications.md#2024-accelerate-state-of-devops-report) (productivity, organizational performance, job satisfaction, less burnout;
   report page).
-- **Repo ADR:** [EDR-DORA-LEADERSHIP](../../drs/external/dora/transformational-leadership.md)
+- **Repo record:** [EDR-DORA-LEADERSHIP](../../drs/external/dora/transformational-leadership.md)
 
 ### Well-being
 
@@ -413,7 +413,7 @@ experimentation, transformational leadership, and well-being here.
   [2021](publications.md#2021-accelerate-state-of-devops-report), [2022](publications.md#2022-accelerate-state-of-devops-report),
   [2023](publications.md#2023-accelerate-state-of-devops-report), and [2024](publications.md#2024-accelerate-state-of-devops-report)
   (burnout findings; report pages).
-- **Repo ADR:** [EDR-DORA-WELLBEING](../../drs/external/dora/well-being.md)
+- **Repo record:** [EDR-DORA-WELLBEING](../../drs/external/dora/well-being.md)
 
 ## Fast flow
 
@@ -435,7 +435,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   [2017](publications.md#2017-state-of-devops-report), [2019](publications.md#2019-accelerate-state-of-devops-report), and
   [2022](publications.md#2022-accelerate-state-of-devops-report) (teams combining version control and CD are 2.5× more likely to have high
   delivery performance) (report pages).
-- **Repo ADR:** [EDR-DORA-CD](../../drs/external/dora/continuous-delivery.md)
+- **Repo record:** [EDR-DORA-CD](../../drs/external/dora/continuous-delivery.md)
 
 ### Database change management
 
@@ -445,7 +445,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   visible to everyone, and discussed with the people who run the production database.
 - **Predicts or drives:** contributes to continuous delivery, and through it to software delivery performance and availability.
 - **Evidence:** [2018](publications.md#2018-accelerate-state-of-devops-report) (report page). The capability page cites no year.
-- **Repo ADR:** [EDR-DORA-DBCHANGE](../../drs/external/dora/database-change-management.md)
+- **Repo record:** [EDR-DORA-DBCHANGE](../../drs/external/dora/database-change-management.md)
 
 ### Deployment automation
 
@@ -457,7 +457,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   risk and getting fast feedback.
 - **Evidence:** [2017](publications.md#2017-state-of-devops-report) (high performers automate far more of their deployments; report page).
   The capability page cites no year.
-- **Repo ADR:** [EDR-DORA-DEPLOY](../../drs/external/dora/deployment-automation.md)
+- **Repo record:** [EDR-DORA-DEPLOY](../../drs/external/dora/deployment-automation.md)
 
 ### Flexible infrastructure
 
@@ -473,7 +473,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   [2022](publications.md#2022-accelerate-state-of-devops-report) (report pages);
   [2023](publications.md#2023-accelerate-state-of-devops-report) (30% higher organizational performance; on page);
   [2024](publications.md#2024-accelerate-state-of-devops-report) (a data centre may be better than an untransformed cloud; on page).
-- **Repo ADR:** [EDR-DORA-FLEXINFRA](../../drs/external/dora/flexible-infrastructure.md)
+- **Repo record:** [EDR-DORA-FLEXINFRA](../../drs/external/dora/flexible-infrastructure.md)
 
 ### Loosely coupled teams
 
@@ -485,7 +485,7 @@ development (removed from Core in V2), visual management, and WIP limits.
 - **Evidence:** [2017](publications.md#2017-state-of-devops-report), [2021](publications.md#2021-accelerate-state-of-devops-report),
   [2022](publications.md#2022-accelerate-state-of-devops-report), and [2023](publications.md#2023-accelerate-state-of-devops-report) (on
   page and report pages). The Quick Check names it one of three capabilities worth assessing first.
-- **Repo ADR:** [EDR-DORA-LOOSETEAMS](../../drs/external/dora/loosely-coupled-teams.md)
+- **Repo record:** [EDR-DORA-LOOSETEAMS](../../drs/external/dora/loosely-coupled-teams.md)
 
 ### Streamlining change approval
 
@@ -497,7 +497,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   change fail rates. A clearly understood approval process raises performance.
 - **Evidence:** [2019](publications.md#2019-accelerate-state-of-devops-report) (on page and report page);
   [2017](publications.md#2017-state-of-devops-report) (high performers automate change approvals; report page).
-- **Repo ADR:** [EDR-DORA-APPROVAL](../../drs/external/dora/streamlining-change-approval.md)
+- **Repo record:** [EDR-DORA-APPROVAL](../../drs/external/dora/streamlining-change-approval.md)
 
 ### Trunk-based development
 
@@ -511,7 +511,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   delivery performance.
 - **Evidence:** [2016](publications.md#2016-state-of-devops-report) and [2017](publications.md#2017-state-of-devops-report) (on page);
   [2022](publications.md#2022-accelerate-state-of-devops-report) (documentation lift table, via documentation quality).
-- **Repo ADR:** [EDR-DORA-TRUNK](../../drs/external/dora/trunk-based-development.md)
+- **Repo record:** [EDR-DORA-TRUNK](../../drs/external/dora/trunk-based-development.md)
 
 ### Version control
 
@@ -527,7 +527,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   (combined with CD, 2.5× more likely to be a high performer; on page and report page);
   [2025 State of AI-assisted Software Development](publications.md#2025-state-of-ai-assisted-software-development) and
   [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page).
-- **Repo ADR:** [EDR-DORA-VCS](../../drs/external/dora/version-control.md)
+- **Repo record:** [EDR-DORA-VCS](../../drs/external/dora/version-control.md)
 
 ### Visual management
 
@@ -537,7 +537,7 @@ development (removed from Core in V2), visual management, and WIP limits.
 - **Predicts or drives:** combined with [WIP limits](#wip-limits) and production feedback used for business decisions, it contributes to
   higher delivery performance.
 - **Evidence:** [2015](publications.md#2015-state-of-devops-report) (on page).
-- **Repo ADR:** [EDR-DORA-VISUAL](../../drs/external/dora/visual-management.md)
+- **Repo record:** [EDR-DORA-VISUAL](../../drs/external/dora/visual-management.md)
 
 ### WIP limits
 
@@ -548,7 +548,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   [visual management](#visual-management) and feedback loops from [monitoring](#monitoring-systems).
 - **Evidence:** the page cites no year. The visual management page attributes the combined finding to
   [2015](publications.md#2015-state-of-devops-report).
-- **Repo ADR:** [EDR-DORA-WIP](../../drs/external/dora/wip-limits.md)
+- **Repo record:** [EDR-DORA-WIP](../../drs/external/dora/wip-limits.md)
 
 ### Working in small batches
 
@@ -563,7 +563,7 @@ development (removed from Core in V2), visual management, and WIP limits.
   [2024](publications.md#2024-accelerate-state-of-devops-report) (small batches still crucial under AI; report page);
   [2025 State of AI-assisted Software Development](publications.md#2025-state-of-ai-assisted-software-development) and
   [2025 AI Capabilities Model](publications.md#2025-dora-ai-capabilities-model) (on page).
-- **Repo ADR:** [EDR-DORA-SMALLBATCH](../../drs/external/dora/working-in-small-batches.md)
+- **Repo record:** [EDR-DORA-SMALLBATCH](../../drs/external/dora/working-in-small-batches.md)
 
 ## Fast feedback
 
@@ -586,7 +586,7 @@ engineering entry.
   [2023](publications.md#2023-accelerate-state-of-devops-report) (report page);
   [2025 Impact of Generative AI](publications.md#2025-impact-of-generative-ai-in-software-development) (catches AI-introduced errors; report
   page). The Quick Check names it one of three capabilities worth assessing first.
-- **Repo ADR:** [EDR-DORA-CI](../../drs/external/dora/continuous-integration.md)
+- **Repo record:** [EDR-DORA-CI](../../drs/external/dora/continuous-integration.md)
 
 ### Customer feedback
 
@@ -598,7 +598,7 @@ engineering entry.
   identification with organizational goals.
 - **Evidence:** [2016](publications.md#2016-state-of-devops-report) (on page), [2017](publications.md#2017-state-of-devops-report) (report
   page), [2019](publications.md#2019-accelerate-state-of-devops-report) (on page).
-- **Repo ADR:** [EDR-DORA-FEEDBACK](../../drs/external/dora/customer-feedback.md)
+- **Repo record:** [EDR-DORA-FEEDBACK](../../drs/external/dora/customer-feedback.md)
 
 ### Monitoring and observability
 
@@ -608,7 +608,7 @@ engineering entry.
   debugging of emerging behaviour.
 - **Predicts or drives:** contributes to continuous delivery. The page frames time to restore as the key outcome measure of an outage.
 - **Evidence:** [2018](publications.md#2018-accelerate-state-of-devops-report) (on page and report page).
-- **Repo ADR:** [EDR-DORA-OBSERV](../../drs/external/dora/monitoring-and-observability.md)
+- **Repo record:** [EDR-DORA-OBSERV](../../drs/external/dora/monitoring-and-observability.md)
 
 ### Monitoring systems
 
@@ -619,7 +619,7 @@ engineering entry.
 - **Predicts or drives:** the page states no research finding of its own. The [WIP limits](#wip-limits) and
   [visual management](#visual-management) pages cite monitoring feedback as part of their combined effect.
 - **Evidence:** none on page. The related combined finding is attributed to [2015](publications.md#2015-state-of-devops-report).
-- **Repo ADR:** [EDR-DORA-MONITOR](../../drs/external/dora/monitoring-systems.md)
+- **Repo record:** [EDR-DORA-MONITOR](../../drs/external/dora/monitoring-systems.md)
 
 ### Pervasive security
 
@@ -634,7 +634,7 @@ engineering entry.
   pages); [2022](publications.md#2022-accelerate-state-of-devops-report) (culture is the biggest predictor of security practices;
   high-security teams are 1.6× more likely to have high organizational performance; low-security teams have 1.4× higher odds of high
   burnout; report page).
-- **Repo ADR:** [EDR-DORA-SECURITY](../../drs/external/dora/pervasive-security.md)
+- **Repo record:** [EDR-DORA-SECURITY](../../drs/external/dora/pervasive-security.md)
 
 ### Proactive failure notification
 
@@ -644,7 +644,7 @@ engineering entry.
 - **Predicts or drives:** proactive monitoring is a significant predictor of software delivery performance, and it lets teams diagnose and
   fix problems quickly.
 - **Evidence:** [2014](publications.md#2014-state-of-devops-report) (on page).
-- **Repo ADR:** [EDR-DORA-FAILALERT](../../drs/external/dora/proactive-failure-notification.md)
+- **Repo record:** [EDR-DORA-FAILALERT](../../drs/external/dora/proactive-failure-notification.md)
 
 ### Test automation
 
@@ -659,7 +659,7 @@ engineering entry.
   pages); [2024](publications.md#2024-accelerate-state-of-devops-report) and
   [2025 Impact of Generative AI](publications.md#2025-impact-of-generative-ai-in-software-development) (robust testing as an AI safeguard;
   report pages).
-- **Repo ADR:** [EDR-DORA-TESTAUTO](../../drs/external/dora/test-automation.md)
+- **Repo record:** [EDR-DORA-TESTAUTO](../../drs/external/dora/test-automation.md)
 
 ### Test data management
 
@@ -670,7 +670,7 @@ engineering entry.
 - **Predicts or drives:** contributes to [test automation](#test-automation) and [continuous integration](#continuous-integration), and is
   listed among the drivers of continuous delivery.
 - **Evidence:** the page cites no year.
-- **Repo ADR:** [EDR-DORA-TESTDATA](../../drs/external/dora/test-data-management.md)
+- **Repo record:** [EDR-DORA-TESTDATA](../../drs/external/dora/test-data-management.md)
 
 ### Work visibility in value stream
 
@@ -681,7 +681,7 @@ engineering entry.
 - **Predicts or drives:** as part of lean product management, both software delivery performance and organizational performance.
 - **Evidence:** the page cites no year. The [2016](publications.md#2016-state-of-devops-report) report page names visibility into the
   workflow as part of an experimental approach.
-- **Repo ADR:** [EDR-DORA-WORKVIS](../../drs/external/dora/work-visibility-in-value-stream.md)
+- **Repo record:** [EDR-DORA-WORKVIS](../../drs/external/dora/work-visibility-in-value-stream.md)
 
 ### Reliability engineering
 
@@ -692,7 +692,7 @@ engineering entry.
   and automated recovery.
 - **Predicts or drives:** the diagram gives no specific claim. Related finding: reliability practices strongly predict organizational
   performance ([2022](publications.md#2022-accelerate-state-of-devops-report), report page).
-- **Repo ADR:** none.
+- **Repo record:** none.
 
 ## Sources
 

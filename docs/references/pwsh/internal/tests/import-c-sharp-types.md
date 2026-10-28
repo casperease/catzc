@@ -54,3 +54,12 @@ The source must declare its module's file-scoped namespace; a different one is t
 `Test-Formatting` checks too), and an explicit namespace bypasses the builder's prepend. A second case bypasses `New-FixtureRoot` and writes
 the source directly, so the file genuinely lacks a namespace; the loader must reject it rather than silently produce a type in the global
 namespace.
+
+## comment:1
+
+Above `$script:contractFixtures = 0`, written with `#`.
+
+```text
+A repository whose modules track holds .internal/Catzc.Internal.Types.psm1 and whose contracts/catzc exists, so
+the import writes the types contract of its one Catzc.* module.
+```

@@ -189,7 +189,7 @@ jobs:
             Assert-NotNullOrWhitespace $account.id
             Write-Message "AzCli logged into: $($account.name)"
           Mode: azcli
-          ServiceConnection: "sc-azure-test"
+          ServiceConnection: "nsub-weu-zct-ado-ro-sc"
 
       # 3b: Mode azps — Az PowerShell modules authenticated
       - template: /.ado/pipelines/steps/invoke-automation.yaml
@@ -201,7 +201,7 @@ jobs:
             Assert-NotNullOrWhitespace $ctx.Subscription.Id
             Write-Message "AzPs context: $($ctx.Subscription.Name)"
           Mode: azps
-          ServiceConnection: "sc-azure-test"
+          ServiceConnection: "nsub-weu-zct-ado-ro-sc"
 
       # 3c: ExposeAccessToken — SYSTEM_ACCESSTOKEN is mapped
       - template: /.ado/pipelines/steps/invoke-automation.yaml

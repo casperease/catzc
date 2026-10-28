@@ -26,7 +26,7 @@ description:
   Two entry scripts, one per run mode, feed one importer; the importer and its bootstrap are removed once the load is done, and the shared
   internal layer, the vendored modules, the modules and the janitor owners stay loaded.
 about:
-  adrs: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+  rules: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
   lens: architecture
 content:
   title: Two entry scripts feed one importer, and the importer leaves once the load is done

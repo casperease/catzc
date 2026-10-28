@@ -9,12 +9,12 @@ using System.Text.Json;
 namespace Catzc.Base.Maps;
 
 // The value-chain map: the stack rows crossed with the concerns, every cell, and the records each holds.
-[Catzc.Base.Objects.ConsoleDisplay(nameof(Stacks), nameof(Concerns), nameof(AdrCount))]
+[Catzc.Base.Objects.ConsoleDisplay(nameof(Stacks), nameof(Concerns), nameof(RecordCount))]
 public sealed class ValueChainMap
 {
     private readonly Dictionary<string, ValueChainCell> cellByKey = new Dictionary<string, ValueChainCell>(StringComparer.Ordinal);
-    private readonly Dictionary<string, ValueChainCell[]> cellsByAdr = new Dictionary<string, ValueChainCell[]>(StringComparer.Ordinal);
-    private readonly Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByAdr;
+    private readonly Dictionary<string, ValueChainCell[]> cellsByRecord = new Dictionary<string, ValueChainCell[]>(StringComparer.Ordinal);
+    private readonly Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByRecord;
 
     // The rows: the rows of the value-chain stack, top to bottom.
     public IReadOnlyList<string> Stacks { get; }
@@ -25,39 +25,39 @@ public sealed class ValueChainMap
     // Every cell of the grid, row by row, empty cells included.
     public IReadOnlyList<ValueChainCell> Cells { get; }
 
-    // Every ADR code the map was built from, in the given order.
-    public IReadOnlyList<string> Adrs { get; }
+    // Every record code the map was built from, in the given order.
+    public IReadOnlyList<string> Records { get; }
 
-    // The ADR codes that sit in no cell, in the given order.
+    // The record codes that sit in no cell, in the given order.
     public IReadOnlyList<string> Unplaced { get; }
 
-    // One finding per row or value-chain concern an ADR declares that the axes lack, in the given order.
+    // One finding per row or value-chain concern a record declares that the axes lack, in the given order.
     public IReadOnlyList<string> Strays { get; }
 
-    // The number of ADRs the map was built from.
-    public int AdrCount => Adrs.Count;
+    // The number of records the map was built from.
+    public int RecordCount => Records.Count;
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    private ValueChainMap(string[] stacks, string[] concerns, ValueChainCell[] cells, string[] adrs, string[] unplaced, string[] strays,
-        Dictionary<string, List<string>> keysByAdr, Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSets)
+    private ValueChainMap(string[] stacks, string[] concerns, ValueChainCell[] cells, string[] records, string[] unplaced, string[] strays,
+        Dictionary<string, List<string>> keysByRecord, Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSets)
     {
-        ruleSetByAdr = ruleSets;
+        ruleSetByRecord = ruleSets;
         Stacks = stacks;
         Concerns = concerns;
         Cells = cells;
-        Adrs = adrs;
+        Records = records;
         Unplaced = unplaced;
         Strays = strays;
         foreach (ValueChainCell cell in cells) { cellByKey[Key(cell.Stack, cell.Concern)] = cell; }
-        foreach (string adr in adrs)
+        foreach (string record in records)
         {
             List<ValueChainCell> sitsIn = new List<ValueChainCell>();
             foreach (ValueChainCell cell in cells)
             {
-                if (keysByAdr[adr].Contains(Key(cell.Stack, cell.Concern))) { sitsIn.Add(cell); }
+                if (keysByRecord[record].Contains(Key(cell.Stack, cell.Concern))) { sitsIn.Add(cell); }
             }
-            cellsByAdr[adr] = sitsIn.ToArray();
+            cellsByRecord[record] = sitsIn.ToArray();
         }
     }
 
@@ -69,50 +69,50 @@ public sealed class ValueChainMap
         HashSet<string> rowSet = new HashSet<string>(rows, StringComparer.Ordinal);
         HashSet<string> columnSet = new HashSet<string>(columns, StringComparer.Ordinal);
 
-        List<string> adrs = new List<string>();
+        List<string> records = new List<string>();
         List<string> unplaced = new List<string>();
         List<string> strays = new List<string>();
-        Dictionary<string, List<string>> keysByAdr = new Dictionary<string, List<string>>(StringComparer.Ordinal);
-        Dictionary<string, List<string>> adrsByKey = new Dictionary<string, List<string>>(StringComparer.Ordinal);
-        Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByAdr = new Dictionary<string, Catzc.Base.Drs.DrsRuleSet>(StringComparer.Ordinal);
+        Dictionary<string, List<string>> keysByRecord = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+        Dictionary<string, List<string>> recordsByKey = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+        Dictionary<string, Catzc.Base.Drs.DrsRuleSet> ruleSetByRecord = new Dictionary<string, Catzc.Base.Drs.DrsRuleSet>(StringComparer.Ordinal);
         foreach (object item in ruleSets ?? Array.Empty<object>())
         {
             Catzc.Base.Drs.DrsRuleSet ruleSet = item as Catzc.Base.Drs.DrsRuleSet;
             if (ruleSet == null)
             {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: an ADR is not a {0}",
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: a record is not a {0}",
                     typeof(Catzc.Base.Drs.DrsRuleSet).FullName));
             }
-            string adr = ruleSet.External;
-            if (string.IsNullOrEmpty(adr) || keysByAdr.ContainsKey(adr))
+            string record = ruleSet.External;
+            if (string.IsNullOrEmpty(record) || keysByRecord.ContainsKey(record))
             {
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: the ADR code '{0}' is empty or repeated", adr));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: the record code '{0}' is empty or repeated", record));
             }
-            adrs.Add(adr);
-            ruleSetByAdr[adr] = ruleSet;
+            records.Add(record);
+            ruleSetByRecord[record] = ruleSet;
             List<string> keys = new List<string>();
-            keysByAdr[adr] = keys;
+            keysByRecord[record] = keys;
             bool onRow = rowSet.Contains(ruleSet.Stack ?? "");
             if (!onRow)
             {
-                strays.Add(string.Format(CultureInfo.InvariantCulture, "{0}: '{1}' is not a row of the value-chain stack ({2})", adr, ruleSet.Stack,
+                strays.Add(string.Format(CultureInfo.InvariantCulture, "{0}: '{1}' is not a row of the value-chain stack ({2})", record, ruleSet.Stack,
                     string.Join(", ", rows)));
             }
             foreach (string concern in ruleSet.Concerns ?? Array.Empty<string>())
             {
                 if (!columnSet.Contains(concern ?? ""))
                 {
-                    strays.Add(string.Format(CultureInfo.InvariantCulture, "{0}: '{1}' is not a value-chain concern ({2})", adr, concern,
+                    strays.Add(string.Format(CultureInfo.InvariantCulture, "{0}: '{1}' is not a value-chain concern ({2})", record, concern,
                         string.Join(", ", columns)));
                     continue;
                 }
                 string key = Key(ruleSet.Stack, concern);
                 if (!onRow || keys.Contains(key)) { continue; }
                 keys.Add(key);
-                if (!adrsByKey.ContainsKey(key)) { adrsByKey[key] = new List<string>(); }
-                adrsByKey[key].Add(adr);
+                if (!recordsByKey.ContainsKey(key)) { recordsByKey[key] = new List<string>(); }
+                recordsByKey[key].Add(record);
             }
-            if (keys.Count == 0) { unplaced.Add(adr); }
+            if (keys.Count == 0) { unplaced.Add(record); }
         }
 
         List<ValueChainCell> cells = new List<ValueChainCell>();
@@ -121,18 +121,18 @@ public sealed class ValueChainMap
             foreach (string column in columns)
             {
                 List<string> inCell;
-                adrsByKey.TryGetValue(Key(row, column), out inCell);
+                recordsByKey.TryGetValue(Key(row, column), out inCell);
                 cells.Add(new ValueChainCell(row, column, inCell == null ? Array.Empty<string>() : inCell.ToArray()));
             }
         }
-        return new ValueChainMap(rows, columns, cells.ToArray(), adrs.ToArray(), unplaced.ToArray(), strays.ToArray(), keysByAdr, ruleSetByAdr);
+        return new ValueChainMap(rows, columns, cells.ToArray(), records.ToArray(), unplaced.ToArray(), strays.ToArray(), keysByRecord, ruleSetByRecord);
     }
 
-    // The registry entry an ADR code was placed from (its ADR domain, row and value-chain concerns), or null.
-    public Catzc.Base.Drs.DrsRuleSet RuleSetOf(string adr)
+    // The registry entry a record code was placed from (its DRS domain, row and value-chain concerns), or null.
+    public Catzc.Base.Drs.DrsRuleSet RuleSetOf(string record)
     {
         Catzc.Base.Drs.DrsRuleSet ruleSet;
-        return adr != null && ruleSetByAdr.TryGetValue(adr, out ruleSet) ? ruleSet : null;
+        return record != null && ruleSetByRecord.TryGetValue(record, out ruleSet) ? ruleSet : null;
     }
 
     // The cell of a row and a column, or null when the map has none.
@@ -142,11 +142,11 @@ public sealed class ValueChainMap
         return cellByKey.TryGetValue(Key(stack, concern), out cell) ? cell : null;
     }
 
-    // The cells an ADR code sits in, in the map's order; null when the map was not built from that code.
-    public IReadOnlyList<ValueChainCell> CellsOf(string adr)
+    // The cells a record code sits in, in the map's order; null when the map was not built from that code.
+    public IReadOnlyList<ValueChainCell> CellsOf(string record)
     {
         ValueChainCell[] cells;
-        return adr != null && cellsByAdr.TryGetValue(adr, out cells) ? cells : null;
+        return record != null && cellsByRecord.TryGetValue(record, out cells) ? cells : null;
     }
 
     // The map as indented JSON with '\n' line ends.
@@ -170,14 +170,14 @@ public sealed class ValueChainMap
         }
     }
 
-    // One cell as a JSON object { stack, concern, adr_count, adrs }; shared with ValueChainHighlight.ToJson.
+    // One cell as a JSON object { stack, concern, record_count, records }; shared with ValueChainHighlight.ToJson.
     internal static void WriteCell(Utf8JsonWriter writer, ValueChainCell cell)
     {
         writer.WriteStartObject();
         writer.WriteString("stack", cell.Stack);
         writer.WriteString("concern", cell.Concern);
-        writer.WriteNumber("adr_count", cell.AdrCount);
-        WriteStrings(writer, "adrs", cell.Adrs);
+        writer.WriteNumber("record_count", cell.RecordCount);
+        WriteStrings(writer, "records", cell.Records);
         writer.WriteEndObject();
     }
 

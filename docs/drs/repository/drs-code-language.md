@@ -1,4 +1,4 @@
-# ADR: DRS code language — a path of named segments, every string a fact
+# Repository: DRS code language — a path of named segments, every string a fact
 
 ## Rules: ADR-REPO-DRSCODE
 

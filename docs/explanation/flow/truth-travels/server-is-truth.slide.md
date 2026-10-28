@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../azure/.assets/coordinate-rules-and-their-gates.drawio.png
+      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Up into design: identity, branch policy and audit history live on the server. A 
 
 ## Image
 
-.assets/server-is-truth.png
+[server-is-truth](.assets/server-is-truth.png)
 
 ## Caption
 
-From the catalogue, reduced: coordinate rules and their gates.
+From the catalogue, reduced: clients bridge to one server.
 
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/coordinate-rules-and-their-gates.drawio.png.
+docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.

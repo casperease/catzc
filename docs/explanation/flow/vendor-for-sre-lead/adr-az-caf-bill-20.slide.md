@@ -4,10 +4,6 @@ catzc:
     pattern: fact
     deck: vendor-for-sre-lead
     order: 20
-    picture:
-      mode: reduce
-      source: ../../design/.assets/get-aspect-feeds-globs-and-maps.drawio.png
-      scale: 0.4
 ---
 
 # Azure CAF billing: every environment is a slot with a name, a known owner and a known cost
@@ -20,15 +16,6 @@ catzc:
 
 For the SRE Lead, who owns reliability, monitoring and the switch: One occupant per environment keeps the bill a list of named rungs.
 
-## Image
-
-.assets/adr-az-caf-bill-20.png
-
-## Caption
-
-From the catalogue, reduced: get aspect feeds globs and maps.
-
 ## Notes
 
-Check it: the record EDR-AZ-CAF-BILL in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.
+Check it: the record EDR-AZ-CAF-BILL in docs/drs/index.md.

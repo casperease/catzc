@@ -5,10 +5,9 @@ catzc:
     deck: manual-queues
     order: 2
     picture:
-      mode: zoom
-      source: ../../design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png
-      box: [20, 84, 1260, 400]
-      scale: 0.5
+      mode: reduce
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
+      scale: 0.4
 ---
 
 # The first queue is a person pushing their own topic; a clone never writes main
@@ -24,11 +23,11 @@ the clone ever makes.
 
 ## Image
 
-.assets/authoring-is-first.png
+[authoring-is-first](.assets/authoring-is-first.png)
 
 ## Caption
 
-Zoomed: the clone leaves from the verified point, commits, and pushes up to its own topic HEAD on the server remote.
+Reduced: the ladder, whose first rung is queue 1, authoring, a person editing, pushing and merging; the landed main HEAD follows it.
 
 ## Notes
 

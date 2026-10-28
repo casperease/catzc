@@ -24,7 +24,7 @@ description:
   A developer after Connect-AzCli and a pipeline step in azcli mode type the same Deploy-Bicep; only the pipeline must pin the subscription,
   and a run ends as a rejection, a preview, a failure or a deployment.
 about:
-  adrs: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+  rules: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
   lens: operations
 content:
   title: A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription

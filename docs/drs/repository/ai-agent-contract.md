@@ -76,8 +76,7 @@ Agents start cold on small models. Test runs are the largest cost of a session, 
 the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
 
 A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared
-once (PDR-CONFIG, PDR-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
-`contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
+once (PDR-CONFIG, PDR-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key.
 
 In every mode but one, the truth is the whole repository at one commit, committed files only. The listen mode is the exception: the user, as
 the editor, isolates a source tree and corrects docs by hand while the listener notes each change. Those corrections are not questions or
@@ -87,7 +86,7 @@ asks whether the editor is right. It reads the repository only as the reference 
 ## Decision
 
 One short contract, named once: the top-level `contracts: [ADR-REPO-AI]` entry in agents.yml, which `Test-AgentDefinitions` reads, and the
-CLAUDE.md session-start line. No per-file key. It says what to do and names the ADR that owns the why; under 100 lines with its head.
+CLAUDE.md session-start line. It says what to do and names the record that owns the why; under 100 lines with its head.
 
 ## Consequences
 

@@ -5,8 +5,8 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $script:widget = 'docs/explanation/widget/.assets/widget-flow'
         $script:gadget = 'docs/explanation/gadget/.assets/gadget-flow'
         $declarations = @{
-            $script:widget = "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack:`n        exclude: [contract]`n"
-            $script:gadget = "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack`n"
+            $script:widget = "about:`n  rules:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack:`n        exclude: [contract]`n"
+            $script:gadget = "about:`n  rules:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack`n"
         }
         foreach ($stem in $declarations.Keys) {
             $source = Join-Path $script:root $stem
@@ -69,7 +69,7 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $source = Join-Path $script:root $stem
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText("$source.drawio.yml",
-            "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
+            "about:`n  rules:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
         { Invoke-Writer -Stem $stem } | Should -Throw '*lists content.minimaps as a map*never the cells they light*'
     }
 }

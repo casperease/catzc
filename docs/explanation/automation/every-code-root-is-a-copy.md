@@ -26,7 +26,7 @@ description:
   One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and owns the integrity guard, and
   every code root outside the repository is a copy of the one verified build.
 about:
-  adrs: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+  rules: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: architecture
 content:
   title: One engine builds the bundle, and every code root is a copy of its output

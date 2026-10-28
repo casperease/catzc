@@ -23,7 +23,7 @@ description:
   "A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main only and reach the non-prod
   targets the pipeline lists, never the prod subscription; two deploy functions throw on a missing or wrong subscription."
 about:
-  adrs: [FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY, FDR-CD-TWORELEASEGATES]
+  rules: [FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY, FDR-CD-TWORELEASEGATES]
   lens: operations
 content:
   title: A merge to main runs the CD pipeline through non-prod and stops there

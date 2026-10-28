@@ -23,7 +23,7 @@ description:
   Four modules hold config addresses and hand them to the one public resolver in Catzc.Base.Config, which keeps the key walk private and
   builds on its own reader; the only file an address can reach is a committed config file.
 about:
-  adrs: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY]
+  rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY]
   lens: architecture
 content:
   title: Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
@@ -105,7 +105,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
+The loading record says only `Get-Config` is public, while the addressing record makes `Get-ConfigValue` public as well, and it is.
 
 ## See also
 

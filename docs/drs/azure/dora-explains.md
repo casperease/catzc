@@ -9,7 +9,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 `azure.yml` + `infrastructure/` · [ADR-AZ-DATAMOD](azure-data-model.md)
 
 > DORA's research connects infrastructure-as-code and version-controlled configuration to lower deployment lead time and enable rapid,
-> reliable infrastructure changes. This ADR encodes Azure infrastructure as derived, deterministic config with no hand-typed values,
+> reliable infrastructure changes. This record encodes Azure infrastructure as derived, deterministic config with no hand-typed values,
 > enabling safe automation.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — configuration is the single source of truth for Azure
@@ -27,7 +27,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 `network.yml` · [ADR-AZ-NETWORK](azure-network-model.md)
 
 > DORA's research shows that infrastructure-as-code and centralized, single-source-of-truth configuration reduce errors and deployment lead
-> time. This ADR encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.
+> time. This record encodes the network plan as a versioned asset, with cross-asset integrity rules preventing configuration drift.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — IP plan is a versioned, authoritative source.
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — network topology defined as declarative
@@ -43,7 +43,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AZ-NAMING](azure-naming-standard.md)
 
 > DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors.
-> This ADR encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
+> This record encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — standardized, deterministic naming rules reduce
   cognitive load.
@@ -59,7 +59,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AZ-CUSTOMER](azure-customer-model.md)
 
-> DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This ADR
+> DORA's research links single-source-of-truth configuration and one-living-version practices to faster, more reliable delivery. This record
 > encodes the customer catalogue as the authoritative source, enabling predictable customer-scoped deployments without policy coupling.
 
 - [Version control](../../references/dora/capabilities.md#version-control) — customer catalogue as a versioned, authoritative asset.
@@ -75,7 +75,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AZ-LZ](landing-zones.md)
 
-> DORA's research ties flexible, self-service infrastructure and pervasive security to delivery performance. This ADR gives every
+> DORA's research ties flexible, self-service infrastructure and pervasive security to delivery performance. This record gives every
 > subscription the same landing zone from one template, with its guardrails as policy, so a workload lands in a secure network by
 > configuration rather than by request.
 
@@ -93,7 +93,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-AZ-IACKIND](infrastructure-kinds.md)
 
-> DORA's research ties version-controlled infrastructure and a loosely coupled architecture to delivery performance. This ADR names the
+> DORA's research ties version-controlled infrastructure and a loosely coupled architecture to delivery performance. This record names the
 > three kinds of infrastructure code and lets the track place them, so the same tooling deploys any repository's templates without a layout
 > of its own to copy.
 

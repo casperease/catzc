@@ -1,4 +1,4 @@
-# ADR: Controlling system-wide dependencies
+# Automation: Controlling system-wide dependencies
 
 ## Rules: ADR-AUTO-DEPS
 
@@ -49,7 +49,7 @@ Two kinds of dependency, two names. A **system dependency** (`ADR-AUTO-DEPS`) is
 install / invoke / uninstall triads), version-locked and asserted, never built from. A **module dependency** (`ADR-AUTO-DEPM`) is code the
 toolset is built _from_ — an edge in the internal graph among the repo's _own_ modules, spanning both kinds of module content, `pwsh`
 functions and C# types, declared in `dependencies.yml` — pinned and stitched into the build, whether it is internal code the repository
-holds or an external package a feed supplies. Keep the two names distinct in code, config, and prose. This ADR governs `ADR-AUTO-DEPS`;
+holds or an external package a feed supplies. Keep the two names distinct in code, config, and prose. This record governs `ADR-AUTO-DEPS`;
 `ADR-AUTO-DEPM` has its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System vs module dependencies](#system-vs-module-dependencies)
@@ -88,7 +88,7 @@ prerequisite.
 - A **system dependency** — code **`ADR-AUTO-DEPS`** (SYS = system) — is something the automation _runs against_: an external runtime or CLI
   installed at the OS level, such as `pwsh`, Python, `dotnet`, the Azure CLI, or git. These are not vendored into the repo; they are
   binaries the **Tooling** layer installs, version-locks, and asserts (the tools config, its one reader, the per-tool install / invoke /
-  uninstall triads). This ADR — and everything under `Catzc.Tooling.*` — is about `ADR-AUTO-DEPS`.
+  uninstall triads). This record — and everything under `Catzc.Tooling.*` — is about `ADR-AUTO-DEPS`.
 - A **module dependency** — code **`ADR-AUTO-DEPM`** (MOD = module) — is an edge in the internal graph among the repo's _own_ modules, the
   code we _build_. It is a separate concern with its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md)
   (`ADR-AUTO-DEPM`); this record does not govern it.

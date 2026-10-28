@@ -26,7 +26,7 @@ description:
   Two environment variables are read in one function, Test-IsRunningInPipeline; callers ask it, and one analyzer rule, loaded through the
   one settings file, turns any other read of those variables into an error.
 about:
-  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL, ADR-PWSH-DETECT-FASTDETECTION]
+  rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL, ADR-PWSH-DETECT-FASTDETECTION]
   lens: implementation
 content:
   title: Two variables, one reader, 24 callers, and one analyzer rule for every other read

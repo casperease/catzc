@@ -1,4 +1,4 @@
-# ADR: Module config loading — one reader (Get-Config), typed configs
+# Configuration: Module config loading — one reader (Get-Config), typed configs
 
 ## Rules: ADR-CONF-LOADING
 

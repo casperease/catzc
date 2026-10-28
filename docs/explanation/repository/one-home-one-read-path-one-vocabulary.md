@@ -20,7 +20,7 @@ description:
   A repo-wide switch lives in one file, is read through one private reader, is asked through one guard vocabulary, and is called from any
   module above Config.
 about:
-  adrs: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS]
+  rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS]
   lens: meta
 content:
   title: A repo-wide switch has one home, one read path and one guard vocabulary

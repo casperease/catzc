@@ -24,14 +24,14 @@ A learning is a forward memory for the next agents that work the same material: 
 states what is true of the repository now, never the story of the session that found it. The session-finalize skill calls this with the
 lines of its "What I learned" section. Each sentence becomes one line, `- <yyyy-MM-dd>: <sentence>`, appended to the newest file in the
 log's folder; a file that holds lines_per_file lines is full, so the next line starts a new file, `<prefix><sha>.md`, `<sha>` the first six
-hex of a SHA-256 of the folder and its start time, headed `# <title> <sha>` and then `Started <time>.`, the start time the files are ordered
-by. A long line is wrapped at 140 columns as the markdown formatter wraps a list item (Format-MarkdownParagraph), so the log passes the
-markdown lint as written; a line is counted by the line that starts it. When a new file would make more than `files` files, the oldest is
-deleted: git keeps it once committed. Lines are never edited and a repeat across calls is kept, since a line that recurs shows what keeps
-mattering; only a sentence given twice in one call (a relayed batch) is written once, and each skip is reported with a warning. Every log is
-one LearningsConfig instance, registered in configs.yml under its own name: the learnings log (`learned<sha>.md`, "Session learnings") and
-the hindsight log the hindsight-log skill keeps (`hindsight<sha>.md`, "Hindsight", in .claude/hindsight). The defaults (5 files of 50 lines)
-are declared once on LearningsConfig.
+hex of a SHA-256 of the folder and its start time, headed `# <title>`, the hash left to the file name, and then `Started <time>.`, the start
+time the files are ordered by. A long line is wrapped at 140 columns as the markdown formatter wraps a list item (Format-MarkdownParagraph),
+so the log passes the markdown lint as written; a line is counted by the line that starts it. When a new file would make more than `files`
+files, the oldest is deleted: git keeps it once committed. Lines are never edited and a repeat across calls is kept, since a line that
+recurs shows what keeps mattering; only a sentence given twice in one call (a relayed batch) is written once, and each skip is reported with
+a warning. Every log is one LearningsConfig instance, registered in configs.yml under its own name: the learnings log (`learned<sha>.md`,
+"Session learnings") and the hindsight log the hindsight-log skill keeps (`hindsight<sha>.md`, "Hindsight", in .claude/hindsight). The
+defaults (5 files of 50 lines) are declared once on LearningsConfig.
 
 ### parameter `Learning`
 

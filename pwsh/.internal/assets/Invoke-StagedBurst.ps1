@@ -8,7 +8,8 @@
     <root>/pwsh/x.ps1, and a file with no counterpart is created. An empty marker <staged>/<path>.burst-delete deletes <root>/<path> instead; its
     target must exist, or the call stops before touching anything, and it is journalled and restored like any swapped file. The call takes the run lock as a burst (Enter-CatzcBurst.ps1), writes a
     backup journal beside the staged folder (<staged>.backup), copies the staged files over their targets, and runs -Command in one
-    Invoke-CatzcCommand -InBurst call, which is the one fresh import, with the repository root as its working directory. When any command fails, or anything throws, every target is
+    Invoke-CatzcCommand -InBurst call, which is the one fresh import, with the repository root as its working directory and as the .NET current directory, which
+    [System.IO] resolves a relative path against; the caller's .NET current directory comes back after. When any command fails, or anything throws, every target is
     restored from the journal (a target the swap created is deleted) and the call exits 1; when all pass, the journal is removed and the
     staged copies stay for the caller to delete. An empty or absent staged folder is a lock-only burst: the commands run under the run lock
     with nothing swapped and no journal.
@@ -242,7 +243,14 @@ if ($relatives.Count -eq 0) {
         $arguments.Importer = $Importer
     }
     $global:LASTEXITCODE = 0
-    & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments
+    $callerDirectory = [System.Environment]::CurrentDirectory
+    try {
+        [System.Environment]::CurrentDirectory = $root
+        & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments
+    }
+    finally {
+        [System.Environment]::CurrentDirectory = $callerDirectory
+    }
     if ($global:LASTEXITCODE -ne 0) {
         "[Invoke-StagedBurst] nothing staged; the commands failed (exit code $global:LASTEXITCODE)"
         exit 1
@@ -299,7 +307,11 @@ ConvertTo-Json -InputObject @($entries) | Set-Content -LiteralPath $manifestPath
 
 $passed = $false
 $outcome = ''
+# A step's [System.IO] call on a relative path resolves against the .NET current directory, which Push-Location never
+# moves, so the steps run with it at the root and the caller's comes back after.
+$callerDirectory = [System.Environment]::CurrentDirectory
 try {
+    [System.Environment]::CurrentDirectory = $root
     foreach ($relative in $relatives) {
         if ($relative.EndsWith($deleteSuffix, [System.StringComparison]::Ordinal)) {
             Remove-Item -LiteralPath (Join-Path $root $relative.Substring(0,
@@ -332,6 +344,7 @@ catch {
     $outcome = "the swap threw: $($_.Exception.Message)"
 }
 finally {
+    [System.Environment]::CurrentDirectory = $callerDirectory
     [System.Environment]::SetEnvironmentVariable($burstJournal.Variable, $null)
     # Any way out but a pass puts the targets back, an interruption included.
     if (-not $passed) {

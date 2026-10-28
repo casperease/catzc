@@ -288,7 +288,8 @@ def get(model, kind=None):
         marker = {"at": at, "number": int(plain(cells[m].get("value")))}
         if name not in (None, "edge"):
             sources = [geo[s] for s, t in edge_ends if t == at and s in geo]
-            if kind_of.get(at) in (None, "gate") or name != auto_corner(geo[at], sources):
+            kits = style_map(cells[m].get("style") or "").get("catzcAuto") == "1"  # a corner the kit chose clear of tags and pills
+            if not kits and (kind_of.get(at) in (None, "gate") or name != auto_corner(geo[at], sources)):
                 marker["corner"] = name
         content["markers"].append(marker)
     # A chip's id is chip-<kind>-<place>-<n>, so the place it sits on is read from the id, in the order put drew them.
@@ -317,6 +318,7 @@ def get(model, kind=None):
                 else ("-left" if cx < box["x"] + box["w"] / 2 else "-right")
             )
             corner = ("top" if cy < box["y"] + box["h"] / 2 else "bottom") + side
+            corner = style_map(style).get("catzcCorner", corner)  # put names the corner a chip stepped inward from
             if corner != CHIP_CORNER[kind]:
                 chip["corner"] = corner
         content["chips"].append(chip)
@@ -346,7 +348,7 @@ def get(model, kind=None):
                 edge["label"] = content["relation"]
         content["relation"] = ""
         content["states"] = False  # the word is each edge's label, never a state diagram's relation
-    about = {"adrs": adrs, "lens": lens}
+    about = {"rules": adrs, "lens": lens}
     if "zoom-badge" in cells:  # the zoom badge prints the level, so the drawing carries it back
         about["zoom"] = plain(cells["zoom-badge"].get("value"))
     # The query's cells are its rows', never the source's: the drawing gives them back to nobody (DDR-VISUAL-ZOOMISANAXIS).

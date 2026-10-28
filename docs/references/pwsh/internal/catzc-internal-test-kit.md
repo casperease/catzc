@@ -62,6 +62,6 @@ real assets of the loaded code in either run mode.
 ## Related
 
 - ADR: [test-automation](../../../drs/automation/test-automation.md) — isolating logic tests behind seams, which these fixtures provide.
-- ADR: [one-living-version](../../../drs/principles/one-living-version.md) and
+- Records: [one-living-version](../../../drs/principles/one-living-version.md) and
   [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — why a multi-function `.internal` `.psm1` is sanctioned here.
 - Reference: `Catzc.Internal.Loader` — `Import-InternalModule TestKit` loads it; the internal area overview.

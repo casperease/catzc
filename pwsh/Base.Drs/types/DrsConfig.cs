@@ -17,7 +17,7 @@ public sealed class DrsConfig
     // The record kinds when drs.yml declares none: the one shared kind ADR.
     public const string DefaultKind = "ADR";
 
-    // The segments a rule's code has after its kind when no ruleset of the kind is registered: ADR-<DOMAIN>-<ADR>-<NAME>, TDR-<ADR>-<NAME>.
+    // The segments a rule's code has after its kind when no ruleset of the kind is registered: ADR-<DOMAIN>-<RECORD>-<NAME>, TDR-<RECORD>-<NAME>.
     public const int DefaultSharedRuleSegments = 3;
     public const int DefaultOwnedRuleSegments = 2;
 
@@ -73,7 +73,7 @@ public sealed class DrsConfig
     public static string DefaultFolder(string domain) => domain;
     private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 
-    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
+    // The five layers of the automation, and the one a record belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
     private static readonly string[] LayerNames = { "automation", "contract", "language", "engine", "importer" };
     public static readonly IReadOnlyList<string> Layers = LayerNames;
     public const string DefaultLayer = "automation";
@@ -370,7 +370,7 @@ public sealed class DrsConfig
         RuleSets = allRuleSets;
         Edges = edges;
 
-        // A kind's rule has one segment more than its shortest registered ADR code, so a group segment (EDR-DORA-<NAME>) is an ADR's.
+        // A kind's rule has one segment more than its shortest registered record code, so a group segment (EDR-DORA-<NAME>) is a record's.
         OrderedDictionary ruleSegments = new OrderedDictionary();
         foreach (string kind in kinds)
         {

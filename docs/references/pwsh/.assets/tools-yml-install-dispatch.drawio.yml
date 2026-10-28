@@ -2,7 +2,7 @@ description:
   tools.yml is the one locked list of tools; three readers take its typed map, and the devbox install walks the keys in dependency order and
   dispatches each to the install function whose name it derives, throwing when none exists.
 about:
-  adrs: [ADR-AUTO-DEPS-INSTALLORDERINCONFIG, ADR-AUTO-PKGMGR, ADR-AUTO-ENGINE, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
+  rules: [ADR-AUTO-DEPS-INSTALLORDERINCONFIG, ADR-AUTO-PKGMGR, ADR-AUTO-ENGINE, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
   lens: source
 content:
   title: tools.yml is the one locked list; dispatch is by key name

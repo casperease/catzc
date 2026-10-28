@@ -24,7 +24,7 @@ description:
   An Azure name is computed from fixed components and the type's pattern; it fits the pattern's length limit and is the same every time, or
   the deploy stops, and it is never truncated.
 about:
-  adrs:
+  rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
     - ADR-AZ-NAMING-ENVIRONMENTFIRST
     - ADR-AZ-NAMING-NEVERTRUNCATE

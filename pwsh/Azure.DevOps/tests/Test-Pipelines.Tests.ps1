@@ -63,6 +63,8 @@ BeforeAll {
     $script:networkPoolInclude = '/.ado/pipelines/variables/network-agent-pool.yaml'
     $script:findVaultJobsOffPool = {
         param([string] $Path, [string[]] $VaultCommands)
+        # Read here, since the analyzer does not follow a parameter into a nested script block.
+        $vaultWriters = $VaultCommands
         $text = [System.IO.File]::ReadAllText($Path)
         $offenders = [System.Collections.Generic.List[string]]::new()
         $runs = {
@@ -85,7 +87,7 @@ BeforeAll {
             param($Node)
             if ($Node -is [System.Collections.IDictionary]) {
                 if ($Node.Contains('pool') -or $Node.Contains('job') -or $Node.Contains('deployment')) {
-                    $commands = @(& $runs $Node | ForEach-Object { ($_ -split '\s+', 2)[0] } | Where-Object { $_ -in $VaultCommands })
+                    $commands = @(& $runs $Node | ForEach-Object { ($_ -split '\s+', 2)[0] } | Where-Object { $_ -in $vaultWriters })
                     $pool = $Node['pool']
                     $onPool = $pool -is [System.Collections.IDictionary] -and -not $pool.Contains('vmImage') -and
                     "$($pool['name'])" -eq '${{ variables.NetworkAgentPool }}' -and $text.Contains($script:networkPoolInclude)
@@ -107,6 +109,45 @@ BeforeAll {
         [string[]] $offenders
     }
     $script:vaultCommands = @('Set-AnomalyAlertRecipientSecret', 'Invoke-BreakGlassRotation')
+
+    $script:findServiceConnectionUses = {
+        param([string] $Path, [string[]] $VaultCommands)
+        # Read here, since the analyzer does not follow a parameter into a nested script block.
+        $vaultWriters = $VaultCommands
+        $uses = [System.Collections.Generic.List[pscustomobject]]::new()
+        $entryNeeds = @{ Foundations = 'landing-zone'; Discoveries = 'landing-zone'; Expeditions = 'workload' }
+        $walk = {
+            param($Node, [string] $Key)
+            if ($Node -is [System.Collections.IDictionary]) {
+                foreach ($name in @($Node.Keys)) {
+                    $value = "$($Node[$name])"
+                    if ("$name" -ceq 'serviceConnection' -and $entryNeeds.ContainsKey($Key)) {
+                        $uses.Add([pscustomobject]@{ Connection = $value; Needs = $entryNeeds[$Key]; Subscription = "$($Node['subscriptionIdAssertIs'])"; Use = "a $Key entry ($($Node['env']))" })
+                    }
+                    elseif ("$name" -ceq 'ServiceConnection' -and $value -notlike '*${{*') {
+                        $command = ("$($Node['RunCommand'])".Trim() -split '\s+', 2)[0]
+                        $needs = if ($command -in $vaultWriters) {
+                            'landing-zone'
+                        }
+                        else {
+                            'read-only'
+                        }
+                        $uses.Add([pscustomobject]@{ Connection = $value; Needs = $needs; Subscription = ''; Use = "a step running $command" })
+                    }
+                }
+                foreach ($name in @($Node.Keys)) {
+                    & $walk $Node[$name] "$name"
+                }
+            }
+            elseif ($Node -is [System.Collections.IList]) {
+                foreach ($item in $Node) {
+                    & $walk $item $Key
+                }
+            }
+        }
+        & $walk (ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($Path)) -Ordered) ''
+        $uses
+    }
 
     # The ids of the subscriptions that host a production environment, or stage for one, as azure.yml declares them.
     $script:productionSubscriptionIds = {
@@ -350,6 +391,65 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
             $runs | Should -Contain "Get-BicepCostEstimate discovery -Subscription $hub" -Because "the hub $hub's firewall tier prices only when the estimate knows the subscription"
         }
         @($runs | Where-Object { $_ -like '*Update-AzurePriceTable*' }) | Should -BeNullOrEmpty -Because 'CI reads the checked-in price table'
+    }
+
+    It 'names only derived service connections, each of the identity its use needs and on the subscription its entry asserts' {
+        $connections = @{}
+        foreach ($connection in Get-BicepServiceConnections) {
+            $connections[$connection.name] = $connection
+        }
+        $subscriptions = (Get-Config -Config azure).subscriptions
+        $root = Join-Path (Get-RepositoryRoot) '.ado/pipelines'
+        $uses = 0
+        $offenders = foreach ($file in Get-ChildPath $root -File -Filter '*.yaml' -Depth 4) {
+            $name = [System.IO.Path]::GetFileName($file)
+            foreach ($use in & $script:findServiceConnectionUses $file $script:vaultCommands) {
+                $uses++
+                $connection = $connections[$use.Connection]
+                if (-not $connection) {
+                    "${name}: $($use.Use) names '$($use.Connection)', which Get-BicepServiceConnections does not derive"
+                    continue
+                }
+                if ($connection.identity -ne $use.Needs) {
+                    "${name}: $($use.Use) needs the $($use.Needs) identity, and '$($use.Connection)' is $($connection.identity)"
+                }
+                if ($use.Subscription -and "$($subscriptions[$connection.subscription].id)" -ne $use.Subscription) {
+                    "${name}: $($use.Use) asserts $($use.Subscription), and '$($use.Connection)' reaches $($connection.subscription)"
+                }
+            }
+        }
+        $uses | Should -BeGreaterThan 0
+        @($offenders) | Should -BeNullOrEmpty -Because 'a pipeline authenticates as the least identity that does its job (ADR-AZ-LZ-CAFDELIVERY)'
+    }
+}
+
+Describe 'the service-connection finder' -Tag 'L0', 'logic' {
+    It 'reads each target entry''s identity from its list, and a step''s from what it runs' {
+        $path = Join-Path $TestDrive 'widget.yaml'
+        [System.IO.File]::WriteAllText($path, @(
+                'Foundations:'
+                '  - { env: widget, serviceConnection: sc-widget-lz, subscriptionIdAssertIs: 00000000-0000-0000-0000-00000000000a }'
+                'Expeditions:'
+                '  - { env: gadget, serviceConnection: sc-widget-wl, subscriptionIdAssertIs: 00000000-0000-0000-0000-00000000000a }'
+                'steps:'
+                '  - template: /.ado/pipelines/steps/invoke-automation.yaml'
+                '    parameters:'
+                '      ServiceConnection: sc-widget-vault'
+                '      RunCommand: Invoke-BreakGlassRotation widget'
+                '  - template: /.ado/pipelines/steps/invoke-automation.yaml'
+                '    parameters:'
+                '      ServiceConnection: sc-widget-ro'
+                '      RunCommand: Get-Widget'
+                '  - template: /.ado/pipelines/steps/invoke-automation.yaml'
+                '    parameters:'
+                '      ServiceConnection: ${{ f.serviceConnection }}'
+                '      RunCommand: Get-Gadget'
+            ) -join "`n")
+        $uses = @(& $script:findServiceConnectionUses $path $script:vaultCommands)
+        @($uses | ForEach-Object { "$($_.Connection)=$($_.Needs)" }) |
+            Should -Be @('sc-widget-lz=landing-zone', 'sc-widget-wl=workload', 'sc-widget-vault=landing-zone', 'sc-widget-ro=read-only')
+        $uses[0].Subscription | Should -Be '00000000-0000-0000-0000-00000000000a'
+        $uses[3].Subscription | Should -BeNullOrEmpty
     }
 }
 

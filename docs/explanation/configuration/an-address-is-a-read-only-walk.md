@@ -23,7 +23,7 @@ description:
   "A global config address is a read-only walk over the one config the reader has already loaded and cached: the caller's string goes
   through the one reader to the cached node, and a wrong address throws at the call."
 about:
-  adrs: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD]
+  rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD]
   lens: meta
 content:
   title: A config address is a read-only walk over the one cached config, never a second reader
@@ -90,7 +90,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
+The loading record says only `Get-Config` is public, while the addressing record makes `Get-ConfigValue` public as well, and it is.
 
 ## See also
 

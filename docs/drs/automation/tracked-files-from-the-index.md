@@ -1,4 +1,4 @@
-# ADR: Tracked files are read from the git index, in-process, through one seam
+# Automation: Tracked files are read from the git index, in-process, through one seam
 
 ## Rules: ADR-AUTO-TRACKED
 
@@ -100,8 +100,8 @@ means.
 When each caller asks git on its own, each one also quotes paths, splits output, drops blank lines, and decides how a folder path matches,
 and small differences between those copies become different answers to the same question. One seam gives one answer and one place to test
 it; the domain functions that need a named universe wrap the seam and keep only what is genuinely theirs (an exclusion list, a file-type
-filter). Literal paths keep the seam's contract small: the callers pass folders and files they know, and a pattern language would only add
-a second way to say the same thing.
+filter). Literal paths keep the seam's contract small: the callers pass folders and files they know, and a pattern language would only add a
+second way to say the same thing.
 
 ### Plain git ls-files is the index
 

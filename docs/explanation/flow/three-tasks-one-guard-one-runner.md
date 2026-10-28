@@ -25,7 +25,7 @@ description:
   "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
   the runner imports, traps, sanitizes and invokes in a fixed order."
 about:
-  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
+  rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: implementation
 content:
   title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes

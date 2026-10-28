@@ -26,7 +26,7 @@ description:
   Two crossers anchor on the repository root and the output root, one into binding form and one into communication form; a published
   artifact anchors on its own artifact root, the only anchor that survives a stage boundary.
 about:
-  adrs: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+  rules: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
   lens: architecture
 content:
   title: Two crossers anchor on two roots, and a published artifact anchors on its artifact root
@@ -122,7 +122,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins every relative value onto the repository root and knows no
+The record keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins every relative value onto the repository root and knows no
 `out/` anchor, a third resolver beside the two crossers.
 
 ## See also

@@ -2,7 +2,7 @@ description: >-
   Every model runs one way: declared once in a config, answered by a query that reads it, and kept true by a gate that refuses a tree that
   disagrees.
 about:
-  adrs: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-REPO-FOLDERS-NAMESARESETTINGS]
+  rules: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-REPO-FOLDERS-NAMESARESETTINGS]
   lens: governance
 content:
   title: Each model is declared once, answered by a query, and kept true by a gate

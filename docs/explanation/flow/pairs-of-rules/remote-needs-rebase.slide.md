@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../azure/.assets/four-gates-hold-the-session-rule.drawio.png
+      source: ../../design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -23,13 +23,13 @@ A merge of main into a topic would carry the truth sideways; a rebase keeps ever
 
 ## Image
 
-.assets/remote-needs-rebase.png
+[remote-needs-rebase](.assets/remote-needs-rebase.png)
 
 ## Caption
 
-From the catalogue, reduced: four gates hold the session rule.
+From the catalogue, reduced: out from the verified point back through a topic.
 
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/four-gates-hold-the-session-rule.drawio.png.
+docs/explanation/design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png.

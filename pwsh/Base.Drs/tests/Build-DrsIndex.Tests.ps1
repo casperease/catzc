@@ -2,7 +2,7 @@ Describe 'Build-DrsIndex — generated DRS index' -Tag 'L2', 'integrity', 'sourc
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-DrsIndex }
         $script:ruleSets = Get-DrsRuleSet
-        $script:adrRoot = Resolve-RepoPath 'docs/drs'
+        $script:drsRoot = Resolve-RepoPath 'docs/drs'
     }
 
     It 'the on-disk index is current — no drift from drs.yml (Test-GeneratedFiles)' {
@@ -16,7 +16,7 @@ Describe 'Build-DrsIndex — generated DRS index' -Tag 'L2', 'integrity', 'sourc
 
     It 'the on-disk index carries the body hash and no inputs stamp, and a second run writes nothing' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Build-DrsIndex -Silent | Out-Null
-        $head = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
+        $head = [System.IO.File]::ReadAllText((Join-Path $script:drsRoot 'index.md'))
         $head | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
         $head | Should -Not -Match 'with_inputs_sha'
         (Build-DrsIndex -Silent -PassThru).Changed | Should -BeFalse
@@ -29,7 +29,7 @@ Describe 'Build-DrsIndex — generated DRS index' -Tag 'L2', 'integrity', 'sourc
     }
 
     It 'every domain heading is followed by its drs.yml description' {
-        $index = [System.IO.File]::ReadAllText((Join-Path $script:adrRoot 'index.md'))
+        $index = [System.IO.File]::ReadAllText((Join-Path $script:drsRoot 'index.md'))
         $flattened = $index -replace '\s+', ' '
         $missing = foreach ($domain in (Get-Config -Config drs).Domains) {
             $expected = "### $($domain.Folder)/ $($domain.Description -replace '\s+', ' ')"
@@ -43,7 +43,7 @@ Describe 'Build-DrsIndex — generated DRS index' -Tag 'L2', 'integrity', 'sourc
 
     It 'every index row links to a real decision record file under its domain folder' {
         $missing = foreach ($entry in $script:indexEntries) {
-            $full = Join-Path $script:adrRoot $entry.Path
+            $full = Join-Path $script:drsRoot $entry.Path
             if (-not [System.IO.File]::Exists($full)) {
                 "$($entry.Code) -> $($entry.Path)"
             }

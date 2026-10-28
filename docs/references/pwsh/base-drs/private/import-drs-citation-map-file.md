@@ -7,7 +7,7 @@ malformed.
 
 ### synopsis
 
-Reads one tab-separated ADR map (a code map or a rule map) into one hashtable per row, keyed by the header.
+Reads one tab-separated citation map (a code map or a rule map) into one hashtable per row, keyed by the header.
 
 ### description
 

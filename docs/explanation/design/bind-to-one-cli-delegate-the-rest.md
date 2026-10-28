@@ -21,7 +21,7 @@ description:
   A consumer binds to one command-line interface, which hands the work to the vendor's own tooling, which talks to the cloud vendor
   substrate behind it.
 about:
-  adrs: [DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE]
+  rules: [DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE]
   lens: meta
 content:
   title: Consumers bind to one CLI, and everything behind it is delegated to the vendor

@@ -422,6 +422,7 @@ public sealed class SlidePattern
 
         foreach (XAttribute attribute in clone.DescendantsAndSelf().Attributes().Where(a => FieldPlaceholder.IsMatch(a.Value)).ToList())
         {
+            bool removeElement = false;
             attribute.Value = FieldPlaceholder.Replace(attribute.Value, match =>
             {
                 string fieldName = match.Groups[1].Value;
@@ -430,19 +431,54 @@ public sealed class SlidePattern
                     return source.Title ?? string.Empty;
                 }
 
+                // A field that fills an attribute, such as `## Image` an image's src, holds one markdown link, and gives its target.
                 SlideFieldContent content;
-                if (source.Fields.TryGetValue(fieldName, out content) && content.Items.Count == 1 && !content.IsTable)
+                if (source.Fields.TryGetValue(fieldName, out content) && content.Items.Count == 1 && !content.IsTable && content.Items[0].Target != null)
                 {
-                    return content.Items[0].ToString().Trim();
+                    return content.Items[0].Target;
                 }
 
-                if (!match.Groups[2].Success)
+                if (content != null)
+                {
+                    faults.Add(new SlideFault(path, fieldName, string.Format(CultureInfo.InvariantCulture, "the field fills an attribute, so it holds one markdown link, [<stem>](<path>); found '{0}'", string.Join(" ", content.Texts()))));
+                    return string.Empty;
+                }
+
+                if (match.Groups[2].Success)
+                {
+                    removeElement = true;
+                }
+                else
                 {
                     faults.Add(new SlideFault(path, fieldName, string.Format(CultureInfo.InvariantCulture, "pattern '{0}' requires this field as one line and the slide has none", Name)));
                 }
 
                 return string.Empty;
             }).Trim();
+
+            // An absent optional field that fills an attribute, such as an image's src, removes the element that holds the attribute.
+            if (removeElement && attribute.Parent != null && attribute.Parent.Parent != null)
+            {
+                attribute.Parent.Remove();
+            }
+        }
+
+        RemoveEmptyOptional(clone);
+    }
+
+    // An element marked data-optional outside a block field, such as a figure, goes when its removed fields leave it empty.
+    private static void RemoveEmptyOptional(XElement clone)
+    {
+        foreach (XElement element in clone.Descendants().Where(e => e.Attribute("data-optional") != null && e.Attribute("data-field") == null).Reverse().ToList())
+        {
+            if (!element.Elements().Any() && string.IsNullOrWhiteSpace(element.Value))
+            {
+                element.Remove();
+            }
+            else
+            {
+                element.Attribute("data-optional").Remove();
+            }
         }
     }
 

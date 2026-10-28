@@ -1,4 +1,4 @@
-# ADR: Idempotent state mechanics — the pwsh rules over idempotent-state-functions
+# PowerShell: Idempotent state mechanics — the pwsh rules over idempotent-state-functions
 
 ## Rules: ADR-PWSH-IDEM
 
@@ -57,9 +57,9 @@ the function is idempotent and names a non-idempotent command it wraps, and a `.
 
 [idempotent-state-functions](../idempotent-state-functions.md) (`ADR-AUTO-IDEM`) decides that every state-changing function is idempotent:
 check before acting, prefer graceful handling, overwrite rather than append, return the resulting state, and document the contract. Those
-rules hold for every execution engine. PowerShell adds its own ways to get each one wrong: cmdlets that look alike but differ on a re-run, a
-`-Force` that means different things on different commands, and a pipeline that returns every value a function forgets to capture. This ADR
-realises the doctrine in pwsh.
+rules hold for every engine, and PowerShell adds its own ways to get each one wrong: cmdlets that look alike but differ on a re-run, a
+`-Force` that means different things on different commands, and a pipeline that returns every value a function forgets to capture. This
+record realises the doctrine in pwsh.
 
 ### Overwrite, not append
 
@@ -89,7 +89,7 @@ The same holds for `$env:PSModulePath`, and for any list a function writes into 
 
 ### Idempotent built-ins
 
-Some built-ins already converge, and a function leans on them rather than adding a guard of its own
+Some built-ins converge on their own, and a function leans on them rather than adding a guard of its own
 ([idempotent-state-functions](../idempotent-state-functions.md#where-it-applies) calls redundant checks waste).
 `New-Item -ItemType Directory -Force` returns the existing folder instead of throwing, and `[System.IO.Directory]::CreateDirectory` does the
 same without the cmdlet's cost. The same switch on a file is not a create-if-missing: `New-Item -ItemType File -Force` replaces an existing
@@ -136,9 +136,7 @@ idempotent, and names a wrapped command that is not (an `az … create` that thr
 
 ## Decision
 
-pwsh state functions overwrite with the replacing cmdlets, extend a list only after a membership check, lean on the built-ins that converge,
-keep `-Force` as the one switch that redoes the work, return the same declared result on both paths, and state the contract in their
-comment-based help.
+A pwsh state function converges on a re-run in what it writes and in what it returns, by the rules above.
 
 ### How this is enforced
 

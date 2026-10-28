@@ -1,4 +1,4 @@
-# ADR: Generated root configs — every managed root file from one in-repo source of truth
+# Repository: Generated root configs — every managed root file from one in-repo source of truth
 
 ## Rules: ADR-REPO-ROOTCFG
 
@@ -77,9 +77,9 @@ syntax) get re-solved ad hoc. "Root" names the ownership — one source of truth
 managed set covers the repository root and, below it, the `.vscode/` editor files (settings, extension recommendations, launch profiles, the
 Azure Pipelines schema, and the preview CSS) and `.cspell/.gitignore` — all of those `committed: false`, so the editor greys them and a
 fresh clone materialises them on its first import — the same contract as the generated cspell dictionaries
-([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)). The repository treats other
-per-folder derived files as generated, gitignored artifacts — the module manifests and the README links
-([generated-readmes](generated-readmes.md)) — and a root config file is the same pattern, given one registry and one writer.
+([dedicated-output-directory](dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)). The module manifests and the
+READMEs ([generated-readmes](generated-readmes.md)) are generated, gitignored artifacts, and a root config file is the same pattern, given
+one registry and one writer.
 
 ## Decision
 
@@ -94,7 +94,7 @@ Some root files are read before the importer can possibly have produced them: `i
 `.gitignore`/`.gitattributes` at checkout. Those files cannot be gitignored copy-ins — but they can be fully managed, because "managed"
 means "reproduced from one in-repo source of truth", not "absent from git". `committed: true` expresses exactly that: same registry, same
 writer, same drift guarantee; the only difference is that the target stays tracked and a regeneration shows up as a normal diff to review
-and commit. This keeps the model honest — a copy-in and `importer.ps1` differ by one boolean, not by which system owns them.
+and commit.
 
 ### A headed copy
 
@@ -121,22 +121,21 @@ target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 Some generated files come in a set whose size the repository decides: the Go workspace has one `go.mod` per Go test module
 ([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go-goworkspace)), and a new test folder adds one. A registry entry
 per file would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the
-generator, which already discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every
-file then takes the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue
-when stale, and `Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside
-the entry's pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
+generator, which discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every file
+then takes the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when
+stale, and `Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside the
+entry's pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
 
 ### Always current
 
 `Always current, at no steady-state cost`
 
-Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, exactly like the README
-links ([generated-readmes](generated-readmes.md)). Generation is idempotent by
-[ADR-REPO-README-READMEIDEMPOTENT](generated-readmes.md#rule-adr-repo-readme-readmeidempotent), which holds for every root config too. This
-is safe only because generation is idempotent: `Write-FileIfChanged` canonicalises, compares ignoring line endings, and writes only on a
-real change (delete-then-write, so the changed write always yields a fresh, independent file). The same primitive is the write tail for
-every generated-artifact builder — one living copy of that logic (see [one-living-version](../principles/one-living-version.md)) instead of
-a per-builder reimplementation.
+Because the targets are cheap to reproduce and must never go stale, the importer regenerates them on every load, as it does the READMEs
+([generated-readmes](generated-readmes.md)). That is safe because generation is idempotent
+([ADR-REPO-README-READMEIDEMPOTENT](generated-readmes.md#rule-adr-repo-readme-readmeidempotent)): `Write-FileIfChanged` canonicalises,
+compares ignoring line endings, and writes only on a real change, delete-then-write, so a changed write yields a fresh, independent file.
+The same primitive is the write tail of every generated-artifact builder, one living copy of that logic
+([one-living-version](../principles/one-living-version.md)) instead of one per builder.
 
 ### The integrity test
 

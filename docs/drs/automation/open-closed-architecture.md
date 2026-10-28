@@ -1,4 +1,4 @@
-# ADR: Open/closed architecture
+# Automation: Open/closed architecture
 
 ## Rules: ADR-AUTO-EXTEND
 

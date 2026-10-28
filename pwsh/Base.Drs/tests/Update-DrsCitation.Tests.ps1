@@ -285,6 +285,15 @@ Describe 'Update-DrsCitation' -Tag 'L0', 'logic' {
             [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full)) | Should -BeExactly $expected
         }
 
+        It 'leaves an append-only log line under <Folder> as it was and reports nothing' -ForEach @(
+            @{ Folder = '.claude/learnings' }
+            @{ Folder = '.claude/hindsight' }
+        ) {
+            $text = "ADR-WIDGET-GADGET-FOLD moved once.`n"
+            & $script:update "$Folder/widget.md" $text | Should -BeExactly $text
+            $script:changes.Count | Should -Be 0
+        }
+
         It 'is a no-op the second time' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
             $text = "ADR-WIDGET-GADGET-TURN, ADR-WIDGET-GADGET-LIFT`n[s](../widget/sprocket-rules.md#rule-adr-widget-sprocket-spin) widget/sub/`n"
             $once = & $script:update 'docs/drs/gizmo/twice.md' $text

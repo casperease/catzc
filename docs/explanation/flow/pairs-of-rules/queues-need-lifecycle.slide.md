@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../design/.assets/one-way-climb-three-endings.drawio.png
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
 ---
 
@@ -22,12 +22,12 @@ Without one occupant per environment there is no rung to sign for; without the q
 
 ## Image
 
-.assets/queues-need-lifecycle.png
+[queues-need-lifecycle](.assets/queues-need-lifecycle.png)
 
 ## Caption
 
-From the catalogue, reduced: one way climb three endings.
+From the catalogue, reduced: manual queues 1, where a person stands.
 
 ## Notes
 
-Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/one-way-climb-three-endings.drawio.png.
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

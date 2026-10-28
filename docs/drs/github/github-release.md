@@ -1,4 +1,4 @@
-# ADR: GitHub release flow — publishing the Catzc package
+# GitHub: GitHub release flow — publishing the Catzc package
 
 ## Rules: ADR-GH-RELEASE
 

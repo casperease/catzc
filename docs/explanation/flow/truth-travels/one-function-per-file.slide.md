@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../azure/.assets/change-one-configuration-slot.drawio.png
+      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Down into implementation: a module is a folder, a public function is a file at i
 
 ## Image
 
-.assets/one-function-per-file.png
+[one-function-per-file](.assets/one-function-per-file.png)
 
 ## Caption
 
-From the catalogue, reduced: change one configuration slot.
+From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
 Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.
+docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

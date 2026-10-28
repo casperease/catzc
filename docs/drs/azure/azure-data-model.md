@@ -1,4 +1,4 @@
-# ADR: Templating data model (azure.yml+infrastructure/**)
+# Azure: Templating data model (azure.yml+infrastructure/**)
 
 Pairs with [`naming-standard`](azure-naming-standard.md), which defines the resource-name components this model feeds.
 
@@ -179,7 +179,7 @@ only.
    template, options, slot (per-RG config) and deploy context.
 
 A third global asset, `configs/network.yml`, carries the cross-cutting IP plan (per-environment vnet / subnet ranges) alongside `azure.yml`.
-It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This ADR
+It is a separate concern with its own schema and cross-asset integrity rules — see [`network-model`](azure-network-model.md). This record
 covers identity (Layer 1) and templating (Layer 2); the network plan is documented there.
 
 The two layers join through the **conventional configuration tree** (ADR-AZ-DATAMOD-TWOCONFIGLAYERS): the configuration root is the shared

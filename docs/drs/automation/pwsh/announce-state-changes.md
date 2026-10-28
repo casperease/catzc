@@ -1,4 +1,4 @@
-# ADR: Announce every state change on the information stream
+# PowerShell: Announce every state change on the information stream
 
 ## Rules: ADR-PWSH-ANNOUNCE
 
@@ -87,11 +87,11 @@ ADR-AUTO-PRELOG-SILENTSWITCH is the one way a call leaves it out.
 ## Context
 
 [console-output-matters](../console-output-matters.md) decides what the console shows: status for the user running the automation,
-diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This ADR is how pwsh does it.
-Dot-sourcing `importer.ps1` into a session loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and points
-environment variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester. PowerShell
-offers many ways to write each of those facts to the console, and most of them cannot be silenced, redirected, or captured. So every line
-goes through one stream and one chokepoint, and every state change is announced there.
+diagnostic detail for the user diagnosing it, and an announcement of every lasting change to the session. This record is how pwsh does it.
+Dot-sourcing `importer.ps1` loads modules and a compiled types assembly, sets preferences, moves `PATH` entries, and points environment
+variables at tool homes; an installer rewrites `PATH` and the user environment; a quality gate lazy-loads Pester. PowerShell offers many
+ways to write those facts to the console, and most cannot be silenced, redirected, or captured, so every line goes through one stream and
+one chokepoint, and every state change is announced there.
 
 ### One stream
 
@@ -122,13 +122,12 @@ Write-Message '' -NoHeader   # newline after dots
 
 A dot written from a background thread job uses the same writer: the job streams to the caller's host (`Start-ThreadJob -StreamingHost`) and
 imports the loaded Writers module, so its dots behave like a `Write-Message` on the calling thread. An Azure DevOps logging command is no
-exception either. The host renders an information record to stdout exactly as it renders `Write-Host`, which is where the agent reads
-`##vso` commands, and a test run silences it with everything else.
+exception: the host renders an information record to stdout exactly as it renders `Write-Host`, which is where the agent reads `##vso`
+commands, and a test run silences it with everything else.
 
 ### The output hierarchy
 
-PowerShell has built-in output streams and this toolset defines some more. Each carries one of the audiences of
-[console-output-matters](../console-output-matters.md):
+Each output stream carries one of the audiences of [console-output-matters](../console-output-matters.md):
 
 - **`Write-Message`**
   - When to use: One-liner status with caller prefix — command execution, completion, short results
@@ -260,30 +259,25 @@ Printing those lines at every shell open is noise (ADR-AUTO-CONSOLE-REPORTOUTCOM
 anything that actually needs attention: a warning, `Built <dll>` for a freshly compiled assembly, the stale-types notice, and the
 `-DiagnoseLoadTime` timings. `. .\importer.ps1 -Verbose` shows the full record.
 
-The shim is an advanced script so that it accepts `-Verbose`. Dot-sourced, it sets the preference in the caller's scope for the length of
-the import, and PowerShell restores it afterwards. `-Verbose` reaches Invoke-Importer, but not the bootstrap and vendor module functions
-that make the changes, so Invoke-Importer hands it to the loader's writer with `Set-ImporterVerbosity`. The setting lives in the loader
-module (`Catzc.Internal.Loader.psm1`). While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a
-`finally` (ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module`
-dot-sources and exports.
+The shim is an advanced script so that it accepts `-Verbose`; dot-sourced, it sets the preference in the caller's scope for the length of
+the import, and PowerShell restores it afterwards. `-Verbose` reaches Invoke-Importer but not the bootstrap and vendor module functions that
+make the changes, so Invoke-Importer hands it to the loader's writer with `Set-ImporterVerbosity`, a setting held in
+`Catzc.Internal.Loader.psm1`. While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a `finally`
+(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and
+exports.
 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
-functions and announce on the information stream like any other caller's, so a person who runs `Sync-SessionTools` at the prompt sees every
-nudge. The same nudges made at every shell open are part of the load record, not news: a session's `PATH` starts from the registry each
-time, so the session-tool janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets the
-session-wide information preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`
-(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES); a common parameter would reach only the janitor's scope, while the preference reaches the writer
-chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT). A plain import shows the `Loaded` line alone, and `-Verbose` shows
-the nudges and the advisory beside the rest of the record. The janitor itself still announces unconditionally, which is what the analyzer
-rule checks.
+functions and announce on the information stream, so a person who runs `Sync-SessionTools` at the prompt sees every nudge. The same nudges
+at every shell open are part of the load record, not news: a session's `PATH` starts from the registry each time, so the session-tool
+janitor re-points `dotnet` and appends the same hint folder on every import. The importer therefore quiets the session-wide information
+preference around that one janitor unless its own `-Verbose` is set, and restores it in a `finally`; a common parameter would reach only the
+janitor's scope, while the preference reaches the writer chokepoint in its own module (ADR-PWSH-ANNOUNCE-INFORMATIONCHOKEPOINT). The janitor
+itself announces unconditionally either way, which is what the analyzer rule checks.
 
 ## Decision
 
-Every write to the console goes through the information stream via the writer chokepoint, each kind of output on its stream, and every
-lasting change to the session's state is announced there, where it happens, naming what changed and to what. The pwsh forms of the changes
-that are restored, made elsewhere, or private bookkeeping are not announced; child-process output is relayed as the tool's own; a delegated
-announcement is recorded with a justified suppression. Every external command is logged with `Write-Message` before it runs, by
-`Invoke-Executable` or, for a tool started another way, by the function that starts it.
+Console output takes one stream through one chokepoint, and every lasting session change is announced there, where it happens, naming what
+changed and to what; the rules above spell out the exemptions, the relay and the command log.
 
 ### How this is enforced
 

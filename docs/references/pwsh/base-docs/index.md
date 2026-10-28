@@ -2,12 +2,12 @@
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs
 source, never a hand-kept one (see [generated-readmes](../../../drs/repository/generated-readmes.md)): the source's relative links are
-rebased to the README's folder, so every link works where the README is opened, and its head holds only the generated-file warning. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
-primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every
-load. The module also generates the repository's front page, `.github/README.md`, from `frontpage.yml` and the section articles it names
-(`Build-FrontPage`, `Get-FrontPageSection`), and generates the glossary from the modules' glossary sources and answers "ask cats", the
-offline browser over the ADRs, modules, and verbs. The ADR registry, and the index generated from it, are
-[Catzc.Base.Drs](../base-drs/index.md).
+rebased to the README's folder, so every link works where the README is opened, and its head holds only the generated-file warning. What it
+deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write primitive, which is
+`Write-FileIfChanged` ([Catzc.Base.Files](../base-files/index.md)); the importer keeps every README current on every load. The module also
+generates the repository's front page, `.github/README.md`, from `frontpage.yml` and the section articles it names (`Build-FrontPage`,
+`Get-FrontPageSection`), and generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the
+DRS, modules, and verbs. The DRS registry, and the index generated from it, are [Catzc.Base.Drs](../base-drs/index.md).
 
 ## Responsibilities
 
@@ -66,8 +66,8 @@ glossary page from it, and checks it — every term anchored on its one defining
 
 ### responsibility:5 — Ask cats
 
-"Ask cats": an offline, deterministic browser over what the repository already knows — the ADR codes and rules, the modules and their public
-functions, and the approved verbs in use. It prints only; it returns nothing.
+"Ask cats": an offline, deterministic browser over what the repository already knows — the rule codes and rules, the modules and their
+public functions, and the approved verbs in use. It prints only; it returns nothing.
 
 ### responsibility:6 — Sub-agent registry
 

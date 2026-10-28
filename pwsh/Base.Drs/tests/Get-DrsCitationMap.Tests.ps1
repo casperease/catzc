@@ -26,7 +26,7 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
         $map.RulesOf('ADR-TST-WIDGET') | Should -Be @('ADR-TST-WIDGET-TURN', 'ADR-TST-WIDGET-RE02')
         $map.IsRule('ADR-TST-WIDGET-RE02') | Should -BeTrue
         $map.IsRule('ADR-TST-WIDGET-SPIN') | Should -BeFalse
-        $map.AdrOf('ADR-TST-WIDGET-RE02') | Should -BeExactly 'ADR-TST-WIDGET'
+        $map.RecordOf('ADR-TST-WIDGET-RE02') | Should -BeExactly 'ADR-TST-WIDGET'
         $map.PathOf('ADR-TST-WIDGET-RE02') | Should -BeExactly 'docs/drs/widget/widget-rules.md'
         $map.CodeOf('docs/drs/gadget/gadget-rules.md') | Should -BeExactly 'ADR-TST-GADGET'
     }
@@ -37,11 +37,11 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
         $map.Destination('ADR-TST-GADGET') | Should -BeExactly '/docs/drs/gadget/gadget-rules.md'
     }
 
-    It 'reads a rule heading anchor back as its rule, and names the parent ADR of an undeclared rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
+    It 'reads a rule heading anchor back as its rule, and names the parent record of an undeclared rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.RuleOfAnchor('ADR-TST-WIDGET', '#rule-adr-tst-widget-turn') | Should -BeExactly 'ADR-TST-WIDGET-TURN'
         $map.RuleOfAnchor('ADR-TST-WIDGET', '#rule-adr-tst-widget1') | Should -BeNullOrEmpty
-        $map.ParentAdr('ADR-TST-WIDGET-SPIN') | Should -BeExactly 'ADR-TST-WIDGET'
-        $map.ParentAdr('ADR-TST-SPROCKET-SPIN') | Should -BeNullOrEmpty
+        $map.ParentRecord('ADR-TST-WIDGET-SPIN') | Should -BeExactly 'ADR-TST-WIDGET'
+        $map.ParentRecord('ADR-TST-SPROCKET-SPIN') | Should -BeNullOrEmpty
     }
 
     It 'knows the domain prefix of its codes and rejects an unknown code' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING' {

@@ -11,13 +11,13 @@ The code locations minimap's data: the tracks, modules and folders a diagram's s
 
 ### description
 
-The subject is the files the ADR codes light on the world map. Each subject file with a track fact is placed at its track, its module ('-'
+The subject is the files the rule codes light on the world map. Each subject file with a track fact is placed at its track, its module ('-'
 outside one) and its folder under the module ('.' at its root); only the places a subject file sits in are drawn, sorted, and a place counts
 each subject file once. Each lit cell carries the file and the requested code as its reason, in the minimap contract's shape.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes of the diagram's subject.
+The rule codes of the diagram's subject.
 
 ### parameter `WorldMap`
 
@@ -30,7 +30,7 @@ read for this subject alone.
 
 ### parameter `Glyph`
 
-The drawing's own glyphs, each `{ kind; label }`: the places they name come first, the cited ADRs' places only while rows remain. Default:
+The drawing's own glyphs, each `{ kind; label }`: the places they name come first, the cited rules' places only while rows remain. Default:
 none.
 
 ### parameter `TrackedPath`
@@ -59,7 +59,7 @@ subject file sits in are drawn.
 ## Glyphs first
 
 A drawing can carry glyphs of its own, each `{ kind; label }`. The places they name come first. Each label is resolved to the repository
-files it names; a label that names none is dropped and counted. The places of the cited ADRs follow only while rows remain.
+files it names; a label that names none is dropped and counted. The places of the cited rules follow only while rows remain.
 
 ## Rows are computed here
 

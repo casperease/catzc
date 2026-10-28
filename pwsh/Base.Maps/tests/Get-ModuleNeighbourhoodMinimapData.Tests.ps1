@@ -14,7 +14,7 @@ Describe 'Get-ModuleNeighbourhoodMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'lights the subject''s modules and places their dependencies and dependents around them' {
-        $data = Get-ModuleNeighbourhoodMinimapData -Adr 'ADR-WIDGET'
+        $data = Get-ModuleNeighbourhoodMinimapData -Rule 'ADR-WIDGET'
         $data.Axes[0].Values | Should -Be @('subject', 'depends-on', 'used-by')
         @($data.Cells | ForEach-Object { $_.At -join ' x ' }) | Should -Be @('subject x Widgets',
             'depends-on x Asserts', 'used-by x Gadgets')
@@ -26,13 +26,13 @@ Describe 'Get-ModuleNeighbourhoodMinimapData' -Tag 'L0', 'logic' {
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
             [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
-        $null = Get-ModuleNeighbourhoodMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        $null = Get-ModuleNeighbourhoodMinimapData -Rule 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }
 
     It 'hands the facts it is given to the subject' {
         $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
-        $null = Get-ModuleNeighbourhoodMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        $null = Get-ModuleNeighbourhoodMinimapData -Rule 'ADR-WIDGET' -Facts $given
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

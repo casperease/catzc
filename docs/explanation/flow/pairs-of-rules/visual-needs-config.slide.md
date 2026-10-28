@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../ado/.assets/one-header-function-owns-precedence.drawio.png
+      source: ../../../../docs/drs/flow/.assets/commit-promotion-states.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -23,13 +23,13 @@ One token set per theme in drawio.yml; a diagram names a state, and the kit pain
 
 ## Image
 
-.assets/visual-needs-config.png
+[visual-needs-config](.assets/visual-needs-config.png)
 
 ## Caption
 
-From the catalogue, reduced: one header function owns precedence.
+From the catalogue, reduced: commit promotion states.
 
 ## Notes
 
 Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram
-docs/explanation/ado/.assets/one-header-function-owns-precedence.drawio.png.
+docs/drs/flow/.assets/commit-promotion-states.drawio.png.

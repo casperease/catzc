@@ -17,12 +17,12 @@ Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEG
         & $writeFile $root 'docs/gadget.md' "# Gadget`n"
         & $writeFile $root 'mods/gizmo.ps1' "function Get-Gizmo { }`n"
         InModuleScope Catzc.Base.QualityGates {
-            # The class follows the path: an ADR, a how-to, code; every other facet is empty.
+            # The class follows the path: a decision record, a how-to, code; every other facet is empty.
             Mock Get-LinkEndpoint {
                 $table = [System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]::new([System.StringComparer]::Ordinal)
                 foreach ($p in $Path) {
                     $class = if ($p -like 'docs/drs/*') {
-                        'adr'
+                        'record'
                     }
                     elseif ($p -like 'docs/*') {
                         'how-to'
@@ -41,7 +41,7 @@ Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEG
                 param($Exempt)
                 $config = [Catzc.Base.QualityGates.LinkDirectionsConfig]::new([ordered]@{
                         rows   = @(
-                            @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('adr') }; verdict = 'allow'; because = 'ADR-TST-WIDGET-SPIN' }
+                            @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('record') }; verdict = 'allow'; because = 'ADR-TST-WIDGET-SPIN' }
                             @{ relations = @('code_link'); verdict = 'deny'; because = 'ADR-TST-WIDGET-AWAY' }
                         )
                         exempt = $Exempt
@@ -49,7 +49,7 @@ Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEG
                 Mock Get-Config -ParameterFilter { $Config -eq 'link-directions' } { $config }.GetNewClosure()
             }
         }
-        # Each case scans only the tree it judges; the fixture index links the ADR and is no part of any case.
+        # Each case scans only the tree it judges; the fixture index links the record and is no part of any case.
         $script:gate = {
             param([string] $Scope = 'mods', [switch] $PassThru)
             Test-LinkDirections -RepositoryRoot $root -Path (Join-Path $root $Scope) -OutputFolder $reportBase -PassThru:$PassThru
@@ -75,7 +75,7 @@ Describe 'Test-LinkDirections' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CHECKEDBYONEG
         & $rows
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-SPIN`n`nSee [gadget](../../gadget.md).`n`n### Rule ADR-TST-WIDGET-AWAY`n`nTwo.`n"
         { & $gate 'docs/drs/widget' } |
-            Should -Throw '*docs/drs/widget/widget-rules.md:5 `[MarkdownLink`] adr -> how-to no row allows it*'
+            Should -Throw '*docs/drs/widget/widget-rules.md:5 `[MarkdownLink`] record -> how-to no row allows it*'
     }
 
     It 'skips every relation of an exempt file and judges the rest' {

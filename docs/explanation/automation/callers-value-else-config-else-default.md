@@ -23,7 +23,7 @@ description:
   "A wait's limit resolves in one order: the caller's value, else the config file, else the declared default; an exemption only raises it to
   a ceiling, and one bounded wait runs under the winner."
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: meta
 content:
   title: "Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it"
@@ -92,9 +92,10 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR bounds every external call, yet `Invoke-Executable -Direct`, the interactive mode, runs with no limit, on the grounds that a person
-at the prompt is its safeguard. The ADR also lets an exemption raise the limit of an agent's bash call, and the exemptions file accepts a
-bash ceiling and a `shell: bash` scope, but the hook that bounds bash calls reads `TimeoutsConfig` only, so a bash exemption has no effect.
+The record bounds every external call, yet `Invoke-Executable -Direct`, the interactive mode, runs with no limit, on the grounds that a
+person at the prompt is its safeguard. The record also lets an exemption raise the limit of an agent's bash call, and the exemptions file
+accepts a bash ceiling and a `shell: bash` scope, but the hook that bounds bash calls reads `TimeoutsConfig` only, so a bash exemption has
+no effect.
 
 ## See also
 

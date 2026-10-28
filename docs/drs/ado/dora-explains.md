@@ -11,7 +11,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-AUTH](dual-authentication.md)
 
 > DORA's research links explicit security controls and clear error handling to both high delivery performance and low change failure rates.
-> This ADR's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit gaps
+> This record's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit gaps
 > that compromise both security and deployment reliability.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — explicit org/tenant verification prevents credentials
@@ -28,7 +28,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-VAR](pipeline-variables.md)
 
-> DORA's research links explicit validation and observability to reduced defects and faster incident resolution. This ADR's discipline of
+> DORA's research links explicit validation and observability to reduced defects and faster incident resolution. This record's discipline of
 > centralizing pipeline variable manipulation in a validated function makes variable usage greppable and testable, prevents silent failures
 > from name-character rewrites and missing output flags, and enables secret masking to protect sensitive data in logs.
 
@@ -44,7 +44,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-NAME](pipeline-naming-and-placement.md)
 
-> DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This ADR's semantic
+> DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This record's semantic
 > layout convention — type-prefixed ado pipelines in one flat directory and per-kind template folders — eliminates guesswork about
 > structure, enables tooling and audits to be predictable, and keeps the `.ado/pipelines/` directory self-indexing and greppable without
 > opening files.
@@ -64,7 +64,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-TEMPLATE](custom-template-discipline.md)
 
 > DORA's research links code clarity to delivery speed and quality. Excessive template abstraction and parameter forwarding slow reviews,
-> introduce maintenance costs, and obscure pipeline behavior. This ADR's discipline of keeping templates focused on pipeline concerns keeps
+> introduce maintenance costs, and obscure pipeline behavior. This record's discipline of keeping templates focused on pipeline concerns keeps
 > the critical path clear.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — flat, reviewable pipeline code reduces cycle time.
@@ -80,7 +80,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-RUNNER](pipeline-runner-pattern.md)
 
-> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This ADR's
+> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This record's
 > runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
 > orchestration (YAML) from automation (PowerShell), enabling consistent debugging and modification across contexts without scatter.
 
@@ -99,7 +99,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-APPROVAL](environment-approvals.md)
 
 > DORA's research finds that lightweight, peer-reviewed change approval outperforms heavyweight external boards, and that deployment
-> automation lowers change failure rates. This ADR keeps every approval check a reviewable config applied by one command, and certifies a
+> automation lowers change failure rates. This record keeps every approval check a reviewable config applied by one command, and certifies a
 > production deploy from the engine's own deployment history rather than a record a pipeline could forge.
 
 - [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — approvers and checks are config,

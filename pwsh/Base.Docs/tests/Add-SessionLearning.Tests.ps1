@@ -27,9 +27,8 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
             $written = @(Add-SessionLearning 'The widget turns.', ' The gadget holds. ' -Date $script:date)
             $written.Count | Should -Be 1
             [System.IO.Path]::GetFileName($written[0]) | Should -Match '^learned[0-9a-f]{6}\.md$'
-            $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('learned'.Length)
             $lines = [System.IO.File]::ReadAllLines($written[0])
-            $lines[0] | Should -BeExactly "# Session learnings $sha"
+            $lines[0] | Should -BeExactly '# Session learnings' -Because 'the file name carries the hash, and a hash can read as a misspelt word'
             $lines[2] | Should -BeLike 'Started 20??-*.'
             @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.',
                 '- 2026-10-21: The gadget holds.')
@@ -39,9 +38,8 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
             $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Date $script:date)
             $written.Count | Should -Be 1
             $written[0] | Should -BeLike (Join-Path $script:root '.claude/hindsight/hindsight??????.md')
-            $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('hindsight'.Length)
             $lines = [System.IO.File]::ReadAllLines($written[0])
-            $lines[0] | Should -BeExactly "# Hindsight $sha"
+            $lines[0] | Should -BeExactly '# Hindsight'
             $lines[4] | Should -BeExactly '- 2026-10-21: If only the widget had turned.'
             [System.IO.Directory]::Exists((Join-Path $script:root '.claude/learnings')) | Should -BeFalse
         }

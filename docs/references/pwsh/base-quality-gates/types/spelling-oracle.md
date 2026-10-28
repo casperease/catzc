@@ -37,8 +37,8 @@ cannot bless a real identifier in production code.
 dictionary: the invented abbreviations to spell out. It returns an empty array for a fully spelled-out identifier. The overload without
 `includeFixtures` is the production scope, where fixture terms are not accepted.
 
-Fragments shorter than `MinFragmentLength` (2) are never flagged: single letters are loop indices or type variables, which the ADR exempts
-([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)).
+Fragments shorter than `MinFragmentLength` (2) are never flagged: single letters are loop indices or type variables, which the record
+exempts ([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](../../../../drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations)).
 
 `Tokenize` splits on non-letters (snake_case underscores, digits) and case boundaries: a camelCase hump (`rule|Collection`) and an
 acronym-to-word seam (`HTTP|Server`, `IO|Stream`). Each fragment is lower-cased. Non-letter runs are separators and are dropped, so numeric

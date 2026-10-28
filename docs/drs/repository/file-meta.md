@@ -1,4 +1,4 @@
-# ADR: File meta — one block of derived facts, in the carrier each kind of file has
+# Repository: File meta — one block of derived facts, in the carrier each kind of file has
 
 ## Rules: ADR-REPO-FILEMETA
 
@@ -125,7 +125,7 @@ generated head carries, declared once as the default of the head's config type (
 [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)) and written in the
 file's own carrier. Which command composed the file and which authored files it comes from are the writer registry's to answer, never
 written into the file. The body below the head is the content alone: no "generated from" line, no link to the source and no "edit the
-source" note, since each would state in the file what the registry already answers.
+source" note, since each would state in the file what the registry answers.
 
 - [Generated files](#generated-files)
 
@@ -213,10 +213,10 @@ and each reads its part only to compare it with what would be written. A key ano
 
 ## Context
 
-A file in this repository is more than its text. A Markdown agent definition declares a name, a description and its tools. An ADR sits in a
-domain with a concern. A reference page belongs to a module. A C# type file and a PowerShell function file each belong to a module and a
-place in its tree. Some of these facts are stated twice, once in the file and once in a registry that has to be kept in step, and some can
-be computed from the file and the repository but are not written anywhere a reader could see them.
+A file in this repository is more than its text. A Markdown agent definition declares a name, a description and its tools. A decision record
+sits in a domain with a concern. A reference page belongs to a module. A C# type file and a PowerShell function file each belong to a module
+and a place in its tree. Some of these facts are stated twice, once in the file and once in a registry that has to be kept in step, and some
+can be computed from the file and the repository but are not written anywhere a reader could see them.
 
 Two needs follow. Facts that can be computed are derived on demand, and a file shows only the few a reader needs to step on from it without
 running anything: that a generated file is not to be edited. Values an author states belong where the thing is, and a config can read them
@@ -249,9 +249,9 @@ metadata:
 A fact with no value, an empty list or an empty string, is the default of its key and is left out, so an absent key reads as the empty
 value. `name` and `description` belong to the skill tooling and are untouched. A tool that reads front matter keeps working, because the
 reserved key is one extra key it does not know. A tool that rejects a top-level key it does not know, as an editor's skill validator does,
-still leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`):
-the block keeps its own key and its parts, the tooling writes the parent key when the file lacks it and leaves every sibling under it alone,
-and a parent written as a flow mapping cannot take a nested block, which is a finding for the author, never a rewrite. The parts never mix:
+leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`): the
+block keeps its own key and its parts, the tooling writes the parent key when the file lacks it and leaves every sibling under it alone, and
+a parent written as a flow mapping cannot take a nested block, which is a finding for the author, never a rewrite. The parts never mix:
 `immutable` is its writer's, the edges are imprinted and rewritten, `config` is authored and kept. The code carrier, the form of a head in a
 C# or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why it has none, is one registry,
 `file-carriers.yml`, so a gap in the coverage is a visible entry.
@@ -314,7 +314,7 @@ hand-worded, because a banner would be a second statement of what the head says.
 
 JSON has no comment syntax, and a leading `//` block makes it invalid, so the block is a property a reader of the data ignores. The property
 holds the block as text, so one parser serves it as it serves a comment head, and a JSON Schema, whose `$comment` must be a string, takes
-the same form. A diagram's facts are all in its declaration's body, its codes in `about.adrs`, so neither the picture nor the declaration
+the same form. A diagram's facts are all in its declaration's body, its codes in `about.rules`, so neither the picture nor the declaration
 carries a block.
 
 ### Place facts and edges
@@ -361,14 +361,12 @@ remove blocks freely. The imprint reads the block only to say that it differs fr
 `A head where a reader needs one, none where it only repeats`
 
 A block is worth its bytes where a reader cannot easily derive what it says, and a head on every file is noise most readers and every agent
-read past on each file they open, and churn on every edit of the body. So every file on disk is format-managed, the default is no head, and
-a format run prints one only where it pays. A generated file carries the warning, so a reader is told not to edit it; while git tracks it,
-its head also stamps the body its writer composed, the body it is immutable with, and an untracked generated file, which no commit compares,
-carries the warning alone. An authored doc tracked in git carries no head: everything one could show is derived (page path, test, cited
-codes) or churns on every edit (a body hash). An authored code or config file carries the navigation head, the one `docs` edge a reader of
-the code cannot follow otherwise ([code-file-meta](code-file-meta.md)). A format run clears a head the policy no longer calls for. A diagram
-declaration's facts are all in its own body, so it carries none, and a binary has no place for one. An agent, skill or slide definition's
-front matter is its own tool's keys, so the policy leaves it as authored; a capability keeps the authored `config` part its tool reads.
+read past on each file they open, and churn on every edit of the body. So the default is no head, and a format run prints one only where it
+pays. A generated file's warning tells a reader not to edit it, and an untracked generated file, which no commit compares, needs no body
+stamp. An authored doc's head would show only what is derived (page path, test, cited codes) or churns on every edit (a body hash). An
+authored code or config file shows the one `docs` edge a reader of the code cannot follow otherwise ([code-file-meta](code-file-meta.md)). A
+diagram declaration's facts are all in its own body, and a binary has no place for a head. An agent, skill or slide definition's front
+matter is its own tool's keys, so the policy leaves it as authored.
 
 ### How this is enforced
 

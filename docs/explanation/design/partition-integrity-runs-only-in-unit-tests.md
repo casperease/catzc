@@ -27,7 +27,7 @@ description:
   "Which rules of a module folder's layout a gate checks: two quality gates, the import guard and the config check hold theirs, while the
   partition check runs only in unit tests, the manifest has no gate and the per-aspect sha lock has no mechanism."
 about:
-  adrs:
+  rules:
     - DDR-ASPECT-ASPECTSAREDERIVED
     - DDR-ASPECT-TRACKPICKSCATCHALL
     - DDR-ASPECT-ISAGLOBSET

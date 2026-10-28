@@ -20,7 +20,7 @@ description:
   An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
   newest commit on main, which failed there.
 about:
-  adrs: [FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-DIRTYHEADUNSAFE]
+  rules: [FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-DIRTYHEADUNSAFE]
   lens: meta
 content:
   title: Sync from the BVT-verified head, not from the tip of main

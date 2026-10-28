@@ -6,7 +6,7 @@ Values and module edges have a gate; the rule that nothing reads the file direct
 1  variants.yml           rule 1: one home, a dictionary of known keys
 2  VariantsConfig         the load gate for rules 1, 4, 5 and 6: keys and values, one throw for all
 3  Get-Variant            rule 2: the single access point; no gate checks that it stays the only one
-4  Code review            the ADR's third mechanism: new switches land as variants with primitives
+4  Code review            the record's third mechanism: new switches land as variants with primitives
 5  Catzc.Base.Variants    rule 3: depends on Config, Objects and Asserts only
 6  Test-ModuleDependency  the quality gate for rule 3, run by an L1 integrity test
 
@@ -23,7 +23,7 @@ description:
   The variants file and the module edges each meet a gate, the config type at load and the module dependency test; the rule against reading
   the file directly has no gate and is left to code review.
 about:
-  adrs:
+  rules:
     - ADR-REPO-VARIANT-SESSIONVARIANT
     - ADR-REPO-VARIANT-NODIRECTREADS
     - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
@@ -95,9 +95,9 @@ layout:
 3. **Get-Variant.** Rule 2 makes the private reader the single access point, and no gate checks it: nothing asserts that the function stays
    private, and nothing scans the modules for a direct read of the loaded config. Today `Get-Aspect` and `Test-AspectDeclaration` in
    `Catzc.Base.Modules` read the `aspects` key straight off `Get-Config -Config variants`, and nothing catches it.
-4. **Code review.** The ADR's enforcement section names a third mechanism beside the two gates: review keeps new repo-wide switches in this
-   module, as variants with their own primitives, rather than as ad-hoc config reads or environment variables. It stands alone: no code runs
-   or checks it.
+4. **Code review.** The record's enforcement section names a third mechanism beside the two gates: review keeps new repo-wide switches in
+   this module, as variants with their own primitives, rather than as ad-hoc config reads or environment variables. It stands alone: no code
+   runs or checks it.
 5. **Catzc.Base.Variants.** Rule 3 pins the module's dependencies to Config, Objects and Asserts, declared in the Base group of
    `dependencies.yml`. The declaration itself is checked at load: `DependenciesConfig` rejects a cycle.
 6. **Test-ModuleDependency.** The quality gate reads every real function call and C# type reference and fails on any edge outside the
@@ -117,10 +117,10 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the loaded
+- The record makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the loaded
   config directly, and no gate catches it.
-- The ADR promises `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, `aspects` and `tracks` have only `Get-`, and
-  no gate checks the set of primitives either.
+- The record promises `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, `aspects` and `tracks` have only `Get-`,
+  and no gate checks the set of primitives either.
 
 ## See also
 

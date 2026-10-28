@@ -57,8 +57,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; 0 steps
-- drs-simplify -> plan-drs-simplify.md: the decision records simplified: contradictions settled first, then tier moves, rule merges (each
-  re-cited by Update-AdrCitation), restating sections cut, and the prose pass on the records still owed one
 - debt-azure-gaps -> plan-debt-azure-gaps.md: the CAF recommendations the landing zone does not realise yet, one step each
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
@@ -66,8 +64,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   Verb-CatzcNoun and glued identifiers
 - adr-term -> plan-adr-term.md: ADR means only a record of the ADR kind: generic uses in prose, identifiers and generated pages say DRS,
   decision record or rule, and Test-Glossary holds the prose
-- claude-diet -> plan-claude-diet.md: five skill lines, each trap a session rediscovered moved to the skill it already loads
-- debt-session-traps -> plan-debt-session-traps.md: ten steps, the hindsight gaps closed by a guard in code or a how-to line
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

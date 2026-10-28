@@ -28,7 +28,7 @@ world-map.tree.pdf   the tracks as a treemap by file count, each holding its non
 One file per view, not one two-page file: each view is a document of its own that a reader opens, links or replaces alone, and -View Grid
 rewrites the grid without touching the tree.
 
-With -Adr or -Path the lit cells (Get-WorldMapHighlight) are outlined on every page, and the files are named
+With -Rule or -Path the lit cells (Get-WorldMapHighlight) are outlined on every page, and the files are named
 `world-map.<view>.highlight.pdf`, so a highlight never overwrites the plain map. The colours, titles, legend entries, label limits and page
 size come from configs/maps.yml (Get-Config -Config maps). The bytes depend only on the map, the config and the highlight, so an unchanged
 repository writes identical files.
@@ -37,9 +37,9 @@ repository writes identical files.
 
 The views to write: Grid, Tree, or both (the default).
 
-### parameter `Adr`
+### parameter `Rule`
 
-Outline the cells these ADR codes light (each optionally narrowed to one rule, #n or :n).
+Outline the cells these rule codes light (each optionally narrowed to one rule, #n or :n).
 
 ### parameter `Path`
 
@@ -58,7 +58,7 @@ Export-WorldMapPdf
 ### example 2
 
 ```powershell
-Export-WorldMapPdf -View Grid -Adr 'DDR-TRACK-ONETECHSTACK'
+Export-WorldMapPdf -View Grid -Rule 'DDR-TRACK-ONETECHSTACK'
 ```
 
 ### example 3

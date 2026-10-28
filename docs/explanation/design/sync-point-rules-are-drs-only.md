@@ -29,7 +29,7 @@ description:
   Of the rules around the sync point only the BVT rung has a gate in code, the ci-pwsh pipeline; every rule about occupants, the sync point,
   the manual release gates and the dirty HEAD is DRS-only.
 about:
-  adrs:
+  rules:
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD

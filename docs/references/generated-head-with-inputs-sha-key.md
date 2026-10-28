@@ -19,8 +19,8 @@ at all. Five generators wrote it: `Build-Glossary`, `Build-DrsIndex`, `Build-Drs
 
 ## Why it goes
 
-It was a cache key committed into tracked files. An edit to any input, an ADR or a type, changed the stamp while the generated body stayed
-identical, so `docs/drs/glossary.md` and `docs/drs/index.md` changed their heads in commits that changed no fact. That breaks
+It was a cache key committed into tracked files. An edit to any input, a decision record or a type, changed the stamp while the generated
+body stayed identical, so `docs/drs/glossary.md` and `docs/drs/index.md` changed their heads in commits that changed no fact. That breaks
 [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../drs/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts): a hash belongs in a head only when
 it changes exactly when something a reader cares about changes. The skip it enabled bought little, because generated files are regenerated
 often (the user, 2026-10-19).

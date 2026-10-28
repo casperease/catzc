@@ -2,9 +2,9 @@ function Get-WorldMapHighlight {
     [CmdletBinding(DefaultParameterSetName = 'Changes')]
     [OutputType([Catzc.Base.Maps.WorldMapHighlight], [string])]
     param(
-        [Parameter(Mandatory, Position = 0, ParameterSetName = 'Adr')]
+        [Parameter(Mandatory, Position = 0, ParameterSetName = 'Rule')]
         [ArgumentCompleter({ (Get-Config -Config drs).RuleSets.External })]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Parameter(Mandatory, ParameterSetName = 'Path')]
         [string[]] $Path,
@@ -24,9 +24,9 @@ function Get-WorldMapHighlight {
         'Path' {
             [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($map, $Path)
         }
-        'Adr' {
+        'Rule' {
             $overrides = (Get-Config -Config maps).highlight
-            [Catzc.Base.Maps.WorldMapHighlight]::ForAdr($map, $Adr, $overrides.pins, $overrides.exceptions)
+            [Catzc.Base.Maps.WorldMapHighlight]::ForRecord($map, $Rule, $overrides.pins, $overrides.exceptions)
         }
         default {
             $onMap = [System.Collections.Generic.List[string]]::new()

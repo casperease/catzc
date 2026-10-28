@@ -1,4 +1,4 @@
-# ADR: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives
+# Repository: Repo-wide variants — session-fixed settings behind Test-/Assert- primitives
 
 ## Rules: ADR-REPO-VARIANT
 
@@ -44,7 +44,7 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 `have_customers` is **tri-state** — `false` (no customer deployments; only non-customer templates), `all` (every customer in `customer.yml`
 is enabled; `true` spells the same), or a **list of customer names** (only those). `Get-EnabledCustomers` normalizes it; the plural
 `Test-`/`Assert-HaveCustomers` answer the repo-wide question (with an optional `-Name` list), and the singular `Test-`/`Assert-HaveCustomer`
-cover one customer. The **enabled set lives in the variant**, not in `customer.yml`, precisely so these primitives can live in `Base` while
+cover one customer. The **enabled set lives in the variant**, not in `customer.yml`, so these primitives can live in `Base` while
 `customer.yml` stays an Azure-layer catalogue.
 
 - [The variants](#the-variants)
@@ -54,8 +54,8 @@ cover one customer. The **enabled set lives in the variant**, not in `customer.y
 `git_workspace` (`main-direct` | `main-via-pr`, default `main-direct`) declares how changes reach main — the solo-author trunk versus
 everything-through-a-PR (the deliberate flip when the repo goes from one author to more). It guards automation that **commits**
 (`Sync-GeneratedFile` and anything that follows it): in `main-direct`, any named branch commits — including main, which IS the integration
-path (one-living-version); in `main-via-pr`, work always happens on a branch, so committing is still always allowed there — the **single
-stop condition** is a direct commit made while standing on main/master locally. Read it through `Get-GitWorkspace` /
+path (one-living-version); in `main-via-pr`, work always happens on a branch, so committing is always allowed there — the **single stop
+condition** is a direct commit made while standing on main/master locally. Read it through `Get-GitWorkspace` /
 `Test-GitWorkspace -MainDirect|-MainViaPr`.
 
 - [The variants](#the-variants)
@@ -67,8 +67,8 @@ this repo does customer deployments at all. Scattering these as per-call paramet
 means no single answer, no single guard, and drift. They need one home, one read path, and one way to assert them.
 
 The runtime fixes the file set for a session at the importer boundary (see [caching](../automation/caching.md)), so a config-backed value
-read once and cached for the session is exactly the right shape: stable for the whole run, changed only by editing the file and
-re-importing. What it takes is a place to put such values and a disciplined way to read them.
+read once and cached for the session is the right shape: stable for the whole run, changed only by editing the file and re-importing. What
+it takes is a place to put such values and a disciplined way to read them.
 
 ### What a variant is
 
@@ -76,7 +76,7 @@ A variant is a repo-wide switch backed by `Catzc.Base.Variants/configs/variants.
 (through its config type `VariantsConfig`), and cached for the session. "Fixed for the importer session" is not special machinery — it is
 the ordinary `Get-Config` cache boundary (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`): the value is read once, every caller sees the same answer,
 and re-running the importer is the only way to pick up an edit. The set of variants is open: `variants.yml` is a dictionary that grows a key
-(and a matching primitive) whenever a new repo-wide switch is genuinely needed.
+(and a matching primitive) whenever a new repo-wide switch is needed.
 
 ### Primitives, not raw reads
 
@@ -103,14 +103,13 @@ edges; a variant that needed to cross-check another asset would belong to that a
 
 ### The variants
 
-- **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT-ADONAMING`). One repo-wide choice of `standard` vs `classic`, read
-  by `Get-AdoNaming` and applied by the name assembler; the order data itself is `Get-AzureNameOrderSet` in the Azure templating layer, and
-  the variant only picks which key it uses; the Azure domain's naming standard owns the order itself.
-- **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT-GITWORKSPACE`), `main-direct | main-via-pr`, default `main-direct`.
-  Committing is always allowed in both modes — a solo trunk commits to main directly, and PR-mode work lives on branches where committing is
-  equally fine; the variant exists for the one asymmetry, `main-via-pr` **and** standing on main/master locally, which is the only stop
-  condition automation enforces (`Sync-GeneratedFile`'s branch guard reads `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct**
-  integration axis the value-chain diagrams prefix a flow with (`PR + CD + …` vs a `Direct` flow).
+- **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT-ADONAMING`). The variant only picks which key of
+  `Get-AzureNameOrderSet` the name assembler uses; the order data lives in the Azure templating layer and the Azure domain's naming standard
+  owns it.
+- **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT-GITWORKSPACE`), The variant exists for the one asymmetry, `main-via-pr`
+  **and** standing on main/master locally, the only stop condition automation enforces (`Sync-GeneratedFile`'s branch guard reads
+  `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration axis the value-chain diagrams prefix a flow with (`PR + CD + …`
+  vs a `Direct` flow).
 - **`have_customers`** — the enabled-customer set (`ADR-REPO-VARIANT-HAVECUSTOMERS`), tri-state `false | all | [names]`, with `true` as a
   spelling of `all`. It is the guard for customer deployments and the source of the per-template `customer_deployment` default, which the
   Azure domain's customer model reads. Keeping the enabled set in the variant (rather than deriving it from `customer.yml`) is what lets the
@@ -124,8 +123,7 @@ edges; a variant that needed to cross-check another asset would belong to that a
 ## Decision
 
 Repo-wide, session-fixed settings are **variants**: keys in `Catzc.Base.Variants/configs/variants.yml`, each read only through a `Get-`/
-`Test-`/`Assert-` primitive over the shared private `Get-Variant` reader. The module depends on `Config`, `Objects`, and `Asserts` only, its
-config type is self-contained, and the primitives are therefore callable from any module above the Config layer.
+`Test-`/`Assert-` primitive over the shared private `Get-Variant` reader, callable from any module above the Config layer.
 
 ### How this is enforced
 

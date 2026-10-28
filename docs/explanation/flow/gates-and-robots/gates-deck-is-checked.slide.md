@@ -6,7 +6,7 @@ catzc:
     order: 14
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-command-lays-out-the-python-workspace.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Image
 
-.assets/gates-deck-is-checked.png
+[gates-deck-is-checked](.assets/gates-deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: one command lays out the python workspace.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-command-lays-out-the-python-workspace.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

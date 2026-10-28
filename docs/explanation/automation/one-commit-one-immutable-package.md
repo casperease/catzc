@@ -22,7 +22,7 @@ description:
   Selected modules are built once into one versioned package, an integrity check proves it, and every other code root is a copy of that
   package that is checked again before the copy is placed.
 about:
-  adrs: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+  rules: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: meta
 content:
   title: One commit becomes one verified, immutable package, and every code root is a copy of it

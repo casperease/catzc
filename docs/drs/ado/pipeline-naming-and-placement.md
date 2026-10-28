@@ -1,4 +1,4 @@
-# ADR: Ado pipeline naming and placement
+# Azure DevOps: Ado pipeline naming and placement
 
 ## Rules: ADR-ADO-NAME
 
@@ -139,12 +139,12 @@ anything ADO executes (pipelines and template fragments); `.yml` is data our cod
 
 ### Exceptions
 
-- **GitHub Actions** keep their own ecosystem convention under `.github/workflows/` (e.g. a `.yml` workflow). This ADR governs
+- **GitHub Actions** keep their own ecosystem convention under `.github/workflows/` (e.g. a `.yml` workflow). This record governs
   `.ado/pipelines/` (Azure DevOps), not `.github/`.
 
 ## How this is enforced
 
-- **Code review** against this ADR, at the PR gate, is the primary enforcement — the uniform layout makes a misplaced fragment or a
+- **Code review** against this record, at the PR gate, is the primary enforcement — the uniform layout makes a misplaced fragment or a
   mis-typed pipeline name visible at a glance.
 - **`Get-AdoYamlFiles` / `Get-AdoYamlInventory`** scan and classify YAML by top-level-key heuristics (plus ADO registration data, in the
   inventory), distinguishing ado pipelines from fragments by _structure_ rather than by filename prefix. A pipeline that is not at the root,
@@ -154,7 +154,7 @@ anything ADO executes (pipelines and template fragments); `.yml` is data our cod
   structure or its ADO registration is visible as a convention break at review.
 - **`Test-Pipelines`** — an offline quality gate
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks the `.ado/pipelines/` tree
-  against this ADR: the type prefix (FDR-PIPELINE-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
+  against this record: the type prefix (FDR-PIPELINE-TYPEPREFIX), flat placement and the closed set of per-kind template folders with matching
   fragment kinds (ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER), the `.yaml` extension
   (FDR-PIPELINE-EXECUTABLEYAMLEXTENSION), and absolute `/.ado/pipelines/...` template references
   ([ADR-ADO-TEMPLATE-ABSOLUTEPATHS](custom-template-discipline.md#rule-adr-ado-template-absolutepaths)). It collects one issue per

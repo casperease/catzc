@@ -4,7 +4,7 @@ Describe 'Get-GridMinimapData' -Tag 'L1', 'integrity', 'source-only' {
     }
 
     It 'is the world map''s grid of the tree, lit with reasons by the files that cite a code, in the minimap contract' {
-        $data = Get-GridMinimapData -Adr 'ADR-REPO-SLIDES'
+        $data = Get-GridMinimapData -Rule 'ADR-REPO-SLIDES'
         @($data.Axes | ForEach-Object Name) | Should -Be @('track', 'file_language')
         $data.Lit | Should -Not -BeNullOrEmpty
         @($data.Lit | Where-Object { $_.Reasons.Count -eq 0 }) | Should -BeNullOrEmpty
@@ -12,7 +12,7 @@ Describe 'Get-GridMinimapData' -Tag 'L1', 'integrity', 'source-only' {
     }
 
     It 'draws the same grid on a world map built once and handed in' {
-        Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -WorldMap (Get-WorldMap) -AsJson |
-            Should -BeExactly (Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -AsJson)
+        Get-GridMinimapData -Rule 'ADR-REPO-SLIDES' -WorldMap (Get-WorldMap) -AsJson |
+            Should -BeExactly (Get-GridMinimapData -Rule 'ADR-REPO-SLIDES' -AsJson)
     }
 }

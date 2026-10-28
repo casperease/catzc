@@ -1,4 +1,4 @@
-# ADR: Execution engines — pwsh, bash and zsh, declared once
+# Automation: Execution engines — pwsh, bash and zsh, declared once
 
 ## Rules: ADR-AUTO-ENGINE
 

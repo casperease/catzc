@@ -53,6 +53,7 @@ categories:
       - "docs/references/pwsh/base-slides/**/get-diagram-proof-finding*"
       - "pwsh/Base.Slides/tests/Test-Diagrams.Tests.ps1"
       - "docs/references/pwsh/base-slides/test-diagrams.md"
+      - ".claude/skills/catzc-verify/SKILL.md"
       - ".claude/plans/**"
       - ".claude/learnings/**"
       - ".claude/hindsight/**"

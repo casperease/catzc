@@ -60,8 +60,15 @@ engine).
 - [ ] Haiku review rounds of every rendered png, batches of 10 in repository order, skipping the glyph legend: one haiku per png reports (a)
       straight vs diagonal arrows and which box to move, (b) the "Where does it live?" rows verbatim, drawn boxes with no row, rows that
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
-      minimap/router fixes; restart from batch 1 on the fresh renders. Round 1 over all 570 pngs is complete: about 224 diagonal pngs,
-      119 title-mismatch pngs, 9 place-count mismatches, 13 missing "Where" panels, about 45 chip, clip, typo or count findings, 38 tilted
-      renders; by root cause in out/diagram-findings.md, and the next round covers only what it lists as unchecked (rows and titles on
-      lines 181-570). Check: a per-diagram list per batch, each next batch's brief sharpened from the last, and (n) the drawn title
-      matches the file topic.
+      minimap/router fixes; restart from batch 1 on the fresh renders. Round 1 over all 570 pngs is complete: about 224 diagonal pngs, 119
+      title-mismatch pngs, 9 place-count mismatches, 13 missing "Where" panels, about 45 chip, clip, typo or count findings, 38 tilted
+      renders; by root cause in out/diagram-findings.md, and the next round covers only what it lists as unchecked (rows and titles on lines
+      181-570). Check: a per-diagram list per batch, each next batch's brief sharpened from the last, and (n) the drawn title matches the
+      file topic.
+- [ ] Re-render all catalogue diagrams after the engine changes: an edge whose boxes share a span on one axis runs level or plumb at one
+      shared coordinate (a fan-out target takes its line at its own middle; a diamond whose middle the span misses steps once across the
+      gap), markers and chips take room no tag, pill or other mark holds, and a nested module folder in a "Where does it live?" row is
+      joined with `.`, so every `|` part is one place and the counters line agrees with the rows. Samples:
+      out/diagrams/dark-sample/straight-fan-out-globs-asks-loader.png, out/diagrams/dark-sample/marks-clear-three-tests-prove-the-hook.png.
+      Check: `Test-Diagrams` clean over the tree, and a re-run haiku review of a 30-png sample reports no diagonal between aligned boxes, no
+      mark over a label or tag, and rows that sum to their counter.

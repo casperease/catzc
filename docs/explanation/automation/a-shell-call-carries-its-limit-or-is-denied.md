@@ -22,7 +22,7 @@ description:
   "A coding agent's shell call meets the time safeguard first: a call that carries its limit goes ahead untouched, and one that does not is
   denied with the reason, never rewritten."
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: meta
 content:
   title: A shell call carries its limit, or the hook denies it with a reason; it is never rewritten

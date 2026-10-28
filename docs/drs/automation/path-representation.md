@@ -1,4 +1,4 @@
-# ADR: Path representation — relative across boundaries, absolute only at the bind
+# Automation: Path representation — relative across boundaries, absolute only at the bind
 
 ## Rules: ADR-AUTO-PATH
 

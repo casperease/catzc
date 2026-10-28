@@ -1,4 +1,4 @@
-# ADR: Vendor toolset dependencies
+# PowerShell: Vendor toolset dependencies
 
 ## Rules: ADR-PWSH-VENDOR
 
@@ -69,19 +69,19 @@ after the ADO version tasks, never the `Install-DevBoxTools` orchestrator. A pla
 
 [controlling-module-dependencies](../controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) makes every internal module
 dependency vendored and named, committed in the tree with nothing to fetch, and [effective-in-enterprises](../effective-in-enterprises.md)
-assumes a machine with no network access at runtime. This ADR is how the PowerShell modules the toolset depends on are vendored.
+assumes a machine with no network access at runtime. This record is how the PowerShell modules the toolset depends on are vendored.
 
-PowerShell modules from the gallery change without notice. A `2.x` version that worked yesterday can behave differently today because the
-gallery resolved a different patch version on a different machine. This causes three problems:
+PowerShell modules from the gallery change without notice: a `2.x` range resolves to a different patch version on a different machine or
+day. That causes three problems:
 
-1. **Non-determinism.** Two developers running `Install-Module` on the same day can get different versions. CI machines that rebuild images
-   get whatever version is current at image-build time. Bugs that only reproduce on one machine are almost always version skew.
+1. **Non-determinism.** Two developers running `Install-Module` on the same day can get different versions, and a CI image gets whatever is
+   current when it is built. A bug that reproduces on one machine only is almost always version skew.
 
-2. **Slow startup.** `Install-Module` checks the gallery on every call. Even when the module is already installed, the network round-trip
-   adds seconds. In an interactive shell that loads on every new tab, this adds up fast. Gallery outages turn slow into broken.
+2. **Slow startup.** `Install-Module` checks the gallery on every call, a network round-trip of seconds even for an installed module, paid
+   by every new shell tab. A gallery outage turns slow into broken.
 
-3. **Implicit dependency chain.** Modules from the gallery can pull in transitive dependencies. You install one module and get five. Any of
-   those five can change independently, and any can conflict with another module in your session.
+3. **Implicit dependency chain.** A gallery module can pull in transitive dependencies, each of which can change independently and conflict
+   with another module in the session.
 
 ### Vendoring solves all three
 
@@ -95,8 +95,8 @@ surprises.
 - **Fast.** Loading from disk is sub-second. No network, no `Install-Module`, no `Find-Module`. Modules that are expensive to import
   (Pester, PSScriptAnalyzer) can be deferred with the `Lazy` parameter and only loaded on first use.
 
-- **Explicit.** The `.vendor` folder is visible in the repository. You can see exactly which modules are vendored, at which versions.
-  Upgrading is a conscious decision: delete the old folder, add the new one, commit.
+- **Explicit.** The `.vendor` folder shows exactly which modules are vendored, at which versions, and an upgrade is a conscious change: the
+  old folder deleted, the new one added, in one commit.
 
 ### No gallery at runtime
 

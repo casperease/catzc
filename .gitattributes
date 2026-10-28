@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6b4d1441d232"
+#     with_body_sha: e43f7789c8ae
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -87,7 +87,7 @@ pwsh/.compiled/** linguist-generated
 /.gitattributes linguist-generated
 /.gitignore linguist-generated
 
-# GitHub (linguist): the Markdown here — the ADRs, the explanations, the how-tos, the diagram articles — is authored,
+# GitHub (linguist): the Markdown here — the decision records, the explanations, the how-tos, the diagram articles — is authored,
 # reviewed and versioned like source, so it counts in the language statistics. Linguist treats Markdown as prose and
 # everything under docs/ as documentation, both outside the statistics by default; these two attributes count it in.
 # The generated Markdown named above stays out.

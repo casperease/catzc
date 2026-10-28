@@ -1,4 +1,4 @@
-# ADR: Code file meta — a navigation head in the first comment of an authored code file
+# Repository: Code file meta — a navigation head in the first comment of an authored code file
 
 ## Rules: ADR-REPO-CODEMETA
 
@@ -122,14 +122,14 @@ steps, then a check that expects no change.
 
 ### How this is enforced
 
-- **`Format-Code`** imprints the head through the language's imprint step, and **`Test-Formatting`** fails any file it would change.
+- **`Format-Code`** imprints the head through the global imprint step, and **`Test-Formatting`** fails any file it would change.
 - **`Test-FileMetaProcessors`** keeps the head's kinds and their functions in step.
 - **`Test-Comments`** fails a head the comment engine would move.
 
 ## Consequences
 
-- A reader steps from a code file to its rules and its docs in one click, on GitHub or in an editor, and to its test by convention.
-- The head changes only when the file's citations or its page change, never on an edit of the body alone.
+- A reader steps from a code file to its comment page in one click, on GitHub or in an editor, and to its test by convention.
+- The head changes only when the file's page moves, never on an edit of the body or its citations.
 - One registry, one engine and one naming convention serve Markdown and code, so a new kind of fact is a registry entry and a function.
-- The head costs one blank line and a few comment lines on a file that has a page or rules to cite, none on any other, and changes no
-  behaviour of the compiled type or the help text.
+- The head costs one blank line and a few comment lines on a file that has a page, none on any other, and changes no behaviour of the
+  compiled type or the help text.

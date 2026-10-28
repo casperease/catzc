@@ -11,9 +11,9 @@ Maps a snake_case tool key from tools.yml to its PascalCase command suffix.
 
 ### description
 
-Tool identities in tools.yml are snake_case (e.g. 'az_cli', 'node_js', 'py_spark'), matching the config-naming ADR. The per-tool commands,
-however, follow the module's Verb-Noun convention (Install-AzCli, Remove-NodeJs, Uninstall-PySpark). This converts the config key to that
-command suffix so name-based dispatch and user-facing "Run `Install-<x>`" messages resolve correctly: 'az_cli' -> 'AzCli'.
+Tool identities in tools.yml are snake_case (e.g. 'az_cli', 'node_js', 'py_spark'), matching the config-naming record. The per-tool
+commands, however, follow the module's Verb-Noun convention (Install-AzCli, Remove-NodeJs, Uninstall-PySpark). This converts the config key
+to that command suffix so name-based dispatch and user-facing "Run `Install-<x>`" messages resolve correctly: 'az_cli' -> 'AzCli'.
 
 ### parameter `Tool`
 

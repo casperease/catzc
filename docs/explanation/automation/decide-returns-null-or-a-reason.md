@@ -25,7 +25,7 @@ description:
   "The bash hook's program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing to let
   the call through, or a reason that becomes a denial and one line in the blocker log."
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: implementation
 content:
   title: Main loads the limits and the run environment, then Decide returns null or a reason

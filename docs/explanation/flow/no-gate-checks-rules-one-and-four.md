@@ -25,7 +25,7 @@ description:
   "The four stages a pipeline step passes through (the YAML, the step template, the runner, the command) and the gates that touch them: no
   gate checks the YAML or the command, and the gates that touch the template and the runner check something nearby, not the rule itself."
 about:
-  adrs:
+  rules:
     - ADR-ADO-RUNNER-NOINLINEPOWERSHELL
     - ADR-ADO-RUNNER-IMPORTONCE
     - ADR-ADO-RUNNER-THINSTEPTEMPLATES

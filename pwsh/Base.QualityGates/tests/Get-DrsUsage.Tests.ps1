@@ -24,7 +24,7 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L2', 'integrity', 'source-only' {
         }
         $rows | Where-Object { -not $_.Path } | Should -BeNullOrEmpty
         $rows | Where-Object { -not ($map.HasCode($_.Code) -or $map.IsDomainCode($_.Code)) } | Should -BeNullOrEmpty
-        $rows | Where-Object { $null -ne $_.Rule -and $map.AdrOf($_.Rule) -cne $_.Code } | Should -BeNullOrEmpty
+        $rows | Where-Object { $null -ne $_.Rule -and $map.RecordOf($_.Rule) -cne $_.Code } | Should -BeNullOrEmpty
     }
 
     It 'keeps a number out of a row: a rule is one rule code or none' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {

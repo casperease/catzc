@@ -84,13 +84,13 @@ function Measure-NoForEachObjectControlFlow {
 
                 $message = switch ($keyword) {
                     'return' {
-                        "Do not use 'return' inside ForEach-Object. It exits only the current scriptblock iteration (like 'continue' in a loop), not the enclosing function. Use a foreach statement instead. See ADR: prefer-foreach-over-foreach-object."
+                        "Do not use 'return' inside ForEach-Object. It exits only the current scriptblock iteration (like 'continue' in a loop), not the enclosing function. Use a foreach statement instead. See the decision record prefer-foreach-over-foreach-object."
                     }
                     'break' {
-                        "Do not use 'break' inside ForEach-Object. It does not break the pipeline — it breaks the nearest enclosing loop or terminates the script. Use a foreach statement instead. See ADR: prefer-foreach-over-foreach-object."
+                        "Do not use 'break' inside ForEach-Object. It does not break the pipeline — it breaks the nearest enclosing loop or terminates the script. Use a foreach statement instead. See the decision record prefer-foreach-over-foreach-object."
                     }
                     'continue' {
-                        "Do not use 'continue' inside ForEach-Object. It does not skip to the next pipeline item — it acts on the nearest enclosing loop or terminates the script. Use a foreach statement instead. See ADR: prefer-foreach-over-foreach-object."
+                        "Do not use 'continue' inside ForEach-Object. It does not skip to the next pipeline item — it acts on the nearest enclosing loop or terminates the script. Use a foreach statement instead. See the decision record prefer-foreach-over-foreach-object."
                     }
                 }
 

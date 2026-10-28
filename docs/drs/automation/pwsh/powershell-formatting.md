@@ -1,4 +1,4 @@
-# ADR: PowerShell formatting — the language layer over uniform-formatting
+# PowerShell: PowerShell formatting — the language layer over uniform-formatting
 
 ## Rules: ADR-PWSH-FORMAT
 
@@ -113,8 +113,7 @@ Inline hash table literals are exempt: `@{ A = 1; B = 2 }` is idiomatic PowerShe
 The repository's uniform formatting fixes the cross-language baseline every file meets (UTF-8 without BOM, LF, spaces, trimmed trailing
 whitespace, final newline) and the repo-wide "tools format, never debate" policy. PowerShell adds a layer on top that is thicker — brace
 placement, variable casing, line length, and the full PSScriptAnalyzer rule set — because PowerShell is the bulk of the codebase and has the
-richest analyzer support. This ADR records the PowerShell-specific choices; the baseline and the never-hand-format policy live in
-uniform-formatting and are not repeated here.
+richest analyzer support. This record holds only the PowerShell-specific choices.
 
 ### Brace style
 
@@ -197,7 +196,7 @@ else {
 PowerShell separates statements by newlines and needs no semicolons. A semicolon carried over from C# or JavaScript habit adds noise and
 signals that the author is thinking in a different language.
 
-**Trailing semicolons** — line terminators left over from C# habits:
+**Trailing semicolons** are line terminators:
 
 ```powershell
 # Wrong — semicolons are noise
@@ -257,13 +256,14 @@ $obj = [PSCustomObject]@{
 }
 ```
 
-Both exceptions are structural — the semicolons serve as syntactic separators, not statement terminators. The `for` loop exception is narrow
-and unambiguous, so it needs no judgment call.
+Both exceptions are structural: the semicolons are syntactic separators, not statement terminators, so neither needs a judgment call.
 
 ### Line length and encoding
 
-Max line length is 120 for `.ps1`/`.psm1`/`.psd1`, set in `.editorconfig`. Encoding is UTF-8 without BOM (the repo baseline). Which analyzer
-rules are on or off — and why (for example, line length is enforced by `.editorconfig`, not `Test-ScriptAnalyzer`) — is documented inline in
+The PowerShell line width is declared once, with every file limit, in `file-limits.yml`
+([ADR-AUTO-LIMIT-ONEDECLARATION](../file-limits.md#rule-adr-auto-limit-onedeclaration)); the `.editorconfig` value is generated from it
+([ADR-AUTO-LIMIT-GENERATEDTOOLCONFIGS](../file-limits.md#rule-adr-auto-limit-generatedtoolconfigs)), and `Test-ScriptAnalyzer` does not
+check width. Encoding is UTF-8 without BOM (the repo baseline). Which analyzer rules are on or off, and why, is documented inline in
 `PSScriptAnalyzerSettings.psd1`.
 
 ### The analyzer map
@@ -303,8 +303,8 @@ permitted for chaining statements on a single line, in `for` loop headers, and i
 
 ### How this is enforced
 
-- **`.editorconfig`** — the `[*.{ps1,psm1,psd1}]` section sets the PowerShell indent width and max line length, on top of the `[*]`
-  baseline.
+- **`.editorconfig`** — the `[*.{ps1,psm1,psd1}]` section sets the PowerShell indent width, on top of the `[*]` baseline, and carries the
+  generated line width.
 - **PSScriptAnalyzer** — the full rule set, options, and on/off rationale live in `PSScriptAnalyzerSettings.psd1` (every rule folded out
   with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in `pwsh/.scriptanalyzer/`,
   one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every check once per file (the engine
@@ -319,7 +319,8 @@ permitted for chaining statements on a single line, in `for` loop headers, and i
   `.compiled` (build output) folders, `assets/`, and generated module manifests are excluded as vendored or generated rather than authored
   source. A custom rule's `*.Tests.ps1` embeds the very anti-patterns the rule forbids as fixtures, so it carries a file-scoped
   `SuppressMessageAttribute` for its own rule. Formatting violations fail the build.
-- **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING), run by its integrity test.
+- **`Test-AnalyzerDrsMap`** — the quality gate over `analyzer-drs-map.yml` (ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING), run by its integrity
+  test.
 - **PSScriptAnalyzer built-in rule `PSAvoidSemicolonsAsLineTerminators`** — catches trailing semicolons
   (ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS); enabled in `PSScriptAnalyzerSettings.psd1`.
 
@@ -328,8 +329,8 @@ permitted for chaining statements on a single line, in `for` loop headers, and i
 - PowerShell pull-request diffs contain only logic changes; `git blame` points at the logic author, not the last reformatter.
 - New contributors produce correctly formatted PowerShell because their editor reads `.editorconfig` and PSScriptAnalyzer plus the L2 tests
   catch the rest before merge.
-- The cross-language baseline is single-sourced in the repository's uniform formatting; this ADR holds only the PowerShell rules, so the two
-  never duplicate or drift.
+- The cross-language baseline is single-sourced in the repository's uniform formatting; this record holds only the PowerShell rules, so the
+  two never duplicate or drift.
 - A new custom analyzer rule cannot ship without naming the DRS rule it enforces, so the coverage report credits it from its first run.
 - Code reads as idiomatic PowerShell, not transliterated C#: every statement is on its own line, easier to read, debug, blame, and diff, and
-  developers with C# habits get immediate feedback from the linter rather than accumulating semicolons over time.
+  a C# habit meets the linter at once.

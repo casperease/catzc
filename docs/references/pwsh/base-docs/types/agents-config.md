@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/types/AgentsConfig.cs
 
-The sub-agent registry (`configs/agents.yml`): one entry per sub-agent definition under `.claude/agents/`, with the ADR rules that support
-it and the checks it runs or guards
+The sub-agent registry (`configs/agents.yml`): one entry per sub-agent definition under `.claude/agents/`, with the rules that support it
+and the checks it runs or guards
 ([ADR-REPO-AGENTS-BACKEDBYRULE](../../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule)). It is registered in
 `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config agents` returns this typed record
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)). It

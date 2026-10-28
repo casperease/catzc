@@ -1,7 +1,7 @@
 # pwsh/Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
 
-The tests of `Get-DrsDoraCoverageViolations`: every rule set outside the domains the config exempts has exactly one section linking its ADR
-in its domain's DORA file.
+The tests of `Get-DrsDoraCoverageViolations`: every rule set outside the domains the config exempts has exactly one section linking its
+record in its domain's DORA file.
 
 ## Fixtures
 

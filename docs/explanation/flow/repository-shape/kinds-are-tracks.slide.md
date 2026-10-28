@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../configuration/.assets/strip-split-walk-every-wrong-turn-throws.drawio.png
+      source: ../../design/.assets/a-push-fires-only-touched-pipelines.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ is its placement.
 
 ## Image
 
-.assets/kinds-are-tracks.png
+[kinds-are-tracks](.assets/kinds-are-tracks.png)
 
 ## Caption
 
-From the catalogue, reduced: strip split walk every wrong turn throws.
+From the catalogue, reduced: a push fires only touched pipelines.
 
 ## Notes
 
 Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram
-docs/explanation/configuration/.assets/strip-split-walk-every-wrong-turn-throws.drawio.png.
+docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.

@@ -97,6 +97,19 @@ catzc:
         $html | Should -Not -Match '<table'
     }
 
+    It 'removes an absent optional picture with its figure, and keeps the figure of a slide that has one' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
+        $figured = [Catzc.Base.Slides.SlidePattern]::Load('gadget-fact',
+            '<section><h2>{{title}}</h2><figure data-optional style="flex:0 0 640px"><img src="{{image?}}" alt="{{title}}" /><figcaption>{{caption?}}</figcaption></figure><aside>{{notes?}}</aside></section>')
+        $figured.Field('image').Required | Should -BeFalse
+        $bare = $figured.Render([Catzc.Base.Slides.SlideSource]::Parse("# The gadget`n`n## Notes`n`nSay it."), 'g.slide.md', $script:kit, 'g', 1)
+        $bare.Faults.Count | Should -Be 0
+        $bare.Html | Should -Be '<section><h2>The gadget</h2><aside>Say it.</aside></section>'
+        $shown = $figured.Render([Catzc.Base.Slides.SlideSource]::Parse("# The gadget`n`n## Image`n`n[gadget](.assets/gadget.png)`n`n## Caption`n`nA gadget."), 'g.slide.md', $script:kit, 'g', 1)
+        $shown.Faults.Count | Should -Be 0
+        $shown.Html |
+            Should -Be '<section><h2>The gadget</h2><figure style="flex:0 0 640px"><img src=".assets/gadget.png" alt="The gadget"></img><figcaption>A gadget.</figcaption></figure></section>'
+    }
+
     It 'fills a card template with lead and text and places the separator between items' {
         $html = (& $render "$good`n`n## Cards`n`n- **Pin** Another trunk pins it.`n- **Clone** A team clones it.").Html
         $html |

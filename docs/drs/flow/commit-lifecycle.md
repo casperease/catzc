@@ -145,7 +145,7 @@ description:
   above every rung a newer commit rolled over, and the three terminal endings below, discarded at a named gate or retired once a successor
   took over production."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-RETIREMENTISNOTDISCARD
@@ -239,7 +239,7 @@ content:
     - { from: rung-release-uat, to: discard-release-uat, kind: fail, label: manual reject at RBC }
     - { from: rung-production, to: retired, kind: flow, label: decommissioned }
   legend: auto
-  minimaps: [track-placement, engine-strip, module-neighbourhood]
+  minimaps: [code-locations, track-placement, module-neighbourhood]
 layout:
   band-superseded: { x: 20, y: 84, w: 1260, h: 110 }
   band-ladder: { x: 20, y: 214, w: 1260, h: 110 }
@@ -318,7 +318,7 @@ description:
   Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip, a commit that landed after it
   and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified HEAD queued as its next candidate.
 about:
-  adrs:
+  rules:
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - FDR-LIFE-DIRTYHEADUNSAFE
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD

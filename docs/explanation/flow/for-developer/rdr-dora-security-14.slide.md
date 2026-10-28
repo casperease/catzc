@@ -4,11 +4,6 @@ catzc:
     pattern: fact
     deck: for-developer
     order: 14
-    picture:
-      mode: reduce
-      source: ../../automation/.assets/every-entry-runs-one-load-sequence.drawio.png
-      scale: 0.4
-      tilt: { y: 0.8, shear: 0.15 }
 ---
 
 # Pervasive security: identity and branch policy are the server's, and the clone has none
@@ -22,15 +17,6 @@ catzc:
 For the Developer, who edits one file, runs one gate, pushes one topic: The pull request authenticates the author and merges the server's
 own topic HEAD; a bypass is authorized and recorded.
 
-## Image
-
-.assets/rdr-dora-security-14.png
-
-## Caption
-
-From the catalogue, reduced: every entry runs one load sequence.
-
 ## Notes
 
-Check it: the record EDR-DORA-SECURITY in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.
+Check it: the record EDR-DORA-SECURITY in docs/drs/index.md.

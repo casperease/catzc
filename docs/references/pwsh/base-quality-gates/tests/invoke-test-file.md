@@ -2,7 +2,7 @@
 
 The L2 integrity test of `Invoke-TestFile`. It drives a real child pwsh worker through the same generator and runner chain as the harness.
 It is tagged greedy: each `It` spawns a full importer-loading pwsh worker, which stacked on the parallel pool oversubscribes the box (see
-the greedy tag in the test-automation ADR).
+the greedy tag in the test-automation record).
 
 ## The strict fixture
 

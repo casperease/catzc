@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../automation/.assets/build-verify-then-copy-the-folder.drawio.png
+      source: ../../repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -24,13 +24,13 @@ is a gate finding.
 
 ## Image
 
-.assets/public-by-contract.png
+[public-by-contract](.assets/public-by-contract.png)
 
 ## Caption
 
-From the catalogue, reduced: build verify then copy the folder.
+From the catalogue, reduced: building the contract reference writes one page per unit.
 
 ## Notes
 
 Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/build-verify-then-copy-the-folder.drawio.png.
+docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png.

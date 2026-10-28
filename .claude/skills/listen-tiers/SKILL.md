@@ -14,7 +14,7 @@ metadata:
 
 # listen-tiers
 
-1. A doc type is a file kind (`Get-FileKind`, file-kinds.yml); its tier is listen.yml's: `rule` (adr, glossary, index), `docs` (the other
+1. A doc type is a file kind (`Get-FileKind`, file-kinds.yml); its tier is listen.yml's: `rule` (record, glossary, index), `docs` (the other
    docs kinds), and `code`, the rest. Siblings are files of the same kind.
 2. Search only with `Find-DocPattern <regex> -Tier <name> -Path <slice>`: it reads the session's reference/, the repository at the pinned
    commit, committed files only; never Grep or Glob the live tree.

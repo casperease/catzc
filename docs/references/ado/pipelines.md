@@ -1,6 +1,6 @@
 # ado pipelines
 
-The azure devops pipelines under `.ado/pipelines/` and the templates they include. Two ADRs govern this folder:
+The azure devops pipelines under `.ado/pipelines/` and the templates they include. Two decision records govern this folder:
 
 - [pipeline-types](../../drs/flow/pipeline-types.md) — the four types of pipeline.
 - [pipeline-naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md) — the layout and naming rules below.
@@ -45,7 +45,7 @@ Real:
 Infrastructure (foundation / discovery / expedition) — **reference shapes**, not yet registered. The CI build path runs as-is (`bicep build`
 is offline, no auth); the CD deploy paths need real service connections and a non-placeholder `azure.yml` (the shipped one has placeholder
 subscription GUIDs; the `sc-…` names are illustrative). They wire the templates that the infra plan (`out/infra-plan.md`) built, per the
-[pipeline-types](../../drs/flow/pipeline-types.md) and [naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md) ADRs:
+[pipeline-types](../../drs/flow/pipeline-types.md) and [naming-and-placement](../../drs/ado/pipeline-naming-and-placement.md) records:
 
 - `ci-infrastructure.yaml` — CI engine for all three templates (`Assert-BicepTemplate` + `Build-Bicep`), no deploy. Registered on the
   infrastructure unit's native projection (`infrastructure/**`).

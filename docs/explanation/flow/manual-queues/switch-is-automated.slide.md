@@ -24,7 +24,7 @@ reverses by the same automated path.
 
 ## Image
 
-.assets/switch-is-automated.png
+[switch-is-automated](.assets/switch-is-automated.png)
 
 ## Caption
 

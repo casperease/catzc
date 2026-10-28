@@ -4,10 +4,6 @@ catzc:
     pattern: fact
     deck: things-that-are-not
     order: 8
-    picture:
-      mode: reduce
-      source: ../../automation/.assets/output-root-first-then-repo-root.drawio.png
-      scale: 0.4
 ---
 
 # Go is test artifacts only
@@ -20,15 +16,6 @@ catzc:
 
 A Go idea from the sibling checkout beyond that scope opens a question for the user; it is never a precedent.
 
-## Image
-
-.assets/not-go-in-production.png
-
-## Caption
-
-From the catalogue, reduced: output root first then repo root.
-
 ## Notes
 
-Check it: the record ADR-AUTO-GO in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/output-root-first-then-repo-root.drawio.png.
+Check it: the record ADR-AUTO-GO in docs/drs/index.md.

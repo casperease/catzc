@@ -36,7 +36,7 @@ analyzers:
   Measure-NoLiteralDefault: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, PDR-CONFIG-DEFAULTDECLAREDONCE]
   Measure-NoTrackRootLiteral: [ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE]
 
-  # Enabled built-in rules that enforce an ADR
+  # Enabled built-in rules that enforce a DRS rule
   PSUseApprovedVerbs: [ADR-PWSH-VERBS-APPROVEDVERBS]
   PSAvoidSemicolonsAsLineTerminators: [ADR-PWSH-FORMAT-NOTRAILINGSEMICOLONS]
   PSPlaceOpenBrace: [ADR-PWSH-FORMAT-KANDRBRACES]

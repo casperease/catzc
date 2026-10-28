@@ -77,7 +77,7 @@ Fail the run when a test is over its time limit; by default over-limit tests are
 
 ### parameter `Rule`
 
-Narrows the run to the tests that cite these ADR rules (Test-Automation's -Rule).
+Narrows the run to the tests that cite these rules (Test-Automation's -Rule).
 
 ### parameter `Suite`
 

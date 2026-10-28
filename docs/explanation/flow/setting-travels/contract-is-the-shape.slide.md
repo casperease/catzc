@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../azure/.assets/config-path-is-a-coordinate.drawio.png
+      source: ../../repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ code.
 
 ## Image
 
-.assets/contract-is-the-shape.png
+[contract-is-the-shape](.assets/contract-is-the-shape.png)
 
 ## Caption
 
-From the catalogue, reduced: config path is a coordinate.
+From the catalogue, reduced: building the contract reference writes one page per unit.
 
 ## Notes
 
 Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/config-path-is-a-coordinate.drawio.png.
+docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png.

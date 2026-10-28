@@ -1,4 +1,4 @@
-# ADR: Pipeline detection — how pwsh functions learn their execution context
+# PowerShell: Pipeline detection — how pwsh functions learn their execution context
 
 ## Rules: ADR-PWSH-DETECT
 
@@ -85,8 +85,8 @@ platform is running the code_, not about _where output should go_; those are dif
 ### Companion: Get-OutputRoot
 
 The most common context-dependent path is the output directory, a separate concern from detection: _where_ artifacts go in a pipeline is
-dictated by the engine's staging-directory variable, not by the run mark. `Get-OutputRoot` first asks the detection function whether it is
-in a pipeline, and only then reads the staging directory to decide the path:
+dictated by the engine's staging-directory variable, not by the run mark. `Get-OutputRoot` asks the detection function first and only then
+reads the staging directory:
 
 ```powershell
 function Get-OutputRoot {
@@ -112,8 +112,7 @@ function Get-OutputRoot {
 }
 ```
 
-Functions that produce output artifacts call `Get-OutputRoot` instead of hardcoding either path; `-EnsureExists` creates the directory when
-it is missing.
+Functions that produce output artifacts call `Get-OutputRoot` instead of hardcoding either path.
 
 ### How this is enforced
 
@@ -123,10 +122,8 @@ it is missing.
 
 ## Consequences
 
-- Pipeline detection is consistent: every function uses the same check over the same variables, and every supported engine is covered in one
-  place.
-- The variables read are an implementation detail. When an engine changes its run mark, or another engine is added, one function changes,
-  not every consumer.
+- Pipeline detection is consistent: every function uses the same check, and every supported engine is covered in one place.
+- When an engine changes its run mark, or another engine is added, one function changes, not every consumer.
 - The function is trivially testable: set a run-mark variable in a test, assert the result, clean up.
 - Context-dependent behaviour is greppable: a search for `Test-IsRunningInPipeline` finds every place the code branches on execution
   context.

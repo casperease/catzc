@@ -3,7 +3,7 @@ function Get-LifecyclePositionMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -16,7 +16,7 @@ function Get-LifecyclePositionMinimapData {
     $rungs = @(Get-Rung)
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         foreach ($rung in $rungs) {
             $hit = foreach ($rule in $rung.rules) {
                 foreach ($citation in $item.Citations) {

@@ -1,13 +1,13 @@
 # pwsh/Base.QualityGates/private/Select-RuleTaggedFiles.ps1
 
-Returns the subset of test files that carry a test citing one of the given ADR rules. It is the work-list filter behind Test-Automation's
+Returns the subset of test files that carry a test citing one of the given rules. It is the work-list filter behind Test-Automation's
 `-Rule` parameter, which narrows a run to the files that enforce a rule.
 
 ## help
 
 ### synopsis
 
-The subset of test files that carry a test citing one of the given ADR rules — the -Rule work-list filter.
+The subset of test files that carry a test citing one of the given rules — the -Rule work-list filter.
 
 ### description
 

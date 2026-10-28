@@ -2,7 +2,7 @@ description:
   "A call site of two commands: the gadget is published and counted in one run, the index triggers a recount, and the zones show what each
   changed."
 about:
-  adrs: []
+  rules: []
   lens: action
   proves: widgets.accosted.yml
 content:

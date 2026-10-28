@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../automation/.assets/a-declared-allow-list-of-layers.drawio.png
+      source: ../../../references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ The importer is dot-sourced and heavy; a question about state is answered by cat
 
 ## Image
 
-.assets/probe-cheaply.png
+[probe-cheaply](.assets/probe-cheaply.png)
 
 ## Caption
 
-From the catalogue, reduced: a declared allow list of layers.
+From the catalogue, reduced: two az checks, Test and Assert share one state call.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/a-declared-allow-list-of-layers.drawio.png.
+docs/references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png.

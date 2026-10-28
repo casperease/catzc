@@ -2,7 +2,7 @@ description: >-
   The pwsh track as a container: the internal modules load its modules, which call the vendored modules beside them, and the three engines
   run them.
 about:
-  adrs: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-ENGINE-THREEENGINES, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-ENGINE-THREEENGINES, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
   zoom: C2
 content:

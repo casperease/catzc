@@ -20,7 +20,7 @@ description:
   "A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
   references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs."
 about:
-  adrs: [ADR-AZ-IACKIND-THREEIACKINDS]
+  rules: [ADR-AZ-IACKIND-THREEIACKINDS]
   lens: operations
 content:
   title: A change to one module fans out to every template that references it and every pipeline that deploys one
@@ -53,7 +53,7 @@ content:
     - { at: r-ci, number: 3 }
     - { at: r-cd, number: 4 }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   s-templates: { x: 500, y: 164, w: 300, h: 52 }
   r-ci: { x: 960, y: 140, w: 220, h: 40 }

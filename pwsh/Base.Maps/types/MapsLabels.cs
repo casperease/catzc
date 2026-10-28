@@ -18,7 +18,7 @@ public sealed class MapsLabels
     public const string DefaultValueChainTitle = "Value-chain map: value-chain stack × value-chain concerns";
     public const string DefaultValueChainRowAxis = "Value-chain stack";
     public const string DefaultValueChainColumnAxis = "Value-chain concern";
-    public const string DefaultValueChainLegendAdrs = "Cell: ADRs";
+    public const string DefaultValueChainLegendRecords = "Cell: records";
     public const string DefaultValueChainLegendHighlight = "Lit cell";
 
     // The title of the grid view (world-map.grid.pdf). Default: DefaultGridTitle.
@@ -57,8 +57,8 @@ public sealed class MapsLabels
     // The header of the value-chain map's column axis (the value-chain concerns). Default: DefaultValueChainColumnAxis.
     public string value_chain_column_axis { get; }
 
-    // The legend entry of the value-chain map's ADR-count scale. Default: DefaultValueChainLegendAdrs.
-    public string value_chain_legend_adrs { get; }
+    // The legend entry of the value-chain map's record-count scale. Default: DefaultValueChainLegendRecords.
+    public string value_chain_legend_records { get; }
 
     // The legend entry of a lit value-chain map cell. Default: DefaultValueChainLegendHighlight.
     public string value_chain_legend_highlight { get; }
@@ -67,7 +67,7 @@ public sealed class MapsLabels
 
     public MapsLabels(string gridTitle, string treeTitle, string rowAxis, string columnAxis, string rootFiles, string unlistedFiles,
         string legendFiles, string legendViolation, string legendHighlight, string valueChainTitle, string valueChainRowAxis,
-        string valueChainColumnAxis, string valueChainLegendAdrs, string valueChainLegendHighlight)
+        string valueChainColumnAxis, string valueChainLegendRecords, string valueChainLegendHighlight)
     {
         grid_title = gridTitle;
         tree_title = treeTitle;
@@ -81,7 +81,7 @@ public sealed class MapsLabels
         value_chain_title = valueChainTitle;
         value_chain_row_axis = valueChainRowAxis;
         value_chain_column_axis = valueChainColumnAxis;
-        value_chain_legend_adrs = valueChainLegendAdrs;
+        value_chain_legend_records = valueChainLegendRecords;
         value_chain_legend_highlight = valueChainLegendHighlight;
     }
 }

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Maps;
 
-// Finds the record citations in a file's text and maps each to its domain through the adrs index.
+// Finds the record citations in a file's text and maps each to its domain through the DRS index.
 public static class CitationScanner
 {
     // The extensions whose files carry citations; the text of no other file is read.
@@ -19,7 +19,7 @@ public static class CitationScanner
 
     private static readonly Regex Reference = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + "$", RegexOptions.CultureInvariant);
 
-    // True when the file's kind cites ADRs (its extension is one of CitingExtensions, in any case).
+    // True when the file's kind cites records (its extension is one of CitingExtensions, in any case).
     public static bool Cites(string path)
     {
         string extension = Catzc.Base.Languages.LanguagesConfig.ExtensionOf(path);
@@ -31,7 +31,7 @@ public static class CitationScanner
         return false;
     }
 
-    // The adrs index as an ordinal code-to-domain map; a key that is no record code, or an empty domain, throws.
+    // The DRS index as an ordinal code-to-domain map; a key that is no record code, or an empty domain, throws.
     public static IReadOnlyDictionary<string, string> Index(IDictionary raw)
     {
         Dictionary<string, string> index = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -43,7 +43,7 @@ public static class CitationScanner
             string domain = Convert.ToString(entry.Value, CultureInfo.InvariantCulture);
             if (!Reference.IsMatch(code ?? ""))
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "'{0}' is not an ADR code (ADR-<CODE>)", code));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "'{0}' is not a rule code (ADR-<CODE>)", code));
                 continue;
             }
             if (string.IsNullOrEmpty(domain))
@@ -55,7 +55,7 @@ public static class CitationScanner
         }
         if (errors.Count > 0)
         {
-            throw new ArgumentException("adrs index: " + string.Join("; ", errors));
+            throw new ArgumentException("DRS index: " + string.Join("; ", errors));
         }
         return index;
     }
@@ -118,21 +118,21 @@ public static class CitationScanner
         return sites.ToArray();
     }
 
-    // The reference as a code, trimmed; null when it is no ADR code.
+    // The reference as a code, trimmed; null when it is no rule code.
     public static string Canonical(string reference)
     {
         string code = (reference ?? "").Trim();
         return Reference.IsMatch(code) ? code : null;
     }
 
-    // The ADR code of a citation: the longest whole-segment prefix the test accepts, the citation itself included.
-    public static string CodeOf(string citation, Func<string, bool> isAdr)
+    // The record code of a citation: the longest whole-segment prefix the test accepts, the citation itself included.
+    public static string CodeOf(string citation, Func<string, bool> isRecord)
     {
-        if (citation == null || isAdr == null) { return null; }
+        if (citation == null || isRecord == null) { return null; }
         string code = citation;
         while (true)
         {
-            if (isAdr(code)) { return code; }
+            if (isRecord(code)) { return code; }
             int dash = code.LastIndexOf('-');
             if (dash <= 0) { return null; }
             code = code.Substring(0, dash);
@@ -142,7 +142,7 @@ public static class CitationScanner
     public static string CodeOf(string citation, IReadOnlyDictionary<string, string> index) =>
         index == null ? null : CodeOf(citation, index.ContainsKey);
 
-    // The domain of a citation's ADR, or null when the index lists no prefix of it.
+    // The domain of a citation's record, or null when the index lists no prefix of it.
     public static string DomainOf(string citation, IReadOnlyDictionary<string, string> index)
     {
         string code = CodeOf(citation, index);

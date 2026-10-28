@@ -43,23 +43,23 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     It 'cites only what the prose cites, never the codes of a yml drawio block' {
         $body = (
             "# docs/widget.md`n`nThe prose cites ADR-WIDGET-PART-BEND.`n`n" +
-            "``````yml drawio`nabout:`n  adrs: [ADR-WIDGET-PART-FOLD, ADR-GADGET-LIFT]`n```````n"
+            "``````yml drawio`nabout:`n  rules: [ADR-WIDGET-PART-FOLD, ADR-GADGET-LIFT]`n```````n"
         )
         (Get-Codes $body) | Should -Be @('ADR-WIDGET-PART-BEND')
     }
 
-    It 'lists each cited rule once, ordered by ADR and then by its place in the ADR' {
+    It 'lists each cited rule once, ordered by record and then by its place in the record' {
         $codes = Get-Codes "# docs/widget.md`n`nSee ADR-WIDGET-PART-BEND and ADR-GADGET-RE12, then ADR-WIDGET-PART-BEND again, and ADR-GADGET-LIFT.`n"
         $codes | Should -Be @('ADR-GADGET-LIFT', 'ADR-GADGET-RE12', 'ADR-WIDGET-PART-BEND')
     }
 
-    It 'writes the ADR code, which means the whole ADR, when every rule the registry declares is cited' {
+    It 'writes the record code, which means the whole record, when every rule the registry declares is cited' {
         (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-DROP ADR-GADGET-RE12`n") | Should -Be @('ADR-GADGET')
         (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-DROP ADR-GADGET-RE12 ADR-WIDGET-PART-FOLD`n") |
             Should -Be @('ADR-GADGET', 'ADR-WIDGET-PART-FOLD')
     }
 
-    It 'keeps the rules while one rule of the ADR is not cited' {
+    It 'keeps the rules while one rule of the record is not cited' {
         (Get-Codes "ADR-GADGET-LIFT ADR-GADGET-RE12`n") | Should -Be @('ADR-GADGET-LIFT', 'ADR-GADGET-RE12')
     }
 

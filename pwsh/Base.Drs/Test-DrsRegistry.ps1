@@ -7,10 +7,10 @@ function Test-DrsRegistry {
         [switch] $PassThru
     )
 
-    $adrs = Get-Config -Config drs
+    $drs = Get-Config -Config drs
     $checks = Get-Config -Config drs-checks
-    $ruleSets = @($adrs.RuleSets)
-    $index = Get-DrsFileIndex $ruleSets -DrsRoot (Resolve-RepoPath $adrs.Root)
+    $ruleSets = @($drs.RuleSets)
+    $index = Get-DrsFileIndex $ruleSets -DrsRoot (Resolve-RepoPath $drs.Root)
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $rulesHeadingByPath = @{}
@@ -30,15 +30,15 @@ function Test-DrsRegistry {
                 $index.ByKey[$key]
             })
         if ($files.Count -eq 0) {
-            $issues.Add("$($ruleSet.External): no ADR file $($adrs.Root)/$($ruleSet.Folder)/**/$($ruleSet.Slug).md")
+            $issues.Add("$($ruleSet.External): no decision record file $($drs.Root)/$($ruleSet.Folder)/**/$($ruleSet.Slug).md")
             continue
         }
         if ($files.Count -gt 1) {
-            $issues.Add("$($ruleSet.External): $($files.Count) ADR files named $($ruleSet.Slug).md under $($adrs.Root)/$($ruleSet.Folder)/ —$(($files | ForEach-Object { "$($adrs.Root)/$_" }) -join ', ')")
+            $issues.Add("$($ruleSet.External): $($files.Count) decision record files named $($ruleSet.Slug).md under $($drs.Root)/$($ruleSet.Folder)/ —$(($files | ForEach-Object { "$($drs.Root)/$_" }) -join ', ')")
             continue
         }
         if ($rulesHeadingByPath[$files[0]] -cne $ruleSet.External) {
-            $issues.Add("$($adrs.Root)/$($files[0]): must head its rule registry '## Rules: $($ruleSet.External)' (the drs.yml external code)")
+            $issues.Add("$($drs.Root)/$($files[0]): must head its rule registry '## Rules: $($ruleSet.External)' (the drs.yml external code)")
         }
     }
 
@@ -52,12 +52,12 @@ function Test-DrsRegistry {
     foreach ($relative in @($rulesHeadingByPath.Keys | Sort-Object)) {
         $key = $keyOfPath[$relative]
         if (-not $registeredKeys.Contains($key)) {
-            $issues.Add("$($adrs.Root)/${relative}: declares '## Rules: $($rulesHeadingByPath[$relative])' but no drs.yml rule set registers it")
+            $issues.Add("$($drs.Root)/${relative}: declares '## Rules: $($rulesHeadingByPath[$relative])' but no drs.yml rule set registers it")
         }
     }
 
     # A code in prose that names nothing registered is a broken citation, always a finding.
-    $dangling = [string[]] @(Get-DrsDanglingCodeViolations -Adrs $adrs -Index $index -Map (Get-DrsCitationMap))
+    $dangling = [string[]] @(Get-DrsDanglingCodeViolations -Drs $drs -Index $index -Map (Get-DrsCitationMap))
     $issues.AddRange($dangling)
 
     # The configured checks: one mode setting each, and the same handling for both.
@@ -66,19 +66,19 @@ function Test-DrsRegistry {
             Name     = 'citation-graph'
             Fact     = 'CitationGraph'
             Mode     = $checks.citation_graph.mode
-            Findings = [string[]] @(Get-DrsCitationGraphViolations -Adrs $adrs -Index $index -ExemptDomain ([string[]] @($checks.citation_graph.exempt.Keys)))
+            Findings = [string[]] @(Get-DrsCitationGraphViolations -Drs $drs -Index $index -ExemptDomain ([string[]] @($checks.citation_graph.exempt.Keys)))
         }
         [pscustomobject]@{
             Name     = 'dora-coverage'
             Fact     = 'DoraCoverage'
             Mode     = $checks.dora_coverage.mode
-            Findings = [string[]] @(Get-DrsDoraCoverageViolations -Adrs $adrs -Index $index -Settings $checks.dora_coverage)
+            Findings = [string[]] @(Get-DrsDoraCoverageViolations -Drs $drs -Index $index -Settings $checks.dora_coverage)
         }
         [pscustomobject]@{
             Name     = 'code-language'
             Fact     = 'CodeLanguage'
             Mode     = $checks.code_language.mode
-            Findings = [string[]] @(Get-DrsCodeLanguageViolations -Adrs $adrs -Index $index)
+            Findings = [string[]] @(Get-DrsCodeLanguageViolations -Drs $drs -Index $index)
         }
     )
     $facts = [ordered]@{ RuleSets = $ruleSets.Count; Files = $index.Relative.Count; DanglingCodes = $dangling.Count }

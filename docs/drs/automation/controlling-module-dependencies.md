@@ -1,4 +1,4 @@
-# ADR: Controlling module dependencies
+# Automation: Controlling module dependencies
 
 ## Rules: ADR-AUTO-DEPM
 

@@ -25,7 +25,7 @@ description:
   Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning ADR decides, and it lands here
   rebuilt to this repository's rules as one living version.
 about:
-  adrs:
+  rules:
     - PDR-ONELIVE-ONEVERSION
     - PDR-ONELIVE-HISTORYINGIT
     - ADR-AUTO-TESTLANG-MODULESBYLAYOUT

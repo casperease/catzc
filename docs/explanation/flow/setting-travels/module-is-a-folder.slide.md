@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../../../docs/drs/flow/.assets/commit-promotion-states.drawio.png
+      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
       scale: 0.4
 ---
 
@@ -23,12 +23,12 @@ by.
 
 ## Image
 
-.assets/module-is-a-folder.png
+[module-is-a-folder](.assets/module-is-a-folder.png)
 
 ## Caption
 
-From the catalogue, reduced: commit promotion states.
+From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
-Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/drs/flow/.assets/commit-promotion-states.drawio.png.
+Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../automation/.assets/output-root-first-then-repo-root.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ it and read the report.
 
 ## Image
 
-.assets/deck-is-checked.png
+[deck-is-checked](.assets/deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: output root first then repo root.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/output-root-first-then-repo-root.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

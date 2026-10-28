@@ -22,7 +22,7 @@ description:
   "A tracked file is tried against its track's aspects in order and the first match wins: the code track tries live first and lets tests
   catch the rest, the deployment track tries tests first and lets live catch the rest."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
+  rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: meta
 content:
   title: "Each track picks its catch-all: a stray module file falls to tests, a stray template file to live"

@@ -3,7 +3,7 @@ function Get-MinimapSubject {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -16,7 +16,7 @@ function Get-MinimapSubject {
     else {
         Get-WorldMap
     }
-    $reasons = @(foreach ($cell in (Get-WorldMapHighlight -Adr $Adr -WorldMap $map).Cells) {
+    $reasons = @(foreach ($cell in (Get-WorldMapHighlight -Rule $Rule -WorldMap $map).Cells) {
             foreach ($reason in $cell.Reasons) {
                 if ($reason.Path) {
                     $reason

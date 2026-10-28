@@ -21,7 +21,7 @@ description:
   The pipeline agent sets the signal, one detection function reads it and answers true or false, every function that behaves differently in
   a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.
 about:
-  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
+  rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: meta
 content:
   title: One function answers "am I in a pipeline?", and every branch on context asks it

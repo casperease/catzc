@@ -1,4 +1,4 @@
-# ADR: Use .ps1 for function files, not .psm1
+# PowerShell: Use .ps1 for function files, not .psm1
 
 ## Rules: ADR-PWSH-USEPS
 
@@ -21,8 +21,8 @@ per-function file inside a module. All other PowerShell code is in `.ps1` files.
 
 ## Context
 
-We use a one-function-per-file layout with public/private separation by folder. Public functions need to call private functions without the
-author adding any imports or boilerplate. This requires all function files within a module to share the same scope.
+A module is laid out one function per file, public and private separated by folder, and a public function calls a private one with no import
+or boilerplate, so every function file of a module shares one scope.
 
 ### Why `.psm1` does not fit
 
@@ -30,10 +30,9 @@ author adding any imports or boilerplate. This requires all function files withi
 `NestedModules` in a manifest gets its own isolated module scope — by design, not by accident.
 
 Microsoft designed `NestedModules` with `.psm1` files for **dependency composition** — independent sub-libraries (like referencing a NuGet
-package), each encapsulated in a scope of its own, with controlled exports. This works well for that purpose.
+package), each encapsulated in a scope of its own, with controlled exports.
 
-Our use case is different: we want **code organization** — splitting one module's internals across files. For this, scope isolation is
-harmful:
+catzc's need is **code organization** — splitting one module's internals across files — and for that, scope isolation is harmful:
 
 - A private helper in one `.psm1` is invisible to a public function in another `.psm1` unless explicitly exported (which defeats "private")
 - Module-scoped variables (`$script:`) are isolated per `.psm1`
@@ -79,7 +78,7 @@ parses each file in memory and dot-sources it into the module's session state
 ([dynamic-module-manifests](dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)). The merged file is a `.ps1` too, so
 the module's public and private functions share one session state in both modes, and it is one module per folder, so each module keeps its
 own `$script:` scope. It is output, not source: it exists only in a build under `out/pwsh/built/` and the installs copied from it, is
-rewritten on every build, and the rules of this ADR apply to the files it is generated from
+rewritten on every build, and the rules of this record apply to the files it is generated from
 ([one-function-per-file](one-function-per-file.md#rule-adr-pwsh-onefunc-governssource)).
 
 ### How this is enforced

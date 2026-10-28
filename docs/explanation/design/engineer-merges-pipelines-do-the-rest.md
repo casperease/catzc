@@ -24,7 +24,7 @@ description:
   An engineer runs the tests and merges once the pull request build validation is green; the pipelines run everything after the merge, and
   each failed rung shows the person a red result.
 about:
-  adrs: [FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DIRTYHEADUNSAFE]
+  rules: [FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DIRTYHEADUNSAFE]
   lens: operations
 content:
   title: An engineer runs the tests and merges; pipelines do the rest

@@ -1,4 +1,4 @@
-# ADR: An explicit dry-run parameter on every side-effecting function
+# Automation: An explicit dry-run parameter on every side-effecting function
 
 ## Rules: ADR-AUTO-DRYRUN
 

@@ -17,7 +17,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] MinimapKinds = { "explanation", "reference" };
     private static readonly string[] MinimapKeys = { "explanation", "reference", "data", "axis", "places" };
 
-    // The command that computes each minimap's data from a diagram's ADR codes (-Adr, -AsJson), by minimap id.
+    // The command that computes each minimap's data from a diagram's rule codes (-Rule, -AsJson), by minimap id.
     public static readonly IReadOnlyDictionary<string, string> DefaultMinimapData = new Dictionary<string, string>(StringComparer.Ordinal)
     {
         [MinimapData.Grid] = "Get-GridMinimapData",
@@ -35,13 +35,13 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] LabelsKeys =
     {
         "grid_title", "tree_title", "row_axis", "column_axis", "root_files", "unlisted_files", "legend_files", "legend_violation",
-        "legend_highlight", "value_chain_title", "value_chain_row_axis", "value_chain_column_axis", "value_chain_legend_adrs",
+        "legend_highlight", "value_chain_title", "value_chain_row_axis", "value_chain_column_axis", "value_chain_legend_records",
         "value_chain_legend_highlight"
     };
     private static readonly string[] HighlightKeys = { "pins", "exceptions", "citation_exclude" };
-    private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
+    private static readonly string[] PinKeys = { "rule", "track", "file_language", "reason" };
     private static readonly Regex Colour = new Regex("^#[0-9A-Fa-f]{6}$");
-    private static readonly Regex AdrCode = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + "$");
+    private static readonly Regex RuleCode = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Cited + "$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
@@ -122,7 +122,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadLabel(labelsMap, "value_chain_title", MapsLabels.DefaultValueChainTitle, 0, errors),
             ReadLabel(labelsMap, "value_chain_row_axis", MapsLabels.DefaultValueChainRowAxis, 0, errors),
             ReadLabel(labelsMap, "value_chain_column_axis", MapsLabels.DefaultValueChainColumnAxis, 0, errors),
-            ReadLabel(labelsMap, "value_chain_legend_adrs", MapsLabels.DefaultValueChainLegendAdrs, 0, errors),
+            ReadLabel(labelsMap, "value_chain_legend_records", MapsLabels.DefaultValueChainLegendRecords, 0, errors),
             ReadLabel(labelsMap, "value_chain_legend_highlight", MapsLabels.DefaultValueChainLegendHighlight, 0, errors));
 
         IDictionary highlightMap = Section(raw, "highlight", HighlightKeys, errors);
@@ -346,12 +346,12 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             }
             int before = errors.Count;
             CheckKeys(at + ": ", entry, PinKeys, errors);
-            string adr = PinField(entry, "adr", AdrCode, "an ADR or rule code, e.g. ADR-WIDGET-GADGET or ADR-WIDGET-GADGET-SPROCKET", at, errors);
+            string rule = PinField(entry, "rule", RuleCode, "a record or rule code, e.g. ADR-WIDGET-GADGET or ADR-WIDGET-GADGET-SPROCKET", at, errors);
             string track = PinField(entry, "track", TrackName, "a track name, e.g. widgets or .gadgets", at, errors);
             string language = PinField(entry, "file_language", LanguageName, "a kebab-case file-language name", at, errors);
             string reason = Has(entry, "reason") ? Text(entry["reason"]).Trim() : "";
             if (reason.Length == 0) { errors.Add(at + ": reason is required (why the entry was reviewed)"); }
-            if (errors.Count == before) { pins.Add(new MapsPin(adr, track, language, reason)); }
+            if (errors.Count == before) { pins.Add(new MapsPin(rule, track, language, reason)); }
         }
         return pins.ToArray();
     }

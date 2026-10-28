@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../azure/.assets/names-are-pure-and-never-truncated.drawio.png
+      source: ../../configuration/.assets/one-gate-guards-the-read-path.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ same command and turns red on the same finding.
 
 ## Image
 
-.assets/gate-is-a-command.png
+[gate-is-a-command](.assets/gate-is-a-command.png)
 
 ## Caption
 
-From the catalogue, reduced: names are pure and never truncated.
+From the catalogue, reduced: one gate guards the read path.
 
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/names-are-pure-and-never-truncated.drawio.png.
+docs/explanation/configuration/.assets/one-gate-guards-the-read-path.drawio.png.

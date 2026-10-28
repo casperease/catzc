@@ -7,31 +7,31 @@ Describe 'Show-Catzc' -Tag 'L0', 'logic' {
         Should -Invoke Get-CatzcModuleExport -ModuleName Catzc.Base.Docs -Times 0
     }
 
-    It 'routes the adr area to Get-DrsIndex' {
+    It 'routes the drs area to Get-DrsIndex' {
         Mock Get-DrsIndex -ModuleName Catzc.Base.Docs { @() }
-        Show-Catzc adr
+        Show-Catzc drs
         Should -Invoke Get-DrsIndex -ModuleName Catzc.Base.Docs -Times 1
     }
 
-    It 'routes an adr query through Get-DrsRules for each match' {
+    It 'routes a drs query through Get-DrsRules for each match' {
         Mock Get-DrsIndex -ModuleName Catzc.Base.Docs {
             @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
         }
         Mock Get-DrsRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA-BETA-TURN'; Summary = 's' }) }
         Mock Get-RuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
-        Show-Catzc adr alpha
+        Show-Catzc drs alpha
         Should -Invoke Get-DrsRules -ModuleName Catzc.Base.Docs -Times 1
     }
 
-    It 'looks up the enforcers for a matched ADR query' {
+    It 'looks up the enforcers for a matched drs query' {
         Mock Get-DrsIndex -ModuleName Catzc.Base.Docs {
             @([pscustomobject]@{ Code = 'ADR-ALPHA'; Title = 'alpha-thing'; Path = 'principles/alpha-thing.md' })
         }
         Mock Get-DrsRules -ModuleName Catzc.Base.Docs { @([pscustomobject]@{ Id = 'ADR-ALPHA-BETA-TURN'; Summary = 's' }) }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { 'TestDrive:/fake.md' }
         Mock Get-RuleEnforcers -ModuleName Catzc.Base.Docs { @{} }
-        Show-Catzc adr alpha
+        Show-Catzc drs alpha
         Should -Invoke Get-RuleEnforcers -ModuleName Catzc.Base.Docs -Times 1
     }
 

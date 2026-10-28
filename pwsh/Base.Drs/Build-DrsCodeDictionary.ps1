@@ -9,20 +9,20 @@ function Build-DrsCodeDictionary {
         [switch] $PassThru
     )
 
-    $adrs = Get-Config -Config drs
-    $adrRoot = Resolve-RepoPath $adrs.Root
-    $index = Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot $adrRoot
+    $drs = Get-Config -Config drs
+    $drsRoot = Resolve-RepoPath $drs.Root
+    $index = Get-DrsFileIndex @($drs.RuleSets) -DrsRoot $drsRoot
     $files = [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
     $relative = '.cspell/drs-codes.txt'
     $path = Join-Path (Get-RepositoryRoot) $relative
 
     $codes = [System.Collections.Generic.List[string]]::new()
-    foreach ($ruleSet in $adrs.RuleSets) {
+    foreach ($ruleSet in $drs.RuleSets) {
         $codes.Add($ruleSet.External)
     }
     foreach ($file in $files) {
         foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file),
-                "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
+                "(?m)^### Rule (?<rule>$($drs.CodeForm.Rule))\s*$")) {
             $codes.Add($match.Groups['rule'].Value)
         }
     }

@@ -11,7 +11,7 @@ Builds the link engine for a repository and runs it over a file scope.
 
 ### description
 
-The one place Format-Links and Test-Links assemble the engine, so the aligner and the gate can never disagree: the ADR citation map
+The one place Format-Links and Test-Links assemble the engine, so the aligner and the gate can never disagree: the DRS citation map
 (Get-DrsCitationMap), the line limits (Get-LinkLineLimit over .editorconfig and links.yml), the default limit, the wrap mode, this
 repository's web URL (Get-RepositoryWebUrl), the string-citation check's exempt globs (links.yml string_citations), and the paths git
 tracks, so a markdown link to a file GitHub does not have is reported. Any other root (a test's scratch root) has no tracked set to compare

@@ -10,13 +10,13 @@ Computes the minimaps each diagram declares and writes their data under out/mini
 
 ### description
 
-Each diagram's declaration is read from its carrier (Get-DiagramDeclarationText) and must name its subject's ADR codes in `about.adrs`. The
-minimaps drawn are the ids its `content.minimaps` lists, each an id or `{ id: { exclude: [cells] } }`, or else the defaults maps.yml gives
-its kind (`content.kind`, else reference or explanation by its folder); each id must be a minimap maps.yml names a data command for. The
-declaration holds these inputs only, never the computed cells. The world map and the subject's file facts are read once for the whole call
-and handed to the data commands that take them. Per diagram, each minimap's drawn data is written to `<id>.json`: the computed lit cells
-less the ones its `exclude:` names, so a new citing file changes the drawing and never the declaration; `minimaps.json` holds the ids in
-order.
+Each diagram's declaration is read from its carrier (Get-DiagramDeclarationText) and must name its subject's rule codes in `about.rules`.
+The minimaps drawn are the ids its `content.minimaps` lists, each an id or `{ id: { exclude: [cells] } }`, or else the defaults maps.yml
+gives its kind (`content.kind`, else reference or explanation by its folder); each id must be a minimap maps.yml names a data command for.
+The declaration holds these inputs only, never the computed cells. The world map and the subject's file facts are read once for the whole
+call and handed to the data commands that take them. Per diagram, each minimap's drawn data is written to `<id>.json`: the computed lit
+cells less the ones its `exclude:` names, so a new citing file changes the drawing and never the declaration; `minimaps.json` holds the ids
+in order.
 
 ### parameter `Stem`
 
@@ -38,7 +38,7 @@ Write-DiagramMinimapData -Stem docs/drs/automation/.assets/widget -RepositoryRoo
 
 ## What is computed
 
-Each declared folder's three minimaps are computed from its ADR codes by the data command `maps.yml` names per id, and written as
+Each declared folder's three minimaps are computed from its rule codes by the data command `maps.yml` names per id, and written as
 `out/minimaps/<folder>/<id>.json` beside `minimaps.json`, the ids in order. The kit's put draws from them and computes nothing.
 
 ## What the declaration holds

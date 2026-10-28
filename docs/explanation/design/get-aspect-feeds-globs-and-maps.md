@@ -27,7 +27,7 @@ description:
   Get-Aspect returns a track's ordered aspects from the validated variants config; Globs compiles them into derived globsets and Maps only
   classifies a file as live or not.
 about:
-  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
+  rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: implementation
 content:
   title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live

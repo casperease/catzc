@@ -8,8 +8,8 @@ comment text and reports what it found at comment-relative offsets, and the link
 
 A whole decision record becomes `[ADR-<CODE>](../../catzc-base-quality-gates/types/<path>.md)` and one rule becomes
 `[ADR-<CODE>-<NAME>](../../catzc-base-quality-gates/types/<path>.md#rule-adr-<code>-<name>)`. Every other spelling is recognised: a bare,
-`./`, `../` or rooted `docs/drs` path, an ADR file name alone, a bare citation, a path followed by its own citation, and a markdown link in
-another shape. A numbered citation is reported, since it names no rule.
+`./`, `../` or rooted `docs/drs` path, a record file name alone, a bare citation, a path followed by its own citation, and a markdown link
+in another shape. A numbered citation is reported, since it names no rule.
 
 The citation code is the source of truth. The destination is derived from it (`DrsCitationMap`), so a stale path is re-pointed and a text
 and destination mismatch resolves in favour of the code. Inline code spans and the `.EXAMPLE` sections of a PowerShell help block are
@@ -22,7 +22,7 @@ One pattern reads a reference, and its alternation order matters: an existing li
 - A path or file name starts a word: it follows the comment start, a space or opening punctuation, never another character, so
   `<root>/docs/drs/index.md` is a placeholder path, not a reference.
 - A citation is not glued to a word. A `-` before it is allowed only after a digit, as a range or date dash is.
-- A meta head is derived front matter: its `adrs` list holds the file's codes as plain codes, never as links.
+- A meta head is derived front matter: its list of cited codes holds the file's codes as plain codes, never as links.
 - The citation right after a path (`x.md (ADR-X-NAME)`, `x.md, Rule ADR-X-NAME`) merges into the path's link. The method returns how many
   characters it covers, and takes a closing parenthesis only when the separator opened it.
 - A bracketed link right after a bare citation that names the same record or rule is the same reference spelled twice. It merges into the

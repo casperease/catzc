@@ -15,8 +15,8 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'lights the layer of the ADR each requested code belongs to, the longest code winning' {
-        $data = Get-LayerStackMinimapData -Adr 'ADR-WIDGET'
+    It 'lights the layer of the record each requested code belongs to, the longest code winning' {
+        $data = Get-LayerStackMinimapData -Rule 'ADR-WIDGET'
         $data.Axes[0].Values | Should -Be @([Catzc.Base.Drs.DrsConfig]::Layers)
         @($data.Lit | ForEach-Object { $_.At[0] }) | Should -Be @('engine', 'importer')
         $data.Lit[1].Reasons[0].Note | Should -Be 'ADR-WIDGET-GADGET-LONG'
@@ -26,13 +26,13 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
             [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
-        $null = Get-LayerStackMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        $null = Get-LayerStackMinimapData -Rule 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }
 
     It 'hands the facts it is given to the subject' {
         $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
-        $null = Get-LayerStackMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        $null = Get-LayerStackMinimapData -Rule 'ADR-WIDGET' -Facts $given
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

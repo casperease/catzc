@@ -63,7 +63,7 @@ pwsh/.vendor/** linguist-vendored
 pwsh/.compiled/** linguist-generated
 {{generated-files}}
 
-# GitHub (linguist): the Markdown here — the ADRs, the explanations, the how-tos, the diagram articles — is authored,
+# GitHub (linguist): the Markdown here — the decision records, the explanations, the how-tos, the diagram articles — is authored,
 # reviewed and versioned like source, so it counts in the language statistics. Linguist treats Markdown as prose and
 # everything under docs/ as documentation, both outside the statistics by default; these two attributes count it in.
 # The generated Markdown named above stays out.

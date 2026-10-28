@@ -23,7 +23,7 @@ description:
   "Which rules of the credential ladder a gate checks: each rung's tests and the step template's check, with the rules no gate checks drawn
   dashed, the PAT's org binding and the empty-token assert among them."
 about:
-  adrs:
+  rules:
     - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-EXPLICITDETECTION

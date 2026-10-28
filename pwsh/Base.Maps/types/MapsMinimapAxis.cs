@@ -17,7 +17,7 @@ public sealed class MapsMinimapAxis
 
     public static readonly IReadOnlyList<string> DefaultColumns = Array.AsReadOnly(new[] { "build", "quality-control", "release", "deploy", "access" });
 
-    // The rows, in order: a row's name and the value-chain stacks whose ADRs it gathers.
+    // The rows, in order: a row's name and the value-chain stacks whose records it gathers.
     public IReadOnlyList<KeyValuePair<string, IReadOnlyList<string>>> rows { get; }
 
     // The delivery concerns across, in order.

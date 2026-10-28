@@ -20,7 +20,7 @@ public sealed class ListenConfig
     // The sensible default: the rules first, then the rest of the documentation; every other file is the rest tier.
     public static IReadOnlyList<ListenTier> DefaultTiers { get; } = Array.AsReadOnly(new[]
     {
-        new ListenTier("rule", Array.AsReadOnly(new[] { "adr", "glossary", "index" })),
+        new ListenTier("rule", Array.AsReadOnly(new[] { "record", "glossary", "index" })),
         new ListenTier("docs", Array.AsReadOnly(new[] { "explanation", "reference", "how-to", "diagram", "slide", "comment-page" })),
     });
 

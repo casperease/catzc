@@ -45,7 +45,10 @@ metadata:
    gates; never the full `Test-Automation`, and in a burst no tier above L1 (L0 78 s, L1 33 s, L2 past the roof); a new command's task
    closes only on one live run of it, its output reported verbatim, never on green tests alone; a command's help is proved by a read of its
    page under `docs/references/`, never by `Get-Help`; a test red before the edit has its name grepped in `.claude/plans` first, since a
-   plan may already hold its cause.
+   plan may already hold its cause; a `types/<Name>.cs` declares one public class `<Name>`, no partial class; a new file naming the accosted
+   word needs its scope line in `pwsh/Base.QualityGates/configs/terminology/reserved.yml` (an ask unless owned); a staged `.cs` is formatted
+   in place as its burst's first step; a gate that reads tracked files only reads an uncommitted file red, reported as owed to the commit;
+   plan text names a rule family by its code without a trailing star.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/drs/glossary.md`, `docs/drs/index.md`,
    `docs/how-to/pwsh/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile with

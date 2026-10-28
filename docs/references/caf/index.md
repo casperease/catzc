@@ -15,14 +15,14 @@ are outside this repository.
 
 ## How the repository answers it
 
-Each design area is an ADR in the `azure` domain, under [docs/drs/external/azure/caf/](../../drs/external/azure/caf/); the network design
-area, the largest, is split into three. Each design recommendation is one numbered rule, numbered in the order Microsoft's pages list them;
-its section cites the page, summarises the recommendation in our words, says what it means for the templates `foundation`, `discovery`, and
-`expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason. A recommendation that
-touches no template, config, module, pipeline, or check of this repository (a billing agreement type, another cloud) is recorded in a
-compact form that says why it does not apply.
+Each design area is a decision record in the `azure` domain, under [docs/drs/external/azure/caf/](../../drs/external/azure/caf/); the
+network design area, the largest, is split into three. Each design recommendation is one numbered rule, numbered in the order Microsoft's
+pages list them; its section cites the page, summarises the recommendation in our words, says what it means for the templates `foundation`,
+`discovery`, and `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason. A
+recommendation that touches no template, config, module, pipeline, or check of this repository (a billing agreement type, another cloud) is
+recorded in a compact form that says why it does not apply.
 
-| Design area                        | ADR                                                                              | Code                |
+| Design area                        | Record                                                                           | Code                |
 | ---------------------------------- | -------------------------------------------------------------------------------- | ------------------- |
 | Design principles                  | [design-principles](../../drs/external/azure/caf/design-principles.md)           | `EDR-AZ-CAF-PRIN`   |
 | Billing and Microsoft Entra tenant | [billing-and-tenant](../../drs/external/azure/caf/billing-and-tenant.md)         | `EDR-AZ-CAF-BILL`   |
@@ -40,7 +40,7 @@ compact form that says why it does not apply.
 [devops]: ../../drs/external/azure/caf/platform-automation-and-devops.md
 
 The landing-zone decision record ([landing-zones](../../drs/azure/landing-zones.md), `ADR-AZ-LZ`) is this repository's own decision; the CAF
-ADRs account for each vendor recommendation against it. The workload-side counterpart is the
+records account for each vendor recommendation against it. The workload-side counterpart is the
 [Well-Architected Framework reference](../waf/index.md).
 
 ## Citation, not quotation
@@ -54,5 +54,5 @@ of them.
 
 The pages were read on **2026-10-14 and 2026-10-15** (each rule's citation carries its own date). Microsoft restructures CAF pages from time
 to time — several design-area pages have replaced their "design recommendations" sections with other guidance. A refresh reads each cited
-page again, updates the summary and takeaways of any changed recommendation, adds a new recommendation as a new rule at the end of its ADR,
-and keeps a withdrawn one as a rule marked withdrawn with the date, so a citation of it never points at nothing.
+page again, updates the summary and takeaways of any changed recommendation, adds a new recommendation as a new rule at the end of its
+record, and keeps a withdrawn one as a rule marked withdrawn with the date, so a citation of it never points at nothing.

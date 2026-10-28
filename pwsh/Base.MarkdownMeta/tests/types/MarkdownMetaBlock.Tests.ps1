@@ -67,7 +67,7 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Scalar($Text) | Should -BeExactly $Expected
     }
 
-    It 'reads ADR and rule codes back from a rendered list edge' {
+    It 'reads record and rule codes back from a rendered list edge' {
         $lines = $script:block::Render([ordered]@{}, [ordered]@{ cites = [string[]] @('ADR-WIDGET-GADGET',
                     'ADR-WIDGET-LONE-RE02')
             }, $script:none)

@@ -1,4 +1,4 @@
-# ADR: Materialization — when a knowledge resource comes into being and how long it holds
+# Automation: Materialization — when a knowledge resource comes into being and how long it holds
 
 ## Rules: ADR-AUTO-MATERIAL
 

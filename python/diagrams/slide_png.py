@@ -200,17 +200,18 @@ def picture(slide):
 
 
 def render(slide, out=None):
-    """The fact slide drawn at the deck's size: eyebrow, title, lead on the left; the picture and its caption on the right; the page row."""
+    """The fact slide drawn at the deck's size: eyebrow, title, lead on the left; the picture and its caption on the right; the page row.
+    A slide with no `## Image` is text-only: the text takes the full inner width and no caption is drawn."""
     config, fields = head_and_fields(slide)
     token, scale, layout = SLIDES["token"], SLIDES["scale"], SLIDES["layout"]
     width, height, gutter = int(layout["width"]), int(layout["height"]), int(layout["gutter"])
     pic_w, pic_h, wide, gap = int(FACT["picture_width"]), int(FACT["picture_height"]), float(FACT["wide_ratio"]), int(FACT["gap"])
     img = Image.new("RGB", (width, height), token["bg_deep"])
     d = ImageDraw.Draw(img)
-    shown = image_of(slide, fields)
-    pic = Image.open(shown).convert("RGB") if shown.exists() else None
+    shown = image_of(slide, fields) if fields.get("image") else None
+    pic = Image.open(shown).convert("RGB") if shown is not None and shown.exists() else None
     under = pic is not None and pic.width > wide * pic.height  # a wide picture lies under the text at the full inner width
-    column = width - 2 * gutter if under else width - 2 * gutter - pic_w - gap
+    column = width - 2 * gutter if under or shown is None else width - 2 * gutter - pic_w - gap
     y = gutter
     eyebrow = font("text", int(scale["caption"]))
     d.text((gutter, y), fields.get("eyebrow", "").upper(), font=eyebrow, fill=token["accent"])

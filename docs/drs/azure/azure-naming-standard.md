@@ -1,4 +1,4 @@
-# ADR: Azure resource naming standard
+# Azure: Azure resource naming standard
 
 <!-- cspell:ignore weuwkspvm prweufindiscaphotst weufindiscxaphotst weudiscvm etlco -->
 
@@ -94,7 +94,7 @@ description:
   An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render past
   the limit throws at deploy time and is never truncated, and three worked examples show the names that come out.
 about:
-  adrs: [ADR-AZ-NAMING]
+  rules: [ADR-AZ-NAMING]
   lens: implementation
 content:
   title: Every Azure name is assembled from fixed components; an over-limit name throws, never truncated

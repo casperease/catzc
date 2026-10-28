@@ -6,7 +6,7 @@ catzc:
     order: 14
     picture:
       mode: reduce
-      source: ../../ado/.assets/what-you-set-decides-the-credential.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Image
 
-.assets/pairs-deck-is-checked.png
+[pairs-deck-is-checked](.assets/pairs-deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: what you set decides the credential.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/ado/.assets/what-you-set-decides-the-credential.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

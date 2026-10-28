@@ -59,7 +59,7 @@ function Add-SessionLearning {
             $digest = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes("$($config.folder)|$since"))
             $sha = [Convert]::ToHexString($digest).Substring(0, 6).ToLowerInvariant()
             $current = Join-Path $folder "$($config.prefix)$sha.md"
-            [System.IO.File]::WriteAllText($current, "# $($config.title) $sha`n`n$started$since.`n`n", $encoding)
+            [System.IO.File]::WriteAllText($current, "# $($config.title)`n`n$started$since.`n`n", $encoding)
             [string[]] $files = @($files) + $current
             for ($i = 0; $i -lt $files.Count - $config.files; $i++) {
                 [System.IO.File]::Delete($files[$i])

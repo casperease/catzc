@@ -16,7 +16,8 @@
     is taken before the import, so a waiting run holds no import, and waiters take it in the order they came (Wait-CatzcRunLock.ps1). A
     run that finds the lock held says so in one line and waits up to -LockSeconds; one that still cannot take it stops with a "run lock
     busy" line and exit code 1, importing and running nothing. While a session's Enter-CatzcBurst holds the lock, a waiting run says so
-    and waits as long as the burst lasts, then up to -LockSeconds more; the burst's own checks pass -InBurst.
+    and waits as long as the burst lasts, then up to -LockSeconds more; the burst's own checks pass -InBurst. A run that holds the lock
+    ends its process once the caller that started it is gone, such as a stopped background call, so the lock falls free at once.
 
     timeout 300 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-Plans" "Test-Links -Path docs/how-to/index.md"
 
@@ -100,7 +101,33 @@ if (-not $owned) {
 }
 
 $failed = 0
+$runFinished = $null
+$watcher = $null
 try {
+    # A run whose caller is stopped serves no one, so a watcher on its own thread ends the process once the caller is
+    # gone, and the lock falls free (abandoned, which the next waiter takes) instead of being held until the work ends.
+    $callerProcess = if ($lock) {
+        (Get-Process -Id $PID).Parent
+    }
+    if ($callerProcess) {
+        $runFinished = [System.Threading.ManualResetEventSlim]::new($false)
+        $watchState = [System.Management.Automation.Runspaces.InitialSessionState]::Create()
+        $watchState.LanguageMode = [System.Management.Automation.PSLanguageMode]::FullLanguage
+        $watcher = [powershell]::Create([System.Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace($watchState))
+        $watcher.Runspace.Open()
+        $null = $watcher.AddScript({
+                param($Caller, $Finished)
+                while (-not $Caller.WaitForExit(250)) {
+                    if ($Finished.IsSet) {
+                        return
+                    }
+                }
+                if (-not $Finished.IsSet) {
+                    [System.Environment]::Exit(1)
+                }
+            }).AddArgument($callerProcess).AddArgument($runFinished)
+        $null = $watcher.BeginInvoke()
+    }
     # Inside a burst its import is the one the swap is for, so Wait-ImportBurst lets it through.
     if ($InBurst) {
         $env:CATZC_IN_BURST = '1'
@@ -192,6 +219,13 @@ try {
 finally {
     if ($InBurst) {
         $env:CATZC_IN_BURST = $null
+    }
+    if ($watcher) {
+        $runFinished.Set()
+        $watcher.Stop()
+        $watcher.Runspace.Dispose()
+        $watcher.Dispose()
+        $runFinished.Dispose()
     }
     if ($lock) {
         Remove-CatzcRunLockHolder -LockName $LockName

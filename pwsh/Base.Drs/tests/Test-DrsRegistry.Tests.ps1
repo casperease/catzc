@@ -30,7 +30,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 'ADR-GA-WIDGET' = @{ path = 'docs/drs/gadget/widget-one.md'; rules = [string[]] @() }
             }, @())
 
-        function Write-AdrFixture {
+        function Write-RecordFixture {
             param([string] $Relative, [string] $Text)
             $path = Join-Path $TestDrive "adr/$Relative"
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
@@ -55,11 +55,11 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         if (Test-Path -LiteralPath $out) {
             Remove-Item -LiteralPath $out -Recurse -Force
         }
-        Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n"
-        Write-AdrFixture 'gadget/sub/gadget-one.md' "# Gadget one`n`n## Rules: ADR-GA-ONE`n"
-        Write-AdrFixture 'gadget/widget-one.md' "# Gadget widget`n`n## Rules: ADR-GA-WIDGET`n"
-        Write-AdrFixture 'gadget/dora-explains.md' "# Dora explains`n"
-        Write-AdrFixture 'index.md' "# Index`n"
+        Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n"
+        Write-RecordFixture 'gadget/sub/gadget-one.md' "# Gadget one`n`n## Rules: ADR-GA-ONE`n"
+        Write-RecordFixture 'gadget/widget-one.md' "# Gadget widget`n`n## Rules: ADR-GA-WIDGET`n"
+        Write-RecordFixture 'gadget/dora-explains.md' "# Dora explains`n"
+        Write-RecordFixture 'index.md' "# Index`n"
 
         $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report'
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
@@ -73,13 +73,13 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     Context 'dangling codes' {
         It 'reports a code in prose that names no registered rule, record or domain, and leaves fenced examples alone' {
-            Write-AdrFixture 'widget/widget-one.md' (
+            Write-RecordFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`nFollows ADR-WI-ONE-SPIN, and ADR-WI-ONE-GONE no longer exists.`n" +
                 "`n``````text`nADR-GA-ONE-EXAMPLE`n```````n")
             $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'adr') } {
                 param($Fixture, $Map, $Root)
                 $index = Get-DrsFileIndex @($Fixture.RuleSets) -DrsRoot $Root
-                Get-DrsDanglingCodeViolations -Adrs $Fixture -Index $index -Map $Map
+                Get-DrsDanglingCodeViolations -Drs $Fixture -Index $index -Map $Map
             }
             $found | Should -Be @(
                 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)'
@@ -87,13 +87,13 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'keeps a four-tick fence open across the three-tick block it holds, and checks prose again once it closes' {
-            Write-AdrFixture 'widget/widget-one.md' (
+            Write-RecordFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`n````````markdown`n``````text`nADR-GA-ONE-INSIDE`n```````nADR-GA-ONE-STILLINSIDE`n`````````n" +
                 "`nADR-WI-ONE-AFTER is prose again.`n")
             $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'adr') } {
                 param($Fixture, $Map, $Root)
                 $index = Get-DrsFileIndex @($Fixture.RuleSets) -DrsRoot $Root
-                Get-DrsDanglingCodeViolations -Adrs $Fixture -Index $index -Map $Map
+                Get-DrsDanglingCodeViolations -Drs $Fixture -Index $index -Map $Map
             }
             $found | Should -Be @(
                 'docs/drs/widget/widget-one.md:12: cites ADR-WI-ONE-AFTER, which names no registered rule, record or domain (a dangling code)'
@@ -120,14 +120,14 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
         It 'throws once naming a missing, a duplicated, a mis-headed, and an unregistered rule file' {
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/widget/widget-one.md')
-            Write-AdrFixture 'gadget/other/gadget-one.md' "# Gadget one again`n`n## Rules: ADR-GA-ONE`n"
-            Write-AdrFixture 'gadget/widget-one.md' "# Gadget widget`n`n## Rules: ADR-GA-GIZMO`n"
-            Write-AdrFixture 'gadget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GA-GIZMO`n"
+            Write-RecordFixture 'gadget/other/gadget-one.md' "# Gadget one again`n`n## Rules: ADR-GA-ONE`n"
+            Write-RecordFixture 'gadget/widget-one.md' "# Gadget widget`n`n## Rules: ADR-GA-GIZMO`n"
+            Write-RecordFixture 'gadget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GA-GIZMO`n"
             $thrown = { Test-DrsRegistry -OutputFolder $out } | Should -Throw -PassThru
             $message = $thrown.Exception.Message
             $message | Should -BeLike 'Test-DrsRegistry failed: 4 issue(s)*'
-            $message | Should -Match 'ADR-WI-ONE: no ADR file docs/drs/widget/\*\*/widget-one\.md'
-            $message | Should -Match 'ADR-GA-ONE: 2 ADR files named gadget-one\.md under docs/drs/gadget/'
+            $message | Should -Match 'ADR-WI-ONE: no decision record file docs/drs/widget/\*\*/widget-one\.md'
+            $message | Should -Match 'ADR-GA-ONE: 2 decision record files named gadget-one\.md under docs/drs/gadget/'
             $message |
                 Should -Match "docs/drs/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
             $message |
@@ -135,7 +135,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'returns the issues under -PassThru instead of throwing' {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Subject | Should -Be 'drs-registry'
             $result.Issues | Should -HaveCount 1
@@ -146,7 +146,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
     Context 'the configured checks' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeEach {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-LEAN`n`nA widget leans on ADR-GA-ONE-APPLY.`n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-LEAN`n`nA widget leans on ADR-GA-ONE-APPLY.`n"
         }
 
         It 'prints a report-mode check''s findings in its own report and never fails the run' {
@@ -178,8 +178,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
         It 'passes a gate-mode DORA-coverage check when every rule set has exactly one section' {
             $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'gate'
-            Write-AdrFixture 'widget/dora-explains.md' "# Dora`n`n## Widget one`n`n[ADR-WI-ONE](widget-one.md)`n"
-            Write-AdrFixture 'gadget/dora-explains.md' "# Dora`n`n## Gadget one`n`n[ADR-GA-ONE](sub/gadget-one.md)`n`n## Widget`n`n[ADR-GA-WIDGET](widget-one.md)`n"
+            Write-RecordFixture 'widget/dora-explains.md' "# Dora`n`n## Widget one`n`n[ADR-WI-ONE](widget-one.md)`n"
+            Write-RecordFixture 'gadget/dora-explains.md' "# Dora`n`n## Gadget one`n`n[ADR-GA-ONE](sub/gadget-one.md)`n`n## Widget`n`n[ADR-GA-WIDGET](widget-one.md)`n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['DoraCoverageMode'] | Should -Be 'gate'
@@ -197,7 +197,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'counts a file''s numbered rule headings as one finding' {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`n### Rule ADR-WI-ONE:2`n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n`n### Rule ADR-WI-ONE:2`n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['CodeLanguageMode'] | Should -Be 'report'
@@ -206,12 +206,12 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguageFindings'] | Should -Be 0
         }
 
-        It 'reports a heading of two segments, a heading under another code, a rule named like an ADR, and a code outside its domain' {
+        It 'reports a heading of two segments, a heading under another code, a rule named like a record, and a code outside its domain' {
             $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                     domains = [ordered]@{
                         widget = [ordered]@{
@@ -225,16 +225,16 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                         }
                     }
                 })
-            Write-AdrFixture 'widget/widget-one.md' (
+            Write-RecordFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS-FREELY`n`n### Rule ADR-GA-ONE-SPINS`n`n### Rule ADR-WI-ONE-TWO`n")
-            Write-AdrFixture 'widget/widget-two.md' "# Widget two`n`n## Rules: ADR-WI-ONE-TWO`n"
-            Write-AdrFixture 'widget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GIZMO`n"
+            Write-RecordFixture 'widget/widget-two.md' "# Widget two`n`n## Rules: ADR-WI-ONE-TWO`n"
+            Write-RecordFixture 'widget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GIZMO`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] | Should -Be @(
                 "docs/drs/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
                 "docs/drs/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
-                'docs/drs/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-DRSCODE-ONESTRINGONEFACT)'
+                'docs/drs/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the record ADR-WI-ONE-TWO (ADR-REPO-DRSCODE-ONESTRINGONEFACT)'
                 "ADR-GIZMO (widget): does not start with its domain's prefix, ADR-WI- (ADR-REPO-DRSCODE-DOMAINSEGMENT)"
             )
         }
@@ -252,8 +252,8 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                         }
                     }
                 })
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n"
-            Write-AdrFixture 'widget/widget-two.md' (
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n"
+            Write-RecordFixture 'widget/widget-two.md' (
                 "# Widget two`n`n## Rules: ADR-WI-TWO`n`n### Rule ADR-WI-TWO-SPINS`n`n### Rule ADR-WI-TWO-SPINSEVERYGADGETFORLONGER`n")
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $findings = @((Test-DrsRegistry -OutputFolder $out -PassThru).Facts['CodeLanguage'])
@@ -271,7 +271,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                         }
                     }
                 })
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] |
@@ -280,7 +280,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
         It 'adds its findings to the gate''s issues in gate mode' {
             $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report' -CodeLanguage 'gate'
-            Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n"
+            Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE:1`n"
             $thrown = { Test-DrsRegistry -OutputFolder $out } | Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike '*widget-one.md: 1 numbered rule heading(s)*'
         }

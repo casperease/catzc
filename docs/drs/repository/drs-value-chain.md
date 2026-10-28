@@ -1,4 +1,4 @@
-# ADR: DRS value chain — where each decision record sits along delivery
+# Repository: DRS value chain — where each decision record sits along delivery
 
 ## Rules: ADR-REPO-VALUECHAIN
 

@@ -23,7 +23,7 @@ description:
   "Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset never, a declared
   module layer is rejected at config load) or add a module folder; one run of the independence gate passes or names every overlapping pair."
 about:
-  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
+  rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: operations
 content:
   title: Declare a unit or add a module folder, and the gate names every overlap

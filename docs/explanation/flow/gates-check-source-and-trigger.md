@@ -29,7 +29,7 @@ description:
   git reflection and the live identity; gates check the source and the trigger projection, while the git reflection and the identity are
   held by the ADR rules alone.
 about:
-  adrs:
+  rules:
     - FDR-GLOBS-NAMEDGLOBSETS
     - FDR-GLOBS-RELATIVEPATTERNS
     - FDR-GLOBS-MALFORMEDPATTERNREJECTED

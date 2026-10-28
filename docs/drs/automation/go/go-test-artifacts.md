@@ -1,4 +1,4 @@
-# ADR: Go modules and test artifacts — modules by layout, black-box tests of the engine, nothing shipped unpackaged
+# Automation: Go modules and test artifacts — modules by layout, black-box tests of the engine, nothing shipped unpackaged
 
 ## Rules: ADR-AUTO-GO
 

@@ -7,12 +7,12 @@ function Get-ListenCitedRule {
         [string] $Text
     )
 
-    # Every cited ADR or rule: a domain's own prefix (ADR-AUTO) names no record.
-    $adrs = Get-Config -Config drs
-    $prefixes = [System.Collections.Generic.HashSet[string]]::new([string[]] @($adrs.Domains.Prefix),
+    # Every cited record or rule: a domain's own prefix (ADR-AUTO) names no record.
+    $drs = Get-Config -Config drs
+    $prefixes = [System.Collections.Generic.HashSet[string]]::new([string[]] @($drs.Domains.Prefix),
         [System.StringComparer]::Ordinal)
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($Text, "\b$($adrs.CodeForm.Cited)\b")) {
+    foreach ($match in [regex]::Matches($Text, "\b$($drs.CodeForm.Cited)\b")) {
         if (-not $prefixes.Contains($match.Value)) {
             [void] $codes.Add($match.Value)
         }

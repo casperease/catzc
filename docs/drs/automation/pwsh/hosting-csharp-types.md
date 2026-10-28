@@ -1,4 +1,4 @@
-# ADR: Hosting C# types in pwsh — the compiler, the reference set, accelerators, and stale types
+# PowerShell: Hosting C# types — the compiler, the reference set, accelerators, and stale types
 
 ## Rules: ADR-PWSH-TYPES
 
@@ -15,7 +15,7 @@ whole binding. No external packages, no NuGet.
 
 A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.PSTypeAlias("Name")]`; `Import-CSharpTypes` registers each
 after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
-reclaims only our own accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
+reclaims only a catzc accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
 the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
 the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) like any other.
 
@@ -80,8 +80,8 @@ the same measure for its warn-or-throw (ADR-PWSH-TYPES-RESTARTTORELOAD), so ever
 The stale-types guard — the source changed since it was loaded, so restart — is keyed by `ModulesRoot`. `Import-CSharpTypes` takes the tree
 as a parameter, and one session may load more than one tree (the real code root plus the test-fixture trees), so the per-session record of
 loaded hash and file snapshot is stored per resolved root. A load from one root therefore never makes a re-import of another root falsely
-report a change — without this, a test run (which loads fixture trees) would poison the next real import's guard. The thrown message names
-the drifted files and both hashes so the cause is diagnosable from the error text alone.
+report a change, so a test run that loads fixture trees leaves the next real import's guard intact. The thrown message names the drifted
+files and both hashes, so the cause is diagnosable from the error text alone.
 
 - [Stale types in a pwsh process](#stale-types-in-a-pwsh-process)
 
@@ -153,8 +153,8 @@ which the formatter honours, so typing `$x` at the prompt shows those properties
 
 [native-csharp-types](../BCL/native-csharp-types.md) (`ADR-BCL-TYPES`) decides what the C# types are: one type per file, a namespace per
 module, one combined assembly committed under a hash name, a fixed internal model, console-ready text. Every one of those types runs inside
-a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This ADR is how that host binds the types:
-which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed type.
+a pwsh process, which compiles the assembly, loads it, and hands its objects to PowerShell code. This record is how that host binds the
+types: which compiler, which references, which names pwsh callers type, and what a running pwsh can and cannot do with a changed type.
 
 ### The compiler
 
@@ -176,12 +176,11 @@ builds the project.
 `The reference set: host-guaranteed assemblies`
 
 A type may reference exactly what the host guarantees is present: the BCL, which is the BCL language's whole reference set, and
-`System.Management.Automation` (SMA) for a configured host binding. The types compile and run exclusively inside a `pwsh` session's CLR —
-`Add-Type` is the only compiler, and its default reference set includes SMA alongside the shared framework. The compiled assembly is
-likewise only ever loaded by a `pwsh` process, where SMA is loaded by definition, so an SMA reference resolves in every process that can
-load the assembly at all. Using a PowerShell primitive from C# — `WildcardPattern`, `TypeAccelerators`, `PSObject` — therefore costs a
-`using` namespace and nothing more: no package, no assembly hint, no build step. That is what "host-guaranteed" means: the reference is
-satisfied by the same host that makes the type reachable in the first place.
+`System.Management.Automation` (SMA) for a configured host binding. The types compile and run only inside a `pwsh` session's CLR: `Add-Type`
+is the only compiler, its default reference set includes SMA beside the shared framework, and only a `pwsh` process, where SMA is loaded by
+definition, loads the compiled assembly. A PowerShell primitive used from C# — `WildcardPattern`, `TypeAccelerators`, `PSObject` — costs a
+`using` namespace and nothing more: no package, no assembly hint, no build step. That is "host-guaranteed": the reference is satisfied by
+the same host that makes the type reachable.
 
 The boundary is packages, not the SMA line: `Add-Type` has no mechanism to add references beyond its default set, and there is no NuGet in
 this toolset. A type that wants `Microsoft.Extensions.*` or any other external package is asking for a dependency the host does not
@@ -251,7 +250,7 @@ is eager, so a pipeline, a test worker or `cats` fails at import on a stale or m
 says which cell is lazy and which eager is data, one row per host, operating system and run mode, flipped by editing a row and never by
 code. The import-time janitors are catzc commands, so a console import would load the assembly through them before the prompt appeared; a
 console session therefore runs them once the first prompt has shown, through a prompt hook the loader installs and removes after that one
-run, and a headless session runs them at import as before.
+run, and a headless session runs them at import.
 
 The hash that names the assembly is the costliest step of a warm import: every `types/*.cs` read and hashed. A machine-local memo keyed by
 each file's length and last write skips the read for a file that shows the same pair, and rewrites itself when any file was read; it lives
@@ -293,20 +292,20 @@ copy, never the build.
 
 `The loose shapes are pwsh's own`
 
-pwsh makes a loose shape cheap to write — an `[ordered]@{}` literal or a `[pscustomobject]` cast — which is exactly why the model rule needs
-saying in pwsh terms. A concept the platform's own logic selects on, branches on, or pins at a call site is a `[Catzc.…]` type: the
-parameter that takes it is typed, and the function that returns it says so in `[OutputType()]`, so a caller and the analyzer both see the
-shape. Boundary data stays loose until the boundary that validates it: a shipped config crosses in through its config type, and an `az` JSON
-result or a splat is fine as a dictionary or `[pscustomobject]`.
+pwsh makes a loose shape cheap to write — an `[ordered]@{}` literal or a `[pscustomobject]` cast — so the model rule is stated in pwsh
+terms. A concept the platform's own logic selects on, branches on, or pins at a call site is a `[Catzc.…]` type: the parameter that takes it
+is typed, and the function that returns it says so in `[OutputType()]`, so a caller and the analyzer both see the shape. Boundary data stays
+loose until the boundary that validates it: a shipped config crosses in through its config type, and an `az` JSON result or a splat is fine
+as a dictionary or `[pscustomobject]`.
 
 ### ToString for pwsh callers
 
 `Why the console text has to be C#`
 
 A class that keeps `object.ToString()` renders in pwsh as its fully-qualified name: `Write-Message "Switched to $context"` prints
-`Switched to Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Objects.GlobPattern, …}` in a table. The fix
-has to be in C#: PowerShell's interpolation and `[string]` cast call the type's own .NET `ToString()` and ignore a `ToString` registered
-through the extended type system, which only `-join`, an explicit `.ToString()`, and the formatter honour.
+`Switched to Catzc.Azure.Cli.SubscriptionContext`, and a collection property shows `{Catzc.Base.Objects.GlobPattern, …}` in a table. The
+text lives in C#, since PowerShell's interpolation and `[string]` cast call the type's own .NET `ToString()` and ignore a `ToString`
+registered through the extended type system, which only `-join`, an explicit `.ToString()`, and the formatter honour.
 
 The default display is the other half, and it is registration: the formatter does honour extended-type-system data, so `Import-CSharpTypes`
 turns each `[ConsoleDisplay("Id", "Name")]` into the type's `DefaultDisplayPropertySet`, like the type-accelerator aliases.

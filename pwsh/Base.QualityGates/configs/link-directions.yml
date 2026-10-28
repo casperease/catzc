@@ -18,7 +18,7 @@ rows:
     because: ADR-REPO-FILEMETA-FEWLINKS
   - relations: [markdown_link]
     from: { classes: [comment-page] }
-    to: { classes: [adr, index, glossary] }
+    to: { classes: [record, index, glossary] }
     verdict: allow
     because: ADR-REPO-COMMENTS-MOVELOSESNOTHING
   - relations: [markdown_link]
@@ -27,31 +27,31 @@ rows:
     because: ADR-REPO-LINK-ONEWAY
   - relations: [markdown_link]
     from: { classes: [other] }
-    to: { classes: [adr, index] }
+    to: { classes: [record, index] }
     verdict: allow
     because: ADR-REPO-AI-READCONTRACTFIRST
   - relations: [code_link]
     from: { track_types: [modules, infrastructure, pipelines, vendor-settings] }
-    to: { classes: [adr] }
+    to: { classes: [record] }
     verdict: allow
     because: ADR-REPO-LINK-CODELINKS
   - relations: [code_link]
     verdict: deny
     because: ADR-REPO-LINK-ONEWAY
   - relations: [markdown_link]
-    from: { classes: [adr] }
+    from: { classes: [record] }
     to: { track_types: [modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts] }
     verdict: deny
     because: ADR-REPO-LINK-ONEWAY
-  - from: { classes: [adr] }
-    to: { classes: [adr, reference/dora, reference/caf, reference/waf] }
+  - from: { classes: [record] }
+    to: { classes: [record, reference/dora, reference/caf, reference/waf] }
     verdict: allow
     because: ADR-REPO-LINKS-DECLAREDGRAPHSSTAY
-  - from: { classes: [adr] }
+  - from: { classes: [record] }
     to: { classes: [index, glossary] }
     verdict: allow
     because: ADR-REPO-LINKS-RECORDSLINKGROUNDINGONLY
-  - from: { classes: [adr] }
+  - from: { classes: [record] }
     to: { classes: [reference, how-to, explanation] }
     verdict: deny
     because: ADR-REPO-LINKS-RECORDSLINKGROUNDINGONLY

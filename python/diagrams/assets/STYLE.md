@@ -309,11 +309,11 @@ minimap ids and three defaults, declared once in `maps.yml`. Every id is one of 
 `layer-stack`, `lifecycle-position`, `track-placement`, `engine-strip` and `module-neighbourhood`; an id outside them fails validation,
 naming the eight.
 
-**The data is computed, never drawn.** A diagram's subject is the ADR codes in its `about.adrs` and the files that cite them.
+**The data is computed, never drawn.** A diagram's subject is the ADR codes in its `about.rules` and the files that cite them.
 `Catzc.Base.Maps` projects that subject onto each minimap's axes with the data command `maps.yml` names for its id, reading a registry (the
 world map, the value chain, the ADR layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
 carries the file and the requested code that light it. The data is contract JSON
-(`contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
+(`contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
 at least one reason. `Build-Diagrams` and `Test-Diagrams` write it to `out/minimaps/`; the kit validates it against the schema
 (`minimap_contract.py`) and only draws it. No minimap file lives beside a diagram: the picture is embedded in the render, and the reasons
 travel in the JSON and in the article that embeds the diagram. A diagram whose minimap data is missing does not put.
@@ -342,7 +342,7 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
   screen at 100 %. The minimum height is 360 px.
 - **Right column** (x 1300–1572): four slots, the three minimaps and the minimap legend, laid out by the renderer from the declaration; no
   ADR codes, since the subtitle is their one place on a diagram.
-- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, the ADR codes of `about.adrs`.
+- **Title:** ≤ 60 chars on one line, 16 px bold, and it states the finding. **Subtitle:** ≤ 120 chars, the ADR codes of `about.rules`.
 - **Boxes:**
   - name ≤ 28 chars;
   - body ≤ 2 lines × 40 chars;

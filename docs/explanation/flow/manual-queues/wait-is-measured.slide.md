@@ -39,7 +39,7 @@ the registry. The store holds both ends, so the wait is a number, not a feeling.
 
 ## Image
 
-.assets/wait-is-measured.png
+[wait-is-measured](.assets/wait-is-measured.png)
 
 ## Caption
 

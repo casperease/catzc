@@ -14,13 +14,13 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "naming", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "drs_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes" };
     // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
     private const string DefaultNormalForm = "snake";
     // A settings entry is a repository-relative file, or `<file>#<key>` for one top-level key of a YAML file.
     internal static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*(#[A-Za-z0-9_]+)?$");
     internal static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
-    private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
+    private static readonly Regex DrsFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
     private static readonly Regex VscodeLanguage = new Regex("^[a-z][a-z0-9-]*$");
 
     private readonly Dictionary<string, FileLanguage> byExtension = new Dictionary<string, FileLanguage>(StringComparer.Ordinal);
@@ -234,7 +234,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
                 IDictionary map = raw["languages"] as IDictionary;
                 if (map == null)
                 {
-                    errors.Add("invalid languages (must be a map of language -> { extensions, formatter | no_formatter, adr_folder })");
+                    errors.Add("invalid languages (must be a map of language -> { extensions, formatter | no_formatter, drs_folder })");
                 }
                 else
                 {
@@ -354,7 +354,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary entry = value as IDictionary;
         if (entry == null)
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] must be a mapping {{ extensions, formatter | no_formatter, adr_folder }}", name));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] must be a mapping {{ extensions, formatter | no_formatter, drs_folder }}", name));
             return null;
         }
         foreach (object k in entry.Keys)
@@ -393,14 +393,14 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}'] names both a formatter and no_formatter; keep one", name));
         }
 
-        string adrFolder = null;
-        if (entry.Contains("adr_folder") && entry["adr_folder"] != null)
+        string drsFolder = null;
+        if (entry.Contains("drs_folder") && entry["drs_folder"] != null)
         {
-            adrFolder = Text(entry["adr_folder"]);
-            bool dotSegment = Array.Exists(adrFolder.Split('/'), s => s == "." || s == "..");
-            if (!AdrFolder.IsMatch(adrFolder) || dotSegment)
+            drsFolder = Text(entry["drs_folder"]);
+            bool dotSegment = Array.Exists(drsFolder.Split('/'), s => s == "." || s == "..");
+            if (!DrsFolder.IsMatch(drsFolder) || dotSegment)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid adr_folder '{1}' (a '/'-separated folder under the decision records' root, e.g. pwsh)", name, adrFolder));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid drs_folder '{1}' (a '/'-separated folder under the decision records' root, e.g. pwsh)", name, drsFolder));
             }
         }
 
@@ -458,7 +458,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, drsFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray());
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

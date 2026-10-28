@@ -87,8 +87,8 @@ over-limit tests (with their durations) and stays green. Pass this (e.g. in a co
 
 ### parameter `Rule`
 
-Run only the tests that cite one of these ADR rules (the provenance filter) — e.g. `-Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`. Each value is
-a citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test and, within them, to the cited tests (Pester tag
+Run only the tests that cite one of these rules (the provenance filter) — e.g. `-Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`. Each value is a
+citation in `ADR-<CODE>#<n>` form. The run narrows to the files carrying a matching test and, within them, to the cited tests (Pester tag
 include). Composes with -Level/-Category/-Modules. It is the executable companion of the rule-coverage report: find a rule's tests, then run
 just them.
 

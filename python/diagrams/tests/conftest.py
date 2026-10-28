@@ -115,7 +115,7 @@ def claimed():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["about"] = {
         "lens": "architecture",
-        "adrs": [next(iter(declaration.minimaps.adrs()))],
+        "rules": [next(iter(declaration.minimaps.records()))],
         "tracks": ["python"],
         "languages": ["python"],
         "modules": ["Catzc.Base.Repository"],

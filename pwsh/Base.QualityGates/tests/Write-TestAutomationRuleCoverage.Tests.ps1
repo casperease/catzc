@@ -8,8 +8,8 @@ Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-C
             [pscustomobject]@{ ExpandedPath = 'M.c cites nothing'; Rules = '' }
         )
         $script:analyzer = @(
-            [pscustomobject]@{ AdrId = 'ADR-FAKE-FOLD'; Enforcer = 'Measure-FakeRule2'; Kind = 'pssa-rule' }
-            [pscustomobject]@{ AdrId = 'ADR-FAKE-PULL'; Enforcer = 'Measure-FakeRule4'; Kind = 'pssa-rule' }
+            [pscustomobject]@{ RecordId = 'ADR-FAKE-FOLD'; Enforcer = 'Measure-FakeRule2'; Kind = 'pssa-rule' }
+            [pscustomobject]@{ RecordId = 'ADR-FAKE-PULL'; Enforcer = 'Measure-FakeRule4'; Kind = 'pssa-rule' }
         )
 
         $script:dir = Join-Path $TestDrive 'coverage'
@@ -37,16 +37,16 @@ Describe 'Write-TestAutomationRuleCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-C
     It 'counts every tagged test that cites a rule as an enforcer' {
         $script:md | Should -Match '\| ADR-FAKE-TURN \| 2 \|'
         # the ADR-FAKE-TURN pester-test enforcers are both cited rows
-        @($script:csv | Where-Object { $_.AdrId -eq 'ADR-FAKE-TURN' -and $_.Kind -eq 'pester-test' }).Count |
+        @($script:csv | Where-Object { $_.RecordId -eq 'ADR-FAKE-TURN' -and $_.Kind -eq 'pester-test' }).Count |
             Should -Be 2
     }
 
     It 'credits an analyzer rule as a pssa-rule enforcer' {
         $script:md | Should -Match 'Measure-FakeRule2'
-        ($script:csv | Where-Object { $_.AdrId -eq 'ADR-FAKE-FOLD' }).Kind | Should -Be 'pssa-rule'
+        ($script:csv | Where-Object { $_.RecordId -eq 'ADR-FAKE-FOLD' }).Kind | Should -Be 'pssa-rule'
     }
 
     It 'writes an uncovered csv row for a rule with no enforcer' {
-        ($script:csv | Where-Object { $_.AdrId -eq 'ADR-FAKE-TWIST' }).Kind | Should -Be 'uncovered'
+        ($script:csv | Where-Object { $_.RecordId -eq 'ADR-FAKE-TWIST' }).Kind | Should -Be 'uncovered'
     }
 }

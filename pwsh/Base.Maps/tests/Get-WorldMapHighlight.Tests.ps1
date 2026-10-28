@@ -11,7 +11,7 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
             [ordered]@{}, @())
         $script:maps = [Catzc.Base.Maps.MapsConfig]::new([ordered]@{
                 highlight = [ordered]@{
-                    pins = @([ordered]@{ adr = 'ADR-WIDGET-GADGET-TURN'; track = 'gadgets'; file_language = 'widget-script'; reason = 'reviewed gadget mention' })
+                    pins = @([ordered]@{ rule = 'ADR-WIDGET-GADGET-TURN'; track = 'gadgets'; file_language = 'widget-script'; reason = 'reviewed gadget mention' })
                 }
             })
     }
@@ -21,7 +21,7 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'maps' } { $script:maps }
     }
 
-    It 'lights the cells of an ADR code given by position, with the maps.yml pins applied' {
+    It 'lights the cells of a rule code given by position, with the maps.yml pins applied' {
         $highlight = Get-WorldMapHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.WorldMapHighlight]
         @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) |
@@ -60,35 +60,35 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
         $highlight.Cells | Should -BeNullOrEmpty
     }
 
-    It 'does not read the working tree when -Adr or -Path is given' {
+    It 'does not read the working tree when -Rule or -Path is given' {
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Maps { @('README.md') }
-        $null = Get-WorldMapHighlight -Adr 'ADR-WIDGET-GADGET'
+        $null = Get-WorldMapHighlight -Rule 'ADR-WIDGET-GADGET'
         $null = Get-WorldMapHighlight -Path 'README.md'
         Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.Maps -Times 0 -Exactly
     }
 
     It 'emits JSON with -AsJson' {
-        $data = Get-WorldMapHighlight -Adr 'ADR-WIDGET-GADGET' -AsJson | ConvertFrom-Json
-        $data.kind | Should -Be 'adr'
+        $data = Get-WorldMapHighlight -Rule 'ADR-WIDGET-GADGET' -AsJson | ConvertFrom-Json
+        $data.kind | Should -Be 'record'
         @($data.cells).Count | Should -Be 2
     }
 
     It 'throws on an unknown code' {
-        { Get-WorldMapHighlight -Adr 'ADR-WIDGET-UNKNOWN' } | Should -Throw "*'ADR-WIDGET-UNKNOWN' is not an ADR code*"
+        { Get-WorldMapHighlight -Rule 'ADR-WIDGET-UNKNOWN' } | Should -Throw "*'ADR-WIDGET-UNKNOWN' is not a record code*"
     }
 }
 
 Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity', 'source-only' {
     It 'lights at least one cell for FDR-CD' {
-        @((Get-WorldMapHighlight -Adr 'FDR-CD').Cells).Count | Should -BeGreaterThan 0
+        @((Get-WorldMapHighlight -Rule 'FDR-CD').Cells).Count | Should -BeGreaterThan 0
     }
 
-    It 'lights, as an ADR file, only the requested ADR''s own file' -Tag 'DDR-TRACK-LITCELL' {
+    It 'lights, as a record file, only the requested record''s own file' -Tag 'DDR-TRACK-LITCELL' {
         $citations = Get-DrsCitationMap
-        # Codes taken from the registry, not spelled here, so this test cites no ADR and lights no minimap itself.
+        # Codes taken from the registry, not spelled here, so this test cites no record and lights no minimap itself.
         $ruleSets = @(Get-DrsRuleSet | Where-Object { $citations.PathOf($_.External) -and $citations.RulesOf($_.External).Count -gt 0 })
         $codes = @($ruleSets[0].External, $citations.RulesOf($ruleSets[1].External)[0], $ruleSets[-1].External)
-        $reasons = @((Get-WorldMapHighlight -Adr $codes).Cells.Reasons | Where-Object Basis -EQ 'adr-file')
+        $reasons = @((Get-WorldMapHighlight -Rule $codes).Cells.Reasons | Where-Object Basis -EQ 'record-file')
         @($reasons).Count | Should -Be $codes.Count
         foreach ($reason in $reasons) {
             $reason.Path | Should -Be $citations.PathOf($reason.Requested) -Because $reason.Requested

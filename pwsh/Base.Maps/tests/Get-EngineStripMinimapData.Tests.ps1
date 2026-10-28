@@ -14,7 +14,7 @@ Describe 'Get-EngineStripMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'lights each engine beside the script language a subject file is written in' {
-        $data = Get-EngineStripMinimapData -Adr 'ADR-WIDGET'
+        $data = Get-EngineStripMinimapData -Rule 'ADR-WIDGET'
         $data.Axes[0].Values | Should -Be @([Catzc.Base.Engines.ExecutionEngines]::Names)
         $data.Axes[1].Values | Should -Not -Contain 'notes'
         $lit = @($data.Lit | ForEach-Object { $_.At -join ' x ' })
@@ -27,13 +27,13 @@ Describe 'Get-EngineStripMinimapData' -Tag 'L0', 'logic' {
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
             [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
-        $null = Get-EngineStripMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        $null = Get-EngineStripMinimapData -Rule 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }
 
     It 'hands the facts it is given to the subject' {
         $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
-        $null = Get-EngineStripMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        $null = Get-EngineStripMinimapData -Rule 'ADR-WIDGET' -Facts $given
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

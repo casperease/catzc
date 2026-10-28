@@ -25,5 +25,5 @@ is that the key inside `tests` takes the name of what it holds.
 
 The same value, under `executable_parameter` in the `tests` block
 (`tests: { runner: Invoke-GoTest, tools: [go], executable_parameter: GoExecutable }`), read into `LanguageTestRunner.executable_parameter`.
-`executable` inside a `tests` block is now an unknown key and fails the config at load. The module-model ADR's language-registry rule
+`executable` inside a `tests` block is now an unknown key and fails the config at load. The module-model record's language-registry rule
 absorbs this page when it is next restated.

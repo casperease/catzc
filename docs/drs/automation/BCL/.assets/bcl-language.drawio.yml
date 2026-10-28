@@ -3,7 +3,7 @@ description:
   defaults; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a
   type bind to the host only by a bcl.yml row that the gate checks."
 about:
-  adrs: [ADR-BCL-TYPES-REFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
+  rules: [ADR-BCL-TYPES-REFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
   lens: architecture
 content:
   title: BCL is a language; pwsh hosts it, and binds only by row
@@ -54,7 +54,7 @@ content:
     - { from: g-bcl-yml, to: g-gate, kind: flow, label: rows }
     - { from: g-gate, to: g-sma, kind: flow, label: checks }
   legend: auto
-  minimaps: [track-placement, engine-strip, module-neighbourhood]
+  minimaps: [code-locations, track-placement, module-neighbourhood]
 layout:
   band-language: { x: 20, y: 84, w: 1260, h: 150 }
   band-host: { x: 20, y: 284, w: 1260, h: 170 }

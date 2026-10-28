@@ -1,9 +1,9 @@
 Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         # An index beside two records it lists, plus a third it does not, so only listed records may contribute.
-        $script:adrRoot = Join-Path $TestDrive 'adr'
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'principles')) | Out-Null
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:adrRoot 'widgets')) | Out-Null
+        $script:drsRoot = Join-Path $TestDrive 'adr'
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:drsRoot 'principles')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:drsRoot 'widgets')) | Out-Null
 
         $index = @(
             '# ADR index'
@@ -13,7 +13,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
             '| `ADR-WIDGET-GADGET`   | [alpha-thing](principles/alpha-thing.md) |'
             '| `ADR-WIDGET-SPROCKET` | [beta-thing](widgets/beta-thing.md)      |'
         ) -join "`n"
-        $script:indexPath = Join-Path $script:adrRoot 'index.md'
+        $script:indexPath = Join-Path $script:drsRoot 'index.md'
         [System.IO.File]::WriteAllText($script:indexPath, $index)
 
         $alpha = @(
@@ -27,7 +27,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
             ''
             'Second alpha rule.'
         ) -join "`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'principles/alpha-thing.md'), $alpha)
+        [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'principles/alpha-thing.md'), $alpha)
 
         $beta = @(
             '# ADR: Beta'
@@ -36,7 +36,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
             ''
             'Only beta rule.'
         ) -join "`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'widgets/beta-thing.md'), $beta)
+        [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'widgets/beta-thing.md'), $beta)
 
         # An ADR the index does not reference — its rule id must never appear.
         $gamma = @(
@@ -46,7 +46,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
             ''
             'Unlisted.'
         ) -join "`n"
-        [System.IO.File]::WriteAllText((Join-Path $script:adrRoot 'widgets/gamma-thing.md'), $gamma)
+        [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'widgets/gamma-thing.md'), $gamma)
     }
 
     It 'unions the rule ids of every indexed ADR, distinct and sorted in registry form' {

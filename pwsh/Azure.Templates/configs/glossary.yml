@@ -22,6 +22,7 @@ concepts:
         subfolder,
         target,
         region,
+        pick,
         yml,
         bicepparam,
         named,
@@ -97,7 +98,7 @@ concepts:
     defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
       One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
-      efficiency — each one ADR in docs/drs/external/azure/waf/.
+      efficiency — each one decision record in docs/drs/external/azure/waf/.
     realized_by: { kind: prose-only }
   break-glass login:
     key: break_glass_login

@@ -1,4 +1,4 @@
-# ADR: Function help — the help of a PowerShell file is the help section of its comment page
+# Repository: Function help — the help of a PowerShell file is the help section of its comment page
 
 ## Rules: ADR-REPO-HELP
 
@@ -40,7 +40,8 @@ differs from `[OutputType]`.
 
 ### Rule ADR-REPO-HELP-HELPIMPRINT
 
-`Format-Code` checks rules 1 to 4 as an imprint step of the PowerShell language
+`Format-Code` checks ADR-REPO-HELP-ONCOMMENTPAGE, ADR-REPO-HELP-MARKDOWNASWRITTEN, ADR-REPO-HELP-CITATIONINSENTENCE and
+ADR-REPO-HELP-FIVEFAULTSREPORTED as an imprint step of the PowerShell language
 ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](uniform-formatting.md#rule-adr-repo-format-configuredformatters)), and `Test-Formatting` fails a
 file the step reports. No command and no check names the step. The step reads the file with the language's own parser, so a comment inside a
 string or a here-string is never mistaken for help, and reads the page with the Markdown parser.
@@ -51,8 +52,8 @@ string or a here-string is never mistaken for help, and reads the page with the 
 
 A function's help is prose an author writes: a synopsis, a description, a sentence per parameter, examples. A comment block in the file is
 text a tool finds only by its position in a comment, the one part of a file no parser owns, and a head is the picture of a file's derived
-facts, which no command reads back ([file-meta](file-meta.md)). A code file already has one place for its prose that outgrew a line, its
-comment page ([comments-in-docs](comments-in-docs.md)), found from the file's path alone and read by a Markdown parser.
+facts, which no command reads back ([file-meta](file-meta.md)). A code file has one place for its prose that outgrew a line, its comment
+page ([comments-in-docs](comments-in-docs.md)), found from the file's path alone and read by a Markdown parser.
 
 ## Decision
 
@@ -65,7 +66,7 @@ The help is one section of the comment page, with one shape, and a check reads i
 The synopsis, the description, the parameters, the outputs and the examples are subsections of the page's `## help`, so a reader who opens
 the page finds the function's help and its long comments together, and a tool finds the page from the path without reading the code. An
 authored code file carries no head, so the help cannot live in one, and a comment block would be a second place a person keeps in step with
-the page. `Get-Help` is not the way to read a catzc function.
+the page.
 
 ### Text as written
 
@@ -77,10 +78,9 @@ fixed headings and their order are the shape a check reads, and they keep the pa
 
 ### Citations are derived
 
-`The tooling already finds them`
+`The tooling finds them`
 
-The citations a function rests on are found from the file and its page every time they are needed, so a second copy in the help would drift
-from them.
+The citations are found from the file and its page each time they are needed, so a copy in the help would drift from them.
 
 ### Mismatches are reported
 
@@ -100,7 +100,7 @@ formatter.
 ### How this is enforced
 
 - **`Format-Code`** checks the help through the `ps-help` step, and **`Test-Formatting`** fails any file it reports.
-- **`Test-Comments`** fails a page whose `## comment:<n>` sections no longer match the file, and leaves the help section alone.
+- **`Test-Comments`** fails a page whose `## comment:<n>` sections do not match the file, and leaves the help section alone.
 - **`PSProvideCommentHelp`** is off in the analyzer settings, because no function carries a comment-based help block.
 
 ## Consequences

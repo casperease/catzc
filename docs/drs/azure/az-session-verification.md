@@ -1,4 +1,4 @@
-# ADR: Az CLI session verification — four layers, and verify is not connect
+# Azure: Az CLI session verification — four layers, and verify is not connect
 
 ## Rules: ADR-AZ-SESSION
 
@@ -50,7 +50,7 @@ subscription is the session pointed at. Collapsing them produces functions that 
 or that quietly log you in as a side effect of a check — both of which make failures hard to reason about and couple modules that should not
 depend on each other.
 
-This ADR records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az PowerShell
+This record records how the az-session functions are layered. It complements [prefer-az-cli](prefer-az-cli.md) (why `az` over the Az PowerShell
 modules) and [dual-authentication](../ado/dual-authentication.md) (how an ADO token is selected and proven against `ado.yml`).
 
 ## Decision

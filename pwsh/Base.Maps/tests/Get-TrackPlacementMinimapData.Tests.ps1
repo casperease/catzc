@@ -13,7 +13,7 @@ Describe 'Get-TrackPlacementMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'lights the track each subject file sits in, under its track type, with its vendor' {
-        $data = Get-TrackPlacementMinimapData -Adr 'ADR-WIDGET'
+        $data = Get-TrackPlacementMinimapData -Rule 'ADR-WIDGET'
         $data.Axes[0].Values | Should -Be @('modules', 'documentation')
         $data.Cells | Should -HaveCount 3
         @($data.Lit | ForEach-Object { $_.At -join ' x ' }) | Should -Be @('modules x gadgets')
@@ -24,13 +24,13 @@ Describe 'Get-TrackPlacementMinimapData' -Tag 'L0', 'logic' {
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
             [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
-        $null = Get-TrackPlacementMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        $null = Get-TrackPlacementMinimapData -Rule 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }
 
     It 'hands the facts it is given to the subject' {
         $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
-        $null = Get-TrackPlacementMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        $null = Get-TrackPlacementMinimapData -Rule 'ADR-WIDGET' -Facts $given
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

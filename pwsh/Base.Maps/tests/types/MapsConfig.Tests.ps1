@@ -3,7 +3,7 @@ Describe 'MapsConfig' -Tag 'L0' {
         $script:make = { param([System.Collections.IDictionary] $raw) [Catzc.Base.Maps.MapsConfig]::new($raw) }
         $script:times = [string][char]0x00D7
         $script:arrow = [string][char]0x2192
-        $script:pin = { [ordered]@{ adr = 'ADR-WIDGET-GADGET-FOLD'; track = 'widgets'; file_language = 'gadget-script'; reason = 'reviewed widget mention' } }
+        $script:pin = { [ordered]@{ rule = 'ADR-WIDGET-GADGET-FOLD'; track = 'widgets'; file_language = 'gadget-script'; reason = 'reviewed widget mention' } }
     }
 
     Context 'integrity (shipped maps.yml)' -Tag 'L1', 'integrity' {
@@ -44,8 +44,8 @@ Describe 'MapsConfig' -Tag 'L0' {
                     Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainRowAxis)
                 $config.labels.value_chain_column_axis |
                     Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainColumnAxis)
-                $config.labels.value_chain_legend_adrs |
-                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendAdrs)
+                $config.labels.value_chain_legend_records |
+                    Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendRecords)
                 $config.labels.value_chain_legend_highlight |
                     Should -Be ([Catzc.Base.Maps.MapsLabels]::DefaultValueChainLegendHighlight)
                 $config.highlight.pins.Count | Should -Be 0
@@ -78,7 +78,7 @@ Describe 'MapsConfig' -Tag 'L0' {
                         root_files = 'Top widgets'; unlisted_files = 'Gizmos'; legend_files = 'Widgets per cell'
                         legend_violation = 'Gadget clash'; legend_highlight = 'Lit widget'
                         value_chain_title = 'Gadget chain: widgets'; value_chain_row_axis = 'Widget rank'
-                        value_chain_column_axis = 'Gadget step, longer than any world-map limit'; value_chain_legend_adrs = 'Gadget: widgets'
+                        value_chain_column_axis = 'Gadget step, longer than any world-map limit'; value_chain_legend_records = 'Gadget: widgets'
                         value_chain_legend_highlight = 'Lit gadget'
                     }
                     highlight     = [ordered]@{ pins = @(& $script:pin); exceptions = @(& $script:pin); citation_exclude = @('widgets/**/*.md') }
@@ -99,10 +99,10 @@ Describe 'MapsConfig' -Tag 'L0' {
             $config.labels.value_chain_title | Should -Be 'Gadget chain: widgets'
             $config.labels.value_chain_row_axis | Should -Be 'Widget rank'
             $config.labels.value_chain_column_axis | Should -Be 'Gadget step, longer than any world-map limit'
-            $config.labels.value_chain_legend_adrs | Should -Be 'Gadget: widgets'
+            $config.labels.value_chain_legend_records | Should -Be 'Gadget: widgets'
             $config.labels.value_chain_legend_highlight | Should -Be 'Lit gadget'
             $config.highlight.pins[0] | Should -BeOfType [Catzc.Base.Maps.MapsPin]
-            $config.highlight.pins[0].adr | Should -Be 'ADR-WIDGET-GADGET-FOLD'
+            $config.highlight.pins[0].rule | Should -Be 'ADR-WIDGET-GADGET-FOLD'
             $config.highlight.pins[0].track | Should -Be 'widgets'
             $config.highlight.pins[0].file_language | Should -Be 'gadget-script'
             $config.highlight.exceptions[0].reason | Should -Be 'reviewed widget mention'
@@ -199,17 +199,17 @@ Describe 'MapsConfig' -Tag 'L0' {
         }
 
         It 'throws on a pin with a bad or missing field, or an unknown key' {
-            $bad = [ordered]@{ adr = 'widget-3'; track = 'Widgets'; file_language = 'Gadget'; colour = 'blue' }
+            $bad = [ordered]@{ rule = 'widget-3'; track = 'Widgets'; file_language = 'Gadget'; colour = 'blue' }
             $err = { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = @((& $script:pin), $bad) } }) } |
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: unknown key ''colour''*'
-            $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid adr ''widget-3''*'
+            $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid rule ''widget-3''*'
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid track ''Widgets''*'
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: invalid file_language ''Gadget''*'
             $err.Exception.Message | Should -BeLike '*highlight.pins`[1`]: reason is required*'
             $err.Exception.Message | Should -Not -BeLike '*pins`[0`]*'
             { & $script:make ([ordered]@{ highlight = [ordered]@{ pins = @([ordered]@{ reason = 'widget' }) } }) } |
-                Should -Throw '*highlight.pins`[0`]: adr is required*'
+                Should -Throw '*highlight.pins`[0`]: rule is required*'
         }
 
         It 'accepts a dotted track name in a pin' {

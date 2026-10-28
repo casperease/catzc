@@ -1,12 +1,12 @@
 # pwsh/Base.Drs/Test-DrsEngineNeutrality.ps1
 
-A quality gate that keeps engine syntax and vendor names out of the rule summaries of the configured ADR domains.
+A quality gate that keeps engine syntax and vendor names out of the rule summaries of the configured DRS domains.
 
 ## help
 
 ### synopsis
 
-Checks that the rule summaries of the configured ADR domains carry none of the tokens of their configured token sets.
+Checks that the rule summaries of the checked DRS domains carry none of the tokens of their configured token sets.
 
 ### description
 

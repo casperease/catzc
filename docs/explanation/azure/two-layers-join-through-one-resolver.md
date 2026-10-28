@@ -26,7 +26,7 @@ description:
   "The templating layer and the identity layer never reference each other by name: discovery and the collect-all validator both run one
   shared check, which asks one resolver which subscriptions a config's coordinate can resolve to in azure.yml and customer.yml."
 about:
-  adrs: [ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-TWOBINDINGS]
+  rules: [ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-TWOBINDINGS]
   lens: architecture
 content:
   title: Templating and identity join through one shared check and one resolver

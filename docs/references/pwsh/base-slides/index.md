@@ -19,7 +19,7 @@ every draw.io slide of the repository from its source. It deliberately does **no
 `Build-SlideDeck` reads a deck folder, its `deck.md` and every `<stem>.slide.md`, orders the slides by their head's `order`, fills each
 one's pattern from the kit, and always writes `out/slides/<deck>/`: the `project/` tree the Slides artifact type reads, the speaker script
 in order, and a faults file. A missing or unknown field, an unknown pattern, a gap or a duplicate in the orders, an over-capacity field, a
-cited code the ADR index does not know and a quoted rule that differs from the registry are each written beside the render with the file and
+cited code the DRS index does not know and a quoted rule that differs from the registry are each written beside the render with the file and
 the field; nothing shrinks and nothing is guessed. It never publishes.
 
 ### responsibility:2 — The slides quality gate

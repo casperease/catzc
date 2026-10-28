@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../automation/.assets/output-root-first-then-repo-root.drawio.png
+      source: ../../thesis/product-thesis/.assets/truth-stores.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -24,13 +24,13 @@ own rule for what counts as true.
 
 ## Image
 
-.assets/tdr-stores-2.png
+[tdr-stores-2](.assets/tdr-stores-2.png)
 
 ## Caption
 
-From the catalogue, reduced: output root first then repo root.
+From the catalogue, reduced: truth stores.
 
 ## Notes
 
 Check it: the record TDR-STORES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/output-root-first-then-repo-root.drawio.png.
+docs/explanation/thesis/product-thesis/.assets/truth-stores.drawio.png.

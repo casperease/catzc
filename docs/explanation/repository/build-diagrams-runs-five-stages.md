@@ -22,7 +22,7 @@ description:
   "Build-Diagrams as one pipeline of five stages: it finds the diagrams in the tree, finds every page that embeds each one, writes the
   minimap data of every declared diagram, renders or syncs each diagram, and reports. Rendering is where a full run spends its time."
 about:
-  adrs: [ADR-REPO-SLIDES-MINIMAPSFROMDATA]
+  rules: [ADR-REPO-SLIDES-MINIMAPSFROMDATA]
   lens: implementation
 content:
   title: Build-Diagrams runs five stages, and rendering is the cost
@@ -72,12 +72,12 @@ layout:
 
 ## The minimaps
 
-Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFROMDATA, the one ADR the diagram names.
+Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFROMDATA, the one record the diagram names.
 
-- **Which stage of delivery: AUTO, quality-control.** The ADR's ruleset, ADR-REPO-SLIDES, sits in the repository domain, whose row of the
+- **Which stage of delivery: AUTO, quality-control.** The record's ruleset, ADR-REPO-SLIDES, sits in the repository domain, whose row of the
   value-chain stack is AUTO; the concern it acts in is quality-control.
 - **Which layer: automation.** Every file that cites the rule cites a code of ADR-REPO-SLIDES, whose layer is automation.
-- **Which tracks and languages: `docs` × markdown.** The ADR itself, `docs/drs/repository/slides-as-markdown.md`, and the pages that cite
+- **Which tracks and languages: `docs` × markdown.** The record itself, `docs/drs/repository/slides-as-markdown.md`, and the pages that cite
   the rule: this article, the DRS index, the domain's `dora-explains.md`, the `Catzc.Base.Slides` and `diagrams` references, and the
   `Build-Diagrams` help page.
 - **`pwsh` × powershell.** `pwsh/Base.Slides/Build-Diagrams.ps1` and the grid minimap's test,

@@ -25,7 +25,7 @@ description:
   What an operator sets decides the Azure DevOps credential, in a fixed order; each wrong setup stops with its own message, and a working
   one gives the REST call its Authorization header.
 about:
-  adrs:
+  rules:
     - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
@@ -117,7 +117,7 @@ Each failure carries a verbatim fragment of its message; the full messages are q
 
 ## Where the code and the decision record differ
 
-The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke-automation.yaml` maps the token in all three Modes
+The record's step-template sample shows only the `PowerShell@2` task, while `invoke-automation.yaml` maps the token in all three Modes
 (`PowerShell@2`, `AzureCLI@2` and `AzurePowerShell@5`).
 
 ## See also

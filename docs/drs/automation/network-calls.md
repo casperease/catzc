@@ -1,4 +1,4 @@
-# ADR: Network calls only on sanctioned, explicit paths
+# Automation: Network calls only on sanctioned, explicit paths
 
 ## Rules: ADR-AUTO-NET
 

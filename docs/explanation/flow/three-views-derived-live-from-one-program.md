@@ -22,7 +22,7 @@ description:
   A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity are read-outs derived
   live from it, never committed.
 about:
-  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
+  rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
   title: A globset is one ordered program, and its three views are derived live, never committed

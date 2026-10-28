@@ -55,9 +55,9 @@ the loaded modules, and in every case it resolves in the one resolution order of
 
 ## Context
 
-One word that means the doctrine, the value-chain row, a code folder and the layer of modules at once binds either everything or one
-folder, and a reader cannot tell which. The repository runs under three engines and tests in four languages, so any one language's code is
-an implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once, each with its
+One word that means the doctrine, the value-chain row, a code folder and the layer of modules at once binds either everything or one folder,
+and a reader cannot tell which. The repository runs under three engines and tests in four languages, so any one language's code is an
+implementation of the abstract, not the abstract itself ([execution-engines](execution-engines.md)). Naming the layers once, each with its
 own word, lets every other rule say which one it binds.
 
 ### Five layers, one word each

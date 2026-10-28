@@ -13,7 +13,7 @@ mistaken for a real tag. The cache entry is read with the strict-clean probe
 
 ### synopsis
 
-Maps each ADR rule citation to what mechanically enforces it — analyzer rules and tagged tests — for Show-Catzc.
+Maps each rule code to what mechanically enforces it — analyzer rules and tagged tests — for Show-Catzc.
 
 ### description
 

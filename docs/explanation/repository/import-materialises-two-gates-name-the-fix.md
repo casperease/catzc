@@ -23,7 +23,7 @@ description:
   Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
   each report the file and the exact fix when something is out of step.
 about:
-  adrs: [ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
+  rules: [ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: operations
 content:
   title: The import materialises every root file; two gates catch drift and name the fix

@@ -27,7 +27,7 @@ description:
   "Resolving a global config address is three small functions in a fixed order: the address is validated at binding, stripped and split, the
   named config is read once, and the keys are walked one segment at a time; every wrong turn throws where it happens."
 about:
-  adrs: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+  rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
   lens: implementation
 content:
   title: Strip, split, read once, walk one segment at a time; every wrong turn throws
@@ -99,7 +99,7 @@ layout:
    `Catzc.Azure.AzureConfig`, so the node the walk starts from is a typed object.
 5. **Resolve-ConfigKeyPath.** Given `-Node`, `-Segment` and `-Address`, it walks one segment at a time: when the current node is an
    `IDictionary` it checks the key through the interface and steps in; otherwise it looks the segment up as a property. A C# dictionary
-   inside a typed config, such as `environments`, traverses the same way, so the ADR's own example
+   inside a typed config, such as `environments`, traverses the same way, so the record's own example
    `global.azure.environments.prod.region_code` resolves to `weu`.
 6. **'zct'.** The walk ends on the node and returns it as it is: `org` is a string property of `AzureConfig`, and the caller gets the value
    `zct` from `azure.yml`. A subtree comes back as the live cached object.
@@ -123,7 +123,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-A key cannot contain a dot, because `Get-ConfigValue` splits the whole address on every dot; the ADR's grammar does not say so.
+A key cannot contain a dot, because `Get-ConfigValue` splits the whole address on every dot; the record's grammar does not say so.
 
 ## See also
 

@@ -24,7 +24,7 @@ description:
   "globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
   projection of one set, the globsets a commit range touched, and the skip line of the test run."
 about:
-  adrs: [FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
+  rules: [FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
   title: You edit globs.yml, and every other step prints what was derived from it

@@ -2,7 +2,7 @@ description:
   A source of truth and the registry feed the single writer, which reproduces every opted-in root file as a headed file; one boolean per
   entry sends it to a gitignored or a tracked target.
 about:
-  adrs:
+  rules:
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-ROOTCFG-COMMITTEDFLAG

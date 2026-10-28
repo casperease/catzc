@@ -23,7 +23,7 @@ description:
   configuration folder holding its first slot; the tooling finds it through the track, and the CD pipelines' path filters name it before any
   pipeline deploys it.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
+  rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: operations
 content:
   title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
@@ -63,7 +63,7 @@ content:
     - { at: g-place, number: 5 }
     - { at: r-filters, number: 6 }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   g-main: { x: 40, y: 166, w: 170, h: 52 }
   g-slot: { x: 466, y: 166, w: 110, h: 52 }

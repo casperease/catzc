@@ -15,7 +15,7 @@ orphaned worker never runs a test file unobserved.
 ## Real worker
 
 The `worker execution` context is greedy: it spawns a full importer-loading pwsh worker, which stacked on the parallel pool oversubscribes
-the box (see the greedy tag in the test-automation ADR). It is also integrity, under
+the box (see the greedy tag in the test-automation record). It is also integrity, under
 [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest):
 the real worker imports the shipped, vendored Pester from its code root with nothing mocked. It is the real-asset test and not source-only,
 so it runs in the source and the build run.

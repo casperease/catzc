@@ -11,7 +11,7 @@ Holds each page that embeds a diagram against the diagram's declaration.
 
 ### description
 
-Reads each page's `Supports <codes> (<lens> lens)` lines and the diagram's `<name>.drawio.yml` (about.adrs, about.lens). A page passes when
+Reads each page's `Supports <codes> (<lens> lens)` lines and the diagram's `<name>.drawio.yml` (about.rules, about.lens). A page passes when
 one of its lines names the declaration's codes and lens; a page with no Supports line, or a diagram without a declaration, is not checked
 (ADR-REPO-SLIDES-ONEBUILDCOMMAND).
 

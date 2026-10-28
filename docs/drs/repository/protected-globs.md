@@ -1,12 +1,12 @@
-# ADR: Protected globs — session-memory skip of repeated scans over an unchanged globset
+# Repository: Protected globs — session-memory skip of repeated scans over an unchanged globset
 
 ## Rules: ADR-REPO-PROTGLOB
 
 ### Rule ADR-REPO-PROTGLOB-SKIPUNCHANGEDSCAN
 
-A heavy, read-only scan whose inputs are a globset may be skipped locally when that scan already ran green against the globset's current
-durable SHA in this session. The protection map is session memory only — never a file, never an environment variable; reloading the importer
-clears it, and `Clear-GlobSetProtection` clears it without reloading.
+A heavy, read-only scan whose inputs are a globset may be skipped locally when that scan has run green against the globset's current durable
+SHA in this session. The protection map is session memory only — never a file, never an environment variable; reloading the importer clears
+it, and `Clear-GlobSetProtection` clears it without reloading.
 
 - [The protection map](#the-protection-map)
 
@@ -80,8 +80,8 @@ and promoted after aggregation; workers never read or write the map. The protect
 
 The repository-wide integrity scans (spelling, markdown lint) each take seconds to minutes and are pure functions of the files they read. In
 the local inner loop, `Test-Automation` runs them on every invocation — most of the time over byte-identical inputs, proving nothing the
-previous run did not already prove. The durable-SHA machinery already reduces "did these inputs change" to one hash comparison, so a
-repeated identical scan is pure waste ([reduce-waste](../principles/reduce-waste.md)).
+previous run did not prove. The durable-SHA machinery reduces "did these inputs change" to one hash comparison, so a repeated identical scan
+is pure waste ([reduce-waste](../principles/reduce-waste.md)).
 
 ## Decision
 
@@ -101,12 +101,12 @@ skips happen only for states that byte-equal a state this session scanned green.
 The identity recorded is always the one computed **before** the scan: `Test-GlobSetProtection` stores the just-computed hash as pending for
 its key when it answers "not protected", and `Protect-GlobSet`, called only after the scan passes, promotes exactly that pending value. A
 scan that fails never reaches the promote call, so a red result is never cached away; an edit landing mid-scan changes the tree away from
-the recorded pre-scan identity, so the next query re-scans. Keep this property named — hashing at promote time would silently protect a
-state the scan never read.
+the recorded pre-scan identity, so the next query re-scans. Hashing at promote time instead would silently protect a state the scan never
+read.
 
 ### Why CI is never protected
 
-CI's job is proof, and the map's guarantee ("this session already proved it") is worthless across machines and runs. In a pipeline
+CI's job is proof, and the map's guarantee ("this session proved it") is worthless across machines and runs. In a pipeline
 (`Test-IsRunningInPipeline`), `Test-GlobSetProtection` answers `$false` unconditionally and `Protect-GlobSet` is a no-op — the
 untracked-file blind spot (a never-added file is outside `git ls-files` and cannot re-key a set) and any session-memory staleness are
 therefore bounded by the next CI run, which always scans everything.
@@ -123,8 +123,8 @@ is (test, globset), so one scan's green never skips another.
 
 ### Derived module globsets
 
-The module folders already say what a module is; writing thirty registry entries would duplicate that and drift as modules come and go. So
-per-module globsets are derived, not declared (`Get-ModuleGlobSet`): folder = module = set, named by the readme-kebab convention, including
+The module folders say what a module is; a registry entry per module would duplicate that and drift as modules come and go. So per-module
+globsets are derived, not declared (`Get-ModuleGlobSet`): folder = module = set, named by the readme-kebab convention, including
 `pwsh/<Module>/**` — the module's functions, private helpers, native types, configs, and its own tests, so editing a test re-keys its
 module. Each internal shared module `pwsh/.internal/<Name>.psm1` derives a single-file set the same way — the file is the registration, as
 the folder is for a module. The reserved names `internal`, `vendor`, `compiled`, and `scriptanalyzer` derive the scopes for the dot-prefixed
@@ -153,22 +153,22 @@ in-scope unit's composite identity is computed and queried — a protected unit'
 reported one line per unit and as `ProtectedModules` on the `-PassThru` object; after the workers return, every unit that produced no failed
 row is promoted (the pending pre-run identity, `ADR-REPO-PROTGLOB-PROTECTIONKEY`). Anything unattributable is conservative: a failed shard
 container, or a failed row with no file, promotes nothing. Workers never read or write the map — a worker is a fresh process whose module
-state could not see it anyway. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips
-nothing. A run keyed `test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green
-never hides a wide red.
+state cannot see it. In a pipeline the whole block is bypassed before any identity is computed, so CI pays nothing and skips nothing. A run
+keyed `test-automation|L0-L1|Logic` protects only that scope; the default `L0-L2|Both` run has its own key, so a narrow green never hides a
+wide red.
 
 ### How this is enforced
 
 - `Test-GlobSetProtection` / `Protect-GlobSet` / `Clear-GlobSetProtection` in `Catzc.Base.Globs` are the whole surface; the map is private
   module state, so nothing else can read or write protection.
 - The pipeline short-circuit is inside the functions themselves (`Test-IsRunningInPipeline`), not at call sites — a caller cannot forget it.
-- Grep-ability: every protected scan is findable by `Test-GlobSetProtection`; a scan wrapped without a matching `Protect-GlobSet` simply
-  never skips (fail open).
+- Grep-ability: every protected scan is findable by `Test-GlobSetProtection`; a scan wrapped without a matching `Protect-GlobSet` never
+  skips (fail open).
 
 ## Consequences
 
 - The local inner loop stops re-paying for unchanged proof: repeat test runs skip the heavy scans until an in-scope file (or scan config)
-  actually changes.
+  changes.
 - Skips are trustworthy by construction: working-tree identity, record-only-on-green, pre-scan hashing, and fail-open leave no path to a
   false green — the worst failure mode is a redundant scan.
 - CI semantics are untouched: every pipeline run proves the full set, so protection can never hide a violation from the merge gate.

@@ -6,7 +6,7 @@ catzc:
     order: 11
     picture:
       mode: reduce
-      source: ../../automation/.assets/every-entry-runs-one-load-sequence.drawio.png
+      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ and reviewed, not yet gated.
 
 ## Image
 
-.assets/only-bvt-in-code.png
+[only-bvt-in-code](.assets/only-bvt-in-code.png)
 
 ## Caption
 
-From the catalogue, reduced: every entry runs one load sequence.
+From the catalogue, reduced: sync point rules are drs only.
 
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.
+docs/explanation/design/.assets/sync-point-rules-are-drs-only.drawio.png.

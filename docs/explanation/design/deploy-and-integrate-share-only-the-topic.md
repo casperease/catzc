@@ -24,7 +24,7 @@ description:
   "The deploy path and the integration path share only the topic commit: a workflow deploys it to an environment out of band, and landing it
   on main starts the integration that ends in the build validation verified commit."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - DDR-VISUAL-FIXEDCOMMITPALETTE

@@ -144,6 +144,10 @@
       "display": [],
       "members": [
         {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
           "name": "from",
           "kind": "property"
         },
@@ -168,6 +172,10 @@
       "members": [
         {
           "name": "ReadAll",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
           "kind": "method"
         },
         {
@@ -336,6 +344,45 @@
         },
         {
           "name": "template",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.BicepServiceConnection",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "azure_role",
+          "kind": "property"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "identity",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "subscription",
+          "kind": "property"
+        },
+        {
+          "name": "templates",
           "kind": "property"
         }
       ]
@@ -511,6 +558,10 @@
       "display": [],
       "members": [
         {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
           "name": "absent",
           "kind": "property"
         },
@@ -537,6 +588,10 @@
       "aliases": [],
       "display": [],
       "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
         {
           "name": "count",
           "kind": "property"
@@ -621,6 +676,48 @@
         },
         {
           "name": "azure_created",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.ServiceConnectionsConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "identities",
+          "kind": "property"
+        },
+        {
+          "name": "short_name",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.ServiceIdentity",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "azure_role",
+          "kind": "property"
+        },
+        {
+          "name": "description",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "role",
+          "kind": "property"
+        },
+        {
+          "name": "templates",
           "kind": "property"
         }
       ]

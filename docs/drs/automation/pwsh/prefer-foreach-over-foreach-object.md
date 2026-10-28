@@ -1,4 +1,4 @@
-# ADR: Prefer foreach over ForEach-Object
+# PowerShell: Prefer foreach over ForEach-Object
 
 ## Rules: ADR-PWSH-FOREACH
 
@@ -33,8 +33,6 @@ PowerShell has two iteration mechanisms with almost identical names and complete
 - **`foreach` statement** — a language keyword. A compiled loop that iterates over a collection in memory.
 - **`ForEach-Object` cmdlet** (alias `%`) — a pipeline cmdlet. Invokes a scriptblock for each item received from the pipeline.
 
-They look interchangeable. They are not.
-
 ### The control flow trap
 
 The `ForEach-Object` body is a **scriptblock**, not a loop body. The keywords `return`, `break`, and `continue` behave completely
@@ -47,8 +45,8 @@ differently inside a scriptblock than inside a loop:
 - **`continue`**: in `foreach` it skips to the next iteration. In `ForEach-Object` it acts on the nearest **enclosing loop**; if there is no
   enclosing loop, it behaves like `break` and terminates the script. It does not "skip to the next pipeline item."
 
-These are not edge cases — they are the designed semantics of scriptblocks. But they violate the expectations of anyone who reads
-`ForEach-Object` as "a loop."
+These are the designed semantics of scriptblocks, not edge cases, and they break the expectations of anyone who reads `ForEach-Object` as a
+loop.
 
 #### `return` does not return
 
@@ -158,13 +156,11 @@ The difference is typically 3-10x for tight loops. On small, materialized collec
    $summary = $results | ForEach-Object { "$($_.Name): $($_.Status)" }
    ```
 
-The common pattern: the body is a **single expression** with **no control flow**. If the body needs `if`, `return`, `break`, `continue`,
-`try`/`catch`, or is more than one statement — use `foreach`.
+Each body is a **single expression** with **no control flow**; a body of more than one statement is a `foreach`.
 
 ### ForEach-Object -Parallel
 
-PowerShell 7+ adds `ForEach-Object -Parallel`, which runs scriptblocks in separate runspaces. This introduces additional pitfalls beyond the
-control flow issues:
+`ForEach-Object -Parallel` runs scriptblocks in separate runspaces, with pitfalls beyond the control flow ones:
 
 - **No access to outer variables.** Each runspace gets its own scope. Outer variables must be passed explicitly via `$using:varName`.
   Forgetting `$using:` produces `$null` — no error, no warning.
@@ -183,8 +179,8 @@ control flow issues:
   }
   ```
 
-- **No access to module functions.** Functions imported by the module system are not available in parallel runspaces. You must re-import or
-  pass scriptblocks explicitly.
+- **No access to module functions.** Functions imported by the module system are not available in parallel runspaces; the body re-imports
+  them or receives scriptblocks explicitly.
 
   ```powershell
   # BROKEN — Write-Message is not defined in the parallel runspace
@@ -194,14 +190,14 @@ control flow issues:
   ```
 
 - **No shared mutable state.** Each runspace has its own copy of variables. Mutating a `$using:` variable in one runspace does not affect
-  others or the caller. Use thread-safe collections (`[System.Collections.Concurrent.ConcurrentBag[object]]`) if you need to aggregate
-  results beyond pipeline output.
+  others or the caller. Aggregating results beyond pipeline output takes a thread-safe collection
+  (`[System.Collections.Concurrent.ConcurrentBag[object]]`).
 
-- **Error handling is different.** Errors in parallel runspaces are collected and re-thrown after all runspaces complete. You cannot
-  `try`/`catch` individual item failures from the caller — you get them all at the end.
+- **Error handling is different.** Errors in parallel runspaces are collected and re-thrown after all runspaces complete, so the caller
+  cannot `try`/`catch` one item's failure; it gets them all at the end.
 
-- **Throttle limit defaults to 5.** Without `-ThrottleLimit`, only 5 runspaces execute concurrently. For I/O-bound work (API calls, file
-  downloads), increase this. For CPU-bound work, match it to `[Environment]::ProcessorCount`.
+- **Throttle limit defaults to 5.** I/O-bound work (API calls, file downloads) raises `-ThrottleLimit`; CPU-bound work matches it to
+  `[Environment]::ProcessorCount`.
 
 ## Decision
 
@@ -212,8 +208,7 @@ control flow is needed.
 
 - **PSScriptAnalyzer custom rule `Measure-NoForEachObjectControlFlow`** (severity: Error) — flags `return`, `break`, and `continue` inside
   `ForEach-Object` scriptblocks.
-- **Code review** — complex `ForEach-Object` bodies that should be `foreach` but lack control flow keywords are caught in review using this
-  ADR as reference.
+- **Code review** — a multi-statement `ForEach-Object` body without control flow keywords is rejected against this record.
 
 ## Consequences
 

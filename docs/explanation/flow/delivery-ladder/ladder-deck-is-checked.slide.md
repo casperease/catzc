@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../azure/.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Image
 
-.assets/ladder-deck-is-checked.png
+[ladder-deck-is-checked](.assets/ladder-deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: coordinate resolved file by file at discovery.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

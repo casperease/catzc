@@ -23,7 +23,7 @@ description:
   A pull request starts a build that skips every deploy stage and a hand-started release builds a package, while only completing the pull
   request into main starts the run that deploys; a topic deploy has no pipeline behind it.
 about:
-  adrs: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
+  rules: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
   lens: operations
 content:
   title: Merging to main is what deploys; there is no run that deploys a topic

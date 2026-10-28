@@ -6,7 +6,7 @@ catzc:
     order: 16
     picture:
       mode: reduce
-      source: ../../flow/.assets/globs-module-owns-config-and-types.drawio.png
+      source: ../../azure/.assets/coordinate-rules-and-their-gates.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ For the SRE Lead, who owns reliability, monitoring and the switch: Adding a cust
 
 ## Image
 
-.assets/adr-az-customer-16.png
+[adr-az-customer-16](.assets/adr-az-customer-16.png)
 
 ## Caption
 
-From the catalogue, reduced: globs module owns config and types.
+From the catalogue, reduced: coordinate rules and their gates.
 
 ## Notes
 
 Check it: the record ADR-AZ-CUSTOMER in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.
+docs/explanation/azure/.assets/coordinate-rules-and-their-gates.drawio.png.

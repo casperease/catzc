@@ -1,4 +1,4 @@
-# ADR: Module-path hygiene — the pwsh rules over effective-in-enterprises
+# PowerShell: Module-path hygiene — the pwsh rules over effective-in-enterprises
 
 ## Rules: ADR-PWSH-MODPATH
 
@@ -29,7 +29,7 @@ leaves `$env:PSModulePath` alone and **warns** when it contains a network share,
 ## Context
 
 [effective-in-enterprises](../effective-in-enterprises.md) (`ADR-AUTO-ENTERP`) fixes the constraints: home folders on network storage, no
-local admin, no network access at runtime. This ADR realises it in pwsh — how the module path is kept fast, local, and deterministic on such
+local admin, no network access at runtime. This record realises it in pwsh — how the module path is kept fast, local, and deterministic on such
 a machine. The gallery half of the same constraint, no PowerShell Gallery at runtime, is
 [vendor-toolset-dependencies](vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-noruntimegallery).
 
@@ -45,11 +45,12 @@ C:\Program Files\PowerShell\Modules    ← system-wide PS 7 (local)
 $PSHOME\Modules                        ← pwsh built-in (local)
 ```
 
-The first entry is the killer. Every time PowerShell auto-loads a module, resolves a command, or offers tab completion, it scans this path.
-When it points to a network share, each scan is a network round-trip. With DFS, it can be multiple round-trips through namespace resolution.
-Group Policy or login scripts may add further network paths — the primary cause of "PowerShell is slow" in enterprises.
+The first entry is the cost. PowerShell scans the path every time it auto-loads a module, resolves a command or offers tab completion, and
+on a network share each scan is a network round-trip, several under DFS namespace resolution. Group Policy or login scripts may add further
+network paths: the primary cause of "PowerShell is slow" in enterprises.
 
-We vendor all dependencies ([vendor-toolset-dependencies](vendor-toolset-dependencies.md)). The user profile module path is never needed.
+Every dependency is vendored ([vendor-toolset-dependencies](vendor-toolset-dependencies.md)), so the user profile module path is never
+needed.
 
 ### Module folders in pwsh
 
@@ -105,9 +106,9 @@ themselves. It writes a user-scope `powershell.config.json` (under `Documents\Po
 CurrentUser module path to a local directory (`$env:LOCALAPPDATA\PowerShell\Modules`). PowerShell reads that single config file once at
 startup — fast — instead of recursively scanning a network share on every lookup.
 
-This helper _does_ touch the user profile (it writes the config file there and may suggest moving existing modules off DFS). That is the
-point: it is the user opting in to a permanent local redirect, run once, not something the automation does on every import. No admin is
-required and it is idempotent.
+The helper _does_ touch the user profile (it writes the config file there and may suggest moving existing modules off DFS), because it is
+the user opting in to a permanent local redirect, run once, never something the automation does on every import. It needs no admin and is
+idempotent.
 
 ### The user-scope override
 

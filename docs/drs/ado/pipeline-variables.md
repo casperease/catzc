@@ -1,4 +1,4 @@
-# ADR: Pipeline variable interface — setting ADO output variables from PowerShell
+# Azure DevOps: Pipeline variable interface — setting ADO output variables from PowerShell
 
 ## Rules: ADR-ADO-VAR
 

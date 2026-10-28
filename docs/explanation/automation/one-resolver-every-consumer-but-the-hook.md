@@ -24,7 +24,7 @@ description:
   One resolver combines the run environment, the typed timeouts config and the exemptions config into one limit for every consumer except
   the hook, which compiles the same config type itself.
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: architecture
 content:
   title: One resolver serves every consumer but the hook, which compiles the same config type

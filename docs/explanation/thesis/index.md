@@ -19,7 +19,7 @@ description:
   "Where truth comes from: in every mode the repository at one commit decides; in the listen mode the editor's edit is fact, and the plans
   it starts flow from the rule to the docs to the code."
 about:
-  adrs: [TDR-ONETRUTH, ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+  rules: [TDR-ONETRUTH, ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
   lens: meta
 content:
   title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code

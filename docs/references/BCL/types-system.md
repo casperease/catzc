@@ -3,7 +3,7 @@
 The automation platform compiles every module's `types/*.cs` sources into **one** combined assembly for the whole repository, loaded at
 import before any module's functions. A type in any module can therefore reference a type in any other; the layering is governed by the
 module dependency graph rather than by the compiler. The full contract — the single combined assembly, `namespace = module`, the hash-keyed
-committed prebuild, and the cache-state behaviour — is the [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md) ADR.
+committed prebuild, and the cache-state behaviour — is the [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md) record.
 
 ## What lives here
 
@@ -16,5 +16,5 @@ committed prebuild, and the cache-state behaviour — is the [native-csharp-type
 
 ## Related
 
-- ADR: [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)
-- ADR: [caching](../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) — the committed compiled-type prebuild.
+- Record: [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)
+- Record: [caching](../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild) — the committed compiled-type prebuild.

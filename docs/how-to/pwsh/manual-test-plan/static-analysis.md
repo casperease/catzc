@@ -1,6 +1,6 @@
 # Manual test plan — Static analysis
 
-PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map. Part of the [manual test plan](../manual-test-plan.md), which says how to run
+PSScriptAnalyzer, the formatter, and the analyzer-to-rule map. Part of the [manual test plan](../manual-test-plan.md), which says how to run
 a check.
 
 ## Index

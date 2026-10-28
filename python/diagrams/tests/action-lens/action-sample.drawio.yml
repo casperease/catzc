@@ -1,6 +1,6 @@
 description: "A widget is published: the one call that changes state, and the observations that show what it changed, local and remote."
 about:
-  adrs: []
+  rules: []
   lens: action
   proves: widgets.accosted.yml
 content:

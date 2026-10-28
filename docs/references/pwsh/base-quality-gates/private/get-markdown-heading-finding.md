@@ -13,7 +13,7 @@ Checks one Markdown file's H2–H6 headings against their normal form and return
 
 A heading is plain words: a trailing parenthesized group that holds only code spans and separators — a file name, a path, a citation such as
 (`ADR-AZ-DATAMOD`) — is moved out of the heading onto its own line directly below it, the groups joined by ' · ' and a known citation code
-written as a relative link to its ADR. Code that is the subject of a heading (`$Matches` — capture immediately) and a group holding prose
+written as a relative link to its record. Code that is the subject of a heading (`$Matches` — capture immediately) and a group holding prose
 stay in the heading. Every heading's GitHub anchor is unique within its document. In a dora-explains.md file each H2 entry's DORA paragraph
 — paraphrased research — opens the entry as a > blockquote, which renders as grey text.
 
@@ -32,7 +32,7 @@ The file's content.
 
 ### parameter `Citation`
 
-Citation code -> repository-relative ADR path, for the links a moved citation becomes. A code not in it stays a code span.
+Citation code -> repository-relative record path, for the links a moved citation becomes. A code not in it stays a code span.
 
 ### outputs
 

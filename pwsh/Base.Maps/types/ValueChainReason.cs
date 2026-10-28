@@ -4,31 +4,31 @@ using System.Collections.Generic;
 namespace Catzc.Base.Maps;
 
 // Why a value-chain highlight lights a cell for one record: the citation, the code, its domain and that domain's stack row.
-[Catzc.Base.Objects.ConsoleDisplay(nameof(Adr), nameof(Stack), nameof(Concern), nameof(Override))]
+[Catzc.Base.Objects.ConsoleDisplay(nameof(Record), nameof(Stack), nameof(Concern), nameof(Override))]
 public sealed class ValueChainReason
 {
     // The requested citation that lights the cell (ADR-<CODE> or ADR-<CODE>#n).
     public string Requested { get; }
 
-    // The ADR code (ADR-<CODE>).
-    public string Adr { get; }
+    // The record code (ADR-<CODE>).
+    public string Record { get; }
 
-    // The ADR domain the ADR belongs to.
+    // The DRS domain the record belongs to.
     public string Domain { get; }
 
-    // The row: the ADR domain's row of the value-chain stack.
+    // The row: the DRS domain's row of the value-chain stack.
     public string Stack { get; }
 
     // The column: the value-chain concern of the lit cell.
     public string Concern { get; }
 
-    // Every value-chain concern of the ADR (its override, or its ADR domain's default).
+    // Every value-chain concern of the record (its override, or its DRS domain's default).
     public IReadOnlyList<string> Concerns { get; }
 
-    // The ADR domain's default value-chain concerns.
+    // The DRS domain's default value-chain concerns.
     public IReadOnlyList<string> DomainConcerns { get; }
 
-    // True when the ADR declares its own value-chain concerns, not its ADR domain's default.
+    // True when the record declares its own value-chain concerns, not its DRS domain's default.
     public bool Override
     {
         get
@@ -44,11 +44,11 @@ public sealed class ValueChainReason
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public ValueChainReason(string requested, string adr, string domain, string stack, string concern, IReadOnlyList<string> concerns,
+    public ValueChainReason(string requested, string record, string domain, string stack, string concern, IReadOnlyList<string> concerns,
         IReadOnlyList<string> domainConcerns)
     {
         Requested = requested;
-        Adr = adr;
+        Record = record;
         Domain = domain;
         Stack = stack;
         Concern = concern;

@@ -57,15 +57,15 @@ function Get-SlideFinding {
     foreach ($cite in $Slide.Cites) {
         if (-not $citations.HasCode($cite)) {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'cites',
-                    "the ADR index knows no ADR or rule '$cite'"))
+                    "the DRS index knows no record or rule '$cite'"))
         }
     }
 
     if (-not [string]::IsNullOrWhiteSpace($Slide.Quotes)) {
-        $registry = Get-AdrRuleText -Code $Slide.Quotes -RepositoryRoot $RepositoryRoot
+        $registry = Get-DrsRuleText -Code $Slide.Quotes -RepositoryRoot $RepositoryRoot
         if ($null -eq $registry) {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes',
-                    "the ADR index knows no rule '$($Slide.Quotes)'"))
+                    "the DRS index knows no rule '$($Slide.Quotes)'"))
         }
         else {
             $bodySpec = $Kit.Patterns[$Slide.Pattern].Field('body')
@@ -86,6 +86,10 @@ function Get-SlideFinding {
                         "quotes $($Slide.Quotes) but differs from the registry.`n  slide:    $normal`n  registry: $registry"))
             }
         }
+    }
+
+    foreach ($fault in @(Get-SlidePictureFinding $Slide -Relative $relative -RepositoryRoot $RepositoryRoot)) {
+        $faults.Add($fault)
     }
 
     # A field shows as the slide's text or, such as an image's path, as an attribute's value.

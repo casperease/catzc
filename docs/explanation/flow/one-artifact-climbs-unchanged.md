@@ -23,7 +23,7 @@ description:
   One artifact is built and verified once, tested in non-prod, and let into production by a manual gate, so production runs exactly the
   bytes non-prod certified; the CD pipelines stop in non-prod and only DEPLOY reaches production.
 about:
-  adrs:
+  rules:
     - FDR-CD-SHORTINTEGRATIONCYCLE
     - FDR-CD-SEPARATEPIPELINEKINDS
     - FDR-CD-CDSTAYSINNONPROD

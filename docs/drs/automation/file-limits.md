@@ -1,4 +1,4 @@
-# ADR: File limits — one declared length and width per file class, bounded, gated
+# Automation: File limits — one declared length and width per file class, bounded, gated
 
 ## Rules: ADR-AUTO-LIMIT
 

@@ -44,3 +44,10 @@ metadata:
    `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as `uv run --no-sync --project python python …`; a word check pipes a
    scratch word list to `cspell stdin` in one call, since cspell skips every file under the ignored `out/`. A "0 warnings" claim on bicep is
    proven only by `Test-BicepLint`, since bicep warns on stderr with exit 0, and a read-only check builds with `Build-Bicep -OutputFolder`.
+   `Invoke-TestFile -PassThru` returns `Rows`, each counted by its `Result`; a test file is passed by its repository-relative path, since a
+   bare name resolves against the root and fails "Path does not exist"; a stuck import on a stale `stamp-*.json` under the per-user types
+   folder is unblocked by deleting that stamp; a staged burst refused for a busy run lock changed nothing and is retried as is; a red
+   verdict read between two bursts is re-run after the last; a private step takes its limit by `Get-TimeoutSeconds -Executable`, since
+   `-Command` sees only loaded public functions.
+5. A pass is claimed only after its verdict line is read, and a failure is reported as it is; a C# type edit is seen only by a fresh `pwsh`
+   process, since a long-lived one keeps the compiled types; `Test-Automation` is the user's (ADR-REPO-AI-SMALLTESTSDIRECTLY).

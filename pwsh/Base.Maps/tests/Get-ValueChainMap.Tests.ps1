@@ -22,9 +22,9 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         $map.Stacks | Should -Be $script:stacks
         $map.Concerns | Should -Be $script:concerns
         @($map.Cells).Count | Should -Be ($script:stacks.Count * $script:concerns.Count)
-        $map.Cell($script:stacks[0], $script:concerns[0]).Adrs | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
-        $map.Cell($script:stacks[0], $script:concerns[2]).Adrs | Should -Be @('ADR-WIDGET-GADGET')
-        @($map.Cells | Where-Object AdrCount -GT 0).Count | Should -Be 2
+        $map.Cell($script:stacks[0], $script:concerns[0]).Records | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
+        $map.Cell($script:stacks[0], $script:concerns[2]).Records | Should -Be @('ADR-WIDGET-GADGET')
+        @($map.Cells | Where-Object RecordCount -GT 0).Count | Should -Be 2
     }
 
     It 'emits JSON with -AsJson' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
@@ -39,7 +39,7 @@ Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'sour
     It 'places every ADR of drs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-REPO-VALUECHAIN-STACK', 'ADR-REPO-VALUECHAIN-CONCERN' {
         $map = Get-ValueChainMap
         $ruleSets = @(Get-DrsRuleSet)
-        $map.AdrCount | Should -Be $ruleSets.Count
+        $map.RecordCount | Should -Be $ruleSets.Count
         $map.Unplaced | Should -BeNullOrEmpty
         $map.Strays | Should -BeNullOrEmpty
         foreach ($ruleSet in $ruleSets) {

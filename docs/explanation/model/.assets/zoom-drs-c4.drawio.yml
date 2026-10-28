@@ -1,6 +1,6 @@
 description: The records of the design domain and the links between them, drawn from the link graph at every build.
 about:
-  adrs: [ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
   lens: governance
   zoom: C4
   point: docs/drs/design

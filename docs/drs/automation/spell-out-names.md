@@ -1,4 +1,4 @@
-# ADR: Spell out names — no invented abbreviations
+# Automation: Spell out names — no invented abbreviations
 
 ## Rules: ADR-AUTO-SPELL
 

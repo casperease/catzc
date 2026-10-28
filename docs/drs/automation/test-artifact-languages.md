@@ -1,4 +1,4 @@
-# ADR: Test-artifact languages — modules by layout, one root, black-box tests of the engine, one bridge
+# Automation: Test-artifact languages — modules by layout, one root, black-box tests of the engine, one bridge
 
 ## Rules: ADR-AUTO-TESTLANG
 
@@ -71,8 +71,8 @@ The builder reads the engine's track, so the layout is the guarantee that no tes
 ### One root
 
 One convention for every language's root ([sensible-defaults](sensible-defaults.md)) means a reader who knows one language's layout knows
-them all. The track's folder is the natural root ([tracks](../design/tracks.md#rule-ddr-track-onetracktype)), and the dot-prefixed
-fallback, as the tooling folders are named, keeps a repository without that folder from growing one for tests alone.
+them all. The track's folder is the natural root ([tracks](../design/tracks.md#rule-ddr-track-onetracktype)), and the dot-prefixed fallback,
+as the tooling folders are named, keeps a repository without that folder from growing one for tests alone.
 
 ### A black box
 

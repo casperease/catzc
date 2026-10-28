@@ -1,4 +1,4 @@
-# ADR: Working-directory mechanics — the pwsh rules over never-depend-on-pwd
+# PowerShell: Working-directory mechanics — the pwsh rules over never-depend-on-pwd
 
 ## Rules: ADR-PWSH-PWD
 
@@ -14,8 +14,8 @@ files that are not module function files: tests, standalone asset scripts, and t
 
 ### Rule ADR-PWSH-PWD-RESTORESETLOCATION
 
-Never call `Set-Location` (or `cd`) without restoring it; bare calls change `$PWD` for the rest of the session. If you must change
-directory, use `Push-Location` / `Pop-Location`.
+Never call `Set-Location` (or `cd`) without restoring it; a bare call changes `$PWD` for the rest of the session. A change of directory is a
+`Push-Location` / `Pop-Location` pair.
 
 - [Changing directory safely](#changing-directory-safely)
 - [How this is enforced](#how-this-is-enforced)
@@ -34,8 +34,7 @@ Module code locates its own content — its `configs/`, its `assets/`, another m
 [ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency) — only through
 `Get-CatzcModuleRoot -ChildPath '<literal>'` (or `Get-CatzcModulesRoot` for the infrastructure), never through `$PSScriptRoot`,
 `Get-RepositoryRoot`, or a `Join-Path` over a hand-built `pwsh/...` path. `$PSScriptRoot` is banned in module function files (a module's
-root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it. The analyzer rule `Measure-NoScriptRootAnchor` enforces the
-ban.
+root and `private/` `.ps1` files); tests, `assets/`, and `.internal` keep it.
 
 - [The code root](#the-code-root)
 - [How this is enforced](#how-this-is-enforced)
@@ -52,7 +51,6 @@ A test file builds its absolute paths from `$env:RepositoryRoot`, or from `$PSSc
 A module function file reads the working root through `Get-RepositoryRoot`, never `$env:RepositoryRoot`
 ([ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)). A function whose job is the variable
 itself (`Test-InIsolation` swaps it for a sandbox and restores it) carries a justified suppression; tests and `.internal` keep the variable.
-The analyzer rule `Measure-NoEnvRepositoryRoot` enforces it.
 
 - [The anchors](#the-anchors)
 - [How this is enforced](#how-this-is-enforced)
@@ -69,7 +67,7 @@ computed child path is a dependency the inventory cannot see.
 ## Context
 
 [never-depend-on-pwd](../never-depend-on-pwd.md) fixes the doctrine: every function works correctly regardless of the caller's working
-directory, and module code finds its own content through the code root. This ADR realises it in pwsh — the anchor idioms that make paths
+directory, and module code finds its own content through the code root. This record realises it in pwsh — the anchor idioms that make paths
 location-independent, and the one safe way to change directory when an external tool insists on one.
 
 ### The anchors
@@ -79,10 +77,9 @@ location-independent, and the one safe way to change directory when an external 
   ([the code root](#the-code-root)).
 - **`Get-RepositoryRoot`** gives the repository root, which `importer.ps1` sets once at bootstrap as `$env:RepositoryRoot` and treats as a
   constant ([environment-variables](../environment-variables.md)) — the anchor for repository-level paths, via the binding helpers of
-  [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`). Module code calls the accessor; tests and
-  `.internal` read the variable.
+  [path-representation](../path-representation.md) (`Resolve-RepoPath`, `Get-RepositoryFile`).
 - **`$PSScriptRoot`** gives the directory of the current script file — the anchor for a test's own fixtures (`tests/assets/`), for a
-  standalone asset script, and for the `.internal` loader, none of which is a module function file.
+  standalone asset script, and for the `.internal` loader.
 
 Every path is built from one of these with `Join-Path` ([cross-platform-powershell](cross-platform-powershell.md)); a relative path in a
 cmdlet argument resolves against `$PWD` and is exactly the dependence the doctrine forbids.
@@ -118,8 +115,7 @@ finally {
 ```
 
 A bare `Set-Location` (or `cd`) mutates `$PWD` for everything that runs afterwards — the caller, sibling functions, the interactive session
-— and does not compose in nested or concurrent scenarios. `Push-Location`/`Pop-Location` in `try`/`finally` guarantees the directory is
-restored on every path out, including a throw.
+— and does not compose in nested or concurrent scenarios; the `finally` restores the directory on every path out, including a throw.
 
 ## Decision
 

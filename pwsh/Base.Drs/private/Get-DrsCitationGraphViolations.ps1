@@ -3,7 +3,7 @@ function Get-DrsCitationGraphViolations {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.Drs.DrsConfig] $Adrs,
+        [Catzc.Base.Drs.DrsConfig] $Drs,
 
         [Parameter(Mandatory)]
         [pscustomobject] $Index,
@@ -13,20 +13,20 @@ function Get-DrsCitationGraphViolations {
     )
 
     $domainOfCode = @{}
-    foreach ($ruleSet in $Adrs.RuleSets) {
+    foreach ($ruleSet in $Drs.RuleSets) {
         $domainOfCode[$ruleSet.External] = $ruleSet.Domain
     }
-    foreach ($ruleSet in $Adrs.RuleSets) {
+    foreach ($ruleSet in $Drs.RuleSets) {
         if (-not $domainOfCode.ContainsKey($ruleSet.Prefix)) {
             $domainOfCode[$ruleSet.Prefix] = $ruleSet.Domain
         }
     }
-    $ruleHeading = "^###\s+Rule\s+(?<code>$($Adrs.CodeForm.Rule))\s*$"
-    $citation = "(?<![A-Za-z0-9-])$($Adrs.CodeForm.Cited)"
+    $ruleHeading = "^###\s+Rule\s+(?<code>$($Drs.CodeForm.Rule))\s*$"
+    $citation = "(?<![A-Za-z0-9-])$($Drs.CodeForm.Cited)"
     # A link's domain is the one with the longest folder that holds its target, so a folder inside another keeps its own links.
-    $folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
+    $folders = @($Drs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
-    $ret = foreach ($domain in $Adrs.Domains) {
+    $ret = foreach ($domain in $Drs.Domains) {
         if ($domain.Name -in $ExemptDomain) {
             continue
         }
@@ -75,7 +75,7 @@ function Get-DrsCitationGraphViolations {
                 }
                 $references = [System.Collections.Generic.List[object]]::new()
                 foreach ($match in [regex]::Matches($text, $citation)) {
-                    # A rule's code extends its ADR's code, so the longest registered prefix names the domain.
+                    # A rule's code extends its record's code, so the longest registered prefix names the domain.
                     $code = $match.Value
                     while ($code.Contains('-') -and -not $domainOfCode.ContainsKey($code)) {
                         $code = $code.Substring(0, $code.LastIndexOf('-'))
@@ -101,7 +101,7 @@ function Get-DrsCitationGraphViolations {
                     if ($allowed.Contains($reference.Domain) -or -not $reported.Add($reference.Domain)) {
                         continue
                     }
-                    "$($Adrs.Root)/${relative}:$($i + 1): $citer ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
+                    "$($Drs.Root)/${relative}:$($i + 1): $citer ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
                 }
             }
         }

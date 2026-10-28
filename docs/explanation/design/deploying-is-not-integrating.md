@@ -22,7 +22,7 @@ description:
   A topic commit can reach an environment through an out-of-band deploy without reaching main; only landing on main puts it on the ladder
   toward the build validation verified commit.
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-TOPICDEPLOYSOUTOFBAND
     - DDR-VISUAL-FIXEDCOMMITPALETTE

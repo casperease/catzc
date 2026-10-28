@@ -26,7 +26,7 @@ description:
   The globs module projects the flattened scan program into a GitHub list and an Azure DevOps include and exclude pair; the branch policy
   reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
 about:
-  adrs: [FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
+  rules: [FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: architecture
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it

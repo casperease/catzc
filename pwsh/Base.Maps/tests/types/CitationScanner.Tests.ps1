@@ -8,7 +8,7 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
         $script:scan = { param([string] $Text) @([Catzc.Base.Maps.CitationScanner]::Scan($Text, $script:index)) }
     }
 
-    It 'finds ADR and rule codes as written, distinct, in ordinal order' {
+    It 'finds record and rule codes as written, distinct, in ordinal order' {
         $text = @(
             'See [ADR-WIDGET-GADGET-TURN](/docs/drs/widgetry/widget-gadget.md#rule-adr-widget-gadget-turn).'
             '### Rule ADR-WIDGET-GADGET-TURN'
@@ -18,7 +18,7 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
             'ADR-WIDGET-GADGET-TURN')
     }
 
-    It 'keeps a code whose longest listed prefix is an ADR of its own' {
+    It 'keeps a code whose longest listed prefix is a record of its own' {
         & $script:scan 'ADR-WIDGET-GADGET-X-SPIN and ADR-WIDGET-GADGET-X' | Should -Be @('ADR-WIDGET-GADGET-X',
             'ADR-WIDGET-GADGET-X-SPIN')
         [Catzc.Base.Maps.CitationScanner]::CodeOf('ADR-WIDGET-GADGET-X-SPIN', $script:index) |
@@ -27,7 +27,7 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
 
     It 'ignores the decoys' {
         $decoys = @(
-            'ADR-WIDGET-UNKNOWN'          # a code no listed ADR is a prefix of
+            'ADR-WIDGET-UNKNOWN'          # a code no listed record is a prefix of
             'theADR-WIDGET-GADGET'        # glued to a letter before
             'ADR-WIDGET-GADGETS'          # glued to a letter after
             'ADR-WIDGET-GADGET_2'         # glued to an underscore
@@ -113,11 +113,11 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
         & $sites 'docs/widget.md' @('ADR-WIDGET-UNKNOWN') | Should -BeNullOrEmpty
     }
 
-    It 'rejects an index key that is not an ADR code' {
+    It 'rejects an index key that is not a rule code' {
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'WIDGET-GADGET' = 'widgetry' }) } |
-            Should -Throw "*'WIDGET-GADGET' is not an ADR code*"
+            Should -Throw "*DRS index: *'WIDGET-GADGET' is not a rule code*"
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ ('ADR-WIDGET-GADGET' + '#2') = 'widgetry' }) } |
-            Should -Throw '*is not an ADR code*'
+            Should -Throw '*is not a rule code*'
         { [Catzc.Base.Maps.CitationScanner]::Index(@{ 'ADR-WIDGET-GADGET' = '' }) } | Should -Throw '*names no domain*'
     }
 }

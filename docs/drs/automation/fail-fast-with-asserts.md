@@ -1,4 +1,4 @@
-# ADR: Fail fast with inline assertions
+# Automation: Fail fast with inline assertions
 
 ## Rules: ADR-AUTO-FAILFAST
 

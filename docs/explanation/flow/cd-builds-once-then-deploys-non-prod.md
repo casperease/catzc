@@ -23,7 +23,7 @@ description:
   The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages apply the published
   artifacts to the non-prod targets and stop there.
 about:
-  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD]
+  rules: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD]
   lens: implementation
 content:
   title: The customer CD pipeline builds once, then deploys non-prod only

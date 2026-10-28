@@ -2,7 +2,7 @@ description:
   Each of the two az checks has a Test and an Assert half that call one state function, which runs az once through the shared runner; the
   config-aware wrappers look the subscription up in Catzc.Azure first.
 about:
-  adrs: [ADR-AZ-CLI, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER, ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP, ADR-AUTO-PRELOG]
+  rules: [ADR-AZ-CLI, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER, ADR-AUTO-FAILFAST, ADR-AUTO-ENTERP, ADR-AUTO-PRELOG]
   lens: source
 content:
   title: "Two az checks: Test and Assert share one state call"

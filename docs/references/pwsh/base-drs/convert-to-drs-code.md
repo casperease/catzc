@@ -1,13 +1,13 @@
 # pwsh/Base.Drs/ConvertTo-DrsCode.ps1
 
-Converts an old ADR code to its code in the rule-code language. It applies the moves and overrides given, and says a word the code already
+Converts an old rule code to its code in the rule-code language. It applies the moves and overrides given, and says a word the code already
 carries once.
 
 ## help
 
 ### synopsis
 
-Converts an old ADR code to its code in the rule-code language, naming each transform and what to review.
+Converts an old rule code to its code in the rule-code language, naming each transform and what to review.
 
 ### description
 
@@ -16,7 +16,7 @@ repeated back to back. The new code is checked against the code language of `drs
 
 ### parameter `Code`
 
-The old ADR code, from the pipeline or by position; it must be a well-formed code (Assert-DrsCode).
+The old rule code, from the pipeline or by position; it must be a well-formed code (Assert-DrsCode).
 
 ### parameter `Move`
 

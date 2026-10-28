@@ -7,7 +7,7 @@ The repository has five kinds of prose, each with a home and a format:
 | **Decision record** | `docs/drs/<area>/`                    | A durable design decision and its rationale (the _why_)                    |
 | **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and common jobs (the _how_, like this) |
 | **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)       |
-| **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, around one diagram in `explanation/.assets/`   |
+| **Explanation**     | `docs/explanation/<drs-domain>/`      | How one part works and why, around one diagram in `explanation/.assets/`   |
 | **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                             |
 
 All of `docs/` is **markdown only**, except the `.assets/` folders, which hold each diagram as two flat files, its `<name>.drawio.yml`
@@ -50,18 +50,18 @@ couple durable rationale to how-to churn).
 
 An explanation article narrates one diagram: how one part of cats works and why it holds.
 
-1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the decision-record domain whose decision it explains.
-2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>.drawio.yml` (its `description:`, the lens and ADR codes under
-   `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that file>`. Declare its minimaps' lit cells with
+1. Create `docs/explanation/<drs-domain>/<kebab-title>.md`, in the folder of the decision-record domain whose decision it explains.
+2. Declare the diagram in `docs/explanation/<drs-domain>/.assets/<kebab-title>.drawio.yml` (its `description:`, the lens and rule codes
+   under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that file>`. Declare its minimaps' lit cells with
    `declaration.py minimaps <that file>`, which writes each cell and what lit it under `content.minimaps`, then read them once against the
    drawing. To keep the declaration in the article instead, the way a `mermaid` block renders, name the diagram's stem
-   (`docs/explanation/<adr-domain>/.assets/<kebab-title>`) as `article` under `carriers:` in the kit's `drawio.yml`, and write the same yml
+   (`docs/explanation/<drs-domain>/.assets/<kebab-title>`) as `article` under `carriers:` in the kit's `drawio.yml`, and write the same yml
    in a `yml drawio` block directly above the image that embeds its png:
 
    ````markdown
    ```yml drawio
    description: Widgets pass a gate on their way to the gadget store.
-   about: { lens: architecture, adrs: [ADR-WIDGET-GATE] }
+   about: { lens: architecture, rules: [ADR-WIDGET-GATE] }
    content: { title: Widgets pass a gate }
    ```
 
@@ -88,7 +88,8 @@ decision record. The essentials:
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
 4. **Register it.** Add the ruleset to its domain in `drs.yml` (the next import regenerates the code → decision-record table in
    `docs/drs/index.md`), add its entry to the domain's `dora-explains.md`, and add a bullet under the right section of
-   [`docs/index.md`](../../../index.md). The whole sequence, with its builds and checks, is [Add a decision record](add-an-adr.md).
+   [`docs/index.md`](../../../index.md). The whole sequence, with its builds and checks, is
+   [Add a decision record](add-a-decision-record.md).
 
 ### Decision-record authoring conventions
 

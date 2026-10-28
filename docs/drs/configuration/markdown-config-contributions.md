@@ -1,4 +1,4 @@
-# ADR: Markdown config contributions — config values stated in a source-controlled Markdown file
+# Configuration: Markdown config contributions — config values stated in a source-controlled Markdown file
 
 ## Rules: ADR-CONF-MDCONTRIB
 

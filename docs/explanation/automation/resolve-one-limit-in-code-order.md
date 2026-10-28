@@ -25,7 +25,7 @@ description:
   The resolver reads the run environment, then the config entry or its declared default, then the exemption ceiling, and hands one answer in
   seconds to the two bounded runners; the hook asks the same config type for bash directly.
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: implementation
 content:
   title: Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
@@ -123,8 +123,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR presents a per-executable entry as the remedy for a call that needs longer, but an entry replaces the limit in every environment and
-may lower it.
+The record presents a per-executable entry as the remedy for a call that needs longer, but an entry replaces the limit in every environment
+and may lower it.
 
 ## See also
 

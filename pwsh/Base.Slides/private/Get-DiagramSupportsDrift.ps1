@@ -22,8 +22,8 @@ function Get-DiagramSupportsDrift {
     $about = if ($declaration -and $declaration.Contains('about')) {
         $declaration['about']
     }
-    $codes = [string[]] @(if ($about -and $about.Contains('adrs')) {
-            $about['adrs']
+    $codes = [string[]] @(if ($about -and $about.Contains('rules')) {
+            $about['rules']
         }) | Sort-Object -Unique
     $lens = if ($about -and $about.Contains('lens') -and $about['lens']) {
         "$($about['lens'])"

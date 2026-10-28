@@ -22,7 +22,7 @@ A template article describes a template by **what it deploys and how it is confi
 
 1. **`# <name>`** — H1, the template's folder name (`# foundation`). One H1 per file.
 2. **Lead paragraph** — what the template deploys and its single responsibility; what it deliberately does not own; and any cross-template
-   dependency (e.g. it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../drs/azure/...`).
+   dependency (e.g. it needs `foundation`'s Key Vault). Link the governing record(s) (`../../drs/azure/...`).
 3. **`## Resources`** — a bullet list of the Azure resources it creates, each naming the shared `*.bicep` module that provides it.
 4. **`## Configuration`** — its `short_name` and `environment_kind`, the environments/slots it targets, the
    `configuration/[<customer>/]<env>[-<slot>].yml` files shipped, and any `PrePost.psm1` behaviour.
@@ -33,8 +33,8 @@ shared modules and how a template references one.
 
 ## References point one way
 
-An article cites ADRs (`../../drs/...`), sibling articles (`foundation.md`), and the automation reference
-(`../pwsh/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring conventions.)
+An article cites decision records (`../../drs/...`), sibling articles (`foundation.md`), and the automation reference
+(`../pwsh/catzc-azure-templates.md`); a record or the code never links back to these articles. (Same rule as the DRS authoring conventions.)
 
 ## Formatting & gates
 

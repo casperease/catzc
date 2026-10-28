@@ -26,7 +26,7 @@ description:
   "A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file and why: no subscription,
   more than one, or a subfolder that is not a customer key."
 about:
-  adrs: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
+  rules: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
   lens: operations
 content:
   title: A config file that resolves to no subscription, or to two, stops discovery with one line

@@ -44,6 +44,27 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             }
             Join-Path $compiled ([System.IO.Path]::GetFileName($manifest))
         }
+
+        $script:contractFixtures = 0
+        function New-ContractFixtureRoot {
+            $script:contractFixtures++
+            $namespace = "Catzc.WidgetContract$($script:contractFixtures)$runId"
+            $repository = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))
+            $modules = Join-Path $repository 'pwsh'
+            [System.IO.Directory]::CreateDirectory((Join-Path $modules '.internal')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $modules '.internal/Catzc.Internal.Types.psm1'), '')
+            [System.IO.Directory]::CreateDirectory((Join-Path $repository 'contracts/catzc')) | Out-Null
+            $types = [System.IO.Directory]::CreateDirectory((Join-Path $modules "$namespace/types")).FullName
+            [System.IO.File]::WriteAllText((Join-Path $types 'Widget.cs'), "namespace $namespace;`npublic class Widget { }")
+            $modules
+        }
+
+        function Get-ContractFixturePath {
+            param([string] $Root)
+            $repository = [System.IO.Path]::GetDirectoryName($Root)
+            $folder = [System.IO.Path]::GetFileName(@([System.IO.Directory]::GetDirectories($Root) | Where-Object { [System.IO.Path]::GetFileName($_) -like 'Catzc.*' })[0])
+            Join-Path $repository (Get-TypesContractPath -RepositoryRoot $repository -Namespace $folder)
+        }
     }
 
     AfterAll {
@@ -133,6 +154,35 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             [System.IO.File]::Delete($manifest)
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             [System.IO.File]::Exists($manifest) | Should -BeTrue
+        }
+
+        It 'rewrites a deleted or changed types contract on a cache-hit import' {
+            $root = New-ContractFixtureRoot
+            Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Internal.Bootstrap
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            $contract = Get-ContractFixturePath -Root $root
+            [System.IO.File]::Exists($contract) | Should -BeTrue -Because 'a compile writes the contract'
+            $written = [System.IO.File]::ReadAllText($contract)
+
+            [System.IO.File]::Delete($contract)
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            [System.IO.File]::ReadAllText($contract) | Should -BeExactly $written
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -like 'Wrote the types contract*' } -Times 2 -Exactly
+
+            [System.IO.File]::WriteAllText($contract, '{}')
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            [System.IO.File]::ReadAllText($contract) | Should -BeExactly $written
+        }
+
+        It 'calls no Write-TypesContract on a cache-hit import whose contract matches its stamp' {
+            $root = New-ContractFixtureRoot
+            Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Internal.Bootstrap
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            [System.IO.File]::Exists((Get-ContractFixturePath -Root $root)) | Should -BeTrue
+
+            Mock Write-TypesContract { } -ModuleName Catzc.Internal.Types
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            Should -Invoke Write-TypesContract -ModuleName Catzc.Internal.Types -Times 0 -Exactly
         }
 
         It 'throws for a bundle whose manifest is missing and never writes one' {

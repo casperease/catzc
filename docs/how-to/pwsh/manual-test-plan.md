@@ -23,9 +23,9 @@ check on its own.
 - **[Azure](manual-test-plan/azure.md)**: The shipped Azure configs and bicep templates
 - **[Pipelines and globs](manual-test-plan/pipelines-and-globs.md)**: Azure DevOps configs, the pipelines tree, and globset trigger
   projections
-- **[Static analysis](manual-test-plan/static-analysis.md)**: PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map
+- **[Static analysis](manual-test-plan/static-analysis.md)**: PSScriptAnalyzer, the formatter, and the analyzer-to-rule map
 - **[Spelling and language](manual-test-plan/spelling-and-language.md)**: Spell-checking, terminology, dictionaries, and the glossary
-- **[DRS registry](manual-test-plan/adr-registry.md)**: DRS rule-sets, the domain graph, the DRS index, and rule enforcers
+- **[DRS registry](manual-test-plan/drs-registry.md)**: DRS rule-sets, the domain graph, the DRS index, and rule enforcers
 - **[Docs and links](manual-test-plan/docs-and-links.md)**: Generated READMEs and `.gitkeep` files, Markdown lint and titles, links
 - **[Root config and editor](manual-test-plan/root-config-and-editor.md)**: Managed root config files, the importer, `.gitignore`, and VS
   Code registries

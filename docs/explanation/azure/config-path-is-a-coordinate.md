@@ -23,7 +23,7 @@ description:
   "A config file's place under a template's configuration tree is its coordinate: a root config or a customer config, checked against
   exactly one subscription, resolves to that subscription and to one resource group."
 about:
-  adrs:
+  rules:
     - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
     - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
     - ADR-AZ-DATAMOD-NAMEKEYEDMAPS

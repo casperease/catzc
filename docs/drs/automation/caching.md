@@ -1,4 +1,4 @@
-# ADR: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
+# Automation: Caching — static reads and filesystem-derived information (the importer is the cache boundary)
 
 ## Rules: ADR-AUTO-CACHE
 

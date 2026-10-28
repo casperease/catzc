@@ -26,7 +26,7 @@ description:
   each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in
   main-UAT, is taken by nobody."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE

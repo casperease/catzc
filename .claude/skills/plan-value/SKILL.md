@@ -16,6 +16,6 @@ metadata:
 
 1. Value is what the plan delivers once landed (a broken rule fixed, a vocabulary settled, a blocker removed), stated in one sentence; job
    size never ranks.
-2. Needed docs are the ADR rules, glossary terms and CLAUDE.md lines the plan must write; needed tests are the gates and Pester files that
+2. Needed docs are the DRS rules, glossary terms and CLAUDE.md lines the plan must write; needed tests are the gates and Pester files that
    prove it; both are listed by name.
 3. The rank lives only in `value-of-plan.md` and the head's `value` key; a file name never carries it.

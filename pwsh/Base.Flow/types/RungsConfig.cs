@@ -127,7 +127,7 @@ public sealed class RungsConfig
                 IList listed = fields["rules"] as IList;
                 if (listed == null)
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': rules must be a list of ADR rule codes", name));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': rules must be a list of rule codes", name));
                 }
                 else
                 {
@@ -136,7 +136,7 @@ public sealed class RungsConfig
                         string code = Convert.ToString(item, CultureInfo.InvariantCulture);
                         if (code == null || !RuleCode.IsMatch(code))
                         {
-                            errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': '{1}' is not an ADR rule code", name, code));
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "rung '{0}': '{1}' is not a rule code", name, code));
                             continue;
                         }
                         rules.Add(code);

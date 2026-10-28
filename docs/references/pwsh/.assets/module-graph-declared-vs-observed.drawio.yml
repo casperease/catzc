@@ -1,0 +1,72 @@
+description:
+  The declared module graph in dependencies.yml is built into one map that orders the test run and closes a set of modules; the graph
+  observed from the parsed code is checked for cycles and against the declared allow-list.
+about:
+  rules:
+    - ADR-AUTO-TEST-SAFESEAMSWAPS
+    - ADR-AUTO-TEST-QUALITYGATE
+    - ADR-AUTO-CACHE-FILESYSTEMDERIVED
+    - ADR-AUTO-CACHE-KEYEDBYINPUTS
+    - ADR-AUTO-CACHE-READONLYVALUES
+    - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+    - ADR-PWSH-CACHE-STRICTSAFEPROBE
+    - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+    - DDR-RUNMODE
+  lens: source
+content:
+  title: Declared graph orders and closes; observed graph is checked
+  kind: reference
+  flow: top-to-bottom
+  theme: dark
+  bands:
+    - { id: band-declared, label: DECLARED GRAPH }
+    - { id: band-observed, label: OBSERVED GRAPH }
+  groups:
+    - { id: grp-quality-gates, label: Catzc.Base.QualityGates, in: band-declared }
+  glyphs:
+    - { id: f-dependencies, kind: file, label: dependencies.yml, in: band-declared }
+    - { id: g-config, kind: private, label: Get-ModuleDependencyConfig, in: band-declared }
+    - { id: g-map, kind: private, label: Get-ModuleDependencyMap, in: band-declared }
+    - { id: g-order, kind: code, label: Get-ModuleOrder, in: band-declared }
+    - { id: g-test-paths, kind: private, label: Get-TestAutomationTestPaths, in: grp-quality-gates }
+    - { id: g-closure, kind: private, label: Get-ModuleDependencyClosure, in: band-declared }
+    - { id: g-function, kind: code, label: Get-FunctionDependency, in: band-observed }
+    - { id: g-module, kind: code, label: Get-ModuleDependency, in: band-observed }
+    - { id: g-violations, kind: private, label: Get-ModuleDependencyViolations, in: band-observed }
+    - { id: g-cycles, kind: gate, label: Test-ModuleCycles, in: band-observed }
+  edges:
+    - { from: g-config, to: f-dependencies, kind: flow, label: "" }
+    - { from: g-map, to: g-config, kind: flow, label: calls }
+    - { from: g-order, to: g-map, kind: flow, label: calls }
+    - { from: g-test-paths, to: g-order, kind: flow, label: calls }
+    - { from: g-closure, to: g-map, kind: flow, label: calls }
+    - { from: g-violations, to: g-config, kind: flow, label: calls }
+    - { from: g-module, to: g-function, kind: flow, label: calls }
+    - { from: g-violations, to: g-module, kind: flow, label: calls }
+    - { from: g-cycles, to: g-module, kind: flow, label: calls }
+  markers:
+    - { at: f-dependencies, number: 1 }
+    - { at: g-map, number: 2 }
+    - { at: g-order, number: 3 }
+    - { at: g-test-paths, number: 4 }
+    - { at: g-closure, number: 5 }
+    - { at: g-function, number: 6 }
+    - { at: g-module, number: 7 }
+    - { at: g-violations, number: 8 }
+    - { at: g-cycles, number: 9 }
+  legend: auto
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-declared: { x: 20, y: 84, w: 1260, h: 190 }
+  band-observed: { x: 20, y: 304, w: 1260, h: 172 }
+  f-dependencies: { x: 160, y: 113, w: 130, h: 52 }
+  g-config: { x: 320, y: 121, w: 200, h: 40 }
+  g-map: { x: 560, y: 121, w: 190, h: 40 }
+  g-order: { x: 790, y: 121, w: 165, h: 40 }
+  grp-quality-gates: { x: 990, y: 94, w: 280, h: 90 }
+  g-test-paths: { x: 1010, y: 130, w: 240, h: 40 }
+  g-closure: { x: 790, y: 211, w: 215, h: 36 }
+  g-function: { x: 160, y: 410, w: 185, h: 40 }
+  g-module: { x: 385, y: 410, w: 175, h: 40 }
+  g-violations: { x: 330, y: 334, w: 230, h: 40 }
+  g-cycles: { x: 620, y: 395, w: 200, h: 70 }

@@ -1,6 +1,6 @@
 description: The files of pwsh/.internal and the links between them, drawn from the link graph at every build.
 about:
-  adrs: [ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
   lens: implementation
   zoom: C4
   point: pwsh/.internal

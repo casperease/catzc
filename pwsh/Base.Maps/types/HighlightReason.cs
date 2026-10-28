@@ -16,7 +16,7 @@ public sealed class HighlightReason
     // The requested citation that lights the file (the request's own form); null for a requested file.
     public string Requested { get; }
 
-    // The citation sites the request covers, in path then line order; empty for an ADR file, a requested file and a pin.
+    // The citation sites the request covers, in path then line order; empty for a record file, a requested file and a pin.
     public IReadOnlyList<CitationSite> Sites { get; }
 
     // The reviewed reason of a pin; null otherwise.

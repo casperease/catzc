@@ -37,20 +37,6 @@ is planned here, one step each, so no record carries a planned item.
       Test-BicepTemplateCompliance green in one staged burst. Verdict (2026-10-27 burst, with the SQL database's `serverName` passed as
       `sqlServerName` and an explicit `dependsOn`, so its name resolves offline): Test-BicepLint, Test-BicepApiVersions,
       Build-Bicep.Integrity.Tests, Test-BicepTemplateCompliance, ProductionAlerts.Tests and Alerts.Tests passed, 6 of 6.
-- [ ] The identity split (the firewall burst is in the tree):
-      `service-connections.yml` becomes `identities:` — landing-zone (foundation, discovery; subscription scope; `owner`), workload
-      (expedition; resource-group scope; `contributor`) and read-only (all templates; subscription scope; `reader`), roles by `roles.yml`
-      name — and the connections are derived per subscription, the trust boundary: one landing-zone and one read-only connection per
-      subscription, and one workload connection per subscription that hosts expedition slots, named with the subscription's coordinates and
-      the role `lz`/`ro`/`wl` through a new namer type `sc` (`pattern long, limit 256`). `Get-BicepServiceConnectionName` and
-      `Get-BicepServiceConnections` live in Azure.Templates; `Sync-AdoServiceConnections` and `Test-AdoServiceConnections` take the
-      connection objects as input (pipeline or `-Connection`), so Azure.DevOps gains no dependency on Azure.Templates (checked against
-      `dependencies.yml`). The pipelines' literal `sc-*` names move to the derived ones in the same change as the config and the namer, one
-      staged burst, `cd-customer.yaml`'s parameter examples included (decided, drone-opus for meister, 2026-10-27, by PDR-ONELIVE: a
-      contract and every in-tree caller change together, so no pipeline waits on a separate part B and no old `sc-*` name outlives the
-      config). Check: the connection listing names each subscription's landing-zone, read-only and workload connections, and an
-      L1 that every `serviceConnection` in `.ado/pipelines` resolves to a derived connection whose identity fits what its stage deploys
-      (landing-zone for foundation and discovery, workload for expedition, read-only for `-DryRun` previews).
 - [x] The firewall egress narrows `Storage` to the region's tag: `NetworkFirewallEgress`'s default `Storage.{region}`, which
       `firewall-policy.bicep` fills with its location's tag name (`firewall_egress.service_tag_regions`). Verdict (2026-10-27 burst, after
       the evaluator gained `deployment()` from `Get-ArmDeployedResource -Location` and module-parameter copies): HubFirewall.Tests 4 of 4,
@@ -132,6 +118,13 @@ is planned here, one step each, so no record carries a planned item.
       the CD stage. Verdict (2026-10-27): `cd-apex.yaml` and `cd-shared.yaml` dropped their prod-subscription targets (psub, prod);
       `deploy-apex.yaml` `prod` deploys psub, then preprod, then prod, and `deploy-shared.yaml` gained `prod` (psub); Test-Pipelines.Tests
       passed, 23 of 23, with a case that only a `deploy-*` pipeline targets a subscription hosting a production environment.
+- [ ] The DRS sentences that still name one service connection per subscription or `sc-*` names are rewritten to the connections
+      `Get-BicepServiceConnections` derives, one per deployment identity in each subscription, when their editing session releases them:
+      `docs/drs/azure/landing-zones.md` line 152 (want: "through the service connections `Get-BicepServiceConnections` derives, one per
+      deployment identity in each subscription"), `docs/drs/azure/landing-zones/landing-zones-caf.md` lines 139, 181, 186, 189 and 213,
+      `docs/drs/azure/landing-zones/landing-zones-well-architected.md` lines 26, 285 and 301, `docs/drs/azure/azure-data-model.md` line 155,
+      `docs/drs/azure/az-session-verification.md` line 102 and `docs/drs/azure/azure-naming-standard.md`. Check: Test-Links and
+      Test-Spelling on those files read 0, and a Grep for `sc-` in them finds no connection name.
 
 ## Decided
 

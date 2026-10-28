@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../flow/.assets/edit-globs-yml-then-read-the-output.drawio.png
+      source: ../../../references/pwsh/.assets/tools-yml-install-dispatch.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -23,13 +23,13 @@ Dependencies are the base class library or vendored under .vendor; an offline gu
 
 ## Image
 
-.assets/not-a-package-feed.png
+[not-a-package-feed](.assets/not-a-package-feed.png)
 
 ## Caption
 
-From the catalogue, reduced: edit globs yml then read the output.
+From the catalogue, reduced: tools yml install dispatch.
 
 ## Notes
 
 Check it: the record ADR-AUTO-PKGMGR in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.
+docs/references/pwsh/.assets/tools-yml-install-dispatch.drawio.png.

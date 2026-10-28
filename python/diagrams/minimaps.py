@@ -1,7 +1,7 @@
 # cspell:ignore minimaps textlength LANCZOS
 """The minimaps of a diagram, drawn for the sidebar from the data Catzc.Base.Maps computes.
 
-A minimap's data is computed in PowerShell from the diagram's subject, the ADR codes of its `about.adrs` and the files that cite
+A minimap's data is computed in PowerShell from the diagram's subject, the rule codes of its `about.rules` and the files that cite
 them, and reaches this module as contract JSON (minimap_contract.py); what it lights, and why, is never computed or written here.
 Every view is a question in its caption, readable at the sidebar's width: lit places are bright and named, context is dim.
 
@@ -31,7 +31,7 @@ QUESTION = {
     "track-placement": "Which tracks and vendors?",
     "engine-strip": "Which engines?",
 }
-ABOUT_KEYS = ("adrs",)
+ABOUT_KEYS = ("rules",)
 
 
 def use_theme(theme=None):
@@ -76,8 +76,8 @@ def records_root():
 
 
 @cache
-def adrs():
-    """Every ADR code in the registry with the stack and the concerns it sits on: a ruleset's own concern, else its domain's."""
+def records():
+    """Every record code in the registry with the stack and the concerns it sits on: a ruleset's own concern, else its domain's."""
     found = {}
 
     def walk(node, stack=None, concern=None):
@@ -98,7 +98,7 @@ def adrs():
 
 @cache
 def rules():
-    """Every rule code the ADRs define: the `### Rule <code>` headings under the records' root, of every record kind drs.yml declares."""
+    """Every rule code the records define: the `### Rule <code>` headings under the records' root, of every record kind drs.yml declares."""
     heading = re.compile(r"### Rule " + kinds() + r"-")
     found = set()
     for page in (REPO / records_root()).rglob("*.md"):
@@ -108,22 +108,22 @@ def rules():
     return found
 
 
-def adr_of(code):
-    """The ADR a rule code belongs to: the longest registered ADR code that is the code or its prefix."""
-    hits = [adr for adr in adrs() if code == adr or code.startswith(adr + "-")]
+def record_of(code):
+    """The record a rule code belongs to: the longest registered record code that is the code or its prefix."""
+    hits = [record for record in records() if code == record or code.startswith(record + "-")]
     return max(hits, key=len) if hits else None
 
 
 def problems(about):
     """Every name in `about:` that its registry does not know, each with what the registry does know."""
     out = []
-    for code in about["adrs"]:
-        adr = adr_of(code)
-        if adr is None:
-            out.append(f"about.adrs '{code}' is not a rule of an ADR in drs.yml")
-        elif code not in adrs() and code not in rules():
-            siblings = sorted(r for r in rules() if r.startswith(adr + "-"))
-            out.append(f"about.adrs '{code}' is not a rule of {adr}; its rules are: {', '.join(siblings)}")
+    for code in about["rules"]:
+        record = record_of(code)
+        if record is None:
+            out.append(f"about.rules '{code}' is not a rule of a record in drs.yml")
+        elif code not in records() and code not in rules():
+            siblings = sorted(r for r in rules() if r.startswith(record + "-"))
+            out.append(f"about.rules '{code}' is not a rule of {record}; its rules are: {', '.join(siblings)}")
     return out
 
 

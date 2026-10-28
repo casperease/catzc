@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../design/.assets/deploy-bicep-delegates-to-az.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ The gallery PDF and the slide render are what a person reads; the HTML project t
 
 ## Image
 
-.assets/not-an-html-viewer.png
+[not-an-html-viewer](.assets/not-an-html-viewer.png)
 
 ## Caption
 
-From the catalogue, reduced: deploy bicep delegates to az.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png
+      source: ../../flow/.assets/cd-builds-once-then-deploys-non-prod.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ apply makes the org match.
 
 ## Image
 
-.assets/fdr-cd-6.png
+[fdr-cd-6](.assets/fdr-cd-6.png)
 
 ## Caption
 
-From the catalogue, reduced: bind to one cli delegate the rest.
+From the catalogue, reduced: cd builds once then deploys non-prod.
 
 ## Notes
 
 Check it: the record FDR-CD in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png.
+docs/explanation/flow/.assets/cd-builds-once-then-deploys-non-prod.drawio.png.

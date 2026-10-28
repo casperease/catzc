@@ -24,7 +24,7 @@ description:
   A pipeline signs in through its service connection and pins the subscription it expects; a developer sets the session with az account set;
   Deploy-Bicep resolves the session, prints the deployment context, or stops with one of three errors.
 about:
-  adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  rules: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: operations
 content:
   title: A pipeline pins the subscription it expects; a devbox picks the target with az account set

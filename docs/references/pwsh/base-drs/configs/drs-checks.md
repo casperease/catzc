@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/configs/drs-checks.yml
 
-The settings of the ADR checks over the rule registries under `docs/drs/`, read through `DrsChecksConfig`.
+The settings of the DRS checks over the rule registries under `docs/drs/`, read through `DrsChecksConfig`.
 
 ## Keys
 
@@ -10,10 +10,11 @@ file states only what deviates.
 
 - **`engine_neutrality`** — `Test-DrsEngineNeutrality`: the rule summaries of each domain under `domains` carry none of the tokens of the
   sets it names. `token_sets` maps a kebab-case set name to a map of kebab-case token name to a case-sensitive .NET regex.
-- **`citation_graph`** — `Test-DrsRegistry`: an ADR page cites only its own domain or a domain in its `depends_on`.
-- **`dora_coverage`** — `Test-DrsRegistry`: each rule set has exactly one section linking its ADR in its domain's DORA file. `file` names
-  that file, `exempt` maps a domain to the reason it keeps none, and `exempt_folders` maps a folder to the reason its ADRs take no section.
-- **`code_language`** — the segment grammar of ADR codes and named rule headings.
+- **`citation_graph`** — `Test-DrsRegistry`: a record page cites only its own domain or a domain in its `depends_on`.
+- **`dora_coverage`** — `Test-DrsRegistry`: each rule set has exactly one section linking its record in its domain's DORA file. `file` names
+  that file, `exempt` maps a domain to the reason it keeps none, and `exempt_folders` maps a folder to the reason its records take no
+  section.
+- **`code_language`** — the segment grammar of rule codes and named rule headings.
 
 ## Modes
 

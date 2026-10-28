@@ -1,4 +1,4 @@
-# ADR: Environment variables are for external boundaries, not internal state
+# Automation: Environment variables are for external boundaries, not internal state
 
 ## Rules: ADR-AUTO-ENVVAR
 

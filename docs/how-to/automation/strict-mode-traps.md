@@ -1,7 +1,7 @@
-# Avoid three strict-mode traps
+# Avoid five strict-mode traps
 
-Every catzc file runs under `Set-StrictMode -Version Latest`. Three PowerShell behaviours pass a quick read and then fail under it, or
-return the wrong count. Each one below shows the trap and the form that works.
+Every catzc file runs under `Set-StrictMode -Version Latest`. Five PowerShell behaviours pass a quick read and then fail under it, or return
+the wrong count. Each one below shows the trap and the form that works.
 
 ## An `if` that yields an empty array gives `$null`
 
@@ -41,4 +41,37 @@ argument in `$args[0]`, never in `$_`, and nothing comes back. Use the `foreach`
 
 ```powershell
 $doubled = foreach ($item in $list) { $item * 2 }
+```
+
+## An `-ErrorText` string is built even when the assert passes
+
+```powershell
+$widgets = @(Get-Widget)
+Assert-True ($widgets.Count -le 1) -ErrorText "Too many widgets, first is $($widgets[0].Name)"   # throws when $widgets is empty
+```
+
+PowerShell evaluates every argument before the call, so the message string is built whether the assert fails or passes. On an empty
+`$widgets`, `$widgets[0]` is out of bounds and strict mode throws before `Assert-True` runs, on the one input the assert accepts. Keep an
+`-ErrorText` to values that exist on every input, or build the message only on the failing branch:
+
+```powershell
+if ($widgets.Count -gt 1) {
+    throw "Too many widgets, first is $($widgets[0].Name)"
+}
+```
+
+## Nested arrays flatten, `[pscustomobject]` rows do not
+
+```powershell
+$pairs = @(foreach ($widget in 'alpha', 'beta') { @($widget, 'gadget') })
+$pairs.Count   # 4, not 2
+@(@()).Count   # 0, not 1
+```
+
+The pipeline unrolls each inner array into its items, and `@()` around an array adds no level, so a list meant to hold rows of two holds
+their parts, and an empty row disappears. Emit each row as one object, which the pipeline never unrolls:
+
+```powershell
+$pairs = @(foreach ($widget in 'alpha', 'beta') { [pscustomobject]@{ Widget = $widget; Gadget = 'gadget' } })
+$pairs.Count   # 2
 ```

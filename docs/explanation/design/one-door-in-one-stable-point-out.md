@@ -23,7 +23,7 @@ description:
   A change enters the server's main only through a pull request, and consumers build on the last verified commit, a point that never moves,
   never on the provisional HEAD.
 about:
-  adrs:
+  rules:
     [DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: meta
 content:

@@ -1,4 +1,4 @@
-# ADR: Uniform formatting — the whole repository, one mechanical standard
+# Repository: Uniform formatting — the whole repository, one mechanical standard
 
 ## Rules: ADR-REPO-FORMAT
 
@@ -209,8 +209,8 @@ per-file overrides, no "I prefer it this way." The tools decide, not the contrib
 - **`.gitattributes`** — marks binary files so EOL/diff normalization never corrupts them; deliberately no `* text=auto`.
 - **Per-language analyzers** — each language's specific rules run in its own gate. For PowerShell this is PSScriptAnalyzer plus custom rules
   in the L2 tests. For Markdown it is markdownlint (`.markdownlint.yml`), formatted by Prettier and kept in sync with it. For ADO pipeline
-  YAML (`.yaml`) it is Prettier, checked by `Test-Formatting` in an L2 test, plus the naming-and-placement gate `Test-Pipelines` in an L1
-  test, so drifted or misplaced pipeline YAML fails CI.
+  YAML (`.yaml`) it is Prettier, checked by `Test-Formatting` in an L2 test, plus the naming-and-placement quality gate `Test-Pipelines` in
+  an L1 test, so drifted or misplaced pipeline YAML fails CI.
 - **The file-language registry** — `languages.yml` names each language's formatter engine or the reason it has none, validated at load
   (`LanguagesConfig`); `Format-Code` runs the engines and `Test-Formatting` reports every file an engine would change, and an L0 integrity
   test asserts every engine the registry may name has its adapter.

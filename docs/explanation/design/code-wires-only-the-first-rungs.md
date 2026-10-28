@@ -24,7 +24,7 @@ description:
   "The pipelines wire only the first three rungs of the commit lifecycle: a pull request, the merge, and the CD run's own CI engine; past
   the build validation commit the deploy stages follow the template, not a rung."
 about:
-  adrs: [FDR-LIFE-DIRTYHEADUNSAFE]
+  rules: [FDR-LIFE-DIRTYHEADUNSAFE]
   lens: implementation
 content:
   title: The pipelines wire only topic, landed and BVT; past BVT there is no ladder

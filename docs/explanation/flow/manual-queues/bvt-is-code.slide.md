@@ -5,10 +5,9 @@ catzc:
     deck: manual-queues
     order: 4
     picture:
-      mode: zoom
-      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
-      box: [20, 254, 700, 570]
-      scale: 0.6
+      mode: reduce
+      source: ../../design/.assets/state-changes.drawio.png
+      scale: 0.4
 ---
 
 # BVT is the only gate code runs, and it asks nobody
@@ -24,11 +23,12 @@ so it is not a queue.
 
 ## Image
 
-.assets/bvt-is-code.png
+[bvt-is-code](.assets/bvt-is-code.png)
 
 ## Caption
 
-Zoomed: ci-pwsh, the first rung and the one BVT gate, with on-demand and main-UAT above it.
+Reduced: six pipeline shapes, each a run of the promotion ladder in which BVT is the one gate that is code; every state a commit reaches can be
+discarded.
 
 ## Notes
 

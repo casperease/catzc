@@ -19,6 +19,10 @@ is in [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md);
 - **One type per file**, filename = type name (the analogue of one-function-per-file). The loader identifies the type from the filename — it
   does not parse the body — so a dotted filename, or a missing, mismatched, or block-scoped namespace, is rejected. The namespace must be
   the file-scoped form `namespace <Module>;` matching the module (folder-derived by `Format-Types`, checked by `Test-Formatting`).
+- **One public class per file, never a partial class.** A `types/<Name>.cs` declares exactly one public class `<Name>`. A type past its
+  length limit splits into public static helper classes, each in its own `types/<Helper>.cs`, which the type calls; a `partial` class spread
+  over two files fails the loader, which expects each file to declare the type its name says. The test file of a helper takes that helper's
+  own type name, `tests/types/<Helper>.Tests.ps1`, never the name of a class that does not exist.
 - `types/CliRunner.cs` in `Catzc.Base.Execution` becomes `Catzc.Base.Execution.CliRunner`. FQN collisions across modules are therefore
   impossible.
 - **Host-guaranteed assemblies only.** Types compile with `Add-Type` against its default reference set — the shared framework plus

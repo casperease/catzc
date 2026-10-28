@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../azure/.assets/a-bad-coordinate-stops-discovery.drawio.png
+      source: ../../design/.assets/every-deploy-stage-is-main-only.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ point.
 
 ## Image
 
-.assets/bvt-rejects-alone.png
+[bvt-rejects-alone](.assets/bvt-rejects-alone.png)
 
 ## Caption
 
-From the catalogue, reduced: a bad coordinate stops discovery.
+From the catalogue, reduced: every deploy stage is main only.
 
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.
+docs/explanation/design/.assets/every-deploy-stage-is-main-only.drawio.png.

@@ -1,4 +1,4 @@
-# ADR: Controlled vocabulary — one definition per term, opt-in glossary sources
+# Repository: Controlled vocabulary — one definition per term, opt-in glossary sources
 
 ## Rules: ADR-REPO-VOCAB
 

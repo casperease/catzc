@@ -6,35 +6,35 @@ function Get-DrsCitationMap {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:adrCitationMapCache')) {
+    if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:drsCitationMapCache')) {
         # Probed strict-clean: an unset script variable reads as null through SessionState instead of throwing.
-        $script:adrCitationMapCache = @{}
+        $script:drsCitationMapCache = @{}
     }
-    if ($script:adrCitationMapCache.ContainsKey($root)) {
-        return $script:adrCitationMapCache[$root]
+    if ($script:drsCitationMapCache.ContainsKey($root)) {
+        return $script:drsCitationMapCache[$root]
     }
 
     $drs = Get-Config -Config drs
     $records = $drs.Root
-    $adrRoot = Join-Path $root $records
+    $drsRoot = Join-Path $root $records
     $indexPath = $drs.IndexPath($root)
     Assert-PathExist $indexPath -PathType Leaf
 
     $entries = @{}
     foreach ($row in (Get-DrsIndex -IndexPath $indexPath)) {
-        $adrFile = Join-Path $adrRoot $row.Path
+        $recordFile = Join-Path $drsRoot $row.Path
         $entries[$row.Code] = @{
             path  = "$records/" + ($row.Path -replace '\\', '/')
-            rules = [string[]] @(Get-DrsRules -DrsPath $adrFile | ForEach-Object Id)
+            rules = [string[]] @(Get-DrsRules -DrsPath $recordFile | ForEach-Object Id)
         }
     }
 
-    # An ADR sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
-    $documents = foreach ($file in Get-ChildPath $adrRoot -File -Filter '*.md' -Depth 4) {
+    # A record sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
+    $documents = foreach ($file in Get-ChildPath $drsRoot -File -Filter '*.md' -Depth 4) {
         [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
     }
 
     $map = [Catzc.Base.Drs.DrsCitationMap]::new($entries, @($documents))
-    $script:adrCitationMapCache[$root] = $map
+    $script:drsCitationMapCache[$root] = $map
     $map
 }

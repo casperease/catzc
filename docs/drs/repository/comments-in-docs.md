@@ -1,4 +1,4 @@
-# ADR: Comments in docs — a file keeps one line of insight per comment, the rest lives in its comment page
+# Repository: Comments in docs — a file keeps one line of insight per comment, the rest lives in its comment page
 
 ## Rules: ADR-REPO-COMMENTS
 
@@ -106,9 +106,9 @@ changes most, because a re-tier rewrites them, so a `Describe` line is addressed
 
 ### Clues, not narration
 
-Code already says what it does; a comment that repeats it is noise the reader has to read past, and one that describes the code as it stands
-today is wrong the day the code changes. The comments worth keeping are the ones a reader could not recover from the code: the reason behind
-a choice, the trap a change would fall into, the meaning of a value. Those stay true as long as the reason does, whatever the implementation
+Code says what it does; a comment that repeats it is noise the reader has to read past, and one that describes the code as it stands is
+wrong the day the code changes. The comments worth keeping are the ones a reader could not recover from the code: the reason behind a
+choice, the trap a change would fall into, the meaning of a value. Those stay true as long as the reason does, whatever the implementation
 becomes. History belongs in `git log` and plans in `.claude/plans`, so a comment never carries either.
 
 A new insight line never sits next to another comment line: two adjacent lines reach the export threshold, and `Export-Comments` moves both
@@ -147,8 +147,8 @@ sections.
 ## Decision
 
 A code or configuration file carries only comments of one line; a longer comment moves, verbatim and numbered, to the file's comment page
-under `docs/references/` and leaves nothing behind, and the file's path names the page. The full file is a generated view under `out/`.
-Tools make the move and a gate holds it.
+under `docs/references/` and leaves at most one line of insight behind, and the file's path names the page. The full file is a generated
+view under `out/`. Tools make the move and a gate holds it.
 
 ### How this is enforced
 

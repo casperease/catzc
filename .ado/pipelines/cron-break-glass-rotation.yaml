@@ -21,5 +21,5 @@ jobs:
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
           Mode: azcli
-          ServiceConnection: sc-apex-prod
+          ServiceConnection: psub-weu-zct-ado-apex-lz-sc
           RunCommand: Invoke-BreakGlassRotation prod

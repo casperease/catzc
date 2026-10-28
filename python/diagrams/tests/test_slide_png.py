@@ -5,6 +5,7 @@ usage (repo root, background): timeout 120 uv run --no-sync --project python pyt
 
 import pytest
 from catzc.diagrams import slide_png
+from PIL import Image, ImageColor
 
 
 def slide(tmp_path, image):
@@ -25,6 +26,25 @@ def test_a_bare_path_is_refused_naming_the_file(tmp_path):
     _, fields = slide_png.head_and_fields(path)
     with pytest.raises(SystemExit, match=r"widget\.slide\.md: the ## Image section holds one markdown link"):
         slide_png.image_of(path, fields)
+
+
+def test_a_text_only_fact_slide_renders_at_the_deck_size(tmp_path):
+    path = tmp_path / "widget.slide.md"
+    path.write_text(
+        "---\ncatzc:\n  config:\n    pattern: fact\n    order: 2\n---\n\n# The widget spins\n\n## Eyebrow\n\n2 / 3 · fact · ADR-WIDGET-SPIN\n\n"
+        "## Lead\n\n" + "A widget spins when wound, and the lead takes the whole width of the slide. " * 3 + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    out = slide_png.render(path, tmp_path / "widget.slide.png")
+    layout, fact = slide_png.SLIDES["layout"], slide_png.SLIDES["fact"]
+    width, height, gutter = int(layout["width"]), int(layout["height"]), int(layout["gutter"])
+    with Image.open(out) as img:
+        assert img.size == (width, height)
+        # With no picture the text runs into the column a picture would hold, so that column carries ink, not only the background.
+        column = img.convert("RGB").crop((width - gutter - int(fact["picture_width"]), gutter, width - gutter, height // 2))
+        background = ImageColor.getrgb(slide_png.SLIDES["token"]["bg_deep"])
+        assert any(colour != background for _, colour in column.getcolors(maxcolors=column.width * column.height))
 
 
 def test_an_image_embed_is_refused(tmp_path):

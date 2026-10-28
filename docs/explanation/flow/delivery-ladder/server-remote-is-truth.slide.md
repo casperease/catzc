@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../automation/.assets/undeclared-edge-fails-with-one-line.drawio.png
+      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Identity, branch policy and the audit history live on the server; a clone has no
 
 ## Image
 
-.assets/server-remote-is-truth.png
+[server-remote-is-truth](.assets/server-remote-is-truth.png)
 
 ## Caption
 
-From the catalogue, reduced: undeclared edge fails with one line.
+From the catalogue, reduced: clients bridge to one server.
 
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line.drawio.png.
+docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.

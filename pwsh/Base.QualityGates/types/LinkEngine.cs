@@ -42,14 +42,14 @@ public sealed class LinkEngine
     readonly MarkdownLinkScanner scanner;
 
     // lineLimits maps an extension to its limit; an unlisted extension takes the default.
-    public LinkEngine(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, LinkWrap wrap, IDictionary<string, int> lineLimits,
+    public LinkEngine(string repositoryRoot, DrsCitationMap map, DrsConfig drs, LinkWrap wrap, IDictionary<string, int> lineLimits,
         int defaultLineLimit, string selfUrlPrefix, IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
-        if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
-        DrsCodeForm codeForm = adrs.CodeForm;
-        string records = Regex.Escape(adrs.Root + "/");
+        if (drs == null) { throw new ArgumentNullException(nameof(drs)); }
+        DrsCodeForm codeForm = drs.CodeForm;
+        string records = Regex.Escape(drs.Root + "/");
         StringNumberedCitation = new Regex(@"(?<![\w\-])" + codeForm.Cited + @"[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))", RegexOptions.Compiled);
         StringDocPath = new Regex(@"(?<![\w/.\-])" + records + @"[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
         InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/" + records + @"[^)\s]+\)", RegexOptions.Compiled);
@@ -57,7 +57,7 @@ public sealed class LinkEngine
         this.wrap = wrap;
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
-        rewriter = new CodeLinkRewriter(root, map, adrs, AnchorsOf);
+        rewriter = new CodeLinkRewriter(root, map, drs, AnchorsOf);
         scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 

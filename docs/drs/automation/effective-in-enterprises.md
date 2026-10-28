@@ -1,4 +1,4 @@
-# ADR: Effective in enterprise environments
+# Automation: Effective in enterprise environments
 
 ## Rules: ADR-AUTO-ENTERP
 

@@ -26,7 +26,7 @@ description:
   The two sections of dependencies.yml are validated at load and then unioned into one allow-set per source module, which the quality gate
   checks every function-call and type edge against, throwing one error that lists every issue.
 about:
-  adrs: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
+  rules: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
   lens: implementation
 content:
   title: Two sections of dependencies.yml are unioned into one allow-set per source module
@@ -120,9 +120,9 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The ADR says actual in-group edges must stay within the group's declared internal map. The allow-set is a union, so the four Tooling
+- The record says actual in-group edges must stay within the group's declared internal map. The allow-set is a union, so the four Tooling
   members that also pin `Tooling` in `modules:` (Python, Node, Toolchain and Provisioning) may reach any Tooling member.
-- The ADR says a module absent from `modules:` is unconstrained. The code also constrains every group member, which is what keeps Base
+- The record says a module absent from `modules:` is unconstrained. The code also constrains every group member, which is what keeps Base
   libraries inside their internal map.
 
 ## See also

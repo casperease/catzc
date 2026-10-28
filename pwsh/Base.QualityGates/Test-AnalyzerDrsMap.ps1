@@ -35,7 +35,7 @@ function Test-AnalyzerDrsMap {
             $rule = $match.Groups[1].Value
             $customRules.Add($rule)
             if ($rule -notin $mapped) {
-                $issues.Add("${rule}: a custom analyzer rule missing from analyzer-drs-map.yml — map it to the ADR rule(s) it enforces")
+                $issues.Add("${rule}: a custom analyzer rule missing from analyzer-drs-map.yml — map it to the DRS rule(s) it enforces")
             }
         }
     }

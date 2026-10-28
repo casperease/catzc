@@ -1,4 +1,4 @@
-# ADR: Conventional folders — every folder semantic, its name the conventional default
+# Repository: Conventional folders — every folder semantic, its name the conventional default
 
 ## Rules: ADR-REPO-FOLDERS
 
@@ -30,8 +30,8 @@ its parent's role does with it, and its own name and layout are free.
 
 ### Rule ADR-REPO-FOLDERS-CLOSEDROOTSET
 
-The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this ADR — not a casual act.
-`go/`, `python/`, and `bash/`, the roots of the repository's black-box tests, are such amendments.
+The root set is closed. Adding a top-level directory is a deliberate architectural decision — an amendment to this record — not a casual
+act. `go/`, `python/`, and `bash/`, the roots of the repository's black-box tests, are such amendments.
 
 - [Level 1: Repository root](#level-1-repository-root)
 
@@ -70,10 +70,10 @@ name overrides the layout's setting, and the name changes for every module of th
 
 Tooling reads every folder name it relies on from its setting, through one resolver per setting that every caller uses, never from a literal
 of its own: the conventional name is the setting's default, declared once on its config type, so a repository that declares nothing gets the
-conventional layout and one that overrides a name gets it everywhere. The root of every test language already follows it: its defaults are
+conventional layout and one that overrides a name gets it everywhere. The root of every test language follows it: its defaults are
 `<language>/` when the repository has that folder, else the dot-prefixed `.<language>/` — the Go root (`go.yml`'s `root`,
 `GoConfig.ResolveRoot`), the Python root (`python.yml`'s `root`, `PythonConfig.ResolveRoot`) and the Bash root (`bash.yml`'s `root`,
-`BashConfig.ResolveRoot`). A literal folder name still in code is a setting not yet resolved, and it spells the setting's default.
+`BashConfig.ResolveRoot`). A literal folder name in code is an unresolved setting, and it spells the setting's default.
 
 - [Names are settings](#names-are-settings)
 - [How this is enforced](#how-this-is-enforced)
@@ -88,9 +88,9 @@ every module, and tooling can rely on it.
 
 ### Rule ADR-REPO-FOLDERS-NEWFOLDERNEEDSRECORD
 
-New module-level folder roles require an ADR amendment. Adding a role beyond those of `private/`, `tests/`, `assets/`, `configs/`, `types/`
-adds a setting to a track's default configuration, which every tool serving the track reads; renaming an existing one is an override, not an
-amendment.
+New module-level folder roles require an amendment to this record. Adding a role beyond those of `private/`, `tests/`, `assets/`,
+`configs/`, `types/` adds a setting to a track's default configuration, which every tool serving the track reads; renaming an existing one
+is an override, not an amendment.
 
 - [Level 3: Module internals](#level-3-module-internals)
 
@@ -194,9 +194,9 @@ output `out/`, another `artifacts/`. Both are reasonable, and catzc must serve e
 tooling relies on is a setting, held to three conditions that keep what a literal gave:
 
 - **The conventional names are the defaults.** They are declared once, on the setting's config type
-  ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets the ordered layout of this ADR.
-- **One resolver per setting.** Every caller asks the same function for the name, so the setting is greppable through that one function,
-  just as a literal was, and it is self-evident: the resolver's name says what the folder is.
+  ([sensible-defaults](../automation/sensible-defaults.md)), so a repository that declares nothing gets the ordered layout of this record.
+- **One resolver per setting.** Every caller asks the same function for the name, so the setting is greppable through that one function, as
+  a literal is, and it is self-evident: the resolver's name says what the folder is.
 - **Overridden for the repository or the track, never per module.** A module does not choose its own names
   (ADR-REPO-FOLDERS-NOMODULEOVERRIDE), so a name means the same in every module it reaches.
 
@@ -213,8 +213,6 @@ The repository has three nested levels of conventional structure, each with its 
 1. **Repository root** — top-level directories that separate concerns (automation, docs, output, config, CI).
 2. **`pwsh/`** — the module system root, where dot-prefix separates infrastructure from modules.
 3. **Module internals** — the layout inside each module, where folder names determine function visibility and content semantics.
-
-Each level is defined below in the Decision section.
 
 ## Decision
 
@@ -305,8 +303,8 @@ and each has its own conventional sub-layout:
 
 **`docs/`** holds five folders. `drs/` is the decision records, one subfolder per domain declared in `pwsh/Base.Drs/configs/drs.yml`:
 `thesis/`, `principles/`, `process/`, `design/`, `flow/`, `automation/`, `pwsh/`, `configuration/`, `ado/`, `github/`, `azure/`,
-`repository/` (this ADR), and `external/dora/`. Its `index.md` is generated from that registry and describes each domain, so the registry —
-not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the sources the
+`repository/` (this record), and `external/dora/`. Its `index.md` is generated from that registry and describes each domain, so the registry
+— not this paragraph — is the authoritative list of domains. `references/` holds the authored reference articles, including the sources the
 generated READMEs are copied from ([generated-readmes](generated-readmes.md)) and the DORA research reference under `references/dora/`.
 `how-to/` holds task-oriented guides. `explanation/` holds the explanation articles: each narrates one diagram of how cats works and why, in
 a subfolder per decision-record domain. These four are **markdown-only**; their subfolders are author-organized topic buckets. The
@@ -327,11 +325,8 @@ folder, the runner `Invoke-AdoScript.ps1` sits at the root, and reusable fragmen
 include kinds — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ado domain names and places each pipeline.
 
 **`contracts/`** holds the repository's contracts — the binding interfaces at its boundary, proven by tests, in both directions: provided
-(what we promise the world) and depended-on (what a vendor, such as GitHub or Azure DevOps, promised us). It has at most four levels. The
-first is the root, who made the promise: `contracts/catzc/` for ours, `contracts/<vendor>/` for a vendor's. The second is the version:
-`0.1.0`, the current contracts, edited in place; the rest of the `0.1` range is reserved, `0.0.0` is never a folder, and a version from
-`1.0.0` up is a frozen `catzc` release. The `contracts/` root carries a checked-in `.gitkeep`, so it stays tracked before any contract
-exists. The third, optional, is one group folder. The fourth is the asset itself; the files it binds are named in its version's
+(what we promise the world) and depended-on (what a vendor, such as GitHub or Azure DevOps, promised us) — laid out as
+`<root>/<version>/[<group>/]<asset>` by [api-contracts](api-contracts.md); the files an asset binds are named in its version's
 `contract.yml`, not by a mirrored path. A pinned release folder is the one place the repo deliberately carries backwards compatibility,
 because here, unlike the internal code, external consumers genuinely exist (see
 [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)).
@@ -365,8 +360,7 @@ the same convention the dot-prefix carries inside `pwsh/` (Level 2): a leading d
 The repository _root_ is itself conventional beyond its folders: `importer.ps1` and `importer.sh` (the entry points), `.editorconfig`,
 `.gitattributes`, `.gitignore`, `dotnet-tools.json`, `catzc.sln`, `cspell.yml` (the repo-wide spell-check dictionary), and `LICENSE` each
 have a fixed, name-inferred role. (The authored PSScriptAnalyzer config lives under `pwsh/.internal/assets/`, alongside the IDE-only C#
-project — see [native-csharp-types](../automation/BCL/native-csharp-types.md) — not at the root.) Adding a new top-level directory is a
-conscious architectural decision — an amendment to this ADR — not a casual act.
+project — see [native-csharp-types](../automation/BCL/native-csharp-types.md) — not at the root.)
 
 ### Level 2: `pwsh/`
 
@@ -424,7 +418,7 @@ analogue of one-function-per-file) — and rejects a file whose name or namespac
 source hash; git keeps no file under `pwsh/.compiled`, and the types surface is the provided contract under
 `contracts/catzc/0.1.0/catzc.internal.types/`. A module with no native types has no `types/` folder. The full rule set — the single combined
 assembly, `namespace = module`, the cross-module references governed by the dependency graph, the cache-state behaviour, the fail-fast on
-edit, and the one shared `DictionaryRecord` data-record base — lives in its own ADR,
+edit, and the one shared `DictionaryRecord` data-record base — lives in its own record,
 [native-csharp-types](../automation/BCL/native-csharp-types.md).
 
 **`tests/`** contains `*.Tests.ps1` files. `Test-Automation` scans each module's `tests/` folder. Tests go here and nowhere else. A test
@@ -502,9 +496,9 @@ folder must exist.
 ### Stable locators
 
 A name that carries a rank, `01-first.md` or `plan-A-urgent.md`, is wrong the moment the order changes, and every link to it breaks with the
-rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants today is a view: a table that
-sorts by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the thing. The
-task files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
+rename. A name that says what the file is stays true for the file's whole life, and the order a reader wants is a view: a table that sorts
+by value, an index, a head key a tool reads. The folders of this repository therefore sort by name, and the name means the thing. The task
+files of the plans folder hold to it too: each is named by its topic, and the execution order is the master plan's list
 ([plans](plans.md#rule-adr-repo-plans-masterandtasks)), so reordering the list renames nothing.
 
 ### How this is enforced
@@ -536,7 +530,7 @@ task files of the plans folder hold to it too: each is named by its topic, and t
 - New modules are created by copying the folder layout. There is no registration, no configuration file to update, no "folder structure"
   section in a setup guide. The layout is the same everywhere because the names are the same everywhere.
 - Adding a new folder role to the conventional layout is a deliberate, documented decision. It adds a setting to a track's default
-  configuration, so it goes through an ADR amendment; renaming an existing folder is an override of its setting.
+  configuration, so it goes through an amendment to this record; renaming an existing folder is an override of its setting.
 - Non-conforming content is structurally invisible, not an error. A module with helpers in `internal/` does not crash the bootstrap module —
   it just has no private functions. This is poka-yoke: the wrong name does not cause a confusing failure, it causes a predictable absence
   that is easy to diagnose.

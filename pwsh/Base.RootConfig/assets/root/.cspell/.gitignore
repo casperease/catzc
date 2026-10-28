@@ -1,4 +1,4 @@
 # Generated cspell dictionaries — regenerated at the importer tail: the terminology lists by Build-TerminologyDictionary from
-# terminology.yml, and drs-codes.txt by Build-DrsCodeDictionary from the ADR registry.
+# terminology.yml, and drs-codes.txt by Build-DrsCodeDictionary from the DRS registry.
 # They are build artifacts, never committed; only the folder's .gitkeep is tracked. See README.md.
 *.txt

@@ -61,13 +61,13 @@ Notes for $Id.
         & $write 'decks/gadget-deck/deck.md' "# The gadget deck`n`n## Sections`n`n- one: Why the widget spins.`n- two: What it rests on.`n"
         & $write 'decks/gadget-deck/one.slide.md' (& $slide 'one' 1 'The widget spins' 'A widget spins when wound.' '    quotes: ADR-WIDGET-GADGET-SPIN')
         & $write 'decks/gadget-deck/two.slide.md' (& $slide 'two' 2 'The gadget rests' 'A gadget rests on the widget.')
-        Mock Get-AdrRuleText -ModuleName Catzc.Base.Slides {
+        Mock Get-DrsRuleText -ModuleName Catzc.Base.Slides {
             param([string] $Code)
             if ($Code -in 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') {
                 'A widget spins when wound.'
             }
         }
-        # The index the slides' cites are checked against: one ADR and its two rules.
+        # The index the slides' cites are checked against: one record and its two rules.
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Slides {
             [Catzc.Base.Drs.DrsCitationMap]::new(
                 @{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/drs/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, $null)
@@ -119,9 +119,10 @@ Notes for $Id.
         }
         & $write 'decks/image-deck/deck.md' "# Images`n"
         & $write 'decks/image-deck/.assets/gadget/gadget.png' 'not really a png'
-        & $write 'decks/image-deck/shown.slide.md' (& $imageSlide 'shown' 1 '.assets/gadget/gadget.png')
-        & $write 'decks/image-deck/escaping.slide.md' (& $imageSlide 'escaping' 2 '../gadget-deck/gadget.png')
-        & $write 'decks/image-deck/missing.slide.md' (& $imageSlide 'missing' 3 '.assets/gadget/widget.png')
+        & $write 'decks/image-deck/shown.slide.md' (& $imageSlide 'shown' 1 '[gadget](.assets/gadget/gadget.png)')
+        & $write 'decks/image-deck/escaping.slide.md' (& $imageSlide 'escaping' 2 '[gadget](../gadget-deck/gadget.png)')
+        & $write 'decks/image-deck/missing.slide.md' (& $imageSlide 'missing' 3 '[widget](.assets/gadget/widget.png)')
+        & $write 'decks/image-deck/bare.slide.md' (& $imageSlide 'bare' 4 '.assets/gadget/gadget.png')
         $result = Build-SlideDeck -Deck 'decks/image-deck' -Kit 'image-kit' -RepositoryRoot $root -PassThru
 
         $shown = Get-Content (Join-Path $result.OutputFolder 'project/slides/shown.html') -Raw
@@ -130,11 +131,13 @@ Notes for $Id.
         Get-Content (Join-Path $result.OutputFolder 'project/slides/.assets/gadget/gadget.png') -Raw |
             Should -BeExactly 'not really a png'
         $faults = @($result.Faults | ForEach-Object ToString)
-        $faults.Count | Should -Be 2 -Because ($faults -join "`n")
+        @($faults | Where-Object { -not $_.StartsWith('decks/image-deck/bare.slide.md') }).Count | Should -Be 2 -Because ($faults -join "`n")
         ($faults -join "`n") |
             Should -Match "decks/image-deck/escaping\.slide\.md: field 'image': the image '\.\./gadget-deck/gadget\.png' must sit beside the slide file"
         ($faults -join "`n") |
             Should -Match "decks/image-deck/missing\.slide\.md: field 'image': the image '\.assets/gadget/widget\.png' does not exist beside the slide file"
+        ($faults -join "`n") |
+            Should -Match "decks/image-deck/bare\.slide\.md: field 'image': the field fills an attribute, so it holds one markdown link, \[<stem>\]\(<path>\); found '\.assets/gadget/gadget\.png'"
     }
 
     It 'reports a duplicate order and a gap, and still renders every slide' -Tag 'ADR-REPO-SLIDES-SLIDEFILE' {
@@ -156,14 +159,14 @@ Notes for $Id.
         & $write 'decks/drift-deck/deck.md' "# Drift`n`n## Sections`n`n- nowhere: Starts on no slide.`n"
         & $write 'decks/drift-deck/d.slide.md' ((& $slide 'd' 1 'D' 'A widget spins when it feels like it.' '    quotes: ADR-WIDGET-GADGET-SPIN').Replace('ADR-WIDGET-GADGET-SPIN · Widgets', 'ADR-WIDGET-GADGET-SPIN, ADR-WIDGET-GADGET-GHOST, ADR-WIDGET-GADGET and ADR-WIDGET-GADGET#{1-2} · Widgets'))
         $faults = @((Build-SlideDeck -Deck 'decks/drift-deck' -Kit 'kit' -RepositoryRoot $root -PassThru).Faults | ForEach-Object ToString)
-        # An ADR code in the text is a cite like a rule code; a group of numbers is no code, so it is no cite.
+        # A record code in the text is a cite like a rule code; a group of numbers is no code, so it is no cite.
         ($faults -join "`n") | Should -Not -Match "'ADR-WIDGET-GADGET'"
         ($faults -join "`n") | Should -Not -Match '#\{1-2\}'
         ($faults -join "`n") |
             Should -Match "d\.slide\.md: field 'body': quotes ADR-WIDGET-GADGET-SPIN but differs from the registry\."
         ($faults -join "`n") | Should -Match 'registry: A widget spins when wound\.'
         $faults |
-            Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the ADR index knows no ADR or rule 'ADR-WIDGET-GADGET-GHOST'"
+            Should -Contain "decks/drift-deck/d.slide.md: field 'cites': the DRS index knows no record or rule 'ADR-WIDGET-GADGET-GHOST'"
         $faults |
             Should -Contain "decks/drift-deck/deck.md: field 'sections': the section 'Starts on no slide.' starts on 'nowhere', and no slide has that id"
     }

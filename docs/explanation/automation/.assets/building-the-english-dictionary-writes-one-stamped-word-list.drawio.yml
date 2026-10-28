@@ -2,7 +2,7 @@ description:
   "A maintainer rebuilds the English dictionary: one command writes the word list and its stamp into the module's assets, and the
   generated-files quality gate holds them to their inputs."
 about:
-  adrs:
+  rules:
     - ADR-AUTO-SPELL
     - ADR-REPO-OUTDIR-COMPILEDPREBUILD
     - DDR-VISUAL-ACTIONISALENS
@@ -31,3 +31,4 @@ content:
       says: The generated-files quality gate finds the list and its stamp in step with their inputs
       proves: { test_generated_files: { generator: Build-EnglishDictionary } }
       after: effect-stamp
+  minimaps: [code-locations, axis, lifecycle-position]

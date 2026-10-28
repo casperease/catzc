@@ -6,7 +6,7 @@ The private helper that indexes the markdown files under `docs/drs/` by domain f
 
 ### synopsis
 
-Indexes the markdown files under docs/drs/ by "`<domain folder>/<slug>`", and maps each rule set to its one ADR file.
+Indexes the markdown files under docs/drs/ by "`<domain folder>/<slug>`", and maps each rule set to its one record file.
 
 ### description
 
@@ -20,7 +20,7 @@ Private helper for Test-DrsRegistry and Test-DrsEngineNeutrality; not exported.
 
 ### parameter `RuleSets`
 
-The rule sets of the ADR registry (DrsConfig.RuleSets).
+The rule sets of the DRS registry (DrsConfig.RuleSets).
 
 ### parameter `DrsRoot`
 

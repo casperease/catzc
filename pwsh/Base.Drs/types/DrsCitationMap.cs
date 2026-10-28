@@ -12,16 +12,16 @@ public sealed class DrsCitationMap
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     readonly Dictionary<string, string> pathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
-    readonly Dictionary<string, List<string>> rulesByAdr = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+    readonly Dictionary<string, List<string>> rulesByRecord = new Dictionary<string, List<string>>(StringComparer.Ordinal);
     readonly Dictionary<string, string> codeByPath = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     readonly Dictionary<string, string> pathBySlug = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     readonly HashSet<string> ambiguousSlugs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
     readonly HashSet<string> domainCodes = new HashSet<string>(StringComparer.Ordinal);
     readonly HashSet<string> allDocuments = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-    // Each rule's ADR code and its place in that ADR's registry, the authored order.
-    readonly Dictionary<string, (string Adr, int Order)> rulePlace = new Dictionary<string, (string, int)>(StringComparer.Ordinal);
+    // Each rule's record code and its place in that record's registry, the authored order.
+    readonly Dictionary<string, (string Record, int Order)> rulePlace = new Dictionary<string, (string, int)>(StringComparer.Ordinal);
 
-    // Every registered code, ADR and rule alike, ordinally sorted.
+    // Every registered code, record and rule alike, ordinally sorted.
     public IReadOnlyList<string> Codes { get; }
 
     // documents lists every markdown path of the records folder, code-less ones too, so a slug or stale path resolves against real files.
@@ -48,14 +48,14 @@ public sealed class DrsCitationMap
                     string rule = Convert.ToString(item, CultureInfo.InvariantCulture);
                     if (!rule.StartsWith(code + "-", StringComparison.Ordinal))
                     {
-                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "citation '{0}': its rule '{1}' does not extend the ADR's code", code, rule));
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "citation '{0}': its rule '{1}' does not extend the record's code", code, rule));
                     }
                     rulePlace[rule] = (code, rules.Count);
                     rules.Add(rule);
                     pathByCode[rule] = path;
                 }
             }
-            rulesByAdr[code] = rules;
+            rulesByRecord[code] = rules;
 
             // Every hyphen-prefix of a code names its domain; a domain code or a domain wildcard is a valid mention, not an unknown code.
             int dash = code.IndexOf('-', code.IndexOf('-') + 1);
@@ -93,64 +93,64 @@ public sealed class DrsCitationMap
         Codes = codes;
     }
 
-    // True for a registered ADR code or rule code.
+    // True for a registered record code or rule code.
     public bool HasCode(string code) => code != null && pathByCode.ContainsKey(code);
 
-    // True when the code names one rule rather than a whole ADR.
+    // True when the code names one rule rather than a whole record.
     public bool IsRule(string code) => code != null && rulePlace.ContainsKey(code);
 
-    // The ADR code a rule belongs to; null for a code that is no registered rule.
-    public string AdrOf(string rule) => rule != null && rulePlace.TryGetValue(rule, out (string Adr, int Order) place) ? place.Adr : null;
+    // The record code a rule belongs to; null for a code that is no registered rule.
+    public string RecordOf(string rule) => rule != null && rulePlace.TryGetValue(rule, out (string Record, int Order) place) ? place.Record : null;
 
-    // The longest registered ADR code that is a whole-segment prefix of the code; null when none is.
-    public string ParentAdr(string code)
+    // The longest registered record code that is a whole-segment prefix of the code; null when none is.
+    public string ParentRecord(string code)
     {
         if (code == null) { return null; }
         int dash = code.LastIndexOf('-');
         while (dash > 0)
         {
             string prefix = code.Substring(0, dash);
-            if (rulesByAdr.ContainsKey(prefix)) { return prefix; }
+            if (rulesByRecord.ContainsKey(prefix)) { return prefix; }
             dash = prefix.LastIndexOf('-');
         }
         return null;
     }
 
-    // Sorts codes by ADR code, then a rule at its authored place in that ADR.
+    // Sorts codes by record code, then a rule at its authored place in that record.
     public string OrderKey(string code)
     {
         if (code == null) { return string.Empty; }
-        return rulePlace.TryGetValue(code, out (string Adr, int Order) place)
-            ? place.Adr + "\t" + place.Order.ToString("D5", CultureInfo.InvariantCulture)
+        return rulePlace.TryGetValue(code, out (string Record, int Order) place)
+            ? place.Record + "\t" + place.Order.ToString("D5", CultureInfo.InvariantCulture)
             : code;
     }
 
-    // The rule codes the ADR declares, in authored order; empty for an unknown code.
+    // The rule codes the record declares, in authored order; empty for an unknown code.
     public IReadOnlyList<string> RulesOf(string code) =>
-        code != null && rulesByAdr.TryGetValue(code, out List<string> rules) ? rules : (IReadOnlyList<string>)Array.Empty<string>();
+        code != null && rulesByRecord.TryGetValue(code, out List<string> rules) ? rules : (IReadOnlyList<string>)Array.Empty<string>();
 
-    // A domain code (ADR-AUTO) — a prefix of registered codes, not an ADR of its own.
+    // A domain code (ADR-AUTO) — a prefix of registered codes, not a record of its own.
     public bool IsDomainCode(string code) => code != null && domainCodes.Contains(code);
 
-    // The repository-relative path of the code's ADR; null for an unknown code.
+    // The repository-relative path of the code's record; null for an unknown code.
     public string PathOf(string code) => code != null && pathByCode.TryGetValue(code, out string path) ? path : null;
 
-    // The code of the ADR at a repository-relative path; null when the path is not a registered ADR.
+    // The code of the record at a repository-relative path; null when the path is not a registered record.
     public string CodeOf(string path) => path != null && codeByPath.TryGetValue(Normalize(path), out string code) ? code : null;
 
-    // The rule of the ADR whose heading anchor the fragment names ('#rule-adr-x-name'); null when none does.
-    public string RuleOfAnchor(string adr, string fragment)
+    // The rule of the record whose heading anchor the fragment names ('#rule-adr-x-name'); null when none does.
+    public string RuleOfAnchor(string record, string fragment)
     {
-        if (adr == null || fragment == null) { return null; }
+        if (record == null || fragment == null) { return null; }
         string anchor = fragment.TrimStart('#');
-        foreach (string rule in RulesOf(adr))
+        foreach (string rule in RulesOf(record))
         {
             if (string.Equals(Anchor(rule), anchor, StringComparison.Ordinal)) { return rule; }
         }
         return null;
     }
 
-    // True when the repository-relative path names an existing ADR-folder document (registered or code-less).
+    // True when the repository-relative path names an existing records-folder document (registered or code-less).
     public bool IsDocument(string path) => path != null && allDocuments.Contains(Normalize(path));
 
     // The one document whose file name (without .md) is the slug; null when no document or several share it.
@@ -162,7 +162,7 @@ public sealed class DrsCitationMap
 
     public bool IsAmbiguousSlug(string slug) => slug != null && ambiguousSlugs.Contains(slug);
 
-    // The code-link destination: '/' + the ADR path, plus the rule heading's anchor for a rule.
+    // The code-link destination: '/' + the record path, plus the rule heading's anchor for a rule.
     public string Destination(string code)
     {
         string path = PathOf(code);

@@ -27,7 +27,7 @@ description:
   Discovery parses each config file's name, resolves its (customer, environment) coordinate through the one shared check, and builds a slot
   only when exactly one subscription remains; any violation stops with one invalid-config throw.
 about:
-  adrs:
+  rules:
     - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
     - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
     - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "22c217b114a8"
+#     with_body_sha: "2dab338c697f"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -24,7 +24,7 @@ export_spelling_triage	path	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.quality
 export_spelling_triage	exclude	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/export_spelling_triage.command.yml			export-spelling-triage	exclude	Export-SpellingTriage	Exclude
 export_spelling_triage	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/export_spelling_triage.command.yml			export-spelling-triage	dry-run	Export-SpellingTriage	DryRun
 export_world_map_pdf	view	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.maps/export_world_map_pdf.command.yml		plain	export-world-map-pdf	view	Export-WorldMapPdf	View
-export_world_map_pdf	adr	string	1	1	0	contracts/catzc/0.1.0/pwsh.base.maps/export_world_map_pdf.command.yml	adr	plain	export-world-map-pdf	adr	Export-WorldMapPdf	Adr
+export_world_map_pdf	rule	string	1	1	0	contracts/catzc/0.1.0/pwsh.base.maps/export_world_map_pdf.command.yml	rule	plain	export-world-map-pdf	rule	Export-WorldMapPdf	Rule
 export_world_map_pdf	path	string	1	1	0	contracts/catzc/0.1.0/pwsh.base.maps/export_world_map_pdf.command.yml	path	plain	export-world-map-pdf	path	Export-WorldMapPdf	Path
 format_markdown_title	path	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	path	Format-MarkdownTitle	Path
 format_markdown_title	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	repository-root	Format-MarkdownTitle	RepositoryRoot
@@ -39,6 +39,9 @@ get_accosted_fragment	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.ba
 get_bicep_parameter_model	template	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_parameter_model.command.yml			get-bicep-parameter-model	template	Get-BicepParameterModel	Template
 get_bicep_role_assignment_plan	template	string	1	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_role_assignment_plan.command.yml			get-bicep-role-assignment-plan	template	Get-BicepRoleAssignmentPlan	Template
 get_bicep_role_assignment_plan	output_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_role_assignment_plan.command.yml			get-bicep-role-assignment-plan	output-root	Get-BicepRoleAssignmentPlan	OutputRoot
+get_bicep_service_connection_name	subscription	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_service_connection_name.command.yml			get-bicep-service-connection-name	subscription	Get-BicepServiceConnectionName	Subscription
+get_bicep_service_connection_name	identity	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_service_connection_name.command.yml			get-bicep-service-connection-name	identity	Get-BicepServiceConnectionName	Identity
+get_bicep_service_connections	subscription	string	1	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_service_connections.command.yml			get-bicep-service-connections	subscription	Get-BicepServiceConnections	Subscription
 get_bicep_template_names			0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/get_bicep_template_names.command.yml			get-bicep-template-names		Get-BicepTemplateNames	
 get_command_contract	name	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_command_contract.command.yml			get-command-contract	name	Get-CommandContract	Name
 get_command_contract	module	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/get_command_contract.command.yml			get-command-contract	module	Get-CommandContract	Module

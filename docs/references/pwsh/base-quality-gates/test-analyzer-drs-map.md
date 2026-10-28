@@ -1,25 +1,25 @@
 # pwsh/Base.QualityGates/Test-AnalyzerDrsMap.ps1
 
-The gate over `analyzer-drs-map.yml`: it checks that the map cites only real ADR rules and that every custom analyzer rule is mapped.
+The gate over `analyzer-drs-map.yml`: it checks that the map cites only real DRS rules and that every custom analyzer rule is mapped.
 
 ## help
 
 ### synopsis
 
-Checks that analyzer-drs-map.yml cites only real ADR rules and maps every custom analyzer rule.
+Checks that analyzer-drs-map.yml cites only real DRS rules and maps every custom analyzer rule.
 
 ### description
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the shipped
 analyzer map (configs/analyzer-drs-map.yml), the source of the 'pssa-rule' enforcer kind in the rule-coverage report
-([ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING][r1]). The
-config load checks only its shape, so it stays hermetic; this gate cross-checks it against the repository and collects an issue for:
+([ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING][r1]). The config load checks only its shape, so it stays hermetic; this gate cross-checks it
+against the repository and collects an issue for:
 
-- every rule id an analyzer cites that is not a real ADR rule (Get-DrsRuleIds, in '#' citation form);
+- every rule id an analyzer cites that is not a real DRS rule (Get-DrsRuleIds, in '#' citation form);
 - every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
   dispatches — the map does not list, so a new custom rule cannot ship unmapped.
 
-It reads the ADR tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
+It reads the DRS tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
 
 ### parameter `OutputFolder`
 

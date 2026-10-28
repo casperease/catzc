@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-out-string-two-places.drawio.png
+      source: ../../thesis/.assets/eac-normal-form.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -23,13 +23,13 @@ Import-RepositoryWithHistory lands at `.unordered/<name>`; nothing reads or defa
 
 ## Image
 
-.assets/unordered-is-the-landing.png
+[unordered-is-the-landing](.assets/unordered-is-the-landing.png)
 
 ## Caption
 
-From the catalogue, reduced: one out string two places.
+From the catalogue, reduced: eac normal form.
 
 ## Notes
 
 Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-out-string-two-places.drawio.png.
+docs/explanation/thesis/.assets/eac-normal-form.drawio.png.

@@ -1,4 +1,4 @@
-# ADR: Single-responsibility functions
+# Automation: Single-responsibility functions
 
 ## Rules: ADR-AUTO-ONEJOB
 

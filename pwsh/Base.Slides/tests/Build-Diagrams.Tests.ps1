@@ -119,7 +119,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets'
         [System.IO.Directory]::CreateDirectory($folder) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $folder 'gadget.drawio.yml'),
-            "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
+            "about:`n  lens: architecture`n  rules: [ADR-WIDGET-GADGET]`ncontent: {}`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/index.md'),
             "# Gadgets`n`nSupports ADR-WIDGET-GADGET (architecture lens).`n`n![Gadget](.assets/gadget.drawio.png)`n")
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
@@ -161,7 +161,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     It 'finds a diagram an article declares before its first put, from its block, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
         $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
         [System.IO.File]::WriteAllText($page,
-            "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
+            "# Cog`n`n``````yml drawio`nabout: { lens: architecture, rules: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/gizmos/cog.md' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/gizmos/cog.md' }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {

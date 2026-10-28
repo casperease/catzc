@@ -3,7 +3,7 @@ function Get-DrsCodeLanguageViolations {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.Drs.DrsConfig] $Adrs,
+        [Catzc.Base.Drs.DrsConfig] $Drs,
 
         [Parameter(Mandatory)]
         [pscustomobject] $Index
@@ -11,16 +11,16 @@ function Get-DrsCodeLanguageViolations {
 
     $segment = '[A-Z][A-Z0-9]*'
     $codes = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($ruleSet in $Adrs.RuleSets) {
+    foreach ($ruleSet in $Drs.RuleSets) {
         [void]$codes.Add($ruleSet.External)
     }
 
     $check = (Get-Config -Config drs-checks).code_language
     # External records keep the source's native ids (R01, RE01), which repeat by design; only catzc's own rule names are unique.
     $ruleNames = @{}
-    $cited = "^$($Adrs.CodeForm.Cited)\z"
-    $numberedRule = "^$($Adrs.CodeForm.Kind)-[A-Z0-9-]+:[0-9]+\z"
-    $ret = foreach ($domain in $Adrs.Domains) {
+    $cited = "^$($Drs.CodeForm.Cited)\z"
+    $numberedRule = "^$($Drs.CodeForm.Kind)-[A-Z0-9-]+:[0-9]+\z"
+    $ret = foreach ($domain in $Drs.Domains) {
         # A domain code of several segments is one finding, its records held to its first; a kind one domain owns has no code.
         $prefix = $domain.Kind
         if ($domain.Code) {
@@ -65,20 +65,20 @@ function Get-DrsCodeLanguageViolations {
                     continue
                 }
                 if ($rule -cnotmatch "^$([regex]::Escape($code))-$segment\z") {
-                    "$($Adrs.Root)/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
+                    "$($Drs.Root)/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
                     continue
                 }
                 if ($codes.Contains($rule)) {
-                    "$($Adrs.Root)/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-DRSCODE-ONESTRINGONEFACT)"
+                    "$($Drs.Root)/${relative}:$($i + 1): rule $rule shares its name with the record $rule (ADR-REPO-DRSCODE-ONESTRINGONEFACT)"
                 }
                 $budget = $check.Violation($rule, $true)
                 if ($budget) {
-                    "$($Adrs.Root)/${relative}:$($i + 1): ${budget} (ADR-REPO-DRSCODE-RULENAMEBUDGET)"
+                    "$($Drs.Root)/${relative}:$($i + 1): ${budget} (ADR-REPO-DRSCODE-RULENAMEBUDGET)"
                 }
                 if ($domain.Kind -cne 'EDR') {
                     $name = $rule.Substring($code.Length + 1)
                     if ($ruleNames.ContainsKey($name)) {
-                        "$($Adrs.Root)/${relative}:$($i + 1): rule name $name is also $($ruleNames[$name]) (ADR-REPO-DRSCODE-RULENAMESUNIQUE)"
+                        "$($Drs.Root)/${relative}:$($i + 1): rule name $name is also $($ruleNames[$name]) (ADR-REPO-DRSCODE-RULENAMESUNIQUE)"
                     }
                     else {
                         $ruleNames[$name] = $rule
@@ -86,7 +86,7 @@ function Get-DrsCodeLanguageViolations {
                 }
             }
             if ($numbered -gt 0) {
-                "$($Adrs.Root)/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
+                "$($Drs.Root)/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
             }
         }
     }

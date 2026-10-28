@@ -117,8 +117,8 @@ The citation is optional (absence is never a violation), but a **present** one i
 the run fails — so renumbering a rule turns its stale tags red. It is set-valued: put a broad rule on the `Describe` and a specific one on
 an inner `Context`/`It`, and both count (citations are unioned across the block chain, unlike the nearest-wins tier/category). Mind the two
 spellings of one rule: the **tag** uses `#` (`ADR-PWSH-ERROR-THROWNOTWRITEERROR`, the citation form), while the rule's **heading** in the
-ADR uses `:` (`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers, and the
-uncovered), and `tests.csv` gains a `Rules` column you can filter by a citation to find every test that enforces it.
+decision record uses `:` (`### Rule ADR-PWSH-ERROR-THROWNOTWRITEERROR`). Each run then writes `rule-coverage.md`/`.csv` (rule → enforcers,
+and the uncovered), and `tests.csv` gains a `Rules` column you can filter by a citation to find every test that enforces it.
 
 Citing is one of **two** ways a rule gets mechanical coverage; the other is a PSScriptAnalyzer rule. So when you add a **custom analyzer
 rule** (`pwsh/.scriptanalyzer/*.psm1`), map it to the rule id(s) it enforces in `pwsh/Base.QualityGates/configs/analyzer-drs-map.yml` — an

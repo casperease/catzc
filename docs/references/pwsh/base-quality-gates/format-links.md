@@ -1,6 +1,6 @@
 # pwsh/Base.QualityGates/Format-Links.ps1
 
-The link aligner of the repository: it rewrites ADR citations in code comments into canonical code links and repository-rooted markdown
+The link aligner of the repository: it rewrites DRS citations in code comments into canonical code links and repository-rooted markdown
 links into relative ones, in place. `Test-Links` reports what it cannot fix.
 
 ## help
@@ -12,14 +12,14 @@ Aligns the repository's links in place: code links repository-rooted, markdown l
 ### description
 
 The link aligner and the repository-wide migration in one command
-([ADR-REPO-LINK-ALIGNEDBYTOOL](../../../drs/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)). Every ADR reference in a
+([ADR-REPO-LINK-ALIGNEDBYTOOL](../../../drs/repository/markdown-links.md#rule-adr-repo-link-alignedbytool)). Every record reference in a
 comment of a code file becomes a canonical code link — `[ADR-<CODE>#<n>](/docs/drs/<path>.md#rule-adr-<code><n>)`, or
-`[ADR-<CODE>](/docs/drs/<path>.md)` for a whole ADR — whatever spelling it had: a bare, ../, or rooted docs/drs path, an ADR file name, a
-bare citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its citation, or a link in another shape. The citation code is the source
-of truth, so a path to a moved ADR is re-pointed. In markdown files a repository-rooted link becomes relative to its file, and a prose rule
-citation `ADR-X:n` becomes `ADR-X#n`. In a code file's string literals a rule citation `ADR-X:n` becomes `ADR-X#n` too, and stays plain data
-(only the ':' changes), except in a `### Rule` heading the string builds and in a file links.yml's string_citations exempts. A string is
-data its code consumes, so align it together with whatever reads it.
+`[ADR-<CODE>](/docs/drs/<path>.md)` for a whole record — whatever spelling it had: a bare, ../, or rooted docs/drs path, a record file name,
+a bare citation (`ADR-X`, `ADR-X:n`, `ADR-X#n`), a path followed by its citation, or a link in another shape. The citation code is the
+source of truth, so a path to a moved record is re-pointed. In markdown files a repository-rooted link becomes relative to its file, and a
+prose rule citation `ADR-X:n` becomes `ADR-X#n`. In a code file's string literals a rule citation `ADR-X:n` becomes `ADR-X#n` too, and stays
+plain data (only the ':' changes), except in a `### Rule` heading the string builds and in a file links.yml's string_citations exempts. A
+string is data its code consumes, so align it together with whatever reads it.
 
 A comment line that outgrows its line limit (.editorconfig max_line_length, with links.yml overrides) is wrapped per -Wrap: broken before
 the link, never inside it, continuing with the same comment prefix and indent.

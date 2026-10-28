@@ -19,12 +19,12 @@ Constructing an instance validates the file and collects every violation into on
 
 - only the known keys, at the top (`palette`, `limits`, `labels`, `highlight`, `output_folder`, `minimaps`) and in each section; an unknown
   key, such as a typo, fails at load;
-- a section is a mapping, and `highlight.pins` and `highlight.exceptions` are lists of `{ adr, track, file_language, reason }`;
+- a section is a mapping, and `highlight.pins` and `highlight.exceptions` are lists of `{ rule, track, file_language, reason }`;
 - a colour is `#` and six hex digits;
 - a size is a positive number, and a label length a positive whole number;
 - a label is one non-empty line of WinAnsi text, the only text the base-14 PDF fonts show, and a row or column header of the world map fits
   its limit (`row_axis` and `root_files` within `max_row_label`, `column_axis` and `unlisted_files` within `max_column_label`); the
   `value_chain_` labels have no length limit;
 - `output_folder` is one path segment;
-- a pin names an ADR code (optionally `#n`), a track name, a kebab-case file language and a reason;
+- a pin names a record or rule code (optionally `#n`), a track name, a kebab-case file language and a reason;
 - `highlight.citation_exclude` is a list of repository-relative, `/`-separated globs.

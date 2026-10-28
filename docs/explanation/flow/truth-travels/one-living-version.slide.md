@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-commit-one-immutable-package.drawio.png
+      source: ../../design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ git, never in retained files.
 
 ## Image
 
-.assets/one-living-version.png
+[one-living-version](.assets/one-living-version.png)
 
 ## Caption
 
-From the catalogue, reduced: one commit one immutable package.
+From the catalogue, reduced: a sibling is an idea never a reference.
 
 ## Notes
 
 Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-commit-one-immutable-package.drawio.png.
+docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png.

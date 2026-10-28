@@ -1,4 +1,4 @@
-# ADR: Must be cross-platform
+# Automation: Must be cross-platform
 
 ## Rules: ADR-AUTO-XPLAT
 

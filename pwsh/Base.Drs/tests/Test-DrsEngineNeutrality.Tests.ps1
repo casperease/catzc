@@ -1,6 +1,6 @@
 Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-AUTO-ENGINE-THREEENGINES' {
     BeforeAll {
-        $script:adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+        $script:drs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                 domains = [ordered]@{
                     widget    = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
@@ -12,7 +12,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
-                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: a Test-DrsRegistry finding
+                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no record file: a Test-DrsRegistry finding
                         }
                     }
                     sprocket  = [ordered]@{
@@ -97,7 +97,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
 
     BeforeEach {
         $script:checks = New-ChecksConfig -Mode 'report'
-        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:adrs }
+        Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:drs }
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs-checks' } { $script:checks }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }

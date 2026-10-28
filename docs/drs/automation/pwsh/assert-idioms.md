@@ -1,4 +1,4 @@
-# ADR: Assert idioms — failing fast in pwsh
+# PowerShell: Assert idioms — failing fast in pwsh
 
 ## Rules: ADR-PWSH-ASSERT
 
@@ -63,8 +63,8 @@ it: the switch is added together with the watchpoint and deleted with the last o
 ## Context
 
 [fail-fast-with-asserts](../fail-fast-with-asserts.md) decides that every assumption is asserted where it is made, through the assertion
-library, and that every wait is bounded. This ADR is how that reads in PowerShell: which functions assert, where in a function they sit,
-what replaces an inline `if`/`throw`, and how a function declares its own time limit.
+library, and that every wait is bounded. This record is how that reads in PowerShell: which functions assert, where they sit, what replaces
+an inline `if`/`throw`, and how a function declares its own time limit.
 
 ### The Assert library
 
@@ -78,9 +78,9 @@ Assert-PathExist $configPath             # throws: "Path does not exist: /app/co
 Assert-NotNullOrWhitespace $name         # throws: "Assertion failed: value was null or whitespace — Deploy.ps1, line 42"
 ```
 
-An inline `if (-not $x) { throw "..." }` checks the same thing but reads as control flow, and its message is whatever the author typed that
-day. The `Assert-*` call names its intent, carries the library's message, and is found by one search. `throw` keeps its place for a failure
-that is not an assumption check — an unsupported combination of arguments, a state the function has found and cannot proceed from
+An inline `if (-not $x) { throw "..." }` checks the same thing but reads as control flow, with an ad-hoc message. The `Assert-*` call names
+its intent, carries the library's message, and is found by one search. `throw` keeps its place for a failure that is not an assumption check
+— an unsupported combination of arguments, a state the function cannot proceed from
 ([error-handling](error-handling.md#rule-adr-pwsh-error-thrownotwriteerror)).
 
 ### Guard placement
@@ -98,7 +98,7 @@ function Invoke-Poetry {
     Assert-ToolVersion -Tool 'Poetry'               # correct version. Contract check with system
 
     $result = Invoke-Executable "poetry $Arguments" -PassThru
-    Assert-NotNullOrWhitespace $result              # got output. Contract check with integration: We got "something" rather than nothing.
+    Assert-NotNullOrWhitespace $result              # got output. Contract check with integration: "something" came back rather than nothing.
 
     $result
 }
@@ -130,17 +130,16 @@ function Test-Widget {
 }
 ```
 
-A number literal as a parameter default would say the same thing where nothing reads it: config cannot tune it, the environment cannot
-change it, and a reader cannot find it. The decoration keeps the value beside the code and lets the more specific settings win in order — an
-exemption for the decoration's `Budget` GUID while the work is tuned, a `commands` entry when a machine needs a different value, the
-decoration otherwise, and the environment's pwsh default for a function that declares nothing. The attribute checks its values when it is
-created: whole seconds above zero, and a pipeline limit at least the devbox one.
+A number literal as a parameter default hides the value: config cannot tune it, the environment cannot change it, and a reader cannot find
+it. The decoration keeps the value beside the code and lets the more specific settings win in the order of ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+— an exemption while the work is tuned, a `commands` entry when a machine needs a different value. The attribute checks its values when it
+is created: whole seconds above zero, and a pipeline limit at least the devbox one.
 
 ### Bounding a wait
 
-[fail-fast-with-asserts](../fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait. In pwsh the two kinds of
-wait have one helper each. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when it
-is reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
+[fail-fast-with-asserts](../fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) bounds every wait, and in pwsh each of the two
+kinds of wait has one helper. A native tool is a child process, so `Invoke-Executable` owns its limit and kills the whole process tree when
+it is reached. Work inside the session — a long loop, a scan, a call into a module — is passed as a script block:
 
 ```powershell
 $report = Invoke-WithTimeout { Get-WidgetReport -Path $Path } -Activity 'widget report'
@@ -149,8 +148,7 @@ Assert-CompletesWithin { Sync-Gadget } -Budget $gadgetBudget
 
 With no `-Seconds`, the limit is the run environment's pwsh limit in `timeouts.yml`, or the budget's exemption ceiling. `Invoke-WithTimeout`
 returns the block's output and, past the limit, stops it and throws an error naming the limit; `Assert-CompletesWithin` is the assertion
-form, and `Test-CompletesWithin` returns whether the block finished in time. A `Wait-Job`, a `WaitForExit()`, or a `while` loop polling for
-a condition, each with no limit of its own, is the unbounded wait the rule exists to remove.
+form, and `Test-CompletesWithin` returns whether the block finished in time.
 
 ### Standing a watchpoint
 
@@ -172,12 +170,8 @@ one living version keeps no parameter for a future use.
 
 ## Decision
 
-In pwsh, assumptions are asserted with the `Assert-*` functions: input guards directly after the `param` block, output guards on the line
-after an external call, never an inline `if`/`throw` for a precondition, and never a `try`/`catch` around an assertion outside a test. A
-function that bounds its own long work declares its limit with the `TimeLimit` attribute and reads it through `Get-TimeoutSeconds`. A native
-tool is bounded by `Invoke-Executable`, and in-process work by passing it as a script block to `Invoke-WithTimeout` or its assertion and
-test forms. A suspected block is found with a `Watch-Blocking` call behind a `-DiagnoseBlocking` switch added with it, both deleted once its
-run is read.
+In pwsh, every assumption is an `Assert-*` call where it is made, every wait runs through one of the two bounding helpers, and a function's
+own time limit is declared on it; the rules above place each.
 
 ### How this is enforced
 
@@ -186,7 +180,7 @@ run is read.
   the devbox one, when the function is defined; **`Get-TimeoutSeconds -Command`** reads the decoration in the order of
   ADR-PWSH-ASSERT-DECLAREDTIMELIMIT.
 - **Code review** — guard placement, an inline `if`/`throw` that should be an assertion, a `try`/`catch` around an assertion, and a number
-  literal as a timeout default are review concerns, against this ADR.
+  literal as a timeout default are review concerns, against this record.
 
 ## Consequences
 

@@ -39,7 +39,7 @@ kinds:
   index:
   glossary:
   diagram-declaration:
-  adr:
+  record:
   reference:
     subkinds:
       dora:

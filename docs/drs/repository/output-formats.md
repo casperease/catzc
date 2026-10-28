@@ -1,4 +1,4 @@
-# ADR: Output formats — one catalogue of what lands under the output root
+# Repository: Output formats — one catalogue of what lands under the output root
 
 ## Rules: ADR-REPO-OUTFMT
 
@@ -42,8 +42,8 @@ edits another producer's files.
 
 ### Rule ADR-REPO-OUTFMT-LIMITSINCATALOGUE
 
-A format's limits — sizes, maximum dimensions, text limits — are fields in the catalogue. Prose (this ADR, agent guidance) gives the reason
-for a limit and points at the catalogue; it never restates the value.
+A format's limits — sizes, maximum dimensions, text limits — are fields in the catalogue. Prose (this record, agent guidance) gives the
+reason for a limit and points at the catalogue; it never restates the value.
 
 - [The catalogue](#the-catalogue)
 
@@ -80,28 +80,28 @@ producer, a reader, and a shape it must have. Declaring them once makes the shap
 quality gate writes; the catalogue widens that to what any producer writes. A typed config validates the catalogue on load: it rejects a
 duplicate id, an unknown validator kind, a format without a producer or an audience, and two formats whose patterns can match the same path.
 
-The overlap check is structural, not a tie-breaker. A rule such as "the most specific pattern wins" would let a new, broader pattern quietly
-take files from an existing format; rejecting the overlap makes every file's format readable from the catalogue alone. When two producers
-write the same kind of file into the same folders, they share one format and its producer field names both.
+The overlap check is structural, not a tie-breaker. A rule such as "the most specific pattern wins" lets a new, broader pattern quietly take
+files from an existing format; rejecting the overlap makes every file's format readable from the catalogue alone. When two producers write
+the same kind of file into the same folders, they share one format and its producer field names both.
 
 A limit is a field of its format, because a value repeated in prose drifts from the value the check uses. Adding a format is a catalogue
 entry, not code, as long as an existing validator kind fits it.
 
 ### Retention
 
-A run folder that only grows is noise: a person reads the latest run and compares a few, and two hundred stamps of one gate help no one. So
-every file under the output root is a format, and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp
-folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
-cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact stays until a person retires
-it. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on the format
-type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers is reported and
-left alone: removing what nobody declared would guess at its owner.
+A run folder that only grows is noise: a person reads the latest run and compares a few. So every file under the output root is a format,
+and the format's area says how long it stays. A run keeps its newest stamps, as whole stamp folders, so a run's report, rows and results go
+together. A build keeps its newest version, because the build is regenerated from source. A cache stays, because its own keys decide when an
+entry is stale, and age is not staleness. A review artifact stays until a person retires it. A session's scripts, dumps and logs go after a
+week, and an appended log stays while it is written. The defaults sit once on the format type and a format states only what differs, so
+retention is configured, not programmed (PDR-CONFIG). A file no format covers is reported and left alone: removing what nobody declared
+would guess at its owner.
 
 ### Formats for people
 
 A person reviews PNG, PDF, and Markdown with the tools every machine has. HTML needs a browser opened on a local file, which not every
 reader has or wants; a page that needs a browser is published as a review page, where it opens from a link. A review page has its own name
-because "artifact" already means a file handed between pipeline stages
+because "artifact" means a file handed between pipeline stages
 ([ADR-AUTO-PATH-PUBLISHEDARTIFACT](../automation/path-representation.md#rule-adr-auto-path-publishedartifact)), and one word carries one
 meaning ([controlled-vocabulary](controlled-vocabulary.md)).
 

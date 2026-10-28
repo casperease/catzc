@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../automation/.assets/what-gates-each-bundle-stage.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Every cited code exists in the index, every field's text is found in the render,
 
 ## Image
 
-.assets/automation-jokes-checked.png
+[automation-jokes-checked](.assets/automation-jokes-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: what gates each bundle stage.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

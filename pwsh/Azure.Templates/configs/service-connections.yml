@@ -1,0 +1,17 @@
+# One connection per identity and subscription, where a slot of its templates lives (Get-BicepServiceConnections).
+identities:
+  landing-zone:
+    role: lz
+    templates: [foundation, discovery]
+    azure_role: owner
+    description: Deploys the subscription's landing zone, foundation and discovery, including their role assignments.
+  workload:
+    role: wl
+    templates: [expedition]
+    azure_role: contributor
+    description: Deploys the workload slots of expedition into their resource groups, granting no access.
+  read-only:
+    role: ro
+    templates: [foundation, discovery, expedition]
+    azure_role: reader
+    description: Reads Azure state for CI checks such as the AzureAuthTests, changing nothing.

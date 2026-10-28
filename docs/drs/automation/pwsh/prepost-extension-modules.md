@@ -1,4 +1,4 @@
-# ADR: PrePost extension modules
+# PowerShell: PrePost extension modules
 
 ## Rules: ADR-PWSH-PREPOST
 
@@ -70,12 +70,8 @@ parameters — they are computed results, not invocation arguments. **`-DryRun` 
 without mutating on a preview); Deploy-Bicep runs preDeploy before its own `--what-if` branch, so the hook owns that guard. PostDeploy never
 runs on a preview, so it takes no `-DryRun`.
 
-The hooks are **opt-in per template, and there are no defaults**. A template that needs none ships no `PrePost.psm1`; a template that needs
-one ships a single `infrastructure/templates/<name>/PrePost.psm1` exporting any subset of the three. When a hook is not provided, the
-corresponding step is simply skipped — the _code_ supplies the no-op, not a loaded default.
-
-The shape used for a template's PrePost is **one `.psm1` file containing the hooks it overrides**. A starter (`assets/PrePost.psm1`) ships
-the canonical shape — three no-op hooks — purely as a copy-in template. This ADR explains both choices.
+The hooks are **opt-in per template, and there are no defaults**: a template that needs none ships no `PrePost.psm1`, and a hook not
+provided is skipped — the _code_ supplies the no-op, not a loaded default. This record explains the one-file shape and the copy-in starter.
 
 ### One `.psm1`
 
@@ -97,7 +93,6 @@ A single `.psm1` also:
   exporting them.
 - **One well-defined import target.** `Import-Module <path>` once, regardless of which hooks the template provides. The discovery and
   invocation logic in `Build-Bicep` / `Deploy-Bicep` is one path, not three.
-- **Mirrors the source.** Eases the manual copy-in step for a template that ships as a single `.psm1`.
 
 ### The copy-in starter
 
@@ -105,13 +100,12 @@ A single `.psm1` also:
 `assets/PrePost.psm1` is a copy-in starter, not a loaded default
 ```
 
-`assets/PrePost.psm1` sits in the `Catzc.Azure.Templates` module's `assets/` folder. It is **not loaded or called by any production code** —
-it exists only as the canonical shape an author copies to `infrastructure/templates/<name>/PrePost.psm1`. Its three hooks are no-ops: a
-starting point to edit, not a runtime default. (Tests that exercise the starter import it explicitly.)
+`assets/PrePost.psm1` is the canonical shape an author copies to `infrastructure/templates/<name>/PrePost.psm1`. Its three hooks are no-ops:
+a starting point to edit, not a runtime default. Tests that exercise the starter import it explicitly.
 
-There is deliberately **no default hook** loaded into the module's session state. Loading a default at module-init would couple production
-code to an asset module, put the asset on the call graph, and make the build/deploy functions call hook names that resolve only at runtime.
-The only PrePost code that ever runs is a template's own.
+**No default hook** is loaded into the module's session state. Loading a default at module-init would couple production code to an asset
+module, put the asset on the call graph, and make the build/deploy functions call hook names that resolve only at runtime. The only PrePost
+code that ever runs is a template's own.
 
 ### Per-template hooks
 
@@ -129,16 +123,14 @@ infrastructure/templates/<template>/
   PrePost.psm1                ← any subset of the three hooks
 ```
 
-`Build-Bicep` and `Deploy-Bicep` detect this file via `Get-BicepTemplates` (the `prepost_module` key on template metadata), import it with
-`Import-Module -Scope Local -PassThru`, and invoke **only the hooks it actually exports**, resolved from the module's `ExportedCommands`. A
-hook the module does not export — or a template with no `PrePost.psm1` at all — is skipped (the step no-ops in code).
+`Build-Bicep` and `Deploy-Bicep` find this file through `Get-BicepTemplates` (the `prepost_module` key on template metadata).
 
 Invoking through the module's exported command object (rather than a bare `Invoke-Bicep*` call) keeps the call dynamic: production code
 under `pwsh/` contains **no reference** to hook functions that live only in template folders, so static analysis (`Test-FunctionDependency`)
 stays clean.
 
-Per-template modules do NOT live under `pwsh/` and are NOT loaded by the bootstrap module. They are loaded on demand. The `.psm1` extension
-is exactly the right tool: an isolated scope that can be cleanly imported, expose any subset of three exports, and be discarded.
+Per-template modules live outside `pwsh/` and load on demand, never through the bootstrap module. The `.psm1` extension is the right tool
+for that: an isolated scope that is cleanly imported, exposes any subset of three exports, and is discarded.
 
 ### No conflict with use-ps1-not-psm1
 
@@ -155,8 +147,8 @@ Neither `assets/PrePost.psm1` nor `infrastructure/templates/<name>/PrePost.psm1`
   is not auto-scanned as a `.ps1`.
 - The per-template module lives **outside `pwsh/`** entirely, in `infrastructure/`.
 
-The `use-ps1-not-psm1` "shared scope across module internals" use case and this ADR's "isolated extension point loaded on demand" use case
-have requirements for scope that differ. The two ADRs apply in different parts of the repo and do not contradict each other.
+`use-ps1-not-psm1` serves one module's shared internals and this record an isolated extension point loaded on demand; the two records govern
+different parts of the repository.
 
 ### Not three `.ps1` files
 
@@ -164,8 +156,8 @@ have requirements for scope that differ. The two ADRs apply in different parts o
 Why not three separate `.ps1` files
 ```
 
-A three-`.ps1` shape would break the atomic copy-in unit and the starter-matches-override symmetry, forcing an author to assemble three
-files instead of editing one. The single-`.psm1` form is what authors actually copy.
+A three-`.ps1` shape breaks the atomic copy-in unit and the starter-matches-override symmetry: an author assembles three files instead of
+editing one.
 
 ## Decision
 
@@ -198,5 +190,5 @@ There are **no default hooks**. `assets/PrePost.psm1` is a copy-in starter only 
   (`pwsh/.internal/*.psm1`), the custom PSScriptAnalyzer rule modules (`pwsh/.scriptanalyzer/*.psm1`), the PrePost starter
   (`pwsh/Azure.Templates/assets/PrePost.psm1`, a copy-in reference), and per-template extension points
   (`infrastructure/templates/<template>/PrePost.psm1`).
-- Future extension points of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) can reuse this
+- An extension point of the same shape (a small group of related hooks loaded on demand from a consumer-supplied module) reuses this
   pattern: a starter file plus a per-consumer module, invoked only when present.

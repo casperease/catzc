@@ -42,7 +42,7 @@ def get_proof(cells, kind):
         "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],
     }
     adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
-    return normalise({"about": {"adrs": adrs, "lens": PROOF_LENS}, "content": content}, where="the drawing")
+    return normalise({"about": {"rules": adrs, "lens": PROOF_LENS}, "content": content}, where="the drawing")
 
 
 def get_action(cells, geo, glyph_sigs, kind):
@@ -119,4 +119,4 @@ def get_action(cells, geo, glyph_sigs, kind):
     if ("proof" in cells) != PROOF_SHOWN:  # the Proof box is drawn or not; the key is kept only where it differs from the default
         content["proof"] = "shown" if "proof" in cells else "hidden"
     adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
-    return normalise({"about": {"adrs": adrs, "lens": ACTION_LENS}, "content": content}, where="the drawing")
+    return normalise({"about": {"rules": adrs, "lens": ACTION_LENS}, "content": content}, where="the drawing")

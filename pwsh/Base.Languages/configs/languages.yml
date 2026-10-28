@@ -84,7 +84,7 @@ languages:
       type: pascal-dotted
       exempt: [importer.ps1]
     formatter: psscriptanalyzer
-    adr_folder: automation/pwsh
+    drs_folder: automation/pwsh
     checks: [Test-ScriptAnalyzer, Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments, Test-IdiomaticNames]
     imprint: [ps-help]
     layout:
@@ -98,7 +98,7 @@ languages:
     tag: C#
     shapes: ['^[A-Z][A-Za-z0-9]*\.[A-Z][A-Za-z0-9]*(\(.*\))?$', "^[A-Z][a-z0-9]+([A-Z][a-z0-9]+)+$"]
     formatter: dotnet-format
-    adr_folder: automation/BCL
+    drs_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments, Test-BclReferences]
     imprint: [bcl-namespace]
     layout:
@@ -107,7 +107,7 @@ languages:
     extensions: [.yaml]
     formatter: prettier
     vscode_language: yaml
-    adr_folder: ado
+    drs_folder: ado
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
   yaml:
     extensions: [.yml]
@@ -122,7 +122,7 @@ languages:
     tag: contract
     shapes: ["^[a-z][a-z0-9]*(_[a-z0-9]+)+$", '^[a-z][a-z0-9_]*: \{.*\}$']
     formatter: prettier
-    adr_folder: automation
+    drs_folder: automation
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
     layout:
       - { folder: accosted, role: run-list, live: false, shipped: false }
@@ -156,7 +156,7 @@ languages:
     executable: true
     naming: { folder: snake, file: snake, function: snake, type: pascal }
     formatter: ruff
-    adr_folder: automation/python
+    drs_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling, Test-IdiomaticNames]
     tests: { runner: Invoke-PythonTest, pattern: "test_*.py", tools: [uv, python], executable_parameter: UvExecutable }
     layout:
@@ -174,7 +174,7 @@ languages:
     executable: true
     naming: { folder: flat, file: snake, function: [pascal, camel], type: [pascal, camel] }
     formatter: gofmt
-    adr_folder: automation/go
+    drs_folder: automation/go
     checks: [Test-Formatting, Test-Spelling, Test-IdiomaticNames]
     tests: { runner: Invoke-GoTest, pattern: "*_test.go", tools: [go], executable_parameter: GoExecutable }
     layout:
@@ -185,7 +185,7 @@ languages:
     executable: true
     naming: { folder: kebab, file: kebab }
     no_formatter: no engine is configured for Bash yet
-    adr_folder: automation/bash
+    drs_folder: automation/bash
     checks: [Test-ShellScripts, Test-IdiomaticNames]
     tests: { runner: Invoke-BashTest, pattern: "*.bats", engine: bash, executable_parameter: EngineExecutable }
     layout:

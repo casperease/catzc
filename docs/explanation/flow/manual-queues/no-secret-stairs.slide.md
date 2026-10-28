@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
 ---
 
@@ -23,11 +23,12 @@ down, with a server, a store and a measured wait, before anyone climbs it.
 
 ## Image
 
-.assets/no-secret-stairs.png
+[no-secret-stairs](.assets/no-secret-stairs.png)
 
 ## Caption
 
-Reduced: the whole ladder with its two manual gates drawn; what is not drawn is not allowed.
+Reduced: the whole ladder with its three manual queues drawn as gates marked manual and the slot switch automated; what is not drawn is
+not allowed.
 
 ## Notes
 

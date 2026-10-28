@@ -1,0 +1,13 @@
+categories:
+  rule-code-example:
+    description:
+      "A DESIGN-zone example token — a discovery-theme name (discovery/expedition/survey, Contoso) or documentation placeholder used only in
+      decision records and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
+    scope:
+      - "docs/**"
+terms:
+  rule-code-example:
+    - term: contoso
+      meaning:
+        "Microsoft's canonical fictional company name (Contoso) — a design-zone example in decision records and reference docs
+        (ADR-REPO-EXAMPLE)"

@@ -1,4 +1,4 @@
-# ADR: Config reading in PowerShell — one reader cmdlet and the validator convention
+# PowerShell: Config reading — one reader cmdlet and the validator convention
 
 ## Rules: ADR-PWSH-CONFIG
 
@@ -23,8 +23,8 @@ The configuration domain states how a config is read, cached and validated for a
 
 ### One cmdlet
 
-A second reader beside `Get-Config` would be a second cache and a second validation path, and the two would disagree the first time a config
-changed mid-session. A `$script:` cache is the usual way a function grows one, so it is named here as the shape to refuse.
+A second reader beside `Get-Config` is a second cache and a second validation path, and the two disagree as soon as a config changes
+mid-session. A `$script:` cache is the usual way a function grows one, so it is the named shape to refuse.
 
 ### The validator convention
 
@@ -55,8 +55,7 @@ resolves at neither throws from `Resolve-ConfigKeyPath`, naming the full address
 
 ## Decision
 
-pwsh reads every config through `Get-Config` and validates a config without a C# type through `Invoke-ConfigValidator` and the
-`Assert-<TitleCase(name)>Config` convention, checked by `Test-ConfigValidators`.
+pwsh has one config reader and one validator convention, as the rules above state.
 
 ## Consequences
 

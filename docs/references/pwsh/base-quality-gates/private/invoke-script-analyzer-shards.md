@@ -20,14 +20,14 @@ shards each pass's files across background pwsh PROCESSES — the same approach,
 - Each shard imports the analyzer once and pipes its whole file list through a SINGLE Invoke-ScriptAnalyzer call, so the ~3s per-process
   setup is paid once per shard, not per file.
 - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
-- Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (ADR
+- Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (record
   working-directory-mechanics, rule
   [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
 - Each shard reads the settings file itself and applies its pass's rule selection (`IncludeRules`, or extra `ExcludeRules`): a job's
   arguments are serialized, and the settings parser wants its own types back.
 
 The passes share one shard budget, split by their file counts, each pass at least one shard. A dot is printed per interval while shards run
-so the run never looks hung — a progress bar is banned (ADR console-output-matters, rule
+so the run never looks hung — a progress bar is banned (record console-output-matters, rule
 [ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The external
 Invoke-ScriptAnalyzer progress bar is suppressed inside the worker for the same reason.
 

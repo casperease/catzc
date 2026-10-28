@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png
+      source: ../../../how-to/pwsh/.assets/head-outcomes.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ No inputs hash, no gitignored stamp companion: generators always render, and Wri
 
 ## Image
 
-.assets/body-sha-on-generated.png
+[body-sha-on-generated](.assets/body-sha-on-generated.png)
 
 ## Caption
 
-From the catalogue, reduced: pass the limit or the call is denied.
+From the catalogue, reduced: head outcomes.
 
 ## Notes
 
 Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png.
+docs/how-to/pwsh/.assets/head-outcomes.drawio.png.

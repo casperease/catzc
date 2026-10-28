@@ -17,7 +17,7 @@ The gate runs over throwaway files with nothing mocked, so it reads the shipped 
 code root's `.internal/assets`) and the vendored analyzer under the code root's `.vendor`. It is integrity and not source-only, so it runs
 in the source and the build run. The repository-wide check that all module code is analyzer-clean is the sharded L2 `PSScriptAnalyzer` test
 in `pwsh/.internal/tests`, and is not duplicated here. The block is greedy: the real analyzer fans out `Start-Job` pwsh processes of its
-own, stacked on the parallel pool that oversubscribes the box (see the greedy tag in the test-automation ADR).
+own, stacked on the parallel pool that oversubscribes the box (see the greedy tag in the test-automation record).
 
 One real-analyzer run over a clean file and a violating file proves the boundary end to end. The real analyzer flags the aliased cmdlet with
 the repository rule set and reports the clean file as issue-free. The throw path (`IssueCount` above 0 without `-PassThru`) is pure

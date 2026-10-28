@@ -18,7 +18,7 @@ public sealed class DrsRuleSet
     public string Stack { get; }       // the owning domain's row of the value-chain stack
     public IReadOnlyList<string> Concerns { get; }       // effective value-chain concerns (override or domain default)
     public IReadOnlyList<string> DomainConcerns { get; } // the owning domain's default value-chain concerns
-    public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
+    public string Layer { get; }       // the layer of the automation the record belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
 
     public string Folder { get; }      // the owning domain's folder under docs/drs
 

@@ -22,9 +22,9 @@ published, not just as written. One route the rule offers, exempting slow work b
 ```yml drawio
 description:
   "One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and the
-  exemption route has no gate because it exists only in the ADR."
+  exemption route has no gate because it exists only in the record."
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: governance
 content:
   title: One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
@@ -114,8 +114,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR says the run environment comes from `Get-RunEnvironment`. The hook decides it with `BashSafeguard.EnvironmentOf`; an L0 test keeps
-the two in agreement.
+The record says the run environment comes from `Get-RunEnvironment`. The hook decides it with `BashSafeguard.EnvironmentOf`; an L0 test
+keeps the two in agreement.
 
 ## See also
 

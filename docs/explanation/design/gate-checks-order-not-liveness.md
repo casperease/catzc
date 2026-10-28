@@ -23,7 +23,7 @@ description:
   "The one real gate on the aspect convention checks shape: the variants config refuses any track whose last aspect is not the bare
   remainder; whether the remainder ships is each track's unchecked declaration, and the partition check runs only in unit tests."
 about:
-  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-PARTITIONISCHECKED]
+  rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-PARTITIONISCHECKED]
   lens: governance
 content:
   title: The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call

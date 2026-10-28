@@ -7,9 +7,9 @@ function Test-DrsEngineNeutrality {
         [switch] $PassThru
     )
 
-    $adrs = Get-Config -Config drs
+    $drs = Get-Config -Config drs
     $settings = (Get-Config -Config drs-checks).engine_neutrality
-    $index = Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot (Resolve-RepoPath $adrs.Root)
+    $index = Get-DrsFileIndex @($drs.RuleSets) -DrsRoot (Resolve-RepoPath $drs.Root)
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $domainFacts = foreach ($name in $settings.domains.Keys) {
@@ -20,7 +20,7 @@ function Test-DrsEngineNeutrality {
     $lineCount = 0
     foreach ($domainName in $settings.domains.Keys) {
         $domain = $null
-        foreach ($candidate in $adrs.Domains) {
+        foreach ($candidate in $drs.Domains) {
             if ($candidate.Name -ceq $domainName) {
                 $domain = $candidate
             }
@@ -42,7 +42,7 @@ function Test-DrsEngineNeutrality {
                 foreach ($token in $tokens) {
                     $found = $token.Find($summaryLine.Text)
                     if ($found.Count -gt 0) {
-                        $issues.Add("$($adrs.Root)/${relative}:$($summaryLine.Line): $($summaryLine.Rule): $($token.name) — $(($found | ForEach-Object { "'$_'" }) -join ', ')")
+                        $issues.Add("$($drs.Root)/${relative}:$($summaryLine.Line): $($summaryLine.Rule): $($token.name) — $(($found | ForEach-Object { "'$_'" }) -join ', ')")
                     }
                 }
             }

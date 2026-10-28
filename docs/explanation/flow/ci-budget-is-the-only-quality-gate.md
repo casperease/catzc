@@ -26,7 +26,7 @@ description:
   The promotion flow from the CI inner loop to deploy to prod, with the one rule a quality gate checks (the per-test limits of the CI
   budget) set apart from the rules only a code reviewer enforces, drawn dashed.
 about:
-  adrs:
+  rules:
     - FDR-CD-SHORTINTEGRATIONCYCLE
     - FDR-CD-SEPARATEPIPELINEKINDS
     - FDR-CD-CDSTAYSINNONPROD

@@ -10,7 +10,7 @@ string may spell.
 
 ## Bare place names
 
-A bare place name is also a word with other senses (an ADR domain, a layer), so alone it counts only where a path is built.
+A bare place name is also a word with other senses (a DRS domain, a layer), so alone it counts only where a path is built.
 
 ## Locating the track
 

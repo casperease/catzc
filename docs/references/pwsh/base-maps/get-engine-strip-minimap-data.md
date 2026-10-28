@@ -11,14 +11,14 @@ The engine strip minimap's data: each execution engine beside the script languag
 
 ### description
 
-The subject is the files the ADR codes light on the world map. Each execution engine is paired with every file language whose extensions
+The subject is the files the rule codes light on the world map. Each execution engine is paired with every file language whose extensions
 include one of its script extensions, and a subject file lights the pair of its own file language with each engine that runs it, its module
 as the note ([ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)). A file in a language no engine runs lights nothing here. Each
 lit cell carries the file and the requested code as its reason, in the minimap contract's shape.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes of the diagram's subject.
+The rule codes of the diagram's subject.
 
 ### parameter `WorldMap`
 

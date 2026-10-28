@@ -16,3 +16,13 @@ The jobs of one pipeline YAML that run a vault-writing command off the network a
 whose steps run one of the commands, and whose pool is not the declared variable, carries a vmImage, or sits in a file without the
 variable template.
 ```
+
+## comment:2
+
+Above `$script:findServiceConnectionUses = {`, written with `#`.
+
+```text
+Every service connection one pipeline YAML names literally, with the identity its use needs: a Foundations or Discoveries entry
+deploys the landing zone, an Expeditions entry the workload, a step that writes a foundation vault the landing zone, and any other
+step only reads.
+```

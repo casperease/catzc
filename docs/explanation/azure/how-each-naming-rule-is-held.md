@@ -17,14 +17,14 @@ and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 
 The Azure naming standard has eight rules, and cats holds every one of them in code. Seven sit behind a check that throws: one at template
 discovery, the rest inside the namer, in the order a name is built. The eighth, that the subscription never enters a name, holds by
-construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the ADR.
+construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the record.
 
 ```yml drawio
 description:
   "The eight naming rules and where code holds them: seven behind a check that throws, from template discovery through the resolver and the
   namer's registry, format and length checks, and one, that no subscription enters a name, held by construction."
 about:
-  adrs:
+  rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
     - ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS
     - ADR-AZ-NAMING-ENVIRONMENTFIRST

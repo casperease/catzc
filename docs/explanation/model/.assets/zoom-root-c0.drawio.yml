@@ -2,7 +2,7 @@ description: >-
   The repository is one of three kinds of truth store; around it sit the fact sources it only reads, the state machines it reports to at a
   junction, and the adjacent store its pipelines drive one way.
 about:
-  adrs: [TDR-STORES-THREESTOREKINDS, TDR-STORES-FACTSOURCEREADONLY, TDR-STORES-STATEMACHINE, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [TDR-STORES-THREESTOREKINDS, TDR-STORES-FACTSOURCEREADONLY, TDR-STORES-STATEMACHINE, DDR-VISUAL-ZOOMISANAXIS]
   lens: meta
   zoom: C0
 content:

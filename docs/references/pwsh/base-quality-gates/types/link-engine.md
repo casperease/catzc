@@ -20,7 +20,7 @@ them: the result carries each changed file's new text. Findings carry real 1-bas
 
 The constructor takes:
 
-- `adrs`: the registry; its code grammar (`CodeForm`) is what the citation checks match, and its root is where the record paths live.
+- `drs`: the DRS config; its code grammar (`CodeForm`) is what the citation checks match, and its root is where the record paths live.
 - `lineLimits`: extension (`.ps1`) to line limit; an extension not listed takes `defaultLineLimit`.
 - `selfUrlPrefix`: this repository's web URL, or null to skip the self-URL check.
 - `trackedFiles`: the paths git tracks, so a markdown link to a file GitHub does not have is reported; null to skip.

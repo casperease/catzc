@@ -22,7 +22,7 @@ description:
   Running Test-Automation or Test-ModuleDependency checks every module edge against the declaration; a malformed declaration throws first,
   an undeclared edge fails with one line per issue after the report is written, and the fix goes in dependencies.yml.
 about:
-  adrs: [ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
+  rules: [ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
   lens: operations
 content:
   title: An undeclared module edge fails the gate with one line per issue

@@ -25,7 +25,7 @@ description:
   "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
   modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
 about:
-  adrs: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
+  rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: The detector lives in the loader, which both run modes import first and keep loaded

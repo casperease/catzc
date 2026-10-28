@@ -1,4 +1,4 @@
-# ADR: Repository kinds — the product mono-repository, a consumer repository, and no repository
+# Repository: Repository kinds — the product mono-repository, a consumer repository, and no repository
 
 ## Rules: ADR-REPO-REPOKIND
 

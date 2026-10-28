@@ -212,7 +212,7 @@ DDR-TRACK-FILELANGUAGE).
 
 **Test file:** `pwsh/Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1` (L1), block `Get-WorldMapHighlight — the real repository`.
 
-**Guards:** A decision record's highlight lights at least one cell, and as an ADR file only the requested record's own file.
+**Guards:** A decision record's highlight lights at least one cell, and as a record file only the requested record's own file.
 
 ### 16. Export-WorldMapPdf — the real repository
 

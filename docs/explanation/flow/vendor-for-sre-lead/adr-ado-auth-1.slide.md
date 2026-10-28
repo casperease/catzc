@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../automation/.assets/callers-value-else-config-else-default.drawio.png
+      source: ../../ado/.assets/configured-credential-proves-its-org.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -24,13 +24,13 @@ discovery at the first call.
 
 ## Image
 
-.assets/adr-ado-auth-1.png
+[adr-ado-auth-1](.assets/adr-ado-auth-1.png)
 
 ## Caption
 
-From the catalogue, reduced: callers value else config else default.
+From the catalogue, reduced: configured credential proves its org.
 
 ## Notes
 
 Check it: the record ADR-ADO-AUTH in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.
+docs/explanation/ado/.assets/configured-credential-proves-its-org.drawio.png.

@@ -70,8 +70,8 @@ def finish(cells, content, content_bottom, declaration):
     page height. The band never rises above the sidebar's minimaps, so a short drawing leaves room under itself instead."""
     legend_y = max(content_bottom, SIDEBAR[-1][1] + SIDEBAR[-1][2]) + GAP
     entries = legend_entries(content)
-    # The rule key: every rule a chip names, by its number in about.adrs, three to a column under the entries.
-    keyed = [r for r in content["adrs"] if any(c["kind"] == "rule" and c["rule"] == r for c in content["chips"])]
+    # The rule key: every rule a chip names, by its number in about.rules, three to a column under the entries.
+    keyed = [r for r in content["about_rules"] if any(c["kind"] == "rule" and c["rule"] == r for c in content["chips"])]
     key_rows = (len(keyed) + 2) // 3
     boxes = []  # (cell id, caption, entries, x, w)
     if content["lens"] == ACTION_LENS and any(eid == "proof" for eid, _, _ in entries):
@@ -90,7 +90,7 @@ def finish(cells, content, content_bottom, declaration):
         cells.append(cell(cid, f"<b>{caption}</b>", LEGEND, bx, legend_y, bw, band_h))
     for i, rule in enumerate(keyed):
         col, row = divmod(i, key_rows)
-        number = content["adrs"].index(rule) + 1
+        number = content["about_rules"].index(rule) + 1
         cells.append(
             cell(f"lg-key-{number}", f"#{number}  {rule}", KEY, PAGE["x"] + 16 + col * 410, legend_y + 30 + 3 * 28 + row * 16, 400, 16)
         )

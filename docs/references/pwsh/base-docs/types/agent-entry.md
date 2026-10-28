@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/types/AgentEntry.cs
 
-One entry of `configs/agents.yml`'s `agents` list: a sub-agent definition (`.claude/agents/<name>.md`) with the ADR rules that support it
-and the gate and check functions it runs or guards
+One entry of `configs/agents.yml`'s `agents` list: a sub-agent definition (`.claude/agents/<name>.md`) with the rules that support it and
+the gate and check functions it runs or guards
 ([ADR-REPO-AGENTS-BACKEDBYRULE](../../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule)). It mirrors the YAML
 mapping, snake_case keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

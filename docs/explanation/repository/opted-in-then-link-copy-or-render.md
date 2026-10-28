@@ -26,7 +26,7 @@ description:
   Build-RootConfig loads the registry through its validating config type, keeps the opted-in entries, and sends each one down the copy
   branch or the generator branch; one primitive writes every file, leaving a headed root file and never a link.
 about:
-  adrs:
+  rules:
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-README-READMEIDEMPOTENT
     - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE

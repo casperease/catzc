@@ -23,7 +23,9 @@ A pattern holds two kinds of placeholder.
   `{{item}}` with the item's text and `{{item.lead}}` with its leading bold phrase when the template asks for one; a `<tr>` template clones
   its one `<td>` or `<th>` per cell, filling `{{cell}}`; `data-item="header"` is the template for a table's header row; an element marked
   `data-separator` is placed between consecutive items. `data-max` is the block's capacity in items and `data-max-words` its capacity in
-  words; a field over either is a render fault, and nothing shrinks. A block field marked `data-optional` may be absent.
+  words; a field over either is a render fault, and nothing shrinks. A block field marked `data-optional` may be absent. An optional field
+  that fills an attribute, `src="{{image?}}"`, removes the element holding the attribute when it is absent, and any other element marked
+  `data-optional`, such as a `<figure>`, is removed once the fields it held are gone.
 
 The title of a slide is its level-one heading, so `{{title}}` is never a `## Title` field. Format-Code writes a comment head into each
 pattern file; the renderer strips HTML comments before it fills a pattern.
@@ -67,12 +69,14 @@ pattern file; the renderer strips HTML comments before it fills a pattern.
   - Fields: `eyebrow`, title, `lead`, `body?`, `notes?`
   - Capacity: lead 1 × 45, body 1 × 60
 - **`fact`**
-  - What it is for: One checkable proposition of an x-of-y show, beside its diagram.
-  - Fields: `eyebrow`, title, `lead`, `image`, `caption?`, `notes?`
+  - What it is for: One checkable proposition of an x-of-y show, beside the diagram that cites its rule when one does.
+  - Fields: `eyebrow`, title, `lead`, `image?`, `caption?`, `notes?`
   - Capacity: lead 1 × 45, image 640 wide
 
-A `fact` slide's picture is made by `slide_png.py`: the head's `picture` in mode `reduce`, `zoom` or `redraw` (a named variation), viewed by
-`tilt` and `rotate`.
+A `fact` slide's picture is optional. It shows a catalogue diagram only when that diagram's declaration cites the rule the slide's eyebrow
+names, and a slide with no such diagram has no `## Image`, no `## Caption` and no `picture` in its head: its text takes the full width. The
+picture is made by `slide_png.py`: the head's `picture` in mode `reduce`, `zoom` or `redraw` (a named variation), viewed by `tilt` and
+`rotate`.
 
 Backgrounds: `cover` and `rule` sit on `bg`; `pair`, `tiles`, `table`, `stack` and `fact` on `bg_deep`; `divider`, `statement` and `closing`
 on `bg_raised`. A deck that alternates patterns alternates tones by itself.
@@ -109,7 +113,16 @@ Rule two is the test. If it can be diffed, reviewed and rolled back, it belongs 
 
 A field heading is the field's name with a capital, `## Body` for `body`, `## Cards` for `cards`. A `cards`, `layers` or `tiles` field is a
 list; an item's leading `**bold**` is its lead. A `rows` field is a markdown table whose first row is the header. `Notes` is plain text a
-person reads aloud; it is never a second copy of the body.
+person reads aloud; it is never a second copy of the body. A field that fills an attribute, the `## Image` of a `fact` or `image` slide,
+holds one markdown link whose text is the file's stem, and the attribute takes its target:
+
+```markdown
+## Image
+
+[ask-the-coordinator](.assets/ask-the-coordinator.png)
+```
+
+A bare path or anything else there is a render fault naming the slide file.
 
 ## Writing a slide
 

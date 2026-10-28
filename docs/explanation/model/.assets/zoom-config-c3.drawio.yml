@@ -1,6 +1,6 @@
 description: Catzc.Base.Config among its neighbours, the modules it calls and the modules that call it, drawn from the dependency query.
 about:
-  adrs: [ADR-AUTO-DEPM-UNIFIEDGRAPH, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-AUTO-DEPM-UNIFIEDGRAPH, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
   zoom: C3
   point: pwsh/Base.Config

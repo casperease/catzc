@@ -22,7 +22,7 @@ description:
   "What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
   false returns early, true and a doubt both proceed."
 about:
-  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
+  rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
   title: A stage returns only on $false; a doubt prints a message and proceeds; a typo throws

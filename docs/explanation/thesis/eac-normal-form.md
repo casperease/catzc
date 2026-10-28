@@ -25,7 +25,7 @@ description:
   "One band holds four groups left to right: a file in the unordered track, a runner and a gate that loops back to it on a failure path, and
   a result that feeds a named set; a group of three named sets stands beneath."
 about:
-  adrs:
+  rules:
     - TDR-NORMALFORM-ANYCODEHASNORMALFORM
     - TDR-NORMALFORM-ENABLINGCONSTRAINTS
     - TDR-NORMALFORM-UNCONTESTED

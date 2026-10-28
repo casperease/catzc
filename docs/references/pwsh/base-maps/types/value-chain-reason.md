@@ -1,13 +1,12 @@
 # pwsh/Base.Maps/types/ValueChainReason.cs
 
-Why a value-chain highlight lights a cell for one ADR: the requested citation, the ADR code, its ADR domain and that domain's row of the
+Why a value-chain highlight lights a cell for one record: the requested citation, the record code, its domain and that domain's row of the
 value-chain stack ([ADR-REPO-VALUECHAIN-STACK](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-stack)).
 
 ## Concerns
 
-It also holds the value-chain concern of the lit cell, and the ADR's value-chain concerns with the ADR domain's default
-([ADR-REPO-VALUECHAIN-CONCERN][r1]). `Override` is true when the ADR declares
-its own concerns instead of the default.
+It also holds the value-chain concern of the lit cell, and the record's value-chain concerns with the domain's default
+([ADR-REPO-VALUECHAIN-CONCERN][r1]). `Override` is true when the record declares its own concerns instead of the default.
 
 ## Shape
 

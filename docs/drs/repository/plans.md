@@ -62,7 +62,7 @@ names such a file.
 ### Rule ADR-REPO-PLANS-CONTINUATIONPROMPT
 
 A **continuation prompt** is `prompt-<topic>-continue.md`, or `prompt-<topic>-<n>-<step>.md` for a numbered series, beside its plan, carried
-verbatim, with a header that maps every path the paste names to where the text now lives.
+verbatim, with a header that maps every path the paste names to where the text lives.
 
 - [Prompts beside their plans](#prompts-beside-their-plans)
 
@@ -77,8 +77,8 @@ They are cleared and rebuilt; the plans are never deleted by a clear.
 
 ### Rule ADR-REPO-PLANS-DECISIONSBECOMERULES
 
-Every constraining decision a plan records becomes a DRS rule in the same change that lands it; a decision with no ADR to hold it is
-reopened, not kept as plan text.
+Every constraining decision a plan records becomes a DRS rule in the same change that lands it; a decision with no decision record to hold
+it is reopened, not kept as plan text.
 
 - [Decisions become rules](#decisions-become-rules)
 
@@ -88,7 +88,7 @@ A plan is written for a reader who was not there: another session, a sub-agent o
 plan carries that the tree also carries is a second source of truth that drifts, and everything it carries that nothing checks is a claim.
 The plans folder is tracked, so git keeps every version; the folder itself only has to hold what is still true and still open. Two agents
 keep it so: the cleaner, `plan-clear`, judges each plan against the tree and acts, and the gate, `Test-Plans`, holds every file in the
-folder to the shape this ADR states.
+folder to the shape this record states.
 
 ### The delta, not the record
 
@@ -107,9 +107,9 @@ overlay or the master does not list is invisible to whoever reads them to pick t
 ### The shape
 
 The sections answer the reader's questions in the order a reader asks them: why does this matter, what is settled, what is left, where do I
-look. What is already there is the tree's to say, so a "done" section would be a second record that drifts (the user, 2026-10-20: a plan
-holds only planned work). A reader who finds the open steps finds the whole remaining job, each step naming its file and its proof, so a
-sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim, sits last, so the shape is read before the material.
+look. What is done is the tree's to say, so a "done" section is a second record that drifts: a plan holds only planned work. A reader who
+finds the open steps finds the whole remaining job, each step naming its file and its proof, so a sub-agent can take one step cold. Carried
+text, a draft or a paste kept verbatim, sits last, so the shape is read before the material.
 
 ### Done is deleted
 
@@ -125,8 +125,8 @@ target and tempts the next session into a peer's work. One context line, "a peer
 ### Prompts beside their plans
 
 A continuation prompt is the exact text a person pastes into a fresh session. It is kept verbatim because a rewritten prompt is a different
-prompt; it is kept beside its plan because its reading list names that plan; and its header re-points the paths the paste names, since the
-drafts it was written for have moved into the plans.
+prompt; it is kept beside its plan because its reading list names that plan; and its header maps each path the paste names to where that
+text lives in the plans.
 
 ### Derived executables
 

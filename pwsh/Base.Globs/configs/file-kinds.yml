@@ -132,7 +132,7 @@ kinds:
   diagram-declaration:
     definition: The declaration a diagram is rendered from, its one source beside the image under .assets.
     files: ["docs/**/.assets/*.drawio.yml"]
-  adr:
+  record:
     definition: A decision record whose numbered rules the code follows.
     files: ["docs/drs/**"]
   # The diagram kinds come before the two trees they live in, so the first match names a diagram, not a page.

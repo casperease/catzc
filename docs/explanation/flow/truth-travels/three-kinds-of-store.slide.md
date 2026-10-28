@@ -6,7 +6,7 @@ catzc:
     order: 14
     picture:
       mode: reduce
-      source: ../../automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png
+      source: ../../thesis/product-thesis/.assets/truth-stores.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ what counts as true.
 
 ## Image
 
-.assets/three-kinds-of-store.png
+[three-kinds-of-store](.assets/three-kinds-of-store.png)
 
 ## Caption
 
-From the catalogue, reduced: pass the limit or the call is denied.
+From the catalogue, reduced: truth stores.
 
 ## Notes
 
 Check it: the record TDR-STORES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png.
+docs/explanation/thesis/product-thesis/.assets/truth-stores.drawio.png.

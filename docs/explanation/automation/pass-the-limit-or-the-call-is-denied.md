@@ -22,7 +22,7 @@ description:
   A shell call inside the limit runs as if the safeguard were absent; a call outside it is denied by the hook with the fix and logged, and a
   background call that outlives its prefix is stopped with exit 124.
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: operations
 content:
   title: A call inside the limit runs; outside it, the hook denies it and says how to re-issue it

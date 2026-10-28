@@ -23,7 +23,7 @@ description:
   "A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
   it in the live set, and the quality gates report a non-conventional file."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
+  rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: operations
 content:
   title: Drop a file, and the next import exports it

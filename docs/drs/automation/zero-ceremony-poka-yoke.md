@@ -1,4 +1,4 @@
-# ADR: Zero ceremony, hard to fail
+# Automation: Zero ceremony, hard to fail
 
 ## Rules: ADR-AUTO-ZERO
 

@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsDomain.cs
 
-One ADR domain, a `docs/drs/<area>/` folder, as `drs.yml` declares it. `DrsConfig` builds and validates it
+One DRS domain, a `docs/drs/<area>/` folder, as `drs.yml` declares it. `DrsConfig` builds and validates it
 ([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
 ## Properties

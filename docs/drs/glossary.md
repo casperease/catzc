@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a77817d116d3
+    with_body_sha: bde3a27eec07
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1212,7 +1212,7 @@ An Azure container above subscriptions for policy and access; this repository de
 ### pillar
 
 One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
-efficiency — each one ADR in docs/drs/external/azure/waf/.
+efficiency — each one decision record in docs/drs/external/azure/waf/.
 
 - **Defined by:** [ADR-AZ-LZ-EVERYPILLAR](azure/landing-zones.md#rule-adr-az-lz-everypillar)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1226,9 +1226,9 @@ A Bicep configuration slot — one config file of a template (`<env>[-<slot>].ym
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Azure.Templates/configs/glossary.yml`
 - **Forms:** `Bicep slot`, `base slot`, `configuration slot`, `root slot`, `template slot`, `indexed slot`, `special slot`, `optional slot`,
-  `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, `yml slot`, `bicepparam slot`,
-  `named slot`, `ephemeral slot`, `runtime slot`, `test slot`, `l3 slot`, `compiled slot`, `shipped slot`, `production slot`,
-  `foundation slot`, `discovery slot`, `expedition slot`, `hub slot`, `spoke slot`, and the bare `slot`
+  `customer slot`, `platform slot`, `env slot`, `core slot`, `subfolder slot`, `target slot`, `region slot`, `pick slot`, `yml slot`,
+  `bicepparam slot`, `named slot`, `ephemeral slot`, `runtime slot`, `test slot`, `l3 slot`, `compiled slot`, `shipped slot`,
+  `production slot`, `foundation slot`, `discovery slot`, `expedition slot`, `hub slot`, `spoke slot`, and the bare `slot`
 
 ### spoke
 
@@ -1440,7 +1440,7 @@ A group of decision records — one docs/drs/ subfolder — that drs.yml declare
 - **Defined by:** [ADR-REPO-FOLDERS-DOCSMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-docsmarkdownonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Docs/configs/glossary`
-- **Forms:** `ADR domain`, `record domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`,
+- **Forms:** `DRS domain`, `record domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`,
   `automation domain`, `bcl domain`, `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`,
   `repository domain`, `research domain`, `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`,
   `owning domain`, and the bare `domain`

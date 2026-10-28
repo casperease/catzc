@@ -14,7 +14,7 @@ Describe 'Find-DocPattern' -Tag 'L0', 'logic' {
         @($found.Tier) | Should -Be @('code', 'rule')
         $found[1].Line | Should -Be 3
         $found[1].Text | Should -BeExactly 'The widget rule, ADR-WIDGET-PARTS-SINGLE.'
-        $found[1].Kind | Should -BeExactly 'adr'
+        $found[1].Kind | Should -BeExactly 'record'
     }
 
     It 'searches only the named tiers' {

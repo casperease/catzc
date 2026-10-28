@@ -24,7 +24,7 @@ into the parsed config. An unknown/ambiguous name or an unresolvable key throws
 ([ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD](../../../drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolvednodeisread)).
 Addresses only ever reach version-controlled config, so nothing addressable is a secret
 ([ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY](../../../drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-versioncontrolledonly));
-secrets travel out-of-band as `[SecureString]` (see ADR environment-variables,
+secrets travel out-of-band as `[SecureString]` (see the environment-variables record,
 [ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../../drs/automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess)).
 
 ### parameter `Address`

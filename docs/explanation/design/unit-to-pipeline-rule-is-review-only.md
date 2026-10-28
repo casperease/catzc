@@ -25,7 +25,7 @@ description:
   Tracks and deployable-units are checked in code, by the variants config, an integrity test over the real repository and the globs config
   on load; the rules that one unit binds one pipeline and that a scope is no new track are held by code review alone.
 about:
-  adrs:
+  rules:
     - DDR-TRACK-ISPLACEDCLUSTER
     - DDR-TRACK-ONETRACKTYPE
     - DDR-TRACK-DEPLOYABLEUNIT
@@ -128,10 +128,10 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The tracks DDR's enforcement list names the folders ADR, the globset registry, the gates on dependencies and code review, but not the
+- The tracks DDR's enforcement list names the folders record, the globset registry, the gates on dependencies and code review, but not the
   `tracks` variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
-- The folders ADR names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks DDR and `variants.yml`
-  declare as a track.
+- The folders record names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks DDR and
+  `variants.yml` declare as a track.
 
 ## See also
 

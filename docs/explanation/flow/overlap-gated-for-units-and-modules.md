@@ -25,7 +25,7 @@ description:
   "Which checks keep globset layers disjoint: one quality gate covers the deployable-unit and module layers, config-load validation keeps
   the module layer derived-only, loose-filesets are exempt, and two prohibitions have no check at all."
 about:
-  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
+  rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
   lens: governance
 content:
   title: A gate checks overlap for units and modules, and loose-filesets are exempt

@@ -19,13 +19,13 @@ public sealed class DrsDoraCheck
     public IReadOnlyDictionary<string, string> exempt { get; }
     public IReadOnlyDictionary<string, string> exempt_folders { get; }
 
-    // True when an ADR's path under docs/drs/ lies in an exempt folder.
-    public bool IsExemptPath(string adrRelative)
+    // True when a record's path under docs/drs/ lies in an exempt folder.
+    public bool IsExemptPath(string drsRelative)
     {
-        if (string.IsNullOrEmpty(adrRelative)) { return false; }
+        if (string.IsNullOrEmpty(drsRelative)) { return false; }
         foreach (string folder in exempt_folders.Keys)
         {
-            if (adrRelative.StartsWith(folder + "/", System.StringComparison.Ordinal)) { return true; }
+            if (drsRelative.StartsWith(folder + "/", System.StringComparison.Ordinal)) { return true; }
         }
         return false;
     }

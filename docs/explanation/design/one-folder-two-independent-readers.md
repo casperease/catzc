@@ -24,7 +24,7 @@ description:
   "One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
   and the globs engine derives the live and tests sets and so what ships."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET]
+  rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
   title: One module folder has two independent readers

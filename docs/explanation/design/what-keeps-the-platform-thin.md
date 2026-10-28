@@ -26,7 +26,7 @@ description:
   "Which rules that keep the platform thin have a gate: the function naming rule, the configuration check and the az version pin do, while
   no reimplementation, everything as code and the swappable substrate are held by review alone."
 about:
-  adrs:
+  rules:
     - DDR-THINPLAT-THINPLATFORM
     - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
     - DDR-THINPLAT-PLATFORMASCLI

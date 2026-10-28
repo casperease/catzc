@@ -84,67 +84,6 @@ The diagram below draws process invocation from the source. It has two paths. Th
 executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use, hands
 the command to the console with no time limit.
 
-```yml drawio
-description:
-  "Invoke-Executable forks by parameter set: the streamed path looks up the executable's time limit and runs it through the C# runner, which
-  kills the process tree when the limit runs out; the direct path runs through Invoke-Expression with no time limit."
-about:
-  adrs: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST, ADR-PWSH-ASSERT-DECLAREDTIMELIMIT]
-  lens: source
-content:
-  title: "Invoke-Executable: only the streamed path is time-bounded"
-  kind: reference
-  flow: left-to-right
-  theme: dark
-  bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-stream, label: STREAM }
-    - { id: band-direct, label: DIRECT }
-  groups:
-    - { id: grp-timeouts, label: Catzc.Base.Timeouts, in: band-stream }
-  glyphs:
-    - { id: g-invoke, kind: code, label: Invoke-Executable, in: band-entry }
-    - { id: g-timeout, kind: code, label: Get-TimeoutSeconds, in: grp-timeouts }
-    - { id: f-timeouts-yml, kind: file, label: timeouts.yml, in: grp-timeouts }
-    - { id: g-streamed, kind: private, label: Invoke-ExecutableStreamed, in: band-stream }
-    - { id: t-runner, kind: type, label: CliRunner, in: band-stream }
-    - { id: f-kill, kind: failure, label: Kill · TimeoutException, in: band-stream }
-    - { id: g-direct, kind: private, label: Invoke-ExecutableDirect, in: band-direct }
-    - { id: g-expression, kind: code, label: Invoke-Expression, in: band-direct }
-    - { id: n-no-limit, kind: drsonly, label: no time limit, in: band-direct }
-  edges:
-    - { from: g-invoke, to: g-timeout, kind: flow, label: calls }
-    - { from: g-timeout, to: g-streamed, kind: flow, label: feeds }
-    - { from: g-streamed, to: t-runner, kind: flow, label: calls }
-    - { from: t-runner, to: f-kill, kind: fail, label: "" }
-    - { from: g-invoke, to: g-direct, kind: flow, label: calls }
-    - { from: g-direct, to: g-expression, kind: flow, label: calls }
-  markers:
-    - { at: g-invoke, number: 1 }
-    - { at: g-timeout, number: 2 }
-    - { at: g-streamed, number: 3 }
-    - { at: t-runner, number: 4 }
-    - { at: f-kill, number: 5 }
-    - { at: g-direct, number: 6 }
-    - { at: g-expression, number: 7 }
-  legend: auto
-  minimaps: [code-locations, module-neighbourhood, axis]
-layout:
-  band-entry: { x: 20, y: 84, w: 380, h: 310 }
-  band-stream: { x: 420, y: 84, w: 860, h: 190 }
-  band-direct: { x: 420, y: 294, w: 860, h: 100 }
-  g-invoke: { x: 160, y: 230, w: 170, h: 40 }
-  grp-timeouts: { x: 440, y: 108, w: 200, h: 158 }
-  g-timeout: { x: 455, y: 148, w: 170, h: 40 }
-  f-timeouts-yml: { x: 485, y: 204, w: 110, h: 50 }
-  g-streamed: { x: 680, y: 148, w: 200, h: 40 }
-  t-runner: { x: 925, y: 148, w: 120, h: 40 }
-  f-kill: { x: 1092, y: 146, w: 178, h: 44 }
-  g-direct: { x: 680, y: 328, w: 200, h: 40 }
-  g-expression: { x: 925, y: 328, w: 150, h: 40 }
-  n-no-limit: { x: 1110, y: 328, w: 140, h: 40 }
-```
-
 ![Invoke-Executable: only the streamed path is time-bounded](../.assets/invoke-executable-two-paths-one-bounded.drawio.png)
 
 ## Division

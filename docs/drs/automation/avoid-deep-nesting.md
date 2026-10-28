@@ -1,4 +1,4 @@
-# ADR: Avoid deep nesting in statements and expressions
+# Automation: Avoid deep nesting in statements and expressions
 
 ## Rules: ADR-AUTO-NONEST
 

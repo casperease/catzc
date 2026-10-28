@@ -3,7 +3,7 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
         $script:fixture = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
                 languages = [ordered]@{
                     widget = [ordered]@{ extensions = @('.wdg',
-                            '.widget'); formatter = 'prettier'; adr_folder = 'widgets'
+                            '.widget'); formatter = 'prettier'; drs_folder = 'widgets'
                     }
                     gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                 }
@@ -145,10 +145,10 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
             Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (DDR-TRACK-FILELANGUAGE)'
     }
 
-    It 'names an existing ADR folder for every file language that declares one' {
-        $missing = @(Get-FileLanguage | Where-Object { $null -ne $_.adr_folder } |
-                Where-Object { -not (Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) "docs/drs/$($_.adr_folder)") -PathType Container) } |
-                ForEach-Object { "$($_.name): docs/drs/$($_.adr_folder)" })
+    It 'names an existing decision-record folder for every file language that declares one' {
+        $missing = @(Get-FileLanguage | Where-Object { $null -ne $_.drs_folder } |
+                Where-Object { -not (Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) "docs/drs/$($_.drs_folder)") -PathType Container) } |
+                ForEach-Object { "$($_.name): docs/drs/$($_.drs_folder)" })
         $missing | Should -BeNullOrEmpty
     }
 

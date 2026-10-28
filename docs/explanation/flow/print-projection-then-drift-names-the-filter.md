@@ -25,7 +25,7 @@ description:
   "The operator's path through a unit's triggers: edit globs.yml, print the projection with Get-GlobSetTrigger, paste the Azure DevOps lists
   into the pipeline file, and two gates fail naming the missing include, the drifted filter or the missing file."
 about:
-  adrs: [FDR-GLOBS-NATIVEPATHFILTER]
+  rules: [FDR-GLOBS-NATIVEPATHFILTER]
   lens: operations
 content:
   title: Print the projection, and a drifted pipeline fails naming the filter that differs

@@ -16,15 +16,15 @@ DDR-RUNMODE-NEVERCOEXIST and ADR-PWSH-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
-is constrained by at least one ADR rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
+is constrained by at least one DRS rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
 session set-up. The unload has neither a rule nor a gate.
 
 ```yml drawio
 description:
-  The load runs in six stages; each stage but the last carries the ADR rules it follows and the test or review that gates them, and the
+  The load runs in six stages; each stage but the last carries the DRS rules it follows and the test or review that gates them, and the
   unload carries neither.
 about:
-  adrs:
+  rules:
     - ADR-AUTO-BUNDLE-TWOROOTS
     - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
     - ADR-AUTO-BUNDLE-ISSESSION
@@ -99,7 +99,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    `Invoke-Importer`'s and that the committed file equals the generated one.
 2. **Session.** The importer sets `$ErrorActionPreference = 'Stop'` globally (ADR-PWSH-ERROR-STOPONERROR), anchors on the working root and
    the code root (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle sets up the same session as source mode does (ADR-AUTO-BUNDLE-ISSESSION). The gate
-   is code review, the gate the platform-bundle ADR names: it rejects a scan of catzc's own code anchored on `RepositoryRoot`. No test
+   is code review, the gate the platform-bundle record names: it rejects a scan of catzc's own code anchored on `RepositoryRoot`. No test
    checks the preferences.
 3. **Load.** The bundle reuses the one importer so that the C# types and their accelerators register before any module loads
    (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE). `Import-AllModules.Tests` checks that a duplicated or
@@ -112,7 +112,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    what the janitors may change, read from `Get-SessionActor` (ADR-PWSH-TYPES-JANITORSBYCALLER). `Invoke-TypeCacheJanitor.Tests` checks that
    holders are never stopped in a `Pipeline` or `Agent` session.
 6. **Unload.** `Invoke-Importer` removes `Catzc.Internal.Bootstrap`, and the entry script's `finally` removes `Catzc.Internal.Importer`. No
-   ADR rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
+   DRS rule states this, and no test checks it; only the code comments and the project instructions describe it. That is why its band holds
    no rule and no gate.
 
 Beyond the gate at each stage, `Test-Automation` and `Test-CatzcBuild` run the same tests in both modes, `Assert-CatzcBundle` checks every
@@ -133,7 +133,7 @@ build, and code review rejects a bundle loader that forks the importer.
 
 ## Where the code and the decision record differ
 
-- No ADR rule covers removing the Bootstrap and the importer after the load, although the code does it on every load.
+- No DRS rule covers removing the Bootstrap and the importer after the load, although the code does it on every load.
 
 ## See also
 

@@ -1,14 +1,14 @@
 # pwsh/Base.Maps/types/WorldMapHighlight.cs
 
-A world-map highlight: the cells a request lights. A request is either ADR references or a drawing's files
+A world-map highlight: the cells a request lights. A request is either record references or a drawing's files
 ([DDR-TRACK-ISPLACEDCLUSTER](../../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster) places each file in one cell).
 
-## ADR references
+## Record references
 
-`ForAdr` takes each `ADR-<CODE>`, `ADR-<CODE>#n` or `ADR-<CODE>:n`. A reference that is not an ADR code the map's index lists throws. It
-lights, through the placements `WorldMapBuilder` derived in its fixed order per artifact kind, each requested ADR's own file (an
-`ADR-<CODE>#n` request lights its ADR's file) and every file whose citations a request covers (`CitationScanner.Covers`). An ADR's domain
-never lights a file: it only picks the value-chain row.
+`ForRecord` takes each `ADR-<CODE>`, `ADR-<CODE>#n` or `ADR-<CODE>:n`. A reference that is not a record code the map's index lists throws.
+It lights, through the placements `WorldMapBuilder` derived in its fixed order per artifact kind, each requested record's own file (an
+`ADR-<CODE>#n` request lights its record's file) and every file whose citations a request covers (`CitationScanner.Covers`). A record's
+domain never lights a file: it only picks the value-chain row.
 
 ## Pins and exceptions
 

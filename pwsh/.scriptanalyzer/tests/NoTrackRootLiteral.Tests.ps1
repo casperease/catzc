@@ -38,7 +38,7 @@ Describe 'Measure-NoTrackRootLiteral' -Tag 'L0', 'logic', 'ADR-AUTO-LAYERS-TOOLS
         Test-TrackRootLiteralFile -Code $code | Should -HaveCount 0
     }
 
-    It 'leaves the bare word alone where no path is built, as an ADR domain or a layer name, and reads Path.Combine as a path' {
+    It 'leaves the bare word alone where no path is built, as a DRS domain or a layer name, and reads Path.Combine as a path' {
         $code = "function Get-Widget {`n    `$domain = '$($script:place)'`n    @{ concern = @('$($script:place)') }`n    [System.IO.Path]::Combine(`$root, '$($script:place)')`n}"
         $diagnostics = Test-TrackRootLiteralFile -Code $code
         $diagnostics | Should -HaveCount 1

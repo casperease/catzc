@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Drs;
 
-// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-DrsIndex reflows ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
+// The authored text of the DRS index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-DrsIndex reflows ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 public sealed class DrsIndexConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -31,7 +31,7 @@ public sealed class DrsIndexConfig
     private static string Text(IDictionary raw, string key, List<string> errors)
     {
         string text = raw.Contains(key) && raw[key] != null ? raw[key].ToString() : null;
-        if (string.IsNullOrWhiteSpace(text)) { errors.Add(string.Format("adr-index: {0} is required, the Markdown text of that part of the index", key)); }
+        if (string.IsNullOrWhiteSpace(text)) { errors.Add(string.Format("drs-index: {0} is required, the Markdown text of that part of the index", key)); }
         return text;
     }
 }

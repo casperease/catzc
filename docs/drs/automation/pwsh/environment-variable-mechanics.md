@@ -1,4 +1,4 @@
-# ADR: Environment-variable mechanics — the pwsh rules over environment-variables
+# PowerShell: Environment-variable mechanics — the pwsh rules over environment-variables
 
 ## Rules: ADR-PWSH-ENV
 
@@ -272,12 +272,12 @@ runspaces as a shared, race-prone namespace never used for coordination, and sna
 ### How this is enforced
 
 - **The doctrine layer** — which environment-variable uses are legitimate at all is [environment-variables](../environment-variables.md)
-  (`ADR-AUTO-ENVVAR`); this ADR only fixes the language mechanics.
+  (`ADR-AUTO-ENVVAR`); this record only fixes the language mechanics.
 - **Custom PSScriptAnalyzer rule `Measure-NoEnvRepositoryRoot`** — flags a `$env:RepositoryRoot` read in a module function file
   (ADR-PWSH-ENV-BOOTSTRAPANCHORS, through [ADR-AUTO-NOPWD-ONEROOTACCESSOR](../never-depend-on-pwd.md#rule-adr-auto-nopwd-onerootaccessor)).
 - **Code review** — a `$env:` read or write that is not an external-boundary use per `ADR-AUTO-ENVVAR`, a `-Parallel` block touching
   `$env:`, a secret assigned to `$env:` outside `Write-EnvironmentSet`, or a test that sets `$env:` without restoring it is rejected against
-  this ADR.
+  this record.
 
 ## Consequences
 

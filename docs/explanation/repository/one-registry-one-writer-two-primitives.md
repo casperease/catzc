@@ -24,7 +24,7 @@ description:
   The registry, the templates and the generators feed one writer in the RootConfig module, which writes every target through the one
   primitive in the Files module; the targets split into gitignored and tracked by one boolean.
 about:
-  adrs: [ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
+  rules: [ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: architecture
 content:
   title: One registry, one writer, one write primitive, two kinds of target

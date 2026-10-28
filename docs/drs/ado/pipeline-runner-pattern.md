@@ -1,4 +1,4 @@
-# ADR: Pipeline runner pattern — how ado pipelines invoke automation
+# Azure DevOps: Pipeline runner pattern — how ado pipelines invoke automation
 
 ## Rules: ADR-ADO-RUNNER
 

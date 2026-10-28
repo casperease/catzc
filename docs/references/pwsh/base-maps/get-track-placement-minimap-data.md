@@ -10,14 +10,14 @@ The track placement minimap's data: every track under its track type, lit where 
 
 ### description
 
-The subject is the files the ADR codes light on the world map. Each track of the tracks registry (Get-Track) is a cell under its track type,
-and a subject file lights the track its file facts place it in (Get-FileMetaFact), its vendor as the note
+The subject is the files the rule codes light on the world map. Each track of the tracks registry (Get-Track) is a cell under its track
+type, and a subject file lights the track its file facts place it in (Get-FileMetaFact), its vendor as the note
 ([DDR-TRACK](../../../drs/design/tracks.md)). Each lit cell carries the file and the requested code as its reason, in the minimap contract's
 shape.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes of the diagram's subject.
+The rule codes of the diagram's subject.
 
 ### parameter `WorldMap`
 

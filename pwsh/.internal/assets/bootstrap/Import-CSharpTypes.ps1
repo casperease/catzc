@@ -221,12 +221,12 @@ function Import-CSharpTypes {
     }
 
     # What a consumer binds to, each module's types surface, is a provided contract in its group under contracts/catzc: a
-    # compile on a devbox rewrites the ones whose surface moved, and a pipeline or a bundle only checks them
-    # (Test-BuildArtifact -Facet Types).
-    if ($didCompile -and -not $PrebuiltOnly -and -not (Test-IsRunningInPipeline)) {
+    # compile on a devbox rewrites the ones whose surface moved, a cache hit rewrites them only when they no longer match
+    # the stamp beside the build, and a pipeline or a bundle only checks them (Test-BuildArtifact -Facet Types).
+    if (-not $PrebuiltOnly -and -not (Test-IsRunningInPipeline)) {
         $repositoryRoot = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($ModulesRoot))
         if ([System.IO.Directory]::Exists([System.IO.Path]::Combine($repositoryRoot, 'contracts', 'catzc'))) {
-            foreach ($contract in @(Write-TypesContract -Path $dll -RepositoryRoot $repositoryRoot | Where-Object Written)) {
+            foreach ($contract in @(Sync-TypesContract -Path $dll -RepositoryRoot $repositoryRoot -Force:$didCompile | Where-Object Written)) {
                 Write-ImporterMessage "Wrote the types contract $($contract.Path)"
             }
         }

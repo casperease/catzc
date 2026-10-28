@@ -16,11 +16,11 @@ function Get-DrsRuleIds {
     Assert-PathExist $IndexPath
 
     # Index rows are relative to the index's own folder, so a fixture index beside fixture records resolves the same way.
-    $adrRoot = Split-Path $IndexPath -Parent
+    $drsRoot = Split-Path $IndexPath -Parent
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($entry in (Get-DrsIndex -IndexPath $IndexPath)) {
-        $adrFile = Join-Path $adrRoot $entry.Path
-        foreach ($rule in (Get-DrsRules -DrsPath $adrFile)) {
+        $recordFile = Join-Path $drsRoot $entry.Path
+        foreach ($rule in (Get-DrsRules -DrsPath $recordFile)) {
             [void]$ids.Add($rule.Id)
         }
     }

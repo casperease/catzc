@@ -79,7 +79,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         $modules = Get-CatzcModulesFolder
         & $isControlled "$modules/Catzc.Base.Git/Catzc.Base.Git.psd1" | Should -BeTrue
         & $isControlled 'infrastructure/README.md' | Should -BeTrue
-        # the generated ADR pages are committed, so a clean never deletes them
+        # the generated DRS pages are committed, so a clean never deletes them
         & $isControlled 'docs/drs/index.md' | Should -BeFalse
         & $isControlled 'docs/drs/glossary.md' | Should -BeFalse
         & $isControlled 'docs/drs/repository/new-draft.md' | Should -BeFalse

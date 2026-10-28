@@ -1,7 +1,7 @@
 description: Writes the world map as PDFs, the grid view, the tree view or both, optionally with a highlight.
 parameters:
   view: string[]
-  adr: string[]! in adr
+  rule: string[]! in rule
   path: string[]! in path
 output: string
 default_set: plain

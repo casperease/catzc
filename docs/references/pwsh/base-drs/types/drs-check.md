@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsCheck.cs
 
-The settings of one ADR check in `configs/drs-checks.yml` that needs nothing beyond its mode: the citation graph of the rule summaries,
+The settings of one DRS check in `configs/drs-checks.yml` that needs nothing beyond its mode: the citation graph of the rule summaries,
 checked by `Test-DrsRegistry`. `DrsChecksConfig` builds and validates it.
 
 ## Keys

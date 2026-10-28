@@ -1,11 +1,11 @@
-# ADR: Prefer an explicit -DryRun switch over the ShouldProcess subsystem
+# PowerShell: Prefer an explicit -DryRun switch over the ShouldProcess subsystem
 
 ## Rules: ADR-PWSH-DRYRUN
 
 ### Rule ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
 
-Suppress `PSUseShouldProcessForStateChangingFunctions` with a justification referencing this ADR wherever the analyzer nags, since it pushes
-the pattern we reject.
+Suppress `PSUseShouldProcessForStateChangingFunctions` with a justification referencing this record wherever the analyzer nags, since it
+pushes the pattern this record rejects.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -42,8 +42,8 @@ because it is idempotent, not because the Confirm subsystem asks.
 
 [dry-run](../dry-run.md) decides that every side-effecting function takes an explicit dry-run parameter, returns its plan, and passes the
 parameter on by hand. PowerShell ships a built-in mechanism that looks like the same thing: `[CmdletBinding(SupportsShouldProcess)]` plus
-`$PSCmdlet.ShouldProcess(...)`, which adds the `-WhatIf` and `-Confirm` common parameters. PSScriptAnalyzer even nags for it
-(`PSUseShouldProcessForStateChangingFunctions`). It looks like the idiomatic choice. We deliberately do **not** use it.
+`$PSCmdlet.ShouldProcess(...)`, which adds the `-WhatIf` and `-Confirm` common parameters, and PSScriptAnalyzer nags for it
+(`PSUseShouldProcessForStateChangingFunctions`). It looks like the idiomatic choice, and catzc deliberately does **not** use it.
 
 ### Why not ShouldProcess
 
@@ -117,4 +117,5 @@ It 'in dry-run, returns the command and does not execute' {
 - A dry-run call returns the planned action and a `Should -Invoke … -Times 0` confirms nothing ran.
 - No `SupportsShouldProcess` exists in the codebase, so no un-suppressable `What if:` lines surface in the test run.
 - No `$WhatIfPreference`/`$ConfirmPreference` reasoning across the call chain.
-- The cost: we forgo the engine's free `-WhatIf`/`-Confirm` common parameters and the analyzer's blessing (suppressed with a pointer here).
+- The cost: the engine's free `-WhatIf`/`-Confirm` common parameters are forgone, with and the analyzer's blessing (suppressed with a
+  pointer here).

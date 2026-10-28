@@ -28,7 +28,7 @@ analyzer settings file. The vendored module's manifest names its version.
 - **`formatter`** — the formatter engine: `prettier`, `gofmt`, `ruff`, `psscriptanalyzer`, `dotnet-format` or `bicep`.
 - **`no_formatter`** — instead of `formatter`: why the language has none. Exactly one of the two.
 - **`vscode_language`** — the VS Code language id of its files; omitted means the language's own name.
-- **`adr_folder`** — its ADR folder under `docs/drs/`; omitted means none.
+- **`drs_folder`** — its decision-record folder under `docs/drs/`; omitted means none.
 - **`checks`** — the quality gates `Test-Change` runs over a changed file of the language, in this order. A gate with a `-Path` parameter is
   given the changed files; any other runs whole, and its issues are kept when they name a changed file. Omitted means none.
 - **`check_scopes`** — for a gate that governs one folder, the global config address of that folder (`Test-Plans`: `global.plans.folder`),

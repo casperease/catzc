@@ -1,4 +1,4 @@
-# ADR: Console output matters
+# Automation: Console output matters
 
 ## Rules: ADR-AUTO-CONSOLE
 

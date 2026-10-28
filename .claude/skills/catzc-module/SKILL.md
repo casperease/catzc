@@ -19,13 +19,13 @@ metadata:
    limit that already does it (a `TimeLimit`, `Get-ChildPath`, `DurableHash`, the extension and hook builders). One function per
    `Verb-Noun.ps1`; public at the module root, helpers in `private/`; an internal psm1 exports an explicit list, so a new loader function is
    named in its `Export-ModuleMember` before its first test run; a shared head mechanism lives in `Catzc.Base.CodeMeta`; a contract output
-   is `void`, a contract type or `<type>[]`, never `pscustomobject` (`New-CommandLookup` refuses it), and a new or changed public
-   parameter updates the command's provided contract under `contracts/<unit>/0.0.0/` in the same step, then `Build-ContractReference`
-   renders the page; the module's group and dependencies in `configs/dependencies.yml`; a config is `configs/<name>.yml` mirrored by a typed
-   record `types/<Name>Config.cs` (snake_case, ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) registered in `configs.yml`, its sensible default
-   declared once on the type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and a shipped value away from it given a `differs` reason in
-   `configs.yml` (`Test-ShippedConfigs` fails it otherwise), never an absolute or `..` path checked in (ADR-AUTO-PATH-TWOFORMS), resolved at
-   the point of use (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
+   is `void`, a contract type or `<type>[]`, never `pscustomobject` (`New-CommandLookup` refuses it), and a new or changed public parameter
+   updates the command's provided contract under `contracts/<unit>/0.0.0/` in the same step, then `Build-ContractReference` renders the
+   page; the module's group and dependencies in `configs/dependencies.yml`; a config is `configs/<name>.yml` mirrored by a typed record
+   `types/<Name>Config.cs` (snake_case, ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) registered in `configs.yml`, its sensible default declared once
+   on the type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER) and a shipped value away from it given a `differs` reason in `configs.yml`
+   (`Test-ShippedConfigs` fails it otherwise), never an absolute or `..` path checked in (ADR-AUTO-PATH-TWOFORMS), resolved at the point of
+   use (ADR-AUTO-PATH-BINDINGFORMONLYATBINDING).
 2. L0 tests with neutral fixture names (widget, gadget; ADR-AUTO-TEST-DISTINCTFIXTURES), `Get-Config` mocked, `TestDrive:` for the file
    system, every config rejection and every parameter covered; L1 proves the shipped config loads (`Test-ShippedConfigs`); the file's head
    and page follow from `Format-FileMeta`, never by hand: a new file is written with no head and `Format-Code` derives it (a hand head whose
@@ -41,3 +41,7 @@ metadata:
    prose passes the glossary checks and docs examples use the discovery theme; a cross-cutting record's shape is confirmed with the
    coordinator before its first bulk entries; an edit the domain rules require on an owned or touched file (a re-imprinted head, inline help
    moved to its page, a family form the glossary flags) is pre-approved: made and reported, never asked.
+5. Before the first burst of a rename or a type change, grep every reader and spelling: code, types, contracts and test fixture builders; a
+   help synopsis lives on the comment page, not in the code; a code transform is `ConvertTo-`, never `Format-`; `Catzc.` and `CATZC_` stay
+   in fixtures where the code under test filters on them; a config may be a folder of parts that `Get-Config` merges in name order, and its
+   defaults are read on its C# type, never in the shipped file.

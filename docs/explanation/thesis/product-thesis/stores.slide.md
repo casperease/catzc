@@ -10,7 +10,7 @@ catzc:
 
 ## Image
 
-.assets/truth-stores.drawio.png
+[truth-stores.drawio](.assets/truth-stores.drawio.png)
 
 ## Caption
 

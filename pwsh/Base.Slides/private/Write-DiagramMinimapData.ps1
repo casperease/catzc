@@ -23,10 +23,10 @@ function Write-DiagramMinimapData {
         $content = if ($declaration -and $declaration.Contains('content')) {
             $declaration['content']
         }
-        $adrs = [string[]] @(if ($about -and $about.Contains('adrs')) {
-                $about['adrs']
+        $rules = [string[]] @(if ($about -and $about.Contains('rules')) {
+                $about['rules']
             })
-        Assert-True ($adrs.Count -gt 0) -ErrorText "Write-DiagramMinimapData: $folderPath names no ADR code in about.adrs, so its minimaps have no subject."
+        Assert-True ($rules.Count -gt 0) -ErrorText "Write-DiagramMinimapData: $folderPath names no rule code in about.rules, so its minimaps have no subject."
         $kind = if ($content -and $content.Contains('kind') -and $content['kind']) {
             "$($content['kind'])"
         }
@@ -76,12 +76,12 @@ function Write-DiagramMinimapData {
         $glyphs = @(if ($content -and $content.Contains('glyphs') -and $content['glyphs']) {
                 @($content['glyphs']) | Where-Object { $_ -is [System.Collections.IDictionary] }
             })
-        [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Glyph = $glyphs; Ids = $ids; Excluded = $excluded }
+        [pscustomobject]@{ Folder = $folderPath; Rule = $rules; Glyph = $glyphs; Ids = $ids; Excluded = $excluded }
     }
     # Every folder's subject facts are read in one call; a minimap that draws on them is handed them rather than reading its own.
     $subjectPaths = foreach ($entry in $declared) {
         if (@($entry.Ids | Where-Object { (Get-Command $maps.minimap_data[$_]).Parameters.ContainsKey('Facts') }).Count -gt 0) {
-            foreach ($cell in (Get-WorldMapHighlight -Adr $entry.Adr -WorldMap $worldMap).Cells) {
+            foreach ($cell in (Get-WorldMapHighlight -Rule $entry.Rule -WorldMap $worldMap).Cells) {
                 foreach ($reason in $cell.Reasons) {
                     if ($reason.Path) {
                         $reason.Path
@@ -99,7 +99,7 @@ function Write-DiagramMinimapData {
         $target = Join-Path (Join-Path $RepositoryRoot 'out/minimaps') $folderPath
         $null = New-Item -ItemType Directory -Force -Path $target
         foreach ($id in $ids) {
-            $draw = @{ Adr = $entry.Adr }
+            $draw = @{ Rule = $entry.Rule }
             $parameters = (Get-Command $maps.minimap_data[$id]).Parameters
             if ($parameters.ContainsKey('WorldMap')) {
                 $draw.WorldMap = $worldMap

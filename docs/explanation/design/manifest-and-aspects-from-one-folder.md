@@ -26,7 +26,7 @@ description:
   "Two code paths read the same module folder: the import guards its function names and writes a manifest, and the aspect compiler derives a
   live set and a tests set from the layout of languages.yml."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
+  rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: implementation
 content:
   title: The manifest and the aspects both come from one folder

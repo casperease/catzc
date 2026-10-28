@@ -6,7 +6,7 @@ catzc:
     order: 15
     picture:
       mode: reduce
-      source: ../../automation/.assets/callers-value-else-config-else-default.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ order has no gap. Run it and read the report.
 
 ## Image
 
-.assets/every-claim-checkable.png
+[every-claim-checkable](.assets/every-claim-checkable.png)
 
 ## Caption
 
-From the catalogue, reduced: callers value else config else default.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

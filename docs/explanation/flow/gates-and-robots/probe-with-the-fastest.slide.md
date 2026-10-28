@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../automation/.assets/build-then-place-with-one-command.drawio.png
+      source: ../../../references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ background.
 
 ## Image
 
-.assets/probe-with-the-fastest.png
+[probe-with-the-fastest](.assets/probe-with-the-fastest.png)
 
 ## Caption
 
-From the catalogue, reduced: build then place with one command.
+From the catalogue, reduced: two az checks, Test and Assert share one state call.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/build-then-place-with-one-command.drawio.png.
+docs/references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png.

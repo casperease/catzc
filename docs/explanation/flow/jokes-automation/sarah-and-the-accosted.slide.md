@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../design/.assets/ingress-gated-the-rest-by-review.drawio.png
+      source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -23,13 +23,13 @@ The accosted language normalizes every statement; one reader parses it; every en
 
 ## Image
 
-.assets/sarah-and-the-accosted.png
+[sarah-and-the-accosted](.assets/sarah-and-the-accosted.png)
 
 ## Caption
 
-From the catalogue, reduced: ingress gated the rest by review.
+From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
 Check it: the record ADR-AUTO-ACCOSTED in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/ingress-gated-the-rest-by-review.drawio.png.
+docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

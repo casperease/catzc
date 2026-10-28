@@ -210,15 +210,15 @@
           "kind": "method"
         },
         {
-          "name": "adr_folder",
-          "kind": "property"
-        },
-        {
           "name": "check_scopes",
           "kind": "property"
         },
         {
           "name": "checks",
+          "kind": "property"
+        },
+        {
+          "name": "drs_folder",
           "kind": "property"
         },
         {

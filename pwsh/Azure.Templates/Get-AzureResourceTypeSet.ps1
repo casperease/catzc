@@ -32,5 +32,6 @@ function Get-AzureResourceTypeSet {
         afw   = @{ pattern = 'long'; limit = 56 }   # Azure Firewall — 1-56, unique in the resource group
         afwp  = @{ pattern = 'long'; limit = 80 }   # firewall policy — 1-80, unique in the resource group
         dash  = @{ pattern = 'long'; limit = 160 }  # portal dashboard — letters, digits and hyphens, unique in the resource group
+        sc    = @{ pattern = 'long'; limit = 256 }  # Azure DevOps service connection — up to 256, unique in the project
     }
 }

@@ -1,4 +1,4 @@
-# ADR: Pester testing — the language layer over test-automation
+# PowerShell: Pester testing — the language layer over test-automation
 
 ## Rules: ADR-PWSH-PESTER
 
@@ -177,8 +177,8 @@ category, so the tag check, the timing check, and the reports read it like any P
 Pester is the test framework
 ([EDR-PWSH-PESTER-PESTERFRAMEWORK](../../external/pester/pester-framework.md#rule-edr-pwsh-pester-pesterframework)).
 [test-automation](../test-automation.md) fixes the doctrine: what a test may depend on (logic vs integrity), the L0–L4 tiers, the mandatory
-tag axes, the run model, and the push-left economics. This ADR is the Pester layer under it — the concrete mock idioms a hermetic logic test
-is written with, the test-file conventions, how each part of the doctrine is written in Pester, and the engine gotchas that repeatedly bite.
+tag axes, the run model, and the push-left economics. This record is the Pester layer under it: the mock idioms a hermetic logic test is
+written with, the test-file conventions, how each part of the doctrine is written in Pester, and the engine's gotchas.
 
 ## Decision
 
@@ -330,7 +330,9 @@ them as Pester tests.
 ### Gotchas
 
 - **`<word>` in an `It` name is Pester data-binding**, not literal text — `'names parameters.<config>.json'` makes Pester look for
-  `$config`. Keep angle brackets out of test names.
+  `$config`. Keep angle brackets out of test names; in a data-driven test a `<name>` title template expands only from a key of the case's
+  hashtable.
+- **A hyphenated hashtable key is quoted** (`@{ 'private-function' = … }`), or it parses as a subtraction; every data-driven test meets it.
 - **An unbound `[string]` parameter is `''`, not `$null`** — test emptiness with `if (-not $Customer)`, never `-eq $null` or `??`
   ([automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-nocoalesceonstrings)).
 - **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
@@ -365,8 +367,8 @@ them as Pester tests.
   `Mock` defined in `BeforeAll` or inside the `It`, with or without `-ModuleName`, reads the `It`'s locals and the test file's `$script:`
   variables, and a `Set-` mock that writes `$script:x` round-trips with a `Get-` mock that reads it within one test. Round-tripping fake
   state proves the mocks, not the code under test, so don't assert idempotency by mutating fake state and reading it back — assert on the
-  boundary instead: seed the "already present" state and assert `Should -Invoke <writer> -Times 0` (it must not have written).
-  Single-direction reads/writes (seed → act → read the writer's captured `$Value`) are fine.
+  boundary instead: seed the "present" state and assert `Should -Invoke <writer> -Times 0` (it must not have written). Single-direction
+  reads/writes (seed → act → read the writer's captured `$Value`) are fine.
 - **A parameter used only inside a nested `Should -Throw` block is reported unused.** `PSReviewUnusedParameter` does not trace an
   `InModuleScope` block's parameter into a `{ ... } | Should -Throw` block nested inside it (probed on PSScriptAnalyzer 1.25.0), so the call
   that uses the parameter sits inside the throw block,
@@ -396,7 +398,7 @@ them as Pester tests.
 
 - A hermetic logic test is two mocks away: redirect the template tree and the config discovery, and nothing production is in play.
 - Mocking whole boundary functions keeps tests decoupled from implementation — a refactor inside a seam never rewrites the tests.
-- Every engine-neutral test rule has one written Pester form, so a reviewer checks a test against this ADR rather than translating the
+- Every engine-neutral test rule has one written Pester form, so a reviewer checks a test against this record rather than translating the
   doctrine each time.
 - The gotchas are a shared reference: each entry is an engine failure mode that is hard to diagnose from its symptom, written down so the
   diagnosis is never repeated.

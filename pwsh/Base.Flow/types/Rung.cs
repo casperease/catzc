@@ -17,7 +17,7 @@ public sealed class Rung
     // The gate a commit clears to enter the rung: none, rc, rbc or prod-approval.
     public string gate { get; }
 
-    // The ADR rule codes that define the rung: a file that cites one of them, or the ADR that holds it, concerns the rung.
+    // The rule codes that define the rung: a file that cites one of them, or the record that holds it, concerns the rung.
     public IReadOnlyList<string> rules { get; }
 
     public Rung(string name, string environment, string gate, string[] rules = null)

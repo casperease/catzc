@@ -7,7 +7,7 @@ Catzc.Base.Variants sits in Base, over Config, under every real caller.
 2  Catzc.Base.Config            loads, validates and caches the file for the session
 3  Catzc.Base.Objects           the DictionaryRecord base of the module's config type
 4  Catzc.Base.Asserts           the Assert-True the Assert- guards throw through
-5  Catzc.Base.Variants          the module: one private reader, fifteen exported primitives
+5  Catzc.Base.Variants          the module: one private reader, eighteen exported primitives
 6  AzureExt                     the Azure extension group; Catzc.Azure.Templates is its caller
 7  Globs · ModuleSystem · Maps  the three upper-Base modules that declare and call it
 8  Tooling                      may call through its Base pin; no Tooling module calls today
@@ -25,7 +25,7 @@ description:
   Catzc.Base.Variants rests on Config, Objects and Asserts in the foundation and is called from Azure extension, upper-Base and Tooling
   modules; the config file feeds Config only.
 about:
-  adrs: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-MINIMALDEPENDENCIES]
+  rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-MINIMALDEPENDENCIES]
   lens: architecture
 content:
   title: Catzc.Base.Variants sits in Base, over Config, under every real caller
@@ -91,15 +91,15 @@ layout:
    self-contained: it validates the parsed dictionary and reads no other config, so validation adds no further edge.
 4. **Catzc.Base.Asserts.** The `Assert-` guards throw through `Assert-True`, which Asserts supplies. These three are the module's only
    dependencies.
-5. **Catzc.Base.Variants.** One private reader and fifteen exported primitives. The module is a member of the Base group, declared in
+5. **Catzc.Base.Variants.** One private reader and eighteen exported primitives. The module is a member of the Base group, declared in
    `dependencies.yml` with exactly the three edges above.
 6. **AzureExt.** Every Azure extension module pins Base, so all five may call the primitives. One does: `Catzc.Azure.Templates` asks
    `Get-AdoNaming` for the resource-name order, and `Test-HaveCustomers` and `Test-HaveCustomer` before it accepts a customer deployment.
 7. **Globs · ModuleSystem · Maps.** Three upper-Base modules declare Variants among their dependencies and call it: Globs asks `Get-Aspect`
    to classify a module's files, ModuleSystem asks `Test-GitWorkspace -MainViaPr` before it commits a generated file, and Maps asks
    `Get-Track` and `Get-Aspect` to build the world map.
-8. **Tooling.** Every Tooling module pins Base as well, so the reach covers it, as the ADR says. No Tooling module calls a primitive today,
-   so the edge exists in the declaration only.
+8. **Tooling.** Every Tooling module pins Base as well, so the reach covers it, as the record says. No Tooling module calls a primitive
+   today, so the edge exists in the declaration only.
 
 ## Why it holds
 
@@ -112,9 +112,9 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The ADR lists Tooling among the real consumers; the declaration allows it, and no Tooling module calls a primitive.
-- The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the `aspects`
-  key straight off the loaded config.
+- The record lists Tooling among the real consumers; the declaration allows it, and no Tooling module calls a primitive.
+- The record makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the
+  `aspects` key straight off the loaded config.
 
 ## See also
 

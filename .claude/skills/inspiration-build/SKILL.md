@@ -18,7 +18,7 @@ metadata:
 Build or extend `pwsh/Tooling.Inspiration` to the decisions in `.claude/plans/` (the inspiration plan); a missing plan or an open decision
 there goes back to the coordinator.
 
-1. Read the plan, then load catzc-module and read the ADRs it names, in full.
+1. Read the plan, then load catzc-module and read the decision records it names, in full.
 2. The config `configs/inspiration.yml` and its `InspirationConfig` type: entries of `id`, `root`, `description`, optional `paths`; the
    default is one `eac` entry on the type, so an empty file and a fresh checkout behave the same; the root form is the plan's one form.
 3. `Get-Inspiration`: no arguments does what the plan says; `-Id` one entry; `-Count` N at random; `-Seed` makes it deterministic; each

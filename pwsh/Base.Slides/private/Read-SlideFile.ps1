@@ -51,6 +51,7 @@ function Read-SlideFile {
         Deck    = [string] (& $value 'deck')
         Order   = & $value 'order'
         Quotes  = [string] (& $value 'quotes')
+        Picture = & $value 'picture'
         Cites   = [string[]] @($cites)
         Source  = [Catzc.Base.Slides.SlideSource]::Parse($state.Body)
     }

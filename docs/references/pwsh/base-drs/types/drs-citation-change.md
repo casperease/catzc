@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsCitationChange.cs
 
-One ADR reference that `Update-DrsCitation` rewrote in a file, as a native typed model
+One record reference that `Update-DrsCitation` rewrote in a file, as a native typed model
 ([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
 ## What it carries

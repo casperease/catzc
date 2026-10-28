@@ -1,20 +1,20 @@
 Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
     BeforeAll {
-        $adrRoot = Join-Path $TestDrive 'adr'
-        [System.IO.Directory]::CreateDirectory((Join-Path $adrRoot 'repository')) | Out-Null
-        $script:indexPath = Join-Path $adrRoot 'index.md'
+        $drsRoot = Join-Path $TestDrive 'drs'
+        [System.IO.Directory]::CreateDirectory((Join-Path $drsRoot 'repository')) | Out-Null
+        $script:indexPath = Join-Path $drsRoot 'index.md'
         [System.IO.File]::WriteAllText($script:indexPath, (@(
-                    '| Code | ADR |'
-                    '| ---- | --- |'
+                    '| Code | Record |'
+                    '| ---- | ------ |'
                     '| `ADR-TST-WIDGET` | [widget-thing](repository/widget-thing.md) |'
                     '| `ADR-TST-GADGET` | [gadget-thing](repository/gadget-thing.md) |'
                 ) -join "`n"))
-        [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/widget-thing.md'), (@(
+        [System.IO.File]::WriteAllText((Join-Path $drsRoot 'repository/widget-thing.md'), (@(
                     '### Rule ADR-TST-WIDGET-SUITE'
                     ''
                     'A **widget suite** is every widget file at rest; write it `A **widget suite** is …`.'
                 ) -join "`n"))
-        [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/gadget-thing.md'), (@(
+        [System.IO.File]::WriteAllText((Join-Path $drsRoot 'repository/gadget-thing.md'), (@(
                     '### Rule ADR-TST-GADGET-RUN'
                     ''
                     'A **gadget run**'

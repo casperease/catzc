@@ -16,11 +16,12 @@ function Sync-AdoServiceConnection {
         [switch] $DryRun
     )
 
-    $scheme = [Catzc.Azure.DevOps.ServiceConnectionsConfig]::Scheme
+    $scheme = [Catzc.Azure.DevOps.ServiceConnectionScheme]::Federated
+    # Every connection spans its subscription; the identity's least privilege is the role assignments the templates grant it.
+    $scopeLevel = 'Subscription'
     $existing = @(Invoke-AdoRestMethod -Uri "$($Context.ApiBase)/serviceendpoint/endpoints?endpointNames=$([uri]::EscapeDataString($Connection.name))&api-version=7.1") |
         Where-Object { $null -ne $_ -and "$($_.name)" -eq $Connection.name } | Select-Object -First 1
 
-    # The connection as configured: an azurerm endpoint on the subscription, federated, its identity created by Azure DevOps.
     $desired = [ordered]@{
         name                             = $Connection.name
         type                             = 'azurerm'
@@ -32,7 +33,7 @@ function Sync-AdoServiceConnection {
         }
         data                             = [ordered]@{
             environment      = 'AzureCloud'
-            scopeLevel       = 'Subscription'
+            scopeLevel       = $scopeLevel
             subscriptionId   = $Subscription.id
             subscriptionName = $Subscription.name
             creationMode     = 'Automatic'
@@ -50,7 +51,8 @@ function Sync-AdoServiceConnection {
     $action = if (-not $existing) {
         'Create'
     }
-    elseif ("$($existing.authorization.scheme)" -ne $scheme -or "$($existing.data.subscriptionId)" -ne $Subscription.id) {
+    elseif ("$($existing.authorization.scheme)" -ne $scheme -or "$($existing.data.subscriptionId)" -ne $Subscription.id -or
+        "$($existing.data.scopeLevel)" -ne $scopeLevel) {
         'Update'
     }
     else {

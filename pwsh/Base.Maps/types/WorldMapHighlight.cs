@@ -12,16 +12,16 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Kind), nameof(Requested), nameof(Cells))]
 public sealed class WorldMapHighlight
 {
-    // The kind of a request of ADR references.
-    public const string KindAdr = "adr";
+    // The kind of a request of record references.
+    public const string KindRecord = "record";
 
     // The kind of a request of files.
     public const string KindPath = "path";
 
-    // KindAdr or KindPath.
+    // KindRecord or KindPath.
     public string Kind { get; }
 
-    // The request: ADR or rule codes (ADR-<CODE> or ADR-<CODE>-<NAME>), or repository-relative paths, in given order.
+    // The request: record or rule codes (ADR-<CODE> or ADR-<CODE>-<NAME>), or repository-relative paths, in given order.
     public IReadOnlyList<string> Requested { get; }
 
     // The lit cells, in the map's order.
@@ -37,7 +37,7 @@ public sealed class WorldMapHighlight
     }
 
     // The cells record references light, with the reviewed pins and exceptions applied.
-    public static WorldMapHighlight ForAdr(WorldMap map, IEnumerable references, IEnumerable pins, IEnumerable exceptions)
+    public static WorldMapHighlight ForRecord(WorldMap map, IEnumerable references, IEnumerable pins, IEnumerable exceptions)
     {
         if (map == null) { throw new ArgumentNullException(nameof(map)); }
         List<string> errors = new List<string>();
@@ -45,10 +45,10 @@ public sealed class WorldMapHighlight
         foreach (string reference in Strings(references))
         {
             string canonical = CitationScanner.Canonical(reference);
-            string domain = CitationScanner.DomainOf(canonical, map.AdrIndex);
+            string domain = CitationScanner.DomainOf(canonical, map.RecordIndex);
             if (canonical == null || domain == null)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "'{0}' is not an ADR code of the adrs index", reference));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "'{0}' is not a record code of the DRS index", reference));
                 continue;
             }
             if (!requested.Contains(canonical)) { requested.Add(canonical); }
@@ -60,11 +60,11 @@ public sealed class WorldMapHighlight
         Lit lit = new Lit();
         foreach (MapPlacement placement in map.Placements)
         {
-            if (placement.Adr != null)
+            if (placement.Record != null)
             {
                 foreach (string request in requested)
                 {
-                    if (!string.Equals(CitationScanner.CodeOf(request, map.AdrIndex), placement.Adr, StringComparison.Ordinal)) { continue; }
+                    if (!string.Equals(CitationScanner.CodeOf(request, map.RecordIndex), placement.Record, StringComparison.Ordinal)) { continue; }
                     lit.Add(placement.Track, placement.FileLanguage, placement.Path, placement.Basis,
                         new HighlightReason(placement.Path, placement.Basis, request, null, null));
                 }
@@ -86,18 +86,18 @@ public sealed class WorldMapHighlight
         }
         foreach (MapsPin exception in exceptionList)
         {
-            if (AnyCovers(requested, CitationScanner.Canonical(exception.adr))) { lit.Remove(exception.track, exception.file_language); }
+            if (AnyCovers(requested, CitationScanner.Canonical(exception.rule))) { lit.Remove(exception.track, exception.file_language); }
         }
         foreach (MapsPin pin in pinList)
         {
-            string canonical = CitationScanner.Canonical(pin.adr);
+            string canonical = CitationScanner.Canonical(pin.rule);
             if (AnyCovers(requested, canonical))
             {
                 lit.Add(pin.track, pin.file_language, null, HighlightedCell.SourcePin,
                     new HighlightReason(null, HighlightedCell.SourcePin, canonical, null, pin.reason));
             }
         }
-        return new WorldMapHighlight(KindAdr, requested.ToArray(), lit.InOrderOf(map));
+        return new WorldMapHighlight(KindRecord, requested.ToArray(), lit.InOrderOf(map));
     }
 
     // The cells files sit in. A path the map does not hold throws.
@@ -212,12 +212,12 @@ public sealed class WorldMapHighlight
             if (map.Cell(pin.track, pin.file_language) == null)
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "the {0} for '{1}' names the cell '{2}' x '{3}', which the map does not have", what,
-                    pin.adr, pin.track, pin.file_language));
+                    pin.rule, pin.track, pin.file_language));
                 continue;
             }
-            if (CitationScanner.DomainOf(CitationScanner.Canonical(pin.adr), map.AdrIndex) == null)
+            if (CitationScanner.DomainOf(CitationScanner.Canonical(pin.rule), map.RecordIndex) == null)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "the {0} names '{1}', which is not an ADR code of the adrs index", what, pin.adr));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "the {0} names '{1}', which is not a record code of the DRS index", what, pin.rule));
                 continue;
             }
             pins.Add(pin);

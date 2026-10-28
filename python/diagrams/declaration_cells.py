@@ -120,7 +120,7 @@ def chrome(content, cells):
             "title", html.escape(content["title"], quote=False), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30
         )
     )
-    subtitle = " · ".join(content["adrs"])
+    subtitle = " · ".join(content["about_rules"])
     lines = max(1, -(-len(subtitle) * 7 // (PAGE["width"] - 20)))  # about 7 px a character at 12 px
     drop = (lines - 1) * 16  # the grid starts the bands this much lower under a wrapped subtitle
     cells.append(cell("subtitle", subtitle, SUBTITLE, PAGE["x"], PAGE["subtitle_y"] - 4, PAGE["width"] - 20, 18 + lines * 16))

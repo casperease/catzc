@@ -10,7 +10,7 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 [ADR-BCL-TYPES](native-csharp-types.md)
 
-> DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This ADR encodes the
+> DORA research links code maintainability and loosely coupled architecture to faster delivery and fewer defects. This record encodes the
 > platform's models as native types with fixed shapes, versioned assemblies, and dependency-governed layering, reducing the cognitive load
 > of loose dictionaries.
 

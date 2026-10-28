@@ -5,7 +5,7 @@ Describe 'Get-DiagramEmbedder' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMM
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget.md'),
             "# Gadget`n`n![Gadget](.assets/gadget.drawio.png)`n")
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/cog.slide.md'),
-            "# Cog`n`n## Image`n`n.assets/cog.drawio.png`n`n## Caption`n`nA cog.`n")
+            "# Cog`n`n## Image`n`n[cog](.assets/cog.drawio.png)`n`n## Caption`n`nA cog.`n")
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/sprocket.md'),
             "# Sprocket`n`n## Image`n`n.assets/sprocket.drawio.png`n")
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/widget.md'),
@@ -26,8 +26,19 @@ Describe 'Get-DiagramEmbedder' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMM
         $script:found['docs/widgets/.assets/gadget'] | Should -Be @('docs/widgets/gadget.md')
     }
 
-    It 'finds a slide file that embeds its diagram by the path under its Image heading, and no other page by that form' {
+    It 'finds a slide file that embeds its diagram by the link under its Image heading, and no other page by that form' {
         $script:found['docs/widgets/.assets/cog'] | Should -Be @('docs/widgets/cog.slide.md')
         $script:found.ContainsKey('docs/widgets/.assets/sprocket') | Should -BeFalse
+    }
+
+    It 'refuses a slide file whose Image section is a bare path, naming the file' {
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gizmo.slide.md'),
+            "# Gizmo`n`n## Image`n`n.assets/gizmo.drawio.png`n")
+        {
+            InModuleScope Catzc.Base.Slides -Parameters @{ Root = $script:root } {
+                param($Root)
+                Get-DiagramEmbedder -Tracked @('docs/widgets/gizmo.slide.md') -RepositoryRoot $Root
+            }
+        } | Should -Throw '*docs/widgets/gizmo.slide.md: the ## Image section holds one markdown link*'
     }
 }

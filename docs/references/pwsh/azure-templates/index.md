@@ -23,8 +23,10 @@ identity model is not its own; the configuration it owns is that of its complian
 
 Finding the deployable templates on disk and reading their structure: the per-template options, and the per-resource-group configuration
 files that map a subscription, environment, and slot to one set of parameters. This responsibility also exposes the distinct customers,
-subscriptions, and slots a template targets, and writing a configuration back. One configuration file corresponds to exactly one Azure
-resource group, so this responsibility _is_ the resource-group inventory. See [data-model](../../../drs/azure/azure-data-model.md).
+subscriptions, and slots a template targets, and writing a configuration back; from those slots it derives the service connections a project
+needs, one per deployment identity in each subscription where a slot of its templates lives. One configuration file corresponds to exactly
+one Azure resource group, so this responsibility _is_ the resource-group inventory. See
+[data-model](../../../drs/azure/azure-data-model.md).
 
 ### responsibility:2 — Deterministic resource naming
 
@@ -97,148 +99,7 @@ only five derived defaults, under a strict schema. The build writes one paramete
 second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
 az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created.
 
-```yml drawio
-description:
-  Template discovery walks the template folders, lets an optional options.yml override five derived defaults, and resolves each template's
-  short name and type; the build then resolves the parameter addresses per slot and compiles through the az runner.
-about:
-  adrs: [ADR-AZ-DATAMOD, ADR-AZ-NAMING, ADR-AZ-CUSTOMER, ADR-CONF-ADDRESSING, ADR-BCL-TYPES]
-  lens: source
-content:
-  title: A template is a folder; options.yml overrides five defaults
-  kind: reference
-  flow: left-to-right
-  theme: dark
-  bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-folder, label: EACH FOLDER }
-    - { id: band-slot, label: EACH SLOT }
-  groups:
-    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-slot }
-  glyphs:
-    - { id: g-build, kind: code, label: Build-Bicep, in: band-entry }
-    - { id: g-templates, kind: code, label: Get-BicepTemplates, in: band-entry }
-    - { id: g-options, kind: gate, label: Read-BicepTemplateOptions, in: band-folder }
-    - { id: f-options-yml, kind: file, label: options.yml, in: band-folder }
-    - { id: t-short-name, kind: type, label: BicepShortName, in: band-folder }
-    - { id: t-template, kind: type, label: BicepTemplate, in: band-folder }
-    - { id: g-addresses, kind: private, label: Resolve-BicepParameterAddresses, in: band-slot }
-    - { id: f-parameters, kind: file, label: parameters.<config>.json, in: band-slot }
-    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
-  edges:
-    - { from: g-build, to: g-templates, kind: flow, label: calls }
-    - { from: g-templates, to: g-options, kind: flow, label: "" }
-    - { from: g-options, to: t-short-name, kind: flow, label: "" }
-    - { from: g-templates, to: t-short-name, kind: flow, label: calls }
-    - { from: g-templates, to: t-template, kind: flow, label: calls }
-    - { from: g-build, to: g-addresses, kind: flow, label: calls }
-    - { from: g-addresses, to: g-invoke, kind: flow, label: calls }
-  markers:
-    - { at: g-templates, number: 1 }
-    - { at: g-options, number: 2 }
-    - { at: t-short-name, number: 3 }
-    - { at: t-template, number: 4 }
-    - { at: g-addresses, number: 5 }
-    - { at: f-parameters, number: 6 }
-    - { at: g-invoke, number: 7 }
-  legend: auto
-  minimaps: [code-locations, module-neighbourhood, axis]
-layout:
-  band-entry: { x: 20, y: 84, w: 190, h: 160 }
-  band-folder: { x: 230, y: 84, w: 1050, h: 250 }
-  band-slot: { x: 230, y: 354, w: 1050, h: 190 }
-  g-build: { x: 40, y: 182, w: 150, h: 40 }
-  g-templates: { x: 40, y: 120, w: 150, h: 40 }
-  g-options: { x: 560, y: 100, w: 290, h: 80 }
-  f-options-yml: { x: 740, y: 230, w: 110, h: 52 }
-  t-short-name: { x: 470, y: 210, w: 150, h: 44 }
-  t-template: { x: 290, y: 272, w: 150, h: 44 }
-  g-addresses: { x: 290, y: 410, w: 240, h: 44 }
-  f-parameters: { x: 560, y: 470, w: 210, h: 52 }
-  grp-cli: { x: 980, y: 378, w: 280, h: 140 }
-  g-invoke: { x: 1050, y: 430, w: 150, h: 44 }
-```
-
 ![A template is a folder; options.yml overrides five defaults](../.assets/bicep-template-is-a-folder.drawio.png)
-
-```yml drawio
-description:
-  Deploy-Bicep resolves one immutable deployment context from the az session and the Azure config, then builds, deploys through the az
-  runner and sets the tracking tags, all from that one context.
-about:
-  adrs:
-    - ADR-AZ-DATAMOD-CUSTOMERAXIS
-    - ADR-AZ-DATAMOD-VALUEBYADDRESS
-    - ADR-AZ-SESSION
-    - ADR-AUTO-DRYRUN
-    - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-    - ADR-PWSH-PREPOST
-  lens: source
-content:
-  title: One immutable context, resolved from the az session
-  kind: reference
-  flow: left-to-right
-  theme: dark
-  bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-resolve, label: RESOLVE }
-    - { id: band-deploy, label: DEPLOY }
-  groups:
-    - { id: grp-types, label: context types, in: band-resolve }
-    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-resolve }
-    - { id: grp-azure, label: Catzc.Azure, in: band-resolve }
-  glyphs:
-    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-entry }
-    - { id: g-context, kind: code, label: Get-BicepDeploymentContext, in: band-resolve }
-    - { id: t-plan, kind: type, label: BicepDeploymentPlan, in: grp-types }
-    - { id: t-artifacts, kind: type, label: BicepArtifacts, in: grp-types }
-    - { id: t-context, kind: type, label: BicepDeploymentContext, in: grp-types }
-    - { id: g-build, kind: code, label: Build-Bicep, in: band-resolve }
-    - { id: g-session-sub, kind: code, label: Get-AzCliSessionSubscription, in: grp-cli }
-    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
-    - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-azure }
-    - { id: g-tracking, kind: code, label: Set-BicepTrackingTagSet, in: band-deploy }
-  edges:
-    - { from: g-deploy, to: g-context, kind: flow, label: calls }
-    - { from: g-context, to: grp-types, kind: flow, label: "" }
-    - { from: g-context, to: g-build, kind: flow, label: calls }
-    - { from: g-context, to: g-session-sub, kind: flow, label: calls }
-    - { from: g-context, to: g-environment, kind: flow, label: calls }
-    - { from: g-build, to: g-invoke, kind: flow, label: calls }
-    - { from: g-deploy, to: g-invoke, kind: flow, label: calls }
-    - { from: g-deploy, to: g-tracking, kind: flow, label: calls }
-    - { from: g-tracking, to: g-invoke, kind: flow, label: calls }
-    - { from: g-tracking, to: g-session-sub, kind: flow, label: calls }
-    - { from: g-tracking, to: g-environment, kind: flow, label: calls }
-  markers:
-    - { at: g-deploy, number: 1 }
-    - { at: g-context, number: 2 }
-    - { at: g-session-sub, number: 3 }
-    - { at: g-environment, number: 4 }
-    - { at: g-build, number: 5 }
-    - { at: t-context, number: 6 }
-    - { at: g-invoke, number: 7 }
-    - { at: g-tracking, number: 8 }
-  legend: auto
-  minimaps: [code-locations, module-neighbourhood, axis]
-layout:
-  band-entry: { x: 20, y: 84, w: 190, h: 590 }
-  band-resolve: { x: 220, y: 84, w: 1060, h: 380 }
-  band-deploy: { x: 220, y: 484, w: 1060, h: 190 }
-  g-deploy: { x: 40, y: 300, w: 150, h: 44 }
-  g-context: { x: 250, y: 140, w: 220, h: 190 }
-  grp-types: { x: 540, y: 104, w: 720, h: 84 }
-  t-plan: { x: 560, y: 134, w: 200, h: 44 }
-  t-artifacts: { x: 790, y: 134, w: 180, h: 44 }
-  t-context: { x: 1000, y: 134, w: 240, h: 44 }
-  g-build: { x: 260, y: 360, w: 200, h: 44 }
-  grp-cli: { x: 520, y: 225, w: 290, h: 330 }
-  g-session-sub: { x: 545, y: 300, w: 240, h: 44 }
-  g-invoke: { x: 580, y: 500, w: 160, h: 44 }
-  grp-azure: { x: 840, y: 195, w: 260, h: 120 }
-  g-environment: { x: 860, y: 245, w: 220, h: 44 }
-  g-tracking: { x: 880, y: 555, w: 230, h: 44 }
-```
 
 ![One immutable context, resolved from the az session](../.assets/bicep-deploy-one-immutable-context.drawio.png)
 
@@ -256,6 +117,9 @@ by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Set-BicepTemplateConfiguration`  |
 |                                                                   | `Get-BicepTemplateCustomers`      |
 |                                                                   | `Get-BicepTemplateSlots`          |
+|                                                                   | `Get-BicepServiceConnections`     |
+|                                                                   | `Get-BicepServiceConnectionName`  |
+| config                                                            | `service-connections.yml`         |
 | responsibility:2 — Deterministic resource naming                  | `Get-AzureResourceName`           |
 |                                                                   | `Get-BicepResourceName`           |
 |                                                                   | `Get-AzureNameOrderSet`           |

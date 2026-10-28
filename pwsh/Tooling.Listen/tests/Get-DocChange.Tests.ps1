@@ -26,7 +26,7 @@ Describe 'Get-DocChange' -Tag 'L0', 'logic' {
         $change.Count | Should -Be 1
         $change[0].Path | Should -BeExactly 'docs/drs/widget.md'
         $change[0].Change | Should -BeExactly 'modified'
-        $change[0].Kind | Should -BeExactly 'adr'
+        $change[0].Kind | Should -BeExactly 'record'
         $change[0].Tier | Should -BeExactly 'rule'
         $change[0].Rules | Should -Be @('ADR-WIDGET-PARTS-DOUBLE', 'ADR-WIDGET-PARTS-SINGLE')
         $change[0].Diff | Should -BeLike '@@*'

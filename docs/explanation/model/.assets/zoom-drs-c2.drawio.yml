@@ -2,7 +2,7 @@ description: >-
   The decision records' containers are their domains, each of one decision kind; the thesis frames them, and every other domain cites it
   through the principles.
 about:
-  adrs: [ADR-REPO-DRSCODE-PATHOFSEGMENTS, ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-REPO-DRSCODE-PATHOFSEGMENTS, ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
   lens: governance
   zoom: C2
 content:

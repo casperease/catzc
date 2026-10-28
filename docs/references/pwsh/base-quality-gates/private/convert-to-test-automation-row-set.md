@@ -24,7 +24,7 @@ The live Pester run object (Invoke-Pester -Configuration `<with Run.PassThru>`),
 ### outputs
 
 `[pscustomobject]` rows: ExpandedPath, ExpandedName, Result, DurationMs, Level, Category, Rules, File, Line, ErrorMessage, ErrorStack,
-SkipReason. Rules is the ';'-joined ADR provenance citations (Get-TestRuleTags), '' when the test carries none — resolved in-worker like
+SkipReason. Rules is the ';'-joined rule provenance citations (Get-TestRuleTags), '' when the test carries none — resolved in-worker like
 Level/Category because the .Block chain does not survive the process boundary. File is the test's run file (Get-TestRunFile): its test file,
 or for a Go bridge test its Go test folder, with Line 0.
 

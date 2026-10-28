@@ -1,4 +1,4 @@
-# ADR: Contracts at the repository boundary — thin promises in both directions, current at 0.1.0, proven by tests
+# Repository: Contracts at the repository boundary — thin promises in both directions, current at 0.1.0, proven by tests
 
 ## Rules: ADR-REPO-CONTRACT
 
@@ -21,16 +21,16 @@ Contracts are laid out as `contracts/<root>/<version>/<asset>`, with at most one
 `contracts/<root>/<version>/<group>/<asset>`. `<root>` names who made the promise: `catzc`, the repository itself, or one vendor by its
 plain moniker (`azure`, `ado`, `github`, `python`, `npm`). A shape we wrote is an inner contract and lives in `catzc` under its owning
 module's group, even when it describes a file a vendor reads; a vendor root exists only to hold a shape the vendor ships, copied verbatim,
-so today `catzc` is the only root. `<version>` is a version folder (ADR-REPO-CONTRACT-CURRENTVERSION). A group gathers related assets: in
-`catzc` it names the owning module, the module that holds the tests that prove the contract, by where the module lives: its track and its
-folder in the repository normal form ([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform),
-`pwsh.base.contracts` for `Catzc.Base.Contracts`), never the namespace the module carries. The form and its rare exceptions are declared
-once, in the contracts config, and one resolver turns a module into its group and back. In a vendor root a group is the vendor's area
-(`workflows`, `pipelines`, `templates`). A group may hold one level of folders that sort its assets by the format they describe
-(`pwsh.azure.templates/arm/` for the compiled ARM template's schema), so the tree is
-`contracts/<root>/<version>/[<group>/[<folder>/]]<asset>` and an asset's key is its path below the version folder. Such a folder holds
-schemas, fragments, presence assets and samples; a command contract, the types surface and the types schema belong to the group itself. No
-deeper folder exists.
+so `catzc` is the only root until a vendor ships a shape copied whole. `<version>` is a version folder (ADR-REPO-CONTRACT-CURRENTVERSION). A
+group gathers related assets: in `catzc` it names the owning module, the module that holds the tests that prove the contract, by where the
+module lives: its track and its folder in the repository normal form
+([ADR-AUTO-IDIOM-NORMALFORM](../automation/idiomatic-names.md#rule-adr-auto-idiom-normalform), `pwsh.base.contracts` for
+`Catzc.Base.Contracts`), never the namespace the module carries. The form and its rare exceptions are declared once, in the contracts
+config, and one resolver turns a module into its group and back. In a vendor root a group is the vendor's area (`workflows`, `pipelines`,
+`templates`). A group may hold one level of folders that sort its assets by the format they describe (`pwsh.azure.templates/arm/` for the
+compiled ARM template's schema), so the tree is `contracts/<root>/<version>/[<group>/[<folder>/]]<asset>` and an asset's key is its path
+below the version folder. Such a folder holds schemas, fragments, presence assets and samples; a command contract, the types surface and the
+types schema belong to the group itself. No deeper folder exists.
 
 - [One root per promiser](#one-root-per-promiser)
 - [Flat by design](#flat-by-design)
@@ -263,8 +263,7 @@ has dropped protects nothing.
 ### Binding, by contract testing
 
 A contract is only a promise if breaking it is caught. The check follows the asset's kind (ADR-REPO-CONTRACT-CONTRACTASSET), so a change
-that violates a contract turns the test run red before it ships. `Test-Contracts` covers every asset of every root's `0.1.0`, plus the
-provided assets of every `catzc` release a consumer pins.
+that violates a contract turns the test run red before it ships.
 
 ### A release folder is frozen
 
@@ -279,8 +278,8 @@ immutability is what lets a consumer pin a release and trust it does not move un
    - One unversioned contract set, evolved in place: it cannot hold a frozen release folder beside the current `0.1.0`.
    - A mutable draft at `0.0.0`, frozen at every release: `0.0.0` reads as "no version", and freezing a vendor's shape records nothing the
      vendor will honour. `0.1.0` is current, and only `catzc` releases freeze.
-   - Layers of current contracts across several low versions (`0.0.1`, `0.1.0`, `0.1.1`): every binding would have to pick a layer and every
-     move between layers would edit its callers, for an order the module dependency graph already keeps. The `0.1` range stays reserved.
+   - Layers of current contracts across several low versions (`0.0.1`, `0.1.0`, `0.1.1`): every binding would pick a layer
+     ([One current version](#one-current-version)).
 
 2. **Another tree shape** — rejected: the bundle and the files it binds fix the shape.
    - A version per contract (`contracts/<contract-name>/v<N>/`): a consumer upgrades the catzc bundle, not individual contracts, so a

@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../design/.assets/one-door-in-one-stable-point-out.drawio.png
+      source: ../.assets/drift-is-gated-generation-is-drs-only.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ Write-Error leaves the pipeline green. The test level that must turn it red thro
 
 ## Image
 
-.assets/gate-needs-throw.png
+[gate-needs-throw](.assets/gate-needs-throw.png)
 
 ## Caption
 
-From the catalogue, reduced: one door in one stable point out.
+From the catalogue, reduced: drift is gated, generation is DRS only.
 
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/one-door-in-one-stable-point-out.drawio.png.
+docs/explanation/flow/.assets/drift-is-gated-generation-is-drs-only.drawio.png.

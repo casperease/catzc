@@ -6,7 +6,7 @@ catzc:
     order: 15
     picture:
       mode: reduce
-      source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
+      source: ../../design/.assets/every-vendor-call-leaves-through-az.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -23,13 +23,13 @@ For the SRE Lead, who owns reliability, monitoring and the switch: az_cli is the
 
 ## Image
 
-.assets/adr-az-cli-15.png
+[adr-az-cli-15](.assets/adr-az-cli-15.png)
 
 ## Caption
 
-From the catalogue, reduced: reading an accosted file writes nothing.
+From the catalogue, reduced: every vendor call leaves through az.
 
 ## Notes
 
 Check it: the record ADR-AZ-CLI in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+docs/explanation/design/.assets/every-vendor-call-leaves-through-az.drawio.png.

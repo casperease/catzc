@@ -25,7 +25,7 @@ description:
   Each run mode is entered through its own dot-sourced script, all of them ending in one exclusivity check that stops a session holding
   modules from two roots; a source-tree tool run in a build stops on its own check.
 about:
-  adrs: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-THREEBUILDKINDS]
+  rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-THREEBUILDKINDS]
   lens: operations
 content:
   title: Each run mode has one entry script, and a mixed session throws

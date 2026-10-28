@@ -1,4 +1,4 @@
-# ADR: Dual authentication — ado pipeline system token vs. local Az token
+# Azure DevOps: Dual authentication — ado pipeline system token vs. local Az token
 
 ## Rules: ADR-ADO-AUTH
 

@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png
+      source: ../../automation/.assets/callers-value-else-config-else-default.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ A default is declared once on the config type; a resolver reads the caller's val
 
 ## Image
 
-.assets/pete-finds-the-default.png
+[pete-finds-the-default](.assets/pete-finds-the-default.png)
 
 ## Caption
 
-From the catalogue, reduced: one gate checks the raw read rule.
+From the catalogue, reduced: the caller's value, else config, else default.
 
 ## Notes
 
 Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.
+docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.

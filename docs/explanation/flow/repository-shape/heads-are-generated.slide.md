@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../design/.assets/10-commits-story.drawio.png
+      source: ../../../how-to/pwsh/.assets/head-outcomes.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -24,12 +24,12 @@ cites.
 
 ## Image
 
-.assets/heads-are-generated.png
+[heads-are-generated](.assets/heads-are-generated.png)
 
 ## Caption
 
-From the catalogue, reduced: 10 commits story.
+From the catalogue, reduced: head outcomes.
 
 ## Notes
 
-Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/explanation/design/.assets/10-commits-story.drawio.png.
+Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/how-to/pwsh/.assets/head-outcomes.drawio.png.

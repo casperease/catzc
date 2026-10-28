@@ -78,17 +78,17 @@ stages:
       Unit: shared
       # The prod subscription's targets (psub) are deploy-shared.yaml's: CD stays in non-prod.
       Foundations:
-        - { env: nsub, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
+        - { env: nsub, serviceConnection: nsub-weu-zct-ado-lz-sc, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
       Discoveries:
-        - { env: nsub, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
+        - { env: nsub, serviceConnection: nsub-weu-zct-ado-lz-sc, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
       Expeditions:
         - {
             env: dev,
             adoEnvironment: shared-main-uat,
-            serviceConnection: sc-shared-nonprod,
+            serviceConnection: nsub-weu-zct-ado-wl-sc,
             subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000,
           }
-        - { env: test, serviceConnection: sc-shared-nonprod, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
+        - { env: test, serviceConnection: nsub-weu-zct-ado-wl-sc, subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000 }
       DependsOn: CI
       # Skipped when the shared unit is untouched; the later Deploy stages chain on this one, so they skip with it.
       FirstCondition:

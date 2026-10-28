@@ -26,7 +26,7 @@ description:
   The source tree and a built package are two code roots, each with its own entry script, that feed one importer; it loads the same modules
   in both modes, and each module finds its files through the code root it is handed.
 about:
-  adrs: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-THREEBUILDKINDS]
+  rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-THREEBUILDKINDS]
   lens: architecture
 content:
   title: Two code roots feed one importer, which loads the same modules

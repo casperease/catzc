@@ -23,7 +23,7 @@ description:
   "Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install, and
   the build run that repeats the same tests against a fresh build."
 about:
-  adrs:
+  rules:
     - ADR-AUTO-BUNDLE-ISBUILD
     - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
     - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
@@ -93,7 +93,7 @@ layout:
    recorded types hash, every module's manifest, merged file and exports, and the recorded content hash. It collects every violation and
    throws once.
 3. **Temporary build.** The build is immutable and content-addressed: `build.json` records its content hash, which the gate re-verifies.
-   That a second build of the same commit is byte-identical is the ADR's word alone; no test builds one commit twice and compares.
+   That a second build of the same commit is byte-identical is the record's word alone; no test builds one commit twice and compares.
 4. **Installed, saved.** A placement copies the verified build into a module path or into another root's `.vendor/`. It is idempotent: a
    destination that already holds the same content hash is not copied again.
 5. **Checked again before placement.** The install verifies its source build with the same gate before it touches the destination.

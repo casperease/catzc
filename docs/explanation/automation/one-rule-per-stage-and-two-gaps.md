@@ -25,7 +25,7 @@ description:
   Two rules govern each stage of a limit's resolution; tests gate the config and the resolver, the hook gates an agent's shell calls, and
   the interactive executable mode has no gate, so two gaps remain.
 about:
-  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+  rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: governance
 content:
   title: Two rules govern every stage, tests and the hook check them, and two gaps remain
@@ -101,7 +101,7 @@ layout:
    `TimeoutExemptionsConfig.Tests` does the same for the exemptions and checks that every exempt GUID is a registered budget.
 5. **timeout-exemptions.yml.** The rule lets work that is slow while it is tuned carry a budget GUID and be exempted, which raises its limit
    to a ceiling and never lifts it. The file also accepts a bash ceiling and a `shell: bash` scope that no code reads, drawn as the one
-   thing here the ADR states and no code does.
+   thing here the record states and no code does.
 6. **Get-TimeoutSeconds.Tests.** The gate on the resolution: an executable's own entry, the pwsh limit for an unlisted executable, the raise
    of an exempt budget to the ceiling, the unchanged limit for a budget that is not exempt, and a limit above the ceiling that is never
    lowered. `Build-AgentHook.Tests` adds parity: the published hook allows exactly the limit the resolver gives and denies one unit more.

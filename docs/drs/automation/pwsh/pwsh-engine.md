@@ -1,4 +1,4 @@
-# ADR: The pwsh engine — PowerShell 7 as catzc's module engine
+# PowerShell: The pwsh engine — PowerShell 7 as catzc's module engine
 
 ## Rules: ADR-PWSH-ENGINE
 
@@ -71,9 +71,9 @@ is proven by the black-box tests and the engine-case tables
 ## Context
 
 [execution-engines](../execution-engines.md) (`ADR-AUTO-ENGINE`) declares the engines, what differs between them, and how each is located
-and started. The `automation/` rules say what a function, a test, a cache, or a bundle is, in words that would hold for any engine. This ADR
-is the pwsh engine itself: the floor it requires, the session the importer establishes, and the entries that load catzc into it. The other
-ADRs of the `automation/pwsh/` folder build on it, each realising one `automation/` rule in PowerShell.
+and started, and the `automation/` rules hold for any engine. This record is the pwsh engine itself: the floor it requires, the session the
+importer establishes, and the entries that load catzc into it. The other records of `automation/pwsh/` build on it, each realising an
+`automation/` rule in PowerShell.
 
 ### One engine of three
 
@@ -127,10 +127,9 @@ line that dot-sources the entry, so both ways run the same file and there is no 
 
 ### Starts that are pwsh by nature
 
-A test run shards its Pester files over worker processes, `Test-InIsolation` runs a module's tests in a clean child process, and a test run
-primes a repository snapshot by importing it once. Each of these starts pwsh because what it runs is PowerShell: Pester, or the importer
-itself. They are not engine-neutral starts with a pwsh default, so they do not take the engine start environment, and running them under
-another engine would mean nothing. The per-engine runs belong to the black-box tests, whose command text is the same under every engine.
+Each of these starts runs PowerShell, Pester or the importer itself, so it is not an engine-neutral start with a pwsh default: it takes no
+engine start environment, and running it under another engine would mean nothing. The per-engine runs belong to the black-box tests, whose
+command text is the same under every engine.
 
 ## Decision
 

@@ -27,7 +27,7 @@ description:
   "Get-Config stays fast because three script-scope caches stand behind it, each filled once and kept until re-import: the name index, the
   parsed configs keyed by path, and the type registry."
 about:
-  adrs:
+  rules:
     [
       ADR-CONF-LOADING-CONFIGONEREADER,
       ADR-CONF-LOADING-EXISTENCEDISCOVERED,
@@ -129,12 +129,12 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The ADR says no function re-reads a config file or keeps its own `$script:` config cache. `Get-ConfigRegistry` does both for
-  `configs.yml`, an exception the ADR does not state.
-- The ADR writes a registry entry as `<name>: { type: <C# FQN> }`. In `configs.yml` the entries sit under a top-level `configs:` key, which
-  `ConfigsConfig` enforces.
-- The ADR says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `pwsh/` folder or a built package, and
-  skips dot-folders.
+- The record says no function re-reads a config file or keeps its own `$script:` config cache. `Get-ConfigRegistry` does both for
+  `configs.yml`, an exception the record does not state.
+- The record writes a registry entry as `<name>: { type: <C# FQN> }`. In `configs.yml` the entries sit under a top-level `configs:` key,
+  which `ConfigsConfig` enforces.
+- The record says discovery scans `pwsh/*/configs/`. The code scans `Get-CatzcModulesRoot`, the source `pwsh/` folder or a built package,
+  and skips dot-folders.
 
 ## See also
 

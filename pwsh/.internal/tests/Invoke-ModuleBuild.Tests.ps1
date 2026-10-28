@@ -122,6 +122,14 @@ BeforeAll {
                     }) | Sort-Object -Unique)
         }
     }
+    # One snapshot of the live configs the build reads, so a peer's burst that swaps one between two builds never changes a hash.
+    $script:configSnapshot = @{}
+    foreach ($configName in 'languages', 'exporter') {
+        $script:configSnapshot[$configName] = Get-Config -Config $configName
+    }
+    Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -in 'languages', 'exporter' -and -not $ListOwners } {
+        $script:configSnapshot[$Config]
+    }
     # The fake repository carries no types contract; the surface check has its own tests, and one case below makes it fail.
     Mock Get-TypesContractDrift { } -ModuleName Catzc.Internal.Builder
     Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {

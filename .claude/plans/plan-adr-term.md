@@ -53,35 +53,19 @@ brief and every message meets the wrong word first.
 - `.claude/CLAUDE.md` says "decision records" for the system (the user, 2026-10-27).
 - An ADR-kind record names itself by its domain too (the user, 2026-10-27): its "# ADR: …" title takes the domain word the way the other
   kinds take "# Design:" and "# Principle:", and its "This ADR" becomes "this record", so the gate needs no folder excludes.
-- The five generic rule names take the record form (the user, 2026-10-27): NEWFOLDERNEEDSADR, ADRSEGMENT, CATZCADRSDECIDE,
-  ADRSLINKGROUNDINGONLY and ANALYZERADRMAPPING, re-cited by `Update-DrsCitation` with its dry run first, each segment at most 24 characters.
+- A generic rule name takes the record form (the user, 2026-10-27), as ADR-REPO-DRSCODE-RECORDSEGMENT does, each segment at most 24
+  characters.
 
 ## Open steps
 
-### The DRS index first
+"The Grep above" below means a Grep for a bare word ADR or ADRs (no hyphen, no backtick next to it), every hit a kind mention.
 
-- [ ] `pwsh/Base.Drs/configs/drs-index.yml`: the preamble and the authoring conventions say "decision record", "record" and "the DRS" for
-      every generic "ADR" ("The ADRs define", "Every ADR carries", "every ADR of the domain", "code ↔ ADR mapping", "writing or editing any
-      ADR", "An ADR owns", "code to ADR", "one entry per ADR"), keeping the `ADR` kind mentions and the rule codes; and
-      `pwsh/Base.Drs/Build-DrsIndex.ps1`: the table's second column header `'ADR'` becomes `'Record'` and the throw says "no single decision
-      record file" (`Get-DrsIndex` matches rows, never the header). Check: `Invoke-TestFile` on
-      `pwsh/Base.Drs/tests/Build-DrsIndex.Tests.ps1`, `Build-DrsIndex`, then a Grep of `docs/drs/index.md` for a bare word ADR or ADRs (no
-      hyphen, no backtick next to it) finds only the kind mentions; "the Grep above" below means this search.
+### The generators and the record titles
 
-### The rule and the other generators
-
-- [ ] `docs/drs/repository/drs-code-language.md`: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM's summary states that "ADR" names only the `ADR`
-      kind, the system is the DRS and a record of any kind is a decision record (ADR-REPO-PLANS-DECISIONSBECOMERULES). Check:
-      `Test-DrsRegistry`, `Test-Glossary`.
-- [ ] `pwsh/Base.Docs/Build-Glossary.ps1`: the page note says "the one DRS rule that defines it". Check: `Invoke-TestFile` on
-      `pwsh/Base.Docs/tests/Build-Glossary.Tests.ps1`, `Build-Glossary`, a Grep of `docs/drs/glossary.md` as above.
-- [ ] `contracts/catzc/0.1.0/pwsh.base.drs/*.command.yml` descriptions ("the ADR registry", "the ADR rule files") say "the DRS registry" and
-      "the decision records", keeping "the configured `ADR` domains" of `test_drs_engine_neutrality`. Check: `Test-Contracts`,
-      `Build-ContractReference`, a Grep of `docs/references/contracts/catzc.md` as above.
-- [ ] The agents' registry source in `pwsh/Base.Docs` (behind `.claude/agents/drone-*.md`, "then in full the ADRs that govern") says "the
-      decision records that govern". Check: `Test-AgentDefinitions`, a Grep of `.claude/agents` as above.
-- [ ] The generators of `pwsh/.internal/assets/importer-commands.sh` and `.gitattributes` carry no generic "ADR". Check: rebuild each, a
-      Grep of both files as above.
+- [ ] The ADR-kind records under `automation/`, `configuration/`, `ado/`, `github/`, `azure/` and `repository/`: each "# ADR: …" title takes
+      its domain word ("# Automation:", "# Repository:", "# Azure:", per the DRS conventions) and each "This ADR" says "this record", one
+      record at a time, at most 15 records per drone brief. Check: `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`, `Test-Glossary` after
+      every 15 records.
 
 ### Code, one module per step, by staged burst
 
@@ -89,53 +73,33 @@ Each step renames the module's identifiers per the scheme above, its comments an
 caller in the same change (PDR-ONELIVE); a module on the importer path (`Catzc.Base.Drs`, `Catzc.Base.Docs`, `Catzc.Base.Languages`,
 `Catzc.Base.Globs`, every `types/*.cs`) lands by `Invoke-StagedBurst` with `Test-Parsing` first and a fresh full import after.
 
-- [ ] `pwsh/Base.Languages` (`FileLanguage.cs`, `LanguagesConfig.cs`, `configs/languages.yml`, its tests and `Get-FileLanguage.Tests.ps1`)
-      and `contracts/catzc/0.1.0/pwsh.base.languages/types.json`: `adr_folder` -> `drs_folder`, every reader of the key with it. Check:
-      `Invoke-TestFile` on `pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1` and `Get-FileLanguage.Tests.ps1`, `Test-Contracts`.
-- [ ] `pwsh/Base.Globs/configs/file-kinds.yml`, `contracts/catzc/0.1.0/pwsh.base.globs/file-kinds.yml`,
-      `pwsh/Base.QualityGates/configs/link-directions.yml`, `pwsh/Tooling.Listen` and `.claude/skills/listen-tiers/SKILL.md`: the class and
-      kind `adr` -> `record`, in one burst since the class crosses all four. Check: `Invoke-TestFile` on
-      `pwsh/Base.Globs/tests/Get-FileKind.Tests.ps1`, `pwsh/Tooling.Listen/tests/Get-DocChange.Tests.ps1`, `Find-DocPattern.Tests.ps1`,
-      `Get-DocNote.Tests.ps1`, `Test-LinkDirections`.
-- [ ] `pwsh/Base.Drs` (`DrsCitationRewriter.cs`, `DrsCitationMap.cs`, `DrsDoraCheck.cs`, `DrsCodeForm.cs` comments, `Build-DrsIndex.ps1`,
-      `Build-DrsCodeDictionary.ps1`, `Get-DrsCitationMap.ps1`, `Test-DrsRegistry.ps1`, the privates and the tests with `Write-AdrFixture`):
-      the `Drs`/`Record` renames. Check: `Invoke-TestFile` on each touched test file under `pwsh/Base.Drs/tests`, `Test-DrsRegistry`.
-- [ ] `pwsh/Base.Maps` (`ValueChainMap.cs`, `ValueChainCell.cs`, `ValueChainHighlight.cs`, `WorldMap*.cs`, `MapsConfig.cs`, `MapsLabels.cs`,
-      `MapsPin.cs`, `CitationScanner.cs`, `configs/maps.yml`, the `-Adr` commands, `Export-WorldMapPdf.ps1`, the tests) and
-      `contracts/catzc/0.1.0/pwsh.base.maps/*`: `-Adr` -> `-Rule`, the pin key `adr` -> `rule`, the `Record` renames,
-      `value_chain_legend_adrs` -> `value_chain_legend_records`. Check: `Invoke-TestFile` on each touched test file under
-      `pwsh/Base.Maps/tests`, `Test-Contracts`, `Test-ValueChainMap`.
-- [ ] `pwsh/Base.Slides` (`Get-AdrRuleText.ps1` -> `Get-DrsRuleText.ps1`, `Write-DiagramMinimapData.ps1`, `Get-DiagramSupportsDrift.ps1`,
-      `Get-SlideFinding.ps1` message, tests), `python/diagrams` (`minimaps.py`, `drawio_forward.py`, the `declaration_*.py` files,
-      `assets/STYLE.md`, `glyphs.xml`, `template-slide.xml`, the tests and samples) and every diagram declaration under `docs/`
-      (`about.adrs` -> `about.rules`, by `Rename-CodeName` with its dry run first, never a script): one burst, since the key crosses both
-      readers. Check: `Invoke-TestFile` on the touched `pwsh/Base.Slides/tests` files, `Invoke-PythonTest` on `python/diagrams`,
-      `Test-Diagrams`.
-- [ ] `pwsh/Base.Docs` (`Show-Catzc.ps1` topic `adr` -> `drs` and its messages, `Get-Glossary*` tests' fixtures) and
-      `docs/references/pwsh/base-docs/show-catzc.md`. Check: `Invoke-TestFile` on the touched `pwsh/Base.Docs/tests` files.
-- [ ] `pwsh/Base.QualityGates` (`configs/terminology/adr.yml` -> `rule-code.yml`, `adr-example.yml` -> `rule-code-example.yml`, their
-      category keys, `CodeLinkRewriter.cs`, `LinkEngine.cs`, `Test-AnalyzerDrsMap.ps1` message, `configs/analyzer-drs-map.yml` comments, the
-      tests) and `pwsh/Base.RootConfig/assets/root/cspell-template.yml` with `.cspell/.gitignore` (the `catzc-terms-adr` dictionaries ->
-      `catzc-terms-rule-code`; a root asset, so a HOLD to every live peer first). Check: `Invoke-TestFile` on the touched
-      `pwsh/Base.QualityGates/tests` files, `Test-Terminology`, `Test-Spelling`.
-- [ ] The remaining single-file modules (`pwsh/Base.Flow` `RungsConfig` message, `pwsh/Base.Git`,
-      `pwsh/Base.Variants/configs/track-types.yml`, `pwsh/Base.CodeMeta`, `pwsh/Base.MarkdownMeta`,
-      `pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml` with `pwsh/.internal/assets/Catzc.Types.csproj`, `pwsh/.scriptanalyzer`,
-      `pwsh/Azure.Templates`), each with its test file. Check: `Invoke-TestFile` on each module's touched test file.
+- [ ] `pwsh/Base.Drs/Update-DrsCitation.ps1` and `pwsh/Base.Drs/tests/Update-DrsCitation.Tests.ps1`: the `Drs`/`Record` renames (`$adrRoot`,
+      `$adrFile`). Check: `Invoke-TestFile` on that test file, `Test-DrsRegistry`.
+- [ ] `python/diagrams` leftovers of the Base.Slides step: the `drawio_forward.py` identifiers (`ADR_CODE`, `known_adrs`, `adrs_of`, the
+      `adrs` locals), the `adrs` locals in `declaration_get.py` and `declaration_get_action.py`, the generic ADR prose in
+      `python/diagrams/assets/STYLE.md` and `python/diagrams/assets/slides/STYLE.md`, and the text of `template-slide.xml`. Each edit by
+      hand, one file at a time. Check: `Invoke-PythonTest` on `python/diagrams`.
+- [ ] `pwsh/Base.Maps` leftovers: the generic ADR test names and `$adr` locals in the value-chain tests (`ValueChainMap`,
+      `ValueChainHighlight`, `MinimapData`, `Test-ValueChainMap`, `Get-ValueChainMap` `.Tests.ps1`), one file at a time. Check:
+      `Invoke-TestFile` on each touched test file.
 
 ### Prose, one area per step
 
 - [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
       controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
       Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-- [ ] `docs/references/` by module folder (681 uses in 185 pages; `dora/capabilities.md` "Repo ADR" -> "Repo record", `base-drs/`,
-      `base-maps/`, `BCL/index.md`), each comment page with its code's step when it names a renamed identifier. Check: the Grep over each
-      folder, `Test-Links`.
-- [ ] `docs/explanation/` (102 uses in 43 articles), `docs/how-to/` (18 uses; the two renamed how-to pages with every link to them) and
-      `docs/index.md` ("## Automation ADRs"). Check: the Grep over each folder, `Test-Links`.
-- [ ] `.claude/skills/*/SKILL.md` (12 uses in 7 skills, `catzc-module`'s "an ADR the code cites" and `ADR-<DOMAIN>-<ADR>-<RULE>` ->
-      `ADR-<DOMAIN>-<RECORD>-<RULE>`), `.claude/plans/*.md` (the stale `Update-AdrCitation` -> `Update-DrsCitation`). Check:
-      `Test-AgentDefinitions`, `Test-Plans`.
+- [ ] `docs/references/` leftovers: `pwsh/base-drs/update-drs-citation.md` with the Update-DrsCitation step, and "checked ADR domains" in
+      `contracts/catzc/0.1.0/pwsh.base.drs/test_drs_engine_neutrality.command.yml` -> "checked DRS domains", then `Build-ContractReference`
+      rebuilds `contracts/catzc.md`. Check: the Grep over `docs/references`, `Test-Links`.
+- [ ] `docs/explanation/` leftovers inside the diagram declarations: the titles of `automation/rule-and-gate-per-load-stage.md` and
+      `azure/coordinate-rules-and-their-gates.md` (h1, lead line, `yml drawio` title, png alt; re-render with the title), the `description:`
+      lines of `design/a-sibling-is-an-idea-never-a-reference.md`, `design/which-rung-gates-exist-in-code.md`,
+      `flow/drift-is-gated-generation-is-drs-only.md`, `flow/gates-check-source-and-trigger.md`,
+      `flow/one-gate-checks-the-raw-read-rule.md`, and the link class `kind: adr` -> `kind: record` in every `yml drawio` block. Check: the
+      Grep over `docs/explanation`, `Test-Links`.
+- [ ] `.claude/skills/catzc-module/SKILL.md` ("an ADR the code cites" and `ADR-<DOMAIN>-<ADR>-<RULE>` -> `ADR-<DOMAIN>-<RECORD>-<RULE>`) and
+      `.claude/skills/plan-orchestrate/SKILL.md` ("the governing ADRs"), both dirty from a peer when the rest landed, `.claude/plans/*.md`
+      (the stale `Update-AdrCitation` -> `Update-DrsCitation`). Check: `Test-AgentDefinitions`, `Test-Plans`.
 
 ### The gate, last
 
@@ -143,10 +107,8 @@ caller in the same change (PDR-ONELIVE); a module on the importer path (`Catzc.B
       `adr`, domain `repository`, `defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM`, which bolds it once the rule step lands,
       `realized_by: { kind: prose-only }`), with
       `avoid: [{ phrase: ADR, say: "decision record / DRS record; the DRS for the system; the kind in backticks" }, { phrase: ADRs, say: decision records }]`
-      and
-      `options: { exclude: [docs/drs/automation/**, docs/drs/configuration/**,     docs/drs/ado/**, docs/drs/github/**, docs/drs/azure/**, docs/drs/repository/**] }`,
-      the ADR-kind records whose own "ADR" is kept; and `pwsh/Base.Docs/configs/glossary/repository.yml` drops the `ADR system` avoid it
-      subsumes. Check: `Test-Glossary` reports 0 issues, `Build-Glossary`.
+      and no folder excludes; and `pwsh/Base.Docs/configs/glossary/repository.yml` drops the `ADR system` avoid it subsumes. Check:
+      `Test-Glossary` reports 0 issues, `Build-Glossary`.
 - [ ] The identifier half: `pwsh/Base.RootConfig/assets/root/cspell-template.yml` gains `flagWords: [adr, adrs]` with an `ignoreRegExpList`
       entry for the rule codes (`(?:ADR|TDR|PDR|WDR|DDR|FDR|EDR)(?:-[A-Z0-9*<>]+)+`), the `#rule-adr-` anchors and the code-named slide
       files, a HOLD first. Check: a scratch word list through `cspell stdin` flags `adrRoot` and passes `ADR-AUTO-TEST-ONECATEGORY`, then

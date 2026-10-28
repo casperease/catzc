@@ -1,11 +1,10 @@
-# ADR: Respect PowerShell approved verbs
+# PowerShell: Respect PowerShell approved verbs
 
 ## Rules: ADR-PWSH-VERBS
 
 ### Rule ADR-PWSH-VERBS-APPROVEDVERBS
 
-Use only verbs from `Get-Verb`. If the verb you want is not in the list, find the approved verb that matches the semantics (e.g. `New-` not
-`Create-`).
+Use only verbs from `Get-Verb`. A verb not in the list gives way to the approved verb that matches its semantics (`New-`, not `Create-`).
 
 - [Common mistakes](#common-mistakes)
 - [How this is enforced](#how-this-is-enforced)
@@ -58,18 +57,17 @@ enforce, not a boolean condition; a plain predicate (`Test-Path`, `Test-Command`
 ## Context
 
 PowerShell has a curated list of approved verbs (`Get-Verb`), organized into groups (Common, Communications, Data, Diagnostic, Lifecycle,
-Security) with precise definitions for each. This is not a suggestion — it is a deliberate design decision by the PowerShell team, and it is
-one of the language's true strengths.
+Security) with precise definitions for each; it is a deliberate design decision of the language, and one of its strengths.
 
 ### Why this matters
 
 **Verbs are a shared vocabulary.** When a user sees `Get-`, they know it reads without modifying. When they see `Set-`, they know it writes.
 When they see `Test-`, they know it either answers a value or state question with a boolean, or is a quality gate
 ([ADR-AUTO-TEST-QUALITYGATE](../test-automation.md#rule-adr-auto-test-qualitygate), ADR-PWSH-VERBS-GATESARETEST) that reports every issue
-and throws. When they see `Assert-`, they know it throws on failure. This contract is universal across every PowerShell module, every
-vendor, every team. A user who has never seen your code can predict what `Get-Config` does from the verb alone.
+and throws. When they see `Assert-`, they know it throws on failure. The contract is universal across every PowerShell module, so a user who
+has never seen the code predicts what `Get-Config` does from the verb alone.
 
-**Verbs encode behavior guarantees.** The approved verbs are not just naming conventions — they carry semantic promises:
+**Verbs encode behavior guarantees:**
 
 - **`Get-`**
   - Guarantee: Safe to call, read-only
@@ -100,16 +98,13 @@ vendor, every team. A user who has never seen your code can predict what `Get-Co
 - **`Convert-` / `ConvertTo-` / `ConvertFrom-`**
   - Guarantee: Transforms data between representations
 
-**`New-` not `Create-`.** `Create` is not an approved verb. Use `New-` for all resource creation. This is the single most common mistake.
+When every function respects these guarantees, a user reasons about behavior from the function name without reading the implementation.
 
-When every function in the codebase respects these guarantees, a user can reason about behavior from the function name without reading the
-implementation. This is an extraordinary advantage that most languages do not offer.
+**Discovery works.** `Get-Command -Verb Install` shows every install function, and `Get-Command -Noun Poetry` every poetry function, only
+when verbs are consistent: a function named `Setup-Poetry` appears in neither search.
 
-**Discovery works.** `Get-Command -Verb Install` shows every install function. `Get-Command -Noun Poetry` shows every poetry function. This
-only works when verbs are consistent. A function named `Setup-Poetry` would not appear in either search.
-
-**Tab completion works.** Users type `Get-` and tab through all getters. They type `Install-` and see all installable tools. Non-standard
-verbs break this workflow and hide functions from discovery.
+**Tab completion works.** `Get-` then tab walks every getter, `Install-` every installable tool; a non-standard verb hides its function from
+both.
 
 ### The approved verb groups
 
@@ -223,18 +218,14 @@ This is a deliberate clarity choice over PowerShell's default lean toward singul
 
 `The sanctioned quality-gate exception`
 
-Most `Test-` functions are predicates — `Test-Path`, `Test-Command`, `Test-IsRunningInPipeline` — and obey ADR-PWSH-VERBS-SEMANTICCONTRACT:
-they answer a boolean and never throw. The repository's quality gates are different in kind. `Test-Automation`, `Test-Spelling`,
-`Test-ScriptAnalyzer`, `Test-Markdownlint`, and `Test-Formatting` each run a body of checks and exist to **fail the build** when those
-checks fail — throwing is their job, not a broken contract. They expose the boolean-shaped answer through `-PassThru`, which returns a
-result object (issue counts, report path) for a caller that wants to branch rather than break. The distinction is in the noun: `Test-Path`
-names a condition to evaluate; `Test-Spelling` names a corpus to verify and a gate to enforce. Naming these `Assert-` would be defensible,
-but `Test-<Area>` reads as the CI gate it is and keeps the gate family under one discoverable verb. This is the one place `Test-`-and-throw
-is correct; a genuine predicate that throws is a bug.
+Most `Test-` functions are predicates (`Test-IsRunningInPipeline`) and obey ADR-PWSH-VERBS-SEMANTICCONTRACT. A quality gate runs a body of
+checks and exists to **fail the build** when they fail, so throwing is its job, not a broken contract; its `-PassThru` result object (issue
+counts, report path) serves a caller that wants to branch rather than break. Naming the gates `Assert-` would be defensible, but
+`Test-<Area>` reads as the CI gate it is and keeps the gate family under one discoverable verb. A genuine predicate that throws is a bug.
 
 ## Decision
 
-All functions must use approved PowerShell verbs. No exceptions.
+Every function uses an approved PowerShell verb, with no exceptions.
 
 ### How this is enforced
 
@@ -247,4 +238,4 @@ All functions must use approved PowerShell verbs. No exceptions.
 - Users can predict function behavior from the name without reading code.
 - Code reads as natural language: `Assert-Command python`, `Install-Poetry`, `Get-Config azure`, `Test-IsAdministrator`.
 - PSScriptAnalyzer warns on unapproved verbs, catching mistakes before code review.
-- New team members familiar with any PowerShell module can immediately navigate the codebase because the vocabulary is shared.
+- A newcomer who knows any PowerShell module navigates the codebase at once, because the vocabulary is shared.

@@ -25,7 +25,7 @@ description:
   "Module dependencies form three layers: the Azure extension group on top, the Azure root and the tooling modules in the middle, and the
   base libraries as the foundation; every allowed edge points down."
 about:
-  adrs: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
+  rules: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
   lens: architecture
 content:
   title: Module dependencies form three layers, and every edge points down
@@ -99,7 +99,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR says a module missing from the `modules:` section is unconstrained. The code also constrains every member of a group, so a Base
+The record says a module missing from the `modules:` section is unconstrained. The code also constrains every member of a group, so a Base
 library that appears only in `groups:` is still held to the Base group's internal order.
 
 ## See also

@@ -6,7 +6,7 @@ catzc:
     order: 11
     picture:
       mode: reduce
-      source: ../../design/.assets/guard-and-policies-by-command.drawio.png
+      source: ../../design/.assets/state-changes.drawio.png
       scale: 0.4
 ---
 
@@ -23,12 +23,12 @@ organization.
 
 ## Image
 
-.assets/approvals-are-tooling.png
+[approvals-are-tooling](.assets/approvals-are-tooling.png)
 
 ## Caption
 
-From the catalogue, reduced: guard and policies by command.
+From the catalogue, reduced: state changes.
 
 ## Notes
 
-Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/guard-and-policies-by-command.drawio.png.
+Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/state-changes.drawio.png.

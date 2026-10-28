@@ -106,10 +106,6 @@
       "display": [],
       "members": [
         {
-          "name": "AdrOf",
-          "kind": "method"
-        },
-        {
           "name": "Anchor",
           "kind": "method"
         },
@@ -150,7 +146,7 @@
           "kind": "method"
         },
         {
-          "name": "ParentAdr",
+          "name": "ParentRecord",
           "kind": "method"
         },
         {
@@ -159,6 +155,10 @@
         },
         {
           "name": "PathOf",
+          "kind": "method"
+        },
+        {
+          "name": "RecordOf",
           "kind": "method"
         },
         {

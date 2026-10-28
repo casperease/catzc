@@ -7,7 +7,7 @@ Azure name assembly    a name is a pure function of its components, never typed,
 Infrastructure kinds   templates, configuration slots and reusable modules, and what a change to each reaches
 ```
 
-These articles explain decisions from the [azure ADR domain](../../drs/index.md#azure): how a resource name is assembled from the identity
+These articles explain decisions from the [azure DRS domain](../../drs/index.md#azure): how a resource name is assembled from the identity
 data model and never typed by hand. Each article narrates one diagram; the [explanation index](../index.md) says how to read them.
 
 ## Azure name assembly

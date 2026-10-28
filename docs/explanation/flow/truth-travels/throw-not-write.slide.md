@@ -23,7 +23,7 @@ turns red.
 
 ## Image
 
-.assets/throw-not-write.png
+[throw-not-write](.assets/throw-not-write.png)
 
 ## Caption
 

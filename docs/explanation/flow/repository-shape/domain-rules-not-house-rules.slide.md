@@ -6,11 +6,11 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
+      source: ../../model/.assets/the-meta-model.drawio.png
       scale: 0.4
 ---
 
-# The sanctioned words are domain rules and decision records, never "house rules"
+# The sanctioned words are domain rules and decision records, and nothing informal stands in for them
 
 ## Eyebrow
 
@@ -22,13 +22,13 @@ cats is the conversational name, catzc the source-code name; a word outside the 
 
 ## Image
 
-.assets/domain-rules-not-house-rules.png
+[domain-rules-not-house-rules](.assets/domain-rules-not-house-rules.png)
 
 ## Caption
 
-From the catalogue, reduced: clients bridge to one server.
+From the catalogue, reduced: the meta model, with the glossary among what governs the files.
 
 ## Notes
 
 Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.
+docs/explanation/model/.assets/the-meta-model.drawio.png.

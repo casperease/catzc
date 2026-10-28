@@ -10,10 +10,10 @@ public sealed class MapsHighlight
     public static readonly IReadOnlyList<string> DefaultCitationExclude =
         Array.AsReadOnly(new[] { ".claude/hindsight/**", ".claude/learnings/**", ".claude/plans/**", "docs/**/.assets/**", "docs/explanation/**", "python/diagrams/**" });
 
-    // The cells an ADR always lights, in declared order. Empty by default.
+    // The cells a record always lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> pins { get; }
 
-    // The cells an ADR never lights, in declared order. Empty by default.
+    // The cells a record never lights, in declared order. Empty by default.
     public IReadOnlyList<MapsPin> exceptions { get; }
 
     // The repo-relative globs of the files whose citations light nothing. Default: DefaultCitationExclude.

@@ -15,8 +15,8 @@ public sealed class DrsCitationRewriter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    readonly string adrRoot;
-    // The root every decision record moves to: adrRoot itself unless a code map row of kind root moves it.
+    readonly string drsRoot;
+    // The root every decision record moves to: drsRoot itself unless a code map row of kind root moves it.
     string newRoot;
     const string Segment = @"[\w<>*-]+(?:\.[\w<>*-]+)*";
 
@@ -33,8 +33,8 @@ public sealed class DrsCitationRewriter
     readonly Dictionary<string, string> pathMap = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly List<(string Old, string New)> folderMap = new List<(string, string)>();
     readonly List<string> bareFolders = new List<string>();
-    readonly HashSet<string> adrFiles = new HashSet<string>(StringComparer.Ordinal);
-    readonly HashSet<string> adrFolders = new HashSet<string>(StringComparer.Ordinal);
+    readonly HashSet<string> recordFiles = new HashSet<string>(StringComparer.Ordinal);
+    readonly HashSet<string> recordFolders = new HashSet<string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> newPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly Dictionary<string, string> oldPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly DrsCitationMap citations;
@@ -54,8 +54,8 @@ public sealed class DrsCitationRewriter
         if (string.IsNullOrEmpty(root)) { throw new ArgumentNullException(nameof(root)); }
         if (markdownWidth < 0) { throw new ArgumentOutOfRangeException(nameof(markdownWidth), "the markdown width is 0 (off) or a positive column count"); }
         this.markdownWidth = markdownWidth;
-        adrRoot = root.TrimEnd('/') + "/";
-        newRoot = adrRoot;
+        drsRoot = root.TrimEnd('/') + "/";
+        newRoot = drsRoot;
         if (codeRows == null) { throw new ArgumentNullException(nameof(codeRows)); }
         if (ruleRows == null) { throw new ArgumentNullException(nameof(ruleRows)); }
         if (treeFiles == null) { throw new ArgumentNullException(nameof(treeFiles)); }
@@ -75,13 +75,13 @@ public sealed class DrsCitationRewriter
         this.citations = citations;
         foreach (string file in treeFiles)
         {
-            string adrPath = Normalize(file);
-            if (!adrPath.StartsWith(adrRoot, StringComparison.Ordinal)) { continue; }
-            adrPath = adrPath.Substring(adrRoot.Length);
-            adrFiles.Add(adrPath);
-            for (int slash = adrPath.LastIndexOf('/'); slash > 0; slash = adrPath.LastIndexOf('/', slash - 1))
+            string recordPath = Normalize(file);
+            if (!recordPath.StartsWith(drsRoot, StringComparison.Ordinal)) { continue; }
+            recordPath = recordPath.Substring(drsRoot.Length);
+            recordFiles.Add(recordPath);
+            for (int slash = recordPath.LastIndexOf('/'); slash > 0; slash = recordPath.LastIndexOf('/', slash - 1))
             {
-                adrFolders.Add(adrPath.Substring(0, slash));
+                recordFolders.Add(recordPath.Substring(0, slash));
             }
         }
 
@@ -101,13 +101,13 @@ public sealed class DrsCitationRewriter
         string path = Segment + "(?:/" + Segment + ")*/?";
         var alternatives = new List<string>
         {
-            @"(?<![\w./-])(?<repo>/?" + Regex.Escape(adrRoot) + path + ")(?:#(?<repoAnchor>" + anchorPattern + "))?",
+            @"(?<![\w./-])(?<repo>/?" + Regex.Escape(drsRoot) + path + ")(?:#(?<repoAnchor>" + anchorPattern + "))?",
             @"(?<![\w./-])(?<relative>(?:\.\.?/)+" + path + ")(?:#(?<relativeAnchor>" + anchorPattern + "))?",
         };
         // A moved root is also named bare, as a folder or a setting's value; a path under it is the repo form above.
-        if (newRoot != adrRoot)
+        if (newRoot != drsRoot)
         {
-            alternatives.Add(@"(?<![\w./-])(?<rootBare>/?" + Regex.Escape(adrRoot.TrimEnd('/')) + @")(?![\w-]|\.\w|/[\w<>*.-])");
+            alternatives.Add(@"(?<![\w./-])(?<rootBare>/?" + Regex.Escape(drsRoot.TrimEnd('/')) + @")(?![\w-]|\.\w|/[\w<>*.-])");
         }
         var bare = new List<string>();
         if (literals.Count > 0) { bare.Add("(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + ")*/?"); }
@@ -211,13 +211,13 @@ public sealed class DrsCitationRewriter
             {
                 kind = DrsCitationChangeKind.Path;
                 string written = match.Groups["bare"].Value;
-                // A moved one-segment folder's path is an ADR path only when it resolves under docs/drs from the citing file; elsewhere it names another folder of that name, such as the modules folder.
+                // A moved one-segment folder's path is a record path only when it resolves under docs/drs from the citing file; elsewhere it names another folder of that name, such as the modules folder.
                 bool folderPath = IsBareFolderPath(written);
-                string resolved = folderPath ? Join(Resolve(Segments(ParentOf(self)), written)) : adrRoot;
+                string resolved = folderPath ? Join(Resolve(Segments(ParentOf(self)), written)) : drsRoot;
                 // It must also name the moved folder itself or a file or folder of it in the tree, so a module path such as pwsh/Catzc.X/... stays as written.
                 bool named = !folderPath || NamesMovedContent(written);
-                replacement = named && resolved != null && resolved.StartsWith(adrRoot, StringComparison.Ordinal)
-                    ? RewriteReference(written, Fragment(match.Groups["bareAnchor"]), Form.AdrRelative, self)
+                replacement = named && resolved != null && resolved.StartsWith(drsRoot, StringComparison.Ordinal)
+                    ? RewriteReference(written, Fragment(match.Groups["bareAnchor"]), Form.DrsRelative, self)
                     : null;
             }
             else if (match.Groups["numbered"].Success)
@@ -281,21 +281,21 @@ public sealed class DrsCitationRewriter
             case Form.InFile: target = self; break;
             case Form.Rooted: target = Join(Resolve(new List<string>(), pathPart)); break;
             case Form.Repository: target = Join(Resolve(new List<string>(), pathPart)); break;
-            case Form.AdrRelative: target = Join(Resolve(new List<string>(), adrRoot + pathPart)); break;
+            case Form.DrsRelative: target = Join(Resolve(new List<string>(), drsRoot + pathPart)); break;
             default: target = Join(Resolve(Segments(ParentOf(self)), pathPart)); break;
         }
-        if (target == null || !target.StartsWith(adrRoot, StringComparison.Ordinal)) { return null; }
+        if (target == null || !target.StartsWith(drsRoot, StringComparison.Ordinal)) { return null; }
 
-        string adrPath = target.Substring(adrRoot.Length);
+        string recordPath = target.Substring(drsRoot.Length);
         bool trailing = pathPart.EndsWith("/", StringComparison.Ordinal);
-        (string newAdrPath, string newFragment) = MapTarget(adrPath, fragment, form == Form.InFile);
+        (string newRecordPath, string newFragment) = MapTarget(recordPath, fragment, form == Form.InFile);
         // A moved root moves every path under it; an in-file anchor and a path relative to the root keep their form.
-        bool rootMoves = newRoot != adrRoot && form != Form.InFile && form != Form.AdrRelative;
-        if (newAdrPath == adrPath && newFragment == fragment && !rootMoves) { return null; }
+        bool rootMoves = newRoot != drsRoot && form != Form.InFile && form != Form.DrsRelative;
+        if (newRecordPath == recordPath && newFragment == fragment && !rootMoves) { return null; }
 
         string slash = trailing ? "/" : string.Empty;
         string newPathPart;
-        if (newAdrPath == adrPath && !rootMoves)
+        if (newRecordPath == recordPath && !rootMoves)
         {
             newPathPart = pathPart;
         }
@@ -303,19 +303,19 @@ public sealed class DrsCitationRewriter
         {
             switch (form)
             {
-                case Form.Rooted: newPathPart = "/" + newRoot + newAdrPath + slash; break;
-                case Form.Repository: newPathPart = newRoot + newAdrPath + slash; break;
-                case Form.AdrRelative: newPathPart = newAdrPath + slash; break;
-                default: newPathPart = MarkdownLinkRebaser.RelativeLink(ParentOf(Moved(self)), newRoot + newAdrPath) + slash; break;
+                case Form.Rooted: newPathPart = "/" + newRoot + newRecordPath + slash; break;
+                case Form.Repository: newPathPart = newRoot + newRecordPath + slash; break;
+                case Form.DrsRelative: newPathPart = newRecordPath + slash; break;
+                default: newPathPart = MarkdownLinkRebaser.RelativeLink(ParentOf(Moved(self)), newRoot + newRecordPath) + slash; break;
             }
         }
         return newFragment == null ? newPathPart : newPathPart + "#" + newFragment;
     }
 
     // Where a reference points after the maps: a rule anchor follows its rule, a path follows the file and folder map.
-    (string Path, string Fragment) MapTarget(string adrPath, string fragment, bool inFile)
+    (string Path, string Fragment) MapTarget(string recordPath, string fragment, bool inFile)
     {
-        string newPath = MapPath(adrPath);
+        string newPath = MapPath(recordPath);
         if (fragment == null) { return (newPath, null); }
         Match anchor = ruleAnchor.Match(fragment);
         if (!anchor.Success) { return (newPath, fragment); }
@@ -323,18 +323,18 @@ public sealed class DrsCitationRewriter
         string oldCode = anchor.Groups["code"].Value.ToUpperInvariant();
         string code = MapCode(oldCode);
         if (code == oldCode) { return (newPath, fragment); }
-        string oldAdr = AdrOf(oldCode, false);
-        string newAdr = AdrOf(code, true);
-        if (newAdr != null && newAdr != MapCode(oldAdr ?? string.Empty) && !(inFile && oldAdr != null && !IsFileOf(oldAdr, adrPath)))
+        string oldRecord = RecordOf(oldCode, false);
+        string newRecord = RecordOf(code, true);
+        if (newRecord != null && newRecord != MapCode(oldRecord ?? string.Empty) && !(inFile && oldRecord != null && !IsFileOf(oldRecord, recordPath)))
         {
-            newPath = PathOfCode(newAdr);
+            newPath = PathOfCode(newRecord);
         }
         return (newPath, DrsCitationMap.Anchor(code));
     }
 
-    string MapPath(string adrPath)
+    string MapPath(string recordPath)
     {
-        string bare = adrPath.TrimEnd('/');
+        string bare = recordPath.TrimEnd('/');
         if (pathMap.TryGetValue(bare, out string mapped)) { return mapped; }
         foreach ((string old, string replacement) in folderMap)
         {
@@ -344,7 +344,7 @@ public sealed class DrsCitationRewriter
         return bare;
     }
 
-    // A code's new spelling: a rule row first, then the longest moved ADR code it extends, with the rest of its segments kept.
+    // A code's new spelling: a rule row first, then the longest moved record code it extends, with the rest of its segments kept.
     string MapCode(string code)
     {
         if (ruleMap.TryGetValue(code, out string moved)) { return moved; }
@@ -358,8 +358,8 @@ public sealed class DrsCitationRewriter
         }
     }
 
-    // The ADR a code names or extends: the longest prefix the maps or the index know as an ADR; null when none does.
-    string AdrOf(string code, bool renamed)
+    // The record a code names or extends: the longest prefix the maps or the index know as a record; null when none does.
+    string RecordOf(string code, bool renamed)
     {
         string prefix = code;
         while (true)
@@ -374,20 +374,20 @@ public sealed class DrsCitationRewriter
         }
     }
 
-    bool IsFileOf(string code, string adrPath)
+    bool IsFileOf(string code, string recordPath)
     {
-        if (oldPathByCode.TryGetValue(code, out string oldPath) && oldPath == adrPath) { return true; }
-        if (citations != null && citations.PathOf(code) == adrRoot + adrPath) { return true; }
-        return codeMap.TryGetValue(code, out string renamed) && newPathByCode.TryGetValue(renamed, out string newPath) && newPath == adrPath;
+        if (oldPathByCode.TryGetValue(code, out string oldPath) && oldPath == recordPath) { return true; }
+        if (citations != null && citations.PathOf(code) == drsRoot + recordPath) { return true; }
+        return codeMap.TryGetValue(code, out string renamed) && newPathByCode.TryGetValue(renamed, out string newPath) && newPath == recordPath;
     }
 
     string PathOfCode(string code)
     {
         if (newPathByCode.TryGetValue(code, out string path)) { return path; }
         string indexed = citations?.PathOf(code);
-        if (indexed != null && indexed.StartsWith(adrRoot, StringComparison.Ordinal)) { return indexed.Substring(adrRoot.Length); }
+        if (indexed != null && indexed.StartsWith(drsRoot, StringComparison.Ordinal)) { return indexed.Substring(drsRoot.Length); }
         throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-            "no ADR path for '{0}': neither the code map nor the ADR index names it", code));
+            "no record path for '{0}': neither the code map nor the DRS index names it", code));
     }
 
     void AddCodeRow(Dictionary<string, string> cells)
@@ -398,8 +398,8 @@ public sealed class DrsCitationRewriter
         {
             // A root row's paths are repository-relative: the root itself and where it goes, at the same depth, so a link out of it stays.
             string from = Normalize(oldPath), to = Normalize(newPath);
-            if (from + "/" != adrRoot) { throw Invalid("code map", "a root row moves the root '" + adrRoot.TrimEnd('/') + "', not '" + oldPath + "'"); }
-            if (newRoot != adrRoot) { throw Invalid("code map", "the root is moved twice"); }
+            if (from + "/" != drsRoot) { throw Invalid("code map", "a root row moves the root '" + drsRoot.TrimEnd('/') + "', not '" + oldPath + "'"); }
+            if (newRoot != drsRoot) { throw Invalid("code map", "the root is moved twice"); }
             if (to.Length == 0 || Segments(to).Count != Segments(from).Count)
             {
                 throw Invalid("code map", "the root moves to '" + newPath + "', not a folder of its own depth");
@@ -437,7 +437,7 @@ public sealed class DrsCitationRewriter
 
     // Where a citing file lands when the root moves: under the new root when it sits under the old one.
     string Moved(string repoPath) =>
-        repoPath.StartsWith(adrRoot, StringComparison.Ordinal) ? newRoot + repoPath.Substring(adrRoot.Length) : repoPath;
+        repoPath.StartsWith(drsRoot, StringComparison.Ordinal) ? newRoot + repoPath.Substring(drsRoot.Length) : repoPath;
 
     // True when the path names a moved folder itself, or a file or folder of it that the tree holds at its old or its new place.
     bool NamesMovedContent(string written)
@@ -448,7 +448,7 @@ public sealed class DrsCitationRewriter
             if (path == old) { return true; }
             if (!path.StartsWith(old + "/", StringComparison.Ordinal)) { continue; }
             string moved = replacement + path.Substring(old.Length);
-            return adrFiles.Contains(path) || adrFolders.Contains(path) || adrFiles.Contains(moved) || adrFolders.Contains(moved);
+            return recordFiles.Contains(path) || recordFolders.Contains(path) || recordFiles.Contains(moved) || recordFolders.Contains(moved);
         }
         return false;
     }
@@ -468,6 +468,6 @@ public sealed class DrsCitationRewriter
         Rooted,
         Repository,
         Relative,
-        AdrRelative
+        DrsRelative
     }
 }

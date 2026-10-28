@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../../design/.assets/get-aspect-feeds-globs-and-maps.drawio.png
+      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Get-Foo.ps1 holds exactly function Get-Foo; a module is its folder; public at th
 
 ## Image
 
-.assets/john-doe-dot-sources.png
+[john-doe-dot-sources](.assets/john-doe-dot-sources.png)
 
 ## Caption
 
-From the catalogue, reduced: get aspect feeds globs and maps.
+From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
 Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.
+docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

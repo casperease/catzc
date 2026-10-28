@@ -3,7 +3,7 @@ function Get-DrsDanglingCodeViolations {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.Drs.DrsConfig] $Adrs,
+        [Catzc.Base.Drs.DrsConfig] $Drs,
 
         [Parameter(Mandatory)]
         [pscustomobject] $Index,
@@ -13,7 +13,7 @@ function Get-DrsDanglingCodeViolations {
     )
 
     # A code named in prose is a citation like a link, so one naming no rule, record or domain dangles; fenced examples are left out.
-    $pattern = "(?<![\w-])$($Adrs.CodeForm.Cited)(?![\w#-]|:\d)"
+    $pattern = "(?<![\w-])$($Drs.CodeForm.Cited)(?![\w#-]|:\d)"
     $ret = foreach ($relative in $Index.Relative) {
         # A fence closes only on a bare run of its character at least as long as its opener, so four ticks can hold a three-tick example.
         $fence = $null
@@ -27,7 +27,7 @@ function Get-DrsDanglingCodeViolations {
                     foreach ($match in [regex]::Matches($lines[$i], $pattern)) {
                         $code = $match.Value
                         if (-not ($Map.IsRule($code) -or $Map.HasCode($code) -or $Map.IsDomainCode($code))) {
-                            "$($Adrs.Root)/${relative}:$($i + 1): cites $code, which names no registered rule, record or domain (a dangling code)"
+                            "$($Drs.Root)/${relative}:$($i + 1): cites $code, which names no registered rule, record or domain (a dangling code)"
                         }
                     }
                 }

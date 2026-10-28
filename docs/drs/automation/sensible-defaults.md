@@ -1,4 +1,4 @@
-# ADR: Sensible defaults for all parameters
+# Automation: Sensible defaults for all parameters
 
 ## Rules: ADR-AUTO-DEFAULT
 

@@ -22,7 +22,7 @@ description:
   "One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub paths keep the order exactly,
   Azure DevOps include and exclude collapse each pattern to its last select."
 about:
-  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
+  rules: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: meta
 content:
   title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps

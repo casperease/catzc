@@ -42,7 +42,7 @@ extends:
   parameters:
     Customer: flux
     Foundations:
-      - { env: nsub, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: nsub-weu-zct-ado-flux-lz-sc, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
     Discoveries:
-      - { env: nsub, serviceConnection: sc-flux-nonprod, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: nsub-weu-zct-ado-flux-lz-sc, subscriptionIdAssertIs: f1000000-de00-50b0-0000-000000000000 }
     Expeditions: []

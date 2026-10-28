@@ -25,7 +25,7 @@ description:
   Two Azure modules do the platform's part on the Bicep deploy path, and every vendor call, a template compile included, leaves through the
   az command-line tool, the one exit to Azure.
 about:
-  adrs:
+  rules:
     - DDR-THINPLAT-THINPLATFORM
     - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
     - DDR-THINPLAT-PLATFORMASCLI

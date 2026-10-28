@@ -94,22 +94,22 @@ public sealed class MinimapData
         return new MinimapData(Grid, axes, cells.ToArray(), lit.ToArray());
     }
 
-    // The axis: value-chain stacks down, concerns across, lit by the ADRs the highlight places.
+    // The axis: value-chain stacks down, concerns across, lit by the records the highlight places.
     public static MinimapData FromValueChain(ValueChainMap map, ValueChainHighlight highlight)
     {
         if (map == null) { throw new ArgumentNullException(nameof(map)); }
         if (highlight == null) { throw new ArgumentNullException(nameof(highlight)); }
         List<MinimapCell> cells = new List<MinimapCell>();
-        foreach (ValueChainCell cell in map.Cells) { cells.Add(new MinimapCell(new[] { cell.Stack, cell.Concern }, cell.AdrCount)); }
+        foreach (ValueChainCell cell in map.Cells) { cells.Add(new MinimapCell(new[] { cell.Stack, cell.Concern }, cell.RecordCount)); }
         List<MinimapCell> lit = new List<MinimapCell>();
         foreach (ValueChainCell cell in highlight.Cells)
         {
             List<MinimapReason> reasons = new List<MinimapReason>();
             foreach (ValueChainReason reason in highlight.ReasonsOf(cell.Stack, cell.Concern))
             {
-                reasons.Add(new MinimapReason(reason.Adr, reason.Override ? "concern" : "domain", reason.Requested, reason.Domain));
+                reasons.Add(new MinimapReason(reason.Record, reason.Override ? "concern" : "domain", reason.Requested, reason.Domain));
             }
-            lit.Add(new MinimapCell(new[] { cell.Stack, cell.Concern }, cell.AdrCount, reasons.ToArray()));
+            lit.Add(new MinimapCell(new[] { cell.Stack, cell.Concern }, cell.RecordCount, reasons.ToArray()));
         }
         MinimapAxis[] axes = { new MinimapAxis("stack", new List<string>(map.Stacks).ToArray()), new MinimapAxis("concern", new List<string>(map.Concerns).ToArray()) };
         return new MinimapData(Axis, axes, cells.ToArray(), lit.ToArray());

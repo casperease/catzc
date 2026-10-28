@@ -1,4 +1,4 @@
-# ADR: The JavaScript track — the editor extensions as modules, node's own runner, a types check, no package in the repository
+# Automation: The JavaScript track — the editor extensions as modules, node's own runner, a types check, no package in the repository
 
 ## Rules: ADR-AUTO-JS
 

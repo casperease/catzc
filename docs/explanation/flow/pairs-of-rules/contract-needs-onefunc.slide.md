@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../../../docs/drs/automation/BCL/.assets/bcl-language.drawio.png
+      source: ../../repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png
       scale: 0.4
 ---
 
@@ -22,12 +22,13 @@ One function per file, public by location, is what lets the reference pages be b
 
 ## Image
 
-.assets/contract-needs-onefunc.png
+[contract-needs-onefunc](.assets/contract-needs-onefunc.png)
 
 ## Caption
 
-From the catalogue, reduced: bcl language.
+From the catalogue, reduced: building the contract reference writes one page per unit.
 
 ## Notes
 
-Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram docs/drs/automation/BCL/.assets/bcl-language.drawio.png.
+Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram
+docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png.

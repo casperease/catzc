@@ -31,7 +31,7 @@ The GlossaryConfig type checks each source on its own when it loads; this checks
 ```
 
 - a defined_by that is not a rule's code under the drs.yml kinds — the GlossaryConfig type checks only its shape, and the registry decides
-  how many segments a rule's code has after its kind, so an ADR's code is reported here
+  how many segments a rule's code has after its kind, so a record's code is reported here
 
 ```text
 ([ADR-REPO-DRSCODE-NAMEDNOTNUMBERED](/docs/drs/repository/drs-code-language.md#rule-adr-repo-drscode-namednotnumbered));

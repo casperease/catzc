@@ -18,7 +18,8 @@ same reference is returned on repeat calls.
 
 A config registered in configs/configs.yml (`<name>: { type: <C# FQN> }`) is constructed as `[type]::new($dict`), which maps and validates
 it; every shipped config is registered (Test-ShippedConfigs). An unregistered config — a fixture, or one a PowerShell validator checks
-through Invoke-ConfigValidator (Catzc.Base.ConfigExtensions) — is returned raw, as the ordered dictionary. See ADR module-config-loading.
+through Invoke-ConfigValidator (Catzc.Base.ConfigExtensions) — is returned raw, as the ordered dictionary. See the module-config-loading
+record.
 
 In build mode, a consumer overlay may hold a fragment of the config at `<RepositoryRoot>/.catzc/pwsh/<Module>/configs/<name>.yml`. The
 fragment is merged onto the bundled config before the type validates it (Merge-ConfigFragment: maps merge, scalars and lists replace, null

@@ -1,4 +1,4 @@
-# ADR: Error handling — fail immediately, no warnings
+# PowerShell: Error handling — fail immediately, no warnings
 
 ## Rules: ADR-PWSH-ERROR
 
@@ -80,7 +80,7 @@ incorrectly, leading to errors that are swallowed, warnings that nobody reads, a
 
 ### The two-state model
 
-We simplify this to two states:
+catzc reduces it to two states:
 
 1. **Everything is fine.** Execution continues. Output goes through `Write-Message` and `Write-Verbose`.
 2. **Something is wrong.** Execution stops immediately via `throw` or `Assert-*`. The error propagates to the caller with a clear message.
@@ -110,8 +110,8 @@ condition is wrong enough to warn about, it is wrong enough to stop.
 by context. This ambiguity is the root cause of most PowerShell error handling bugs: the author wrote `Write-Error` expecting it to stop,
 but the caller's preference was `Continue`, so execution continued with bad state.
 
-`throw` is unambiguous. It always terminates. The importer also sets `$ErrorActionPreference = 'Stop'` so that cmdlet errors (which use the
-non-terminating error mechanism internally) also terminate. Between `throw` and `$ErrorActionPreference = 'Stop'`, every error is fatal.
+`throw` is unambiguous: it always terminates. The importer's `$ErrorActionPreference = 'Stop'` makes cmdlet errors, non-terminating by
+mechanism, terminate too, so every error is fatal.
 
 ### The Assert-* pattern
 
@@ -189,9 +189,8 @@ trace with file names and line numbers — far more useful than PowerShell's def
 
 ### The -AllowWarnings escape hatch
 
-The importer accepts `-AllowWarnings` to set `$WarningPreference` back to `Continue`. This exists for edge cases where third-party tools
-emit warnings through PowerShell's warning stream that cannot be suppressed at the source. It should be rare — if you find yourself using
-it, first check whether the warning can be fixed or the call can use `-WarningAction SilentlyContinue` on the specific cmdlet.
+The importer's `-AllowWarnings` sets `$WarningPreference` to `Continue`, for a third-party tool whose warning cannot be suppressed at the
+source. It is rare: fixing the warning, or `-WarningAction SilentlyContinue` on the one cmdlet, comes first.
 
 ## Decision
 
@@ -203,13 +202,9 @@ its own scriptblock-taking wrapper and never in a test.
 
 - **`importer.ps1`** — sets `$ErrorActionPreference = 'Stop'` and `$WarningPreference = 'Stop'` globally.
 - **`Set-StrictMode -Version Latest`** — catches uninitialized variables, absent properties, out-of-range indexes, and other common mistakes
-  at runtime. Strict mode belongs to a scope, and a session-level `Set-StrictMode` does not reach module code, so it is set where the code
-  runs: `Import-AllModules` sets it in each `Catzc.*` module's own script scope right after importing it (every function of the module
-  inherits it, in the source tree and in an installed bundle alike), each `.internal` module and custom analyzer rule declares it at its
-  top, and `Build-Bicep`/`Deploy-Bicep` set it in a template's `PrePost.psm1` scope after importing it. A pipeline or workflow step that
-  runs PowerShell is strict too: dot-sourcing the importer sets it for the step's scope, and a step that runs without the importer declares
-  `Set-StrictMode -Version Latest` as its first line. All code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy
-  `$script:` cache entry is probed as [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
+  at runtime, set in every scope catzc owns ([ADR-PWSH-ENGINE-STRICTMODELATEST](pwsh-engine.md#rule-adr-pwsh-engine-strictmodelatest)). All
+  code is therefore written strict-clean (ADR-PWSH-ERROR-STRICTCLEAN); a lazy `$script:` cache entry is probed as
+  [script-scope-caching](script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe) prescribes.
 - **Custom analyzer rules** — `Measure-NoWriteErrorOrWarning` flags `Write-Error` and `Write-Warning`; `Measure-NoUnsafeFirstIndex` flags
   `@(<result>)[0]` and `(<a | b>)[0]`; `Measure-NoCollapsingAssignment` flags a variable assigned an `if`, `switch` or `try` and later
   counted without `@()` or an array type; and `Measure-NoBareCacheEntryRead` flags a function file reading a `$script:` cache entry it has

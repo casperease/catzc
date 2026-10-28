@@ -24,7 +24,7 @@ function Measure-NoRawPipelineDetection {
         'env:TERM_PROGRAM'   = 'Test-IsRunningInVsCode'
     }
     $reasons = @{
-        'Test-IsRunningInPipeline' = 'so detection stays in one place and both Azure DevOps and GitHub Actions are covered. See ADR: pipeline-detection.'
+        'Test-IsRunningInPipeline' = 'so detection stays in one place and both Azure DevOps and GitHub Actions are covered. See the decision record pipeline-detection.'
         'Test-IsRunningInVsCode'   = 'so detection stays in one place and every VS Code terminal is read the same way (ADR-PWSH-TYPES-RESTARTTORELOAD).'
     }
 

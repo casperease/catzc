@@ -39,7 +39,7 @@ registry: "main-UAT passed its check", then "release-uat passed its check".
 
 ## Image
 
-.assets/signature-is-the-gate.png
+[signature-is-the-gate](.assets/signature-is-the-gate.png)
 
 ## Caption
 

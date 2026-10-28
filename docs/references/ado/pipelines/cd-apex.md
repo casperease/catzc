@@ -13,8 +13,9 @@ The CD pipeline of the customer apex: a thin root that picks what to deploy and 
 
 The lists name apex's non-prod configs only: CD stays in non-prod
 ([FDR-CD-CDSTAYSINNONPROD](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdstaysinnonprod)), and the prod subscription's
-targets (`psub`, `preprod`, `prod`) are `deploy-apex.yaml`'s, as a pipeline test checks. The service connection names (`sc-apex-*`) are
-illustrative until real service connections and a non-placeholder `azure.yml` exist.
+targets (`psub`, `preprod`, `prod`) are `deploy-apex.yaml`'s, as a pipeline test checks. Each entry names the service connection
+`Get-BicepServiceConnections` derives for its subscription: the landing-zone identity's for foundation and discovery, the workload
+identity's for expedition, as a pipeline test checks.
 
 ## Why it is shaped so
 

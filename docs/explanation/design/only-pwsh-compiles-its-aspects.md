@@ -25,7 +25,7 @@ description:
   "The aspect conventions are declared in one variants file and read by two modules: the globs engine compiles only the pwsh convention into
   a live and a tests globset per module, while the maps module reads every track's convention to classify files and derives no globset."
 about:
-  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
+  rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
   title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets

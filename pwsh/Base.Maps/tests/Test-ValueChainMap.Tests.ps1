@@ -40,7 +40,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result = Test-ValueChainMap -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'value-chain-map'
         $result.IssueCount | Should -Be 0
-        $result.Facts['Adrs'] | Should -Be 2
+        $result.Facts['Records'] | Should -Be 2
         $result.Facts['Rows'] | Should -Be ([Catzc.Base.Drs.DrsConfig]::Stacks.Count)
         $result.Facts['Columns'] | Should -Be ([Catzc.Base.Drs.DrsConfig]::Concerns.Count)
         $result.Facts['NonEmptyCells'] | Should -Be 3
@@ -54,7 +54,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
             "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Drs.DrsConfig]::Stacks -join ', '), in that order (ADR-REPO-VALUECHAIN-STACK)"
             "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Drs.DrsConfig]::Concerns -join ', '), in that order (ADR-REPO-VALUECHAIN-CONCERN)"
             "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (ADR-REPO-VALUECHAIN-CONCERN)"
-            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-REPO-VALUECHAIN-CONCERN)'
+            'unplaced record: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-REPO-VALUECHAIN-CONCERN)'
         )
     }
 

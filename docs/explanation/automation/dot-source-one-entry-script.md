@@ -24,7 +24,7 @@ description:
   "Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors, ending on one line in
   a console session; each of the three checks that can stop the load fails with a named error."
 about:
-  adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
+  rules: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
   lens: operations
 content:
   title: Dot-source one entry script, and a failed check stops the load with a named error

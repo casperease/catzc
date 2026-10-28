@@ -26,7 +26,7 @@ description:
   "Each stage of resolving a global config address with the rules that govern it and what checks them: two L0 test files check the grammar,
   the reader, the walk and the secret hand-off, while read-only and committed-only rest on convention."
 about:
-  adrs:
+  rules:
     - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
     - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
     - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
@@ -131,8 +131,8 @@ In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the d
 
 ## Where the code and the decision record differ
 
-- The read-only rule is stated by the ADR and repeated in the help texts, and no code or test prevents a write through a resolved node.
-- The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
+- The read-only rule is stated by the record and repeated in the help texts, and no code or test prevents a write through a resolved node.
+- The loading record says only `Get-Config` is public, while the addressing record makes `Get-ConfigValue` public as well, and it is.
 
 ## See also
 

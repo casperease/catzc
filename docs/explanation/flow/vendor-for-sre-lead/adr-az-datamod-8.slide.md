@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../design/.assets/code-wires-only-the-first-rungs.drawio.png
+      source: ../../azure/.assets/read-the-session-guard-then-pick-slot.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ coordinate stops discovery.
 
 ## Image
 
-.assets/adr-az-datamod-8.png
+[adr-az-datamod-8](.assets/adr-az-datamod-8.png)
 
 ## Caption
 
-From the catalogue, reduced: code wires only the first rungs.
+From the catalogue, reduced: read the session guard then pick the slot.
 
 ## Notes
 
 Check it: the record ADR-AZ-DATAMOD in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/code-wires-only-the-first-rungs.drawio.png.
+docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot.drawio.png.

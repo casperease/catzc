@@ -1,20 +1,20 @@
 # pwsh/Base.QualityGates/Get-DrsUsage.ps1
 
-The reader of who cites what in the decision records: it lists every ADR citation and ADR link the tracked files make, derived from the text
+The reader of who cites what in the decision records: it lists every DRS citation and DRS link the tracked files make, derived from the text
 and never from a head, so the answer does not depend on a head being current.
 
 ## help
 
 ### synopsis
 
-Lists every ADR citation and ADR link the tracked files make.
+Lists every DRS citation and DRS link the tracked files make.
 
 ### description
 
 Derives each file's citations and links from its text and its comment page with the processors the imprint uses, never from a head
 ([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so a file with no head or a stale
-one lists the same rows. One row per citation, in the order git lists the files. A code or rule the ADR index does not register, such as a
-placeholder named in a comment, gives no row. A bare code is the whole ADR (Rule is null). A file whose carrier is a JSON property is not
+one lists the same rows. One row per citation, in the order git lists the files. A code or rule the DRS index does not register, such as a
+placeholder named in a comment, gives no row. A bare code is the whole record (Rule is null). A file whose carrier is a JSON property is not
 listed, and neither is a file the index still lists but the working tree has deleted.
 
 GroupBy Rule answers "who cites this rule": one row per code and rule, with the documents that cite it. GroupBy Document answers "what does

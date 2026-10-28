@@ -211,7 +211,7 @@ public sealed class PlaceRows
         }
         string name = ModuleName(module, places);
         List<string> names = new List<string>();
-        foreach (string folder in folders) { names.Add(folder == ModuleRoot ? places.root_marker : new Catzc.Base.Objects.RepoRelativePath(folder).Relative); }
+        foreach (string folder in folders) { names.Add(folder == ModuleRoot ? places.root_marker : new Catzc.Base.Objects.RepoRelativePath(folder).Relative.Replace("/", places.row_join)); }
         names.Sort(string.CompareOrdinal);
         if (names.Count == 1 && names[0] == places.root_marker) { names.Clear(); }
         string full = Join(track, name, string.Join(places.fold_separator, names), places);

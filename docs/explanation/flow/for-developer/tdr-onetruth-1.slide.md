@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../flow/.assets/edit-globs-yml-then-read-the-output.drawio.png
+      source: ../../thesis/product-thesis/.assets/truth-stores.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ commit is both the change and its delivery.
 
 ## Image
 
-.assets/tdr-onetruth-1.png
+[tdr-onetruth-1](.assets/tdr-onetruth-1.png)
 
 ## Caption
 
-From the catalogue, reduced: edit globs yml then read the output.
+From the catalogue, reduced: truth stores.
 
 ## Notes
 
 Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.
+docs/explanation/thesis/product-thesis/.assets/truth-stores.drawio.png.

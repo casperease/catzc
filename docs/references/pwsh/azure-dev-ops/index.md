@@ -82,7 +82,6 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                               | `Update-AdoFlowOccupants`        |
 |                                                               | `Get-AdoDeliveryMetrics`         |
 | config                                                        | `environment-approvals.yml`      |
-|                                                               | `service-connections.yml`        |
 | responsibility:3 — Pipeline YAML discovery and classification | `Get-AdoYamlFiles`               |
 |                                                               | `Get-AdoYamlInventory`           |
 |                                                               | `Get-AdoFlowRows`                |

@@ -3,7 +3,7 @@ function Get-ModuleNeighbourhoodMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -27,7 +27,7 @@ function Get-ModuleNeighbourhoodMinimapData {
     $count = @{}
     $reasons = @{}
     $subject = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['module']) {
             continue
         }

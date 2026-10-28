@@ -7,8 +7,8 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Path), nameof(Track), nameof(FileLanguage), nameof(Basis))]
 public sealed class MapPlacement
 {
-    // The file of an ADR (the registry maps the code to it): it lights for its own code only.
-    public const string BasisAdrFile = "adr-file";
+    // The file of a record (the registry maps the code to it): it lights for its own code only.
+    public const string BasisRecordFile = "record-file";
 
     // The file's own citations.
     public const string BasisCitations = "citations";
@@ -40,10 +40,10 @@ public sealed class MapPlacement
     // The step that produced the highlight relation: one of the Basis constants.
     public string Basis { get; }
 
-    // The ADR code whose file this is (ADR-<CODE>); null for every other file.
-    public string Adr { get; }
+    // The record code whose file this is (ADR-<CODE>); null for every other file.
+    public string Record { get; }
 
-    // The ADR citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
+    // The record citations that light the file, canonical (ADR-<CODE> or ADR-<CODE>#n), distinct, in ordinal order.
     public IReadOnlyList<string> Citations { get; }
 
     // Where those citations sit: in the file itself, or in its owner's or globset's files; empty when nothing lights it.
@@ -51,7 +51,7 @@ public sealed class MapPlacement
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public MapPlacement(string path, string track, string fileLanguage, bool live, bool stackViolation, string basis, string adr,
+    public MapPlacement(string path, string track, string fileLanguage, bool live, bool stackViolation, string basis, string record,
         string[] citations, CitationSite[] sites = null)
     {
         Path = path;
@@ -60,7 +60,7 @@ public sealed class MapPlacement
         Live = live;
         StackViolation = stackViolation;
         Basis = basis;
-        Adr = adr;
+        Record = record;
         Citations = citations == null ? Array.Empty<string>() : (string[])citations.Clone();
         Sites = sites == null ? Array.Empty<CitationSite>() : (CitationSite[])sites.Clone();
     }

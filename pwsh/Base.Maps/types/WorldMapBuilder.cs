@@ -5,15 +5,15 @@ using System.Globalization;
 
 namespace Catzc.Base.Maps;
 
-// Builds the world map from plain inputs, tracks, file languages, tracked paths, aspects and the adrs index, so a test needs no disk.
+// Builds the world map from plain inputs, tracks, file languages, tracked paths, aspects and the DRS index, so a test needs no disk.
 public static class WorldMapBuilder
 {
     // The track whose files fall back to their globset's citations.
     public const string AdoPipelinesTrack = "vendor_ado.pipelines";
 
-    // adrFiles maps each code to its own file; citationExclude holds the globs whose citations light nothing.
-    public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary adrIndex,
-        IDictionary adrFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
+    // recordFiles maps each code to its own file; citationExclude holds the globs whose citations light nothing.
+    public static WorldMap Build(IEnumerable tracks, IEnumerable fileLanguages, IEnumerable paths, IDictionary aspects, IDictionary recordIndex,
+        IDictionary recordFiles, IDictionary texts, IDictionary rootOwners, IEnumerable globSets, IEnumerable citationExclude = null)
     {
         List<Catzc.Base.Objects.GlobPattern> excluded = new List<Catzc.Base.Objects.GlobPattern>();
         foreach (object glob in citationExclude ?? Array.Empty<object>())
@@ -24,7 +24,7 @@ public static class WorldMapBuilder
         List<Catzc.Base.Variants.VariantTrack> trackList = Items<Catzc.Base.Variants.VariantTrack>(tracks, "track");
         List<Catzc.Base.Languages.FileLanguage> languageList = Items<Catzc.Base.Languages.FileLanguage>(fileLanguages, "file language");
         List<Catzc.Base.Globs.GlobSet> globSetList = Items<Catzc.Base.Globs.GlobSet>(globSets, "globset");
-        IReadOnlyDictionary<string, string> index = CitationScanner.Index(adrIndex);
+        IReadOnlyDictionary<string, string> index = CitationScanner.Index(recordIndex);
 
         List<string> trackNames = new List<string>();
         foreach (Catzc.Base.Variants.VariantTrack track in trackList) { trackNames.Add(track.name); }
@@ -37,14 +37,14 @@ public static class WorldMapBuilder
             foreach (string extension in language.extensions) { languageByExtension[extension.ToLowerInvariant()] = language.name; }
         }
 
-        // The ADR code of each ADR file; a file two codes name keeps the first in ordinal code order.
-        Dictionary<string, string> adrByPath = new Dictionary<string, string>(StringComparer.Ordinal);
-        List<string> codes = new List<string>(Strings(adrFiles).Keys);
+        // The record code of each record file; a file two codes name keeps the first in ordinal code order.
+        Dictionary<string, string> recordByPath = new Dictionary<string, string>(StringComparer.Ordinal);
+        List<string> codes = new List<string>(Strings(recordFiles).Keys);
         codes.Sort(StringComparer.Ordinal);
-        Dictionary<string, string> fileByCode = Strings(adrFiles);
+        Dictionary<string, string> fileByCode = Strings(recordFiles);
         foreach (string code in codes)
         {
-            if (!adrByPath.ContainsKey(fileByCode[code])) { adrByPath[fileByCode[code]] = code; }
+            if (!recordByPath.ContainsKey(fileByCode[code])) { recordByPath[fileByCode[code]] = code; }
         }
         Dictionary<string, List<KeyValuePair<string, Catzc.Base.Objects.GlobPattern[]>>> aspectsByTrack = CompileAspects(aspects);
         Dictionary<string, string> ownerByRootFile = Strings(rootOwners);
@@ -80,16 +80,16 @@ public static class WorldMapBuilder
             bool live = track != null && IsLive(path, track, placeLength, aspectsByTrack);
             bool violation = live && extension != null && !Declares(track, fileLanguage);
 
-            string adr;
-            adrByPath.TryGetValue(path, out adr);
+            string record;
+            recordByPath.TryGetValue(path, out record);
             Catzc.Base.Globs.GlobSet pipelineSet = track != null && string.Equals(track.name, AdoPipelinesTrack, StringComparison.Ordinal) &&
                 ownCitations[path].Length == 0 ? PipelineSet(path, globSetList) : null;
             string basis;
             string[] citations;
             CitationSite[] sites;
-            if (adr != null)
+            if (record != null)
             {
-                basis = MapPlacement.BasisAdrFile;
+                basis = MapPlacement.BasisRecordFile;
                 citations = Array.Empty<string>();
                 sites = Array.Empty<CitationSite>();
             }
@@ -114,7 +114,7 @@ public static class WorldMapBuilder
                 basis = citations.Length > 0 ? MapPlacement.BasisCitations : MapPlacement.BasisNone;
             }
 
-            placements.Add(new MapPlacement(path, track == null ? WorldMap.NoTrack : track.name, fileLanguage, live, violation, basis, adr,
+            placements.Add(new MapPlacement(path, track == null ? WorldMap.NoTrack : track.name, fileLanguage, live, violation, basis, record,
                 citations, sites));
         }
 

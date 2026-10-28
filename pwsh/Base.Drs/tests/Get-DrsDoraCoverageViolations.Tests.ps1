@@ -1,6 +1,6 @@
 Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
-        $script:adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+        $script:drs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
@@ -15,7 +15,7 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
                         stack = 'AUTO'; concern = @('automation')
                         rulesets = [ordered]@{
                             'gadget-one' = [ordered]@{ external = 'ADR-GA-ONE' }
-                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no ADR file: a Test-DrsRegistry finding
+                            'gadget-two' = [ordered]@{ external = 'ADR-GA-TWO' }   # no record file: a Test-DrsRegistry finding
                         }
                     }
                     gizmo  = [ordered]@{
@@ -66,9 +66,9 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
         function Get-Finding {
             param([System.Collections.IDictionary] $Settings)
             $check = [Catzc.Base.Drs.DrsChecksConfig]::new([ordered]@{ dora_coverage = $Settings }).dora_coverage
-            InModuleScope Catzc.Base.Drs -Parameters @{ Adrs = $script:adrs; Root = $script:root; Check = $check } {
-                $index = Get-DrsFileIndex @($Adrs.RuleSets) -DrsRoot $Root
-                Get-DrsDoraCoverageViolations -Adrs $Adrs -Index $index -Settings $Check
+            InModuleScope Catzc.Base.Drs -Parameters @{ Drs = $script:drs; Root = $script:root; Check = $check } {
+                $index = Get-DrsFileIndex @($Drs.RuleSets) -DrsRoot $Root
+                Get-DrsDoraCoverageViolations -Drs $Drs -Index $index -Settings $Check
             }
         }
         $script:findings = Get-Finding ([ordered]@{})
@@ -88,7 +88,7 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
         $findings | Should -Contain 'docs/drs/gizmo/dora-explains.md: missing, so no section links ADR-GZ-ONE'
     }
 
-    It 'passes a rule set with exactly one section and skips one with no ADR file' {
+    It 'passes a rule set with exactly one section and skips one with no record file' {
         $findings | Should -HaveCount 3
         $findings | Where-Object { $_ -like '*ADR-WI-ONE*' -or $_ -like '*ADR-GA-TWO*' } | Should -HaveCount 0
     }

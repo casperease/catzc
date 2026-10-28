@@ -10,8 +10,8 @@ The CD pipeline of the customer nova: a thin root that picks what to deploy and 
 - **Expeditions** — `dev`, the configuration without a slot name, with its ADO environment.
 - **Per deployment** — the service connection and the `subscriptionIdAssertIs` GUID (from `azure.yml`) that pins the target subscription.
 
-The prod tier (`psub`, preprod, `prod`) is added when nova grows. The connection name `sc-nova-nonprod` is illustrative until real service
-connections and a non-placeholder `azure.yml` exist.
+The prod tier (`psub`, preprod, `prod`) is added when nova grows. Each entry names the service connection `Get-BicepServiceConnections`
+derives for nova's non-prod subscription and the identity the template needs.
 
 ## Why it is shaped so
 

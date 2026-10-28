@@ -1,7 +1,7 @@
 description:
   "An author reads an accosted file: one harmless call, and the observations that show the file and the contract checks are as they were."
 about:
-  adrs:
+  rules:
     - ADR-AUTO-ACCOSTED-HARMLESS
     - ADR-AUTO-ACCOSTED-RUNNER
     - DDR-VISUAL-ACTIONISALENS
@@ -32,3 +32,4 @@ content:
       where: local
       says: The contract check results are unchanged
       proves: { get_contract_check_results }
+  minimaps: [code-locations, axis, lifecycle-position]

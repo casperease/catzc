@@ -1,4 +1,4 @@
-# ADR: Idiomatic names — each language names its own way, over one repository normal form
+# Automation: Idiomatic names — each language names its own way, over one repository normal form
 
 ## Rules: ADR-AUTO-IDIOM
 
@@ -49,14 +49,16 @@ its one short form in any projection that shows it in a row: its path from the r
 ([ADR-AUTO-PATH](path-representation.md)), joined with `.` (`pwsh.azure.types`, `docs.explanation.ado`, `.claude.skills`). The module's
 `Catzc.` prefix is dropped whole, and a dot inside a module name becomes `_`, so the module name is lower-case snake, the repository normal
 form (`Azure.Templates` is `azure_templates`); the dot is then only ever the path join. A module's lit sub-folders share one row, joined by
-`|` in sort order, the module's own root among them written `(root)` (`pwsh.azure_templates.(root)|tests|types`); a module with no lit
-sub-folder is just `pwsh.<module>`. A place outside any module is its own row, the track and the whole path of its folder: a module that
-only repeats its track (`.claude` in `.claude`) is no module, and a place at the docs root, which names no folder, has no row and is not
-counted. Rows are sorted in true repository path order, the track first and then the module's or the folder's path (`.claude` before `docs`
-before `pwsh`). A row never cuts a name: it holds every joined folder whole, or, when they do not fit the configured characters, the count
-of the places (`pwsh.azure.+3`); a folder path keeps the whole segments that fit and counts the rest (`docs.explanation.automation.+2`); no
-row carries an elision. A projection computes its rows once, beside its data, from the inputs its source carries, and whatever shows the
-projection prints the rows as given and cuts nothing itself; how a projection budgets and folds its rows is its own configuration.
+`|` in sort order, the module's own root among them written `(root)` (`pwsh.azure_templates.(root)|tests|types`); a nested sub-folder is its
+path joined with `.` (`pwsh.base_folders.tests.types`), so each `|` part is one place and a module row's `+N` counts N places; a module with
+no lit sub-folder is just `pwsh.<module>`. A place outside any module is its own row, the track and the whole path of its folder: a module
+that only repeats its track (`.claude` in `.claude`) is no module, and a place at the docs root, which names no folder, has no row and is
+not counted. Rows are sorted in true repository path order, the track first and then the module's or the folder's path (`.claude` before
+`docs` before `pwsh`). A row never cuts a name: it holds every joined folder whole, or, when they do not fit the configured characters, the
+count of the places (`pwsh.azure.+3`); a folder path keeps the whole segments that fit and counts the rest
+(`docs.explanation.automation.+2`); no row carries an elision. A projection computes its rows once, beside its data, from the inputs its
+source carries, and whatever shows the projection prints the rows as given and cuts nothing itself; how a projection budgets and folds its
+rows is its own configuration.
 
 - [Places have one short form](#places-have-one-short-form)
 
@@ -80,7 +82,8 @@ this rule says only how they are cased.
 
 A language's test folder, `<root>/tests/<module>/`, is named for its catzc module by rendering the module's normal form in the language's
 folder case, the namespace dropped: `base_repository` for a `snake` language, `baserepository` for a `flat` one, `base-repository` for a
-`kebab` one. A test folder maps back to its module by the same rendering, so no mapping file exists and no convention is shared across languages.
+`kebab` one. A test folder maps back to its module by the same rendering, so no mapping file exists and no convention is shared across
+languages.
 
 - [Test folders](#test-folders)
 
@@ -140,12 +143,12 @@ language's own idiom, Python's, which costs nothing: a normal form that happens 
 
 A projection names places in a row only a few dozen characters wide, such as a diagram's sidebar. Left to whatever shows it, each place is
 cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is a
-path, and a path is one entity ([ADR-AUTO-PATH](path-representation.md)); the place normal form is one short way to write it.
-Dropping the prefix every module shares and writing the module in the repository normal form gives a row that is still a path, shorter, and
-one that reads the same wherever a name appears; keeping the dot for the path join alone means a row splits into track, module and folders
-without a guess. A module's folders share its row because the module is what a reader looks for. When even that is too long, whole names are
-kept and the rest is marked, never a name cut in the middle. Computing the rows once, beside the data, means every projection of the same
-places prints the same rows, and its budget stays one setting.
+path, and a path is one entity ([ADR-AUTO-PATH](path-representation.md)); the place normal form is one short way to write it. Dropping the
+prefix every module shares and writing the module in the repository normal form gives a row that is still a path, shorter, and one that
+reads the same wherever a name appears; keeping the dot for the path join alone means a row splits into track, module and folders without a
+guess. A module's folders share its row because the module is what a reader looks for. When even that is too long, whole names are kept and
+the rest is marked, never a name cut in the middle. Computing the rows once, beside the data, means every projection of the same places
+prints the same rows, and its budget stays one setting.
 
 ### Acronyms are words
 

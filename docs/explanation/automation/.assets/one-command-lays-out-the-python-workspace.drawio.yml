@@ -2,7 +2,7 @@ description:
   "A maintainer adds a Python folder and runs one command: it renders the uv workspace root and the member's project file from the languages
   configuration, the tree classifies both and holds them to their source, and the Python quality gates pass over the workspace."
 about:
-  adrs:
+  rules:
     - ADR-AUTO-UVPY-UVHANDLESPYTHON
     - ADR-AUTO-PY-PYWORKSPACE
     - ADR-AUTO-PY-ONEPYTHONVERSION
@@ -64,5 +64,6 @@ content:
       says: Test-Formatting passes for the Python language
       proves: { test_formatting: { language: python } }
       after: effect-member
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   frame: { x: 20, y: 108, w: 1260, h: 620 }

@@ -1,7 +1,7 @@
 # Three gates check the registry, the drift and the git membership; one rule has no gate
 
 ```text
-Three gates check the registry, the drift and the git membership; one clause of the ADR has no gate.
+Three gates check the registry, the drift and the git membership; one clause of the record has no gate.
 
 1  rootconfig.yml               the registry: rules #1 and #2 govern its entries; "not restated elsewhere" has no gate
 2  RootConfigFiles              the load-time gate: exactly one source (#1), a wildcard target only with a generator (#8)
@@ -20,7 +20,7 @@ and ADR-REPO-ROOTCFG-WILDCARDGENERATOR (governance lens).
 
 The eight rules of the generated-root-configs decision are enforced at three points. A malformed registry stops the config load; a target
 that differs from what the writer would compose fails the drift check; and a target whose git membership, ignore rule, copy or link status
-disagrees with the registry fails the integrity check. One clause stands on the ADR alone: that the target-to-source pairing is restated
+disagrees with the registry fails the integrity check. One clause stands on the record alone: that the target-to-source pairing is restated
 nowhere else.
 
 ```yml drawio
@@ -28,7 +28,7 @@ description:
   "Which rules of the generated-root-configs decision a gate checks: the load-time type gate, the drift gate and the integrity gate, with
   the one clause no gate checks drawn dashed."
 about:
-  adrs:
+  rules:
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-REGISTRY
     - ADR-REPO-ROOTCFG-COMMITTEDFLAG

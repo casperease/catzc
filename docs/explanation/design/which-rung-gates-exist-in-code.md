@@ -29,7 +29,7 @@ description:
   "The rungs of the commit ladder from a topic commit to production, each with its gate: only PR build validation, the BVT and the failure
   stop are checked in code, and every gate from L3 up to production is stated by the ADRs and enforced by nothing yet."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-RETIREMENTISNOTDISCARD

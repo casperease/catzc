@@ -197,3 +197,11 @@ terms:
       meaning: "pytest's autouse flag (@pytest.fixture(autouse=True)), a fixture every test in its scope uses"
     - term: ignorecase
       meaning: "git's core.ignorecase config key, which leaves a case-only folder rename unrecorded in the index"
+    - term: figcaption
+      meaning: "the HTML figcaption element, the caption of a figure, in the slide pattern test's rendered markup"
+    - term: getrgb
+      meaning: "PIL's ImageColor.getrgb, which turns a colour name or hex string into an RGB tuple, used by the slide PNG test"
+    - term: getcolors
+      meaning: "PIL's Image.getcolors, which lists an image's colours with their counts, used by the slide PNG test"
+    - term: maxcolors
+      meaning: "the maxcolors parameter of PIL's Image.getcolors, the most distinct colours it returns"

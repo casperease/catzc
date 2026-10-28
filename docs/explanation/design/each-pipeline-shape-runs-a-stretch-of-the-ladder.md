@@ -21,7 +21,7 @@ description:
   "Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
   moves it, and every state it holds can be discarded."
 about:
-  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL]
+  rules: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL]
   lens: architecture
 content:
   title: Each pipeline shape runs a stretch of the promotion ladder, and every state it reaches can be discarded
@@ -94,7 +94,7 @@ content:
 
         RBC: Release Branch Certification (hands on)"
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 ```
 
 ![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/state-changes.drawio.png)

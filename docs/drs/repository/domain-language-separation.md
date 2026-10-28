@@ -1,13 +1,13 @@
-# ADR: Language-zone separation — three zones, three terminologies
+# Repository: Language-zone separation — three zones, three terminologies
 
 ## Rules: ADR-REPO-LANG
 
 ### Rule ADR-REPO-LANG-THREEREGISTERS
 
 The repository speaks in three registers that must not bleed together — each a **language zone** with its own **terminology** and
-**modelling language**: the **design** zone (ADRs and reference docs, whose examples are the discovery theme), the **test** zone (hermetic
-tests, whose identities are deliberately-distinct fixtures), and the **live** zone (the shipped configuration, whose identities are the
-real-customer-shaped names the demo deployment maps to). A token from one zone appearing in another is a language break.
+**modelling language**: the **design** zone (decision records and reference docs, whose examples are the discovery theme), the **test** zone
+(hermetic tests, whose identities are deliberately-distinct fixtures), and the **live** zone (the shipped configuration, whose identities
+are the real-customer-shaped names the demo deployment maps to). A token from one zone appearing in another is a language break.
 
 - [The three zones](#the-three-zones)
 
@@ -29,8 +29,8 @@ identities are legitimate inside an `integrity`-tagged block and nowhere else in
 ### Rule ADR-REPO-LANG-DESIGNZONETHEME
 
 The **design** zone uses the discovery theme (ADR-REPO-EXAMPLE) — `discovery`/`expedition`/`survey`, `Contoso`/`Globex`,
-`develop`/`preprod`. Test fixtures never appear as ADR examples. Live identities may appear in docs, but only where an ADR documents the
-actual data model as its subject (`azure-data-model.md` naming `apex`/`nova`), not as illustration.
+`develop`/`preprod`. Test fixtures never appear as decision-record examples. Live identities may appear in docs, but only where a record
+documents the actual data model as its subject (`azure-data-model.md` naming `apex`/`nova`), not as illustration.
 
 - [The design zone](#the-design-zone)
 
@@ -69,11 +69,11 @@ and values (comment-blind) rather than its raw text.
 The repository's example vocabulary is governed in three separate places — the discovery theme for documentation
 ([documentation-examples](documentation-examples.md), `ADR-REPO-EXAMPLE`), the fixture identities for tests
 ([test-automation](../automation/test-automation.md#rule-adr-auto-test-distinctfixtures), `ADR-AUTO-TEST-DISTINCTFIXTURES`), and the real
-identities of the Azure domain's data, naming and customer models. This ADR is the rule that ties them together: these are three faces of
+identities of the Azure domain's data, naming and customer models. This record is the rule that ties them together: these are three faces of
 one discipline — a token belongs to exactly one zone, and it does not appear in the others. Without that rule, a logic test drifts into
-naming a real customer (testing the config by accident), an ADR illustrates with a test fixture, and the three vocabularies blur.
+naming a real customer (testing the config by accident), a record illustrates with a test fixture, and the three vocabularies blur.
 
-This ADR names the discipline and records how it is enforced — and, as importantly, how it is **not**, because the obvious mechanism does
+This record names the discipline and records how it is enforced — and, as importantly, how it is **not**, because the obvious mechanism does
 not work.
 
 ### The three zones
@@ -117,10 +117,10 @@ shipped assets ([ADR-AUTO-TEST-ONECATEGORY](../automation/test-automation.md#rul
 
 `The design zone and the doc asymmetry`
 
-Design examples are the discovery theme, and this is asymmetric on purpose. A test fixture (`acme`, `alpha`) must never appear in an ADR —
-an ADR that illustrated with test fixtures would be borrowing another zone's vocabulary. But a live identity legitimately appears in a doc
-when the doc's subject **is** that identity: `azure-data-model.md` names `apex` and `nova` because it is describing the real data model, not
-illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
+Design examples are the discovery theme, and this is asymmetric on purpose. A test fixture (`acme`, `alpha`) must never appear in a decision
+record — a record that illustrated with test fixtures would be borrowing another zone's vocabulary. But a live identity legitimately appears
+in a doc when the doc's subject **is** that identity: `azure-data-model.md` names `apex` and `nova` because it is describing the real data
+model, not illustrating a general point. So docs admit live identities as a documented subject, never fixtures as illustration.
 
 ### Beyond a spell-checker
 
@@ -142,7 +142,7 @@ The set of live identities a logic test may not name is not a maintained list �
 customer added to `customer.yml` is banned from logic tests the moment it exists, and one renamed updates the ban automatically. The
 terminology registry's per-category `scope` ([spell-out-names](../automation/spell-out-names.md)) declares which zone each vocabulary
 category belongs to — `fixture` is the test zone, `azure-live` the live zone, `adr-example` the design zone. That map is the
-machine-readable statement of intent; the gate consumes it, and a later step can widen what it drives.
+machine-readable statement of intent, and the gate consumes it.
 
 ### Exact, conservative, staged
 
@@ -182,8 +182,8 @@ declares the zones; a file-glob spell-checker is not used, because it cannot sep
 - **The terminology `scope` map** ([spell-out-names](../automation/spell-out-names.md)) records each category's zone, and `Test-Terminology`
   keeps the registry honest — but cspell does not scope on it (ADR-REPO-LANG-SEMANTICENFORCEMENT).
 
-- **Code review** covers the design-zone rules a gate does not — an ADR illustrating with a test fixture (ADR-REPO-LANG-DESIGNZONETHEME), or
-  a live identity in a doc that is not documenting that identity as its subject.
+- **Code review** covers the design-zone rules a gate does not — a record illustrating with a test fixture (ADR-REPO-LANG-DESIGNZONETHEME),
+  or a live identity in a doc that is not documenting that identity as its subject.
 
 ## Consequences
 

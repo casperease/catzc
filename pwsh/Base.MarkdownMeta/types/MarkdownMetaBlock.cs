@@ -18,7 +18,7 @@ public static class MarkdownMetaBlock
 
     static readonly Regex PlainSafe = new Regex(@"^[A-Za-z_][A-Za-z0-9_./#@+-]*$", RegexOptions.Compiled);
 
-    // An ADR group (ADR-<CODE>#{1,3-5}): YAML reads its braces and comma as plain text inside a block scalar.
+    // A rule-code group (ADR-<CODE>#{1,3-5}): YAML reads its braces and comma as plain text inside a block scalar.
 
     static readonly HashSet<string> Reserved = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {

@@ -3,7 +3,7 @@ function Get-DrsDoraCoverageViolations {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Base.Drs.DrsConfig] $Adrs,
+        [Catzc.Base.Drs.DrsConfig] $Drs,
 
         [Parameter(Mandatory)]
         [pscustomobject] $Index,
@@ -12,7 +12,7 @@ function Get-DrsDoraCoverageViolations {
         [Catzc.Base.Drs.DrsDoraCheck] $Settings
     )
 
-    $ret = foreach ($domain in $Adrs.Domains) {
+    $ret = foreach ($domain in $Drs.Domains) {
         if ($Settings.exempt.ContainsKey($domain.Name)) {
             continue
         }
@@ -20,12 +20,12 @@ function Get-DrsDoraCoverageViolations {
         $doraPath = [System.IO.Path]::Combine($Index.Root, $doraRelative)
         if (-not [System.IO.File]::Exists($doraPath)) {
             foreach ($ruleSet in $domain.RuleSets) {
-                "$($Adrs.Root)/${doraRelative}: missing, so no section links $($ruleSet.External)"
+                "$($Drs.Root)/${doraRelative}: missing, so no section links $($ruleSet.External)"
             }
             continue
         }
 
-        # The ADR files each `## ` section links, keyed by the section's heading line.
+        # The record files each `## ` section links, keyed by the section's heading line.
         $sections = [System.Collections.Generic.List[object]]::new()
         $current = $null
         $inFence = $false
@@ -62,21 +62,21 @@ function Get-DrsDoraCoverageViolations {
             if (-not $Index.FileOf.ContainsKey($ruleSet.External)) {
                 continue
             }
-            $adrRelative = $Index.FileOf[$ruleSet.External]
-            if ($Settings.IsExemptPath($adrRelative)) {
+            $recordRelative = $Index.FileOf[$ruleSet.External]
+            if ($Settings.IsExemptPath($recordRelative)) {
                 continue
             }
             $linkingLines = [System.Collections.Generic.List[int]]::new()
             foreach ($section in $sections) {
-                if ($section.Targets.Contains($adrRelative)) {
+                if ($section.Targets.Contains($recordRelative)) {
                     $linkingLines.Add($section.Line)
                 }
             }
             if ($linkingLines.Count -eq 0) {
-                "$($Adrs.Root)/${doraRelative}: no section links $($ruleSet.External) ($($Adrs.Root)/$adrRelative)"
+                "$($Drs.Root)/${doraRelative}: no section links $($ruleSet.External) ($($Drs.Root)/$recordRelative)"
             }
             elseif ($linkingLines.Count -gt 1) {
-                "$($Adrs.Root)/${doraRelative}:$($linkingLines -join ','): $($linkingLines.Count) sections link $($ruleSet.External) ($($Adrs.Root)/$adrRelative)"
+                "$($Drs.Root)/${doraRelative}:$($linkingLines -join ','): $($linkingLines.Count) sections link $($ruleSet.External) ($($Drs.Root)/$recordRelative)"
             }
         }
     }

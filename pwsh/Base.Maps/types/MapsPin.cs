@@ -1,11 +1,11 @@
 namespace Catzc.Base.Maps;
 
 // One reviewed pin or exception: a record code, optionally one rule of it, and the cell it names.
-[Catzc.Base.Objects.ConsoleDisplay(nameof(adr), nameof(track), nameof(file_language))]
+[Catzc.Base.Objects.ConsoleDisplay(nameof(rule), nameof(track), nameof(file_language))]
 public sealed class MapsPin
 {
-    // The ADR code, or one rule of it (an index code, or a rule code that extends it).
-    public string adr { get; }
+    // The record code, or one rule of it (an index code, or a rule code that extends it).
+    public string rule { get; }
 
     // The cell's track: a key of the `tracks` map in variants.yml (e.g. pwsh, vendor_git.root_configs).
     public string track { get; }
@@ -18,9 +18,9 @@ public sealed class MapsPin
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public MapsPin(string adr, string track, string fileLanguage, string reason)
+    public MapsPin(string rule, string track, string fileLanguage, string reason)
     {
-        this.adr = adr;
+        this.rule = rule;
         this.track = track;
         file_language = fileLanguage;
         this.reason = reason;

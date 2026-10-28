@@ -1,8 +1,8 @@
 # DORA explanations — repository
 
-The `Dora explains` rationale for the ADRs in the `repository/` domain, consolidated in one place. Each entry names its ADR and rule code,
-then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
-live in the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the decision records of the `repository/` domain. Each entry names its record by code, then gives its tie
+to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in the records; this file
+carries only their DORA rationale.
 
 ## Conventional folders
 
@@ -103,7 +103,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Test automation](../../references/dora/capabilities.md#test-automation) — every command contract is proven against the parse of its
   command's file and resolved from every engine by generated tests.
 - [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a signature change that breaks a contract fails
-  the draft's or the frozen folder's check before it merges.
+  the `0.1.0` or the release folder's check before it merges.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Generated READMEs
@@ -205,7 +205,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > that documentation accurate as it grows, and an in-repository glossary keeps it versioned and checked like the code.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — one definition per term, with its differences from
-  similar terms spelled out, keeps every ADR, help text, and message consistent.
+  similar terms spelled out, keeps every record, help text, and message consistent.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a shared, enforced vocabulary lets anyone read and
   change any part of the codebase without relearning private meanings.
 - [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — an in-repository, structured glossary
@@ -219,7 +219,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-REPO-LINK](markdown-links.md)
 
 > DORA's research on documentation quality finds that documentation helps only while it is accurate and findable; a pointer from code to the
-> decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved ADR, a citation of a renumbered rule —
+> decision behind it is documentation too, and a pointer that silently rots — a bare path to a moved record, a citation of a renamed rule —
 > sends the reader to the wrong rationale or none. Checking every link and deriving each code link from its citation keeps those pointers
 > true as the documents move.
 
@@ -254,12 +254,12 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 > DORA's research on documentation quality finds that documentation helps only while it is accurate and findable. A citation that names its
 > rule, instead of numbering it, tells the reader what the decision asks for before they open it, and one prefix search finds a domain, an
-> ADR, or a rule alike.
+> record, or a rule alike.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — every citation reads as the fact it cites, and a
   code prefix finds every rule under it.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a code that names its rule tells anyone changing the
-  code what the rule asks for without opening the ADR.
+  code what the rule asks for without opening the record.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Comments in docs
@@ -270,8 +270,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 > DORA's research on documentation quality finds that documentation helps when it is accurate, findable, and kept where readers look for it;
 > long prose buried between statements is reviewed as code and read only by whoever opens that file. Moving it, verbatim, to a page beside
-> the module's reference article, and leaving one line of insight and a checked link in the code, keeps both the code and its explanation
-> easy to read.
+> the module's reference article, and leaving one line of insight in the code, keeps both the code and its explanation easy to read.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — the prose lives in one findable place, rendered and
   reviewed as documentation, and a gate keeps every comment and its page paired.
@@ -303,11 +302,12 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-REPO-CODEMETA](code-file-meta.md)
 
-> DORA's research finds that code which shows its place and tier at a glance is easier to change safely, and that a fact a tool writes
-> cannot go stale the way a typed one does. A head that changes only when a file moves or changes tier adds no noise to a change.
+> DORA's research finds that code whose reasons are one step away is easier to change safely, and that a fact a tool writes cannot go stale
+> the way a typed one does. A head that holds only the way to the file's comment page changes only when that page moves, so it adds no noise
+> to a change.
 
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a file states its path, module and tier at the top,
-  so a reader changes it with its place in view.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a file names its comment page at the top, so a reader
+  reaches its reasons in one step.
 - [Version control](../../references/dora/capabilities.md#version-control) — the head holds no hash of the body, so an edit stays one hunk
   and concurrent edits do not conflict on it.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
@@ -343,7 +343,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   and the standard agent for delegated work are written down where every session starts.
 - [AI-accessible internal data](../../references/dora/capabilities.md#ai-accessible-internal-data) — an agent works from the rules its
   registry entry cites, so its answers follow the repository's decisions rather than general habit.
-- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a renumbered rule or a renamed check fails a check
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a retired rule or a renamed check fails a check
   instead of leaving an agent that points at nothing.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
@@ -429,7 +429,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 > registry it cites, is documentation that stays true the same way the code does.
 
 - [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — a slide quotes a rule verbatim or the render
-  reports the drift, so a deck never states a rule its ADR no longer holds.
+  reports the drift, so a deck never states a rule its record does not hold.
 - [Version control](../../references/dora/capabilities.md#version-control) — the slide files are the deck's one source of truth; the
   published page is a projection replaced whole on publish.
 - [Working in small batches](../../references/dora/capabilities.md#working-in-small-batches) — one file per slide makes a deck change a

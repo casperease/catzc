@@ -2,12 +2,12 @@
 
 The maps module. It **computes the world map**: every tracked file placed in exactly one cell of the repository's tracks crossed with its
 file languages, built from the repository's own registries and the git index, never drawn by hand
-([tracks](../../../drs/design/tracks.md#rule-ddr-track-worldmap)). On that map it lights the cells an ADR code or a set of files concerns,
+([tracks](../../../drs/design/tracks.md#rule-ddr-track-worldmap)). On that map it lights the cells a record code or a set of files concerns,
 checks that no track carries a second tech-stack, and draws the map as deterministic PDFs. Beside it, it computes the value-chain map, the
-ADRs placed on the value-chain stack crossed with the value-chain concerns
+records placed on the value-chain stack crossed with the value-chain concerns
 ([tracks](../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map)). It does **not** declare the axes: the tracks come from
 [Catzc.Base.Variants](../base-variants/index.md), the file languages from [Catzc.Base.Languages](../base-languages/index.md), and the
-value-chain stack and concerns from the ADR registry of [Catzc.Base.Docs](../base-docs/index.md); this module only reads them. The concepts
+value-chain stack and concerns from the DRS registry of [Catzc.Base.Docs](../base-docs/index.md); this module only reads them. The concepts
 it draws are the subject of [tracks](../../../drs/design/tracks.md).
 
 ## Responsibilities
@@ -30,8 +30,8 @@ returned as an object or as JSON, so a tool reads it without PowerShell.
 
 ### responsibility:2 — Lit cells
 
-Answering "where does this decision, or this change, sit": the cells an ADR code (or one of its rules) or a set of tracked files lights. An
-ADR code lights the ADR files of its ADR domain and every file whose citations name it, derived in a fixed order per artifact kind, and the
+Answering "where does this decision, or this change, sit": the cells a record code (or one of its rules) or a set of tracked files lights. A
+record code lights the record files of its domain and every file whose citations name it, derived in a fixed order per artifact kind, and the
 reviewed pins and exceptions in the configuration then apply. With no argument it lights the cells the working tree's changes sit in.
 Lighting a cell never changes its file count.
 
@@ -43,10 +43,10 @@ quality-gate report.
 
 ### responsibility:4 — Value-chain map
 
-Building the value-chain map from the ADR registry: one row per row of the value-chain stack, one column per value-chain concern, and every
-ADR in the cells where its ADR domain's row meets each of its value-chain concerns. An ADR code, or one of its rules, lights the cells its
-ADR sits in. The map and a highlight are returned as objects or as JSON. Its own quality gate checks that the rows and columns are the
-registry's closed sets, that every ADR sits in at least one cell, and that every value-chain label names a defined term.
+Building the value-chain map from the DRS registry: one row per row of the value-chain stack, one column per value-chain concern, and every
+record in the cells where its domain's row meets each of its value-chain concerns. A record code, or one of its rules, lights the cells its
+record sits in. The map and a highlight are returned as objects or as JSON. Its own quality gate checks that the rows and columns are the
+registry's closed sets, that every record sits in at least one cell, and that every value-chain label names a defined term.
 
 ### responsibility:5 — PDF rendering
 
@@ -58,8 +58,8 @@ are configuration with a default declared once on the config type. The bytes dep
 ### responsibility:6 — Minimap data
 
 Computing the data a diagram's minimaps draw, one function per minimap, in the one shape of the minimap contract. A diagram's subject is the
-files its ADR codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry (the
-rungs, the ADR layers, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and the requested
+files its record codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry (the
+rungs, the layers of the records, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and the requested
 code that light it. A caller drawing many diagrams reads the facts of every subject file once and hands them to each minimap, as it does the
 world map. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
 
@@ -77,16 +77,16 @@ responsibility 3 turns that mark into an issue. And every label the map prints n
 ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also holds
 the configured labels to the glossary: the renderer of responsibility 5 prints nothing the vocabulary does not define.
 
-Responsibility 2 joins the map to the ADRs. It reads citations from the files' own text, so a file lights for an ADR when it cites it, and
+Responsibility 2 joins the map to the records. It reads citations from the files' own text, so a file lights for a record when it cites it, and
 the configuration records the reviewed cases where a citation is a passing mention or a drawing needs a cell its files do not cite. The
-module reads the ADR index through [Catzc.Base.Docs](../base-docs/index.md), the tracked files through
+module reads the DRS index through [Catzc.Base.Docs](../base-docs/index.md), the tracked files through
 [Catzc.Base.Files](../base-files/index.md), and the globsets through [Catzc.Base.Globs](../base-globs/index.md); it writes its PDFs under
 the output root
 ([dedicated-output-directory](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)) and draws
 them with its own BCL-only PDF writer.
 
-Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the ADR registry,
-where each ADR domain declares its row and a default set of value-chain concerns and an ADR declares its own only when it differs
+Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the DRS registry,
+where each domain declares its row and a default set of value-chain concerns and a record declares its own only when it differs
 ([ADR-REPO-VALUECHAIN-CONCERN][r1]), so its picture is declared, never guessed.
 Its quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check different
 properties; the labels of both maps share one configuration section and one glossary check.

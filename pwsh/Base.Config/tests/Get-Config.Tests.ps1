@@ -169,6 +169,24 @@ Describe 'Get-Config' -Tag 'L0' {
             }
         }
 
+        It 'refuses a config that is both a file and a same-named folder in one module, naming both paths' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $root 'Base.Widget/configs/sprocket') | Out-Null
+            Set-Content -LiteralPath (Join-Path $root 'Base.Widget/configs/sprocket.yml') -Value 'teeth: 12'
+            Set-Content -LiteralPath (Join-Path $root 'Base.Widget/configs/sprocket/cog.yml') -Value 'teeth: 8'
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $root }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            try {
+                { Get-Config -Config sprocket } |
+                    Should -Throw "*'sprocket' in module 'Base.Widget' is both a file and a same-named folder*sprocket.yml' and '*sprocket'*"
+            }
+            finally {
+                InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            }
+        }
+
         It 'lists a single owner without loading its config' {
             InModuleScope Catzc.Base.Config {
                 $list = [System.Collections.Generic.List[hashtable]]::new()

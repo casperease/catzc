@@ -20,7 +20,7 @@ description:
   "The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
   disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from."
 about:
-  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
+  rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: meta
 content:
   title: Peers in a layer never share a file, except in the loose-fileset layer

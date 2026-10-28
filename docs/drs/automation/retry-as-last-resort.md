@@ -1,4 +1,4 @@
-# ADR: Retry is a last resort — lowest level only, never in tests
+# Automation: Retry is a last resort — lowest level only, never in tests
 
 ## Rules: ADR-AUTO-RETRY
 

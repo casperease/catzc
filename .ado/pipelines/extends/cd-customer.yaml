@@ -1,10 +1,12 @@
 parameters:
   - name: Customer
     type: string
+  # Each serviceConnection is a Get-BicepServiceConnections name: the landing-zone identity's for Foundations and Discoveries.
   - name: Foundations
-    type: object # [ {env: nsub, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: psub, ...} ]
+    type: object # [ {env: nsub, serviceConnection: nsub-weu-zct-ado-<owner>-lz-sc, subscriptionIdAssertIs: <guid>}, {env: psub, ...} ]
   - name: Discoveries
-    type: object # [ {env: nsub, serviceConnection: sc-<owner>-nonprod, subscriptionIdAssertIs: <guid>}, {env: psub, ...} ]
+    type: object # [ {env: nsub, serviceConnection: nsub-weu-zct-ado-<owner>-lz-sc, subscriptionIdAssertIs: <guid>}, {env: psub, ...} ]
+  # The workload identity's, nsub-weu-zct-ado-<owner>-wl-sc in the non-prod subscription.
   - name: Expeditions
     type: object # [ {env: dev, serviceConnection: ...}, {env: dev, slot: blu, ...}, ... ] — no slot = base slot; [] = none
 
@@ -46,7 +48,9 @@ stages:
                 parameters:
                   DisplayName: "Build-Bicep expedition -Customers ${{ parameters.Customer }}"
                   # A slotted Expeditions entry is an ephemeral slot with no file: the build renders it from this same list.
-                  RunCommand: "Build-Bicep expedition -Customers ${{ parameters.Customer }} -RuntimeSlotsJson '${{ convertToJson(parameters.Expeditions) }}'"
+                  RunCommand:
+                    "Build-Bicep expedition -Customers ${{ parameters.Customer }} -RuntimeSlotsJson '${{
+                    convertToJson(parameters.Expeditions) }}'"
               - publish: out/template/expedition
                 artifact: expedition
 

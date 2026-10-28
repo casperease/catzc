@@ -1,21 +1,21 @@
 # pwsh/Base.QualityGates/private/Get-DrsUsageRow.ps1
 
-Returns the ADR citations and links one file makes, as rows of code and rule. The rows are read from the file's text and its comment page,
+Returns the DRS citations and links one file makes, as rows of code and rule. The rows are read from the file's text and its comment page,
 never from its head, so they cannot go stale.
 
 ## help
 
 ### synopsis
 
-The ADR citations and links one file makes, as rows of code and rule.
+The DRS citations and links one file makes, as rows of code and rule.
 
 ### description
 
 The rows come from the file's text and its comment page through the processors the imprint uses (the `drs-codes` and `links` meta kinds),
 never from its head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The cited
-codes give one row per citation: a rule code gives its ADR as Code and itself as Rule, and an ADR code is the whole ADR (Rule is null). A
-Markdown file's links give a row for every link into a registered ADR, with the rule its anchor names (Rule is null for a link to the ADR
-itself). A link to a document under docs/drs/ that no code owns, such as the index, gives no row.
+codes give one row per citation: a rule code gives its record as Code and itself as Rule, and a record code is the whole record (Rule is
+null). A Markdown file's links give a row for every link into a registered record, with the rule its anchor names (Rule is null for a link
+to the record itself). A link to a document under docs/drs/ that no code owns, such as the index, gives no row.
 
 ### parameter `Text`
 
@@ -27,7 +27,7 @@ The file's repository-relative path.
 
 ### parameter `Map`
 
-The ADR citation map.
+The DRS citation map.
 
 ### parameter `Pages`
 
@@ -49,7 +49,7 @@ The drs code form the citations are spelled in. Default: the `CodeForm` of the `
 
 ### parameter `DomainClasses`
 
-The file classes whose citations also count the code of a whole ADR domain. Default: the `domain_classes` of drs.yml.
+The file classes whose citations also count the code of a domain as a whole. Default: the `domain_classes` of drs.yml.
 
 ### parameter `FileClass`
 

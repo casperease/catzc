@@ -1,4 +1,4 @@
-# ADR: Test automation — logic tests vs integrity tests, and how to isolate
+# Automation: Test automation — logic tests vs integrity tests, and how to isolate
 
 ## Rules: ADR-AUTO-TEST
 
@@ -597,11 +597,10 @@ integration tier keeps a thin **walking skeleton** that drives the real tool onc
 This is sound because the state under test is **the-state-of-this-commit**. Everything here is code — IaC templates, the `*.yml` configs,
 the module/type/function graph — so what a test checks is a static, hermetic property of the committed artifacts
 ([everything-as-code](../principles/everything-as-code.md)), which a mocked L0 test checks in milliseconds. The one thing the real tool
-decides that the files do not is the _integration concern itself_ — what the compiler, CLI, or cloud does with those artifacts — and that
-is exactly, and only, what the walking skeleton covers. The integration run [fail-fast](fail-fast-with-asserts.md) relies on stays thin,
-and everything it does not uniquely prove moves to the fast tiers (ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER,
-ADR-AUTO-TEST-TAGBYOUTERMOSTRING), where [reduce-waste](../principles/reduce-waste.md) points too: the inner
-loop pays for the slow tier on every change.
+decides that the files do not is the _integration concern itself_ — what the compiler, CLI, or cloud does with those artifacts — and that is
+exactly, and only, what the walking skeleton covers. The integration run [fail-fast](fail-fast-with-asserts.md) relies on stays thin, and
+everything it does not uniquely prove moves to the fast tiers (ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER, ADR-AUTO-TEST-TAGBYOUTERMOSTRING),
+where [reduce-waste](../principles/reduce-waste.md) points too: the inner loop pays for the slow tier on every change.
 
 The walking-skeleton set is **one test per distinct integration concern, never one per case**. A concern is something the mock necessarily
 fakes away — a real `bicep build` resolving and inlining a referenced module, a subscription-scoped template actually compiling, a CLI's
@@ -681,9 +680,9 @@ is free, for a deterministic run against the tree as it was when the run started
 
 A snapshot isolates the repository, not the machine or the cloud. A test that changes state outside the repository — the user `PATH` or
 another persistent environment variable, installed tools, a cloud resource — collides with the same test in any concurrent run, snapshot or
-not. Such a test is an L3 vertical system test, and the run's location decides who may run it: only the run that owns the working
-folder runs L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and
-says so, naming who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
+not. Such a test is an L3 vertical system test, and the run's location decides who may run it: only the run that owns the working folder
+runs L3, so the working folder's lock is also the guard for system tests, and no run ever waits. A run in a snapshot skips L3 and says so,
+naming who holds the folder, so a missing tier is never silent; the system tests run with the next run that owns the folder.
 
 The tier stays thin because the logic it touches is covered below it. Code reaches outside state only through a mockable seam —
 `Set-EnvironmentPath` for the user `PATH`, `Set-PermanentEnvironmentVariable` for other persistent variables — and the logic tests mock the
@@ -762,8 +761,8 @@ own smallest unit, and each maps that unit to exactly one test, so a run that mi
 
 A test file is what a run schedules (ADR-AUTO-TEST-TESTFILE). It belongs to one catzc module, which is how a selection by module reaches it,
 and it is never split: a whole file goes to one worker, and a phase tag on any of its tests moves the whole file. A module's own test files
-live in its `tests/` folder, one per function; a Go, Python, or Bash test folder counts as one test file of the module it maps to.
-Between the two, a test language may group tests inside a file, and the tags resolve along those groups (ADR-AUTO-TEST-TWOMANDATORYTAGS).
+live in its `tests/` folder, one per function; a Go, Python, or Bash test folder counts as one test file of the module it maps to. Between
+the two, a test language may group tests inside a file, and the tags resolve along those groups (ADR-AUTO-TEST-TWOMANDATORYTAGS).
 
 ### Build Verification Test
 

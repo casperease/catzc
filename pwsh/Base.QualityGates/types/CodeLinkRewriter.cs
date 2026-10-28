@@ -8,7 +8,7 @@ using Catzc.Base.Drs;
 
 namespace Catzc.Base.QualityGates;
 
-// Rewrites a comment's ADR references into canonical code links.
+// Rewrites a comment's DRS references into canonical code links.
 public sealed class CodeLinkRewriter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -30,14 +30,14 @@ public sealed class CodeLinkRewriter
     readonly string recordRoot;
 
     // anchorsOf maps a repository .md path to its anchors, null when the file does not exist.
-    public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
+    public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig drs, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
-        if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
+        if (drs == null) { throw new ArgumentNullException(nameof(drs)); }
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
-        recordRoot = adrs.Root + "/";
-        string cited = adrs.CodeForm.Cited;
+        recordRoot = drs.Root + "/";
+        string cited = drs.CodeForm.Cited;
         Reference = new Regex(
             @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
             // A path starts a word, so a placeholder path inside other text is no reference.
@@ -193,7 +193,7 @@ public sealed class CodeLinkRewriter
 
     static readonly Regex CanonicalTarget = new Regex(@"^\[(?<text>[^\]]*)\]\(/(?<path>[^)#\s]+)", RegexOptions.Compiled);
 
-    // A link names the file it resolves to, only when that file exists; an ADR reference names its canonical target.
+    // A link names the file it resolves to, only when that file exists; a DRS reference names its canonical target.
     void RecordEdge(Match match, string replacement, string repoPath, List<EdgeHit> edges)
     {
         if (replacement != null)
@@ -217,17 +217,17 @@ public sealed class CodeLinkRewriter
         edges.Add(new EdgeHit(match.Index, LinkRelation.CodeLink, Path.GetRelativePath(root, full).Replace('\\', '/'), string.Empty));
     }
 
-    // An unregistered code: a rule its ADR does not declare, or no code of the index at all.
+    // An unregistered code: a rule its record does not declare, or no code of the index at all.
     string Unknown(string code, out LinkFindingType problemType)
     {
-        string parent = map.ParentAdr(code);
+        string parent = map.ParentRecord(code);
         if (parent != null)
         {
             problemType = LinkFindingType.UnknownRule;
             return string.Format(CultureInfo.InvariantCulture, "{0} declares no rule {1}", parent, code);
         }
         problemType = LinkFindingType.UnknownCode;
-        return string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the ADR index", code);
+        return string.Format(CultureInfo.InvariantCulture, "'{0}' is not a citation code in the DRS index", code);
     }
 
     // A citation right after a path merges into the path's link; returns the characters it covers.
@@ -246,7 +246,7 @@ public sealed class CodeLinkRewriter
         return closed && !opened ? adjacent.Length - 1 : adjacent.Length;
     }
 
-    // A link after a bare citation of the same ADR is one reference spelled twice.
+    // A link after a bare citation of the same record is one reference spelled twice.
     int RepeatedLink(string comment, int at, bool[] literal, string canonical)
     {
         if (at >= comment.Length) { return 0; }
@@ -276,7 +276,7 @@ public sealed class CodeLinkRewriter
 
         if (Regex.IsMatch(destination, @"^[a-zA-Z][a-zA-Z0-9+.\-]*:") || destination.StartsWith("#", StringComparison.Ordinal))
         {
-            return null;   // a URL or an in-file anchor: not an ADR reference
+            return null;   // a URL or an in-file anchor: not a DRS reference
         }
 
         int hash = destination.IndexOf('#');
@@ -286,7 +286,7 @@ public sealed class CodeLinkRewriter
         string repoPath = ToRepositoryPath(pathPart);
         Match citation = CitationOnly.Match(text);
 
-        if (repoPath == null && !citation.Success) { return null; }   // a link to something other than an ADR
+        if (repoPath == null && !citation.Success) { return null; }   // a link to something other than a record
 
         string code = null;
         if (citation.Success && map.HasCode(citation.Groups["code"].Value))
@@ -383,7 +383,7 @@ public sealed class CodeLinkRewriter
     string Canonical(string code, string fragment) =>
         "[" + code + "](" + map.Destination(code) + (map.IsRule(code) ? string.Empty : fragment ?? string.Empty) + ")";
 
-    // A link to an ADR-folder document with no citation code of its own (index.md, a dora-explains.md): text is the file slug.
+    // A link to a DRS-folder document with no citation code of its own (index.md, a dora-explains.md): text is the file slug.
     string CanonicalForPath(string repoPath, string fragment)
     {
         string code = map.CodeOf(repoPath);
@@ -425,10 +425,10 @@ public sealed class CodeLinkRewriter
         {
             case LinkFindingType.Bare: what = "bare docs path"; break;
             case LinkFindingType.Relative: what = "relative docs path"; break;
-            case LinkFindingType.SlugOnly: what = "ADR file name"; break;
+            case LinkFindingType.SlugOnly: what = "record file name"; break;
             case LinkFindingType.Adjacent: what = "docs path with its citation"; break;
             case LinkFindingType.Citation: what = "bare citation"; break;
-            case LinkFindingType.Stale: what = "path to a moved ADR"; break;
+            case LinkFindingType.Stale: what = "path to a moved record"; break;
             case LinkFindingType.TextMismatch: what = "link whose destination disagrees with its citation"; break;
             default: what = "non-canonical code link"; break;
         }

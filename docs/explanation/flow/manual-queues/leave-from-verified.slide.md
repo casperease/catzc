@@ -5,10 +5,9 @@ catzc:
     deck: manual-queues
     order: 10
     picture:
-      mode: zoom
-      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
-      box: [250, 540, 700, 420]
-      scale: 0.85
+      mode: reduce
+      source: ../../design/.assets/sync-from-the-bvt-verified-head.drawio.png
+      scale: 0.4
 ---
 
 # The next climb starts from the verified point, never from the dirty HEAD
@@ -24,11 +23,11 @@ the last verified commit.
 
 ## Image
 
-.assets/leave-from-verified.png
+[leave-from-verified](.assets/leave-from-verified.png)
 
 ## Caption
 
-Zoomed: the dirty HEAD under main-UAT, its failure path going up and stopping at the rung.
+Reduced: the integrator takes its commit from the BVT-verified head, also the main-UAT occupant, never from the dirty HEAD that failed there.
 
 ## Notes
 

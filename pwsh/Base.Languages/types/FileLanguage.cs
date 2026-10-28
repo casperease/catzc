@@ -23,8 +23,8 @@ public sealed class FileLanguage
     // The VS Code language id of the language's files (e.g. azure-pipelines); its own name unless the entry states one.
     public string vscode_language { get; }
 
-    // The language's ADR folder under docs/drs/ (e.g. pwsh). Null when it has none.
-    public string adr_folder { get; }
+    // The language's decision-record folder under docs/drs/ (e.g. automation/pwsh). Null when it has none.
+    public string drs_folder { get; }
 
     // The gates Test-Change runs over a changed file of the language, in order.
     public IReadOnlyList<string> checks { get; }
@@ -56,7 +56,7 @@ public sealed class FileLanguage
     // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
     public bool handled => executable && (layout.Count > 0 || tests != null);
 
-    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
+    public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string drsFolder,
         string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false, LanguageNaming naming = null,
         IDictionary<string, string> checkScopes = null, string tag = null, string[] shapes = null)
     {
@@ -75,7 +75,7 @@ public sealed class FileLanguage
         this.formatter = formatter;
         no_formatter = noFormatter;
         vscode_language = vscodeLanguage ?? name;
-        adr_folder = adrFolder;
+        drs_folder = drsFolder;
         this.checks = checks == null ? Array.Empty<string>() : (string[])checks.Clone();
     }
 }

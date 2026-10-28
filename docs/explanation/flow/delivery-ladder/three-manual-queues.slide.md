@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../design/.assets/get-aspect-names-the-remainder.drawio.png
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Each has a named server, a named store and a measured wait; a manual step no rul
 
 ## Image
 
-.assets/three-manual-queues.png
+[three-manual-queues](.assets/three-manual-queues.png)
 
 ## Caption
 
-From the catalogue, reduced: get aspect names the remainder.
+From the catalogue, reduced: manual queues 1, where a person stands.
 
 ## Notes
 
 Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/get-aspect-names-the-remainder.drawio.png.
+docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

@@ -26,7 +26,7 @@ description:
   Deploy-Bicep adds the guards and the configuration lookup and runs every vendor step through one wrapper that calls the az command-line
   interface, which compiles the Bicep template.
 about:
-  adrs: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+  rules: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
   lens: implementation
 content:
   title: Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az

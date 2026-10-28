@@ -12,7 +12,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
                 & $script:adr 'ADR-WIDGET-SPROCKET' 'BOTTOM' @('beta')
                 & $script:adr 'ADR-WIDGET-COG' 'TOP' @('gamma')
             ))
-        $script:counts = { param($Map) @($Map.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern) = $($_.AdrCount)" }) }
+        $script:counts = { param($Map) @($Map.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern) = $($_.RecordCount)" }) }
     }
 
     It 'holds every cell of the grid, row by row, empty cells included' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
@@ -25,7 +25,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
     }
 
     It 'lists the ADRs of a cell in the given order' -Tag 'ADR-REPO-VALUECHAIN-MAP' {
-        $script:map.Cell('TOP', 'gamma').Adrs | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
+        $script:map.Cell('TOP', 'gamma').Records | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
         $script:map.Cell('TOP', 'delta') | Should -BeNullOrEmpty
     }
 
@@ -33,7 +33,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         @($script:map.CellsOf('ADR-WIDGET-GADGET') | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) |
             Should -Be @('TOP x alpha', 'TOP x gamma')
         $script:map.CellsOf('ADR-WIDGET-GIZMO') | Should -BeNullOrEmpty
-        $script:map.AdrCount | Should -Be 3
+        $script:map.RecordCount| Should -Be 3
         $script:map.Unplaced | Should -BeNullOrEmpty
         $script:map.Strays | Should -BeNullOrEmpty
     }
@@ -50,19 +50,19 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
             "ADR-WIDGET-GIZMO: 'delta' is not a value-chain concern (alpha, beta, gamma)"
         )
         $map.Unplaced | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-GIZMO')
-        $map.Cell('TOP', 'alpha').Adrs | Should -Be @('ADR-WIDGET-COG')
+        $map.Cell('TOP', 'alpha').Records | Should -Be @('ADR-WIDGET-COG')
     }
 
     It 'throws on a repeated ADR code, a repeated axis name, an empty axis, or an item that is not an ADR' {
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns,
                 @((& $script:adr 'ADR-WIDGET-COG' 'TOP' @('alpha')), (& $script:adr 'ADR-WIDGET-COG' 'TOP' @('beta')))) } |
-            Should -Throw "*the ADR code 'ADR-WIDGET-COG' is empty or repeated*"
+            Should -Throw "*the record code 'ADR-WIDGET-COG' is empty or repeated*"
         { [Catzc.Base.Maps.ValueChainMap]::Build(@('TOP', 'TOP'), $script:columns, @()) } |
             Should -Throw "*row of the value-chain stack 'TOP' is empty or repeated*"
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, @(), @()) } |
             Should -Throw '*no value-chain concern is given*'
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @('ADR-WIDGET-COG')) } |
-            Should -Throw '*an ADR is not a Catzc.Base.Drs.DrsRuleSet*'
+            Should -Throw '*a record is not a Catzc.Base.Drs.DrsRuleSet*'
     }
 
     It 'emits every cell as JSON' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
@@ -72,8 +72,8 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         @($data.cells).Count | Should -Be 6
         $data.cells[2].stack | Should -Be 'TOP'
         $data.cells[2].concern | Should -Be 'gamma'
-        $data.cells[2].adr_count | Should -Be 2
-        $data.cells[2].adrs | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
+        $data.cells[2].record_count | Should -Be 2
+        $data.cells[2].records | Should -Be @('ADR-WIDGET-GADGET', 'ADR-WIDGET-COG')
         $script:map.ToJson() | Should -Not -Match "`r"
     }
 }

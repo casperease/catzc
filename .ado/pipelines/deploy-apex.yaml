@@ -20,7 +20,7 @@ stages:
             - {
                 env: test,
                 adoEnvironment: apex-release-uat,
-                serviceConnection: sc-apex-nonprod,
+                serviceConnection: nsub-weu-zct-ado-apex-wl-sc,
                 subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000,
               }
           ArtifactPipeline: cd-apex
@@ -34,14 +34,14 @@ stages:
           ${{ if eq(parameters.Target, 'rollback') }}:
             CertifiedBy: apex-prod
           Foundations:
-            - { env: psub, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+            - { env: psub, serviceConnection: psub-weu-zct-ado-apex-lz-sc, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
           Discoveries:
-            - { env: psub, serviceConnection: sc-apex-prod, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
+            - { env: psub, serviceConnection: psub-weu-zct-ado-apex-lz-sc, subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000 }
           Expeditions:
             - {
                 env: preprod,
                 adoEnvironment: apex-pre-prod,
-                serviceConnection: sc-apex-prod,
+                serviceConnection: psub-weu-zct-ado-apex-wl-sc,
                 subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000,
               }
           ArtifactPipeline: cd-apex
@@ -55,7 +55,7 @@ stages:
             - {
                 env: prod,
                 adoEnvironment: apex-prod,
-                serviceConnection: sc-apex-prod,
+                serviceConnection: psub-weu-zct-ado-apex-wl-sc,
                 subscriptionIdAssertIs: a0e00000-000d-50b0-0000-000000000000,
               }
           DependsOn: [Deploy_Expedition_preprod]

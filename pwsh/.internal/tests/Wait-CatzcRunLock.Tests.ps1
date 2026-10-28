@@ -394,4 +394,47 @@ Describe 'Wait-CatzcRunLock — with a real caller process' -Tag 'L2', 'logic' {
             Stop-LockHolder $holder
         }
     }
+
+    It 'takes the lock at once after an Invoke-CatzcCommand holder is stopped with its caller' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # A real run holds the lock under a stand-in caller; stopping the caller leaves the run with no one to serve.
+        $importer = Join-Path $TestDrive 'widget-importer.ps1'
+        [System.IO.File]::WriteAllText($importer, 'function Write-Message { param([string] $Message, [switch] $NoHeader) }')
+        $callerScript = Join-Path $TestDrive 'widget-caller.ps1'
+        [System.IO.File]::WriteAllText($callerScript, @'
+param([string] $Run, [string] $Importer, [string] $LockName)
+$info = [System.Diagnostics.ProcessStartInfo]::new((Get-Process -Id $PID).Path)
+foreach ($argument in '-NoProfile', '-File', $Run, '-Importer', $Importer, '-LockName', $LockName, '-LockSeconds', '5', 'Start-Sleep -Seconds 30') {
+    $info.ArgumentList.Add($argument)
+}
+$info.UseShellExecute = $false
+$info.CreateNoWindow = $true
+$null = [System.Diagnostics.Process]::Start($info)
+Start-Sleep -Seconds 60
+'@)
+        $run = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
+        # Start-Process joins its arguments with spaces, so each path goes quoted.
+        $arguments = "-NoProfile -File `"$callerScript`" -Run `"$run`" -Importer `"$importer`" -LockName `"$($script:lockName)`""
+        $caller = Start-Process -FilePath (Get-Process -Id $PID).Path -ArgumentList $arguments -PassThru -WindowStyle Hidden
+        $holder = $null
+        try {
+            $limit = [datetime]::UtcNow.AddSeconds(20)
+            while ($null -eq $holder -and [datetime]::UtcNow -lt $limit) {
+                Start-Sleep -Milliseconds 250
+                $holder = Get-CatzcRunLockHolder -LockName $script:lockName
+            }
+            $holder.Holding | Should -Be 'Invoke-CatzcCommand Start-Sleep -Seconds 30'
+            Stop-Process -Id $caller.Id -Force
+            $caller.WaitForExit(5000) | Should -BeTrue
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $null = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 5 -BudgetSeconds 60 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            $script:taken.Value | Should -Not -BeNullOrEmpty
+            $timer.Elapsed.TotalSeconds | Should -BeLessThan 3
+        }
+        finally {
+            Stop-Process -Id $caller.Id -Force -ErrorAction Ignore
+            if ($holder) {
+                Stop-Process -Id $holder.ProcessId -Force -ErrorAction Ignore
+            }
+        }
+    }
 }

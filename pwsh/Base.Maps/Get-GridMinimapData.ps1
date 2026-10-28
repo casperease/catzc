@@ -3,7 +3,7 @@ function Get-GridMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -17,7 +17,7 @@ function Get-GridMinimapData {
         Get-WorldMap
     }
     # Tracks down, file languages across: a cell is lit by the subject's files in it.
-    $data = [Catzc.Base.Maps.MinimapData]::FromWorldMap($map, (Get-WorldMapHighlight -Adr $Adr -WorldMap $map))
+    $data = [Catzc.Base.Maps.MinimapData]::FromWorldMap($map, (Get-WorldMapHighlight -Rule $Rule -WorldMap $map))
     if ($AsJson) {
         return $data.ToJson()
     }

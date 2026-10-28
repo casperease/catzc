@@ -1,4 +1,4 @@
-# ADR: Parameter design — the pwsh rules over sensible-defaults
+# PowerShell: Parameter design — the pwsh rules over sensible-defaults
 
 ## Rules: ADR-PWSH-PARAM
 
@@ -46,8 +46,7 @@ A `ValidatePattern` whose pattern depends on case carries `Options = 'None'` or 
 ## Context
 
 [sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration, and a
-parameter is mandatory only when no default makes sense. This ADR realises it in pwsh — how the parameter surface itself is shaped so the
-common invocation reads naturally.
+parameter is mandatory only when no default makes sense. This record realises it in pwsh: the shape of the parameter surface.
 
 The neighbouring parameter rules live where their hazards live: defaulting a `[string]` with `??` never works, and reassigning a
 `Validate*`-attributed parameter re-fires its validator ([automatic-variable-pitfalls](automatic-variable-pitfalls.md),
@@ -83,9 +82,7 @@ default expression reads the configured value.
 
 ### Configurable parameters
 
-[sensible-defaults](../sensible-defaults.md#one-resolution-order) fixes the resolution order of a configurable setting: the explicit value,
-else the module's configuration, else the sensible default declared once on the config type. In PowerShell that order is one parameter
-declaration:
+The [resolution order](../sensible-defaults.md#one-resolution-order) is one parameter declaration:
 
 ```powershell
 # GOOD — the default expression IS the configured value; the config type supplies the sensible default
@@ -96,19 +93,16 @@ param([string] $Wrap)
 if (-not $Wrap) { $Wrap = (Get-Config -Config links).wrap }
 ```
 
-PowerShell evaluates a default expression only when the caller omits the parameter, so an explicit `-Wrap Off` never reads the config at
-all. A default expression may read an earlier parameter (`[string] $Version = (Get-ToolConfig -Tool $Tool).version`), so a generic function
-keyed by its primary argument declares its default the same way. A wrapper that forwards the parameter declares the same default, because an
-explicit empty value passed down the chain would win over the callee's default. A value that is derived rather than configured stays in the
-body: one chosen from several sources in turn, or one that applies only when another argument is absent (`-ModuleProfile` when no `-Module`
-is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES`)
-— the same seam the function uses.
+An explicit `-Wrap Off` never reads the config at all. A generic function keyed by its primary argument declares its default from that
+argument (`[string] $Version = (Get-ToolConfig -Tool $Tool).version`). A wrapper that forwards the parameter declares the same default,
+because an explicit empty value passed down the chain would win over the callee's default. A value that is derived rather than configured
+stays in the body: one chosen from several sources in turn, or one that applies only when another argument is absent (`-ModuleProfile` when
+no `-Module` is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config`
+(`ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES`) — the same seam the function uses.
 
 ### Case-sensitive patterns
 
-`ValidatePatternAttribute.Options` defaults to `IgnoreCase`, so a pattern that names a case is silently loosened. Setting `Options = 'None'`
-makes the attribute match exactly what the pattern says; the precedent is the `-Author` parameter of `Add-SessionLearning`
-(`Catzc.Base.Docs`), which requires a capitalised person name:
+The precedent is the `-Author` parameter of `Add-SessionLearning` (`Catzc.Base.Docs`), which requires a capitalised person name:
 
 ```powershell
 # GOOD — the capital the pattern names is required
@@ -133,14 +127,14 @@ declares the configured value as its default. Secondary inputs are named paramet
 ### How this is enforced
 
 - **The doctrine layer** — what defaults exist and where they come from is [sensible-defaults](../sensible-defaults.md)
-  (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
+  (`ADR-AUTO-DEFAULT`); this record fixes only the parameter mechanics.
 - **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function whose
   one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM-POSITIONALPRIMARY), and `Measure-ParameterFillIn` flags a body that fills an
   empty parameter in (ADR-PWSH-PARAM-RESOLUTIONORDER), and `Measure-CaseSensitivePattern` flags a `ValidatePattern` whose character class or
   `\p{Lu}`/`\p{Ll}` names one case without `Options` or a leading `(?-i)` (ADR-PWSH-PARAM-CASESENSITIVEPATTERN).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
 - **Code review** — a `[bool]` where a `[switch]` belongs, or a pattern whose case dependence the analyzer cannot see (a literal word such
-  as `^Get-`), is rejected against this ADR.
+  as `^Get-`), is rejected against this record.
 
 ## Consequences
 

@@ -27,5 +27,5 @@ The user decides, the agent records; nothing unanswered is decided by the agent.
    reframing quoted where it carries a new rule; a reframing answer is re-asked once in the user's terms, and an answer that puts a kind of
    item out of scope removes every item of that kind from the round.
 5. When the round ends, fold each decision into its owning plan (Decided section, open steps, needed docs), one file at a time, finished as
-   plan-clear step 5 says; the decisions file stays as the record until its decisions are in ADRs.
+   plan-clear step 5 says; the decisions file stays as the record until its decisions are in decision records.
 6. Report the items asked and answered, the recommendations taken and not, the plans updated, and the questions left open.

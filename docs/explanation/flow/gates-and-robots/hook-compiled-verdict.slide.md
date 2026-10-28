@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../automation/.assets/hook-compiles-module-verdict-and-limits.drawio.png
+      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ The bash time safeguard is a hook under .claude/hooks; a hook-compiled file need
 
 ## Image
 
-.assets/hook-compiled-verdict.png
+[hook-compiled-verdict](.assets/hook-compiled-verdict.png)
 
 ## Caption
 
-From the catalogue, reduced: hook compiles module verdict and limits.
+From the catalogue, reduced: a shell call carries its limit or is denied.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits.drawio.png.
+docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

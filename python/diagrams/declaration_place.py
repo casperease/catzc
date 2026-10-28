@@ -6,7 +6,7 @@ chips, and place itself, the whole of them in order."""
 import html
 
 from . import declaration_settings
-from .declaration_cells import cell, edge_cell, ladder_rungs
+from .declaration_cells import TAG_ID, cell, edge_cell, ladder_rungs
 from .declaration_constants import (
     ACTION_LENS,
     BYPASS_DIP,
@@ -36,11 +36,13 @@ from .declaration_routes import (
     label_spot,
     marker_xy,
     middle_leg,
+    overlaps,
     plan_aims,
     transition,
 )
 from .declaration_vocabulary import LIB, DeclarationError
 
+MARKER_CORNERS = ("top-left", "top-right", "bottom-left", "bottom-right")  # the corners a marker may take, in the order it tries them
 
 def place_spans(frame):
     """The span bars over what they cover, and the room for them: returns how far the drawing area moved down."""
@@ -198,6 +200,16 @@ def place_edges(frame, delta, check_routes):
                 run = [start, corner, end]
                 edge["via"] = [[round(corner[0]), round(corner[1])]]
                 edge["style"] += "catzcElbow=1;"
+            elif "step" in aims[index]:  # no shared coordinate holds both ends: out, across the gap's middle, in; derived like an elbow
+                if ey in (0.0, 1.0):  # the ends face top to bottom: plumb out, level across, plumb in
+                    middle = (start[1] + end[1]) / 2
+                    bends = [(start[0], middle), (end[0], middle)]
+                else:
+                    middle = (start[0] + end[0]) / 2
+                    bends = [(middle, start[1]), (middle, end[1])]
+                run = [start, *bends, end]
+                edge["via"] = [[round(x), round(y)] for x, y in bends]
+                edge["style"] += "catzcElbow=1;"
         else:
             run = drawn_run(
                 [(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)],
@@ -253,6 +265,10 @@ def place_marks(frame, delta):
     """The markers and the chips, anchored on the cells the earlier phases placed."""
     content, cells, box_of = frame.content, frame.cells, frame.box_of
     size = LIB["marks"]["marker"]["size"]
+    # The room a mark may not take: every glyph's tags and every pill on a line, then each mark as it lands, so a marker or a chip never
+    # stands on a label, a tag or another mark.
+    taken = [(c["x"], c["y"], c["w"], c["h"]) for c in cells if not c["edge"] and (TAG_ID.search(c["id"]) or c["id"].endswith("-word"))]
+    free = lambda rect: not any(overlaps(rect, other, 0) for other in taken)
     for m in content["markers"]:
         if m["at"] not in box_of:  # an edge `from->to`: the marker sits halfway along its path, through its waypoints
             s, t = m["at"].split("->")
@@ -278,26 +294,38 @@ def place_marks(frame, delta):
             mx, my = box["x"] + box["w"] // 2 - 40, box["y"] - 4
         elif not kind:  # a band or a group: just inside its top-left corner, so it never widens the page
             mx, my = box["x"] + 4, box["y"] - 11
-        else:
+        else:  # the corner away from the arriving edges, else the first corner whose room is free
             sources = [box_of[e["from"]] for e in content["edges"] if e["to"] == m["at"] and e["from"] in box_of]
-            mx, my = marker_xy(box, auto_corner(box, sources))
-        cells.append(cell(f"mark-{m['number']}", str(m["number"]), LIB["marks"]["marker"]["style"], mx, my, size[0], size[1]))
-    placed, row = {}, {}
+            first = auto_corner(box, sources)
+            spots = [marker_xy(box, k) for k in (first, *(k for k in MARKER_CORNERS if k != first))]
+            mx, my = next((s for s in spots if free((s[0], s[1], size[0], size[1]))), spots[0])
+            auto = "catzcAuto=1;"  # the corner is the kit's choice, so get names none
+        taken.append((mx, my, size[0], size[1]))
+        style = LIB["marks"]["marker"]["style"] + (auto if "corner" not in m and kind not in ("", "gate") else "")
+        cells.append(cell(f"mark-{m['number']}", str(m["number"]), style, mx, my, size[0], size[1]))
+    placed = {}
     for c in content["chips"]:
         box = box_of[c["at"]]
         mark = LIB["marks"][c["kind"]]
         k = placed[c["at"], c["kind"]] = placed.get((c["at"], c["kind"]), -1) + 1  # the chip's number on its place, for its id
         corner = c.get("corner", CHIP_CORNER[c["kind"]])
-        j = row[c["at"], corner] = row.get((c["at"], corner), -1) + 1  # several chips on one corner stand in a row inward
         if c["kind"] == "rule":
-            value, style = f"#{content['adrs'].index(c['rule']) + 1}", mark["style"] + ("" if c.get("gated", True) else "dashed=1;")
+            value, style = f"#{content['about_rules'].index(c['rule']) + 1}", mark["style"] + ("" if c.get("gated", True) else "dashed=1;")
         else:
             value, style = c["text"], mark["style"]
         # A chip grows to its text, about 7 px a character, so a longer count reads on one line; a short one keeps the mark's size.
-        w = max(mark["size"][0], 7 * len(value) + 12)
-        cx = box["x"] + 4 + j * 34 if corner.endswith("left") else box["x"] + box["w"] - w - j * 34
+        w, h = max(mark["size"][0], 7 * len(value) + 12), mark["size"][1]
+        # From its corner the chip steps inward, past each tag, pill, marker or chip in its way, until its room is free; several chips on
+        # one corner so stand in a row. Past the far side of its box it keeps the corner.
+        inward = 1 if corner.endswith("left") else -1
+        cx = box["x"] + 4 if inward > 0 else box["x"] + box["w"] - w
         cy = box["y"] - 9 if corner.startswith("top") else box["y"] + box["h"] - 9
-        cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style, cx, cy, w, mark["size"][1]))
+        x = cx
+        while not free((x, cy, w, h)) and box["x"] - w <= x <= box["x"] + box["w"]:
+            x += inward * 4
+        cx = x if free((x, cy, w, h)) else cx
+        taken.append((cx, cy, w, h))
+        cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style + f"catzcCorner={corner};", cx, cy, w, h))
 
 
 def place(declaration, check_routes=False):

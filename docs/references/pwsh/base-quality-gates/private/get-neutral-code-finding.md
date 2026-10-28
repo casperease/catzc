@@ -1,20 +1,20 @@
 # pwsh/Base.QualityGates/private/Get-NeutralCodeFinding.ps1
 
-Lists every real ADR code that a test file uses as fixture data inside an L0 block. Logic tests use neutral fixtures, so a real code there
+Lists every real rule code that a test file uses as fixture data inside an L0 block. Logic tests use neutral fixtures, so a real code there
 is a finding.
 
 ## help
 
 ### synopsis
 
-Lists every real ADR code one test file uses as fixture data inside an L0 block.
+Lists every real rule code one test file uses as fixture data inside an L0 block.
 
 ### description
 
 The neutral-code check of Test-SourceConventions
 ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)): a logic test owns its
 inputs and uses identities that cannot collide with the real ones, so an L0 test's fixture data names neutral codes (a widget or gadget
-code), never a code the ADR index declares. The real codes come from the caller, read from the ADR registry, so nothing here names one.
+code), never a code the DRS index declares. The real codes come from the caller, read from the DRS registry, so nothing here names one.
 
 It reads the file's syntax tree, never runs Pester. A string literal is checked when the nearest Describe, Context, or It around it that
 carries a tier tag carries L0 — or, outside every tier-tagged block, when L0 is the only tier the file carries. The values of a -Tag
@@ -31,7 +31,7 @@ The test file's syntax tree (parsed once by the caller).
 
 ### parameter `Code`
 
-The real ADR codes, from the ADR registry (Get-DrsCitationMap).
+The real rule codes, from the DRS registry (Get-DrsCitationMap).
 
 ### outputs
 

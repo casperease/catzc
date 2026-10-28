@@ -8,7 +8,7 @@ quality gates whose property belongs to another module (the module-graph quality
 their own config at the repository root). A quality gate collects every issue, writes its report through
 [Catzc.Base.Reports](../base-reports/index.md), and throws once listing them all
 ([test-automation](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)); the tier and category tag rules the Pester
-runner enforces are the subject of the same ADR.
+runner enforces are the subject of the same decision record.
 
 ## Responsibilities
 
@@ -43,7 +43,7 @@ formatter would leave the repository unchanged; the built artifact builds, loads
 registered C# config type and loads through it
 ([module-config-loading](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)); the source and test
 files follow the naming and one-function conventions; test titles carry no unfilled template token; the manual test plan lists every
-integrity check once; the analyzer-to-ADR map cites only real rules and maps every custom analyzer rule; the PowerShell passes
+integrity check once; the analyzer-to-rule map cites only real rules and maps every custom analyzer rule; the PowerShell passes
 PSScriptAnalyzer; and test and production identities never cross — no logic test names a live identity, no shipped config carries a
 test-fixture one, and no fixture identity is also a live one. An integrity test runs each gate at its tier, so every default test run and
 every CI run includes it.
@@ -115,77 +115,6 @@ reports, and assertions) this module composes. It does not depend on any feature
 The diagram below draws one test run of responsibility 1 from the source. Both kinds of run share one harness. It discovers the tests once
 and checks their tags before any run directory exists, then splits the files into the parallel, greedy and serial phases, drops the modules
 that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run.
-
-```yml drawio
-description:
-  "Both kinds of test run share one harness: it discovers the tests once, checks their tags before any run directory exists, splits the
-  files into three phases, drops protected modules, runs the workers and derives one verdict; a finally stamps run.json."
-about:
-  adrs: [ADR-AUTO-TEST, ADR-REPO-PROTGLOB]
-  lens: source
-content:
-  title: One discovery feeds three phases; finally stamps run.json
-  kind: reference
-  flow: top-to-bottom
-  theme: dark
-  bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-before, label: BEFORE TRY }
-    - { id: band-try, label: TRY }
-    - { id: band-finally, label: FINALLY }
-  glyphs:
-    - { id: g-automation, kind: code, label: Test-Automation, in: band-entry }
-    - { id: g-build, kind: code, label: Test-CatzcBuild, in: band-entry }
-    - { id: g-run, kind: private, label: Invoke-TestRun, in: band-before }
-    - { id: g-discovery, kind: private, label: Get-TestDiscovery, in: band-before }
-    - { id: g-tag-gate, kind: gate, label: Assert-TestTagGate, in: band-before }
-    - { id: g-split, kind: private, label: Split-TestAutomationFiles, in: band-try }
-    - { id: s-parallel, kind: set, label: Parallel, in: band-try }
-    - { id: s-greedy, kind: set, label: Greedy, in: band-try }
-    - { id: s-serial, kind: set, label: Serial, in: band-try }
-    - { id: g-select, kind: private, label: Select-ProtectedTestFile, in: band-try }
-    - { id: g-workers, kind: private, label: Invoke-TestAutomationWorkers, in: band-try }
-    - { id: g-verdict, kind: private, label: Get-TestAutomationVerdict, in: band-try }
-    - { id: f-run-json, kind: file, label: run.json, in: band-finally }
-  edges:
-    - { from: g-automation, to: g-run, kind: flow, label: calls }
-    - { from: g-build, to: g-run, kind: flow, label: calls }
-    - { from: g-run, to: g-discovery, kind: flow, label: calls }
-    - { from: g-discovery, to: g-tag-gate, kind: flow, label: feeds }
-    - { from: g-run, to: g-split, kind: flow, label: calls }
-    - { from: g-split, to: g-select, kind: flow, label: feeds }
-    - { from: g-select, to: g-workers, kind: flow, label: feeds }
-    - { from: g-workers, to: g-verdict, kind: flow, label: feeds }
-  markers:
-    - { at: g-run, number: 1 }
-    - { at: g-discovery, number: 2 }
-    - { at: g-tag-gate, number: 3 }
-    - { at: g-split, number: 4 }
-    - { at: g-select, number: 5 }
-    - { at: g-workers, number: 6 }
-    - { at: g-verdict, number: 7 }
-    - { at: f-run-json, number: 8 }
-  legend: auto
-  minimaps: [code-locations, module-neighbourhood, axis]
-layout:
-  band-entry: { x: 20, y: 84, w: 200, h: 140 }
-  band-before: { x: 230, y: 84, w: 1050, h: 140 }
-  band-try: { x: 20, y: 248, w: 1260, h: 140 }
-  band-finally: { x: 20, y: 408, w: 1260, h: 96 }
-  g-automation: { x: 30, y: 114, w: 150, h: 40 }
-  g-build: { x: 30, y: 166, w: 150, h: 40 }
-  g-run: { x: 250, y: 136, w: 120, h: 36 }
-  g-discovery: { x: 440, y: 136, w: 130, h: 36 }
-  g-tag-gate: { x: 650, y: 111, w: 180, h: 86 }
-  g-split: { x: 130, y: 286, w: 360, h: 36 }
-  s-parallel: { x: 130, y: 340, w: 64, h: 28 }
-  s-greedy: { x: 198, y: 340, w: 64, h: 28 }
-  s-serial: { x: 266, y: 340, w: 64, h: 28 }
-  g-select: { x: 570, y: 286, w: 170, h: 36 }
-  g-workers: { x: 810, y: 286, w: 200, h: 36 }
-  g-verdict: { x: 1080, y: 286, w: 180, h: 36 }
-  f-run-json: { x: 130, y: 434, w: 110, h: 52 }
-```
 
 ![One discovery feeds three phases; finally stamps run.json](../.assets/test-automation-one-run-pipeline.drawio.png)
 

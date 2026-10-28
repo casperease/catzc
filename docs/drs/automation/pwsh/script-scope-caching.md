@@ -1,4 +1,4 @@
-# ADR: Script-scope caching — the pwsh rules over caching
+# PowerShell: Script-scope caching — the pwsh rules over caching
 
 ## Rules: ADR-PWSH-CACHE
 
@@ -39,7 +39,7 @@ for the bootstrap and the `SpellOutIdentifiers` analyzer rule alike.
 ## Context
 
 [caching](../caching.md) fixes the doctrine: static config reads and filesystem-derived information are cached for the session, keyed by
-input, lazily, with the importer as the one invalidation knob. This ADR realises it in pwsh — the `$script:` idioms a cached function is
+input, lazily, with the importer as the one invalidation knob. This record realises it in pwsh — the `$script:` idioms a cached function is
 written with.
 
 ### The `$script:` scope
@@ -49,9 +49,9 @@ Why `$script:` is the cache scope
 ```
 
 `$script:` state belongs to the module that declares it: it is created when the module imports, invisible to other modules, and discarded
-when the importer re-imports — which is precisely the session-cache lifetime `ADR-AUTO-CACHE` requires, with no extra machinery. The
-alternatives both violate the doctrine structurally: `$env:` is process-global, inherited by every child process, and stores only strings;
-`$global:` outlives a re-import, so a "fresh" session would resume a stale cache, silently breaking the one invalidation contract.
+when the importer re-imports — precisely the session-cache lifetime `ADR-AUTO-CACHE` requires, with no extra machinery. `$env:` is
+process-global and inherited by every child process; `$global:` outlives a re-import, so a "fresh" session resumes a stale cache and
+silently breaks the one invalidation contract.
 
 ### The idioms
 
@@ -127,11 +127,9 @@ exception, is [ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](pester-testing.md#rule-adr-
 
 ### The compiled-type prebuild
 
-The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name. The
-bootstrap's `Import-CSharpTypes` hashes the type sources, finds the build of that name in the per-user shadow root, and loads it; a source
-edit changes the name, and only then, once per machine, does `Add-Type` compile. Loading goes through `Import-TypesAssembly`, which loads
-from the shadow root, so no session locks a file in the repository. The compile itself and the stale-types guard are
-[hosting-csharp-types](hosting-csharp-types.md).
+The one cache that outlives a session is the compiled-type assembly, and it lives in no `$script:` variable: the key is its file name, so a
+source edit changes the name and only then, once per machine, does `Add-Type` compile. Loading from the per-user shadow root means no
+session locks a file in the repository. The compile itself and the stale-types guard are [hosting-csharp-types](hosting-csharp-types.md).
 
 ## Decision
 
@@ -146,14 +144,14 @@ loaded through the shadow copy.
   cached function copies.
 - **Custom PSScriptAnalyzer rule `Measure-NoBareCacheEntryRead`** (`pwsh/.scriptanalyzer/NoBareCacheEntryRead.psm1`) — flags a `$script:`
   read before the function assigns it (ADR-PWSH-CACHE-STRICTSAFEPROBE).
-- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`); this ADR
+- **The doctrine layer** — what may be cached at all, and the lazy/eager split, is [caching](../caching.md) (`ADR-AUTO-CACHE`); this record
   only fixes the storage idiom.
-- **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this ADR.
+- **Code review** — a cache in `$env:`/`$global:`, or a test that mocks a cached function's internals, is rejected against this record.
 
 ## Consequences
 
-- Every cache shares one lifetime story: import populates nothing, first use populates the cache entry, re-import destroys it. There is no
-  second invalidation mechanism to reason about.
+- Every cache shares one lifetime: import populates nothing, first use populates the cache entry, re-import destroys it, with no second
+  invalidation mechanism to reason about.
 - Caches are module-private by construction — no cross-module coupling through shared cache state, and parallel test workers cannot see each
   other's cache entries (each process imports its own).
 - Tests stay honest: mocking the boundary function works whether the cache is cold or warm, and only deliberate cache tests touch the cache

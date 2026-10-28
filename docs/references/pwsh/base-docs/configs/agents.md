@@ -2,7 +2,7 @@
 
 The sub-agent registry: one entry per sub-agent definition `.claude/agents/<name>.md`
 ([ADR-REPO-AGENTS](../../../../drs/repository/agent-definitions.md)). It is loaded through `Get-Config -Config agents`, shape-validated by
-the `AgentsConfig` type, and checked by `Test-AgentDefinitions` against the agent files, the ADR rule ids, the loaded commands and the
+the `AgentsConfig` type, and checked by `Test-AgentDefinitions` against the agent files, the rule codes, the loaded commands and the
 `## Sub-agents` list in `.claude/CLAUDE.md`.
 
 ## Entry keys

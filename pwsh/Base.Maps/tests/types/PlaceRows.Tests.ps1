@@ -80,6 +80,16 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
             $rows.Counters | Should -BeExactly '7 places'
         }
 
+        It 'joins a nested folder of a module with dots, so each part between bars is one place and the counter agrees' {
+            $rows = & $script:rowsOf @(
+                , @('widgets', 'Catzc.Widget', 'tests/types')
+                , @('widgets', 'Catzc.Widget', 'types')
+            )
+            @($rows.Rows) | Should -Be @('widgets.widget.tests.types|types')
+            $rows.Rows[0] | Should -Not -BeLike '*/*'
+            $rows.Counters | Should -BeExactly '2 places'
+        }
+
         It 'drops a docs place at the docs root, which names no folder, and does not count it' {
             $rows = & $script:rowsOf @(, @('docs', '-', '.'))
             $rows.Rows.Count | Should -Be 0

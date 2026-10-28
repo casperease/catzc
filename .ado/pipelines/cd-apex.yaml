@@ -45,14 +45,19 @@ extends:
     Customer: apex
     # The prod subscription's targets (psub, preprod, prod) are deploy-apex.yaml's: CD stays in non-prod.
     Foundations:
-      - { env: nsub, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: nsub-weu-zct-ado-apex-lz-sc, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
     Discoveries:
-      - { env: nsub, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - { env: nsub, serviceConnection: nsub-weu-zct-ado-apex-lz-sc, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
     Expeditions:
       - {
           env: dev,
           adoEnvironment: apex-main-uat,
-          serviceConnection: sc-apex-nonprod,
+          serviceConnection: nsub-weu-zct-ado-apex-wl-sc,
           subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000,
         }
-      - { env: dev, slot: blu, serviceConnection: sc-apex-nonprod, subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000 }
+      - {
+          env: dev,
+          slot: blu,
+          serviceConnection: nsub-weu-zct-ado-apex-wl-sc,
+          subscriptionIdAssertIs: a0e00000-de00-50b0-0000-000000000000,
+        }

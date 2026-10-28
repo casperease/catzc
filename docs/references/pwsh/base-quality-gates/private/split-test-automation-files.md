@@ -27,7 +27,7 @@ working folder runs L3 (Resolve-TestRunMaxLevel,
 [ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 
 A file carrying both serial and greedy is serial: strict isolation wins. Granularity is deliberately the file — a file is the unit a shard
-schedules, so one tagged test moves its whole file. See the test-automation ADR
+schedules, so one tagged test moves its whole file. See the test-automation record
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 
 ### parameter `Discovery`

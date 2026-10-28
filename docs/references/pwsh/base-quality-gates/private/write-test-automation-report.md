@@ -66,7 +66,7 @@ Where the run executed — 'in-place', or the snapshot's provenance — recorded
 ## tests.csv
 
 The file holds one row per test, slowest first, in the report's columns. Failure detail stays in `summary.md`. The Rules column carries the
-ADR provenance citations, so `tests.csv` is the backtrack table: filtering it by a rule finds every test that enforces it.
+rule provenance citations, so `tests.csv` is the backtrack table: filtering it by a rule finds every test that enforces it.
 
 ## Timestamps
 

@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/configs/drs.yml
 
-The authored source of the ADR domain structure, the wiring of rules to domains, and the single source of truth for how the decision space
+The authored source of the DRS domain structure, the wiring of rules to domains, and the single source of truth for how the decision space
 is organised and cited. `Get-Config -Config drs` loads it, and its config type `DrsConfig` validates it. `index.md` is a generated
 projection of this file (`Build-DrsIndex`), see [ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
@@ -20,13 +20,13 @@ projection of this file (`Build-DrsIndex`), see [ADR-REPO-README](../../../../dr
 
 ## Rule sets
 
-Within a domain, `rulesets` is keyed by the internal kebab name, which is the ADR file slug. Each rule set declares:
+Within a domain, `rulesets` is keyed by the internal kebab name, which is the record file slug. Each rule set declares:
 
 - its full `external` citation code, `ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-REPO-AI`, fully spelled;
-- when the code body is a registered spelling token, its `terminology` link into the `adr:` category of `terminology.yml`;
+- when the code body is a registered spelling token, its `terminology` link into the `rule-code:` category of `terminology.yml`;
 - optionally a `code` on the leaf, which overrides the domain default. The validator asserts that a two-segment external's domain segment
   equals the effective code, and a one-segment external has no domain segment to match;
-- optionally a `concern` on the leaf, which overrides the domain default only when the ADR's place in the value chain differs from its
+- optionally a `concern` on the leaf, which overrides the domain default only when the record's place in the value chain differs from its
   domain's.
 
 ## Vendor recommendations

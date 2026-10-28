@@ -40,7 +40,7 @@ function Write-TestAutomationRuleCoverage {
         }
     }
     foreach ($analyzerRow in $AnalyzerCoverage) {
-        $id = $analyzerRow.AdrId
+        $id = $analyzerRow.RecordId
         if (-not $analyzerEnforcers.ContainsKey($id)) {
             $analyzerEnforcers[$id] = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         }
@@ -67,18 +67,18 @@ function Write-TestAutomationRuleCoverage {
         if ($hasTest) {
             $coveredByTest++
             foreach ($testPath in ($testEnforcers[$id] | Sort-Object)) {
-                $csvRows.Add([pscustomobject]@{ AdrId = $id; Kind = 'pester-test'; Enforcer = $testPath })
+                $csvRows.Add([pscustomobject]@{ RecordId = $id; Kind = 'pester-test'; Enforcer = $testPath })
             }
         }
         if ($hasAnalyzer) {
             $coveredByAnalyzer++
             foreach ($analyzerName in ($analyzerEnforcers[$id] | Sort-Object)) {
-                $csvRows.Add([pscustomobject]@{ AdrId = $id; Kind = 'pssa-rule'; Enforcer = $analyzerName })
+                $csvRows.Add([pscustomobject]@{ RecordId = $id; Kind = 'pssa-rule'; Enforcer = $analyzerName })
             }
         }
         if (-not ($hasTest -or $hasAnalyzer)) {
             $uncovered.Add($id)
-            $csvRows.Add([pscustomobject]@{ AdrId = $id; Kind = 'uncovered'; Enforcer = '' })
+            $csvRows.Add([pscustomobject]@{ RecordId = $id; Kind = 'uncovered'; Enforcer = '' })
         }
     }
 
@@ -88,7 +88,7 @@ function Write-TestAutomationRuleCoverage {
     $coveredCount = $total - $uncovered.Count
 
     $stringBuilder = [System.Text.StringBuilder]::new()
-    [void]$stringBuilder.AppendLine('# ADR rule enforcement coverage')
+    [void]$stringBuilder.AppendLine('# DRS rule enforcement coverage')
     [void]$stringBuilder.AppendLine('')
     [void]$stringBuilder.AppendLine("- Rules total: $total")
     [void]$stringBuilder.AppendLine("- Covered: $coveredCount (by a tagged test: $coveredByTest, by an analyzer rule: $coveredByAnalyzer — a rule may be both)")

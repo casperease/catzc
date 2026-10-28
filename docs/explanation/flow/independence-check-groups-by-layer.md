@@ -24,7 +24,7 @@ description:
   The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests each same-layer pair for a
   shared file, writes a report, and throws once with one line per overlapping pair.
 about:
-  adrs: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
+  rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: implementation
 content:
   title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair

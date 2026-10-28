@@ -1,4 +1,4 @@
-# ADR: Custom template discipline — when and how to use ADO templates
+# Azure DevOps: Custom template discipline — when and how to use ADO templates
 
 ## Rules: ADR-ADO-TEMPLATE
 
@@ -55,7 +55,7 @@ Azure DevOps YAML templates (`template:` references) allow ado pipelines to shar
 powerful reuse mechanism for pipeline concerns. They are also frequently misused as a general-purpose abstraction layer, wrapping automation
 logic in YAML indirection that makes ado pipelines opaque, brittle, and impossible to review.
 
-This ADR defines when templates add value, when they cause harm, and what to use instead.
+This record defines when templates add value, when they cause harm, and what to use instead.
 
 ### What templates are good at
 

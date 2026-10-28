@@ -24,7 +24,7 @@ description:
   An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; the name is derived or the run
   stops with an error to act on, and nobody types a name.
 about:
-  adrs:
+  rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
     - ADR-AZ-NAMING-ORDERISVARIANT
     - ADR-AZ-NAMING-LOWERCASECOMPONENTS
@@ -107,8 +107,8 @@ layout:
 - A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING-NEVERTRUNCATE).
 - The subscription picks the deploy target and the customer, never a name segment (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
-An external name collision on a globally unique type also fails the deploy. That is Azure's behaviour, which the ADR states: the fix is the
-same, adjust the slot or the `short_name`, and there is no automatic hash.
+An external name collision on a globally unique type also fails the deploy. That is Azure's behaviour, which the record states: the fix is
+the same, adjust the slot or the `short_name`, and there is no automatic hash.
 
 ## See also
 

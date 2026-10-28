@@ -25,7 +25,7 @@ description:
   Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and types the
   file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
 about:
-  adrs:
+  rules:
     - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
     - ADR-CONF-LOADING-CACHEBYPATH
@@ -118,8 +118,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR says a config type reports every violation in one exception. `GlobsConfig` throws on a missing `globsets` map before it collects the
-other violations.
+The record says a config type reports every violation in one exception. `GlobsConfig` throws on a missing `globsets` map before it collects
+the other violations.
 
 ## See also
 

@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../flow/.assets/gates-check-source-and-trigger.drawio.png
+      source: ../../flow/.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Pre-prod and production trade places blue-green; where that is impossible, the m
 
 ## Image
 
-.assets/not-a-manual-switch.png
+[not-a-manual-switch](.assets/not-a-manual-switch.png)
 
 ## Caption
 
-From the catalogue, reduced: "gates check source and trigger".
+From the catalogue, reduced: manual queues 1, where a person stands.
 
 ## Notes
 
 Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.
+docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

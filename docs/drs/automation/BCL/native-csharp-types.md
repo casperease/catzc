@@ -1,4 +1,4 @@
-# ADR: Native C# types — one combined assembly, namespace per module
+# BCL: Native C# types — one combined assembly, namespace per module
 
 ## Rules: ADR-BCL-TYPES
 
@@ -146,7 +146,7 @@ before the module loop.
 `How the one host compiles, references, and names the types`
 
 BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own build
-pair, and the BCL as its whole reference set (Rule ADR-BCL-TYPES-REFERENCESET); this ADR decides it. The **host** is the one engine that
+pair, and the BCL as its whole reference set (Rule ADR-BCL-TYPES-REFERENCESET); this record decides it. The **host** is the one engine that
 runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler builds the
 assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, when a session
 loads the assembly, what its janitors may change, and why the console text has to live in C# are that host's binding, decided in the pwsh
@@ -388,7 +388,7 @@ as well as its files, so the pair is the language's configuration, apart from th
 ## Disambiguation
 
 The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) is owned by
-[controlling-module-dependencies](../controlling-module-dependencies.md) (`ADR-AUTO-DEPM`); this ADR covers the type system itself.
+[controlling-module-dependencies](../controlling-module-dependencies.md) (`ADR-AUTO-DEPM`); this record covers the type system itself.
 
 ## Consequences
 

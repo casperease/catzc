@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsChecksConfig.cs
 
-The typed record of `drs-checks.yml`, the settings of the ADR checks over the rule registries, and the single declaration of their sensible
+The typed record of `drs-checks.yml`, the settings of the DRS checks over the rule registries, and the single declaration of their sensible
 defaults ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 ## Registration
@@ -17,7 +17,7 @@ mirrors the YAML mapping, so its properties are snake_case
 - **`engine_neutrality`** — a `DrsNeutralityCheck`, read by `Test-DrsEngineNeutrality`.
 - **`citation_graph`** — a `DrsCheck`, read by `Test-DrsRegistry`.
 - **`dora_coverage`** — a `DrsDoraCheck`, read by `Test-DrsRegistry`.
-- **`code_language`** — a `DrsCodeLanguageCheck`, the segment grammar of ADR codes.
+- **`code_language`** — a `DrsCodeLanguageCheck`, the segment grammar of rule codes.
 
 ## Modes
 

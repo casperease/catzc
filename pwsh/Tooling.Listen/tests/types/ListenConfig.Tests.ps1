@@ -39,20 +39,20 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
                     quiet_seconds       = 0
                     change_wait_seconds = 60
                     note_wait_seconds   = 30
-                    tiers               = @([ordered]@{ name = 'widget'; kinds = @('adr', 'how-to') })
+                    tiers               = @([ordered]@{ name = 'widget'; kinds = @('record', 'how-to') })
                     rest_tier           = 'gadget'
                 })
             $config.watch | Should -BeExactly 'widget/docs'
             $config.output | Should -BeExactly 'out/gadget'
             @($config.poll_milliseconds, $config.quiet_seconds, $config.change_wait_seconds,
                 $config.note_wait_seconds) | Should -Be @(250, 0, 60, 30)
-            $config.tiers[0].kinds | Should -Be @('adr', 'how-to')
+            $config.tiers[0].kinds | Should -Be @('record', 'how-to')
             $config.rest_tier | Should -BeExactly 'gadget'
         }
 
         It 'names the first tier that lists a kind, and the rest tier for any other kind or none' {
             $config = [Catzc.Tooling.Listen.ListenConfig]::new($null)
-            $config.TierOf('adr') | Should -BeExactly 'rule'
+            $config.TierOf('record') | Should -BeExactly 'rule'
             $config.TierOf('slide') | Should -BeExactly 'docs'
             $config.TierOf('function') | Should -BeExactly 'code'
             $config.TierOf($null) | Should -BeExactly 'code'
@@ -70,10 +70,10 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
             @{ Case = 'a note wait above its roof'; Raw = [ordered]@{ note_wait_seconds = 4000 }; Expected = '*note_wait_seconds*1 to 3600*' }
             @{ Case = 'tiers that are no list'; Raw = [ordered]@{ tiers = 'rule' }; Expected = '*tiers must be a list*' }
             @{ Case = 'a tier without kinds'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @() }) }; Expected = '*tier 0 kinds must be a non-empty list*' }
-            @{ Case = 'a tier name that is not kebab-case'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'Widget'; kinds = @('adr') }) }; Expected = "*tier 0 name 'Widget'*" }
-            @{ Case = 'a repeated tier name'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('adr') }, [ordered]@{ name = 'widget'; kinds = @('slide') }) }; Expected = "*repeats the name 'widget'*" }
-            @{ Case = 'a kind in two tiers'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('adr') }, [ordered]@{ name = 'gadget'; kinds = @('adr') }) }; Expected = "*kind 'adr', which an earlier tier holds*" }
-            @{ Case = 'an unknown tier key'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('adr'); gizmo = 1 }) }; Expected = "*unknown key 'gizmo'*" }
+            @{ Case = 'a tier name that is not kebab-case'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'Widget'; kinds = @('record') }) }; Expected = "*tier 0 name 'Widget'*" }
+            @{ Case = 'a repeated tier name'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record') }, [ordered]@{ name = 'widget'; kinds = @('slide') }) }; Expected = "*repeats the name 'widget'*" }
+            @{ Case = 'a kind in two tiers'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record') }, [ordered]@{ name = 'gadget'; kinds = @('record') }) }; Expected = "*kind 'record', which an earlier tier holds*" }
+            @{ Case = 'an unknown tier key'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record'); gizmo = 1 }) }; Expected = "*unknown key 'gizmo'*" }
             @{ Case = 'a rest tier that is also a listed tier'; Raw = [ordered]@{ rest_tier = 'rule' }; Expected = "*rest_tier 'rule' is also the name of a listed tier*" }
         ) {
             Get-ViolationMessage $Raw | Should -BeLike $Expected

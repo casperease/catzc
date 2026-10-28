@@ -39,6 +39,7 @@ function Write-Generated {
     [System.IO.File]::WriteAllText('$generated', 'generated')
     [System.IO.File]::WriteAllText('$kept', 'rewritten')
 }
+function Test-DotNetRoot { if ([System.Environment]::CurrentDirectory.TrimEnd('\', '/') -ne [System.IO.Path]::GetFullPath('$($script:root.Replace("'", "''"))').TrimEnd('\', '/')) { throw "the .NET current directory is `$([System.Environment]::CurrentDirectory)" } }
 function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWaitHandle]::TryOpenExisting('$($script:lockName)-burst', [ref] `$event)) { throw 'no burst event while the swap runs' }; `$event.Dispose() }
 "@)
     }
@@ -54,6 +55,20 @@ function Test-BurstHeld { `$event = `$null; if (-not [System.Threading.EventWait
         ($lines -join "`n") | Should -Not -BeLike '*is not recognized*'
         $lines | Should -Contain '[Invoke-StagedBurst] swapped 2 staged file(s) in and 1 command(s) passed'
         $lines[-1] | Should -BeLike '[[]Enter-CatzcBurst] released the run lock: the 1 -Run steps passed'
+    }
+
+    It 'runs its steps with the .NET current directory at the root, and gives the caller''s back, when <Case>' -ForEach @(
+        @{ Case = 'files are swapped'; Remove = '' }
+        @{ Case = 'nothing is staged'; Remove = 'widgets' }
+    ) {
+        if ($Remove) {
+            Remove-Item -LiteralPath (Join-Path $script:staged $Remove) -Recurse -Force
+        }
+        $before = [System.Environment]::CurrentDirectory
+        $lines = @(& $script:burst -StagedFolder $script:staged -RepositoryRoot $script:root -Importer $script:importer -LockName $script:lockName -LockSeconds 1 -Seconds 30 'Test-DotNetRoot')
+        $LASTEXITCODE | Should -Be 0 -Because ($lines -join "`n")
+        $lines | Should -Contain '[Invoke-CatzcCommand] passed: Test-DotNetRoot'
+        [System.Environment]::CurrentDirectory | Should -BeExactly $before
     }
 
     It 'restores every target, deleting the one it created, when a test fails' {

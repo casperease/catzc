@@ -1,16 +1,16 @@
 # pwsh/Base.Drs/ConvertTo-DrsDomainDiagram.ps1
 
-Draws the ADR domain dependency edges as PlantUML, Mermaid or a Markdown table, so the domain graph reads like the module graph.
+Draws the DRS domain dependency edges as PlantUML, Mermaid or a Markdown table, so the domain graph reads like the module graph.
 
 ## help
 
 ### synopsis
 
-Renders ADR domain dependency edges to PlantUML, Mermaid, or a Markdown table.
+Renders DRS domain dependency edges to PlantUML, Mermaid, or a Markdown table.
 
 ### description
 
-Serializes the edges from Get-DrsDomainEdges to the format chosen by -As — the ADR-domain counterpart of ConvertTo-ModuleDependencyDiagram,
+Serializes the edges from Get-DrsDomainEdges to the format chosen by -As — the DRS-domain counterpart of ConvertTo-ModuleDependencyDiagram,
 so the domain DAG (which the ASM/flow reasoning depends on) is drawn the same way the module graph is:
 
 - Puml — a `@startuml … @enduml` graph (a dashed arrow per declared edge).

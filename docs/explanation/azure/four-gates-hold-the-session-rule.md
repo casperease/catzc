@@ -27,7 +27,7 @@ description:
   Four throwing gates hold the rule that the az session is the deploy target; the customer and the resource-group name hold by construction,
   with no gate, and every gate ends in a throw.
 about:
-  adrs:
+  rules:
     - ADR-AZ-DATAMOD-CUSTOMERAXIS
     - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
     - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
@@ -124,7 +124,7 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR names `Deploy-Bicep` as the function that throws without the pin, and so does the code; `Get-BicepDeploymentContext` on its own
+The record names `Deploy-Bicep` as the function that throws without the pin, and so does the code; `Get-BicepDeploymentContext` on its own
 accepts a pipeline call without the pin, so the first gate guards the deploy surface, not the context function.
 
 ## See also

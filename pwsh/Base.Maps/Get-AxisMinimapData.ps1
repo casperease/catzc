@@ -3,7 +3,7 @@ function Get-AxisMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [switch] $AsJson
     )
@@ -18,12 +18,12 @@ function Get-AxisMinimapData {
         $row = $axis.RowOf($cell.Stack)
         if ($row -and $columns -ccontains $cell.Concern) {
             $key = "$row`t$($cell.Concern)"
-            $count[$key] = [int] $count[$key] + $cell.AdrCount
+            $count[$key] = [int] $count[$key] + $cell.RecordCount
         }
     }
     $reasons = @{}
-    $highlight = Get-ValueChainHighlight -Adr $Adr
-    # An ADR whose concerns all fall outside the columns lights its whole row instead: the place [row, '*'].
+    $highlight = Get-ValueChainHighlight -Rule $Rule
+    # A record whose concerns all fall outside the columns lights its whole row instead: the place [row, '*'].
     $inside = @{}
     $outside = [System.Collections.Generic.List[object]]::new()
     foreach ($cell in $highlight.Cells) {
@@ -33,7 +33,7 @@ function Get-AxisMinimapData {
         }
         foreach ($reason in $highlight.ReasonsOf($cell.Stack, $cell.Concern)) {
             if ($columns -ccontains $cell.Concern) {
-                $inside[$reason.Adr] = $true
+                $inside[$reason.Record] = $true
             }
             else {
                 $outside.Add([pscustomobject]@{ Row = $row; Concern = $cell.Concern; Reason = $reason })
@@ -42,7 +42,7 @@ function Get-AxisMinimapData {
     }
     $rowWide = [System.Collections.Generic.List[string]]::new()
     foreach ($item in $outside) {
-        if ($inside.ContainsKey($item.Reason.Adr)) {
+        if ($inside.ContainsKey($item.Reason.Record)) {
             continue
         }
         $key = "$($item.Row)`t*"
@@ -51,7 +51,7 @@ function Get-AxisMinimapData {
             $rowWide.Add($item.Row)
         }
         $note = "concern $($item.Concern), outside the axis"
-        $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($item.Reason.Adr, 'concern', $item.Reason.Requested,
+        $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($item.Reason.Record, 'concern', $item.Reason.Requested,
                 $note))
     }
     foreach ($cell in $highlight.Cells) {
@@ -70,7 +70,7 @@ function Get-AxisMinimapData {
             else {
                 'domain'
             }
-            $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($reason.Adr, $basis, $reason.Requested,
+            $reasons[$key].Add([Catzc.Base.Maps.MinimapReason]::new($reason.Record, $basis, $reason.Requested,
                     $reason.Domain))
         }
     }

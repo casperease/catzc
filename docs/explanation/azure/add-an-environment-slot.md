@@ -20,7 +20,7 @@ description:
   Adding a configuration slot adds one file to the configs place of the infrastructure track; discovery finds it on disk, checks that its
   coordinate resolves to exactly one subscription, and the owner's CD pipeline deploys it into a new resource group.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
+  rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
   title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
@@ -50,7 +50,7 @@ content:
     - { at: r-owner, number: 3 }
     - { at: e-group, number: 4 }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   g-one: { x: 500, y: 156, w: 260, h: 68 }
   r-owner: { x: 880, y: 164, w: 160, h: 52 }

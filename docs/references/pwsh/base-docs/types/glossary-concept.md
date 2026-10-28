@@ -7,7 +7,7 @@ snake_case keys
 ## Properties
 
 - **`term`** and **`key`** — the canonical term, and its snake_case machine key.
-- **`domain`** and **`defined_by`** — the ADR domain, and the one rule that defines the term
+- **`domain`** and **`defined_by`** — the DRS domain, and the one rule that defines the term
   ([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)). A `defined_by` is a
   rule code of any kind, as `DrsCodeForm.AnyKind` gives it: a two-to-four-letter kind prefix and at least two more `-<NAME>` segments
   ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
@@ -26,7 +26,7 @@ snake_case keys
 
 ## Validation
 
-Only the entry's own shape is checked on load. Whether `defined_by` names a real rule, `domain` a declared ADR domain, and the relation and
+Only the entry's own shape is checked on load. Whether `defined_by` names a real rule, `domain` a declared DRS domain, and the relation and
 contrast targets real concepts are cross-file facts, checked by the glossary checks (`Test-Glossary`), so loading a glossary stays hermetic
 (the [ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)
 pattern).

@@ -1,4 +1,4 @@
-# ADR: Module model — how a deployable track's modules are found, shaped and ordered
+# Automation: Module model — how a deployable track's modules are found, shaped and ordered
 
 ## Rules: ADR-AUTO-MODULE
 

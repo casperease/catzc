@@ -11,7 +11,7 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'draws only the places a subject file sits in: track, module and folder, each lit by its files' {
-        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET'
+        $data = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET', 'ADR-GADGET'
         @($data.Axes | ForEach-Object Name) | Should -Be @('track', 'module', 'folder')
         @($data.Cells | ForEach-Object { $_.At -join ' / ' }) | Should -Be @('gadgets / - / .',
             'widgets / Catzc.Widget / .', 'widgets / Catzc.Widget / private')
@@ -21,21 +21,21 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     }
 
     It 'gives every lit cell its reason and serializes to the minimap contract' {
-        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET'
+        $data = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET'
         @($data.Lit | Where-Object { $_.Reasons.Count -eq 0 }) | Should -BeNullOrEmpty
-        Test-Json -Json (Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -AsJson) -Schema $script:schema | Should -BeTrue
+        Test-Json -Json (Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET' -AsJson) -Schema $script:schema | Should -BeTrue
     }
 
     It 'carries the rows its place list draws, computed beside the data, in the contract' {
-        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET'
+        $data = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET', 'ADR-GADGET'
         @($data.PlaceRows.Rows) | Should -Be @('gadgets', 'widgets.widget.(root)|private')
         $data.PlaceRows.Counters | Should -BeExactly '3 places'
-        $json = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET' -AsJson
+        $json = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET', 'ADR-GADGET' -AsJson
         Test-Json -Json $json -Schema $script:schema | Should -BeTrue
         ($json | ConvertFrom-Json).place_rows.counters | Should -BeExactly '3 places'
     }
 
-    It 'places the drawing''s own glyphs first, the cited ADRs'' places only while rows remain, and counts a label that names no file' {
+    It 'places the drawing''s own glyphs first, the cited records'' places only while rows remain, and counts a label that names no file' {
         Mock Get-MinimapFact -ModuleName Catzc.Base.Maps {
             $facts = @{}
             foreach ($file in $Path) {
@@ -50,31 +50,31 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
             [ordered]@{ kind = 'code'; label = 'a plain phrase' }
         )
         $tracked = @('widgets/Catzc.Widget.Cog/Get-Sprocket.ps1', 'widgets/Catzc.Widget.Cog/types/SprocketConfig.cs')
-        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -Glyph $glyphs -TrackedPath $tracked
+        $data = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET' -Glyph $glyphs -TrackedPath $tracked
         @($data.PlaceRows.Rows) | Should -Contain 'widgets.widget_cog.(root)|types'
         $data.PlaceRows.Counters | Should -BeExactly '5 places'
         Should -Invoke Write-Message -ModuleName Catzc.Base.Maps -ParameterFilter { $Message -like '*2 of 3 glyph label(s) resolved to a repository place, 1 dropped*' }
     }
 
-    It 'drops the docs places of the cited ADRs when the drawing draws no doc' {
+    It 'drops the docs places of the cited records when the drawing draws no doc' {
         Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps {
             [pscustomobject]@{ Path = 'docs/drs/widgets/rule.md'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ track = 'docs' } }
             [pscustomobject]@{ Path = 'widgets/Catzc.Widget/Get-Widget.ps1'; Requested = 'ADR-WIDGET'; Citations = @(); Facts = @{ track = 'widgets'; module = 'Catzc.Widget' } }
         }
-        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET'
+        $data = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET'
         @($data.PlaceRows.Rows) | Should -Be @('widgets.widget')
     }
 
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(),
             [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
-        $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        $null = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET' -WorldMap $map
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
     }
 
     It 'hands the facts it is given to the subject' {
         $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
-        $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        $null = Get-CodeLocationsMinimapData -Rule 'ADR-WIDGET' -Facts $given
         Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

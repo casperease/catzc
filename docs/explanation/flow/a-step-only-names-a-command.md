@@ -21,7 +21,7 @@ description:
   A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
   so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
 about:
-  adrs: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
+  rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: meta
 content:
   title: A pipeline step only names a command that a developer can run locally

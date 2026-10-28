@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../automation/.assets/every-entry-runs-one-load-sequence.drawio.png
+      source: ../../automation/.assets/three-tests-prove-the-hook.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ A hook is compiled, denies a call that breaks the rule, and logs the denial; a h
 
 ## Image
 
-.assets/hook-compiled-feelings.png
+[hook-compiled-feelings](.assets/hook-compiled-feelings.png)
 
 ## Caption
 
-From the catalogue, reduced: every entry runs one load sequence.
+From the catalogue, reduced: three tests prove the hook.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.
+docs/explanation/automation/.assets/three-tests-prove-the-hook.drawio.png.

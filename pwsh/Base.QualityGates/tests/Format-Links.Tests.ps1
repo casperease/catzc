@@ -103,12 +103,12 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $alignFile $root 'src/widget.ps1' $text | Should -BeExactly $expected
         }
 
-        It 'turns a unique ADR file name into a link, and leaves an ambiguous one alone' -Tag 'ADR-REPO-LINK-CODELINKS' {
+        It 'turns a unique record file name into a link, and leaves an ambiguous one alone' -Tag 'ADR-REPO-LINK-CODELINKS' {
             & $alignFile $root 'src/widget.ps1' "# See gadget-rules.md and dora-explains.md.`n" |
                 Should -BeExactly "# See [ADR-TST-GADGET](/docs/drs/gadget/gadget-rules.md) and dora-explains.md.`n"
         }
 
-        It 're-points a path to a moved ADR from its file name' -Tag 'ADR-REPO-LINK-CODELINKS' {
+        It 're-points a path to a moved record from its file name' -Tag 'ADR-REPO-LINK-CODELINKS' {
             & $alignFile $root 'src/widget.ps1' "# See docs/drs/old-folder/widget-rules.md.`n" |
                 Should -BeExactly "# See $widgetDoc.`n"
         }
@@ -118,7 +118,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
                 Should -BeExactly "# See $widget2.`n"
         }
 
-        It 'links a code-less ADR-folder document with its file name as the text' -Tag 'ADR-REPO-LINK-CODELINKS' {
+        It 'links a code-less DRS-folder document with its file name as the text' -Tag 'ADR-REPO-LINK-CODELINKS' {
             & $alignFile $root 'src/widget.ps1' "# Registry: docs/drs/index.md.`n" |
                 Should -BeExactly "# Registry: [index](/docs/drs/index.md).`n"
         }

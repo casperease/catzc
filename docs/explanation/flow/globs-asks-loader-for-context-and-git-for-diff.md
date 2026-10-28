@@ -25,7 +25,7 @@ description:
   The touched-unit check of the globs module asks the loader which context it runs in, to pick the reference commit, and asks git for the
   changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
 about:
-  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
+  rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change

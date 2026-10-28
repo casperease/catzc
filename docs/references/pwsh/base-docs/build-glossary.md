@@ -1,6 +1,6 @@
 # pwsh/Base.Docs/Build-Glossary.ps1
 
-The generator of the glossary page: it renders every merged concept of `Get-Glossary` into `docs/drs/glossary.md`, a section per ADR domain,
+The generator of the glossary page: it renders every merged concept of `Get-Glossary` into `docs/drs/glossary.md`, a section per DRS domain,
 and writes the page only when its content changes.
 
 ## Contrasts
@@ -16,12 +16,12 @@ Generates the [glossary](../../../drs/glossary.md) — the controlled vocabulary
 ### description
 
 Projects Get-Glossary (every concept of every configs/glossary.yml source,
-[ADR-REPO-VOCAB](../../../drs/repository/controlled-vocabulary.md)) into one markdown page: a section per ADR domain, in drs.yml order, and
+[ADR-REPO-VOCAB](../../../drs/repository/controlled-vocabulary.md)) into one markdown page: a section per DRS domain, in drs.yml order, and
 per term its one-line definition, a link to the rule that defines it, how it is realized, its source, its relations, its allowed forms, its
 contrasts (linked to the related terms), and its avoided phrasings with what to say instead. Terms sort by term within a domain, so the
 output is deterministic.
 
-The page is a derived artifact like the ADR index: committed so GitHub has it (linguist-generated, so its diff collapses) and rebuilt on
+The page is a derived artifact like the DRS index: committed so GitHub has it (linguist-generated, so its diff collapses) and rebuilt on
 import, its sources (the glossary files and this generator) are what is reviewed and checked
 ([ADR-REPO-README-AUTHOREDSOURCES](../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)). It is written only
 when its content changes, and emitted already formatted (Format-MarkdownParagraph), so Format-Code is a no-op on it.

@@ -23,8 +23,9 @@ and the types project's build folders, the importer command list and the track-s
   through the step template: a multiline command through the YAML pipe operator, `Invoke-Executable` output capture, stderr separation and
   exit-code assertion, pipeline detection and the output root, `Set-AdoPipelineVariable`, `-DryRun` on the tool wrappers, the header and
   footer rendering, module loading and function discovery, and the output of `Write-Exception`.
-- **AzureAuthTests** — needs the `sc-azure-test` service connection. It proves mode `azcli` (the az CLI is pre-authenticated), mode `azps`
-  (the Az PowerShell context is authenticated) and `ExposeAccessToken` (`SYSTEM_ACCESSTOKEN` is mapped).
+- **AzureAuthTests** — needs the read-only service connection of the shared non-prod subscription, `nsub-weu-zct-ado-ro-sc`. It proves mode
+  `azcli` (the az CLI is pre-authenticated), mode `azps` (the Az PowerShell context is authenticated) and `ExposeAccessToken`
+  (`SYSTEM_ACCESSTOKEN` is mapped).
 - **ToolInstallation** — installs every locked-version tool on Linux, one step per tool in dependency order, with a tools status snapshot
   before and after. The hosted agent's pre-cached Python 3.13, .NET 10 and Node.js 22 are activated first, which puts the right version on
   `PATH`, so the `Install-*` functions see it and skip. The remaining tools install through catzc's own functions: the pip-based tools

@@ -1,19 +1,19 @@
 # pwsh/Base.Drs/private/Get-DrsCitationGraphViolations.ps1
 
-The private helper of `Test-DrsRegistry` that finds ADR citations leaving their domain for one it does not depend on.
+The private helper of `Test-DrsRegistry` that finds record citations leaving their domain for one it does not depend on.
 
 ## help
 
 ### synopsis
 
-Lists every citation in an ADR page that leaves its domain for a domain the registry does not declare it depends on.
+Lists every citation in a record page that leaves its domain for a domain the registry does not declare it depends on.
 
 ### description
 
-An ADR page, its rule summaries and its body prose alike, may cite only its own domain or a domain in its domain's depends_on list in
+A record page, its rule summaries and its body prose alike, may cite only its own domain or a domain in its domain's depends_on list in
 drs.yml. The list is read as declared, not transitively: like the module dependency graph, it is an allow-list of direct edges, so a domain
-that cites another names it. A fenced block is not read. A finding names the rule whose block holds the line, or the ADR's code for a line
-outside the rule registry.
+that cites another names it. A fenced block is not read. A finding names the rule whose block holds the line, or the record's code for a
+line outside the rule registry.
 
 Two kinds of reference are read in every line:
 
@@ -25,9 +25,9 @@ Each line reports the domain it cites once, naming the first reference to it.
 
 Private helper for Test-DrsRegistry; not exported.
 
-### parameter `Adrs`
+### parameter `Drs`
 
-The ADR registry (Get-Config -Config drs).
+The DRS registry (Get-Config -Config drs).
 
 ### parameter `Index`
 

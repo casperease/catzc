@@ -1,6 +1,6 @@
 description: The pwsh track's modules and the calls the code makes between them, drawn from the dependency query at every build.
 about:
-  adrs: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-MODULE-TOPOLOGICALORDER, DDR-VISUAL-ZOOMISANAXIS]
+  rules: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-MODULE-TOPOLOGICALORDER, DDR-VISUAL-ZOOMISANAXIS]
   lens: architecture
   zoom: C3
   point: pwsh

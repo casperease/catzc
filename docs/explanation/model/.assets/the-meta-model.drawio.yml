@@ -2,7 +2,7 @@ description: >-
   The meta model in six parts: modules that exist by their layout, one dependency graph, the load order it gives, the engines the modules
   run on, the decision records that govern them, and the glossary of their words.
 about:
-  adrs:
+  rules:
     [
       ADR-AUTO-MODULE-EXISTSBYLAYOUT,
       ADR-AUTO-DEPM-UNIFIEDGRAPH,

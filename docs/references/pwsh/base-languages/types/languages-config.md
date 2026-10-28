@@ -2,7 +2,7 @@
 
 The typed record for `languages.yml`, the file-language registry: every file language the repository's tracked files are written in, each
 named by its extensions ([DDR-TRACK-FILELANGUAGE](../../../../drs/design/tracks.md#rule-ddr-track-filelanguage)), with the formatter engine
-that formats it and its ADR folder. It is registered in `Catzc.Base.Config/configs/configs.yml` (type
+that formats it and its decision-record folder. It is registered in `Catzc.Base.Config/configs/configs.yml` (type
 `Catzc.Base.Languages.LanguagesConfig`), so `Get-Config -Config languages` returns it; `Get-FileLanguage` and `Format-Code` read it. Its
 property names mirror the YAML keys
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
@@ -24,7 +24,7 @@ here land together
 
 The sensible defaults are declared here, once
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an
-omitted `languages` is no file language, an omitted `adr_folder` is none, and an omitted `checks` is no quality gate. The VS Code language
+omitted `languages` is no file language, an omitted `drs_folder` is none, and an omitted `checks` is no quality gate. The VS Code language
 id defaults to the language's own name; an entry states it only where the editor's id differs (pipeline YAML is VS Code's `azure-pipelines`
 language).
 
@@ -32,7 +32,7 @@ language).
 
 Constructing an instance validates the file and collects every violation into one `ArgumentException`:
 
-- only `formatters` and `languages` at the top; only `extensions`, `formatter`, `no_formatter`, `vscode_language`, `adr_folder`, `checks`
+- only `formatters` and `languages` at the top; only `extensions`, `formatter`, `no_formatter`, `vscode_language`, `drs_folder`, `checks`
   and `check_scopes` in a language entry; only `vscode_extension` and `settings` in an engine entry, so a typo fails at load;
 - `checks` is a list of quality-gate command names (`Test-<Noun>`, for example `Test-ScriptAnalyzer`), each at most once: the gates
   `Test-Change` runs over a changed file of the language;
@@ -45,7 +45,7 @@ Constructing an instance validates the file and collects every violation into on
 - `extensions` is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits after it (for example
   `.ps1`), and belongs to exactly one file language (an extension claimed twice is rejected);
 - exactly one of `formatter` (an engine) and `no_formatter` (a non-empty reason);
-- `adr_folder` is a `/`-separated folder under `docs/drs/`, no leading or trailing slash, no `.` or `..` segment.
+- `drs_folder` is a `/`-separated folder under `docs/drs/`, no leading or trailing slash, no `.` or `..` segment.
 
 ## Members
 

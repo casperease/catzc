@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../azure/.assets/add-a-template.drawio.png
+      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,12 +23,12 @@ A call that needs longer gets its roof raised in the one config, by a person; a 
 
 ## Image
 
-.assets/limit-is-config.png
+[limit-is-config](.assets/limit-is-config.png)
 
 ## Caption
 
-From the catalogue, reduced: add a template.
+From the catalogue, reduced: a shell call carries its limit or is denied.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/add-a-template.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

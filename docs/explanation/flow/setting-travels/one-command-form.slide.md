@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../automation/.assets/types-check-forms-review-checks-crossers.drawio.png
+      source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ own words.
 
 ## Image
 
-.assets/one-command-form.png
+[one-command-form](.assets/one-command-form.png)
 
 ## Caption
 
-From the catalogue, reduced: types check forms review checks crossers.
+From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
 Check it: the record ADR-AUTO-ACCOSTED in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/types-check-forms-review-checks-crossers.drawio.png.
+docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

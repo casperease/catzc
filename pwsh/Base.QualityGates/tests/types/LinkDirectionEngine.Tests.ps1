@@ -1,7 +1,7 @@
 Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROWS', 'ADR-REPO-LINKS-EXCEPTIONSAREENTRIES' {
     BeforeAll {
         $script:endpoints = [System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]::new()
-        foreach ($pair in @(('mods/Widget/Get-Widget.ps1', 'code'), ('docs/drs/widget.md', 'adr'),
+        foreach ($pair in @(('mods/Widget/Get-Widget.ps1', 'code'), ('docs/drs/widget.md', 'record'),
                 ('docs/how-to/gadget.md', 'how-to'))) {
             $endpoints[$pair[0]] = [Catzc.Base.QualityGates.LinkEndpoint]::new($pair[0], $pair[1], '', '', '', '')
         }
@@ -13,7 +13,7 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
             param([hashtable] $Exempt = @{})
             [Catzc.Base.QualityGates.LinkDirectionsConfig]::new([ordered]@{
                     rows   = @(
-                        @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('adr') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
+                        @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('record') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
                         @{ relations = @('code_link'); verdict = 'deny'; because = 'ADR-WIDGET-ONEWAY' }
                         @{ relations = @('code_link'); verdict = 'allow'; because = 'ADR-WIDGET-NEVER' }
                     )
@@ -35,7 +35,7 @@ Describe 'LinkDirectionEngine' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSARE
 
     It 'denies a relation no row allows' {
         $findings = & $judge @(& $edge 'docs/how-to/gadget.md' 'docs/drs/widget.md' 'MarkdownLink')
-        "$($findings[0])" | Should -Be 'docs/how-to/gadget.md:4 [MarkdownLink] how-to -> adr no row allows it'
+        "$($findings[0])" | Should -Be 'docs/how-to/gadget.md:4 [MarkdownLink] how-to -> record no row allows it'
     }
 
     It 'skips an exempt file' {

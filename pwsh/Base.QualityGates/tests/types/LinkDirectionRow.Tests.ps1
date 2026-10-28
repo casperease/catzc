@@ -7,11 +7,11 @@ Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROW
     }
 
     It 'maps every key and matches its relation and both ends' {
-        $row = & $row @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('adr') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
+        $row = & $row @{ relations = @('code_link'); from = @{ classes = @('code') }; to = @{ classes = @('record') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
         $row.verdict | Should -Be ([Catzc.Base.QualityGates.LinkVerdict]::Allow)
         $row.because | Should -Be 'ADR-WIDGET-ONE'
-        $row.Matches('CodeLink', (& $end 'mods/a.ps1' 'code'), (& $end 'docs/drs/w.md' 'adr')) | Should -BeTrue
-        $row.Matches('MarkdownLink', (& $end 'mods/a.ps1' 'code'), (& $end 'docs/drs/w.md' 'adr')) | Should -BeFalse
+        $row.Matches('CodeLink', (& $end 'mods/a.ps1' 'code'), (& $end 'docs/drs/w.md' 'record')) | Should -BeTrue
+        $row.Matches('MarkdownLink', (& $end 'mods/a.ps1' 'code'), (& $end 'docs/drs/w.md' 'record')) | Should -BeFalse
     }
 
     It 'covers every relation when it lists none' {

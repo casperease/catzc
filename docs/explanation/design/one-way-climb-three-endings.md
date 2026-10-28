@@ -22,7 +22,7 @@ description:
   "The eight rungs a commit climbs, one at a time and never backward, and its three endings off the ladder: superseded, drawn as a ghost of
   its last colour, discarded in red at a gate, and retired from production in its kept green."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-DISCARDISTERMINAL
     - FDR-LIFE-RETIREMENTISNOTDISCARD

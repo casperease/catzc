@@ -5,9 +5,9 @@ Builds the world map from plain inputs, so a logic test needs no disk. `Get-Worl
 ## Inputs
 
 The tracks (`variants.yml`), the file languages (`languages.yml`), the tracked paths (the git index), the aspects per track (the live
-classification), the adrs index (ADR code to domain), each ADR code's own file (the registry's code-to-file map, the one the link engine
-uses), the text of the files that cite, the owners of the repository-root files (`files.yml`: root file to the owning module's folder) and
-the globsets (`globs.yml`). `Build` also takes `citationExclude`, the globs of the files whose citations light nothing
+classification), the DRS index (record code to domain), each record code's own file (the registry's code-to-file map, the one the link
+engine uses), the text of the files that cite, the owners of the repository-root files (`files.yml`: root file to the owning module's
+folder) and the globsets (`globs.yml`). `Build` also takes `citationExclude`, the globs of the files whose citations light nothing
 (`highlight.citation_exclude`); such a file still sits in its cell. None when null.
 
 ## Placement
@@ -33,7 +33,7 @@ not declare is a stack violation; a file without an extension is never one.
 
 The relation follows a fixed order per artifact kind:
 
-1. an ADR's own file (the file the registry maps its code to) carries that one ADR code, and lights for it alone;
+1. a record's own file (the file the registry maps its code to) carries that one record code, and lights for it alone;
 2. a file under no track carries the citations of the files in its owner's folder (`files.yml`), else its own;
 3. a file of the pipelines track carries its own citations, else those of the files of the globset whose pipeline key names it;
 4. every other file, module code included, carries its own citations.

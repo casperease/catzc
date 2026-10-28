@@ -26,7 +26,7 @@ in a script and in CI, and the task index. Its how-to articles:
 ## Explanation
 
 How cats works and why, one diagram per article — start at the [**explanation index**](explanation/index.md), which also shows how to read
-the diagrams. By ADR domain:
+the diagrams. By DRS domain:
 
 - [Ado](explanation/ado/index.md) — how Azure DevOps calls prove their credentials
 - [Automation](explanation/automation/index.md) — module dependencies, the importer, and the bundle
@@ -56,7 +56,7 @@ describes it in those terms, and sorts its functions and configs into them:
   [Catzc.Azure.DevOps](references/pwsh/azure-dev-ops/index.md), [Catzc.Azure.Firewall](references/pwsh/azure-firewall/index.md),
   [Catzc.Azure.Templates](references/pwsh/azure-templates/index.md)
 
-## Automation ADRs
+## Automation records
 
 The "why" and "how" behind the automation and its pwsh engine.
 
@@ -128,13 +128,13 @@ The "why" and "how" behind the automation and its pwsh engine.
 
 ### DRY and KISS
 
-- **KISS** — This is [zero ceremony, hard to fail](drs/automation/zero-ceremony-poka-yoke.md). The foundational ADR's first test — "Does
+- **KISS** — This is [zero ceremony, hard to fail](drs/automation/zero-ceremony-poka-yoke.md). The foundational record's first test — "Does
   this add ceremony?" — is the KISS test.
 - **DRY** — Enforced structurally: [dynamic module manifests](drs/automation/pwsh/dynamic-module-manifests.md) eliminate manifest
   duplication, [sensible defaults](drs/automation/sensible-defaults.md) pull versions from config,
   [one function per file](drs/automation/pwsh/one-function-per-file.md) makes the file name the export name.
 
-## Pipeline ADRs
+## Pipeline records
 
 How Azure DevOps pipelines interact with the catzc commands.
 

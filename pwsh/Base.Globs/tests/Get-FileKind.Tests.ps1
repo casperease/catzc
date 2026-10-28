@@ -29,7 +29,7 @@ Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/drs/index.md'; Class = 'index' }
         @{ Path = 'docs/drs/glossary.md'; Class = 'glossary' }
-        @{ Path = 'docs/drs/repository/file-meta.md'; Class = 'adr' }
+        @{ Path = 'docs/drs/repository/file-meta.md'; Class = 'record' }
         @{ Path = 'docs/references/pwsh/base-globs/tests/get-file-kind.md'; Class = 'comment-page' }
         @{ Path = 'infrastructure/templates/foundation/main.bicep'; Class = 'template' }
         @{ Path = 'infrastructure/templates/foundation/options.yml'; Class = 'template/config' }

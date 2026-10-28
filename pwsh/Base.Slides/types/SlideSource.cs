@@ -11,10 +11,14 @@ public sealed class SlideItem
     public string Lead { get; }
     public string Text { get; }
 
-    public SlideItem(string lead, string text)
+    // The target of the item when the item is exactly one markdown link, [text](target); null for any other item.
+    public string Target { get; }
+
+    public SlideItem(string lead, string text, string target)
     {
         Lead = lead;
         Text = text ?? string.Empty;
+        Target = target;
     }
 
     public override string ToString() => Lead == null ? Text : Lead + ": " + Text;
@@ -78,6 +82,7 @@ public sealed class SlideSource
     private static readonly Regex TableSeparator = new Regex(@"^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$", RegexOptions.Compiled);
     private static readonly Regex Lead = new Regex(@"^\*\*(.+?)\*\*\s*[:—–-]?\s*(.*)$", RegexOptions.Compiled | RegexOptions.Singleline);
     private static readonly Regex Link = new Regex(@"\[([^\]]+)\]\([^)]*\)", RegexOptions.Compiled);
+    private static readonly Regex OneLink = new Regex(@"^\[[^\]]+\]\(([^)\s]+)\)$", RegexOptions.Compiled);
     private static readonly Regex Emphasis = new Regex(@"(\*\*|__|`)", RegexOptions.Compiled);
     private static readonly Regex Spaces = new Regex(@"\s+", RegexOptions.Compiled);
 
@@ -197,7 +202,7 @@ public sealed class SlideSource
             if (isList && paragraph.Count == 0 && items.Count > 0 && char.IsWhiteSpace(raw[0]))
             {
                 SlideItem last = items[items.Count - 1];
-                items[items.Count - 1] = new SlideItem(last.Lead, (last.Text + " " + PlainText(line)).Trim());
+                items[items.Count - 1] = new SlideItem(last.Lead, (last.Text + " " + PlainText(line)).Trim(), null);
                 continue;
             }
 
@@ -240,10 +245,11 @@ public sealed class SlideSource
         Match lead = Lead.Match(markdown.Trim());
         if (lead.Success)
         {
-            return new SlideItem(PlainText(lead.Groups[1].Value), PlainText(lead.Groups[2].Value));
+            return new SlideItem(PlainText(lead.Groups[1].Value), PlainText(lead.Groups[2].Value), null);
         }
 
-        return new SlideItem(null, PlainText(markdown));
+        Match link = OneLink.Match(markdown.Trim());
+        return new SlideItem(null, PlainText(markdown), link.Success ? link.Groups[1].Value : null);
     }
 
     private static IReadOnlyList<string> CellsOf(string line)

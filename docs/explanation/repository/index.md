@@ -8,7 +8,7 @@ Variant primitives            nothing reads variants.yml directly
 Diagram build                 five stages in one command; rendering is the cost
 ```
 
-These articles explain decisions from the [repository ADR domain](../../drs/index.md#repository). Each article narrates one diagram; the
+These articles explain decisions from the [repository DRS domain](../../drs/index.md#repository). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
 ## The contract reference

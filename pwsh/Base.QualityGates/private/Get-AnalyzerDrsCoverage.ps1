@@ -5,9 +5,9 @@ function Get-AnalyzerDrsCoverage {
 
     $config = Get-Config -Config analyzer-drs-map
     foreach ($analyzer in $config.analyzers.Keys) {
-        foreach ($adrId in $config.analyzers[$analyzer]) {
+        foreach ($recordId in $config.analyzers[$analyzer]) {
             [pscustomobject]@{
-                AdrId    = $adrId
+                RecordId = $recordId
                 Enforcer = $analyzer
                 Kind     = 'pssa-rule'
             }

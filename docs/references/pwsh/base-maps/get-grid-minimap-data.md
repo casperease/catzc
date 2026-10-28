@@ -10,12 +10,12 @@ The grid minimap's data: the world map's tracks down and file languages across, 
 
 ### description
 
-The subject is the files the ADR codes light on the world map (Get-WorldMapHighlight). The data is the world map's own grid, tracks by file
+The subject is the files the rule codes light on the world map (Get-WorldMapHighlight). The data is the world map's own grid, tracks by file
 languages, with each cell lit by the subject's files in it and carrying them as its reasons, in the minimap contract's shape.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes of the diagram's subject.
+The rule codes of the diagram's subject.
 
 ### parameter `WorldMap`
 

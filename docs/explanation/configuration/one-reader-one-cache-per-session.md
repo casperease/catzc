@@ -21,7 +21,7 @@ description:
   "Every config read goes through one reader and one session cache: a hit returns the same object, and only a miss opens the file and parses
   and types it once."
 about:
-  adrs: [ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-CACHEBYPATH]
+  rules: [ADR-CONF-LOADING-CONFIGONEREADER, ADR-CONF-LOADING-CACHEBYPATH]
   lens: meta
 content:
   title: Every config read goes through one reader and one session cache

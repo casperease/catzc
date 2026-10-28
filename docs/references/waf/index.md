@@ -28,12 +28,13 @@ and records the trade-offs between pillars.
 
 ## How the repository answers it
 
-Each pillar is one ADR in the `azure` domain, under [docs/drs/external/azure/waf/](../../drs/external/azure/waf/), and each checklist item
-is one numbered rule whose number is Microsoft's: RE:04 is `EDR-AZ-WAF-RE-RE04`. A rule says what this repository does about the item; its
-section cites Microsoft's guide page, summarises the recommendation in our words, says what it means for the templates `foundation`,
-`discovery`, and `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with the reason.
+Each pillar is one decision record in the `azure` domain, under [docs/drs/external/azure/waf/](../../drs/external/azure/waf/), and each
+checklist item is one numbered rule whose number is Microsoft's: RE:04 is `EDR-AZ-WAF-RE-RE04`. A rule says what this repository does about
+the item; its section cites Microsoft's guide page, summarises the recommendation in our words, says what it means for the templates
+`foundation`, `discovery`, and `expedition`, and ends with a status: realised, partly realised, planned (follow-up), or not adopted, with
+the reason.
 
-| Pillar                 | ADR                                                                              | Code            |
+| Pillar                 | Record                                                                           | Code            |
 | ---------------------- | -------------------------------------------------------------------------------- | --------------- |
 | Reliability            | [reliability](../../drs/external/azure/waf/reliability.md)                       | `EDR-AZ-WAF-RE` |
 | Security               | [security](../../drs/external/azure/waf/security.md)                             | `EDR-AZ-WAF-SE` |
@@ -42,7 +43,7 @@ section cites Microsoft's guide page, summarises the recommendation in our words
 | Performance Efficiency | [performance-efficiency](../../drs/external/azure/waf/performance-efficiency.md) | `EDR-AZ-WAF-PE` |
 
 The landing-zone decision record ([landing-zones](../../drs/azure/landing-zones.md), `ADR-AZ-LZ`) carries the one-line-per-pillar summary of
-how `expedition` realises the framework; the pillar ADRs are the item-by-item account behind it.
+how `expedition` realises the framework; the pillar records are the item-by-item account behind it.
 
 ## Citation, not quotation
 

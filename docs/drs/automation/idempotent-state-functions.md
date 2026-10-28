@@ -1,4 +1,4 @@
-# ADR: State-changing functions must be idempotent
+# Automation: State-changing functions must be idempotent
 
 ## Rules: ADR-AUTO-IDEM
 

@@ -1,4 +1,4 @@
-# ADR: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
+# Automation: Install / Uninstall / Remove — the tool lifecycle and the destructive-eviction escalation
 
 ## Rules: ADR-AUTO-REMOVE
 
@@ -90,7 +90,7 @@ does nothing to a system `dotnet`. So there has to be a second, blunter instrume
 arrived — and a clean way to reach for it when the managed uninstall was not enough.
 
 `Uninstall-Chocolatey` is already that shape in the tree: a destructive eviction of an unwanted, off-config package manager, run without
-ceremony as the first step of provisioning ([use-proper-package-managers](use-proper-package-managers.md)). This ADR generalizes it into a
+ceremony as the first step of provisioning ([use-proper-package-managers](use-proper-package-managers.md)). This record generalizes it into a
 per-tool verb and an escalation, so "make this the configured install, evicting whatever is in the way" becomes a first-class, uniform
 operation.
 

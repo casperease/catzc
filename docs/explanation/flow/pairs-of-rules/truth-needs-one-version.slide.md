@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../design/.assets/integrators-sync-from-the-bvt-verified-head.drawio.png
+      source: ../../thesis/product-thesis/.assets/truth-stores.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ A second version of a behaviour is a second truth. The thesis names the store; t
 
 ## Image
 
-.assets/truth-needs-one-version.png
+[truth-needs-one-version](.assets/truth-needs-one-version.png)
 
 ## Caption
 
-From the catalogue, reduced: integrators sync from the bvt verified head.
+From the catalogue, reduced: truth stores.
 
 ## Notes
 
 Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/integrators-sync-from-the-bvt-verified-head.drawio.png.
+docs/explanation/thesis/product-thesis/.assets/truth-stores.drawio.png.

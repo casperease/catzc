@@ -11,6 +11,7 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesContractPath.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Save-BurstJournalWrite.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Write-TypesContract.ps1')
+. (Join-Path $PSScriptRoot 'assets/types/Sync-TypesContract.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesContractDrift.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesShadowRoot.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Get-TypesPruneAfter.ps1')
@@ -391,4 +392,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Sync-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

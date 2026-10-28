@@ -23,7 +23,7 @@ description:
   slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource
   group."
 about:
-  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
+  rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: meta
 content:
   title: Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
@@ -63,7 +63,7 @@ content:
     - { at: g-slot, number: 4 }
     - { at: e-group, number: 5 }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   g-slot: { x: 680, y: 164, w: 200, h: 52 }
 ```

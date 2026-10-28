@@ -24,7 +24,7 @@ description:
   "The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
   environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE

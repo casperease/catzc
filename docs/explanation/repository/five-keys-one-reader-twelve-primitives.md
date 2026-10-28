@@ -1,7 +1,7 @@
-# Five keys, one private reader, fifteen exported primitives
+# Five keys, one private reader, twelve exported primitives
 
 ```text
-Five keys in variants.yml reach fifteen exported primitives through one private reader.
+Five keys in variants.yml reach twelve exported primitives through one private reader.
 
 1   variants.yml                  five keys: ado_naming, git_workspace, have_customers, aspects, tracks
 2   Get-Config -Config variants   loads the file as a VariantsConfig and caches it for the session
@@ -19,7 +19,7 @@ ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (implementation
 ```
 
 `Catzc.Base.Variants` is small: one YAML file with five keys, one C# config type that validates it, one private function that reads it, and
-fifteen public functions that ask it. Each call runs one way, from a `Test-` or `Assert-` guard that answers a question or stops the run to
+twelve public functions that ask it. Each call runs one way, from a `Test-` or `Assert-` guard that answers a question or stops the run to
 its `Get-` accessor, then to the private reader and the loader, which reads the file; the value flows back the other way.
 
 ```yml drawio
@@ -27,7 +27,7 @@ description:
   The Test- and Assert- guards call the Get- accessors, which call one private reader, which calls Get-Config, which reads the five keys of
   variants.yml.
 about:
-  adrs:
+  rules:
     - ADR-REPO-VARIANT-SESSIONVARIANT
     - ADR-REPO-VARIANT-NODIRECTREADS
     - ADR-REPO-VARIANT-ADONAMING
@@ -35,7 +35,7 @@ about:
     - ADR-REPO-VARIANT-GITWORKSPACE
   lens: implementation
 content:
-  title: Five keys, one private reader, fifteen exported primitives
+  title: Five keys, one private reader, twelve exported primitives
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -95,7 +95,7 @@ layout:
   g-test-customers: { x: 680, y: 514, w: 260, h: 44 }
 ```
 
-![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
+![Five keys, one private reader, twelve exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
 
 ## Walkthrough
 
@@ -135,9 +135,9 @@ layout:
 
 ## Where the code and the decision record differ
 
-- The ADR promises a `Get-` accessor and `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, and `aspects` and
+- The record promises a `Get-` accessor and `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, and `aspects` and
   `tracks` have only their accessors.
-- `Assert-AdoNaming` exists and is exported, and the ADR never names it.
+- `Assert-AdoNaming` exists and is exported, and the record never names it.
 
 ## See also
 

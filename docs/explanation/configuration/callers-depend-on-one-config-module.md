@@ -24,7 +24,7 @@ description:
   Every caller in any module reads config through the one reader module, which looks the file up in the session cache and, on a miss, builds
   the owning module's C# type from the file it ships; the quality gate calls the same reader.
 about:
-  adrs:
+  rules:
     - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
     - ADR-CONF-LOADING-CACHEBYPATH
@@ -113,11 +113,11 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source `pwsh/`
+The record says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source `pwsh/`
 folder or a built package, and skips dot-folders.
 
-The ADR says only `Get-Config` is public. `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing ADR sanctions and which
-reads no file itself.
+The record says only `Get-Config` is public. `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing record sanctions and
+which reads no file itself.
 
 ## See also
 

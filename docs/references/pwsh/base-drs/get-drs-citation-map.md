@@ -1,19 +1,19 @@
 # pwsh/Base.Drs/Get-DrsCitationMap.ps1
 
-Builds the immutable citation map of the ADRs, which the link engine reads to derive every code link's destination.
+Builds the immutable citation map of the decision records, which the link engine reads to derive every code link's destination.
 
 ## help
 
 ### synopsis
 
-Builds the ADR citation map: every citation code to its ADR's path and declared rule numbers.
+Builds the DRS citation map: every citation code to its record's path and declared rule numbers.
 
 ### description
 
-Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-DrsIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
-(Get-DrsRules), and returns one immutable `[Catzc.Base.Drs.DrsCitationMap]`: code -> repository-relative ADR path and rule numbers, the
-reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/drs/ (so a stale path to a moved ADR resolves by
-its file name). The link engine derives every code link's destination from it
+Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-DrsIndex) and each listed record's `### Rule <CODE>:<n>` headings
+(Get-DrsRules), and returns one immutable `[Catzc.Base.Drs.DrsCitationMap]`: code -> repository-relative record path and rule numbers, the
+reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/drs/ (so a stale path to a moved record resolves
+by its file name). The link engine derives every code link's destination from it
 ([ADR-REPO-LINK-CODELINKS](../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
 
 A pure function of the files on disk, memoized per resolved repository root for the session (re-run the importer to refresh — see

@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../configuration/.assets/an-address-is-a-read-only-walk.drawio.png
+      source: ../../configuration/.assets/one-gate-guards-the-read-path.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ report.
 
 ## Image
 
-.assets/one-full-test-run.png
+[one-full-test-run](.assets/one-full-test-run.png)
 
 ## Caption
 
-From the catalogue, reduced: an address is a read only walk.
+From the catalogue, reduced: one gate guards the read path.
 
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/configuration/.assets/an-address-is-a-read-only-walk.drawio.png.
+docs/explanation/configuration/.assets/one-gate-guards-the-read-path.drawio.png.

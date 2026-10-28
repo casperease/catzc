@@ -17,14 +17,14 @@ function Get-WorldMap {
         }
     }
 
-    $adrIndex = [ordered]@{}
-    $adrFiles = [ordered]@{}
+    $recordIndex = [ordered]@{}
+    $recordFiles = [ordered]@{}
     $citationMap = Get-DrsCitationMap
     foreach ($ruleSet in Get-DrsRuleSet) {
-        $adrIndex[$ruleSet.External] = $ruleSet.Domain
-        $adrFile = $citationMap.PathOf($ruleSet.External)
-        if ($adrFile) {
-            $adrFiles[$ruleSet.External] = $adrFile
+        $recordIndex[$ruleSet.External] = $ruleSet.Domain
+        $recordFile = $citationMap.PathOf($ruleSet.External)
+        if ($recordFile) {
+            $recordFiles[$ruleSet.External] = $recordFile
         }
     }
 
@@ -81,7 +81,7 @@ function Get-WorldMap {
     $citationExclude = @((Get-Config -Config maps).highlight.citation_exclude)
     $map = [Catzc.Base.Maps.WorldMapBuilder]::Build((ConvertTo-BclValue $tracks),
         (ConvertTo-BclValue @(Get-FileLanguage)), (ConvertTo-BclValue $paths),
-        (ConvertTo-BclValue $aspects), $adrIndex, $adrFiles, $texts, $rootOwners, (ConvertTo-BclValue @(Get-GlobSet)),
+        (ConvertTo-BclValue $aspects), $recordIndex, $recordFiles, $texts, $rootOwners, (ConvertTo-BclValue @(Get-GlobSet)),
         (ConvertTo-BclValue $citationExclude))
     if ($AsJson) {
         return $map.ToJson()

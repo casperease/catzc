@@ -1,4 +1,4 @@
-description: Checks that no rule summary of an engine-neutral domain carries engine-specific syntax.
+description: Checks that the rule summaries of the checked DRS domains carry none of the tokens of their configured token sets.
 parameters:
   output_folder: string
   pass_thru: switch

@@ -9,7 +9,7 @@ Module dependency groups   one declared allow-list, and every edge points down
 Compiled types             what unboxing costs, and what costs more than it
 ```
 
-These articles explain decisions from the [automation ADR domain](../../drs/index.md#automation): how the bundle is built and placed, how
+These articles explain decisions from the [automation DRS domain](../../drs/index.md#automation): how the bundle is built and placed, how
 the importer loads the modules, how modules may depend on one another, and what compiled types cost. Each article but the last narrates one
 diagram; the [explanation index](../index.md) says how to read them.
 
@@ -34,7 +34,7 @@ Every entry runs one load sequence through the importer ([platform-bundle](../..
 - **implementation**:
   [Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain](invoke-importer-in-code-order.md)
 - **operations**: [Dot-source one entry script, and a failed check stops the load with a named error](dot-source-one-entry-script.md)
-- **governance**: [Every load stage but the unload has an ADR rule and a gate](rule-and-gate-per-load-stage.md)
+- **governance**: [Every load stage but the unload has a DRS rule and a gate](rule-and-gate-per-load-stage.md)
 
 ## Module dependency groups
 

@@ -195,7 +195,9 @@ sites:
   .ado/pipelines/ci-pwsh.yaml#AzureAuthTests:
     class: azure-control-plane
     trigger: pipeline-only
-    gated_by: the azcli and azps mode steps (az account show, Get-AzContext) under the sc-azure-test service connection, pipeline agent only
+    gated_by:
+      the azcli and azps mode steps (az account show, Get-AzContext) under the nsub-weu-zct-ado-ro-sc service connection, pipeline agent
+      only
   .ado/pipelines/ci-infrastructure.yaml#CI:
     class: package-install
     trigger: pipeline-only

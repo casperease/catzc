@@ -26,7 +26,7 @@ description:
   "Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
   addresses the slot: the environment check, the configuration file and the resource-group name."
 about:
-  adrs: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  rules: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: implementation
 content:
   title: Get-BicepDeploymentContext reads the session, guards it, then picks the slot

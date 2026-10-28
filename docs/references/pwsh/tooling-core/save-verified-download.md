@@ -17,7 +17,7 @@ verified path.
 
 The expected hash comes from the caller. For a sanctioned 'latest' base tool (e.g. git) it is the publisher's own published hash for the
 resolved version — the GitHub release asset `digest`. (Tools whose publisher provides no checksum, e.g. Postman, are TLS-only and do not use
-this helper.) See ADR controlling-systemwide-deps.
+this helper.) See the controlling-systemwide-deps record.
 
 ### parameter `Uri`
 

@@ -2,7 +2,7 @@ description:
   One declared allow-list says which layer may depend on which, and every allowed edge points down through the layers to the base libraries,
   which make the last hop to the vendor tool; an edge the declaration does not list fails the build.
 about:
-  adrs: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
+  rules: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
   lens: meta
 content:
   title: One declared allow-list says what may depend on what, and every edge points down to the vendor tool

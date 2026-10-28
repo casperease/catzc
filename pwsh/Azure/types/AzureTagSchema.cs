@@ -10,6 +10,8 @@ namespace Catzc.Azure;
 // lowercase provenance tag names a deploy writes. Declared once; the compliance gate and every config check read it.
 public sealed class AzureTagSchema
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // A tag key or value: lowercase, digits and single hyphens between words.
     internal const string LowercasePattern = "^[a-z0-9]+(-[a-z0-9]+)*$";
 

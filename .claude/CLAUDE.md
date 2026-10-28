@@ -33,18 +33,18 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 ## DRS
 
 The DRS holds the decision records, under `docs/drs/`, grouped into the domains that `docs/drs/index.md` lists. The index also holds every
-rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The decision records define the design principles
-behind this codebase and must be followed when writing or reviewing code. **Read `docs/drs/index.md` at the start of every session**, then
-read in full the decision records that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
-window, so never sweep it, and never sweep `research/`, which is reference material, not rules.
+rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The decision records define the design
+principles behind this codebase and must be followed when writing or reviewing code. **Read `docs/drs/index.md` at the start of every
+session**, then read in full the decision records that govern the files a task touches, and cite their rules by code. The whole corpus is
+far larger than a context window, so never sweep it, and never sweep `research/`, which is reference material, not rules.
 
 ## Inspiration
 
 If `C:\projects\eac` is available (the same project family, a sibling checkout), you may read it for **inspiration on every aspect**: module
 and command design, docs and ADR structure, contracts, specs, testing, pipelines, tooling. It is **not a reference implementation**. It is a
-similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority. Catzc's own decision records decide.
-Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea came from it. If it is absent, carry on
-without it.
+similar model built in Go, so never copy its structure or code as the answer, and never cite it as an authority. Catzc's own decision
+records decide. Treat what you read there as an idea to weigh against the domain rules here, and say so when an idea came from it. If it is
+absent, carry on without it.
 
 The domain rules in [`docs/drs/index.md`](../docs/drs/index.md) decide each aspect you might take an idea for. Two need saying here:
 
@@ -64,8 +64,8 @@ registry and this list in step ([agent-definitions](../docs/drs/repository/agent
 - **`drone-opus`** — runs one job skill a brief names, on the opus model.
 - **`drone-fable`** — runs one job skill a brief names, on the fable model.
 
-Every job is a skill registered in `pwsh/Base.Docs/configs/capabilities.yml`: a brief names it as `skill: <name>` and the skill's
-`model_floor` picks the drone; a job that needs the user or the session's peers is a user skill, run in the main session.
+Every job is a skill registered in `pwsh/Base.Docs/configs/capabilities.yml`, its name `<domain>-<job>`: a brief names it as `skill: <name>`
+and the skill's `model_floor` picks the drone; a job that needs the user or the session's peers is a user skill, run in the main session.
 
 ## Rules
 
@@ -112,10 +112,4 @@ Every job is a skill registered in `pwsh/Base.Docs/configs/capabilities.yml`: a 
   "make a plan", write that file — do not use plan mode or show a selection menu; the user wants a file to review. A plan holds the delta
   only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name), and
   a done plan is deleted.
-- **Run PowerShell yourself — and actually run a gate before claiming it passed**: `pwsh` (7.4+) is available and permitted via the Bash
-  tool, so run the importer, Pester, `Test-Automation`, and any `.ps1` directly — e.g.
-  `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "<cmd>"` or `pwsh -NoProfile -File out/<name>.ps1`.
-  Remember the importer is **dot-sourced** and C# type edits need a fresh `pwsh` process to recompile (a prior long-lived session won't pick
-  them up). The discipline that remains: **never claim a test/gate passed unless you ran it and saw the result** — run it, read the output,
-  report faithfully (failures included). A reusable script in `out/` (the gitignored output dir) is still preferred over a sprawling inline
-  one-liner when the thing is worth rerunning or reviewing, but you no longer hand it off — you execute it.
+- **Run PowerShell yourself, and claim a pass only after reading its verdict**: the `catzc-run` skill has the call shapes and the rules.

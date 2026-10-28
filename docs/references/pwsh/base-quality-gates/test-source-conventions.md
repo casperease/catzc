@@ -36,9 +36,9 @@ list (Write-ReportModeFinding) and never fail the run.
   ([ADR-AUTO-ENGINE-THREEENGINES](../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)) — in any git-tracked
   markdown, PowerShell, C#, or YAML file, a literal engine list in code or a partial or miscounted engine set in prose
   (Get-EngineSetFinding), with the engine names read from `[Catzc.Base.Engines.ExecutionEngines]`;
-- neutral_codes: an L0 test's fixture data names no real ADR code
+- neutral_codes: an L0 test's fixture data names no real rule code
   ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)) — in every test file, a
-  code the ADR registry declares (Get-DrsCitationMap) in a string literal of an L0 block, outside -Tag (Get-NeutralCodeFinding).
+  code the DRS registry declares (Get-DrsCitationMap) in a string literal of an L0 block, outside -Tag (Get-NeutralCodeFinding).
 
 Both leave out the files the content tools leave as written (Get-ContentExemptPath: vendored, generated, fixture, contract).
 

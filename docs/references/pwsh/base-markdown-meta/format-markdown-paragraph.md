@@ -12,7 +12,7 @@ Wraps one paragraph or list item of generated markdown at the 140-column prose w
 ### description
 
 Greedy fill — each line takes as many words as fit in Width columns, prefix included — which is what Prettier's `proseWrap: always`
-produces, so generated markdown (the ADR index, the glossary, the contract reference) is formatter-stable
+produces, so generated markdown (the DRS index, the glossary, the contract reference) is formatter-stable
 ([ADR-REPO-FORMAT-GENERATEDFORMATTED](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedformatted)). The first
 line carries FirstPrefix (a list marker such as '- '), every later line ContinuationPrefix (the marker's indent).
 

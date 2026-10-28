@@ -192,10 +192,6 @@
       "display": ["Path", "Track", "FileLanguage", "Basis"],
       "members": [
         {
-          "name": "Adr",
-          "kind": "property"
-        },
-        {
           "name": "Basis",
           "kind": "property"
         },
@@ -213,6 +209,10 @@
         },
         {
           "name": "Path",
+          "kind": "property"
+        },
+        {
+          "name": "Record",
           "kind": "property"
         },
         {
@@ -357,11 +357,11 @@
           "kind": "property"
         },
         {
-          "name": "value_chain_legend_adrs",
+          "name": "value_chain_legend_highlight",
           "kind": "property"
         },
         {
-          "name": "value_chain_legend_highlight",
+          "name": "value_chain_legend_records",
           "kind": "property"
         },
         {
@@ -554,15 +554,11 @@
     {
       "name": "Catzc.Base.Maps.MapsPin",
       "aliases": [],
-      "display": ["adr", "track", "file_language"],
+      "display": ["rule", "track", "file_language"],
       "members": [
         {
           "name": "ToString",
           "kind": "method"
-        },
-        {
-          "name": "adr",
-          "kind": "property"
         },
         {
           "name": "file_language",
@@ -570,6 +566,10 @@
         },
         {
           "name": "reason",
+          "kind": "property"
+        },
+        {
+          "name": "rule",
           "kind": "property"
         },
         {
@@ -885,18 +885,18 @@
     {
       "name": "Catzc.Base.Maps.ValueChainCell",
       "aliases": [],
-      "display": ["Stack", "Concern", "AdrCount"],
+      "display": ["Stack", "Concern", "RecordCount"],
       "members": [
         {
-          "name": "AdrCount",
-          "kind": "property"
-        },
-        {
-          "name": "Adrs",
-          "kind": "property"
-        },
-        {
           "name": "Concern",
+          "kind": "property"
+        },
+        {
+          "name": "RecordCount",
+          "kind": "property"
+        },
+        {
+          "name": "Records",
           "kind": "property"
         },
         {
@@ -919,7 +919,7 @@
           "kind": "property"
         },
         {
-          "name": "ForAdr",
+          "name": "ForRecord",
           "kind": "method"
         },
         {
@@ -947,16 +947,8 @@
     {
       "name": "Catzc.Base.Maps.ValueChainMap",
       "aliases": [],
-      "display": ["Stacks", "Concerns", "AdrCount"],
+      "display": ["Stacks", "Concerns", "RecordCount"],
       "members": [
-        {
-          "name": "AdrCount",
-          "kind": "property"
-        },
-        {
-          "name": "Adrs",
-          "kind": "property"
-        },
         {
           "name": "Build",
           "kind": "method"
@@ -975,6 +967,14 @@
         },
         {
           "name": "Concerns",
+          "kind": "property"
+        },
+        {
+          "name": "RecordCount",
+          "kind": "property"
+        },
+        {
+          "name": "Records",
           "kind": "property"
         },
         {
@@ -1006,12 +1006,8 @@
     {
       "name": "Catzc.Base.Maps.ValueChainReason",
       "aliases": [],
-      "display": ["Adr", "Stack", "Concern", "Override"],
+      "display": ["Record", "Stack", "Concern", "Override"],
       "members": [
-        {
-          "name": "Adr",
-          "kind": "property"
-        },
         {
           "name": "Concerns",
           "kind": "property"
@@ -1030,6 +1026,10 @@
         },
         {
           "name": "Override",
+          "kind": "property"
+        },
+        {
+          "name": "Record",
           "kind": "property"
         },
         {
@@ -1071,10 +1071,6 @@
       "display": ["Tracks", "FileLanguages", "FileCount"],
       "members": [
         {
-          "name": "AdrIndex",
-          "kind": "property"
-        },
-        {
           "name": "Cells",
           "kind": "property"
         },
@@ -1097,6 +1093,10 @@
         {
           "name": "Placement",
           "kind": "method"
+        },
+        {
+          "name": "RecordIndex",
+          "kind": "property"
         },
         {
           "name": "StackViolations",
@@ -1220,11 +1220,11 @@
           "kind": "property"
         },
         {
-          "name": "ForAdr",
+          "name": "ForPaths",
           "kind": "method"
         },
         {
-          "name": "ForPaths",
+          "name": "ForRecord",
           "kind": "method"
         },
         {

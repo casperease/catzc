@@ -219,20 +219,20 @@ def test_declare_minimaps_prints_the_inputs_and_keeps_the_head_and_every_other_l
     assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_MINIMAPS
 
 
-def test_the_subject_is_its_adr_codes_checked_against_the_registry():
+def test_the_subject_is_its_rule_codes_checked_against_the_registry():
     raw = claimed()
-    raw["about"]["adrs"] = ["ADR-WIDGET-NOWHERE"]
-    with pytest.raises(declaration.DeclarationError, match="is not a rule of an ADR in drs.yml"):
+    raw["about"]["rules"] = ["ADR-WIDGET-NOWHERE"]
+    with pytest.raises(declaration.DeclarationError, match="is not a rule of a record in drs.yml"):
         declaration.normalise(raw)
 
 
 def test_the_retired_subject_lists_are_read_ignored_and_never_written_back():
     about = declaration.normalise(claimed())["about"]
-    assert set(about) == {"lens", "adrs"}
+    assert set(about) == {"lens", "rules"}
     assert all(key not in declaration.dump(declaration.normalise(claimed())) for key in ("tracks:", "languages:", "modules:", "files:"))
     raw = claimed()
     raw["about"]["gadgets"] = ["widget"]
-    with pytest.raises(declaration.DeclarationError, match="about key 'gadgets' is not one of: adrs, lens"):
+    with pytest.raises(declaration.DeclarationError, match="about key 'gadgets' is not one of: rules, lens"):
         declaration.normalise(raw)
 
 

@@ -1,4 +1,4 @@
-# ADR: Documentation examples — the discovery theme
+# Repository: Documentation examples — the discovery theme
 
 ## Rules: ADR-REPO-EXAMPLE
 
@@ -51,8 +51,8 @@ deployment. Fictional companies reuse Microsoft's canonical Contoso and Globex f
 
 Documentation examples use fictional, theme-consistent names: the discovery family for example infrastructure templates, Contoso and Globex
 for fictional companies. Real, customer, and internal-project names never appear in examples. Test fixtures are free to use their own
-neutral fixture names (for example `sample-customer`); this ADR governs prose, tutorials, and comment-based-help examples under `docs/` and
-in function help.
+neutral fixture names (for example `sample-customer`); this record governs prose, tutorials, and comment-based-help examples under `docs/`
+and in function help.
 
 ## Consequences
 

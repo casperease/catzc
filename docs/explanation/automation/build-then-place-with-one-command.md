@@ -24,7 +24,7 @@ description:
   A source-mode session builds the bundle, the build checks its own output, and one placement command then copies the build into a module
   path, beside a working root, or into a package.
 about:
-  adrs: [ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION]
+  rules: [ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION]
   lens: operations
 content:
   title: Build the bundle once, then place it with one command

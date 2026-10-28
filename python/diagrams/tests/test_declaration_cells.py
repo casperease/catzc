@@ -12,8 +12,8 @@ from conftest import WIDGETS, claimed, committed_pair
 
 def test_rule_chips_number_their_rule_and_round_trip_with_the_key_in_the_legend():
     raw = claimed()
-    rules = list(declaration.minimaps.adrs())[:2]
-    raw["about"]["adrs"] = rules
+    rules = list(declaration.minimaps.records())[:2]
+    raw["about"]["rules"] = rules
     raw["content"]["chips"] = [
         {"at": "gadget-gate", "kind": "rule", "rule": rules[1]},
         {"at": "gadget-gate", "kind": "rule", "rule": rules[0], "gated": False},

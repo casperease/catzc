@@ -8,6 +8,8 @@ namespace Catzc.Azure.Templates;
 // One derived name of a template: the slot parameter it fills, and what the namer renders it from. A slot never writes it.
 public sealed class BicepNameEntry
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     // The owner slots an entry may name instead of its own: the hub serving the slot's subscription.
     public static readonly string[] OwnerSlots = { "hub" };
 

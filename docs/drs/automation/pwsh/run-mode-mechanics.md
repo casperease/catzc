@@ -1,4 +1,4 @@
-# ADR: Run modes in PowerShell — entry scripts, module files, and build roots
+# PowerShell: Run modes — entry scripts, module files, and build roots
 
 ## Rules: ADR-PWSH-RUNMODE
 

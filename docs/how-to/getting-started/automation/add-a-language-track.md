@@ -2,7 +2,7 @@
 
 A language track holds the modules of one programming language the way `pwsh` holds the PowerShell ones: a root folder, modules by layout, a
 test runner, and a place in `Test-Automation`. The rules are [module-model](../../../drs/automation/module-model.md) and
-[tracks](../../../drs/design/tracks.md); the language's own decisions get an ADR under `docs/drs/automation/<language>/`, as
+[tracks](../../../drs/design/tracks.md); the language's own decisions get a decision record under `docs/drs/automation/<language>/`, as
 [javascript-track](../../../drs/automation/javascript/javascript-track.md) does for `js`. This page is the checklist: each touch point
 below, in order, with the `js` track as the worked example.
 
@@ -42,5 +42,5 @@ Each of these pieces gets its own Pester test file, and the runner a test that r
 ```powershell
 Invoke-<Language>Test <module>                    # one module's tests, one result per case
 Test-Automation -Modules <module>                 # the same cases through the bridge
-Test-Links -Path docs/drs/automation/<language>/  # the language's ADR
+Test-Links -Path docs/drs/automation/<language>/  # the language's decision record
 ```

@@ -44,9 +44,9 @@ opaque 401 errors, or worse, into a token aimed at the wrong organization.
 
 ## Where the code and the decision record differ
 
-- The ADR says every source proves its org, but the personal access token has no runtime proof. Its binding "by construction" holds only by
-  default, because each API function accepts an `-Organization` override that nothing checks against the header.
-- The ADR says the source for the pipeline asserts the collection address, but the code skips that check when the address is empty.
+- The record says every source proves its org, but the personal access token has no runtime proof. Its binding "by construction" holds only
+  by default, because each API function accepts an `-Organization` override that nothing checks against the header.
+- The record says the source for the pipeline asserts the collection address, but the code skips that check when the address is empty.
 
 ## See also
 

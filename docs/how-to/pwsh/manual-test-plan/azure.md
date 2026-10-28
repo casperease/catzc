@@ -18,7 +18,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 | 10  | L2   | [ConvertTo-BicepParam — every shipped yml slot renders as bicep format leaves it][c10] |
 | 11  | L2   | [Every slot compiles through the .bicepparam path to the same parameters][c11]         |
 | 12  | L1   | [Catzc.Azure.RolesConfig — shipped roles.yml][c12]                                     |
-| 13  | L1   | [Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml][c13]   |
+| 13  | L1   | [Get-BicepServiceConnections — shipped service-connections.yml][c13]                   |
 | 14  | L1   | [Alerts: every compiled slot][c14]                                                     |
 | 15  | L3   | [Deploy-Bicep to an ephemeral l3 slot (live Azure)][c15]                               |
 | 16  | L1   | [discovery flow logs: every compiled slot][c16]                                        |
@@ -45,7 +45,7 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 [c10]: #10-convertto-bicepparam--every-shipped-yml-slot-renders-as-bicep-format-leaves-it
 [c11]: #11-every-slot-compiles-through-the-bicepparam-path-to-the-same-parameters
 [c12]: #12-catzcazurerolesconfig--shipped-rolesyml
-[c13]: #13-catzcazuredevopsserviceconnectionsconfig--shipped-service-connectionsyml
+[c13]: #13-get-bicepserviceconnections--shipped-service-connectionsyml
 [c14]: #14-alerts-every-compiled-slot
 [c15]: #15-deploy-bicep-to-an-ephemeral-l3-slot-live-azure
 [c16]: #16-discovery-flow-logs-every-compiled-slot
@@ -169,12 +169,13 @@ The shipped Azure configs and bicep templates. Part of the [manual test plan](..
 
 **Guards:** The shipped `roles.yml` loads and holds the Owner role the action group addresses.
 
-### 13. Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml
+### 13. Get-BicepServiceConnections — shipped service-connections.yml
 
-**Test file:** `pwsh/Azure.DevOps/tests/Sync-AdoServiceConnections.Tests.ps1` (L1), block
-`Catzc.Azure.DevOps.ServiceConnectionsConfig — shipped service-connections.yml`.
+**Test file:** `pwsh/Azure.Templates/tests/Get-BicepServiceConnections.Tests.ps1` (L1), block
+`Get-BicepServiceConnections — shipped service-connections.yml`.
 
-**Guards:** Every shipped service connection names a subscription configured in `azure.yml`.
+**Guards:** The shipped `service-connections.yml` connects each subscription's landing zone and read-only previews, and its workload where
+expedition has a slot.
 
 ### 14. Alerts: every compiled slot
 

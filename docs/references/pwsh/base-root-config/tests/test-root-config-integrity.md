@@ -18,7 +18,7 @@ Every target is a real file, and a `source` target is its template under the gen
 ## Self-skip
 
 It is an L2 test that drives the real git CLI. It skips itself when git is absent or the run is not inside a work tree (for example from an
-exported tarball), per the test-automation tiering ADR.
+exported tarball), per the test-automation tiering record.
 
 ## The analyzer settings
 

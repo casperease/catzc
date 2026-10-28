@@ -23,7 +23,7 @@ description:
   "A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their pipelines, and a drift gate
   fails a trigger that no longer matches its globset's projection."
 about:
-  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
+  rules: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: operations
 content:
   title: A push starts only the pipelines whose globset it touches

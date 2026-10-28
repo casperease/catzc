@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/private/Get-DrsDanglingCodeViolations.ps1
 
-The private helper of `Test-DrsRegistry` that finds citation codes in the ADR pages which name nothing the registry knows.
+The private helper of `Test-DrsRegistry` that finds citation codes in the record pages which name nothing the registry knows.
 
 ## help
 
@@ -16,9 +16,9 @@ code-language check.
 
 Private helper for Test-DrsRegistry; not exported.
 
-### parameter `Adrs`
+### parameter `Drs`
 
-The ADR registry (Get-Config -Config drs).
+The DRS registry (Get-Config -Config drs).
 
 ### parameter `Index`
 

@@ -59,26 +59,26 @@ function Build-DrsIndex {
         $out -join "`n"
     }
 
-    $adrs = Get-Config -Config drs
-    $adrDocsRoot = Resolve-RepoPath $adrs.Root
-    $indexPath = "$($adrs.Root)/index.md"
-    $fileOf = (Get-DrsFileIndex @($adrs.RuleSets) -DrsRoot $adrDocsRoot).FileOf
+    $drs = Get-Config -Config drs
+    $drsRoot = Resolve-RepoPath $drs.Root
+    $indexPath = "$($drs.Root)/index.md"
+    $fileOf = (Get-DrsFileIndex @($drs.RuleSets) -DrsRoot $drsRoot).FileOf
 
     # One aligned code table per domain, in declared order, each row in the exact shape Get-DrsIndex parses.
-    $sections = foreach ($domain in $adrs.Domains) {
+    $sections = foreach ($domain in $drs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $path = $fileOf[$ruleSet.External]
             if (-not $path) {
-                throw "Build-DrsIndex: no single decision record file $($adrs.Root)/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
+                throw "Build-DrsIndex: no single decision record file $($drs.Root)/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
             }
             [pscustomobject]@{
-                Code = '`' + $ruleSet.External + '`'
-                Adr  = "[$($ruleSet.Slug)]($path)"
+                Code   = '`' + $ruleSet.External + '`'
+                Record = "[$($ruleSet.Slug)]($path)"
             }
         }
 
         $codeWidth = [System.Math]::Max(4, (@($rows.Code) | Measure-Object -Property Length -Maximum).Maximum)
-        $adrWidth = [System.Math]::Max(6, (@($rows.Adr) | Measure-Object -Property Length -Maximum).Maximum)
+        $recordWidth = [System.Math]::Max(6, (@($rows.Record) | Measure-Object -Property Length -Maximum).Maximum)
 
         $lines = [System.Collections.Generic.List[string]]::new()
         $lines.Add("### $($domain.Folder)/")
@@ -98,10 +98,10 @@ function Build-DrsIndex {
         }
         $lines.Add("**Role:** ``$($domain.Role)`` — **depends on:** $dependsOn.")
         $lines.Add('')
-        $lines.Add("| $('Code'.PadRight($codeWidth)) | $('Record'.PadRight($adrWidth)) |")
-        $lines.Add("| $('-' * $codeWidth) | $('-' * $adrWidth) |")
+        $lines.Add("| $('Code'.PadRight($codeWidth)) | $('Record'.PadRight($recordWidth)) |")
+        $lines.Add("| $('-' * $codeWidth) | $('-' * $recordWidth) |")
         foreach ($row in $rows) {
-            $lines.Add("| $($row.Code.PadRight($codeWidth)) | $($row.Adr.PadRight($adrWidth)) |")
+            $lines.Add("| $($row.Code.PadRight($codeWidth)) | $($row.Record.PadRight($recordWidth)) |")
         }
         $lines -join "`n"
     }

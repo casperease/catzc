@@ -21,7 +21,7 @@ function Measure-NoAutomaticVariableMisuse {
 
     foreach ($var in $variables) {
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = 'Do not use $?. It is overwritten by every statement and cannot be checked reliably. Use -ErrorAction Stop and try/catch for cmdlets, or Assert-LastExitCodeWasZero for native commands. See ADR: automatic-variable-pitfalls.'
+                Message  = 'Do not use $?. It is overwritten by every statement and cannot be checked reliably. Use -ErrorAction Stop and try/catch for cmdlets, or Assert-LastExitCodeWasZero for native commands. See the decision record automatic-variable-pitfalls.'
                 Extent   = $var.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

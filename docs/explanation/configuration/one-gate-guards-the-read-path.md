@@ -18,17 +18,17 @@ ADR-CONF-LOADING-CACHEBYPATH, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, ADR-CON
 ADR-CONF-LOADING-POWERSHELLVALIDATOR, ADR-CONF-LOADING-CSHARPCONFIGTYPE and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
-Three ADRs constrain how cats reads a config: the loading ADR, the addressing ADR, and the test-automation rule that every quality gate runs
-in an integrity test. Each stage of the read path carries the rules that govern it, set against what actually checks them. One quality gate,
-`Test-ShippedConfigs`, guards the read path, and it looks only at the typed step; the one-reader rule and the read-only rule rest on
-convention.
+Three records constrain how cats reads a config: the loading record, the addressing record, and the test-automation rule that every quality
+gate runs in an integrity test. Each stage of the read path carries the rules that govern it, set against what actually checks them. One
+quality gate, `Test-ShippedConfigs`, guards the read path, and it looks only at the typed step; the one-reader rule and the read-only rule
+rest on convention.
 
 ```yml drawio
 description:
   "Each stage of the config read path with the rules that govern it and what actually checks them: one quality gate guards the typed step
   and one the validator extension point, while the one-reader and read-only rules rest on convention."
 about:
-  adrs:
+  rules:
     - ADR-CONF-LOADING-CONFIGONEREADER
     - ADR-CONF-LOADING-READINGISGLOBAL
     - ADR-CONF-LOADING-EXISTENCEDISCOVERED
@@ -155,10 +155,10 @@ legend.
 
 ## Where the code and the decision record differ
 
-- The one-reader rule has two exceptions the ADR does not state: `Get-ConfigRegistry` reads `configs.yml` and caches it itself, and
+- The one-reader rule has two exceptions the record does not state: `Get-ConfigRegistry` reads `configs.yml` and caches it itself, and
   `Test-ConfigIdentityHygiene` parses module configs directly.
-- The ADR says only `Get-Config` is public; `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing ADR sanctions.
-- An address key cannot contain a dot, because `Get-ConfigValue` splits the address on every dot; the addressing ADR does not say so.
+- The record says only `Get-Config` is public; `Catzc.Base.Config` also exports `Get-ConfigValue`, which the addressing record sanctions.
+- An address key cannot contain a dot, because `Get-ConfigValue` splits the address on every dot; the addressing record does not say so.
 
 ## See also
 

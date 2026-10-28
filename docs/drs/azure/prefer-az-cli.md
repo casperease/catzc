@@ -1,4 +1,4 @@
-# ADR: Prefer Az CLI over Az PowerShell modules
+# Azure: Prefer Az CLI over Az PowerShell modules
 
 ## Rules: ADR-AZ-CLI
 

@@ -8,7 +8,8 @@ A **slide file** is one markdown file per slide, `<stem>.slide.md`, in a deck fo
 file**, `deck.md`, which names the deck's title and its sections. The slide's level-one heading is its title, and each level-two heading is
 a **field** the slide's pattern fills. The head's `config` carries `pattern`, `deck` and `order`; the order is a head key, never a prefix in
 the name ([ADR-REPO-FOLDERS-STABLEFILENAMES](conventional-folders.md#rule-adr-repo-folders-stablefilenames)), and a gap or a duplicate in a
-deck's orders is a render failure.
+deck's orders is a render failure. A field that fills an attribute, such as `## Image`, holds one markdown link, `[<stem>](<path>)`, and the
+attribute takes its target.
 
 - [One file, one slide](#one-file-one-slide)
 
@@ -40,8 +41,10 @@ error fail the run: the kit has no warning.
 ### Rule ADR-REPO-SLIDES-CHECKABLECLAIMS
 
 Every claim on a slide is checkable. Every code in the head's `cites` exists in the DRS index; a field that quotes a rule carries the
-registry's text verbatim, or the drift is reported with both texts; and every field's text is found in the rendered section. `Test-Slides`
-is the gate over these checks, one file at a time; a fact about the deck as a whole (slide-order gaps and duplicates) is checked per deck.
+registry's text verbatim, or the drift is reported with both texts; every field's text is found in the rendered section; and a slide's
+picture, which is optional, shows a diagram whose declaration's `about.rules` cites the rule its eyebrow names, made no earlier than that
+diagram's png. `Test-Slides` is the gate over these checks, one file at a time; a fact about the deck as a whole (slide-order gaps and
+duplicates) is checked per deck.
 
 - [Claims are asserted, not trusted](#claims-are-asserted-not-trusted)
 

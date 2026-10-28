@@ -63,6 +63,22 @@ run `20261027-080753` (491.7 s summed, 140.3 s wall) agrees but for the two Bice
       the scan 0.03 s): the three `FindAll` predicates were script blocks called per node (4.2-5.5 s) and the extent keys a `ForEach-Object`
       pipeline per node (2.3-3.7 s). The predicates are compiled expression trees now and the lists compare by `SequenceEqual` on the nodes
       themselves, which holds every extent equal too.
+- [x] Verdict (drone-opus, 2026-10-27): `Get-ContractCheckResults.Assets.Tests.ps1` went from 28.3 s / 26.9 s Pester
+      (`out/test-file/20261027-192652-98b9be`, `20261027-192729-5c43a2`) to 6.5 s / 6.2 s (`20261027-193511-22fd00`,
+      `20261027-193525-d183d8`), 371 tests, the same names and `Should` count, the one failure unchanged (a peer's:
+      `test_drs_engine_neutrality.command.yml`, its description not the synopsis). Every `Get-Contract` call resolves the whole tree
+      whatever its filter (553 ms all, 401 ms one group), and the file made one per group, 50 of them; one call in `BeforeAll` keyed by
+      root, version and group now serves every case (ADR-AUTO-TEST-SETUPONCE).
+- [x] Verdict (drone-opus, 2026-10-27): `Invoke-TestRun.Tests.ps1` went from 12.1 s / 11.1 s Pester (`out/test-file/20261027-192849-4c54d9`,
+      `20261027-192908-bce471`) to 5.5 s / 5.5 s (`20261027-194404-d704c8`, `20261027-194417-17ae3a`), 22 tests passing, the same names and
+      `Should` count. The mocks cost 40 ms a test; each run listed the real repository's language test folders through
+      `Get-TestAutomationTestFiles` (`Get-LanguageTestFolders`, 250 ms a call), which no fixture path is; one mock in `BeforeAll` returns
+      none. The rest, about 200 ms a run, is `Invoke-TestRun` itself under its mocks.
+- [x] No lever (drone-opus, 2026-10-27): `Test-FileLimits.Tests.ps1` alone is 2.4 s / 1.4 s Pester (`out/test-file/20261027-192829-e65010`,
+      `20261027-192840-286525`) against 12.2 s in the 12-shard snapshot run; its cost there is the shared machine, not the file.
+- [x] Measured, not fixed (drone-opus, 2026-10-27): `Foundation.PrePost.Tests.ps1` alone is 5.7 s / 5.8 s Pester
+      (`out/test-file/20261027-192804-92f162`, `20261027-192816-018530`), down from 13.3 s by the parallel `Build-Bicep`; the rest is its L1
+      `BeforeAll` compiling `foundation` (tests sum 117 ms), product code in `pwsh/Azure.Templates`, which peers are editing.
 
 ## Decided
 

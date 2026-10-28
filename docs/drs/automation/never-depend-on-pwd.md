@@ -1,4 +1,4 @@
-# ADR: Never depend on $PWD
+# Automation: Never depend on $PWD
 
 ## Rules: ADR-AUTO-NOPWD
 

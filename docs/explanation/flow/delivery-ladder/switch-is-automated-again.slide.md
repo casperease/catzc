@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../azure/.assets/change-one-configuration-slot.drawio.png
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ No person approves it or checks it on the way; where blue-green is impossible, t
 
 ## Image
 
-.assets/switch-is-automated-again.png
+[switch-is-automated-again](.assets/switch-is-automated-again.png)
 
 ## Caption
 
-From the catalogue, reduced: change one configuration slot.
+From the catalogue, reduced: manual queues 1, where a person stands.
 
 ## Notes
 
 Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.
+docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

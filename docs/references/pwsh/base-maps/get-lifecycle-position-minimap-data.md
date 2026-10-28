@@ -11,14 +11,14 @@ The lifecycle position minimap's data: the promotion ladder's rungs, lit where a
 
 ### description
 
-The subject is the files the ADR codes light on the world map. Each rung of the rungs registry (Get-Rung) is a cell, in climbing order, and
-a subject file lights a rung when one of its citations is one of the rung's rules or the ADR that holds the rule
+The subject is the files the rule codes light on the world map. Each rung of the rungs registry (Get-Rung) is a cell, in climbing order, and
+a subject file lights a rung when one of its citations is one of the rung's rules or the record that holds the rule
 ([FDR-CD-RUNGSREGISTRY](../../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)). Each lit cell carries the file,
 the requested code and the rule as its reason, in the minimap contract's shape.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes of the diagram's subject.
+The rule codes of the diagram's subject.
 
 ### parameter `WorldMap`
 
@@ -45,5 +45,5 @@ Return the data as JSON in the minimap contract's shape instead of the object.
 
 ## Rungs
 
-The rungs come from `Get-Rung` in climbing order. A subject file lights a rung when it cites one of the rung's rules, or the ADR that holds
-the rule.
+The rungs come from `Get-Rung` in climbing order. A subject file lights a rung when it cites one of the rung's rules, or the record that
+holds the rule.

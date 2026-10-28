@@ -6,7 +6,7 @@ and configuration into them.
 
 ## How to read these articles
 
-Every article has the same three parts, mirroring the rule registry of an [ADR](../../drs/index.md):
+Every article has the same three parts, mirroring the rule registry of a [decision record](../../drs/index.md):
 
 1. **Responsibilities** — an ordered, named registry. Each entry is a `responsibility:<n>` heading with a definition of one area of
    responsibility the module owns. This is the vocabulary the rest of the article uses.

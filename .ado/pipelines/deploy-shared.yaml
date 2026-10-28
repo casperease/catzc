@@ -20,7 +20,7 @@ stages:
             - {
                 env: test,
                 adoEnvironment: shared-release-uat,
-                serviceConnection: sc-shared-nonprod,
+                serviceConnection: nsub-weu-zct-ado-wl-sc,
                 subscriptionIdAssertIs: 50a0ed00-de00-50b0-0000-000000000000,
               }
           ArtifactPipeline: cd-shared
@@ -35,8 +35,8 @@ stages:
           ${{ if eq(parameters.Target, 'rollback') }}:
             CertifiedBy: shared-psub
           Foundations:
-            - { env: psub, serviceConnection: sc-shared-prod, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
+            - { env: psub, serviceConnection: psub-weu-zct-ado-lz-sc, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
           Discoveries:
-            - { env: psub, serviceConnection: sc-shared-prod, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
+            - { env: psub, serviceConnection: psub-weu-zct-ado-lz-sc, subscriptionIdAssertIs: 50a0ed00-000d-50b0-0000-000000000000 }
           ArtifactPipeline: cd-shared
           RunId: ${{ parameters.CiRunId }}

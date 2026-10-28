@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
 ---
 
@@ -23,11 +23,11 @@ take the server's own topic HEAD. The clone climbing in through a window is not 
 
 ## Image
 
-.assets/two-doors.png
+[two-doors](.assets/two-doors.png)
 
 ## Caption
 
-Reduced: the way in, from a local clone through the identity model and the branch policy to HEAD.
+Reduced: the ladder, whose first rung is queue 1, authoring, the way in to main HEAD.
 
 ## Notes
 

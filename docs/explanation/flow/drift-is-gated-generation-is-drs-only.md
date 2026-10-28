@@ -25,7 +25,7 @@ description:
   The flattened scan program feeds the GitHub paths and the Azure DevOps include and exclude lists, and three quality gates check those
   projections; the generation of the YAML filters is drawn dashed because no code and no gate holds it.
 about:
-  adrs: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
+  rules: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
   lens: governance
 content:
   title: Three gates check the projection, while generation is held by the ADR alone

@@ -1,4 +1,4 @@
-# ADR: Devbox and pipeline parity — one CLI, two environments, one seam
+# Automation: Devbox and pipeline parity — one CLI, two environments, one seam
 
 ## Rules: ADR-AUTO-PARITY
 

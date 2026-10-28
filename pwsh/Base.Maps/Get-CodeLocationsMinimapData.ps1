@@ -3,7 +3,7 @@ function Get-CodeLocationsMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -56,7 +56,7 @@ function Get-CodeLocationsMinimapData {
         Write-Message "Get-CodeLocationsMinimapData: $(@($resolved).Count - $dropped) of $(@($resolved).Count) glyph label(s) resolved to a repository place, $dropped dropped."
     }
     $drawsDocs = @($primary | Where-Object { $_[0] -eq 'docs' }).Count -gt 0
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['track']) {
             continue
         }

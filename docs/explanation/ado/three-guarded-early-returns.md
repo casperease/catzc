@@ -23,7 +23,7 @@ return. Every check either returns a header, passes control on, or throws; a che
 description:
   "The header function's four checks in code order: three return a header, three throw, and no check falls through to the next on failure."
 about:
-  adrs: [ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
+  rules: [ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
   lens: implementation
 content:
   title: The header function is four checks and three returns, and none falls through on failure
@@ -118,8 +118,8 @@ have a value to check against. The only caller of the function is `Invoke-AdoRes
 
 ## Where the code and the decision record differ
 
-The rule says the pipeline rung asserts `SYSTEM_COLLECTIONURI`, but the code skips the comparison when that variable is empty; the ADR's own
-sample code shows the same skip.
+The rule says the pipeline rung asserts `SYSTEM_COLLECTIONURI`, but the code skips the comparison when that variable is empty; the record's
+own sample code shows the same skip.
 
 ## See also
 

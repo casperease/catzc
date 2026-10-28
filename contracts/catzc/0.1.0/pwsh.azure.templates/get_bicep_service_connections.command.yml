@@ -1,0 +1,4 @@
+description: Lists the service connections derived from the deployment identities, one per identity in each subscription that hosts a slot of its templates.
+parameters:
+  subscription: string[]
+output: catzc.azure.templates.bicep_service_connection[]

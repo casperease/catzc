@@ -1,6 +1,6 @@
 Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
     BeforeAll {
-        $adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+        $drs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
@@ -25,7 +25,7 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, "# $relative`n")
         }
-        $script:index = InModuleScope Catzc.Base.Drs -Parameters @{ RuleSets = @($adrs.RuleSets); Root = $root } {
+        $script:index = InModuleScope Catzc.Base.Drs -Parameters @{ RuleSets = @($drs.RuleSets); Root = $root } {
             Get-DrsFileIndex $RuleSets -DrsRoot $Root
         }
     }

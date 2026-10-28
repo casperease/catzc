@@ -1,4 +1,4 @@
-# ADR: Internal asset dependencies — located through one helper, tested in both run modes
+# Automation: Internal asset dependencies — located through one helper, tested in both run modes
 
 ## Rules: ADR-AUTO-ASSETDEP
 

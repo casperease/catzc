@@ -90,67 +90,6 @@ this module and only this module within the group. Core is the engine; they are 
 The diagram below draws tool invocation from the source. Every tool wrapper asserts the locked version from `tools.yml` before it runs the
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces.
 
-```yml drawio
-description:
-  "Every Invoke-Tool wrapper asserts the locked version before it runs the tool: Assert-Tool either probes for the executable or checks the
-  command and reads its version, and Test-Tool shares the same pieces as a boolean."
-about:
-  adrs: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-CONF-LOADING-READINGISGLOBAL]
-  lens: source
-content:
-  title: Each tool wrapper asserts the locked version before it runs
-  kind: reference
-  flow: left-to-right
-  theme: dark
-  bands:
-    - { id: band-entry, label: ENTRY }
-    - { id: band-core, label: TOOLING CORE }
-    - { id: band-execution, label: CATZC.BASE.EXECUTION }
-  glyphs:
-    - { id: g-wrappers, kind: code, label: Invoke-<Tool>, in: band-entry }
-    - { id: g-assert-tool, kind: code, label: Assert-Tool, in: band-core }
-    - { id: g-assert-version, kind: private, label: Assert-ToolVersion, in: band-core }
-    - { id: g-get-version, kind: code, label: Get-ToolVersion, in: band-core }
-    - { id: g-test-tool, kind: code, label: Test-Tool, in: band-core }
-    - { id: g-resolve, kind: private, label: Resolve-ToolExecutable, in: band-execution }
-    - { id: f-tools-yml, kind: file, label: tools.yml, in: band-execution }
-    - { id: g-invoke, kind: code, label: Invoke-Executable, in: band-execution }
-  edges:
-    - { from: g-wrappers, to: g-assert-tool, kind: flow, label: calls }
-    - { from: g-wrappers, to: g-invoke, kind: flow, label: calls }
-    - { from: g-assert-tool, to: g-assert-version, kind: flow, label: calls }
-    - { from: g-assert-tool, to: g-resolve, kind: flow, label: calls }
-    - { from: g-assert-version, to: g-get-version, kind: flow, label: calls }
-    - { from: g-get-version, to: g-invoke, kind: flow, label: calls }
-    - { from: g-test-tool, to: g-get-version, kind: flow, label: calls }
-    - { from: g-test-tool, to: g-resolve, kind: flow, label: calls }
-  markers:
-    - { at: g-wrappers, number: 1 }
-    - { at: g-assert-tool, number: 2 }
-    - { at: g-resolve, number: 3 }
-    - { at: g-assert-version, number: 4 }
-    - { at: g-get-version, number: 5 }
-    - { at: f-tools-yml, number: 6 }
-    - { at: g-invoke, number: 7 }
-    - { at: g-test-tool, number: 8 }
-  chips:
-    - { at: g-wrappers, kind: count, text: "10" }
-  legend: auto
-  minimaps: [code-locations, module-neighbourhood, axis]
-layout:
-  band-entry: { x: 20, y: 84, w: 180, h: 520 }
-  band-core: { x: 220, y: 84, w: 1060, h: 260 }
-  band-execution: { x: 220, y: 374, w: 1060, h: 230 }
-  g-wrappers: { x: 30, y: 136, w: 150, h: 426 }
-  g-assert-tool: { x: 280, y: 136, w: 150, h: 40 }
-  g-assert-version: { x: 600, y: 136, w: 170, h: 40 }
-  g-get-version: { x: 960, y: 136, w: 160, h: 40 }
-  g-test-tool: { x: 600, y: 214, w: 170, h: 40 }
-  g-resolve: { x: 265, y: 500, w: 190, h: 40 }
-  f-tools-yml: { x: 640, y: 490, w: 120, h: 52 }
-  g-invoke: { x: 940, y: 400, w: 200, h: 40 }
-```
-
 ![Each Invoke-Tool wrapper asserts the locked version before it runs](../.assets/invoke-tool-asserts-locked-version.drawio.png)
 
 ## Division

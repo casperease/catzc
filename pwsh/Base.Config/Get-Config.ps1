@@ -17,7 +17,17 @@ function Get-Config {
     }
 
     # The one reader of every config, so a name it cannot discover throws here and never falls back to a guess.
-    $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
+    $entry = try {
+        Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
+    }
+    catch {
+        # A file and a same-named folder in one module read as two owners, so the pair is named before the ambiguity error.
+        foreach ($owner in @(Resolve-ConfigEntry -Config $Config -All | Group-Object { $_.Module } | Where-Object Count -GT 1)) {
+            $paths = ($owner.Group | ForEach-Object { $_.Path }) -join "' and '"
+            throw "Config '$Config' in module '$($owner.Name)' is both a file and a same-named folder: '$paths'; keep one."
+        }
+        throw
+    }
 
     # The cache key carries the overlay fragment's stamp, so an edited fragment is never served from a stale merge.
     $fragmentPath = $null

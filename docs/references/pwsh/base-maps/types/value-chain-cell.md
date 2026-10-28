@@ -1,13 +1,13 @@
 # pwsh/Base.Maps/types/ValueChainCell.cs
 
-One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the ADRs that sit in it
+One cell of the value-chain map: a row of the value-chain stack crossed with a value-chain concern, and the records that sit in it
 ([ADR-REPO-VALUECHAIN-MAP](../../../../drs/repository/drs-value-chain.md#rule-adr-repo-valuechain-map),
 [DDR-TRACK-CELL](../../../../drs/design/tracks.md#rule-ddr-track-cell)).
 
-## Adrs
+## Records
 
-`Adrs` holds the ADR codes of the cell. On the map it holds every ADR of the cell in `drs.yml` order, and on a highlight the requested ADRs
-that light it, in request order. It is empty for an empty cell of the grid.
+`Records` holds the record codes of the cell. On the map it holds every record of the cell in `drs.yml` order, and on a highlight the
+requested records that light it, in request order. It is empty for an empty cell of the grid.
 
 ## Shape
 

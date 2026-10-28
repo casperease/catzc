@@ -308,7 +308,7 @@ def normalise(raw, where="the declaration"):
                 choices(f"{where}: marker {marker['number']} corner", corner, CORNERS)
             marker["corner"] = corner
         out["markers"].append(marker)
-    # A rule chip names a rule the diagram covers and prints its number in about.adrs; dashed (gated: false) when no gate checks it.
+    # A rule chip names a rule the diagram covers and prints its number in about.rules; dashed (gated: false) when no gate checks it.
     # A count chip prints a number. Either sits on a glyph, a group or a band.
     out["chips"] = []
     for c in content.get("chips") or []:
@@ -357,7 +357,7 @@ def normalise(raw, where="the declaration"):
     allowed = tuple(str(DEFAULTS["minimaps"]["ids"]).replace(",", " ").split())
     declared = content.get("minimaps") or []
     # The declaration holds a minimap's inputs only, never its cells: each shown minimap is an id, or { id: { exclude: [cells] } } naming
-    # the lit cells its author rejects; the lit cells are computed at build from about.adrs and the citing files.
+    # the lit cells its author rejects; the lit cells are computed at build from about.rules and the citing files.
     if not isinstance(declared, list):
         raise DeclarationError(
             f"{where}: minimaps is a list of the shown minimaps, each an id or {{ id: {{ exclude: [cells] }} }}, never the cells they light"
@@ -385,12 +385,12 @@ def normalise(raw, where="the declaration"):
         if str(view) in shown_minimaps(out["minimaps"]):
             raise DeclarationError(f"{where}: minimaps names '{view}' twice")
         out["minimaps"].append({str(view): {"exclude": [str(c) for c in exclude]}} if exclude else str(view))
-    # What the diagram is about: the lens it is drawn through and the ADR codes every minimap is computed from, each checked against
-    # the ADR registry.
+    # What the diagram is about: the lens it is drawn through and the rule codes every minimap is computed from, each checked against
+    # the DRS registry. The content keeps them as about_rules, since its own `rules` are the gate rules a grid draws.
     about = {"lens": lens, **{key: [str(v) for v in (about_raw.get(key) or [])] for key in minimaps.ABOUT_KEYS}}
     for problem in minimaps.problems(about):
         raise DeclarationError(f"{where}: {problem}")
-    out["adrs"] = about["adrs"]
+    out["about_rules"] = about["rules"]
     if out["zoom"] is not None:
         about["zoom"] = out["zoom"]
     if out["point"] is not None:
@@ -423,8 +423,8 @@ def normalise(raw, where="the declaration"):
             held[str(env)] = {k: str(v).strip() for k, v in occupant.items() if v is not None}
         about["occupants"] = out["occupants"] = held
     for chip in out["chips"]:
-        if chip["kind"] == "rule" and chip["rule"] not in about["adrs"]:
-            choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["adrs"])
+        if chip["kind"] == "rule" and chip["rule"] not in about["rules"]:
+            choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["rules"])
     layout = {}
     for cid, box in (raw.get("layout") or {}).items():
         if lens == ACTION_LENS and cid != "frame":  # the lens computes every place from ring and order; only the frame is pinned

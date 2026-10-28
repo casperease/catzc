@@ -4,6 +4,9 @@ function Sync-AdoServiceConnections {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
+        [Parameter(Mandatory, Position = 0, ValueFromPipeline)]
+        [object[]] $Connection,
+
         [string] $Project = (Get-Config -Config ado)['project'],
 
         [string] $Organization = (Get-Config -Config ado)['organization'],
@@ -11,29 +14,33 @@ function Sync-AdoServiceConnections {
         [switch] $DryRun
     )
 
-    Assert-NotNullOrWhitespace $Project -ErrorText 'Project is required. Set -Project or configure ado.yml.'
-    Assert-NotNullOrWhitespace $Organization -ErrorText 'Organization is required. Set -Organization or configure ado.yml.'
-    $Organization = $Organization.TrimEnd('/')
+    begin {
+        Assert-NotNullOrWhitespace $Project -ErrorText 'Project is required. Set -Project or configure ado.yml.'
+        Assert-NotNullOrWhitespace $Organization -ErrorText 'Organization is required. Set -Organization or configure ado.yml.'
+        $organizationUrl = $Organization.TrimEnd('/')
 
-    # The project's id: a connection is shared into the project by it.
-    $projectRecord = Invoke-AdoRestMethod -Uri "$Organization/_apis/projects/$([uri]::EscapeDataString($Project))?api-version=7.1" -UnwrapValue $false
-    Assert-NotNull $projectRecord -ErrorText "Project '$Project' does not exist in $Organization."
-    $context = [pscustomobject]@{
-        Organization = $Organization
-        Project      = $Project
-        ProjectId    = "$($projectRecord.id)"
-        ApiBase      = "$Organization/$Project/_apis"
+        # The project's id: a connection is shared into the project by it.
+        $projectRecord = Invoke-AdoRestMethod -Uri "$organizationUrl/_apis/projects/$([uri]::EscapeDataString($Project))?api-version=7.1" -UnwrapValue $false
+        Assert-NotNull $projectRecord -ErrorText "Project '$Project' does not exist in $organizationUrl."
+        $context = [pscustomobject]@{
+            Organization = $organizationUrl
+            Project      = $Project
+            ProjectId    = "$($projectRecord.id)"
+            ApiBase      = "$organizationUrl/$Project/_apis"
+        }
     }
 
-    foreach ($connection in (Get-Config -Config service-connections).connections.Values) {
-        $subscription = Get-AzureSubscription -Subscription $connection.subscription
-        $synced = Sync-AdoServiceConnection -Context $context -Connection $connection -Subscription $subscription -DryRun:$DryRun
-        [pscustomobject]@{
-            Kind    = 'ServiceConnection'
-            Target  = $connection.name
-            Action  = $synced
-            Details = "subscription $($connection.subscription) ($($subscription.id)), $([Catzc.Azure.DevOps.ServiceConnectionsConfig]::Scheme)"
-            DryRun  = [bool]$DryRun
+    process {
+        foreach ($item in $Connection) {
+            $subscription = Get-AzureSubscription -Subscription $item.subscription
+            $synced = Sync-AdoServiceConnection -Context $context -Connection $item -Subscription $subscription -DryRun:$DryRun
+            [pscustomobject]@{
+                Kind    = 'ServiceConnection'
+                Target  = $item.name
+                Action  = $synced
+                Details = "subscription $($item.subscription) ($($subscription.id)), $([Catzc.Azure.DevOps.ServiceConnectionScheme]::Federated)"
+                DryRun  = [bool]$DryRun
+            }
         }
     }
 }

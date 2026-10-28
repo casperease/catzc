@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../flow/.assets/overlap-gated-for-units-and-modules.drawio.png
+      source: ../../automation/.assets/one-command-lays-out-the-python-workspace.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ The python track is laid out by one command through uv; nothing contacts a feed 
 
 ## Image
 
-.assets/john-doe-uses-uv.png
+[john-doe-uses-uv](.assets/john-doe-uses-uv.png)
 
 ## Caption
 
-From the catalogue, reduced: overlap gated for units and modules.
+From the catalogue, reduced: one command lays out the Python workspace.
 
 ## Notes
 
 Check it: the record ADR-AUTO-UVPY in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/overlap-gated-for-units-and-modules.drawio.png.
+docs/explanation/automation/.assets/one-command-lays-out-the-python-workspace.drawio.png.

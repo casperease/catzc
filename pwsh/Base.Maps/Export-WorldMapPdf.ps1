@@ -5,9 +5,9 @@ function Export-WorldMapPdf {
         [ValidateSet('Grid', 'Tree')]
         [string[]] $View = @('Grid', 'Tree'),
 
-        [Parameter(Mandatory, ParameterSetName = 'Adr')]
+        [Parameter(Mandatory, ParameterSetName = 'Rule')]
         [ArgumentCompleter({ (Get-Config -Config drs).RuleSets.External })]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Parameter(Mandatory, ParameterSetName = 'Path')]
         [string[]] $Path
@@ -17,8 +17,8 @@ function Export-WorldMapPdf {
     $map = Get-WorldMap
     $highlight = $null
     $suffix = ''
-    if ($PSCmdlet.ParameterSetName -eq 'Adr') {
-        $highlight = Get-WorldMapHighlight -Adr $Adr
+    if ($PSCmdlet.ParameterSetName -eq 'Rule') {
+        $highlight = Get-WorldMapHighlight -Rule $Rule
         $suffix = '.highlight'
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'Path') {

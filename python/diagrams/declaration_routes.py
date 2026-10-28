@@ -48,12 +48,11 @@ def plan_aims(edges, box_of, plain_box, orient=None):
     it, in the order of the other ends so lines do not cross, one edge alone at the side's middle. `edges` are the indexes to route
     mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions."""
     ends = {}
-    elbows = {}
+    sides = {}
     for i, (tail, head) in edges.items():
         a, b = box_of[tail], box_of[head]
-        side_a, side_b, elbow = facing(a, b, (orient or {}).get(i, "h"))
-        elbows[i] = elbow
-        for cell_id, side, other in ((tail, side_a, b), (head, side_b, a)):
+        sides[i] = facing(a, b, (orient or {}).get(i, "h"))
+        for cell_id, side, other in ((tail, sides[i][0], b), (head, sides[i][1], a)):
             along = (other["y"] + other["h"] / 2) if side in ("left", "right") else (other["x"] + other["w"] / 2)
             ends.setdefault((cell_id, side), []).append((along, i, cell_id == tail and "exit" or "entry"))
     aims = {}
@@ -64,9 +63,47 @@ def plan_aims(edges, box_of, plain_box, orient=None):
             fx, fy = SIDE_ANCHOR[side]
             point = (fx if fx is not None else fraction, fy if fy is not None else fraction)
             aims.setdefault(i, {})[which] = (round(point[0], 4), round(point[1], 4))
-    for i, elbow in elbows.items():
+    for i, (tail, head) in edges.items():
+        side_a, side_b, elbow = sides[i]
         aims[i]["elbow"] = elbow
+        if not elbow:
+            shares = (len(ends[tail, side_a]), len(ends[head, side_b]))
+            aims[i].update(straight_aims(box_of[tail], box_of[head], side_a, aims[i], shares, (plain_box(tail), plain_box(head))))
     return aims
+
+
+STRAIGHT_MARGIN = 8  # px a straight line keeps from the corner of either box it joins, where their shared span allows it
+
+
+def straight_aims(a, b, side_a, aim, shares, plain):
+    """The ends of an edge whose boxes face each other across one axis, so the line is level or plumb, never a slant: both ends at one
+    shared coordinate inside the span the two boxes share on that axis. The coordinate is the spread position of the end that shares its
+    side with fewer edges (the lone end's middle, so a fan-out's targets each take the line at their own centre), the tail's on a tie,
+    kept inside the shared span; a diamond, ellipse or hexagon end is held at its middle. When no shared coordinate holds both ends (the
+    shared span misses a held middle), the line steps once across the gap instead: `step` names its two ends' coordinates, so the
+    route runs out, across and in, each leg level or plumb."""
+    across = side_a in ("top", "bottom")  # the line runs plumb, its coordinate an x; else level, a y
+    pos, size, key = ("x", "w", 0) if across else ("y", "h", 1)
+    spread = lambda box, which: box[pos] + box[size] * aim[which][key]
+    lo, hi = max(a[pos], b[pos]), min(a[pos] + a[size], b[pos] + b[size])
+    if hi <= lo:  # no shared span: only the configured straight route faces boxes so, and its line is the diagonal it names
+        return {}
+    margin = min(STRAIGHT_MARGIN, max(0.0, (hi - lo) / 2))
+    lo, hi = lo + margin, hi - margin
+    held = [spread(box, which) for box, which, flat in ((a, "exit", plain[0]), (b, "entry", plain[1])) if not flat]
+    if held:
+        at = held[0]
+        fits = lo <= at <= hi and all(abs(h - at) < 0.5 for h in held)
+    else:
+        at = spread(b, "entry") if shares[0] > shares[1] else spread(a, "exit")
+        at, fits = min(max(at, lo), hi), lo <= hi
+    if not fits:
+        return {"step": (spread(a, "exit"), spread(b, "entry"))}
+    fraction = lambda box: round((at - box[pos]) / box[size], 4)
+    other_a, other_b = aim["exit"][1 - key], aim["entry"][1 - key]
+    if across:
+        return {"exit": (fraction(a), other_a), "entry": (fraction(b), other_b)}
+    return {"exit": (other_a, fraction(a)), "entry": (other_b, fraction(b))}
 
 
 def segment_hits_rect(p, q, rect):

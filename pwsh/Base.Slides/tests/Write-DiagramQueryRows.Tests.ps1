@@ -5,9 +5,9 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         $script:gadget = 'docs/explanation/gadget/.assets/gadget-parts'
         $script:plain = 'docs/explanation/plain/.assets/plain-flow'
         $declarations = @{
-            $script:widget = "about:`n  adrs: [ADR-WIDGET]`n  zoom: C4`n  point: widgets/Widget.Kit`ncontent:`n  title: Widget code`n"
-            $script:gadget = "about:`n  adrs: [ADR-WIDGET]`n  zoom: C3`n  point: widgets`ncontent:`n  title: Gadget parts`n"
-            $script:plain  = "about:`n  adrs: [ADR-WIDGET]`ncontent:`n  title: Plain flow`n"
+            $script:widget = "about:`n  rules: [ADR-WIDGET]`n  zoom: C4`n  point: widgets/Widget.Kit`ncontent:`n  title: Widget code`n"
+            $script:gadget = "about:`n  rules: [ADR-WIDGET]`n  zoom: C3`n  point: widgets`ncontent:`n  title: Gadget parts`n"
+            $script:plain  = "about:`n  rules: [ADR-WIDGET]`ncontent:`n  title: Plain flow`n"
         }
         foreach ($stem in $declarations.Keys) {
             $source = Join-Path $script:root $stem
@@ -30,7 +30,7 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         }
         foreach ($stem in $flows.Keys) {
             [System.IO.File]::WriteAllText((Join-Path $script:root "$stem.drawio.yml"),
-                "about:`n  adrs: [ADR-WIDGET]`n  lens: flow`n  point: $($flows[$stem])`ncontent:`n  title: Widget lanes`n")
+                "about:`n  rules: [ADR-WIDGET]`n  lens: flow`n  point: $($flows[$stem])`ncontent:`n  title: Widget lanes`n")
         }
         $script:config = Join-Path $script:root 'kit/configs/drawio.yml'
         [System.IO.Directory]::CreateDirectory((Split-Path $script:config -Parent)) | Out-Null
@@ -103,7 +103,7 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
     It 'throws naming the track and the command when the declared reader is not loaded' {
         $unloaded = 'docs/explanation/widget/.assets/widget-unloaded'
         [System.IO.File]::WriteAllText((Join-Path $script:root "$unloaded.drawio.yml"),
-            "about:`n  adrs: [ADR-WIDGET]`n  lens: flow`n  point: .github/workflows/ci-widget.yml`ncontent:`n  title: Widget lanes`n")
+            "about:`n  rules: [ADR-WIDGET]`n  lens: flow`n  point: .github/workflows/ci-widget.yml`ncontent:`n  title: Widget lanes`n")
         { Invoke-Writer -Stem $unloaded } | Should -Throw "*track 'gadget.workflows'*'Get-GadgetFlowRows'*"
     }
 
@@ -130,7 +130,7 @@ Describe 'Write-DiagramQueryRows' -Tag 'L0', 'logic', 'DDR-VISUAL-ZOOMISANAXIS' 
         $source = Join-Path $script:root $wrong
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText("$source.drawio.yml",
-            "about:`n  adrs: [ADR-WIDGET]`n  zoom: C2`n  point: widgets`ncontent:`n  title: Wrong`n")
+            "about:`n  rules: [ADR-WIDGET]`n  zoom: C2`n  point: widgets`ncontent:`n  title: Wrong`n")
         { Invoke-Writer -Stem $wrong } | Should -Throw "*$wrong names about.point widgets at zoom 'C2'*"
     }
 }

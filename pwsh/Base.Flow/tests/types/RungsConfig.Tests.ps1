@@ -19,11 +19,11 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
         $config.rungs[1].rules | Should -HaveCount 0
     }
 
-    It 'rejects rules that are not a list of ADR rule codes' {
+    It 'rejects rules that are not a list of rule codes' {
         { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = 'ADR-WIDGET' } } }) } |
-            Should -Throw '*rules must be a list of ADR rule codes*'
+            Should -Throw '*rules must be a list of rule codes*'
         { [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = @{ 'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = @('gizmo') } } }) } |
-            Should -Throw '*''gizmo'' is not an ADR rule code*'
+            Should -Throw '*''gizmo'' is not a rule code*'
     }
 
     It 'takes the ladder from a comment-only file as well' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

@@ -152,6 +152,10 @@
           "kind": "property"
         },
         {
+          "name": "Target",
+          "kind": "property"
+        },
+        {
           "name": "Text",
           "kind": "property"
         },

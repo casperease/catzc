@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
+      source: ../../automation/.assets/a-stopped-run-names-its-limit.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -24,13 +24,13 @@ retried larger.
 
 ## Image
 
-.assets/every-wait-bounded.png
+[every-wait-bounded](.assets/every-wait-bounded.png)
 
 ## Caption
 
-From the catalogue, reduced: building the english dictionary writes one stamped word list.
+From the catalogue, reduced: a stopped run names its limit.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.
+docs/explanation/automation/.assets/a-stopped-run-names-its-limit.drawio.png.

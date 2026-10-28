@@ -67,7 +67,7 @@ function Get-DrsUsageRow {
         [pscustomobject]@{
             Path   = $Path
             Code   = if ($isRule) {
-                $Map.AdrOf($citation)
+                $Map.RecordOf($citation)
             }
             else {
                 $citation

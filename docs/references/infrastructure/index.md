@@ -9,7 +9,7 @@ template article describes what the template deploys and how it is configured, n
 - each **template** article lists the Azure resources it deploys, the shared modules it uses, and its configuration — its `short_name`,
   environments and slots, and subscriptions.
 
-Design rationale lives in the [Azure ADRs](../../drs/azure/).
+Design rationale lives in the [Azure decision records](../../drs/azure/).
 
 ## The articles
 

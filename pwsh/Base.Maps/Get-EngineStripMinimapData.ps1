@@ -3,7 +3,7 @@ function Get-EngineStripMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -29,7 +29,7 @@ function Get-EngineStripMinimapData {
     }
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         $language = if ($item.Facts) {
             "$($item.Facts['language'])"
         }

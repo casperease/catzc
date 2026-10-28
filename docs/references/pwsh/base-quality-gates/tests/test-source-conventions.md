@@ -3,7 +3,7 @@
 The L0 logic test of `Test-SourceConventions`, over fixture trees in `$TestDrive`. The repository root is mocked, so each test writes the
 source and test files it needs and pins one convention. The fixtures use neutral names
 ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)): widget, gadget and
-sprocket stand in for the engines, and `ADR-WIDGET-GADGET` for a code the ADR registry declares.
+sprocket stand in for the engines, and `ADR-WIDGET-GADGET` for a code the DRS registry declares.
 
 ## Fixture helpers
 

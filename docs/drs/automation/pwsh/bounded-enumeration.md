@@ -1,4 +1,4 @@
-# ADR: Bounded enumeration
+# PowerShell: Bounded enumeration
 
 ## Rules: ADR-PWSH-ENUM
 
@@ -55,7 +55,7 @@ depends on) lists one level with an inline, non-recursive `[System.IO.Directory]
 
 A recursive listing is the easiest way to find a file and the easiest way to make a command slow and its result wrong. An unbounded walk
 enters `.git`, `node_modules`, and vendored modules, loads the whole tree into memory, and returns files the caller never meant to touch.
-The cost grows with the repository, so a command that is fast today slows down as the tree grows, and nothing in the code says why.
+The cost grows with the repository, so a fast command slows as the tree grows, and nothing in the code says why.
 
 The walker answers "what is on disk below this folder", which includes an untracked file and leaves out a deleted one. "Which files does git
 track" is a different question with its own seam, `Get-GitTrackedPath` ([tracked-files-from-the-index](../tracked-files-from-the-index.md),
@@ -91,9 +91,8 @@ visible in review.
 A depth is a promise about cost. `AllDirectories` makes no promise, and a full list built before filtering holds the entire tree in memory
 even when the caller wants three files. A bounded, lazy walk visits only what its depth allows.
 
-Some work does cover a whole tree: copying a package tree, snapshotting a build. These are legitimate, so the rule does not forbid them. It
-asks the call site to state a depth that fits the tree and to say why, so a whole-tree walk is a decision someone made rather than a default
-nobody noticed.
+Some work does cover a whole tree, such as copying a package tree or snapshotting a build. The rule allows it and asks the call site to
+state a depth that fits the tree and say why, so a whole-tree walk is a decision rather than an unnoticed default.
 
 ### Pruned, and never through a link
 
@@ -122,8 +121,8 @@ The internal modules load before the combined types assembly is built, so they c
 
 ## Decision
 
-Enumerate the filesystem with `Get-ChildPath`, to a bounded depth that defaults to 2, with the config's exclude names and the vendor folder
-pruned and links never entered. Back it with a compiled type. Code that loads before the walker lists one level inline.
+One compiled, bounded, pruning walker is the only way the filesystem is enumerated; the rules above set its default, its bounds and the
+inline exception below it.
 
 ### How this is enforced
 
@@ -134,7 +133,7 @@ pruned and links never entered. Back it with a compiled type. Code that loads be
   flags `Get-ChildItem` and its aliases on a filesystem path (ADR-PWSH-ENUM-RAWDOTNETENUMERATION) and
   `[System.IO.SearchOption]::AllDirectories` (ADR-PWSH-ENUM-ALWAYSBOUNDED). A literal provider path (`env:`, `function:`, `HKLM:`) is left
   alone, a provider listing through a variable carries a justified suppression. Test files are covered like any other code.
-- **Code review** — a whole-tree walk whose depth or comment is not justified is checked against this ADR.
+- **Code review** — a whole-tree walk whose depth or comment is not justified is checked against this record.
 
 ## Consequences
 

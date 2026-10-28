@@ -2,7 +2,7 @@
 
 The threat model of the three templates and the pipeline that deploys them, by trust boundary and STRIDE category: what each boundary holds
 against, and what it does not yet hold. Each holding names the template, module, policy or gate that carries it. The design rules behind it
-are the [Azure ADRs](../../drs/azure/).
+are the [Azure decision records](../../drs/azure/).
 
 ## Boundaries
 
@@ -23,8 +23,8 @@ are the [Azure ADRs](../../drs/azure/).
 ## Tampering
 
 - Holds: every resource is declared in Bicep under version control, so a change is a reviewed commit; the Bicep linter and the API-version
-  quality gate check every template and module (`Test-BicepLint`, `Test-BicepApiVersions`); each deploy tags its target with the commit, the build
-  id and the branch, so drift from the tree can be traced.
+  quality gate check every template and module (`Test-BicepLint`, `Test-BicepApiVersions`); each deploy tags its target with the commit, the
+  build id and the branch, so drift from the tree can be traced.
 - Open: no what-if runs before a pipeline deploy, so a deploy's effect is not shown before it applies.
 
 ## Repudiation

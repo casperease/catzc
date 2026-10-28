@@ -1,7 +1,7 @@
-# ADR: Environment approvals — the promotion ladder's gates and records in Azure DevOps
+# Azure DevOps: Environment approvals — the promotion ladder's gates and records in Azure DevOps
 
 The flow states the gates and records of the promotion ladder for any execution engine
-([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md), `FDR-CD`). This ADR binds them to Azure DevOps: which ADO
+([cd-discipline-and-promotion-flow](../flow/cd-discipline-and-promotion-flow.md), `FDR-CD`). This record binds them to Azure DevOps: which ADO
 construct carries each kind, how a rung is named as an ADO environment, how the approval checks are applied from configuration, and where
 the certifying record is read.
 

@@ -17,7 +17,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
         @($notes.Id) | Should -Be @('0001', '0002')
         $notes[0].File | Should -BeExactly 'docs/drs/widget.md'
         $notes[0].Change | Should -BeExactly 'modified'
-        $notes[0].Kind | Should -BeExactly 'adr'
+        $notes[0].Kind | Should -BeExactly 'record'
         $notes[0].Tier | Should -BeExactly 'rule'
         $notes[0].Rules | Should -Be @('ADR-WIDGET-PARTS-DOUBLE', 'ADR-WIDGET-PARTS-SINGLE')
         $notes[1].Rules.Count | Should -Be 0

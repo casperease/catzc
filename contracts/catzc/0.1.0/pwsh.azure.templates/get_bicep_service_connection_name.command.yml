@@ -1,0 +1,5 @@
+description: Returns the name of one deployment identity's service connection in one subscription, from the subscription's coordinates and the identity's role.
+parameters:
+  subscription: string!
+  identity: string!
+output: string

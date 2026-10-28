@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "694d06f0194f"
+    with_body_sha: bc0e81059220
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -360,8 +360,8 @@ research program in `dora/`, the Microsoft Well-Architected Framework in `azure/
 Agile Manifesto in `agile/`, lean theory in `lean/`, and Pester in `pester/`. A code keeps its source path under the EDR kind
 (`EDR-DORA-CI`, `EDR-AZ-CAF-GOV`), and an item keeps the source's own id (a Well-Architected item `RE01`, a Cloud Adoption Framework item
 `R01`). A rule states how catzc reads the item, with a `Source:` line that names it, a Microsoft page as `learn <path>` under the one base
-`https://learn.microsoft.com/en-us`; the ADR or PDR that cites the rule holds catzc's own decision. Every other domain depends on this one
-and it depends on none; the others cite the DORA records through their `dora-explains.md` files and `EDR-DORA-*` citations.
+`https://learn.microsoft.com/en-us`; the `ADR` or `PDR` record that cites the rule holds catzc's own decision. Every other domain depends on
+this one and it depends on none; the others cite the DORA records through their `dora-explains.md` files and `EDR-DORA-*` citations.
 
 **Role:** `reference` — **depends on:** none.
 

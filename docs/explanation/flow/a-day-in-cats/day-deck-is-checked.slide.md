@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,12 +22,12 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Image
 
-.assets/day-deck-is-checked.png
+[day-deck-is-checked](.assets/day-deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: a merge runs cd through non-prod.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/a-merge-runs-cd-through-non-prod.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

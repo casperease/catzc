@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../configuration/.assets/one-reader-one-cache-per-session.drawio.png
+      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Every call is bounded. A foreground call carries its limit; a long run carries i
 
 ## Image
 
-.assets/pete-and-the-timeout.png
+[pete-and-the-timeout](.assets/pete-and-the-timeout.png)
 
 ## Caption
 
-From the catalogue, reduced: one reader one cache per session.
+From the catalogue, reduced: a shell call carries its limit, or the hook denies it.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.
+docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

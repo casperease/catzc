@@ -1,32 +1,32 @@
 # pwsh/Base.Maps/Get-WorldMapHighlight.ps1
 
-The command that lights the world map's cells: for ADR codes, for named files, or for the files the working tree changes. It answers "where
+The command that lights the world map's cells: for rule codes, for named files, or for the files the working tree changes. It answers "where
 on the map does this sit".
 
 ## help
 
 ### synopsis
 
-Returns the world-map cells that ADR codes or a drawing's files light.
+Returns the world-map cells that rule codes or a drawing's files light.
 
 ### description
 
 Builds the world map (Get-WorldMap) and lights its cells with Catzc.Base.Maps.WorldMapHighlight.
 
--Adr lights, for each code (`ADR-<CODE>`, or one rule as `ADR-<CODE>#n` or `ADR-<CODE>:n`): the ADR files of the code's domain, and every
-file whose citations name it, in the fixed order per artifact kind the map derives (module code by its own citations, a repository-root file
-by its files.yml owner, a pipeline by its citations or else its globset). The reviewed exceptions and pins of configs/maps.yml then apply:
-an exception keeps its cell dark and a pin lights its cell. -Path lights the cells the given tracked files sit in
-([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)).
+-Rule lights, for each code (`ADR-<CODE>`, or one rule as `ADR-<CODE>#n` or `ADR-<CODE>:n`): the record files of the code's domain, and
+every file whose citations name it, in the fixed order per artifact kind the map derives (module code by its own citations, a
+repository-root file by its files.yml owner, a pipeline by its citations or else its globset). The reviewed exceptions and pins of
+configs/maps.yml then apply: an exception keeps its cell dark and a pin lights its cell. -Path lights the cells the given tracked files sit
+in ([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)).
 
 With neither, it answers "where does my change sit on the map": the files the working tree changes against HEAD and the index (modified,
 added, deleted or untracked; Get-GitChangedPath) light the cells they sit in, as with -Path. The map holds the files git tracks, so a
 changed file it does not hold (an untracked file, or one whose removal is staged) lights nothing and is named in the verbose stream. With no
 change, no cell is lit.
 
-### parameter `Adr`
+### parameter `Rule`
 
-The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
+The rule codes, each optionally narrowed to one rule (#n or :n). An unknown code throws.
 
 ### parameter `Path`
 
@@ -61,7 +61,7 @@ the citation sites with their lines and kinds) instead of the object
 ### example 3
 
 ```powershell
-Get-WorldMapHighlight -Adr 'DDR-TRACK-ONETECHSTACK' -AsJson
+Get-WorldMapHighlight -Rule 'DDR-TRACK-ONETECHSTACK' -AsJson
 ```
 
 ### example 4

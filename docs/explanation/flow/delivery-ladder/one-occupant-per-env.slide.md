@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../design/.assets/gate-checks-order-not-liveness.drawio.png
+      source: ../../design/.assets/sync-from-the-bvt-verified-head.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -23,13 +23,13 @@ main-UAT takes the BVT-verified head first; release-uat and pre-prod each hold o
 
 ## Image
 
-.assets/one-occupant-per-env.png
+[one-occupant-per-env](.assets/one-occupant-per-env.png)
 
 ## Caption
 
-From the catalogue, reduced: gate checks order not liveness.
+From the catalogue, reduced: sync from the BVT verified head.
 
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/gate-checks-order-not-liveness.drawio.png.
+docs/explanation/design/.assets/sync-from-the-bvt-verified-head.drawio.png.

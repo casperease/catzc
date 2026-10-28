@@ -4,10 +4,6 @@ catzc:
     pattern: fact
     deck: pairs-of-rules
     order: 13
-    picture:
-      mode: reduce
-      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
-      scale: 0.4
 ---
 
 # A pipeline type triggers on a globset: FDR-TYPE rests on FDR-GLOBS
@@ -20,15 +16,6 @@ catzc:
 
 The closed set of types needs a durable way to say which paths wake which type; the globsets project into the native filters.
 
-## Image
-
-.assets/types-need-globs.png
-
-## Caption
-
-From the catalogue, reduced: partition integrity runs only in unit tests.
-
 ## Notes
 
-Check it: the record FDR-TYPE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.
+Check it: the record FDR-TYPE in docs/drs/index.md.

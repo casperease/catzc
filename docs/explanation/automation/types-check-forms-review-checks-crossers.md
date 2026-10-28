@@ -20,14 +20,14 @@ ADR-AUTO-PATH-PUBLISHEDARTIFACT and ADR-AUTO-PATH-WORKSPACEANCHOR (governance le
 The path rules of cats are enforced by construction, not by a linter. A record that holds a `RepoRelativePath`, an inspiration root checked
 by `InspirationRoot`, or a published artifact created by `ArtifactRef` cannot carry a mis-formed or wrong-anchor path, because the type
 throws when it is built. The rules about how a path crosses the boundary, through the two crossers and only at the point of use, have no
-gate at all: code review holds them, and the ADR says why a static rule would be noise.
+gate at all: code review holds them, and the record says why a static rule would be noise.
 
 ```yml drawio
 description:
   Three types check path forms at construction and throw on a mis-formed or wrong-anchor path; the rules about crossing the boundary,
   through the two crossers and only at the point of use, have no gate and are left to code review.
 about:
-  adrs:
+  rules:
     - ADR-AUTO-PATH-TWOFORMS
     - ADR-AUTO-PATH-COMMUNICATIONFORM
     - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
@@ -114,9 +114,9 @@ layout:
 5. **InspirationRoot.** The checker in `Catzc.Tooling.Inspiration` for a stored inspiration root. `Violations` names every way a value
    breaks communication form: a backslash, a drive letter, an absolute path, a `{workspace}` anchor anywhere but first, a `..` or `.`
    segment, an empty segment. `Resolve-InspirationRoot` binds a valid root only at the point of use.
-6. **Code review.** The ADR rejects a custom PSScriptAnalyzer rule: a raw `$env:RepositoryRoot` read, a `Join-Path` onto it and an ad hoc
+6. **Code review.** The record rejects a custom PSScriptAnalyzer rule: a raw `$env:RepositoryRoot` read, a `Join-Path` onto it and an ad hoc
    separator replace are each legitimate in scores of binding sites, and whether a path is communicated or bound is not an AST pattern. So
-   the crossing rules are reviewed against the ADR, and no code checks them.
+   the crossing rules are reviewed against the record, and no code checks them.
 7. **Published artifact.** A file that crosses a stage boundary is an immutable object with both forms, created by the controlled type and
    anchored on the artifact root (#10). The glossary realizes the term by `Catzc.Base.Objects.ArtifactRef`.
 8. **ArtifactRef.** `Materialize` throws when the raw path does not live under the artifact root, and the constructor rejects a rooted or

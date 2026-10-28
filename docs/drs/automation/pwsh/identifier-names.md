@@ -1,4 +1,4 @@
-# ADR: Identifier names — the pwsh rules over spell-out-names
+# PowerShell: Identifier names — the pwsh rules over spell-out-names
 
 ## Rules: ADR-PWSH-NAMES
 
@@ -8,10 +8,10 @@ A custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`, is the automatic 
 [spell-out-names](../spell-out-names.md) (`ADR-AUTO-SPELL`). It tokenizes every variable reference — assignment targets, parameters, loop
 variables, and reads — and the noun of every function name (camelCase / PascalCase / snake_case), and flags any fragment that is neither a
 real English word nor an approved registry term. It applies no minimum word length, so it catches the short and compound coined
-abbreviations cspell's `minWordLength` lets through (`$rcg`, `$tfPath`) — a class left to code review alone. Its oracle is a native type
-(`SpellingOracle`) over cspell's own English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the
-registry term lists, so the analyzer and `Test-Spelling` agree on what a word is. It cannot separate an abbreviation that is also a real
-dictionary word (`$spec`, `$info`) from a genuine short word; those remain a code-review concern.
+abbreviations cspell's `minWordLength` lets through (`$rcg`, `$tfPath`). Its oracle is a native type (`SpellingOracle`) over cspell's own
+English words (`Build-EnglishDictionary` flattens them to `assets/english.txt.gz`) combined with the registry term lists, so the analyzer
+and `Test-Spelling` agree on what a word is. It cannot separate an abbreviation that is also a real dictionary word (`$spec`, `$info`) from
+a genuine short word; those remain a code-review concern.
 
 - [The analyzer rule](#the-analyzer-rule)
 
@@ -21,9 +21,8 @@ Name a function's return value by its **role**, not its type or contents, with o
 _return accumulator_ a function builds up and then hands back (returned directly, emitted under `-PassThru`, or returned once at the end);
 and **`$found`** — the _lookup result_ a search returns (the located value, or `$null`). `$ret` generalizes over the accumulator's type: a
 `[StringBuilder]` assembled for return, a list appended to, or a hashtable populated are each `$ret`, not `$stringBuilder` / `$results` /
-`$output` — the name states what the variable is _for_, not what it _is_. `$ret` may also name the value a tight loop emits
-(`Write-Output $ret`, or a direct return). A local that is not the function's return value keeps its own name
-(ADR-AUTO-SPELL-FULLWORDIDENTIFIERS, ADR-PWSH-NAMES-UNNAMEDLOCALS).
+`$output`. `$ret` may also name the value a tight loop emits (`Write-Output $ret`, or a direct return). A local that is not the function's
+return value keeps its own name (ADR-AUTO-SPELL-FULLWORDIDENTIFIERS, ADR-PWSH-NAMES-UNNAMEDLOCALS).
 
 - [Role, then type](#role-then-type)
 
@@ -31,9 +30,8 @@ and **`$found`** — the _lookup result_ a search returns (the located value, or
 
 When no other rule names a local variable — it carries no meaning of its own to spell out (ADR-AUTO-SPELL-FULLWORDIDENTIFIERS) and it is not
 the return value (ADR-PWSH-NAMES-RETURNVALUEBYROLE) — name it after the **simple type of what it holds**: a `[System.Text.StringBuilder]` is
-`$stringBuilder`, a `[hashtable]` is `$hashtable`, a `[regex]` is `$regex`, an `[xml]` is `$xml`. The type is a true, self-describing name
-when there is nothing more specific to say, and it keeps scratch and working variables consistent across the codebase instead of a scatter
-of `$sb` / `$temp` / `$thing`. It is the default of last resort — below meaning, below role.
+`$stringBuilder`, a `[hashtable]` is `$hashtable`, a `[regex]` is `$regex`, an `[xml]` is `$xml`, never `$sb` / `$temp` / `$thing`. It ranks
+below meaning and role.
 
 - [Role, then type](#role-then-type)
 
@@ -42,10 +40,9 @@ of `$sb` / `$temp` / `$thing`. It is the default of last resort — below meanin
 A short-lived, throwaway intermediate — a value assigned and consumed within a tight, co-located window (roughly 10–15 lines) that has no
 meaning worth naming (ADR-AUTO-SPELL-FULLWORDIDENTIFIERS), no return role (ADR-PWSH-NAMES-RETURNVALUEBYROLE), and no type worth stating
 (ADR-PWSH-NAMES-UNNAMEDLOCALS) — takes a **generic blessed placeholder** rather than a coined bespoke name. The sanctioned generic is
-**`$obj`**. This is what keeps trivial scratch from minting one-off vocabulary — the `myapp` / `myvalue` / `myproject` / `myvar`
-placeholders that otherwise each need a `fixture` registry entry just to clear `Test-Spelling`. It applies equally to example and test
-placeholder data: reach for the generic blessed token (`$obj`, `'obj'`) before coining a new word. The bar is deliberately high — `$obj` is
-for the genuinely nameless intermediate, never a licence to blur a value that has a real meaning, a return role, or a type worth a glance.
+**`$obj`**. It applies equally to example and test placeholder data: the generic token (`$obj`, `'obj'`) comes before a coined word such as
+`myapp` or `myvalue`. `$obj` is for the genuinely nameless intermediate, never a blur over a value that has a real meaning, a return role,
+or a type worth a glance.
 
 - [Role, then type](#role-then-type)
 
@@ -69,7 +66,7 @@ not an identifier ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](../spell-out-names.md#rul
 ## Context
 
 [spell-out-names](../spell-out-names.md) fixes the doctrine: identifiers are spelled out in full, the curated vocabulary lives in one
-registry, and a flagged token is a review candidate. This ADR realises it in pwsh — what an identifier is in PowerShell, which names the
+registry, and a flagged token is a review candidate. This record realises it in pwsh — what an identifier is in PowerShell, which names the
 engine owns, the analyzer rule that checks them, and the blessed names a local takes when it has no meaning of its own.
 
 ### The analyzer rule
@@ -98,18 +95,13 @@ key is a code-review concern.
 
 Four things can name a local, in order of preference — meaning, then role, then type, then a generic placeholder.
 
-- **Meaning** is best, and is what ADR-AUTO-SPELL-FULLWORDIDENTIFIERS asks for: `$subscription`, `$templateFolderPath`. A name that says
-  what the value _means_ is the densest documentation a reader gets.
-- **Role** comes next, for the one or two variables that _are_ the function's output: `$ret` for the accumulator built up and handed back,
-  `$found` for what a lookup located (ADR-PWSH-NAMES-RETURNVALUEBYROLE). The role name wins here because a reader scanning the function
-  finds the return value at a glance, and it stays stable when the accumulator's type changes — a `[StringBuilder]` swapped for a `[List]`
-  is still `$ret`.
-- **Type** comes next (ADR-PWSH-NAMES-UNNAMEDLOCALS): a scratch buffer or working object with no meaning of its own and no return role is
-  named for the simple type it holds — `$stringBuilder`, `$hashtable`, `$regex`. Type-as-name says exactly what the value is and is shared
-  (everyone names a scratch StringBuilder the same way), which is why it beats an invented `$sb` or `$temp`.
-- **Generic placeholder** is the honest default of last resort (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES): a genuinely nameless, short-lived
-  intermediate — no meaning of its own, no return role, no type worth a glance — is `$obj`, rather than a coined bespoke name or a one-off
-  `fixture` token. The bar is high: `$obj` is for the truly anonymous scratch value only, never a blur over something that has a real name.
+- **Meaning** (ADR-AUTO-SPELL-FULLWORDIDENTIFIERS): a name that says what the value _means_ is the densest documentation a reader gets.
+- **Role** (ADR-PWSH-NAMES-RETURNVALUEBYROLE): a reader scanning the function finds the return value at a glance, and the name stays stable
+  when the accumulator's type changes — a `[StringBuilder]` swapped for a `[List]` is still `$ret`.
+- **Type** (ADR-PWSH-NAMES-UNNAMEDLOCALS): the type is a true, self-describing name when there is nothing more specific to say, and it is
+  shared — everyone names a scratch StringBuilder the same way — so scratch variables read alike across the codebase.
+- **Generic placeholder** (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES): `$obj` keeps trivial scratch from minting one-off vocabulary, since each
+  coined placeholder (`myapp`, `myvar`) needs its own `fixture` registry entry to clear `Test-Spelling`.
 
 So `$stringBuilder` is right for a StringBuilder used as a mid-function scratch buffer — but the same StringBuilder becomes `$ret` the
 moment its role is "the value this function returns."

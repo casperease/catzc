@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../../azure/.assets/one-reverse-lookup-feeds-every-module.drawio.png
+      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ never retried larger.
 
 ## Image
 
-.assets/bound-every-wait.png
+[bound-every-wait](.assets/bound-every-wait.png)
 
 ## Caption
 
-From the catalogue, reduced: one reverse lookup feeds every module.
+From the catalogue, reduced: a shell call carries its limit or is denied.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module.drawio.png.
+docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

@@ -1,4 +1,4 @@
-# ADR: Dedicated output directory
+# Repository: Dedicated output directory
 
 ## Rules: ADR-REPO-OUTDIR
 
@@ -40,7 +40,7 @@ under `contracts/catzc/0.1.0/catzc.internal.types/`.
 ### Rule ADR-REPO-OUTDIR-OUTGITIGNORED
 
 `out/` is gitignored: the directory exists via `.gitkeep` but its contents are never committed, so generated files never appear in
-`git status`. It is still a track, the `output` track
+`git status`. It is a track, the `output` track
 ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../design/track-types.md#rule-ddr-tracktype-closedsetoftypes)): git ignores it, the tools operate on it,
 and its build destination is none.
 
@@ -60,8 +60,7 @@ The spell-checker dictionaries generated from the terminology registry are NOT c
 `configs/terminology.yml`. The registry is the single source of truth; the word lists are ephemeral build artifacts cspell resolves at a
 fixed path after an import (a fresh clone must run the importer once before cspell has them). Everything in `.cspell/` is generated — the
 word lists, the folder's `.gitignore` (a managed root-config copy), and its `README.md` (a generated link); only the `.gitkeep` keeping the
-folder tracked is committed. This is the `.psd1`/generated-README pattern — not the committed-artifact exception of
-ADR-REPO-OUTDIR-COMPILEDPREBUILD.
+folder tracked is committed. This is the `.psd1`/generated-README pattern.
 
 - [Decision](#decision)
 
@@ -110,8 +109,8 @@ This creates three problems:
 ### Scratch vs. output
 
 Not every temporary file is output. Functions that need scratch space for intermediate processing — partial downloads, temp files for atomic
-writes, decompression buffers — should use the system temp directory (`[IO.Path]::GetTempPath()`). Scratch files are transient and
-disposable. Nobody needs to find them after the function returns.
+writes, decompression buffers — use the system temp directory (`[IO.Path]::GetTempPath()`). Scratch files are transient and disposable.
+Nobody needs to find them after the function returns.
 
 Output files are different. They are the _result_ of an operation — something a human or downstream process will consume. These need a
 predictable, findable, and cleanable location inside the repository.
@@ -124,12 +123,12 @@ Locally this is `{RepositoryRoot}/out`; in an Azure DevOps pipeline it is `$env:
 
 Scratch files use the system temp directory.
 
-Two classes of generated file live in the source tree rather than under `out/`. One is committed: the combined compiled-type prebuild
-(ADR-REPO-OUTDIR-COMPILEDPREBUILD), an expensive Roslyn build kept at a fixed path so a fresh checkout and CI load without compiling — the
-deliberate exception to ADR-REPO-OUTDIR-NOOUTPUTELSEWHERE. The other is gitignored and regenerated on import — the `.psd1` module manifests,
-the generated READMEs, and the spell-checker dictionaries (ADR-REPO-OUTDIR-DICTIONARIESGENERATED; the terminology registry they are
-generated from is [ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) — cheap to
-reproduce, so they are never committed and the authored source stays the single source of truth.
+Two classes of generated file sit outside `out/`. The combined compiled-type prebuild (ADR-REPO-OUTDIR-COMPILEDPREBUILD) is a per-machine
+build in the per-user shadow root, outside the repository, and only its types surface is committed, as a provided contract. The other class
+sits in the source tree, gitignored and regenerated on import — the `.psd1` module manifests, the generated READMEs, and the spell-checker
+dictionaries (ADR-REPO-OUTDIR-DICTIONARIESGENERATED; the terminology registry they are generated from is
+[ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](../automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)) — cheap to reproduce, so
+they are never committed and the authored source stays the single source of truth.
 
 A PDF is output by its nature: every PDF here is rendered from a source, such as a diagram, a world map or a review bundle. So the ignore
 rule is by file type, not by folder: `*.pdf` is ignored everywhere (ADR-REPO-OUTDIR-PDFISOUTPUT). Committing a PDF is a deliberate

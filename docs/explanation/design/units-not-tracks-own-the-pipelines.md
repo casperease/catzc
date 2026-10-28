@@ -24,7 +24,7 @@ description:
   The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
   infrastructure track sets directly, with no unit between them.
 about:
-  adrs: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
+  rules: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: architecture
 content:
   title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly

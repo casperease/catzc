@@ -1,4 +1,4 @@
-# ADR: Cross-platform PowerShell — the language layer over cross-platform
+# PowerShell: Cross-platform PowerShell — the language layer over cross-platform
 
 ## Rules: ADR-PWSH-XPLAT
 
@@ -81,9 +81,8 @@ and a `-replace '\\','/'` separator fix. A path leaves through `ConvertTo-RepoRe
 
 [cross-platform](../cross-platform.md) fixes the doctrine: everything runs on Windows and Linux, and a developer tests locally everything
 that runs in CI. PowerShell 7+ is cross-platform by design, but the _code_ people write in it often is not: Windows-only cmdlets, .NET types
-that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work fine on the author's
-machine and fail silently or loudly in CI. This ADR is the language layer — the concrete PowerShell hazards and the analyzer that catches
-them before push.
+that do not exist on Linux, backslash separators, registry access, COM objects, shell-outs to `cmd.exe`. These work on the author's machine
+and fail in CI. This record is the language layer: the concrete PowerShell hazards and the analyzer that catches them before push.
 
 ### What breaks in practice
 
@@ -132,18 +131,13 @@ _before the code runs_ — in the L2 tests, on every developer's machine. The ru
 `PSUseCompatibleTypes`), their target profiles, and their on/off state are defined in `PSScriptAnalyzerSettings.psd1`, documented inline
 (they are costly to run and may be toggled — the psd1 is authoritative).
 
-**Why no macOS profile?** PSScriptAnalyzer's built-in compatibility catalog only ships with Windows and Ubuntu profiles — there is no macOS
-catalog. In practice this is fine: macOS and Linux both run .NET on Unix, so the cmdlet and type surface is nearly identical. The Ubuntu
-profile effectively covers macOS. If Microsoft ever ships a macOS catalog, we add it to the list.
-
-**`Join-Path` and `[IO.Path]::Combine`** handle separators correctly on both platforms. Hardcoded `/` or `\` in paths is always wrong.
+**Why no macOS profile?** PSScriptAnalyzer's built-in compatibility catalog ships only Windows and Ubuntu profiles. macOS and Linux both run
+.NET on Unix, so the cmdlet and type surface is nearly identical and the Ubuntu profile covers macOS; a macOS catalog joins the list when
+Microsoft ships one.
 
 ## Decision
 
-PowerShell code constructs every path with `Join-Path` from a known anchor, uses no platform-only cmdlet or binary without a branch for the
-other platform, expresses unavoidable platform logic as `$IsWindows` / `$IsLinux` branches, passes the invariant culture to every
-machine-bound format and parse, and compares full paths ordinally and case-insensitively — all validated by the analyzer's compatibility
-profiles before push.
+PowerShell code meets cross-platform through the rules above, and the analyzer's compatibility profiles validate it before push.
 
 ### How this is enforced
 
@@ -160,4 +154,4 @@ profiles before push.
 - Platform-specific concerns are isolated to `Install-*` functions and branched on `$IsWindows` / `$IsLinux`; the rest of the codebase is
   platform-agnostic.
 - Path handling is consistent everywhere — `Join-Path` from an anchor is the only way to build paths.
-- New platforms (macOS) can be added by extending the `Install-*` functions without touching business logic.
+- A new platform (macOS) is added by extending the `Install-*` functions without touching business logic.

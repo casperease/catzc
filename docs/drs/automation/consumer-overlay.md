@@ -1,4 +1,4 @@
-# ADR: Consumer overlay — a consumer changes a built bundle only through .catzc/
+# Automation: Consumer overlay — a consumer changes a built bundle only through .catzc/
 
 ## Rules: ADR-AUTO-OVERLAY
 

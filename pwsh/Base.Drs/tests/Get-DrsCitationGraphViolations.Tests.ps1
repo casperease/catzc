@@ -1,6 +1,6 @@
 Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     BeforeAll {
-        $adrs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
+        $drs = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
@@ -74,9 +74,9 @@ Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, ($files[$relative] -join "`n"))
         }
-        $script:findings = InModuleScope Catzc.Base.Drs -Parameters @{ Adrs = $adrs; Root = $root } {
-            $index = Get-DrsFileIndex @($Adrs.RuleSets) -DrsRoot $Root
-            Get-DrsCitationGraphViolations -Adrs $Adrs -Index $index
+        $script:findings = InModuleScope Catzc.Base.Drs -Parameters @{ Drs = $drs; Root = $root } {
+            $index = Get-DrsFileIndex @($Drs.RuleSets) -DrsRoot $Root
+            Get-DrsCitationGraphViolations -Drs $Drs -Index $index
         }
     }
 
@@ -115,9 +115,9 @@ Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
         [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
         [System.IO.File]::WriteAllText($path,
             "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nSee [gadget-one](../gadget/gadget-one.md).`n")
-        $found = InModuleScope Catzc.Base.Drs -Parameters @{ Adrs = $adrs; Root = (Join-Path $linkOnly 'adr') } {
-            $index = Get-DrsFileIndex @($Adrs.RuleSets) -DrsRoot $Root
-            Get-DrsCitationGraphViolations -Adrs $Adrs -Index $index
+        $found = InModuleScope Catzc.Base.Drs -Parameters @{ Drs = $drs; Root = (Join-Path $linkOnly 'adr') } {
+            $index = Get-DrsFileIndex @($Drs.RuleSets) -DrsRoot $Root
+            Get-DrsCitationGraphViolations -Drs $Drs -Index $index
         }
         $found |
             Should -Be @('docs/drs/widget/widget-one.md:7: ADR-WI-ONE-SPIN (widget) cites ../gadget/gadget-one.md (gadget); widget depends on: none')

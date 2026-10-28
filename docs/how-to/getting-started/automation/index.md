@@ -104,7 +104,7 @@ infrastructure/
   modules/                         reusable Bicep modules
   templates/<name>/                deployable Bicep templates
 docs/
-  adr/                             architecture decision records (the "why")
+  drs/                             decision records (the "why")
   how-to/                          getting-started guides + how-to articles (this guide)
 .ado/pipelines/                    Azure DevOps YAML + the runner
 out/                               all generated output (gitignored)
@@ -150,7 +150,7 @@ Short, focused how-to articles for the common jobs:
 | Add or upgrade a CLI tool (az, dotnet, …)  | [Add a CLI tool](../pwsh/add-a-cli-tool.md)                         |
 | Vendor a third-party PowerShell module     | [Vendor a module](../pwsh/vendor-a-module.md)                       |
 | Write a new doc chapter or decision record | [Add a doc chapter](add-a-doc-chapter.md)                           |
-| Land a decision as a decision record       | [Add a decision record](add-an-adr.md)                              |
+| Land a decision as a decision record       | [Add a decision record](add-a-decision-record.md)                   |
 | Make a command public through a contract   | [Add a command contract](../../pwsh/add-a-command-contract.md)      |
 | Feed an agent hook a payload by hand       | [Test an agent hook](../../pwsh/test-an-agent-hook.md)              |
 | Render every diagram from its yml          | [Build all diagrams](../../pwsh/build-all-diagrams.md)              |

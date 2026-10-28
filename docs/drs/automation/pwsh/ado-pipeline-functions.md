@@ -1,7 +1,7 @@
-# ADR: ADO pipeline functions — the pwsh spelling of the ado credential and variable rules
+# PowerShell: ADO pipeline functions — the pwsh spelling of the ado credential and variable rules
 
-The ado domain decides how a REST call selects and proves its credential and how a step sets a pipeline variable. This ADR holds the pwsh
-spelling of those decisions: the two functions' signatures, their parameters and their behaviour.
+The ado domain decides how a REST call selects and proves its credential and how a step sets a pipeline variable. This record holds the pwsh
+spelling of those decisions: the two functions' signatures, parameters and behaviour.
 
 ## Rules: ADR-PWSH-ADOFUNC
 
@@ -24,8 +24,8 @@ through `Write-Message` with a secret shown as `***`, and is a no-op outside a p
 
 ## Context
 
-The ado records state their rules for the ado pipeline and its REST API; the functions that carry them are pwsh. Their signatures and
-parameter behaviour change with the code, so they live in the pwsh tier, next to the other engine spellings, and the ado records cite them.
+The ado records state their rules for the ado pipeline and its REST API; the functions that carry them are pwsh. Their signatures change
+with the code, so they live in the pwsh tier beside the other engine spellings, and the ado records cite them.
 
 ## Decision
 

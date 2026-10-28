@@ -26,7 +26,7 @@ description:
   "The code carries both halves of ingress: a git_workspace variant feeds a local branch guard, and a config file feeds the build validation
   policies on main; nothing returns the last verified commit."
 about:
-  adrs: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
+  rules: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: implementation
 content:
   title: The code carries both halves of ingress, but nothing finds the last verified commit

@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
+      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ Identity, branch policy and audit history live on the server; the clone writes o
 
 ## Image
 
-.assets/not-a-clone-with-authority.png
+[not-a-clone-with-authority](.assets/not-a-clone-with-authority.png)
 
 ## Caption
 
-From the catalogue, reduced: reading an accosted file writes nothing.
+From the catalogue, reduced: clients bridge to one server.
 
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.

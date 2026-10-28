@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-command-lays-out-the-python-workspace.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ second source.
 
 ## Image
 
-.assets/yml-is-the-source.png
+[yml-is-the-source](.assets/yml-is-the-source.png)
 
 ## Caption
 
-From the catalogue, reduced: one command lays out the python workspace.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-command-lays-out-the-python-workspace.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

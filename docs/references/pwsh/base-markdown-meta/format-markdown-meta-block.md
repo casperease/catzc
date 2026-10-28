@@ -41,5 +41,5 @@ nests it under another tool's keys; a parent key the text lacks is written, a pa
 ### example 1
 
 ```powershell
-Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'adr' }) -Edges ([ordered]@{ cites = @('ADR-WIDGET-GADGET-TURN') })
+Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'record' }) -Edges ([ordered]@{ cites = @('ADR-WIDGET-GADGET-TURN') })
 ```

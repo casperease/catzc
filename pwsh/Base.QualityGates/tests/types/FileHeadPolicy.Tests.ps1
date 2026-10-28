@@ -64,7 +64,7 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('diagram-declaration') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
-        foreach ($class in 'function', 'type', 'config', 'test', 'adr', 'reference', 'index', 'glossary') {
+        foreach ($class in 'function', 'type', 'config', 'test', 'record', 'reference', 'index', 'glossary') {
             $shipped.PolicyFor($class) |
                 Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts) -Because "a $class file carries a head only when a fact is non-empty"
         }

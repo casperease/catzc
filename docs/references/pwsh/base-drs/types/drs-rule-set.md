@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsRuleSet.cs
 
-One ADR rule set, an ADR, as `drs.yml` declares it. `DrsConfig` builds and validates it. It is a processed record, not a raw YAML mirror, so
+One record's rule set, as `drs.yml` declares it. `DrsConfig` builds and validates it. It is a processed record, not a raw YAML mirror, so
 its properties are PascalCase ([ADR-BCL-TYPES](../../../../drs/automation/BCL/native-csharp-types.md),
 [ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 

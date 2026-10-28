@@ -1,23 +1,23 @@
 # pwsh/Base.QualityGates/private/Get-DrsCitationPath.ps1
 
-A flat view of the citation map: it maps every ADR citation code to its ADR's repository-relative path. The Markdown heading normal form
-uses it to write a moved citation as a link to its ADR.
+A flat view of the citation map: it maps every citation code to its record's repository-relative path. The Markdown heading normal form uses
+it to write a moved citation as a link to its record.
 
 ## help
 
 ### synopsis
 
-Maps every ADR citation code to its ADR's repository-relative path.
+Maps every citation code to its record's repository-relative path.
 
 ### description
 
 A flat view of the citation map (Get-DrsCitationMap) for the Markdown heading normal form, which writes a moved citation as a link to its
-ADR.
+record.
 
 ### parameter `RepositoryRoot`
 
-The repository root whose ADR index is read.
+The repository root whose DRS index is read.
 
 ### outputs
 
-`[hashtable]` citation code -> repository-relative ADR path.
+`[hashtable]` citation code -> repository-relative record path.

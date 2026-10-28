@@ -29,7 +29,7 @@ description:
   The two ways an Azure DevOps call starts, a pipeline step through invoke-automation.yaml or a developer's shell, both reaching one header
   function whose three credentials each rest on a proof anchored in ado.yml.
 about:
-  adrs:
+  rules:
     - ADR-ADO-AUTH-FIXEDCREDENTIALORDER
     - ADR-ADO-AUTH-PROVETARGET
     - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
@@ -114,7 +114,7 @@ layout:
 5. **Invoke-AdoRestMethod.** Every API function calls through `Invoke-AdoRestMethod`, the only caller of the header function.
 6. **Pipeline token.** The header function's first source is the agent token. It is guarded by `Test-IsRunningInPipeline` from
    `Catzc.Base.Repository`, uses the token the step template mapped in, and is proved against the `ado.yml` `organization`.
-7. **PAT.** The second source is an operator-set environment variable. It has no runtime proof; the ADR binds it to the org because API
+7. **PAT.** The second source is an operator-set environment variable. It has no runtime proof; the record binds it to the org because API
    addresses are built from the `ado.yml` `organization`, which no code checks against the header.
 8. **az CLI.** The last source is used when neither of the first two is configured. It is proved against the `ado.yml` `tenant`.
 9. **Catzc.Azure.Cli.** The source for the az CLI rests on that module's `Assert-AzCliConnected`, which checks the session against the
@@ -132,8 +132,8 @@ layout:
 
 ## Where the code and the decision record differ
 
-The ADR says a PAT is bound to the configured org by construction. The API functions default `-Organization` from `ado.yml` but accept any
-value, and nothing checks it against the header's source.
+The record says a PAT is bound to the configured org by construction. The API functions default `-Organization` from `ado.yml` but accept
+any value, and nothing checks it against the header's source.
 
 ## See also
 

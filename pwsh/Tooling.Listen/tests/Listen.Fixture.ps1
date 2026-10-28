@@ -21,7 +21,7 @@ function Register-ListenFixtureMocks {
             poll_milliseconds = 100
             quiet_seconds     = 0
             tiers             = @(
-                [ordered]@{ name = 'rule'; kinds = @('adr') }
+                [ordered]@{ name = 'rule'; kinds = @('record') }
                 [ordered]@{ name = 'docs'; kinds = @('explanation') }
             )
         })
@@ -87,7 +87,7 @@ function Register-ListenFixtureMocks {
     }
     Mock Get-FileKind -ModuleName Catzc.Tooling.Listen {
         if ($Path -like '*/drs/*') {
-            [Catzc.Base.Globs.FileKindMatch]::new('adr', $null, 'A widget rule.')
+            [Catzc.Base.Globs.FileKindMatch]::new('record', $null, 'A widget rule.')
         }
         elseif ($Path -like '*/explanation/*') {
             [Catzc.Base.Globs.FileKindMatch]::new('explanation', $null, 'A gadget page.')

@@ -3,6 +3,8 @@ namespace Catzc.Azure.Templates;
 
 public sealed class CostMeter
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public string id { get; }
     public string type { get; }
     public string service { get; }

@@ -20,7 +20,7 @@ description:
   Changing one configuration slot edits one file in the configs place of the infrastructure track; only the CD pipeline of the slot's owner
   runs, and the change reaches the one resource group the slot deploys.
 about:
-  adrs: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
+  rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
   title: Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
@@ -49,7 +49,7 @@ content:
     - { at: r-others, number: 3 }
     - { at: e-group, number: 4 }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 layout:
   r-owner: { x: 540, y: 140, w: 220, h: 44 }
   r-others: { x: 540, y: 196, w: 220, h: 40 }

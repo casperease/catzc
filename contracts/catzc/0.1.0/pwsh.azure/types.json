@@ -242,6 +242,10 @@
           "kind": "method"
         },
         {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
           "name": "keys",
           "kind": "property"
         },

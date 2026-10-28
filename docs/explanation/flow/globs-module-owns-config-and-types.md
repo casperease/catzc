@@ -24,7 +24,7 @@ description:
   "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
   trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."
 about:
-  adrs: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
+  rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: architecture
 content:
   title: Catzc.Base.Globs computes every globset role from one typed registry

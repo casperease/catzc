@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/tests/types/PesterRunner.Tests.ps1
 
 The test of the `PesterRunner` type. Its `execution` context runs real pwsh worker pools of its own, so it is greedy: they stack on the
-parallel pool, which oversubscribes the box (see the greedy tag in the test-automation ADR).
+parallel pool, which oversubscribes the box (see the greedy tag in the test-automation record).
 
 ## Execution cases
 

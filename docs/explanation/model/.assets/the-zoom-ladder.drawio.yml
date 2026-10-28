@@ -2,7 +2,7 @@ description: >-
   The zoom ladder from C0 to C4: the landscape of truth stores, the repository in its context, its tracks as containers, one container's
   components, and one module's code; the two deepest levels are drawn from queries.
 about:
-  adrs: [DDR-VISUAL-ZOOMISANAXIS]
+  rules: [DDR-VISUAL-ZOOMISANAXIS]
   lens: meta
 content:
   title: Five levels, from the landscape to one module's files

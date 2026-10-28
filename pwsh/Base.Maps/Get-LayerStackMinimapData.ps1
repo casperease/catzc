@@ -3,7 +3,7 @@ function Get-LayerStackMinimapData {
     [OutputType([Catzc.Base.Maps.MinimapData], [string])]
     param(
         [Parameter(Mandatory, Position = 0)]
-        [string[]] $Adr,
+        [string[]] $Rule,
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
@@ -12,12 +12,12 @@ function Get-LayerStackMinimapData {
         [switch] $AsJson
     )
 
-    # The layers in stack order; each subject file lights the layer of the ADR its requested code belongs to.
+    # The layers in stack order; each subject file lights the layer of the record its requested code belongs to.
     $layers = [string[]] @([Catzc.Base.Drs.DrsConfig]::Layers)
     $ruleSets = @(Get-DrsRuleSet | Sort-Object { $_.External.Length } -Descending)
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
+    foreach ($item in @(Get-MinimapSubject -Rule $Rule -WorldMap $WorldMap -Facts $Facts)) {
         $ruleSet = $ruleSets |
             Where-Object { $item.Requested -ceq $_.External -or $item.Requested.StartsWith("$($_.External)-",
                     [System.StringComparison]::Ordinal) } |

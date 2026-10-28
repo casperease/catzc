@@ -5,10 +5,9 @@ catzc:
     deck: manual-queues
     order: 6
     picture:
-      mode: zoom
-      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
-      box: [440, 330, 620, 300]
-      scale: 0.9
+      mode: reduce
+      source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
+      scale: 0.4
 ---
 
 # A thumbs-up in chat opens no gate
@@ -24,11 +23,11 @@ log serves no gate, however sincere.
 
 ## Image
 
-.assets/registry-not-chat.png
+[registry-not-chat](.assets/registry-not-chat.png)
 
 ## Caption
 
-Zoomed: the two manual gates on the ladder, RC and RBC, each a rung a person must sign for.
+Reduced: the ladder, whose queues 2 and 3, the RC gate and the RBC gate, are each a rung a person must sign for.
 
 ## Notes
 

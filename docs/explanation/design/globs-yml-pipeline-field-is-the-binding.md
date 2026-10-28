@@ -23,7 +23,7 @@ description:
   One key in globs.yml, pipeline:, binds a globset to the pipeline file that carries its trigger; the unit sets bind their own CD pipelines,
   which extend one shared customer template.
 about:
-  adrs: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
+  rules: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: implementation
 content:
   title: One field in globs.yml, pipeline:, binds a set to its pipeline file

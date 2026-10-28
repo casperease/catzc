@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png
+      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ Public at the root, private in private/, every file dot-sourced into the module 
 
 ## Image
 
-.assets/one-function-one-file.png
+[one-function-one-file](.assets/one-function-one-file.png)
 
 ## Caption
 
-From the catalogue, reduced: one rule per stage and two gaps.
+From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
 Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.
+docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

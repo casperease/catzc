@@ -23,7 +23,7 @@ description:
   "Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment holds one occupant,
   and git keeps the whole history, with the dirty heads called out."
 about:
-  adrs:
+  rules:
     - FDR-LIFE-ONESTATEADVANCESONERUNG
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-DISCARDISTERMINAL
@@ -152,7 +152,7 @@ content:
     - { from: cand-3b, to: gone-3, kind: fail }
     - { from: cand-1, to: gone-1, kind: fail }
   legend: auto
-  minimaps: [axis, lifecycle-position, layer-stack]
+  minimaps: [code-locations, axis, lifecycle-position]
 ```
 
 ![Ten numbered commits traced through the pipeline, the environments and git](.assets/10-commits-story.drawio.png)

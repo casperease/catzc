@@ -26,7 +26,7 @@ description:
   tracks it; an authored file carries a head only for a docs link to its comment page or the rule codes it cites; every other file carries
   none."
 about:
-  adrs: [ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-COMPOSEDFILES, ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY]
+  rules: [ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-COMPOSEDFILES, ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY]
   lens: meta
 content:
   title: One file, one outcome, and the keys each head holds

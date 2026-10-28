@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsCitationRewrite.cs
 
-The result of rewriting one file's ADR references (`DrsCitationRewriter.Rewrite`): the new text and every change made, in text order
+The result of rewriting one file's record references (`DrsCitationRewriter.Rewrite`): the new text and every change made, in text order
 ([ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)).
 
 ## Changed

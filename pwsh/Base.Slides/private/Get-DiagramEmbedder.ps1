@@ -22,7 +22,7 @@ function Get-DiagramEmbedder {
             continue
         }
         $pageFolder = $page.Substring(0, [Math]::Max(0, $page.LastIndexOf('/')))
-        # A slide file embeds its diagram by the path under its `## Image` heading; any other page by a markdown image.
+        # A slide file embeds its diagram by the link under its `## Image` heading; any other page by a markdown image.
         $targets = @([regex]::Matches($text,
                 '!\[[^\]]*\]\(([^)\s#]*\.drawio\.png)') | ForEach-Object { $_.Groups[1].Value })
         # The reference form is an equal embed: `![alt][ref]` with `[ref]: <path>.drawio.png` anywhere on the page.
@@ -34,8 +34,17 @@ function Get-DiagramEmbedder {
             }
         }
         if ($page -like '*.slide.md') {
-            $targets += @([regex]::Matches($text,
-                    '(?m)^## Image\s+([^\s]+\.drawio\.png)\s*$') | ForEach-Object { $_.Groups[1].Value })
+            $source = [Catzc.Base.Slides.SlideSource]::Parse((Get-MarkdownMetaState -Text $text.Replace("`r`n", "`n")).Body)
+            if ($source.Fields.ContainsKey('image')) {
+                $image = $source.Fields['image']
+                $target = if ($image.Items.Count -eq 1) {
+                    $image.Items[0].Target
+                }
+                Assert-True ($null -ne $target) -ErrorText "Get-DiagramEmbedder: ${page}: the ## Image section holds one markdown link, [<stem>](<path>); found '$(@($image.Texts()) -join ' ')'."
+                if ($target -like '*.drawio.png') {
+                    $targets += $target
+                }
+            }
         }
         foreach ($target in $targets) {
             $joined = if ($target.StartsWith('/')) {

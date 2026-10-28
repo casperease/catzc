@@ -64,11 +64,11 @@ dictionaryDefinitions:
     path: ./.cspell/fixture.txt
   - name: catzc-terms-azure-live
     path: ./.cspell/azure-live.txt
-  - name: catzc-terms-adr-example
-    path: ./.cspell/adr-example.txt
-  - name: catzc-terms-adr
-    path: ./.cspell/adr.txt
-  # Every segment of every ADR code and rule heading, generated from the ADR registry by Build-DrsCodeDictionary.
+  - name: catzc-terms-rule-code-example
+    path: ./.cspell/rule-code-example.txt
+  - name: catzc-terms-rule-code
+    path: ./.cspell/rule-code.txt
+  # Every segment of every rule code and rule heading, generated from the DRS registry by Build-DrsCodeDictionary.
   - name: catzc-drs-codes
     path: ./.cspell/drs-codes.txt
   - name: catzc-terms-ado
@@ -90,8 +90,8 @@ dictionaries:
   - catzc-terms-abbreviation
   - catzc-terms-fixture
   - catzc-terms-azure-live
-  - catzc-terms-adr-example
-  - catzc-terms-adr
+  - catzc-terms-rule-code-example
+  - catzc-terms-rule-code
   - catzc-drs-codes
   - catzc-terms-ado
   - catzc-terms-azure

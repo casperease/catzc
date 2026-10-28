@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../../../docs/references/pwsh/.assets/test-automation-one-run-pipeline.drawio.png
+      source: ../../thesis/product-thesis/.assets/truth-stores.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ the trunk and delivered by its pipelines.
 
 ## Image
 
-.assets/one-truth.png
+[one-truth](.assets/one-truth.png)
 
 ## Caption
 
-From the catalogue, reduced: test automation one run pipeline.
+From the catalogue, reduced: truth stores.
 
 ## Notes
 
 Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram
-docs/references/pwsh/.assets/test-automation-one-run-pipeline.drawio.png.
+docs/explanation/thesis/product-thesis/.assets/truth-stores.drawio.png.

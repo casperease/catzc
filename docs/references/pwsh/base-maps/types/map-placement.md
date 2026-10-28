@@ -5,10 +5,10 @@ the file language.
 
 ## Highlight relation
 
-The relation follows the fixed order per artifact kind that `WorldMapBuilder` applies. An ADR file carries its own ADR code. Every other
-file carries ADR citations, and `Basis` names the step that produced them. `Sites` says where those citations sit (`CitationSite`): in the
-file itself for a citations basis, in the owner's or the globset's files for the files.yml and globset bases. It is empty for an ADR file
-and for a file nothing lights.
+The relation follows the fixed order per artifact kind that `WorldMapBuilder` applies. A record file carries its own record code (`Record`,
+basis `record-file`). Every other file carries record citations, and `Basis` names the step that produced them. `Sites` says where those
+citations sit (`CitationSite`): in the file itself for a citations basis, in the owner's or the globset's files for the files.yml and
+globset bases. It is empty for a record file and for a file nothing lights.
 
 ## Live
 

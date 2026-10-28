@@ -75,10 +75,11 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
     the apex non-production subscription; then queue `cron-break-glass-rotation` once by hand in ADO. Check: the dry run names the server,
     vault and secret; the real run reports "Rotated the break-glass password"; the secret's version in the vault is new; a sign-in with the
     new password works; and the login alert fires to `owner-alerts` within ten minutes of that sign-in.
-13. The service connections, live: `Sync-AdoServiceConnections -DryRun`, then without `-DryRun`, signed in to ADO as a project administrator
-    who may create Entra app registrations; then `Test-AdoServiceConnections`. Check: the dry run lists the six connections of
-    `service-connections.yml` with their actions, the sync reports each `Create`, `Update` or `Unchanged`, a CD run still deploys through
-    its connection, and `Test-AdoServiceConnections` reads 0 issues: no connection holds a stored secret.
+13. The service connections, live: `Get-BicepServiceConnections | Sync-AdoServiceConnections -DryRun`, then without `-DryRun`, signed in to
+    ADO as a project administrator who may create Entra app registrations; then `Get-BicepServiceConnections | Test-AdoServiceConnections`.
+    Check: the dry run lists the 16 connections `Get-BicepServiceConnections` derives from `service-connections.yml` with their actions, the
+    sync reports each `Create`, `Update` or `Unchanged`, a CD run still deploys through its connection, and `Test-AdoServiceConnections`
+    reads 0 issues: no connection holds a stored secret.
 14. The L3 system test, signed in to a non-production subscription (`az login`, then `Set-AzCliSubscription` to it):
     `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1 -MaxLevel 3`. It deploys each resource-group template's
     non-production base slot on that subscription again as the ephemeral slot `l3`, checks the group's CAF and deployed-from tags, and

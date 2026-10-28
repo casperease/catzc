@@ -16,7 +16,7 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
     // The agent's name: the file .claude/agents/<name>.md and its front-matter name.
     public string name { get; }
 
-    // The rule citations (ADR-<CODE>#<n>) that justify the agent, in file order.
+    // The rule codes that justify the agent, in file order.
     public IReadOnlyList<string> supported_by { get; }
 
     // The gate and check functions the agent runs or guards, in file order; empty when it has none.

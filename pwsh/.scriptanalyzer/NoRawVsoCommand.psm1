@@ -44,7 +44,7 @@ function Measure-NoRawVsoCommand {
         }
 
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = 'Do not write raw Azure DevOps logging commands (##vso task.* strings). Use Set-AdoPipelineVariable, which validates names, handles output/secret flags, logs, and no-ops outside a pipeline. See ADR: pipeline-variables.'
+                Message  = 'Do not write raw Azure DevOps logging commands (##vso task.* strings). Use Set-AdoPipelineVariable, which validates names, handles output/secret flags, logs, and no-ops outside a pipeline. See the decision record pipeline-variables.'
                 Extent   = $str.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

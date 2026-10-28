@@ -1,4 +1,4 @@
-# ADR: One function per file
+# PowerShell: One function per file
 
 ## Rules: ADR-PWSH-ONEFUNC
 
@@ -39,8 +39,7 @@ the name with a file name or a command name.
 
 [open-closed-architecture](../open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function name" a
 mandatory convention, and [zero-ceremony-poka-yoke](../zero-ceremony-poka-yoke.md#rule-adr-auto-zero-ceremonyautomation) makes adding a
-function a matter of adding a file. This ADR is that convention in PowerShell. We need a convention for how functions map to files within a
-module. The two common approaches are:
+function a matter of adding a file. This record is that convention in PowerShell, where functions map to files in one of two common ways:
 
 1. **Multiple functions per file** — group related functions together, use AST parsing or manual export lists to determine what gets
    exported.
@@ -49,18 +48,16 @@ module. The two common approaches are:
 
 ### Why one function per file
 
-**File listing = module API.** Running `ls` on a module folder immediately shows every public function. No need to open files, read
-manifests, or run `Get-Command -Module`. New contributors can understand a module's surface area in seconds.
+**File listing = module API.** Listing a module folder shows every public function, with no file opened, no manifest read and no
+`Get-Command -Module`.
 
-**No AST parsing needed for exports.** When file name equals function name, the manifest generator can derive `FunctionsToExport` directly
-from file names — a string operation, not a parse. AST parsing is slow (~25ms per file) and adds complexity. With one-function-per-file, the
-bootstrap module just uses `$file.BaseName` and skips the parser entirely. This directly impacts import speed.
+**No AST parsing needed for exports.** The manifest generator derives `FunctionsToExport` from file names, a string operation where a parse
+costs ~25 ms per file, so the bootstrap module uses `$file.BaseName` and import stays fast.
 
-**Merge conflicts disappear.** When two people add functions to the same file, they conflict. When each function is its own file, parallel
-work on different functions never touches the same file. Git blame is also trivially useful — each file has a single author history.
+**Merge conflicts disappear.** Parallel work on different functions never touches the same file, and `git blame` of a file is the history of
+one function.
 
-**Searchability.** Looking for `Get-Customer`? The file is `Get-Customer.ps1`. No grepping, no guessing which file it lives in. Every
-editor's file-open dialog becomes a function search.
+**Searchability.** `Get-Customer` is in `Get-Customer.ps1`, so every editor's file-open dialog is a function search.
 
 **Consistent granularity.** There is no judgment call about "which functions belong together" or when a file has grown too large and needs
 splitting. The rule is mechanical: one function, one file, names match.

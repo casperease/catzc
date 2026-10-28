@@ -1,8 +1,7 @@
 # DORA explanations — pwsh
 
-The `Dora explains` rationale for the ADRs in the `automation/pwsh/` domain, consolidated in one place. Each entry names its ADR and rule
-code, then reproduces that ADR's tie to [DORA](../../../references/dora/index.md) research and the domain-relevant capability links. The
-decisions live in the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the records of the `automation/pwsh/` domain. Each entry names its record by code, then ties it to
+[DORA](../../../references/dora/index.md) research with the domain-relevant capability links; the decisions live in the records themselves.
 
 ## The pwsh engine
 
@@ -26,9 +25,9 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 [ADR-PWSH-ONEFUNC](one-function-per-file.md)
 
-> DORA's research on code maintainability emphasizes modularity and navigability—and one-function-per-file encoding that into file
-> structure. Matching file name to function name eliminates both AST parsing and merge conflicts, makes the module's surface area visible at
-> a glance, and creates natural test-file pairing.
+> DORA's research on code maintainability emphasizes modularity and navigability, and one function per file encodes both in the file
+> structure. Matching file name to function name removes AST parsing and merge conflicts, shows the module's surface at a glance, and pairs
+> each function with its test file.
 
 - [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — file name equals function name eliminates search
   friction and serves as self-documenting structure.
@@ -101,9 +100,8 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 [ADR-PWSH-MODPATH](module-path-hygiene.md)
 
-> DORA's research on flexible infrastructure emphasizes deterministic dependencies—and network module paths destroy performance in
-> enterprise environments. Vendoring PowerShell modules and keeping the module path local by default eliminates network round-trips, makes
-> module loading predictable, and enables fast automation everywhere.
+> DORA's research on flexible infrastructure emphasizes deterministic dependencies, and a network module path slows every load in an
+> enterprise environment. Vendored modules on a local module path remove the network round-trips and make module loading predictable.
 
 - [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — running reliably in enterprise environments
   without network delays.
@@ -234,9 +232,8 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 [ADR-PWSH-AUTOVAR](automatic-variable-pitfalls.md)
 
-> DORA's research links code maintainability to delivery performance—and automatic-variable pitfalls are a major class of silent bugs that
-> slip through code review. Handling automatic variables safely (read immediately, capture in locals, prefer wrappers) builds the robust
-> error handling that enables high-frequency deployment.
+> DORA's research links code maintainability to delivery performance, and automatic-variable pitfalls are a class of silent bugs that slip
+> through code review. Reading them at once, capturing them in locals, and preferring wrappers removes that class.
 
 - [Code maintainability](../../../references/dora/capabilities.md#code-maintainability) — avoiding subtle variable-scoping bugs that slip
   past code review.
@@ -371,9 +368,8 @@ decisions live in the ADRs themselves; this file carries only their DORA rationa
 
 [ADR-PWSH-XPLAT](cross-platform-powershell.md)
 
-> DORA's research on flexible infrastructure links platform-agnostic code to deployment reliability—and PowerShell's cross-platform support
-> enables one codebase on Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime reduces the
-> friction of multi-platform deployment and enables confident automation across all environments.
+> DORA's research on flexible infrastructure links platform-agnostic code to deployment reliability, and PowerShell runs one codebase on
+> Windows and Linux. Catching platform incompatibilities at analysis time rather than at runtime keeps multi-platform deployment cheap.
 
 - [Flexible infrastructure](../../../references/dora/capabilities.md#flexible-infrastructure) — running on Windows and Linux from one
   codebase.

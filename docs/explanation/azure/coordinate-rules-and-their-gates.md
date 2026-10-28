@@ -27,7 +27,7 @@ description:
   "The rules that govern a config file's coordinate and the gates that hold them: discovery and the validator both run the one shared check,
   an integrity test runs the validator over the shipped tree, and the derived resource-group name has no gate."
 about:
-  adrs:
+  rules:
     - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
     - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
     - ADR-AZ-DATAMOD-NAMEKEYEDMAPS

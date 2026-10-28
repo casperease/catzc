@@ -1,4 +1,4 @@
-# ADR: Managed GUIDs — every GUID literal is a registered, described identity
+# Automation: Managed GUIDs — every GUID literal is a registered, described identity
 
 ## Rules: ADR-AUTO-GUIDS
 

@@ -22,7 +22,7 @@ description:
   Whether a change touches a deployable unit is asked of git between two commits that exist after the merge; only a confirmed untouched unit
   stops the stage, every doubt proceeds, and an undeclared unit name throws.
 about:
-  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
+  rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
   title: '"Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed'

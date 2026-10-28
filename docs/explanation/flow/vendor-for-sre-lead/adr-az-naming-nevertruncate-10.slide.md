@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../design/.assets/deploy-bicep-delegates-to-az.drawio.png
+      source: ../../azure/.assets/names-are-derived-never-typed.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ For the SRE Lead, who owns reliability, monitoring and the switch: The rule choo
 
 ## Image
 
-.assets/adr-az-naming-nevertruncate-10.png
+[adr-az-naming-nevertruncate-10](.assets/adr-az-naming-nevertruncate-10.png)
 
 ## Caption
 
-From the catalogue, reduced: deploy bicep delegates to az.
+From the catalogue, reduced: names are derived never typed.
 
 ## Notes
 
 Check it: the record ADR-AZ-NAMING-NEVERTRUNCATE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.
+docs/explanation/azure/.assets/names-are-derived-never-typed.drawio.png.

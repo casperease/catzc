@@ -38,7 +38,7 @@ named server, a named store and a measured wait.
 
 ## Image
 
-.assets/three-queues.png
+[three-queues](.assets/three-queues.png)
 
 ## Caption
 

@@ -9,7 +9,7 @@ public sealed class MinimapCell
     // The cell's place: one value per axis, in the minimap's axis order.
     public IReadOnlyList<string> At { get; }
 
-    // What the cell holds, such as files or ADRs; zero for an empty cell.
+    // What the cell holds, such as files or records; zero for an empty cell.
     public int Count { get; }
 
     // Why the cell is lit; empty for a cell that is not.

@@ -24,7 +24,7 @@ description:
   A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, beside the
   verified point consumers leave from.
 about:
-  adrs:
+  rules:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
     - DDR-REMOTE-INTEGRATEFROMVERIFIED
     - DDR-REMOTE-PULLREQUESTISINGRESS

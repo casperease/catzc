@@ -1,9 +1,9 @@
 # pwsh/Base.Maps/tests/Get-ValueChainMap.Tests.ps1
 
-The tests of `Get-ValueChainMap`, which builds the value-chain map from the registry's closed sets and its ADRs
-([ADR-REPO-VALUECHAIN-MAP][r1]). The logic tests mock the ADRs with widget and
-gadget fixtures ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The
-axes are the closed sets `DrsConfig` declares, read from the type, never spelled out in the test.
+The tests of `Get-ValueChainMap`, which builds the value-chain map from the registry's closed sets and its records
+([ADR-REPO-VALUECHAIN-MAP][r1]). The logic tests mock the records with widget and gadget fixtures
+([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)). The axes are the
+closed sets `DrsConfig` declares, read from the type, never spelled out in the test.
 
 ## The real registry
 

@@ -1,5 +1,5 @@
 Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGEREPORTEDONLY' {
-    It 'flattens the map into one pssa-rule row per (analyzer, ADR id)' {
+    It 'flattens the map into one pssa-rule row per (analyzer, record id)' {
         InModuleScope Catzc.Base.QualityGates {
             Mock Get-Config {
                 [ordered]@{ analyzers = [ordered]@{
@@ -12,14 +12,14 @@ Describe 'Get-AnalyzerDrsCoverage' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COVERAGERE
             $rows = @(Get-AnalyzerDrsCoverage)
             $rows | Should -HaveCount 3
             ($rows | ForEach-Object Kind | Sort-Object -Unique) | Should -Be 'pssa-rule'
-            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).AdrId | Should -Be @('ADR-FAKE-FOLD',
+            ($rows | Where-Object { $_.Enforcer -eq 'Measure-FakeRule2' }).RecordId | Should -Be @('ADR-FAKE-FOLD',
                 'ADR-FAKE-SINK')
-            ($rows | Where-Object { $_.AdrId -eq 'ADR-FAKE-LIFT' }).Enforcer | Should -Be 'PSUseFakeRule'
+            ($rows | Where-Object { $_.RecordId -eq 'ADR-FAKE-LIFT' }).Enforcer | Should -Be 'PSUseFakeRule'
         }
     }
 }
 
-Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING' {
+Describe 'analyzer-drs-map integrity' -Tag 'L1', 'integrity', 'source-only', 'ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING' {
     BeforeAll {
         $script:result = Test-AnalyzerDrsMap -PassThru -OutputFolder (Join-Path $TestDrive 'analyzer-drs-map')
     }
@@ -28,7 +28,7 @@ Describe 'analyzer-adr-map integrity' -Tag 'L1', 'integrity', 'source-only', 'AD
         $result.Facts['CustomRules'] | Should -BeGreaterThan 0
     }
 
-    It 'maps every analyzer to real ADR rule ids, and every custom analyzer rule (a new one cannot ship unmapped)' {
+    It 'maps every analyzer to real DRS rule ids, and every custom analyzer rule (a new one cannot ship unmapped)' {
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

@@ -23,7 +23,7 @@ description:
   "Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
   remainder, and each aspect has its own sha lock."
 about:
-  adrs: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
+  rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
   lens: meta
 content:
   title: Every module file is in exactly one aspect

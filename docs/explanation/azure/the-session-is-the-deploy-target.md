@@ -21,7 +21,7 @@ description:
   The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected to
   target and only confirms it, stopping a mis-wired connection, and never selects one.
 about:
-  adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  rules: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: meta
 content:
   title: The az session is the deploy target, and the guard only checks it

@@ -26,7 +26,7 @@ description:
   A variant edit is one key in variants.yml and a re-import; a wrong value fails once at load in the config type, and a guard asked later or
   a committer asking for the workspace stops with a message naming the fix.
 about:
-  adrs: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS, ADR-REPO-VARIANT-GITWORKSPACE]
+  rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS, ADR-REPO-VARIANT-GITWORKSPACE]
   lens: operations
 content:
   title: An edit to a variant lands at the next import, and a wrong value fails once, at load
@@ -98,7 +98,7 @@ layout:
 4. **validation failed.** A wrong value throws once, `variants configuration validation failed:` followed by one line per violation, such as
    `invalid ado_naming '<value>' (valid: standard, classic)`. The ask that triggered the load fails, and so does every later one, until the
    file is fixed and the session re-imported.
-5. **Assert-HaveCustomers.** The guard an operator can run at the prompt, and the one-liner the ADR gives for code: with no `-Name` it
+5. **Assert-HaveCustomers.** The guard an operator can run at the prompt, and the one-liner the record gives for code: with no `-Name` it
    requires the repository to have customer deployments enabled; with `-Name` it requires each named customer to be enabled.
 6. **deployments are disabled.** When the variant is `false`, the guard throws
    `Customer deployments are disabled — set have_customers in variants.yml (all, or a list of customer names).`; with names that are not

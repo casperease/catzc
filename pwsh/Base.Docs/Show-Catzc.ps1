@@ -15,20 +15,20 @@ function Show-Catzc {
         { $_ -in '', 'overview', 'help' } {
             Write-Message 'cats — ask the catzc docs. Areas you can ask:' -NoHeader -ForegroundColor Cyan
             Write-Message '' -NoHeader
-            Write-Message '  adr [query]     ADR codes and titles; with a query, the matching ADRs and their rules' -NoHeader
+            Write-Message '  drs [query]     decision record codes and titles; with a query, the matching records and their rules' -NoHeader
             Write-Message '  module [name]   the modules; with a name substring, the functions they export' -NoHeader
             Write-Message '  verbs           the approved verbs in use across the tree' -NoHeader
             Write-Message '' -NoHeader
             Write-Message 'Also: how-to guides in docs/how-to, the FAQ in docs/how-to/getting-started/automation/faq.md, live bicep templates via Get-BicepTemplates.' -NoHeader
             break
         }
-        'adr' {
+        'drs' {
             # Plain assignment: the getter returns a comma-wrapped array, and @() would nest it a level too deep.
             $entries = Get-DrsIndex
             if ($Query) {
                 $matched = @($entries | Where-Object { $_.Code -like "*$Query*" -or $_.Title -like "*$Query*" })
                 if ($matched.Count -eq 0) {
-                    Write-Message "No ADR matches '$Query'. Run 'Show-Catzc adr' for the full list." -NoHeader
+                    Write-Message "No decision record matches '$Query'. Run 'Show-Catzc drs' for the full list." -NoHeader
                     break
                 }
                 $enforcers = Get-RuleEnforcers
@@ -65,7 +65,7 @@ function Show-Catzc {
                 }
                 break
             }
-            Write-Message 'ADR codes (run ''Show-Catzc adr <query>'' to summarize one):' -NoHeader -ForegroundColor Cyan
+            Write-Message 'Decision record codes (run ''Show-Catzc drs <query>'' to summarize one):' -NoHeader -ForegroundColor Cyan
             $width = 0
             foreach ($entry in $entries) {
                 if ($entry.Code.Length -gt $width) {
@@ -130,7 +130,7 @@ function Show-Catzc {
             break
         }
         default {
-            throw "Show-Catzc: unknown area '$Area'. Ask one of: adr, module, verbs — or run Show-Catzc with no argument for the overview."
+            throw "Show-Catzc: unknown area '$Area'. Ask one of: drs, module, verbs — or run Show-Catzc with no argument for the overview."
         }
     }
 }

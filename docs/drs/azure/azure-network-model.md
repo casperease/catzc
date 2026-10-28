@@ -1,6 +1,6 @@
-# ADR: Network model (network.yml)
+# Azure: Network model (network.yml)
 
-This ADR covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
+This record covers the cross-cutting IP plan, which the data model deliberately leaves out of its two layers.
 
 Pairs with [`data-model`](azure-data-model.md) (identity + templating) and [`naming-standard`](azure-naming-standard.md).
 

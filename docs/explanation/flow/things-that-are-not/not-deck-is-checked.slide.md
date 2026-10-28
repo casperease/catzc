@@ -6,7 +6,7 @@ catzc:
     order: 12
     picture:
       mode: reduce
-      source: ../../automation/.assets/rule-and-gate-per-load-stage.drawio.png
+      source: ../../repository/.assets/build-diagrams-runs-five-stages.drawio.png
       scale: 0.4
 ---
 
@@ -22,13 +22,13 @@ The verification slide: each cited code exists in the records index, each field'
 
 ## Image
 
-.assets/not-deck-is-checked.png
+[not-deck-is-checked](.assets/not-deck-is-checked.png)
 
 ## Caption
 
-From the catalogue, reduced: rule and gate per load stage.
+From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
 Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

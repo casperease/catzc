@@ -6,7 +6,7 @@ catzc:
     order: 11
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png
+      source: ../../../drs/flow/.assets/commit-promotion-states.drawio.png
       scale: 0.4
       rotate: 5
 ---
@@ -24,13 +24,13 @@ never a colour.
 
 ## Image
 
-.assets/fixed-commit-palette.png
+[fixed-commit-palette](.assets/fixed-commit-palette.png)
 
 ## Caption
 
-From the catalogue, reduced: one rule per stage and two gaps.
+From the catalogue, reduced: commit promotion states.
 
 ## Notes
 
 Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.
+docs/drs/flow/.assets/commit-promotion-states.drawio.png.

@@ -50,10 +50,10 @@ Describe 'Export-WorldMapPdf' -Tag 'L0', 'logic' {
         Test-Path (Join-Path $script:folder 'world-map.grid.pdf') | Should -BeFalse
     }
 
-    It 'writes a highlight beside the plain map, and passes -Adr or -Path on' {
-        @(Export-WorldMapPdf -View Grid -Adr 'ADR-WIDGET-GADGET-FOLD') |
+    It 'writes a highlight beside the plain map, and passes -Rule or -Path on' {
+        @(Export-WorldMapPdf -View Grid -Rule 'ADR-WIDGET-GADGET-FOLD') |
             Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
-        Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Adr -eq 'ADR-WIDGET-GADGET-FOLD' }
+        Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Rule -eq 'ADR-WIDGET-GADGET-FOLD' }
         @(Export-WorldMapPdf -View Grid -Path 'widgets/a.ps1') |
             Should -Be @((Join-Path $script:folder 'world-map.grid.highlight.pdf'))
         Should -Invoke Get-WorldMapHighlight -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { $Path -eq 'widgets/a.ps1' }

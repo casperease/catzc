@@ -14,7 +14,7 @@ Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-
 and ADR-AUTO-DEPM-EXTENDBYDECLARING, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
-The layer pins of cats' module graph, the groups and modules each consumer may use, are held by the same ADR rules on every layer, and they
+The layer pins of cats' module graph, the groups and modules each consumer may use, are held by the same DRS rules on every layer, and they
 are checked twice. The load check validates the declaration itself, and the `Test-ModuleDependency` quality gate checks the real code
 against it. One rule, declaring a new edge in the same change as the code, has no gate at all.
 
@@ -23,7 +23,7 @@ description:
   Two gates check the layer pins, one against the declaration's own shape at load and one against the real code and the on-disk modules; a
   new edge landing with its code is left to review, because no gate checks it.
 about:
-  adrs:
+  rules:
     - ADR-AUTO-DEPM-CODEBUILTFROM
     - ADR-AUTO-DEPM-UNIFIEDGRAPH
     - ADR-AUTO-DEPM-TWOSECTIONS
@@ -129,9 +129,9 @@ ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
 
 ## Where the code and the decision record differ
 
-- The ADR says actual in-group edges must stay within the group's declared internal map. The code unions a member's pins with its in-group
-  list, so the four Tooling members that pin `Tooling` may reach any Tooling member.
-- The ADR says a module absent from the pin lists is unconstrained. The code also constrains every group member.
+- The record says actual in-group edges must stay within the group's declared internal map. The code unions a member's pins with its
+  in-group list, so the four Tooling members that pin `Tooling` may reach any Tooling member.
+- The record says a module absent from the pin lists is unconstrained. The code also constrains every group member.
 
 ## See also
 

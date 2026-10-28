@@ -25,7 +25,7 @@ description:
   "Which run-mode rules a gate checks: the two test runs, the two entry scripts, the exclusivity assert, the source-tree assert and the mode
   function cover six rules, and the three build kinds, told apart by place, need none."
 about:
-  adrs:
+  rules:
     - DDR-RUNMODE-TWORUNMODES
     - DDR-RUNMODE-SAMEMODULEINBOTH
     - DDR-RUNMODE-OWNSCRIPTSCOPE

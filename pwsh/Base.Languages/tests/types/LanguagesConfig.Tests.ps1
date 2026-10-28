@@ -27,10 +27,10 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'reads languages in declared order: a formatter engine or the reason for none, and drs_folder defaulting to none' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = & $script:make ([ordered]@{ languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg',
-                                '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core'
+                                '.widget'); formatter = 'prettier'; drs_folder = 'widgets/core'
                         }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
                     }
@@ -40,10 +40,10 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.languages[0].extensions | Should -Be @('.wdg', '.widget')
             $config.languages[0].formatter | Should -Be 'prettier'
             $config.languages[0].no_formatter | Should -BeNullOrEmpty
-            $config.languages[0].adr_folder | Should -Be 'widgets/core'
+            $config.languages[0].drs_folder | Should -Be 'widgets/core'
             $config.languages[1].formatter | Should -BeNullOrEmpty
             $config.languages[1].no_formatter | Should -Be 'binary gadgets'
-            $config.languages[1].adr_folder | Should -BeNullOrEmpty
+            $config.languages[1].drs_folder | Should -BeNullOrEmpty
         }
 
         It 'routes each formatted language''s VS Code language id to its engine''s editor extension' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
@@ -321,11 +321,11 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:make ([ordered]@{ languages = @('widget') }) } | Should -Throw '*invalid languages*'
         }
 
-        It 'throws on a formatter that is not a declared engine and on a bad adr_folder' {
-            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); formatter = 'Format-Widget'; adr_folder = '../widgets' }) } |
+        It 'throws on a formatter that is not a declared engine and on a bad drs_folder' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); formatter = 'Format-Widget'; drs_folder = '../widgets' }) } |
                 Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*unknown formatter engine 'Format-Widget' (one of: prettier, *"
-            $err.Exception.Message | Should -BeLike "*invalid adr_folder '../widgets'*"
+            $err.Exception.Message | Should -BeLike "*invalid drs_folder '../widgets'*"
         }
 
         It 'reads a language''s checks in declared order, and none when the entry names none' {

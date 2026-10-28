@@ -1,4 +1,4 @@
-# ADR: Pipeline triggers — the ado path filters, build validation, schedules and parameters
+# Azure DevOps: Pipeline triggers — the ado path filters, build validation, schedules and parameters
 
 ## Rules: ADR-ADO-TRIGGER
 

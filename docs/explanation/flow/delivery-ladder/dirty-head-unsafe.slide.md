@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../azure/.assets/add-a-template.drawio.png
+      source: ../../../drs/flow/.assets/sync-point.drawio.png
       scale: 0.4
 ---
 
@@ -22,12 +22,12 @@ Landing is not verifying: a commit that failed downstream stays upstream, and co
 
 ## Image
 
-.assets/dirty-head-unsafe.png
+[dirty-head-unsafe](.assets/dirty-head-unsafe.png)
 
 ## Caption
 
-From the catalogue, reduced: add a template.
+From the catalogue, reduced: sync point.
 
 ## Notes
 
-Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/add-a-template.drawio.png.
+Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram docs/drs/flow/.assets/sync-point.drawio.png.

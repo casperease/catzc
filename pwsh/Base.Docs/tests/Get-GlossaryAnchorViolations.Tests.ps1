@@ -1,16 +1,16 @@
 Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
     BeforeAll {
-        $adrRoot = Join-Path $TestDrive 'adr'
-        [System.IO.Directory]::CreateDirectory((Join-Path $adrRoot 'repository')) | Out-Null
-        $script:indexPath = Join-Path $adrRoot 'index.md'
+        $drsRoot = Join-Path $TestDrive 'drs'
+        [System.IO.Directory]::CreateDirectory((Join-Path $drsRoot 'repository')) | Out-Null
+        $script:indexPath = Join-Path $drsRoot 'index.md'
         [System.IO.File]::WriteAllText($script:indexPath, (@(
-                    '# ADR index'
+                    '# DRS index'
                     ''
-                    '| Code | ADR |'
-                    '| ---- | --- |'
+                    '| Code | Record |'
+                    '| ---- | ------ |'
                     '| `ADR-TST-WIDGET` | [widget-thing](repository/widget-thing.md) |'
                 ) -join "`n"))
-        [System.IO.File]::WriteAllText((Join-Path $adrRoot 'repository/widget-thing.md'), (@(
+        [System.IO.File]::WriteAllText((Join-Path $drsRoot 'repository/widget-thing.md'), (@(
                     '# ADR: Widget thing'
                     ''
                     '### Rule ADR-TST-WIDGET-REST'

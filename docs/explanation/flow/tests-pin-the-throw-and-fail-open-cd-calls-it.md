@@ -26,7 +26,7 @@ description:
   "Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection, and
   the deep checkout and the Changes step are wired into the CD pipelines with no gate."
 about:
-  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
+  rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
   lens: governance
 content:
   title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate

@@ -1,4 +1,4 @@
-# ADR: Infrastructure kinds — templates, configuration slots and reusable modules, placed by the track
+# Azure: Infrastructure kinds — templates, configuration slots and reusable modules, placed by the track
 
 ## Rules: ADR-AZ-IACKIND
 

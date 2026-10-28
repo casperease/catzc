@@ -7,6 +7,8 @@ namespace Catzc.Azure.Templates;
 // One derived name of an each entry's item: which slot renders it (the item's own, or the slot holding the list) and its role.
 public sealed class BicepItemName
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly string[] AllowedKeys = { "type", "role", "role_from", "from" };
 
     // The slots that may render an item name: the item's own slot, or the slot whose parameter holds the item.

@@ -14,9 +14,9 @@
             <p data-item style="font-size:{{@scale.body}}px;line-height:1.4;color:{{@token.ink_soft}};max-width:900px">{{item}}</p>
         </div>
     </div>
-    <figure style="flex: 0 0 640px; display: flex; flex-direction: column; gap: 16px; margin: 0">
+    <figure data-optional style="flex: 0 0 640px; display: flex; flex-direction: column; gap: 16px; margin: 0">
         <img
-            src="{{image}}"
+            src="{{image?}}"
             alt="{{title}}"
             style="max-width: 640px; max-height: 560px; object-fit: contain; image-rendering: pixelated; border-radius: 8px"
         />

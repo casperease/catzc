@@ -1,4 +1,4 @@
-# ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks
+# Repository: Agent definitions — every sub-agent rests on a rule and maps to its checks
 
 ## Rules: ADR-REPO-AGENTS
 
@@ -12,8 +12,8 @@ Each sub-agent is defined in one file, `.claude/agents/<name>.md`. Its front mat
 ### Rule ADR-REPO-AGENTS-BACKEDBYRULE
 
 Every sub-agent exists because a DRS rule supports it. It is registered in `pwsh/Base.Docs/configs/agents.yml` with `supported_by`, the rule
-citations (`ADR-<CODE>#<n>`) that justify it, and `checks`, the gate and check functions it runs or guards. An agent that runs and guards no
-catzc check declares `checks: []`, so the absence is stated, never implied.
+codes that justify it, and `checks`, the gate and check functions it runs or guards. An agent that runs and guards no catzc check declares
+`checks: []`, so the absence is stated, never implied.
 
 - [A rule for every agent](#a-rule-for-every-agent)
 
@@ -46,7 +46,7 @@ once on `AgentsConfig` and set in `agents.yml`), a line being one that starts so
 the line it continues and a blank or comment line counts as nothing; its front matter carries only the robot keys in their fixed order
 (`name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `maxTurns`, `skills`) and no catzc block, since every fact one would
 show is derived ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)); and its body is one job line, numbered
-steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, today `ADR-REPO-AI`) are
+steps of one action each, and the report line. The contracts every robot reads first (`agents.yml` `contracts`, such as `ADR-REPO-AI`) are
 named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
 
 - [Robots and capabilities](#robots-and-capabilities)
@@ -64,10 +64,10 @@ lowered on evidence, never raised to be safe.
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most `roofs.capability_lines` lines outside its catzc
-block (30, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
-(`true` for a user skill, rule 11), `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet`, `opus` or `fable`,
-declared there once and nowhere else. The catzc block of a capability nests under `metadata`, the one front-matter key the editors that
-validate a skill file leave free, at the key path the carrier registry declares
+block (30, the `---` delimiters excluded, lines counted as ADR-REPO-AGENTS-ROBOTBODYLIMIT counts them), with `name` equal to its folder,
+`user-invocable: false` (`true` for a user skill, ADR-REPO-AGENTS-USERSKILL), `allowed-tools`, and a `metadata.catzc.config.model_floor` of
+`haiku`, `sonnet`, `opus` or `fable`, declared there once and nowhere else. The catzc block of a capability nests under `metadata`, the one
+front-matter key the editors that validate a skill file leave free, at the key path the carrier registry declares
 ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and holds only the authored `config` part, with the floor
 as the author's line in it, so no imprint touches it. The roof counts each top-level front-matter key (`name`, `description`,
 `user-invocable`, `allowed-tools`, and the `metadata` key that holds the catzc block, though not the block itself) as well as each body
@@ -80,8 +80,8 @@ line, so five of the thirty are spent before the body begins; a wrapped continua
 
 No orphan and no ghost: every capability is preloaded by at least one robot, and every name in a `skills` list is a capability file. A
 capability exists because a robot loads it, as a robot exists because a rule supports it. Two kinds are the exception, and no robot preloads
-either: a user skill (rule 11, `invoked_by: user`), and a job skill a brief names (`invoked_by: brief`), which the drone loads with the
-Skill tool. A `skills` list never names either kind.
+either: a user skill (ADR-REPO-AGENTS-USERSKILL, `invoked_by: user`), and a job skill a brief names (`invoked_by: brief`), which the drone
+loads with the Skill tool. A `skills` list never names either kind.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -89,7 +89,7 @@ Skill tool. A `skills` list never names either kind.
 
 Every capability is registered in `pwsh/Base.Docs/configs/capabilities.yml` with `supported_by` and `checks`, the way an agent is in
 `agents.yml`; neither registry repeats the model floor or the `skills` list, which live in their one file each. `Test-AgentDefinitions`
-enforces rules 6 to 11 together with rules 1 to 5.
+enforces the capability rules together with the agent rules.
 
 - [How this is enforced](#how-this-is-enforced)
 
@@ -97,8 +97,8 @@ enforces rules 6 to 11 together with rules 1 to 5.
 
 A **user skill** is a capability the user invokes by name in a main session (`/<name>`), never a robot: a procedure that needs the session's
 own context, which a spawned robot starts without. Its registry entry sets `invoked_by: user` (the default, declared once on
-`CapabilityEntry`, is `robot`), its file sets `user-invocable: true`, and every other part of rule 8 holds: the roof, the name, the
-`allowed-tools` and the model floor.
+`CapabilityEntry`, is `robot`), its file sets `user-invocable: true`, and every other part of ADR-REPO-AGENTS-CAPABILITYFILE holds: the
+roof, the name, the `allowed-tools` and the model floor.
 
 - [User skills](#user-skills)
 
@@ -117,9 +117,9 @@ pulls in work that belongs to a neighbour. The `Do NOT` clause is where each age
 ### A rule for every agent
 
 An agent is code that runs with the session's permissions, so it answers to the domain rules like any function does. The registry records
-the reason for each agent as rule citations, the same `ADR-<CODE>#<n>` spelling a test tag uses
+the reason for each agent as rule codes, the same spelling a test tag uses
 ([ADR-REPO-LINK-ONECITATIONSPELLING](markdown-links.md#rule-adr-repo-link-onecitationspelling)). It also records the gates and checks the
-agent runs or guards. A renumbered rule or a renamed quality gate then fails a check instead of leaving an agent that points at nothing.
+agent runs or guards. A renamed rule or quality gate then fails a check instead of leaving an agent that points at nothing.
 
 ### Listed where sessions start
 
@@ -168,7 +168,7 @@ capabilities under `.claude/skills/`, each registered in `capabilities.yml` and 
 
 - **`agents.yml`** (in `Catzc.Base.Docs`) is the registry, read through `Get-Config -Config agents` and validated on load by its config
   type, `AgentsConfig`, with one `AgentEntry` per agent ([ADR-CONF-LOADING](../configuration/module-config-loading.md)). The type rejects an
-  unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, and a missing `checks` list, and
+  unknown key, a malformed or repeated name, an empty `supported_by`, a citation that is not a rule's code, and a missing `checks` list, and
   reports every violation at once.
 - **`Test-AgentDefinitions`** is the quality gate
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
@@ -195,5 +195,5 @@ capabilities under `.claude/skills/`, each registered in `capabilities.yml` and 
   any one part out fails the gate.
 - An agent that no rule supports cannot be registered honestly. The missing rule is written first, or the work goes to an existing job
   skill.
-- Renumbering a rule or renaming a gate that an agent cites fails the gate, so the registry never points at a rule or command that is gone.
+- Renaming a rule or a gate that an agent cites fails the gate, so the registry never points at a rule or command that is gone.
 - The registry answers which agents guard a given check, and why each agent exists, without reading every agent's prompt.

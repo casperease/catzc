@@ -25,7 +25,7 @@ description:
   Test-GlobSetAffected checks the globset name against the registry, asks the resolver for the git range of the current context, diffs that
   range and matches the paths; an unresolved range or a failed diff answers true.
 about:
-  adrs: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
+  rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: implementation
 content:
   title: Check the name, pick the range per context, then diff git and match the paths

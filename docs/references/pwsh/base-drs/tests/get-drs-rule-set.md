@@ -10,5 +10,5 @@ rules, covered by its type test, so these tests pin only the projection and the 
 
 ## Integrity
 
-`drs.yml` and the ADR rule files must agree, which the quality gate `Test-DrsRegistry` checks
+`drs.yml` and the record rule files must agree, which the quality gate `Test-DrsRegistry` checks
 ([ADR-AUTO-TEST-QUALITYGATE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).

@@ -8,9 +8,9 @@ On 2026-10-16 the robots `plan-intake` and `plan-decide` (`.claude/agents/`) car
 contracts: [ADR-REPO-AI]
 ```
 
-It declared that the robot reads ADR-REPO-AI first: the contract every agent and skill acts on, one line to act on plus the why, with ADR
-codes as pointers. The plan for that ADR (`.claude/plans/plan-adr-ai.md`) intended the same key on every robot and every capability, checked
-by `Test-AgentDefinitions`.
+It declared that the robot reads ADR-REPO-AI first: the contract every agent and skill acts on, one line to act on plus the why, with rule
+codes as pointers. The plan for that record (`.claude/plans/plan-adr-ai.md`) intended the same key on every robot and every capability,
+checked by `Test-AgentDefinitions`.
 
 ## Why it is not a per-file key
 
@@ -21,7 +21,7 @@ holds the decision: ADR-REPO-AI is named once, and no file carries the per-file 
 
 ## Where it lives now
 
-- The CLAUDE.md session-start line names ADR-REPO-AI before the ADR index, so every session and every robot reads it first.
+- The CLAUDE.md session-start line names ADR-REPO-AI before the DRS index, so every session and every robot reads it first.
 - A top-level `contracts:` entry in `pwsh/Base.Docs/configs/agents.yml`, beside `standard:`, is the data form the gate can read when a check
   needs it.
 - This page holds the meaning and the context of the key. When ADR-REPO-AI is written, its Context section absorbs this page and the page is

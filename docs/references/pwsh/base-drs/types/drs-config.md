@@ -1,6 +1,6 @@
 # pwsh/Base.Drs/types/DrsConfig.cs
 
-The typed record of `drs.yml`, the ADR domain-structure registry (the wiring of rules to domains). Constructing an instance maps and
+The typed record of `drs.yml`, the DRS domain-structure registry (the wiring of rules to domains). Constructing an instance maps and
 validates the parsed YAML, throwing with every violation collected, and exposes the typed `Domains`, the flattened `RuleSets`, and the
 domain dependency `Edges` (`DrsDomainEdge`, one per `depends_on` link).
 
@@ -27,11 +27,10 @@ quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirr
 - Every `depends_on` target resolves to a domain the file declares, there is no self-edge, and the graph of domains is acyclic.
 - Every `external` is unique and matches the code grammar. When the external has a domain segment, the effective code (the rule set's
   override, else the domain's code) is that segment. A one-segment external such as `ADR-REPO-AI` has none to match.
-- Each domain declares its row of the value-chain stack (`stack`, one of `Stacks`,
-  [ADR-REPO-VALUECHAIN-STACK][r1]) and its default value-chain concerns
-  (`concern`, a list of one or more of `Concerns`). A rule set may override the default with its own `concern` list, so every ADR resolves
-  to at least one concern ([ADR-REPO-VALUECHAIN-CONCERN][r2]). The allowed
-  rows and concerns are declared once, in value-chain order
+- Each domain declares its row of the value-chain stack (`stack`, one of `Stacks`, [ADR-REPO-VALUECHAIN-STACK][r1]) and its default
+  value-chain concerns (`concern`, a list of one or more of `Concerns`). A rule set may override the default with its own `concern` list, so
+  every record resolves to at least one concern ([ADR-REPO-VALUECHAIN-CONCERN][r2]). The allowed rows and concerns are declared once, in
+  value-chain order
   ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 ## Domain prefix

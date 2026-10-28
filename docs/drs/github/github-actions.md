@@ -1,4 +1,4 @@
-# ADR: GitHub Actions — the run mark and the path-filter triggers of a workflow
+# GitHub: GitHub Actions — the run mark and the path-filter triggers of a workflow
 
 ## Rules: ADR-GH-ACTIONS
 

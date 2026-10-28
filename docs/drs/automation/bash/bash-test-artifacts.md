@@ -1,4 +1,4 @@
-# ADR: Bash modules and test artifacts — modules by layout, black-box tests of the engine through cats, run by a vendored bats
+# Automation: Bash modules and test artifacts — modules by layout, black-box tests of the engine through cats, run by a vendored bats
 
 ## Rules: ADR-AUTO-BASH
 

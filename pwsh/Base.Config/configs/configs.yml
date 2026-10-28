@@ -170,7 +170,7 @@ configs:
   environment-approvals:
     type: Catzc.Azure.DevOps.EnvironmentApprovalsConfig
   service-connections:
-    type: Catzc.Azure.DevOps.ServiceConnectionsConfig
+    type: Catzc.Azure.Templates.ServiceConnectionsConfig
   artifacts:
     type: Catzc.Base.ModuleSystem.ArtifactsConfig
   vscode-settings:

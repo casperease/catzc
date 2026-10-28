@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../automation/.assets/one-resolver-every-consumer-but-the-hook.drawio.png
+      source: ../.assets/one-artifact-climbs-unchanged.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ code.
 
 ## Image
 
-.assets/one-artifact-climbs.png
+[one-artifact-climbs](.assets/one-artifact-climbs.png)
 
 ## Caption
 
-From the catalogue, reduced: one resolver every consumer but the hook.
+From the catalogue, reduced: one artifact climbs unchanged.
 
 ## Notes
 
 Check it: the record FDR-CD in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/one-resolver-every-consumer-but-the-hook.drawio.png.
+docs/explanation/flow/.assets/one-artifact-climbs-unchanged.drawio.png.

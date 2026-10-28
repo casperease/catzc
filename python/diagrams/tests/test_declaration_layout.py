@@ -13,7 +13,7 @@ from conftest import ROWS, WIDGET_MINIMAPS, WIDGETS, claimed, committed_pair, la
 def test_a_base_citing_a_code_the_registry_no_longer_has_is_read_as_data(tmp_path):
     text, model = committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
     retired = __import__("yaml").safe_load(text)
-    retired.setdefault("about", {})["adrs"] = ["ADR-WIDGET-RETIRED-GONE"]
+    retired.setdefault("about", {})["rules"] = ["ADR-WIDGET-RETIRED-GONE"]
     base = (__import__("yaml").safe_dump(retired, sort_keys=False), model)
     assert declaration.conflict(tmp_path, base) == []
 

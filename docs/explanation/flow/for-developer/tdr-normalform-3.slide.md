@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../../flow/.assets/gates-check-source-and-trigger.drawio.png
+      source: ../../thesis/.assets/eac-normal-form.drawio.png
       scale: 0.4
 ---
 
@@ -23,13 +23,13 @@ one source and derives the rest.
 
 ## Image
 
-.assets/tdr-normalform-3.png
+[tdr-normalform-3](.assets/tdr-normalform-3.png)
 
 ## Caption
 
-From the catalogue, reduced: "gates check source and trigger".
+From the catalogue, reduced: eac normal form.
 
 ## Notes
 
 Check it: the record TDR-NORMALFORM in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.
+docs/explanation/thesis/.assets/eac-normal-form.drawio.png.

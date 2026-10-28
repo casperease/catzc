@@ -35,19 +35,19 @@ public sealed class WorldMap
     // The placed files that break their track's tech-stack, in ordinal path order.
     public IReadOnlyList<MapPlacement> StackViolations { get; }
 
-    // The adrs index the citations were resolved against: ADR code -> domain.
-    public IReadOnlyDictionary<string, string> AdrIndex { get; }
+    // The DRS index the citations were resolved against: record code -> domain.
+    public IReadOnlyDictionary<string, string> RecordIndex { get; }
 
     // The tracked files placed: the sum of every cell's FileCount.
     public int FileCount => Placements.Count;
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public WorldMap(string[] tracks, string[] fileLanguages, MapPlacement[] placements, IReadOnlyDictionary<string, string> adrIndex)
+    public WorldMap(string[] tracks, string[] fileLanguages, MapPlacement[] placements, IReadOnlyDictionary<string, string> recordIndex)
     {
         Tracks = Axis(tracks, NoTrack, "track");
         FileLanguages = Axis(fileLanguages, NoFileLanguage, "file language");
-        AdrIndex = adrIndex ?? new Dictionary<string, string>(StringComparer.Ordinal);
+        RecordIndex = recordIndex ?? new Dictionary<string, string>(StringComparer.Ordinal);
 
         HashSet<string> rows = new HashSet<string>(Tracks, StringComparer.Ordinal);
         HashSet<string> columns = new HashSet<string>(FileLanguages, StringComparer.Ordinal);
@@ -147,7 +147,7 @@ public sealed class WorldMap
                     writer.WriteBoolean("live", placement.Live);
                     writer.WriteBoolean("stack_violation", placement.StackViolation);
                     writer.WriteString("basis", placement.Basis);
-                    if (placement.Adr == null) { writer.WriteNull("adr"); } else { writer.WriteString("adr", placement.Adr); }
+                    if (placement.Record == null) { writer.WriteNull("record"); } else { writer.WriteString("record", placement.Record); }
                     writer.WriteStartArray("citations");
                     foreach (string citation in placement.Citations) { writer.WriteStringValue(citation); }
                     writer.WriteEndArray();

@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../flow/.assets/manual-queues-1-where-a-person-stands.drawio.png
+      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -23,13 +23,13 @@ A denied call is logged with its command. A denial is raised to a person, never 
 
 ## Image
 
-.assets/sarah-reads-the-log.png
+[sarah-reads-the-log](.assets/sarah-reads-the-log.png)
 
 ## Caption
 
-From the catalogue, reduced: manual queues 1 where a person stands.
+From the catalogue, reduced: a shell call carries its limit or is denied.
 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.
+docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

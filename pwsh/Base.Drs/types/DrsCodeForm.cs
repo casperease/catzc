@@ -99,7 +99,7 @@ public sealed class DrsCodeForm
         return code.Length > prefix.Length && code[prefix.Length] == '-' && code.StartsWith(prefix, StringComparison.Ordinal);
     }
 
-    // A derived list at its shortest: covered codes go, and every rule of one ADR becomes that ADR's code.
+    // A derived list at its shortest: covered codes go, and every rule of one record becomes that record's code.
     public IReadOnlyList<string> Minimize(string[] codes, DrsCitationMap registry = null)
     {
         if (codes == null) { throw new ArgumentNullException(nameof(codes)); }
@@ -112,13 +112,13 @@ public sealed class DrsCodeForm
 
         if (registry != null)
         {
-            var byAdr = new Dictionary<string, int>(StringComparer.Ordinal);
+            var byRecord = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (string item in set)
             {
-                string adr = registry.AdrOf(item);
-                if (adr != null) { byAdr[adr] = byAdr.TryGetValue(adr, out int count) ? count + 1 : 1; }
+                string record = registry.RecordOf(item);
+                if (record != null) { byRecord[record] = byRecord.TryGetValue(record, out int count) ? count + 1 : 1; }
             }
-            foreach (KeyValuePair<string, int> entry in byAdr)
+            foreach (KeyValuePair<string, int> entry in byRecord)
             {
                 if (entry.Value == registry.RulesOf(entry.Key).Count) { set.Add(entry.Key); }
             }

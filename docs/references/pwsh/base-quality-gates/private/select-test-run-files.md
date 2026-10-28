@@ -15,8 +15,8 @@ tag.
 The work-list stage of a test run (Invoke-TestRun), in order:
 
 - the test files under the test paths, in foundation-first folder order (Get-TestAutomationTestFiles);
-- -Rule: only the files carrying a test that cites one of the given ADR rules (Select-RuleTaggedFiles). The worker also filters within a
-  file by include tag, so a file mixing matched and other tests runs only the matched ones;
+- -Rule: only the files carrying a test that cites one of the given rules (Select-RuleTaggedFiles). The worker also filters within a file by
+  include tag, so a file mixing matched and other tests runs only the matched ones;
 - tier and category scope: only the files holding a test in the run's scope (Select-InScopeTestFiles), so no worker loads a file only to
   skip every test in it. The dropped files' tests come back as the NotRun rows a worker would have returned
   (ConvertTo-TestAutomationRowSet), for the caller to report;
@@ -38,7 +38,7 @@ The run's discovery-only Pester result (Get-TestDiscovery).
 
 ### parameter `Rule`
 
-The wanted ADR rule citations ('`ADR-<CODE>#<n>`'); empty for no rule filter.
+The wanted rule citations ('`ADR-<CODE>#<n>`'); empty for no rule filter.
 
 ### parameter `ExcludeTag`
 

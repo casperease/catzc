@@ -19,8 +19,8 @@ Every article has these five parts, in this order:
    file's repository path is a derived fact in its meta block, written by `Format-FileMeta`
    ([uniform-formatting](../../drs/repository/uniform-formatting.md), ADR-REPO-FORMAT-MARKDOWNTITLE).
 2. **Lead paragraph** (directly under the title) — what the module _is_, in one or two sentences: its single most important responsibility
-   first, what it owns and (where it clarifies the boundary) what it deliberately does **not** own, with links to the governing ADR(s). Lead
-   with the thesis, not a feature list.
+   first, what it owns and (where it clarifies the boundary) what it deliberately does **not** own, with links to the governing record(s).
+   Lead with the thesis, not a feature list.
 3. **`## Responsibilities`** — an ordered registry of the responsibilities the module owns. Opens with the **responsibility overview table**
    (below), then one `### responsibility:N — <Title>` heading per responsibility followed by a prose definition of that _one_
    responsibility. Order by **importance, most important first** (`responsibility:1` is the headline). This is the vocabulary the rest of
@@ -30,8 +30,8 @@ Every article has these five parts, in this order:
 5. **`## Division`** — the _only_ section that names concrete functions: a one-line intro sentence, then the function table (see below). It
    is the index from "what the module is" to "what it exposes."
 
-**References point one way.** An article cites ADRs (`../../drs/...`) and sibling references (`catzc-*.md`); an ADR or the code never links
-back to these articles. (Same rule as the ADR authoring conventions.)
+**References point one way.** An article cites decision records (`../../drs/...`) and sibling references (`catzc-*.md`); a record or the
+code never links back to these articles. (Same rule as the DRS authoring conventions.)
 
 ## Responsibilities
 

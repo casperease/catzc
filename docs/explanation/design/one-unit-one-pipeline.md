@@ -20,7 +20,7 @@ track except through the unit that is that track.
 ```yml drawio
 description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side in a line."
 about:
-  adrs: [DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
+  rules: [DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: meta
 content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
