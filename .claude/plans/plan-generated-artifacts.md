@@ -79,7 +79,10 @@ take the generated files out of a working copy and render them back, and a reade
       Check: `Test-Diagrams` and `Test-Slides` report 0 issues.
 - [ ] The unregistered writers gain rows in their own modules: `Build-FrontPage`, `Build-CommentView`, `Export-Comments`,
       `New-GitAttributes`, `Save-PsReadLineKeyHandlerSet`, `flow_glyphs.py`, `Update-AzurePriceTable` and `Update-AdoFlowOccupants`
-      (snapshot). Check: `Test-GeneratedFiles` reports 0 issues.
+      (snapshot), and the four `generated-files.yml` writers whose modules have no `configs/generated.yml` yet:
+      `Build-TerminologyDictionary` and `Build-EnglishDictionary` (Base.QualityGates), `New-VsCodeExtensionFolder` (Base.VSCode, an
+      `out/` output, untracked) and `Build-RootConfig` (Base.RootConfig, import-critical, `expands: rootconfig`). Check:
+      `Test-GeneratedFiles` reports 0 issues.
 - [ ] `pwsh/Base.GeneratedFiles/types/GeneratedFilesConfig.cs` reads the module rows and derives the order by a topological sort over inputs
       and outputs, failing on a cycle. Check: `Invoke-Pester pwsh/Base.GeneratedFiles/tests` passes.
 - [ ] `pwsh/Base.GeneratedFiles/configs/generated-files.yml` is deleted and every reader (`Test-GeneratedFiles`, `Get-GeneratedWriterDue`,
