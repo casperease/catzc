@@ -55,7 +55,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- generated-artifacts -> plan-generated-artifacts.md: landed; blocked_on the round trip in the user's full run
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
