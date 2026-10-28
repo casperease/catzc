@@ -28,7 +28,6 @@ about:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
     - FDR-LIFE-DIRTYHEADUNSAFE
-    - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
   title: Four pipeline kinds promote one artifact that CI built once
@@ -90,23 +89,23 @@ content:
 layout:
   band-git: { x: 20, y: 84, w: 180, h: 320 }
   band-ci: { x: 220, y: 84, w: 240, h: 320 }
-  band-cd: { x: 480, y: 84, w: 170, h: 320 }
-  band-non-prod: { x: 670, y: 84, w: 290, h: 320 }
-  band-prod: { x: 980, y: 84, w: 300, h: 320 }
+  band-cd: { x: 480, y: 84, w: 140, h: 320 }
+  band-non-prod: { x: 640, y: 84, w: 318, h: 320 }
+  band-prod: { x: 978, y: 84, w: 302, h: 320 }
   c-topic: { x: 36, y: 170, w: 56, h: 56 }
   c-main: { x: 124, y: 170, w: 56, h: 56 }
   g-engine: { x: 236, y: 176, w: 130, h: 44 }
   c-bvt: { x: 392, y: 170, w: 56, h: 56 }
-  g-on-demand: { x: 500, y: 152, w: 130, h: 92 }
-  g-main-uat: { x: 685, y: 152, w: 120, h: 92 }
-  g-release-uat: { x: 835, y: 152, w: 120, h: 92 }
-  g-pre-prod: { x: 995, y: 152, w: 120, h: 92 }
-  g-production: { x: 1145, y: 152, w: 120, h: 92 }
-  c-l3: { x: 547, y: 160, w: 28, h: 28 }
-  c-main-uat: { x: 731, y: 160, w: 28, h: 28 }
+  g-on-demand: { x: 486, y: 152, w: 128, h: 92 }
+  g-main-uat: { x: 650, y: 152, w: 110, h: 92 }
+  g-release-uat: { x: 840, y: 152, w: 110, h: 92 }
+  g-pre-prod: { x: 986, y: 152, w: 110, h: 92 }
+  g-production: { x: 1164, y: 152, w: 110, h: 92 }
+  c-l3: { x: 536, y: 160, w: 28, h: 28 }
+  c-main-uat: { x: 691, y: 160, w: 28, h: 28 }
   c-release-uat: { x: 881, y: 160, w: 28, h: 28 }
-  c-pre-prod: { x: 1041, y: 160, w: 28, h: 28 }
-  c-production: { x: 1191, y: 160, w: 28, h: 28 }
+  c-pre-prod: { x: 1027, y: 160, w: 28, h: 28 }
+  c-production: { x: 1205, y: 160, w: 28, h: 28 }
   s-artifact: { x: 236, y: 310, w: 1030, h: 60 }
 ```
 

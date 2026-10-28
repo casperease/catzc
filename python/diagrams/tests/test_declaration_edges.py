@@ -7,7 +7,7 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 import re
 
 import pytest
-from catzc.diagrams import declaration, declaration_settings
+from catzc.diagrams import declaration, declaration_routes, declaration_settings
 from conftest import WIDGETS
 
 
@@ -144,6 +144,19 @@ def test_a_line_too_short_for_a_pill_gets_the_same_pill_beside_it_and_never_bare
         assert (
             pill(declaration.put(declaration.normalise(raw)), "e-gadget-store-gadget-gate") is None
         )  # the word presentation keeps it bare
+
+
+def test_a_pill_beside_a_short_line_between_two_tall_boxes_steps_out_past_them_and_never_stands_on_either():
+    widget, gadget = (0, 28, 100, 44), (120, 28, 100, 44)  # 20 px apart, the line between them level at y = 50
+    run, word = [(100, 50), (120, 50)], "writes"
+    width, height = 6.2 * len(word) + 2 * declaration_routes.WORD_MARGIN, 12 + 2 * declaration_routes.WORD_MARGIN
+    x, y = declaration_routes.label_spot(run, word, 0, None, [widget, gadget])
+    rect = (x - width / 2, y - height / 2, width, height)
+    assert not declaration_routes.overlaps(rect, widget) and not declaration_routes.overlaps(rect, gadget)
+    assert y < 50 and 50 - y <= height / 2 + declaration_routes.WORD_GAP + declaration_routes.WORD_STEP_OUT  # above the line, within the step-out
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(declaration_routes, "WORD_STEP_OUT", 0)
+        assert declaration_routes.label_spot(run, word, 0, None, [widget, gadget]) is None  # no step-out: no free place beside, bare
 
 
 def test_the_label_presentation_is_one_of_the_two_the_renderer_names():

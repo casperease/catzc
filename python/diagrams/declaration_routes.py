@@ -9,7 +9,7 @@ import math
 
 from . import declaration_settings
 from .declaration_cells import cell
-from .declaration_constants import COMMITS, GHOST, LABEL_HEAD_CLEAR, LABEL_TAIL_CLEAR, WORD_GAP
+from .declaration_constants import COMMITS, GHOST, LABEL_HEAD_CLEAR, LABEL_TAIL_CLEAR, WORD_GAP, WORD_STEP_OUT
 from .drawio_png import DEFAULTS, font
 
 
@@ -291,7 +291,8 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     band or ring crossing when it crosses one, else at its middle (then a third, two thirds, a quarter and three quarters along when a pill or cell stands there), and only where the line keeps LABEL_TAIL_CLEAR px clear of the pill
     towards its tail and LABEL_HEAD_CLEAR px towards its head, so the arrowhead is never covered. A line too short to hold it gets the
     same pill beside the line, WORD_GAP px off it at the middle (right of a steep line, above a flatter one, else the other side), where
-    it overlaps none of the `avoid` rectangles (x, y, w, h); None only when no place is free."""
+    it overlaps none of the `avoid` rectangles (x, y, w, h), stepping 2 px further out on both sides at a time, up to WORD_STEP_OUT px,
+    while both are taken; None only when no place is free."""
     width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
     length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
     legs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in itertools.pairwise(run)]
@@ -315,10 +316,11 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     nx, ny = -uy, ux  # the normal of the line
     reach = min(width / 2 / abs(nx) if nx else math.inf, height / 2 / abs(ny) if ny else math.inf) + WORD_GAP
     sides = sorted((1, -1), key=lambda k: -(k * nx) if abs(uy) > abs(ux) else k * ny)  # right of a steep line, above a flatter one
-    for side in sides:
-        centre = (spot[0] + side * nx * reach, spot[1] + side * ny * reach)
-        if not any(overlaps((centre[0] - width / 2, centre[1] - height / 2, width, height), box) for box in avoid):
-            return centre
+    for out in range(0, WORD_STEP_OUT + 1, 2):  # the nearest free place first, either side, before stepping further out
+        for side in sides:
+            centre = (spot[0] + side * nx * (reach + out), spot[1] + side * ny * (reach + out))
+            if not any(overlaps((centre[0] - width / 2, centre[1] - height / 2, width, height), box) for box in avoid):
+                return centre
     return None
 
 

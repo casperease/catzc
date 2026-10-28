@@ -24,20 +24,16 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan                   | Why                                                                                                               | Needed docs                                            | Needed tests                                                                 | State                                              |
-| ------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------- |
-| highest | plan-master            | The one executable order over every open step of every plan; task files are its disposable executables.           | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record)                                | nineteen chunks; the user's and the sweep last     |
-| medium  | plan-language-lamps    | A languages button picks language lamps into the title row, each a full lamp, from the languages config.          | DDR-FILTER-TOTALUNION names language lamps             | node tests of the engine, TrackLamps.Tests.ps1, New-VSCodeSettings.Tests.ps1 | planned                                            |
-| medium  | plan-vscode-extensions | The recommendations shrink to vendor languages and known linters; cats tooling replaces the rest, icons included. | none                                                   | the VSCode module's tests, Test-Plans                                        | icons, offline schemas done; small extensions open |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                          |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ---------------------------------------------- |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | nineteen chunks; the user's and the sweep last |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                        | Needed docs                                                                       | Needed tests                                                                                  | State                                            |
-| ------ | --------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| high   | plan-repo-filters           | none (filters are a tool view; DDR-ASPECT already holds the units it gates)       | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps | landed; the user's look, one step left           |
-| high   | plan-idiomatic-names        | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written) | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                              | folders renamed; wiring and the normal form open |
-| medium | plan-diagram-review         | the visual-design rules each answer changes                                       | Test-Diagrams after every answer, the kit suite                                               | new                                              |
-| medium | plan-vscode-session-binding |                                                                                   |                                                                                               | new                                              |
+| Value  | Plan                        | Needed docs                                 | Needed tests                                    | State |
+| ------ | --------------------------- | ------------------------------------------- | ----------------------------------------------- | ----- |
+| medium | plan-diagram-review         | the visual-design rules each answer changes | Test-Diagrams after every answer, the kit suite | new   |
+| medium | plan-vscode-session-binding |                                             |                                                 | new   |
 
 ## Pending deletion
 

@@ -11,8 +11,9 @@ const { folder } = require("./fixture.js");
 const extension = path.resolve(__dirname, "../extension.js").split(path.sep).join("/");
 // The extension's folder, repository-relative, as the build writes it into the installed package's catzc.source.
 const source = path.relative(path.resolve(__dirname, "../../.."), path.dirname(extension)).split(path.sep).join("/");
-const scenario = (/** @type {string} */ name, withEngine = false) => {
-    const root = folder(["code/a.ps1", "docs/x.md"]);
+const scenario = (/** @type {string} */ name, withEngine = false, files = ["code/a.ps1", "docs/x.md"]) => {
+    // The repository in a folder of a short name, so the status line's words fit as they do for the real repository's.
+    const root = `${folder(files.map((file) => `w/${file}`))}/w`;
     let driven = extension;
     if (withEngine) {
         // The workspace's engine at its source folder, and an installed package beside it whose shell loads that engine.
@@ -56,6 +57,28 @@ test("keeps the disk index current from the editor's file events", () => {
     assert.deepStrictEqual(result.before, ["docs"]);
     assert.deepStrictEqual(result.afterCreate, ["docs", "notes"], "a created file the unlit docs lamp claims is hidden at once");
     assert.deepStrictEqual(result.afterDelete, ["notes"], "the deleted file leaves docs empty on disk, and an empty folder shows");
+});
+
+test("stands two ticked languages in the row, puts one out and vetoes the other, and takes both out again when unticked, the status line naming each", () => {
+    const result = scenario("languages", false, ["code/a.ps1", "code/a.wdg", "docs/x.md", "docs/b.gdg"]);
+    const { start, ticked, switched, unticked } = result.steps;
+    const shown = (/** @type {any} */ step, /** @type {string} */ lamp) => step.keys[`catzc.lamps.shown.${lamp}`];
+    for (const lamp of ["lang-widget", "lang-gadget"]) {
+        assert.strictEqual(shown(start, lamp), false, `${lamp} stands in no row before it is ticked`);
+        assert.strictEqual(shown(ticked, lamp), true, `ticking ${lamp} stands it in the row with no reload`);
+        assert.strictEqual(ticked.keys[`catzc.lamps.out.${lamp}`], false, `${lamp} comes in lit`);
+        assert.strictEqual(ticked.keys[`catzc.lamps.state.${lamp}`], "committed", `${lamp} has its condition`);
+        assert.strictEqual(shown(unticked, lamp), false, `unticking ${lamp} takes it out of the row`);
+    }
+    assert.strictEqual(switched.keys["catzc.lamps.out.lang-widget"], true, "the first is put out");
+    assert.strictEqual(switched.keys["catzc.lamps.veto.lang-widget"], false);
+    assert.strictEqual(switched.keys["catzc.lamps.veto.lang-gadget"], true, "the second is vetoed");
+    assert.deepStrictEqual(switched.hidden, ["**/*.gdg"], "the veto hides its zone; the code lamp still shows the put-out widget file");
+    assert.strictEqual(switched.status, "$(pass) w − lang-widget ∖ lang-gadget", "the status words name both language lamps");
+    assert.strictEqual(ticked.status, "$(pass) w");
+    assert.strictEqual(unticked.status, "$(pass) w");
+    assert.deepStrictEqual(unticked.hidden, [], "an unticked language's switches go with its lamp");
+    assert.deepStrictEqual(result.remembered, { ticked: [], out: [], vetoed: [] });
 });
 
 test("swaps the repository's engine on a save, every old part disposed first, and falls back to its own copy when it does not load", () => {

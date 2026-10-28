@@ -13,6 +13,7 @@ renderer:
   edge-route: elbow # elbow | straight: how an edge is routed whose two ends share no x and no y overlap, so no straight line joins them: elbow, one bend (out of the side facing across, into the side facing along); straight, the diagonal. An edge whose ends overlap on an axis is always straight
   findings-fail: yes # yes | no: whether a finding (every one the kit reports: a conflict, a refused put, an undeclared slide, a keep-out hit) fails the run; one setting, no per-finding exception
   word-gap: 3 # px a steep edge's word stands right of its line, left-aligned at the line's middle; written into the model, so draw.io and the painter read the same
+  word-step-out: 40 # px further a pill beside a line too short to hold it may step out from the line, 2 px at a time, until it stands on no cell, tag or pill; past this the word stays bare
   edge-deadzone: 8 # px an edge stops short of every box it starts or ends at, so its line and head never touch the box edge; written into the model as source/targetPerimeterSpacing (draw.io reads it), whatever heads the edge has
   edge-deadzone-min-line: 12 # px of line an edge keeps whatever its deadzone: both ends together take at most the edge's length less this, so the clearance shrinks on a short edge (full below about 2 x edge-deadzone + this) and a line always shows; the model keeps the nominal spacing, which draw.io cannot cap
   wrap-break-glued: / # a wrapped contract line may break after these, and unwrap rejoins them with no space

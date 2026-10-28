@@ -61,8 +61,9 @@ function Expand-VsCodeRepeat {
     $fill = {
         param($Node, [string] $Name, $Item)
         if ($Node -is [string]) {
-            return $Node.Replace("{$Name.title}", $Item.Title).Replace("{$Name.position}",
-                "$($Item.Position)").Replace("{$Name}", $Item.Value)
+            # {name.order} is the position zero-padded to three digits, so a group such as navigation@1{name.order} sorts by position.
+            return $Node.Replace("{$Name.title}", $Item.Title).Replace("{$Name.position}", "$($Item.Position)").Replace(
+                "{$Name.order}", $Item.Position.ToString('000')).Replace("{$Name}", $Item.Value)
         }
         if ($Node -is [System.Collections.IDictionary]) {
             $copy = [ordered]@{}

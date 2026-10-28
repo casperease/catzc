@@ -17,6 +17,7 @@ executables:
   sudo: 1800 # system package installs
   tar: 300 # archive extraction
   gh: 120 # API calls over the network
+  osv-scanner: 120 # advisory database scan over the network
   cspell: 120 # whole-repo spell check: 6.4 s alone, killed at 10 s under the parallel test load (probe 2026-10-14)
   prettier: 120 # whole-repo format check: 4.4 s alone, near the default under load
   markdownlint-cli2: 120 # whole-repo lint: 2.1 s alone, kept clear of the default under load

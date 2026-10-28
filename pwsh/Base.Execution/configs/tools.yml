@@ -231,7 +231,7 @@ bicep:
     - "%HOME%/.local/bin/bicep"
 
 osv_scanner:
-  version: "2.0"
+  version: "2.7"
   command: osv-scanner
   depends_on: winget
   winget_id: "Google.OSVScanner"

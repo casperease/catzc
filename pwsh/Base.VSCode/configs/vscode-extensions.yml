@@ -186,33 +186,33 @@ extensions:
           - repeat: lamp
             command: catzc.lamps.{lamp}.veto
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && !catzc.lamps.out.{lamp} && !catzc.lamps.veto.{lamp}"
-            group: navigation@9{lamp.position}
+            group: navigation@1{lamp.order}
           - repeat: lamp
             command: catzc.lamps.{lamp}.putOut
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && catzc.lamps.veto.{lamp}"
-            group: navigation@9{lamp.position}
+            group: navigation@1{lamp.order}
           - repeat: lamp
             command: catzc.lamps.{lamp}.light
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && catzc.lamps.out.{lamp}"
-            group: navigation@9{lamp.position}
+            group: navigation@1{lamp.order}
           # The ticked languages stand after every filter lamp, then the button that ticks them.
           - repeat: language
             command: catzc.lamps.lang-{language}.veto
             when:
               "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && !catzc.lamps.out.lang-{language} &&
               !catzc.lamps.veto.lang-{language}"
-            group: navigation@20{language.position}
+            group: navigation@2{language.order}
           - repeat: language
             command: catzc.lamps.lang-{language}.putOut
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && catzc.lamps.veto.lang-{language}"
-            group: navigation@20{language.position}
+            group: navigation@2{language.order}
           - repeat: language
             command: catzc.lamps.lang-{language}.light
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && catzc.lamps.out.lang-{language}"
-            group: navigation@20{language.position}
+            group: navigation@2{language.order}
           - command: catzc.lamps.languages.pick
             when: "view == workbench.explorer.fileView"
-            group: navigation@300
+            group: navigation@3000
       configuration:
         title: Catzc track lamps
         properties:

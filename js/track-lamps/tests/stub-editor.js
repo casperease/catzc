@@ -1,22 +1,25 @@
 // Drives the lamps extension's activation under node with a recording stub of the vscode API, one scenario per run, and prints what it
-// recorded as JSON: node stub-editor.js <scenario> <root> <extension script>. stub-editor.test.js runs each scenario.
+// recorded as JSON: node stub-editor.js <scenario> <root> <extension script> [seed]. stub-editor.test.js runs each scenario; seed, a JSON
+// file, replaces the languages scenario's languages and picks.
 const fs = require("fs");
 const path = require("path");
 
-const [scenario, root, script] = process.argv.slice(2);
+const [scenario, root, script, seedFile] = process.argv.slice(2);
 const sleep = (/** @type {number} */ ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // The stub stands in for the editor's API, so its own parameters are the editor's loose shapes: they are typed any on purpose, and what the
 // scenarios read back, the record, is typed in full.
 /** @typedef {(...args: any[]) => any} Callback */
 /** @typedef {{ pattern: string, create: Callback[], change: Callback[], delete: Callback[] }} Watcher */
-/** @param {{ filters?: unknown, state?: Record<string, unknown> }} seed */
+/** @param {{ filters?: unknown, state?: Record<string, unknown>, languages?: unknown, picks?: string[][] }} seed */
 function stub(seed) {
     /**
      * @type {{ commands: Map<string, Callback>, registered: number, disposed: number, duplicates: string[], contexts: unknown[][],
-     *   updates: string[][], concurrent: number, maxConcurrent: number, watchers: Watcher[], logs: string[], diagnostics: Callback[] }}
+     *   updates: string[][], concurrent: number, maxConcurrent: number, watchers: Watcher[], logs: string[], diagnostics: Callback[],
+     *   counter: { text?: string, [part: string]: unknown } }}
      */
     const record = {
+        counter: {},
         commands: new Map(),
         registered: 0,
         disposed: 0,
@@ -47,7 +50,7 @@ function stub(seed) {
             getConfiguration: (/** @type {string} */ section) => ({
                 get: (/** @type {string} */ k) =>
                     section === "catzc.trackLamps"
-                        ? /** @type {Record<string, unknown>} */ ({ filters: seed.filters, trace: false })[k]
+                        ? /** @type {Record<string, unknown>} */ ({ filters: seed.filters, languages: seed.languages, trace: false })[k]
                         : undefined,
                 inspect: (/** @type {string} */ k) => ({
                     workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude,
@@ -87,7 +90,13 @@ function stub(seed) {
                 show() {},
                 ...disposable(),
             }),
-            createStatusBarItem: () => ({ show() {}, ...disposable() }),
+            // The counter is the one status bar item; the record keeps it, so a scenario reads the status line's words.
+            createStatusBarItem: () => (record.counter = { show() {}, ...disposable() }),
+            // The languages button's pick: each call ticks the next names of the seed's picks, the offered rows filtered to them.
+            showQuickPick: async (/** @type {any[]} */ items) => {
+                const names = (seed.picks ?? []).shift() ?? [];
+                return items.filter((item) => names.includes(item.name));
+            },
             tabGroups: { all: [], onDidChangeTabs: event() },
             onDidChangeActiveTextEditor: event(),
             onDidChangeWindowState: event(),
@@ -272,6 +281,46 @@ const scenarios = {
                 fellBack: current.record.logs.some((/** @type {string} */ line) => line.includes("did not load")),
             },
             duplicates: current.record.duplicates,
+        };
+    },
+    // The languages button: two languages ticked into the row, the first put out and the second vetoed, then both unticked; after each
+    // step the title row's context keys, the status line's words and the globs files.exclude holds, as the editor would show them.
+    async languages() {
+        const seeded = seedFile
+            ? JSON.parse(fs.readFileSync(seedFile, "utf8"))
+            : {
+                  languages: { widget: { tag: "wdg", extensions: [".wdg"] }, gadget: { tag: "gdg", extensions: [".gdg"] } },
+                  picks: [["widget", "gadget"], []],
+              };
+        const [first, second] = seeded.picks[0];
+        // Four filter lamps, so naming the lit ones is longer than naming the switched ones, as it is in the real row.
+        current = stub({ filters: filters(["code", "configs", "tests", "docs"]), languages: seeded.languages, picks: seeded.picks });
+        require(script).activateEngine(current.context, current.vscode);
+        await sleep(1200);
+        const view = () => ({
+            keys: Object.fromEntries(current.record.contexts),
+            status: current.record.counter.text,
+            hidden: current.record.updates.at(-1) ?? [],
+        });
+        const start = view();
+        await current.press("catzc.lamps.languages.pick");
+        await sleep(1500);
+        const ticked = view();
+        current.press(`catzc.lamps.lang-${first}.putOut`);
+        current.press(`catzc.lamps.lang-${second}.veto`);
+        await sleep(1500);
+        const switched = view();
+        await current.press("catzc.lamps.languages.pick");
+        await sleep(1500);
+        return {
+            first,
+            second,
+            steps: { start, ticked, switched, unticked: view() },
+            remembered: {
+                ticked: current.context.workspaceState.get("catzc.trackLamps.languages.ticked", []),
+                out: current.context.workspaceState.get("catzc.trackLamps.out", []),
+                vetoed: current.context.workspaceState.get("catzc.trackLamps.veto", []),
+            },
         };
     },
 };

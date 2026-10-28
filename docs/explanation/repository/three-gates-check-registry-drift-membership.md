@@ -97,9 +97,9 @@ layout:
   band-target: { x: 940, y: 124, w: 340, h: 340 }
   g-registry: { x: 60, y: 260, w: 180, h: 52 }
   g-type: { x: 330, y: 260, w: 180, h: 64 }
-  g-build: { x: 570, y: 170, w: 140, h: 250 }
-  g-copy-content: { x: 730, y: 330, w: 170, h: 44 }
-  g-write: { x: 730, y: 190, w: 170, h: 44 }
+  g-build: { x: 568, y: 170, w: 112, h: 250 }
+  g-copy-content: { x: 740, y: 330, w: 170, h: 44 }
+  g-write: { x: 740, y: 190, w: 170, h: 44 }
   r-managed: { x: 970, y: 170, w: 280, h: 44 }
   grp-gates: { x: 960, y: 250, w: 300, h: 190 }
   g-generated-files: { x: 990, y: 280, w: 240, h: 56 }

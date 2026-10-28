@@ -37,6 +37,18 @@ Describe 'Test-DependencyAdvisories' -Tag 'L0', 'logic' {
             Should -Throw '*Test-DependencyAdvisories failed: 1 issue(s)*'
     }
 
+    It 'reads an advisory without a summary, naming its first details line instead' {
+        $shape = '{"results":[{"source":{"path":"uv.lock","type":"lockfile"},"packages":[{"package":{"name":"widget","version":"1.0.0","ecosystem":"PyPI","purl":"pkg:pypi/widget@1.0.0"},"groups":[{"ids":["GHSA-aaaa-bbbb-cccc"],"aliases":[],"max_severity":"5.0"}],"vulnerabilities":[{"id":"GHSA-aaaa-bbbb-cccc","details":"Gadget parsing hangs.\nMore text.","modified":"2026-01-01T00:00:00Z"},{"id":"GHSA-dddd-eeee-ffff","summary":"Widget leaks","details":"x"}]}]}],"experimental_config":{}}'
+        Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Command -like '*scan source*' } -MockWith {
+            [pscustomobject]@{ ExitCode = 1; Output = $shape; Full = $shape }
+        }
+        $result = Test-DependencyAdvisories -LockFile $script:lock -PassThru -OutputFolder (Join-Path $TestDrive 'advisories')
+        $result.Issues | Should -Be @(
+            'widget 1.0.0 (PyPI): GHSA-aaaa-bbbb-cccc Gadget parsing hangs. — raise the pin past the fixed version'
+            'widget 1.0.0 (PyPI): GHSA-dddd-eeee-ffff Widget leaks — raise the pin past the fixed version'
+        )
+    }
+
     It 'passes a lock the scanner finds nothing in' {
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Toolchain -ParameterFilter { $Command -like '*scan source*' } -MockWith {
             [pscustomobject]@{ ExitCode = 0; Output = '{"results":[]}'; Full = '' }

@@ -46,6 +46,7 @@ PROOF_ROW = 22  # one engine's words, one row
 EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge stops short of each box it joins, written into the model
 
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
+WORD_STEP_OUT = int(DEFAULTS["renderer"]["word-step-out"])  # how much further a pill beside a short line may step out to find free room
 
 LABEL_LEGEND = {
     "pill": f"label: {DEFAULTS['renderer']['edge-label-legend-pill']}",

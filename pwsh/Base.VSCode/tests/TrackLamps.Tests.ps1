@@ -198,6 +198,21 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
             Should -Be 'svg'
         @($menu.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' })) |
             Should -HaveCount 1 -Because 'the languages button shows once'
+        # The row reads by group number: filters in declared order, then the language lamps, then the button, however many lamps there are.
+        $order = {
+            param($Items)
+            @($Items.ForEach({ [int]($_['group'] -replace '^navigation@') }) | Sort-Object -Unique)
+        }
+        $filterOrder = & $order @($menu.Where({ $_['command'] -match $pattern }))
+        $languageOrder = & $order @($menu.Where({ $_['command'] -like 'catzc.lamps.lang-*' }))
+        $buttonOrder = & $order @($menu.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' }))
+        $filterOrder.Count | Should -Be $script:declared.Count -Because 'each filter lamp has one place, in declared order'
+        $filterOrder[-1] | Should -BeLessThan $languageOrder[0] -Because 'every filter lamp stands left of the first language lamp'
+        $languageOrder[-1] | Should -BeLessThan $buttonOrder[0] -Because 'the languages button stands right of the last language lamp'
+        foreach ($name in $script:declared) {
+            $place = [int]($menu.Where({ $_['command'] -ceq "catzc.lamps.$name.veto" })[0]['group'] -replace '^navigation@')
+            $place | Should -Be $filterOrder[[array]::IndexOf(@($script:declared), $name)] -Because "$name sits at its declared position"
+        }
         foreach ($command in $next) {
             $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/',
                         '')) -Raw)

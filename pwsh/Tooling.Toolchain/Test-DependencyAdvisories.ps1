@@ -51,7 +51,12 @@ function Test-DependencyAdvisories {
         foreach ($entry in @($result.packages | Where-Object { $_ })) {
             $packages++
             foreach ($vulnerability in @($entry.vulnerabilities | Where-Object { $_ })) {
-                $issues.Add("$($entry.package.name) $($entry.package.version) ($($entry.package.ecosystem)): $($vulnerability.id) $($vulnerability.summary) — raise the pin past the fixed version")
+                # summary is optional on an advisory; the first line of its details names it when it has none.
+                $text = $vulnerability.PSObject.Properties['summary']?.Value
+                if (-not $text) {
+                    $text = ([string] $vulnerability.PSObject.Properties['details']?.Value -split '\r?\n')[0].Trim()
+                }
+                $issues.Add("$($entry.package.name) $($entry.package.version) ($($entry.package.ecosystem)): $($vulnerability.id) $text — raise the pin past the fixed version")
             }
         }
     }

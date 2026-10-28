@@ -53,16 +53,21 @@ engine).
 
 ## Open steps
 
-- [ ] The cycle: the agent greets the user, the user names a slide and nothing else, the agent reads it, decides every fix, lands it,
-      redraws and reports "I spotted: ..." with what changed; the next pasted name is the acceptance, a sentence from the user overrides the
-      decision it names. Check: each landed fix leaves its slide re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean
-      over every diagram redrawn.
+- [ ] The cycle, autonomous (the user, 2026-10-28): review rounds find, the agent groups the findings by cause (engine or router in
+      `python/diagrams/`, language in `python/diagrams/configs/drawio.yml`, one declaration), decides and lands each fix engine-first,
+      redraws the affected pngs with `Build-Diagrams`, looks at two or three of them itself, and adds each fix to the veto list
+      `out/diagram-review-findings.md` (what, why, which pngs, how to revert); the user vetoes afterwards, and a veto is the next step's
+      source. Check: each landed fix leaves its pngs re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean over every
+      diagram redrawn.
 - [ ] Haiku review rounds of every rendered png, batches of 10 in repository order, skipping the glyph legend: one haiku per png reports (a)
       straight vs diagonal arrows and which box to move, (b) the "Where does it live?" rows verbatim, drawn boxes with no row, rows that
       match nothing drawn, and order; the dotted row form is fixed, so reviewers never propose full paths. Batch 1 (10) ran before the six
       minimap/router fixes; restart from batch 1 on the fresh renders. Round 1 over all 570 pngs is complete: about 224 diagonal pngs, 119
       title-mismatch pngs, 9 place-count mismatches, 13 missing "Where" panels, about 45 chip, clip, typo or count findings, 38 tilted
       renders; by root cause in out/diagram-findings.md, and the next round covers only what it lists as unchecked (rows and titles on lines
-      181-570). Check: a per-diagram list per batch, each next batch's brief sharpened from the last, and (n) the drawn title matches the
-      file topic. Check: `Test-Diagrams` clean over the tree, and a re-run haiku review of a 30-png sample reports no diagonal between
-      aligned boxes, no mark over a label or tag, and rows that sum to their counter.
+      181-570). Re-checked 2026-10-28 (out/diagram-review-findings.md): diagonals, deck titles, chips and place counts are cleared or by
+      construction; the pill step-out (`word-step-out`) cut bare words from 35 diagrams to 7, and the next cause is the bare-word finding
+      with the two declarations whose bare word stands on a box (four-domains-promote-one-artifact,
+      three-gates-check-registry-drift-membership). Check: a per-diagram list per batch, each next batch's brief sharpened from the last,
+      and (n) the drawn title matches the file topic. Check: `Test-Diagrams` clean over the tree, and a re-run haiku review of a 30-png
+      sample reports no diagonal between aligned boxes, no mark over a label or tag, and rows that sum to their counter.

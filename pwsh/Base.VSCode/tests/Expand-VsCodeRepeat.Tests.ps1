@@ -39,6 +39,18 @@ Describe 'Expand-VsCodeRepeat' -Tag 'L0', 'logic' {
         $expanded.Contains('repeat') | Should -BeFalse
     }
 
+    It 'fills the zero-padded order so a tenth item sorts after the ninth' {
+        $contributes = [ordered]@{
+            repeat = [ordered]@{ widget = [ordered]@{ config = 'widgets'; list = 'widgets'; key = 'name'; first = @(3..10 | ForEach-Object { [ordered]@{ name = "w$_" } }) } }
+            menus  = [ordered]@{ 'view/title' = @([ordered]@{ repeat = 'widget'; command = 'widget.{widget}'; group = 'navigation@1{widget.order}' }) }
+        }
+        $groups = @((& $script:expand $contributes)['menus']['view/title']).ForEach({ $_['group'] })
+        $groups[0] | Should -Be 'navigation@1001'
+        $groups[9] | Should -Be 'navigation@1010'
+        $groups[9] | Should -Not -Be $groups[0]
+        ($groups | ForEach-Object { [int]($_ -replace '.*@') }) | Should -Be (@($groups | ForEach-Object { [int]($_ -replace '.*@') } | Sort-Object))
+    }
+
     It 'keeps only the items that carry the where field, numbering the kept ones' {
         $contributes = [ordered]@{
             repeat   = [ordered]@{ gadget = [ordered]@{ config = 'gadgets'; list = 'gadgets'; key = 'name'; title = 'tag'; where = 'tag' } }

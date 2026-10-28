@@ -38,56 +38,54 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
      new home, which clears the registry's coverage and the seven dead `policy_*` entries the uncommitted tree shows.
 2. One ci-pwsh pipeline run, now that `.ado/pipelines/steps/cache-types.yaml` is committed (the types cache). Check: the second run of a job
    restores the types cache (Cache@2 "Cache restored") and skips the DLL build.
-3. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
-   Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its decision record and the
-   log shows colours, not escape codes. In the same reload (plan-language-lamps step 5): rebuild and install `catzc-track-lamps`, press the
-   languages button, tick two languages, put one out, veto the other, untick both. Check: each lamp appears, lights, vetoes and disappears
-   with no reload.
-4. plan-vscode-session-binding: when the PowerShell extension's session hangs again, run `Get-VsCodeSession` in a sibling terminal of the
+3. plan-vscode-session-binding: when the PowerShell extension's session hangs again, run `Get-VsCodeSession` in a sibling terminal of the
    hung session and paste its one line to a session. Check: the line names the session's types binding; a day in VS Code without a hang
    closes the plan.
-5. The flow lens's live occupants: `Update-AdoFlowOccupants docs/explanation/flow/.assets/ci-pwsh-to-deploy-apex.drawio.yml`, signed in to
+4. The flow lens's live occupants: `Update-AdoFlowOccupants docs/explanation/flow/.assets/ci-pwsh-to-deploy-apex.drawio.yml`, signed in to
    ADO. Check: the file's `about.occupants` names each `apex-<rung>` environment with a commit, and `Build-Diagrams` draws them in the
    rhombi.
-6. One ci-infrastructure pipeline run, now that it installs the pinned bicep before `Build-Bicep` (the build no longer goes through
+5. One ci-infrastructure pipeline run, now that it installs the pinned bicep before `Build-Bicep` (the build no longer goes through
    `az bicep`). Check: the "Install-Bicep" step reports Bicep CLI 0.48 and the three Build-Bicep steps pass.
-7. One `Deploy-Bicep` of `foundation` or `expedition` to a non-production slot, now that the resource groups carry the CAF tags. Check:
+6. One `Deploy-Bicep` of `foundation` or `expedition` to a non-production slot, now that the resource groups carry the CAF tags. Check:
    `az group show --name <group> --query tags` lists the six CAF keys of the slot's `tags` parameter, and
    `az policy state list --subscription <id> --filter "policyAssignmentName eq '<the slot's -tag-pa name>'" --query "[?complianceState=='NonCompliant'].resourceId"`
    lists no resource. Once the hub firewall is deployed, in a hub slot also check that
    `az network firewall show -g <group> -n <the -afw name> --query "ipConfigurations[0].privateIPAddress"` equals the hub's
    `firewall_private_ip` in network.yml (the derived address the spoke routes use), and try the regional Storage tag (for example
    `Storage.WestEurope`) in the policy's egress rule, confirming storage egress still works, for the open regional-tag step.
-8. Optional: the old mixed-case provenance tags (`Deployed_From_Commit`, `_BuildId`, `_Branch`, and `<template>_Deployed_From_*` on a
+7. Optional: the old mixed-case provenance tags (`Deployed_From_Commit`, `_BuildId`, `_Branch`, and `<template>_Deployed_From_*` on a
    subscription) stay on what was deployed before the rename to `deployed-from-*`. List them with
    `az tag list --resource-id /subscriptions/<id>[/resourceGroups/<group>]`, and remove each with
    `az tag update --resource-id <id> --operation Delete --tags "<key>=<its listed value>"`. Check: the `az tag list` shows only lowercase
    keys.
-9. One ci-pwsh run on a branch that plants a fake cloud access key in a tracked file. Check: the run fails on the
+8. One ci-pwsh run on a branch that plants a fake cloud access key in a tracked file. Check: the run fails on the
    `Test-SecretScan (real tree)` integrity test, naming the file and line; delete the branch after.
-10. The DORA delivery metrics, live: `Get-AdoDeliveryMetrics -Days 90 | Format-Table`, signed in to ADO. Check: one row per deployable unit,
-    each with Deployments and DeploymentsPerDay, and LeadTimeHours, ChangeFailRate and RecoveryHours where its production environment saw
-    deployments.
-11. `Install-OsvScanner`, then `Test-DependencyAdvisories`. Check: the install reports osv-scanner at the `tools.yml` pin (2.0), the entry's
-    `version_pattern` matches the real `osv-scanner --version` output, and the scan completes with its report. A mismatch in the winget id,
-    the pin or the pattern is fixed in the `osv_scanner` entry of `tools.yml`.
-12. One live break-glass rotation: `Invoke-BreakGlassRotation dev -Customer apex -DryRun`, then without `-DryRun`, signed in with `az` to
-    the apex non-production subscription; then queue `cron-break-glass-rotation` once by hand in ADO. Check: the dry run names the server,
-    vault and secret; the real run reports "Rotated the break-glass password"; the secret's version in the vault is new; a sign-in with the
-    new password works; and the login alert fires to `owner-alerts` within ten minutes of that sign-in.
-13. The service connections, live: `Get-BicepServiceConnections | Sync-AdoServiceConnections -DryRun`, then without `-DryRun`, signed in to
-    ADO as a project administrator who may create Entra app registrations; then `Get-BicepServiceConnections | Test-AdoServiceConnections`.
-    Check: the dry run lists the 16 connections `Get-BicepServiceConnections` derives from `service-connections.yml` with their actions, the
-    sync reports each `Create`, `Update` or `Unchanged`, a CD run still deploys through its connection, and `Test-AdoServiceConnections`
-    reads 0 issues: no connection holds a stored secret.
-14. The L3 system test, signed in to a non-production subscription (`az login`, then `Set-AzCliSubscription` to it):
+9. The DORA delivery metrics, live (read-only; the agent could not run it, `az` is not on its PATH, so no sign-in):
+   `Get-AdoDeliveryMetrics -Days 90 | Format-Table`, signed in to ADO. Check: one row per deployable unit, each with Deployments and
+   DeploymentsPerDay, and LeadTimeHours, ChangeFailRate and RecoveryHours where its production environment saw deployments.
+10. `Test-DependencyAdvisories` now scans (pin 2.7, 120 s limit) but throws "The property 'summary' cannot be found on this object" at
+    `$vulnerability.summary` in `pwsh/Tooling.Toolchain/Test-DependencyAdvisories.ps1`: an OSV record without `summary` (it carries
+    `details`), so the scan found at least one vulnerability. Read the property optionally, then re-run. Check: the scan completes with its
+    report and findings count.
+11. One live break-glass rotation, signed in with `az` to the apex non-production subscription: first
+    `Invoke-BreakGlassRotation dev -Customer apex -DryRun` (the agent could not run it, `az` is not on its PATH), then without `-DryRun`;
+    then queue `cron-break-glass-rotation` once by hand in ADO. Check: the dry run names the server, vault and secret; the real run reports
+    "Rotated the break-glass password"; the secret's version in the vault is new; a sign-in with the new password works; and the login alert
+    fires to `owner-alerts` within ten minutes of that sign-in.
+12. The service connections, live, signed in to ADO as a project administrator who may create Entra app registrations (the agent could not
+    run the dry run or the test, `az` is not on its PATH): `Get-BicepServiceConnections | Sync-AdoServiceConnections -DryRun`, then without
+    `-DryRun`; then `Get-BicepServiceConnections | Test-AdoServiceConnections`. Check: the dry run lists the 16 connections
+    `Get-BicepServiceConnections` derives from `service-connections.yml` with their actions, the sync reports each `Create`, `Update` or
+    `Unchanged`, a CD run still deploys through its connection, and `Test-AdoServiceConnections` reads 0 issues: no connection holds a
+    stored secret.
+13. The L3 system test, signed in to a non-production subscription (`az login`, then `Set-AzCliSubscription` to it):
     `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Deploy-Bicep.L3.Tests.ps1 -MaxLevel 3`. It deploys each resource-group template's
     non-production base slot on that subscription again as the ephemeral slot `l3`, checks the group's CAF and deployed-from tags, and
     deletes the group. Check: the result reads 0 failures, and `Test-BicepOrphans` then lists no `-l3-` group.
-15. Review the stacked role assignments before the first live deploy: `Get-BicepRoleAssignmentPlan` for discovery (readers, operators with
-    the rbac-administrator condition) and expedition (its three data-role assignments). Check: every assignment reads as intended, or the
-    change you want lands as a plan step.
-16. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+14. Review the stacked role assignments before the first live deploy (read-only; not run by the agent, no sign-in):
+    `Get-BicepRoleAssignmentPlan` for discovery (readers, operators with the rbac-administrator condition) and expedition (its three
+    data-role assignments). Check: every assignment reads as intended, or the change you want lands as a plan step.
+15. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report
