@@ -74,13 +74,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### Roll off, roll on
 
-- [x] `Sync-GeneratedFile` calls `Assert-GeneratedStaysCommitted` before `Invoke-GitCommit`. Check: `Sync-GeneratedFile.Tests.ps1` passes
-      with a case where a refusing guard stops the commit.
-- [ ] A python-test gate runs `python/diagrams/tests` on named paths, and the `flow_glyphs.py` row in
-      `pwsh/Base.Slides/configs/generated.yml` names it in place of `Test-Automation`. Check: the gate's Pester test passes and
-      `Test-GeneratedFiles` reports 0 issues.
-- [ ] The committed `types.json` files carry the stamp: `Sync-TypesContract -Force` from a fresh import. Check: `Test-Contracts` and
-      `Test-FileMeta` report 0 issues.
 - [ ] Every commit runs the guard: the user installs the pre-commit hook (task-user-runs-and-commits item 16). Check: that item's refused
       commit.
 - [ ] The round trip on the real tree: `Remove-Generated`, `Restore-Generated`, `git status --porcelain` empty. Check: the user's full run.
