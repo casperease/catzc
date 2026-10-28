@@ -11,25 +11,29 @@ Lists every file a generator of this repository writes, with the command that wr
 
 ### description
 
-The targets come from the registries that declare them: the opted-in root configs of rootconfig.yml, the READMEs readme.yml names, and every
-other generator's targets as its module's generated.yml declares them.
+The targets come from the one writer registry, the rows of every module's generated.yml
+([ADR-REPO-ROOTCFG-ONECLASSPERWRITER](../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-oneclassperwriter)). A row
+answers its own outputs, unless it expands its instances from a config, which then answers them: the opted-in root configs of
+rootconfig.yml, the READMEs readme.yml names. Each target carries the class of the row it answers from.
 
 ### outputs
 
-`[Catzc.Base.Variants.GeneratedTarget]` one per target: its path or glob and its generator.
+`[Catzc.Base.Variants.GeneratedTarget]` one per target: its path or glob, its generator and its writer's class.
 
 ## Sources
 
-- **Root configs** — each opted-in `rootconfig.yml` target, by its generator. A target copied from its source asset names no generator of
-  its own; `Build-RootConfig` is what writes it.
-- **READMEs** — the files `readme.yml` names.
-- **Every other generator** — the targets its module's `generated.yml` declares.
+- **A writer row** — the outputs it declares, in its class.
+- **rootconfig** — each opted-in `rootconfig.yml` target, by its generator. A target copied from its source asset names no generator of its
+  own; `Build-RootConfig` is what writes it. A generator with a row of its own (`New-GitAttributes`) gives its target that row's class, and
+  the config still answers its path, once.
+- **readme** — the files `readme.yml` names, by the row that expands it.
+- **comment-pages** — no target, since a comment page is authored.
+- Any other `expands` value throws, naming the writer.
 
 ## comment:1
 
-Above `foreach ($owner in @(Get-Config -Config generated -ListOwners)) {`, written with `#`.
+Above `$rows = @(foreach ($owner in @(Get-Config -Config generated -ListOwners)) {`, written with `#`.
 
 ```text
-Every other writer's outputs, each row declared once in its module's generated.yml; a row that expands its
-instances from a config of its own is answered above.
+Every writer row, each declared once in its module's generated.yml.
 ```
