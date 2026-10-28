@@ -49,8 +49,6 @@ function New-GitAttributes {
         }
     }
 
-    # What is generated has one source, its writer's row: every output of a tracked writer whose outputs are its files, then every committed
-    # root config; a writer that expands its instances from another config names places there, never files.
     $generatedPlaceholder = '{{generated-files}}'
     if (@($template -split "`n" | Where-Object { $_ -eq $generatedPlaceholder }).Count -ne 1) {
         throw "The .gitattributes template must hold the line '$generatedPlaceholder' exactly once: $templatePath"

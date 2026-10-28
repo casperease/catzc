@@ -24,3 +24,12 @@ This is a pure renderer: it returns the content and writes nothing — it is the
 ### outputs
 
 `[string]` The rendered .gitattributes content (LF-joined; the writer canonicalises).
+
+## comment:1
+
+Above `$generatedPlaceholder = '{{generated-files}}'`, written with `#`.
+
+```text
+What is generated has one source, its writer's row: every output of a tracked writer whose outputs are its files, then every committed
+root config; a writer that expands its instances from another config names places there, never files.
+```

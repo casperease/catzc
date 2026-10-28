@@ -74,9 +74,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### One registry
 
-- [ ] `pwsh/Base.GeneratedFiles/configs/generated-files.yml` is deleted and every reader (`Test-GeneratedFiles`, `Get-GeneratedWriterDue`,
-      `Build-TrackGlobSets`, `Build-RootConfig`'s `.gitattributes` render) reads the one registry in the same change, by staged burst
-      (import path). Check: `Test-GeneratedFiles` reports 0 issues in a fresh import.
 - [ ] `pwsh/Base.Variants/Get-GeneratedTarget.ps1` answers from the one registry; `.gitattributes` `linguist-generated` lines then cover the
       images, and `New-GitAttributes` gains its `Base.RootConfig` row (import-critical, `.gitattributes`), since until then `rootconfig.yml`
       already emits that target and `Get-GeneratedTarget.Tests.ps1` fails a second answer; `Build-TrackGlobSets` keeps excluding only

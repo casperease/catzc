@@ -1,6 +1,7 @@
-# pwsh/Base.GeneratedFiles/private/Get-GeneratedWriterOrder.ps1
+# pwsh/Base.GeneratedFiles/Get-GeneratedWriterOrder.ps1
 
-The private function that reads every module's writer rows and answers them in the order they render in.
+The command that reads every module's writer rows and answers them in the order they render in: the one reading of the writer registry that
+the due judgement, the generated-files gate, the `.gitattributes` render and the import janitors share.
 
 ## help
 
@@ -10,7 +11,7 @@ The writer rows of every module's generated.yml, in render order.
 
 ### description
 
-Reads the `generated` config of every module that owns one and hands the rows to `GeneratedFilesConfig.RenderOrder`, which sorts them by
+Reads the `generated` config of every module that owns one and hands the rows to `GeneratedWriterGraph.RenderOrder`, which sorts them by
 their input and output globs: a writer comes after every writer one of whose output globs overlaps one of its input globs, and writers that
 wait on nothing come by name. A writer whose own output matches its own input is no edge. A cycle between writers throws, naming them
 (ADR-REPO-ROOTCFG-DERIVEDRENDERORDER).
