@@ -167,7 +167,9 @@ stages:
                               'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{
                               d.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
-  # A second nesting level (ADR-ADO-TEMPLATE-MINIMALNESTING), taken only to keep this file under the config line limit.
+  # A second nesting level
+  # ([ADR-ADO-TEMPLATE-MINIMALNESTING](/docs/drs/ado/custom-template-discipline.md#rule-adr-ado-template-minimalnesting)), taken only to
+  # keep this file under the config line limit.
   - ${{ if gt(length(parameters.Expeditions), 0) }}:
       - template: /.ado/pipelines/stages/deploy-expedition.yaml
         parameters:

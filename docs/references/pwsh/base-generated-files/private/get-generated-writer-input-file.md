@@ -12,7 +12,7 @@ The files and folders on disk that generated-file writers' input globs can claim
 ### description
 
 A literal glob is one existence check. A wildcard glob walks its literal folder with Get-ChildPath, as deep as its segments reach, or
-input_depth of generated-files.yml for a '**' glob; only a glob with no literal folder walks the repository root. A folder that an
+`GeneratedWriterGraph.InputDepth` (16) for a '**' glob; only a glob with no literal folder walks the repository root. A folder that an
 ancestor's walk already reaches is not walked again, and every glob of the call shares the result.
 
 ### parameter `InputGlob`

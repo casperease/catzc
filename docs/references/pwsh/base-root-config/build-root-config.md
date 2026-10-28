@@ -86,5 +86,5 @@ reach the file it points at, so the link is deleted first and the copy is writte
 
 ## Skipping a whole run
 
-A whole run is skipped when nothing it declares as an input in `generated-files.yml` (its generators, sources and targets) changed since its
-last run: the one writer memo every generated-file writer reads.
+A whole run is skipped when nothing it declares as an input in its writer row of `generated.yml` (its generators, sources and targets)
+changed since its last run: the one writer memo every generated-file writer reads.

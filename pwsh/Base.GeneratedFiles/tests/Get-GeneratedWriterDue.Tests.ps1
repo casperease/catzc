@@ -19,12 +19,11 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
             [void] [System.IO.Directory]::CreateDirectory((Split-Path $full))
             [System.IO.File]::WriteAllText($full, $Text)
         }
-        # One judgement; -Changed is the git changed set, given so no test reads git.
+        # One judgement over the fixture tree and memo.
         $script:run = {
-            param([string[]] $Changed = @())
-            InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Changed = $Changed; Memo = $script:memo } {
-                param($Root, $Changed, $Memo)
-                Get-GeneratedWriterDue -ChangedPath $Changed -RepositoryRoot $Root -MemoPath $Memo
+            InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Memo = $script:memo } {
+                param($Root, $Memo)
+                Get-GeneratedWriterDue -RepositoryRoot $Root -MemoPath $Memo
             }
         }
         # Stores a writer's stamp, as the importer does once the writer ran.
@@ -64,13 +63,15 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     It 'is not due when only an output changed' {
         & $script:ran 'Build-Widget'
         & $script:write 'docs/index.md' 'widget, edited'
-        & $script:due @(& $script:run @('docs/index.md')) 'Build-Widget' | Should -BeFalse
+        & $script:due @(& $script:run) 'Build-Widget' | Should -BeFalse
     }
 
-    It 'is due when a commit changed an input and git shows no diff' {
+    It 'is due when a commit changed an input, and never reads git' {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles { }
         & $script:ran 'Build-Widget'
         & $script:write 'widget/spin.txt' 'gadget, pulled'
-        & $script:due @(& $script:run @()) 'Build-Widget' | Should -BeTrue
+        & $script:due @(& $script:run) 'Build-Widget' | Should -BeTrue
+        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles -Times 0 -Exactly
     }
 
     It 'is due when an ignored target it declares as an input drifted' {
@@ -90,7 +91,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     It 'is not due when the same files carry the stamp stored at the last run' {
         & $script:ran 'Build-Widget'
         & $script:ran 'Build-Sprocket'
-        $rows = @(& $script:run @('widget/spin.txt'))
+        $rows = @(& $script:run)
         & $script:due $rows 'Build-Widget' | Should -BeFalse
         & $script:due $rows 'Build-Sprocket' | Should -BeFalse
     }
@@ -102,23 +103,22 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run) 'Build-Widget' | Should -BeTrue
     }
 
-    It 'is due when an output named without a wildcard is missing, whatever changed' {
+    It 'is due when an output named without a wildcard is missing, with its stamp current' {
         & $script:ran 'Build-Gadget'
-        & $script:due @(& $script:run @('unrelated/b.txt')) 'Build-Gadget' | Should -BeTrue
+        & $script:due @(& $script:run) 'Build-Gadget' | Should -BeTrue
     }
 
-    It 'emits one typed record per writer, in the render order of the registry, each declaring its lists' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
-        $rows = @(& $script:run @())
+    It 'emits one typed record per writer, in the render order of the registry' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
+        $rows = @(& $script:run)
         $rows | Should -HaveCount 5
         $rows[0] | Should -BeOfType [Catzc.Base.GeneratedFiles.GeneratedWriterDue]
         @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Sprocket', 'Build-Cog', 'Build-Gizmo')
-        @($rows | Where-Object { -not $_.HasLists }) | Should -HaveCount 0
     }
 
     It 'judges only the writers it is named, and stores the stamp of a named writer only' {
         $rows = @(InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Memo = $script:memo } {
                 param($Root, $Memo)
-                Get-GeneratedWriterDue -Name 'Build-Gadget' -ChangedPath @() -RepositoryRoot $Root -MemoPath $Memo
+                Get-GeneratedWriterDue -Name 'Build-Gadget' -RepositoryRoot $Root -MemoPath $Memo
             })
         @($rows.Name) | Should -Be @('Build-Gadget')
         { & $script:ran 'Build-Widgets' } | Should -Throw "*'Build-Widgets' is not a writer of any module's generated.yml*"

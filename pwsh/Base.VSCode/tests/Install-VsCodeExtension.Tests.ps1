@@ -22,7 +22,7 @@ Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
         Mock Build-VsCodeExtension -ModuleName Catzc.Base.VSCode { "$Path.vsix" }
         Mock Invoke-Executable -ModuleName Catzc.Base.VSCode { }
         # The folder writer's stamp is the generated-writer memo's; each case says whether it reads current.
-        Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.VSCode { [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new('New-VsCodeExtensionFolder', -not $script:current, $true) }
+        Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.VSCode { [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new('New-VsCodeExtensionFolder', -not $script:current) }
         Mock Save-GeneratedWriterStamp -ModuleName Catzc.Base.VSCode { }
     }
 

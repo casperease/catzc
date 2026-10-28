@@ -75,8 +75,8 @@ Started 2026-10-27T19:34:23.5689120+01:00.
   says Get-TrackedFile names the tracked universe, so untracked new pages and uncommitted files read red, and no skill says so.
 - 2026-10-27 Jack: If only the rebuild-hash tests knew about bursts: gap, nothing in the tree, a peer swap between their two live-tree
   builds still fails them with no code fault.
-- 2026-10-27 Jack: If only the rename author had grepped every reader and spelling before the first burst: gap, nothing in the tree, no skill line
-  asks for a reader sweep of a renamed key, token or type before staging.
+- 2026-10-27 Jack: If only the rename author had grepped every reader and spelling before the first burst: gap, nothing in the tree, no
+  skill line asks for a reader sweep of a renamed key, token or type before staging.
 - 2026-10-27 Jack: If only the namespace learner had looked once: automated, Test-TrackNamespace holds the declared exemptions
   (`docs/references/pwsh/base-quality-gates/test-track-namespace.md`) and VariantTrack.FolderNameOf applies to source roots only.
 - 2026-10-27 Jack: If only the importer had waited for the swap: automated, `pwsh/.internal/assets/Enter-CatzcBurst.ps1:86` makes every

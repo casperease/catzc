@@ -10,8 +10,8 @@ function Test-WriterDue {
     )
 
     $found = @($Row | Where-Object { $null -ne $_ -and $_.Name -ceq $Name })
-    # A writer with no row, or none declaring lists, runs as it always has.
-    if ($found.Count -eq 0 -or -not $found[0].HasLists) {
+    # A writer with no row runs, as every writer does when the due rows cannot be read.
+    if ($found.Count -eq 0) {
         return $true
     }
     [bool] $found[0].Due

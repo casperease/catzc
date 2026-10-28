@@ -27,8 +27,8 @@ so it is not a queue.
 
 ## Caption
 
-Reduced: six pipeline shapes, each a run of the promotion ladder in which BVT is the one gate that is code; every state a commit reaches can be
-discarded.
+Reduced: six pipeline shapes, each a run of the promotion ladder in which BVT is the one gate that is code; every state a commit reaches can
+be discarded.
 
 ## Notes
 

@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/Get-GeneratedWriterOrder.ps1
 
 The command that reads every module's writer rows and answers them in the order they render in: the one reading of the writer registry that
-the due judgement, the generated-files gate, the `.gitattributes` render and the import janitors share.
+the due judgement, `Test-GeneratedFiles`, the `.gitattributes` render and the import janitors share.
 
 ## help
 

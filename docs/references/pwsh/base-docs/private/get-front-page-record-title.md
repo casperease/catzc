@@ -10,8 +10,8 @@ Returns a record's title without its leading kind or code, capitalised.
 
 ### description
 
-Reads the record's first `# ` heading, drops everything up to the first `: `, and capitalises the first letter. A record with no title
-throws.
+Reads the record's first level-one heading, drops everything up to the first colon and its space, and capitalises the first letter. A record
+with no title throws.
 
 ### parameter `RecordPath`
 

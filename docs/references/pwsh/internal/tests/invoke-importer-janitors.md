@@ -1,6 +1,6 @@
 # pwsh/.internal/tests/Invoke-ImporterJanitors.Tests.ps1
 
-The tests of the build janitors the importer runs and of the writers list they read from `generated-files.yml`.
+The tests of the build janitors the importer runs and of the writer rows they read from the modules' `generated.yml`.
 
 ## The registry
 

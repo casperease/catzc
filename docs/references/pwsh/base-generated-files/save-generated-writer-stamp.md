@@ -16,7 +16,7 @@ and has just written is part of it. The import janitor calls it after each write
 
 ### parameter `Name`
 
-The writer, as generated-files.yml names it. A name the file does not declare throws.
+The writer, as a writer row of a module's `generated.yml` names it. A name no row declares throws.
 
 ### parameter `RepositoryRoot`
 

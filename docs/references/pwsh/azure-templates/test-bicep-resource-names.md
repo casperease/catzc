@@ -27,8 +27,8 @@ The keys of a names entry, each a closed set where it names a choice:
   network.yml's `no_nsg_subnets` lists.
 - `each: subscription` with `names`: the parameter is an array of items, or one object, each naming another slot of this template by its
   subscription. The slot writes the items' subscriptions, and each name under `names` is derived per item. An item name takes `type`, `role`
-  or `role_from: customer_shortcode` (the customer shortcode of the item's slot), and `from: item` (the default: the item's slot renders it) or
-  `from: self` (the slot holding the list renders it).
+  or `role_from: customer_shortcode` (the customer shortcode of the item's slot), and `from: item` (the default: the item's slot renders it)
+  or `from: self` (the slot holding the list renders it).
 
 ### parameter `Template`
 

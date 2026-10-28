@@ -49,9 +49,9 @@ selects only that generator's files.
 ### parameter `Changed`
 
 Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift -Changed),
-and a writer's dry run runs only when a changed path matches the inputs or outputs globs of its generated-files.yml entry; a writer with
-neither list runs whenever anything changed, and with nothing changed no writer runs. Catches a hand edit of a generated file and a
-generator change whose output was not re-rendered.
+and a writer's dry run runs only when Get-GeneratedWriterDue says it is due, by a missing output or a changed stamp of the inputs of its
+writer row. Catches a hand edit of a generated file and a generator change whose
+output was not re-rendered.
 
 ### parameter `StampOnly`
 
@@ -84,8 +84,8 @@ Test-GeneratedFiles
 
 ## Writers
 
-Each registered writer is run by its check. The registry (`generated-files.yml`) says which check, and for a file result which property
-holds the path. The list is wrapped in `@()` as a whole so that an empty list stays an array under strict mode.
+Each registered writer is run by its check. The registry (the writer rows of the modules' `generated.yml`) says which check, and for a file
+result which property holds the path. The list is wrapped in `@()` as a whole so that an empty list stays an array under strict mode.
 
 ## Changed only
 

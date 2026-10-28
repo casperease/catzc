@@ -59,8 +59,8 @@ the head:
 - **`module`, `moduletype`, `catzc_bundle`**: the module-types and exporter registries
 - **`visibility`**: the module's `private/` folder
 - **`repo_status`**: the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written
-- **`generator`, `source`**: the writer registry `generated-files.yml`, on demand and never written into a head; a generated file is told by
-  it and `linguist-generated`
+- **`generator`, `source`**: the writer registry (each module's `generated.yml`), on demand and never written into a head; a generated file
+  is told by it and `linguist-generated`
 - **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`; an authored file
   carries none
 - **`defines`, `links`**: the Markdown body
@@ -80,7 +80,7 @@ statement of it that can drift. These keys are never written into a head; each s
 
 - **`repo_status`**
   - Meaning: whether the file is generated (`locked`, edit its source) or authored, and its git state
-  - Derived on demand by: `Get-RepoStatus`; the generated class from `generated-files.yml` and `file-kinds.yml`
+  - Derived on demand by: `Get-RepoStatus`; the generated class from the writer rows of `generated.yml` and `file-kinds.yml`
 - **`path`**
   - Meaning: the repository-relative path of the file
   - Derived on demand by: the path itself

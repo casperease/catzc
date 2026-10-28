@@ -16,4 +16,4 @@ A root-file generator is named by an opted-in entry of the root-config registry,
 
 ### outputs
 
-`[string[]]` The writer names of generated-files.yml, then the distinct generator names of rootconfig.yml.
+`[string[]]` The writer names of the registry (Get-GeneratedWriterOrder), then the distinct generator names of rootconfig.yml.

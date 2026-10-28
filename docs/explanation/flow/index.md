@@ -22,7 +22,7 @@ One artifact is built once and climbs to production unchanged
 | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | meta           | [One artifact is built once and climbs to production unchanged](one-artifact-climbs-unchanged.md)                       |
 | architecture   | [CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](pipeline-kinds-keyed-by-one-artifact.md) |
-| implementation | [The customer CD pipeline builds once, then deploys non-prod only](cd-builds-once-then-deploys-non-prod.md)              |
+| implementation | [The customer CD pipeline builds once, then deploys non-prod only](cd-builds-once-then-deploys-non-prod.md)             |
 | operations     | [A merge to main runs the CD pipeline through non-prod and stops there](a-merge-runs-cd-through-non-prod.md)            |
 | governance     | [The CI budget is the only promotion rule a quality gate checks](ci-budget-is-the-only-quality-gate.md)                 |
 | flow           | [A pwsh commit runs CI, is certified by CD, and deploy climbs the gated rungs](ci-pwsh-to-deploy-apex.md)               |
@@ -32,8 +32,7 @@ The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual
 
 ## The pipeline runner
 
-A pipeline step only names a command that a developer can run locally
-([pipeline-runner-pattern](../../drs/ado/pipeline-runner-pattern.md)).
+A pipeline step only names a command that a developer can run locally ([pipeline-runner-pattern](../../drs/ado/pipeline-runner-pattern.md)).
 
 - **meta**: [A pipeline step only names a command that a developer can run locally](a-step-only-names-a-command.md)
 - **architecture**: [The runner is the only seam from pipeline YAML into PowerShell](the-runner-is-the-only-seam.md)

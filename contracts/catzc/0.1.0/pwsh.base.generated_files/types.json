@@ -10,10 +10,6 @@
           "kind": "property"
         },
         {
-          "name": "HasLists",
-          "kind": "property"
-        },
-        {
           "name": "Name",
           "kind": "property"
         },

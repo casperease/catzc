@@ -156,7 +156,6 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Get-DrsUsage`                |
 |                                                 | `Measure-QualityGates`        |
 | config                                          | `analyzer-drs-map.yml`        |
-|                                                 | `generated-files.yml`         |
 |                                                 | `source-conventions.yml`      |
 |                                                 | `parameter-consistency.yml`   |
 |                                                 | `plans.yml`                   |

@@ -31,8 +31,8 @@ returned as an object or as JSON, so a tool reads it without PowerShell.
 ### responsibility:2 — Lit cells
 
 Answering "where does this decision, or this change, sit": the cells a record code (or one of its rules) or a set of tracked files lights. A
-record code lights the record files of its domain and every file whose citations name it, derived in a fixed order per artifact kind, and the
-reviewed pins and exceptions in the configuration then apply. With no argument it lights the cells the working tree's changes sit in.
+record code lights the record files of its domain and every file whose citations name it, derived in a fixed order per artifact kind, and
+the reviewed pins and exceptions in the configuration then apply. With no argument it lights the cells the working tree's changes sit in.
 Lighting a cell never changes its file count.
 
 ### responsibility:3 — World-map quality gate
@@ -58,10 +58,10 @@ are configuration with a default declared once on the config type. The bytes dep
 ### responsibility:6 — Minimap data
 
 Computing the data a diagram's minimaps draw, one function per minimap, in the one shape of the minimap contract. A diagram's subject is the
-files its record codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry (the
-rungs, the layers of the records, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and the requested
-code that light it. A caller drawing many diagrams reads the facts of every subject file once and hands them to each minimap, as it does the
-world map. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
+files its record codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry
+(the rungs, the layers of the records, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and
+the requested code that light it. A caller drawing many diagrams reads the facts of every subject file once and hands them to each minimap,
+as it does the world map. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
 
 ## What the module does
 
@@ -77,8 +77,8 @@ responsibility 3 turns that mark into an issue. And every label the map prints n
 ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms)), so responsibility 3 also holds
 the configured labels to the glossary: the renderer of responsibility 5 prints nothing the vocabulary does not define.
 
-Responsibility 2 joins the map to the records. It reads citations from the files' own text, so a file lights for a record when it cites it, and
-the configuration records the reviewed cases where a citation is a passing mention or a drawing needs a cell its files do not cite. The
+Responsibility 2 joins the map to the records. It reads citations from the files' own text, so a file lights for a record when it cites it,
+and the configuration records the reviewed cases where a citation is a passing mention or a drawing needs a cell its files do not cite. The
 module reads the DRS index through [Catzc.Base.Docs](../base-docs/index.md), the tracked files through
 [Catzc.Base.Files](../base-files/index.md), and the globsets through [Catzc.Base.Globs](../base-globs/index.md); it writes its PDFs under
 the output root
@@ -87,9 +87,9 @@ them with its own BCL-only PDF writer.
 
 Responsibility 4 answers the question the world map cannot: where along delivery a decision acts. It reads nothing but the DRS registry,
 where each domain declares its row and a default set of value-chain concerns and a record declares its own only when it differs
-([ADR-REPO-VALUECHAIN-CONCERN][r1]), so its picture is declared, never guessed.
-Its quality gate is a sibling of the world map's rather than a part of it, because the two read different registries and check different
-properties; the labels of both maps share one configuration section and one glossary check.
+([ADR-REPO-VALUECHAIN-CONCERN][r1]), so its picture is declared, never guessed. Its quality gate is a sibling of the world map's rather than
+a part of it, because the two read different registries and check different properties; the labels of both maps share one configuration
+section and one glossary check.
 
 ## Division
 

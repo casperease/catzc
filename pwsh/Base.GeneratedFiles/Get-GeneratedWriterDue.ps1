@@ -4,8 +4,6 @@ function Get-GeneratedWriterDue {
     param(
         [string[]] $Name,
 
-        [string[]] $ChangedPath,
-
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
@@ -16,25 +14,9 @@ function Get-GeneratedWriterDue {
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
     $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($_) }) -RepositoryRoot $RepositoryRoot
     $stamps = Get-GeneratedWriterStamp -Writer @($writers | Where-Object { [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($_).Count -gt 0 }) -Walk $walk -RepositoryRoot $RepositoryRoot
-    $changed = $null
     foreach ($writer in $writers) {
-        $inputs = [Catzc.Base.GeneratedFiles.GeneratedWriterGraph]::Inputs($writer)
-        $outputs = @($writer.outputs | ForEach-Object path)
-        $hasLists = ($inputs.Count + $outputs.Count) -gt 0
-        if (-not $hasLists) {
-            if ($null -eq $changed) {
-                $changed = [string[]] @(if ($PSBoundParameters.ContainsKey('ChangedPath')) {
-                        $ChangedPath
-                    }
-                    else {
-                        Get-GitChangedPath
-                    })
-            }
-            [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $changed.Count -gt 0, $hasLists)
-            continue
-        }
         $due = $false
-        foreach ($output in $outputs) {
+        foreach ($output in @($writer.outputs | ForEach-Object path)) {
             if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and
                 -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $output))) {
                 $due = $true
@@ -44,6 +26,6 @@ function Get-GeneratedWriterDue {
         if (-not $due) {
             $due = $memo[$writer.name] -cne $stamps[$writer.name]
         }
-        [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $due, $hasLists)
+        [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $due)
     }
 }

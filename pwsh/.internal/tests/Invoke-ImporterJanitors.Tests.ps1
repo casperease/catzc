@@ -85,10 +85,9 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         Mock Save-GeneratedWriterStamp { } -ModuleName Catzc.Internal.Importer
         $script:rows = @(
             foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme',
-                'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary') {
-                [pscustomobject]@{ Name = $name; Due = $false; HasLists = $true }
+                'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+                [pscustomobject]@{ Name = $name; Due = $false }
             }
-            [pscustomobject]@{ Name = 'Build-RootConfig'; Due = $false; HasLists = $false }
         )
     }
 
@@ -112,8 +111,17 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         Should -Invoke Build-GitKeep -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
     }
 
-    It 'runs a writer with no lists as it always has, even with nothing changed' {
+    It 'runs no writer when no row is due' {
         Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
+
+        InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors }
+
+        Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'runs a writer the due rows do not name' {
+        Mock Get-GeneratedWriterDue { $script:rows | Where-Object Name -ne 'Build-RootConfig' } -ModuleName Catzc.Internal.Importer
 
         InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors }
 
@@ -122,12 +130,12 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
     }
 
     It 'considers only the writer rows marked at_import, none of its own list' {
+        ($script:rows | Where-Object Name -eq 'Build-Glossary').Due = $true
         Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
         $script:writers['Build-Glossary'].at_import = $false
 
         InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors }
 
-        Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
         Should -Invoke Build-Glossary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
         Should -Invoke Build-EnglishDictionary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }

@@ -74,8 +74,8 @@ Started 2026-10-27T19:36:13.6279071+01:00.
 - 2026-10-27 Jack: If only the token auditor had known live identifiers: half,
   `docs/references/pwsh/base-languages/types/languages-config.md:41` validates extension ids, and the live catzc-x kinds are listed only in
   plan-catzc-cats-usage.
-- 2026-10-27 Jack: If only the fixture rename author had known the prefix is the subject: half, `.claude/skills/catzc-module/SKILL.md:29` asks for
-  neutral widget and gadget names, and nothing says Catzc. and CATZC_ stay where the code under test filters on them.
+- 2026-10-27 Jack: If only the fixture rename author had known the prefix is the subject: half, `.claude/skills/catzc-module/SKILL.md:29`
+  asks for neutral widget and gadget names, and nothing says Catzc. and CATZC_ stay where the code under test filters on them.
 - 2026-10-27 Jack: If only the red baseline had been written down: gap, nothing in the tree records that Test-Glossary and Test-Terminology
   are red on main for reasons of their own.
 - 2026-10-27 Jack: If only the hit grouper had read three hits first: gap, nothing in the tree asks for a token-form grouping and a

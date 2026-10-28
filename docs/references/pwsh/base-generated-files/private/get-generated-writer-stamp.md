@@ -17,7 +17,8 @@ alone, so an empty input set still has a stable stamp.
 
 ### parameter `Writer`
 
-The writer entries, as generated-files.yml declares them: each with its `name` and its `inputs` globs.
+The writer rows, as the `generated.yml` files declare them: each with its `name`, its `inputs` globs and the `inputs` of each of its
+outputs.
 
 ### parameter `Walk`
 

@@ -1,7 +1,7 @@
 # pwsh/Base.GeneratedFiles/tests/Get-GeneratedWriterDue.Tests.ps1
 
 The L0 tests of `Get-GeneratedWriterDue`: they judge neutral widget and gadget writers against a `TestDrive:` tree, a mocked
-`generated-files` config and a memo file.
+`Get-GeneratedWriterOrder` that answers fixture writer rows, and a memo file.
 
 ## Fixtures
 
