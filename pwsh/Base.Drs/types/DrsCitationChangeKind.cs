@@ -6,16 +6,16 @@ public enum DrsCitationChangeKind
     // A rule code a rule-map row moves, ADR-<CODE>-<NAME>.
     Citation,
 
-    // A code a code-map row moves, a record's code or a rule code that extends it.
+    // A code a code-map row moves, an ADR's code or a rule code that extends it.
     Code,
 
-    // A standalone rule anchor, rule-<lower-cased code>-<name>, outside a path.
+    // A standalone rule anchor, rule-adr-<code>-<name>, outside a path.
     Anchor,
 
     // The destination of a markdown link or a code link, (target) or [label]: target.
     Link,
 
-    // A plain path mention of a decision-record file or folder, with any rule anchor it carries.
+    // A plain path mention of an ADR file or folder, with any rule anchor it carries.
     Path,
 
     // An inline citation whose line outgrew the markdown width, respelled as a reference with its definition at the end of the file.

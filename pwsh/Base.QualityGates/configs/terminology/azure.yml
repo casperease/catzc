@@ -103,8 +103,6 @@ terms:
       meaning: "Azure vCore, the virtual-core purchasing model of SQL and Cosmos DB, priced per core"
     - term: pricings
       meaning: "Microsoft.Security/pricings, the Defender for Cloud plan resource type"
-    - term: mcsb
-      meaning: "MCSB, the Microsoft cloud security benchmark"
     - term: azfw
       meaning: "AzureFirewall, as the AZFW prefix of Azure Firewall diagnostic log categories (AZFWNetworkRule)"
     - term: purgeable

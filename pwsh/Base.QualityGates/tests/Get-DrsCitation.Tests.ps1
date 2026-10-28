@@ -68,7 +68,7 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
             Should -Be 0
     }
 
-    It 'ignores a rule heading and the record code of its own ADR in a markdown file' {
+    It 'ignores a rule heading and the record code of its own record in a markdown file' {
         (Get-Codes "### Rule ADR-WIDGET-PART-FOLD`n`nThe ADR-WIDGET-PART decision.`n").Count | Should -Be 0
     }
 
@@ -86,7 +86,7 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
         $codes | Should -Be @('ADR-GADGET-DROP')
     }
 
-    It 'drops a code the index does not register and a rule its ADR does not declare' {
+    It 'drops a code the index does not register and a rule its record does not declare' {
         (Get-Codes "See ADR-UNLISTED-ONE-TWO, ADR-GADGET-SINK and ADR-GADGET-DROP.`n") | Should -Be @('ADR-GADGET-DROP')
     }
 
@@ -99,7 +99,7 @@ Describe 'Get-DrsCitation' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     }
 
     Context 'a code file, whose class the domain classes name' {
-        It 'lists an ADR code beside the rule codes of other ADRs, reading below the head only' {
+        It 'lists a record code beside the rule codes of other records, reading below the head only' {
             $text = "/*`n---`ncatzc:`n  cites:`n    - ADR-HEAD-ONE-TWO`n---`n*/`n`n// ADR-GADGET, ADR-WIDGET-PART-BEND and ADR-WIDGET-TURN`nclass Widget {}`n"
             (Get-CodeCodes $text) | Should -Be @('ADR-GADGET', 'ADR-WIDGET-TURN', 'ADR-WIDGET-PART-BEND')
         }

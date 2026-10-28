@@ -25,7 +25,7 @@ Describe 'Get-GlossaryRuleStatements' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'maps every rule of every indexed ADR to its one-line statement' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'maps every rule of every indexed record to its one-line statement' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         @($script:statements.Keys | Sort-Object) | Should -Be @('ADR-TST-GADGET-RUN', 'ADR-TST-WIDGET-SUITE')
         $script:statements['ADR-TST-GADGET-RUN'] | Should -Be 'A **gadget run** executes widgets.'
     }

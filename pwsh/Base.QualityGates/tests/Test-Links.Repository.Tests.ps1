@@ -7,7 +7,7 @@ Describe 'Repository code links (automation comments)' -Tag 'L2', 'integrity', '
         }
     }
 
-    It 'every ADR reference in an automation comment is a canonical code link that resolves' -Tag 'ADR-REPO-LINK-CODELINKS', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
+    It 'every rule reference in an automation comment is a canonical code link that resolves' -Tag 'ADR-REPO-LINK-CODELINKS', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
         if ($script:gitMissing) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }

@@ -6,7 +6,7 @@ without_article:
   - folder: python/tests
     reason: the python test packages' tree; a test is documented by the module it tests, so the tree ships no package and needs no README
 mappings:
-  # The ADR folder's README comes from its own index, same folder, so its relative links need no rebasing.
+  # The DRS folder's README comes from its own index, same folder, so its relative links need no rebasing.
   - folder: docs/drs
     source: docs/drs/index.md
   - folder: .ado/pipelines

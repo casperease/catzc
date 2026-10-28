@@ -1,8 +1,7 @@
 engine_set:
   exempt:
     pwsh/Base.Engines/types/**: the model itself, the one place the engines are declared
-    docs/references/pwsh/base-engines/types/**:
-      the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS-MOVELOSESNOTHING)
+    docs/references/pwsh/base-engines/types/**: the model's comment pages, its comments moved verbatim (ADR-REPO-COMMENTS-MOVELOSESNOTHING)
     pwsh/Base.Engines/tests/**: the model's own tests pin the names it declares
     "**/tests/assets/engine-cases/**": the engine-case tables carry one column per engine by design
     .unordered/**: imports not yet sorted, held to no domain rule until they move (the catzc-unordered class, DDR-TRACK-UNORDEREDTRACK)
@@ -30,7 +29,7 @@ neutral_codes:
     pwsh/Base.Maps/tests/Test-WorldMap.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
     pwsh/Base.ModuleSystem/tests/Get-UncoveredInternalAssetDependency.Tests.ps1:
       the citation a covering test carries is the real rule the function looks for
-    pwsh/Base.Overlay/tests/Assert-Overlay.Tests.ps1: it asserts the gate's exact message, which names its real ADR
+    pwsh/Base.Overlay/tests/Assert-Overlay.Tests.ps1: it asserts the gate's exact message, which names its real rule
 
 track_root_literal:
   exempt:
@@ -61,7 +60,8 @@ track_root_literal:
 test_file_name:
   exempt:
     pwsh/Base.TypesSystem/tests/Types.Csproj.Tests.ps1: it tests the Catzc.Types.csproj carrier file, which is no function
-    pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1: it tests the track-lamps feature end to end across several functions, which is no one function
+    pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1:
+      it tests the track-lamps feature end to end across several functions, which is no one function
     pwsh/Azure.Templates/tests/Alerts.Tests.ps1: it tests the alert templates under infrastructure/, which are no function
     pwsh/Azure.Templates/tests/Discovery.Budget.Tests.ps1: it tests the discovery template's budget, which is no function
     pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1: it tests the discovery template's flow log, which is no function

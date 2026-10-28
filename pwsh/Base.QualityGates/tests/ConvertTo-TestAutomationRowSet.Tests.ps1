@@ -68,7 +68,7 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
         $script:rows[2].Category | Should -Be 'integrity'
     }
 
-    It 'joins the ADR provenance citations into Rules, and is empty when none are carried' {
+    It 'joins the rule provenance citations into Rules, and is empty when none are carried' {
         $script:rows[4].Rules | Should -Be 'ADR-WIDGET-GADGET-SPIN;ADR-WIDGET-GADGET-TURN'
         $script:rows[0].Rules | Should -BeExactly ''
     }

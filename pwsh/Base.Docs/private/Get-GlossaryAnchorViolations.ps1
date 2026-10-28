@@ -18,7 +18,7 @@ function Get-GlossaryAnchorViolations {
         $term = $item.Concept.term
         $citation = $item.Concept.defined_by
         if (-not $statements.ContainsKey($citation)) {
-            $violations.Add("$($item.SourcePath): concept '$term': defined_by '$citation' names no rule in an indexed ADR (ADR-REPO-VOCAB-DEFINEDTERM)")
+            $violations.Add("$($item.SourcePath): concept '$term': defined_by '$citation' names no rule in an indexed record (ADR-REPO-VOCAB-DEFINEDTERM)")
             continue
         }
         $bold = '\*\*' + ([regex]::Escape($term) -replace '\\ ', '\s+') + '\*\*'

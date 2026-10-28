@@ -44,7 +44,7 @@ dora_coverage:
       Each external record is grounded in its own source; a DORA record ends with its own Dora explains section, and a vendor record is
       grounded in docs/references/caf/ or docs/references/waf/.
 
-# The segment grammar of rule codes and named rule headings ([ADR-REPO-DRSCODE](/docs/drs/repository/drs-code-language.md)).
+# The segment grammar of ADR codes and named rule headings ([ADR-REPO-DRSCODE](/docs/drs/repository/drs-code-language.md)).
 code_language:
   mode: gate
   # On: every segment upper case, the one casing mode today; quoted, since YAML reads a bare on as true.

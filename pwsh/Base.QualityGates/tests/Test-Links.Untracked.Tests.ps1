@@ -11,7 +11,7 @@ Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-L
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
-        & $writeFile $root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
+        & $writeFile $root 'docs/drs/index.md' "| Code | Record |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-TURN`n`nOne.`n"
         & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](drs/widget/widget-rules.md), [gadget](gadget.md), [folder](drs/widget), and [here](#widget).`n"
         & $writeFile $root 'docs/gadget.md' "# docs/gadget.md`n"

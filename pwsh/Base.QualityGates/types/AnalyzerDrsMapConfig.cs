@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// Each enabled analyzer rule that enforces an ADR rule, mapped to the rule ids it enforces.
+// Each enabled analyzer rule that enforces a DRS rule, mapped to the rule ids it enforces.
 public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private const string Failed = "analyzer-adr-map configuration validation failed:\n";
+    private const string Failed = "analyzer-drs-map configuration validation failed:\n";
     private static readonly Regex Citation = new Regex("^" + Catzc.Base.Drs.DrsCodeForm.AnyKind.Rule + "$");
 
-    // Analyzer rule name -> the ADR rule ids it enforces (string[], '#' form), in declaration order; read-only.
+    // Analyzer rule name -> the DRS rule ids it enforces (string[], '#' form), in declaration order; read-only.
     public OrderedDictionary analyzers { get; }
 
     // The analyzer's settings, the one file every analyzer run and the formatter read: the internal assets' PSScriptAnalyzerSettings.psd1.
@@ -70,7 +70,7 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
                     string[] ids = ReadIds(source[k]);
                     if (ids.Length == 0)
                     {
-                        errors.Add(string.Format("analyzer '{0}' maps to no ADR rule (want a non-empty list of rule codes, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule));
+                        errors.Add(string.Format("analyzer '{0}' maps to no rule (want a non-empty list of rule codes, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)", rule));
                         continue;
                     }
                     foreach (string id in ids)

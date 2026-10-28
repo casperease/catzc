@@ -57,7 +57,7 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
         $set.contracts | Should -Be @('ADR-WI', 'ADR-GA')
         $thrown = { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = @($widget); contracts = @('ADR-WI#1') }) } |
             Should -Throw -PassThru
-        $thrown.Exception.Message | Should -Match "contracts entry 'ADR-WI#1' must be a bare ADR code"
+        $thrown.Exception.Message | Should -Match "contracts entry 'ADR-WI#1' must be a bare record code"
     }
 
     It 'rejects an empty agents list' {

@@ -58,11 +58,11 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
             Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: term 'widget suite' is already defined by widgets/Catzc.Gadget/configs/glossary.yml*"
     }
 
-    It 'accepts a named rule citation and reports an ADR''s code as defined_by, by the registry''s kinds' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
+    It 'accepts a named rule citation and reports a record''s code as defined_by, by the registry''s kinds' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         $rule = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET-SPINS' }) })
         & $script:violations @($rule) | Should -BeNullOrEmpty
-        $adr = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET' }) })
-        $found = & $script:violations @($adr)
+        $record = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET' }) })
+        $found = & $script:violations @($record)
         $found.Count | Should -Be 1 -Because 'two segments name a record, not a rule'
         $found[0] |
             Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-COG-GADGET' is not a rule's code*"

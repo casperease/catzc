@@ -89,7 +89,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
             )
         }
         foreach ($relative in $files.Keys) {
-            $path = Join-Path $TestDrive "drs/$relative"
+            $path = Join-Path $TestDrive "adr/$relative"
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, ($files[$relative] -join "`n"))
         }
@@ -99,7 +99,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         $script:checks = New-ChecksConfig -Mode 'report'
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:drs }
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs-checks' } { $script:checks }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'drs' }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -157,7 +157,7 @@ Describe 'Test-DrsEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
     It 'passes in gate mode when no summary carries a token' {
         $script:checks = New-ChecksConfig -Mode 'gate' -Domains ([ordered]@{ widget = @('engine', 'vendor') })
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } {
-            $clean = Join-Path $TestDrive 'clean/drs'
+            $clean = Join-Path $TestDrive 'clean/adr'
             [void][System.IO.Directory]::CreateDirectory((Join-Path $clean 'widget'))
             [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'),
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nA widget spins.`n")

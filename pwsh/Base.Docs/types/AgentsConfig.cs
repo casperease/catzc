@@ -46,7 +46,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (d != null && d.Contains("contracts"))
         {
-            contracts = AgentEntry.ReadList(d, "contracts", ContractRe, "a bare ADR code ADR-<CODE>", errors);
+            contracts = AgentEntry.ReadList(d, "contracts", ContractRe, "a bare record code ADR-<CODE>", errors);
             if (contracts.Count == 0) { errors.Add("'contracts' must name at least one contract; leave the key out for the default"); }
         }
 

@@ -55,10 +55,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one plan step from the written answer, a redraw after each); the user names the slides
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- adr-term -> plan-adr-term.md: `ADR` means only a record of the `ADR` kind: generic uses in prose, identifiers and generated pages say DRS,
-  decision record or rule, and Test-Glossary holds the prose
-- generated-artifacts -> plan-generated-artifacts.md: every generated artifact in one per-module registry with a derived order, a stamp
-  head on every committed generated file (never read back), and Remove-Generated / Restore-Generated over the `generated` view; 22 steps,
+- generated-artifacts -> plan-generated-artifacts.md: every generated artifact in one per-module registry with a derived order, a stamp head
+  on every committed generated file (never read back), and Remove-Generated / Restore-Generated over the `generated` view; 22 steps,
   determinism proof first
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full

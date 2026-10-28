@@ -1,6 +1,6 @@
 Describe 'Resolve-DrsLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
     BeforeAll {
-        $script:root = Join-Path $TestDrive 'drs'
+        $script:root = Join-Path $TestDrive 'adr'
         function Resolve-Fixture {
             param([string] $From, [string] $Target)
             InModuleScope Catzc.Base.Drs -Parameters @{ Root = $script:root; From = $From; Target = $Target } {

@@ -59,7 +59,7 @@ Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'reports nothing when only the defining rule defines the term — ADR bodies and code spans never count' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'reports nothing when only the defining rule defines the term — record bodies and code spans never count' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-REST') | Should -BeNullOrEmpty
     }
 

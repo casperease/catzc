@@ -12,7 +12,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
-        & $writeFile $root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
+        & $writeFile $root 'docs/drs/index.md' "| Code | Record |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-SPIN`n`nOne.`n"
     }
 

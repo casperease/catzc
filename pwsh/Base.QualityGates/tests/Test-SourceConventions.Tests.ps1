@@ -108,7 +108,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
         $result.Issues |
             Should -Contain "widget-modules/Widget/README.md:1: 'widget and gadget' names 2 of the 3 engines (widget, gadget, sprocket); say 'every engine' or name them all"
         @($result.Issues | Where-Object { $_ -like 'widget-modules/Widget/Set-Widget.ps1:1: a ValidateSet lists engine names*' }) | Should -HaveCount 1
-        @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET-TURN'*" }) | Should -HaveCount 1
+        @($result.Issues | Where-Object { $_ -like "widget-modules/Widget/tests/Set-Widget.Tests.ps1:1: L0 fixture data uses the real record code 'ADR-WIDGET-GADGET-TURN'*" }) | Should -HaveCount 1
         $result.Facts['EngineSetCount'] | Should -Be 2
         $result.Facts['NeutralCodeCount'] | Should -Be 1
     }

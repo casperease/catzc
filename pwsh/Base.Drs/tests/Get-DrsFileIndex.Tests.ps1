@@ -18,7 +18,7 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
                     }
                 }
             })
-        $root = Join-Path $TestDrive 'drs'
+        $root = Join-Path $TestDrive 'adr'
         foreach ($relative in 'widget/widget-one.md', 'widget/widget-two.md', 'widget/sub/widget-two.md',
             'gadget/widget-one.md', 'index.md') {
             $path = Join-Path $root $relative
@@ -64,7 +64,7 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
                     }
                 }
             })
-        $nestedRoot = Join-Path $TestDrive 'nested-drs'
+        $nestedRoot = Join-Path $TestDrive 'nested-adr'
         foreach ($relative in 'gadget/gadget-one.md', 'gadget/sub/note.md', 'gadget/cog/cog-one.md',
             'gadget/cog/dora-explains.md', 'gadget/dora-explains.md') {
             $path = Join-Path $nestedRoot $relative

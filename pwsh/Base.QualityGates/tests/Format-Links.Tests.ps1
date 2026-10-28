@@ -15,7 +15,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $script:writeFile $root '.editorconfig' ((@('[*.{ps1,psm1,psd1}]', 'max_line_length = 120',
                         '') -join "`n"))
             & $script:writeFile $root 'docs/drs/index.md' ((@(
-                        '| Code | ADR |'
+                        '| Code | Record |'
                         '| ---- | --- |'
                         '| `ADR-TST-WIDGET` | [widget-rules](widget/widget-rules.md) |'
                         '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
@@ -69,7 +69,7 @@ Describe 'Format-Links' -Tag 'L0', 'logic' {
             & $alignFile $root 'src/widget.ps1' $help | Should -BeExactly $help
         }
 
-        It 'turns a bare ADR code into a whole-ADR link' -Tag 'ADR-REPO-LINK-CODELINKS' {
+        It 'turns a bare record code into a whole-record link' -Tag 'ADR-REPO-LINK-CODELINKS' {
             & $alignFile $root 'src/widget.ps1' "# Follows ADR-TST-WIDGET throughout.`n" |
                 Should -BeExactly "# Follows $widgetDoc throughout.`n"
         }

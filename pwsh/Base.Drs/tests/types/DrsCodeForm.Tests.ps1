@@ -16,7 +16,7 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     Context 'the grammar' {
         It 'rejects <Name>' -ForEach @(
             @{ Name = 'no kinds'; Kinds = [ordered]@{} }
-            @{ Name = 'a lower-case kind'; Kinds = [ordered]@{ wdr = 3 } }
+            @{ Name = 'a lower-case kind'; Kinds = [ordered]@{ adr = 3 } }
             @{ Name = 'a kind of five letters'; Kinds = [ordered]@{ WIDGE = 2 } }
         ) {
             { [Catzc.Base.Drs.DrsCodeForm]::new($Kinds) } | Should -Throw '*record kinds*'
@@ -38,11 +38,11 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
 
     Context 'IsCode' {
         It 'accepts <Name>' -ForEach @(
-            @{ Name = 'a domain code of a shared kind'; Text = 'ADR-WIDGET-GADGET' }
+            @{ Name = 'an ADR code'; Text = 'ADR-WIDGET-GADGET' }
             @{ Name = 'a rule code'; Text = 'ADR-WIDGET-GADGET-TURN' }
             @{ Name = 'a segment with digits, as a vendor id has'; Text = 'ADR-WIDGET-SPROCKET-RE01' }
             @{ Name = 'a domain code'; Text = 'ADR-WIDGET' }
-            @{ Name = 'a bare shared kind'; Text = 'ADR' }
+            @{ Name = 'every ADR'; Text = 'ADR' }
             @{ Name = 'a code of an owned kind'; Text = 'GDR-SPROCKET' }
             @{ Name = 'a bare owned kind'; Text = 'GDR' }
         ) {
@@ -77,9 +77,9 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
 
         It 'rejects <Name>' -ForEach @(
-            @{ Name = 'a record code of a shared kind'; Text = 'ADR-WIDGET-GADGET' }
-            @{ Name = 'a record code of an owned kind'; Text = 'GDR-SPROCKET' }
-            @{ Name = 'a record code under a group segment'; Text = 'HDR-WIDGET-GADGET' }
+            @{ Name = 'an ADR code of a shared kind'; Text = 'ADR-WIDGET-GADGET' }
+            @{ Name = 'an ADR code of an owned kind'; Text = 'GDR-SPROCKET' }
+            @{ Name = 'an ADR code under a group segment'; Text = 'HDR-WIDGET-GADGET' }
             @{ Name = 'an unregistered kind'; Text = 'CDR-WIDGET-GADGET-TURN' }
         ) {
             $script:form.IsRule($Text) | Should -BeFalse
@@ -149,7 +149,7 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                 Should -Be @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-FOLD')
         }
 
-        It 'writes the record code when every rule the registry declares is cited' {
+        It 'writes the ADR code when every rule the registry declares is cited' {
             $script:form.Minimize([string[]] @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD',
                     'ADR-WIDGET-GADGET-TURN'), $script:registry) |
                 Should -Be @('ADR-WIDGET-GADGET')
@@ -158,7 +158,7 @@ Describe 'DrsCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                 Should -Be @('ADR-WIDGET-SPROCKET')
         }
 
-        It 'writes the record code for a record with a single rule when that rule is cited' {
+        It 'writes the ADR code for an ADR with a single rule when that rule is cited' {
             $script:form.Minimize([string[]] @('ADR-WIDGET-LONE-ONLY'), $script:registry) |
                 Should -Be @('ADR-WIDGET-LONE')
         }

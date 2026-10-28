@@ -15,7 +15,7 @@ public sealed class DrsCodeForm
     // The grammar for a reader without the registry: any kind's shape, and a rule's code at its shortest, two segments after the kind.
     public static DrsCodeForm AnyKind { get; } = new DrsCodeForm("(?:" + AnyKindShape + ")", AnyKindShape + "(?:" + Segment + "){2,}");
 
-    // The kinds as one regex group, e.g. (?:WDR|GDR).
+    // The kinds as one regex group, e.g. (?:ADR|TDR).
     public string Kind { get; }
 
     // A code, the bare kind included.

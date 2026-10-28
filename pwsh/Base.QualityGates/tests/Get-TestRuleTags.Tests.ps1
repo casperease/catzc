@@ -33,7 +33,7 @@ Describe 'Get-TestRuleTags' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROVENANCETAGS' {
         (& $script:rules (New-FakeTest -InnerTags @('L2', 'integrity', 'serial'))) | Should -HaveCount 0
     }
 
-    It 'ignores a malformed citation (the numbered and colon forms, an ADR code that names no rule, wrong case)' {
+    It 'ignores a malformed citation (the numbered and colon forms, a record code that names no rule, wrong case)' {
         $result = & $script:rules (New-FakeTest -InnerTags @('ADR-WIDGET-GADGET#3', 'ADR-WIDGET-GADGET:3',
                 'ADR-WIDGET-GADGET', 'adr-widget-gadget-spin'))
         $result | Should -HaveCount 0

@@ -11,7 +11,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
                     '| `ADR-TST-WIDGET` | [widget-thing](repository/widget-thing.md) |'
                 ) -join "`n"))
         [System.IO.File]::WriteAllText((Join-Path $drsRoot 'repository/widget-thing.md'), (@(
-                    '# ADR: Widget thing'
+                    '# Domain: Widget thing'
                     ''
                     '### Rule ADR-TST-WIDGET-REST'
                     ''
@@ -63,7 +63,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
         $found = & $script:violations @(& $script:entry 'widget suite' 'ADR-TST-WIDGET-MISSING')
         $found.Count | Should -Be 1
         $found[0] |
-            Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET-MISSING' names no rule in an indexed ADR (ADR-REPO-VOCAB-DEFINEDTERM)"
+            Should -Be "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-TST-WIDGET-MISSING' names no rule in an indexed record (ADR-REPO-VOCAB-DEFINEDTERM)"
     }
 
     It 'reports a defining rule whose summary does not bold the term' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
@@ -73,7 +73,7 @@ Describe 'Get-GlossaryAnchorViolations' -Tag 'L0', 'logic' {
             Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': the normative summary of ADR-TST-WIDGET-RUN does not bold '**widget suite**'*"
     }
 
-    It 'does not count bold text in the ADR body, a linked bullet, or a code span' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'does not count bold text in the record body, a linked bullet, or a code span' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $found = & $script:violations @(& $script:entry 'gadget run' 'ADR-TST-WIDGET-RUN')
         $found.Count | Should -Be 1
         $found[0] |

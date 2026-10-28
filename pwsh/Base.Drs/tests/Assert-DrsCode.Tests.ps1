@@ -14,7 +14,7 @@ Describe 'Assert-DrsCode' -Tag 'L0', 'logic' {
     }
 
     It 'throws with the reason for a lower-case code' {
-        { Assert-DrsCode 'PDR-widget' } | Should -Throw '*capitalization on*'
+        { Assert-DrsCode 'ADR-widget' } | Should -Throw '*capitalization on*'
     }
 
     It 'throws with the count for a rule over the budget' {

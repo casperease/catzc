@@ -140,7 +140,7 @@ function Get-NeutralCodeFinding {
             $line = $literal.Extent.StartLineNumber + ([regex]::Matches($text.Substring(0, $match.Index), "`n")).Count
             $findings.Add([pscustomobject]@{
                     Line    = $line
-                    Message = "L0 fixture data uses the real ADR code '$($match.Value)'; use a neutral code (ADR-WIDGET-GADGET), or move the real one into a -Tag"
+                    Message = "L0 fixture data uses the real record code '$($match.Value)'; use a neutral code (ADR-WIDGET-GADGET), or move the real one into a -Tag"
                 })
         }
     }

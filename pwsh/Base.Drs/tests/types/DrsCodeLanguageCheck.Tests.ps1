@@ -23,7 +23,7 @@ Describe 'DrsCodeLanguageCheck' -Tag 'L0', 'logic' {
     It 'names why a text is no code or no rule within the budget' {
         $check = [Catzc.Base.Drs.DrsCodeLanguageCheck]::new([Catzc.Base.Drs.DrsCapitalization]::On, 8)
         $check.Violation('ADR-WIDGET-SPIN', $true) | Should -BeNullOrEmpty
-        $check.Violation('PDR-widget', $false) | Should -BeLike '*capitalization on*'
+        $check.Violation('ADR-widget', $false) | Should -BeLike '*capitalization on*'
         $check.Violation('ADR-WIDGET', $true) | Should -BeLike '*no rule*'
         $check.Violation('ADR-WIDGET-SPINSGADGET', $true) | Should -BeLike '*11 characters, over the budget of 8*'
     }

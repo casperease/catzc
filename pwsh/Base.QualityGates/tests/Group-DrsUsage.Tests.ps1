@@ -17,7 +17,7 @@ Describe 'Group-DrsUsage' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'groups by rule: one row per code and rule, the whole ADR first, each document once' {
+    It 'groups by rule: one row per code and rule, the whole record first, each document once' {
         $groups = @(Invoke-Group $rows 'Rule')
         @($groups | ForEach-Object { "$($_.Code)|$($_.Rule)" }) | Should -Be @('ADR-GADGET-SPEC|ADR-GADGET-SPEC-TURN',
             'ADR-WIDGET-PART|', 'ADR-WIDGET-PART|ADR-WIDGET-PART-SPIN')

@@ -1,14 +1,13 @@
 Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
     BeforeAll {
         $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
-                kinds   = [ordered]@{ WDR = [ordered]@{ name = 'Widget Decision Record'; shared = $true } }
                 domains = [ordered]@{
                     widget = [ordered]@{
                         code = 'WI'; role = 'axioms'; description = 'The widget axioms.'; depends_on = @()
                         stack = 'PRIN'; concern = @('build')
                         rulesets = [ordered]@{
-                            'widget-spinner' = [ordered]@{ external = 'WDR-WI-SPINNER' }
-                            'widget-gadget'  = [ordered]@{ external = 'WDR-WI-GADGET' }
+                            'widget-spinner' = [ordered]@{ external = 'ADR-WI-SPINNER' }
+                            'widget-gadget'  = [ordered]@{ external = 'ADR-WI-GADGET' }
                         }
                     }
                 }
@@ -19,9 +18,9 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         [void][System.IO.Directory]::CreateDirectory((Join-Path $root 'docs/drs/widget'))
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-spinner.md'),
-            "# Spinner`n`n## Rules: WDR-WI-SPINNER`n`n### Rule WDR-WI-SPINNER-SPINS`n`n### Rule WDR-WI-SPINNER:2`n`n``````text`n### Rule WDR-WI-SPINNER-HIDDEN`n```````n")
+            "# Spinner`n`n## Rules: ADR-WI-SPINNER`n`n### Rule ADR-WI-SPINNER-SPINS`n`n### Rule ADR-WI-SPINNER:2`n`n``````text`n### Rule ADR-WI-SPINNER-HIDDEN`n```````n")
         [System.IO.File]::WriteAllText((Join-Path $root 'docs/drs/widget/widget-gadget.md'),
-            "# Gadget`n`n## Rules: WDR-WI-GADGET`n")
+            "# Gadget`n`n## Rules: ADR-WI-GADGET`n")
         $script:root = $root
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $script:root 'docs/drs' }
@@ -37,7 +36,7 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         $result.Changed | Should -BeTrue
         $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/drs-codes.txt'))
         $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
-        $words | Should -Be @('gadget', 'hidden', 'spinner', 'spins', 'wdr', 'wi')
+        $words | Should -Be @('adr', 'gadget', 'hidden', 'spinner', 'spins', 'wi')
         $result.WordCount | Should -Be 6
     }
 
@@ -45,7 +44,7 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         $shared = $script:fixture
         try {
             $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
-                    kinds   = [ordered]@{ WDR = [ordered]@{ name = 'Widget Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+                    kinds   = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
                     domains = [ordered]@{
                         gizmo = [ordered]@{
                             kind = 'GDR'; role = 'axioms'; description = 'The gizmo axioms.'; depends_on = @(); stack = 'PRIN'; concern = @('build')

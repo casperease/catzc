@@ -18,7 +18,7 @@ public sealed class DrsDomain
     public string Stack { get; }                  // one of DrsConfig.Stacks
     public IReadOnlyList<string> Concerns { get; } // the domain default, one or more of DrsConfig.Concerns
     public IReadOnlyList<DrsRuleSet> RuleSets { get; }
-    public string Folder { get; }                  // the folder under docs/drs that holds the domain's records
+    public string Folder { get; }                  // the folder under docs/drs that holds the domain's ADRs
 
     public DrsDomain(string name, string code, string kind, string role, string description, IReadOnlyList<string> dependsOn, string stack, IReadOnlyList<string> concerns, IReadOnlyList<DrsRuleSet> ruleSets, string folder)
     {

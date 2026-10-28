@@ -49,7 +49,7 @@ function Get-DrsUsageRow {
         FileClass      = $FileClass
         Scanner        = $Scanner
     }
-    $adrs = @(Get-DrsCitation @citation)
+    $citations = @(Get-DrsCitation @citation)
     $links = @(if ($isCode) {
             @()
         }
@@ -58,7 +58,7 @@ function Get-DrsUsageRow {
                     (Get-CommentPage -Path $Path -Config $Pages)))
         })
 
-    foreach ($citation in $adrs) {
+    foreach ($citation in $citations) {
         # A fixture code or a placeholder named in a comment is no usage of a record.
         if (-not ($Map.HasCode($citation) -or $Map.IsDomainCode($citation))) {
             continue

@@ -2,12 +2,12 @@ Describe 'Get-DrsIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:indexPath = Join-Path $TestDrive 'index.md'
         $content = @(
-            '# DRS index'
+            '# ADR index'
             ''
             '## Codes'
             ''
-            '| Code | Record |'
-            '| ---- | ------ |'
+            '| Code | ADR |'
+            '| ---- | --- |'
             '| `ADR-ALPHA` | [alpha-thing](principles/alpha-thing.md) |'
             '| `ADR-BETA`  | [beta-thing](pwsh/beta-thing.md) |'
             ''
@@ -16,7 +16,7 @@ Describe 'Get-DrsIndex' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:indexPath, $content)
     }
 
-    It 'parses each record table row into Code, Title, and Path' {
+    It 'parses each ADR table row into Code, Title, and Path' {
         $entries = & (Get-Module Catzc.Base.Drs) { param($p) Get-DrsIndex -IndexPath $p } $script:indexPath
         @($entries).Count | Should -Be 2
         $entries[0].Code | Should -Be 'ADR-ALPHA'

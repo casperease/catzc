@@ -40,7 +40,7 @@ terms:
       meaning:
         "coined noun 'moduletype' — the head key naming the module type of the module a file is placed in (the module-types registry)"
     - term: modtype
-      meaning: "segment of the ADR code DDR-MODTYPE — 'module type'"
+      meaning: "segment of the record code DDR-MODTYPE — 'module type'"
     - term: tracktype
       meaning: "coined noun 'tracktype' — the head key naming the track type of the track a file lives in (the track-types registry)"
     - term: foldered

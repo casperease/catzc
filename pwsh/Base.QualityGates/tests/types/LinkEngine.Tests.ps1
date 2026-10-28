@@ -7,7 +7,7 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
             [System.IO.File]::WriteAllText($full, $Text)
         }
         $script:root = Join-Path $TestDrive 'repo'
-        & $writeFile $root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
+        & $writeFile $root 'docs/drs/index.md' "| Code | Record |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-SPIN`n`nOne.`n"
         & $writeFile $root 'docs/gadget.md' "# Gadget`n`n## Part`n"
         & $writeFile $root 'docs/widget.md' ("# Widget`n`nSee [gadget](gadget.md), [part](gadget.md#part), [self](#widget), [folder](drs), " +
@@ -34,7 +34,7 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
         $markdown[0].Line | Should -Be 3
     }
 
-    It 'records a code link with its rule code, a bare citation as the link it aligns to, a non-ADR comment link, and a docs edge' {
+    It 'records a code link with its rule code, a bare citation as the link it aligns to, a non-rule comment link, and a docs edge' {
         $code = @($edges.Where({ $_.File -eq 'src/widget.ps1' }))
         @($code.ForEach({ "$($_.Relation) $($_.Target) $($_.Code)".Trim() })) | Should -Be @(
             'DocsEdge docs/references/src/widget.ps1.md'

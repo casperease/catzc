@@ -21,7 +21,7 @@ Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {
                 ) -join "`n"))
         $found | Should -HaveCount 1
         $found[0] |
-            Should -BeLike "src/tests/Get-Widget.Tests.ps1:3: L0 fixture data uses the real ADR code 'ADR-WIDGET-GADGET-SPIN'*"
+            Should -BeLike "src/tests/Get-Widget.Tests.ps1:3: L0 fixture data uses the real record code 'ADR-WIDGET-GADGET-SPIN'*"
     }
 
     It 'passes a real code in a -Tag value and in a comment, and a neutral code anywhere' -Tag 'ADR-AUTO-TEST-DISTINCTFIXTURES' {

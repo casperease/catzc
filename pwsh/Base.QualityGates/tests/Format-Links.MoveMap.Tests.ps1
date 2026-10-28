@@ -14,7 +14,7 @@ Describe 'Format-Links -MoveMap' -Tag 'L0', 'logic' {
 
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        & $script:writeFile $script:root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-GADGET`` | [gadget-rules](gadget/gadget-rules.md) |`n"
+        & $script:writeFile $script:root 'docs/drs/index.md' "| Code | Record |`n| ---- | --- |`n| ``ADR-TST-GADGET`` | [gadget-rules](gadget/gadget-rules.md) |`n"
         & $script:writeFile $script:root 'docs/drs/gadget/gadget-rules.md' "# Gadget rules`n`n### Rule ADR-TST-GADGET-TURN`n`nOne.`n"
         # The widget page moved from docs/old/widget.md to docs/pages/widget.md, as a rename leaves it: moved, its text untouched.
         & $script:writeFile $script:root 'docs/pages/widget.md' "# Widget`n`nSee [gadget](../drs/gadget/gadget-rules.md#rule-adr-tst-gadget-turn).`n"

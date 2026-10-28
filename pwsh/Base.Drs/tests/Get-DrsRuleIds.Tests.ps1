@@ -1,14 +1,14 @@
 Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
     BeforeAll {
         # An index beside two records it lists, plus a third it does not, so only listed records may contribute.
-        $script:drsRoot = Join-Path $TestDrive 'drs'
+        $script:drsRoot = Join-Path $TestDrive 'adr'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:drsRoot 'principles')) | Out-Null
         [System.IO.Directory]::CreateDirectory((Join-Path $script:drsRoot 'widgets')) | Out-Null
 
         $index = @(
-            '# DRS index'
+            '# ADR index'
             ''
-            '| Code                  | Record                                   |'
+            '| Code                  | ADR                                      |'
             '| --------------------- | ---------------------------------------- |'
             '| `ADR-WIDGET-GADGET`   | [alpha-thing](principles/alpha-thing.md) |'
             '| `ADR-WIDGET-SPROCKET` | [beta-thing](widgets/beta-thing.md)      |'
@@ -17,7 +17,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:indexPath, $index)
 
         $alpha = @(
-            '# Widget: Alpha'
+            '# ADR: Alpha'
             ''
             '### Rule ADR-WIDGET-GADGET-TURN'
             ''
@@ -30,7 +30,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'principles/alpha-thing.md'), $alpha)
 
         $beta = @(
-            '# Widget: Beta'
+            '# ADR: Beta'
             ''
             '### Rule ADR-WIDGET-SPROCKET-COG'
             ''
@@ -40,7 +40,7 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
 
         # A record the index does not reference — its rule id must never appear.
         $gamma = @(
-            '# Widget: Gamma'
+            '# ADR: Gamma'
             ''
             '### Rule ADR-WIDGET-BOLT-STOP'
             ''
@@ -49,12 +49,12 @@ Describe 'Get-DrsRuleIds' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:drsRoot 'widgets/gamma-thing.md'), $gamma)
     }
 
-    It 'unions the rule ids of every indexed record, distinct and sorted in registry form' {
+    It 'unions the rule ids of every indexed ADR, distinct and sorted in registry form' {
         $ids = Get-DrsRuleIds -IndexPath $script:indexPath
         $ids | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-SPROCKET-COG')
     }
 
-    It 'contributes rule ids only from records the index lists' {
+    It 'contributes rule ids only from ADRs the index lists' {
         $ids = Get-DrsRuleIds -IndexPath $script:indexPath
         $ids | Should -Not -Contain 'ADR-WIDGET-BOLT-STOP'
     }

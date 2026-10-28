@@ -22,7 +22,7 @@ function Get-RuleEnforcers {
         }
     }
 
-    # Analyzer enforcers — the analyzer-adr-map (a global Get-Config read; it needs no dependency edge).
+    # Analyzer enforcers — the analyzer-drs-map (a global Get-Config read; it needs no dependency edge).
     $map = Get-Config -Config analyzer-drs-map
     foreach ($analyzer in $map.analyzers.Keys) {
         foreach ($id in $map.analyzers[$analyzer]) {

@@ -39,7 +39,7 @@ function Get-GlossarySourceViolations {
             }
             # The type checks only the shape; the registry decides how many segments a rule's code has after its kind.
             if (-not $drs.CodeForm.IsRule($concept.defined_by)) {
-                $violations.Add("$($item.Path): concept '$term': defined_by '$($concept.defined_by)' is not a rule's code under the drs.yml kinds; an ADR's code names no rule (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)")
+                $violations.Add("$($item.Path): concept '$term': defined_by '$($concept.defined_by)' is not a rule's code under the drs.yml kinds; a record's code names no rule (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)")
             }
         }
     }

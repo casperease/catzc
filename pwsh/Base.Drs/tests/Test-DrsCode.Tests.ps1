@@ -11,11 +11,11 @@ Describe 'Test-DrsCode' -Tag 'L0', 'logic' {
 
     It 'accepts an upper-case code, a kind alone included' {
         Test-DrsCode 'ADR-WIDGET-GADGET' | Should -BeTrue
-        Test-DrsCode 'PDR' | Should -BeTrue
+        Test-DrsCode 'ADR' | Should -BeTrue
     }
 
     It 'refuses a code with a lower-case letter while capitalization is on' {
-        Test-DrsCode 'PDR-Widget-Gadget' | Should -BeFalse
+        Test-DrsCode 'ADR-Widget-Gadget' | Should -BeFalse
         Test-DrsCode '' | Should -BeFalse
     }
 

@@ -83,8 +83,6 @@ terms:
       meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
     - term: worldmap
       meaning: "a world-map image the draw.io atlas helper (python/diagrams/atlas.py) draws on"
-    - term: adrs
-      meaning: "ADRs — plural of ADR; the drs.yml registry of DRS domain structure and citation codes"
     - term: ast
       meaning: "abstract syntax tree (AST) — the PowerShell parser's AST"
     - term: trie
@@ -210,7 +208,7 @@ terms:
     - term: roundtrips
       meaning: "round-trips (roundtrips)"
     - term: systemwide
-      meaning: "system-wide ('systemwide'; controlling-systemwide-deps ADR)"
+      meaning: "system-wide ('systemwide'; controlling-systemwide-deps record)"
     - term: typessystem
       meaning: "reference-doc slug segment for the Catzc.Base.TypesSystem module"
     - term: unioned

@@ -27,21 +27,21 @@ Describe 'Get-DrsUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
         Mock Get-CommentPage -ModuleName Catzc.Base.QualityGates { }
     }
 
-    It 'gives one row per rule a Markdown file''s text cites, under its ADR' {
+    It 'gives one row per rule a Markdown file''s text cites, under its record' {
         $rows = @(Get-Rows "# Spec`n`nRests on ADR-WIDGET-PART-TURN and ADR-WIDGET-PART-FOLD.`n")
         @($rows.Rule) | Should -Be @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-FOLD')
         @($rows.Code | Sort-Object -Unique) | Should -Be @('ADR-WIDGET-PART')
         @($rows.Source | Sort-Object -Unique) | Should -Be @('cites')
     }
 
-    It 'keeps an ADR code a code file cites as the whole ADR' {
+    It 'keeps a record code a code file cites as the whole record' {
         $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/')
         $rows = @(Get-Rows "// Rests on ADR-WIDGET-PART.`nclass Widget {}`n" "$(Get-CatzcModulesFolder)/Catzc.Widget/types/Widget.cs" $form)
         $rows.Count | Should -Be 1
         $rows[0].Rule | Should -BeNullOrEmpty
     }
 
-    It 'reads a link to a rule and a link to the ADR, and skips a link no code owns' {
+    It 'reads a link to a rule and a link to the record, and skips a link no code owns' {
         $text = "# Spec`n`nSee [the index](../drs/index.md), [the part](../drs/widget/part.md) and [a rule](../drs/widget/part.md#rule-adr-widget-part-spin).`n"
         $rows = @(Get-Rows $text)
         $rows.Count | Should -Be 2

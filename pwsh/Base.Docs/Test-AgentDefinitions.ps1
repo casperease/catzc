@@ -235,7 +235,7 @@ function Test-AgentDefinitions {
         }
         foreach ($citation in $entry.supported_by) {
             if (-not $ruleIds.Contains($citation)) {
-                $issues.Add("${agentsFile}: agent '$($entry.name)' supported_by '$citation' names no ADR rule")
+                $issues.Add("${agentsFile}: agent '$($entry.name)' supported_by '$citation' names no rule")
             }
         }
         foreach ($check in $entry.checks) {
@@ -253,7 +253,7 @@ function Test-AgentDefinitions {
         }
         foreach ($citation in $entry.supported_by) {
             if (-not $ruleIds.Contains($citation)) {
-                $issues.Add("${capabilitiesFile}: capability '$($entry.name)' supported_by '$citation' names no ADR rule")
+                $issues.Add("${capabilitiesFile}: capability '$($entry.name)' supported_by '$citation' names no rule")
             }
         }
         foreach ($check in $entry.checks) {

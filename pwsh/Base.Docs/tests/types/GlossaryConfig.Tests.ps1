@@ -127,13 +127,13 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'accepts a rule of a multi-segment ADR code' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
+    It 'accepts a rule of a multi-segment record code' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {
         $body = & $script:concept
         $body.defined_by = 'ADR-COG-GADGET-WHEEL-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-WHEEL-SPINS'
     }
 
-    It 'accepts a named rule citation, the domain, the ADR and the rule''s name, and refuses a code shorter than any rule''s' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
+    It 'accepts a named rule citation, the domain, the record and the rule''s name, and refuses a code shorter than any rule''s' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         $body = & $script:concept
         $body.defined_by = 'ADR-COG-GADGET-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-SPINS'

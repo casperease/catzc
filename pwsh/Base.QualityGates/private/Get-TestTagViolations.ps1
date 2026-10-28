@@ -54,7 +54,7 @@ function Get-TestTagViolations {
         }
         foreach ($tag in $candidates) {
             if (-not $form.IsRule($tag)) {
-                $reasons += "malformed ADR citation '$tag' (want a rule's code, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
+                $reasons += "malformed rule citation '$tag' (want a rule's code, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
                 continue
             }
             if ($null -eq $validRuleIds) {
@@ -62,7 +62,7 @@ function Get-TestTagViolations {
                     [string[]] (Get-DrsRuleIds), [System.StringComparer]::Ordinal)
             }
             if (-not $validRuleIds.Contains($tag)) {
-                $reasons += "unknown ADR rule '$tag' — no such rule in $((Get-Config -Config drs).Root)"
+                $reasons += "unknown rule '$tag' — no such rule in $((Get-Config -Config drs).Root)"
             }
         }
 

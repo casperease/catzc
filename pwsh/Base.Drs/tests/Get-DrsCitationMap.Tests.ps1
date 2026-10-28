@@ -8,8 +8,8 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($full, ($Lines -join "`n"))
         }
         & $write 'docs/drs/index.md' @(
-            '| Code | Record |'
-            '| ---- | ------ |'
+            '| Code | ADR |'
+            '| ---- | --- |'
             '| `ADR-TST-WIDGET` | [widget-rules](widget/widget-rules.md) |'
             '| `ADR-TST-GADGET` | [gadget-rules](gadget/gadget-rules.md) |'
         )
@@ -21,7 +21,7 @@ Describe 'Get-DrsCitationMap' -Tag 'L0', 'logic' {
         $script:map = Get-DrsCitationMap -RepositoryRoot $script:root
     }
 
-    It 'maps each code to its repository-relative record path and declared rules' -Tag 'ADR-REPO-LINK-CODELINKS' {
+    It 'maps each code to its repository-relative ADR path and declared rules' -Tag 'ADR-REPO-LINK-CODELINKS' {
         $map.PathOf('ADR-TST-WIDGET') | Should -BeExactly 'docs/drs/widget/widget-rules.md'
         $map.RulesOf('ADR-TST-WIDGET') | Should -Be @('ADR-TST-WIDGET-TURN', 'ADR-TST-WIDGET-RE02')
         $map.IsRule('ADR-TST-WIDGET-RE02') | Should -BeTrue

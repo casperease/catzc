@@ -52,7 +52,7 @@ terms:
     - term: errtext
       meaning: "sample stderr text 'errtext' in Invoke-Executable tests"
     - term: exped
-      meaning: "derived short_name of the 'expedition' example template (documentation-examples ADR)"
+      meaning: "derived short_name of the 'expedition' example template (documentation-examples record)"
     - term: fixtenant
       meaning: "test fixture token 'fixtenant'"
     - term: fixtype
@@ -74,7 +74,7 @@ terms:
     - term: globex
       meaning: "fictional customer name (Globex) in Azure test config"
     - term: khuvslfy
-      meaning: "illustrative random Add-Type assembly name in the native-csharp-types ADR"
+      meaning: "illustrative random Add-Type assembly name in the native-csharp-types record"
     - term: myapp
       meaning: "placeholder application name 'myapp' in examples"
     - term: myconfig
@@ -86,9 +86,9 @@ terms:
     - term: myproperty
       meaning: "placeholder config name 'myproperty' in config-value-addressing examples (global.myproperty.name)"
     - term: mytem
-      meaning: "derived short_name of the 'my-template' example in the naming-standard ADR"
+      meaning: "derived short_name of the 'my-template' example in the naming-standard record"
     - term: myvalue
-      meaning: "invented placeholder token cited as a bad example in the spell-out-names ADR (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES)"
+      meaning: "invented placeholder token cited as a bad example in the spell-out-names record (ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES)"
     - term: myvar
       meaning: "placeholder variable name 'myvar' in examples"
     - term: objout
@@ -116,7 +116,7 @@ terms:
     - term: subx
       meaning: "short_name 'subx' of the sample-subenv test template"
     - term: surve
-      meaning: "derived short_name of the 'survey' example template (documentation-examples ADR)"
+      meaning: "derived short_name of the 'survey' example template (documentation-examples record)"
     - term: widgetlib
       meaning:
         "placeholder pip/library package name 'widgetlib' (for command 'widget') in tool-install tests (Remove-*ToolInstall,

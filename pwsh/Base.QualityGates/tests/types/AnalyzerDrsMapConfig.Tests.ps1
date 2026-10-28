@@ -29,7 +29,7 @@ Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR
 
     It 'throws when an analyzer maps to no rule' {
         Get-ViolationMessage ([ordered]@{ analyzers = [ordered]@{ 'Measure-X' = @() } }) |
-            Should -BeLike '*maps to no ADR rule*'
+            Should -BeLike '*maps to no rule*'
     }
 
     It 'throws on a malformed citation (the numbered form)' {
@@ -43,7 +43,7 @@ Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR
                 analyzers = [ordered]@{ 'Measure-X' = @(); 'Measure-Y' = @('ADR-WIDGET-GADGET:1') }
             })
         $message | Should -BeLike "*unknown top-level key 'widget'*"
-        $message | Should -BeLike "*analyzer 'Measure-X' maps to no ADR rule*"
+        $message | Should -BeLike "*analyzer 'Measure-X' maps to no rule*"
         $message | Should -BeLike "*malformed citation 'ADR-WIDGET-GADGET:1'*"
     }
 }
