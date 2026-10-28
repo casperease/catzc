@@ -148,6 +148,8 @@ groups:
         Catzc.Base.Repository,
         Catzc.Base.Objects,
         Catzc.Base.Asserts,
+        Catzc.Base.Reports,
+        Catzc.Base.Variants,
       ]
     Catzc.Base.TypesSystem:
       [

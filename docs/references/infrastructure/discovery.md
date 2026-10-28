@@ -56,5 +56,6 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
 ## Modules used
 
 - `resource-group.bicep`, `virtual-network.bicep`, `nsg.bicep`, `route-table.bicep`, `vnet-peering.bicep`, `private-dns-zone.bicep`,
-  `subscription-diagnostic-setting.bicep`, `diagnostic-setting.bicep`, `policy-assignment.bicep`, `budget.bicep` — see
+  `subscription-diagnostic-setting.bicep`, `diagnostic-setting.bicep`, `policy-assignment.bicep`, `budget.bicep`,
+  `landing-zone-network.bicep`, `landing-zone-policies.bicep`, `landing-zone-monitoring.bicep`, `landing-zone-access.bicep` — see
   [modules](modules.md).

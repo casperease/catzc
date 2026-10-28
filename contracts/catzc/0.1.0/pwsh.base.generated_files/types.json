@@ -6,6 +6,10 @@
       "display": [],
       "members": [
         {
+          "name": "RenderOrder",
+          "kind": "method"
+        },
+        {
           "name": "input_depth",
           "kind": "property"
         },
