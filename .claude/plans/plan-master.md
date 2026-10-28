@@ -45,8 +45,6 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- network-calls -> plan-network-calls.md: the four default-path network calls taken offline (Python test and check syncs, Go module
-  download, the live L3 deploy test), the npx fetch moved into the tooling system, and the registry gate Test-NetworkCalls
 - language-lamps -> plan-language-lamps.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - vscode-extensions -> plan-vscode-extensions.md: landed; blocked_on the user's editor check (task-user-runs-and-commits item 4)
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
@@ -55,8 +53,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   moves (task-user-runs-and-commits item 1).
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
-- debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
-  run pays; 0 steps
 - analyzer-entry-rule-names -> plan-analyzer-entry-rule-names.md: the two analyzer entry rules renamed by role (EntryRule,
   SpellingEntryRule), one staged burst for the settings and its readers
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
