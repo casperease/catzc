@@ -14,7 +14,7 @@ public sealed class DrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex KindRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
 
-    // The record kinds when drs.yml declares none: the one shared kind ADR.
+    // The record kinds when drs.yml declares none: the one shared kind, `ADR`.
     public const string DefaultKind = "ADR";
 
     // The segments a rule's code has after its kind when no ruleset of the kind is registered: ADR-<DOMAIN>-<RECORD>-<NAME>, TDR-<RECORD>-<NAME>.
@@ -69,7 +69,7 @@ public sealed class DrsConfig
     private static readonly string[] AllowedDomainKeys = { "kind", "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
     private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);
 
-    // The folder under docs/drs that holds a domain's ADRs when its entry names none: the domain's own name.
+    // The folder under docs/drs that holds a domain's records when its entry names none: the domain's own name.
     public static string DefaultFolder(string domain) => domain;
     private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 

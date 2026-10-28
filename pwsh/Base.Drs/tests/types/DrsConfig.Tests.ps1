@@ -35,7 +35,7 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     }
 
     Context 'record kinds' -Tag 'ADR-REPO-DRSCODE-DOMAINSEGMENT' {
-        It 'registers the one shared kind ADR when the registry declares none' {
+        It 'registers the one shared kind, `ADR`, when the registry declares none' {
             $config = [Catzc.Base.Drs.DrsConfig]::new((New-ValidRaw))
             $config.Kinds | Should -Be @('ADR')
             $config.SharedKinds | Should -Be @('ADR')
@@ -44,7 +44,7 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
             ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Prefix | Should -Be 'ADR-AL'
         }
 
-        It 'takes a rule as one segment more than the shortest ADR code of its kind, so a group segment is an ADR''s' {
+        It 'takes a rule as one segment more than the shortest record code of its kind, so a group segment is the record''s' {
             $raw = New-ValidRaw
             $raw['kinds'] = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
             $raw.domains.alpha.Remove('code')

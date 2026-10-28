@@ -19,7 +19,7 @@ Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
                     }
                 }
             })
-        $root = Join-Path $TestDrive 'adr'
+        $root = Join-Path $TestDrive 'drs'
         $files = [ordered]@{
             'widget/widget-one.md' = @(
                 '# Widget one'                                                                           # 1
@@ -98,7 +98,7 @@ Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
         $findings | Where-Object { $_ -like '*:11:*(gadget)*' } | Should -HaveCount 1
     }
 
-    It 'reports a body citation outside the rule registry, naming the ADR as the citer' {
+    It 'reports a body citation outside the rule registry, naming the record as the citer' {
         $findings |
             Should -Contain 'docs/drs/widget/widget-one.md:17: ADR-WI-ONE (widget) cites ADR-GZ-ONE-BUILD (gizmo); widget depends on: none'
     }
@@ -111,11 +111,11 @@ Describe 'Get-DrsCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
     It 'reports a link-only citation by its target' {
         $linkOnly = Join-Path $TestDrive 'link-only'
         $relative = 'widget/widget-one.md'
-        $path = Join-Path $linkOnly "adr/$relative"
+        $path = Join-Path $linkOnly "drs/$relative"
         [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
         [System.IO.File]::WriteAllText($path,
             "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nSee [gadget-one](../gadget/gadget-one.md).`n")
-        $found = InModuleScope Catzc.Base.Drs -Parameters @{ Drs = $drs; Root = (Join-Path $linkOnly 'adr') } {
+        $found = InModuleScope Catzc.Base.Drs -Parameters @{ Drs = $drs; Root = (Join-Path $linkOnly 'drs') } {
             $index = Get-DrsFileIndex @($Drs.RuleSets) -DrsRoot $Root
             Get-DrsCitationGraphViolations -Drs $Drs -Index $index
         }

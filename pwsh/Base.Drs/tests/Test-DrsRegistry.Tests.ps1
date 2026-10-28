@@ -32,7 +32,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
 
         function Write-RecordFixture {
             param([string] $Relative, [string] $Text)
-            $path = Join-Path $TestDrive "adr/$Relative"
+            $path = Join-Path $TestDrive "drs/$Relative"
             [void][System.IO.Directory]::CreateDirectory((Split-Path $path -Parent))
             [System.IO.File]::WriteAllText($path, $Text)
         }
@@ -48,9 +48,9 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
     }
 
     BeforeEach {
-        $adr = Join-Path $TestDrive 'adr'
-        if (Test-Path -LiteralPath $adr) {
-            Remove-Item -LiteralPath $adr -Recurse -Force
+        $drsFolder = Join-Path $TestDrive 'drs'
+        if (Test-Path -LiteralPath $drsFolder) {
+            Remove-Item -LiteralPath $drsFolder -Recurse -Force
         }
         if (Test-Path -LiteralPath $out) {
             Remove-Item -LiteralPath $out -Recurse -Force
@@ -64,7 +64,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report'
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs' } { $script:fixture }
         Mock Get-Config -ModuleName Catzc.Base.Drs -ParameterFilter { $Config -eq 'drs-checks' } { $script:checks }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'drs' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Drs { $script:citations }
         # The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper itself.
@@ -76,7 +76,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-RecordFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`nFollows ADR-WI-ONE-SPIN, and ADR-WI-ONE-GONE no longer exists.`n" +
                 "`n``````text`nADR-GA-ONE-EXAMPLE`n```````n")
-            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'adr') } {
+            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'drs') } {
                 param($Fixture, $Map, $Root)
                 $index = Get-DrsFileIndex @($Fixture.RuleSets) -DrsRoot $Root
                 Get-DrsDanglingCodeViolations -Drs $Fixture -Index $index -Map $Map
@@ -90,7 +90,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-RecordFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`n````````markdown`n``````text`nADR-GA-ONE-INSIDE`n```````nADR-GA-ONE-STILLINSIDE`n`````````n" +
                 "`nADR-WI-ONE-AFTER is prose again.`n")
-            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'adr') } {
+            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'drs') } {
                 param($Fixture, $Map, $Root)
                 $index = Get-DrsFileIndex @($Fixture.RuleSets) -DrsRoot $Root
                 Get-DrsDanglingCodeViolations -Drs $Fixture -Index $index -Map $Map
@@ -119,7 +119,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'throws once naming a missing, a duplicated, a mis-headed, and an unregistered rule file' {
-            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/widget/widget-one.md')
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'drs/widget/widget-one.md')
             Write-RecordFixture 'gadget/other/gadget-one.md' "# Gadget one again`n`n## Rules: ADR-GA-ONE`n"
             Write-RecordFixture 'gadget/widget-one.md' "# Gadget widget`n`n## Rules: ADR-GA-GIZMO`n"
             Write-RecordFixture 'gadget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GA-GIZMO`n"
@@ -205,7 +205,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 Should -Be @('docs/drs/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)')
         }
 
-        It 'passes named rule headings that are one segment below their ADR' {
+        It 'passes named rule headings that are one segment below their record' {
             Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n`n``````text`n### Rule ADR-WI-ONE:9`n```````n"
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguageFindings'] | Should -Be 0
@@ -229,7 +229,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS-FREELY`n`n### Rule ADR-GA-ONE-SPINS`n`n### Rule ADR-WI-ONE-TWO`n")
             Write-RecordFixture 'widget/widget-two.md' "# Widget two`n`n## Rules: ADR-WI-ONE-TWO`n"
             Write-RecordFixture 'widget/gizmo.md' "# Gizmo`n`n## Rules: ADR-GIZMO`n"
-            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'drs/gadget') -Recurse -Force
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] | Should -Be @(
                 "docs/drs/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
@@ -255,13 +255,13 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPINS`n"
             Write-RecordFixture 'widget/widget-two.md' (
                 "# Widget two`n`n## Rules: ADR-WI-TWO`n`n### Rule ADR-WI-TWO-SPINS`n`n### Rule ADR-WI-TWO-SPINSEVERYGADGETFORLONGER`n")
-            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'drs/gadget') -Recurse -Force
             $findings = @((Test-DrsRegistry -OutputFolder $out -PassThru).Facts['CodeLanguage'])
             $findings | Should -Contain 'docs/drs/widget/widget-two.md:5: rule name SPINS is also ADR-WI-ONE-SPINS (ADR-REPO-DRSCODE-RULENAMESUNIQUE)'
             @($findings | Where-Object { $_ -like 'docs/drs/widget/widget-two.md:7:*(ADR-REPO-DRSCODE-RULENAMEBUDGET)' }) | Should -HaveCount 1
         }
 
-        It 'reports a domain code of two segments once and holds its ADRs to the first segment' {
+        It 'reports a domain code of two segments once and holds its records to the first segment' {
             $script:fixture = [Catzc.Base.Drs.DrsConfig]::new([ordered]@{
                     domains = [ordered]@{
                         widget = [ordered]@{
@@ -272,7 +272,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                     }
                 })
             Write-RecordFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
-            Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
+            Remove-Item -LiteralPath (Join-Path $TestDrive 'drs/gadget') -Recurse -Force
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] |
                 Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-DRSCODE-DOMAINSEGMENT)')

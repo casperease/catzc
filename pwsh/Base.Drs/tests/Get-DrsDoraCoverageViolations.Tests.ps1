@@ -25,7 +25,7 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
                     }
                 }
             })
-        $script:root = Join-Path $TestDrive 'adr'
+        $script:root = Join-Path $TestDrive 'drs'
         $files = [ordered]@{
             'widget/widget-one.md'     = @('# Widget one')
             'widget/sub/widget-two.md' = @('# Widget two')
@@ -47,7 +47,7 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
                 ''                                                                    # 2
                 '## Gadget one'                                                       # 3
                 ''                                                                    # 4
-                '`gadget.yml` · [ADR-GA-ONE](gadget-one.md#rules-adr-ga-one)'          # 5
+                '`gadget.yml` · [ADR-GA-ONE](gadget-one.md#rule-adr-ga-one)'           # 5
                 ''                                                                    # 6
                 '## Gadget one, again'                                                # 7
                 ''                                                                    # 8
@@ -100,7 +100,7 @@ Describe 'Get-DrsDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
         $renamed | Should -Contain 'docs/drs/widget/gadget-notes.md: missing, so no section links ADR-WI-ONE'
     }
 
-    It 'skips a rule set whose ADR lies in an exempt folder, and only that one' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'skips a rule set whose record lies in an exempt folder, and only that one' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $exempt = Get-Finding ([ordered]@{ exempt_folders = [ordered]@{ 'widget/sub' = 'Widget sub answers a vendor checklist.' } })
         $exempt | Where-Object { $_ -like '*ADR-WI-TWO*' } | Should -HaveCount 0
         $exempt | Should -HaveCount 2

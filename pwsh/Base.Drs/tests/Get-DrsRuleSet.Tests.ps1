@@ -36,7 +36,7 @@ Describe 'Get-DrsRuleSet' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-DrsRuleSet integrity' -Tag 'L1', 'integrity', 'ADR-CONF-LOADING-CSHARPCONFIGTYPE' {
-    It 'Test-DrsRegistry reports no issue: one ADR file per rule set, headed by its external code, none unregistered' {
+    It 'Test-DrsRegistry reports no issue: one record file per rule set, headed by its external code, none unregistered' {
         (Test-DrsRegistry -PassThru -OutputFolder (Join-Path $TestDrive 'drs-registry')).IssueCount | Should -Be 0
     }
 }

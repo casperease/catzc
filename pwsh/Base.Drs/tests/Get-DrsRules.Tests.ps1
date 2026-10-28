@@ -1,8 +1,8 @@
 Describe 'Get-DrsRules' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:adrPath = Join-Path $TestDrive 'alpha-thing.md'
+        $script:recordPath = Join-Path $TestDrive 'alpha-thing.md'
         $content = @(
-            '# ADR: Alpha thing'
+            '# Widget: Alpha thing'
             ''
             '## Rules: ADR-WIDGET-GADGET'
             ''
@@ -23,8 +23,8 @@ Describe 'Get-DrsRules' -Tag 'L0', 'logic' {
             ''
             '## Context'
         ) -join "`n"
-        [System.IO.File]::WriteAllText($script:adrPath, $content)
-        $script:rules = & (Get-Module Catzc.Base.Drs) { param($p) Get-DrsRules -DrsPath $p } $script:adrPath
+        [System.IO.File]::WriteAllText($script:recordPath, $content)
+        $script:rules = & (Get-Module Catzc.Base.Drs) { param($p) Get-DrsRules -DrsPath $p } $script:recordPath
     }
 
     It 'returns one entry per rule heading with its first-line summary' {
