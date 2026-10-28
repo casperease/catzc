@@ -22,8 +22,8 @@ passes before it lands here as a rule.
 
 ```yml drawio
 description:
-  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning decision record decides, and it lands here
-  rebuilt to this repository's rules as one living version.
+  Two sibling repositories share a model; an idea leaves the sibling named where it is used, the owning decision record decides, and it
+  lands here rebuilt to this repository's rules as one living version.
 about:
   rules:
     - PDR-ONELIVE-ONEVERSION
@@ -54,7 +54,7 @@ content:
         "the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
         by the unit's hash, one output root"
       in: band-meet
-    - { id: g-owner, kind: gate, label: the owning ADR decides, in: band-meet }
+    - { id: g-owner, kind: gate, label: the owning record decides, in: band-meet }
     - { id: s-this, kind: store, label: "catzc, this repository", in: band-this }
     - { id: r-rebuilt, kind: result, label: "rebuilt to catzc's rules, one living version, nothing ported alongside", in: band-this }
     - id: a-this-own

@@ -47,7 +47,7 @@ content:
     - { id: g-running, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
     - { id: x-git, kind: external, label: git, in: band-outside }
   edges:
-    - { from: a-stage, to: g-affected, kind: adr, label: "" }
+    - { from: a-stage, to: g-affected, kind: record, label: "" }
     - { from: g-affected, to: f-globs, kind: flow, label: "" }
     - { from: g-affected, to: g-change-range, kind: flow, label: calls }
     - { from: g-affected, to: g-changed-globset, kind: flow, label: calls }

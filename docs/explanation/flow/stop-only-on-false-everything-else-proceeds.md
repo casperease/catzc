@@ -41,7 +41,7 @@ content:
     - { id: r-true, kind: result, label: "$true, proceed", in: band-returns }
     - { id: r-message, kind: result, label: fail-open message, in: band-returns }
   edges:
-    - { from: a-stage, to: c-affected, kind: adr, label: "" }
+    - { from: a-stage, to: c-affected, kind: record, label: "" }
     - { from: c-affected, to: r-false, kind: flow, label: "" }
     - { from: c-affected, to: r-true, kind: flow, label: "" }
     - { from: c-affected, to: r-message, kind: flow, label: "" }

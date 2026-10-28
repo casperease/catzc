@@ -71,7 +71,7 @@ content:
     - { id: g-reviewer, kind: actor, label: reviewer, in: band-checks }
   edges:
     - { from: g-machine-gate, to: g-inner-loop, kind: flow, label: calls }
-    - { from: g-reviewer, to: grp-flow, kind: adr, label: "" }
+    - { from: g-reviewer, to: grp-flow, kind: record, label: "" }
   markers:
     - { at: g-inner-loop, number: 1 }
     - { at: g-machine-gate, number: 2 }

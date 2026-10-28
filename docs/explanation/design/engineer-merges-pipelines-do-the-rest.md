@@ -55,8 +55,8 @@ content:
   edges:
     - { from: r-test, to: g-merge, kind: flow, label: "" }
     - { from: g-merge, to: r-post-commit, kind: flow, label: calls }
-    - { from: r-post-commit, to: a-level-three, kind: adr, label: "" }
-    - { from: a-level-three, to: r-deliver, kind: adr, label: "" }
+    - { from: r-post-commit, to: a-level-three, kind: record, label: "" }
+    - { from: a-level-three, to: r-deliver, kind: record, label: "" }
     - { from: g-merge, to: f-blocked, kind: fail, label: "" }
     - { from: r-post-commit, to: f-red, kind: fail, label: "" }
     - { from: r-deliver, to: f-stage, kind: fail, label: "" }

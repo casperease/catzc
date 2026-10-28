@@ -52,8 +52,8 @@ content:
     - { id: g-validation, kind: gate, label: BVT, in: band-landing }
     - { id: c-verified, kind: commit, label: BVT-verified, in: band-landing }
   edges:
-    - { from: c-topic, to: a-deploy, kind: adr, label: "" }
-    - { from: a-deploy, to: e-environment, kind: adr, label: "" }
+    - { from: c-topic, to: a-deploy, kind: record, label: "" }
+    - { from: a-deploy, to: e-environment, kind: record, label: "" }
     - { from: c-topic, to: c-main, kind: flow, label: "" }
     - { from: c-main, to: g-validation, kind: flow, label: "" }
     - { from: g-validation, to: c-verified, kind: flow, label: "" }

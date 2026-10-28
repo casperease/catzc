@@ -61,12 +61,12 @@ content:
     - { from: g-authoring, to: c-main, kind: flow, label: "" }
     - { from: c-main, to: g-bvt, kind: flow, label: "" }
     - { from: g-bvt, to: e-main-uat, kind: flow, label: "" }
-    - { from: e-main-uat, to: g-rc, kind: adr, label: "" }
-    - { from: g-rc, to: e-release-uat, kind: adr, label: "" }
-    - { from: e-release-uat, to: g-rbc, kind: adr, label: "" }
-    - { from: g-rbc, to: e-pre-prod, kind: adr, label: "" }
-    - { from: e-pre-prod, to: r-switch, kind: adr, label: "" }
-    - { from: r-switch, to: e-production, kind: adr, label: "" }
+    - { from: e-main-uat, to: g-rc, kind: record, label: "" }
+    - { from: g-rc, to: e-release-uat, kind: record, label: "" }
+    - { from: e-release-uat, to: g-rbc, kind: record, label: "" }
+    - { from: g-rbc, to: e-pre-prod, kind: record, label: "" }
+    - { from: e-pre-prod, to: r-switch, kind: record, label: "" }
+    - { from: r-switch, to: e-production, kind: record, label: "" }
   markers:
     - { at: g-authoring, number: 1 }
     - { at: c-main, number: 2, corner: top-left }

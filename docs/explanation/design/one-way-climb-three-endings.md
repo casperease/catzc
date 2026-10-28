@@ -65,14 +65,14 @@ content:
   edges:
     - { from: c-topic, to: c-landed, kind: flow, label: "" }
     - { from: c-landed, to: c-bvt, kind: flow, label: "" }
-    - { from: c-bvt, to: c-l3, kind: adr, label: "" }
-    - { from: c-l3, to: c-main-uat, kind: adr, label: "" }
-    - { from: c-main-uat, to: c-release-uat, kind: adr, label: "" }
-    - { from: c-release-uat, to: c-pre-prod, kind: adr, label: "" }
-    - { from: c-pre-prod, to: c-production, kind: adr, label: "" }
-    - { from: c-release-uat, to: c-superseded, kind: adr, label: "" }
+    - { from: c-bvt, to: c-l3, kind: record, label: "" }
+    - { from: c-l3, to: c-main-uat, kind: record, label: "" }
+    - { from: c-main-uat, to: c-release-uat, kind: record, label: "" }
+    - { from: c-release-uat, to: c-pre-prod, kind: record, label: "" }
+    - { from: c-pre-prod, to: c-production, kind: record, label: "" }
+    - { from: c-release-uat, to: c-superseded, kind: record, label: "" }
     - { from: c-bvt, to: c-discarded, kind: fail, label: "" }
-    - { from: c-production, to: c-retired, kind: adr, label: "" }
+    - { from: c-production, to: c-retired, kind: record, label: "" }
   markers:
     - { at: band-climb, number: 1, corner: top-right }
     - { at: c-superseded, number: 2 }

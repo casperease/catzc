@@ -41,7 +41,7 @@ content:
     - { from: g-step, to: g-task, kind: flow, label: calls }
     - { from: g-task, to: g-runner, kind: flow, label: calls }
     - { from: g-runner, to: g-same-command, kind: flow, label: calls }
-    - { from: g-developer, to: g-same-command, kind: adr, label: "" }
+    - { from: g-developer, to: g-same-command, kind: record, label: "" }
   markers:
     - { at: g-step, number: 1 }
     - { at: g-task, number: 2 }

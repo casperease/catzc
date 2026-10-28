@@ -56,7 +56,7 @@ content:
   edges:
     - { from: c-topic, to: r-pull-request-stage, kind: flow, label: feeds }
     - { from: r-pull-request-stage, to: g-pull-request-condition, kind: flow, label: "" }
-    - { from: c-topic, to: a-deploy, kind: adr, label: "" }
+    - { from: c-topic, to: a-deploy, kind: record, label: "" }
     - { from: c-topic, to: c-main, kind: flow, label: "" }
     - { from: c-main, to: r-main-stage, kind: flow, label: feeds }
     - { from: r-main-stage, to: g-main-condition, kind: flow, label: "" }

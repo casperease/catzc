@@ -52,8 +52,8 @@ content:
     - { from: g-trigger, to: r-github, kind: flow, label: "" }
     - { from: g-trigger, to: r-ado, kind: flow, label: "" }
     - { from: r-github, to: g-path-filter, kind: flow, label: feeds }
-    - { from: r-github, to: f-workflows, kind: adr, label: "" }
-    - { from: r-ado, to: f-pipelines, kind: adr, label: "" }
+    - { from: r-github, to: f-workflows, kind: record, label: "" }
+    - { from: r-ado, to: f-pipelines, kind: record, label: "" }
   markers:
     - { at: f-globs, number: 1 }
     - { at: g-globset, number: 2 }

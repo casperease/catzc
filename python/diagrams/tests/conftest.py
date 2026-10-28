@@ -51,7 +51,7 @@ content:
   edges:
     - { from: widget-a, to: gadget-store, kind: flow, label: writes }
     - { from: gadget-store, to: gadget-gate, kind: fail }
-    - { from: gadget-store, to: group-kit, kind: adr }
+    - { from: gadget-store, to: group-kit, kind: record }
   markers:
     - { at: widget-a, number: 1 }
     - { at: gadget-gate, number: 2 }

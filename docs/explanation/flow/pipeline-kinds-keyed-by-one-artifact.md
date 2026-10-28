@@ -60,11 +60,11 @@ content:
   edges:
     - { from: g-ci, to: g-artifact, kind: flow, label: "" }
     - { from: g-artifact, to: g-main-uat, kind: flow, label: "" }
-    - { from: g-main-uat, to: g-rc, kind: adr, label: "" }
-    - { from: g-rc, to: g-release-uat, kind: adr, label: "" }
-    - { from: g-release-uat, to: g-rbc, kind: adr, label: "" }
-    - { from: g-rbc, to: g-pre-prod, kind: adr, label: "" }
-    - { from: g-pre-prod, to: g-production, kind: adr, label: "" }
+    - { from: g-main-uat, to: g-rc, kind: record, label: "" }
+    - { from: g-rc, to: g-release-uat, kind: record, label: "" }
+    - { from: g-release-uat, to: g-rbc, kind: record, label: "" }
+    - { from: g-rbc, to: g-pre-prod, kind: record, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: record, label: "" }
   markers:
     - { at: g-ci, number: 1 }
     - { at: g-artifact, number: 2 }

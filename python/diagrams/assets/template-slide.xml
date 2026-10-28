@@ -383,12 +383,12 @@
       style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
       vertex="1"
       parent="1"><mxGeometry x="466" y="477" width="120" height="20" as="geometry" /></mxCell>
-    <mxCell id="lg-adr"
+    <mxCell id="lg-record"
       value=""
       style="rounded=1;html=1;arcSize=20;fillColor=@page;strokeColor=@line;dashed=1;"
       vertex="1"
       parent="1"><mxGeometry x="418" y="506" width="40" height="18" as="geometry" /></mxCell>
-    <mxCell id="lg-adr-t"
+    <mxCell id="lg-record-t"
       value="DRS-only"
       style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;"
       vertex="1"
@@ -586,12 +586,12 @@
       style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=@quiet;"
       vertex="1"
       parent="1"><mxGeometry x="1350" y="567" width="200" height="20" as="geometry" /></mxCell>
-    <mxCell id="mk-adr"
+    <mxCell id="mk-record"
       value=""
       style="rounded=0;html=1;fillColor=@mark;strokeColor=@map-page;strokeWidth=2;"
       vertex="1"
       parent="1"><mxGeometry x="1328" y="588" width="14" height="14" as="geometry" /></mxCell>
-    <mxCell id="mk-adr-t"
+    <mxCell id="mk-record-t"
       value="lit record file (dark rim)"
       style="text;html=1;align=left;verticalAlign=middle;fontSize=10.5;fontColor=@quiet;"
       vertex="1"

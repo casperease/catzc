@@ -51,8 +51,8 @@ content:
     - { from: g-root, to: g-globs, kind: flow, label: calls }
     - { from: g-globs, to: g-live, kind: thick, label: "" }
     - { from: g-globs, to: g-tests, kind: thick, label: "" }
-    - { from: g-live, to: g-locks, kind: adr, label: "" }
-    - { from: g-tests, to: g-locks, kind: adr, label: "" }
+    - { from: g-live, to: g-locks, kind: record, label: "" }
+    - { from: g-tests, to: g-locks, kind: record, label: "" }
   markers:
     - { at: g-root, number: 1 }
     - { at: g-bootstrap, number: 2 }

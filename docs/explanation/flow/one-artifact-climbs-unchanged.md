@@ -60,8 +60,8 @@ content:
   edges:
     - { from: g-build, to: r-artifact, kind: flow, label: "" }
     - { from: r-artifact, to: e-non-prod, kind: flow, label: "" }
-    - { from: e-non-prod, to: a-human-gate, kind: adr, label: "" }
-    - { from: a-human-gate, to: e-production, kind: adr, label: "" }
+    - { from: e-non-prod, to: a-human-gate, kind: record, label: "" }
+    - { from: a-human-gate, to: e-production, kind: record, label: "" }
   markers:
     - { at: g-build, number: 1 }
     - { at: r-artifact, number: 2 }

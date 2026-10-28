@@ -59,10 +59,10 @@ content:
     - { id: c-main-uat, kind: commit, label: "6", in: g-main-uat, state: main-uat }
     - { id: c-dirty, kind: commit, label: "10", in: grp-dirty, state: l3 }
   edges:
-    - { from: x-integrator, to: g-main-uat, kind: adr, label: "" }
-    - { from: g-main-uat, to: g-release-uat, kind: adr, label: "" }
-    - { from: g-release-uat, to: g-pre-prod, kind: adr, label: "" }
-    - { from: g-pre-prod, to: g-production, kind: adr, label: "" }
+    - { from: x-integrator, to: g-main-uat, kind: record, label: "" }
+    - { from: g-main-uat, to: g-release-uat, kind: record, label: "" }
+    - { from: g-release-uat, to: g-pre-prod, kind: record, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: record, label: "" }
     - { from: g-main-uat, to: grp-dirty, kind: fail, label: "" }
   markers:
     - { at: x-integrator, number: 1 }

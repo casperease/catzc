@@ -47,7 +47,7 @@ content:
     - { from: r-invoke, to: r-echo, kind: flow, label: then }
     - { from: r-step, to: x-guard, kind: fail, label: "" }
     - { from: r-echo, to: x-exception, kind: fail, label: "" }
-    - { from: r-label, to: a-developer, kind: adr, label: "" }
+    - { from: r-label, to: a-developer, kind: record, label: "" }
   markers:
     - { at: r-step, number: 1 }
     - { at: r-label, number: 2 }

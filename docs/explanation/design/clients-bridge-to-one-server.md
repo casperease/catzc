@@ -54,8 +54,8 @@ content:
     - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
     - { id: c-verified, kind: commit, label: verified point, in: band-remote }
   edges:
-    - { from: s-clone, to: g-identity, kind: adr, label: "" }
-    - { from: g-identity, to: g-policy, kind: adr, label: "" }
+    - { from: s-clone, to: g-identity, kind: record, label: "" }
+    - { from: g-identity, to: g-policy, kind: record, label: "" }
     - { from: g-policy, to: c-head, kind: flow, label: "" }
   markers:
     - { at: s-clone, number: 1 }

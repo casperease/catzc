@@ -163,13 +163,13 @@ def test_a_row_of_a_template_writes_out_its_dots_drops_and_labelled_edges():
 def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"].update(ROWS)
-    raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "adr"})  # both ends are cells the rows write out
+    raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "record"})  # both ends are cells the rows write out
     raw["content"]["minimaps"] = WIDGET_MINIMAPS
     declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
     declaration.declare_minimaps(tmp_path)
     written = __import__("yaml").safe_load(declaration.source_of(tmp_path).read_text(encoding="utf-8"))
     assert written["content"]["rows"] == ROWS["rows"]
-    assert {"from": "row-full-0", "to": "row-short-0", "kind": "adr"} in written["content"]["edges"]
+    assert {"from": "row-full-0", "to": "row-short-0", "kind": "record"} in written["content"]["edges"]
     assert {k: v for k, v in written["content"].items() if k != "minimaps"} == {k: v for k, v in raw["content"].items() if k != "minimaps"}
 
 
@@ -245,7 +245,7 @@ def ladder_widgets():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["spans"] = []
     raw["content"]["glyphs"] += [{"id": "gadget-top", "kind": "env", "label": "Top gadget", "in": "band-gadgets"}]
-    raw["content"]["edges"] += [{"from": "gadget-gate", "to": "gadget-top", "kind": "adr"}]
+    raw["content"]["edges"] += [{"from": "gadget-gate", "to": "gadget-top", "kind": "record"}]
     raw["content"]["ladders"] = [{"band": "band-gadgets", "rise": 30, "w": 150, "h": 80}]
     return raw
 

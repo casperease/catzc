@@ -44,9 +44,9 @@ content:
     - { id: g-verified, kind: commit, label: verified point, in: band-server }
     - { id: g-consumers, kind: store, label: consumer clones, in: band-out }
   edges:
-    - { from: g-local-clone, to: g-pull-request, kind: adr, label: "" }
+    - { from: g-local-clone, to: g-pull-request, kind: record, label: "" }
     - { from: g-pull-request, to: g-head, kind: flow, label: "" }
-    - { from: g-verified, to: g-consumers, kind: adr, label: "" }
+    - { from: g-verified, to: g-consumers, kind: record, label: "" }
   markers:
     - { at: g-local-clone, number: 1 }
     - { at: g-pull-request, number: 2 }

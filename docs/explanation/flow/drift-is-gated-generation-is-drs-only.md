@@ -47,7 +47,7 @@ content:
   edges:
     - { from: r-flattened, to: r-github, kind: flow, label: then }
     - { from: r-flattened, to: r-ado, kind: flow, label: then }
-    - { from: r-ado, to: a-generated, kind: adr, label: "" }
+    - { from: r-ado, to: a-generated, kind: record, label: "" }
     - { from: r-github, to: g-github-gate, kind: flow, label: "" }
     - { from: r-ado, to: g-ado-gate, kind: flow, label: "" }
     - { from: r-ado, to: g-coverage-gate, kind: flow, label: "" }

@@ -60,11 +60,11 @@ content:
     - { from: c-topic, to: c-main, kind: flow, label: "" }
     - from: c-topic
       to: a-deploy
-      kind: adr
+      kind: record
       label: ""
       via:
         - [105, 312]
-    - { from: a-deploy, to: e-environment, kind: adr, label: "" }
+    - { from: a-deploy, to: e-environment, kind: record, label: "" }
     - { from: c-main, to: g-main-only, kind: flow, label: "" }
     - { from: c-main, to: g-bvt, kind: flow, label: "" }
     - { from: g-bvt, to: c-verified, kind: flow, label: "" }

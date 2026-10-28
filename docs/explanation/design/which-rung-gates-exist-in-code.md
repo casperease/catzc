@@ -78,14 +78,14 @@ content:
     - { from: g-pr-validation, to: c-landed, kind: flow, label: "" }
     - { from: c-landed, to: g-bvt, kind: flow, label: "" }
     - { from: g-bvt, to: c-verified, kind: flow, label: "" }
-    - { from: c-verified, to: a-l3-at, kind: adr, label: "" }
-    - { from: a-l3-at, to: c-l3, kind: adr, label: "" }
-    - { from: c-l3, to: a-rc, kind: adr, label: "" }
-    - { from: a-rc, to: c-main-uat, kind: adr, label: "" }
-    - { from: c-main-uat, to: a-rbc, kind: adr, label: "" }
-    - { from: a-rbc, to: c-release-uat, kind: adr, label: "" }
-    - { from: c-release-uat, to: a-two-slot, kind: adr, label: "" }
-    - { from: a-two-slot, to: c-production, kind: adr, label: "" }
+    - { from: c-verified, to: a-l3-at, kind: record, label: "" }
+    - { from: a-l3-at, to: c-l3, kind: record, label: "" }
+    - { from: c-l3, to: a-rc, kind: record, label: "" }
+    - { from: a-rc, to: c-main-uat, kind: record, label: "" }
+    - { from: c-main-uat, to: a-rbc, kind: record, label: "" }
+    - { from: a-rbc, to: c-release-uat, kind: record, label: "" }
+    - { from: c-release-uat, to: a-two-slot, kind: record, label: "" }
+    - { from: a-two-slot, to: c-production, kind: record, label: "" }
     - { from: g-bvt, to: g-failure-stop, kind: fail, label: "" }
     - { from: g-failure-stop, to: c-discarded, kind: fail, label: "" }
   markers:

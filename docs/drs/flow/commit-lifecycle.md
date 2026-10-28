@@ -227,12 +227,12 @@ content:
     - { from: rung-main-uat, to: rung-release-uat, kind: flow, label: "" }
     - { from: rung-release-uat, to: rung-pre-prod, kind: flow, label: "" }
     - { from: rung-pre-prod, to: rung-production, kind: flow, label: "" }
-    - { from: rung-landed, to: ghost-landed, kind: adr, label: "" }
-    - { from: rung-bvt, to: ghost-bvt, kind: adr, label: "" }
-    - { from: rung-l3, to: ghost-l3, kind: adr, label: "" }
-    - { from: rung-main-uat, to: ghost-main-uat, kind: adr, label: "" }
-    - { from: rung-release-uat, to: ghost-release-uat, kind: adr, label: "" }
-    - { from: rung-pre-prod, to: ghost-pre-prod, kind: adr, label: "" }
+    - { from: rung-landed, to: ghost-landed, kind: record, label: "" }
+    - { from: rung-bvt, to: ghost-bvt, kind: record, label: "" }
+    - { from: rung-l3, to: ghost-l3, kind: record, label: "" }
+    - { from: rung-main-uat, to: ghost-main-uat, kind: record, label: "" }
+    - { from: rung-release-uat, to: ghost-release-uat, kind: record, label: "" }
+    - { from: rung-pre-prod, to: ghost-pre-prod, kind: record, label: "" }
     - { from: rung-bvt, to: discard-bvt, kind: fail, label: auto-rejected }
     - { from: rung-l3, to: discard-l3, kind: fail, label: auto-rejected }
     - { from: rung-main-uat, to: discard-main-uat, kind: fail, label: fails there }

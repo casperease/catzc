@@ -52,7 +52,7 @@ content:
     - { from: g-variants, to: g-asserts, kind: flow, label: calls }
     - { from: g-variants, to: g-azure-ext, kind: thick, label: "" }
     - { from: g-upper-base, to: g-variants, kind: flow, label: calls }
-    - { from: g-variants, to: g-tooling, kind: adr, label: "" }
+    - { from: g-variants, to: g-tooling, kind: record, label: "" }
   markers:
     - { at: g-variants-yml, number: 1 }
     - { at: g-config, number: 2 }

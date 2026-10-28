@@ -36,7 +36,7 @@ content:
     - { id: g-main-uat, kind: env, label: "BVT-verified head: commit 6, also the main-UAT occupant", in: band-mainline }
     - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-mainline }
   edges:
-    - { from: g-integrator, to: g-main-uat, kind: adr, label: "" }
+    - { from: g-integrator, to: g-main-uat, kind: record, label: "" }
     - { from: g-main-uat, to: f-dirty-head, kind: fail, label: "" }
   markers:
     - { at: g-integrator, number: 1 }

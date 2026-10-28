@@ -49,7 +49,7 @@ content:
     - { id: g-module-dependency, kind: gate, label: Test-ModuleDependency, in: band-edges }
   edges:
     - { from: g-variants-yml, to: g-variants-config, kind: flow, label: "" }
-    - { from: g-get-variant, to: g-review, kind: adr, label: "" }
+    - { from: g-get-variant, to: g-review, kind: record, label: "" }
     - { from: g-variants, to: g-module-dependency, kind: flow, label: "" }
   markers:
     - { at: g-variants-yml, number: 1 }

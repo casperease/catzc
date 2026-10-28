@@ -42,7 +42,7 @@ content:
     - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
     - { id: g-config-deployment, kind: gate, label: VariantsConfig, in: band-deployment }
   edges:
-    - { from: g-partition, to: s-code-live, kind: adr, label: "" }
+    - { from: g-partition, to: s-code-live, kind: record, label: "" }
     - { from: g-config, to: s-code-tests, kind: flow, label: "" }
     - { from: g-config-deployment, to: s-deployment-live, kind: flow, label: "" }
   markers:

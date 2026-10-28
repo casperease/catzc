@@ -47,7 +47,7 @@ content:
     - { id: x-not-found, kind: failure, label: pipeline file not found, in: band-checked }
   edges:
     - { from: f-globs-yml, to: c-trigger, kind: flow, label: feeds }
-    - { from: c-trigger, to: f-cd-apex, kind: adr, label: "" }
+    - { from: c-trigger, to: f-cd-apex, kind: record, label: "" }
     - { from: c-trigger, to: g-coverage, kind: flow, label: "" }
     - { from: c-trigger, to: g-trigger-glob, kind: flow, label: "" }
     - { from: f-cd-apex, to: g-trigger-glob, kind: flow, label: "" }

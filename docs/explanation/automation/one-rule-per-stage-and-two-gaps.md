@@ -51,7 +51,7 @@ content:
     - { from: g-timeouts, to: g-config-tests, kind: flow, label: "" }
     - { from: g-exemptions, to: g-seconds-tests, kind: flow, label: "" }
     - { from: g-environment, to: g-seconds-tests, kind: flow, label: "" }
-    - { from: g-exemptions, to: g-hook, kind: adr, label: "" }
+    - { from: g-exemptions, to: g-hook, kind: record, label: "" }
   markers:
     - { at: g-environment, number: 1 }
     - { at: g-timeouts, number: 2 }

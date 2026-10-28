@@ -50,10 +50,10 @@ content:
     - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
     - { id: s-clone, kind: store, label: local clone, in: band-out }
   edges:
-    - { from: c-verified, to: s-clone, kind: adr, label: "branch from" }
+    - { from: c-verified, to: s-clone, kind: record, label: "branch from" }
     - { from: s-clone, to: c-topic, kind: flow, label: "commit + push, own topic only", via: [[770, 424]] }
-    - { from: c-topic, to: g-identity, kind: adr, label: "" }
-    - { from: g-identity, to: g-policy, kind: adr, label: "" }
+    - { from: c-topic, to: g-identity, kind: record, label: "" }
+    - { from: g-identity, to: g-policy, kind: record, label: "" }
     - { from: g-policy, to: c-head, kind: flow, label: "merge the verified topic HEAD" }
   markers:
     - { at: c-verified, number: 1 }

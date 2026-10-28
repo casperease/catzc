@@ -55,10 +55,10 @@ content:
   edges:
     - { from: s-clone, to: g-guard, kind: flow, label: "" }
     - { from: g-guard, to: f-skipped, kind: fail, label: "" }
-    - { from: g-guard, to: g-policy, kind: adr, label: "" }
+    - { from: g-guard, to: g-policy, kind: record, label: "" }
     - { from: g-policy, to: s-main, kind: flow, label: "" }
-    - { from: s-main, to: g-review, kind: adr, label: "" }
-    - { from: g-review, to: s-consumers, kind: adr, label: "" }
+    - { from: s-main, to: g-review, kind: record, label: "" }
+    - { from: g-review, to: s-consumers, kind: record, label: "" }
   markers:
     - { at: s-clone, number: 1 }
     - { at: g-guard, number: 2 }

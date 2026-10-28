@@ -64,14 +64,14 @@ content:
   ladders:
     - { band: band-ladder, rise: 60, w: 140, h: 80 }
   edges:
-    - { from: g-ci-automation, to: g-on-demand, kind: adr, label: "" }
-    - { from: g-on-demand, to: g-main-uat, kind: adr, label: "" }
-    - { from: g-main-uat, to: g-rc, kind: adr, label: "" }
-    - { from: g-rc, to: g-release-uat, kind: adr, label: "" }
-    - { from: g-release-uat, to: g-rbc, kind: adr, label: "" }
-    - { from: g-rbc, to: g-pre-prod, kind: adr, label: "" }
-    - { from: g-pre-prod, to: g-production, kind: adr, label: "" }
-    - { from: g-main-uat, to: g-integrator, kind: adr, label: "" }
+    - { from: g-ci-automation, to: g-on-demand, kind: record, label: "" }
+    - { from: g-on-demand, to: g-main-uat, kind: record, label: "" }
+    - { from: g-main-uat, to: g-rc, kind: record, label: "" }
+    - { from: g-rc, to: g-release-uat, kind: record, label: "" }
+    - { from: g-release-uat, to: g-rbc, kind: record, label: "" }
+    - { from: g-rbc, to: g-pre-prod, kind: record, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: record, label: "" }
+    - { from: g-main-uat, to: g-integrator, kind: record, label: "" }
     - { from: f-dirty-head, to: g-main-uat, kind: fail, label: "" }
   markers:
     - { at: g-ci-automation, number: 1 }

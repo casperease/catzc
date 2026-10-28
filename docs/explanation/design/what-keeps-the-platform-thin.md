@@ -58,10 +58,10 @@ content:
   edges:
     - { from: g-naming, to: g-functions, kind: flow, label: calls }
     - { from: g-config, to: g-functions, kind: flow, label: calls }
-    - { from: g-everything-code, to: g-functions, kind: adr, label: "" }
+    - { from: g-everything-code, to: g-functions, kind: record, label: "" }
     - { from: g-assert-tool, to: g-az-cli, kind: flow, label: "" }
-    - { from: g-no-reimplementation, to: g-az-cli, kind: adr, label: "" }
-    - { from: g-substrate, to: g-az-cli, kind: adr, label: "" }
+    - { from: g-no-reimplementation, to: g-az-cli, kind: record, label: "" }
+    - { from: g-substrate, to: g-az-cli, kind: record, label: "" }
   markers:
     - { at: g-naming, number: 1 }
     - { at: g-functions, number: 2 }

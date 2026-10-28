@@ -251,7 +251,7 @@ def legend_entries(content):
     if any(c["kind"] == "rule" and not c.get("gated", True) for c in content["chips"]):
         mark = LIB["marks"]["rule"]
         dashed = lambda eid, x, y: [cell(f"lg-{eid}", "#2", mark["style"] + "dashed=1;", x + 4, y - 2, mark["size"][0], mark["size"][1])]
-        entries.append(("chip-rule-adr", dashed, "dashed rule chip: DRS-only (no gate)"))
+        entries.append(("chip-rule-record", dashed, "dashed rule chip: DRS-only (no gate)"))
     if wanted is not None:
         entries = [e for e in entries if e[2] in wanted]
     return entries

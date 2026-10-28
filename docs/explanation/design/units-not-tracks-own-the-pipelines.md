@@ -49,7 +49,7 @@ content:
     - { from: s-base, to: s-infrastructure, kind: thick, label: composes }
     - { from: s-units, to: s-base, kind: thick, label: composes }
     - { from: s-units, to: r-cd, kind: flow, label: feeds }
-    - { from: s-infrastructure, to: s-automation, kind: adr, label: "" }
+    - { from: s-infrastructure, to: s-automation, kind: record, label: "" }
   markers:
     - { at: s-automation, number: 1 }
     - { at: s-infrastructure->s-automation, number: 2 }

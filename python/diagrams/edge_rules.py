@@ -19,7 +19,7 @@ KIND_RANK = {kind: name for name, kinds in DEFAULTS["edge-rank"].items() for kin
 DEFAULT_LABELS = {tuple(pair.split(">")): label for pair, label in DEFAULTS["edge-defaults"].items()}
 TRUSTED_KINDS = tuple(DEFAULTS["edge-rules"]["trusted-kinds"].replace(",", " ").split())
 EDGE_KIND_LABEL = {"read": "reads", "fail": "failed", "junction": "junction"}  # an edge kind that already says its meaning
-NOT_ARROWS = ("adr", "bypass")  # a DRS link and a ladder bypass join no actor, code or file
+NOT_ARROWS = ("record", "bypass")  # a DRS link and a ladder bypass join no actor, code or file
 
 
 def validate(glyph_kinds, edge_labels):

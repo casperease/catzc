@@ -43,8 +43,8 @@ content:
   edges:
     - { from: c-folder, to: s-live, kind: thick, label: "" }
     - { from: c-folder, to: s-tests, kind: thick, label: "" }
-    - { from: s-live, to: a-live-lock, kind: adr, label: "" }
-    - { from: s-tests, to: a-tests-lock, kind: adr, label: "" }
+    - { from: s-live, to: a-live-lock, kind: record, label: "" }
+    - { from: s-tests, to: a-tests-lock, kind: record, label: "" }
   markers:
     - { at: c-folder, number: 1 }
     - { at: s-live, number: 2 }

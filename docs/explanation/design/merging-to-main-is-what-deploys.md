@@ -53,7 +53,7 @@ content:
   edges:
     - { from: g-push, to: g-pr-build, kind: flow, label: feeds }
     - { from: g-push, to: g-release, kind: flow, label: feeds }
-    - { from: g-push, to: g-deploy-topic, kind: adr, label: "" }
+    - { from: g-push, to: g-deploy-topic, kind: record, label: "" }
     - { from: g-push, to: g-complete, kind: flow, label: "" }
     - { from: g-complete, to: g-cd-run, kind: flow, label: feeds }
     - { from: g-cd-run, to: g-environment, kind: flow, label: "" }

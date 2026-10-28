@@ -63,7 +63,7 @@ content:
     - { from: r-trigger, to: r-stage, kind: flow, label: calls }
     - { from: r-stage, to: c-verified, kind: flow, label: "" }
     - { from: c-verified, to: r-foundation, kind: flow, label: feeds }
-    - { from: c-verified, to: a-level-three, kind: adr, label: "" }
+    - { from: c-verified, to: a-level-three, kind: record, label: "" }
     - { from: r-foundation, to: r-discovery, kind: flow, label: calls }
     - { from: r-discovery, to: r-expedition, kind: flow, label: calls }
   markers:

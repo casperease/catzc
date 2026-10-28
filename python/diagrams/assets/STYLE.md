@@ -202,7 +202,8 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   (`uniform-label: legend`, derived, never written back). An edge's optional `count: n/m` (n at most m) follows its label inside the same
   pill (`calls 13/28`); it is no label and never orients the edge. `edge-label: word` configures every diagram to the word beside the line,
   with a pill only at a crossing and the entry `transition: into a new state`.
-- Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
+- Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge (`kind: record`, a link to a decision record): add `dashed=1;`. Failure
+  path: `strokeColor=@red-rim;`, solid.
 - Read edge (reads a fact source): `endArrow=open;dashed=1;dashPattern=1 3;`, dotted. Junction edge (where catzc meets a state machine):
   `startArrow=oval;startFill=1;`, solid, with the block arrow.
 - Span bar (eac's phase brace and the commit-story's top axis):

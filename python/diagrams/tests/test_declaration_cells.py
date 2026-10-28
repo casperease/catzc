@@ -158,7 +158,7 @@ def test_a_commit_occupies_an_environment_and_comes_back():
 def test_an_edge_routes_through_its_waypoints_and_a_repeat_edge_keeps_its_own_path():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["edges"] += [
-        {"from": "widget-a", "to": "gadget-store", "kind": "adr", "via": [[400, 520], [900, 520]]},
+        {"from": "widget-a", "to": "gadget-store", "kind": "record", "via": [[400, 520], [900, 520]]},
     ]
     first = declaration.normalise(raw)
     model = declaration.put(first)
@@ -166,7 +166,7 @@ def test_an_edge_routes_through_its_waypoints_and_a_repeat_edge_keeps_its_own_pa
     frame = box[box["e-widget-a-gadget-store~2"]["parent"]]  # the model holds a framed edge's waypoints relative to its frame
     assert f'<mxPoint x="{400 - frame["x"]}" y="{520 - frame["y"]}" />' in model and 'id="e-widget-a-gadget-store~2"' in model
     back = declaration.get(model, kind="explanation")
-    assert [e.get("via") for e in back["content"]["edges"] if e["kind"] == "adr" and e["from"] == "widget-a"] == [[[400, 520], [900, 520]]]
+    assert [e.get("via") for e in back["content"]["edges"] if e["kind"] == "record" and e["from"] == "widget-a"] == [[[400, 520], [900, 520]]]
 
 
 def test_a_marker_on_a_routed_edge_sits_halfway_along_its_waypoints_and_comes_back():

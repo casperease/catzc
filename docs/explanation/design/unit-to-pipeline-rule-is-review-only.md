@@ -56,8 +56,8 @@ content:
     - { from: g-track, to: g-variants-config, kind: flow, label: "" }
     - { from: g-track, to: g-language-tests, kind: flow, label: "" }
     - { from: g-unit, to: g-globs-config, kind: flow, label: "" }
-    - { from: g-pipeline, to: g-review, kind: adr, label: "" }
-    - { from: g-scope, to: g-review, kind: adr, label: "" }
+    - { from: g-pipeline, to: g-review, kind: record, label: "" }
+    - { from: g-scope, to: g-review, kind: record, label: "" }
   markers:
     - { at: g-track, number: 1 }
     - { at: g-variants-config, number: 2 }
