@@ -7,15 +7,8 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 import re
 
 import pytest
-from action_lens_sample import normalised, sample
+from action_lens_sample import failing, normalised, sample
 from catzc.diagrams import declaration
-
-
-def failing(mutate, match):
-    raw = sample()
-    mutate(raw)
-    with pytest.raises(declaration.DeclarationError, match=match):
-        declaration.normalise(raw)
 
 
 def test_the_band_grammar_is_refused_in_the_action_lens():

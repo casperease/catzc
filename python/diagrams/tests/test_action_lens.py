@@ -12,7 +12,7 @@ import math
 import re
 
 import pytest
-from action_lens_sample import normalised, sample
+from action_lens_sample import failing, normalised, sample
 from catzc.diagrams import declaration, declaration_settings
 from catzc.diagrams.module_paths import REPO
 
