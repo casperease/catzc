@@ -72,12 +72,9 @@ brief and every message meets the wrong word first.
 - [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
       controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
       Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-- [ ] `docs/explanation/` leftovers inside the diagram declarations: the titles of `automation/rule-and-gate-per-load-stage.md` and
-      `azure/coordinate-rules-and-their-gates.md` (h1, lead line, `yml drawio` title, png alt; re-render with the title), the `description:`
-      lines of `design/a-sibling-is-an-idea-never-a-reference.md`, `design/which-rung-gates-exist-in-code.md`,
-      `flow/drift-is-gated-generation-is-drs-only.md`, `flow/gates-check-source-and-trigger.md`,
-      `flow/one-gate-checks-the-raw-read-rule.md`, and the link class `kind: adr` -> `kind: record` in every `yml drawio` block. Check: the
-      Grep over `docs/explanation`, `Test-Links`.
+- [ ] `docs/explanation/` diagram declarations: the link class `kind: adr` -> `kind: record` in every `yml drawio` block, and the
+      `label:` "the owning ADR decides" of `design/a-sibling-is-an-idea-never-a-reference.md`. Check: the Grep over `docs/explanation`,
+      `Test-Links`.
 
 ### The gate, last
 
