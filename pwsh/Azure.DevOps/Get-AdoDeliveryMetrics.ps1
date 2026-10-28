@@ -2,7 +2,12 @@ function Get-AdoDeliveryMetrics {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [string[]] $Unit,
+        [string] $RepositoryRoot = (Get-RepositoryRoot),
+
+        # A deployable unit is one a deploy pipeline names, so the units are read from the deploy pipelines' file names.
+        [string[]] $Unit = @(Get-ChildPath -Path (Join-Path $RepositoryRoot '.ado/pipelines') -Depth 1 -Filter 'deploy-*.yaml' -File | ForEach-Object {
+                (Get-PipelineType ([System.IO.Path]::GetFileNameWithoutExtension($_))).Unit
+            } | Sort-Object -Unique),
 
         [ValidateRange(1, 366)]
         [int] $Days = 30,
@@ -14,21 +19,13 @@ function Get-AdoDeliveryMetrics {
         [string] $Organization = (Get-Config -Config ado)['organization'],
 
         [ValidateRange(1, 1000)]
-        [int] $Top = 1000,
-
-        [string] $RepositoryRoot = (Get-RepositoryRoot)
+        [int] $Top = 1000
     )
 
     Assert-NotNullOrWhitespace $Project -ErrorText 'Project is required. Set -Project or configure ado.yml.'
     Assert-NotNullOrWhitespace $Organization -ErrorText 'Organization is required. Set -Organization or configure ado.yml.'
     $apiBase = "$($Organization.TrimEnd('/'))/$Project/_apis"
 
-    # A deployable unit is one a deploy pipeline names, so the units are read from the deploy pipelines' file names.
-    if (-not $Unit) {
-        $Unit = @(Get-ChildPath -Path (Join-Path $RepositoryRoot '.ado/pipelines') -Depth 1 -Filter 'deploy-*.yaml' -File | ForEach-Object {
-                (Get-PipelineType ([System.IO.Path]::GetFileNameWithoutExtension($_))).Unit
-            } | Sort-Object -Unique)
-    }
     # Production is the last rung of the ladder, and its environment is named <unit>-<rung>.
     $production = @(Get-Rung)[-1].name
     $since = $Now.ToUniversalTime().AddDays(-$Days)

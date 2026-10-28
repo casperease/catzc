@@ -1,7 +1,7 @@
 Describe 'Catzc.Types.csproj — editor build stamps, never warns on loaded types' -Tag 'L1', 'integrity' {
     BeforeAll {
-        $root = Get-RepositoryRoot
-        $template = [xml][System.IO.File]::ReadAllText((Join-Path $root 'pwsh/Base.TypesSystem/assets/Catzc.Types.csproj.xml'))
+        $modulesRoot = Get-CatzcModulesRoot
+        $template = [xml][System.IO.File]::ReadAllText((Join-Path $modulesRoot 'Base.TypesSystem/assets/Catzc.Types.csproj.xml'))
         $target = $template.SelectSingleNode("//Target[@Name='StampCatzcTypesVersionFromSources']")
         $script:steps = $target.SelectNodes('Exec | Error | PropertyGroup[CatzcTypesHash] | Warning')
         # The stamp locates the loader from the project's own folder; the project sits in TestDrive, so that folder is a property here.
@@ -10,7 +10,7 @@ Describe 'Catzc.Types.csproj — editor build stamps, never warns on loaded type
         $body += '<Message Importance="high" Text="stamp=$(CatzcTypesHash)" />'
         $script:project = Join-Path $TestDrive 'Check.proj'
         [System.IO.File]::WriteAllText($script:project, "<Project><Target Name=`"Check`">$body</Target></Project>")
-        $script:assets = Join-Path $root 'pwsh/.internal/assets'
+        $script:assets = Join-Path $modulesRoot '.internal/assets'
         $script:shadow = Join-Path $TestDrive 'shadow'
         $script:saved = @{ LOCALAPPDATA = $env:LOCALAPPDATA; HOME = $env:HOME }
         $env:LOCALAPPDATA = $script:shadow

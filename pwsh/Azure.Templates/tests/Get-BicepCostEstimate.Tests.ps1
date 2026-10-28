@@ -64,7 +64,7 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
 
     Context 'a type whose SKU a config decides' {
         BeforeAll {
-            $script:skuConfig = [Catzc.Azure.Templates.CostModelConfig]::new(@{
+            $script:tierConfig = [Catzc.Azure.Templates.CostModelConfig]::new(@{
                     skus   = @{ 'Microsoft.Network/azureFirewalls' = 'global.widget.subscriptions.{subscription}.tier' }
                     meters = @(
                         @{ id = 'widget-basic-hours'; type = 'Microsoft.Network/azureFirewalls'; service = 'Gadget'; meter = 'Basic Deployment'; when_sku = 'Basic'; quantity = 730 }
@@ -87,7 +87,7 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
         }
 
         It 'prices the meter of the SKU the subscription''s config names, by the declarations counted' {
-            $estimate = Get-BicepCostEstimate widget -Config $script:skuConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_hub
+            $estimate = Get-BicepCostEstimate widget -Config $script:tierConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_hub
             $estimate.Subscription | Should -Be 'gadget_hub'
             $estimate.Lines.Meter | Should -Be @('widget-basic-hours', 'widget-vault-ops')
             ($estimate.Lines | Where-Object Meter -EQ 'widget-basic-hours').Sku | Should -Be 'Basic'
@@ -95,16 +95,16 @@ Describe 'Get-BicepCostEstimate' -Tag 'L0', 'logic' {
         }
 
         It 'prices a meter with a count for that many resources, not the declarations' {
-            $estimate = Get-BicepCostEstimate widget -Config $script:skuConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription sprocket_hub
+            $estimate = Get-BicepCostEstimate widget -Config $script:tierConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription sprocket_hub
             $estimate.Lines.Meter | Should -Be @('widget-standard-hours', 'widget-vault-ops')
             ($estimate.Lines | Where-Object Meter -EQ 'widget-standard-hours').Monthly | Should -Be 730
             Should -Invoke Get-ConfigValue -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter { $Address -eq 'global.widget.subscriptions.sprocket_hub.tier' }
         }
 
         It 'applies no SKU-bound meter where the config names no SKU, or with no subscription to read it for' {
-            (Get-BicepCostEstimate widget -Config $script:skuConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_spoke).Lines.Meter |
+            (Get-BicepCostEstimate widget -Config $script:tierConfig -PricesPath $script:prices -OutputRoot $script:out -Subscription gadget_spoke).Lines.Meter |
                 Should -Be @('widget-vault-ops')
-            (Get-BicepCostEstimate widget -Config $script:skuConfig -PricesPath $script:prices -OutputRoot $script:out).Lines.Meter | Should -Be @('widget-vault-ops')
+            (Get-BicepCostEstimate widget -Config $script:tierConfig -PricesPath $script:prices -OutputRoot $script:out).Lines.Meter | Should -Be @('widget-vault-ops')
             Should -Invoke Get-ConfigValue -ModuleName Catzc.Azure.Templates -Times 1 -Exactly
         }
 

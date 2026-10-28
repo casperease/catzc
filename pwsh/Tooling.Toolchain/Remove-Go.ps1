@@ -1,5 +1,7 @@
 function Remove-Go {
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-ParameterFillIn', '',
+        Justification = '-InstallDir defaults to the go on PATH when that one is off-config, else the machine-wide folder, a decision over a command lookup and a config check that a declared default cannot hold (ADR-PWSH-PARAM-RESOLUTIONORDER)')]
     param(
         [Parameter(Position = 0)]
         [string] $InstallDir,

@@ -12,9 +12,9 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
             '.internal'             = @{ Files = @{ 'Catzc.Internal.Bootstrap.psm1' = '# bootstrap' } }
             'Catzc.Base.Repository' = @{ Public = 'Get-Repo' }
         } -Files @{
-            'importer.ps1'  = '# importer'
-            '.editorconfig' = 'root = true'
-            '.gitignore'    = 'out/'
+            'widget-entry.ps1' = '# widget entry'
+            '.editorconfig'    = 'root = true'
+            '.gitignore'       = 'out/'
         }
 
         $script:modules = Get-CatzcModulesFolder
@@ -31,7 +31,7 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
                 @($script:modules), 'modules', $null, @()) }
         Mock Get-Config -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Config -eq 'files' } {
             [Catzc.Base.ModuleSystem.FilesConfig]::new([ordered]@{ modules = [ordered]@{
-                        '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('importer.ps1') } }
+                        '.internal'             = [ordered]@{ packages = [ordered]@{ entrypoint = @('widget-entry.ps1') } }
                         'Catzc.Base.Repository' = [ordered]@{ packages = [ordered]@{ root_configs = @('.editorconfig'); gitignore = @('.gitignore') } }
                     }
                 })
@@ -58,7 +58,7 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
         Test-Path (Join-Path $dest "$($script:modules)/.vendor/PkgX/x.psm1") | Should -BeTrue
         Test-Path (Join-Path $dest "$($script:modules)/.internal/Catzc.Internal.Bootstrap.psm1") | Should -BeTrue
         Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository/Get-Repo.ps1") | Should -BeTrue
-        Test-Path (Join-Path $dest 'importer.ps1') | Should -BeTrue        # .internal/entrypoint package
+        Test-Path (Join-Path $dest 'widget-entry.ps1') | Should -BeTrue    # .internal/entrypoint package
         Test-Path (Join-Path $dest '.editorconfig') | Should -BeTrue       # Repository/root_configs package
         Test-Path (Join-Path $dest '.gitignore') | Should -BeTrue          # Repository/gitignore package
     }
@@ -76,7 +76,7 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
         Copy-CatzcModule -Destination $dest -ModuleNames Catzc.Base.Alpha -EmptyDestination | Out-Null
         Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Alpha/Get-Alpha.ps1") | Should -BeTrue
         Test-Path (Join-Path $dest "$($script:modules)/Catzc.Base.Repository") | Should -BeFalse
-        Test-Path (Join-Path $dest 'importer.ps1') | Should -BeFalse
+        Test-Path (Join-Path $dest 'widget-entry.ps1') | Should -BeFalse
     }
 
     It 'with -DryRun writes nothing but returns the plan' {

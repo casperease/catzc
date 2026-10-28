@@ -17,7 +17,12 @@ Describe 'Get-BicepPreparedConfiguration: options.yml addresses' -Tag 'L0', 'log
         Mock Resolve-BicepParameterAddresses -ModuleName Catzc.Azure.Templates {
             $resolved = [ordered]@{}
             foreach ($key in @($Parameters.Keys)) {
-                $resolved[$key] = if ($Parameters[$key].Contains('address')) { [ordered]@{ value = "resolved:$($Parameters[$key].address)" } } else { $Parameters[$key] }
+                $resolved[$key] = if ($Parameters[$key].Contains('address')) {
+                    [ordered]@{ value = "resolved:$($Parameters[$key].address)" }
+                }
+                else {
+                    $Parameters[$key]
+                }
             }
             $resolved
         }
@@ -41,7 +46,8 @@ Describe 'Get-BicepPreparedConfiguration: options.yml addresses' -Tag 'L0', 'log
         }
         InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
             param($Template, $Slot)
-            { Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot } |
+            $arguments = @{ TemplateDescriptor = $Template; Slot = $Slot }
+            { Get-BicepPreparedConfiguration @arguments } |
                 Should -Throw "*writes 'gadgetRoleId', a shared value of the template (options.yml addresses)*"
         }
     }

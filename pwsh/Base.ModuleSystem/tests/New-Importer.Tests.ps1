@@ -14,7 +14,7 @@ Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
 
     It 'writes importer.ps1 into the target root and returns its path' {
         $path = New-Importer -RepositoryRoot $script:sandbox
-        $path | Should -Be (Join-Path $script:sandbox 'importer.ps1')
+        $path | Should -Be (Join-Path $script:sandbox ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry))
         Test-Path $path | Should -BeTrue
     }
 
@@ -60,7 +60,7 @@ Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {
 Describe 'New-Importer — importer.ps1 drift guard' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         $script:repoRoot = Get-RepositoryRoot
-        $script:importer = Join-Path $script:repoRoot 'importer.ps1'
+        $script:importer = Join-Path $script:repoRoot ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
         $script:overlay = Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1'
 
         function script:Get-ParamSignature {

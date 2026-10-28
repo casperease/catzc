@@ -67,12 +67,12 @@ Describe 'Update-AzurePriceTable' -Tag 'L0', 'logic' {
     }
 
     It 'narrows the match to a meter''s sku when it names one' {
-        $skuConfig = [Catzc.Azure.Templates.CostModelConfig]::new(@{
+        $tierConfig = [Catzc.Azure.Templates.CostModelConfig]::new(@{
                 meters = @(@{ id = 'widget-vault-ops'; type = 'Microsoft.KeyVault/vaults'; service = 'Key Vault'; meter = 'Operations'; sku = 'Standard'; quantity = 10 })
             })
-        $null = Update-AzurePriceTable -Config $skuConfig -PricesPath $script:path
+        $null = Update-AzurePriceTable -Config $tierConfig -PricesPath $script:path
         [uri]::UnescapeDataString($script:uris[0]) | Should -BeLike "*meterName eq 'Operations'*and skuName eq 'Standard'"
-        $skuConfig.meters[0].sku | Should -Be 'Standard'
+        $tierConfig.meters[0].sku | Should -Be 'Standard'
         $script:config.meters[0].sku | Should -BeNullOrEmpty
     }
 

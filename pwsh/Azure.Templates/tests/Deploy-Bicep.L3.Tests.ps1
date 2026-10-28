@@ -9,8 +9,8 @@ Describe 'Deploy-Bicep to an ephemeral l3 slot (live Azure)' -Tag 'L3', 'integri
         }
         $script:created = [System.Collections.Generic.List[pscustomobject]]::new()
         # Each resource-group template's non-production base slot on the session's subscription, deployed again as the ephemeral slot l3.
-        $script:targets = if ($session) {
-            @(foreach ($name in @(Get-BicepTemplateNames)) {
+        $script:targets = @(if ($session) {
+                foreach ($name in @(Get-BicepTemplateNames)) {
                     $descriptor = Get-BicepTemplate $name
                     if ($descriptor.deployment_target -ne 'ResourceGroup') {
                         continue
@@ -22,11 +22,8 @@ Describe 'Deploy-Bicep to an ephemeral l3 slot (live Azure)' -Tag 'L3', 'integri
                     if ($base) {
                         [pscustomobject]@{ Template = $name; Environment = $base.environment; Customer = $base.customer }
                     }
-                })
-        }
-        else {
-            @()
-        }
+                }
+            })
     }
 
     AfterAll {

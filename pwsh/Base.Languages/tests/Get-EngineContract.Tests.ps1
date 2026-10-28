@@ -19,12 +19,12 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
         @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY',
             'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS')
-        $contract['CATZC_ENGINE_ENTRY'] | Should -Be (Join-Path $script:root 'importer.ps1')
+        $importer = Join-Path $script:root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
+        $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
         $contract['CATZC_ENGINE'] | Should -Be 'pwsh'
         $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be 'C:\widget\engine\pwsh.exe'
         $start = @($contract['CATZC_ENGINE_START'] | ConvertFrom-Json)
-        $start |
-            Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}'))
+        $start | Should -Be ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments($importer, '{command}'))
         $start[-1] | Should -BeLike "*widget''s repo*; {command}"
         $contract['CATZC_REPOSITORY_ROOT'] | Should -Be $script:root
     }
