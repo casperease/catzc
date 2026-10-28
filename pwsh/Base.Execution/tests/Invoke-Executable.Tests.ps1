@@ -403,8 +403,9 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It 'resolves a relative -WorkingDirectory against the repository root, never the caller''s location' {
             Push-Location $env:TEMP
             try {
-                $result = Invoke-Executable $cwdCmd -WorkingDirectory 'pwsh' -PassThru -Silent
-                $result.Output.Trim() | Should -Be (Join-Path $env:RepositoryRoot 'pwsh')
+                $modulesFolder = Get-CatzcModulesFolder
+                $result = Invoke-Executable $cwdCmd -WorkingDirectory $modulesFolder -PassThru -Silent
+                $result.Output.Trim() | Should -Be (Join-Path $env:RepositoryRoot $modulesFolder)
             }
             finally {
                 Pop-Location

@@ -8,7 +8,7 @@ BeforeAll {
         else {
             'cat'
         }
-        $importer = Join-Path (Get-RepositoryRoot) 'importer.ps1'
+        $importer = Join-Path (Get-RepositoryRoot) ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
         $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')
         $childCommand = ". '$importer' -SkipJanitors *> `$null; exit (Invoke-Executable '$inputReader' -PassThru).ExitCode"
         '-NoProfile', '-NonInteractive', '-Command', $childCommand | ForEach-Object { $startInfo.ArgumentList.Add($_) }

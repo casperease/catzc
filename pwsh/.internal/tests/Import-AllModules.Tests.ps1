@@ -3,7 +3,7 @@ BeforeAll {
     $sandboxAuto = Join-Path $sandbox (Get-CatzcModulesFolder)
     New-Item -Path $sandboxAuto -ItemType Directory -Force | Out-Null
 
-    Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $sandbox
+    Copy-Item -Path (Join-Path $env:RepositoryRoot ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)) -Destination $sandbox
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $sandboxAuto '.vendor')
     # The bootstrap reads the private-function folder from the languages config before any module loads.
@@ -194,7 +194,7 @@ Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {
             $root = Join-Path ([System.IO.Path]::GetTempPath()) "eviction-$Label-$([guid]::NewGuid().ToString('N'))"
             $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
             [System.IO.Directory]::CreateDirectory($modulesRoot) | Out-Null
-            Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $root
+            Copy-Item -Path (Join-Path $env:RepositoryRoot ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)) -Destination $root
             Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $modulesRoot '.internal')
             Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $modulesRoot '.vendor')
             $languagesConfigs = [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot 'Catzc.Base.Languages/configs')).FullName

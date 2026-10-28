@@ -50,7 +50,7 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $script:contractFixtures++
             $namespace = "Catzc.WidgetContract$($script:contractFixtures)$runId"
             $repository = Join-Path $script:fixtureRoot ([guid]::NewGuid().ToString('N'))
-            $modules = Join-Path $repository 'pwsh'
+            $modules = Join-Path $repository 'gizmos'
             [System.IO.Directory]::CreateDirectory((Join-Path $modules '.internal')) | Out-Null
             [System.IO.File]::WriteAllText((Join-Path $modules '.internal/Catzc.Internal.Types.psm1'), '')
             [System.IO.Directory]::CreateDirectory((Join-Path $repository 'contracts/catzc')) | Out-Null
@@ -62,7 +62,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         function Get-ContractFixturePath {
             param([string] $Root)
             $repository = [System.IO.Path]::GetDirectoryName($Root)
-            $folder = [System.IO.Path]::GetFileName(@([System.IO.Directory]::GetDirectories($Root) | Where-Object { [System.IO.Path]::GetFileName($_) -like 'Catzc.*' })[0])
+            $folder = [System.IO.Path]::GetFileName(([System.IO.Directory]::GetDirectories($Root) |
+                        Where-Object { [System.IO.Path]::GetFileName($_) -like 'Catzc.*' } | Select-Object -First 1))
             Join-Path $repository (Get-TypesContractPath -RepositoryRoot $repository -Namespace $folder)
         }
     }

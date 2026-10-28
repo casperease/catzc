@@ -21,19 +21,19 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        # One module group exists, pwsh.widgets; the other is derived from the modules track, the folder holding .internal.
+        # One module group exists, gizmos.widgets; the other is derived from the modules track, the folder holding .internal.
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'contracts/catzc/0.1.0/pwsh.widgets')) | Out-Null
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'pwsh/.internal')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $script:root 'pwsh/.internal/Catzc.Internal.Types.psm1'), '')
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'contracts/catzc/0.1.0/gizmos.widgets')) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'gizmos/.internal')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'gizmos/.internal/Catzc.Internal.Types.psm1'), '')
     }
 
     It 'writes each module''s types, sorted by name, with their members, to types.json in its group' {
         $rows = @(& $script:write $script:surface)
         $rows | Should -HaveCount 2
         $rows.Written | Should -Be @($true, $true)
-        $widgets = $rows | Where-Object Path -Like '*pwsh.widgets*types.json'
-        $gadgets = $rows | Where-Object Path -Like '*pwsh.gadget_box*types.json'
+        $widgets = $rows | Where-Object Path -Like '*gizmos.widgets*types.json'
+        $gadgets = $rows | Where-Object Path -Like '*gizmos.gadget_box*types.json'
         $text = [System.IO.File]::ReadAllText($widgets.Path)
         $text | Should -Not -Match "`r"
         $text.EndsWith("`n") | Should -BeTrue
@@ -57,14 +57,14 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
                 Members = @([pscustomobject]@{ Name = 'Open'; Kind = 'method' })
             })
         $rows = @(& $script:write $moved)
-        ($rows | Where-Object Written).Path | Should -BeLike '*pwsh.gadget_box*'
+        ($rows | Where-Object Written).Path | Should -BeLike '*gizmos.gadget_box*'
         @(& $script:write $moved).Written | Should -Be @($false, $false)
     }
 
     It 'deletes the types.json of a module that builds no type, and its group when that leaves it empty' {
         $null = & $script:write $script:surface
         $rows = @(& $script:write @($script:surface[0], $script:surface[1]))
-        ($rows | Where-Object Written).Path | Should -BeLike '*pwsh.gadget_box*types.json'
-        Join-Path $script:root 'contracts/catzc/0.1.0/pwsh.gadget_box' | Should -Not -Exist
+        ($rows | Where-Object Written).Path | Should -BeLike '*gizmos.gadget_box*types.json'
+        Join-Path $script:root 'contracts/catzc/0.1.0/gizmos.gadget_box' | Should -Not -Exist
     }
 }

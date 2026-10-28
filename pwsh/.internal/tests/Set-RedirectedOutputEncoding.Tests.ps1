@@ -2,11 +2,12 @@ BeforeAll {
     $script:sandbox = Join-Path ([System.IO.Path]::GetTempPath()) "redirected-encoding-$([guid]::NewGuid().ToString('N'))"
     $sandboxAuto = Join-Path $script:sandbox (Get-CatzcModulesFolder)
     [System.IO.Directory]::CreateDirectory($sandboxAuto) | Out-Null
-    Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $script:sandbox
+    $importerEntry = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry
+    Copy-Item -Path (Join-Path $env:RepositoryRoot $importerEntry) -Destination $script:sandbox
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $sandboxAuto '.vendor')
 
-    $childScript = ". '$script:sandbox/importer.ps1' -Verbose 4>&1 6>`$null; " +
+    $childScript = ". '$(Join-Path $script:sandbox $importerEntry)' -Verbose 4>&1 6>`$null; " +
     "'codepage=' + [Console]::OutputEncoding.CodePage; 'redirected=' + [Console]::IsOutputRedirected"
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')
     foreach ($argument in '-NoProfile', '-Command', $childScript) {

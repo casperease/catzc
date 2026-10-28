@@ -146,7 +146,7 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
     Context 'the engine contract' {
         It 'passes the engine, its start arguments loading the repository importer, and the root for a source run' {
             $null = Invoke-GoTest Catzc.Widget
-            $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root 'importer.ps1'), '{command}')
+            $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Join-Path $script:root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)), '{command}')
             foreach ($call in $script:seen) {
                 $call.Executable | Should -Be 'C:\widget\engine\pwsh.exe'
                 @($call.Start | ConvertFrom-Json) | Should -Be $expected
