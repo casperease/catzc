@@ -53,8 +53,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   moves (task-user-runs-and-commits item 1).
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
-- analyzer-entry-rule-names -> plan-analyzer-entry-rule-names.md: the two analyzer entry rules renamed by role (EntryRule,
-  SpellingEntryRule), one staged burst for the settings and its readers
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - adr-term -> plan-adr-term.md: ADR means only a record of the ADR kind: generic uses in prose, identifiers and generated pages say DRS,
