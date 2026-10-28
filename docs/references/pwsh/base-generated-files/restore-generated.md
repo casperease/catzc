@@ -14,8 +14,9 @@ Runs the writers of the missing or stale rollable generated files, in graph orde
 
 Only a writer of the class `rollable` runs; `import-critical`, `snapshot` and `untracked` writers are never rolled. Each writer is asked
 `Get-GeneratedWriterDue` right before its turn, so a writer that reads what an earlier one has just written sees that change. A due writer
-is run as a command of the session, then its input stamp is stored with `Save-GeneratedWriterStamp`. A due writer that is no command of the
-session throws. Paired with `Remove-Generated`, a clean round trip leaves `git status` without a change.
+is run as a command of the session, or, when it is no command, by its row's `regenerate` command (`Invoke-GeneratedWriterRegenerate`), then
+its input stamp is stored with `Save-GeneratedWriterStamp`. A due writer that is no command of the session and has no `regenerate` command
+throws. Paired with `Remove-Generated`, a clean round trip leaves `git status` without a change.
 
 ### parameter `Name`
 

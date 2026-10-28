@@ -65,15 +65,46 @@ Describe 'Restore-Generated' -Tag 'L0', 'logic' {
         Should -Invoke Save-GeneratedWriterStamp -ModuleName Catzc.Base.GeneratedFiles -Times 0 -Exactly
     }
 
-    It 'throws when a due writer is no command of the session' {
+    It 'runs the regenerate command of a due writer that is no command of the session, then stamps it' {
         $kept = $script:rows
         try {
-            $script:rows = @([Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Ghost', [ordered]@{ class = 'rollable'; inputs = @('ghost/**'); outputs = @('docs/ghost.md') }))
-            $script:dueNames = @('Build-Ghost')
-            { & $script:run } | Should -Throw "*'Build-Ghost' is not a command*"
+            $script:rows = @(
+                [Catzc.Base.Variants.GeneratedWriterRow]::new('gadget_kit.py', [ordered]@{ class = 'rollable'; regenerate = 'uv run gadget'; inputs = @('gadget.yml'); outputs = @('gadgets/*.svg') })
+                [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; inputs = @('gadgets/*.svg'); outputs = @('docs/index.md') })
+            )
+            $script:dueNames = @('gadget_kit.py')
+            Mock Invoke-GeneratedWriterRegenerate -ModuleName Catzc.Base.GeneratedFiles { }
+            @(& $script:run) | Should -Be @('gadget_kit.py')
+            Should -Invoke Invoke-GeneratedWriterRegenerate -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly -ParameterFilter {
+                $Writer.name -ceq 'gadget_kit.py' -and $RepositoryRoot -ceq 'widget-root' -and @($Writers | ForEach-Object name).Count -eq 2
+            }
+            Should -Invoke Save-GeneratedWriterStamp -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly -ParameterFilter { $Name -ceq 'gadget_kit.py' }
         }
         finally {
             $script:rows = $kept
         }
+    }
+
+    It 'throws, naming the writer, when a due writer is no command of the session and has no regenerate command' {
+        $kept = $script:rows
+        try {
+            $script:rows = @([Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Ghost', [ordered]@{ class = 'rollable'; inputs = @('ghost/**'); outputs = @('docs/ghost.md') }))
+            $script:dueNames = @('Build-Ghost')
+            { & $script:run } | Should -Throw "*'Build-Ghost' is not a command in this session and its row has no regenerate command*"
+        }
+        finally {
+            $script:rows = $kept
+        }
+    }
+}
+
+Describe 'Restore-Generated (shipped writer registry)' -Tag 'L1', 'integrity', 'ADR-REPO-ROOTCFG-ROLLOFFROUNDTRIP' {
+    It 'gives every rollable writer a way to run: a command of the session, or a regenerate command whose tool tools.yml declares' {
+        $tools = Get-Config -Config tools
+        $withoutRun = @(Get-GeneratedWriterOrder | Where-Object { $_.class -ceq 'rollable' } | Where-Object {
+                -not (Get-Command $_.name -ErrorAction Ignore) -and
+                (-not $_.regenerate -or $null -eq $tools[($_.regenerate.Trim() -split '\s+', 2)[0]])
+            } | ForEach-Object name)
+        $withoutRun | Should -BeNullOrEmpty
     }
 }
