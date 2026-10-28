@@ -37,8 +37,11 @@ Describe 'Build-TrackGlobSets' -Tag 'L0', 'logic', 'FDR-GLOBS-TRACKSETDERIVED' {
             New-Track trinket @('widget/.trinket')
         }
         Mock Get-GeneratedTarget -ModuleName Catzc.Base.Globs {
-            [pscustomobject]@{ path = 'widget/README.md'; generator = 'Build-Readme' }
-            [pscustomobject]@{ path = 'elsewhere/README.md'; generator = 'Build-Readme' }
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/README.md', 'Build-Widget', 'untracked')
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/pages/*.md', 'Build-Pages', 'rollable')
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/prices.json', 'Update-Prices', 'snapshot')
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/loader.ps1', 'New-Loader', 'import-critical')
+            [Catzc.Base.Variants.GeneratedTarget]::new('elsewhere/README.md', 'Build-Widget', 'untracked')
         }
         Mock Write-Message -ModuleName Catzc.Base.Globs { }
     }
@@ -49,9 +52,17 @@ Describe 'Build-TrackGlobSets' -Tag 'L0', 'logic', 'FDR-GLOBS-TRACKSETDERIVED' {
         $parsed = Get-Content -LiteralPath (Join-Path $script:folder 'track-sets.yml') -Raw | ConvertFrom-Yaml
         $parsed.globsets.Keys | Sort-Object | Should -Be @('gadget', 'widget')
         $parsed.globsets.widget.include | Should -Be @('widget/**')
-        $parsed.globsets.widget.exclude | Should -Be @('widget/*/*.cog', 'widget/README.md', 'widget/gadget/**') -Because 'the trinket track has no pipeline of its own, so it stays'
+        $parsed.globsets.widget.exclude |
+            Should -Be @('widget/*/*.cog', 'widget/README.md', 'widget/gadget/**', 'widget/pages/*.md') -Because 'the trinket track has no pipeline of its own, so it stays'
         $parsed.globsets.gadget.include | Should -Be @('widget/gadget/**')
         $parsed.globsets.gadget.Contains('exclude') | Should -BeFalse
+    }
+
+    It 'keeps a snapshot and an import-critical output in the trigger, so a change to either still starts CI' {
+        Build-TrackGlobSets
+        $parsed = Get-Content -LiteralPath (Join-Path $script:folder 'track-sets.yml') -Raw | ConvertFrom-Yaml
+        $parsed.globsets.widget.exclude | Should -Not -Contain 'widget/prices.json'
+        $parsed.globsets.widget.exclude | Should -Not -Contain 'widget/loader.ps1'
     }
 
     It 'writes nothing the second time, and only reports under -DryRun' {

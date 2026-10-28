@@ -17,7 +17,8 @@ function Build-TrackGlobSets {
 
     $root = Get-RepositoryRoot
     $tracks = @(Get-Track)
-    $targets = @(Get-GeneratedTarget)
+    # Only a rollable or untracked output leaves the trigger: a snapshot or import-critical one changes what CI must see.
+    $targets = @(Get-GeneratedTarget | Where-Object { $_.class -cin 'rollable', 'untracked' })
     # A nested track keeps its files in the parent's set unless a set of its own starts a pipeline for it.
     $piped = @(foreach ($name in $authored.globsets.Keys) {
             $entry = $authored.globsets[$name]

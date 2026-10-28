@@ -73,3 +73,16 @@ writers:
       - "*/pyproject.toml"
       - "*/*/pyproject.toml"
       - "*/tests/*/pyproject.toml"
+  New-GitAttributes:
+    class: import-critical
+    check: none
+    expands: rootconfig
+    inputs:
+      - pwsh/Base.RootConfig/New-GitAttributes.ps1
+      - pwsh/Base.RootConfig/assets/root/.gitattributes-template
+      - pwsh/Base.RootConfig/configs/rootconfig.yml
+      - pwsh/Base.Globs/configs/file-kinds.yml
+      - pwsh/Base.Variants/configs/track-types.yml
+      - pwsh/Base.Variants/configs/variants.yml
+      - pwsh/*/configs/generated.yml
+    outputs: [.gitattributes]

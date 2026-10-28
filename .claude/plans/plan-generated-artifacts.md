@@ -72,14 +72,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ## Open steps
 
-### One registry
-
-- [ ] `pwsh/Base.Variants/Get-GeneratedTarget.ps1` answers from the one registry; `.gitattributes` `linguist-generated` lines then cover the
-      images, and `New-GitAttributes` gains its `Base.RootConfig` row (import-critical, `.gitattributes`), since until then `rootconfig.yml`
-      already emits that target and `Get-GeneratedTarget.Tests.ps1` fails a second answer; `Build-TrackGlobSets` keeps excluding only
-      rollable and untracked outputs from track triggers, so a changed snapshot output (`cost-prices.json`, `key-handler-bindings.yml`)
-      still triggers CI. Check: `Test-RootConfigFiles` reports 0 issues.
-
 ### Stamp heads
 
 - [ ] `pwsh/Base.Languages/types/GeneratedHeadConfig.cs` knows `warning`, `regenerate`, `sources`, `remove`, `with_body_sha` and the command

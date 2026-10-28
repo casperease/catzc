@@ -40,6 +40,10 @@
           "kind": "method"
         },
         {
+          "name": "class",
+          "kind": "property"
+        },
+        {
           "name": "generator",
           "kind": "property"
         },

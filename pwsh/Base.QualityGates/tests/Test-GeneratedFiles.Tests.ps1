@@ -120,6 +120,19 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         Should -Invoke Get-EnglishDictionaryDrift -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
+    It 'checks a root generator whose own row expands rootconfig through Build-RootConfig, and names it once' {
+        Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Target = '.gitattributes'; Source = $null; Generator = 'New-GitAttributes'; Changed = $true; DryRun = $true }
+            [pscustomobject]@{ Target = 'widget.json'; Source = $null; Generator = 'New-VsCodeSettings'; Changed = $true; DryRun = $true }
+        }
+
+        $result = Test-GeneratedFiles -Generator New-GitAttributes -PassThru -OutputFolder $script:reportFolder
+        $result.Issues |
+            Should -Be @(".gitattributes: stale — New-GitAttributes would change it; regenerate with: Build-RootConfig '.gitattributes'")
+        $known = @(InModuleScope Catzc.Base.QualityGates { Get-GeneratedFileGenerator })
+        @($known | Where-Object { $_ -ceq 'New-GitAttributes' }).Count | Should -Be 1
+    }
+
     It 'selects New-GoWorkspace by name and reports each stale file of a multi-file generator on its own' {
         Mock Build-RootConfig -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Target = 'go.work'; Source = $null; Generator = 'New-GoWorkspace'; Changed = $false; DryRun = $true }

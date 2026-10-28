@@ -23,8 +23,9 @@ function Test-GeneratedFiles {
             -ErrorText "Unknown generator '$name'. The generators are: $($known -join ', ') (each module's generated.yml lists its writers, rootconfig.yml the root-file generators)."
     }
     $writers = @(Get-GeneratedWriterOrder)
-    $writerNames = @($writers | ForEach-Object name)
-    $rootConfigGenerators = @($known | Where-Object { $_ -cnotin $writerNames })
+    # The generators Build-RootConfig renders: those with no row, and those whose row expands rootconfig and leaves the check to it.
+    $ownChecks = @($writers | Where-Object { $_.expands -cne 'rootconfig' -or $_.check -cne 'none' } | ForEach-Object name)
+    $rootConfigGenerators = @($known | Where-Object { $_ -cnotin $ownChecks })
     # @() around the whole if: a one-generator selection must stay an array (.Count under strict mode).
     $selected = @(if ($Generator) {
             $Generator
