@@ -107,4 +107,18 @@ Describe 'Restore-Generated (shipped writer registry)' -Tag 'L1', 'integrity', '
             } | ForEach-Object name)
         $withoutRun | Should -BeNullOrEmpty
     }
+
+    It 'runs every rollable writer that is a command with no argument: none has a mandatory parameter' {
+        $needsArguments = @(Get-GeneratedWriterOrder | Where-Object { $_.class -ceq 'rollable' } |
+                ForEach-Object { Get-Command $_.name -ErrorAction Ignore } |
+                Where-Object { $_.CommandType -in 'Function', 'Cmdlet', 'ExternalScript' } | ForEach-Object {
+                    $mandatory = @($_.Parameters.Values | Where-Object {
+                            @($_.Attributes | Where-Object { $_ -is [System.Management.Automation.ParameterAttribute] -and $_.Mandatory }).Count
+                        } | ForEach-Object Name)
+                    if ($mandatory.Count) {
+                        "$($_.Name) -$($mandatory -join ' -')"
+                    }
+                })
+        $needsArguments | Should -BeNullOrEmpty
+    }
 }

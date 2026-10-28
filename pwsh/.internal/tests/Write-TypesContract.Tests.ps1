@@ -71,6 +71,47 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         @(& $script:write $moved).Written | Should -Be @($false, $false)
     }
 
+    Context 'argument-free, as Restore-Generated runs it' {
+        BeforeAll {
+            $script:modulesRoot = [System.IO.Path]::GetFullPath((Get-CatzcModulesRoot))
+            # The record is session-global and the session's own, so each case swaps in a fixture and puts the real one back.
+            $script:withRecords = {
+                param([hashtable] $Records, [scriptblock] $Body)
+                $kept = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+                try {
+                    Set-Variable -Name '__CatzcDeferredTypes' -Scope Global -Value $Records
+                    InModuleScope Catzc.Internal.Types $Body
+                }
+                finally {
+                    Set-Variable -Name '__CatzcDeferredTypes' -Scope Global -Value $kept
+                }
+            }
+        }
+
+        It 'describes the build the import recorded for the modules root' {
+            $records = @{ $script:modulesRoot = @{ Path = 'C:/widget/Catzc.Types.feed.dll'; Loaded = $true } }
+            { & $script:withRecords $records {
+                    Mock Get-TypesAssemblyManifest { throw "described:$Path" }
+                    Write-TypesContract -RepositoryRoot 'C:/widget-root'
+                } } | Should -Throw 'described:C:/widget/Catzc.Types.feed.dll'
+        }
+
+        It 'throws, naming the modules root, when the session recorded no build for it' {
+            { & $script:withRecords @{ 'C:/gadget/pwsh' = @{ Path = 'C:/gadget/Catzc.Types.feed.dll' } } {
+                    Write-TypesContract -RepositoryRoot 'C:/widget-root'
+                } } | Should -Throw "*recorded no types assembly for '$($script:modulesRoot)'*"
+        }
+
+        It 'writes under the folder holding the modules root' {
+            $expected = [System.IO.Path]::GetDirectoryName($script:modulesRoot)
+            { & $script:withRecords @{} {
+                    Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = @([pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @(); Display = @(); Members = @() }) } }
+                    Mock Get-TypesContractPath { throw "root:$RepositoryRoot" }
+                    Write-TypesContract -Path 'C:/widget/Catzc.Types.feed.dll'
+                } } | Should -Throw "root:$expected"
+        }
+    }
+
     It 'deletes the types.json of a module that builds no type, and its group when that leaves it empty' {
         $null = & $script:write $script:surface
         $rows = @(& $script:write @($script:surface[0], $script:surface[1]))

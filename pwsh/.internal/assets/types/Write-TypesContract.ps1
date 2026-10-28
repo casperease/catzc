@@ -10,9 +10,11 @@ function Write-TypesContract {
     # git clean; it runs in the bootstrap, before the modules load, so the compare-then-write is its own and not
     # Write-FileIfChanged.
     # .PARAMETER Path
-    #     The assembly (Catzc.Types.<hash>.dll) to describe.
+    #     The assembly (Catzc.Types.<hash>.dll) to describe. Default: the build this session's import recorded for the
+    # modules root, so Restore-Generated runs the writer with no argument.
     # .PARAMETER RepositoryRoot
-    #     The repository root the contracts sit under.
+    #     The repository root the contracts sit under. Default: the folder holding the modules root, as the import
+    # derives it.
     # .OUTPUTS
     #     [pscustomobject] per contract file, with Path and Written, whether the surface moved and the file was written
     # or deleted.
@@ -25,12 +27,25 @@ function Write-TypesContract {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [Parameter(Mandatory)]
         [string] $Path,
 
-        [Parameter(Mandatory)]
         [string] $RepositoryRoot
     )
+
+    # Argument-free for Restore-Generated: both defaults come from the modules root this file sits in, the key the import
+    # records its build under (Register-DeferredTypes) and the root whose parent it writes the contracts to.
+    $modulesRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, '..', '..', '..'))
+    if (-not $Path) {
+        $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+        $key = @($records ? $records.Keys : @()) | Where-Object { $_.TrimEnd('\', '/') -ieq $modulesRoot.TrimEnd('\', '/') } | Select-Object -First 1
+        if (-not $key) {
+            throw "Write-TypesContract: this session recorded no types assembly for '$modulesRoot'; import it first (. ./importer.ps1) or pass -Path."
+        }
+        $Path = $records[$key].Path
+    }
+    if (-not $RepositoryRoot) {
+        $RepositoryRoot = [System.IO.Path]::GetDirectoryName($modulesRoot)
+    }
 
     # The text is what Format-Code (Prettier, printWidth 140) leaves alone, so a regenerate and a format agree: every
     # object one key per line, a string array on one line when it fits the width, else one value per line.
@@ -51,9 +66,8 @@ function Write-TypesContract {
         & $quote $Value
     }
     # The head's keys, warning and regenerate template are declared once in generated-head.yml, and this writer's row may override the command.
-    $configs = [System.IO.Path]::Combine($PSScriptRoot, '..', '..', '..')
-    $head = ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($configs, 'Base.Languages', 'configs', 'generated-head.yml')))
-    $row = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($configs, 'Base.TypesSystem', 'configs', 'generated.yml'))))['writers']['Write-TypesContract']
+    $head = ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($modulesRoot, 'Base.Languages', 'configs', 'generated-head.yml')))
+    $row = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText([System.IO.Path]::Combine($modulesRoot, 'Base.TypesSystem', 'configs', 'generated.yml'))))['writers']['Write-TypesContract']
     $regenerate = if ($row.Contains('regenerate')) {
         $row['regenerate']
     }
