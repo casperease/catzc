@@ -1,5 +1,3 @@
-# What this module's writers write (Get-GeneratedTarget reads every module's generated.yml): the image chain, a diagram's png put from its
-# declaration, a slide's picture from that png, and the slide png from the slide and its picture.
 writers:
   # A diagram's declaration is its .drawio.yml, or a yml drawio block above its image in an article.
   Build-Diagrams:

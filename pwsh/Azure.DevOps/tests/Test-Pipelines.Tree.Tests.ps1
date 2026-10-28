@@ -32,8 +32,8 @@ Describe 'Test-Pipelines — real .ado/pipelines/ tree' -Tag 'L1', 'integrity' {
         $build[0] | Should -BeLike "*-RuntimeSlotsJson '`${{ convertToJson(parameters.Expeditions) }}'*"
     }
 
-    It 'previews every deploy with a what-if: each Deploy-Bicep step follows its own -DryRun sibling' {
-        $found = & $script:findDeploysWithoutDryRun (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
+    It 'previews every deploy with a what-if: each Deploy-Bicep step of <_> follows its own -DryRun sibling' -ForEach 'deploy-unit.yaml', 'deploy-expedition.yaml' {
+        $found = & $script:findDeploysWithoutDryRun (Join-Path (Get-RepositoryRoot) ".ado/pipelines/stages/$_")
         $found.Deploys | Should -BeGreaterThan 0
         $found.Missing | Should -BeNullOrEmpty -Because 'a pipeline deploy previews its effect with Deploy-Bicep -DryRun first'
     }

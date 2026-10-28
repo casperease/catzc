@@ -61,7 +61,8 @@ subscription GUIDs; the `sc-…` names are illustrative). They wire the template
   and stage. Adding a spoke runs hub → spoke → hub again across `cd-shared` and the customer CD, by hand
   ([landing-zones](../../drs/azure/landing-zones.md)).
 - `stages/deploy-unit.yaml` — the one deploy path of a unit (foundation → discovery → expedition), called by its CD and by its DEPLOY, so
-  the two never fork; the artifact comes from the current run (CD) or from the certifying CD run by its id (DEPLOY).
+  the two never fork; the artifact comes from the current run (CD) or from the certifying CD run by its id (DEPLOY). Its expedition stage
+  is the nested `stages/deploy-expedition.yaml`, which only `deploy-unit.yaml` includes.
 - `deploy-shared.yaml`, `deploy-apex.yaml`, `deploy-nova.yaml` — DEPLOY, run by hand with the run id of the certifying CD run. Target
   `release-uat` rolls the artifact onto `test` (all three); apex's target `prod` stages it in pre-prod (`preprod`) and then activates it to
   `prod`. Each job waits on its environment's approval check. flux has no DEPLOY until it has an expedition.

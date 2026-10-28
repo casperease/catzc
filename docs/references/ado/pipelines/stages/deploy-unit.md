@@ -1,7 +1,8 @@
 # .ado/pipelines/stages/deploy-unit.yaml
 
 The one deploy path of a unit ([FDR-TYPE-ONEDEPLOYPATH](../../../../drs/flow/pipeline-types.md#rule-fdr-type-onedeploypath)). The CD
-pipeline of a unit and its DEPLOY pipeline both include it: foundation, then discovery, then expedition.
+pipeline of a unit and its DEPLOY pipeline both include it: foundation, then discovery, then expedition. The expedition stage lives in
+[`deploy-expedition.yaml`](deploy-expedition.md), which this file includes with the stage's dependency and condition resolved.
 
 ## Parameters
 

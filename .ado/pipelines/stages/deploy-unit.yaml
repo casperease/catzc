@@ -167,143 +167,23 @@ stages:
                               'Deploy-Bicep -Environment ${{ d.env }} -Template discovery -SubscriptionIdAssertIs ${{
                               d.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/discovery"'
 
+  # A second nesting level (ADR-ADO-TEMPLATE-MINIMALNESTING), taken only to keep this file under the config line limit.
   - ${{ if gt(length(parameters.Expeditions), 0) }}:
-      - stage: Deploy_Expedition${{ parameters.StageSuffix }}
-        displayName: "Deploy expedition (${{ parameters.Unit }})"
-        ${{ if gt(length(parameters.Discoveries), 0) }}:
-          dependsOn: Deploy_Discovery${{ parameters.StageSuffix }}
-          condition: ${{ parameters.Condition }}
-        ${{ elseif gt(length(parameters.Foundations), 0) }}:
-          dependsOn: Deploy_Foundation${{ parameters.StageSuffix }}
-          condition: ${{ parameters.Condition }}
-        ${{ else }}:
-          dependsOn: ${{ parameters.DependsOn }}
-          condition: ${{ parameters.FirstCondition }}
-        jobs:
-          - ${{ each w in parameters.Expeditions }}:
-              - ${{ if w.slot }}:
-                  - deployment: Expedition_${{ w.env }}_${{ w.slot }}
-                    displayName: "expedition → ${{ w.env }}-${{ w.slot }}"
-                    ${{ if w.adoEnvironment }}:
-                      environment: ${{ w.adoEnvironment }}
-                    ${{ else }}:
-                      environment: ${{ parameters.Unit }}-${{ w.env }}-${{ w.slot }}
-                    pool:
-                      vmImage: ubuntu-latest
-                    strategy:
-                      runOnce:
-                        deploy:
-                          steps:
-                            - checkout: self
-                            - ${{ if parameters.CertifiedBy }}:
-                                - template: /.ado/pipelines/steps/assert-deployment-history.yaml
-                                  parameters:
-                                    Environment: ${{ parameters.CertifiedBy }}
-                                    RunId: ${{ parameters.RunId }}
-                            - template: /.ado/pipelines/steps/download-artifact.yaml
-                              parameters:
-                                Artifact: expedition
-                                ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
-                                RunId: ${{ parameters.RunId }}
-                            - template: /.ado/pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName:
-                                  "What-if ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{ w.subscriptionIdAssertIs
-                                  }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs
-                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
-                            - template: /.ado/pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName:
-                                  "Deploy-Bicep ${{ w.env }} expedition -Slot ${{ w.slot }} (session target, assert ${{
-                                  w.subscriptionIdAssertIs }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }} -SubscriptionIdAssertIs
-                                  ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
-                            - ${{ if parameters.RemoveOrphans }}:
-                                - template: /.ado/pipelines/steps/invoke-automation.yaml
-                                  parameters:
-                                    DisplayName:
-                                      "List ${{ w.env }} expedition -Slot ${{ w.slot }} orphans (session target, assert ${{
-                                      w.subscriptionIdAssertIs }})"
-                                    Mode: azcli
-                                    ServiceConnection: ${{ w.serviceConnection }}
-                                    RunCommand:
-                                      'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }}
-                                      -SubscriptionIdAssertIs ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder
-                                      "$(Pipeline.Workspace)/expedition" -DryRun'
-                                - template: /.ado/pipelines/steps/invoke-automation.yaml
-                                  parameters:
-                                    DisplayName:
-                                      "Remove ${{ w.env }} expedition -Slot ${{ w.slot }} orphans (session target, assert ${{
-                                      w.subscriptionIdAssertIs }})"
-                                    Mode: azcli
-                                    ServiceConnection: ${{ w.serviceConnection }}
-                                    RunCommand:
-                                      'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -Slot ${{ w.slot }}
-                                      -SubscriptionIdAssertIs ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder
-                                      "$(Pipeline.Workspace)/expedition"'
-              - ${{ else }}:
-                  - deployment: Expedition_${{ w.env }}
-                    displayName: "expedition → ${{ w.env }}"
-                    ${{ if w.adoEnvironment }}:
-                      environment: ${{ w.adoEnvironment }}
-                    ${{ else }}:
-                      environment: ${{ parameters.Unit }}-${{ w.env }}
-                    pool:
-                      vmImage: ubuntu-latest
-                    strategy:
-                      runOnce:
-                        deploy:
-                          steps:
-                            - checkout: self
-                            - ${{ if parameters.CertifiedBy }}:
-                                - template: /.ado/pipelines/steps/assert-deployment-history.yaml
-                                  parameters:
-                                    Environment: ${{ parameters.CertifiedBy }}
-                                    RunId: ${{ parameters.RunId }}
-                            - template: /.ado/pipelines/steps/download-artifact.yaml
-                              parameters:
-                                Artifact: expedition
-                                ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
-                                RunId: ${{ parameters.RunId }}
-                            - template: /.ado/pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName: "What-if ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
-                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
-                            - template: /.ado/pipelines/steps/invoke-automation.yaml
-                              parameters:
-                                DisplayName: "Deploy-Bicep ${{ w.env }} expedition (session target, assert ${{ w.subscriptionIdAssertIs }})"
-                                Mode: azcli
-                                ServiceConnection: ${{ w.serviceConnection }}
-                                RunCommand:
-                                  'Deploy-Bicep -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs ${{
-                                  w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
-                            - ${{ if parameters.RemoveOrphans }}:
-                                - template: /.ado/pipelines/steps/invoke-automation.yaml
-                                  parameters:
-                                    DisplayName:
-                                      "List ${{ w.env }} expedition orphans (session target, assert ${{ w.subscriptionIdAssertIs }})"
-                                    Mode: azcli
-                                    ServiceConnection: ${{ w.serviceConnection }}
-                                    RunCommand:
-                                      'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs
-                                      ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition" -DryRun'
-                                - template: /.ado/pipelines/steps/invoke-automation.yaml
-                                  parameters:
-                                    DisplayName:
-                                      "Remove ${{ w.env }} expedition orphans (session target, assert ${{ w.subscriptionIdAssertIs }})"
-                                    Mode: azcli
-                                    ServiceConnection: ${{ w.serviceConnection }}
-                                    RunCommand:
-                                      'Remove-BicepOrphanResources -Environment ${{ w.env }} -Template expedition -SubscriptionIdAssertIs
-                                      ${{ w.subscriptionIdAssertIs }} -ArtifactsFolder "$(Pipeline.Workspace)/expedition"'
+      - template: /.ado/pipelines/stages/deploy-expedition.yaml
+        parameters:
+          Unit: ${{ parameters.Unit }}
+          Expeditions: ${{ parameters.Expeditions }}
+          ${{ if gt(length(parameters.Discoveries), 0) }}:
+            DependsOn: Deploy_Discovery${{ parameters.StageSuffix }}
+            Condition: ${{ parameters.Condition }}
+          ${{ elseif gt(length(parameters.Foundations), 0) }}:
+            DependsOn: Deploy_Foundation${{ parameters.StageSuffix }}
+            Condition: ${{ parameters.Condition }}
+          ${{ else }}:
+            DependsOn: ${{ parameters.DependsOn }}
+            Condition: ${{ parameters.FirstCondition }}
+          ArtifactPipeline: ${{ parameters.ArtifactPipeline }}
+          RunId: ${{ parameters.RunId }}
+          StageSuffix: ${{ parameters.StageSuffix }}
+          CertifiedBy: ${{ parameters.CertifiedBy }}
+          RemoveOrphans: ${{ parameters.RemoveOrphans }}

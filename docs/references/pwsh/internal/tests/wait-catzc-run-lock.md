@@ -5,10 +5,10 @@ process sit beside them in `Wait-CatzcRunLock.Caller.Tests.ps1`.
 
 ## The helpers
 
-Both test files dot-source the helpers from the shared fixture, `RunLock.Fixture.ps1`. `Start-LockHolder` holds the lock on another
-thread for the given milliseconds, the way a plain run would. With `-Burst` it is a burst that ends when it lets go, and with
-`-RecordSeconds` it writes the holder record a plain run writes. `Start-Waiter` waits for the lock on another thread, the way another run
-would; on taking it, it records its name in the shared order and lets go.
+Both test files dot-source the helpers from the shared fixture, `RunLock.Fixture.ps1`. `Start-LockHolder` holds the lock on another thread
+for the given milliseconds, the way a plain run would. With `-Burst` it is a burst that ends when it lets go, and with `-RecordSeconds` it
+writes the holder record a plain run writes. `Start-Waiter` waits for the lock on another thread, the way another run would; on taking it,
+it records its name in the shared order and lets go.
 
 ## The holder's record is a limit, never a promise
 

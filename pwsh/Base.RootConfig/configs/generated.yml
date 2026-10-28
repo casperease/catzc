@@ -60,43 +60,15 @@ writers:
       - catzc.sln
       - .gitattributes
       - .gitignore
+    # The places its targets lie in; rootconfig.yml names each target, so no output here restates one.
     outputs:
-      - PSScriptAnalyzerSettings.psd1
-      - importer.ps1
-      - importer.sh
-      - pwsh/.internal/assets/importer-commands.sh
-      - .editorconfig
-      - jsconfig.json
-      - jsconfig.lenient.json
+      - "*"
       - .vscode/*
-      - go.work
-      - "*/tests/*/go.mod"
+      - .cspell/.*
+      - pwsh/.internal/assets/*.csproj
+      - pwsh/.internal/assets/*.sh
       - "*/*/go.mod"
+      - "*/tests/*/go.mod"
       - "*/pyproject.toml"
-      - "*/tests/*/pyproject.toml"
       - "*/*/pyproject.toml"
-      - .markdownlint.yml
-      - .markdownlintignore
-      - .prettierrc.yml
-      - .prettierignore
-      - .cspell/.gitignore
-      - cspell.yml
-      - dotnet-tools.json
-      - pwsh/.internal/assets/Catzc.Types.csproj
-      - nuget.config
-      - Directory.Build.props
-      - catzc.sln
-      - .gitattributes
-      - .gitignore
-  # The root generator Build-RootConfig calls for .gitattributes; its linguist-generated lines read the writer registry.
-  New-GitAttributes:
-    class: import-critical
-    check: none
-    expands: rootconfig
-    inputs:
-      - pwsh/Base.RootConfig/assets/root/.gitattributes-template
-      - pwsh/Base.Globs/configs/file-kinds.yml
-      - pwsh/Base.Variants/configs/track-types.yml
-      - pwsh/Base.GeneratedFiles/configs/generated-files.yml
-      - pwsh/Base.RootConfig/configs/rootconfig.yml
-    outputs: [.gitattributes]
+      - "*/tests/*/pyproject.toml"

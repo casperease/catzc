@@ -126,7 +126,7 @@ Describe 'The anomaly alert recipients seed in the deploy pipelines' -Tag 'L1', 
     It 'seeds the secret from the AnomalyAlertRecipients variable in every discovery job, before its what-if' {
         $text = Get-Content -Raw (Join-Path (Get-RepositoryRoot) '.ado/pipelines/stages/deploy-unit.yaml')
         $discovery = $text.Substring($text.IndexOf('stage: Deploy_Discovery'))
-        $discovery = $discovery.Substring(0, $discovery.IndexOf('stage: Deploy_Expedition'))
+        $discovery = $discovery.Substring(0, $discovery.IndexOf('template: /.ado/pipelines/stages/deploy-expedition.yaml'))
         $seed = $discovery.IndexOf('Set-AnomalyAlertRecipientSecret')
         $seed | Should -BeGreaterThan 0
         $seed | Should -BeLessThan $discovery.IndexOf('-Template discovery')

@@ -194,41 +194,6 @@ param roles object
 @description('The Entra group object ids of the slot\'s owner in its subscription\'s class (options.yml facts); an empty id assigns nothing.')
 param groups object
 
-// The roles the operators may grant: the data roles, never a privileged one.
-var dataRoleIds = join(
-  [
-    roles.storage_blob_data_reader.id
-    roles.storage_blob_data_contributor.id
-    roles.key_vault_secrets_user.id
-  ],
-  ', '
-)
-
-// The operators' role administration, conditioned so that a role assignment they write or delete holds a data role only.
-var dataRoleCondition = '((!(ActionMatches{\'Microsoft.Authorization/roleAssignments/write\'})) OR (@Request[Microsoft.Authorization/roleAssignments:RoleDefinitionId] ForAnyOfAnyValues:GuidEquals {${dataRoleIds}})) AND ((!(ActionMatches{\'Microsoft.Authorization/roleAssignments/delete\'})) OR (@Resource[Microsoft.Authorization/roleAssignments:RoleDefinitionId] ForAnyOfAnyValues:GuidEquals {${dataRoleIds}}))'
-
-// The standard subscription assignments, declared once: readers read, operators manage and grant the data roles.
-var subscriptionAssignments = [
-  {
-    purpose: 'readers-reader'
-    principalId: groups.readers
-    roleId: roles.reader.id
-    condition: ''
-  }
-  {
-    purpose: 'operators-contributor'
-    principalId: groups.operators
-    roleId: roles.contributor.id
-    condition: ''
-  }
-  {
-    purpose: 'operators-rbac-administrator'
-    principalId: groups.operators
-    roleId: roles.rbac_administrator.id
-    condition: dataRoleCondition
-  }
-]
-
 // The cost export runs from the budget's first day for five years, the longest schedule kept between renewals.
 var costExportEndDate = dateTimeAdd('${budgetStartDate}T00:00:00Z', 'P5Y', 'yyyy-MM-dd')
 
@@ -314,92 +279,25 @@ module landingZoneNetwork '../../modules/landing-zone-network.bicep' = {
   }
 }
 
-// Service Health and Resource Health of the subscription notify foundation's action group, so they reach the subscription's Owner role.
-module healthAlerts '../../modules/health-alert.bicep' = [
-  for category in [
-    'ServiceHealth'
-    'ResourceHealth'
-  ]: {
-    name: 'alert-${toLower(category)}'
-    scope: resourceGroup(resourceGroupName)
-    dependsOn: [
-      networkResourceGroup
-    ]
-    params: {
-      name: healthAlertNames[category]
-      category: category
-      actionGroupId: resourceId(
-        subscription().subscriptionId,
-        logAnalyticsResourceGroupName,
-        'Microsoft.Insights/actionGroups',
-        actionGroupName
-      )
-      tags: tags
-    }
-  }
-]
-
-module activityLog '../../modules/subscription-diagnostic-setting.bicep' = {
-  name: 'activity-log'
+// The monitoring of the landing zone: health alerts, the activity log, the network diagnostics and the network's flow log.
+module monitoring '../../modules/landing-zone-monitoring.bicep' = {
+  name: 'monitoring'
   params: {
-    workspaceId: workspace.id
-  }
-}
-
-module virtualNetworkDiagnostics '../../modules/diagnostic-setting.bicep' = {
-  name: 'diagnostics-virtual-network'
-  scope: resourceGroup(resourceGroupName)
-  params: {
-    resourceKind: 'virtualNetwork'
-    resourceName: landingZoneNetwork.outputs.virtualNetworkName
-    workspaceId: workspace.id
-  }
-}
-
-module networkWatcherResourceGroup '../../modules/resource-group.bicep' = if (!empty(flowLogStorageAccountName)) {
-  name: 'network-watcher-resource-group'
-  params: {
-    name: networkWatcherResourceGroupName
     location: location
     tags: tags
+    resourceGroupName: resourceGroupName
+    logAnalyticsResourceGroupName: logAnalyticsResourceGroupName
+    logAnalyticsName: logAnalyticsName
+    actionGroupName: actionGroupName
+    healthAlertNames: healthAlertNames
+    flowLogStorageAccountName: flowLogStorageAccountName
+    networkWatcherResourceGroupName: networkWatcherResourceGroupName
+    virtualNetworkName: landingZoneNetwork.outputs.virtualNetworkName
+    virtualNetworkId: landingZoneNetwork.outputs.virtualNetworkId
+    networkSecurityGroupSubnetNames: networkSecurityGroupSubnetNames
+    networkSecurityGroupResourceNames: landingZoneNetwork.outputs.networkSecurityGroupResourceNames
   }
 }
-
-// The network's flow log, to foundation's flow-log storage, with Traffic Analytics into the workspace.
-module flowLog '../../modules/flow-log.bicep' = if (!empty(flowLogStorageAccountName)) {
-  name: 'flow-log'
-  scope: resourceGroup(networkWatcherResourceGroupName)
-  dependsOn: [
-    networkWatcherResourceGroup
-  ]
-  params: {
-    name: '${virtualNetworkName}-flow-log'
-    location: location
-    targetResourceId: landingZoneNetwork.outputs.virtualNetworkId
-    storageAccountId: resourceId(
-      subscription().subscriptionId,
-      logAnalyticsResourceGroupName,
-      'Microsoft.Storage/storageAccounts',
-      flowLogStorageAccountName
-    )
-    workspaceResourceId: workspace.id
-    workspaceRegion: workspace.location
-    workspaceCustomerId: workspace.properties.customerId
-    tags: tags
-  }
-}
-
-module networkSecurityGroupDiagnostics '../../modules/diagnostic-setting.bicep' = [
-  for (subnetName, index) in networkSecurityGroupSubnetNames: {
-    name: 'diagnostics-nsg-${subnetName}'
-    scope: resourceGroup(resourceGroupName)
-    params: {
-      resourceKind: 'networkSecurityGroup'
-      resourceName: landingZoneNetwork.outputs.networkSecurityGroupResourceNames[index]
-      workspaceId: workspace.id
-    }
-  }
-]
 
 // The CAF-tags definition and the policy assignments of the landing zone.
 module policies '../../modules/landing-zone-policies.bicep' = {

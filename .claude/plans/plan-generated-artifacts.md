@@ -74,22 +74,14 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### One registry
 
-- [ ] `pwsh/Base.Slides/configs/generated.yml` declares the image chain: `Build-Diagrams` (inputs `*.drawio.yml` and article `yml drawio`
-      blocks), `slide_png picture` (the slide head and its source png), `slide_png render` (the slide md and its picture), each per output.
-      Check: `Test-Diagrams` and `Test-Slides` report 0 issues.
-- [ ] The unregistered writers gain rows in their own modules: `Build-FrontPage`, `Build-CommentView`, `Export-Comments`,
-      `New-GitAttributes`, `Save-PsReadLineKeyHandlerSet`, `flow_glyphs.py`, `Update-AzurePriceTable` and `Update-AdoFlowOccupants`
-      (snapshot), and the four `generated-files.yml` writers whose modules have no `configs/generated.yml` yet:
-      `Build-TerminologyDictionary` and `Build-EnglishDictionary` (Base.QualityGates), `New-VsCodeExtensionFolder` (Base.VSCode, an
-      `out/` output, untracked) and `Build-RootConfig` (Base.RootConfig, import-critical, `expands: rootconfig`). Check:
-      `Test-GeneratedFiles` reports 0 issues.
 - [ ] `pwsh/Base.GeneratedFiles/types/GeneratedFilesConfig.cs` reads the module rows and derives the order by a topological sort over inputs
       and outputs, failing on a cycle. Check: `Invoke-Pester pwsh/Base.GeneratedFiles/tests` passes.
 - [ ] `pwsh/Base.GeneratedFiles/configs/generated-files.yml` is deleted and every reader (`Test-GeneratedFiles`, `Get-GeneratedWriterDue`,
       `Build-TrackGlobSets`, `Build-RootConfig`'s `.gitattributes` render) reads the one registry in the same change, by staged burst
       (import path). Check: `Test-GeneratedFiles` reports 0 issues in a fresh import.
 - [ ] `pwsh/Base.Variants/Get-GeneratedTarget.ps1` answers from the one registry; `.gitattributes` `linguist-generated` lines then cover the
-      images. Check: `Test-RootConfigFiles` reports 0 issues.
+      images, and `New-GitAttributes` gains its `Base.RootConfig` row (import-critical, `.gitattributes`), since until then `rootconfig.yml`
+      already emits that target and `Get-GeneratedTarget.Tests.ps1` fails a second answer. Check: `Test-RootConfigFiles` reports 0 issues.
 
 ### Stamp heads
 

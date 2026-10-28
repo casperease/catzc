@@ -220,9 +220,11 @@ Describe 'The orphan removal in the production deploy pipelines' -Tag 'L1', 'int
         $release | Should -Not -Match 'RemoveOrphans'
     }
 
-    It 'runs the -DryRun listing, then the removal, after the deploy of every <_> job' -ForEach 'foundation', 'expedition' {
-        $template = $_
-        $text = Get-Content -Raw (Join-Path $pipelines 'stages/deploy-unit.yaml')
+    It 'runs the -DryRun listing, then the removal, after the deploy of every <Template> job' -ForEach @(
+        @{ Template = 'foundation'; Stage = 'stages/deploy-unit.yaml' }
+        @{ Template = 'expedition'; Stage = 'stages/deploy-expedition.yaml' }
+    ) {
+        $text = Get-Content -Raw (Join-Path $pipelines $Stage)
         $jobs = @($text -split '- deployment: ' | Where-Object { $_ -match "-Template $template " })
         $jobs.Count | Should -BeGreaterThan 0
         foreach ($job in $jobs) {
@@ -236,5 +238,11 @@ Describe 'The orphan removal in the production deploy pipelines' -Tag 'L1', 'int
             $job.Substring($removal) | Should -Not -Match '-DryRun'
             $job | Should -Match '\$\{\{ if parameters\.RemoveOrphans \}\}'
         }
+    }
+
+    It 'passes RemoveOrphans on from the unit''s deploy path to its expedition stage template' {
+        $text = Get-Content -Raw (Join-Path $pipelines 'stages/deploy-unit.yaml')
+        $call = $text.Substring($text.IndexOf('template: /.ado/pipelines/stages/deploy-expedition.yaml'))
+        $call | Should -Match 'RemoveOrphans: \$\{\{ parameters\.RemoveOrphans \}\}'
     }
 }
