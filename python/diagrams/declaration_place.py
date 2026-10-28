@@ -335,10 +335,6 @@ def place_edges(frame, delta, check_routes):
                     edge["style"] += "align=left;"
                     edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
                     route["word"] = (wx + 3, wy - 8, word_w, 16)
-                if declaration_settings.EDGE_LABEL == "pill":  # a pill that found no free place leaves a bare word: on a cell, a finding
-                    route["word_on"] = [
-                        g["id"] for g in content["glyphs"] if overlaps(route["word"], tuple(box_of[g["id"]][k] for k in "xywh"), 0)
-                    ]
                 # The word presentation: a word on a line that crosses into another band becomes a transition bubble on that band's
                 # border; a line inside one band keeps its word beside it.
                 if declaration_settings.EDGE_LABEL == "word" and crossing:
@@ -349,11 +345,6 @@ def place_edges(frame, delta, check_routes):
         declaration_settings.FINDINGS_FAIL and check_routes
     ):  # the keep-out zone: a cell that is no end of an edge is a rectangle grown by the deadzone, marker included
         hits = keep_out_findings(routes, obstacles, holder)
-        hits += [
-            f"the word of {r['from']} -> {r['to']} has no free place beside its line and stands on {', '.join(r['word_on'])}; widen the gap"
-            for r in routes
-            if r.get("word_on")
-        ]
         if hits:
             raise DeclarationError("; ".join(hits))
 

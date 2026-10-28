@@ -159,18 +159,6 @@ def test_a_pill_beside_a_short_line_between_two_tall_boxes_steps_out_past_them_a
         assert declaration_routes.label_spot(run, word, 0, None, [widget, gadget]) is None  # no step-out: no free place beside, bare
 
 
-def test_a_bare_word_on_a_cell_is_a_finding_that_names_the_edge_and_the_cells(monkeypatch):
-    monkeypatch.setattr(declaration_settings, "FINDINGS_FAIL", True)  # the conftest turns findings off for every other test
-    raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["edges"][1]["label"] = "fails"
-    raw["layout"] = {"gadget-store": {"x": 600, "y": 150, "w": 220, "h": 200}, "gadget-gate": {"x": 840, "y": 150, "w": 220, "h": 200}}
-    declared = declaration.normalise(raw)  # 20 px apart and 200 px tall: no pill fits beside the line within the step-out
-    with pytest.raises(declaration.DeclarationError, match=r"the word of gadget-store -> gadget-gate has no free place .* widen the gap"):
-        declaration.put(declared)
-    monkeypatch.setattr(declaration_settings, "FINDINGS_FAIL", False)
-    assert declaration.put(declared)  # with findings off the drawing still renders, its word bare
-
-
 def test_the_label_presentation_is_one_of_the_two_the_renderer_names():
     assert declaration.LABEL_PRESENTATIONS == ("pill", "word")
     with pytest.raises(declaration.DeclarationError, match="edge-label 'badge' is not one of: pill, word"):

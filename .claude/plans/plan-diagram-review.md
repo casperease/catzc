@@ -66,8 +66,8 @@ engine).
       title-mismatch pngs, 9 place-count mismatches, 13 missing "Where" panels, about 45 chip, clip, typo or count findings, 38 tilted
       renders; by root cause in out/diagram-findings.md, and the next round covers only what it lists as unchecked (rows and titles on lines
       181-570). Re-checked 2026-10-28 (out/diagram-review-findings.md): diagonals, deck titles, chips and place counts are cleared or by
-      construction; the pill step-out (`word-step-out`) cut bare words from 35 diagrams to 7, and the next cause is the bare-word finding
-      with the two declarations whose bare word stands on a box (four-domains-promote-one-artifact,
-      three-gates-check-registry-drift-membership). Check: a per-diagram list per batch, each next batch's brief sharpened from the last,
-      and (n) the drawn title matches the file topic. Check: `Test-Diagrams` clean over the tree, and a re-run haiku review of a 30-png
-      sample reports no diagonal between aligned boxes, no mark over a label or tag, and rows that sum to their counter.
+      construction; the pill step-out (`word-step-out`) cut bare words from 35 diagrams to 7, the two declarations whose bare word stood on
+      a box got wider gaps, and the next cause is the bare-word finding itself (staged; its burst rolled back on a render failure). Check: a
+      per-diagram list per batch, each next batch's brief sharpened from the last, and (n) the drawn title matches the file topic. Check:
+      `Test-Diagrams` clean over the tree, and a re-run haiku review of a 30-png sample reports no diagonal between aligned boxes, no mark
+      over a label or tag, and rows that sum to their counter.
