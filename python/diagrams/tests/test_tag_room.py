@@ -144,7 +144,7 @@ def test_a_marker_on_a_band_or_a_group_stands_beside_its_name_inside_the_frame_a
         "mark-2": (group, (group[0] + 4, group[1], 6.5 * len("Catzc.Widget.Gadgetry") + 12, 18)),
     }
     for mark, (frame, name) in names.items():
-        x, y, w, h = boxes[mark]
+        x, y, w, _h = boxes[mark]
         assert not meet(boxes[mark], name), f"{mark} stands on its holder's name"
         assert frame[0] < x and x + w < frame[0] + frame[2] and frame[1] - 4 <= y, f"{mark} reaches out of its holder above the name row"
     markers = declaration.get(model, kind="explanation")["content"]["markers"]

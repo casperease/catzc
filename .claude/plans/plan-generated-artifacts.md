@@ -77,8 +77,6 @@ take the generated files out of a working copy and render them back, and a reade
 - [ ] Every PowerShell writer in the registry (Build-DrsIndex, Build-Glossary, Build-GitKeep, Build-RootConfig, Build-ContractReference,
       Write-TypesContract, Build-FrontPage, the rest) passes `-Writer` to `Format-GeneratedFileHead`, one burst for all, then each writer
       re-renders its files with the full head. Check: `Test-GeneratedFiles` and `Test-FileMeta` report 0 issues.
-- [ ] `pwsh/Base.Slides/Build-Diagrams.ps1`, `python/diagrams/slide_png.py`, `python/diagrams/flow_glyphs.py` stamp through the one
-      renderer. Check: `Test-Diagrams` reports 0 issues and `Test-PythonLint` passes.
 - [ ] `pwsh/Base.QualityGates/Test-FileMeta.ps1` (or `Test-GeneratedFiles`) walks the registry, never the heads: for every tracked path in
       the `generated` view the writer's dry run renders the file, head included, and a byte difference is a finding (a stale or hand-edited
       head is drift like any other). Check: the gate reports 0 issues after a full re-render.

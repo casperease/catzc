@@ -6,6 +6,8 @@ across the gap; no leg is a slant.
 usage (repo root, background): timeout 120 uv run --no-sync --project python python -m pytest python/diagrams/tests/test_edge_straight.py
 """
 
+from itertools import pairwise
+
 import pytest
 import yaml
 from catzc.diagrams import declaration
@@ -49,7 +51,7 @@ def routes():
 
 
 def slanted(points):
-    return [(p, q) for p, q in zip(points, points[1:]) if abs(p[0] - q[0]) > 1 and abs(p[1] - q[1]) > 1]
+    return [(p, q) for p, q in pairwise(points) if abs(p[0] - q[0]) > 1 and abs(p[1] - q[1]) > 1]
 
 
 def shares_a_span(a, b):
