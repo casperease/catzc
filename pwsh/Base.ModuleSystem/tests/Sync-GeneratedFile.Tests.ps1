@@ -11,6 +11,8 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $Path -contains "$(Get-CatzcModulesFolder)/*/types/*.cs" }
         Mock Invoke-GitCommit { 'abc1234567890abcdef1234567890abcdef12345' } -ModuleName Catzc.Base.ModuleSystem
         Mock Write-Message { } -ModuleName Catzc.Base.ModuleSystem
+        # No staged deletion of a generated file that stays committed unless a test says so.
+        Mock Assert-GeneratedStaysCommitted { } -ModuleName Catzc.Base.ModuleSystem
         # A tidy .compiled (only the current build) unless a test plants a superseded one.
         Mock Clear-ModuleTypeCache { } -ModuleName Catzc.Base.ModuleSystem
         # main-direct workspace (the shipped default) unless a test flips it.
@@ -53,6 +55,12 @@ Describe 'Sync-GeneratedFile' -Tag 'L0', 'logic' {
         Mock Test-GitPathChanged { $false } -ModuleName Catzc.Base.ModuleSystem
         Sync-GeneratedFile | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 0
+    }
+
+    It 'does not commit when the guard refuses a staged deletion of a generated file' {
+        Mock Assert-GeneratedStaysCommitted { throw 'Assert-GeneratedStaysCommitted: 1 staged deletion(s)' } -ModuleName Catzc.Base.ModuleSystem
+        { Sync-GeneratedFile } | Should -Throw '*staged deletion*'
+        Should -Invoke Invoke-GitCommit -ModuleName Catzc.Base.ModuleSystem -Times 0
     }
 
     It 'skips on a detached HEAD with a message and no commit' {

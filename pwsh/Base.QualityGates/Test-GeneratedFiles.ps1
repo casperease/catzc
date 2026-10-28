@@ -62,6 +62,10 @@ function Test-GeneratedFiles {
         }
         # A snapshot writer reads outside the tree and no other writer with no check has a dry run, so their files are skipped, never failed.
         if (-not $checker) {
+            # An untracked writer's files are never committed, so no check is owed; a gate-checked writer has a checker, its gate runs elsewhere.
+            if ($row -and $row.class -ceq 'untracked') {
+                continue
+            }
             $reason = if ($row -and $row.class -ceq 'snapshot') {
                 'snapshot'
             }
@@ -135,6 +139,9 @@ function Test-GeneratedFiles {
                         $issues.Add("$(ConvertTo-RepoRelativePath $assetsFolder)/english.txt.gz: stale — $reason; regenerate with: $writerName (commit the gz and its stamp)")
                     }
                 }
+            }
+            'gate' {
+                # The writer's row names the gate that proves it, which runs on its own; no render here.
             }
             'root-config' {
                 # The managed root files: the writer selects them all, a generator only the files it renders.

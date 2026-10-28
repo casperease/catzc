@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path .gitattributes"
-#     with_body_sha: "3bb5dd37df47"
+#     with_body_sha: "8f6efdc86322"
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
@@ -70,7 +70,6 @@ pwsh/.vendor/** linguist-vendored
 # every tracked writer in a module's generated.yml, then every root config rootconfig.yml declares committed.
 pwsh/.compiled/** linguist-generated
 **/.gitkeep linguist-generated
-/pwsh/*/*.psd1 linguist-generated
 /pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml linguist-generated
 /infrastructure/templates/*/configuration/**/*.yml linguist-generated
 /docs/explanation/flow/.assets/ci-pwsh-to-deploy-apex.drawio.yml linguist-generated

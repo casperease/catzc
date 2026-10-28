@@ -1,4 +1,5 @@
 {
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"3a9e1caed40f\"",
   "types": [
     {
       "name": "Catzc.Azure.Firewall.CsvExportRef",

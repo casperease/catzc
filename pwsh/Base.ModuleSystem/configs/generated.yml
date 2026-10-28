@@ -1,6 +1,6 @@
 # What the module system writes (Get-GeneratedTarget reads every module's generated.yml): each module's manifest, rendered on import.
 writers:
   Catzc.Internal.Bootstrap:
-    class: import-critical
+    class: untracked
     check: none
     outputs: ["pwsh/*/*.psd1"]

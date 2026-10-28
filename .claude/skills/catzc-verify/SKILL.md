@@ -20,7 +20,9 @@ metadata:
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:
    one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds <s> '<step>' '<step>' …` call holds the run lock, runs the swap-in,
    the checks and one fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, each its own argument, and releases it; on
-   failure restore them from HEAD; staged files are edited under `<scratchpad>/<topic>/staged/`, never `out/`, and swapped in by
+   failure restore them from HEAD; staged files are edited under `<scratchpad>/<topic>/staged/`, never `out/` and never first in the tree
+   (a new public file or an import-path file is written to the staged folder before any parse check, even when a per-edit hook asks for
+   one), and swapped in by
    `pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder <that folder> '<command>' …` in place of a hand burst (it backs up, swaps,
    tests under one fresh import, restores on failure; a staged folder reported ready is frozen until its burst ends, and a burst changing a
    type runs every test file whose fixtures build that type), a public staged copy proved by that swap, never by dot-sourcing it (the

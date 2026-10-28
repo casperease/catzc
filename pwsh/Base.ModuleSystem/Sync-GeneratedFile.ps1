@@ -69,6 +69,11 @@ function Sync-GeneratedFile {
     }
     $subject = @($changed | ForEach-Object { $generatedPaths[$_] }) -join ' and '
 
+    # A staged deletion of a generated file that stays committed stops the sync before it commits.
+    if (-not $DryRun) {
+        Assert-GeneratedStaysCommitted
+    }
+
     $result = Invoke-GitCommit -Path $changed -Message "chore(repo): sync $subject" -DryRun:$DryRun
     if ($result -and -not $DryRun) {
         Write-Message "Synced $subject to $branch"

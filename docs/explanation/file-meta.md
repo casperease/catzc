@@ -61,8 +61,8 @@ the head:
 - **`repo_status`**: the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written
 - **`generator`, `source`**: the writer registry (each module's `generated.yml`), on demand and never written into a head; a generated file
   is told by it and `linguist-generated`
-- **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`; an authored file
-  carries none
+- **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`, which is only the fast path: a
+  match passes, a miss renders the writer, and the render decides; an authored file carries none
 - **`defines`, `links`**: the Markdown body
 - **`cites`**: the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds
 - **`docs`**: the `relative-edges` path rule and the disk
@@ -207,8 +207,8 @@ What it is not:
 - **`Test-AgentDefinitions`** reads an agent's foreign front matter (`name`, `model`, `tools`): the vendor reads the same keys.
 - **`Read-SlideFile`** reads a slide's authored `catzc.config`: slides are out of the head policy's scope, so the front matter is the slide
   tool's own.
-- **`Get-GeneratedStampDrift`** compares a tracked generated file's `with_body_sha` with the hash of its body, which is the check that the
-  writer's stamp still matches what it composed.
+- **`Get-GeneratedStampDrift`** compares a tracked generated file's `with_body_sha` with the hash of its body, as the fast path of the drift
+  check: a match passes, and a miss renders the writer, whose output decides.
 
 None of them reads an imprinted fact to decide something it could derive.
 

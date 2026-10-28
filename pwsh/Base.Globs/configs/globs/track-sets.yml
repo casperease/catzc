@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-TrackGlobSets -Path pwsh/Base.Globs/configs/globs/track-sets.yml"
-#     with_body_sha: "0a9003265d43"
+#     with_body_sha: cc56306548f4
 # ---
 
 # The derived patterns of every whole track's set that globs.yml declares (FDR-GLOBS-TRACKSETDERIVED).
@@ -13,6 +13,7 @@ globsets:
       - "importer.ps1"
       - "pwsh/**"
     exclude:
+      - "pwsh/*/*.psd1"
       - "pwsh/*/README.md"
       - "pwsh/.compiled/**"
       - "pwsh/.internal/assets/bin/**"

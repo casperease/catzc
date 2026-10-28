@@ -412,7 +412,8 @@ function Invoke-EditorExtensionJanitor {
     }
 }
 
-# Checks the stamp of every changed generated file: one line per stale file, one line when the roof stops it.
+# The stamp of every changed generated file is the fast path: a match passes, a miss renders its writer, and one line names each file
+# that render finds stale, or one line when the roof stops it.
 function Invoke-GeneratedFilesJanitor {
     [CmdletBinding()]
     param()

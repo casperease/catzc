@@ -4,8 +4,14 @@ declared minimaps (or three fixed ones) as empty contract data, so put draws the
 diagram by its tmp_path as the stem, so the pair is `<tmp_path>.drawio.yml` and `<tmp_path>.drawio.png`."""
 
 
+import sys
+from pathlib import Path
+
 import pytest
 from catzc.diagrams import declaration, declaration_settings, declaration_sync
+
+# The importlib import mode leaves the tests folder off sys.path, so the sample modules beside the tests import by name.
+sys.path.insert(0, str(Path(__file__).parent))
 
 FIXTURE_MINIMAPS = ["grid", "axis", "layer-stack"]
 

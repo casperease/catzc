@@ -11,13 +11,13 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
     public static readonly string[] Classes = { "rollable", "import-critical", "snapshot", "untracked" };
 
     // The shape of the writer's report a drift check reads; 'none' for a writer no drift check reads.
-    public static readonly string[] Checks = { "file", "english-dictionary", "root-config", "none" };
+    public static readonly string[] Checks = { "file", "english-dictionary", "root-config", "gate", "none" };
 
     public const string DefaultCheck = "file";
 
     public const string DefaultResultPath = "Path";
 
-    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "inputs", "outputs", "expands", "regenerate" };
+    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "inputs", "outputs", "expands", "regenerate", "gate" };
 
     // The writer's command or tool name.
     public string name { get; }
@@ -45,6 +45,9 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 
     // The command that renders a file again, where it differs from the generated-head.yml template. Default: the template.
     public string regenerate { get; }
+
+    // The quality gate that already proves the writer's files, named when the check is 'gate' and null otherwise.
+    public string gate { get; }
 
     public GeneratedWriterRow(string name, object raw)
     {
@@ -85,6 +88,16 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' sets result_path, which only the check '{1}' reads", name, DefaultCheck));
         }
         result_path = check == DefaultCheck ? (resultPath ?? DefaultResultPath) : null;
+
+        gate = OptStr(entry, "gate");
+        if (check == "gate" && string.IsNullOrWhiteSpace(gate))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' has the check 'gate' and names no gate; set 'gate' to the quality gate that proves it", name));
+        }
+        if (check != "gate" && gate != null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' sets gate, which only the check 'gate' reads", name));
+        }
 
         at_import = Flag(entry, "at_import");
         inputs = StrArr(entry, "inputs");

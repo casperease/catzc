@@ -51,6 +51,13 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         $row.result_path | Should -BeNullOrEmpty
     }
 
+    It 'holds the gate a gate-checked writer names' {
+        $row = [Catzc.Base.Variants.GeneratedConfig]::new([ordered]@{
+                writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'gate'; gate = 'Test-Widgets'; outputs = @('widgets/x.md') } }
+            }).writers[0]
+        $row.gate | Should -Be 'Test-Widgets'
+    }
+
     It 'gives a bare output its writer''s inputs, and a mapped output its own' {
         $row = [Catzc.Base.Variants.GeneratedConfig]::new([ordered]@{
                 writers = [ordered]@{
@@ -75,6 +82,8 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         @{ Case = 'an unknown class'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'gadget'; outputs = @('w') } } }; Message = "*class 'gadget'*" }
         @{ Case = 'an unknown check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'gadget'; outputs = @('w') } } }; Message = "*unknown check 'gadget'*" }
         @{ Case = 'a result path on another check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'none'; result_path = 'Widget'; outputs = @('w') } } }; Message = '*sets result_path*' }
+        @{ Case = 'the gate check without a gate'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'gate'; outputs = @('w') } } }; Message = '*names no gate*' }
+        @{ Case = 'a gate on another check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'none'; gate = 'Test-Widgets'; outputs = @('w') } } }; Message = '*sets gate*' }
         @{ Case = 'no outputs'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable' } } }; Message = '*declares no outputs*' }
         @{ Case = 'empty outputs'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = @() } } }; Message = '*declares no outputs*' }
         @{ Case = 'outputs as one string'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = 'w' } } }; Message = '*declares no outputs*' }

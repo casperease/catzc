@@ -142,6 +142,7 @@ groups:
       ]
     Catzc.Base.GeneratedFiles:
       [
+        Catzc.Base.Execution,
         Catzc.Base.Config,
         Catzc.Base.Globs,
         Catzc.Base.Folders,
@@ -168,6 +169,7 @@ groups:
       ]
     Catzc.Base.ModuleSystem:
       [
+        Catzc.Base.GeneratedFiles,
         Catzc.Base.Engines,
         Catzc.Base.TypesSystem,
         Catzc.Base.Modules,

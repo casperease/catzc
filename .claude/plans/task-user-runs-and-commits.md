@@ -87,7 +87,10 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 15. Review the stacked role assignments before the first live deploy: `Get-BicepRoleAssignmentPlan` for discovery (readers, operators with
     the rbac-administrator condition) and expedition (its three data-role assignments). Check: every assignment reads as intended, or the
     change you want lands as a plan step.
-16. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+16. Install the generated-deletion guard as a git pre-commit hook: `./out/install-generated-guard-hook.ps1` from the repository root.
+    Check: `git rm --cached` of a file a non-rollable writer outputs, then `git commit`, is refused naming the writer; `git restore
+    --staged` after.
+17. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

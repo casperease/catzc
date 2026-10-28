@@ -320,6 +320,18 @@ Describe 'Test-GeneratedFiles — a widget writer over a fixture tree' -Tag 'L0'
         $result.Issues | Should -Not -BeLike '*gadget/*'
     }
 
+    It 'lists neither a gate-checked nor an untracked writer as skipped, and renders neither' {
+        Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; check = 'gate'; gate = 'Test-Widgets'; outputs = @('widget/*.yml') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Update-Gadget', [ordered]@{ class = 'untracked'; check = 'none'; outputs = @('gadget/prices.json') })
+        }
+
+        $result = Test-GeneratedFiles -PassThru -OutputFolder $script:reportFolder
+        $result.Facts['Skipped'] | Should -BeNullOrEmpty
+        $result.IssueCount | Should -Be 0
+        Should -Invoke Build-Widget -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+    }
+
     It 'with -Changed renders a writer that is not due when a changed output''s stamp misses' {
         Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'widget/stale.yml'; 'gadget/notes.yml' }
 
