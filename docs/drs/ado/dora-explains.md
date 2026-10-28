@@ -1,8 +1,8 @@
 # DORA explanations — ado
 
-The `Dora explains` rationale for the ADRs in the `ado/` domain, consolidated in one place. Each entry names its ADR and rule code, then
-reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
-the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the records in the `ado/` domain, consolidated in one place. Each entry names its record and rule code,
+then reproduces that record's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
+live in the records themselves; this file carries only their DORA rationale.
 
 ## Dual authentication
 
@@ -11,8 +11,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-AUTH](dual-authentication.md)
 
 > DORA's research links explicit security controls and clear error handling to both high delivery performance and low change failure rates.
-> This record's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit gaps
-> that compromise both security and deployment reliability.
+> This record's discipline of deterministic credential selection with mandatory org/tenant proof prevents silent auth failures and audit
+> gaps that compromise both security and deployment reliability.
 
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — explicit org/tenant verification prevents credentials
   from targeting the wrong organization.
@@ -44,8 +44,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-NAME](pipeline-naming-and-placement.md)
 
-> DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This record's semantic
-> layout convention — type-prefixed ado pipelines in one flat directory and per-kind template folders — eliminates guesswork about
+> DORA's research links code organization and consistency to faster review cycles and lower defect introduction rates. This record's
+> semantic layout convention — type-prefixed ado pipelines in one flat directory and per-kind template folders — eliminates guesswork about
 > structure, enables tooling and audits to be predictable, and keeps the `.ado/pipelines/` directory self-indexing and greppable without
 > opening files.
 
@@ -64,8 +64,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 [ADR-ADO-TEMPLATE](custom-template-discipline.md)
 
 > DORA's research links code clarity to delivery speed and quality. Excessive template abstraction and parameter forwarding slow reviews,
-> introduce maintenance costs, and obscure pipeline behavior. This record's discipline of keeping templates focused on pipeline concerns keeps
-> the critical path clear.
+> introduce maintenance costs, and obscure pipeline behavior. This record's discipline of keeping templates focused on pipeline concerns
+> keeps the critical path clear.
 
 - [Continuous delivery](../../references/dora/capabilities.md#continuous-delivery) — flat, reviewable pipeline code reduces cycle time.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — direct step references and shallow nesting keep ado
@@ -80,8 +80,8 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 [ADR-ADO-RUNNER](pipeline-runner-pattern.md)
 
-> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This record's
-> runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
+> DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This
+> record's runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
 > orchestration (YAML) from automation (PowerShell), enabling consistent debugging and modification across contexts without scatter.
 
 - [Test automation](../../references/dora/capabilities.md#test-automation) — commands are locally reproducible and testable without running

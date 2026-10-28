@@ -41,9 +41,9 @@ one standard per file language, configured in `languages.yml` and applied by `Fo
 follows one deterministic naming standard
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../azure-naming-standard.md#rule-adr-az-naming-deterministicnames); `nsub-weu-zct-fnd-log` for
 `foundation`'s workspace, and a storage account, whose type allows no hyphen, takes the concatenated form), every resource carries the CAF
-tags, and every decision is an ADR. The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md)). The Bicep linter is a
-quality gate: `Test-BicepLint` lints every template and module at the rule levels of `infrastructure/bicepconfig.json`, and a linter warning
-fails the build.
+tags, and every decision is a decision record. The delivery metrics are DORA's ([metrics](../../../references/dora/metrics.md)). The Bicep
+linter is a quality gate: `Test-BicepLint` lints every template and module at the rule levels of `infrastructure/bicepconfig.json`, and a
+linter warning fails the build.
 
 Everything the infrastructure needs lives in version control
 ([PDR-EAC-EVERYTHINGCOMMITTED](../../principles/everything-as-code.md#rule-pdr-eac-everythingcommitted)): declarative Bicep under
@@ -97,7 +97,7 @@ every subnet through the hub's Azure Firewall, and a SQL server keeps a break-gl
 ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)). The activity log of every subscription is the audit trail,
 and the provenance tags name the commit behind any deployed resource, so a bad change is found and redeployed from the commit before it. The
 alerts above reach the `Owner` role, but no response plan, escalation path, or drill exists as a version-controlled procedure; a blameless
-review that changes a rule, a gate, or an ADR is how the repository learns.
+review that changes a rule, a gate, or a record is how the repository learns.
 
 Infrastructure is tested in tiers by `Test-Automation` ([ADR-AUTO-TEST](../../automation/test-automation.md)), each test tagged with its
 tier and category and kept in the module it tests. For infrastructure, `ci-infrastructure.yaml` runs `Assert-BicepTemplate` and

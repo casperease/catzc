@@ -95,7 +95,7 @@ is `name = lower(first(active).name)`, so `active` is empty. The previous line p
 
 `Why splitting enables assertions`
 
-The [fail-fast-with-asserts](fail-fast-with-asserts.md) ADR establishes that roughly every fifth line should be an assertion. You cannot
+The [fail-fast-with-asserts](fail-fast-with-asserts.md) record establishes that roughly every fifth line should be an assertion. You cannot
 assert intermediate values that do not exist as names:
 
 ```text

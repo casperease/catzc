@@ -204,13 +204,13 @@ workspace.
 
 ### Rule ADR-AZ-LZ-OPSASCODE
 
-The infrastructure is built and run as code, with no WAF-specific mechanism beside it. The standard practices are the ADRs, enforced by
-quality gates; routine operations are version-controlled automation functions and pipelines, never manual runbooks kept elsewhere; all Azure
-infrastructure is declarative Bicep, one parameterised template per rate of change, shared modules, and one config per configuration slot,
-deployed only by pipelines; and every change travels one supply chain, a CD pipeline triggered by its deployable unit's globset that builds
-once and deploys the same artifact in dependency order into subscriptions it asserts. Team roles, decision authority, and the incident
-response roles belong to the operating organisation, and the repository carries what a repository can: the `owner` tag, the written
-procedure, and the logs.
+The infrastructure is built and run as code, with no WAF-specific mechanism beside it. The standard practices are the decision records,
+enforced by quality gates; routine operations are version-controlled automation functions and pipelines, never manual runbooks kept
+elsewhere; all Azure infrastructure is declarative Bicep, one parameterised template per rate of change, shared modules, and one config per
+configuration slot, deployed only by pipelines; and every change travels one supply chain, a CD pipeline triggered by its deployable unit's
+globset that builds once and deploys the same artifact in dependency order into subscriptions it asserts. Team roles, decision authority,
+and the incident response roles belong to the operating organisation, and the repository carries what a repository can: the `owner` tag, the
+written procedure, and the logs.
 
 - [Operations as code](landing-zones/landing-zones-operations.md#operations-as-code)
 

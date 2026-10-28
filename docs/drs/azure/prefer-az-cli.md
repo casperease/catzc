@@ -72,7 +72,7 @@ cryptic `FileLoadException` errors. No other source of "works on my machine" iss
 like `Az.Storage` takes several seconds due to assembly loading. This makes interactive use painful and adds minutes to CI pipelines.
 
 **Cannot be vendored.** The modules are too large (the full Az set is ~500 MB) and their assembly dependencies make vendoring impractical.
-This means they must be installed system-wide, creating the version skew and non-determinism problems described in the vendoring ADR.
+This means they must be installed system-wide, creating the version skew and non-determinism problems described in the vendoring record.
 
 **Tight coupling to PowerShell version.** Az modules target specific .NET runtime versions. A PowerShell upgrade can break Az module
 loading. An Az module upgrade can require a PowerShell upgrade. This coupling makes updates risky.

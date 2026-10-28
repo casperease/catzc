@@ -39,8 +39,8 @@ it; the command itself is the implementation of that contract in one language un
 ### Rule ADR-AUTO-LAYERS-REALISENEVERREDEFINE
 
 Each layer realises the one above it and never redefines it: automation, contract, language, engine, importer, read top down as what, its
-interface, how it is written, how it runs, how it is assembled. Every ADR of the automation domain records the layer it belongs to as data,
-the `layer` key of its entry in `drs.yml`, which defaults to `automation`; the codes never change for it.
+interface, how it is written, how it runs, how it is assembled. Every record of the automation domain records the layer it belongs to as
+data, the `layer` key of its entry in `drs.yml`, which defaults to `automation`; the codes never change for it.
 
 - [Layer membership is data](#layer-membership-is-data)
 
@@ -83,7 +83,7 @@ fact.
 
 ### Layer membership is data
 
-The ADRs of the automation domain are not regrouped into folders by layer, because a folder move changes every link and buys only a view.
+The records of the automation domain are not regrouped into folders by layer, because a folder move changes every link and buys only a view.
 The `layer` key of each registry entry gives the same view as data, defaults to `automation` so that only the exceptions are written, and is
 validated against the five names by the registry's config type.
 

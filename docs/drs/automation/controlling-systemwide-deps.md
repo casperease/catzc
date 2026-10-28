@@ -50,7 +50,7 @@ install / invoke / uninstall triads), version-locked and asserted, never built f
 toolset is built _from_ — an edge in the internal graph among the repo's _own_ modules, spanning both kinds of module content, `pwsh`
 functions and C# types, declared in `dependencies.yml` — pinned and stitched into the build, whether it is internal code the repository
 holds or an external package a feed supplies. Keep the two names distinct in code, config, and prose. This record governs `ADR-AUTO-DEPS`;
-`ADR-AUTO-DEPM` has its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md).
+`ADR-AUTO-DEPM` has its own record, [controlling-module-dependencies](controlling-module-dependencies.md).
 
 - [System vs module dependencies](#system-vs-module-dependencies)
 
@@ -90,7 +90,7 @@ prerequisite.
   binaries the **Tooling** layer installs, version-locks, and asserts (the tools config, its one reader, the per-tool install / invoke /
   uninstall triads). This record — and everything under `Catzc.Tooling.*` — is about `ADR-AUTO-DEPS`.
 - A **module dependency** — code **`ADR-AUTO-DEPM`** (MOD = module) — is an edge in the internal graph among the repo's _own_ modules, the
-  code we _build_. It is a separate concern with its own ADR, [controlling-module-dependencies](controlling-module-dependencies.md)
+  code we _build_. It is a separate concern with its own record, [controlling-module-dependencies](controlling-module-dependencies.md)
   (`ADR-AUTO-DEPM`); this record does not govern it.
 
 The two are governed by opposite disciplines: a `ADR-AUTO-DEPS` is external and uncontrolled, so the rules below lock, assert, and never

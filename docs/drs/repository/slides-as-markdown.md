@@ -83,7 +83,7 @@ the draw.io CLI: a session edits a model, and the kit renders it.
 
 A diagram is its render `<name>.drawio.png` in an `.assets/` folder, named by the diagram, and its one source, the **diagram declaration**,
 in one of two carriers (below). `description:` says in a sentence or two what the diagram shows. `content:` says it in the kit's closed
-vocabulary: the title, the ADR codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the bands, the span
+vocabulary: the title, the rule codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the bands, the span
 bars with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the
 legend and which minimaps it shows. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's
 `drawio.yml` (the lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside

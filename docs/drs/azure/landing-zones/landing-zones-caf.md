@@ -193,13 +193,13 @@ checklist are not a template concern.
 
 ## CAF delivery
 
-Templates, modules, configs, policy assignments, pipelines, automation, and ADRs all live in one Git repository, which is private by the
-visibility of its server remote, outside the repository, and built to hold no secret either way. What the repository shares publicly is the
-built catzc package, published by a manual release workflow, never the infrastructure templates and their configs. All Azure infrastructure
-is declarative Bicep with shared modules and one config per configuration slot, deployed only by pipelines. The landing zone's ten policy
-assignments are Bicep in `landing-zone-policies.bicep`, pinned by id and deployed by its pipeline; they deny in production and audit
-elsewhere, none uses a modify or append effect, and the landing zone makes no exemption: a team that needs a different policy proposes a
-change to the landing zone, reviewed like any other.
+Templates, modules, configs, policy assignments, pipelines, automation, and decision records all live in one Git repository, which is
+private by the visibility of its server remote, outside the repository, and built to hold no secret either way. What the repository shares
+publicly is the built catzc package, published by a manual release workflow, never the infrastructure templates and their configs. All Azure
+infrastructure is declarative Bicep with shared modules and one config per configuration slot, deployed only by pipelines. The landing
+zone's ten policy assignments are Bicep in `landing-zone-policies.bicep`, pinned by id and deployed by its pipeline; they deny in production
+and audit elsewhere, none uses a modify or append effect, and the landing zone makes no exemption: a team that needs a different policy
+proposes a change to the landing zone, reviewed like any other.
 
 Development is trunk-based on `main`, with short-lived branches that carry nothing automation reads from their names and no release or
 version branches. The delivery design takes `main` to advance by squash merge only, and its change detection relies on it; the rule that

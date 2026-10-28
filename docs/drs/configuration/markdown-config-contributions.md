@@ -68,9 +68,9 @@ no module.
 ## Context
 
 Several configs are lists of things that have a Markdown file of their own. An agent definition is a file, and the agent registry lists the
-same agent a second time. An ADR is a file, and a few of its settings sit in `drs.yml`. Two files that state one fact drift: the registry
-gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but the cheaper
-fix is one statement, made where the thing is.
+same agent a second time. A decision record is a file, and a few of its settings sit in `drs.yml`. Two files that state one fact drift: the
+registry gains an entry the file does not have, or the file changes and the registry keeps the old line. A gate can report the drift, but
+the cheaper fix is one statement, made where the thing is.
 
 A Markdown file carries structured front matter for other tools, so the statement has a natural home. What it lacks is a way into the config
 system that keeps the rules of that system: one reader, one resolution order, typed validation, a cache that never serves a stale value, and

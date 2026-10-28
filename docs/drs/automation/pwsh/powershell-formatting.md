@@ -49,7 +49,7 @@ version indents it identically.
 
 ### Rule ADR-PWSH-FORMAT-ANALYZERRECORDMAPPING
 
-The analyzer→ADR mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-drs-map.yml`,
+The analyzer→rule mapping — the source for the `pssa-rule` enforcer kind — lives in `Catzc.Base.QualityGates/configs/analyzer-drs-map.yml`,
 each enabled analyzer rule (a custom `Measure-*` rule or an enabled built-in) mapped to the citation(s) it enforces. Its shape is validated
 at load (its config type, `AnalyzerDrsMapConfig`); the `Test-AnalyzerDrsMap` quality gate checks that every mapped id resolves to a real
 rule and that **every custom analyzer rule is mapped**, and an **integrity test** runs it, so a new custom rule cannot ship unmapped and a
@@ -268,15 +268,15 @@ check width. Encoding is UTF-8 without BOM (the repo baseline). Which analyzer r
 
 ### The analyzer map
 
-`Which ADR rule each analyzer rule enforces`
+`Which DRS rule each analyzer rule enforces`
 
 A PSScriptAnalyzer rule that fails the build enforces a DRS rule on every run, so the rule-coverage report of
 [test-automation](../test-automation.md#provenance-and-rule-coverage) counts it as an enforcer beside the tagged tests. The map from
 analyzer rule to citation sits with the analyzer quality gate (`Test-ScriptAnalyzer`) that runs those rules, not with the test runner: a
 custom rule is added here, in `pwsh/.scriptanalyzer/`, and its entry in `analyzer-drs-map.yml` is part of the same change.
-`Test-AnalyzerDrsMap` keeps the two in step — an unmapped custom rule, or a mapped id that no ADR declares, fails it. Checking id existence
-in the gate rather than at config load is the same split the Azure customer catalogue uses: the load stays hermetic, and the cross-reference
-is a quality gate.
+`Test-AnalyzerDrsMap` keeps the two in step — an unmapped custom rule, or a mapped id that no record declares, fails it. Checking id
+existence in the gate rather than at config load is the same split the Azure customer catalogue uses: the load stays hermetic, and the
+cross-reference is a quality gate.
 
 ### Flat steps
 

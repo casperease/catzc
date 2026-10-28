@@ -66,7 +66,7 @@ pipelines and the github domain for the GitHub workflows.
 
 A pipeline's type is the first token of its filename (`ci-pwsh.yaml`, `cd-shared.yaml`), so a flat listing of a pipelines folder is already
 an index of every pipeline grouped by type. The type is the one from [pipeline-types](pipeline-types.md); a prefix outside that closed set
-is a type the flow model does not have. The vendor ADR decides where the files live.
+is a type the flow model does not have. The vendor's decision record decides where the files live.
 
 ### The extension tells executable from data
 
@@ -85,7 +85,7 @@ is the failure this rule prevents; the ado domain holds the ado template rules.
 
 A token is the narrowest-lived secret a pipeline holds. The function that calls a service acquires the token, builds the header, and makes
 the call; nothing caches the token or hands it to another function, so a token never outlives the request and never leaks into a log, a
-variable, or a later step. Which credential is chosen, and how it proves its target, is the vendor ADR's decision.
+variable, or a later step. Which credential is chosen, and how it proves its target, is the vendor record's decision.
 
 ### The context is detected in one place
 
@@ -97,7 +97,7 @@ engine's domain names its run mark, and each implementation language holds its d
 
 ## Consequences
 
-- One rule set names, types, and reads every pipeline the same way, whichever vendor runs it; a vendor ADR adds only what its platform
+- One rule set names, types, and reads every pipeline the same way, whichever vendor runs it; a vendor record adds only what its platform
   needs.
 - The vendor-neutral rules are checked where a vendor's gate runs: `Test-Pipelines` checks the type prefix and the extension over the azure
   devops pipelines.

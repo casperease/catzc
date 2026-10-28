@@ -1,8 +1,8 @@
-# BCL (C# / .NET types) automation ADRs
+# BCL (C# / .NET types) automation records
 
 BCL is a language of its own in catzc: C# against the .NET Base Class Library, a subset of .NET, written in the `types/*.cs` sources. pwsh
-is its host, not its owner: it compiles and loads the types inside the .NET runtime already running the session. Two ADRs govern it, one for
-each:
+is its host, not its owner: it compiles and loads the types inside the .NET runtime already running the session. Two records govern it, one
+for each:
 
 - **The language:** [native-csharp-types](native-csharp-types.md), what the types are: one per file, a namespace per module, one combined
   assembly, the build pair of the language's projects.

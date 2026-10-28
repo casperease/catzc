@@ -1,8 +1,8 @@
 # DORA explanations — github
 
-The `Dora explains` rationale for the ADRs in the `github/` domain, consolidated in one place. Each entry names its ADR and rule code, then
-reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions live in
-the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the records in the `github/` domain, consolidated in one place. Each entry names its record and rule code,
+then reproduces that record's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
+live in the records themselves; this file carries only their DORA rationale.
 
 ## GitHub release flow
 

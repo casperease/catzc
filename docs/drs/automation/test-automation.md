@@ -505,8 +505,8 @@ than taking the nearest like the single-valued axes.
 
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
 that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-DrsRuleIds` (the flat set
-parsed from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy —
-it reads the DRS only when a test actually carries a citation — so a test run with none stays hermetic.
+parsed from every record's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy
+— it reads the DRS only when a test actually carries a citation — so a test run with none stays hermetic.
 
 Coverage is the payoff, and it is **reported, never blocking**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside
 the run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because

@@ -175,4 +175,4 @@ PowerShell modules are excluded.
 - No network dependency for module loading. The toolset works offline and in air-gapped environments, behind firewalls and proxies with no
   gallery access.
 - Module upgrades show up as explicit diffs in pull requests, making version changes reviewable.
-- Az modules must be managed through other mechanisms (system install, workstation provisioning, CI image) — see the prefer-az-cli ADR.
+- Az modules must be managed through other mechanisms (system install, workstation provisioning, CI image) — see the prefer-az-cli record.

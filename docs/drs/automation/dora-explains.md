@@ -1,8 +1,8 @@
 # DORA explanations — automation
 
-The `Dora explains` rationale for the ADRs in the `automation/` domain, consolidated in one place. Each entry names its ADR and rule code,
-then reproduces that ADR's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The decisions
-live in the ADRs themselves; this file carries only their DORA rationale.
+The `Dora explains` rationale for the records in the `automation/` domain, consolidated in one place. Each entry names its record and rule
+code, then reproduces that record's tie to [DORA](../../references/dora/index.md) research and the domain-relevant capability links. The
+decisions live in the records themselves; this file carries only their DORA rationale.
 
 ## Devbox / pipeline parity
 
@@ -696,7 +696,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 [ADR-AUTO-LAYERS](layers.md)
 
 > DORA ties loosely coupled teams and maintainable code to delivery performance, and both rest on a vocabulary that says which part of a
-> system a rule binds. Naming the five layers once, and recording an ADR's layer as data beside a stable code, lets a reader tell the
+> system a rule binds. Naming the five layers once, and recording a record's layer as data beside a stable code, lets a reader tell the
 > doctrine from one implementation of it without a folder move or a renumbered citation.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a rule that names its layer binds that layer and no

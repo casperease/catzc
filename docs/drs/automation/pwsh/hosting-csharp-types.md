@@ -209,8 +209,8 @@ restore the trail, and the design leans on both:
 - **The IDE project makes the C# navigable.** With `Catzc.Types.csproj` built, every `types/*.cs` is a first-class Dev Kit symbol, so
   Go-to-Symbol on `ModuleDependencyFormat` jumps to source.
 
-A short accelerator trades some of the [spell-out ADR](../spell-out-names.md)'s self-describing-name value for terseness at the call site;
-the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
+A short accelerator trades some of the [spell-out record](../spell-out-names.md)'s self-describing-name value for terseness at the call
+site; the `Catzc.`-namespaced, source-authored literal is what keeps it discoverable rather than opaque.
 
 ### Stale types in a pwsh process
 

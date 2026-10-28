@@ -62,17 +62,6 @@ brief and every message meets the wrong word first.
 
 ### The generators and the record titles
 
-- [ ] The ADR-kind records under `automation/`, `configuration/`, `ado/`, `github/`, `azure/` and `repository/`: each "# ADR: …" title takes
-      its domain word ("# Automation:", "# Repository:", "# Azure:", per the DRS conventions) and each "This ADR" says "this record", one
-      record at a time, at most 15 records per drone brief. Check: `Test-DrsRegistry`, `Test-Links`, `Test-Spelling`, `Test-Glossary` after
-      every 15 records.
-
-### Prose, one area per step
-
-- [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
-      controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
-      Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-
 ### The gate, last
 
 - [ ] `pwsh/Base.Drs/configs/glossary.yml` (new source, `Catzc.Base.Drs` owns the DRS): the concept `architecture decision record` (key

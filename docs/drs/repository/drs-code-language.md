@@ -57,9 +57,9 @@ than one segment there, its source path.
 Outside guidance is held as records of the `EDR` kind, which one domain owns, so an `EDR` code carries no domain segment. The code keeps the
 path of its source as group segments after the kind: `EDR-DORA-CI` for a DORA capability, `EDR-AZ-WAF-RE` for a Well-Architected pillar,
 `EDR-AZ-CAF-GOV` for a Cloud Adoption Framework design area, `EDR-PWSH-PESTER` for Pester. An external rule states how the repository reads
-the source item, with a `Source:` line that names it; the repository's own decision stays in the ADR or PDR that cites the rule. No `RDR`
-kind is registered: the DORA research records are `EDR` records, as are the Well-Architected, Cloud Adoption Framework, Agile, lean and
-Pester records.
+the source item, with a `Source:` line that names it; the repository's own decision stays in the `ADR` or `PDR` record that cites the rule.
+No `RDR` kind is registered: the DORA research records are `EDR` records, as are the Well-Architected, Cloud Adoption Framework, Agile, lean
+and Pester records.
 
 - [Outside guidance is its own kind](drs-code-language.md#outside-guidance-is-its-own-kind)
 
