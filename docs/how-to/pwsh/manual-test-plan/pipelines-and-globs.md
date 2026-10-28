@@ -80,7 +80,7 @@ and every entry ties to a declared globset that resolves a pipeline.
 
 ### 5. Test-Pipelines — real .ado/pipelines/ tree
 
-**Test file:** `pwsh/Azure.DevOps/tests/Test-Pipelines.Tests.ps1` (L1), block `Test-Pipelines — real .ado/pipelines/ tree`.
+**Test file:** `pwsh/Azure.DevOps/tests/Test-Pipelines.Tree.Tests.ps1` (L1), block `Test-Pipelines — real .ado/pipelines/ tree`.
 
 **Guards:** The shipped .ado/pipelines/ tree satisfies the naming-and-placement contract (ADR-ADO-NAME): valid type prefixes, flat
 placement, per-kind template folders, the .yaml extension, and absolute template references.
