@@ -4,13 +4,13 @@ Describe 'Test-AnalyzerDrsMap' -Tag 'L0', 'logic' {
         [void][System.IO.Directory]::CreateDirectory($rules)
         [System.IO.File]::WriteAllText((Join-Path $rules 'WidgetRules.psm1'), (@('function Measure-Widget { }',
                     'function Get-Helper { }') -join "`n"))
-        [System.IO.File]::WriteAllText((Join-Path $rules 'CatzcRules.psm1'), 'function Measure-Dispatch { }')
+        [System.IO.File]::WriteAllText((Join-Path $rules 'EntryRule.psm1'), 'function Measure-Dispatch { }')
         [System.IO.File]::WriteAllText((Join-Path $rules 'GizmoEntry.psm1'), 'function Measure-GizmoEntry { }')
         # The entry rules are what the settings' CustomRulePath lists; the fixture names two.
         $assets = Join-Path $TestDrive '.internal/assets'
         [void][System.IO.Directory]::CreateDirectory($assets)
         [System.IO.File]::WriteAllText((Join-Path $assets 'PSScriptAnalyzerSettings.psd1'),
-            "@{ CustomRulePath = @('pwsh/.scriptanalyzer/CatzcRules.psm1', 'pwsh/.scriptanalyzer/GizmoEntry.psm1') }")
+            "@{ CustomRulePath = @('pwsh/.scriptanalyzer/EntryRule.psm1','pwsh/.scriptanalyzer/GizmoEntry.psm1') }")
         $script:out = Join-Path $TestDrive 'out'
     }
 

@@ -207,7 +207,7 @@ languages:
     tag: js
     naming: { folder: kebab, file: kebab, function: camel, type: pascal }
     formatter: prettier
-    checks: [Test-JavaScriptTypes, Test-Formatting, Test-Spelling]
+    checks: [Test-JavaScriptTypes, Test-Formatting, Test-Spelling, Test-IdiomaticNames]
     tests: { runner: Invoke-JavaScriptTest, pattern: "*.test.js", tools: [node_js], executable_parameter: NodeExecutable }
     layout:
       - { folder: ".", role: source, extensions: [.js] }

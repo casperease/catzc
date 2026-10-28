@@ -15,7 +15,7 @@ function Get-ScriptAnalyzerInputs {
 
     $codeRoot = Get-CatzcModulesRoot
     # The spelling pass's own rule files; the rules pass reads every other rule file.
-    $spellingRules = 'CatzcSpelling.psm1', 'SpellOutIdentifiers.psm1'
+    $spellingRules = 'SpellingEntryRule.psm1', 'SpellOutIdentifiers.psm1'
     $inputs = [System.Collections.Generic.List[string]]::new()
     $inputs.Add($SettingsPath)
     foreach ($folder in (Join-Path $codeRoot '.scriptanalyzer'), (Join-Path $codeRoot '.vendor/PSScriptAnalyzer')) {

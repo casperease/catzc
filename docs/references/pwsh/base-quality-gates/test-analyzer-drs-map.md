@@ -16,8 +16,8 @@ analyzer map (configs/analyzer-drs-map.yml), the source of the 'pssa-rule' enfor
 against the repository and collects an issue for:
 
 - every rule id an analyzer cites that is not a real DRS rule (Get-DrsRuleIds, in '#' citation form);
-- every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rule CatzcRules.psm1, which only
-  dispatches — the map does not list, so a new custom rule cannot ship unmapped.
+- every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rules the settings list (EntryRule.psm1,
+  SpellingEntryRule.psm1), which only dispatch — the map does not list, so a new custom rule cannot ship unmapped.
 
 It reads the DRS tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
 

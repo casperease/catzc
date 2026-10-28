@@ -25,7 +25,7 @@ function Measure-QualityGates {
             $files = @(for ($index = 0; $index -lt $all.Count; $index += $Every) {
                     $all[$index]
                 })
-            $rules = @((Get-ScriptAnalyzerRule).RuleName) + 'Measure-CatzcRules'
+            $rules = @((Get-ScriptAnalyzerRule).RuleName) + 'Measure-EntryRule'
             foreach ($ruleName in $rules) {
                 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
                 $records = @($files | Invoke-ScriptAnalyzer -Settings $settings -IncludeRule $ruleName -ErrorAction SilentlyContinue)

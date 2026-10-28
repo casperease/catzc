@@ -11,9 +11,9 @@ Runs PSScriptAnalyzer over a file list in two cached passes, sharded across back
 
 ### description
 
-The analysis engine behind Test-ScriptAnalyzer. The settings hand the engine two entry rules: `Measure-CatzcRules` runs every custom check
-but the spelling one, and `Measure-CatzcSpelling` runs the spelling check, which reads the spelling oracle's word lists. So the analysis
-runs as two passes, `rules` (every rule but `Measure-CatzcSpelling`) and `spelling` (that rule alone), each with its own result cache under
+The analysis engine behind Test-ScriptAnalyzer. The settings hand the engine two entry rules: `Measure-EntryRule` runs every custom check
+but the spelling one, and `Measure-SpellingEntryRule` runs the spelling check, which reads the spelling oracle's word lists. So the analysis
+runs as two passes, `rules` (every rule but `Measure-SpellingEntryRule`) and `spelling` (that rule alone), each with its own result cache under
 out/cache/ (`script-analyzer.json`, `script-analyzer-spelling.json`). A pass skips every file it last found clean whose bytes and the pass's
 inputs (Get-ScriptAnalyzerInputs `-Pass`) are unchanged since
 ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)); only clean files are

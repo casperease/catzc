@@ -39,8 +39,8 @@ $longBody
     }
 
     It 'the settings hand the engine the two entry rules: every check, and the spelling check on its own' {
-        @($script:rulePaths | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('CatzcRules.psm1',
-            'CatzcSpelling.psm1')
+        @($script:rulePaths | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('EntryRule.psm1',
+            'SpellingEntryRule.psm1')
     }
 
     It 'PSScriptAnalyzer fires <Rule> through the entry rule, under its own rule name' -ForEach @(

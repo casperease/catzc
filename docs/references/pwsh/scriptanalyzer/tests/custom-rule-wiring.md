@@ -5,7 +5,7 @@ The one engine-wiring test (L2) shared by the repository's AST-direct custom rul
 ## What it proves
 
 Each check's per-case behaviour is proven at L0 by calling its `Measure-*` function directly (see the sibling `<Rule>.Tests.ps1` files). The
-one thing those tests cannot prove is that PSScriptAnalyzer loads the settings' one entry rule (`CatzcRules.psm1`) and surfaces each check's
+one thing those tests cannot prove is that PSScriptAnalyzer loads the settings' one entry rule (`EntryRule.psm1`) and surfaces each check's
 diagnostic, under the check's own rule name, when a real violation is present. That end-to-end fact is identical for every check, so one
 invocation over a single fixture that trips all of them proves it once, rather than paying the engine warmup per check.
 

@@ -20,7 +20,7 @@ function Get-ScriptAnalyzerDiagnostics {
 
     $fullRoot = [System.IO.Path]::GetFullPath((Get-RepositoryRoot))
     # Two passes, each cached on its own inputs: a dictionary edit re-runs the spelling pass alone.
-    $spellingRule = 'Measure-CatzcSpelling'
+    $spellingRule = 'Measure-SpellingEntryRule'
     $passes = @(
         [pscustomobject]@{ Label = 'rules'; Cache = 'script-analyzer.json'; IncludeRule = @(); ExcludeRule = @($spellingRule) }
         [pscustomobject]@{ Label = 'spelling'; Cache = 'script-analyzer-spelling.json'; IncludeRule = @($spellingRule); ExcludeRule = @() }

@@ -100,7 +100,7 @@ layout:
    because a pipeline builds only a clean commit.
 6. **Modules.** Twenty-two module functions, from `Get-OutputRoot` to `Install-Dotnet`, branch on the detector. None of them reads the
    variables.
-7. **Measure-NoRawPipelineDetection.** The analyzer rule, loaded through `CatzcRules.psm1` by the one settings file, flags a raw read of
+7. **Measure-NoRawPipelineDetection.** The analyzer rule, loaded through `EntryRule.psm1` by the one settings file, flags a raw read of
    either variable in any PowerShell file outside the detector.
 8. **Assert-BashTimeout.** The time-safeguard hook is a C# program the importer publishes. It runs outside the module system and outside the
    analyzer, so it reads `TF_BUILD` and `GITHUB_ACTIONS` itself, through `BashSafeguard.EnvironmentOf`, by the same test the detector

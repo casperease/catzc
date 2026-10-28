@@ -1,6 +1,7 @@
-# pwsh/.scriptanalyzer/CatzcRules.psm1
+# pwsh/.scriptanalyzer/EntryRule.psm1
 
-The one custom PSScriptAnalyzer rule the settings load. `Measure-CatzcRules` runs every repository check once per file.
+The custom PSScriptAnalyzer rule the settings load for every check but spelling. `Measure-EntryRule` runs every repository check once per
+file.
 
 ## Entry rule
 

@@ -32,7 +32,7 @@ $checks = @(
 
 $script:measures = $null
 
-function Measure-CatzcRules {
+function Measure-EntryRule {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
     param(
@@ -58,4 +58,4 @@ function Measure-CatzcRules {
     }
 }
 
-Export-ModuleMember -Function Measure-CatzcRules
+Export-ModuleMember -Function Measure-EntryRule

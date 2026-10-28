@@ -7,10 +7,10 @@
     IncludeDefaultRules = $true
 
     # One entry rule runs every custom check once per file (PSScriptAnalyzer calls a script rule once per
-    # ScriptBlockAst). Add a new check module to the list in CatzcRules.psm1, not here.
+    # ScriptBlockAst). Add a new check module to the list in EntryRule.psm1, not here.
     CustomRulePath      = @(
-        'pwsh/.scriptanalyzer/CatzcRules.psm1'
-        'pwsh/.scriptanalyzer/CatzcSpelling.psm1'
+        'pwsh/.scriptanalyzer/EntryRule.psm1'
+        'pwsh/.scriptanalyzer/SpellingEntryRule.psm1'
     )
 
     ExcludeRules        = @(

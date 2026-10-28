@@ -47,11 +47,6 @@ Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomati
 
 ## Open steps
 
-### 1. Wire it in
-
-Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), and the three folder renames are
-tracked (`python/diagrams/`, `python/tests/base_repository/`, `go/tests/baserepository/`):
-
 ### 2. The repository normal form
 
 The word model, the 15 acronym renames, the helper renames, the manual-test-plan rows and `Repair-IdiomaticNames` landed on 2026-10-21; the

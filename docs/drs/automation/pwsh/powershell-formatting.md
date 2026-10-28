@@ -307,7 +307,7 @@ permitted for chaining statements on a single line, in `for` loop headers, and i
   generated line width.
 - **PSScriptAnalyzer** — the full rule set, options, and on/off rationale live in `PSScriptAnalyzerSettings.psd1` (every rule folded out
   with inline comments). Custom analyzer rules, including `Measure-VariableCasing` (the casing rule above), live in `pwsh/.scriptanalyzer/`,
-  one check module each. The settings hand the engine one entry rule, `CatzcRules.psm1`, which runs every check once per file (the engine
+  one check module each. The settings hand the engine one entry rule, `EntryRule.psm1`, which runs every check once per file (the engine
   otherwise calls a script rule once per script block); a new check module is added to its list. Each check keeps its own rule name, so
   diagnostics and `SuppressMessageAttribute` name the check.
 - **The source set, shared** — `Get-ModuleSourceFile` names the canonical set the analysis quality gates cover: every module `*.ps1` (module

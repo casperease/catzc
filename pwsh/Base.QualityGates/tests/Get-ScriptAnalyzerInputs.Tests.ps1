@@ -24,17 +24,17 @@ Describe 'Get-ScriptAnalyzerInputs' -Tag 'L0', 'logic' {
     }
 
     It 'keeps the dictionaries and the spelling rule files out of the rules pass' {
-        $script:rules | Should -Contain 'CatzcRules.psm1'
-        foreach ($name in 'CatzcSpelling.psm1', 'SpellOutIdentifiers.psm1', 'english.txt.gz', 'SpellingOracle.cs') {
+        $script:rules | Should -Contain 'EntryRule.psm1'
+        foreach ($name in 'SpellingEntryRule.psm1', 'SpellOutIdentifiers.psm1', 'english.txt.gz', 'SpellingOracle.cs') {
             $script:rules | Should -Not -Contain $name
         }
         @($script:rules | Where-Object { $_ -like '*.txt' }) | Should -HaveCount 0
     }
 
     It 'gives the spelling pass its rule files and the dictionaries, and no other rule file' {
-        foreach ($name in 'CatzcSpelling.psm1', 'SpellOutIdentifiers.psm1', 'english.txt.gz', 'SpellingOracle.cs') {
+        foreach ($name in 'SpellingEntryRule.psm1', 'SpellOutIdentifiers.psm1', 'english.txt.gz', 'SpellingOracle.cs') {
             $script:spelling | Should -Contain $name
         }
-        $script:spelling | Should -Not -Contain 'CatzcRules.psm1'
+        $script:spelling | Should -Not -Contain 'EntryRule.psm1'
     }
 }

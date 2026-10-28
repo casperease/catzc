@@ -1,6 +1,6 @@
-# pwsh/.scriptanalyzer/CatzcSpelling.psm1
+# pwsh/.scriptanalyzer/SpellingEntryRule.psm1
 
-The entry rule of the spelling check: `Measure-CatzcSpelling` runs `Measure-SpellOutIdentifiers` on a file's root block.
+The entry rule of the spelling check: `Measure-SpellingEntryRule` runs `Measure-SpellOutIdentifiers` on a file's root block.
 
 ## Its own entry rule
 

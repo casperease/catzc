@@ -10,8 +10,8 @@ Two variables are read in one place, 24 callers ask it, and one analyzer rule ba
 5   Get-RunEnvironment              'Pipeline' or 'Devbox'
 6   Get-GlobSetChangeRange          'HEAD' when not in a pipeline
 7   Set-AdoPipelineVariable         skips the ##vso command when not in a pipeline
-8   PSScriptAnalyzerSettings.psd1   loads CatzcRules.psm1 through CustomRulePath
-9   CatzcRules.psm1                 runs every check once per file; NoRawPipelineDetection is listed
+8   PSScriptAnalyzerSettings.psd1   loads EntryRule.psm1 through CustomRulePath
+9   EntryRule.psm1                  runs every check once per file; NoRawPipelineDetection is listed
 10  Measure-NoRawPipelineDetection  flags $env:TF_BUILD or $env:GITHUB_ACTIONS outside the detector
 
 Supports ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL and ADR-PWSH-DETECT-FASTDETECTION (implementation lens).
@@ -49,7 +49,7 @@ content:
     - { id: c-change-range, kind: code, label: Get-GlobSetChangeRange, in: grp-callers }
     - { id: c-set-variable, kind: code, label: Set-AdoPipelineVariable, in: grp-callers }
     - { id: f-settings, kind: file, label: PSScriptAnalyzerSettings.psd1, in: band-analyzer }
-    - { id: c-rules, kind: code, label: CatzcRules.psm1, in: band-analyzer }
+    - { id: c-rules, kind: code, label: EntryRule.psm1, in: band-analyzer }
     - { id: g-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-analyzer }
   edges:
     - { from: r-azure-agent, to: c-detector, kind: flow, label: feeds }
@@ -107,9 +107,9 @@ layout:
 7. **Set-AdoPipelineVariable.** Writes a `##vso` logging command in a pipeline and, on a devbox, only a verbose line saying it skipped it.
    Twenty more call sites follow the same shape, among them `Get-SessionActor`, `Deploy-Bicep`, `Sync-SessionTools`, `Protect-GlobSet` and
    `Install-Python`, plus the bootstrap's types pre-pass and the module builder.
-8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/CatzcRules.psm1` and
-   nothing else.
-9. **CatzcRules.psm1.** The one entry rule: it runs every repository check once per file, and `NoRawPipelineDetection` is on its list.
+8. **PSScriptAnalyzerSettings.psd1.** The single analyzer rule set. Its `CustomRulePath` names `pwsh/.scriptanalyzer/EntryRule.psm1`
+   beside the spelling pass's own entry rule.
+9. **EntryRule.psm1.** The entry rule of every check but spelling: it runs every repository check once per file, and `NoRawPipelineDetection` is on its list.
 10. **Measure-NoRawPipelineDetection.** Walks every variable expression in the file. A `$env:TF_BUILD` or `$env:GITHUB_ACTIONS` whose
     ancestors include no function named `Test-IsRunningInPipeline` is reported as an error that names the variable and the function to call
     instead. `*.Tests.ps1` files are exempt, because they set and restore the variables to drive the detector through both contexts.

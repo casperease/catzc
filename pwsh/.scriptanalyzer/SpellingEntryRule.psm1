@@ -6,7 +6,7 @@ Set-StrictMode -Version Latest   # this module's scope: the entry rule runs stri
 
 $script:measure = $null
 
-function Measure-CatzcSpelling {
+function Measure-SpellingEntryRule {
     [CmdletBinding()]
     [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
     param(
@@ -28,4 +28,4 @@ function Measure-CatzcSpelling {
     & $script:measure -ScriptBlockAst $ScriptBlockAst
 }
 
-Export-ModuleMember -Function Measure-CatzcSpelling
+Export-ModuleMember -Function Measure-SpellingEntryRule

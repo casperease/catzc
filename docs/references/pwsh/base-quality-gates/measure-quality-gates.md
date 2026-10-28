@@ -16,7 +16,7 @@ languages.yml names in a language's `checks` (the gates Test-Change runs), so th
 is slow".
 
 With -AnalyzerRules it times the analyzer instead: each PSScriptAnalyzer rule the settings enable, run alone (-IncludeRule) over every
--Every'th file of the analyzed files (Get-ModuleSourceFile). The repository's custom checks run through one entry rule (Measure-CatzcRules)
+-Every'th file of the analyzed files (Get-ModuleSourceFile). The repository's custom checks run through one entry rule (Measure-EntryRule)
 and are timed as that one row.
 
 ### parameter `Name`
