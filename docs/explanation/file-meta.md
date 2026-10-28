@@ -61,8 +61,8 @@ the head:
 - **`repo_status`**: the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written
 - **`generator`, `source`**: the writer registry (each module's `generated.yml`), on demand and never written into a head; a generated file
   is told by it and `linguist-generated`
-- **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`, which is only the fast path: a
-  match passes, a miss renders the writer, and the render decides; an authored file carries none
+- **`with_body_sha`**: a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`, which is only the
+  fast path: a match passes, a miss renders the writer, and the render decides; an authored file carries none
 - **`defines`, `links`**: the Markdown body
 - **`cites`**: the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds
 - **`docs`**: the `relative-edges` path rule and the disk

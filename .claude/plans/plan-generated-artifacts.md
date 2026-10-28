@@ -74,8 +74,6 @@ take the generated files out of a working copy and render them back, and a reade
 
 ### Roll off, roll on
 
-- [ ] Every commit runs the guard: the user installs the pre-commit hook (task-user-runs-and-commits item 16). Check: that item's refused
-      commit.
 - [ ] The round trip on the real tree: `Remove-Generated`, `Restore-Generated`, `git status --porcelain` empty. Check: the user's full run.
 
 ## Refs
