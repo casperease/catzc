@@ -311,7 +311,7 @@ naming the eight.
 
 **The data is computed, never drawn.** A diagram's subject is the rule codes in its `about.rules` and the files that cite them.
 `Catzc.Base.Maps` projects that subject onto each minimap's axes with the data command `maps.yml` names for its id, reading a registry (the
-world map, the value chain, the DRS layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
+world map, the value chain, the layer stack, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
 carries the file and the requested code that light it. The data is contract JSON
 (`contracts/catzc/0.1.0/pwsh.base.maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
 at least one reason. `Build-Diagrams` and `Test-Diagrams` write it to `out/minimaps/`; the kit validates it against the schema

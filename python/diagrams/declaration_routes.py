@@ -43,10 +43,25 @@ def facing(a, b, orient="h"):
     return (("right", "left") if dx >= 0 else ("left", "right")) + (False,)
 
 
-def plan_aims(edges, box_of, plain_box, orient=None):
+TAG_CLEAR = 8  # px an edge end on a box's top side keeps clear of the box's tag row
+
+
+def off_tags(box, fraction, span):
+    """An end's x fraction on a box's top side moved left of the tag row `span` (x0, x1) when it lands on it or within TAG_CLEAR of
+    it, so a line never starts or ends on a tag; an end the box has no room for left of its tags stays."""
+    x = box["x"] + box["w"] * fraction
+    if not span or not span[0] - TAG_CLEAR < x < span[1] + TAG_CLEAR:
+        return fraction
+    moved = span[0] - TAG_CLEAR - box["x"]
+    return round(moved / box["w"], 4) if moved >= STRAIGHT_MARGIN else fraction
+
+
+def plan_aims(edges, box_of, plain_box, orient=None, tag_span=None):
     """Where each edge leaves and enters its boxes: the side the two face, and along that side an even spacing of every edge that shares
     it, in the order of the other ends so lines do not cross, one edge alone at the side's middle. `edges` are the indexes to route
-    mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions."""
+    mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions. `tag_span` maps a box to the x span of
+    the tag row on its top side, which no end on that side lands on."""
+    tag_span = tag_span or {}
     ends = {}
     sides = {}
     for i, (tail, head) in edges.items():
@@ -68,20 +83,29 @@ def plan_aims(edges, box_of, plain_box, orient=None):
         aims[i]["elbow"] = elbow
         if not elbow:
             shares = (len(ends[tail, side_a]), len(ends[head, side_b]))
-            aims[i].update(straight_aims(box_of[tail], box_of[head], side_a, aims[i], shares, (plain_box(tail), plain_box(head))))
+            tops = (tag_span.get(tail) if side_a == "top" else None, tag_span.get(head) if side_b == "top" else None)
+            aims[i].update(
+                straight_aims(box_of[tail], box_of[head], side_a, aims[i], shares, (plain_box(tail), plain_box(head)), tops)
+            )
+        else:  # an elbow's end on a top side keeps off the tag row on its own
+            for cell_id, side, which in ((tail, side_a, "exit"), (head, side_b, "entry")):
+                if side == "top":
+                    fx, fy = aims[i][which]
+                    aims[i][which] = (off_tags(box_of[cell_id], fx, tag_span.get(cell_id)), fy)
     return aims
 
 
 STRAIGHT_MARGIN = 8  # px a straight line keeps from the corner of either box it joins, where their shared span allows it
 
 
-def straight_aims(a, b, side_a, aim, shares, plain):
+def straight_aims(a, b, side_a, aim, shares, plain, tops=(None, None)):
     """The ends of an edge whose boxes face each other across one axis, so the line is level or plumb, never a slant: both ends at one
     shared coordinate inside the span the two boxes share on that axis. The coordinate is the spread position of the end that shares its
     side with fewer edges (the lone end's middle, so a fan-out's targets each take the line at their own centre), the tail's on a tie,
     kept inside the shared span; a diamond, ellipse or hexagon end is held at its middle. When no shared coordinate holds both ends (the
     shared span misses a held middle), the line steps once across the gap instead: `step` names its two ends' coordinates, so the
-    route runs out, across and in, each leg level or plumb."""
+    route runs out, across and in, each leg level or plumb. `tops` are the tag-row x spans of the ends that meet the line on their top
+    side: a plumb line keeps TAG_CLEAR left of them while the shared span still holds it, so it never ends on a tag."""
     across = side_a in ("top", "bottom")  # the line runs plumb, its coordinate an x; else level, a y
     pos, size, key = ("x", "w", 0) if across else ("y", "h", 1)
     spread = lambda box, which: box[pos] + box[size] * aim[which][key]
@@ -90,6 +114,9 @@ def straight_aims(a, b, side_a, aim, shares, plain):
         return {}
     margin = min(STRAIGHT_MARGIN, max(0.0, (hi - lo) / 2))
     lo, hi = lo + margin, hi - margin
+    if across:
+        clear = min([hi] + [span[0] - TAG_CLEAR for span in tops if span])
+        hi = clear if clear >= lo else hi
     held = [spread(box, which) for box, which, flat in ((a, "exit", plain[0]), (b, "entry", plain[1])) if not flat]
     if held:
         at = held[0]

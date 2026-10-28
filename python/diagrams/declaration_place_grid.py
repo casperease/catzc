@@ -277,7 +277,7 @@ def place_grid(declaration):
                     # code and type share one shape and a label may name no language, so the glyph itself carries its kind and override
                     mark = f"catzcKind={item['kind']};" + (f"catzcLang={item['lang']};" if item.get("lang") else "")
                     next(c for c in reversed(cells) if c["id"] == item["id"])["style"] += mark
-                    cells.extend(glyph_tags(item, box, parent, glyph_lib["type"]["tag"]))
+                    cells.extend(glyph_tags(item, box, parent, glyph_lib["type"]["tag"], box_of.get(holder_id)))
                 # An environment's occupant commits sit inside it, right of its name, in a row from its right edge inward.
                 for n, occupant in enumerate(holder.get(item["id"], [])):
                     d = glyph_lib["commit"]["size"][1]

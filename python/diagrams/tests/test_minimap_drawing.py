@@ -201,3 +201,14 @@ def test_the_gold_panel_border_is_a_token_that_holds_three_to_one_on_the_minimap
     light = minimaps.tokens("light")
     assert contrast(light["map-border-lit"], light["band"]) >= 3 and contrast(light["map-border-lit"], light["map-panel"]) >= 3
 
+
+
+def test_the_column_headers_of_a_matrix_never_run_together_lit_or_dim():
+    _, d = minimaps.canvas(240, 160)
+    cols = ["Base.Widgets", "Base.Gadgets", "Base.Widgeteers", "Base.Gadgetry"]
+    lit = {("subject", "Base.Widgets"), ("subject", "Base.Gadgets")}  # the lit headers are bold, so wider than the dim ones
+    headers = minimaps.column_headers(d, cols, lit, 70, (240 - 70 - 8) / len(cols))
+    assert [on for _, _, on in headers] == [True, True, False, False]
+    for (x, value, on), (next_x, _, _) in itertools.pairwise(headers):
+        end = x + d.textlength(value, font=minimaps.font(8 * minimaps.SCALE, on)) / minimaps.SCALE
+        assert end <= next_x - minimaps.HEADER_GAP, f"{value!r} runs into the next header"

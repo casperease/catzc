@@ -9,6 +9,7 @@ from . import declaration_settings
 from .declaration_cells import TAG_ID, cell, edge_cell, ladder_rungs
 from .declaration_constants import (
     ACTION_LENS,
+    BAND_TITLE,
     BYPASS_DIP,
     CHIP_CORNER,
     EDGE_DEADZONE,
@@ -38,11 +39,54 @@ from .declaration_routes import (
     middle_leg,
     overlaps,
     plan_aims,
+    point_at,
+    run_length,
     transition,
 )
 from .declaration_vocabulary import LIB, DeclarationError
 
 MARKER_CORNERS = ("top-left", "top-right", "bottom-left", "bottom-right")  # the corners a marker may take, in the order it tries them
+GROUP_LABEL_HEIGHT = 18  # px the bold 11 px name of a group takes under its frame's top edge
+ARROWHEAD = 12  # px the square a line's arrowhead stands in, centred on the line's end at its target's border
+
+
+def group_label_room(c):
+    """The rectangle a group frame's name takes inside its top-left corner: its spacing, about 6.5 px a bold 11 px character, a margin."""
+    return (c["x"] + 4, c["y"], round(6.5 * len(html.unescape(c["value"]))) + 12, GROUP_LABEL_HEIGHT)
+
+
+def held_room(cells):
+    """The room a pill or a mark may not take: every glyph's tags, every pill already on a line, every band title and every group name."""
+    room = []
+    for c in cells:
+        if c["edge"]:
+            continue
+        if TAG_ID.search(c["id"]) or c["id"].endswith("-word") or (c["id"].endswith("-title") and c["style"] == BAND_TITLE):
+            room.append((c["x"], c["y"], c["w"], c["h"]))
+        elif c["style"] == LIB["module"] and c["value"]:
+            room.append(group_label_room(c))
+    return room
+
+
+def tag_spans(cells):
+    """Each tagged glyph's tag row as the x span (x0, x1) it covers on the glyph's top side."""
+    spans = {}
+    for c in cells:
+        if not c["edge"] and TAG_ID.search(c["id"]):
+            x0, x1 = spans.get(TAG_ID.sub("", c["id"]), (c["x"], c["x"] + c["w"]))
+            spans[TAG_ID.sub("", c["id"])] = (min(x0, c["x"]), max(x1, c["x"] + c["w"]))
+    return spans
+
+
+def auto_marker_spot(box, sources, free, span=None):
+    """Where a marker the kit places stands: the corner away from the arriving edges, else the first other corner whose room is free,
+    else on the top edge just left of the glyph's tag row `span`; the first corner when no room is free."""
+    size = LIB["marks"]["marker"]["size"]
+    first = auto_corner(box, sources)
+    spots = [marker_xy(box, k) for k in (first, *(k for k in MARKER_CORNERS if k != first))]
+    if span and span[0] - size[0] - 4 >= box["x"] - 10:
+        spots.append((round(span[0]) - size[0] - 4, box["y"] - 11))
+    return next((s for s in spots if free((s[0], s[1], size[0], size[1]))), spots[0])
 
 def place_spans(frame):
     """The span bars over what they cover, and the room for them: returns how far the drawing area moved down."""
@@ -166,7 +210,20 @@ def place_edges(frame, delta, check_routes):
             along_column = [{"from": tail, "to": head, "points": [ca, (ca[0], cb[1]), cb]}]
             if keep_out_findings(along_row, obstacles, holder) and not keep_out_findings(along_column, obstacles, holder):
                 orient[i] = "v"
-    aims = plan_aims(routable, box_of, plain_box, orient)
+    spans = tag_spans(cells)
+    aims = plan_aims(routable, box_of, plain_box, orient, spans)
+    # The room a pill may not take besides the glyphs and the other pills: the tags, the band titles, the group names, and the spot each
+    # glyph's marker will take, found as place_marks finds it against the same room.
+    room = held_room(cells)
+    for m in content["markers"]:
+        if m["at"] in box_of and any(g["id"] == m["at"] and g["kind"] != "gate" for g in content["glyphs"]):
+            box = box_of[m["at"]]
+            if "corner" in m:
+                mx, my = marker_xy(box, m["corner"])
+            else:
+                sources = [box_of[e["from"]] for e in content["edges"] if e["to"] == m["at"] and e["from"] in box_of]
+                mx, my = auto_marker_spot(box, sources, lambda rect: not any(overlaps(rect, r, 0) for r in room), spans.get(m["at"]))
+            room.append((mx, my, *LIB["marks"]["marker"]["size"]))
     routes = []
     for index, e in enumerate(content["edges"]):
         style = LIB["edges"][e["kind"]]["style"]
@@ -232,7 +289,7 @@ def place_edges(frame, delta, check_routes):
             # where the arrowhead stays clear; a line too short to hold it gets the same pill beside it; only when no place beside it is free does its word stay bare.
             spot = None
             if declaration_settings.EDGE_LABEL == "pill":
-                avoid = [box_of[g["id"]] for g in content["glyphs"]] + placed
+                avoid = [box_of[g["id"]] for g in content["glyphs"]] + placed + room
                 avoid = [(v["x"], v["y"], v["w"], v["h"]) if isinstance(v, dict) else v for v in avoid]
                 spot = label_spot(run, edge_word(e), EDGE_DEADZONE, crossing, avoid)
             if spot:
@@ -244,9 +301,13 @@ def place_edges(frame, delta, check_routes):
                 # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
                 # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
                 (x0, y0), (x1, y1) = middle_leg(points)
+                (wx, wy), _ = point_at(run, run_length(run) / 2)
+                word_w = 6.2 * len(edge_word(e)) + 6
+                route["word"] = (wx - word_w / 2, wy - 16, word_w, 26)  # a bare word over or beside its line's middle, which marks keep off
                 if abs(y1 - y0) > abs(x1 - x0):
                     edge["style"] += "align=left;"
                     edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
+                    route["word"] = (wx + 3, wy - 8, word_w, 16)
                 # The word presentation: a word on a line that crosses into another band becomes a transition bubble on that band's
                 # border; a line inside one band keeps its word beside it.
                 if declaration_settings.EDGE_LABEL == "word" and crossing:
@@ -265,9 +326,15 @@ def place_marks(frame, delta):
     """The markers and the chips, anchored on the cells the earlier phases placed."""
     content, cells, box_of = frame.content, frame.cells, frame.box_of
     size = LIB["marks"]["marker"]["size"]
-    # The room a mark may not take: every glyph's tags and every pill on a line, then each mark as it lands, so a marker or a chip never
-    # stands on a label, a tag or another mark.
-    taken = [(c["x"], c["y"], c["w"], c["h"]) for c in cells if not c["edge"] and (TAG_ID.search(c["id"]) or c["id"].endswith("-word"))]
+    # The room a mark may not take: every glyph's tags, every pill and bare word on a line, every arrowhead, every band title and group
+    # name, then each mark as it lands, so a marker or a chip never stands on a label, a tag, a line's end or another mark.
+    taken = held_room(cells)
+    for route in LAST_ROUTES:
+        tx, ty = route["points"][-1]
+        taken.append((tx - ARROWHEAD / 2, ty - ARROWHEAD / 2, ARROWHEAD, ARROWHEAD))
+        if route.get("word"):
+            taken.append(route["word"])
+    spans = tag_spans(cells)
     free = lambda rect: not any(overlaps(rect, other, 0) for other in taken)
     for m in content["markers"]:
         if m["at"] not in box_of:  # an edge `from->to`: the marker sits halfway along its path, through its waypoints
@@ -294,11 +361,9 @@ def place_marks(frame, delta):
             mx, my = box["x"] + box["w"] // 2 - 40, box["y"] - 4
         elif not kind:  # a band or a group: just inside its top-left corner, so it never widens the page
             mx, my = box["x"] + 4, box["y"] - 11
-        else:  # the corner away from the arriving edges, else the first corner whose room is free
+        else:  # the corner away from the arriving edges, else the first spot whose room is free
             sources = [box_of[e["from"]] for e in content["edges"] if e["to"] == m["at"] and e["from"] in box_of]
-            first = auto_corner(box, sources)
-            spots = [marker_xy(box, k) for k in (first, *(k for k in MARKER_CORNERS if k != first))]
-            mx, my = next((s for s in spots if free((s[0], s[1], size[0], size[1]))), spots[0])
+            mx, my = auto_marker_spot(box, sources, free, spans.get(m["at"]))
             auto = "catzcAuto=1;"  # the corner is the kit's choice, so get names none
         taken.append((mx, my, size[0], size[1]))
         style = LIB["marks"]["marker"]["style"] + (auto if "corner" not in m and kind not in ("", "gate") else "")

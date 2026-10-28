@@ -81,7 +81,7 @@ caller in the same change (PDR-ONELIVE); a module on the importer path (`Catzc.B
 - [ ] `docs/drs/` (182 generic uses in 49 records; most in `repository/` drs-code-language, markdown-links, links-in-repository,
       controlled-vocabulary and the `dora-explains.md` files): reword per the decided words, keeping ADR-kind self-reference. Check: the
       Grep above over `docs/drs`, every hit a kept use; `Test-Links`, `Test-Spelling` on the touched records.
-- [ ] `docs/references/` leftovers: `pwsh/base-drs/update-drs-citation.md` with the Update-DrsCitation step, and "checked ADR domains" in
+- [ ] `docs/references/` leftovers: `pwsh/base-drs/update-drs-citation.md` with the Update-DrsCitation step, and "checked DRS domains" in
       `contracts/catzc/0.1.0/pwsh.base.drs/test_drs_engine_neutrality.command.yml` -> "checked DRS domains", then `Build-ContractReference`
       rebuilds `contracts/catzc.md`. Check: the Grep over `docs/references`, `Test-Links`.
 - [ ] `docs/explanation/` leftovers inside the diagram declarations: the titles of `automation/rule-and-gate-per-load-stage.md` and

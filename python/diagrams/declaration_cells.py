@@ -21,13 +21,21 @@ TAGGED_KINDS = ("code", "private", "runner", "type")  # the glyph kinds that are
 TAG_ID = re.compile(r"-tag(-\d+)?$")
 
 
-def glyph_tags(item, box, parent, lib):
+TAG_INSET = 4  # px a tag row keeps inside the edges of the band or group that holds its glyph
+
+
+def glyph_tags(item, box, parent, lib, within=None):
     """The tag cells of a code glyph: a right-aligned row of small tags on its top edge, in the tag style of the library, their words
-    from the language table by the shape of the label (languages_table), never stored in the declaration; a label that names no language gets none."""
+    from the language table by the shape of the label (languages_table), never stored in the declaration; a label that names no language gets none.
+    A row wider than its glyph runs on past the glyph's left edge, but stays TAG_INSET inside the holder box `within` (its band or group),
+    so no tag pokes out of the frame that holds its glyph."""
     words = languages_table.tags(item["label"], item.get("lang", ""))
     width, height = lib["size"]
     sizes = [max(width, round(6.6 * len(word)) + 10) for word in words]
-    x = box["x"] + box["w"] - 8 - sum(sizes) - 3 * (len(words) - 1)
+    total = sum(sizes) + 3 * (len(words) - 1)
+    x = box["x"] + box["w"] - 8 - total
+    if within:
+        x = max(min(x, within["x"] + within["w"] - TAG_INSET - total), within["x"] + TAG_INSET)
     cells = []
     for n, (word, size) in enumerate(zip(words, sizes)):
         cells.append(

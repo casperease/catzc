@@ -200,9 +200,8 @@ def draw_data(d, width, height, data):
         label_w = 70
         cell_w = (width - label_w - 8) / max(1, len(cols))
         cell_h = min(18, (height - top - 6) / max(1, len(rows) + bool(hidden)))
-        for j, col in enumerate(cols):
-            on = any(at[1] == col for at in lit)
-            text(d, (label_w + j * cell_w + 2, top - 13), fit(d, col, 8, cell_w - 2), 8, CAPTION if on else DIM_INK, bold=on)
+        for x, value, on in column_headers(d, cols, lit, label_w, cell_w):
+            text(d, (x, top - 13), value, 8, CAPTION if on else DIM_INK, bold=on)
         for i, row in enumerate(rows):
             y = top + i * cell_h
             on = any(at[0] == row for at in lit)
@@ -234,6 +233,19 @@ def draw_data(d, width, height, data):
         text(d, (13, y), label, size, LIT_INK, bold=True)
     if counters:
         text(d, (13, top + len(rows) * pitch), counters, fitted_size(d, counters, 9, width - 26), DIM_INK)
+
+
+HEADER_GAP = 4  # px a matrix column's header keeps clear of the next column's
+
+
+def column_headers(d, cols, lit, label_w, cell_w):
+    """A matrix's column headers as (x, value, lit): each 2 px into its column, shortened in the weight it is drawn in (a lit header is
+    bold, so wider) until it ends HEADER_GAP short of the next column, so two headers never run together."""
+    headers = []
+    for j, col in enumerate(cols):
+        on = any(at[1] == col for at in lit)
+        headers.append((label_w + j * cell_w + 2, fit(d, col, 8, cell_w - 2 - HEADER_GAP, bold=on), on))
+    return headers
 
 
 def draw_rows(d, width, height, rows, present, lit):

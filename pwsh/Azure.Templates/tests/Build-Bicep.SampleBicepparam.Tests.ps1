@@ -41,13 +41,15 @@ Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'l
         $beta.parameters.storageAccountName.value | Should -BeExactly 'btweutstsbppst'
     }
 
-    It 'writes each slot as a .bicepparam whose using names the template''s main.bicep from the output folder' {
+    It 'writes each slot as a .bicepparam whose using names the copy of main.bicep inside the output folder' {
         Build-Bicep sample-bicepparam | Out-Null
+        $source = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates/sample-bicepparam/main.bicep'
         foreach ($config in 'alpha', 'beta') {
             $text = [System.IO.File]::ReadAllText((Join-Path $script:outputRoot "parameters.$config.bicepparam"))
             $using = [regex]::Match($text, "(?m)^using '(?<path>[^']+)'").Groups['path'].Value
-            [System.IO.Path]::GetFullPath((Join-Path $script:outputRoot $using)) |
-                Should -BeExactly ([System.IO.Path]::GetFullPath((Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates/sample-bicepparam/main.bicep')))
+            $target = [System.IO.Path]::GetFullPath((Join-Path $script:outputRoot $using))
+            $target | Should -BeLike ([System.IO.Path]::GetFullPath($script:outputRoot) + [System.IO.Path]::DirectorySeparatorChar + '*')
+            [System.IO.File]::ReadAllText($target) | Should -BeExactly ([System.IO.File]::ReadAllText($source))
         }
     }
 

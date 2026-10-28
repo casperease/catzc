@@ -83,8 +83,9 @@ function Build-Bicep {
 
     $prepareHook = Get-BicepPrepareHook -TemplateDescriptor $templateDescriptor
 
-    # Every slot deploys as a .bicepparam in the output folder whose using names main.bicep in the tree, so its module tree resolves.
-    $using = [System.IO.Path]::GetRelativePath($outputFolder, $templateDescriptor.main).Replace('\', '/')
+    # The output folder is self-contained: main.bicep and every file it reaches are copied in, and each slot's using names that copy.
+    $main = Copy-BicepSourceTree -Main $templateDescriptor.main -OutputFolder $outputFolder
+    $using = [System.IO.Path]::GetRelativePath($outputFolder, $main).Replace('\', '/')
     $usingLine = [regex]::new("(?m)^(\s*using\s+)'[^']*'")
     # Each compile is a full bicep process over the template, so every slot's build-params and the main.bicep build run side by side.
     $compiles = [System.Collections.Generic.List[object]]::new()
@@ -112,13 +113,13 @@ function Build-Bicep {
             })
     }
     $compiles.Add([pscustomobject]@{
-            Label      = "bicep build of '$($templateDescriptor.main)'"
-            Command    = "`"$($bicep.Path)`" build `"$($templateDescriptor.main)`" --outdir `"$outputFolder`""
-            Source     = $templateDescriptor.main
+            Label      = "bicep build of '$main'"
+            Command    = "`"$($bicep.Path)`" build `"$main`" --outdir `"$outputFolder`""
+            Source     = $main
             Parameters = $null
         })
 
-    Write-Message "Building $($templateDescriptor.main) and $($compiles.Count - 1) slot(s) to $outputFolder"
+    Write-Message "Building $main and $($compiles.Count - 1) slot(s) to $outputFolder"
     $results = @(Invoke-ExecutableParallel -Command @($compiles | ForEach-Object Command) -NoAssert -Silent)
     $failures = [System.Collections.Generic.List[string]]::new()
     for ($index = 0; $index -lt $compiles.Count; $index++) {

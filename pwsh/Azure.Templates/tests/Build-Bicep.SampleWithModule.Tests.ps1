@@ -57,4 +57,35 @@ Describe 'sample-with-module (reusable module consumer)' -Tag 'L0', 'logic' {
         $json = Get-Content (Join-Path $script:outputRoot 'parameters.alpha.json') -Raw | ConvertFrom-Json
         $json.parameters.storageAccountName.value | Should -Be 'alweutstsmodst'
     }
+
+    It 'builds a self-contained output folder: every path a built .bicep or .bicepparam names resolves inside it' {
+        Build-Bicep sample-with-module | Out-Null
+        $root = [System.IO.Path]::GetFullPath($script:outputRoot) + [System.IO.Path]::DirectorySeparatorChar
+        $reference = [regex]::new(
+            "(?m)^\s*(?:module\s+\S+\s+|using\s+|extends\s+)'(?<path>[^']+)'|\bfrom\s+'(?<path>[^']+)'|\bload\w+\(\s*'(?<path>[^']+)'")
+        $files = @(Get-ChildPath -Path $script:outputRoot -Depth 8 -Filter '*.bicep', '*.bicepparam' -File)
+        $files | ForEach-Object { [System.IO.Path]::GetExtension($_) } | Sort-Object -Unique |
+            Should -BeExactly @('.bicep', '.bicepparam') -Because 'the build copies main.bicep and its module beside the rendered slots'
+        $leaving = [System.Collections.Generic.List[string]]::new()
+        $resolved = 0
+        foreach ($file in $files) {
+            foreach ($match in $reference.Matches([System.IO.File]::ReadAllText($file))) {
+                $target = [System.IO.Path]::GetFullPath((Join-Path ([System.IO.Path]::GetDirectoryName($file)) $match.Groups['path'].Value))
+                if (-not $target.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase) -or -not [System.IO.File]::Exists($target)) {
+                    $leaving.Add("$file -> $($match.Groups['path'].Value)")
+                }
+                $resolved++
+            }
+        }
+        $resolved | Should -BeGreaterThan 1 -Because 'each slot''s using and the module reference are checked'
+        $leaving | Should -BeNullOrEmpty -Because "a built template holds no reference to the source tree:`n$($leaving -join "`n")"
+    }
+
+    It 'compiles the copied main.bicep, never the source one' {
+        Build-Bicep sample-with-module | Out-Null
+        $script:copied = [regex]::Escape([System.IO.Path]::GetFullPath($script:outputRoot))
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Azure.Templates -ParameterFilter {
+            @($Command | Where-Object { $_ -match " build `"$script:copied" }).Count -eq 1
+        }
+    }
 }

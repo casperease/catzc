@@ -19,7 +19,7 @@ content:
     - { id: d-thesis, kind: drsonly, label: thesis TDR, in: band-framing }
     - { id: d-research, kind: drsonly, label: research RDR, in: band-research }
     - { id: d-principles, kind: drsonly, label: principles PDR, in: band-mechanics }
-    - { id: d-others, kind: set, label: WDR DDR FDR ADR domains, in: band-domains }
+    - { id: d-others, kind: set, label: WDR DDR FDR DRS domains, in: band-domains }
   edges:
     - { from: d-principles, to: d-thesis, kind: flow, label: cites }
     - { from: d-others, to: d-principles, kind: flow, label: cites }

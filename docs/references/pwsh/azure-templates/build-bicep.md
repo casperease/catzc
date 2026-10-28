@@ -24,7 +24,9 @@ For each target slot (one per `configuration/[<customer>/]<config>.yml`):
 5. Renders the resulting `.ParametersFile` to `out/template/<name>/parameters.[<customer>.]<config>.json` — one per config file; the name
    comes from Get-BicepParametersFileName (config name = `<env>[-<slot>]`).
 
-Then runs `bicep build <main.bicep> --outdir <out>` once for the template, producing `main.json`. Finally copies the per-template
+Before the slots render, copies `main.bicep` and every file it reaches (modules, imports, loaded files and the `bicepconfig.json` between
+them) into `<out>/bicep/`, keeping their layout, so the output folder is self-contained. Then runs `bicep build <copied main.bicep> --outdir
+<out>` once for the template, producing `main.json`. Finally copies the per-template
 `PrePost.psm1` (if any) and the contents of `resources/` (if any) into the output folder.
 
 The output folder, `-OutputFolder` or the template's `out/template/<name>`, is wiped and recreated on every call and returned.
@@ -119,7 +121,9 @@ The `UNDEFINED` marker is a string and is compared string-first and case-sensiti
 non-empty string, or a number therefore never reads as undefined.
 
 Every slot reaches the deploy one way (ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS): a `.bicepparam` in the output folder, compiled by
-`bicep build-params`, whose `using` names the template's `main.bicep` in the tree so its module tree resolves.
+`bicep build-params`, whose `using` names the copy of `main.bicep` inside the output folder. Every path a built `.bicep` or `.bicepparam`
+file names resolves inside the output folder, never to the source tree, so the folder is valid alone and never goes stale against a later
+edit of the template.
 
 ## The compiled template
 
