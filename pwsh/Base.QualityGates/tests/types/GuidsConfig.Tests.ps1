@@ -39,8 +39,8 @@ Describe 'Catzc.Base.QualityGates.GuidsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'reads the registries it names as repository-relative yml paths' {
-        $config = New-GuidsConfig ([ordered]@{ guids = $null; registries = @('pwsh/Widget/configs/sprockets.yml', 'configs\gadgets.yml') })
-        @($config.registries) | Should -Be @('pwsh/Widget/configs/sprockets.yml', 'configs/gadgets.yml')
+        $config = New-GuidsConfig ([ordered]@{ guids = $null; registries = @('widgets/Widget/configs/sprockets.yml', 'configs\gadgets.yml') })
+        @($config.registries) | Should -Be @('widgets/Widget/configs/sprockets.yml', 'configs/gadgets.yml')
     }
 
     It 'throws on a registry that is rooted, empty or not a yml file' {

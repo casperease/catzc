@@ -10,8 +10,8 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
 
         It 'maps each check it is given' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{
-                    engine_set    = [ordered]@{ mode = 'report'; name_phrases = @('{name} and {name}') }
-                    neutral_codes = [ordered]@{ exempt = [ordered]@{ 'src/**' = 'widget fixtures' } }
+                    engine_set     = [ordered]@{ mode = 'report'; name_phrases = @('{name} and {name}') }
+                    neutral_codes  = [ordered]@{ exempt = [ordered]@{ 'src/**' = 'widget fixtures' } }
                     test_file_name = [ordered]@{ exempt = [ordered]@{ 'src/Widget/tests/Gadget.Tests.ps1' = 'a gadget feature test' } }
                 })
             $config.test_file_name.IsExempt('src/Widget/tests/Gadget.Tests.ps1') | Should -BeTrue

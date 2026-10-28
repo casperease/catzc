@@ -23,7 +23,7 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
             }
             $script:make = {
                 param($entry)
-                [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ sites = [ordered]@{ 'pwsh/Widget/Get-Widget.ps1#Get-Widget' = $entry } })
+                [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ sites = [ordered]@{ 'widgets/Widget/Get-Widget.ps1#Get-Widget' = $entry } })
             }
         }
 
@@ -32,8 +32,8 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
         }
 
         It 'reads a site with its file, function, class, trigger and guard' {
-            $site = (& $script:make (& $script:site)).sites['pwsh/Widget/Get-Widget.ps1#Get-Widget']
-            $site.path | Should -BeExactly 'pwsh/Widget/Get-Widget.ps1'
+            $site = (& $script:make (& $script:site)).sites['widgets/Widget/Get-Widget.ps1#Get-Widget']
+            $site.path | Should -BeExactly 'widgets/Widget/Get-Widget.ps1'
             $site.name | Should -BeExactly 'Get-Widget'
             $site.class | Should -BeExactly 'package-install'
             $site.trigger | Should -BeExactly 'on-request'
@@ -41,7 +41,7 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
         }
 
         It 'marks a default-path site as a violation' {
-            (& $script:make (& $script:site @{ trigger = 'default-path' })).sites['pwsh/Widget/Get-Widget.ps1#Get-Widget'].IsViolation | Should -BeTrue
+            (& $script:make (& $script:site @{ trigger = 'default-path' })).sites['widgets/Widget/Get-Widget.ps1#Get-Widget'].IsViolation | Should -BeTrue
         }
 
         It 'keeps two sites of one file apart, each with its own class' {
@@ -56,7 +56,7 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
         }
 
         It 'rejects a site key without its function or step (<Key>)' -ForEach @(
-            @{ Key = 'pwsh/Widget/Get-Widget.ps1' }, @{ Key = '#Get-Widget' }, @{ Key = 'pwsh/Widget/Get-Widget.ps1#' }
+            @{ Key = 'widgets/Widget/Get-Widget.ps1' }, @{ Key = '#Get-Widget' }, @{ Key = 'widgets/Widget/Get-Widget.ps1#' }
         ) {
             { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ sites = [ordered]@{ $Key = (& $script:site) } }) } |
                 Should -Throw "*must be keyed '<file>#<function or step>'*"
@@ -71,7 +71,7 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
         }
 
         It 'rejects a site that is not a map' {
-            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ sites = [ordered]@{ 'pwsh/Widget/Get-Widget.ps1#Get-Widget' = 'gadget' } }) } |
+            { [Catzc.Base.Execution.NetworkCallsConfig]::new([ordered]@{ sites = [ordered]@{ 'widgets/Widget/Get-Widget.ps1#Get-Widget' = 'gadget' } }) } |
                 Should -Throw '*must be a map*'
         }
 

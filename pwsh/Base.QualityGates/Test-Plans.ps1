@@ -177,48 +177,8 @@ function Test-Plans {
         }
 
         $plans++
-        $block = if ($frontMatter -is [System.Collections.IDictionary] -and $frontMatter.Contains('plan')) {
-            $frontMatter['plan']
-        }
-        if (-not ($block -is [System.Collections.IDictionary])) {
-            & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head has no 'plan:' block"
-        }
-        else {
-            foreach ($key in $Config.head_required) {
-                if (-not $block.Contains($key)) {
-                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head misses '$key'"
-                }
-            }
-            foreach ($key in @($block.Keys)) {
-                if ($key -notin $Config.head_required -and $key -notin $Config.head_allowed) {
-                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"the head key '$key' is outside the plan keys ($(($Config.head_required + $Config.head_allowed) -join ', '))"
-                }
-            }
-            if ($block.Contains('status')) {
-                $status = "$($block['status'])"
-                if ($status -notin $Config.statuses) {
-                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"status '$status' is not one of: $($Config.statuses -join ', ')"
-                }
-                elseif ($status -ceq 'blocked' -and -not ($block.Contains('blocked_on') -or
-                        $block.Contains('waits_on'))) {
-                    & $add 1 'ADR-REPO-PLANS-PLANHEAD'"a blocked plan names what blocks it in 'blocked_on' or 'waits_on'"
-                }
-            }
-            if ($block.Contains('value') -and "$($block['value'])" -notin $Config.ranks) {
-                & $add 1 'ADR-REPO-PLANS-PLANHEAD'"value '$($block['value'])' is not one of the ranks: $($Config.ranks -join ', ')"
-            }
-            if ($block.Contains('targets')) {
-                $targets = @($block['targets'])
-                if ($targets.Count -eq 0) {
-                    & $add 1 'ADR-REPO-PLANS-PLANHEAD''targets names no path'
-                }
-                foreach ($target in $targets) {
-                    $candidate = Join-Path $root "$target"
-                    if (-not ([System.IO.File]::Exists($candidate) -or [System.IO.Directory]::Exists($candidate))) {
-                        & $add 1 'ADR-REPO-PLANS-PLANHEAD'"target '$target' does not exist"
-                    }
-                }
-            }
+        foreach ($message in Get-PlanHeadIssue -FrontMatter $frontMatter -Config $Config -RepositoryRoot $root) {
+            & $add 1 'ADR-REPO-PLANS-PLANHEAD' $message
         }
 
         $items = @(Get-MarkdownListItem -Line $lines)

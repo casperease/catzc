@@ -12,7 +12,7 @@ Describe 'Test-BicepApiVersions' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $root }
         Mock ConvertTo-RepoRelativePath -ModuleName Catzc.Base.QualityGates { 'widgets/' + (Split-Path -Leaf $Path) }
-        Get-ChildItem $modules -Recurse -File | Remove-Item
+        Get-ChildPath $modules -File | Remove-Item
     }
 
     It 'scans a template one folder down in every listed folder' {

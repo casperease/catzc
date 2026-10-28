@@ -14,7 +14,8 @@ function Get-TestRunLocationEntry {
         return @{ EntryScript = $EntryScript; EntryParameter = $EntryParameter }
     }
     if (-not $EntryScript) {
-        return @{ EntryScript = Join-Path $Location.Root 'importer.ps1'; EntryParameter = @{ SkipJanitors = $true } }
+        $importer = Join-Path $Location.Root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
+        return @{ EntryScript = $importer; EntryParameter = @{ SkipJanitors = $true } }
     }
 
     $mappedParameter = @{}

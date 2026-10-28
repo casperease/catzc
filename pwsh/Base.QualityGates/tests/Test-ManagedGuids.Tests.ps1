@@ -17,7 +17,7 @@ Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {
         }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'guids' } {
             [pscustomobject]@{
-                guids  = [ordered]@{
+                guids      = [ordered]@{
                     widget = [pscustomobject]@{ guid = $widgetGuid }
                     gadget = [pscustomobject]@{ guid = $gadgetGuid }
                 }

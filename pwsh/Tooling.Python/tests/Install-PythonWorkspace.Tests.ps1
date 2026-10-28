@@ -8,7 +8,7 @@ Describe 'Install-PythonWorkspace' -Tag 'L0', 'logic' {
 
     BeforeEach {
         $script:syncExit = 0
-        $script:pyrightExit = 0
+        $script:firstRunExit = 0
         $script:seen = [System.Collections.Generic.List[object]]::new()
         Mock Write-Message -ModuleName Catzc.Tooling.Python { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Tooling.Python { $script:repo }
@@ -20,7 +20,7 @@ Describe 'Install-PythonWorkspace' -Tag 'L0', 'logic' {
         }
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Python {
             $script:seen.Add([pscustomobject]@{ Command = $Command; Directory = $WorkingDirectory; Downloads = $env:UV_PYTHON_DOWNLOADS })
-            $exit = ($Command -like '* sync *') ? $script:syncExit : $script:pyrightExit
+            $exit = ($Command -like '* sync *') ? $script:syncExit : $script:firstRunExit
             [Catzc.Base.Execution.CliResult]::new('', 'No interpreter found', $exit)
         }
     }
@@ -53,7 +53,7 @@ Describe 'Install-PythonWorkspace' -Tag 'L0', 'logic' {
     }
 
     It 'throws with "Run Install-NodeJs" when pyright cannot start' {
-        $script:pyrightExit = 1
+        $script:firstRunExit = 1
         { Install-PythonWorkspace } | Should -Throw '*pyright could not start*Run Install-NodeJs*'
     }
 

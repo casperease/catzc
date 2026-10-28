@@ -83,8 +83,9 @@ function Enter-TestRunLocation {
 
     # One full import, as a fresh clone's, materialises the gitignored generated files.
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
-    $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '
-    $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
+    $pwshEngine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh
+    $start = $pwshEngine.NonInteractiveArguments -join ' '
+    $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path $pwshEngine.ImporterEntry)`"" `
         -WorkingDirectory $location.Snapshot.Path -PassThru -Silent -NoAssert
     if ($priming.ExitCode -ne 0) {
         # The failed import's output is kept as a log, the snapshot left for a look, and its tail thrown.

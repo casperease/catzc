@@ -65,7 +65,7 @@ function Get-ModuleSourceFile {
     }
 
     # Shipped files outside the module tree: importer.ps1 and the one authored analyzer .psd1.
-    $importerPath = Join-Path $root 'importer.ps1'
+    $importerPath = Join-Path $root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
     if (Test-Path $importerPath) {
         $files.Add($importerPath)
     }

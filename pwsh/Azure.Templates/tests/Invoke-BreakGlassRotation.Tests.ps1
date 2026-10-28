@@ -130,8 +130,9 @@ Describe 'The break-glass rotation pipeline' -Tag 'L1', 'integrity' {
         $pipeline.trigger | Should -Be 'none'
         $pipeline.pr | Should -Be 'none'
         @($pipeline.schedules).Count | Should -BeGreaterThan 0
-        @($pipeline.schedules)[0].cron | Should -Match '^\S+ \S+ \S+ \* \*$|^\S+ \S+ 1 \* \*$'
-        @($pipeline.schedules)[0].always | Should -BeTrue
+        $schedule = $pipeline.schedules | Select-Object -First 1
+        $schedule.cron | Should -Match '^\S+ \S+ \S+ \* \*$|^\S+ \S+ 1 \* \*$'
+        $schedule.always | Should -BeTrue
         $text = Get-Content -Raw (Join-Path (Get-RepositoryRoot) '.ado/pipelines/cron-break-glass-rotation.yaml')
         $text | Should -Match 'Invoke-BreakGlassRotation'
         $text | Should -Match 'Mode: azcli'
