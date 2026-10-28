@@ -83,7 +83,7 @@ finally {
         return $content
     }
 
-    $target = Join-Path $RepositoryRoot 'importer.ps1'
+    $target = Join-Path $RepositoryRoot ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
     if ((Test-Path -LiteralPath $target -PathType Leaf) -and -not $Force) {
         throw "New-Importer: '$target' already exists — pass -Force to overwrite."
     }
