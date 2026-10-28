@@ -50,8 +50,7 @@ selects only that generator's files.
 
 Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift -Changed),
 and a writer's dry run runs only when Get-GeneratedWriterDue says it is due, by a missing output or a changed stamp of the inputs of its
-writer row. Catches a hand edit of a generated file and a generator change whose
-output was not re-rendered.
+writer row. Catches a hand edit of a generated file and a generator change whose output was not re-rendered.
 
 ### parameter `StampOnly`
 

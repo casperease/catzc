@@ -8,7 +8,8 @@ namespace Catzc.Base.Variants;
 // One writer of generated files, as its module's generated.yml declares it; every default of a row is declared here once.
 public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 {
-    // What a roll-off may do with the writer's files (ADR-REPO-ROOTCFG-ONECLASSPERWRITER).
+    // What a roll-off may do with the writer's files
+    // ([ADR-REPO-ROOTCFG-ONECLASSPERWRITER](/docs/drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-oneclassperwriter)).
     public static readonly string[] Classes = { "rollable", "import-critical", "snapshot", "untracked" };
 
     // The shape of the writer's report a drift check reads; 'none' for a writer no drift check reads.
