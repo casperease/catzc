@@ -1,7 +1,7 @@
-# The pipelines wire only topic, landed and BVT; past BVT there is no ladder
+# Which ladder rungs the pipelines wire
 
 ```text
-The pipelines wire topic, landed and BVT; past BVT, stages follow the template, not the rung.
+Which ladder rungs the pipelines wire.
 
 1  pr: [main]          pre-commit build validation of the topic commit
 2  trigger: [main]     post-commit run of the same pipelines on the landed commit
@@ -27,7 +27,7 @@ about:
   rules: [FDR-LIFE-DIRTYHEADUNSAFE]
   lens: implementation
 content:
-  title: The pipelines wire only topic, landed and BVT; past BVT there is no ladder
+  title: Which ladder rungs the pipelines wire
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -96,7 +96,7 @@ layout:
   r-expedition: { x: 960, y: 450, w: 300, h: 44 }
 ```
 
-![The pipelines wire only topic, landed and BVT; past BVT there is no ladder](.assets/code-wires-only-the-first-rungs.drawio.png)
+![Which ladder rungs the pipelines wire](.assets/code-wires-only-the-first-rungs.drawio.png)
 
 ## Walkthrough
 
@@ -142,5 +142,5 @@ A commit that fails a stage cannot go downstream (FDR-LIFE-DIRTYHEADUNSAFE). In 
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](how-one-build-reaches-production.md),
-  [operations](engineer-merges-pipelines-do-the-rest.md) and [governance](which-rung-gates-exist-in-code.md).
+  [operations](who-does-what-from-merge-to-production.md) and [governance](which-ladder-rungs-have-a-gate-in-code.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

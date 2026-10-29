@@ -117,5 +117,5 @@ layout:
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [operations](how-a-merge-to-main-reaches-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
+  [operations](how-a-merge-to-main-reaches-non-prod.md) and [governance](what-the-quality-gate-checks-on-the-way-to-production.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

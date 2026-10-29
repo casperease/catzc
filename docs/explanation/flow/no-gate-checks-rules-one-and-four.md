@@ -1,7 +1,7 @@
-# No gate checks the runner rules 1 or 4, and the step template breaks rule 3
+# Which runner rules no gate checks
 
 ```text
-No gate checks the runner rules 1 or 4, and the step template breaks rule 3.
+Which runner rules no gate checks.
 
 1  pipeline YAML                rule 1: no inline PowerShell; holds, but no gate checks it
 2  step template                rule 3: a thin wrapper; its guard contradicts it
@@ -33,7 +33,7 @@ about:
     - ADR-ADO-TEMPLATE-ABSOLUTEPATHS
   lens: governance
 content:
-  title: No gate checks the runner rules 1 or 4, and the step template breaks rule 3
+  title: Which runner rules no gate checks
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-failures-pester: { x: 680, y: 288, w: 260, h: 80 }
 ```
 
-![No gate checks rules 1 or 4; the template breaks 3](.assets/no-gate-checks-rules-one-and-four.drawio.png)
+![Which runner rules no gate checks](.assets/no-gate-checks-rules-one-and-four.drawio.png)
 
 ## Walkthrough
 
@@ -122,6 +122,7 @@ layout:
 
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - [Pipeline naming and placement](../../drs/ado/pipeline-naming-and-placement.md) — the rules `Test-Pipelines` checks.
-- The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
-  [implementation](three-tasks-one-guard-one-runner.md) and [operations](the-step-is-named-after-its-command.md).
+- The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
+  [architecture](the-runner-is-the-only-seam.md), [implementation](three-tasks-one-guard-one-runner.md) and
+  [operations](the-step-is-named-after-its-command.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

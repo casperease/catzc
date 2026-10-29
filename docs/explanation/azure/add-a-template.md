@@ -1,7 +1,7 @@
-# A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
+# How a Bicep template is added
 
 ```text
-A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it.
+How a Bicep template is added.
 
 1  main.bicep        the new template's deployable entry, referencing the modules it needs
 2  options.yml       the template's own settings
@@ -26,7 +26,7 @@ about:
   rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: operations
 content:
-  title: A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
+  title: How a Bicep template is added
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -73,7 +73,7 @@ layout:
   r-filters: { x: 1110, y: 170, w: 150, h: 44 }
 ```
 
-![A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it][diagram]
+![How a Bicep template is added][diagram]
 
 [diagram]: .assets/add-a-template.drawio.png
 

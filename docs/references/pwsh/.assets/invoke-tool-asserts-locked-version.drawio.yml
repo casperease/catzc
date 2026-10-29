@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-CONF-LOADING-READINGISGLOBAL]
   lens: source
 content:
-  title: Each tool wrapper asserts the locked version before it runs
+  title: How a tool's version is checked before it runs
   kind: reference
   flow: left-to-right
   theme: dark

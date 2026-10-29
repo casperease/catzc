@@ -1,7 +1,7 @@
-# The az session is the deploy target, and the guard only checks it
+# What the Azure deploy target is
 
 ```text
-The deploy target is the az session's subscription; the guard checks it and never selects it.
+What the Azure deploy target is.
 
 1  az session            the az CLI's active subscription: what the service connection logged into
 2  subscription guard    the pin of the expected subscription id; mandatory in a pipeline
@@ -24,7 +24,7 @@ about:
   rules: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: meta
 content:
-  title: The az session is the deploy target, and the guard only checks it
+  title: What the Azure deploy target is
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -56,7 +56,7 @@ layout:
   f-mis-wired: { x: 700, y: 268, w: 200, h: 44 }
 ```
 
-![The az session is the deploy target, and the guard only checks it](.assets/the-session-is-the-deploy-target.drawio.png)
+![What the Azure deploy target is](.assets/the-session-is-the-deploy-target.drawio.png)
 
 ## Walkthrough
 

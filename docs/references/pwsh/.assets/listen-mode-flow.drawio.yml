@@ -5,7 +5,7 @@ about:
   rules: [ADR-REPO-AI-EDITORISFACT, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: meta
 content:
-  title: Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone
+  title: How the listen mode turns edits into plans
   kind: explanation
   flow: left-to-right
   theme: dark

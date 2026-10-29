@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-AUTO-TEST, ADR-PWSH-ASSERT-DECLAREDTIMELIMIT]
   lens: source
 content:
-  title: "Invoke-Executable: only the streamed path is time-bounded"
+  title: How an executable call is time-bounded
   kind: reference
   flow: left-to-right
   theme: dark

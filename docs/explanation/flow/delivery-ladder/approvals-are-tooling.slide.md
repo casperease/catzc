@@ -6,7 +6,7 @@ catzc:
     order: 11
     picture:
       mode: reduce
-      source: ../../design/.assets/state-changes.drawio.png
+      source: ../../design/.assets/which-ladder-stretch-each-pipeline-runs.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: state changes.
 
 ## Notes
 
-Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/state-changes.drawio.png.
+Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/which-ladder-stretch-each-pipeline-runs.drawio.png.

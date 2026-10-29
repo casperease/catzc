@@ -61,7 +61,7 @@ their files, so the limits it reads and the verdict it gives are the ones `Get-T
 ## See also
 
 - [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the decision this article explains.
-- The other lenses on the same verdict: [meta](a-shell-call-carries-its-limit-or-is-denied.md),
-  [implementation](decide-returns-null-or-a-reason.md), [operations](pass-the-limit-or-the-call-is-denied.md) and
+- The other lenses on the same verdict: [meta](how-the-hook-treats-a-shell-calls-limit.md),
+  [implementation](how-the-bash-time-guard-decides.md), [operations](pass-the-limit-or-the-call-is-denied.md) and
   [governance](three-tests-prove-the-hook.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

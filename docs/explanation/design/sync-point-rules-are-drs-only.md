@@ -1,7 +1,7 @@
-# Only BVT has a gate in code; the sync-point rules are DRS-only
+# Which sync-point rules have a gate
 
 ```text
-Only the BVT rung has a gate in code; every sync-point rule is DRS-only.
+Which sync-point rules have a gate.
 
 1   ci-pwsh              the first rung and the one gate code enforces: BVT, which rejects a failing commit
 2   on-demand (L3)       where CD runs the L3 tests; no pipeline defines it
@@ -40,7 +40,7 @@ about:
     - FDR-CD-PREPRODRUNG
   lens: governance
 content:
-  title: Only BVT has a gate in code; the sync-point rules are DRS-only
+  title: Which sync-point rules have a gate
   kind: explanation
   flow: top-to-bottom
   relation: a commit climbs to
@@ -103,7 +103,7 @@ layout:
   f-dirty-head: { x: 299, y: 864, w: 240, h: 52 }
 ```
 
-![Only BVT has a gate in code; the sync-point rules are DRS-only](.assets/sync-point-rules-are-drs-only.drawio.png)
+![Which sync-point rules have a gate](.assets/sync-point-rules-are-drs-only.drawio.png)
 
 ## Walkthrough
 
@@ -154,5 +154,5 @@ the environment `main-UAT` in the commit lifecycle and `main-uat` in the promoti
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [CD discipline and promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — RC, RBC, L3 and the pre-prod rung.
 - The other lenses on the same sync point: [meta](sync-from-the-bvt-verified-head.md) and
-  [architecture](integrators-sync-from-the-bvt-verified-head.md).
+  [architecture](where-upstream-integrators-sync-from.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -1,7 +1,7 @@
-# Deploying a topic commit is not integrating it
+# How deploying differs from integrating
 
 ```text
-A topic commit can reach an environment without reaching main; only landing on main puts it on the ladder.
+How deploying differs from integrating.
 
 1  topic commit         a commit on a topic branch, brown, off main
 2  out-of-band deploy   a workflow deploys the topic commit; DRS-only, no code runs it
@@ -29,7 +29,7 @@ about:
     - DDR-VISUAL-ENVIRONMENTISCONTAINER
   lens: meta
 content:
-  title: Deploying a topic commit is not integrating it
+  title: How deploying differs from integrating
   kind: explanation
   flow: left-to-right
   relation: lands, then climbs
@@ -78,7 +78,7 @@ layout:
   c-verified: { x: 1110, y: 170, w: 150, h: 44 }
 ```
 
-![Deploying is not integrating](.assets/deploying-is-not-integrating.drawio.png)
+![How deploying differs from integrating](.assets/deploying-is-not-integrating.drawio.png)
 
 ## Walkthrough
 
@@ -113,6 +113,6 @@ from main.
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [Visual design](../../drs/design/visual-design.md) — the commit colours and the neutral environment.
 - The other lenses on the same deploy: [architecture](deploy-and-integrate-share-only-the-topic.md),
-  [implementation](every-deploy-stage-is-main-only.md), [operations](merging-to-main-is-what-deploys.md) and
+  [implementation](where-a-deploy-stage-may-run.md), [operations](merging-to-main-is-what-deploys.md) and
   [governance](out-of-band-deploy-is-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

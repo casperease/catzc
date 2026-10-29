@@ -1,0 +1,92 @@
+# Which stages a load runs
+
+```text
+Which stages a load runs.
+
+1  Enter                 a dot-sourced entry script hands over to the one importer
+2  Set up the session    version floor, fail-fast preferences, the working root and the code root
+3  Load                  shared code, third-party modules, C# types, then every module
+4  Prove one run mode    a check: no module from the other run mode survives the load
+5  Tidy, then leave      the janitors run unless skipped, then the import-time helpers go
+
+Supports ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-ISSESSION (meta lens).
+```
+
+Cats loads through the same five stages in the same order, whatever the entry point: enter, set up the session, load, prove one run mode,
+then tidy up and leave. There is one living importer, never a forked copy, so a session loaded from the repository and a session loaded from
+a build are set up the same way.
+
+```yml drawio
+description:
+  "Whatever the entry point, loading runs through the same five stages in the same order: enter, set up the session, load, prove one run
+  mode, then tidy and leave."
+about:
+  rules: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
+  lens: meta
+content:
+  title: Which stages a load runs
+  kind: explanation
+  flow: top-to-bottom
+  theme: dark
+  bands:
+    - { id: band-load, label: LOAD SEQUENCE }
+  glyphs:
+    - { id: g-enter, kind: code, label: Enter, in: band-load }
+    - { id: g-session, kind: code, label: Set up the session, in: band-load }
+    - { id: g-load, kind: code, label: Load, in: band-load }
+    - { id: g-prove, kind: gate, label: Prove one run mode, in: band-load }
+    - { id: g-tidy, kind: code, label: "Tidy, then leave", in: band-load }
+  edges:
+    - { from: g-enter, to: g-session, kind: flow, label: calls }
+    - { from: g-session, to: g-load, kind: flow, label: calls }
+    - { from: g-load, to: g-prove, kind: flow, label: "" }
+    - { from: g-prove, to: g-tidy, kind: flow, label: calls }
+  markers:
+    - { at: g-enter, number: 1 }
+    - { at: g-session, number: 2 }
+    - { at: g-load, number: 3 }
+    - { at: g-prove, number: 4 }
+    - { at: g-tidy, number: 5 }
+  legend: auto
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-load: { x: 20, y: 84, w: 1260, h: 400 }
+  g-enter: { x: 390, y: 128, w: 500, h: 44 }
+  g-session: { x: 390, y: 194, w: 500, h: 44 }
+  g-load: { x: 390, y: 260, w: 500, h: 44 }
+  g-prove: { x: 500, y: 324, w: 280, h: 68 }
+  g-tidy: { x: 390, y: 420, w: 500, h: 44 }
+```
+
+![Which stages a load runs](.assets/which-stages-a-load-runs.drawio.png)
+
+## Walkthrough
+
+1. **Enter.** A dot-sourced entry script hands over to the one importer. There are two entry scripts, one per run mode, and both end in the
+   same importer call.
+2. **Set up the session.** The importer checks the PowerShell version, sets the fail-fast preferences, and sets the working root and the
+   code root. A loaded session is a session, not a passive library: it sets the global error and warning preferences in both modes.
+3. **Load.** Shared code loads first, then the third-party modules, then the C# types, then every module. The types and their accelerators
+   register before any module loads.
+4. **Prove one run mode.** This stage is a check. Every loaded module must come from the active run mode: the other mode is cleared during
+   the load, and its absence is proved after it. A module left over from the other mode stops the load.
+5. **Tidy, then leave.** The janitors run, unless they are skipped, and build mode always skips them. Then the import-time helpers remove
+   themselves.
+
+Whatever the entry point, the load runs the same steps in the same order, and the two run modes never coexist in one session.
+
+## Why it holds
+
+- A bundle loads by running the one living importer, never a forked bootstrap, which reproduces the exact tested load sequence
+  (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
+- A bundle is a session, not a passive library: loading it sets the global error and warning preferences exactly as the source importer does
+  (ADR-AUTO-BUNDLE-ISSESSION).
+- The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
+
+## See also
+
+- [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
+- The other lenses on the same load sequence: [architecture](two-entries-feed-one-importer.md),
+  [implementation](invoke-importer-in-code-order.md), [operations](how-the-entry-script-loads-the-modules.md) and
+  [governance](rule-and-gate-per-load-stage.md).
+- [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

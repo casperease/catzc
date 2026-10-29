@@ -1,7 +1,7 @@
-# "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed
+# How the touched-unit check fails open
 
 ```text
-Whether a change touches a unit is read from git at real refs, and every doubt fails open to proceed.
+How the touched-unit check fails open.
 
 1  git at real refs       the two commits the question is asked between, as they exist after the merge
 2  is this unit touched?  the check a deployable unit's pipeline stage asks before it does any work
@@ -25,7 +25,7 @@ about:
   rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
-  title: '"Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed'
+  title: How the touched-unit check fails open
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -63,7 +63,7 @@ layout:
   r-proceed: { x: 660, y: 430, w: 160, h: 44 }
 ```
 
-![Every doubt fails open to proceed](.assets/every-doubt-fails-open-to-proceed.drawio.png)
+![How the touched-unit check fails open](.assets/every-doubt-fails-open-to-proceed.drawio.png)
 
 ## Walkthrough
 

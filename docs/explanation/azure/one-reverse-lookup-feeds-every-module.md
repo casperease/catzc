@@ -1,7 +1,7 @@
-# One reverse lookup in Catzc.Azure.Cli hands the session to every module
+# How the az session becomes a declared identity
 
 ```text
-One reverse lookup turns the az session into a declared identity that every Azure module reads.
+How the az session becomes a declared identity.
 
 1  service connection     the Azure DevOps login a pipeline deploy runs under
 2  az session             the az CLI's active subscription
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
   lens: architecture
 content:
-  title: One reverse lookup in Catzc.Azure.Cli hands the session to every module
+  title: How the az session becomes a declared identity
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   r-group: { x: 1110, y: 208, w: 150, h: 44 }
 ```
 
-![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module.drawio.png)
+![How the az session becomes a declared identity](.assets/one-reverse-lookup-feeds-every-module.drawio.png)
 
 The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az session and `azure.yml` and calls `Catzc.Azure`;
 `Catzc.Azure.Templates` calls both modules and reads the configuration tree; a config file never acts, the code that reads it does.

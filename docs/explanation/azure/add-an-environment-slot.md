@@ -1,7 +1,7 @@
-# A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
+# How a configuration slot is added
 
 ```text
-A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group.
+How a configuration slot is added.
 
 1  configuration slot file    one <env>[-<slot>].yml added to a template's configuration folder
 2  exactly one subscription   the check at discovery that the file's coordinate resolves to one subscription
@@ -23,7 +23,7 @@ about:
   rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
-  title: A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
+  title: How a configuration slot is added
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -57,7 +57,7 @@ layout:
   e-group: { x: 1060, y: 160, w: 180, h: 60 }
 ```
 
-![A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group][d]
+![How a configuration slot is added][d]
 
 [d]: .assets/add-an-environment-slot.drawio.png
 
@@ -80,5 +80,5 @@ layout:
 ## See also
 
 - [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
-- [A config file's path is a coordinate](config-path-is-a-coordinate.md) — how the coordinate resolves to one subscription.
+- [A config file's path is a coordinate](what-a-config-files-path-resolves-to.md) — how the coordinate resolves to one subscription.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

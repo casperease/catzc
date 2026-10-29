@@ -1,7 +1,7 @@
-# Ten numbered commits trace the whole lifecycle across pipeline, environments and git
+# The commit lifecycle end to end
 
 ```text
-Ten numbered commits show every stage, gate, environment and ending of the commit lifecycle in one picture.
+The commit lifecycle end to end.
 
 1  the bands      CI, CD, CDe and the deploy bands each cover a stretch of the stages
 2  the gates      red lines are manual gates, dashed lines are automatic ones; each gate has a stage box
@@ -32,7 +32,7 @@ about:
     - FDR-CD-TWORELEASEGATES
   lens: architecture
 content:
-  title: Ten commits climb at once; each gate passes some on and discards others, and git keeps every one
+  title: The commit lifecycle end to end
   kind: explanation
   flow: top-to-bottom
   relation: advances to
@@ -155,7 +155,7 @@ content:
   minimaps: [code-locations, axis, lifecycle-position]
 ```
 
-![Ten numbered commits traced through the pipeline, the environments and git](.assets/10-commits-story.drawio.png)
+![The commit lifecycle end to end](.assets/10-commits-story.drawio.png)
 
 ## Walkthrough
 

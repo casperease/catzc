@@ -1,7 +1,7 @@
-# Five keys, one private reader, twelve exported primitives
+# How variants.yml keys are read
 
 ```text
-Five keys in variants.yml reach twelve exported primitives through one private reader.
+How variants.yml keys are read.
 
 1   variants.yml                  five keys: ado_naming, git_workspace, have_customers, aspects, tracks
 2   Get-Config -Config variants   loads the file as a VariantsConfig and caches it for the session
@@ -35,7 +35,7 @@ about:
     - ADR-REPO-VARIANT-GITWORKSPACE
   lens: implementation
 content:
-  title: Five keys, one private reader, twelve exported primitives
+  title: How variants.yml keys are read
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -95,7 +95,7 @@ layout:
   g-test-customers: { x: 680, y: 514, w: 260, h: 44 }
 ```
 
-![Five keys, one private reader, twelve exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
+![How variants.yml keys are read](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
 
 ## Walkthrough
 

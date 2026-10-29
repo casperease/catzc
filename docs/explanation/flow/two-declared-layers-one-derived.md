@@ -1,7 +1,7 @@
-# Every globset carries one of three layers, and only two are declared
+# Which globset layers are declared
 
 ```text
-Every globset carries one of three layers; two are declared in globs.yml, the third is derived.
+Which globset layers are declared.
 
 1  Configured units         nova, apex, flux and shared: a base plus their own configuration
 2  Base unit                template-azure-subscription-foundation, composed by all four
@@ -25,7 +25,7 @@ about:
   rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-COMPOSESETS, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: architecture
 content:
-  title: Every globset carries one of three layers, and only two are declared
+  title: Which globset layers are declared
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -74,7 +74,7 @@ layout:
   g-leftovers: { x: 1000, y: 548, w: 240, h: 52 }
 ```
 
-![Two layers declared, the third derived](.assets/two-declared-layers-one-derived.drawio.png)
+![Which globset layers are declared](.assets/two-declared-layers-one-derived.drawio.png)
 
 ## Walkthrough
 
@@ -115,5 +115,5 @@ layout:
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same layers: [meta](peers-in-a-layer-never-overlap.md), [implementation](independence-check-groups-by-layer.md),
-  [operations](declare-or-add-folder-gate-names-overlaps.md) and [governance](overlap-gated-for-units-and-modules.md).
+  [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md) and [governance](overlap-gated-for-units-and-modules.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

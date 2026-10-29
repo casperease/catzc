@@ -1,7 +1,7 @@
-# Drop a file, and the next import exports it
+# How a dropped file gets exported
 
 ```text
-Drop a file, and the next import exports it; no registration step exists.
+How a dropped file gets exported.
 
 1  Verb-Noun.ps1               the one file the author adds
 2  . ./importer.ps1            the import: regenerates every manifest
@@ -26,7 +26,7 @@ about:
   rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: operations
 content:
-  title: Drop a file, and the next import exports it
+  title: How a dropped file gets exported
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -72,7 +72,7 @@ layout:
   r-live: { x: 1070, y: 300, w: 190, h: 44 }
 ```
 
-![Drop a file, the next import exports it](.assets/drop-a-file-the-import-exports-it.drawio.png)
+![How a dropped file gets exported](.assets/drop-a-file-the-import-exports-it.drawio.png)
 
 ## Walkthrough
 
@@ -106,5 +106,5 @@ reports every non-conventional module subfolder as an issue.
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
-  [implementation](where-the-manifest-and-the-aspects-come-from.md) and [governance](partition-integrity-runs-only-in-unit-tests.md).
+  [implementation](where-the-manifest-and-the-aspects-come-from.md) and [governance](where-partition-integrity-is-checked.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

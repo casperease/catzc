@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-OVERLAY, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY]
   lens: source
 content:
-  title: Overlay merges unless sealed; the registered type builds it
+  title: How a config is read and overlaid
   kind: reference
   flow: top-to-bottom
   theme: dark

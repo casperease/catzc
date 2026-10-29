@@ -1,7 +1,7 @@
-# Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
+# How the independence check pairs globsets
 
 ```text
-The independence gate groups every globset by layer and tests each same-layer pair for a shared file.
+How the independence check pairs globsets.
 
 1  deployable-unit sets          the five layer: deployable-unit entries in globs.yml
 2  declared loose-filesets       the five layer: loose-fileset entries; their group is skipped
@@ -27,7 +27,7 @@ about:
   rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: implementation
 content:
-  title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
+  title: How the independence check pairs globsets
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   g-overlaps-modules: { x: 760, y: 444, w: 200, h: 88 }
 ```
 
-![Test-GlobSetIndependence groups by layer](.assets/independence-check-groups-by-layer.drawio.png)
+![How the independence check pairs globsets](.assets/independence-check-groups-by-layer.drawio.png)
 
 ## Walkthrough
 
@@ -108,5 +108,5 @@ layout:
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same layers: [meta](peers-in-a-layer-never-overlap.md), [architecture](two-declared-layers-one-derived.md),
-  [operations](declare-or-add-folder-gate-names-overlaps.md) and [governance](overlap-gated-for-units-and-modules.md).
+  [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md) and [governance](overlap-gated-for-units-and-modules.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -1,7 +1,7 @@
-# A change to one module fans out to every template that references it and every pipeline that deploys one
+# What a Bicep module change reaches
 
 ```text
-A change to one module fans out to every template that references it and every pipeline that deploys one.
+What a Bicep module change reaches.
 
 1  one module                          the edit: one .bicep file in the modules place of the infrastructure track
 2  every template that references it   each main.bicep with a module declaration of it, which the build inlines
@@ -23,7 +23,7 @@ about:
   rules: [ADR-AZ-IACKIND-THREEIACKINDS]
   lens: operations
 content:
-  title: A change to one module fans out to every template that references it and every pipeline that deploys one
+  title: What a Bicep module change reaches
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -60,7 +60,7 @@ layout:
   r-cd: { x: 960, y: 194, w: 220, h: 40 }
 ```
 
-![A change to one module fans out to every template that references it and every pipeline that deploys one][diagram]
+![What a Bicep module change reaches][diagram]
 
 [diagram]: .assets/a-module-change-fans-out-to-its-templates.drawio.png
 

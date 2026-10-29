@@ -1,7 +1,7 @@
-# The detector lives in the loader, which both run modes import first and keep loaded
+# Where the pipeline detector lives
 
 ```text
-The detector lives in the loader, which both run modes import first and keep loaded.
+Where the pipeline detector lives.
 
 1  Azure DevOps agent              sets TF_BUILD on every pipeline run
 2  GitHub Actions runner           sets GITHUB_ACTIONS on every workflow run
@@ -28,7 +28,7 @@ about:
   rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
-  title: The detector lives in the loader, which both run modes import first and keep loaded
+  title: Where the pipeline detector lives
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -86,7 +86,7 @@ layout:
   g-analyzer-rule: { x: 730, y: 408, w: 300, h: 84 }
 ```
 
-![The detector lives in the loader](.assets/the-loader-holds-the-one-detector.drawio.png)
+![Where the pipeline detector lives](.assets/the-loader-holds-the-one-detector.drawio.png)
 
 ## Walkthrough
 

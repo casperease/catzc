@@ -1,7 +1,7 @@
-# Values and module edges have a gate; the no-direct-read rule is left to review
+# Which variant rules have a quality gate
 
 ```text
-Values and module edges have a gate; the rule that nothing reads the file directly is left to review.
+Which variant rules have a quality gate.
 
 1  variants.yml           rule 1: one home, a dictionary of known keys
 2  VariantsConfig         the load gate for rules 1, 4, 5 and 6: keys and values, one throw for all
@@ -32,7 +32,7 @@ about:
     - ADR-REPO-VARIANT-GITWORKSPACE
   lens: governance
 content:
-  title: Values and module edges have a gate; the no-direct-read rule is left to review
+  title: Which variant rules have a quality gate
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-module-dependency: { x: 680, y: 370, w: 240, h: 70 }
 ```
 
-![Values and module edges pass a quality gate; the no-direct-read rule is left to review][diagram]
+![Which variant rules have a quality gate][diagram]
 
 [diagram]: .assets/values-and-edges-gated-reads-reviewed.drawio.png
 

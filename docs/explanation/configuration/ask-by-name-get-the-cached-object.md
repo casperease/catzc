@@ -1,7 +1,7 @@
-# Ask for a config by name and get the cached object back
+# How a config is fetched by name
 
 ```text
-Ask for a config by name and get the cached object back; every mistake throws at the call.
+How a config is fetched by name.
 
 1  Get-ConfigValue, Get-Config   the commands you type, by address or by name
 2  name -> one file              the name resolves to one file in its owning module
@@ -33,7 +33,7 @@ about:
     - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
   lens: operations
 content:
-  title: Ask for a config by name and get the cached object back
+  title: How a config is fetched by name
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -84,7 +84,7 @@ layout:
   f-malformed: { x: 810, y: 412, w: 220, h: 44 }
 ```
 
-![Ask for a config by name and get the cached object back](.assets/ask-by-name-get-the-cached-object.drawio.png)
+![How a config is fetched by name](.assets/ask-by-name-get-the-cached-object.drawio.png)
 
 ## Walkthrough
 
@@ -125,7 +125,6 @@ the other violations.
 
 - [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains, and
   [config value addressing](../../drs/configuration/config-value-addressing.md) for the address rules.
-- The other lenses on the same read path: [meta](one-reader-one-cache-per-session.md),
-  [architecture](callers-depend-on-one-config-module.md), [implementation](three-caches-back-one-reader.md) and
-  [governance](one-gate-guards-the-read-path.md).
+- The other lenses on the same read path: [meta](how-a-config-read-is-cached.md), [architecture](how-callers-in-any-module-read-config.md),
+  [implementation](which-caches-back-the-config-reader.md) and [governance](what-guards-the-config-read-path.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

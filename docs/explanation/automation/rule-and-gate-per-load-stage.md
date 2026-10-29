@@ -142,7 +142,6 @@ build, and code review rejects a bundle loader that forks the importer.
   [hosting-csharp-types](../../drs/automation/pwsh/hosting-csharp-types.md), [run-modes](../../drs/design/run-modes.md),
   [one-living-version](../../drs/principles/one-living-version.md) and
   [generated-root-configs](../../drs/repository/generated-root-configs.md).
-- The other lenses on the same load sequence: [meta](every-entry-runs-one-load-sequence.md),
-  [architecture](two-entries-feed-one-importer.md), [implementation](invoke-importer-in-code-order.md) and
-  [operations](dot-source-one-entry-script.md).
+- The other lenses on the same load sequence: [meta](which-stages-a-load-runs.md), [architecture](two-entries-feed-one-importer.md),
+  [implementation](invoke-importer-in-code-order.md) and [operations](how-the-entry-script-loads-the-modules.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

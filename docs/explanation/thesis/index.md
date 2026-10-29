@@ -22,7 +22,7 @@ about:
   rules: [TDR-ONETRUTH, ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
   lens: meta
 content:
-  title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code
+  title: Where truth comes from
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -53,6 +53,6 @@ layout:
   k-code: { x: 1040, y: 150, w: 150, h: 44 }
 ```
 
-![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code][diagram]
+![Where truth comes from][diagram]
 
 [diagram]: .assets/where-truth-comes-from.drawio.png

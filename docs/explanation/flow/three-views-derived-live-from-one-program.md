@@ -1,7 +1,7 @@
-# A globset is one ordered program, and its three views are derived live, never committed
+# How the three views of a globset are derived
 
 ```text
-A globset is one ordered program, and its three views are derived live, never committed.
+How the three views of a globset are derived.
 
 1  Registry         the one place where named areas-of-control are declared
 2  Ordered program  each set as + select and - drop rules over tracked files, last match wins
@@ -25,7 +25,7 @@ about:
   rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
-  title: A globset is one ordered program, and its three views are derived live, never committed
+  title: How the three views of a globset are derived
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -63,7 +63,7 @@ layout:
   c-protection: { x: 600, y: 332, w: 300, h: 56 }
 ```
 
-![One program, three views derived live, none committed](.assets/three-views-derived-live-from-one-program.drawio.png)
+![How the three views of a globset are derived](.assets/three-views-derived-live-from-one-program.drawio.png)
 
 ## Walkthrough
 

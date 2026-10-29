@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
+      source: ../../design/.assets/where-partition-integrity-is-checked.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: partition integrity runs only in unit tests.
 ## Notes
 
 Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.
+docs/explanation/design/.assets/where-partition-integrity-is-checked.drawio.png.

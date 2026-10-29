@@ -1,8 +1,7 @@
-# Four gates hold the session rule; the customer and the name hold by construction
+# What holds the Azure session rule
 
 ```text
-Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL;
-rules #4, #5 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction, with no gate.
+What holds the Azure session rule.
 
 1  assert given in a pipeline  #7: Deploy-Bicep throws in a pipeline without -SubscriptionIdAssertIs
 2  subscription declared       #7: Get-AzCliSessionSubscription throws on an id azure.yml does not declare
@@ -34,7 +33,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: governance
 content:
-  title: Four gates hold the session rule; the customer and the name hold by construction
+  title: What holds the Azure session rule
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -87,7 +86,7 @@ layout:
   g-group: { x: 1070, y: 140, w: 170, h: 68 }
 ```
 
-![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule.drawio.png)
+![What holds the Azure session rule](.assets/four-gates-hold-the-session-rule.drawio.png)
 
 ## Walkthrough
 

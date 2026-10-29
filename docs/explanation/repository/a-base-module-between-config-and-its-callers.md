@@ -1,7 +1,7 @@
-# Catzc.Base.Variants sits in Base, over Config, under every real caller
+# Where the variants module sits
 
 ```text
-Catzc.Base.Variants sits in Base, over Config, under every real caller.
+Where the variants module sits.
 
 1  variants.yml                 the one file: five keys in the module's configs folder
 2  Catzc.Base.Config            loads, validates and caches the file for the session
@@ -28,7 +28,7 @@ about:
   rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-MINIMALDEPENDENCIES]
   lens: architecture
 content:
-  title: Catzc.Base.Variants sits in Base, over Config, under every real caller
+  title: Where the variants module sits
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -78,7 +78,7 @@ layout:
   g-tooling: { x: 940, y: 392, w: 200, h: 44 }
 ```
 
-![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers.drawio.png)
+![Where the variants module sits](.assets/a-base-module-between-config-and-its-callers.drawio.png)
 
 ## Walkthrough
 

@@ -6,7 +6,7 @@ catzc:
     order: 13
     picture:
       mode: reduce
-      source: ../../automation/.assets/a-stopped-run-names-its-limit.drawio.png
+      source: ../../automation/.assets/what-a-run-stopped-by-its-limit-reports.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: a stopped run names its limit.
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/a-stopped-run-names-its-limit.drawio.png.
+docs/explanation/automation/.assets/what-a-run-stopped-by-its-limit-reports.drawio.png.

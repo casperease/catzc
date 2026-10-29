@@ -1,7 +1,7 @@
-# A repo-wide switch has one home, one read path and one guard vocabulary
+# Where a repo-wide switch lives
 
 ```text
-A repo-wide switch has one home, one read path and one guard vocabulary.
+Where a repo-wide switch lives.
 
 1  one home                 the variant file: every repo-wide switch is a key in it
 2  one read path            the private reader: the only place the file is read
@@ -23,7 +23,7 @@ about:
   rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS]
   lens: meta
 content:
-  title: A repo-wide switch has one home, one read path and one guard vocabulary
+  title: Where a repo-wide switch lives
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -59,7 +59,7 @@ layout:
   g-callers: { x: 520, y: 412, w: 230, h: 44 }
 ```
 
-![A repo-wide switch has one home, one read path and one guard vocabulary](.assets/one-home-one-read-path-one-vocabulary.drawio.png)
+![Where a repo-wide switch lives](.assets/one-home-one-read-path-one-vocabulary.drawio.png)
 
 ## Walkthrough
 

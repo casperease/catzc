@@ -125,6 +125,6 @@ layout:
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains, and
   [environment variables](../../drs/automation/environment-variables.md) for the secret hand-off.
-- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](callers-in-four-modules-share-one-resolver.md),
-  [implementation](how-a-config-address-is-walked.md) and [governance](two-test-files-check-the-address-rules.md).
+- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](which-modules-dereference-a-config-address.md),
+  [implementation](how-a-config-address-is-walked.md) and [governance](what-tests-the-config-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

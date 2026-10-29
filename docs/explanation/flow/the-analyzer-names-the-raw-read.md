@@ -1,7 +1,7 @@
-# A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
+# How the analyzer reports a raw read
 
 ```text
-A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam.
+How the analyzer reports a raw read.
 
 1  Test-ScriptAnalyzer         the gate a developer runs; the pipeline runs it as the L2 analyzer test
 2  out/test-script-analyzer/   the report folder it writes on every run
@@ -24,7 +24,7 @@ about:
   rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: operations
 content:
-  title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
+  title: How the analyzer reports a raw read
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -64,7 +64,7 @@ layout:
   r-staging: { x: 560, y: 400, w: 280, h: 44 }
 ```
 
-![The analyzer names the raw read](.assets/the-analyzer-names-the-raw-read.drawio.png)
+![How the analyzer reports a raw read](.assets/the-analyzer-names-the-raw-read.drawio.png)
 
 ## Walkthrough
 

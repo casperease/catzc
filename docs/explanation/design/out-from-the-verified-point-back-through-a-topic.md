@@ -1,7 +1,7 @@
-# Out from the verified point, back in through its own topic: the pull request trusts the topic HEAD it verified
+# How a change leaves and returns through a topic
 
 ```text
-Out from the verified point, back in through its own topic: the pull request trusts the topic HEAD it verified.
+How a change leaves and returns through a topic.
 
 1  verified point   the stable integration point, the BVT-verified server head; every clone leaves from here
 2  local clone      the same working copy; it commits and pushes upward, only to its own topic branch on the server
@@ -32,7 +32,7 @@ about:
     - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
-  title: "Out from the verified point, back in through its own topic: the pull request trusts the topic HEAD it verified"
+  title: How a change leaves and returns through a topic
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
@@ -76,7 +76,7 @@ layout:
   s-clone: { x: 300, y: 392, w: 140, h: 64 }
 ```
 
-![Out from the verified point, back in through its own topic](.assets/out-from-the-verified-point-back-through-a-topic.drawio.png)
+![How a change leaves and returns through a topic](.assets/out-from-the-verified-point-back-through-a-topic.drawio.png)
 
 ## Walkthrough
 

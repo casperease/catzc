@@ -1,7 +1,7 @@
-# Three gates check the registry, the drift and the git membership; one rule has no gate
+# What checks the root config registry
 
 ```text
-Three gates check the registry, the drift and the git membership; one clause of the record has no gate.
+What checks the root config registry.
 
 1  rootconfig.yml               the registry: rules #1 and #2 govern its entries; "not restated elsewhere" has no gate
 2  RootConfigFiles              the load-time gate: exactly one source (#1), a wildcard target only with a generator (#8)
@@ -39,7 +39,7 @@ about:
     - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
   lens: governance
 content:
-  title: Three gates check the registry, the drift and the git membership; one rule has no gate
+  title: What checks the root config registry
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -106,7 +106,7 @@ layout:
   g-root-config-files: { x: 990, y: 370, w: 240, h: 56 }
 ```
 
-![Three gates check the registry, the drift and the git membership; one rule has no gate][diagram]
+![What checks the root config registry][diagram]
 
 [diagram]: .assets/three-gates-check-registry-drift-membership.drawio.png
 

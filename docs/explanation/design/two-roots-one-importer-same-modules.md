@@ -1,7 +1,7 @@
-# Two code roots feed one importer, which loads the same modules
+# How two code roots load the modules
 
 ```text
-Two code roots feed one importer, which loads the same modules.
+How two code roots load the modules.
 
 1  importer.ps1                  the source-mode entry script at the repository root
 2  <RepositoryRoot>/pwsh   the source-mode code root
@@ -29,7 +29,7 @@ about:
   rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-THREEBUILDKINDS]
   lens: architecture
 content:
-  title: Two code roots feed one importer, which loads the same modules
+  title: How two code roots load the modules
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -82,7 +82,7 @@ layout:
   g-repository: { x: 700, y: 470, w: 280, h: 44 }
 ```
 
-![Two code roots feed one importer, which loads the same modules](.assets/two-roots-one-importer-same-modules.drawio.png)
+![How two code roots load the modules](.assets/two-roots-one-importer-same-modules.drawio.png)
 
 ## Walkthrough
 
@@ -121,6 +121,6 @@ layout:
 
 - [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
-  [implementation](shims-set-roots-mode-read-back.md), [operations](one-entry-script-per-mode.md) and
+  [implementation](shims-set-roots-mode-read-back.md), [operations](which-entry-script-each-run-mode-uses.md) and
   [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

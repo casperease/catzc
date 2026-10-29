@@ -130,7 +130,6 @@ and may lower it.
 
 - [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) and
   [Sensible defaults for all parameters](../../drs/automation/sensible-defaults.md) — the decisions this article explains.
-- The other lenses on the same resolution: [meta](callers-value-else-config-else-default.md),
-  [architecture](one-resolver-every-consumer-but-the-hook.md), [operations](a-stopped-run-names-its-limit.md) and
-  [governance](one-rule-per-stage-and-two-gaps.md).
+- The other lenses on the same resolution: [meta](where-a-waits-limit-comes-from.md), [architecture](who-resolves-the-time-limit.md),
+  [operations](what-a-run-stopped-by-its-limit-reports.md) and [governance](one-rule-per-stage-and-two-gaps.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

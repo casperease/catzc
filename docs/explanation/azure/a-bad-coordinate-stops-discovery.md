@@ -1,9 +1,9 @@
-# A config file that resolves to no subscription, or to two, stops discovery with one line
+# What happens when a coordinate is bad
 
 <!-- cspell:ignore exped fnd weu zct -->
 
 ```text
-A config file that resolves to no subscription, or to two, stops discovery with one line.
+What happens when a coordinate is bad.
 
 1  configuration/apex/nsub.yml  a config a person adds by placing a file in the template's configuration/ tree
 2  Get-BicepTemplates           discovery, run on a devbox or in a pipeline; throws on the first bad config
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
   lens: operations
 content:
-  title: A config file that resolves to no subscription, or to two, stops discovery with one line
+  title: What happens when a coordinate is bad
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   f-not-customer: { x: 670, y: 360, w: 270, h: 44 }
 ```
 
-![A config file that resolves to no subscription, or to two, stops discovery with one line][diagram]
+![What happens when a coordinate is bad][diagram]
 
 [diagram]: .assets/a-bad-coordinate-stops-discovery.drawio.png
 
@@ -117,6 +117,7 @@ layout:
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
   [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
-- The other lenses on the same coordinate: [meta](config-path-is-a-coordinate.md), [architecture](two-layers-join-through-one-resolver.md),
-  [implementation](coordinate-resolved-file-by-file-at-discovery.md) and [governance](coordinate-rules-and-their-gates.md).
+- The other lenses on the same coordinate: [meta](what-a-config-files-path-resolves-to.md),
+  [architecture](two-layers-join-through-one-resolver.md), [implementation](how-discovery-resolves-a-config-coordinate.md) and
+  [governance](what-holds-the-azure-coordinate-rules.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

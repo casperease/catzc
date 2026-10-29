@@ -5,7 +5,7 @@ about:
   rules: [ADR-AZ-SESSION, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER]
   lens: source
 content:
-  title: Azure identities resolve from config; session must match one
+  title: How an Azure identity is resolved
   kind: reference
   flow: left-to-right
   theme: dark

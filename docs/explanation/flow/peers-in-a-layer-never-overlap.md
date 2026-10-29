@@ -1,7 +1,7 @@
-# Peers in a layer never share a file, except in the loose-fileset layer
+# Which globsets may share a file
 
 ```text
-Peers in a layer never share a file on their own contribution; only loose-filesets may overlap.
+Which globsets may share a file.
 
 1  What ships               the deployable-unit layer: one boundary per unit that ships
 2  Cross-cutting surfaces   the loose-fileset layer: overlaps the other layers by design
@@ -23,7 +23,7 @@ about:
   rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER]
   lens: meta
 content:
-  title: Peers in a layer never share a file, except in the loose-fileset layer
+  title: Which globsets may share a file
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -56,7 +56,7 @@ layout:
   s-module-space: { x: 140, y: 440, w: 840, h: 56 }
 ```
 
-![Peers in a layer never overlap, except loose-filesets](.assets/peers-in-a-layer-never-overlap.drawio.png)
+![Which globsets may share a file](.assets/peers-in-a-layer-never-overlap.drawio.png)
 
 ## Walkthrough
 
@@ -83,6 +83,6 @@ The FDR describes one module set per folder. The code derives two aspect sets pe
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same layers: [architecture](two-declared-layers-one-derived.md),
-  [implementation](independence-check-groups-by-layer.md), [operations](declare-or-add-folder-gate-names-overlaps.md) and
+  [implementation](independence-check-groups-by-layer.md), [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md) and
   [governance](overlap-gated-for-units-and-modules.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

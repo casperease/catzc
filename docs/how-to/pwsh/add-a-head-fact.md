@@ -29,7 +29,7 @@ about:
   rules: [ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-COMPOSEDFILES, ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY]
   lens: meta
 content:
-  title: One file, one outcome, and the keys each head holds
+  title: Which keys a file head holds
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -71,7 +71,7 @@ layout:
   g-other-head: { x: 960, y: 474, w: 260, h: 60 }
 ```
 
-![One file, one outcome, and the keys each head holds](.assets/head-outcomes.drawio.png)
+![Which keys a file head holds](.assets/head-outcomes.drawio.png)
 
 The sidebar lights one cell. Which layer: automation, because ADR-REPO-FILEMETA and ADR-REPO-CODEMETA name no layer in `drs.yml` and so take
 the declared default. The code-locations and track-placement maps light nothing.

@@ -1,7 +1,7 @@
-# Gates check the source of each globset and the trigger, but not the git reflection or the identity
+# What the globset gates check
 
 ```text
-Gates check the source of each globset and the trigger, but not the git reflection or the identity.
+What the globset gates check.
 
 1  Registry                  globs.yml, the one source of truth; every set carries a layer
 2  Test-GlobSetIndependence  quality gate: same-layer sets never overlap on own contribution
@@ -43,7 +43,7 @@ about:
     - ADR-AUTO-TEST-QUALITYGATE
   lens: governance
 content:
-  title: Gates check the source of each globset and the trigger, but not the git reflection or the identity
+  title: What the globset gates check
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -113,7 +113,7 @@ layout:
   g-trigger-gates: { x: 70, y: 626, w: 260, h: 80 }
 ```
 
-![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger.drawio.png)
+![What the globset gates check](.assets/gates-check-source-and-trigger.drawio.png)
 
 ## Walkthrough
 

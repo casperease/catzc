@@ -1,7 +1,7 @@
-# The import materialises every root file; two gates catch drift and name the fix
+# How the import keeps root files current
 
 ```text
-The import materialises every managed root file, and two quality gates catch drift and name the fix.
+How the import keeps root files current.
 
 1  importer.ps1               the entry: dot-sourced, its tail runs the writer silently on every load
 2  Build-RootConfig           the command to run by hand, with -DryRun -PassThru to report and not write
@@ -26,7 +26,7 @@ about:
   rules: [ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: operations
 content:
-  title: The import materialises every root file; two gates catch drift and name the fix
+  title: How the import keeps root files current
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -74,7 +74,7 @@ layout:
   f-disagree: { x: 1050, y: 359, w: 200, h: 44 }
 ```
 
-![The import materialises every root file; two gates catch drift and name the fix][diagram]
+![How the import keeps root files current][diagram]
 
 [diagram]: .assets/import-materialises-two-gates-name-the-fix.drawio.png
 

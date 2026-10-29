@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../design/.assets/a-push-fires-only-touched-pipelines.drawio.png
+      source: ../../design/.assets/which-pipelines-a-push-starts.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: a push fires only touched pipelines.
 ## Notes
 
 Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.
+docs/explanation/design/.assets/which-pipelines-a-push-starts.drawio.png.

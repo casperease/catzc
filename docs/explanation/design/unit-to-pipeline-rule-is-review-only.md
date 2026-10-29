@@ -1,7 +1,7 @@
-# Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
+# Which track and unit rules have a gate
 
 ```text
-Tracks and deployable-units are checked in code; one unit to one pipeline is held by review alone.
+Which track and unit rules have a gate.
 
 1  track                   one root folder, one class, one tech-stack, subscribed to only
 2  VariantsConfig          validates the tracks variant on load
@@ -35,7 +35,7 @@ about:
     - ADR-REPO-FOLDERS-CLOSEDROOTSET
   lens: governance
 content:
-  title: Tracks and deployable-units have a gate in code, but one unit to one pipeline is held by review alone
+  title: Which track and unit rules have a gate
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -91,7 +91,7 @@ layout:
   g-review: { x: 930, y: 360, w: 220, h: 60 }
 ```
 
-![Tracks and units are checked in code, 1-1 is review only](.assets/unit-to-pipeline-rule-is-review-only.drawio.png)
+![Which track and unit rules have a gate](.assets/unit-to-pipeline-rule-is-review-only.drawio.png)
 
 ## Walkthrough
 
@@ -137,5 +137,5 @@ layout:
 
 - [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [meta](one-unit-one-pipeline.md), [architecture](units-not-tracks-own-the-pipelines.md),
-  [implementation](globs-yml-pipeline-field-is-the-binding.md) and [operations](a-push-fires-only-touched-pipelines.md).
+  [implementation](how-a-glob-set-binds-to-its-pipeline.md) and [operations](a-push-fires-only-touched-pipelines.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

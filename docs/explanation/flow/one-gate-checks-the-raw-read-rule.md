@@ -1,7 +1,7 @@
-# The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
+# Which gates check the raw-read rule
 
 ```text
-The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate.
+Which gates check the raw-read rule.
 
 1  Test-IsRunningInPipeline            the detector: rule 4 tested (D4), rule 5 unchecked (D5)
 2  Assert-BashTimeout                  the C# hook: rule 1 unchecked there (dashed D1)
@@ -31,7 +31,7 @@ about:
     - ADR-AUTO-PARITY-PARITYSEAM
   lens: governance
 content:
-  title: The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
+  title: Which gates check the raw-read rule
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -76,7 +76,7 @@ layout:
   g-test: { x: 450, y: 440, w: 320, h: 84 }
 ```
 
-![One gate checks the raw-read rule](.assets/one-gate-checks-the-raw-read-rule.drawio.png)
+![Which gates check the raw-read rule](.assets/one-gate-checks-the-raw-read-rule.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# A file leaves the unordered track only in the normal form
+# When a file may leave the unordered track
 
 ```text
-A file leaves the unordered track only in the normal form.
+When a file may leave the unordered track.
 
 1  code fragment        a file in the unordered track, in whatever shape its origin left it
 2  one file per commit  fragment migration: one reviewed change at a time
@@ -34,7 +34,7 @@ about:
     - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
   lens: meta
 content:
-  title: A file leaves the unordered track only in the normal form
+  title: When a file may leave the unordered track
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -64,7 +64,7 @@ content:
   minimaps: [axis, lifecycle-position, layer-stack]
 ```
 
-![A file leaves the unordered track only in the normal form](.assets/eac-normal-form.drawio.png)
+![When a file may leave the unordered track](.assets/eac-normal-form.drawio.png)
 
 ## Walkthrough
 

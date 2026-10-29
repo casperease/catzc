@@ -1,7 +1,7 @@
-# CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
+# How CI, CD and DEPLOY pipelines link
 
 ```text
-CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
+How CI, CD and DEPLOY pipelines link.
 
 1  CI component          the one CI engine, the first stage of every CD
 2  tagged artifact       built once, never rebuilt downstream
@@ -28,7 +28,7 @@ about:
   rules: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG]
   lens: architecture
 content:
-  title: CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
+  title: How CI, CD and DEPLOY pipelines link
   kind: explanation
   flow: left-to-right
   relation: the artifact moves on
@@ -89,7 +89,7 @@ layout:
   g-production: { x: 1130, y: 188, w: 130, h: 48 }
 ```
 
-![CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact](.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png)
+![How CI, CD and DEPLOY pipelines link](.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png)
 
 ## Walkthrough
 
@@ -137,5 +137,5 @@ layout:
   [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it builds on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md),
   [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md), [operations](how-a-merge-to-main-reaches-non-prod.md) and
-  [governance](ci-budget-is-the-only-quality-gate.md).
+  [governance](what-the-quality-gate-checks-on-the-way-to-production.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

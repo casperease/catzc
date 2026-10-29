@@ -1,7 +1,7 @@
-# One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
+# How one scan program renders for GitHub and Azure DevOps
 
 ```text
-One flattened scan program is rendered exactly for GitHub and by last select for ADO.
+How one scan program renders for GitHub and Azure DevOps.
 
 1  base unit                the shared surface a configured unit composes; binds no pipeline
 2  configured unit          a base plus its own configuration; its own rules come last
@@ -25,7 +25,7 @@ about:
   rules: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: meta
 content:
-  title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
+  title: How one scan program renders for GitHub and Azure DevOps
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -61,7 +61,7 @@ layout:
   r-ado-filters: { x: 980, y: 380, w: 200, h: 44 }
 ```
 
-![One flattened scan program, two vendor dialects](.assets/one-program-two-vendor-dialects.drawio.png)
+![How one scan program renders for GitHub and Azure DevOps](.assets/one-program-two-vendor-dialects.drawio.png)
 
 ## Walkthrough
 
@@ -92,6 +92,6 @@ layout:
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [architecture](globs-projects-and-three-consumers-read.md),
-  [implementation](apex-thirteen-rules-seven-includes-six-excludes.md), [operations](print-projection-then-drift-names-the-filter.md) and
-  [governance](drift-is-gated-generation-is-drs-only.md).
+  [implementation](how-the-apex-unit-flattens-into-path-filters.md), [operations](print-projection-then-drift-names-the-filter.md) and
+  [governance](which-gates-check-the-generated-projection.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

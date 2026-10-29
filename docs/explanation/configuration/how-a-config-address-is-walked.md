@@ -128,6 +128,6 @@ A key cannot contain a dot, because `Get-ConfigValue` splits the whole address o
 ## See also
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
-- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](callers-in-four-modules-share-one-resolver.md),
-  [operations](how-a-config-address-becomes-a-value.md) and [governance](two-test-files-check-the-address-rules.md).
+- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](which-modules-dereference-a-config-address.md),
+  [operations](how-a-config-address-becomes-a-value.md) and [governance](what-tests-the-config-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

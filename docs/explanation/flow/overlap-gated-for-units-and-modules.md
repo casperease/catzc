@@ -1,7 +1,7 @@
-# A gate checks overlap for units and modules, and loose-filesets are exempt
+# Which globsets the overlap gate covers
 
 ```text
-A quality gate keeps units and modules disjoint; loose-filesets are exempt; two prohibitions are DRS-only.
+Which globsets the overlap gate covers.
 
 1  No phantom unit           a unit neither composed nor pipeline-bound; no code checks it
 2  deployable-unit sets      disjoint on their own contribution, compose ignored
@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
   lens: governance
 content:
-  title: A gate checks overlap for units and modules, and loose-filesets are exempt
+  title: Which globsets the overlap gate covers
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -81,7 +81,7 @@ layout:
   g-config-load: { x: 1080, y: 424, w: 200, h: 84 }
 ```
 
-![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules.drawio.png)
+![Which globsets the overlap gate covers](.assets/overlap-gated-for-units-and-modules.drawio.png)
 
 ## Walkthrough
 
@@ -125,5 +125,5 @@ layout:
   [test automation](../../drs/automation/test-automation.md), [one living version](../../drs/principles/one-living-version.md) and
   [protected globs](../../drs/repository/protected-globs.md).
 - The other lenses on the same layers: [meta](peers-in-a-layer-never-overlap.md), [architecture](two-declared-layers-one-derived.md),
-  [implementation](independence-check-groups-by-layer.md) and [operations](declare-or-add-folder-gate-names-overlaps.md).
+  [implementation](independence-check-groups-by-layer.md) and [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

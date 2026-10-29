@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../design/.assets/sync-from-the-bvt-verified-head.drawio.png
+      source: ../../design/.assets/which-commit-a-sync-starts-from.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: sync from the BVT verified head.
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/sync-from-the-bvt-verified-head.drawio.png.
+docs/explanation/design/.assets/which-commit-a-sync-starts-from.drawio.png.

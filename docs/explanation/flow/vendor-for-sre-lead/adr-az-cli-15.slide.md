@@ -6,7 +6,7 @@ catzc:
     order: 15
     picture:
       mode: reduce
-      source: ../../design/.assets/every-vendor-call-leaves-through-az.drawio.png
+      source: ../../design/.assets/how-vendor-calls-leave-cats.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: every vendor call leaves through az.
 ## Notes
 
 Check it: the record ADR-AZ-CLI in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/every-vendor-call-leaves-through-az.drawio.png.
+docs/explanation/design/.assets/how-vendor-calls-leave-cats.drawio.png.

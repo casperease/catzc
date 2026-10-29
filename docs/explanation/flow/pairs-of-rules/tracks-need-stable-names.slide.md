@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../design/.assets/units-not-tracks-own-the-pipelines.drawio.png
+      source: ../../design/.assets/how-cd-and-ci-pipelines-bind.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: units, not tracks, own the pipelines.
 ## Notes
 
 Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/units-not-tracks-own-the-pipelines.drawio.png.
+docs/explanation/design/.assets/how-cd-and-ci-pipelines-bind.drawio.png.

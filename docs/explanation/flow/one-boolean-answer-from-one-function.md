@@ -1,7 +1,7 @@
-# One function answers "am I in a pipeline?", and every branch on context asks it
+# How code knows it runs in a pipeline
 
 ```text
-One function answers "am I in a pipeline?", and every branch on context asks it.
+How code knows it runs in a pipeline.
 
 1  pipeline agent              the Azure DevOps agent or the GitHub Actions runner; it sets the signal
 2  one detection function      Test-IsRunningInPipeline: reads the signal and answers true or false
@@ -24,7 +24,7 @@ about:
   rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL]
   lens: meta
 content:
-  title: One function answers "am I in a pipeline?", and every branch on context asks it
+  title: How code knows it runs in a pipeline
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -60,7 +60,7 @@ layout:
   g-analyzer: { x: 810, y: 372, w: 160, h: 76 }
 ```
 
-![One function answers whether the code is in a pipeline](.assets/one-boolean-answer-from-one-function.drawio.png)
+![How code knows it runs in a pipeline](.assets/one-boolean-answer-from-one-function.drawio.png)
 
 ## Walkthrough
 

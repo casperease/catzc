@@ -1,7 +1,7 @@
-# Both tracks' conventions are read, but only the pwsh track's compiles into globsets
+# Which tracks compile into glob sets
 
 ```text
-Both tracks' conventions are read, but only the pwsh track's compiles into globsets.
+Which tracks compile into glob sets.
 
 1  variants.yml         the home of the declared aspects: the infrastructure entry
 2  Catzc.Base.Variants  reads the file once per session and answers the declared aspects
@@ -28,7 +28,7 @@ about:
   rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
-  title: Both tracks' conventions are read, but only the pwsh track's compiles into globsets
+  title: Which tracks compile into glob sets
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -76,7 +76,7 @@ layout:
   r-world-map: { x: 840, y: 424, w: 260, h: 44 }
 ```
 
-![Only pwsh compiles its aspects](.assets/only-pwsh-compiles-its-aspects.drawio.png)
+![Which tracks compile into glob sets](.assets/only-pwsh-compiles-its-aspects.drawio.png)
 
 ## Walkthrough
 
@@ -123,6 +123,7 @@ layout:
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains. Also
   [repo-wide variants](../../drs/repository/repo-variants.md) and [tracks](../../drs/design/tracks.md).
-- The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [implementation](get-aspect-feeds-globs-and-maps.md),
-  [operations](get-aspect-names-the-remainder.md) and [governance](what-the-config-quality-gate-checks.md).
+- The other lenses on the same catch-all: [meta](where-a-stray-file-lands-in-each-track.md),
+  [implementation](how-aspects-become-glob-sets-and-maps.md), [operations](how-a-tracks-remainder-aspect-is-named.md) and
+  [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../.assets/one-artifact-climbs-unchanged.drawio.png
+      source: ../.assets/how-one-artifact-climbs-to-production.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: one artifact climbs unchanged.
 
 ## Notes
 
-Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/one-artifact-climbs-unchanged.drawio.png.
+Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/how-one-artifact-climbs-to-production.drawio.png.

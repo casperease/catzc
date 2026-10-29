@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../azure/.assets/names-are-derived-never-typed.drawio.png
+      source: ../../azure/.assets/where-an-azure-name-comes-from.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: names are derived never typed.
 ## Notes
 
 Check it: the record ADR-AZ-NAMING-NEVERTRUNCATE in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/names-are-derived-never-typed.drawio.png.
+docs/explanation/azure/.assets/where-an-azure-name-comes-from.drawio.png.

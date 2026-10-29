@@ -1,7 +1,7 @@
-# The runner is the only seam from pipeline YAML into PowerShell
+# How pipeline YAML enters PowerShell
 
 ```text
-The runner is the only seam from pipeline YAML into PowerShell.
+How pipeline YAML enters PowerShell.
 
 1  pipeline YAML           the ci-* and cd-* root pipelines; 6 of 7 reach the template
 2  invoke-automation.yaml  the one step template every step goes through
@@ -26,7 +26,7 @@ about:
   rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: architecture
 content:
-  title: The runner is the only seam from pipeline YAML into PowerShell
+  title: How pipeline YAML enters PowerShell
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -72,7 +72,7 @@ layout:
   a-developer: { x: 1040, y: 290, w: 100, h: 64 }
 ```
 
-![The runner is the only seam into PowerShell](.assets/the-runner-is-the-only-seam.drawio.png)
+![How pipeline YAML enters PowerShell](.assets/the-runner-is-the-only-seam.drawio.png)
 
 ## Walkthrough
 
@@ -105,6 +105,7 @@ without a `DisplayName` before it calls the runner.
 ## See also
 
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
-- The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [implementation](three-tasks-one-guard-one-runner.md),
-  [operations](the-step-is-named-after-its-command.md) and [governance](no-gate-checks-rules-one-and-four.md).
+- The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
+  [implementation](three-tasks-one-guard-one-runner.md), [operations](the-step-is-named-after-its-command.md) and
+  [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

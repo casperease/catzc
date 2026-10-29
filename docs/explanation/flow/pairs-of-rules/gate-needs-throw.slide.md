@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../.assets/drift-is-gated-generation-is-drs-only.drawio.png
+      source: ../.assets/which-gates-check-the-generated-projection.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: drift is gated, generation is DRS only.
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/drift-is-gated-generation-is-drs-only.drawio.png.
+docs/explanation/flow/.assets/which-gates-check-the-generated-projection.drawio.png.

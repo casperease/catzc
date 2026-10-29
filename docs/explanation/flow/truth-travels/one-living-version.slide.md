@@ -6,7 +6,7 @@ catzc:
     order: 2
     picture:
       mode: reduce
-      source: ../../design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png
+      source: ../../design/.assets/how-a-sibling-project-is-used.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: a sibling is an idea never a reference.
 ## Notes
 
 Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png.
+docs/explanation/design/.assets/how-a-sibling-project-is-used.drawio.png.

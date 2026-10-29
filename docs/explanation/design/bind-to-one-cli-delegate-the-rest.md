@@ -1,7 +1,7 @@
-# Consumers bind to one CLI, and everything behind it is delegated to the vendor
+# Which CLI consumers bind to
 
 ```text
-Consumers bind to one CLI; everything behind it is delegated to the vendor's own tools.
+Which CLI consumers bind to.
 
 1  developer       the consumer; a CD pipeline runs the same commands
 2  one CLI         the only surface anyone binds to: functions plus configuration
@@ -24,7 +24,7 @@ about:
   rules: [DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE]
   lens: meta
 content:
-  title: Consumers bind to one CLI, and everything behind it is delegated to the vendor
+  title: Which CLI consumers bind to
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -60,7 +60,7 @@ layout:
   e-vendor: { x: 490, y: 548, w: 300, h: 52 }
 ```
 
-![Bind to one CLI; delegate the rest to the vendor](.assets/bind-to-one-cli-delegate-the-rest.drawio.png)
+![Which CLI consumers bind to](.assets/bind-to-one-cli-delegate-the-rest.drawio.png)
 
 ## Walkthrough
 
@@ -90,7 +90,7 @@ through its service connection, and a developer runs `Connect-AzCli` and picks h
 ## See also
 
 - [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
-- The other lenses on the same platform: [architecture](every-vendor-call-leaves-through-az.md),
-  [implementation](deploy-bicep-delegates-to-az.md), [operations](same-deploy-bicep-on-both-sides.md) and
-  [governance](what-keeps-the-platform-thin.md).
+- The other lenses on the same platform: [architecture](how-vendor-calls-leave-cats.md),
+  [implementation](how-deploy-bicep-hands-work-to-az.md), [operations](how-developers-and-pipelines-run-deploy-bicep.md) and
+  [governance](which-gates-guard-the-az-boundary.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

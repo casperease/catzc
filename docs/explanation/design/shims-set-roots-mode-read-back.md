@@ -1,7 +1,7 @@
-# Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it
+# How the run mode is read back
 
 ```text
-Each entry script fixes the code root, and Get-CatzcRunMode reads the mode back from it.
+How the run mode is read back.
 
 1   importer.ps1                  the source-mode shim; sets RepositoryRoot, calls Invoke-Importer
 2   <RepositoryRoot>/pwsh   the code root without -Bundle
@@ -29,7 +29,7 @@ about:
   rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-THREEBUILDKINDS]
   lens: implementation
 content:
-  title: Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it
+  title: How the run mode is read back
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -90,7 +90,7 @@ layout:
   f-exclusivity: { x: 960, y: 528, w: 280, h: 44 }
 ```
 
-![Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](.assets/shims-set-roots-mode-read-back.drawio.png)
+![How the run mode is read back](.assets/shims-set-roots-mode-read-back.drawio.png)
 
 ## Walkthrough
 
@@ -134,6 +134,6 @@ and the vendored modules have loaded.
 
 - [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
-  [architecture](two-roots-one-importer-same-modules.md), [operations](one-entry-script-per-mode.md) and
+  [architecture](two-roots-one-importer-same-modules.md), [operations](which-entry-script-each-run-mode-uses.md) and
   [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

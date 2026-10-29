@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-DEPS-INSTALLORDERINCONFIG, ADR-AUTO-PKGMGR, ADR-AUTO-ENGINE, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
   lens: source
 content:
-  title: tools.yml is the one locked list; dispatch is by key name
+  title: How a devbox tool gets installed
   kind: reference
   flow: left-to-right
   theme: dark

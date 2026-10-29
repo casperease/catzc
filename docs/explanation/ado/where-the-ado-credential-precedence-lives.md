@@ -139,6 +139,6 @@ any value, and nothing checks it against the header's source.
 
 - [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
-  [implementation](three-guarded-early-returns.md), [operations](what-you-set-decides-the-credential.md) and
-  [governance](which-auth-rungs-have-a-gate.md).
+  [implementation](how-the-ado-header-function-checks-a-credential.md), [operations](which-ado-credential-a-setup-selects.md) and
+  [governance](which-ado-auth-checks-have-a-gate.md).
 - [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

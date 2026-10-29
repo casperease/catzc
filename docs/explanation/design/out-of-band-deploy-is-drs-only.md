@@ -1,7 +1,7 @@
-# No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
+# Which deploy rules have a gate
 
 ```text
-FDR-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only, and the one gate on deploys in code allows main alone.
+Which deploy rules have a gate.
 
 1  topic                a topic commit, brown and below the mainline; no gate checks either drawing rule
 2  out-of-band deploy   the deploy the rule allows; DRS-only, no code runs or checks it
@@ -32,7 +32,7 @@ about:
     - DDR-VISUAL-ENVIRONMENTISCONTAINER
   lens: governance
 content:
-  title: No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
+  title: Which deploy rules have a gate
   kind: explanation
   flow: left-to-right
   relation: lands, then climbs
@@ -99,7 +99,7 @@ layout:
   c-verified: { x: 1090, y: 186, w: 150, h: 44 }
 ```
 
-![FDR-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-drs-only.drawio.png)
+![Which deploy rules have a gate](.assets/out-of-band-deploy-is-drs-only.drawio.png)
 
 ## Walkthrough
 
@@ -138,6 +138,6 @@ layout:
 - [Visual design](../../drs/design/visual-design.md) — the drawing rules behind the V chips.
 - [Test automation](../../drs/automation/test-automation.md) — the BVT's built-artifact checks.
 - The other lenses on the same deploy: [meta](deploying-is-not-integrating.md),
-  [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](every-deploy-stage-is-main-only.md) and
+  [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](where-a-deploy-stage-may-run.md) and
   [operations](merging-to-main-is-what-deploys.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

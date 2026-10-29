@@ -1,7 +1,7 @@
-# Deploying a topic commit and integrating it share only the topic commit
+# What deploying and integrating share
 
 ```text
-The deploy path and the integration path share only the topic commit; nothing on the deploy path feeds main.
+What deploying and integrating share.
 
 1  topic commit          brown, off main; both paths start here
 2  workflow / pipeline   deploys the topic commit; DRS-only, no code runs it
@@ -31,7 +31,7 @@ about:
     - DDR-VISUAL-ENVIRONMENTISCONTAINER
   lens: architecture
 content:
-  title: Deploying a topic commit and integrating it share only the topic commit
+  title: What deploying and integrating share
   kind: explanation
   flow: left-to-right
   relation: lands, then climbs
@@ -80,7 +80,7 @@ layout:
   c-verified: { x: 1110, y: 170, w: 150, h: 44 }
 ```
 
-![The deploy path and the integration path share only the topic commit](.assets/deploy-and-integrate-share-only-the-topic.drawio.png)
+![What deploying and integrating share](.assets/deploy-and-integrate-share-only-the-topic.drawio.png)
 
 ## Walkthrough
 
@@ -117,6 +117,6 @@ layout:
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [Visual design](../../drs/design/visual-design.md) — the commit colours and the neutral environment.
-- The other lenses on the same deploy: [meta](deploying-is-not-integrating.md), [implementation](every-deploy-stage-is-main-only.md),
+- The other lenses on the same deploy: [meta](deploying-is-not-integrating.md), [implementation](where-a-deploy-stage-may-run.md),
   [operations](merging-to-main-is-what-deploys.md) and [governance](out-of-band-deploy-is-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

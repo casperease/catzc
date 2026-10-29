@@ -1,7 +1,7 @@
-# Check the name, pick the range per context, then diff git and match the paths
+# How the touched-unit check picks its git range
 
 ```text
-Test-GlobSetAffected checks the name, picks a git range per context, then diffs and matches; doubt returns true.
+How the touched-unit check picks its git range.
 
 1  Test-GlobSetAffected     the entry: a globset name, one boolean out
 2  globs.yml                the registry the name must be in, read through Get-Config
@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: implementation
 content:
-  title: Check the name, pick the range per context, then diff git and match the paths
+  title: How the touched-unit check picks its git range
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -95,7 +95,7 @@ layout:
   r-true: { x: 485, y: 634, w: 230, h: 44 }
 ```
 
-![Check the name, pick the range per context, then diff git and match the paths](.assets/range-per-context-then-diff-and-match.drawio.png)
+![How the touched-unit check picks its git range](.assets/range-per-context-then-diff-and-match.drawio.png)
 
 ## Walkthrough
 

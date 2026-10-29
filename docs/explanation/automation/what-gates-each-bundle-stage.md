@@ -124,6 +124,6 @@ layout:
 - [Dynamic module manifests](../../drs/automation/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
 - [Test automation](../../drs/automation/test-automation.md) and [Run modes](../../drs/design/run-modes.md) — the build run and the build
   kinds.
-- The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [architecture](every-code-root-is-a-copy.md),
-  [implementation](build-verify-then-copy-the-folder.md) and [operations](build-then-place-with-one-command.md).
+- The other lenses on the same bundle: [meta](how-a-commit-becomes-a-package.md), [architecture](where-the-code-roots-get-their-bundle.md),
+  [implementation](what-build-modules-leaves-behind.md) and [operations](how-a-bundle-is-built-and-placed.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

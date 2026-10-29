@@ -5,7 +5,7 @@ about:
   rules: [ADR-AZ-DATAMOD, ADR-AZ-NAMING, ADR-AZ-CUSTOMER, ADR-CONF-ADDRESSING, ADR-BCL-TYPES]
   lens: source
 content:
-  title: A template is a folder; options.yml overrides five defaults
+  title: What a Bicep template folder holds
   kind: reference
   flow: left-to-right
   theme: dark

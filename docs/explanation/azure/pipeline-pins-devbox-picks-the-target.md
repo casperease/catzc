@@ -1,7 +1,7 @@
-# A pipeline pins the subscription it expects; a devbox picks the target with az account set
+# How a deploy target is chosen
 
 ```text
-A pipeline deploy pins its expected subscription; a devbox deploy picks the target with az account set.
+How a deploy target is chosen.
 
 1  service connection       the AzureCLI@2 login a pipeline deploy runs under
 2  az account set           how a developer picks the session's subscription on a devbox
@@ -27,7 +27,7 @@ about:
   rules: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: operations
 content:
-  title: A pipeline pins the subscription it expects; a devbox picks the target with az account set
+  title: How a deploy target is chosen
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -74,7 +74,7 @@ layout:
   f-wrong: { x: 840, y: 350, w: 240, h: 44 }
 ```
 
-![A pipeline pins the subscription it expects; a devbox picks the target with az account set][diagram]
+![How a deploy target is chosen][diagram]
 
 [diagram]: .assets/pipeline-pins-devbox-picks-the-target.drawio.png
 

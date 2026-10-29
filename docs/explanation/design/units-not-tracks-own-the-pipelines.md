@@ -1,7 +1,7 @@
-# CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
+# How CD and CI pipelines bind
 
 ```text
-The four CD pipelines bind deployable-units; the two CI pipelines bind the track sets themselves.
+How CD and CI pipelines bind.
 
 1  pwsh                         the core track, a loose-fileset over pwsh/**
 2  infrastructure rests on it   the adapter track rests on the core, never the reverse
@@ -27,7 +27,7 @@ about:
   rules: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: architecture
 content:
-  title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
+  title: How CD and CI pipelines bind
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -74,7 +74,7 @@ layout:
   r-cd: { x: 960, y: 380, w: 240, h: 56 }
 ```
 
-![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines.drawio.png)
+![How CD and CI pipelines bind](.assets/units-not-tracks-own-the-pipelines.drawio.png)
 
 ## Walkthrough
 
@@ -111,6 +111,6 @@ edges only, and nothing checks the direction between tracks.
 ## See also
 
 - [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
-- The other lenses on the same model: [meta](one-unit-one-pipeline.md), [implementation](globs-yml-pipeline-field-is-the-binding.md),
+- The other lenses on the same model: [meta](one-unit-one-pipeline.md), [implementation](how-a-glob-set-binds-to-its-pipeline.md),
   [operations](a-push-fires-only-touched-pipelines.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

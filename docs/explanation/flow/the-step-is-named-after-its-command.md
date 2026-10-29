@@ -1,7 +1,7 @@
-# The Azure DevOps step is named after its command, and its log echoes the command before it runs
+# How an Azure DevOps step is named
 
 ```text
-The Azure DevOps step is named after its command, and its log echoes the command before it runs.
+How an Azure DevOps step is named.
 
 1  pipeline step             the author writes a RunCommand, a Mode and a DisplayName
 2  step label                the DisplayName, or else the RunCommand itself
@@ -26,7 +26,7 @@ about:
   rules: [ADR-ADO-RUNNER-THINSTEPTEMPLATES, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: operations
 content:
-  title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
+  title: How an Azure DevOps step is named
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -70,7 +70,7 @@ layout:
   a-developer: { x: 330, y: 352, w: 100, h: 64 }
 ```
 
-![The step is named after its command](.assets/the-step-is-named-after-its-command.drawio.png)
+![How an Azure DevOps step is named](.assets/the-step-is-named-after-its-command.drawio.png)
 
 ## Walkthrough
 
@@ -106,6 +106,7 @@ every `pwsh/**` change.
 ## See also
 
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
-- The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
-  [implementation](three-tasks-one-guard-one-runner.md) and [governance](no-gate-checks-rules-one-and-four.md).
+- The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
+  [architecture](the-runner-is-the-only-seam.md), [implementation](three-tasks-one-guard-one-runner.md) and
+  [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

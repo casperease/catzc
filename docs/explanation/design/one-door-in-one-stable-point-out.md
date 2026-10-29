@@ -1,7 +1,7 @@
-# Changes enter through one door, and consumers build on one stable point
+# How changes enter and consumers build
 
 ```text
-Changes enter the mainline through one door, and consumers build on one stable point.
+How changes enter and consumers build.
 
 1  local clone      a working copy that bridges to the server remote; no authority of its own
 2  pull request     the one door into the server's main: authenticates, runs the merge gates, merges
@@ -27,7 +27,7 @@ about:
     [DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: meta
 content:
-  title: Changes enter through one door, and consumers build on one stable point
+  title: How changes enter and consumers build
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
@@ -66,7 +66,7 @@ layout:
   g-consumers: { x: 300, y: 430, w: 200, h: 64 }
 ```
 
-![One door in, one stable point out](.assets/one-door-in-one-stable-point-out.drawio.png)
+![How changes enter and consumers build](.assets/one-door-in-one-stable-point-out.drawio.png)
 
 ## Walkthrough
 
@@ -101,6 +101,6 @@ layout:
 
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - The other lenses on the same decision: [architecture](clients-bridge-to-one-server.md),
-  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md), [operations](guard-and-policies-by-command.md) and
-  [governance](ingress-gated-the-rest-by-review.md).
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md),
+  [operations](how-the-guard-and-the-server-policies-are-turned-on.md) and [governance](which-ingress-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

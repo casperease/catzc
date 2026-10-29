@@ -1,7 +1,7 @@
-# Templating and identity join through one shared check and one resolver
+# How templating and identity join
 
 ```text
-Templating and identity join through one shared check and one resolver.
+How templating and identity join.
 
 1  configuration/ tree                    the templating layer: one config file per deployment, under a template
 2  Get-BicepTemplates                     discovery; runs the shared check per file and throws on the first violation
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-TWOBINDINGS]
   lens: architecture
 content:
-  title: Templating and identity join through one shared check and one resolver
+  title: How templating and identity join
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -74,7 +74,7 @@ layout:
   g-customer: { x: 1070, y: 300, w: 180, h: 52 }
 ```
 
-![The templating and identity config layers join through one shared check and one resolver][diagram]
+![How templating and identity join][diagram]
 
 [diagram]: .assets/two-layers-join-through-one-resolver.drawio.png
 
@@ -114,7 +114,7 @@ layout:
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
   [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
-- The other lenses on the same coordinate: [meta](config-path-is-a-coordinate.md),
-  [implementation](coordinate-resolved-file-by-file-at-discovery.md), [operations](a-bad-coordinate-stops-discovery.md) and
-  [governance](coordinate-rules-and-their-gates.md).
+- The other lenses on the same coordinate: [meta](what-a-config-files-path-resolves-to.md),
+  [implementation](how-discovery-resolves-a-config-coordinate.md), [operations](a-bad-coordinate-stops-discovery.md) and
+  [governance](what-holds-the-azure-coordinate-rules.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

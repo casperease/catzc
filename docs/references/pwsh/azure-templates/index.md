@@ -99,9 +99,9 @@ only five derived defaults, under a strict schema. The build writes one paramete
 second diagram draws a deployment. It works on one immutable context (the plan, the artifacts and the environment), resolved from the live
 az session against `azure.yml`. A dry run stops at the what-if; otherwise the deployment is created.
 
-![A template is a folder; options.yml overrides five defaults](../.assets/bicep-template-is-a-folder.drawio.png)
+![What a Bicep template folder holds](../.assets/bicep-template-is-a-folder.drawio.png)
 
-![One immutable context, resolved from the az session](../.assets/bicep-deploy-one-immutable-context.drawio.png)
+![How a deployment gets its context](../.assets/bicep-deploy-one-immutable-context.drawio.png)
 
 ## Division
 

@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../design/.assets/every-deploy-stage-is-main-only.drawio.png
+      source: ../../design/.assets/where-a-deploy-stage-may-run.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: every deploy stage is main only.
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/every-deploy-stage-is-main-only.drawio.png.
+docs/explanation/design/.assets/where-a-deploy-stage-may-run.drawio.png.

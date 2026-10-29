@@ -6,7 +6,7 @@ catzc:
     order: 16
     picture:
       mode: reduce
-      source: ../../azure/.assets/coordinate-rules-and-their-gates.drawio.png
+      source: ../../azure/.assets/what-holds-the-azure-coordinate-rules.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: coordinate rules and their gates.
 ## Notes
 
 Check it: the record ADR-AZ-CUSTOMER in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/coordinate-rules-and-their-gates.drawio.png.
+docs/explanation/azure/.assets/what-holds-the-azure-coordinate-rules.drawio.png.

@@ -11,7 +11,7 @@ about:
     - ADR-PWSH-PREPOST
   lens: source
 content:
-  title: One immutable context, resolved from the az session
+  title: How a deployment gets its context
   kind: reference
   flow: left-to-right
   theme: dark

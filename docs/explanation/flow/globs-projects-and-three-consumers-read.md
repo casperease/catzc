@@ -1,7 +1,7 @@
-# Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
+# Who reads the globs projection
 
 ```text
-Catzc.Base.Globs projects the program; workflows, pipelines and the branch policy only read it.
+Who reads the globs projection.
 
 1  globs.yml                      the registry: every globset, owned by Catzc.Base.Globs
 2  GlobSet                        the typed set; holds the flattened scan program
@@ -29,7 +29,7 @@ about:
   rules: [FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-COMPOSESETS]
   lens: architecture
 content:
-  title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
+  title: Who reads the globs projection
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -79,7 +79,7 @@ layout:
   f-pipelines: { x: 1000, y: 408, w: 220, h: 56 }
 ```
 
-![Catzc.Base.Globs projects, three consumers read](.assets/globs-projects-and-three-consumers-read.drawio.png)
+![Who reads the globs projection](.assets/globs-projects-and-three-consumers-read.drawio.png)
 
 ## Walkthrough
 
@@ -118,6 +118,6 @@ layout:
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
-  [implementation](apex-thirteen-rules-seven-includes-six-excludes.md), [operations](print-projection-then-drift-names-the-filter.md) and
-  [governance](drift-is-gated-generation-is-drs-only.md).
+  [implementation](how-the-apex-unit-flattens-into-path-filters.md), [operations](print-projection-then-drift-names-the-filter.md) and
+  [governance](which-gates-check-the-generated-projection.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

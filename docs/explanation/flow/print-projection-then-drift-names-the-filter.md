@@ -1,7 +1,7 @@
-# Print the projection, and a drifted pipeline fails naming the filter that differs
+# How pipeline filter drift is reported
 
 ```text
-Print the projection, then a drifted pipeline fails naming the filter that differs.
+How pipeline filter drift is reported.
 
 1  globs.yml                    the file you edit to recompose a unit
 2  Get-GlobSetTrigger           prints GitHub, AdoInclude and AdoExclude for a set
@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-NATIVEPATHFILTER]
   lens: operations
 content:
-  title: Print the projection, and a drifted pipeline fails naming the filter that differs
+  title: How pipeline filter drift is reported
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -79,7 +79,7 @@ layout:
   x-not-found: { x: 920, y: 462, w: 180, h: 44 }
 ```
 
-![Print the projection, then drift names the filter](.assets/print-projection-then-drift-names-the-filter.drawio.png)
+![How pipeline filter drift is reported](.assets/print-projection-then-drift-names-the-filter.drawio.png)
 
 ## Walkthrough
 
@@ -126,6 +126,6 @@ GitHub paths are ordered.
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
-  [architecture](globs-projects-and-three-consumers-read.md), [implementation](apex-thirteen-rules-seven-includes-six-excludes.md) and
-  [governance](drift-is-gated-generation-is-drs-only.md).
+  [architecture](globs-projects-and-three-consumers-read.md), [implementation](how-the-apex-unit-flattens-into-path-filters.md) and
+  [governance](which-gates-check-the-generated-projection.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

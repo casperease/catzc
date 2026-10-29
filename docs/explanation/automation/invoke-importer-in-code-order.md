@@ -61,7 +61,6 @@ Bootstrap. Both entry scripts end in this one function, so this order is the loa
 ## See also
 
 - [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
-- The other lenses on the same load sequence: [meta](every-entry-runs-one-load-sequence.md),
-  [architecture](two-entries-feed-one-importer.md), [operations](dot-source-one-entry-script.md) and
-  [governance](rule-and-gate-per-load-stage.md).
+- The other lenses on the same load sequence: [meta](which-stages-a-load-runs.md), [architecture](two-entries-feed-one-importer.md),
+  [operations](how-the-entry-script-loads-the-modules.md) and [governance](rule-and-gate-per-load-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

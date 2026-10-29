@@ -14,7 +14,7 @@ about:
     - DDR-RUNMODE
   lens: source
 content:
-  title: Declared graph orders and closes; observed graph is checked
+  title: How module dependencies are ordered and checked
   kind: reference
   flow: top-to-bottom
   theme: dark

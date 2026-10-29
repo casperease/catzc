@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
+      source: ../../design/.assets/how-clients-reach-the-server-remote.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: clients bridge to one server.
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.
+docs/explanation/design/.assets/how-clients-reach-the-server-remote.drawio.png.

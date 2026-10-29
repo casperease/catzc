@@ -1,7 +1,7 @@
-# Two variables, one reader, 24 callers, and one analyzer rule for every other read
+# Where the pipeline variables are read
 
 ```text
-Two variables are read in one place, 24 callers ask it, and one analyzer rule bans every other read.
+Where the pipeline variables are read.
 
 1   Azure DevOps agent              sets TF_BUILD
 2   GitHub Actions runner           sets GITHUB_ACTIONS
@@ -29,7 +29,7 @@ about:
   rules: [ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-PWSH-DETECT-BOOLEANNOTMODAL, ADR-PWSH-DETECT-FASTDETECTION]
   lens: implementation
 content:
-  title: Two variables, one reader, 24 callers, and one analyzer rule for every other read
+  title: Where the pipeline variables are read
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -90,7 +90,7 @@ layout:
   g-rule: { x: 880, y: 410, w: 300, h: 84 }
 ```
 
-![Two variables read in one place](.assets/two-variables-read-in-one-place.drawio.png)
+![Where the pipeline variables are read](.assets/two-variables-read-in-one-place.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
+# What a configuration slot change reaches
 
 ```text
-Changing one configuration slot runs only its owner's pipeline and reaches only its resource group.
+What a configuration slot change reaches.
 
 1  one slot file             the edit: one <env>[-<slot>].yml in the configs place of the infrastructure track
 2  the owner's CD pipeline   the one pipeline whose path filter holds the slot: the shared one or the customer's
@@ -23,7 +23,7 @@ about:
   rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
-  title: Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
+  title: What a configuration slot change reaches
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -56,7 +56,7 @@ layout:
   e-group: { x: 960, y: 132, w: 220, h: 60 }
 ```
 
-![Changing one configuration slot runs only its owner's pipeline and reaches only its resource group][diagram]
+![What a configuration slot change reaches][diagram]
 
 [diagram]: .assets/change-one-configuration-slot.drawio.png
 
@@ -80,5 +80,5 @@ layout:
 ## See also
 
 - [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
-- [A config file's path is a coordinate](config-path-is-a-coordinate.md) — how the slot's path resolves to its subscription.
+- [A config file's path is a coordinate](what-a-config-files-path-resolves-to.md) — how the slot's path resolves to its subscription.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

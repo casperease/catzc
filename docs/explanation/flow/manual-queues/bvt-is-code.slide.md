@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../design/.assets/state-changes.drawio.png
+      source: ../../design/.assets/which-ladder-stretch-each-pipeline-runs.drawio.png
       scale: 0.4
 ---
 

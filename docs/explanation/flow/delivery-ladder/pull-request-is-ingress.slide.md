@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png
+      source: ../../design/.assets/how-a-change-leaves-and-returns-through-a-topic.drawio.png
       scale: 0.4
       rotate: -4
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: out from the verified point back through a topic.
 ## Notes
 
 Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png.
+docs/explanation/design/.assets/how-a-change-leaves-and-returns-through-a-topic.drawio.png.

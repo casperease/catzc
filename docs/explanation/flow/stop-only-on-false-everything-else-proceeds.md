@@ -1,7 +1,7 @@
-# A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
+# When a pipeline stage stops
 
 ```text
-A stage stops only on $false; $true, a doubt and its message all proceed; an undeclared name throws.
+When a pipeline stage stops.
 
 1  a unit's pipeline stage      the caller the FDR describes; no pipeline makes the call
 2  Test-GlobSetAffected apex    the command, with the unit's globset name
@@ -25,7 +25,7 @@ about:
   rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
-  title: A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
+  title: When a pipeline stage stops
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -67,7 +67,7 @@ layout:
   r-message: { x: 665, y: 382, w: 150, h: 44 }
 ```
 
-![A stage returns only on $false](.assets/stop-only-on-false-everything-else-proceeds.drawio.png)
+![When a pipeline stage stops](.assets/stop-only-on-false-everything-else-proceeds.drawio.png)
 
 ## Walkthrough
 

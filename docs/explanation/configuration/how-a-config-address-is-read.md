@@ -95,7 +95,7 @@ The loading record says only `Get-Config` is public, while the addressing record
 ## See also
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
-- The other lenses on the same walk: [architecture](callers-in-four-modules-share-one-resolver.md),
+- The other lenses on the same walk: [architecture](which-modules-dereference-a-config-address.md),
   [implementation](how-a-config-address-is-walked.md), [operations](how-a-config-address-becomes-a-value.md) and
-  [governance](two-test-files-check-the-address-rules.md).
+  [governance](what-tests-the-config-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

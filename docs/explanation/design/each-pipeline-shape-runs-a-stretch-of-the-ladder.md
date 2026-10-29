@@ -97,7 +97,7 @@ content:
   minimaps: [code-locations, axis, lifecycle-position]
 ```
 
-![Which ladder stretch each pipeline runs](.assets/state-changes.drawio.png)
+![Which ladder stretch each pipeline runs](.assets/which-ladder-stretch-each-pipeline-runs.drawio.png)
 
 ## Walkthrough
 

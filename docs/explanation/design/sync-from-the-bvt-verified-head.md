@@ -1,7 +1,7 @@
-# Sync from the BVT-verified head, not from the tip of main
+# Which commit a sync starts from
 
 ```text
-Integrators build on the BVT-verified server head, never on the tip of main.
+Which commit a sync starts from.
 
 1  upstream integrator  anyone who builds on cats from outside; takes its commit from the sync point
 2  BVT-verified head    commit 6, the sync point; the commit main-UAT takes first, so its occupant once deployed
@@ -23,7 +23,7 @@ about:
   rules: [FDR-LIFE-SYNCFROMVERIFIEDHEAD, FDR-LIFE-DIRTYHEADUNSAFE, FDR-LIFE-DIRTYHEADUNSAFE]
   lens: meta
 content:
-  title: Sync from the BVT-verified head, not from the tip of main
+  title: Which commit a sync starts from
   kind: explanation
   flow: left-to-right
   relation: takes its commit from
@@ -51,7 +51,7 @@ layout:
   f-dirty-head: { x: 960, y: 172, w: 260, h: 52 }
 ```
 
-![Sync from the BVT-verified head, not from the tip of main](.assets/sync-from-the-bvt-verified-head.drawio.png)
+![Which commit a sync starts from](.assets/sync-from-the-bvt-verified-head.drawio.png)
 
 ## Walkthrough
 
@@ -77,6 +77,6 @@ exists. The rule is a convention the FDR states.
 ## See also
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
-- The other lenses on the same sync point: [architecture](integrators-sync-from-the-bvt-verified-head.md) and
+- The other lenses on the same sync point: [architecture](where-upstream-integrators-sync-from.md) and
   [governance](sync-point-rules-are-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

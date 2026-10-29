@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png
+      source: ../../automation/.assets/how-the-hook-treats-a-shell-calls-limit.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: a shell call carries its limit, or the hook denies 
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.
+docs/explanation/automation/.assets/how-the-hook-treats-a-shell-calls-limit.drawio.png.

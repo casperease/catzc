@@ -1,7 +1,7 @@
-# One method, GlobSet.ScanProgram(), feeds all three globset role functions
+# What the scan program feeds
 
 ```text
-One method, GlobSet.ScanProgram(), feeds all three globset role functions.
+What the scan program feeds.
 
 1  globs.yml               the globsets map, read by Get-Config -Config globs
 2  GlobsConfig             validates the registry at load and throws once with every error
@@ -29,7 +29,7 @@ about:
   rules: [FDR-GLOBS-TRACKEDFILESONLY, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: implementation
 content:
-  title: One method, GlobSet.ScanProgram(), feeds all three globset role functions
+  title: What the scan program feeds
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -88,7 +88,7 @@ layout:
   c-protection: { x: 960, y: 332, w: 300, h: 56 }
 ```
 
-![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles.drawio.png)
+![What the scan program feeds](.assets/one-scan-program-feeds-three-roles.drawio.png)
 
 ## Walkthrough
 

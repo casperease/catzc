@@ -1,7 +1,7 @@
-# One registry, one writer, one write primitive, two kinds of target
+# What materialises the root config
 
 ```text
-Root config materialisation is one registry, one writer, one write primitive and two kinds of target.
+What materialises the root config.
 
 1  template files          the files under pwsh/ that a source entry copies out under a generated-file head
 2  generator functions     the eleven functions a generator entry names, bound in one dispatch
@@ -27,7 +27,7 @@ about:
   rules: [ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-README-READMEIDEMPOTENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
   lens: architecture
 content:
-  title: One registry, one writer, one write primitive, two kinds of target
+  title: What materialises the root config
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   r-tracked: { x: 1020, y: 290, w: 240, h: 44 }
 ```
 
-![One registry, one writer, one write primitive, two kinds of target](.assets/one-registry-one-writer-two-primitives.drawio.png)
+![What materialises the root config](.assets/one-registry-one-writer-two-primitives.drawio.png)
 
 ## Walkthrough
 

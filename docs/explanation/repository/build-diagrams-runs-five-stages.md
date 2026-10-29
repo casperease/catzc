@@ -1,7 +1,7 @@
-# Build-Diagrams runs five stages, and rendering is the cost
+# How diagrams are built
 
 ```text
-Build-Diagrams runs five stages in one call; rendering each diagram is where a full run spends its time.
+How diagrams are built.
 
    diagrams                      every docs/**/.assets/<name>.drawio pair with a tracked png or a yml, found, never listed
    articles                      every page in the tree that embeds the diagram's png; none makes it an orphan
@@ -25,7 +25,7 @@ about:
   rules: [ADR-REPO-SLIDES-MINIMAPSFROMDATA]
   lens: implementation
 content:
-  title: Build-Diagrams runs five stages, and rendering is the cost
+  title: How diagrams are built
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -55,7 +55,7 @@ layout:
   g-report: { x: 1060, y: 144, w: 180, h: 60 }
 ```
 
-![Build-Diagrams runs five stages, and rendering is the cost](.assets/build-diagrams-runs-five-stages.drawio.png)
+![How diagrams are built](.assets/build-diagrams-runs-five-stages.drawio.png)
 
 ## Walkthrough
 

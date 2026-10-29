@@ -1,7 +1,7 @@
-# Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
+# What tests pin the fail-open check
 
 ```text
-Logic tests pin the throw and the fail-open, an analyzer rule pins detection, and the CD stages call the check with no gate.
+What tests pin the fail-open check.
 
 1  Test-GlobSetAffected           governed by GLOBS#9: throw on an undeclared name, fail open on doubt
 2  Test-GlobSetAffected.Tests     the L0 logic test that pins both answers, both fail-open paths and the throw
@@ -29,7 +29,7 @@ about:
   rules: [FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
   lens: governance
 content:
-  title: Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
+  title: What tests pin the fail-open check
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -84,7 +84,7 @@ layout:
   c-changes-step: { x: 560, y: 540, w: 300, h: 44 }
 ```
 
-![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate][diagram]
+![What tests pin the fail-open check][diagram]
 
 [diagram]: .assets/tests-pin-the-throw-and-fail-open-cd-calls-it.drawio.png
 

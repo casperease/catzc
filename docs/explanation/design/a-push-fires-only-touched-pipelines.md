@@ -1,7 +1,7 @@
-# A push starts only the pipelines whose globset it touches
+# Which pipelines a push starts
 
 ```text
-A push starts only the pipelines whose globset holds a changed file.
+Which pipelines a push starts.
 
 1  pwsh/**                      a change here fires ci-pwsh on the PR and the merge
 2  ci-pwsh                      runs Test-Automation -Level 2 -EnforceTimings
@@ -26,7 +26,7 @@ about:
   rules: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: operations
 content:
-  title: A push starts only the pipelines whose globset it touches
+  title: Which pipelines a push starts
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   f-drifted: { x: 980, y: 514, w: 240, h: 44 }
 ```
 
-![A push fires only the pipelines it touches](.assets/a-push-fires-only-touched-pipelines.drawio.png)
+![Which pipelines a push starts](.assets/a-push-fires-only-touched-pipelines.drawio.png)
 
 ## Walkthrough
 
@@ -115,5 +115,5 @@ under `.ado/pipelines/` runs `Test-GlobSetAffected`.
 
 - [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [meta](one-unit-one-pipeline.md), [architecture](units-not-tracks-own-the-pipelines.md),
-  [implementation](globs-yml-pipeline-field-is-the-binding.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
+  [implementation](how-a-glob-set-binds-to-its-pipeline.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

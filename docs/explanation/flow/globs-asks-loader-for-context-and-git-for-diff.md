@@ -1,7 +1,7 @@
-# Catzc.Base.Globs owns the check, the loader names the context, and git names the change
+# Where the globs check gets its context and diff
 
 ```text
-Catzc.Base.Globs owns the touched-unit check; it asks the loader which context it runs in and git which paths changed.
+Where the globs check gets its context and diff.
 
 1  a unit's pipeline stage     the caller the FDR describes; no pipeline calls the check
 2  Test-GlobSetAffected        the public check: is the named unit among the globsets the change touches?
@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-PWSH-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
-  title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
+  title: Where the globs check gets its context and diff
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   x-git: { x: 520, y: 472, w: 120, h: 44 }
 ```
 
-![Globs asks the loader for the context and git for the diff](.assets/globs-asks-loader-for-context-and-git-for-diff.drawio.png)
+![Where the globs check gets its context and diff](.assets/globs-asks-loader-for-context-and-git-for-diff.drawio.png)
 
 ## Walkthrough
 

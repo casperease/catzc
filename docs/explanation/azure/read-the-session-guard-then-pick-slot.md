@@ -1,7 +1,7 @@
-# Get-BicepDeploymentContext reads the session, guards it, then picks the slot
+# How a Bicep deployment context is built
 
 ```text
-Get-BicepDeploymentContext resolves the session, applies the guard, then addresses the slot, in that order.
+How a Bicep deployment context is built.
 
 1  Get-CurrentAzSubscription       az account show: the session's active subscription
 2  Get-AzCliSessionSubscription    the reverse lookup: the session's id -> { name, id, customer, tenant }
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: implementation
 content:
-  title: Get-BicepDeploymentContext reads the session, guards it, then picks the slot
+  title: How a Bicep deployment context is built
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -84,7 +84,7 @@ layout:
   g-group: { x: 960, y: 286, w: 280, h: 44 }
 ```
 
-![Get-BicepDeploymentContext reads the session, guards it, then picks the slot](.assets/read-the-session-guard-then-pick-slot.drawio.png)
+![How a Bicep deployment context is built](.assets/read-the-session-guard-then-pick-slot.drawio.png)
 
 ## Walkthrough
 

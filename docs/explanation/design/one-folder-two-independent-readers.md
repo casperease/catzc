@@ -1,7 +1,7 @@
-# One module folder has two independent readers
+# Who reads a module folder
 
 ```text
-One module folder has two independent readers: the loader and the globs engine.
+Who reads a module folder.
 
 1  pwsh/<Module>/             the folder that is the module
 2  Catzc.Internal.Bootstrap   the loader: derives the manifest on every import
@@ -27,7 +27,7 @@ about:
   rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET]
   lens: architecture
 content:
-  title: One module folder has two independent readers
+  title: Who reads a module folder
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -78,7 +78,7 @@ layout:
   g-locks: { x: 1020, y: 430, w: 200, h: 60 }
 ```
 
-![One folder, two independent readers](.assets/one-folder-two-independent-readers.drawio.png)
+![Who reads a module folder](.assets/one-folder-two-independent-readers.drawio.png)
 
 ## Walkthrough
 
@@ -120,5 +120,5 @@ layout:
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md),
   [implementation](where-the-manifest-and-the-aspects-come-from.md), [operations](drop-a-file-the-import-exports-it.md) and
-  [governance](partition-integrity-runs-only-in-unit-tests.md).
+  [governance](where-partition-integrity-is-checked.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

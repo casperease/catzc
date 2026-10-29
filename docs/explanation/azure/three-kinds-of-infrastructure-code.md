@@ -1,7 +1,7 @@
-# Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
+# What kinds of infrastructure code exist
 
 ```text
-Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together.
+What kinds of infrastructure code exist.
 
 1  reusable module      one .bicep file a template references, never deployed alone
 2  main.bicep           the template's deployable entry, which pulls in the modules it references
@@ -26,7 +26,7 @@ about:
   rules: [ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: meta
 content:
-  title: Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
+  title: What kinds of infrastructure code exist
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -68,7 +68,7 @@ layout:
   g-slot: { x: 680, y: 164, w: 200, h: 52 }
 ```
 
-![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together][diagram]
+![What kinds of infrastructure code exist][diagram]
 
 [diagram]: .assets/three-kinds-of-infrastructure-code.drawio.png
 

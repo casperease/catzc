@@ -1,7 +1,7 @@
-# Clients bridge to one server remote: in through a pull request, out from the verified point
+# How clients reach the server remote
 
 ```text
-Clients bridge to one server remote: in through a pull request, out from the verified point.
+How clients reach the server remote.
 
 1  local clone      a developer box's or CI agent's working copy; no authority
 2  identity model   the server authenticates the author first; only the server runs it
@@ -32,7 +32,7 @@ about:
     - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
-  title: "Clients bridge to one server remote: in through a pull request, out from the verified point"
+  title: How clients reach the server remote
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
@@ -80,7 +80,7 @@ layout:
   c-verified: { x: 300, y: 510, w: 140, h: 44 }
 ```
 
-![Clients bridge to one server remote](.assets/clients-bridge-to-one-server.drawio.png)
+![How clients reach the server remote](.assets/clients-bridge-to-one-server.drawio.png)
 
 ## Walkthrough
 
@@ -118,6 +118,6 @@ layout:
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - [Commit lifecycle](../../drs/flow/commit-lifecycle.md) — the stable point and the dirty HEAD.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md),
-  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md), [operations](guard-and-policies-by-command.md) and
-  [governance](ingress-gated-the-rest-by-review.md).
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md),
+  [operations](how-the-guard-and-the-server-policies-are-turned-on.md) and [governance](which-ingress-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

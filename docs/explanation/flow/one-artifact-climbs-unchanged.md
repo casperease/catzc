@@ -1,7 +1,7 @@
-# One artifact is built once and climbs to production unchanged
+# How one artifact climbs to production
 
 ```text
-One artifact is built once and climbs to production unchanged.
+How one artifact climbs to production.
 
 1  build & verify    the CI discipline: every change integrated fast, within 5-10 minutes
 2  tagged artifact   the one immutable artifact every downstream kind consumes
@@ -32,7 +32,7 @@ about:
     - FDR-CD-TWORELEASEGATES
   lens: meta
 content:
-  title: One artifact is built once and climbs to production unchanged
+  title: How one artifact climbs to production
   kind: explanation
   flow: left-to-right
   relation: the artifact moves on
@@ -80,7 +80,7 @@ layout:
   e-production: { x: 1060, y: 280, w: 190, h: 56 }
 ```
 
-![One artifact is built once and climbs to production unchanged](.assets/one-artifact-climbs-unchanged.drawio.png)
+![How one artifact climbs to production](.assets/one-artifact-climbs-unchanged.drawio.png)
 
 ## Walkthrough
 
@@ -115,5 +115,5 @@ layout:
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [architecture](pipeline-kinds-keyed-by-one-artifact.md),
   [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md), [operations](how-a-merge-to-main-reaches-non-prod.md) and
-  [governance](ci-budget-is-the-only-quality-gate.md).
+  [governance](what-the-quality-gate-checks-on-the-way-to-production.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

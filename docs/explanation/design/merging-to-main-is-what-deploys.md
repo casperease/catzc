@@ -1,7 +1,7 @@
-# Merging to main is what deploys; there is no run that deploys a topic
+# What triggers a deploy
 
 ```text
-An engineer has nothing to run to deploy a topic commit; completing the pull request into main is what deploys.
+What triggers a deploy.
 
 1  push topic, open PR     the engineer opens a pull request into main
 2  ADO PR build            runs the CI stage and skips every Deploy_* stage
@@ -26,7 +26,7 @@ about:
   rules: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
   lens: operations
 content:
-  title: Merging to main is what deploys; there is no run that deploys a topic
+  title: What triggers a deploy
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-environment: { x: 1080, y: 320, w: 180, h: 68 }
 ```
 
-![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys.drawio.png)
+![What triggers a deploy](.assets/merging-to-main-is-what-deploys.drawio.png)
 
 ## Walkthrough
 
@@ -110,6 +110,6 @@ FDR-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pip
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same deploy: [meta](deploying-is-not-integrating.md),
-  [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](every-deploy-stage-is-main-only.md) and
+  [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](where-a-deploy-stage-may-run.md) and
   [governance](out-of-band-deploy-is-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

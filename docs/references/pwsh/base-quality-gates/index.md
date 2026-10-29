@@ -116,7 +116,7 @@ The diagram below draws one test run of responsibility 1 from the source. Both k
 and checks their tags before any run directory exists, then splits the files into the parallel, greedy and serial phases, drops the modules
 that are already protected, and derives one verdict. A `finally` stamps the run's `run.json` record on every exit from the run.
 
-![One discovery feeds three phases; finally stamps run.json](../.assets/test-automation-one-run-pipeline.drawio.png)
+![How a test run proceeds](../.assets/test-automation-one-run-pipeline.drawio.png)
 
 ## Division
 

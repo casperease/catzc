@@ -144,5 +144,5 @@ layout:
 - [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
   [architecture](two-roots-one-importer-same-modules.md), [implementation](shims-set-roots-mode-read-back.md) and
-  [operations](one-entry-script-per-mode.md).
+  [operations](which-entry-script-each-run-mode-uses.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

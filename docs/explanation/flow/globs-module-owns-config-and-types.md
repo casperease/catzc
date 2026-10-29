@@ -1,7 +1,7 @@
-# Catzc.Base.Globs computes every globset role from one typed registry
+# What the Globs module owns
 
 ```text
-Catzc.Base.Globs computes every globset role from one typed registry.
+What the Globs module owns.
 
 1  globs.yml               the registry: 10 declared globsets in the module's configs folder
 2  GlobsConfig -> GlobSet  validates the registry at load, then flattens each set's program
@@ -27,7 +27,7 @@ about:
   rules: [FDR-GLOBS-NAMEDGLOBSETS, FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: architecture
 content:
-  title: Catzc.Base.Globs computes every globset role from one typed registry
+  title: What the Globs module owns
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -73,7 +73,7 @@ layout:
   g-automation: { x: 980, y: 326, w: 260, h: 56 }
 ```
 
-![Catzc.Base.Globs owns config, types and roles](.assets/globs-module-owns-config-and-types.drawio.png)
+![What the Globs module owns](.assets/globs-module-owns-config-and-types.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# The optIn filter, then copy or render, through one write primitive
+# How an opted-in root file is placed
 
 ```text
-Build-RootConfig filters the registry to the opted-in entries, then copies or renders each one, and one primitive writes every file.
+How an opted-in root file is placed.
 
 1  rootconfig.yml               the registry, loaded as the rootconfig config
 2  RootConfigFiles              the config type that validates every entry at load
@@ -34,7 +34,7 @@ about:
     - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
   lens: implementation
 content:
-  title: The optIn filter, then copy or render, through one write primitive
+  title: How an opted-in root file is placed
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -88,7 +88,7 @@ layout:
   r-headed: { x: 1110, y: 346, w: 160, h: 44 }
 ```
 
-![The optIn filter, then copy or render, through one write primitive](.assets/opted-in-then-link-copy-or-render.drawio.png)
+![How an opted-in root file is placed](.assets/opted-in-then-link-copy-or-render.drawio.png)
 
 ## Walkthrough
 

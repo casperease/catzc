@@ -1,7 +1,7 @@
-# You edit globs.yml, and every other step prints what cats derived from it
+# How a globs.yml edit shows in the output
 
 ```text
-You edit globs.yml, and every other step prints what cats derived from it.
+How a globs.yml edit shows in the output.
 
 1  globs.yml           the only file a person writes to change an area-of-control
 2  Config load         every command loads the registry first; a bad registry stops here
@@ -27,7 +27,7 @@ about:
   rules: [FDR-GLOBS-DURABLESHAIDENTITY, FDR-GLOBS-NATIVEPATHFILTER, FDR-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
-  title: You edit globs.yml, and every other step prints what was derived from it
+  title: How a globs.yml edit shows in the output
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -79,7 +79,7 @@ layout:
   r-skip: { x: 980, y: 326, w: 260, h: 44 }
 ```
 
-![Edit globs.yml, then read the output](.assets/edit-globs-yml-then-read-the-output.drawio.png)
+![How a globs.yml edit shows in the output](.assets/edit-globs-yml-then-read-the-output.drawio.png)
 
 ## Walkthrough
 

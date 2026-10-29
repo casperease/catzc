@@ -1,7 +1,7 @@
-# A track ships through a deployable-unit, and each unit has one pipeline
+# How a track ships through a unit
 
 ```text
-A track ships through a deployable-unit, and each unit binds one pipeline.
+How a track ships through a unit.
 
 1  Track             one root concern, mapped onto one root folder and named by it
 2  Composes into     a unit is a whole track or a reduced composition of one
@@ -23,7 +23,7 @@ about:
   rules: [DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: meta
 content:
-  title: A track ships through a deployable-unit, and each unit has one pipeline
+  title: How a track ships through a unit
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -55,7 +55,7 @@ layout:
   r-pipeline: { x: 960, y: 146, w: 240, h: 56 }
 ```
 
-![One unit, one pipeline; tracks ship through units](.assets/one-unit-one-pipeline.drawio.png)
+![How a track ships through a unit](.assets/one-unit-one-pipeline.drawio.png)
 
 ## Walkthrough
 
@@ -81,6 +81,6 @@ A cross-cutting slice, such as every markdown file, is a scope over tracks rathe
 
 - [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [architecture](units-not-tracks-own-the-pipelines.md),
-  [implementation](globs-yml-pipeline-field-is-the-binding.md), [operations](a-push-fires-only-touched-pipelines.md) and
+  [implementation](how-a-glob-set-binds-to-its-pipeline.md), [operations](a-push-fires-only-touched-pipelines.md) and
   [governance](unit-to-pipeline-rule-is-review-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

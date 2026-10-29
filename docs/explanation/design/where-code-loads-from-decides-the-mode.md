@@ -1,7 +1,7 @@
-# Where the code loads from decides the run mode
+# How the run mode is decided
 
 ```text
-Where the code loads from decides the run mode; nothing stores it.
+How the run mode is decided.
 
 1  the repository   source mode: every module read in place, one function per file
 2  a built package  build mode: the same modules from a package in one of three kinds of place
@@ -24,7 +24,7 @@ about:
   rules: [DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST]
   lens: meta
 content:
-  title: Where the code loads from decides the run mode
+  title: How the run mode is decided
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -61,7 +61,7 @@ layout:
   g-modules: { x: 440, y: 400, w: 400, h: 44 }
 ```
 
-![Where the code loads from decides the run mode](.assets/where-code-loads-from-decides-the-mode.drawio.png)
+![How the run mode is decided](.assets/where-code-loads-from-decides-the-mode.drawio.png)
 
 ## Walkthrough
 
@@ -86,6 +86,6 @@ layout:
 
 - [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [architecture](two-roots-one-importer-same-modules.md),
-  [implementation](shims-set-roots-mode-read-back.md), [operations](one-entry-script-per-mode.md) and
+  [implementation](shims-set-roots-mode-read-back.md), [operations](which-entry-script-each-run-mode-uses.md) and
   [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

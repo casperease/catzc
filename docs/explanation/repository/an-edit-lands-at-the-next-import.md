@@ -1,7 +1,7 @@
-# An edit to a variant lands at the next import, and a wrong value fails once, at load
+# When a variant edit takes effect
 
 ```text
-An edit to a variant lands at the next import; a wrong value fails once at load, a guard once at use.
+When a variant edit takes effect.
 
 1  variants.yml                  edit one key, for example have_customers
 2  importer.ps1                  re-run it: the session cache is gone, and the next ask reloads the file
@@ -29,7 +29,7 @@ about:
   rules: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-HAVECUSTOMERS, ADR-REPO-VARIANT-GITWORKSPACE]
   lens: operations
 content:
-  title: An edit to a variant lands at the next import, and a wrong value fails once, at load
+  title: When a variant edit takes effect
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -83,7 +83,7 @@ layout:
   f-skipped: { x: 700, y: 566, w: 260, h: 44 }
 ```
 
-![An edit to a variant lands at the next import](.assets/an-edit-lands-at-the-next-import.drawio.png)
+![When a variant edit takes effect](.assets/an-edit-lands-at-the-next-import.drawio.png)
 
 ## Walkthrough
 

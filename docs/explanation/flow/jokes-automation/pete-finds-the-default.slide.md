@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../automation/.assets/callers-value-else-config-else-default.drawio.png
+      source: ../../automation/.assets/where-a-waits-limit-comes-from.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: the caller's value, else config, else default.
 ## Notes
 
 Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.
+docs/explanation/automation/.assets/where-a-waits-limit-comes-from.drawio.png.

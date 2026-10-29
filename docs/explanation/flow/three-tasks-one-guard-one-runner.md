@@ -1,7 +1,7 @@
-# Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
+# What the three pipeline tasks share
 
 ```text
-Three tasks share one guard, and one runner imports, traps, sanitizes and invokes.
+What the three pipeline tasks share.
 
 1  ci-pwsh.yaml            a root pipeline names the template and passes a RunCommand
 2  invoke-automation.yaml  seven parameters; Mode picks one of three tasks
@@ -28,7 +28,7 @@ about:
   rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-IMPORTONCE, ADR-ADO-RUNNER-THINSTEPTEMPLATES]
   lens: implementation
 content:
-  title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
+  title: What the three pipeline tasks share
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -78,7 +78,7 @@ layout:
   c-invoke-command: { x: 1110, y: 122, w: 150, h: 56 }
 ```
 
-![Three tasks, one guard, one runner](.assets/three-tasks-one-guard-one-runner.drawio.png)
+![What the three pipeline tasks share](.assets/three-tasks-one-guard-one-runner.drawio.png)
 
 ## Walkthrough
 
@@ -122,6 +122,7 @@ trap, and no code runs it, so it is not drawn.
 ## See also
 
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
-- The other lenses on the same runner: [meta](a-step-only-names-a-command.md), [architecture](the-runner-is-the-only-seam.md),
-  [operations](the-step-is-named-after-its-command.md) and [governance](no-gate-checks-rules-one-and-four.md).
+- The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
+  [architecture](the-runner-is-the-only-seam.md), [operations](the-step-is-named-after-its-command.md) and
+  [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

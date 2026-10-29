@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-TEST, ADR-REPO-PROTGLOB]
   lens: source
 content:
-  title: One discovery feeds three phases; finally stamps run.json
+  title: How a test run proceeds
   kind: reference
   flow: top-to-bottom
   theme: dark

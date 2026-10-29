@@ -6,7 +6,7 @@ catzc:
     order: 11
     picture:
       mode: reduce
-      source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
+      source: ../../design/.assets/which-sync-point-rules-have-a-gate.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: sync point rules are drs only.
 ## Notes
 
 Check it: the record FDR-LIFE in docs/drs/index.md, and the diagram
-docs/explanation/design/.assets/sync-point-rules-are-drs-only.drawio.png.
+docs/explanation/design/.assets/which-sync-point-rules-have-a-gate.drawio.png.

@@ -5,7 +5,7 @@ about:
   rules: [ADR-REPO-PROTGLOB, FDR-GLOBS, ADR-PWSH-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
   lens: source
 content:
-  title: Skip a module only if its folded hash matches its last green
+  title: When a protected module is skipped
   kind: reference
   flow: left-to-right
   theme: dark

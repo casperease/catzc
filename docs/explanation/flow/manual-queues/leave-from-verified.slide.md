@@ -6,7 +6,7 @@ catzc:
     order: 10
     picture:
       mode: reduce
-      source: ../../design/.assets/sync-from-the-bvt-verified-head.drawio.png
+      source: ../../design/.assets/which-commit-a-sync-starts-from.drawio.png
       scale: 0.4
 ---
 
