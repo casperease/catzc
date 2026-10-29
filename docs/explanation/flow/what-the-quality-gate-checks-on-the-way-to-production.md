@@ -149,6 +149,7 @@ layout:
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
   [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it rests on.
-- The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](how-ci-cd-and-deploy-pipelines-link.md),
-  [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md) and [operations](how-a-merge-to-main-reaches-non-prod.md).
+- The other lenses on the same flow: [meta](how-one-artifact-climbs-to-production.md),
+  [architecture](how-ci-cd-and-deploy-pipelines-link.md), [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md) and
+  [operations](how-a-merge-to-main-reaches-non-prod.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

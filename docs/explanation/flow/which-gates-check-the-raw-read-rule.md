@@ -76,7 +76,7 @@ layout:
   g-test: { x: 450, y: 440, w: 320, h: 84 }
 ```
 
-![Which gates check the raw-read rule](.assets/one-gate-checks-the-raw-read-rule.drawio.png)
+![Which gates check the raw-read rule](.assets/which-gates-check-the-raw-read-rule.drawio.png)
 
 ## Walkthrough
 
@@ -115,7 +115,7 @@ layout:
 
 - [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
-- The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
+- The other lenses on the same detector: [meta](how-code-knows-it-runs-in-a-pipeline.md),
   [architecture](where-the-pipeline-detector-lives.md), [implementation](where-the-pipeline-variables-are-read.md) and
   [operations](how-the-analyzer-reports-a-raw-read.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

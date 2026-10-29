@@ -80,7 +80,7 @@ layout:
   e-production: { x: 1060, y: 280, w: 190, h: 56 }
 ```
 
-![How one artifact climbs to production](.assets/one-artifact-climbs-unchanged.drawio.png)
+![How one artifact climbs to production](.assets/how-one-artifact-climbs-to-production.drawio.png)
 
 ## Walkthrough
 

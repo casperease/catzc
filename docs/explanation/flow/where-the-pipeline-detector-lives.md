@@ -123,7 +123,7 @@ both variables itself, and no gate reaches C#.
 
 - [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
-- The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
+- The other lenses on the same detector: [meta](how-code-knows-it-runs-in-a-pipeline.md),
   [implementation](where-the-pipeline-variables-are-read.md), [operations](how-the-analyzer-reports-a-raw-read.md) and
-  [governance](one-gate-checks-the-raw-read-rule.md).
+  [governance](which-gates-check-the-raw-read-rule.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
