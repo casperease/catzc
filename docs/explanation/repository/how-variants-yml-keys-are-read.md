@@ -40,10 +40,10 @@ content:
   flow: top-to-bottom
   theme: dark
   bands:
-    - { id: band-file, label: FILE }
-    - { id: band-read-path, label: READ PATH }
-    - { id: band-accessors, label: ACCESSORS }
     - { id: band-guards, label: GUARDS }
+    - { id: band-accessors, label: ACCESSORS }
+    - { id: band-read-path, label: READ PATH }
+    - { id: band-file, label: FILE }
   glyphs:
     - { id: g-variants-yml, kind: file, label: variants.yml, in: band-file }
     - { id: g-get-config, kind: code, label: Get-Config -Config variants, in: band-read-path }
@@ -79,20 +79,20 @@ content:
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-file: { x: 20, y: 84, w: 1240, h: 80 }
-  band-read-path: { x: 20, y: 184, w: 1240, h: 160 }
-  band-accessors: { x: 20, y: 364, w: 1240, h: 90 }
-  band-guards: { x: 20, y: 474, w: 1240, h: 90 }
-  g-variants-yml: { x: 560, y: 112, w: 190, h: 44 }
-  g-get-config: { x: 530, y: 204, w: 250, h: 44 }
-  g-get-variant: { x: 50, y: 292, w: 1205, h: 44 }
-  g-ado-naming: { x: 50, y: 404, w: 260, h: 44 }
-  g-git-workspace: { x: 365, y: 404, w: 260, h: 44 }
-  g-enabled-customers: { x: 680, y: 404, w: 260, h: 44 }
-  g-aspect-track: { x: 995, y: 404, w: 260, h: 44 }
-  g-test-ado-naming: { x: 50, y: 514, w: 260, h: 44 }
-  g-test-git-workspace: { x: 365, y: 514, w: 260, h: 44 }
-  g-test-customers: { x: 680, y: 514, w: 260, h: 44 }
+  band-guards: { x: 20, y: 84, w: 1240, h: 90 }
+  band-accessors: { x: 20, y: 194, w: 1240, h: 90 }
+  band-read-path: { x: 20, y: 304, w: 1240, h: 160 }
+  band-file: { x: 20, y: 484, w: 1240, h: 80 }
+  g-variants-yml: { x: 560, y: 512, w: 190, h: 44 }
+  g-get-config: { x: 530, y: 412, w: 250, h: 44 }
+  g-get-variant: { x: 50, y: 340, w: 1205, h: 44 }
+  g-ado-naming: { x: 50, y: 234, w: 260, h: 44 }
+  g-git-workspace: { x: 365, y: 234, w: 260, h: 44 }
+  g-enabled-customers: { x: 680, y: 234, w: 260, h: 44 }
+  g-aspect-track: { x: 995, y: 234, w: 260, h: 44 }
+  g-test-ado-naming: { x: 50, y: 124, w: 260, h: 44 }
+  g-test-git-workspace: { x: 365, y: 124, w: 260, h: 44 }
+  g-test-customers: { x: 680, y: 124, w: 260, h: 44 }
 ```
 
 ![How variants.yml keys are read](.assets/how-variants-yml-keys-are-read.drawio.png)
