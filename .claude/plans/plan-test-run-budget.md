@@ -11,14 +11,15 @@ plan:
 
 The full `Test-Automation` run is green (10872 passed, 0 failed) but takes 254.1 s against its 180 s budget (`tests.run_seconds`), in run
 `out/test-automation/20261029-211212`. The shards are balanced (`out/test-run-budget/packing.md`): the five parallel shards each carry about
-180 s of tests, and the run's own start and end add about 70 s. The limit stays; the tests and the run's overhead get faster
-(ADR-AUTO-TEST).
+180 s of tests, and the greedy files end the run about 41 s after them (run.json `shards`). The limit stays; the tests and the run's
+overhead get faster (ADR-AUTO-TEST).
 
 ## Open steps
 
-1. [ ] Time the run's own start and end apart: the import, the prewarm, discovery and sharding before the pool, and the report after it,
-       from timestamped `Write-Message` lines in one module run, written to `out/test-run-budget/packing.md`. Check: the parts and the pool
-       time sum to the run's wall clock, within 5 s.
+1. [ ] Let a slot that a parallel shard frees take greedy files, in `Invoke-TestAutomationWorkers.ps1`: the greedy cap holds while parallel
+       shards run, and the whole pool takes greedy files once they end. Run 20261029-213228 showed why: the prewarm ends at 19 s, the five
+       parallel shards end at 196-211 s, and the greedy lane, four at a time, ends at 252 s while five slots stand idle. Check: the workers'
+       tests and `Get-TestPoolSize.Tests.ps1`, then a module run whose run.json `shards` show greedy files starting in the freed slots.
 2. [ ] Measure one engine start under pwsh, bash and zsh in a language folder (`python/tests/base_repository`): the fixed cost per engine
        against the per-case cost, written to the same `packing.md`. Check: the three numbers sum to the folder's recorded time, within 10%.
 3. [ ] If the fixed engine start dominates, run the three engines of one language folder in parallel inside the bridge,

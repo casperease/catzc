@@ -173,16 +173,15 @@ function Invoke-TestAutomationWorkers {
     $poolStartMs = $stopwatch.ElapsedMilliseconds
     $poolEndMs = $poolStartMs
     if ($pooled.Count -gt 0) {
-        # One pool: the parallel shards first, then each greedy file in the first slot a shard frees, under its caps.
         $caps = [string[][]] @(@(foreach ($shard in $shards) {
-                    , [string[]] @()
+                    , [string[]] @('greedy')
                 }) + @(foreach ($cap in $greedyCaps) {
                     , $cap
                 }))
         $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
         $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
                 [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
-                @{ greedy = $greedyGroupSize; apart = 1 },
+                @{ greedy = $shards.Count + $greedyGroupSize; apart = 1 },
                 $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false))
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)

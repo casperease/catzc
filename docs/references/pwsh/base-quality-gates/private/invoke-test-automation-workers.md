@@ -121,8 +121,10 @@ The parallel files are dealt across the shards by measured duration, longest fir
 work does and not when its unluckiest shard does. The serial phase, when present, is one extra shard scheduled after the pool completes.
 
 Greedy shards hold one file each and queue in the pool behind the parallel shards. Machine-hungry files overlap each other, since their
-tests carry L2-scale time limits, up to the greedy cap, and take only slots a shard frees. A greedy file counts against the greedy cap. A
-file the policy keeps apart, because it runs real builds, also counts against the one-at-a-time cap.
+tests carry L2-scale time limits, up to the greedy cap, and take only slots a shard frees. A greedy file counts against the greedy cap, and
+so does each parallel shard, while the cap's limit is the shard count plus the group size. So while every parallel shard runs, the greedy
+files hold at the group size, and each shard that ends frees its place to them, until the greedy files may take every slot of the pool. A
+file the policy keeps apart, because it runs real builds, also counts against the one-at-a-time cap, which always holds.
 
 The parallel and greedy phases are one PesterRunner pool, so each worker's start offset is already on the run's wall-clock timeline. Only
 the serial phase, its own run call after the pool, carries a phase offset. It runs last and alone, because its files mutate state no other
@@ -146,3 +148,13 @@ carries the run's own status record (see Write-TestRunManifest).
 
 One summary per worker feeds the end-of-run table. The queue number is the submission order, with greedy after the pool and serial last. The
 start is on the run's single wall-clock timeline, and the workers of each phase after the first are offset by their phase boundary.
+
+## comment:1
+
+Above `$caps = [string[][]] @(@(foreach ($shard in $shards) {`, written with `#`.
+
+```text
+One pool: the parallel shards first, then each greedy file in the first slot a shard frees, under its caps.
+A parallel shard counts against the greedy cap too, and the cap's limit grows by the shard count: while every shard runs the
+greedy files hold at the group size, and each shard that ends frees its place to them, up to every slot of the pool.
+```
