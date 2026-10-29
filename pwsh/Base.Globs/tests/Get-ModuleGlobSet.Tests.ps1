@@ -1,6 +1,8 @@
 Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit
+        # The tracks come from the shipped variants, so they load before the swap: the fake tree has no Base.Variants of its own.
+        $null = Get-Config -Config variants
         $script:fake = New-FakeRepositoryRoot -Modules @{
             'Base.Alpha' = @{ Public = 'Get-Alpha' }
             'Fake.Beta'  = @{ Public = 'Get-Beta' }

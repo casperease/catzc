@@ -90,14 +90,12 @@ function New-FakeRepositoryRoot {
     }
 
     # Both roots move together, so the fake tree reads as source mode: its code root is its own pwsh/ folder.
-    $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
+    $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot; ConfigState = Save-ConfigState }
     $modulesRoot = Join-Path $root $modulesFolder
     $env:RepositoryRoot = $root
     if (-not $WorkingRootOnly) {
         $env:CatzcModulesRoot = $modulesRoot
     }
-    # The config caches index the modules root they were built under, so each swap drops them.
-    Clear-ConfigState
     @{ Root = $root; ModulesRoot = $modulesRoot; Saved = $saved }
 }
 
@@ -112,23 +110,65 @@ function Remove-FakeRepositoryRoot {
 
     $env:RepositoryRoot = $Handle.Saved.RepositoryRoot
     $env:CatzcModulesRoot = $Handle.Saved.CatzcModulesRoot
-    Clear-ConfigState
+    # A config read under the fake root indexes its modules folder, so the restore puts back the caches as the swap found them.
+    Restore-ConfigState $Handle.Saved.ConfigState
     if ($Handle.Root -and (Test-Path $Handle.Root)) {
         Remove-Item $Handle.Root -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
 
-function Clear-ConfigState {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
-        Justification = 'Test fixture: drops the config caches a root swap made stale, inside the same test''s lifecycle; its output belongs to Pester')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
-        Justification = 'Test fixture: clears in-memory caches only')]
+function Save-ConfigState {
     [CmdletBinding()]
+    [OutputType([hashtable])]
     param()
 
     $config = Get-Module Catzc.Base.Config
-    if ($config) {
-        & $config { $script:configCache = $null; $script:configRegistryCache = $null; $script:configIndex = $null }
+    if (-not $config) {
+        return $null
+    }
+    # Shallow copies: a read under the fake root adds keys to the live tables, never changes a key already there.
+    & $config {
+        $state = @{}
+        foreach ($name in 'configCache', 'configRegistryCache', 'configIndex') {
+            $value = $ExecutionContext.SessionState.PSVariable.GetValue("script:$name")
+            $state[$name] = if ($value -is [hashtable]) {
+                $value.Clone()
+            }
+            elseif ($value -is [System.Collections.Specialized.OrderedDictionary]) {
+                $copy = [ordered]@{}
+                foreach ($key in $value.Keys) {
+                    $copy[$key] = $value[$key]
+                }
+                $copy
+            }
+            else {
+                $value
+            }
+        }
+        $state
+    }
+}
+
+function Restore-ConfigState {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: puts back the config caches Save-ConfigState took for the same test; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Test fixture: restores in-memory caches only')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Position = 0)]
+        [AllowNull()]
+        [hashtable] $State
+    )
+
+    $config = Get-Module Catzc.Base.Config
+    if ($config -and $State) {
+        & $config {
+            param($saved)
+            $script:configCache = $saved['configCache']
+            $script:configRegistryCache = $saved['configRegistryCache']
+            $script:configIndex = $saved['configIndex']
+        } $State
     }
 }
 
