@@ -128,19 +128,29 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
        short_name without an owner slot, wrong env, wrong customer, a missing NSG key, an RG typo in an Azure resource ID), each with its
        expected message (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1`, then
        `Test-BicepResourceNames` on the tree).
-9. [ ] **Shrink and delete** (check: below):
-   - `Read-BicepTemplateOptions` allows only `short_name`, `deployment_mode` and `deployment_target`.
-   - `BicepTemplate.cs` computes `environment_kind` and `customer_deployment`, and its `names`/`facts`/`addresses` go.
-   - Delete `Resolve-BicepDerivedNames`, `BicepNameEntry.cs` and `BicepItemName.cs`.
-   - Delete `Get-BicepResourceGroupName`; `Sync-BicepResourceNames` writes the `ResourceGroup:` key.
-   - `Get-BicepDeploymentContext` reads `ResourceGroup`.
-   - Add `Resolve-BicepRuntimeSlotNames`.
-   - Update the contracts `contracts/catzc/0.1.0/pwsh.azure.templates/*`, the 3 `options.yml`, the fixtures, `infrastructure/README.md` and
-     `docs/how-to/getting-started/automation/add-an-infrastructure-template.md`.
+9. [ ] **Runtime slots:** add `pwsh/Azure.Templates/private/Resolve-BicepRuntimeSlotNames.ps1`, which matches each declared name of the base
+       slot and re-renders this template's own with `slot = <runtime>`, foreign names as written; `Build-Bicep -RuntimeSlots` calls it
+       (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Resolve-BicepRuntimeSlotNames.Tests.ps1`, a runtime slot producing the
+       names the old resolver produced).
+10. [ ] **Declared resource group:** `pwsh/Azure.Templates/Get-BicepDeploymentContext.ps1` reads the slot's `ResourceGroup:` key for a
+        ResourceGroup target (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1`).
+11. [ ] **Options shrink:** `pwsh/Azure.Templates/private/Read-BicepTemplateOptions.ps1` allows only `short_name`, `deployment_mode` and
+        `deployment_target` (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1`).
+12. [ ] **Template type:** `pwsh/Azure.Templates/types/BicepTemplate.cs` computes `environment_kind` and `customer_deployment`, and its
+        `names`, `facts` and `addresses` go (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-BicepTemplate.Tests.ps1` in a
+        fresh process).
+13. [ ] **Old resolver deleted:** `Resolve-BicepDerivedNames`, `pwsh/Azure.Templates/types/BicepNameEntry.cs` and
+        `pwsh/Azure.Templates/types/BicepItemName.cs` deleted with their tests, after the runtime-slots step lands (check: a Grep for the
+        three deleted names under `pwsh` and `docs` returns nothing).
+14. [ ] **Resource-group namer deleted:** `Get-BicepResourceGroupName` and its test deleted, after the declared-resource-group step lands
+        (check: a Grep for the deleted function's name under `pwsh` and `docs` returns nothing).
+15. [ ] **Contracts:** `contracts/catzc/0.1.0/pwsh.azure.templates/*` describe the shrunk options and the new commands (check:
+        `Test-Contracts` on `contracts/catzc/0.1.0/pwsh.azure.templates`).
+16. [ ] **Consumer options:** the 3 `infrastructure/templates/*/options.yml` and the test-asset fixtures hold only `short_name`,
+        `deployment_mode` and `deployment_target` (check: a Grep for `names:|facts:|environment_kind|customer_deployment` under
+        `infrastructure/templates` and the fixtures returns nothing).
+17. [ ] **Consumer docs:** `infrastructure/README.md` and `docs/how-to/getting-started/automation/add-an-infrastructure-template.md`
+        describe declared names and the two-key options (check: `Test-Links` and `Test-Spelling` on both).
 
-   A runtime slot produces the names the old resolver produced (check:
-   `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1` and the `pwsh.azure.templates` contract tests; a
-   Grep for `names:|facts:|environment_kind|customer_deployment` under `infrastructure/templates` returns nothing).
-
-10. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the step 1 baseline (check: every `.bicepparam`
+18. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
         is byte-identical). The full Test-Automation run is the user's final run.
