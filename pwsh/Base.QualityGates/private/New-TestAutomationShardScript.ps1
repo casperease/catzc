@@ -60,7 +60,10 @@ Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
     param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter, `$entryScript, `$languageExecutable)
     New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter -EntryScript `$entryScript -LanguageExecutable `$languageExecutable
 } @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral' '$entryLiteral' $languageLiteral
+`$workerRepositoryRoot = `$env:RepositoryRoot
 `$result = Invoke-Pester -Configuration `$config -InformationVariable pesterOutput
+`$env:RepositoryRoot = `$workerRepositoryRoot
+& (Get-Module Catzc.Base.Config) { `$script:configCache = `$null; `$script:configRegistryCache = `$null }
 if (`$null -eq `$result) {
     `$noResult = & (Get-Module Catzc.Base.QualityGates) {
         param(`$testPath, `$resultsPath, `$logPath, `$pesterError)
