@@ -212,7 +212,8 @@ function Move-Diagram {
             $kitCode = [Catzc.Base.Slides.DrawioKit]::new((Get-RepositoryRoot), $Kit)
             $tool = Resolve-ToolExecutable -Tool uv
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
-            Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
+            Assert-DiagramKitSynced
+            Invoke-Executable "`"$($tool.Path)`" run --no-sync --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again.
         $pages = @(foreach ($edit in $edits) {

@@ -23,6 +23,7 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
             'docs/explanation/widget/.assets/new-flow.drawio.yml', 'docs/explanation/widget/.assets/new-flow.drawio.png'
         }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'uv' } }
+        Mock Assert-DiagramKitSynced -ModuleName Catzc.Base.Slides { }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
         Mock Write-DiagramQueryRows -ModuleName Catzc.Base.Slides { $Path }
         # The kit's check prints one JSON line per folder; the mock answers from the folder names on the command line.

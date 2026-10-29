@@ -30,3 +30,13 @@ The snapshot's result caches go home before the snapshot is removed. The checks 
 folder as for the snapshot, since each entry is keyed on a file's content and the check's inputs
 ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). Save-ResultCache merges
 them with what the working folder's cache holds.
+
+## comment:1
+
+Above `if ($Location.PSObject.Properties['PythonEnvironment'] -and...`, written with `#`.
+
+```text
+The Python variables a snapshot set go back to what they were, an unset one unset again: a temporary
+change restored in a finally block, which needs no announcement and so is safe while a stop unwinds
+(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES).
+```

@@ -1,3 +1,4 @@
+# cspell:ignore PYTHONPATH
 function Enter-TestRunLocation {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -14,18 +15,20 @@ function Enter-TestRunLocation {
 
     $sourceRoot = Get-RepositoryRoot
     $location = [pscustomobject]@{
-        Mode             = 'in-place'
-        SourceRoot       = $sourceRoot
-        Root             = $sourceRoot
-        Mutex            = $null
-        LockPath         = $null
-        Holder           = $null
-        Snapshot         = $null
-        KeepSandbox      = [bool] $KeepSandbox
+        Mode              = 'in-place'
+        SourceRoot        = $sourceRoot
+        Root              = $sourceRoot
+        Mutex             = $null
+        LockPath          = $null
+        Holder            = $null
+        Snapshot          = $null
+        KeepSandbox       = [bool] $KeepSandbox
         # A worker's in-place location inherits its parent's right to run L3; every other path decides below.
-        SystemTests      = $true
-        SystemTestLock   = $null
-        SystemTestHolder = $null
+        SystemTests       = $true
+        SystemTestLock    = $null
+        SystemTestHolder  = $null
+        # A snapshot's Python variables as they were before it set them, for Exit-TestRunLocation to put back.
+        PythonEnvironment = $null
     }
 
     if ($env:CATZC_TEST_RUN_LOCATION_HELD -eq '1' -and -not $Isolated) {
@@ -79,8 +82,28 @@ function Enter-TestRunLocation {
     $pythonRelative = (Get-Config -Config python).ResolveRoot($sourceRoot)
     $sourceVenv = [System.IO.Path]::GetFullPath((Join-Path $sourceRoot "$pythonRelative/.venv"))
     $snapshotPython = Join-Path $location.Snapshot.Path $pythonRelative
+    $pythonEnvironment = $null
     if ([System.IO.File]::Exists((Join-Path $sourceVenv 'pyvenv.cfg')) -and [System.IO.Directory]::Exists($snapshotPython)) {
         [void] (New-Item -ItemType Junction -Path (Join-Path $snapshotPython '.venv') -Target $sourceVenv)
+        $packageRoot = Join-Path $location.Snapshot.Path 'out/python-packages'
+        foreach ($project in @(Get-ChildPath $snapshotPython -File -Filter 'pyproject.toml' -Depth 2)) {
+            $package = [regex]::Match([System.IO.File]::ReadAllText($project), '(?m)^packages\s*=\s*\["([^"]+)"\]').Groups[1].Value
+            if ($package) {
+                $link = Join-Path $packageRoot $package.Replace('.', '/')
+                [void] [System.IO.Directory]::CreateDirectory((Split-Path -Parent $link))
+                [void] (New-Item -ItemType Junction -Path $link -Target (Split-Path -Parent $project))
+            }
+        }
+        $pythonPath = [System.Environment]::GetEnvironmentVariable('PYTHONPATH')
+        $pythonEnvironment = [ordered]@{
+            PYTHONPATH = if ($pythonPath) {
+                $packageRoot + [System.IO.Path]::PathSeparator + $pythonPath
+            }
+            else {
+                $packageRoot
+            }
+            UV_NO_SYNC = '1'
+        }
     }
 
     # The snapshot starts with the working folder's result caches, keyed on content and input stamps.
@@ -106,6 +129,14 @@ function Enter-TestRunLocation {
             "the import's output is in $log and the snapshot is kept at $($location.Snapshot.Path). Last lines:`n$tail")
     }
     Build-SnapshotReadme -SnapshotRoot $location.Snapshot.Path
+    # The run's Python variables hold for this process and its workers until Exit-TestRunLocation puts the saved values back.
+    if ($pythonEnvironment) {
+        $location.PythonEnvironment = [ordered]@{}
+        foreach ($name in $pythonEnvironment.Keys) {
+            $location.PythonEnvironment[$name] = [System.Environment]::GetEnvironmentVariable($name)
+            [System.Environment]::SetEnvironmentVariable($name, $pythonEnvironment[$name])
+        }
+    }
     $location.Mode = 'snapshot'
     $location.Root = $location.Snapshot.Path
     $location.SystemTests = $false

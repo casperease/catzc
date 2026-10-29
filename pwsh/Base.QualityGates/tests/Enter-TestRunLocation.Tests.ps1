@@ -1,3 +1,4 @@
+# cspell:ignore PYTHONPATH
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
@@ -193,6 +194,51 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
 
         Test-Path -LiteralPath (Join-Path $snapshotPath 'python/.venv') | Should -BeFalse
+        $script:location.PythonEnvironment | Should -BeNullOrEmpty
+    }
+
+    It 'puts the snapshot''s own package folders first on PYTHONPATH and stops uv syncing, until the run exits' {
+        $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
+        $venv = Join-Path $widgetRoot 'python/.venv'
+        [System.IO.Directory]::CreateDirectory($venv) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $venv 'pyvenv.cfg'), 'prompt = widget')
+        Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            $kit = Join-Path $snapshotPath 'python/sprockets'
+            $holder = Join-Path $snapshotPath 'python/tests/gadget'
+            [System.IO.Directory]::CreateDirectory($kit) | Out-Null
+            [System.IO.Directory]::CreateDirectory($holder) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $kit 'pyproject.toml'), "[tool.setuptools]`npackages = [`"widget.sprockets`"]`n")
+            [System.IO.File]::WriteAllText((Join-Path $kit 'gear.py'), '')
+            [System.IO.File]::WriteAllText((Join-Path $holder 'pyproject.toml'), "[tool.uv]`npackage = false`n")
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+        $savedPythonPath = $env:PYTHONPATH
+        $savedNoSync = $env:UV_NO_SYNC
+        $env:PYTHONPATH = 'C:\gadget'
+        $env:UV_NO_SYNC = $null
+        try {
+            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+            $packages = Join-Path $snapshotPath 'out/python-packages'
+            $env:PYTHONPATH | Should -Be ($packages + [System.IO.Path]::PathSeparator + 'C:\gadget')
+            $env:UV_NO_SYNC | Should -Be '1'
+            @(Get-ChildPath -Path $packages -Depth 1 | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('widget')
+            $link = Get-Item -LiteralPath (Join-Path $packages 'widget/sprockets') -Force
+            $link.LinkType | Should -Be 'Junction'
+            [System.IO.Path]::GetFullPath($link.Target) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $snapshotPath 'python/sprockets')))
+            Test-Path -LiteralPath (Join-Path $packages 'widget/sprockets/gear.py') -PathType Leaf | Should -BeTrue
+
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
+            $script:location = $null
+            $env:PYTHONPATH | Should -Be 'C:\gadget'
+            $env:UV_NO_SYNC | Should -BeNullOrEmpty
+        }
+        finally {
+            $env:PYTHONPATH = $savedPythonPath
+            $env:UV_NO_SYNC = $savedNoSync
+        }
     }
 
     It 'keeps the snapshot and the import''s output when priming fails, and throws the cause' {

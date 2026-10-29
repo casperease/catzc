@@ -98,3 +98,12 @@ No person can answer a prompt here, so a prompt fails at once instead of waiting
 
 The failed import's output is the cause, so it is written to a log under `out/test-snapshot-priming`. The snapshot is kept for a look, and
 the last ten lines of the output are thrown with the log's path.
+
+## comment:1
+
+Above `$packageRoot = Join-Path $location.Snapshot.Path 'out/python-packages'`, written with `#`.
+
+```text
+Its editable installs name the working folder's build copies, so the snapshot's own package folders come first on PYTHONPATH,
+each joined under its dotted name (a member is its package's folder, as New-PythonProject writes it), and no uv run syncs.
+```

@@ -28,6 +28,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
                 Where-Object { $_ -notlike 'docs/gadgets/*' } }
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
+        Mock Assert-DiagramKitSynced -ModuleName Catzc.Base.Slides { }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
         Mock Write-DiagramQueryRows -ModuleName Catzc.Base.Slides { $Path }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
@@ -102,7 +103,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python -m catzc.kit.drawio_forward --theme dark --workers 3 --rows "*query-rows.json" --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
+            $Command -like '"C:/tools/uv.exe" run --no-sync --project "*kit*" python -m catzc.kit.drawio_forward --theme dark --workers 3 --rows "*query-rows.json" --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
         }
     }
 

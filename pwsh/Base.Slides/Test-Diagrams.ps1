@@ -58,6 +58,7 @@ function Test-Diagrams {
     if ($folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Test-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
+        Assert-DiagramKitSynced
         $declared = @($folders | Where-Object { $legends -cnotcontains $_ -and $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root) })
         if ($declared.Count -gt 0) {
             $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
@@ -76,7 +77,7 @@ function Test-Diagrams {
         # A C3 or C4 slide is checked against its query's rows, as Build-Diagrams rendered it.
         $rowsPath = Join-Path (Get-OutputRoot -EnsureExists) 'diagrams/query-rows.json'
         $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath -Config $diagramKit.Config
-        $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
+        $result = Invoke-Executable "`"$($tool.Path)`" run --no-sync --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) --rows `"$rowsPath`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         # One JSON line per diagram: conflicted cells, drifted cells, stale minimaps, or an error.
         foreach ($line in @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') })) {

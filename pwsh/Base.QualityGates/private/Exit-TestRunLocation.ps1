@@ -34,19 +34,28 @@ function Exit-TestRunLocation {
         & $release $Location.Mutex $Location.LockPath
     }
 
-    if ($Location.Snapshot) {
-        # The snapshot's result caches go home first: keyed on content, they hold for the working folder too.
-        $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
-        if ([System.IO.Directory]::Exists($snapshotCache)) {
-            foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {
-                Save-ResultCache -Path (Join-Path (Get-OutputRoot) "cache/$([System.IO.Path]::GetFileName($file))") -Cache (Get-ResultCache -Path $file)
+    try {
+        if ($Location.Snapshot) {
+            # The snapshot's result caches go home first: keyed on content, they hold for the working folder too.
+            $snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'
+            if ([System.IO.Directory]::Exists($snapshotCache)) {
+                foreach ($file in [System.IO.Directory]::GetFiles($snapshotCache, '*.json')) {
+                    Save-ResultCache -Path (Join-Path (Get-OutputRoot) "cache/$([System.IO.Path]::GetFileName($file))") -Cache (Get-ResultCache -Path $file)
+                }
+            }
+            if ($Location.KeepSandbox) {
+                Write-Message "Kept the snapshot for inspection (-KeepSandbox): $($Location.Snapshot.Path)"
+            }
+            else {
+                Remove-RepositorySnapshot $Location.Snapshot.Path
             }
         }
-        if ($Location.KeepSandbox) {
-            Write-Message "Kept the snapshot for inspection (-KeepSandbox): $($Location.Snapshot.Path)"
-        }
-        else {
-            Remove-RepositorySnapshot $Location.Snapshot.Path
+    }
+    finally {
+        if ($Location.PSObject.Properties['PythonEnvironment'] -and $Location.PythonEnvironment) {
+            foreach ($name in $Location.PythonEnvironment.Keys) {
+                [System.Environment]::SetEnvironmentVariable($name, $Location.PythonEnvironment[$name])
+            }
         }
     }
 }

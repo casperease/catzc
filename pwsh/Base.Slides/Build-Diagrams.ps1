@@ -94,6 +94,7 @@ function Build-Diagrams {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Build-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
         $uv = "`"$($tool.Path)`""
+        Assert-DiagramKitSynced
     }
 
     $render = $true
@@ -117,7 +118,7 @@ function Build-Diagrams {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the diagrams it is given; pass -Path.'
         foreach ($folderPath in $folders) {
             Assert-True ($declared -ccontains $folderPath) -ErrorText "Build-Diagrams: $folderPath has no declaration to sync (its .drawio.yml, or one ``yml drawio`` block above its image)."
-            $arguments = "run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) sync `"$folderPath`""
+            $arguments = "run --no-sync --project `"$($diagramKit.Folder)`" python -m $($diagramKit.DeclarationModule()) sync `"$folderPath`""
             $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
             if ($DryRun) {
@@ -152,7 +153,7 @@ function Build-Diagrams {
         if (-not $DryRun) {
             $null = Write-DiagramQueryRows -Stem $declared -RepositoryRoot $root -Path $rowsPath -Config $diagramKit.Config
         }
-        $arguments = "run --project `"$($diagramKit.Folder)`" python -m $($diagramKit.RendererModule()) --theme $Theme --workers $Workers --rows `"$rowsPath`" --all $quoted"
+        $arguments = "run --no-sync --project `"$($diagramKit.Folder)`" python -m $($diagramKit.RendererModule()) --theme $Theme --workers $Workers --rows `"$rowsPath`" --all $quoted"
         if ($DryRun) {
             Write-Message "Would run: uv $arguments"
         }
