@@ -20,7 +20,7 @@ One artifact is built once and climbs to production unchanged
 
 | Lens           | Article                                                                                                           |
 | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| meta           | [How one artifact climbs to production](one-artifact-climbs-unchanged.md)                                         |
+| meta           | [How one artifact climbs to production](how-one-artifact-climbs-to-production.md)                                         |
 | architecture   | [How CI, CD and DEPLOY pipelines link](how-ci-cd-and-deploy-pipelines-link.md)                                    |
 | implementation | [How the customer CD pipeline builds and deploys](how-the-customer-cd-pipeline-builds-and-deploys.md)             |
 | operations     | [How a merge to main reaches non-prod](how-a-merge-to-main-reaches-non-prod.md)                                   |
@@ -38,17 +38,17 @@ A pipeline step only names a command that a developer can run locally ([pipeline
 - **architecture**: [How pipeline YAML enters PowerShell](how-pipeline-yaml-enters-powershell.md)
 - **implementation**: [What the three pipeline tasks share](what-the-three-pipeline-tasks-share.md)
 - **operations**: [How an Azure DevOps step is named](how-an-azure-devops-step-is-named.md)
-- **governance**: [Which runner rules no gate checks](no-gate-checks-rules-one-and-four.md)
+- **governance**: [Which runner rules no gate checks](which-runner-rules-no-gate-checks.md)
 
 ## Globset layers
 
 Peers in a layer never share a file, except in the loose-fileset layer ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
 - **meta**: [Which globsets may share a file](which-globsets-may-share-a-file.md)
-- **architecture**: [Which globset layers are declared](two-declared-layers-one-derived.md)
-- **implementation**: [How the independence check pairs globsets](independence-check-groups-by-layer.md)
+- **architecture**: [Which globset layers are declared](which-globset-layers-are-declared.md)
+- **implementation**: [How the independence check pairs globsets](how-the-independence-check-pairs-globsets.md)
 - **operations**: [How a new unit or module folder is checked for overlap](how-a-new-unit-or-module-folder-is-checked-for-overlap.md)
-- **governance**: [Which globsets the overlap gate covers](overlap-gated-for-units-and-modules.md)
+- **governance**: [Which globsets the overlap gate covers](which-globsets-the-overlap-gate-covers.md)
 
 ## Globset roles
 
@@ -57,6 +57,6 @@ A globset is one ordered program, and its three views are derived live, never co
 
 - **meta**: [How the three views of a globset are derived](how-the-three-views-of-a-globset-are-derived.md)
 - **architecture**: [What the Globs module owns](what-the-globs-module-owns.md)
-- **implementation**: [What the scan program feeds](one-scan-program-feeds-three-roles.md)
+- **implementation**: [What the scan program feeds](what-the-scan-program-feeds.md)
 - **operations**: [How a globs.yml edit shows in the output](how-a-globs-yml-edit-shows-in-the-output.md)
 - **governance**: [What the globset gates check](what-the-globset-gates-check.md)

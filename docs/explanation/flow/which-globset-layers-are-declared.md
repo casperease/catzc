@@ -74,7 +74,7 @@ layout:
   g-leftovers: { x: 1000, y: 548, w: 240, h: 52 }
 ```
 
-![Which globset layers are declared](.assets/two-declared-layers-one-derived.drawio.png)
+![Which globset layers are declared](.assets/which-globset-layers-are-declared.drawio.png)
 
 ## Walkthrough
 

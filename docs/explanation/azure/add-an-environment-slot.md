@@ -79,6 +79,6 @@ layout:
 
 ## See also
 
-- [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
+- [Infrastructure code is of three kinds](what-kinds-of-infrastructure-code-exist.md) — the three kinds and their places.
 - [A config file's path is a coordinate](what-a-config-files-path-resolves-to.md) — how the coordinate resolves to one subscription.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

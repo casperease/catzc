@@ -62,7 +62,7 @@ layout:
 
 ![What a Bicep module change reaches][diagram]
 
-[diagram]: .assets/a-module-change-fans-out-to-its-templates.drawio.png
+[diagram]: .assets/what-a-bicep-module-change-reaches.drawio.png
 
 ## Walkthrough
 
@@ -81,6 +81,6 @@ layout:
 
 ## See also
 
-- [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
-- [Changing one configuration slot](change-one-configuration-slot.md) — the narrowest change, for contrast.
+- [Infrastructure code is of three kinds](what-kinds-of-infrastructure-code-exist.md) — the three kinds and their places.
+- [Changing one configuration slot](what-a-configuration-slot-change-reaches.md) — the narrowest change, for contrast.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

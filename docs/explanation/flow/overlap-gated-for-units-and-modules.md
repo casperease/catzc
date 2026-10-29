@@ -124,6 +124,6 @@ layout:
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains, with
   [test automation](../../drs/automation/test-automation.md), [one living version](../../drs/principles/one-living-version.md) and
   [protected globs](../../drs/repository/protected-globs.md).
-- The other lenses on the same layers: [meta](which-globsets-may-share-a-file.md), [architecture](two-declared-layers-one-derived.md),
+- The other lenses on the same layers: [meta](which-globsets-may-share-a-file.md), [architecture](which-globset-layers-are-declared.md),
   [implementation](independence-check-groups-by-layer.md) and [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -90,7 +90,7 @@ layout:
   g-rule: { x: 880, y: 410, w: 300, h: 84 }
 ```
 
-![Where the pipeline variables are read](.assets/two-variables-read-in-one-place.drawio.png)
+![Where the pipeline variables are read](.assets/where-the-pipeline-variables-are-read.drawio.png)
 
 ## Walkthrough
 

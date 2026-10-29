@@ -101,6 +101,6 @@ layout:
 
 ## See also
 
-- [Infrastructure code is of three kinds](three-kinds-of-infrastructure-code.md) — the three kinds and their places.
+- [Infrastructure code is of three kinds](what-kinds-of-infrastructure-code-exist.md) — the three kinds and their places.
 - [Add a configuration slot](add-an-environment-slot.md) — the next deployment of an existing template.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -82,7 +82,7 @@ The FDR describes one module set per folder. The code derives two aspect sets pe
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- The other lenses on the same layers: [architecture](two-declared-layers-one-derived.md),
+- The other lenses on the same layers: [architecture](which-globset-layers-are-declared.md),
   [implementation](independence-check-groups-by-layer.md), [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md) and
   [governance](overlap-gated-for-units-and-modules.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

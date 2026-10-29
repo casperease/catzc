@@ -70,7 +70,7 @@ layout:
 
 ![What kinds of infrastructure code exist][diagram]
 
-[diagram]: .assets/three-kinds-of-infrastructure-code.drawio.png
+[diagram]: .assets/what-kinds-of-infrastructure-code-exist.drawio.png
 
 ## Walkthrough
 
@@ -96,7 +96,7 @@ layout:
 ## See also
 
 - [Infrastructure kinds](../../drs/azure/infrastructure-kinds.md) — the decision this article explains.
-- What a change to each kind reaches: [change one configuration slot](change-one-configuration-slot.md),
-  [a module change fans out to its templates](a-module-change-fans-out-to-its-templates.md), [add a template](add-a-template.md) and
+- What a change to each kind reaches: [change one configuration slot](what-a-configuration-slot-change-reaches.md),
+  [a module change fans out to its templates](what-a-bicep-module-change-reaches.md), [add a template](add-a-template.md) and
   [add a configuration slot](add-an-environment-slot.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
