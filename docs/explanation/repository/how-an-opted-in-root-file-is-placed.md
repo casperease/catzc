@@ -88,7 +88,7 @@ layout:
   r-headed: { x: 1110, y: 346, w: 160, h: 44 }
 ```
 
-![How an opted-in root file is placed](.assets/opted-in-then-link-copy-or-render.drawio.png)
+![How an opted-in root file is placed](.assets/how-an-opted-in-root-file-is-placed.drawio.png)
 
 ## Walkthrough
 
@@ -133,4 +133,4 @@ layout:
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
   [architecture](one-registry-one-writer-two-primitives.md), [operations](import-materialises-two-gates-name-the-fix.md) and
-  [governance](three-gates-check-registry-drift-membership.md).
+  [governance](what-checks-the-root-config-registry.md).

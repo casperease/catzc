@@ -122,5 +122,5 @@ layout:
 - [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the declaration the edges live in.
 - The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
   [implementation](five-keys-one-reader-twelve-primitives.md), [operations](an-edit-lands-at-the-next-import.md) and
-  [governance](values-and-edges-gated-reads-reviewed.md).
+  [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

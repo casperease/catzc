@@ -82,7 +82,7 @@ layout:
 
 ![Which variant rules have a quality gate][diagram]
 
-[diagram]: .assets/values-and-edges-gated-reads-reviewed.drawio.png
+[diagram]: .assets/which-variant-rules-have-a-quality-gate.drawio.png
 
 ## Walkthrough
 

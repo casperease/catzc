@@ -109,6 +109,6 @@ layout:
 
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
-  [implementation](opted-in-then-link-copy-or-render.md), [operations](import-materialises-two-gates-name-the-fix.md) and
-  [governance](three-gates-check-registry-drift-membership.md).
+  [implementation](how-an-opted-in-root-file-is-placed.md), [operations](import-materialises-two-gates-name-the-fix.md) and
+  [governance](what-checks-the-root-config-registry.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

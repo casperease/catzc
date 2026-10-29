@@ -108,7 +108,7 @@ layout:
 
 ![What checks the root config registry][diagram]
 
-[diagram]: .assets/three-gates-check-registry-drift-membership.drawio.png
+[diagram]: .assets/what-checks-the-root-config-registry.drawio.png
 
 ## Walkthrough
 
@@ -158,6 +158,6 @@ compares the `source` copies with their templates but no generator's output, and
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - [Test automation](../../drs/automation/test-automation.md) — the quality-gate rule the two gates follow.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
-  [architecture](one-registry-one-writer-two-primitives.md), [implementation](opted-in-then-link-copy-or-render.md) and
+  [architecture](one-registry-one-writer-two-primitives.md), [implementation](how-an-opted-in-root-file-is-placed.md) and
   [operations](import-materialises-two-gates-name-the-fix.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

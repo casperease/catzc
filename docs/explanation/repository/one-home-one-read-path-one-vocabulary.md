@@ -94,5 +94,5 @@ straight off the loaded variants config instead of through `Get-Variant`, so the
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
 - The other lenses on the same diagram: [architecture](a-base-module-between-config-and-its-callers.md),
   [implementation](five-keys-one-reader-twelve-primitives.md), [operations](an-edit-lands-at-the-next-import.md) and
-  [governance](values-and-edges-gated-reads-reviewed.md).
+  [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
