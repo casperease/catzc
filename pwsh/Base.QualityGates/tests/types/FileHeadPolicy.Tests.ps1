@@ -55,14 +55,13 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
             Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
     }
 
-    It 'ships the policy the rule names: agents forbidden, capabilities and slides config, diagram declarations forbidden, the rest facts' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+    It 'ships the policy the rule names: agents forbidden, capabilities config, diagram declarations forbidden, the rest facts' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $shipped = Get-Config -Config file-meta
         $shipped.head_policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
         @($shipped.ImprintKeys()) |
             Should -BeNullOrEmpty -Because 'an authored file carries no head: its comment page is derived on demand, never imprinted'
         $shipped.PolicyFor('agent') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
-        $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('diagram-declaration') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         foreach ($class in 'function', 'type', 'config', 'test', 'record', 'reference', 'index', 'glossary') {
             $shipped.PolicyFor($class) |

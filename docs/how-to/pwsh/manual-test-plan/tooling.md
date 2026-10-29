@@ -18,6 +18,8 @@ check.
 | 9   | L1   | [Get-Inspiration over the shipped inspiration.yml][c9]      |
 | 10  | L1   | [Catzc.Tooling.Listen over the shipped configs][c10]        |
 | 11  | L1   | [Invoke-ExecutableParallel — the shipped throttle][c11]     |
+| 12  | L2   | [Get-GitCommitTree — the real repository][c12]              |
+| 13  | L2   | [Get-GitBlobText — the real repository][c13]                |
 
 [c1]: #1-integrity-shipped-toolsyml--toolsconfig
 [c2]: #2-shipped-toolsyml-generic-invariant
@@ -30,6 +32,8 @@ check.
 [c9]: #9-get-inspiration-over-the-shipped-inspirationyml
 [c10]: #10-catzctoolinglisten-over-the-shipped-configs
 [c11]: #11-invoke-executableparallel--the-shipped-throttle
+[c12]: #12-get-gitcommittree--the-real-repository
+[c13]: #13-get-gitblobtext--the-real-repository
 
 ## Checks
 
@@ -135,3 +139,27 @@ WindowsApps bash.exe).
 `Invoke-ExecutableParallel — the shipped throttle`.
 
 **Guards:** The default throttle is read from the shipped timeouts config: four processes unless the file says otherwise.
+
+### 12. Get-GitCommitTree — the real repository
+
+**Test file:** `pwsh/Base.Files/tests/Get-GitCommitTree.Tests.ps1` (L2), block `Get-GitCommitTree — the real repository`.
+
+**Guards:** the in-process commit tree reader lists exactly the paths `git ls-tree` lists for `HEAD`.
+
+**Checks:**
+
+- The paths `Get-GitCommitTree` returns equal, in order, the paths of `git ls-tree -r --name-only -z HEAD`.
+
+**Prerequisite:** git.
+
+### 13. Get-GitBlobText — the real repository
+
+**Test file:** `pwsh/Base.Files/tests/Get-GitBlobText.Tests.ps1` (L2), block `Get-GitBlobText — the real repository`.
+
+**Guards:** the in-process blob reader returns a committed file's text as `git cat-file blob` prints it.
+
+**Checks:**
+
+- The text of the committed `importer.ps1` blob, end of line trimmed, equals the output of `git cat-file blob`.
+
+**Prerequisite:** git.
