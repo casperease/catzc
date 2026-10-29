@@ -62,6 +62,20 @@ content:
     - { from: res-form, to: st-home, kind: flow, label: in }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
+layout:
+  band-constraints: { x: 20, y: 117, w: 1260, h: 327 }
+  grp-unordered: { x: 40, y: 165, w: 150, h: 110 }
+  grp-migration: { x: 230, y: 157, w: 415, h: 127 }
+  grp-form: { x: 780, y: 169, w: 340, h: 102 }
+  grp-constraints: { x: 40, y: 321, w: 510, h: 102 }
+  f-fragment: { x: 60, y: 204, w: 110, h: 52 }
+  r-migration: { x: 250, y: 208, w: 130, h: 44 }
+  gt-fixed: { x: 422, y: 197, w: 203, h: 70 }
+  res-form: { x: 800, y: 208, w: 130, h: 44 }
+  st-home: { x: 970, y: 208, w: 130, h: 44 }
+  st-defaults: { x: 60, y: 360, w: 130, h: 44 }
+  st-bundle: { x: 230, y: 360, w: 130, h: 44 }
+  st-configs: { x: 400, y: 360, w: 130, h: 44 }
 ```
 
 ![When a file may leave the unordered track](.assets/when-a-file-may-leave-the-unordered-track.drawio.png)

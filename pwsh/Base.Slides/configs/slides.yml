@@ -4,7 +4,6 @@ kit: python/diagrams/assets/slides
 # The pictures whose naming of the system is a contrast or the thing itself, each with why.
 name_mentions:
   docs/explanation/repository/.assets/how-the-contract-reference-is-built: the catzc contract unit is one of the units drawn
-  docs/explanation/thesis/product-thesis/.assets/truth-stores: the system itself is a node among the stores it holds
   docs/explanation/automation/.assets/how-a-bundle-is-built-and-placed: the bundle is named Catzc in what the build prints
   docs/explanation/design/.assets/how-a-sibling-project-is-used: catzc is drawn against its sibling
   docs/explanation/design/.assets/how-deploy-bicep-hands-work-to-az: the CATZC platform band is drawn against AZURE
@@ -13,7 +12,3 @@ name_mentions:
   docs/explanation/design/.assets/which-gates-guard-the-az-boundary: the CATZC platform band is drawn against AZURE
   docs/explanation/design/.assets/which-entry-script-each-run-mode-uses: Import-Module Catzc names the bundle module
   docs/explanation/thesis/.assets/when-a-file-may-leave-the-unordered-track: the catzc bundle is the thing the normal form is drawn against
-  docs/explanation/thesis/product-thesis/cover.slide.md: the cover names the product
-  docs/explanation/thesis/product-thesis/product.slide.md: the slide names the product
-  docs/explanation/thesis/product-thesis/pokayoke.slide.md: cats is drawn against jidoka
-  docs/explanation/thesis/product-thesis/problem.slide.md: the slide quotes TDR-ONETRUTH-ONESTOREDECIDES as the registry holds it

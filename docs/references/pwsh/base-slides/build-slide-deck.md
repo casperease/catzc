@@ -20,7 +20,7 @@ publishing the project tree to the artifact is a step a person takes after readi
 
 ### parameter `Deck`
 
-The deck folder, repository-relative, such as docs/explanation/thesis/product-thesis.
+The deck folder, repository-relative, such as docs/explanation/<area>/<deck>.
 
 ### parameter `Kit`
 
@@ -50,13 +50,13 @@ Return the result, with the faults, instead of only the files and the summary li
 ### example 1
 
 ```powershell
-Build-SlideDeck docs/explanation/thesis/product-thesis
+Build-SlideDeck docs/explanation/<area>/<deck>
 ```
 
 ### example 2
 
 ```powershell
-$result = Build-SlideDeck docs/explanation/thesis/product-thesis -PassThru; $result.Faults
+$result = Build-SlideDeck docs/explanation/<area>/<deck> -PassThru; $result.Faults
 ```
 
 ## Output folder

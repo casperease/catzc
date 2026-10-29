@@ -70,7 +70,7 @@ content:
     - { at: r-main-stage, number: 6 }
     - { at: r-deploy, number: 7 }
   chips:
-    - { at: r-deploy, kind: count, text: "6" }
+    - { at: r-deploy, kind: count, text: "×6" }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:

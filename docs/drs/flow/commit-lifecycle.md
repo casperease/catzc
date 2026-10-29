@@ -352,11 +352,11 @@ layout:
   band-consumers: { x: 20, y: 84, w: 300, h: 380 }
   band-server: { x: 340, y: 84, w: 540, h: 380 }
   band-uat: { x: 900, y: 84, w: 380, h: 380 }
-  g-integrator: { x: 90, y: 250, w: 160, h: 52 }
+  g-integrator: { x: 90, y: 330, w: 160, h: 52 }
   c-verified: { x: 480, y: 150, w: 260, h: 44 }
-  c-tip: { x: 480, y: 360, w: 260, h: 44 }
+  c-tip: { x: 480, y: 400, w: 260, h: 44 }
   e-main-uat: { x: 960, y: 140, w: 260, h: 72 }
-  c-occupant: { x: 1130, y: 162, w: 80, h: 28 }
+  c-occupant: { x: 1100, y: 162, w: 80, h: 28 }
 ```
 
 ![Where upstream consumers sync from](.assets/sync-point.drawio.png)

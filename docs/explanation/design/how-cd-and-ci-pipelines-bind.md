@@ -58,7 +58,7 @@ content:
     - { at: s-units, number: 5 }
     - { at: r-cd, number: 6 }
   chips:
-    - { at: r-cd, kind: count, text: "4" }
+    - { at: r-cd, kind: count, text: "×4" }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -67,8 +67,8 @@ layout:
   band-pipelines: { x: 880, y: 84, w: 400, h: 360 }
   s-automation: { x: 40, y: 130, w: 240, h: 56 }
   s-infrastructure: { x: 40, y: 250, w: 240, h: 156 }
-  s-base: { x: 340, y: 380, w: 220, h: 56 }
-  s-units: { x: 620, y: 380, w: 220, h: 56 }
+  s-base: { x: 370, y: 380, w: 190, h: 56 }
+  s-units: { x: 650, y: 380, w: 190, h: 56 }
   r-ci-automation: { x: 960, y: 130, w: 240, h: 56 }
   r-ci-infrastructure: { x: 960, y: 300, w: 240, h: 56 }
   r-cd: { x: 960, y: 380, w: 240, h: 56 }

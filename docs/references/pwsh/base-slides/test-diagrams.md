@@ -56,7 +56,7 @@ Test-Diagrams
 ### example 2
 
 ```powershell
-Test-Diagrams -Path docs/explanation/thesis/.assets/product-thesis
+Test-Diagrams -Path docs/explanation/thesis/.assets/where-truth-comes-from
 ```
 
 ## The kit's rows

@@ -379,6 +379,10 @@ def place_marks(frame, delta):
             s, t = m["at"].split("->")
             via = next(([[x, y + delta] for x, y in e.get("via", [])] for e in content["edges"] if (e["from"], e["to"]) == (s, t)), [])
             mx, my = edge_middle(box_of[s], box_of[t], via)
+            # The line's pill or word holds its middle, so the marker steps beside it, nearest first, until its room is free.
+            steps = [(0, 0)] + [(dx * n, dy * n) for n in (16, 24, 32) for dx, dy in ((1, 0), (-1, 0), (0, -1), (0, 1))]
+            mx, my = next(((mx + dx, my + dy) for dx, dy in steps if free((mx + dx - 11, my + dy - 11, size[0], size[1]))), (mx, my))
+            taken.append((mx - 11, my - 11, size[0], size[1]))
             cells.append(
                 cell(
                     f"mark-{m['number']}",

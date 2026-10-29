@@ -79,20 +79,32 @@ function Invoke-PythonTest {
     if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot '.venv/pyvenv.cfg') -PathType Leaf)) {
         throw "$pythonRelative/.venv is not synced, and a test run never syncs it; sync it once with: Install-PythonWorkspace"
     }
-    # A strict editable install links files one by one, so a new module has no link until its package is reinstalled.
+    # A strict editable install links files one by one, so a new module has no link until its package is reinstalled, and an edit that
+    # replaces a file breaks its link: the installed copy keeps the old content while the tests read it.
     $memberRoot = Split-Path -Parent (Join-Path $root $member[0])
     $buildCopy = @(Get-Item -Path (Join-Path $memberRoot 'build/__editable__.*') -ErrorAction Ignore).Where({ $_.PSIsContainer }, 'First')
     if ($buildCopy) {
-        $linked = [System.Collections.Generic.HashSet[string]]::new(
-            [string[]]@(Get-ChildPath $buildCopy[0].FullName -File -Filter '*.py' -Depth 5 -Exclude @() -PruneVendor $false |
-                    ForEach-Object { [System.IO.Path]::GetFileName($_) }))
-        $unlinked = @(Get-ChildPath $memberRoot -File -Filter '*.py' -Depth 1 -Exclude @() -PruneVendor $false |
-                ForEach-Object { [System.IO.Path]::GetFileName($_) }).Where({ -not $linked.Contains($_) })
+        $linked = [System.Collections.Generic.Dictionary[string, string]]::new()
+        foreach ($copy in @(Get-ChildPath $buildCopy[0].FullName -File -Filter '*.py' -Depth 5 -Exclude @() -PruneVendor $false)) {
+            $linked[[System.IO.Path]::GetFileName($copy)] = $copy
+        }
+        $sources = @(Get-ChildPath $memberRoot -File -Filter '*.py' -Depth 1 -Exclude @() -PruneVendor $false)
+        $unlinked = @($sources.Where({ -not $linked.ContainsKey([System.IO.Path]::GetFileName($_)) }) |
+                ForEach-Object { [System.IO.Path]::GetFileName($_) })
+        $stale = @($sources.Where({
+                    $copy = $null
+                    $linked.TryGetValue([System.IO.Path]::GetFileName($_), [ref] $copy) -and
+                    -not [System.Linq.Enumerable]::SequenceEqual([System.IO.File]::ReadAllBytes($_), [System.IO.File]::ReadAllBytes($copy))
+                }) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
         $package = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $memberRoot 'pyproject.toml')),
             '(?m)^name\s*=\s*"([^"]+)"').Groups[1].Value
         if ($unlinked.Count -and $package) {
             throw ("$($unlinked[0]) in $relative/ has no link in the installed $package, and a test run never reinstalls it; " +
                 "relink it with: Install-PythonWorkspace -ReinstallPackage $package")
+        }
+        if ($stale.Count -and $package) {
+            throw ("$($stale[0]) in $relative/ differs from its installed copy in $package (an edit replaced the file and broke its link), " +
+                "and a test run never reinstalls it; relink it with: Install-PythonWorkspace -ReinstallPackage $package")
         }
     }
 

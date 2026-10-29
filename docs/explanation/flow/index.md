@@ -27,9 +27,6 @@ One artifact is built once and climbs to production unchanged
 | governance     | [What the quality gate checks on the way to production](what-the-quality-gate-checks-on-the-way-to-production.md) |
 | flow           | [A pwsh commit runs CI, is certified by CD, and deploy climbs the gated rungs](ci-pwsh-to-deploy-apex.md)         |
 
-The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual-queues.md)), in ten slides:
-[The manual queues of the promotion ladder, in ten slides](manual-queues-slides.md).
-
 ## The pipeline runner
 
 A pipeline step only names a command that a developer can run locally ([pipeline-runner-pattern](../../drs/ado/pipeline-runner-pattern.md)).

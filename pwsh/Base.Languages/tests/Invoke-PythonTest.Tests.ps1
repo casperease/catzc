@@ -147,6 +147,22 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $script:seen.Count | Should -Be 2
         }
 
+        It 'throws naming the relink command, running nothing, when a linked module differs from its installed copy' {
+            $kit = Join-Path $script:pythonRoot 'gizmos'
+            $null = New-Item -ItemType Directory -Path (Join-Path $kit 'tests') -Force
+            Set-Content -LiteralPath (Join-Path $kit 'pyproject.toml') -Value "[project]`nname = `"widget-gizmos`""
+            $linked = Join-Path $kit 'build/__editable__.widget_gizmos-0.0.0-py3-none-any/widget/gizmos'
+            $null = New-Item -ItemType Directory -Path $linked -Force
+            Set-Content -LiteralPath (Join-Path $kit 'cog.py') -Value 'turns = 1'
+            Set-Content -LiteralPath (Join-Path $linked 'cog.py') -Value 'turns = 1'
+            $null = Invoke-PythonTest gizmos
+            $script:seen.Count | Should -Be 2
+            Set-Content -LiteralPath (Join-Path $kit 'cog.py') -Value 'turns = 2'
+            { Invoke-PythonTest gizmos } |
+                Should -Throw '*cog.py*differs from its installed copy*Install-PythonWorkspace -ReinstallPackage widget-gizmos*'
+            $script:seen.Count | Should -Be 2
+        }
+
         It 'throws naming the sync command, running nothing, when the workspace environment is missing' {
             $bare = Join-Path $TestDrive 'bare-repo'
             $null = New-Item -ItemType Directory -Path (Join-Path $bare 'python/tests/widget') -Force

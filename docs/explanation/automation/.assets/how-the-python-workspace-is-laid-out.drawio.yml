@@ -36,13 +36,6 @@ content:
       says: The root file is a known file kind
       proves: { get_path_file_type: { path: python/pyproject.toml } }
       after: effect-root
-    - id: effect-language
-      zone: 2
-      where: local
-      show: words
-      says: The member file belongs to the Python language
-      proves: { get_file_language: { path: python/diagrams/pyproject.toml } }
-      after: effect-member
     - id: effect-drift
       zone: 2
       where: local
@@ -50,6 +43,13 @@ content:
       says: Test-GeneratedFiles sees no drift for the root configs
       proves: { test_generated_files: { generator: Build-RootConfig } }
       after: effect-root
+    - id: effect-language
+      zone: 2
+      where: local
+      show: words
+      says: The member file belongs to the Python language
+      proves: { get_file_language: { path: python/diagrams/pyproject.toml } }
+      after: effect-member
     - id: effect-types
       zone: 2
       where: local

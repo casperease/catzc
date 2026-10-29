@@ -42,18 +42,6 @@ themselves are deleted once those are kept.
 
 ## Open steps
 
-- [ ] `pwsh/Base.Languages/Invoke-PythonTest.ps1`: a strict editable install's link whose content differs from its source (an edit that
-      replaced the file broke the hardlink, so tests and renders run the stale copy) throws naming the relink command, as a missing link
-      does today (check: `Invoke-TestFile -Path pwsh/Base.Languages/tests/Invoke-PythonTest.Tests.ps1`, with a case for a broken link).
-- [ ] `out/diagram-findings.md`: one haiku round over what it lists as unchecked (rows and titles on its lines 181-570), batches of 10,
-      skipping every slide-only rendering, each finding fixed by cause as above (check: a per-diagram list per batch, and `Test-Diagrams`
-      clean over the tree).
-- [ ] `pwsh/Base.Slides`: the diagram and slide commands proven working: each command's own test file green, then one deck built end to end
-      with `Build-SlideDeck` and its pages looked at (check: `Invoke-TestFile` on each of `Build-Diagrams`, `Build-SlideDeck`,
-      `Test-Diagrams`, `Test-Slides` tests, and `Test-Slides` clean on that deck).
-- [ ] `docs/references/slides/slide-style-and-ideas.md`: written from a read of every deck, one deck at a time, the text read and the
-      slides' layout looked at, their special diagram renderings taken as bad; style and ideas each name their source deck (check:
-      `Test-Links` and `Test-Spelling` clean on the page, and every one of the 13 decks named in it).
 - [ ] The 13 decks deleted from disk: every `.slide.md`, each deck's index and build output, and every special rendering a slide owns (each
       `.drawio.png`/`.drawio.yml` only a slide uses); a diagram an article embeds stays (check: `git ls-files '*.slide.md'` lists none after
       the user commits, `Test-Links` and `Test-Diagrams` clean over `docs`).

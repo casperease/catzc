@@ -71,8 +71,8 @@ layout:
   s-foundation: { x: 60, y: 430, w: 540, h: 56 }
   r-automation: { x: 760, y: 180, w: 260, h: 56 }
   r-infrastructure: { x: 760, y: 260, w: 260, h: 56 }
-  r-unit: { x: 760, y: 340, w: 220, h: 56 }
-  r-extends: { x: 1020, y: 340, w: 240, h: 56 }
+  r-unit: { x: 760, y: 340, w: 200, h: 56 }
+  r-extends: { x: 1060, y: 340, w: 200, h: 56 }
 ```
 
 ![How a glob set binds to its pipeline](.assets/how-a-glob-set-binds-to-its-pipeline.drawio.png)

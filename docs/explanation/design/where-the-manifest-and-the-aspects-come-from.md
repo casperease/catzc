@@ -39,7 +39,7 @@ content:
     - { id: band-sets, label: DERIVED SETS }
   glyphs:
     - { id: g-root, kind: code, label: pwsh/<Module>/, in: band-root }
-    - { id: g-assert-unique, kind: gate, label: Assert-Unique...FunctionName, in: band-import }
+    - { id: g-assert-unique, kind: gate, label: Assert-Unique ModuleFunctionName, in: band-import }
     - { id: g-manifest, kind: code, label: New-DynamicManifest, in: band-import }
     - { id: g-psd1, kind: file, label: <Module>.psd1, in: band-import }
     - { id: g-languages, kind: file, label: languages.yml, in: band-sets }

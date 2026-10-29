@@ -6,7 +6,7 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 
 
 import pytest
-from catzc.diagrams import declaration, declaration_sync
+from catzc.diagrams import declaration, declaration_place, declaration_routes, declaration_sync
 from conftest import WIDGETS, claimed, committed_pair
 
 
@@ -178,6 +178,18 @@ def test_a_marker_on_a_routed_edge_sits_halfway_along_its_waypoints_and_comes_ba
     s, g = cells["gadget-store"], cells["gadget-gate"]
     straight = round((s["x"] + s["w"] / 2 + g["x"] + g["w"] / 2) / 2 - 11), round((s["y"] + s["h"] / 2 + g["y"] + g["h"] / 2) / 2 - 11)
     assert (cells["mark-1"]["x"], cells["mark-1"]["y"]) != straight
+    back = declaration.get(declaration.put(first), kind="explanation")
+    assert back["content"]["markers"] == first["content"]["markers"]
+
+
+def test_a_marker_on_an_edge_with_a_pill_steps_beside_the_pill_and_still_comes_back_on_its_edge():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["markers"] = [{"at": "widget-a->gadget-store", "number": 2}]  # the edge carries the pill "writes"
+    first = declaration.normalise(raw)
+    cells = {c["id"]: c for c in declaration.place(first)[0]}
+    pill = next(r["pill"] for r in declaration_place.LAST_ROUTES if (r["from"], r["to"]) == ("widget-a", "gadget-store"))
+    mark = cells["mark-2"]
+    assert pill and not declaration_routes.overlaps((mark["x"], mark["y"], mark["w"], mark["h"]), pill, 0)
     back = declaration.get(declaration.put(first), kind="explanation")
     assert back["content"]["markers"] == first["content"]["markers"]
 

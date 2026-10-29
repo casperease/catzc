@@ -69,8 +69,8 @@ layout:
   band-detection: { x: 20, y: 108, w: 1260, h: 130 }
   band-consumers: { x: 20, y: 258, w: 1260, h: 130 }
   band-enforcement: { x: 20, y: 408, w: 1260, h: 140 }
-  g-detector: { x: 500, y: 150, w: 220, h: 44 }
-  g-hook: { x: 780, y: 150, w: 190, h: 44 }
+  g-detector: { x: 480, y: 150, w: 290, h: 44 }
+  g-hook: { x: 820, y: 150, w: 190, h: 44 }
   s-consumers: { x: 100, y: 300, w: 460, h: 44 }
   g-analyzer: { x: 100, y: 440, w: 300, h: 84 }
   g-test: { x: 450, y: 440, w: 320, h: 84 }

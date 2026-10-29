@@ -55,8 +55,8 @@ content:
     - { from: g-release, to: g-push, kind: flow, label: reads }
     - { from: g-push, to: g-deploy-topic, kind: record, label: "" }
     - { from: g-push, to: g-complete, kind: flow, label: "" }
-    - { from: g-cd-run, to: g-complete, kind: flow, label: reads }
     - { from: g-cd-run, to: g-environment, kind: flow, label: "" }
+    - { from: g-cd-run, to: g-complete, kind: flow, label: reads }
   markers:
     - { at: g-push, number: 1 }
     - { at: g-pr-build, number: 2 }
@@ -69,15 +69,15 @@ content:
 layout:
   band-topic: { x: 20, y: 108, w: 190, h: 380 }
   band-out-of-band: { x: 230, y: 108, w: 420, h: 380 }
-  band-main: { x: 670, y: 108, w: 200, h: 380 }
-  band-after: { x: 890, y: 108, w: 390, h: 380 }
+  band-main: { x: 670, y: 108, w: 170, h: 380 }
+  band-after: { x: 860, y: 108, w: 420, h: 380 }
   g-push: { x: 36, y: 330, w: 158, h: 48 }
   g-pr-build: { x: 340, y: 200, w: 240, h: 44 }
   g-release: { x: 380, y: 270, w: 240, h: 44 }
   g-deploy-topic: { x: 260, y: 430, w: 200, h: 44 }
-  g-complete: { x: 690, y: 330, w: 160, h: 48 }
-  g-cd-run: { x: 910, y: 332, w: 140, h: 44 }
-  g-environment: { x: 1080, y: 320, w: 180, h: 68 }
+  g-complete: { x: 685, y: 330, w: 140, h: 48 }
+  g-cd-run: { x: 912, y: 332, w: 112, h: 44 }
+  g-environment: { x: 1100, y: 320, w: 170, h: 68 }
 ```
 
 ![What triggers a deploy](.assets/what-triggers-a-deploy.drawio.png)

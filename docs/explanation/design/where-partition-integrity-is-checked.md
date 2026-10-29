@@ -53,7 +53,7 @@ content:
     - { id: g-root, kind: code, label: pwsh/<Module>/, in: band-folder }
     - { id: g-source-conventions, kind: gate, label: Test-SourceConventions, in: band-folder }
     - { id: g-folder-conventions, kind: gate, label: Test-FolderConventions, in: band-folder }
-    - { id: g-assert-unique, kind: gate, label: Assert-Unique...FunctionName, in: band-visibility }
+    - { id: g-assert-unique, kind: gate, label: Assert-Unique ModuleFunctionName, in: band-visibility }
     - { id: g-manifest, kind: code, label: New-DynamicManifest, in: band-visibility }
     - { id: g-variants-config, kind: gate, label: VariantsConfig, in: band-aspect }
     - { id: g-validate, kind: drsonly, label: AspectPartition.Validate, in: band-aspect }

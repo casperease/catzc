@@ -67,17 +67,17 @@ content:
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-source: { x: 20, y: 84, w: 200, h: 300 }
-  band-build: { x: 240, y: 84, w: 520, h: 300 }
-  band-bundle: { x: 780, y: 84, w: 190, h: 300 }
-  band-targets: { x: 990, y: 84, w: 290, h: 300 }
+  band-build: { x: 240, y: 84, w: 560, h: 300 }
+  band-bundle: { x: 820, y: 84, w: 190, h: 300 }
+  band-targets: { x: 1030, y: 84, w: 250, h: 300 }
   g-config: { x: 40, y: 190, w: 160, h: 52 }
-  g-build: { x: 260, y: 190, w: 130, h: 44 }
-  g-engine: { x: 410, y: 190, w: 150, h: 44 }
-  g-assert: { x: 580, y: 178, w: 160, h: 68 }
-  r-folder: { x: 800, y: 300, w: 150, h: 44 }
-  grp-targets: { x: 1010, y: 130, w: 250, h: 190 }
-  g-install: { x: 1030, y: 176, w: 210, h: 44 }
-  g-package: { x: 1030, y: 246, w: 210, h: 44 }
+  g-build: { x: 260, y: 190, w: 120, h: 44 }
+  g-engine: { x: 450, y: 190, w: 150, h: 44 }
+  g-assert: { x: 620, y: 178, w: 160, h: 68 }
+  r-folder: { x: 840, y: 300, w: 150, h: 44 }
+  grp-targets: { x: 1045, y: 130, w: 220, h: 190 }
+  g-install: { x: 1060, y: 176, w: 190, h: 44 }
+  g-package: { x: 1060, y: 246, w: 190, h: 44 }
 ```
 
 ![What Build-Modules leaves behind](.assets/what-build-modules-leaves-behind.drawio.png)

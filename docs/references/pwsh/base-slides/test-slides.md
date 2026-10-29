@@ -51,5 +51,5 @@ Test-Slides
 ### example 2
 
 ```powershell
-Test-Slides -Path docs/explanation/thesis/product-thesis
+Test-Slides -Path docs/explanation/<area>/<deck>
 ```
