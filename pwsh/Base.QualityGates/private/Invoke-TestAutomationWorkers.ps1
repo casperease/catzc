@@ -170,6 +170,8 @@ function Invoke-TestAutomationWorkers {
 
     # Parallel and greedy share one pool and timeline; only the serial phase carries an offset.
     $pooled = @($shards) + @($greedyShards)
+    $poolStartMs = $stopwatch.ElapsedMilliseconds
+    $poolEndMs = $poolStartMs
     if ($pooled.Count -gt 0) {
         # One pool: the parallel shards first, then each greedy file in the first slot a shard frees, under its caps.
         $caps = [string[][]] @(@(foreach ($shard in $shards) {
@@ -184,6 +186,7 @@ function Invoke-TestAutomationWorkers {
                 $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false))
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)
+        $poolEndMs = $stopwatch.ElapsedMilliseconds
     }
 
     # The serial phase runs last and alone: its files mutate shared state.
@@ -203,6 +206,7 @@ function Invoke-TestAutomationWorkers {
     $failedShardLabels = [System.Collections.Generic.List[string]]::new()
     $shardExitCodes = [ordered]@{}
     $workerSummaries = [System.Collections.Generic.List[object]]::new()
+    $shardTimings = [System.Collections.Generic.List[object]]::new()
     for ($shardIndex = 0; $shardIndex -lt $allShards.Count; $shardIndex++) {
         $shard = $allShards[$shardIndex]
         $workerResult = $workerResults[$shardIndex]
@@ -241,6 +245,20 @@ function Invoke-TestAutomationWorkers {
         else {
             0
         }
+        # Offsets on the run's stopwatch (prewarm included): the pool's workers count from the pool's start.
+        $timelineBaseMs = if ($isSerial) {
+            $serialPhaseOffsetMs
+        }
+        else {
+            $poolStartMs
+        }
+        $shardStartMs = $timelineBaseMs + $workerResult.StartOffsetMs
+        $shardTimings.Add([ordered]@{
+                label        = $shard.Label
+                startSeconds = [math]::Round($shardStartMs / 1000, 2)
+                endSeconds   = [math]::Round(($shardStartMs + $workerResult.DurationMs) / 1000, 2)
+                files        = $shardFileCounts[$shard.Label]
+            })
         $label = if ($isSerial) {
             "$($shard.Label) (serial)"
         }
@@ -263,29 +281,8 @@ function Invoke-TestAutomationWorkers {
             })
     }
 
-    # Each file's duration feeds the next run's dealing; a shard without its sidecar adds nothing.
-    $measured = @{}
-    $fileEntries = [System.Collections.Generic.List[object]]::new()
-    foreach ($shard in $allShards) {
-        if ([System.IO.File]::Exists($shard.FilesPath)) {
-            $shardEntries = @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
-            $shardSource = if ($greedyShardFile.ContainsKey($shard.Label) -and $shardEntries.Count -eq 1) {
-                Convert-TestRunLocationPath -Location $Location -Path $greedyShardFile[$shard.Label] -ToSource
-            }
-            else {
-                ''
-            }
-            foreach ($entry in $shardEntries) {
-                $source = Convert-TestRunLocationPath -Location $Location -Path $entry.File -ToSource
-                $measured[(Get-TestDurationKey -File $source -ShardFile $shardSource -RepositoryRoot $repositoryRoot)] = $entry.DurationMs
-                $entry.File = $source
-                $fileEntries.Add($entry)
-            }
-        }
-    }
-    if ($measured.Count -gt 0) {
-        Save-TestDurationHistory -Path $historyPath -DurationMs $measured
-    }
+    $fileEntries = Save-TestShardDurations -Shard @($allShards) -GreedyShardFile $greedyShardFile -Location $Location `
+        -RepositoryRoot $repositoryRoot -HistoryPath $historyPath
 
     [pscustomobject]@{
         Rows              = @($rows)
@@ -294,6 +291,9 @@ function Invoke-TestAutomationWorkers {
         ShardExitCodes    = $shardExitCodes
         Shards            = @($allShards)
         WorkerSummaries   = @($workerSummaries)
+        ShardTimings      = @($shardTimings)
+        PoolStartSeconds  = $poolStartMs / 1000
+        PoolEndSeconds    = $poolEndMs / 1000
         DurationSeconds   = $stopwatch.Elapsed.TotalSeconds
         Location          = $Location
     }
