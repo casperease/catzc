@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: cc6a7907e1c7",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: b1ba9ffd9747",
   "types": [
     {
       "name": "Catzc.Base.QualityGates.AnalyzerDrsMapConfig",
@@ -1164,6 +1164,10 @@
       "display": [],
       "members": [
         {
+          "name": "ProcessIds",
+          "kind": "property"
+        },
+        {
           "name": "Results",
           "kind": "property"
         },
@@ -1172,7 +1176,19 @@
           "kind": "method"
         },
         {
+          "name": "Start",
+          "kind": "method"
+        },
+        {
+          "name": "Stop",
+          "kind": "method"
+        },
+        {
           "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "Wait",
           "kind": "method"
         }
       ]

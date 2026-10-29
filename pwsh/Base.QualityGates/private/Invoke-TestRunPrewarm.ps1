@@ -55,8 +55,8 @@ Set-StrictMode -Version Latest
 
     Write-Message "Prewarming $($prewarms.Count) script(s) before the pool: $(($prewarms | ForEach-Object { [System.IO.Path]::GetFileName($_) }) -join ', ')..." -NoHeader
     $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-    $runner = [Catzc.Base.QualityGates.PesterRunner]::Run([string[]] $scripts, [string[]] $labels,
-        [Math]::Max(1, [Environment]::ProcessorCount), $WorkerEnvironment, $TimeoutSeconds, $false)
+    $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start([string[]] $scripts, [string[]] $labels,
+            [Math]::Max(1, [Environment]::ProcessorCount), $WorkerEnvironment, $TimeoutSeconds, $false))
     $stopwatch.Stop()
     # A failed prewarm only costs speed: each test still builds what the cache lacks, so it is said and the run goes on.
     for ($index = 0; $index -lt $runner.Results.Count; $index++) {

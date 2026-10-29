@@ -78,9 +78,9 @@ function Invoke-TestFile {
 
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
             $workerEnvironment = @{ CATZC_TEST_RUN_LOCATION_HELD = '1' }
-            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-                [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds,
-                $true)
+            $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
+                    [string[]] @($shard.ScriptPath), [string[]] @($shard.Label), 1, $workerEnvironment, $TimeoutSeconds,
+                    $true))
             # The worker run as New-TestRunFinalManifest reads it: exit code per shard, duration, and location.
             $workerRun = [pscustomobject]@{
                 ShardExitCodes  = [ordered]@{ $shard.Label = $runner.Results[0].ExitCode }

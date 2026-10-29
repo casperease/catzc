@@ -5,16 +5,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 
-// N Pester workers with pooled live output, read on background threads.
+// N Pester workers with pooled live output, read on background threads; the pool runs on its own thread, so the caller can stop it.
 public class PesterRunner
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // One entry per runner script, in submission order — populated by Run.
+    // One entry per runner script, in submission order — populated once Wait sees the pool finish.
     public WorkerResult[] Results { get; private set; }
+
+    // The worker processes started so far, in start order.
+    public int[] ProcessIds
+    {
+        get
+        {
+            var ids = new List<int>();
+            foreach (var worker in workers)
+            {
+                if (worker.ProcessId > 0)
+                {
+                    ids.Add(worker.ProcessId);
+                }
+            }
+            return ids.ToArray();
+        }
+    }
+
+    private Worker[] workers;
+    private Thread pool;
+    private ExceptionDispatchInfo failure;
+    private volatile bool stopRequested;
+    private int killedOnStop;
 
     /// <summary>The captured outcome of one worker process.</summary>
     public sealed class WorkerResult
@@ -43,6 +67,7 @@ public class PesterRunner
         public bool Live;             // readers write through to the console when set
         public string[] Caps = Array.Empty<string>();  // the named limits this worker counts against
         public Process Process;
+        public volatile int ProcessId;
         public Thread StdoutReader;
         public Thread StderrReader;
         public bool Started;
@@ -53,15 +78,29 @@ public class PesterRunner
         public long DurationMs;       // start → reap-observed completion
     }
 
-    // Blocks until every worker exits; a failure kills the whole pool.
     public static PesterRunner Run(string[] runnerScripts, string[] labels, int maxParallel,
         IDictionary environment, int timeoutSeconds, bool silent)
     {
         return Run(runnerScripts, labels, null, null, maxParallel, environment, timeoutSeconds, silent);
     }
 
-    // A worker starts once a slot is free and each of its caps is under its limit.
     public static PesterRunner Run(string[] runnerScripts, string[] labels, string[][] workerCaps, IDictionary capLimits,
+        int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
+    {
+        var runner = Start(runnerScripts, labels, workerCaps, capLimits, maxParallel, environment, timeoutSeconds, silent);
+        runner.Wait(Timeout.Infinite);
+        return runner;
+    }
+
+    // Starts the pool on its own thread and returns at once; Wait polls it and Stop ends it.
+    public static PesterRunner Start(string[] runnerScripts, string[] labels, int maxParallel,
+        IDictionary environment, int timeoutSeconds, bool silent)
+    {
+        return Start(runnerScripts, labels, null, null, maxParallel, environment, timeoutSeconds, silent);
+    }
+
+    // A worker starts once a slot is free and each of its caps is under its limit.
+    public static PesterRunner Start(string[] runnerScripts, string[] labels, string[][] workerCaps, IDictionary capLimits,
         int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
     {
         if (runnerScripts == null || runnerScripts.Length == 0)
@@ -118,25 +157,77 @@ public class PesterRunner
             }
         }
 
-        if (silent)
+        var runner = new PesterRunner { workers = workers };
+        runner.pool = new Thread(() => runner.RunPool(limits, maxParallel, environment, timeoutSeconds, silent))
         {
-            Execute(workers, limits, maxParallel, environment, timeoutSeconds, silent);
-        }
-        else
-        {
-            // Match CliRunner: UTF-8 console for the duration of the live streaming, restored after.
-            var previousEncoding = Console.OutputEncoding;
-            try
-            {
-                Console.OutputEncoding = Encoding.UTF8;
-                Execute(workers, limits, maxParallel, environment, timeoutSeconds, silent);
-            }
-            finally
-            {
-                Console.OutputEncoding = previousEncoding;
-            }
-        }
+            IsBackground = true,
+            Name = "catzc-pester-pool"
+        };
+        runner.pool.Start();
+        return runner;
+    }
 
+    // True once the pool has finished, with Results set; a pool failure is thrown here, on the caller's thread.
+    public bool Wait(int millisecondsTimeout)
+    {
+        if (!pool.Join(millisecondsTimeout))
+        {
+            return false;
+        }
+        failure?.Throw();
+        Results ??= CollectResults(workers);
+        return true;
+    }
+
+    // Kills every worker tree of an unfinished pool and says so; returns how many trees it killed, 0 for a finished pool.
+    public int Stop()
+    {
+        if (pool.Join(0))
+        {
+            return 0;
+        }
+        stopRequested = true;
+        pool.Join();
+        Console.Error.WriteLine(
+            $"Stopped by the user: killed {killedOnStop} worker process tree(s); the run did not finish.");
+        return killedOnStop;
+    }
+
+    private void RunPool(Dictionary<string, int> limits, int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
+    {
+        try
+        {
+            if (silent)
+            {
+                Execute(limits, maxParallel, environment, timeoutSeconds, silent);
+            }
+            else
+            {
+                // Match CliRunner: UTF-8 console for the duration of the live streaming, restored after.
+                var previousEncoding = Console.OutputEncoding;
+                try
+                {
+                    Console.OutputEncoding = Encoding.UTF8;
+                    Execute(limits, maxParallel, environment, timeoutSeconds, silent);
+                }
+                finally
+                {
+                    Console.OutputEncoding = previousEncoding;
+                }
+            }
+        }
+        catch (OperationCanceledException) when (stopRequested)
+        {
+            // Stop asked for it and reports it.
+        }
+        catch (Exception exception)
+        {
+            failure = ExceptionDispatchInfo.Capture(exception);
+        }
+    }
+
+    private static WorkerResult[] CollectResults(Worker[] workers)
+    {
         var results = new WorkerResult[workers.Length];
         for (int i = 0; i < workers.Length; i++)
         {
@@ -151,11 +242,10 @@ public class PesterRunner
                 DurationMs = workers[i].DurationMs
             };
         }
-        return new PesterRunner { Results = results };
+        return results;
     }
 
-    private static void Execute(Worker[] workers, Dictionary<string, int> limits, int maxParallel, IDictionary environment,
-        int timeoutSeconds, bool silent)
+    private void Execute(Dictionary<string, int> limits, int maxParallel, IDictionary environment, int timeoutSeconds, bool silent)
     {
         long poolStart = Environment.TickCount64;
         long deadline = poolStart + (long)timeoutSeconds * 1000;
@@ -192,7 +282,7 @@ public class PesterRunner
                     {
                         break;
                     }
-                    Start(workers[next], environment);
+                    Launch(workers[next], environment);
                     workers[next].StartedTick = Environment.TickCount64;
                     workers[next].StartOffsetMs = workers[next].StartedTick - poolStart;
                     running++;
@@ -226,6 +316,11 @@ public class PesterRunner
                     break;
                 }
 
+                if (stopRequested)
+                {
+                    throw new OperationCanceledException("PesterRunner was stopped by the user.");
+                }
+
                 if (Environment.TickCount64 > deadline)
                 {
                     var unfinished = new List<string>();
@@ -246,7 +341,7 @@ public class PesterRunner
         }
         catch
         {
-            KillAll(workers);
+            killedOnStop = KillAll(workers);
             throw;
         }
     }
@@ -285,7 +380,7 @@ public class PesterRunner
         return -1;
     }
 
-    private static void Start(Worker worker, IDictionary environment)
+    private static void Launch(Worker worker, IDictionary environment)
     {
         var psi = new ProcessStartInfo
         {
@@ -319,6 +414,7 @@ public class PesterRunner
         process.Start();
         process.StandardInput.Close();
         worker.Process = process;
+        worker.ProcessId = process.Id;
 
         worker.StdoutReader = new Thread(() => ReadStream(worker, isError: false)) { IsBackground = true };
         worker.StderrReader = new Thread(() => ReadStream(worker, isError: true)) { IsBackground = true };
@@ -392,8 +488,10 @@ public class PesterRunner
         }
     }
 
-    private static void KillAll(Worker[] workers)
+    // Returns how many trees it killed; each kill is waited on briefly, so the files a worker held are free when the caller cleans up.
+    private static int KillAll(Worker[] workers)
     {
+        int killed = 0;
         foreach (var worker in workers)
         {
             if (worker.Started && !worker.Completed)
@@ -402,6 +500,8 @@ public class PesterRunner
                 {
                     // Whole tree — a pwsh worker may have spawned children of its own.
                     worker.Process.Kill(entireProcessTree: true);
+                    worker.Process.WaitForExit(5000);
+                    killed++;
                 }
                 catch (Exception)
                 {
@@ -409,5 +509,6 @@ public class PesterRunner
                 }
             }
         }
+        return killed;
     }
 }

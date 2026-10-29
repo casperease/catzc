@@ -97,6 +97,7 @@ function Enter-TestRunLocation {
         throw ("The working folder was held, so this run went to a snapshot, but priming the snapshot failed (exit $($priming.ExitCode)); " +
             "the import's output is in $log and the snapshot is kept at $($location.Snapshot.Path). Last lines:`n$tail")
     }
+    Build-SnapshotReadme -SnapshotRoot $location.Snapshot.Path
     $location.Mode = 'snapshot'
     $location.Root = $location.Snapshot.Path
     $location.SystemTests = $false

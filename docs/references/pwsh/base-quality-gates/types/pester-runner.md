@@ -34,3 +34,12 @@ blocked reading hangs at startup (Git for Windows probes its std handles), and a
 
 Each worker also gets who started it, so it can end itself if this process dies without reaping it (`WorkerParentWatch`). That variable is
 set after the caller's extras, so a caller can never point a worker elsewhere.
+
+## comment:1
+
+Above `public static PesterRunner Run(string[] runnerScripts, string[] labels, int...`, written with `//`.
+
+```text
+Blocks until every worker exits; a failure kills the whole pool. A PowerShell caller waits through Wait-PesterRunner instead,
+since one blocking .NET call holds a Ctrl-C until it returns.
+```

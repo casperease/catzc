@@ -191,5 +191,24 @@ Write-Output 'ALPHA-MARK'
             { [Catzc.Base.QualityGates.PesterRunner]::Run(@($stuck), @('stuck'), 1, $null, 2, $true) } |
                 Should -Throw -ExpectedMessage '*timed out after 2s*'
         }
+
+        It 'kills every started worker on Stop and reports how many' {
+            $stuck = Join-Path $TestDrive 'stopped.ps1'
+            [System.IO.File]::WriteAllText($stuck, 'Start-Sleep -Seconds 60')
+
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Start(@($stuck, $stuck), @('widget', 'gadget'), 2, $null, 120, $true)
+            $deadline = [DateTime]::UtcNow.AddSeconds(20)
+            while (@($runner.ProcessIds).Count -lt 2 -and [DateTime]::UtcNow -lt $deadline) {
+                Start-Sleep -Milliseconds 50
+            }
+            $ids = @($runner.ProcessIds)
+            $runner.Wait(0) | Should -BeFalse
+
+            $runner.Stop() | Should -Be 2
+            foreach ($id in $ids) {
+                Get-Process -Id $id -ErrorAction SilentlyContinue | Should -BeNullOrEmpty
+            }
+            $runner.Stop() | Should -Be 0
+        }
     }
 }

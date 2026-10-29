@@ -126,6 +126,9 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -like 'pwsh -NoProfile -NonInteractive -File *catzc-run-*importer.ps1"'
         }
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Command -like 'pwsh -NoProfile -NonInteractive -Command ". *catzc-run-*importer.ps1'' -SkipJanitors; Build-Readme -Silent*'
+        }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."
         }

@@ -178,10 +178,10 @@ function Invoke-TestAutomationWorkers {
                     , $cap
                 }))
         $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
-        $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
-            @{ greedy = $greedyGroupSize; apart = 1 },
-            $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false)
+        $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
+                [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
+                @{ greedy = $greedyGroupSize; apart = 1 },
+                $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false))
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)
     }
@@ -190,9 +190,9 @@ function Invoke-TestAutomationWorkers {
     if ($serialShard) {
         Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader
         $serialPhaseOffsetMs = $stopwatch.ElapsedMilliseconds
-        $serialRunner = [Catzc.Base.QualityGates.PesterRunner]::Run(
-            [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
-            $WorkerEnvironment, $TimeoutSeconds, $false)
+        $serialRunner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
+                [string[]] @($serialShard.ScriptPath), [string[]] @($serialShard.Label), 1,
+                $WorkerEnvironment, $TimeoutSeconds, $false))
         $workerResults.AddRange($serialRunner.Results)
         $allShards.Add($serialShard)
     }
