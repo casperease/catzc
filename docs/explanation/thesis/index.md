@@ -43,7 +43,7 @@ content:
     - { from: r-fact, to: f-note, kind: flow, label: then }
     - { from: f-note, to: s-rule, kind: thick, label: plans }
     - { from: s-rule, to: f-docs, kind: flow, label: then }
-    - { from: f-docs, to: k-code, kind: flow, label: then }
+    - { from: k-code, to: f-docs, kind: flow, label: reads }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
 layout:
