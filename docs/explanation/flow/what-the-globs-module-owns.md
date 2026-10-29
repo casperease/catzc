@@ -73,7 +73,7 @@ layout:
   g-automation: { x: 980, y: 326, w: 260, h: 56 }
 ```
 
-![What the Globs module owns](.assets/globs-module-owns-config-and-types.drawio.png)
+![What the Globs module owns](.assets/what-the-globs-module-owns.drawio.png)
 
 ## Walkthrough
 

@@ -76,7 +76,7 @@ layout:
 
 ![How templating and identity join][diagram]
 
-[diagram]: .assets/two-layers-join-through-one-resolver.drawio.png
+[diagram]: .assets/how-templating-and-identity-join.drawio.png
 
 ## Walkthrough
 

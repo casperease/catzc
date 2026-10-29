@@ -84,7 +84,7 @@ layout:
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- The other lenses on the same globset roles: [architecture](globs-module-owns-config-and-types.md),
+- The other lenses on the same globset roles: [architecture](what-the-globs-module-owns.md),
   [implementation](one-scan-program-feeds-three-roles.md), [operations](how-a-globs-yml-edit-shows-in-the-output.md) and
   [governance](what-the-globset-gates-check.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -86,7 +86,7 @@ layout:
   g-group: { x: 1070, y: 140, w: 170, h: 68 }
 ```
 
-![What holds the Azure session rule](.assets/four-gates-hold-the-session-rule.drawio.png)
+![What holds the Azure session rule](.assets/what-holds-the-azure-session-rule.drawio.png)
 
 ## Walkthrough
 
@@ -131,6 +131,6 @@ accepts a pipeline call without the pin, so the first gate guards the deploy sur
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [architecture](one-reverse-lookup-feeds-every-module.md), [implementation](read-the-session-guard-then-pick-slot.md) and
+  [architecture](how-the-az-session-becomes-a-declared-identity.md), [implementation](read-the-session-guard-then-pick-slot.md) and
   [operations](pipeline-pins-devbox-picks-the-target.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

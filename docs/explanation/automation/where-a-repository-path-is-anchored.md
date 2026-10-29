@@ -83,7 +83,7 @@ layout:
   g-reference: { x: 700, y: 410, w: 220, h: 52 }
 ```
 
-![Where a repository path is anchored](.assets/two-crossers-and-three-anchors.drawio.png)
+![Where a repository path is anchored](.assets/where-a-repository-path-is-anchored.drawio.png)
 
 ## Walkthrough
 

@@ -80,7 +80,7 @@ layout:
   s-modules: { x: 820, y: 460, w: 440, h: 44 }
 ```
 
-![Which entry scripts start an import](.assets/two-entries-feed-one-importer.drawio.png)
+![Which entry scripts start an import](.assets/which-entry-scripts-start-an-import.drawio.png)
 
 ## Walkthrough
 

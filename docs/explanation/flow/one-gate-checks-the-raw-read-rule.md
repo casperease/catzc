@@ -117,5 +117,5 @@ layout:
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
   [architecture](the-loader-holds-the-one-detector.md), [implementation](two-variables-read-in-one-place.md) and
-  [operations](the-analyzer-names-the-raw-read.md).
+  [operations](how-the-analyzer-reports-a-raw-read.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -121,5 +121,5 @@ layout:
 - [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the decision this article explains.
 - The other lenses on the same verdict: [meta](how-the-hook-treats-a-shell-calls-limit.md),
   [architecture](hook-compiles-module-verdict-and-limits.md), [operations](when-the-hook-denies-a-call.md) and
-  [governance](three-tests-prove-the-hook.md).
+  [governance](how-the-bash-time-guard-is-tested.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

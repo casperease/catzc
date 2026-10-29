@@ -64,7 +64,7 @@ layout:
   r-staging: { x: 560, y: 400, w: 280, h: 44 }
 ```
 
-![How the analyzer reports a raw read](.assets/the-analyzer-names-the-raw-read.drawio.png)
+![How the analyzer reports a raw read](.assets/how-the-analyzer-reports-a-raw-read.drawio.png)
 
 ## Walkthrough
 

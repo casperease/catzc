@@ -79,7 +79,7 @@ layout:
   g-published: { x: 990, y: 372, w: 220, h: 68 }
 ```
 
-![How the Bash time guard is tested](.assets/three-tests-prove-the-hook.drawio.png)
+![How the Bash time guard is tested](.assets/how-the-bash-time-guard-is-tested.drawio.png)
 
 ## Walkthrough
 

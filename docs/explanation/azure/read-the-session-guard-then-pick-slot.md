@@ -124,6 +124,6 @@ layout:
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [architecture](one-reverse-lookup-feeds-every-module.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
-  [governance](four-gates-hold-the-session-rule.md).
+  [architecture](how-the-az-session-becomes-a-declared-identity.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
+  [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

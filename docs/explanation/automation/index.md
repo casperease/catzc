@@ -30,7 +30,8 @@ One commit becomes one verified, immutable package, and every code root is a cop
 Every entry runs one load sequence through the importer ([platform-bundle](../../drs/automation/platform-bundle.md)).
 
 - **meta**: [Every entry runs one load sequence](which-stages-a-load-runs.md)
-- **architecture**: [Two entry scripts feed one importer, and the importer leaves once the load is done](two-entries-feed-one-importer.md)
+- **architecture**:
+  [Two entry scripts feed one importer, and the importer leaves once the load is done](which-entry-scripts-start-an-import.md)
 - **implementation**:
   [Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain](invoke-importer-in-code-order.md)
 - **operations**:

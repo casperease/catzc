@@ -80,7 +80,7 @@ layout:
   r-group: { x: 1110, y: 208, w: 150, h: 44 }
 ```
 
-![How the az session becomes a declared identity](.assets/one-reverse-lookup-feeds-every-module.drawio.png)
+![How the az session becomes a declared identity](.assets/how-the-az-session-becomes-a-declared-identity.drawio.png)
 
 The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az session and `azure.yml` and calls `Catzc.Azure`;
 `Catzc.Azure.Templates` calls both modules and reads the configuration tree; a config file never acts, the code that reads it does.
@@ -123,5 +123,5 @@ The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az se
 - [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
   [implementation](read-the-session-guard-then-pick-slot.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
-  [governance](four-gates-hold-the-session-rule.md).
+  [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -56,7 +56,7 @@ A globset is one ordered program, and its three views are derived live, never co
 ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
 - **meta**: [How the three views of a globset are derived](three-views-derived-live-from-one-program.md)
-- **architecture**: [What the Globs module owns](globs-module-owns-config-and-types.md)
+- **architecture**: [What the Globs module owns](what-the-globs-module-owns.md)
 - **implementation**: [What the scan program feeds](one-scan-program-feeds-three-roles.md)
 - **operations**: [How a globs.yml edit shows in the output](how-a-globs-yml-edit-shows-in-the-output.md)
 - **governance**: [What the globset gates check](what-the-globset-gates-check.md)
