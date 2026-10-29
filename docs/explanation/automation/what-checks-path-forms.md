@@ -97,7 +97,7 @@ layout:
   g-reference: { x: 540, y: 438, w: 190, h: 68 }
 ```
 
-![What checks path forms](.assets/types-check-forms-review-checks-crossers.drawio.png)
+![What checks path forms](.assets/what-checks-path-forms.drawio.png)
 
 ## Walkthrough
 

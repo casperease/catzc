@@ -103,5 +103,5 @@ layout:
 - [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [architecture](where-a-repository-path-is-anchored.md),
   [implementation](how-a-path-is-made-repo-relative.md), [operations](one-out-string-two-places.md) and
-  [governance](types-check-forms-review-checks-crossers.md).
+  [governance](what-checks-path-forms.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

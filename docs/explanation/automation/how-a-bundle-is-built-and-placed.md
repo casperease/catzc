@@ -116,5 +116,5 @@ destination; a failure there throws the same message.
 
 - [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - The other lenses on the same bundle: [meta](how-a-commit-becomes-a-package.md), [architecture](where-the-code-roots-get-their-bundle.md),
-  [implementation](what-build-modules-leaves-behind.md) and [governance](what-gates-each-bundle-stage.md).
+  [implementation](what-build-modules-leaves-behind.md) and [governance](what-checks-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -84,7 +84,7 @@ The diagram below draws process invocation from the source. It has two paths. Th
 executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use, hands
 the command to the console with no time limit.
 
-![How an executable call is time-bounded](../.assets/invoke-executable-two-paths-one-bounded.drawio.png)
+![How an executable call is time-bounded](../.assets/how-an-executable-call-is-time-bounded.drawio.png)
 
 ## Division
 

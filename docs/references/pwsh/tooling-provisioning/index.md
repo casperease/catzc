@@ -53,7 +53,7 @@ installers in a Generic repository and point at a private REST feed, or to pre-i
 The diagram below draws the devbox install from the source. `tools.yml` is the one locked list of tools. The install walks it in dependency
 order and dispatches each key by name to the install function whose name it derives, in whichever tooling module defines it. Keys the system
 provides are checked and skipped before the dispatch.
-![How a devbox tool gets installed](../.assets/tools-yml-install-dispatch.drawio.png)
+![How a devbox tool gets installed](../.assets/how-a-devbox-tool-gets-installed.drawio.png)
 
 ## Division
 

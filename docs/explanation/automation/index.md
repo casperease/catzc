@@ -23,7 +23,7 @@ One commit becomes one verified, immutable package, and every code root is a cop
 - **implementation**:
   [Build-Modules builds, verifies, and leaves one folder that every target copies whole](what-build-modules-leaves-behind.md)
 - **operations**: [Build the bundle once, then place it with one command](how-a-bundle-is-built-and-placed.md)
-- **governance**: [Every stage of the bundle has a rule, and two gates check it](what-gates-each-bundle-stage.md)
+- **governance**: [Every stage of the bundle has a rule, and two gates check it](what-checks-each-bundle-stage.md)
 
 ## The importer
 
@@ -47,7 +47,7 @@ One declared allow-list says what may depend on what, and the declared graph for
 - **architecture**: [Module dependencies form three layers, and every edge points down](how-modules-are-layered.md)
 - **implementation**:
   [Two sections of dependencies.yml are unioned into one allow-set per source module](which-modules-a-module-may-depend-on.md)
-- **operations**: [An undeclared module edge fails the gate with one line per issue](undeclared-edge-fails-with-one-line.md)
+- **operations**: [An undeclared module edge fails the gate with one line per issue](what-an-undeclared-module-dependency-reports.md)
 - **governance**: [Two gates check the layer pins, and one rule is left to review](what-checks-the-module-layers.md)
 
 ## The accosted language

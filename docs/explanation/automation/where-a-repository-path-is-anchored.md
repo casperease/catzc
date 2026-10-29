@@ -129,5 +129,5 @@ The record keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins e
 
 - [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [meta](which-forms-a-path-takes.md), [implementation](how-a-path-is-made-repo-relative.md),
-  [operations](one-out-string-two-places.md) and [governance](types-check-forms-review-checks-crossers.md).
+  [operations](one-out-string-two-places.md) and [governance](what-checks-path-forms.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

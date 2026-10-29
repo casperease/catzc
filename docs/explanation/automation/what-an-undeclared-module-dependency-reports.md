@@ -67,7 +67,7 @@ layout:
   g-dependencies: { x: 960, y: 404, w: 280, h: 52 }
 ```
 
-![What an undeclared module dependency reports](.assets/undeclared-edge-fails-with-one-line.drawio.png)
+![What an undeclared module dependency reports](.assets/what-an-undeclared-module-dependency-reports.drawio.png)
 
 ## Walkthrough
 

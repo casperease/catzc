@@ -123,5 +123,5 @@ ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL calls the `-Root` placement an install, where
 - [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - [Run modes](../../drs/design/run-modes.md) — the three kinds of build root.
 - The other lenses on the same bundle: [meta](how-a-commit-becomes-a-package.md), [implementation](what-build-modules-leaves-behind.md),
-  [operations](how-a-bundle-is-built-and-placed.md) and [governance](what-gates-each-bundle-stage.md).
+  [operations](how-a-bundle-is-built-and-placed.md) and [governance](what-checks-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -82,7 +82,7 @@ layout:
   r-installed: { x: 1030, y: 180, w: 210, h: 44 }
 ```
 
-![What checks each bundle stage](.assets/what-gates-each-bundle-stage.drawio.png)
+![What checks each bundle stage](.assets/what-checks-each-bundle-stage.drawio.png)
 
 ## Walkthrough
 

@@ -103,5 +103,5 @@ layout:
 - [Run modes](../../drs/design/run-modes.md) — the build kinds.
 - The other lenses on the same bundle: [architecture](where-the-code-roots-get-their-bundle.md),
   [implementation](what-build-modules-leaves-behind.md), [operations](how-a-bundle-is-built-and-placed.md) and
-  [governance](what-gates-each-bundle-stage.md).
+  [governance](what-checks-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
