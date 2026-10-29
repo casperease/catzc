@@ -45,8 +45,6 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- slide-poc-retirement -> plan-slide-poc-retirement.md: diagrams made good, diagram and slide commands proven, the slides harvested into a
-  style and ideas page, then deleted
 - vscode-session-binding -> plan-vscode-session-binding.md: blocked until the hang recurs; `Get-VsCodeSession` grows from the user's line
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
