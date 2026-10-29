@@ -14,7 +14,7 @@ Supports DDR-TRACK-ISPLACEDCLUSTER, DDR-TRACK-FILELANGUAGE, DDR-TRACK-WORLDMAP, 
 ADR-REPO-LINKS-EVERYLINKHASADIRECTION (meta lens).
 ```
 
-![What layers sit over the tree](.assets/the-physical-model.drawio.png)
+![What layers sit over the tree](.assets/what-layers-sit-over-the-tree.drawio.png)
 
 The physical model is what the repository knows about its files: where each one sits, what it is written in, which part of its module it
 belongs to, and which other files it points at. Each layer is declared once and answered by a query, so the model is read by asking it,

@@ -23,16 +23,16 @@ configuration by one command and written on every import, so the only Python the
 command and the three zones its effects reach: the two files it renders, how the tree then classifies them and holds them to their source,
 and the two Python quality gates that pass over the workspace they define.
 
-![How the Python workspace is laid out](.assets/one-command-lays-out-the-python-workspace.drawio.png)
+![How the Python workspace is laid out](.assets/how-the-python-workspace-is-laid-out.drawio.png)
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/one-command-lays-out-the-python-workspace.drawio.png) reads left to right. The head, the circle
-fragment numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer adds a Python folder**; the stick man
-drawn over the drawing hangs from it, his right hand on box 2, the statement `new_python_project`, with `cats` at the hand and nothing drawn
-between head and hand. Three arcs cut the frame into three zones. No note carries a chip, since every effect is local, the diagram's
-default. Zone 1 holds 3, the workspace root rendered with every member and the pinned interpreter, and 4, the kit's member file, each proven
-by `get_repository_file` with its path on its own line; the edges out of the statement carry `executes` beside the line. Zone 2 holds 5, the
+The [rendered action diagram](.assets/how-the-python-workspace-is-laid-out.drawio.png) reads left to right. The head, the circle fragment
+numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer adds a Python folder**; the stick man drawn over
+the drawing hangs from it, his right hand on box 2, the statement `new_python_project`, with `cats` at the hand and nothing drawn between
+head and hand. Three arcs cut the frame into three zones. No note carries a chip, since every effect is local, the diagram's default. Zone 1
+holds 3, the workspace root rendered with every member and the pinned interpreter, and 4, the kit's member file, each proven by
+`get_repository_file` with its path on its own line; the edges out of the statement carry `executes` beside the line. Zone 2 holds 5, the
 root file is a known file kind, and 6, the member file belongs to the Python language, proven by `get_path_file_type` and
 `get_file_language`; the edge from 3 to 5 and the edge from 4 to 6 carry `effects` in tight pills where they cross the first arc. Zone 3
 holds three notes showing their words alone: 7, `Test-GeneratedFiles` sees no drift for the root configs, reached from 3; 8,

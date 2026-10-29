@@ -18,11 +18,11 @@ action and its effects; the runs under it prove each effect.
 
 ![What happens when an accosted file is read][diagram]
 
-[diagram]: .assets/reading-an-accosted-file-writes-nothing.drawio.png
+[diagram]: .assets/what-happens-when-an-accosted-file-is-read.drawio.png
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/reading-an-accosted-file-writes-nothing.drawio.png) reads left to right. On the left rim, above the
+The [rendered action diagram](.assets/what-happens-when-an-accosted-file-is-read.drawio.png) reads left to right. On the left rim, above the
 centre line, stands the head: the circle fragment numbered 1 with the idea in bold, **An author**. A stick man drawn over the drawing hangs
 from it, his body overflowing the rim, his right hand on box 2, the statement `get_accosted_file` with its path on its own line under
 `path:`; the word `cats` stands at the hand, and nothing is drawn between head and hand, since what runs there runs through the body. Two

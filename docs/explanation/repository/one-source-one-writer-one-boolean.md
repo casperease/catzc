@@ -19,7 +19,7 @@ is gitignored or stays tracked is one boolean per entry, not a second system.
 
 ![Who owns each managed root file][diagram]
 
-[diagram]: .assets/one-source-one-writer-one-boolean.drawio.png
+[diagram]: .assets/who-owns-each-managed-root-file.drawio.png
 
 ## Walkthrough
 

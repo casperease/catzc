@@ -20,7 +20,7 @@ The whole cats load is one call chain inside `Invoke-Importer`, in `pwsh/.intern
 modules, the vendored modules and every catzc module, proves that only one run mode is loaded, runs the janitors, and removes its own
 Bootstrap. Both entry scripts end in this one function, so this order is the load order in both run modes.
 
-![What the importer does in one run](.assets/invoke-importer-in-code-order.drawio.png)
+![What the importer does in one run](.assets/what-the-importer-does-in-one-run.drawio.png)
 
 ## Walkthrough
 
