@@ -74,6 +74,15 @@ entry is keyed on a file's content and the stamps of the check's inputs
 copy of the same tree, and a file the snapshot changed is simply a new key. Without the copy every snapshot run would format and analyse
 every file from cold. The snapshot's own updates stay in the snapshot until Exit-TestRunLocation hands them home.
 
+## the snapshot's Python environment
+
+The Python environment (`python/.venv`) is gitignored, so a snapshot carries none, and a test run never syncs one. The snapshot's
+`python/.venv` is a directory junction to the working folder's synced environment instead, made only when that environment exists. The
+snapshot's uv lock is the working folder's, so the environment fits it, and every uv call runs with `--no-sync` and offline, so nothing
+writes into it; bytecode goes to the snapshot's own `PYTHONPYCACHEPREFIX`. A junction needs no rights a symbolic link would, and deleting
+the snapshot removes the link, never the environment behind it, since a recursive delete and the bounded folder walker never descend a
+reparse point.
+
 ## priming the snapshot
 
 The snapshot gets one full import, as a fresh clone's first import does. The import materialises the generated, gitignored files the

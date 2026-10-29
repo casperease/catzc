@@ -75,6 +75,14 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
+    # The snapshot's Python runs use the working folder's synced environment, read-only, through a junction.
+    $pythonRelative = (Get-Config -Config python).ResolveRoot($sourceRoot)
+    $sourceVenv = [System.IO.Path]::GetFullPath((Join-Path $sourceRoot "$pythonRelative/.venv"))
+    $snapshotPython = Join-Path $location.Snapshot.Path $pythonRelative
+    if ([System.IO.File]::Exists((Join-Path $sourceVenv 'pyvenv.cfg')) -and [System.IO.Directory]::Exists($snapshotPython)) {
+        [void] (New-Item -ItemType Junction -Path (Join-Path $snapshotPython '.venv') -Target $sourceVenv)
+    }
+
     # The snapshot starts with the working folder's result caches, keyed on content and input stamps.
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {

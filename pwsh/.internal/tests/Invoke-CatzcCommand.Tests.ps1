@@ -31,7 +31,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'reports a passing and a failing command and runs the one after the failure' {
-        $lines = @(& $script:entry 'Get-Widget' 'throw "the gadget broke"' 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
+        $lines = @(& $script:entry 'Get-Widget' 'throw "the gadget broke"' 'Get-Widget' -Importer $script:importer -LockName $script:lockName 6>$null)
         $LASTEXITCODE | Should -Be 1
         $lines | Should -Be @(
             '[Invoke-CatzcCommand] passed: Get-Widget'
@@ -95,7 +95,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'exits 0 when every command passes' {
-        $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
+        $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName 6>$null)
         $LASTEXITCODE | Should -Be 0
         $lines[-1] | Should -BeExactly '[Invoke-CatzcCommand] 1 of 1 passed'
     }
@@ -123,7 +123,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
 
     It 'leaves the lock''s inherit variable absent, not empty, after a run when it was unset before' {
         Remove-Item -LiteralPath "Env:$script:inherit" -ErrorAction Ignore
-        $null = & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName
+        $null = & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName 6>$null
         $LASTEXITCODE | Should -Be 0
         Test-Path -LiteralPath "Env:$script:inherit" | Should -BeFalse
     }
@@ -138,7 +138,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
             "$script:lockName-burst")
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
         try {
-            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst)
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst 6>$null)
             $lines | Should -Be @('[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
         }
         finally {
@@ -156,7 +156,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     It 'says it waits for a held run lock, then runs once the lock is free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 300
         try {
-            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
             $LASTEXITCODE | Should -Be 0
             $lines[0] |
                 Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
@@ -174,7 +174,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         $parent = (Get-Process -Id $PID).Parent.Id
         [System.Environment]::SetEnvironmentVariable($script:inherit, "$parent|$(Get-CatzcRunLockProcessStart -ProcessId $parent)")
         try {
-            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
             $LASTEXITCODE | Should -Be 0
             $lines | Should -Be @('[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
             [System.Environment]::GetEnvironmentVariable($script:inherit) | Should -BeLike "$parent|*"

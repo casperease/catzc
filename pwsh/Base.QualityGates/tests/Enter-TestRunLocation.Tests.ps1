@@ -160,6 +160,41 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Exists((Join-Path $snapshotPath 'out/cache')) | Should -BeFalse
     }
 
+    It 'links the snapshot to the working folder''s synced Python environment, never a copy' {
+        $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
+        $venv = Join-Path $widgetRoot 'python/.venv'
+        [System.IO.Directory]::CreateDirectory($venv) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $venv 'pyvenv.cfg'), 'prompt = widget')
+        Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        $link = Get-Item -LiteralPath (Join-Path $snapshotPath 'python/.venv') -Force
+        $link.LinkType | Should -Be 'Junction'
+        $link.Target | Should -Be ([System.IO.Path]::GetFullPath($venv))
+        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'python/.venv/pyvenv.cfg')) | Should -Be 'prompt = widget'
+    }
+
+    It 'links no Python environment when the working folder has none synced' {
+        $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $widgetRoot 'python')) | Out-Null
+        Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        Test-Path -LiteralPath (Join-Path $snapshotPath 'python/.venv') | Should -BeFalse
+    }
+
     It 'keeps the snapshot and the import''s output when priming fails, and throws the cause' {
         Mock Invoke-Executable {
             [pscustomobject]@{ ExitCode = 1; Output = ''; Full = "loading widgets`nthe gadget type failed to compile" }

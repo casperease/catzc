@@ -87,7 +87,7 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     It 'lets the burst''s own checks run under its lock with -InBurst' {
         $burst = Start-Burst -Name $script:lockName -Seconds 5
         try {
-            $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst)
+            $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst 6>$null)
             $LASTEXITCODE | Should -Be 0
             $run | Should -Be @('[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
         }
@@ -100,7 +100,7 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     It 'releases the lock when its limit passes, and the next run takes it' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $burst = Start-Burst -Name $script:lockName -Seconds 1
         (Stop-Burst $burst)[-1] | Should -BeExactly '[Enter-CatzcBurst] released the run lock: the 1 s limit passed'
-        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
         $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
     }
 
@@ -125,7 +125,7 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
             $burst.Dispose()
         }
         # The lock is free again and no burst is left: the next plain run takes it at once.
-        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
         $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
         { & $script:exit -LockName $script:lockName } | Should -Throw '*no burst holds*'
     }
@@ -167,7 +167,7 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         finally {
             $burst.Dispose()
         }
-        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
         $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
     }
 
