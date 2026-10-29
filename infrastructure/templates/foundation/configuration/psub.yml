@@ -1,4 +1,5 @@
 # foundation, shared prod subscription (env psub). One config file ⟷ one resource group.
+ResourceGroup: psub-weu-zct-fnd-rg
 ParametersFile:
   parameters:
     tags:
@@ -13,3 +14,27 @@ ParametersFile:
       value: 90
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_prod.id
+    keyVaultName:
+      value: ps-weu-zct-fnd-kv
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-log
+    actionGroupName:
+      value: psub-weu-zct-fnd-ag
+    capacityWorkbookName:
+      value: psub-weu-zct-fnd-cap-wb
+    queryPackName:
+      value: psub-weu-zct-fnd-pack
+    dashboardName:
+      value: psub-weu-zct-fnd-dash
+    flowLogStorageAccountName:
+      value: psweuzctfndflost
+    keyVaultPrivateEndpointName:
+      value: psub-weu-zct-fnd-kv-pep
+    networkResourceGroupName:
+      value: psub-weu-zct-disco-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-vnet
+    privateDnsZoneResourceGroupName:
+      value: psub-weu-zct-disco-rg
+    ownerRoleId:
+      address: global.roles.roles.owner.id

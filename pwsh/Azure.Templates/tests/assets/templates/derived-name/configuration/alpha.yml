@@ -3,6 +3,7 @@
 # This template ships NO options.yml — its short_name is derived from the folder name ('deriv').
 # Resource names are written statically here (in-template name generation is intentionally deferred).
 
+ResourceGroup: alpha-weu-fxo-deriv-rg
 ParametersFile:
   parameters:
     storageAccountName:

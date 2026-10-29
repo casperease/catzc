@@ -1,3 +1,4 @@
+ResourceGroup: test-weu-zct-exped-nova-rg
 ParametersFile:
   parameters:
     tags:
@@ -47,3 +48,46 @@ ParametersFile:
       value: "0.5"
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    storageAccountName:
+      value: teweuzctexpednvst
+    sqlServerName:
+      value: test-weu-zct-exped-nova-sql
+    sqlDatabaseName:
+      value: test-weu-zct-exped-nova-sqldb
+    blobPrivateEndpointName:
+      value: test-weu-zct-exped-nova-blb-pep
+    sqlPrivateEndpointName:
+      value: test-weu-zct-exped-nova-sql-pep
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-nova-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-nova-ag
+    keyVaultName:
+      value: ns-weu-zct-fnd-nv-kv
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-nova-rg
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-nova-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-nova-vnet
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    breakGlassLoginAlertName:
+      value: test-weu-zct-exped-nova-bgl-alert
+    healthWorkbookName:
+      value: test-weu-zct-exped-nova-hlt-wb
+    databaseMetricAlertNames:
+      value:
+        cpu: test-weu-zct-exped-nova-cpu-alert
+        deadlock: test-weu-zct-exped-nova-dlk-alert
+        failedConnection: test-weu-zct-exped-nova-con-alert
+    databaseCapacityAlertNames:
+      value:
+        storage: test-weu-zct-exped-nova-sto-alert
+        compute: test-weu-zct-exped-nova-cmp-alert
+    deployProductionAlerts:
+      fact: production
+    groups:
+      fact: groups
+    roles:
+      address: global.roles.roles

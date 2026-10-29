@@ -21,6 +21,9 @@ ParametersFile:
     hub:
       value:
         subscription: shared_nonprod
+        resourceGroupName: nsub-weu-zct-disco-rg
+        virtualNetworkName: nsub-weu-zct-disco-vnet
+        peeringName: nsub-weu-zct-disco-nova-hub-peer
     budgetAmount:
       value: 300
     budgetStartDate:
@@ -30,3 +33,62 @@ ParametersFile:
         keyVault:
           id: /subscriptions/000a0000-de00-50b0-0000-000000000000/resourceGroups/nsub-weu-zct-fnd-nova-rg/providers/Microsoft.KeyVault/vaults/ns-weu-zct-fnd-nv-kv
         secretName: disco-anomaly-recipients
+    resourceGroupName:
+      value: nsub-weu-zct-disco-nova-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-nova-vnet
+    routeTableName:
+      value: nsub-weu-zct-disco-nova-rt
+    firewallName:
+      value: nsub-weu-zct-disco-nova-afw
+    firewallPolicyName:
+      value: nsub-weu-zct-disco-nova-afwp
+    firewallPublicIpName:
+      value: nsub-weu-zct-disco-nova-fw-pip
+    firewallManagementPublicIpName:
+      value: nsub-weu-zct-disco-nova-fwm-pip
+    budgetName:
+      value: nsub-weu-zct-disco-nova-budg
+    costExportName:
+      value: nsub-weu-zct-disco-nova-cexp
+    anomalyAlertName:
+      value: nsub-weu-zct-disco-nova-ano-alert
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-nova-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-nova-ag
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-nova-rg
+    flowLogStorageAccountName:
+      value: nsweuzctfndnvflost
+    policyAssignmentNames:
+      value:
+        allowedLocations: nsub-weu-zct-disco-nova-loc-pa
+        requireTag: nsub-weu-zct-disco-nova-tag-pa
+        noPublicIp: nsub-weu-zct-disco-nova-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-nova-sp-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-nova-qp-pa
+        dataDiagnostics: nsub-weu-zct-disco-nova-dg-pa
+        storageSkus: nsub-weu-zct-disco-nova-sk-pa
+        vmSkus: nsub-weu-zct-disco-nova-vs-pa
+        benchmark: nsub-weu-zct-disco-nova-bm-pa
+        resourceTypes: nsub-weu-zct-disco-nova-ty-pa
+    healthAlertNames:
+      value:
+        ServiceHealth: nsub-weu-zct-disco-nova-svc-alert
+        ResourceHealth: nsub-weu-zct-disco-nova-res-alert
+    networkSecurityGroupNames:
+      value:
+        private-endpoints: nsub-weu-zct-disco-nova-pe-nsg
+        dev: nsub-weu-zct-disco-nova-dev-nsg
+        test: nsub-weu-zct-disco-nova-tst-nsg
+    policyEnforcementMode:
+      fact: policy_enforcement
+    productionSubscription:
+      fact: subscription_production
+    groups:
+      fact: groups
+    allowedResourceTypes:
+      fact: module_resource_types
+    roles:
+      address: global.roles.roles

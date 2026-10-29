@@ -1,4 +1,5 @@
 # foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.
+ResourceGroup: nsub-weu-zct-fnd-nova-rg
 ParametersFile:
   parameters:
     tags:
@@ -11,3 +12,27 @@ ParametersFile:
         data-classification: confidential
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    keyVaultName:
+      value: ns-weu-zct-fnd-nv-kv
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-nova-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-nova-ag
+    capacityWorkbookName:
+      value: nsub-weu-zct-fnd-nova-cap-wb
+    queryPackName:
+      value: nsub-weu-zct-fnd-nova-pack
+    dashboardName:
+      value: nsub-weu-zct-fnd-nova-dash
+    flowLogStorageAccountName:
+      value: nsweuzctfndnvflost
+    keyVaultPrivateEndpointName:
+      value: nsub-weu-zct-fnd-nova-kv-pep
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-nova-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-nova-vnet
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    ownerRoleId:
+      address: global.roles.roles.owner.id

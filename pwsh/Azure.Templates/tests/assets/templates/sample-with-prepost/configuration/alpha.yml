@@ -4,6 +4,7 @@
 # omitted: PrePost.psm1's Invoke-BicepPrepareParameterSet merges them from the network IP plan (the
 # cross-cutting config) at build time. This is the merge seam being exercised.
 
+ResourceGroup: alpha-weu-fxo-sppp-rg
 ParametersFile:
   parameters:
     vnetName:

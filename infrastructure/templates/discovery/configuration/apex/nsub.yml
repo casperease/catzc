@@ -21,6 +21,9 @@ ParametersFile:
     hub:
       value:
         subscription: shared_nonprod
+        resourceGroupName: nsub-weu-zct-disco-rg
+        virtualNetworkName: nsub-weu-zct-disco-vnet
+        peeringName: nsub-weu-zct-disco-apex-hub-peer
     budgetAmount:
       value: 300
     budgetStartDate:
@@ -30,3 +33,62 @@ ParametersFile:
         keyVault:
           id: /subscriptions/a0e00000-de00-50b0-0000-000000000000/resourceGroups/nsub-weu-zct-fnd-apex-rg/providers/Microsoft.KeyVault/vaults/ns-weu-zct-fnd-ap-kv
         secretName: disco-anomaly-recipients
+    resourceGroupName:
+      value: nsub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-apex-vnet
+    routeTableName:
+      value: nsub-weu-zct-disco-apex-rt
+    firewallName:
+      value: nsub-weu-zct-disco-apex-afw
+    firewallPolicyName:
+      value: nsub-weu-zct-disco-apex-afwp
+    firewallPublicIpName:
+      value: nsub-weu-zct-disco-apex-fw-pip
+    firewallManagementPublicIpName:
+      value: nsub-weu-zct-disco-apex-fwm-pip
+    budgetName:
+      value: nsub-weu-zct-disco-apex-budg
+    costExportName:
+      value: nsub-weu-zct-disco-apex-cexp
+    anomalyAlertName:
+      value: nsub-weu-zct-disco-apex-ano-alert
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-apex-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-apex-ag
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-apex-rg
+    flowLogStorageAccountName:
+      value: nsweuzctfndapflost
+    policyAssignmentNames:
+      value:
+        allowedLocations: nsub-weu-zct-disco-apex-loc-pa
+        requireTag: nsub-weu-zct-disco-apex-tag-pa
+        noPublicIp: nsub-weu-zct-disco-apex-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-apex-sp-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-apex-qp-pa
+        dataDiagnostics: nsub-weu-zct-disco-apex-dg-pa
+        storageSkus: nsub-weu-zct-disco-apex-sk-pa
+        vmSkus: nsub-weu-zct-disco-apex-vs-pa
+        benchmark: nsub-weu-zct-disco-apex-bm-pa
+        resourceTypes: nsub-weu-zct-disco-apex-ty-pa
+    healthAlertNames:
+      value:
+        ServiceHealth: nsub-weu-zct-disco-apex-svc-alert
+        ResourceHealth: nsub-weu-zct-disco-apex-res-alert
+    networkSecurityGroupNames:
+      value:
+        private-endpoints: nsub-weu-zct-disco-apex-pe-nsg
+        dev: nsub-weu-zct-disco-apex-dev-nsg
+        test: nsub-weu-zct-disco-apex-tst-nsg
+    policyEnforcementMode:
+      fact: policy_enforcement
+    productionSubscription:
+      fact: subscription_production
+    groups:
+      fact: groups
+    allowedResourceTypes:
+      fact: module_resource_types
+    roles:
+      address: global.roles.roles

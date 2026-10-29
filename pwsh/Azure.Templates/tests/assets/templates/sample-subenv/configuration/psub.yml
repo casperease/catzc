@@ -1,3 +1,4 @@
+ResourceGroup: psub-weu-fxo-subx-rg
 ParametersFile:
   parameters:
     workspaceName:

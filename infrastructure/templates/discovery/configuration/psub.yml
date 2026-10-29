@@ -20,7 +20,10 @@ ParametersFile:
       address: global.network.nsg_flows
     spokes:
       value:
-        - subscription: apex_prod
+      - subscription: apex_prod
+        resourceGroupName: psub-weu-zct-disco-apex-rg
+        virtualNetworkName: psub-weu-zct-disco-apex-vnet
+        peeringName: psub-weu-zct-disco-ap-peer
     budgetAmount:
       value: 1200
     budgetStartDate:
@@ -30,3 +33,60 @@ ParametersFile:
         keyVault:
           id: /subscriptions/50a0ed00-000d-50b0-0000-000000000000/resourceGroups/psub-weu-zct-fnd-rg/providers/Microsoft.KeyVault/vaults/ps-weu-zct-fnd-kv
         secretName: disco-anomaly-recipients
+    resourceGroupName:
+      value: psub-weu-zct-disco-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-vnet
+    routeTableName:
+      value: psub-weu-zct-disco-rt
+    firewallName:
+      value: psub-weu-zct-disco-afw
+    firewallPolicyName:
+      value: psub-weu-zct-disco-afwp
+    firewallPublicIpName:
+      value: psub-weu-zct-disco-fw-pip
+    firewallManagementPublicIpName:
+      value: psub-weu-zct-disco-fwm-pip
+    budgetName:
+      value: psub-weu-zct-disco-budg
+    costExportName:
+      value: psub-weu-zct-disco-cexp
+    anomalyAlertName:
+      value: psub-weu-zct-disco-ano-alert
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-log
+    actionGroupName:
+      value: psub-weu-zct-fnd-ag
+    logAnalyticsResourceGroupName:
+      value: psub-weu-zct-fnd-rg
+    flowLogStorageAccountName:
+      value: psweuzctfndflost
+    policyAssignmentNames:
+      value:
+        allowedLocations: psub-weu-zct-disco-loc-pa
+        requireTag: psub-weu-zct-disco-tag-pa
+        noPublicIp: psub-weu-zct-disco-pip-pa
+        storageNoPublicAccess: psub-weu-zct-disco-sp-pa
+        sqlNoPublicAccess: psub-weu-zct-disco-qp-pa
+        dataDiagnostics: psub-weu-zct-disco-dg-pa
+        storageSkus: psub-weu-zct-disco-sk-pa
+        vmSkus: psub-weu-zct-disco-vs-pa
+        benchmark: psub-weu-zct-disco-bm-pa
+        resourceTypes: psub-weu-zct-disco-ty-pa
+    healthAlertNames:
+      value:
+        ServiceHealth: psub-weu-zct-disco-svc-alert
+        ResourceHealth: psub-weu-zct-disco-res-alert
+    networkSecurityGroupNames:
+      value:
+        shared-services: psub-weu-zct-disco-ss-nsg
+    policyEnforcementMode:
+      fact: policy_enforcement
+    productionSubscription:
+      fact: subscription_production
+    groups:
+      fact: groups
+    allowedResourceTypes:
+      fact: module_resource_types
+    roles:
+      address: global.roles.roles

@@ -1,3 +1,4 @@
+ResourceGroup: nsub-weu-fxo-subx-rg
 ParametersFile:
   parameters:
     workspaceName:

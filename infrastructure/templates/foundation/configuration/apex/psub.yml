@@ -1,4 +1,5 @@
 # foundation, apex prod subscription (env psub, customer apex).
+ResourceGroup: psub-weu-zct-fnd-apex-rg
 ParametersFile:
   parameters:
     tags:
@@ -13,3 +14,27 @@ ParametersFile:
       value: 90
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_prod.id
+    keyVaultName:
+      value: ps-weu-zct-fnd-ap-kv
+    logAnalyticsName:
+      value: psub-weu-zct-fnd-apex-log
+    actionGroupName:
+      value: psub-weu-zct-fnd-apex-ag
+    capacityWorkbookName:
+      value: psub-weu-zct-fnd-apex-cap-wb
+    queryPackName:
+      value: psub-weu-zct-fnd-apex-pack
+    dashboardName:
+      value: psub-weu-zct-fnd-apex-dash
+    flowLogStorageAccountName:
+      value: psweuzctfndapflost
+    keyVaultPrivateEndpointName:
+      value: psub-weu-zct-fnd-apex-kv-pep
+    networkResourceGroupName:
+      value: psub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: psub-weu-zct-disco-apex-vnet
+    privateDnsZoneResourceGroupName:
+      value: psub-weu-zct-disco-rg
+    ownerRoleId:
+      address: global.roles.roles.owner.id

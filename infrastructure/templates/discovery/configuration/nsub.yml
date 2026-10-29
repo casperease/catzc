@@ -20,9 +20,18 @@ ParametersFile:
       address: global.network.nsg_flows
     spokes:
       value:
-        - subscription: apex_nonprod
-        - subscription: nova_nonprod
-        - subscription: flux_nonprod
+      - subscription: apex_nonprod
+        resourceGroupName: nsub-weu-zct-disco-apex-rg
+        virtualNetworkName: nsub-weu-zct-disco-apex-vnet
+        peeringName: nsub-weu-zct-disco-ap-peer
+      - subscription: nova_nonprod
+        resourceGroupName: nsub-weu-zct-disco-nova-rg
+        virtualNetworkName: nsub-weu-zct-disco-nova-vnet
+        peeringName: nsub-weu-zct-disco-nv-peer
+      - subscription: flux_nonprod
+        resourceGroupName: nsub-weu-zct-disco-flux-rg
+        virtualNetworkName: nsub-weu-zct-disco-flux-vnet
+        peeringName: nsub-weu-zct-disco-fl-peer
     budgetAmount:
       value: 500
     budgetStartDate:
@@ -32,3 +41,60 @@ ParametersFile:
         keyVault:
           id: /subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/nsub-weu-zct-fnd-rg/providers/Microsoft.KeyVault/vaults/ns-weu-zct-fnd-kv
         secretName: disco-anomaly-recipients
+    resourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-vnet
+    routeTableName:
+      value: nsub-weu-zct-disco-rt
+    firewallName:
+      value: nsub-weu-zct-disco-afw
+    firewallPolicyName:
+      value: nsub-weu-zct-disco-afwp
+    firewallPublicIpName:
+      value: nsub-weu-zct-disco-fw-pip
+    firewallManagementPublicIpName:
+      value: nsub-weu-zct-disco-fwm-pip
+    budgetName:
+      value: nsub-weu-zct-disco-budg
+    costExportName:
+      value: nsub-weu-zct-disco-cexp
+    anomalyAlertName:
+      value: nsub-weu-zct-disco-ano-alert
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-ag
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-rg
+    flowLogStorageAccountName:
+      value: nsweuzctfndflost
+    policyAssignmentNames:
+      value:
+        allowedLocations: nsub-weu-zct-disco-loc-pa
+        requireTag: nsub-weu-zct-disco-tag-pa
+        noPublicIp: nsub-weu-zct-disco-pip-pa
+        storageNoPublicAccess: nsub-weu-zct-disco-sp-pa
+        sqlNoPublicAccess: nsub-weu-zct-disco-qp-pa
+        dataDiagnostics: nsub-weu-zct-disco-dg-pa
+        storageSkus: nsub-weu-zct-disco-sk-pa
+        vmSkus: nsub-weu-zct-disco-vs-pa
+        benchmark: nsub-weu-zct-disco-bm-pa
+        resourceTypes: nsub-weu-zct-disco-ty-pa
+    healthAlertNames:
+      value:
+        ServiceHealth: nsub-weu-zct-disco-svc-alert
+        ResourceHealth: nsub-weu-zct-disco-res-alert
+    networkSecurityGroupNames:
+      value:
+        shared-services: nsub-weu-zct-disco-ss-nsg
+    policyEnforcementMode:
+      fact: policy_enforcement
+    productionSubscription:
+      fact: subscription_production
+    groups:
+      fact: groups
+    allowedResourceTypes:
+      fact: module_resource_types
+    roles:
+      address: global.roles.roles

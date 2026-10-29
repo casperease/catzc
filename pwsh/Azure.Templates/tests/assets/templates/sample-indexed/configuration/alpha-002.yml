@@ -2,6 +2,7 @@
 # Config for 'sample-indexed', slot 002 of env alpha (config 'alpha-002') — a distinct RG from alpha-001.
 # storageAccountName is written statically here (in-template name generation is intentionally deferred).
 
+ResourceGroup: alpha-002-weu-fxo-sidx-rg
 ParametersFile:
   parameters:
     storageAccountName:

@@ -1,6 +1,7 @@
 # cspell:ignore btweufxosbppst
 # The yml slot of the sample-bicepparam fixture, base slot of env beta.
 
+ResourceGroup: beta-weu-fxo-sbpp-rg
 ParametersFile:
   parameters:
     storageAccountName:

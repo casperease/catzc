@@ -1,3 +1,4 @@
+ResourceGroup: dev-weu-zct-exped-apex-rg
 ParametersFile:
   parameters:
     tags:
@@ -47,3 +48,46 @@ ParametersFile:
       value: "0.5"
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    storageAccountName:
+      value: deweuzctexpedapst
+    sqlServerName:
+      value: dev-weu-zct-exped-apex-sql
+    sqlDatabaseName:
+      value: dev-weu-zct-exped-apex-sqldb
+    blobPrivateEndpointName:
+      value: dev-weu-zct-exped-apex-blb-pep
+    sqlPrivateEndpointName:
+      value: dev-weu-zct-exped-apex-sql-pep
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-apex-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-apex-ag
+    keyVaultName:
+      value: ns-weu-zct-fnd-ap-kv
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-apex-rg
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-apex-vnet
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    breakGlassLoginAlertName:
+      value: dev-weu-zct-exped-apex-bgl-alert
+    healthWorkbookName:
+      value: dev-weu-zct-exped-apex-hlt-wb
+    databaseMetricAlertNames:
+      value:
+        cpu: dev-weu-zct-exped-apex-cpu-alert
+        deadlock: dev-weu-zct-exped-apex-dlk-alert
+        failedConnection: dev-weu-zct-exped-apex-con-alert
+    databaseCapacityAlertNames:
+      value:
+        storage: dev-weu-zct-exped-apex-sto-alert
+        compute: dev-weu-zct-exped-apex-cmp-alert
+    deployProductionAlerts:
+      fact: production
+    groups:
+      fact: groups
+    roles:
+      address: global.roles.roles

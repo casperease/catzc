@@ -1,3 +1,4 @@
+ResourceGroup: dev-weu-zct-exped-rg
 ParametersFile:
   parameters:
     tags:
@@ -49,3 +50,46 @@ ParametersFile:
       value: shared-services
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    storageAccountName:
+      value: deweuzctexpedst
+    sqlServerName:
+      value: dev-weu-zct-exped-sql
+    sqlDatabaseName:
+      value: dev-weu-zct-exped-sqldb
+    blobPrivateEndpointName:
+      value: dev-weu-zct-exped-blb-pep
+    sqlPrivateEndpointName:
+      value: dev-weu-zct-exped-sql-pep
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-ag
+    keyVaultName:
+      value: ns-weu-zct-fnd-kv
+    logAnalyticsResourceGroupName:
+      value: nsub-weu-zct-fnd-rg
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-vnet
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    breakGlassLoginAlertName:
+      value: dev-weu-zct-exped-bgl-alert
+    healthWorkbookName:
+      value: dev-weu-zct-exped-hlt-wb
+    databaseMetricAlertNames:
+      value:
+        cpu: dev-weu-zct-exped-cpu-alert
+        deadlock: dev-weu-zct-exped-dlk-alert
+        failedConnection: dev-weu-zct-exped-con-alert
+    databaseCapacityAlertNames:
+      value:
+        storage: dev-weu-zct-exped-sto-alert
+        compute: dev-weu-zct-exped-cmp-alert
+    deployProductionAlerts:
+      fact: production
+    groups:
+      fact: groups
+    roles:
+      address: global.roles.roles

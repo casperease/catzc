@@ -1,4 +1,5 @@
 # foundation, apex nonprod subscription (env nsub, customer apex).
+ResourceGroup: nsub-weu-zct-fnd-apex-rg
 ParametersFile:
   parameters:
     tags:
@@ -11,3 +12,27 @@ ParametersFile:
         data-classification: confidential
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    keyVaultName:
+      value: ns-weu-zct-fnd-ap-kv
+    logAnalyticsName:
+      value: nsub-weu-zct-fnd-apex-log
+    actionGroupName:
+      value: nsub-weu-zct-fnd-apex-ag
+    capacityWorkbookName:
+      value: nsub-weu-zct-fnd-apex-cap-wb
+    queryPackName:
+      value: nsub-weu-zct-fnd-apex-pack
+    dashboardName:
+      value: nsub-weu-zct-fnd-apex-dash
+    flowLogStorageAccountName:
+      value: nsweuzctfndapflost
+    keyVaultPrivateEndpointName:
+      value: nsub-weu-zct-fnd-apex-kv-pep
+    networkResourceGroupName:
+      value: nsub-weu-zct-disco-apex-rg
+    virtualNetworkName:
+      value: nsub-weu-zct-disco-apex-vnet
+    privateDnsZoneResourceGroupName:
+      value: nsub-weu-zct-disco-rg
+    ownerRoleId:
+      address: global.roles.roles.owner.id

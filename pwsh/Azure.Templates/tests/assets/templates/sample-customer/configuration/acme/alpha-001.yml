@@ -3,6 +3,7 @@
 # Deliberately sits beside the non-slotted acme/alpha.yml: one template freely MIXES a base (no-slot)
 # config and a slotted (<env>-<slot>.yml) config — the slot is a per-config dimension, not a
 # template-level bit. See docs/drs/azure/azure-data-model.md.
+ResourceGroup: alpha-001-weu-fxo-scus-acme-rg
 ParametersFile:
   parameters:
     storageAccountName:
