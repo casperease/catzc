@@ -32,7 +32,7 @@ content:
   edges:
     - { from: widget-source, to: gadget-left, kind: flow, label: calls }
     - { from: widget-source, to: gadget-right, kind: flow, label: calls }
-    - { from: widget-gate, to: gadget-off, kind: flow, label: feeds }
+    - { from: widget-gate, to: gadget-off, kind: flow, label: then }
     - { from: gadget-right, to: gadget-level, kind: flow, label: calls }
 layout:
   band-widgets: { x: 40, y: 140, w: 1100, h: 420 }

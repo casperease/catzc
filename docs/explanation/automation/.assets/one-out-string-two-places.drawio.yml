@@ -26,7 +26,7 @@ content:
   edges:
     - { from: g-resolve, to: r-stored, kind: flow, label: reads }
     - { from: g-resolve, to: g-output-root, kind: flow, label: calls }
-    - { from: g-output-root, to: n-pipeline, kind: flow, label: reads }
+    - { from: g-output-root, to: n-pipeline, kind: flow, label: calls }
     - { from: g-resolve, to: grp-bound, kind: flow, label: "" }
     - { from: g-output-root, to: f-missing, kind: fail, label: "" }
   markers:

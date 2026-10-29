@@ -286,7 +286,7 @@ A sixth lens, drawn from the code alone rather than split from a rule diagram. I
 - **A file the code reads has no edge** when the slide's flow means "calls" (the run.json and options.yml precedents). Place the file under
   the code unit that reads it, and say so in the description's Edges section.
 - **Name the direction when results flow back.** If the arrows run from a callee to its caller (a result handed up), the legend says
-  `flow: feeds (a result to its caller)`, so the reader doesn't take it for a call.
+  `flow: returns (a result to its caller)`, so the reader doesn't take it for a call.
 - **Store access is its own edge kind.** A read or write of a store (a `$script:` map, a cache) is not a call. Draw it as a plain line with
   `endArrow=none`, legend `store access (reads or writes)`, and keep the flow edge for calls only. Don't stretch the flow phrase to "uses".
 - **`catzc module` covers `Catzc.Internal.*` too.** The `.psm1` modules under `pwsh/.internal/` get the same frame, labelled with the module
@@ -307,7 +307,7 @@ A sixth lens, drawn from the code alone rather than split from a rule diagram. I
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
 - A flow edge runs from its initiator to its receiver (`flow: initiator to receiver`, edge-semantics in drawio.yml,
-  DDR-VISUAL-ARROWSPOINTATDEPENDENCY); it ends on a code block only from an actor or labelled `calls` or `feeds` (`code-head-labels` in
+  DDR-VISUAL-ARROWSPOINTATDEPENDENCY); it ends on a code block only from an actor or labelled `calls` or `then` (`code-head-labels` in
   drawio.yml), and a slide whose plain arrows mean another one thing says so as its relation. The kinds of its ends order it: `edge-rank`
   (actor, code, file or config, store or set, result or failure; the lower acts on the higher) orients an edge, declared `from`/`to` or
   minimally `between: [a, b]`, and `edge-defaults` gives an unlabelled one its kind pair's label (code to file or set `reads`, to store

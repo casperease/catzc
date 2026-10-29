@@ -52,8 +52,11 @@ def test_a_plain_arrow_ending_on_a_code_block_needs_an_actor_or_a_call_label():
         declaration.normalise(bare)
     called = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}])
     assert declaration.normalise(called)["content"]["edges"]
+    stepped = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "then"}])
+    assert declaration.normalise(stepped)["content"]["edges"]  # then is the second label that may end on code: the next step
     fed = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "feeds"}])
-    assert declaration.normalise(fed)["content"]["edges"]  # feeds is the second label that may end on code: its tail initiates
+    with pytest.raises(declaration.DeclarationError):
+        declaration.normalise(fed)  # feeds is no edge word: a tail feeds a head only through its queue
     written = _edge_declaration(CODE_GLYPHS, [{"from": "author", "to": "widget-b", "kind": "flow", "label": ""}])
     assert declaration.normalise(written)["content"]["edges"], "an actor starts a flow into code"
 

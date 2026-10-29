@@ -25,12 +25,11 @@ renderer:
 edge-semantics:
   legend: initiator to receiver # the words of a plain arrow's legend entry, `flow: <this>`; a diagram's own relation replaces them and opts out of the checks below
   code-kinds: code, runner # the glyph kinds that are code blocks: a plain arrow ends on one only from an actor, or labelled as a call
-  code-head-labels: calls, feeds, then # the edge labels that let an arrow end on a code block without an actor: a call into the code, a feed of what the code takes in, or the next step after the tail
+  code-head-labels: calls, then # the edge labels that let an arrow end on a code block without an actor: a call into the code, or the next step after the tail
 edge-labels: # the words an edge may carry to say something other than the default, each with the end that initiates under it (tail or head)
   calls: tail
   reads: tail
   writes: tail
-  feeds: tail
   returns: tail # the tail, code, hands the head, a value, back to its caller
   failed: tail
   else: tail # the tail is tried first; the head is used only when the tail yields nothing

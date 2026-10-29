@@ -55,9 +55,9 @@ content:
   edges:
     - { from: g-deploy, to: g-resource-name, kind: flow, label: calls }
     - { from: g-resource-name, to: g-lookup, kind: flow, label: calls }
-    - { from: g-lookup, to: g-form, kind: flow, label: feeds }
-    - { from: g-form, to: g-format, kind: flow, label: feeds }
-    - { from: g-format, to: g-render, kind: flow, label: feeds }
+    - { from: g-lookup, to: g-form, kind: flow, label: then }
+    - { from: g-form, to: g-format, kind: flow, label: then }
+    - { from: g-format, to: g-render, kind: flow, label: then }
     - { from: g-render, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: "" }
     - { from: grp-guarded, to: f-guard, kind: fail, label: "" }
