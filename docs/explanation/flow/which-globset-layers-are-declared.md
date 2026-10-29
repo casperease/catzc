@@ -114,6 +114,7 @@ layout:
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- The other lenses on the same layers: [meta](which-globsets-may-share-a-file.md), [implementation](independence-check-groups-by-layer.md),
-  [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md) and [governance](overlap-gated-for-units-and-modules.md).
+- The other lenses on the same layers: [meta](which-globsets-may-share-a-file.md),
+  [implementation](how-the-independence-check-pairs-globsets.md), [operations](how-a-new-unit-or-module-folder-is-checked-for-overlap.md)
+  and [governance](overlap-gated-for-units-and-modules.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

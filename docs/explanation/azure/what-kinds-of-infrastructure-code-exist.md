@@ -97,6 +97,6 @@ layout:
 
 - [Infrastructure kinds](../../drs/azure/infrastructure-kinds.md) — the decision this article explains.
 - What a change to each kind reaches: [change one configuration slot](what-a-configuration-slot-change-reaches.md),
-  [a module change fans out to its templates](what-a-bicep-module-change-reaches.md), [add a template](add-a-template.md) and
-  [add a configuration slot](add-an-environment-slot.md).
+  [a module change fans out to its templates](what-a-bicep-module-change-reaches.md), [add a template](how-a-bicep-template-is-added.md) and
+  [add a configuration slot](how-a-configuration-slot-is-added.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

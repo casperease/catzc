@@ -115,6 +115,6 @@ layout:
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
   [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
 - The other lenses on the same coordinate: [meta](what-a-config-files-path-resolves-to.md),
-  [implementation](how-discovery-resolves-a-config-coordinate.md), [operations](a-bad-coordinate-stops-discovery.md) and
+  [implementation](how-discovery-resolves-a-config-coordinate.md), [operations](what-happens-when-a-coordinate-is-bad.md) and
   [governance](what-holds-the-azure-coordinate-rules.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -77,7 +77,7 @@ layout:
 
 ![What happens when a coordinate is bad][diagram]
 
-[diagram]: .assets/a-bad-coordinate-stops-discovery.drawio.png
+[diagram]: .assets/what-happens-when-a-coordinate-is-bad.drawio.png
 
 ## Walkthrough
 

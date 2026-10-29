@@ -59,7 +59,7 @@ layout:
 
 ![How a configuration slot is added][d]
 
-[d]: .assets/add-an-environment-slot.drawio.png
+[d]: .assets/how-a-configuration-slot-is-added.drawio.png
 
 ## Walkthrough
 

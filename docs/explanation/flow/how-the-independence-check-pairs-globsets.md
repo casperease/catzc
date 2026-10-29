@@ -75,7 +75,7 @@ layout:
   g-overlaps-modules: { x: 760, y: 444, w: 200, h: 88 }
 ```
 
-![How the independence check pairs globsets](.assets/independence-check-groups-by-layer.drawio.png)
+![How the independence check pairs globsets](.assets/how-the-independence-check-pairs-globsets.drawio.png)
 
 ## Walkthrough
 

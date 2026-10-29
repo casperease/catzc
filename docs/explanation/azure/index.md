@@ -39,5 +39,5 @@ Infrastructure code is of three kinds, each placed by the infrastructure track
 [kinds]: what-kinds-of-infrastructure-code-exist.md
 [one-slot]: what-a-configuration-slot-change-reaches.md
 [fan-out]: what-a-bicep-module-change-reaches.md
-[add-template]: add-a-template.md
-[add-env]: add-an-environment-slot.md
+[add-template]: how-a-bicep-template-is-added.md
+[add-env]: how-a-configuration-slot-is-added.md

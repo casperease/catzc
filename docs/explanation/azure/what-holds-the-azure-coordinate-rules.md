@@ -144,5 +144,5 @@ check cites ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY and the filename parser cites ADR-
   [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
 - The other lenses on the same coordinate: [meta](what-a-config-files-path-resolves-to.md),
   [architecture](how-templating-and-identity-join.md), [implementation](how-discovery-resolves-a-config-coordinate.md) and
-  [operations](a-bad-coordinate-stops-discovery.md).
+  [operations](what-happens-when-a-coordinate-is-bad.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -75,7 +75,7 @@ layout:
 
 ![How a Bicep template is added][diagram]
 
-[diagram]: .assets/add-a-template.drawio.png
+[diagram]: .assets/how-a-bicep-template-is-added.drawio.png
 
 ## Walkthrough
 
@@ -102,5 +102,5 @@ layout:
 ## See also
 
 - [Infrastructure code is of three kinds](what-kinds-of-infrastructure-code-exist.md) — the three kinds and their places.
-- [Add a configuration slot](add-an-environment-slot.md) — the next deployment of an existing template.
+- [Add a configuration slot](how-a-configuration-slot-is-added.md) — the next deployment of an existing template.
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

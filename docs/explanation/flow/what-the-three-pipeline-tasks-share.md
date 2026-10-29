@@ -124,5 +124,5 @@ trap, and no code runs it, so it is not drawn.
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
   [architecture](how-pipeline-yaml-enters-powershell.md), [operations](how-an-azure-devops-step-is-named.md) and
-  [governance](no-gate-checks-rules-one-and-four.md).
+  [governance](which-runner-rules-no-gate-checks.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

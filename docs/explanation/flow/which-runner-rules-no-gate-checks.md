@@ -80,7 +80,7 @@ layout:
   g-failures-pester: { x: 680, y: 288, w: 260, h: 80 }
 ```
 
-![Which runner rules no gate checks](.assets/no-gate-checks-rules-one-and-four.drawio.png)
+![Which runner rules no gate checks](.assets/which-runner-rules-no-gate-checks.drawio.png)
 
 ## Walkthrough
 
