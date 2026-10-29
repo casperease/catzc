@@ -76,12 +76,14 @@ every file from cold. The snapshot's own updates stay in the snapshot until Exit
 
 ## the snapshot's Python environment
 
-The Python environment (`python/.venv`) is gitignored, so a snapshot carries none, and a test run never syncs one. The snapshot's
-`python/.venv` is a directory junction to the working folder's synced environment instead, made only when that environment exists. The
-snapshot's uv lock is the working folder's, so the environment fits it, and every uv call runs with `--no-sync` and offline, so nothing
-writes into it; bytecode goes to the snapshot's own `PYTHONPYCACHEPREFIX`. A junction needs no rights a symbolic link would, and deleting
-the snapshot removes the link, never the environment behind it, since a recursive delete and the bounded folder walker never descend a
-reparse point.
+The Python environment (`python/.venv`) and its uv lock are gitignored, so a snapshot carries neither. When the working folder has a synced
+environment, the primed snapshot gets the working folder's lock and syncs its own environment from it, as Install-PythonWorkspace does
+(`uv sync --all-packages`), but offline (`--offline`, `UV_OFFLINE`), with `UV_PROJECT_ENVIRONMENT` naming the snapshot's own `.venv`. The
+sync installs from uv's cache in a few seconds and never reaches the network. A strict editable install registers a finder that maps its
+package to the build copy of the tree it was installed from, ahead of anything on the search path, so only the snapshot's own install makes
+its Python tests read the snapshot's files. A sync that misses the cache fails the run and names the fix: run Install-PythonWorkspace once
+online. The run itself never syncs: `UV_NO_SYNC` holds for this process and its workers until Exit-TestRunLocation puts the saved value
+back.
 
 ## priming the snapshot
 
@@ -98,12 +100,3 @@ No person can answer a prompt here, so a prompt fails at once instead of waiting
 
 The failed import's output is the cause, so it is written to a log under `out/test-snapshot-priming`. The snapshot is kept for a look, and
 the last ten lines of the output are thrown with the log's path.
-
-## comment:1
-
-Above `$packageRoot = Join-Path $location.Snapshot.Path 'out/python-packages'`, written with `#`.
-
-```text
-Its editable installs name the working folder's build copies, so the snapshot's own package folders come first on PYTHONPATH,
-each joined under its dotted name (a member is its package's folder, as New-PythonProject writes it), and no uv run syncs.
-```

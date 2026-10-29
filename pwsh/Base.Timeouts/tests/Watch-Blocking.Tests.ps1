@@ -18,8 +18,8 @@ Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
                     Microsoft.PowerShell.Utility\Start-Sleep -Milliseconds $sleepMilliseconds
                 }
             }.GetNewClosure()
-            Watch-Blocking @Arguments -InformationVariable iv -InformationAction SilentlyContinue
-            @($iv | ForEach-Object { if ($_.MessageData -is [string]) {
+            $records = @(Watch-Blocking @Arguments 6>&1)
+            @($records | ForEach-Object { if ($_.MessageData -is [string]) {
                         $_.MessageData
                     }
                     else {
@@ -100,7 +100,7 @@ Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
             $previous = $WarningPreference
             $WarningPreference = 'Stop'
             try {
-                { Watch-Blocking -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue } | Should -Not -Throw
+                { Watch-Blocking -Seconds 0 -Milliseconds 30 6>$null } | Should -Not -Throw
             }
             finally {
                 $WarningPreference = $previous
@@ -109,7 +109,7 @@ Describe 'Watch-Blocking' -Tag 'L0', 'logic' {
 
         It 'returns nothing' {
             Mock Start-Sleep -ModuleName Catzc.Base.Timeouts { }
-            Watch-Blocking -Seconds 0 -Milliseconds 30 -InformationAction SilentlyContinue | Should -BeNullOrEmpty
+            Watch-Blocking -Seconds 0 -Milliseconds 30 6>$null | Should -BeNullOrEmpty
         }
 
         It 'reports a late tick and still lets go, without throwing' {

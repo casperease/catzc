@@ -1,4 +1,3 @@
-# cspell:ignore PYTHONPATH
 function Enter-TestRunLocation {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -78,34 +77,6 @@ function Enter-TestRunLocation {
     Write-Message "Running in an isolated snapshot instead: $destination" -ForegroundColor Yellow
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
-    # The snapshot's Python runs use the working folder's synced environment, read-only, through a junction.
-    $pythonRelative = (Get-Config -Config python).ResolveRoot($sourceRoot)
-    $sourceVenv = [System.IO.Path]::GetFullPath((Join-Path $sourceRoot "$pythonRelative/.venv"))
-    $snapshotPython = Join-Path $location.Snapshot.Path $pythonRelative
-    $pythonEnvironment = $null
-    if ([System.IO.File]::Exists((Join-Path $sourceVenv 'pyvenv.cfg')) -and [System.IO.Directory]::Exists($snapshotPython)) {
-        [void] (New-Item -ItemType Junction -Path (Join-Path $snapshotPython '.venv') -Target $sourceVenv)
-        $packageRoot = Join-Path $location.Snapshot.Path 'out/python-packages'
-        foreach ($project in @(Get-ChildPath $snapshotPython -File -Filter 'pyproject.toml' -Depth 2)) {
-            $package = [regex]::Match([System.IO.File]::ReadAllText($project), '(?m)^packages\s*=\s*\["([^"]+)"\]').Groups[1].Value
-            if ($package) {
-                $link = Join-Path $packageRoot $package.Replace('.', '/')
-                [void] [System.IO.Directory]::CreateDirectory((Split-Path -Parent $link))
-                [void] (New-Item -ItemType Junction -Path $link -Target (Split-Path -Parent $project))
-            }
-        }
-        $pythonPath = [System.Environment]::GetEnvironmentVariable('PYTHONPATH')
-        $pythonEnvironment = [ordered]@{
-            PYTHONPATH = if ($pythonPath) {
-                $packageRoot + [System.IO.Path]::PathSeparator + $pythonPath
-            }
-            else {
-                $packageRoot
-            }
-            UV_NO_SYNC = '1'
-        }
-    }
-
     # The snapshot starts with the working folder's result caches, keyed on content and input stamps.
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
@@ -129,6 +100,48 @@ function Enter-TestRunLocation {
             "the import's output is in $log and the snapshot is kept at $($location.Snapshot.Path). Last lines:`n$tail")
     }
     Build-SnapshotReadme -SnapshotRoot $location.Snapshot.Path
+
+    # The snapshot syncs its own Python environment offline, from the working folder's lock, so its editable installs name its own files.
+    $pythonRelative = (Get-Config -Config python).ResolveRoot($sourceRoot)
+    $sourcePython = Join-Path $sourceRoot $pythonRelative
+    $snapshotPython = Join-Path $location.Snapshot.Path $pythonRelative
+    $pythonEnvironment = $null
+    if ([System.IO.File]::Exists((Join-Path $sourcePython '.venv/pyvenv.cfg')) -and
+        [System.IO.File]::Exists((Join-Path $snapshotPython 'pyproject.toml'))) {
+        $sourceLock = Join-Path $sourcePython 'uv.lock'
+        if ([System.IO.File]::Exists($sourceLock)) {
+            [System.IO.File]::Copy($sourceLock, (Join-Path $snapshotPython 'uv.lock'), $true)
+        }
+        $uv = Resolve-ToolExecutable -Tool uv
+        if (-not ($uv.Found -and $uv.VersionOk)) {
+            throw "The snapshot's Python environment needs the managed uv at the tools.yml pin '$($uv.Required)' (found: $($uv.Version ?? 'none')). Run Install-Uv."
+        }
+        $syncEnvironment = [ordered]@{
+            UV_OFFLINE             = '1'
+            UV_PYTHON_DOWNLOADS    = 'never'
+            UV_PROJECT_ENVIRONMENT = Join-Path $snapshotPython '.venv'
+        }
+        $saved = [ordered]@{}
+        foreach ($name in $syncEnvironment.Keys) {
+            $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
+            [System.Environment]::SetEnvironmentVariable($name, $syncEnvironment[$name])
+        }
+        $clock = [System.Diagnostics.Stopwatch]::StartNew()
+        try {
+            $sync = Invoke-Executable "`"$($uv.Path)`" sync --all-packages --quiet --offline" -WorkingDirectory $snapshotPython -PassThru -Silent -NoAssert
+        }
+        finally {
+            foreach ($name in $saved.Keys) {
+                [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
+            }
+        }
+        if ($sync.ExitCode -ne 0) {
+            throw ("The snapshot's Python environment could not be synced offline (exit $($sync.ExitCode)): uv's cache lacks a package the lock " +
+                "pins. Run Install-PythonWorkspace once online, then run again; the snapshot is kept at $($location.Snapshot.Path).`n$($sync.Full)")
+        }
+        Write-Message "Synced the snapshot's own Python environment offline in $([math]::Round($clock.Elapsed.TotalSeconds, 1)) s."
+        $pythonEnvironment = [ordered]@{ UV_NO_SYNC = '1' }
+    }
     # The run's Python variables hold for this process and its workers until Exit-TestRunLocation puts the saved values back.
     if ($pythonEnvironment) {
         $location.PythonEnvironment = [ordered]@{}

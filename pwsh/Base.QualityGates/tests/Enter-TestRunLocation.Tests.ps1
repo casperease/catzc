@@ -1,4 +1,3 @@
-# cspell:ignore PYTHONPATH
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '',
     Justification = 'The lock-holding helper''s Name parameter is consumed via $using: inside its Start-ThreadJob scriptblock, which this rule does not trace')]
 param()
@@ -161,43 +160,78 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Exists((Join-Path $snapshotPath 'out/cache')) | Should -BeFalse
     }
 
-    It 'links the snapshot to the working folder''s synced Python environment, never a copy' {
+    It 'syncs the snapshot''s own Python environment offline from the working folder''s lock, and stops uv syncing until the run exits' {
         $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
         $venv = Join-Path $widgetRoot 'python/.venv'
         [System.IO.Directory]::CreateDirectory($venv) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $venv 'pyvenv.cfg'), 'prompt = widget')
+        [System.IO.File]::WriteAllText((Join-Path $widgetRoot 'python/uv.lock'), 'widget-lock')
         Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
         $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
         Mock New-RepositorySnapshot {
             [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $snapshotPath 'python/pyproject.toml'), '[tool.uv.workspace]')
             [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
         } -ModuleName Catzc.Base.QualityGates
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\gadget\uv.exe' } } -ModuleName Catzc.Base.QualityGates
+        $seen = @{}
+        Mock Invoke-Executable {
+            $seen.Offline = $env:UV_OFFLINE
+            $seen.Project = $env:UV_PROJECT_ENVIRONMENT
+            $seen.Lock = [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'python/uv.lock'))
+            [pscustomobject]@{ ExitCode = 0; Output = ''; Full = '' }
+        } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '*sync --all-packages*' }
+        $savedNoSync = $env:UV_NO_SYNC
+        $savedOffline = $env:UV_OFFLINE
+        $savedProject = $env:UV_PROJECT_ENVIRONMENT
+        $env:UV_NO_SYNC = $null
+        $env:UV_OFFLINE = $null
+        $env:UV_PROJECT_ENVIRONMENT = 'C:\gadget\.venv'
+        try {
+            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
 
-        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                $Command -eq '"C:\gadget\uv.exe" sync --all-packages --quiet --offline' -and
+                $WorkingDirectory -eq (Join-Path $snapshotPath 'python')
+            }
+            $seen.Offline | Should -Be '1'
+            $seen.Project | Should -Be (Join-Path $snapshotPath 'python/.venv')
+            $seen.Lock | Should -Be 'widget-lock'
+            Test-Path -LiteralPath (Join-Path $snapshotPath 'out/python-packages') | Should -BeFalse
+            $env:UV_NO_SYNC | Should -Be '1'
+            $env:UV_OFFLINE | Should -BeNullOrEmpty
+            $env:UV_PROJECT_ENVIRONMENT | Should -Be 'C:\gadget\.venv'
 
-        $link = Get-Item -LiteralPath (Join-Path $snapshotPath 'python/.venv') -Force
-        $link.LinkType | Should -Be 'Junction'
-        $link.Target | Should -Be ([System.IO.Path]::GetFullPath($venv))
-        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'python/.venv/pyvenv.cfg')) | Should -Be 'prompt = widget'
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
+            $script:location = $null
+            $env:UV_NO_SYNC | Should -BeNullOrEmpty
+        }
+        finally {
+            $env:UV_NO_SYNC = $savedNoSync
+            $env:UV_OFFLINE = $savedOffline
+            $env:UV_PROJECT_ENVIRONMENT = $savedProject
+        }
     }
 
-    It 'links no Python environment when the working folder has none synced' {
+    It 'syncs no Python environment when the working folder has none synced' {
         $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $widgetRoot 'python')) | Out-Null
         Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
         $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
         Mock New-RepositorySnapshot {
             [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $snapshotPath 'python/pyproject.toml'), '[tool.uv.workspace]')
             [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
         } -ModuleName Catzc.Base.QualityGates
 
         $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
 
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Command -like '*sync --all-packages*' }
         Test-Path -LiteralPath (Join-Path $snapshotPath 'python/.venv') | Should -BeFalse
         $script:location.PythonEnvironment | Should -BeNullOrEmpty
     }
 
-    It 'puts the snapshot''s own package folders first on PYTHONPATH and stops uv syncing, until the run exits' {
+    It 'fails the isolated run, naming the online Install-PythonWorkspace, when the offline sync misses the cache' {
         $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
         $venv = Join-Path $widgetRoot 'python/.venv'
         [System.IO.Directory]::CreateDirectory($venv) | Out-Null
@@ -205,38 +239,23 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
         $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
         Mock New-RepositorySnapshot {
-            $kit = Join-Path $snapshotPath 'python/sprockets'
-            $holder = Join-Path $snapshotPath 'python/tests/gadget'
-            [System.IO.Directory]::CreateDirectory($kit) | Out-Null
-            [System.IO.Directory]::CreateDirectory($holder) | Out-Null
-            [System.IO.File]::WriteAllText((Join-Path $kit 'pyproject.toml'), "[tool.setuptools]`npackages = [`"widget.sprockets`"]`n")
-            [System.IO.File]::WriteAllText((Join-Path $kit 'gear.py'), '')
-            [System.IO.File]::WriteAllText((Join-Path $holder 'pyproject.toml'), "[tool.uv]`npackage = false`n")
+            [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $snapshotPath 'python/pyproject.toml'), '[tool.uv.workspace]')
             [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
         } -ModuleName Catzc.Base.QualityGates
-        $savedPythonPath = $env:PYTHONPATH
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\gadget\uv.exe' } } -ModuleName Catzc.Base.QualityGates
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 2; Output = ''; Full = 'widget-sprockets was not found in the cache' }
+        } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '*sync --all-packages*' }
         $savedNoSync = $env:UV_NO_SYNC
-        $env:PYTHONPATH = 'C:\gadget'
         $env:UV_NO_SYNC = $null
         try {
-            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
-
-            $packages = Join-Path $snapshotPath 'out/python-packages'
-            $env:PYTHONPATH | Should -Be ($packages + [System.IO.Path]::PathSeparator + 'C:\gadget')
-            $env:UV_NO_SYNC | Should -Be '1'
-            @(Get-ChildPath -Path $packages -Depth 1 | ForEach-Object { Split-Path $_ -Leaf }) | Should -Be @('widget')
-            $link = Get-Item -LiteralPath (Join-Path $packages 'widget/sprockets') -Force
-            $link.LinkType | Should -Be 'Junction'
-            [System.IO.Path]::GetFullPath($link.Target) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $snapshotPath 'python/sprockets')))
-            Test-Path -LiteralPath (Join-Path $packages 'widget/sprockets/gear.py') -PathType Leaf | Should -BeTrue
-
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
-            $script:location = $null
-            $env:PYTHONPATH | Should -Be 'C:\gadget'
+            { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated } } |
+                Should -Throw '*could not be synced offline (exit 2)*Run Install-PythonWorkspace once online*widget-sprockets was not found*'
             $env:UV_NO_SYNC | Should -BeNullOrEmpty
+            Test-Path -LiteralPath (Join-Path $snapshotPath 'python/.venv') | Should -BeFalse
         }
         finally {
-            $env:PYTHONPATH = $savedPythonPath
             $env:UV_NO_SYNC = $savedNoSync
         }
     }
