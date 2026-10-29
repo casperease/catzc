@@ -26,7 +26,7 @@ configured one by Get-AzureResourceName. So after a change of the `naming` varia
 ([ADR-AZ-NAMING-ORDERISVARIANT](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-orderisvariant)). A parameter with a
 `naming_exception` is kept as written
 ([ADR-AZ-NAMING-EXCEPTIONENTRY](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-exceptionentry)), and a name with no single
-match under any order is kept and named in a warning.
+match under any order is kept and named in a message.
 
 The files are edited as text: a parameter block is replaced or appended under `parameters:`, and every other line, its comments and its
 order stay as they are. A `.bicepparam` slot is skipped. A run that changes nothing writes nothing.

@@ -43,7 +43,7 @@ function Resolve-BicepDeclaredNames {
         }
     }
     if ($null -eq $components) {
-        Write-Warning "${Location}: '$Value' has no single canonical match under any known order; kept as written"
+        Write-Message "${Location}: '$Value' has no single canonical match under any known order; kept as written"
         return $Value
     }
 

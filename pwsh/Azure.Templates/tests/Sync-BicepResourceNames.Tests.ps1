@@ -111,14 +111,14 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
         $slot.Contains('ResourceGroup') | Should -BeFalse
     }
 
-    It 'keeps a name with a naming_exception, and warns and keeps a name that matches no canonical form' {
-        Sync-BicepResourceNames -Template gadget -WarningVariable warnings -WarningAction SilentlyContinue
+    It 'keeps a name with a naming_exception, and reports and keeps a name that matches no canonical form' {
+        Mock Write-Message -ModuleName Catzc.Azure.Templates { }
+        Sync-BicepResourceNames -Template gadget
         $parameters = (Get-Content (Join-Path $script:root 'gadget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
         $parameters.legacyName.value | Should -BeExactly 'hand-written-legacy'
         $parameters.legacyName.naming_exception | Should -Not -BeNullOrEmpty
         $parameters.oddName.value | Should -BeExactly 'not-a-canonical-name'
-        @($warnings | ForEach-Object Message) | Should -HaveCount 1
-        "$($warnings[0])" | Should -BeLike "*oddName: 'not-a-canonical-name' has no single canonical match*"
+        Should -Invoke Write-Message -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter { $Message -like "*oddName: 'not-a-canonical-name' has no single canonical match*" }
     }
 
     It 'renders every name in the classic order once the naming overlay sets classic' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
@@ -136,10 +136,10 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
 
     It 'changes nothing on a second run under the same order' {
         Sync-BicepResourceNames -WarningAction SilentlyContinue
-        $before = Get-ChildItem $script:root -Recurse -File | ForEach-Object { Get-Content $_.FullName -Raw }
+        $before = $script:files.Keys | ForEach-Object { Get-Content (Join-Path $script:root $_) -Raw }
         InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = @{} }
         Sync-BicepResourceNames -WarningAction SilentlyContinue
-        $after = Get-ChildItem $script:root -Recurse -File | ForEach-Object { Get-Content $_.FullName -Raw }
+        $after = $script:files.Keys | ForEach-Object { Get-Content (Join-Path $script:root $_) -Raw }
         $after | Should -Be $before
     }
 

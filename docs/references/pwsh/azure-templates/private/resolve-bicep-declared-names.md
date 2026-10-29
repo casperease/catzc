@@ -13,7 +13,7 @@ Matches each string leaf of a value as a resource name and renders it again unde
 A map or a list is walked to its string leaves. Each leaf is matched by ConvertFrom-AzureResourceName under the `naming` variant first and
 then under every other order of Get-AzureNameOrderSet, and its components are rendered by Get-AzureResourceName under the variant
 ([ADR-AZ-NAMING-ORDERISVARIANT](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-orderisvariant)). A leaf with no single
-match is returned as written, with a warning that names its location.
+match is returned as written, with a message that names its location.
 
 ### parameter `Value`
 
@@ -25,4 +25,4 @@ The known value of each name part, from Get-BicepNameCandidateSet.
 
 ### parameter `Location`
 
-The file and parameter path a warning names.
+The file and parameter path a message names.
