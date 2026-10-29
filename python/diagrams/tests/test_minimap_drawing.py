@@ -209,7 +209,15 @@ def test_the_column_headers_of_a_matrix_never_run_together_lit_or_dim():
     cols = ["Base.Widgets", "Base.Gadgets", "Base.WidgetStore", "Base.GadgetShelf"]
     lit = {("subject", "Base.Widgets"), ("subject", "Base.Gadgets")}  # the lit headers are bold, so wider than the dim ones
     headers = minimaps.column_headers(d, cols, lit, 70, (240 - 70 - 8) / len(cols))
-    assert [on for _, _, on in headers] == [True, True, False, False]
-    for (x, value, on), (next_x, _, _) in itertools.pairwise(headers):
-        end = x + d.textlength(value, font=minimaps.font(8 * minimaps.SCALE, on)) / minimaps.SCALE
+    assert [on for _, _, _, on in headers] == [True, True, False, False]
+    for (x, value, size, on), (next_x, _, _, _) in itertools.pairwise(headers):
+        end = x + d.textlength(value, font=minimaps.font(size * minimaps.SCALE, on)) / minimaps.SCALE
         assert end <= next_x - minimaps.HEADER_GAP, f"{value!r} runs into the next header"
+
+
+def test_a_label_too_wide_for_its_room_is_drawn_smaller_whole_before_it_is_ever_cut():
+    _, d = minimaps.canvas(240, 160)
+    label, size = minimaps.fitted(d, "widget_ado.gadgets", 9, 62)  # too wide at 9 pt, whole at a smaller size
+    assert label == "widget_ado.gadgets" and size < 9
+    label, size = minimaps.fitted(d, "widget_ado.gadgets.sprockets.cogs.and.more", 9, 30)  # too wide even at the smallest size
+    assert size == 6 and label.endswith("…")

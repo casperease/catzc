@@ -158,6 +158,13 @@ def fit(d, value, size, width, bold=False):
     return value + "…"
 
 
+def fitted(d, value, size, width, bold=False):
+    """The value and the size to draw it at: a point smaller at a time until the whole value fits, and only a value still too wide at
+    the smallest size is shortened, so a name is cut only when no readable size holds it."""
+    size = fitted_size(d, value, size, width, bold)
+    return fit(d, value, size, width, bold), size
+
+
 # ---- a minimap drawn from its contract data (minimap_contract.py): Catzc.Base.Maps computes, this module only draws ----------
 
 MIN_CELL = 36  # the narrowest matrix column whose header still reads at the sidebar's width; a wider axis is drawn as rows of names
@@ -189,7 +196,8 @@ def draw_data(d, width, height, data):
             y, on = top + i * pitch, (value,) in lit
             if (value,) in present:
                 box(d, (8, y + 1, 26, y + pitch - 1), LIT if on else PANEL, None if on else RIM, 2)
-            text(d, (32, y + pitch / 2 - 6), fit(d, value, 9, width - 40, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
+            label, size = fitted(d, value, 9, width - 40, bold=on)
+            text(d, (32, y + pitch / 2 - 6), label, size, CAPTION if on else DIM_INK, bold=on)
         if hidden:
             text(d, (32, top + len(values) * pitch), f"+{hidden} more", 9, DIM_INK)
         return
@@ -201,12 +209,13 @@ def draw_data(d, width, height, data):
         label_w = 70
         cell_w = (width - label_w - 8) / max(1, len(cols))
         cell_h = min(18, (height - top - 6) / max(1, len(rows) + bool(hidden)))
-        for x, value, on in column_headers(d, cols, lit, label_w, cell_w):
-            text(d, (x, top - 13), value, 8, CAPTION if on else DIM_INK, bold=on)
+        for x, value, size, on in column_headers(d, cols, lit, label_w, cell_w):
+            text(d, (x, top - 13), value, size, CAPTION if on else DIM_INK, bold=on)
         for i, row in enumerate(rows):
             y = top + i * cell_h
             on = any(at[0] == row for at in lit)
-            text(d, (6, y + cell_h / 2 - 6), fit(d, row, 9, label_w - 8, bold=on), 9, CAPTION if on else DIM_INK, bold=on)
+            label, size = fitted(d, row, 9, label_w - 8, bold=on)
+            text(d, (6, y + cell_h / 2 - 6), label, size, CAPTION if on else DIM_INK, bold=on)
             for j, col in enumerate(cols):
                 if (row, col) in present:
                     here = (row, col) in lit
@@ -240,12 +249,12 @@ HEADER_GAP = 4  # px a matrix column's header keeps clear of the next column's
 
 
 def column_headers(d, cols, lit, label_w, cell_w):
-    """A matrix's column headers as (x, value, lit): each 2 px into its column, shortened in the weight it is drawn in (a lit header is
-    bold, so wider) until it ends HEADER_GAP short of the next column, so two headers never run together."""
+    """A matrix's column headers as (x, value, size, lit): each 2 px into its column, drawn smaller in the weight it is drawn in (a lit
+    header is bold, so wider) until it ends HEADER_GAP short of the next column, so two headers never run together."""
     headers = []
     for j, col in enumerate(cols):
         on = any(at[1] == col for at in lit)
-        headers.append((label_w + j * cell_w + 2, fit(d, col, 8, cell_w - 2 - HEADER_GAP, bold=on), on))
+        headers.append((label_w + j * cell_w + 2, *fitted(d, col, 8, cell_w - 2 - HEADER_GAP, bold=on), on))
     return headers
 
 
@@ -269,7 +278,8 @@ def draw_rows(d, width, height, rows, present, lit):
         on = [n for n in names if (row, n) in lit]
         off = [n for n in names if (row, n) not in lit]
         bright_label = bool(on) or whole
-        text(d, (6, y), fit(d, row, 9, (label_w or width) - 12, bold=bright_label), 9, CAPTION if bright_label else DIM_INK, bold=bright_label)
+        label, size = fitted(d, row, 9, (label_w or width) - 12, bold=bright_label)
+        text(d, (6, y), label, size, CAPTION if bright_label else DIM_INK, bold=bright_label)
         x, line = (6.0 + label_w, y) if inline else (14.0, y + 13)
         if whole:
             box(d, (3, y - 1, width - 6, line + 13), None, LIT, 3)
