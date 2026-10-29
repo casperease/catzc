@@ -68,7 +68,7 @@ content:
     - { id: s-artifact, kind: store, label: tagged artifact, in: band-non-prod }
   edges:
     - { from: c-topic, to: c-main, kind: flow, label: "" }
-    - { from: c-main, to: g-engine, kind: flow, label: feeds }
+    - { from: g-engine, to: c-main, kind: flow, label: reads }
     - { from: g-engine, to: c-bvt, kind: flow, label: "" }
     - { from: c-bvt, to: g-on-demand, kind: flow, label: "" }
     - { from: g-on-demand, to: g-main-uat, kind: flow, label: then }

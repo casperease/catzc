@@ -30,8 +30,8 @@ content:
   edges:
     - { from: g-get-config, to: g-azure-yml, kind: flow, label: "" }
     - { from: g-get-config, to: g-customer-yml, kind: flow, label: "" }
-    - { from: g-get-config, to: g-azure-config, kind: flow, label: feeds }
-    - { from: g-get-config, to: g-customer-config, kind: flow, label: feeds }
+    - { from: g-get-config, to: g-azure-config, kind: flow, label: returns }
+    - { from: g-get-config, to: g-customer-config, kind: flow, label: returns }
     - { from: g-azure-sub, to: g-azure-config, kind: flow, label: reads }
     - { from: g-session-sub, to: g-azure-config, kind: flow, label: reads }
     - { from: g-azure-customer, to: g-customer-config, kind: flow, label: reads }

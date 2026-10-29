@@ -55,11 +55,11 @@ content:
     - { id: st-bundle, kind: set, label: catzc bundle, in: grp-constraints }
     - { id: st-configs, kind: set, label: local configs, in: grp-constraints }
   edges:
-    - { from: f-fragment, to: r-migration, kind: flow, label: feeds }
+    - { from: r-migration, to: f-fragment, kind: flow, label: reads }
     - { from: r-migration, to: gt-fixed, kind: flow, label: "" }
     - { from: gt-fixed, to: r-migration, kind: fail, label: contested }
     - { from: gt-fixed, to: res-form, kind: thick, label: uncontested }
-    - { from: res-form, to: st-home, kind: flow, label: feeds }
+    - { from: res-form, to: st-home, kind: flow, label: in }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
 ```

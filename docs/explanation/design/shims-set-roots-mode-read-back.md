@@ -54,8 +54,8 @@ content:
   edges:
     - { from: g-importer, to: g-source-root, kind: flow, label: "" }
     - { from: g-import-catzc, to: g-bundle-root, kind: flow, label: "" }
-    - { from: g-source-root, to: g-invoke, kind: flow, label: feeds }
-    - { from: g-bundle-root, to: g-invoke, kind: flow, label: feeds }
+    - { from: g-invoke, to: g-source-root, kind: flow, label: reads }
+    - { from: g-invoke, to: g-bundle-root, kind: flow, label: reads }
     - { from: g-invoke, to: g-run-mode, kind: flow, label: calls }
     - { from: g-invoke, to: grp-load, kind: flow, label: "" }
     - { from: g-exclusive, to: f-exclusivity, kind: fail, label: "" }

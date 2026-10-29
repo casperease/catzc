@@ -65,10 +65,10 @@ content:
   edges:
     - { from: f-registry, to: g-independence, kind: flow, label: "" }
     - { from: f-registry, to: g-config-load, kind: flow, label: "" }
-    - { from: g-config-load, to: g-scan-program, kind: flow, label: feeds }
-    - { from: g-scan-program, to: g-projection, kind: flow, label: feeds }
-    - { from: g-scan-program, to: g-git-reflection, kind: flow, label: feeds }
-    - { from: g-scan-program, to: g-live-identity, kind: flow, label: feeds }
+    - { from: g-config-load, to: g-scan-program, kind: flow, label: then }
+    - { from: g-scan-program, to: g-projection, kind: flow, label: then }
+    - { from: g-scan-program, to: g-git-reflection, kind: flow, label: then }
+    - { from: g-scan-program, to: g-live-identity, kind: flow, label: then }
     - { from: g-projection, to: g-trigger-gates, kind: flow, label: "" }
   markers:
     - { at: f-registry, number: 1 }

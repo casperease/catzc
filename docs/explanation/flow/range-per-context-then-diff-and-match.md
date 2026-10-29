@@ -55,7 +55,7 @@ content:
     - { from: g-affected, to: f-undeclared, kind: fail, label: undeclared }
     - { from: g-affected, to: g-range, kind: flow, label: calls }
     - { from: g-range, to: grp-ranges, kind: flow, label: "" }
-    - { from: grp-ranges, to: g-changed, kind: flow, label: feeds }
+    - { from: g-changed, to: grp-ranges, kind: flow, label: reads }
     - { from: g-changed, to: r-false, kind: flow, label: untouched }
     - { from: g-changed, to: r-true, kind: flow, label: "touched, or git throws" }
     - from: g-range

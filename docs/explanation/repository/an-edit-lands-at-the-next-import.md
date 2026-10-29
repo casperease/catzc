@@ -50,7 +50,7 @@ content:
     - { id: f-disabled, kind: failure, label: deployments are disabled, in: band-ask }
     - { id: f-skipped, kind: failure, label: "Skipped: main-via-pr on main", in: band-ask }
   edges:
-    - { from: g-variants-yml, to: g-importer, kind: flow, label: feeds }
+    - { from: g-importer, to: g-variants-yml, kind: flow, label: reads }
     - { from: g-importer, to: g-variants-config, kind: flow, label: "" }
     - { from: g-variants-config, to: g-assert-have-customers, kind: flow, label: "" }
     - { from: g-variants-config, to: f-validation, kind: fail, label: "" }

@@ -31,7 +31,7 @@ content:
     - { from: r-listener, to: s-writes, kind: flow, label: reads }
     - { from: r-listener, to: f-notes, kind: flow, label: "" }
     - { from: f-notes, to: g-editor-only, kind: flow, label: "" }
-    - { from: g-editor-only, to: r-processor, kind: flow, label: feeds }
+    - { from: g-editor-only, to: r-processor, kind: flow, label: then }
     - { from: r-processor, to: r-plans, kind: thick, label: plans }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]

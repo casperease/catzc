@@ -52,8 +52,8 @@ content:
     - { from: g-import-catzc, to: g-bundle-root, kind: flow, label: sets }
     - { from: g-exporter, to: g-source-root, kind: flow, label: reads }
     - { from: g-exporter, to: g-bundle-root, kind: flow, label: writes }
-    - { from: g-source-root, to: g-internal, kind: flow, label: feeds }
-    - { from: g-bundle-root, to: g-internal, kind: flow, label: feeds }
+    - { from: g-internal, to: g-source-root, kind: flow, label: reads }
+    - { from: g-internal, to: g-bundle-root, kind: flow, label: reads }
     - { from: g-internal, to: g-modules, kind: thick, label: "" }
     - { from: g-repository, to: g-modules, kind: thick, label: "" }
   markers:

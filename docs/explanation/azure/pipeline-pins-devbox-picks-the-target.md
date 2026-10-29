@@ -46,8 +46,8 @@ content:
     - { id: f-undeclared, kind: failure, label: undeclared subscription, in: grp-errors }
     - { id: f-wrong, kind: failure, label: wrong subscription, in: grp-errors }
   edges:
-    - { from: x-connection, to: g-deploy, kind: flow, label: feeds }
-    - { from: x-account, to: g-deploy, kind: flow, label: feeds }
+    - { from: g-deploy, to: x-connection, kind: flow, label: reads }
+    - { from: g-deploy, to: x-account, kind: flow, label: reads }
     - { from: g-deploy, to: r-context, kind: flow, label: "" }
     - { from: g-deploy, to: grp-errors, kind: fail, label: "" }
   markers:

@@ -64,7 +64,7 @@ content:
   edges:
     - { from: s-sibling, to: g-owner, kind: flow, label: "an idea, named where it is used" }
     - { from: g-owner, to: r-rebuilt, kind: flow, label: "" }
-    - { from: r-rebuilt, to: s-this, kind: flow, label: feeds }
+    - { from: r-rebuilt, to: s-this, kind: flow, label: in }
   markers:
     - { at: s-sibling, number: 1 }
     - { at: n-model, number: 2 }

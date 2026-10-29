@@ -41,7 +41,7 @@ content:
     - { from: g-reader, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-same, kind: flow, label: "" }
     - { from: s-cache, to: g-file, kind: flow, label: reads }
-    - { from: g-file, to: g-parse, kind: flow, label: feeds }
+    - { from: g-parse, to: g-file, kind: flow, label: reads }
     - { from: g-parse, to: r-same, kind: flow, label: "" }
   markers:
     - { at: g-reader, number: 1 }

@@ -47,8 +47,8 @@ content:
   edges:
     - { from: s-deployable-units, to: g-overlaps-units, kind: flow, label: "" }
     - { from: s-module-layer, to: g-overlaps-modules, kind: flow, label: "" }
-    - { from: g-overlaps-units, to: g-report, kind: flow, label: feeds }
-    - { from: g-overlaps-modules, to: g-report, kind: flow, label: feeds }
+    - { from: g-overlaps-units, to: g-report, kind: flow, label: calls }
+    - { from: g-overlaps-modules, to: g-report, kind: flow, label: calls }
     - { from: g-report, to: f-throw, kind: fail, label: "" }
   markers:
     - { at: s-deployable-units, number: 1 }

@@ -51,9 +51,9 @@ content:
     - { id: c-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
     - { id: g-analyzer-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-enforcement }
   edges:
-    - { from: grp-platforms, to: c-detector, kind: flow, label: feeds }
+    - { from: c-detector, to: grp-platforms, kind: flow, label: reads }
     - { from: c-detector, to: grp-callers, kind: flow, label: "" }
-    - { from: grp-platforms, to: c-hook, kind: flow, label: feeds }
+    - { from: c-hook, to: grp-platforms, kind: flow, label: reads }
     - { from: grp-callers, to: g-analyzer-rule, kind: flow, label: "" }
   markers:
     - { at: r-azure-agent, number: 1 }

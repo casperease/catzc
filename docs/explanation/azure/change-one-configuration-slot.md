@@ -41,7 +41,7 @@ content:
     - { id: r-others, kind: runner, label: every other CD pipeline, in: band-pipeline }
     - { id: e-group, kind: env, label: the slot's resource group, in: band-deployed }
   edges:
-    - { from: g-slot, to: r-owner, kind: flow, label: feeds }
+    - { from: r-owner, to: g-slot, kind: flow, label: reads }
     - { from: r-owner, to: e-group, kind: flow, label: "" }
   markers:
     - { at: g-slot, number: 1 }

@@ -44,16 +44,16 @@ content:
     - { id: r-ci-infrastructure, kind: runner, label: ci-infrastructure, in: band-pipelines }
     - { id: r-cd, kind: runner, label: cd-<unit>, in: band-pipelines }
   edges:
-    - { from: s-automation, to: r-ci-automation, kind: flow, label: feeds }
-    - { from: s-infrastructure, to: r-ci-infrastructure, kind: flow, label: feeds }
+    - { from: r-ci-automation, to: s-automation, kind: flow, label: reads }
+    - { from: r-ci-infrastructure, to: s-infrastructure, kind: flow, label: reads }
     - { from: s-base, to: s-infrastructure, kind: thick, label: composes }
     - { from: s-units, to: s-base, kind: thick, label: composes }
-    - { from: s-units, to: r-cd, kind: flow, label: feeds }
+    - { from: r-cd, to: s-units, kind: flow, label: reads }
     - { from: s-infrastructure, to: s-automation, kind: record, label: "" }
   markers:
     - { at: s-automation, number: 1 }
     - { at: s-infrastructure->s-automation, number: 2 }
-    - { at: s-automation->r-ci-automation, number: 3 }
+    - { at: r-ci-automation->s-automation, number: 3 }
     - { at: s-base, number: 4 }
     - { at: s-units, number: 5 }
     - { at: r-cd, number: 6 }

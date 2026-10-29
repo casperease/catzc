@@ -37,11 +37,19 @@ themselves are deleted once those are kept.
 - Every special rendering of a diagram for a slide is bad and goes with the slide that owns it (the user, 2026-10-29): no diagram fix,
   review round or harvested style is spent on a slide-only rendering; the diagram work covers only the diagrams articles embed.
 
+- An edge word says what the tail does to the head (the user, 2026-10-29): `feeds` is wrong unless the tail puts work on the head's queue,
+  so it leaves the vocabulary. A diagram's name binds it to the system in plain words; the mechanism lives in the article and the markers.
+
 ## Open steps
 
-- [ ] `python/diagrams/`: the bare-word fix (a bare word on a box after the `word-step-out` pill fix, 7 diagrams left) lands as one engine
-      fix, re-staged after its rolled-back burst, and goes on the veto list (check: the kit suite green, `Test-Diagrams` clean over the
-      redrawn diagrams, two or three of them looked at).
+- [ ] `python/diagrams/configs/drawio.yml`: `feeds` leaves `edge-labels` and `code-head-labels`, `returns: tail` joins them; each of the 145
+      `feeds` edges in 75 declarations is rewritten from what the code does, one declaration at a time: file to code reversed as `reads`,
+      code to code reversed as `calls`, steps inside one function `then`, result to code reversed as `reads`, code to a value `returns`
+      (check: `git grep "label: feeds"` lists none, the kit suite green, `Build-Diagrams` clean on each redrawn diagram).
+- [ ] Every article-embedded diagram's `about.title` and article heading name the part of the system it shows, never its mechanism (approved
+      examples: "How a command's time limit is chosen", "How an Azure resource gets its name"), and the diagram is renamed with it in the
+      same change: its `.drawio.png` (and `.drawio.yml`) stem and the article that carries it take the kebab form of the new title, through
+      `Move-Diagram`, links included (check: `Test-Links` and `Test-Diagrams` clean on each moved diagram).
 - [ ] `out/diagram-findings.md`: one haiku round over what it lists as unchecked (rows and titles on its lines 181-570), batches of 10,
       skipping every slide-only rendering, each finding fixed by cause as above (check: a per-diagram list per batch, and `Test-Diagrams`
       clean over the tree).

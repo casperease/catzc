@@ -47,9 +47,9 @@ content:
     - { id: r-skip, kind: result, label: Skip line, in: band-see }
   edges:
     - { from: f-globs, to: g-config-load, kind: flow, label: "" }
-    - { from: g-config-load, to: g-trigger, kind: flow, label: feeds }
-    - { from: g-config-load, to: g-changed, kind: flow, label: feeds }
-    - { from: g-config-load, to: g-automation, kind: flow, label: feeds }
+    - { from: g-trigger, to: g-config-load, kind: flow, label: calls }
+    - { from: g-changed, to: g-config-load, kind: flow, label: calls }
+    - { from: g-automation, to: g-config-load, kind: flow, label: calls }
     - { from: g-trigger, to: r-projected, kind: flow, label: "" }
     - { from: g-changed, to: r-touched, kind: flow, label: "" }
     - { from: g-automation, to: r-skip, kind: flow, label: "" }

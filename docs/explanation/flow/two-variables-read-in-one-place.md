@@ -52,10 +52,10 @@ content:
     - { id: c-rules, kind: code, label: EntryRule.psm1, in: band-analyzer }
     - { id: g-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-analyzer }
   edges:
-    - { from: r-azure-agent, to: c-detector, kind: flow, label: feeds }
-    - { from: r-github-runner, to: c-detector, kind: flow, label: feeds }
+    - { from: c-detector, to: r-azure-agent, kind: flow, label: reads }
+    - { from: c-detector, to: r-github-runner, kind: flow, label: reads }
     - { from: c-detector, to: grp-callers, kind: flow, label: "" }
-    - { from: f-settings, to: c-rules, kind: flow, label: feeds }
+    - { from: f-settings, to: c-rules, kind: flow, label: calls }
     - { from: c-rules, to: g-rule, kind: flow, label: "" }
   markers:
     - { at: r-azure-agent, number: 1 }

@@ -47,11 +47,11 @@ content:
     - { id: f-workflows, kind: file, label: .github/workflows/*.yml, in: band-trigger }
     - { id: f-pipelines, kind: file, label: .ado/pipelines/*.yaml, in: band-trigger }
   edges:
-    - { from: f-globs, to: g-globset, kind: flow, label: feeds }
-    - { from: g-globset, to: g-trigger, kind: flow, label: feeds }
+    - { from: g-globset, to: f-globs, kind: flow, label: reads }
+    - { from: g-trigger, to: g-globset, kind: flow, label: calls }
     - { from: g-trigger, to: r-github, kind: flow, label: "" }
     - { from: g-trigger, to: r-ado, kind: flow, label: "" }
-    - { from: r-github, to: g-path-filter, kind: flow, label: feeds }
+    - { from: g-path-filter, to: r-github, kind: flow, label: reads }
     - { from: r-github, to: f-workflows, kind: record, label: "" }
     - { from: r-ado, to: f-pipelines, kind: record, label: "" }
   markers:

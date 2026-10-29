@@ -52,7 +52,7 @@ content:
   edges:
     - { from: c-globs-config, to: f-globs-yml, kind: flow }
     - { from: c-globs-config, to: x-validation, kind: fail }
-    - { from: c-globs-config, to: c-scan-program, kind: flow, label: feeds }
+    - { from: c-globs-config, to: c-scan-program, kind: flow, label: then }
     - { from: c-trigger, to: c-scan-program, kind: flow, label: calls }
     - { from: c-changed, to: c-scan-program, kind: flow, label: calls }
     - { from: c-hash, to: c-scan-program, kind: flow, label: calls }

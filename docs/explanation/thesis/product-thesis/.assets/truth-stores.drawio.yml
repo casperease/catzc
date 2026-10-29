@@ -29,11 +29,11 @@ content:
     - { id: x-ado, kind: external, label: Azure DevOps, in: band-machines }
     - { id: x-snow, kind: external, label: ITSM (ServiceNow), in: band-machines }
   edges:
-    - { from: s-repo, to: r-pipelines, kind: flow, label: feeds }
+    - { from: r-pipelines, to: s-repo, kind: flow, label: reads }
     - { from: r-pipelines, to: s-ado-config, kind: thick, label: one way }
     - { from: c-catzc, to: s-repo, kind: flow, label: writes }
     - { from: c-catzc, to: s-ado-runtime, kind: flow, label: reads }
-    - { from: x-ado, to: c-catzc, kind: flow, label: feeds }
+    - { from: c-catzc, to: x-ado, kind: flow, label: reads }
     - { from: c-catzc, to: x-snow, kind: flow, label: facts }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]

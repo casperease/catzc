@@ -64,7 +64,7 @@ content:
   edges:
     - { from: a-reader, to: g-resolution, kind: flow, label: calls }
     - { from: g-resolution, to: s-cache, kind: flow, label: "" }
-    - { from: s-cache, to: g-typed, kind: flow, label: feeds }
+    - { from: g-typed, to: s-cache, kind: flow, label: writes }
     - { from: g-typed, to: a-copy, kind: flow, label: "" }
     - { from: g-validators, to: a-validator, kind: flow, label: "" }
     - { from: g-shipped, to: g-typed, kind: flow, label: calls }

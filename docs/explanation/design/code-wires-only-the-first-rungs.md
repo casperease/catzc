@@ -57,12 +57,12 @@ content:
     - { id: r-expedition, kind: runner, label: Deploy_Expedition, in: band-deploy }
     - { id: a-level-three, kind: drsonly, label: L3 system test, in: band-deploy }
   edges:
-    - { from: c-topic, to: r-pull-request, kind: flow, label: feeds }
+    - { from: r-pull-request, to: c-topic, kind: flow, label: reads }
     - { from: r-pull-request, to: c-landed, kind: flow, label: "" }
-    - { from: c-landed, to: r-trigger, kind: flow, label: feeds }
+    - { from: r-trigger, to: c-landed, kind: flow, label: reads }
     - { from: r-trigger, to: r-stage, kind: flow, label: calls }
     - { from: r-stage, to: c-verified, kind: flow, label: "" }
-    - { from: c-verified, to: r-foundation, kind: flow, label: feeds }
+    - { from: r-foundation, to: c-verified, kind: flow, label: reads }
     - { from: c-verified, to: a-level-three, kind: record, label: "" }
     - { from: r-foundation, to: r-discovery, kind: flow, label: calls }
     - { from: r-discovery, to: r-expedition, kind: flow, label: calls }

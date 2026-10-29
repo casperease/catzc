@@ -48,8 +48,8 @@ content:
     - { id: g-log, kind: file, label: out/time-safeguard.log, in: band-log }
   edges:
     - { from: g-config, to: g-timeouts, kind: flow, label: "" }
-    - { from: g-config, to: g-decide, kind: flow, label: feeds }
-    - { from: g-environment, to: g-decide, kind: flow, label: feeds }
+    - { from: g-decide, to: g-config, kind: flow, label: calls }
+    - { from: g-decide, to: g-environment, kind: flow, label: calls }
     - { from: g-decide, to: g-bounded, kind: flow, label: calls }
     - { from: g-decide, to: r-through, kind: flow, label: "" }
     - { from: g-decide, to: f-deny, kind: fail, label: "" }

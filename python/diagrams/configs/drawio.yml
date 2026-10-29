@@ -31,6 +31,7 @@ edge-labels: # the words an edge may carry to say something other than the defau
   reads: tail
   writes: tail
   feeds: tail
+  returns: tail # the tail, code, hands the head, a value, back to its caller
   failed: tail
   else: tail # the tail is tried first; the head is used only when the tail yields nothing
   composes: tail # the tail, a whole, is built from the head, its part

@@ -48,8 +48,8 @@ content:
     - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
   edges:
     - { from: f-variants, to: f-last-aspect, kind: fail, label: "" }
-    - { from: f-variants, to: c-code-aspect, kind: flow, label: feeds }
-    - { from: f-variants, to: c-deployment-aspect, kind: flow, label: feeds }
+    - { from: c-code-aspect, to: f-variants, kind: flow, label: reads }
+    - { from: c-deployment-aspect, to: f-variants, kind: flow, label: reads }
     - { from: c-code-aspect, to: s-code-live, kind: thick, label: "" }
     - { from: s-code-live, to: s-code-tests, kind: thick, label: else }
     - { from: c-deployment-aspect, to: s-deployment-tests, kind: thick, label: "" }

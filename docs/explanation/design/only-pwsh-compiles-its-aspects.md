@@ -47,7 +47,7 @@ content:
     - { id: g-maps, kind: code, label: Catzc.Base.Maps, in: band-infrastructure }
     - { id: r-world-map, kind: result, label: world map, in: band-infrastructure }
   edges:
-    - { from: g-variants-yml, to: g-variants, kind: flow, label: feeds }
+    - { from: g-variants, to: g-variants-yml, kind: flow, label: reads }
     - { from: g-variants, to: g-globs, kind: flow, label: calls }
     - { from: g-variants, to: g-maps, kind: flow, label: calls }
     - { from: g-globs, to: grp-globsets, kind: thick, label: "" }

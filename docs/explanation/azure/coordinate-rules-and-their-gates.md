@@ -54,7 +54,7 @@ content:
     - { id: e-subscription, kind: env, label: subscription, in: band-resolved }
     - { id: e-group, kind: env, label: resource group, in: band-resolved }
   edges:
-    - { from: g-config, to: g-discovery, kind: flow, label: feeds }
+    - { from: g-discovery, to: g-config, kind: flow, label: reads }
     - { from: g-discovery, to: g-check, kind: flow, label: "" }
     - { from: g-integrity, to: g-validator, kind: flow, label: calls }
     - { from: g-validator, to: g-check, kind: flow, label: "" }

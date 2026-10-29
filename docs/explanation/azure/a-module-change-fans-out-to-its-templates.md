@@ -45,8 +45,8 @@ content:
     - { id: r-cd, kind: runner, label: every CD pipeline, in: band-pipelines }
   edges:
     - { from: g-module, to: s-templates, kind: flow, label: "" }
-    - { from: s-templates, to: r-ci, kind: flow, label: feeds }
-    - { from: s-templates, to: r-cd, kind: flow, label: feeds }
+    - { from: r-ci, to: s-templates, kind: flow, label: reads }
+    - { from: r-cd, to: s-templates, kind: flow, label: reads }
   markers:
     - { at: g-module, number: 1 }
     - { at: s-templates, number: 2 }

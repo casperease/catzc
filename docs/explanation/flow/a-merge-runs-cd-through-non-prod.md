@@ -52,7 +52,7 @@ content:
     - { id: f-deployment-context, kind: failure, label: Get-BicepDeploymentContext, in: band-failures }
   edges:
     - { from: g-developer, to: g-build-bicep, kind: flow, label: "" }
-    - { from: g-build-bicep, to: g-deploy-stages, kind: flow, label: feeds }
+    - { from: g-build-bicep, to: g-deploy-stages, kind: flow, label: then }
     - { from: g-deploy-stages, to: e-non-prod, kind: flow, label: "" }
     - { from: g-deploy-stages, to: f-deploy-bicep, kind: fail, label: "" }
     - { from: g-deploy-stages, to: f-deployment-context, kind: fail, label: "" }

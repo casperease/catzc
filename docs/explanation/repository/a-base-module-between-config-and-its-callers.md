@@ -46,7 +46,7 @@ content:
     - { id: g-upper-base, kind: code, label: Globs · ModuleSystem · Maps, in: band-callers }
     - { id: g-tooling, kind: drsonly, label: Tooling, in: band-callers }
   edges:
-    - { from: g-variants-yml, to: g-config, kind: flow, label: feeds }
+    - { from: g-config, to: g-variants-yml, kind: flow, label: reads }
     - { from: g-variants, to: g-config, kind: flow, label: calls }
     - { from: g-variants, to: g-objects, kind: flow, label: calls }
     - { from: g-variants, to: g-asserts, kind: flow, label: calls }

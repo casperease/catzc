@@ -25,8 +25,8 @@ content:
     - { id: r-gitignored, kind: result, label: gitignored target, in: band-target }
     - { id: r-tracked, kind: result, label: tracked target, in: band-target }
   edges:
-    - { from: g-source, to: g-writer, kind: flow, label: feeds }
-    - { from: g-registry, to: g-writer, kind: flow, label: feeds }
+    - { from: g-writer, to: g-source, kind: flow, label: reads }
+    - { from: g-writer, to: g-registry, kind: flow, label: reads }
     - { from: g-writer, to: r-gitignored, kind: flow, label: 22/30 }
     - { from: g-writer, to: r-tracked, kind: flow, label: 8/30 }
   markers:

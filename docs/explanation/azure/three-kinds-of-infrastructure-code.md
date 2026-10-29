@@ -52,8 +52,8 @@ content:
     - { id: g-slot, kind: file, label: "<env>[-<slot>].yml", in: band-configs }
     - { id: e-group, kind: env, label: resource group, in: band-deployed }
   edges:
-    - { from: g-module, to: g-main, kind: flow, label: feeds }
-    - { from: g-options, to: g-main, kind: flow, label: feeds }
+    - { from: g-main, to: g-module, kind: flow, label: calls }
+    - { from: g-main, to: g-options, kind: flow, label: reads }
     - { from: g-main, to: g-slot, kind: flow, label: "" }
     - { from: g-slot, to: e-group, kind: flow, label: in }
   markers:

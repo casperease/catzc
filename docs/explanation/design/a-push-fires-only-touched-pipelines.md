@@ -45,10 +45,10 @@ content:
     - { id: g-drift, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-drift }
     - { id: f-drifted, kind: failure, label: trigger drifted, in: band-drift }
   edges:
-    - { from: s-powershell, to: r-automation, kind: flow, label: feeds }
-    - { from: s-infrastructure, to: r-infrastructure, kind: flow, label: feeds }
+    - { from: r-automation, to: s-powershell, kind: flow, label: reads }
+    - { from: r-infrastructure, to: s-infrastructure, kind: flow, label: reads }
     - { from: s-units, to: s-infrastructure, kind: thick, label: composes }
-    - { from: s-units, to: r-unit, kind: flow, label: feeds }
+    - { from: r-unit, to: s-units, kind: flow, label: reads }
     - { from: g-drift, to: f-drifted, kind: fail, label: "" }
   markers:
     - { at: s-powershell, number: 1 }

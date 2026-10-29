@@ -32,11 +32,11 @@ content:
     - { from: g-automation, to: g-run, kind: flow, label: calls }
     - { from: g-build, to: g-run, kind: flow, label: calls }
     - { from: g-run, to: g-discovery, kind: flow, label: calls }
-    - { from: g-discovery, to: g-tag-gate, kind: flow, label: feeds }
+    - { from: g-discovery, to: g-tag-gate, kind: flow, label: then }
     - { from: g-run, to: g-split, kind: flow, label: calls }
-    - { from: g-split, to: g-select, kind: flow, label: feeds }
-    - { from: g-select, to: g-workers, kind: flow, label: feeds }
-    - { from: g-workers, to: g-verdict, kind: flow, label: feeds }
+    - { from: g-split, to: g-select, kind: flow, label: then }
+    - { from: g-select, to: g-workers, kind: flow, label: then }
+    - { from: g-workers, to: g-verdict, kind: flow, label: then }
   markers:
     - { at: g-run, number: 1 }
     - { at: g-discovery, number: 2 }

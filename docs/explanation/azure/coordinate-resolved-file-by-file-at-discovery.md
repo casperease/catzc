@@ -55,7 +55,7 @@ content:
     - { id: g-azure, kind: file, label: azure.yml, in: band-identity }
     - { id: g-customer-file, kind: file, label: customer.yml, in: band-identity }
   edges:
-    - { from: g-config, to: g-discovery, kind: flow, label: feeds }
+    - { from: g-discovery, to: g-config, kind: flow, label: reads }
     - { from: g-discovery, to: g-resolve-name, kind: flow, label: calls }
     - { from: g-resolve-name, to: g-violations, kind: flow, label: "" }
     - { from: g-violations, to: g-slot, kind: flow, label: "" }
@@ -63,8 +63,8 @@ content:
     - { from: g-violations, to: f-invalid, kind: fail, label: "" }
     - { from: g-candidates, to: g-violations, kind: flow, label: "" }
     - { from: g-customer, to: g-candidates, kind: flow, label: calls }
-    - { from: g-azure, to: g-candidates, kind: flow, label: feeds }
-    - { from: g-customer-file, to: g-customer, kind: flow, label: feeds }
+    - { from: g-candidates, to: g-azure, kind: flow, label: reads }
+    - { from: g-customer, to: g-customer-file, kind: flow, label: reads }
   markers:
     - { at: g-config, number: 1 }
     - { at: g-discovery, number: 2 }

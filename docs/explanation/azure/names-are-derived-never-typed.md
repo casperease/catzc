@@ -49,8 +49,8 @@ content:
     - { id: r-name, kind: result, label: dev-001-weu-zct-sidx-rg, in: band-get }
     - { id: f-throw, kind: failure, label: throw, in: band-get }
   edges:
-    - { from: g-variants, to: g-resource-name, kind: flow, label: feeds }
-    - { from: g-options, to: g-resource-name, kind: flow, label: feeds }
+    - { from: g-resource-name, to: g-variants, kind: flow, label: reads }
+    - { from: g-resource-name, to: g-options, kind: flow, label: reads }
     - { from: g-deploy, to: g-resource-name, kind: flow, label: calls }
     - { from: g-resource-name, to: g-namer, kind: flow, label: calls }
     - { from: g-namer, to: r-name, kind: flow, label: "" }

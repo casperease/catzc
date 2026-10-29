@@ -49,7 +49,7 @@ content:
     - { id: r-installed, kind: result, label: Installed, in: grp-roots }
     - { id: r-saved, kind: result, label: Saved, in: grp-roots }
   edges:
-    - { from: s-source, to: g-engine, kind: flow, label: feeds }
+    - { from: g-engine, to: s-source, kind: flow, label: reads }
     - { from: g-exporter, to: g-engine, kind: flow, label: calls }
     - { from: g-engine, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-temporary, kind: flow, label: "" }

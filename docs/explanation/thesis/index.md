@@ -40,10 +40,10 @@ content:
     - { id: k-code, kind: code, label: code and configs, in: band-plan }
   edges:
     - { from: a-editor, to: r-fact, kind: flow, label: corrects }
-    - { from: r-fact, to: f-note, kind: flow, label: feeds }
+    - { from: r-fact, to: f-note, kind: flow, label: then }
     - { from: f-note, to: s-rule, kind: thick, label: plans }
-    - { from: s-rule, to: f-docs, kind: flow, label: feeds }
-    - { from: f-docs, to: k-code, kind: flow, label: feeds }
+    - { from: s-rule, to: f-docs, kind: flow, label: then }
+    - { from: f-docs, to: k-code, kind: flow, label: then }
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
 layout:

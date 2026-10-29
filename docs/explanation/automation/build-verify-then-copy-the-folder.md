@@ -48,7 +48,7 @@ content:
     - { id: g-install, kind: code, label: Install-Catzc, in: grp-targets }
     - { id: g-package, kind: code, label: New-CatzcNuGetPackage, in: grp-targets }
   edges:
-    - { from: g-config, to: g-build, kind: flow, label: feeds }
+    - { from: g-build, to: g-config, kind: flow, label: reads }
     - { from: g-build, to: g-engine, kind: flow, label: calls }
     - { from: g-engine, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-folder, kind: flow, label: "" }

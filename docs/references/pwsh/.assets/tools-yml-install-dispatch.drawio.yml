@@ -32,7 +32,7 @@ content:
     - { from: g-status, to: t-config, kind: flow, label: reads }
     - { from: g-order, to: t-config, kind: flow, label: reads }
     - { from: g-tool-config, to: t-config, kind: flow, label: reads }
-    - { from: g-status, to: t-status, kind: flow, label: feeds }
+    - { from: g-status, to: t-status, kind: flow, label: returns }
     - { from: g-install, to: g-status, kind: flow, label: calls }
     - { from: g-install, to: g-order, kind: flow, label: calls }
     - { from: g-install, to: g-suffix, kind: flow, label: calls }

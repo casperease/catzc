@@ -54,7 +54,7 @@ content:
     - { from: g-commands, to: g-resolve, kind: flow, label: calls }
     - { from: g-resolve, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-same, kind: flow, label: "" }
-    - { from: s-cache, to: g-parsed, kind: flow, label: feeds }
+    - { from: g-parsed, to: s-cache, kind: flow, label: writes }
     - { from: g-parsed, to: r-same, kind: flow, label: "" }
     - { from: g-commands, to: f-bad-key, kind: fail, label: "" }
     - { from: g-resolve, to: f-unknown, kind: fail, label: "" }

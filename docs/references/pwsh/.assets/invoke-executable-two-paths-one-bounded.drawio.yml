@@ -27,7 +27,7 @@ content:
     - { id: n-no-limit, kind: drsonly, label: no time limit, in: band-direct }
   edges:
     - { from: g-invoke, to: g-timeout, kind: flow, label: calls }
-    - { from: g-timeout, to: g-streamed, kind: flow, label: feeds }
+    - { from: g-streamed, to: g-timeout, kind: flow, label: calls }
     - { from: g-streamed, to: t-runner, kind: flow, label: calls }
     - { from: t-runner, to: f-kill, kind: fail, label: "" }
     - { from: g-invoke, to: g-direct, kind: flow, label: calls }

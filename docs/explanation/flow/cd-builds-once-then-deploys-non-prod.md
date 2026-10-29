@@ -54,11 +54,11 @@ content:
     - { from: g-build-bicep, to: r-foundation, kind: flow, label: "" }
     - { from: g-build-bicep, to: r-discovery, kind: flow, label: "" }
     - { from: g-build-bicep, to: r-expedition, kind: flow, label: "" }
-    - { from: r-foundation, to: g-deploy-foundation, kind: flow, label: feeds }
-    - { from: r-discovery, to: g-deploy-discovery, kind: flow, label: feeds }
-    - { from: r-expedition, to: g-deploy-expedition, kind: flow, label: feeds }
-    - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: feeds }
-    - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: feeds }
+    - { from: g-deploy-foundation, to: r-foundation, kind: flow, label: reads }
+    - { from: g-deploy-discovery, to: r-discovery, kind: flow, label: reads }
+    - { from: g-deploy-expedition, to: r-expedition, kind: flow, label: reads }
+    - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: then }
+    - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: then }
     - { from: g-deploy-foundation, to: e-non-prod, kind: flow, label: "" }
   markers:
     - { at: g-build-bicep, number: 1 }

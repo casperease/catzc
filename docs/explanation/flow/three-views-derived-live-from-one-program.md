@@ -40,10 +40,10 @@ content:
     - { id: c-change-report, kind: code, label: Change report, in: band-derived }
     - { id: c-protection, kind: code, label: Protection, in: band-derived }
   edges:
-    - { from: f-registry, to: c-program, kind: flow, label: feeds }
-    - { from: c-program, to: c-trigger, kind: flow, label: feeds }
-    - { from: c-program, to: c-change-report, kind: flow, label: feeds }
-    - { from: c-program, to: c-protection, kind: flow, label: feeds }
+    - { from: c-program, to: f-registry, kind: flow, label: reads }
+    - { from: c-program, to: c-trigger, kind: flow, label: then }
+    - { from: c-program, to: c-change-report, kind: flow, label: then }
+    - { from: c-program, to: c-protection, kind: flow, label: then }
   markers:
     - { at: f-registry, number: 1 }
     - { at: c-program, number: 2 }

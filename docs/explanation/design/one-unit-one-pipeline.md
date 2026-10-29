@@ -37,12 +37,12 @@ content:
     - { id: r-pipeline, kind: runner, label: Pipeline, in: band-pipelines }
   edges:
     - { from: s-unit, to: s-track, kind: thick, label: composes }
-    - { from: s-unit, to: r-pipeline, kind: flow, label: feeds }
+    - { from: r-pipeline, to: s-unit, kind: flow, label: reads }
   markers:
     - { at: s-track, number: 1 }
     - { at: s-unit->s-track, number: 2 }
     - { at: s-unit, number: 3 }
-    - { at: s-unit->r-pipeline, number: 4 }
+    - { at: r-pipeline->s-unit, number: 4 }
     - { at: r-pipeline, number: 5 }
   legend: auto
   minimaps: [code-locations, grid, axis]

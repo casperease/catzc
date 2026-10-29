@@ -39,8 +39,8 @@ content:
     - { id: g-importer, kind: code, label: one importer, in: band-importer }
     - { id: g-modules, kind: set, label: same modules, in: band-modules }
   edges:
-    - { from: g-repository, to: g-importer, kind: flow, label: feeds }
-    - { from: g-package, to: g-importer, kind: flow, label: feeds }
+    - { from: g-importer, to: g-repository, kind: flow, label: reads }
+    - { from: g-importer, to: g-package, kind: flow, label: reads }
     - { from: g-importer, to: g-modules, kind: thick, label: "" }
   markers:
     - { at: g-repository, number: 1 }

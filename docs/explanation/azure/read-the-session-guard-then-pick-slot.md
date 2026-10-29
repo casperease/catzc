@@ -50,8 +50,8 @@ content:
     - { id: g-configuration, kind: code, label: Get-BicepTemplateConfiguration, in: grp-slot }
     - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: grp-slot }
   edges:
-    - { from: g-current, to: g-session, kind: flow, label: feeds }
-    - { from: g-azure, to: g-session, kind: flow, label: feeds }
+    - { from: g-session, to: g-current, kind: flow, label: calls }
+    - { from: g-session, to: g-azure, kind: flow, label: reads }
     - { from: g-session, to: f-undeclared, kind: fail, label: "" }
     - { from: g-session, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: f-wrong, kind: fail, label: "" }

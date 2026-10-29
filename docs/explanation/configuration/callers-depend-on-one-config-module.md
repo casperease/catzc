@@ -53,7 +53,7 @@ content:
     - { from: g-config, to: s-cache, kind: flow, label: "" }
     - { from: s-cache, to: r-typed, kind: flow, label: "" }
     - { from: s-cache, to: g-file, kind: flow, label: reads }
-    - { from: g-file, to: g-type, kind: flow, label: feeds }
+    - { from: g-type, to: g-file, kind: flow, label: reads }
     - { from: g-type, to: r-typed, kind: flow, label: "" }
     - { from: g-gates, to: g-config, kind: flow, label: calls }
   markers:

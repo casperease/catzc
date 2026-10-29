@@ -62,9 +62,9 @@ content:
     - { from: s-cache, to: r-same, kind: flow, label: "" }
     - { from: g-entry, to: s-index, kind: flow, label: "" }
     - { from: s-cache, to: g-file, kind: flow, label: reads }
-    - { from: g-file, to: g-type, kind: flow, label: feeds }
+    - { from: g-type, to: g-file, kind: flow, label: reads }
     - { from: g-type, to: s-cache, kind: flow, label: "" }
-    - { from: g-registry-file, to: g-registry, kind: flow, label: feeds }
+    - { from: g-registry, to: g-registry-file, kind: flow, label: reads }
     - { from: g-registry, to: s-registry, kind: flow, label: "" }
     - { from: g-registry, to: g-type, kind: flow, label: calls }
   markers:
