@@ -55,3 +55,14 @@ Started 2026-10-27T09:07:37.7185717+01:00.
 - 2026-10-28 Cats: file-carriers.yml marks png, svg and xml carrier none, so no image can carry a generated head today.
 - 2026-10-28 Cats: A generated head is a one-way note to people: no tool decides anything from it.
 - 2026-10-28 Cats: Token tip: answer what is generated from Get-GeneratedTarget and file-carriers.yml before sweeping git ls-files.
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: slot configs hold no resource names today; every name is derived from options.yml
+  names: by Resolve-BicepDerivedNames
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: storage and vm names fuse components without separators, so a name can only be
+  matched against candidate renders, not parsed
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: discovery/configuration/nsub.yml hard-codes resource-group and key-vault names
+  inside a key vault reference id, unchecked by any gate
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: ado_naming also orders service-connection names, so it is the one naming order
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: Test-Plans wants a ## Open steps section, a check on each step line itself, and
+  only commands a module exports
+- 2026-10-29 Cats: Token tip: read Get-BicepTemplates and Read-BicepTemplateOptions first for any options.yml change
+- 2026-10-29 Cats: Token tip: copy an existing plan head and Open steps shape before writing a new plan
