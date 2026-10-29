@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
   lens: implementation
 content:
-  title: Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain
+  title: What the importer does in one run
   kind: explanation
   flow: top-to-bottom
   theme: dark

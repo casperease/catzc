@@ -13,7 +13,7 @@ These articles explain decisions from the [ado DRS domain](../../drs/index.md#ad
 
 The first configured credential wins, and it must prove its org ([dual-authentication](../../drs/ado/dual-authentication.md)).
 
-- **meta**: [The first configured credential wins, and it must prove its org](configured-credential-proves-its-org.md)
+- **meta**: [Which ADO credential wins](configured-credential-proves-its-org.md)
 - **architecture**:
   [One function owns the credential precedence, and ado.yml anchors every proof](where-the-ado-credential-precedence-lives.md)
 - **implementation**:

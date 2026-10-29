@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-REPO-FOLDERS-NAMESARESETTINGS]
   lens: governance
 content:
-  title: Each model is declared once, answered by a query, and kept true by a gate
+  title: Where each model is declared
   kind: explanation
   flow: left-to-right
   theme: dark

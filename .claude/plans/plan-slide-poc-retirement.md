@@ -45,10 +45,6 @@ themselves are deleted once those are kept.
 - [ ] `pwsh/Base.Languages/Invoke-PythonTest.ps1`: a strict editable install's link whose content differs from its source (an edit that
       replaced the file broke the hardlink, so tests and renders run the stale copy) throws naming the relink command, as a missing link
       does today (check: `Invoke-TestFile -Path pwsh/Base.Languages/tests/Invoke-PythonTest.Tests.ps1`, with a case for a broken link).
-- [ ] Every article-embedded diagram's `about.title` and article heading name the part of the system it shows, never its mechanism (approved
-      examples: "How a command's time limit is chosen", "How an Azure resource gets its name"), and the diagram is renamed with it in the
-      same change: its `.drawio.png` (and `.drawio.yml`) stem and the article that carries it take the kebab form of the new title, through
-      `Move-Diagram`, links included (check: `Test-Links` and `Test-Diagrams` clean on each moved diagram).
 - [ ] `out/diagram-findings.md`: one haiku round over what it lists as unchecked (rows and titles on its lines 181-570), batches of 10,
       skipping every slide-only rendering, each finding fixed by cause as above (check: a per-diagram list per batch, and `Test-Diagrams`
       clean over the tree).

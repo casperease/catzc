@@ -1,4 +1,4 @@
-# The first configured credential wins, and it must prove its org
+# Which ADO credential wins
 
 ```text
 The first configured credential wins, proves its org, and never falls back.
@@ -17,7 +17,7 @@ the credential by what is configured, in a fixed order, and never by trial and e
 configured organization or tenant before a header leaves, and when it fails it raises its own error instead of handing over to the next
 source.
 
-![The first configured source wins and proves its org](.assets/configured-credential-proves-its-org.drawio.png)
+![Which ADO credential wins](.assets/which-ado-credential-wins.drawio.png)
 
 ## Walkthrough
 

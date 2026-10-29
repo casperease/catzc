@@ -97,7 +97,7 @@ about:
   rules: [ADR-AZ-NAMING]
   lens: implementation
 content:
-  title: Every Azure name is assembled from fixed components; an over-limit name throws, never truncated
+  title: How an Azure name is assembled
   kind: reference
   flow: left-to-right
   theme: dark
@@ -167,7 +167,7 @@ layout:
   n-vm: { x: 890, y: 544, w: 350, h: 44 }
 ```
 
-![Every Azure name is assembled from fixed components — an over-limit name throws, never truncated](.assets/azure-name-assembly.drawio.png)
+![How an Azure name is assembled](.assets/azure-name-assembly.drawio.png)
 
 ### Two identifiers per template
 

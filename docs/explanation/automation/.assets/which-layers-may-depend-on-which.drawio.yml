@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
   lens: meta
 content:
-  title: One declared allow-list says what may depend on what, and every edge points down to the vendor tool
+  title: Which layers may depend on which
   kind: explanation
   flow: top-to-bottom
   theme: dark

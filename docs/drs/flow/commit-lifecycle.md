@@ -154,7 +154,7 @@ about:
     - DDR-VISUAL-DISTINCTENDINGS
   lens: architecture
 content:
-  title: A commit only climbs; it ends discarded, retired or superseded, and a new attempt is a new commit
+  title: The states a commit passes through
   kind: reference
   flow: left-to-right
   relation: advances one rung
@@ -265,7 +265,7 @@ layout:
   retired: { x: 1120, y: 384, w: 134, h: 50 }
 ```
 
-![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-promotion-states.drawio.png)
+![The states a commit passes through](.assets/commit-promotion-states.drawio.png)
 
 ## Discard
 
@@ -325,7 +325,7 @@ about:
     - FDR-LIFE-ONECOMMITPERENVIRONMENT
   lens: architecture
 content:
-  title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip
+  title: Where upstream consumers sync from
   kind: reference
   flow: left-to-right
   relation: points at
@@ -359,7 +359,7 @@ layout:
   c-occupant: { x: 1130, y: 162, w: 80, h: 28 }
 ```
 
-![Upstream consumers sync from the BVT-verified server head, never from a dirty HEAD](.assets/sync-point.drawio.png)
+![Where upstream consumers sync from](.assets/sync-point.drawio.png)
 
 ## The dirty HEAD
 

@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-OUTANCHOR]
   lens: operations
 content:
-  title: One stored out/ string lands in {root}/out on a devbox and in the staging directory in a pipeline
+  title: Where out/ points on a devbox and in a pipeline
   kind: explanation
   flow: left-to-right
   theme: dark

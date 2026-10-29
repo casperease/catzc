@@ -10,7 +10,7 @@ about:
   lens: action
   proves: pwsh/Base.Contracts/accosted/contract-reference.accosted.yml
 content:
-  title: Building the contract reference writes one page per unit
+  title: How the contract reference is built
   kind: explanation
   cause: { label: A maintainer changes a contract }
   action:

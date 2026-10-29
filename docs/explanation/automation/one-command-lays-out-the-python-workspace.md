@@ -1,4 +1,4 @@
-# One command lays out the Python workspace that uv handles
+# How the Python workspace is laid out
 
 ```text
 A maintainer adds a Python folder; one command renders the uv workspace, the tree classifies its files, and the gates hold.
@@ -23,7 +23,7 @@ configuration by one command and written on every import, so the only Python the
 command and the three zones its effects reach: the two files it renders, how the tree then classifies them and holds them to their source,
 and the two Python quality gates that pass over the workspace they define.
 
-![One command lays out the Python workspace that uv handles](.assets/one-command-lays-out-the-python-workspace.drawio.png)
+![How the Python workspace is laid out](.assets/one-command-lays-out-the-python-workspace.drawio.png)
 
 ## What the drawing shows
 

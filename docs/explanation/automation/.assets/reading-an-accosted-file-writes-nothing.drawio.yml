@@ -9,7 +9,7 @@ about:
   lens: action
   proves: pwsh/Base.Contracts/accosted/contracts.accosted.yml
 content:
-  title: Reading an accosted file writes nothing and leaves the contract checks as they were
+  title: What happens when an accosted file is read
   kind: explanation
   cause: { label: An author }
   action:

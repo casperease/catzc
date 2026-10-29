@@ -6,7 +6,7 @@ about:
   rules: [ADR-BCL-TYPES-REFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
   lens: architecture
 content:
-  title: BCL is a language; pwsh hosts it, and binds only by row
+  title: How pwsh hosts the BCL
   kind: reference
   flow: left-to-right
   theme: dark

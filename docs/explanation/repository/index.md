@@ -18,7 +18,7 @@ One command reads the contract assets through the one reader and writes a refere
 
 | Article                                                                                                                 |
 | ----------------------------------------------------------------------------------------------------------------------- |
-| [Building the contract reference writes one page per unit](building-the-contract-reference-writes-one-page-per-unit.md) |
+| [How the contract reference is built](building-the-contract-reference-writes-one-page-per-unit.md) |
 
 ## Minimaps
 

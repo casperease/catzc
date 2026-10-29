@@ -3,7 +3,7 @@ kit: python/diagrams/assets/slides
 
 # The pictures whose naming of the system is a contrast or the thing itself, each with why.
 name_mentions:
-  docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit: the catzc contract unit is one of the units drawn
+  docs/explanation/repository/.assets/how-the-contract-reference-is-built: the catzc contract unit is one of the units drawn
   docs/explanation/thesis/product-thesis/.assets/truth-stores: the system itself is a node among the stores it holds
   docs/explanation/automation/.assets/how-a-bundle-is-built-and-placed: the bundle is named Catzc in what the build prints
   docs/explanation/design/.assets/how-a-sibling-project-is-used: catzc is drawn against its sibling

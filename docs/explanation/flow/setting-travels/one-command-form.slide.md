@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
+      source: ../../automation/.assets/what-happens-when-an-accosted-file-is-read.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: reading an accosted file writes nothing.
 ## Notes
 
 Check it: the record ADR-AUTO-ACCOSTED in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+docs/explanation/automation/.assets/what-happens-when-an-accosted-file-is-read.drawio.png.

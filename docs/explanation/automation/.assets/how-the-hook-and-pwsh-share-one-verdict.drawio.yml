@@ -5,7 +5,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: architecture
 content:
-  title: The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree
+  title: How the hook and pwsh share one verdict
   kind: explanation
   flow: top-to-bottom
   theme: dark

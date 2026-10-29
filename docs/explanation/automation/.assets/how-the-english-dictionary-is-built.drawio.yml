@@ -9,7 +9,7 @@ about:
   lens: action
   proves: pwsh/Base.QualityGates/accosted/english-dictionary.accosted.yml
 content:
-  title: Building the English dictionary writes one stamped word list
+  title: How the English dictionary is built
   kind: explanation
   cause: { label: A maintainer bumps the cspell pin }
   action:

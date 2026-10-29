@@ -10,7 +10,7 @@ about:
     - ADR-REPO-ROOTCFG-HEADEDCOPY
   lens: meta
 content:
-  title: Every managed root file has one source of truth, one writer, and one boolean that decides git membership
+  title: Who owns each managed root file
   kind: explanation
   flow: left-to-right
   theme: dark

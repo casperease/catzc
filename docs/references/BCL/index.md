@@ -8,7 +8,7 @@ the authoritative definitions.
 
 In catzc, BCL is two things, and this page is the one place that defines both.
 
-![BCL is a language; pwsh hosts it, and binds only by row](../../drs/automation/BCL/.assets/bcl-language.drawio.png)
+![How pwsh hosts the BCL](../../drs/automation/BCL/.assets/how-pwsh-hosts-the-bcl.drawio.png)
 
 ## The BCL language
 

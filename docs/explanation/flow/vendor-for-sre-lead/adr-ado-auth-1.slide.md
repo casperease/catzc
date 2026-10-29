@@ -6,7 +6,7 @@ catzc:
     order: 1
     picture:
       mode: reduce
-      source: ../../ado/.assets/configured-credential-proves-its-org.drawio.png
+      source: ../../ado/.assets/which-ado-credential-wins.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -33,4 +33,4 @@ From the catalogue, reduced: configured credential proves its org.
 ## Notes
 
 Check it: the record ADR-ADO-AUTH in docs/drs/index.md, and the diagram
-docs/explanation/ado/.assets/configured-credential-proves-its-org.drawio.png.
+docs/explanation/ado/.assets/which-ado-credential-wins.drawio.png.

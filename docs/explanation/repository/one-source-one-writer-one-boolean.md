@@ -1,4 +1,4 @@
-# Every managed root file has one source of truth, one writer, and one boolean that decides git membership
+# Who owns each managed root file
 
 ```text
 Every managed root file has one source of truth, one writer, and one boolean that decides git membership.
@@ -17,7 +17,7 @@ The repository root carries configuration files for git, editors and quality-gat
 opted in is reproduced as a headed file from one source of truth inside `pwsh/`, by one writer, on every import. Whether the reproduced file
 is gitignored or stays tracked is one boolean per entry, not a second system.
 
-![Every managed root file has one source of truth, one writer, and one boolean that decides git membership][diagram]
+![Who owns each managed root file][diagram]
 
 [diagram]: .assets/one-source-one-writer-one-boolean.drawio.png
 

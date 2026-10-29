@@ -1,4 +1,4 @@
-# Building the English dictionary writes one stamped word list
+# How the English dictionary is built
 
 ```text
 A maintainer bumps the cspell pin; one command rebuilds the English half of the spelling oracle.
@@ -17,22 +17,22 @@ English word list of the pinned cspell. The English half is not read live from a
 that one command builds. This diagram is that command and what it leaves in the tree. The two files land together in the first zone; the
 drift check in the second zone is what keeps them honest afterwards.
 
-![Building the English dictionary writes one stamped word list][diagram]
+![How the English dictionary is built][diagram]
 
-[diagram]: .assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
+[diagram]: .assets/how-the-english-dictionary-is-built.drawio.png
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png) reads left to right. The
-head, the circle fragment numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer bumps the cspell pin**;
-the stick man drawn over the drawing hangs from it, and his right hand rests on box 2, the statement `build_english_dictionary`, a call
-without arguments, with `cats` at the hand and no line between head and hand. Two arcs cut the frame into zones. Zone 1 holds two notes
-without chips, every effect being local: 3, the flattened word list written into the module's assets, and 4, the stamp with the versions it
-was built from, each proven by `get_repository_file` on its path; the two edges out of the statement carry `executes` beside the line, one
-climbing to 3 with its word above, one falling to 4 with its word below. Zone 2 holds one note, 5, the generated-files quality gate finding
-list and stamp in step, proven by `test_generated_files` for the builder; its edge comes from 4, and its `effects` sits in a tight pill
-where the line crosses the first arc. Under the frame the Proof box speaks the statement in each engine's words, and the legend band names
-the kinds, the four operators, the marker and the transition pill, with the Proof box and the map key beside it.
+The [rendered action diagram](.assets/how-the-english-dictionary-is-built.drawio.png) reads left to right. The head, the circle fragment
+numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer bumps the cspell pin**; the stick man drawn over
+the drawing hangs from it, and his right hand rests on box 2, the statement `build_english_dictionary`, a call without arguments, with
+`cats` at the hand and no line between head and hand. Two arcs cut the frame into zones. Zone 1 holds two notes without chips, every effect
+being local: 3, the flattened word list written into the module's assets, and 4, the stamp with the versions it was built from, each proven
+by `get_repository_file` on its path; the two edges out of the statement carry `executes` beside the line, one climbing to 3 with its word
+above, one falling to 4 with its word below. Zone 2 holds one note, 5, the generated-files quality gate finding list and stamp in step,
+proven by `test_generated_files` for the builder; its edge comes from 4, and its `effects` sits in a tight pill where the line crosses the
+first arc. Under the frame the Proof box speaks the statement in each engine's words, and the legend band names the kinds, the four
+operators, the marker and the transition pill, with the Proof box and the map key beside it.
 
 ## Notes from the inspection
 

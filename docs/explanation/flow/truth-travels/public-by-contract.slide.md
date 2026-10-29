@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png
+      source: ../../repository/.assets/how-the-contract-reference-is-built.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -33,4 +33,4 @@ From the catalogue, reduced: building the contract reference writes one page per
 ## Notes
 
 Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram
-docs/explanation/repository/.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png.
+docs/explanation/repository/.assets/how-the-contract-reference-is-built.drawio.png.

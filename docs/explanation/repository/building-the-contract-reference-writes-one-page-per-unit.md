@@ -1,4 +1,4 @@
-# Building the contract reference writes one page per unit
+# How the contract reference is built
 
 ```text
 A maintainer changes a contract; one command rewrites the reference pages, and two gates hold them.
@@ -19,7 +19,7 @@ The contracts under `contracts/<unit>/<version>/` are the repository's binding i
 reader and writes a page per unit. This diagram is that command, the two pages it writes in parallel, and the two gates that hold them
 afterwards: the links on a page must resolve, and the page must match the contracts it was built from.
 
-![Building the contract reference writes one page per unit](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png)
+![How the contract reference is built](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png)
 
 ## What the drawing shows
 

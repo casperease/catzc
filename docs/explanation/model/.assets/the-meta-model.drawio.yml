@@ -13,7 +13,7 @@ about:
     ]
   lens: meta
 content:
-  title: The meta model is what the files make up and what governs them
+  title: What makes up the meta model
   kind: explanation
   flow: left-to-right
   theme: dark

@@ -6,7 +6,7 @@ catzc:
     order: 9
     picture:
       mode: reduce
-      source: ../../model/.assets/the-meta-model.drawio.png
+      source: ../../model/.assets/what-makes-up-the-meta-model.drawio.png
       scale: 0.4
 ---
 
@@ -30,4 +30,4 @@ From the catalogue, reduced: the meta model, with the glossary among what govern
 
 ## Notes
 
-Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram docs/explanation/model/.assets/the-meta-model.drawio.png.
+Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram docs/explanation/model/.assets/what-makes-up-the-meta-model.drawio.png.

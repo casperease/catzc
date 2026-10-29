@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
+      source: ../../automation/.assets/how-the-english-dictionary-is-built.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: building the English dictionary writes one stamped 
 ## Notes
 
 Check it: the record ADR-REPO-OUTDIR in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.
+docs/explanation/automation/.assets/how-the-english-dictionary-is-built.drawio.png.
