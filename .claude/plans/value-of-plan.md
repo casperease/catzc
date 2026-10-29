@@ -30,8 +30,9 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan | Needed docs | Needed tests | State |
-| ----- | ---- | ----------- | ------------ | ----- |
+| Value | Plan                 | Needed docs                                   | Needed tests                                                    | State                            |
+| ----- | -------------------- | --------------------------------------------- | --------------------------------------------------------------- | -------------------------------- |
+| high  | plan-test-run-budget | none new; ADR-AUTO-TEST holds the speed rules | each step's own file run, then the user's full run inside 180 s | open, seven steps, measure first |
 
 ## Pending deletion
 
