@@ -6,7 +6,7 @@ catzc:
     order: 5
     picture:
       mode: reduce
-      source: ../../automation/.assets/two-gates-check-the-layer-pins.drawio.png
+      source: ../../automation/.assets/what-checks-the-module-layers.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: two gates check the layer pins.
 ## Notes
 
 Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/two-gates-check-the-layer-pins.drawio.png.
+docs/explanation/automation/.assets/what-checks-the-module-layers.drawio.png.

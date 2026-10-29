@@ -125,6 +125,6 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the gates and pipelines.
-- The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](how-one-build-reaches-production.md),
-  [implementation](code-wires-only-the-first-rungs.md) and [governance](which-ladder-rungs-have-a-gate-in-code.md).
+- The other lenses on the same lifecycle: [meta](how-a-commit-climbs-the-ladder.md), [architecture](how-one-build-reaches-production.md),
+  [implementation](which-ladder-rungs-the-pipelines-wire.md) and [governance](which-ladder-rungs-have-a-gate-in-code.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

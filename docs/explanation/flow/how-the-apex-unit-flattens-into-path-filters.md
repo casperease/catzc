@@ -144,6 +144,6 @@ layout:
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
-  [architecture](globs-projects-and-three-consumers-read.md), [operations](print-projection-then-drift-names-the-filter.md) and
+  [architecture](globs-projects-and-three-consumers-read.md), [operations](how-pipeline-filter-drift-is-reported.md) and
   [governance](which-gates-check-the-generated-projection.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../automation/.assets/rule-and-gate-per-load-stage.drawio.png
+      source: ../../automation/.assets/what-checks-each-load-stage.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: rule and gate per load stage.
 ## Notes
 
 Check it: the record ADR-PWSH-ERROR in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.
+docs/explanation/automation/.assets/what-checks-each-load-stage.drawio.png.

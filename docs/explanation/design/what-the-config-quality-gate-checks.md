@@ -112,6 +112,6 @@ layout:
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same catch-all: [meta](where-a-stray-file-lands-in-each-track.md),
-  [architecture](only-pwsh-compiles-its-aspects.md), [implementation](how-aspects-become-glob-sets-and-maps.md) and
+  [architecture](which-tracks-compile-into-glob-sets.md), [implementation](how-aspects-become-glob-sets-and-maps.md) and
   [operations](how-a-tracks-remainder-aspect-is-named.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

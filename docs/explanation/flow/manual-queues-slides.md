@@ -111,6 +111,6 @@ Three rungs are dashed-chipped manual queues, one rung is the BVT gate, one is t
 ## See also
 
 - [The manual queues of the promotion ladder](../../drs/flow/manual-queues.md) — the decision these slides explain.
-- [Only BVT has a gate in code; the sync-point rules are DRS-only](../design/sync-point-rules-are-drs-only.md) — the ladder with its sync
-  point and dirty HEAD.
+- [Only BVT has a gate in code; the sync-point rules are DRS-only](../design/which-sync-point-rules-have-a-gate.md) — the ladder with its
+  sync point and dirty HEAD.
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

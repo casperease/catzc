@@ -157,6 +157,6 @@ layout:
   [dynamic module manifests](../../drs/automation/pwsh/dynamic-module-manifests.md),
   [one function per file](../../drs/automation/pwsh/one-function-per-file.md),
   [conventional folders](../../drs/repository/conventional-folders.md) and [durable sha globs](../../drs/flow/durable-sha-globs.md).
-- The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
-  [implementation](where-the-manifest-and-the-aspects-come-from.md) and [operations](drop-a-file-the-import-exports-it.md).
+- The other lenses on the same layout: [meta](which-aspect-a-module-file-belongs-to.md), [architecture](who-reads-a-module-folder.md),
+  [implementation](where-the-manifest-and-the-aspects-come-from.md) and [operations](how-a-dropped-file-gets-exported.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

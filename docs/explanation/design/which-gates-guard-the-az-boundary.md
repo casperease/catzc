@@ -142,6 +142,6 @@ layout:
 
 - [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
 - [Prefer Az CLI over Az PowerShell modules](../../drs/azure/prefer-az-cli.md) — the az-first rules.
-- The other lenses on the same platform: [meta](bind-to-one-cli-delegate-the-rest.md), [architecture](how-vendor-calls-leave-cats.md),
+- The other lenses on the same platform: [meta](which-cli-consumers-bind-to.md), [architecture](how-vendor-calls-leave-cats.md),
   [implementation](how-deploy-bicep-hands-work-to-az.md) and [operations](how-developers-and-pipelines-run-deploy-bicep.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

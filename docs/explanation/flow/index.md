@@ -21,7 +21,7 @@ One artifact is built once and climbs to production unchanged
 | Lens           | Article                                                                                                           |
 | -------------- | ----------------------------------------------------------------------------------------------------------------- |
 | meta           | [How one artifact climbs to production](one-artifact-climbs-unchanged.md)                                         |
-| architecture   | [How CI, CD and DEPLOY pipelines link](pipeline-kinds-keyed-by-one-artifact.md)                                   |
+| architecture   | [How CI, CD and DEPLOY pipelines link](how-ci-cd-and-deploy-pipelines-link.md)                                    |
 | implementation | [How the customer CD pipeline builds and deploys](how-the-customer-cd-pipeline-builds-and-deploys.md)             |
 | operations     | [How a merge to main reaches non-prod](how-a-merge-to-main-reaches-non-prod.md)                                   |
 | governance     | [What the quality gate checks on the way to production](what-the-quality-gate-checks-on-the-way-to-production.md) |
@@ -44,7 +44,7 @@ A pipeline step only names a command that a developer can run locally ([pipeline
 
 Peers in a layer never share a file, except in the loose-fileset layer ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
-- **meta**: [Which globsets may share a file](peers-in-a-layer-never-overlap.md)
+- **meta**: [Which globsets may share a file](which-globsets-may-share-a-file.md)
 - **architecture**: [Which globset layers are declared](two-declared-layers-one-derived.md)
 - **implementation**: [How the independence check pairs globsets](independence-check-groups-by-layer.md)
 - **operations**: [How a new unit or module folder is checked for overlap](how-a-new-unit-or-module-folder-is-checked-for-overlap.md)
@@ -58,5 +58,5 @@ A globset is one ordered program, and its three views are derived live, never co
 - **meta**: [How the three views of a globset are derived](three-views-derived-live-from-one-program.md)
 - **architecture**: [What the Globs module owns](globs-module-owns-config-and-types.md)
 - **implementation**: [What the scan program feeds](one-scan-program-feeds-three-roles.md)
-- **operations**: [How a globs.yml edit shows in the output](edit-globs-yml-then-read-the-output.md)
-- **governance**: [What the globset gates check](gates-check-source-and-trigger.md)
+- **operations**: [How a globs.yml edit shows in the output](how-a-globs-yml-edit-shows-in-the-output.md)
+- **governance**: [What the globset gates check](what-the-globset-gates-check.md)

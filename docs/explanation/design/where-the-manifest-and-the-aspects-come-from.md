@@ -122,6 +122,6 @@ layout:
 ## See also
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
-- The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
-  [operations](drop-a-file-the-import-exports-it.md) and [governance](where-partition-integrity-is-checked.md).
+- The other lenses on the same layout: [meta](which-aspect-a-module-file-belongs-to.md), [architecture](who-reads-a-module-folder.md),
+  [operations](how-a-dropped-file-gets-exported.md) and [governance](where-partition-integrity-is-checked.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

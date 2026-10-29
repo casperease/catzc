@@ -23,9 +23,9 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../d
 
 | Lens           | Article                                                                             |
 | -------------- | ----------------------------------------------------------------------------------- |
-| meta           | [How a commit climbs the ladder](one-way-climb-three-endings.md)                    |
+| meta           | [How a commit climbs the ladder](how-a-commit-climbs-the-ladder.md)                 |
 | architecture   | [How one build reaches production](how-one-build-reaches-production.md)             |
-| implementation | [Which ladder rungs the pipelines wire](code-wires-only-the-first-rungs.md)         |
+| implementation | [Which ladder rungs the pipelines wire](which-ladder-rungs-the-pipelines-wire.md)   |
 | operations     | [Who does what from merge to production](who-does-what-from-merge-to-production.md) |
 | governance     | [Which ladder rungs have a gate in code](which-ladder-rungs-have-a-gate-in-code.md) |
 
@@ -40,28 +40,28 @@ Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../drs/f
 
 Deploying a topic commit is not integrating it ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 
-- **meta**: [How deploying differs from integrating](deploying-is-not-integrating.md)
-- **architecture**: [What deploying and integrating share](deploy-and-integrate-share-only-the-topic.md)
+- **meta**: [How deploying differs from integrating](how-deploying-differs-from-integrating.md)
+- **architecture**: [What deploying and integrating share](what-deploying-and-integrating-share.md)
 - **implementation**: [Where a Deploy stage may run](where-a-deploy-stage-may-run.md)
-- **operations**: [What triggers a deploy](merging-to-main-is-what-deploys.md)
-- **governance**: [Which deploy rules have a gate](out-of-band-deploy-is-drs-only.md)
+- **operations**: [What triggers a deploy](what-triggers-a-deploy.md)
+- **governance**: [Which deploy rules have a gate](which-deploy-rules-have-a-gate.md)
 
 ## The sync point
 
 Upstream integrators sync from the last certified commit, not from the tip of main ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 This diagram has no implementation or operations lens.
 
-- **meta**: [Which commit a sync starts from](sync-from-the-bvt-verified-head.md)
+- **meta**: [Which commit a sync starts from](which-commit-a-sync-starts-from.md)
 - **architecture**: [Where upstream integrators sync from](where-upstream-integrators-sync-from.md)
-- **governance**: [Which sync-point rules have a gate](sync-point-rules-are-drs-only.md)
+- **governance**: [Which sync-point rules have a gate](which-sync-point-rules-have-a-gate.md)
 
 ## Run modes
 
 Where the code loads from decides the run mode ([run-modes](../../drs/design/run-modes.md)).
 
-- **meta**: [How the run mode is decided](where-code-loads-from-decides-the-mode.md)
-- **architecture**: [How two code roots load the modules](two-roots-one-importer-same-modules.md)
-- **implementation**: [How the run mode is read back](shims-set-roots-mode-read-back.md)
+- **meta**: [How the run mode is decided](how-the-run-mode-is-decided.md)
+- **architecture**: [How two code roots load the modules](how-two-code-roots-load-the-modules.md)
+- **implementation**: [How the run mode is read back](how-the-run-mode-is-read-back.md)
 - **operations**: [Which entry script each run mode uses](which-entry-script-each-run-mode-uses.md)
 - **governance**: [Which run-mode rules have a gate](which-run-mode-rules-have-a-gate.md)
 
@@ -72,20 +72,20 @@ Every module file is in exactly one aspect, and the manifest and the aspects bot
 
 | Lens           | Article                                                                                         |
 | -------------- | ----------------------------------------------------------------------------------------------- |
-| meta           | [Which aspect a module file belongs to](every-file-in-exactly-one-aspect.md)                    |
-| architecture   | [Who reads a module folder](one-folder-two-independent-readers.md)                              |
+| meta           | [Which aspect a module file belongs to](which-aspect-a-module-file-belongs-to.md)               |
+| architecture   | [Who reads a module folder](who-reads-a-module-folder.md)                                       |
 | implementation | [Where the manifest and the aspects come from](where-the-manifest-and-the-aspects-come-from.md) |
-| operations     | [How a dropped file gets exported](drop-a-file-the-import-exports-it.md)                        |
+| operations     | [How a dropped file gets exported](how-a-dropped-file-gets-exported.md)                         |
 | governance     | [Where partition integrity is checked](where-partition-integrity-is-checked.md)                 |
 
 ## Tracks, units and pipelines
 
 A track ships through a deployable-unit, and each unit has one pipeline ([tracks](../../drs/design/tracks.md)).
 
-- **meta**: [How a track ships through a unit](one-unit-one-pipeline.md)
-- **architecture**: [How CD and CI pipelines bind](units-not-tracks-own-the-pipelines.md)
+- **meta**: [How a track ships through a unit](how-a-track-ships-through-a-unit.md)
+- **architecture**: [How CD and CI pipelines bind](how-cd-and-ci-pipelines-bind.md)
 - **implementation**: [How a glob set binds to its pipeline](how-a-glob-set-binds-to-its-pipeline.md)
-- **operations**: [Which pipelines a push starts](a-push-fires-only-touched-pipelines.md)
+- **operations**: [Which pipelines a push starts](which-pipelines-a-push-starts.md)
 - **governance**: [Which track and unit rules have a gate][unit-review]
 
 ## The sibling model
@@ -93,15 +93,15 @@ A track ships through a deployable-unit, and each unit has one pipeline ([tracks
 Catzc and eac, the same family in two languages, compared model by model ([tracks](../../drs/design/tracks.md),
 [one-living-version](../../drs/principles/one-living-version.md)). One article, one meta slide, no other lenses.
 
-| Picture      | Article                                                |
-| ------------ | ------------------------------------------------------ |
+| Picture      | Article                                                           |
+| ------------ | ----------------------------------------------------------------- |
 | the siblings | [How a sibling project is used](how-a-sibling-project-is-used.md) |
 
 ## The thin platform
 
 Consumers bind to one CLI, and everything behind it is delegated to the vendor ([thin-platforms](../../drs/design/thin-platforms.md)).
 
-- **meta**: [Which CLI consumers bind to](bind-to-one-cli-delegate-the-rest.md)
+- **meta**: [Which CLI consumers bind to](which-cli-consumers-bind-to.md)
 - **architecture**: [How vendor calls leave cats](how-vendor-calls-leave-cats.md)
 - **implementation**: [How Deploy-Bicep hands work to az](how-deploy-bicep-hands-work-to-az.md)
 - **operations**: [How developers and pipelines run Deploy-Bicep](how-developers-and-pipelines-run-deploy-bicep.md)
@@ -112,12 +112,12 @@ Consumers bind to one CLI, and everything behind it is delegated to the vendor (
 Changes enter through one door, and consumers build on one stable point
 ([server-remote-integration](../../drs/design/server-remote-integration.md)).
 
-- **meta**: [How changes enter and consumers build](one-door-in-one-stable-point-out.md)
-- **architecture**: [How clients reach the server remote](clients-bridge-to-one-server.md)
-- **architecture**: [How a change leaves and returns through a topic](out-from-the-verified-point-back-through-a-topic.md)
+- **meta**: [How changes enter and consumers build](how-changes-enter-and-consumers-build.md)
+- **architecture**: [How clients reach the server remote](how-clients-reach-the-server-remote.md)
+- **architecture**: [How a change leaves and returns through a topic](how-a-change-leaves-and-returns-through-a-topic.md)
 - **implementation**: [How ingress is guarded locally and on the server](how-ingress-is-guarded-locally-and-on-the-server.md)
 - **operations**: [How the guard and the server policies are turned on][guard-policies]
 - **governance**: [Which ingress rules have a gate](which-ingress-rules-have-a-gate.md)
 
-[unit-review]: unit-to-pipeline-rule-is-review-only.md
+[unit-review]: which-track-and-unit-rules-have-a-gate.md
 [guard-policies]: how-the-guard-and-the-server-policies-are-turned-on.md

@@ -106,6 +106,7 @@ layout:
 
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - [Repo variants](../../drs/repository/repo-variants.md) — the `git_workspace` variant.
-- The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
-  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md) and [governance](which-ingress-rules-have-a-gate.md).
+- The other lenses on the same decision: [meta](how-changes-enter-and-consumers-build.md),
+  [architecture](how-clients-reach-the-server-remote.md), [implementation](how-ingress-is-guarded-locally-and-on-the-server.md) and
+  [governance](which-ingress-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

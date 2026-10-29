@@ -123,5 +123,5 @@ keeps the two in agreement.
 - [Sensible defaults](../../drs/automation/sensible-defaults.md) — the resolution order of a setting, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER.
 - The other lenses on the same verdict: [meta](how-the-hook-treats-a-shell-calls-limit.md),
   [architecture](hook-compiles-module-verdict-and-limits.md), [implementation](how-the-bash-time-guard-decides.md) and
-  [operations](pass-the-limit-or-the-call-is-denied.md).
+  [operations](when-the-hook-denies-a-call.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

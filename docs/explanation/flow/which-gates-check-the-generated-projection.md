@@ -134,5 +134,5 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
   [test automation](../../drs/automation/test-automation.md).
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
   [architecture](globs-projects-and-three-consumers-read.md), [implementation](how-the-apex-unit-flattens-into-path-filters.md) and
-  [operations](print-projection-then-drift-names-the-filter.md).
+  [operations](how-pipeline-filter-drift-is-reported.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -114,6 +114,6 @@ pipeline under `.ado/pipelines/` runs it.
 ## See also
 
 - [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
-- The other lenses on the same model: [meta](one-unit-one-pipeline.md), [architecture](units-not-tracks-own-the-pipelines.md),
-  [operations](a-push-fires-only-touched-pipelines.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
+- The other lenses on the same model: [meta](how-a-track-ships-through-a-unit.md), [architecture](how-cd-and-ci-pipelines-bind.md),
+  [operations](which-pipelines-a-push-starts.md) and [governance](which-track-and-unit-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

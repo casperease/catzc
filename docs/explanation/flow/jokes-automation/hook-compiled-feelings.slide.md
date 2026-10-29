@@ -6,7 +6,7 @@ catzc:
     order: 8
     picture:
       mode: reduce
-      source: ../../automation/.assets/three-tests-prove-the-hook.drawio.png
+      source: ../../automation/.assets/how-the-bash-time-guard-is-tested.drawio.png
       scale: 0.4
 ---
 
@@ -31,4 +31,4 @@ From the catalogue, reduced: three tests prove the hook.
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/explanation/automation/.assets/three-tests-prove-the-hook.drawio.png.
+docs/explanation/automation/.assets/how-the-bash-time-guard-is-tested.drawio.png.

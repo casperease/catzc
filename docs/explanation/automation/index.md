@@ -35,7 +35,7 @@ Every entry runs one load sequence through the importer ([platform-bundle](../..
   [Invoke-Importer loads, asserts one run mode, tidies up and unloads, in one call chain](invoke-importer-in-code-order.md)
 - **operations**:
   [Dot-source one entry script, and a failed check stops the load with a named error](how-the-entry-script-loads-the-modules.md)
-- **governance**: [Every load stage but the unload has a DRS rule and a gate](rule-and-gate-per-load-stage.md)
+- **governance**: [Every load stage but the unload has a DRS rule and a gate](what-checks-each-load-stage.md)
 
 ## Module dependency groups
 
@@ -43,7 +43,7 @@ One declared allow-list says what may depend on what, and the declared graph for
 ([controlling-module-dependencies](../../drs/automation/controlling-module-dependencies.md)).
 
 - **meta**: [One declared allow-list says what may depend on what, and every edge points down](a-declared-allow-list-of-layers.md)
-- **architecture**: [Module dependencies form three layers, and every edge points down](three-layers-edges-point-down.md)
+- **architecture**: [Module dependencies form three layers, and every edge points down](how-modules-are-layered.md)
 - **implementation**:
   [Two sections of dependencies.yml are unioned into one allow-set per source module](two-sections-unioned-into-one-allow-set.md)
 - **operations**: [An undeclared module edge fails the gate with one line per issue](undeclared-edge-fails-with-one-line.md)

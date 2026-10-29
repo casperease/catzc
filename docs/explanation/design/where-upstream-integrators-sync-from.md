@@ -132,5 +132,6 @@ two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flo
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [CD discipline and promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the RC and RBC gates and the pre-prod rung.
-- The other lenses on the same sync point: [meta](sync-from-the-bvt-verified-head.md) and [governance](sync-point-rules-are-drs-only.md).
+- The other lenses on the same sync point: [meta](which-commit-a-sync-starts-from.md) and
+  [governance](which-sync-point-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

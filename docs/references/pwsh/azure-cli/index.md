@@ -88,7 +88,7 @@ single, version-locking dependency, not a reimplementation of tool management.
 The diagram below draws session verification from the source. Each of the two az checks (connection and subscription access) has one state
 call that its query form and its throwing form share, so the two cannot drift. The config-aware wrappers add only the `azure.yml` lookup.
 
-![How the Azure CLI session is checked](../.assets/az-cli-test-assert-share-one-state.drawio.png)
+![How the Azure CLI session is checked](../.assets/how-the-azure-cli-session-is-checked.drawio.png)
 
 ## Division
 

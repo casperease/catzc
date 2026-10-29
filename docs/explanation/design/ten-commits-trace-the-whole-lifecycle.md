@@ -155,7 +155,7 @@ content:
   minimaps: [code-locations, axis, lifecycle-position]
 ```
 
-![The commit lifecycle end to end](.assets/10-commits-story.drawio.png)
+![The commit lifecycle end to end](.assets/the-commit-lifecycle-end-to-end.drawio.png)
 
 ## Walkthrough
 

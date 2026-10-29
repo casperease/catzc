@@ -113,5 +113,5 @@ layout:
 - [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) and
   [Sensible defaults for all parameters](../../drs/automation/sensible-defaults.md) — the decisions this article explains.
 - The other lenses on the same resolution: [meta](where-a-waits-limit-comes-from.md), [architecture](who-resolves-the-time-limit.md),
-  [implementation](resolve-one-limit-in-code-order.md) and [governance](one-rule-per-stage-and-two-gaps.md).
+  [implementation](how-a-commands-time-limit-is-chosen.md) and [governance](what-guards-the-limits-resolution.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -126,7 +126,7 @@ No stage in `.ado/pipelines/` is named BVT; the pipeline guide names the CI type
 ## See also
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
-- The other lenses on the same deploy: [meta](deploying-is-not-integrating.md),
-  [architecture](deploy-and-integrate-share-only-the-topic.md), [operations](merging-to-main-is-what-deploys.md) and
-  [governance](out-of-band-deploy-is-drs-only.md).
+- The other lenses on the same deploy: [meta](how-deploying-differs-from-integrating.md),
+  [architecture](what-deploying-and-integrating-share.md), [operations](what-triggers-a-deploy.md) and
+  [governance](which-deploy-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -120,7 +120,6 @@ until it is installed or saved.
 ## See also
 
 - [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
-- The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
-  [architecture](two-roots-one-importer-same-modules.md), [implementation](shims-set-roots-mode-read-back.md) and
-  [governance](which-run-mode-rules-have-a-gate.md).
+- The other lenses on the same modes: [meta](how-the-run-mode-is-decided.md), [architecture](how-two-code-roots-load-the-modules.md),
+  [implementation](how-the-run-mode-is-read-back.md) and [governance](which-run-mode-rules-have-a-gate.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

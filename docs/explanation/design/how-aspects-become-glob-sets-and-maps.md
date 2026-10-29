@@ -147,6 +147,6 @@ layout:
   [durable sha globs](../../drs/flow/durable-sha-globs.md), [repo-wide variants](../../drs/repository/repo-variants.md) and
   [tracks](../../drs/design/tracks.md).
 - The other lenses on the same catch-all: [meta](where-a-stray-file-lands-in-each-track.md),
-  [architecture](only-pwsh-compiles-its-aspects.md), [operations](how-a-tracks-remainder-aspect-is-named.md) and
+  [architecture](which-tracks-compile-into-glob-sets.md), [operations](how-a-tracks-remainder-aspect-is-named.md) and
   [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

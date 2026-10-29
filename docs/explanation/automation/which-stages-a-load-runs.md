@@ -88,5 +88,5 @@ Whatever the entry point, the load runs the same steps in the same order, and th
 - [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - The other lenses on the same load sequence: [architecture](two-entries-feed-one-importer.md),
   [implementation](invoke-importer-in-code-order.md), [operations](how-the-entry-script-loads-the-modules.md) and
-  [governance](rule-and-gate-per-load-stage.md).
+  [governance](what-checks-each-load-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

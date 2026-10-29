@@ -101,7 +101,7 @@ layout:
 ## See also
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
-- The other lenses on the same catch-all: [architecture](only-pwsh-compiles-its-aspects.md),
+- The other lenses on the same catch-all: [architecture](which-tracks-compile-into-glob-sets.md),
   [implementation](how-aspects-become-glob-sets-and-maps.md), [operations](how-a-tracks-remainder-aspect-is-named.md) and
   [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

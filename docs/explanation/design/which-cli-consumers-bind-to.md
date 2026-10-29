@@ -1,0 +1,96 @@
+# Which CLI consumers bind to
+
+```text
+Which CLI consumers bind to.
+
+1  developer       the consumer; a CD pipeline runs the same commands
+2  one CLI         the only surface anyone binds to: functions plus configuration
+3  vendor tooling  a templating language and a control-plane CLI that do the work
+4  cloud vendor    the substrate behind the CLI, swappable in principle; Azure today
+
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI
+and DDR-THINPLAT-SWAPPABLESUBSTRATE (meta lens).
+```
+
+Cats is a thin platform: a single CLI that standardizes how an organization uses a cloud vendor without reimplementing the vendor. Its idea
+is a single chain. A consumer binds to the CLI and nothing else, the CLI hands the work to the vendor's own tools, and those tools talk to
+the cloud. The invariant is delegation, not reimplementation, and the consequential choices stay in the consumer's configuration.
+
+```yml drawio
+description:
+  A consumer binds to one command-line interface, which hands the work to the vendor's own tooling, which talks to the cloud vendor
+  substrate behind it.
+about:
+  rules: [DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE]
+  lens: meta
+content:
+  title: Which CLI consumers bind to
+  kind: explanation
+  flow: top-to-bottom
+  theme: dark
+  bands:
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-cli, label: CLI SURFACE }
+    - { id: band-delegated, label: DELEGATED }
+    - { id: band-vendor, label: VENDOR SUBSTRATE }
+  glyphs:
+    - { id: a-developer, kind: actor, label: developer, in: band-consumers }
+    - { id: c-surface, kind: code, label: one CLI, in: band-cli }
+    - { id: x-tooling, kind: external, label: vendor tooling, in: band-delegated }
+    - { id: e-vendor, kind: env, label: cloud vendor, in: band-vendor }
+  edges:
+    - { from: a-developer, to: c-surface, kind: flow, label: "" }
+    - { from: c-surface, to: x-tooling, kind: flow, label: "" }
+    - { from: x-tooling, to: e-vendor, kind: flow, label: calls }
+  markers:
+    - { at: a-developer, number: 1 }
+    - { at: c-surface, number: 2 }
+    - { at: x-tooling, number: 3 }
+    - { at: e-vendor, number: 4 }
+  legend: auto
+  minimaps: [code-locations, grid, axis]
+layout:
+  band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
+  band-cli: { x: 20, y: 224, w: 1260, h: 120 }
+  band-delegated: { x: 20, y: 364, w: 1260, h: 120 }
+  band-vendor: { x: 20, y: 504, w: 1260, h: 120 }
+  a-developer: { x: 570, y: 124, w: 140, h: 64 }
+  c-surface: { x: 490, y: 270, w: 300, h: 44 }
+  x-tooling: { x: 490, y: 410, w: 300, h: 44 }
+  e-vendor: { x: 490, y: 548, w: 300, h: 52 }
+```
+
+![Which CLI consumers bind to](.assets/which-cli-consumers-bind-to.drawio.png)
+
+## Walkthrough
+
+1. **Developer.** The consumer who runs the platform. A CD pipeline runs the same commands, so what a developer types is exactly what the
+   pipeline delivers.
+2. **One CLI.** The only surface anyone binds to: the CLI plus its configuration is the platform's API. What the platform adds here is
+   harmonization: one calling convention, one authentication path and one set of defaults, so a consumer never touches the vendor wiring.
+3. **Vendor tooling.** A templating language and a control-plane CLI do the work. The platform calls them rather than rebuilding them.
+4. **Cloud vendor.** The substrate sits behind the CLI and is swappable in principle, without reshaping the consumer's API. Today it is
+   Azure only.
+
+## Why it holds
+
+- Cats is a thin platform, the smallest set of tooling that measurably speeds up the teams on it (DDR-THINPLAT-THINPLATFORM).
+- Thin is achieved by delegation, not reimplementation: wrap to harmonize, never to hide or clone the vendor
+  (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
+- The consumable surface is a CLI; consumers edit configuration and compose functions, and never touch the vendor wiring
+  (DDR-THINPLAT-PLATFORMASCLI).
+- The substrate is swappable behind the CLI, and cost, region, scale and blast radius stay in the consumer's configuration
+  (DDR-THINPLAT-SWAPPABLESUBSTRATE).
+
+## Where the code and the decision record differ
+
+The DDR's single authentication path, resolved for the consumer, is two logins in the code that meet at the az session: a pipeline signs in
+through its service connection, and a developer runs `Connect-AzCli` and picks how to log in. Nothing chooses for them.
+
+## See also
+
+- [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
+- The other lenses on the same platform: [architecture](how-vendor-calls-leave-cats.md),
+  [implementation](how-deploy-bicep-hands-work-to-az.md), [operations](how-developers-and-pipelines-run-deploy-bicep.md) and
+  [governance](which-gates-guard-the-az-boundary.md).
+- [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
