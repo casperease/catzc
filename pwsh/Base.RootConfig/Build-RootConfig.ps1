@@ -3,7 +3,7 @@ function Build-RootConfig {
     [OutputType([string[]])]
     param(
         [Parameter(Position = 0)]
-        [string] $Target,
+        [string] $Path,
 
         [switch] $DryRun,
 
@@ -22,15 +22,15 @@ function Build-RootConfig {
     $config = Get-Config -Config rootconfig
 
     $entries = @(Get-RootConfigTargets -Config $config -FollowMix)
-    if ($Target) {
+    if ($Path) {
         # An entry is selected by its own target, or — for a wildcard entry — by one path its pattern matches.
         $entries = @($entries | Where-Object {
-                $_.target -eq $Target -or (
+                $_.target -eq $Path -or (
                     [System.Management.Automation.WildcardPattern]::ContainsWildcardCharacters($_.target) -and
-                    $Target -clike $_.target)
+                    $Path -clike $_.target)
             })
         if ($entries.Count -eq 0) {
-            throw "No opted-in root-config entry targets '$Target'. See configs/rootconfig.yml."
+            throw "No opted-in root-config entry targets '$Path'. See configs/rootconfig.yml."
         }
     }
 
@@ -38,7 +38,7 @@ function Build-RootConfig {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     # Only a whole run may skip on the shared writer memo; a targeted, dry or passthru run always renders.
-    $whole = -not $Target -and -not $DryRun -and -not $PassThru
+    $whole = -not $Path -and -not $DryRun -and -not $PassThru
     if ($whole) {
         $row = @(Get-GeneratedWriterDue | Where-Object Name -ceq 'Build-RootConfig')
         if ($row.Count -eq 1 -and -not $row[0].Due) {
@@ -66,11 +66,11 @@ function Build-RootConfig {
                 })
         }
 
-        # -Target naming one file of a wildcard entry writes only that file.
-        if ($Target -and $Target -ne $entry.target) {
-            $files = @($files | Where-Object { $_.Target -eq $Target })
+        # -Path naming one file of a wildcard entry writes only that file.
+        if ($Path -and $Path -ne $entry.target) {
+            $files = @($files | Where-Object { $_.Target -eq $Path })
             if ($files.Count -eq 0) {
-                throw "Root-config entry '$($entry.target)' renders no file '$Target'. See configs/rootconfig.yml."
+                throw "Root-config entry '$($entry.target)' renders no file '$Path'. See configs/rootconfig.yml."
             }
         }
 

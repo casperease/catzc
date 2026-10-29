@@ -22,7 +22,20 @@ Describe 'New-TestAutomationShardScript' {
             $script:shard.ResultsPath | Should -Be (Join-Path $script:runDirectory 'results-shard-3.xml')
             $script:shard.RowsPath | Should -Be (Join-Path $script:runDirectory 'rows-shard-3.json')
             $script:shard.FilesPath | Should -Be (Join-Path $script:runDirectory 'files-shard-3.json')
+            $script:shard.LogPath | Should -Be (Join-Path $script:runDirectory 'worker-shard-3.log')
             $script:shard.ScriptPath | Should -Exist
+        }
+
+        It 'records a failed container, never a crash, when Invoke-Pester returns no result' {
+            $script:content | Should -Match ([regex]::Escape('Invoke-Pester -Configuration $config -InformationVariable pesterOutput'))
+            $branch = $script:content.IndexOf('if ($null -eq $result) {')
+            $branch | Should -BeGreaterThan $script:content.IndexOf('Invoke-Pester')
+            $branch | Should -BeLessThan $script:content.IndexOf('ConvertTo-TestAutomationRowSet')
+            $script:content | Should -Match 'New-TestAutomationNoResultSet -TestPath \$testPath -ResultsPath \$resultsPath -LogPath \$logPath'
+            $script:content | Should -Match ([regex]::Escape("'$($script:shard.ResultsPath)' '$($script:shard.LogPath)'"))
+            $script:content | Should -Match ([regex]::Escape('@($noResult.Rows)'))
+            $script:content | Should -Match ([regex]::Escape('@($noResult.Files)'))
+            $script:content.Substring($branch) | Should -Match '(?s)exit 1\s*\}'
         }
 
         It 'imports the repository, runs the shard files, and writes the run artifacts' {
@@ -201,6 +214,32 @@ Describe 'ShardFixtureWide' -Tag 'L2', 'logic' {
             # And each file's own outcome: a file that loaded carries no error of its own.
             $files[0].Result | Should -Be 'Passed'
             $files[0].ErrorMessage | Should -BeNullOrEmpty
+        }
+
+        It 'records a failed container with the printed error when Pester fails after its run' {
+            # A folder where the results file goes fails Pester's End step, so Invoke-Pester returns nothing.
+            $runDirectory = Join-Path $TestDrive 'lost-run'
+            [void][System.IO.Directory]::CreateDirectory($runDirectory)
+            $fixture = Join-Path $TestDrive 'LostFixture.Tests.ps1'
+            [System.IO.File]::WriteAllText($fixture, "Describe 'LostFixture' -Tag 'L0', 'logic' { It 'passes' { 1 | Should -Be 1 } }")
+            $shard = InModuleScope Catzc.Base.QualityGates -Parameters @{ Dir = $runDirectory; Fixture = $fixture } {
+                param($Dir, $Fixture)
+                New-TestAutomationShardScript -ShardIndex 1 -TestPath @($Fixture) -RunDirectory $Dir -Verbosity Minimal
+            }
+            [void][System.IO.Directory]::CreateDirectory($shard.ResultsPath)
+
+            $runner = [Catzc.Base.QualityGates.PesterRunner]::Run(
+                @($shard.ScriptPath), @($shard.Label), 1, $null, 300, $true)
+
+            $runner.Results[0].ExitCode | Should -Be 1 -Because "worker stderr: $($runner.Results[0].Stderr)"
+            $rows = @(Get-Content -LiteralPath $shard.RowsPath -Raw | ConvertFrom-Json)
+            $rows | Should -HaveCount 1
+            $rows[0].Result | Should -Be 'Failed'
+            $rows[0].ErrorMessage | Should -Match 'Invoke-Pester returned no result'
+            $files = @(Get-Content -LiteralPath $shard.FilesPath -Raw | ConvertFrom-Json)
+            $files[0].Result | Should -Be 'Failed'
+            # The printed error follows the summary line: Pester's own message, not only ours.
+            ($files[0].ErrorMessage -split "`n").Count | Should -BeGreaterThan 1
         }
     }
 }

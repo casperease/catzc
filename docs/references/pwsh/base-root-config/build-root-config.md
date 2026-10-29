@@ -28,7 +28,7 @@ The managed root files are materialised from the source tree, so in build mode (
 no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a janitor
 never breaks the load.
 
-### parameter `Target`
+### parameter `Path`
 
 Materialise only this repo-relative path: the entry whose target equals it (e.g. 'PSScriptAnalyzerSettings.psd1', or a wildcard entry's own
 pattern for all its files), or the one file of a wildcard entry it matches (e.g. 'go/tests/widget/go.mod'). Throws when it selects no

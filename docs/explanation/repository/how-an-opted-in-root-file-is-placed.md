@@ -101,8 +101,8 @@ layout:
    is touched.
 4. **Get-RootConfigTargets.** The validated entries are filtered to those with `optIn` true, in registry order. An opted-out entry is
    validated for shape but neither written nor treated as owned.
-5. **Build-RootConfig.** Per entry the writer takes the branch that applies: `source`, else `generator`. A `-Target` argument narrows the
-   run to one entry, or to one file of a wildcard entry.
+5. **Build-RootConfig.** Per entry the writer takes the branch that applies: `source`, else `generator`. A `-Path` argument narrows the run
+   to one entry, or to one file of a wildcard entry.
 6. **Get-RootConfigCopyContent.** The copy branch reads the template, normalises it to LF and writes the generated-file head over it, naming
    the template as its source. 13 entries take it.
 7. **Get-RootConfigRenderedFile.** The generator branch calls the entry's generator through `Invoke-RootConfigGenerator` and normalises the

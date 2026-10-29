@@ -27,6 +27,14 @@
     exit 1
 }
 
+# The POSIX runtime's own tools (dirname, cygpath, sed, awk) are in /usr/bin. Git Bash's launcher puts it first on PATH, but zsh on
+# Windows is started as itself with only the Windows PATH, so the entry puts it there for every POSIX engine alike; elsewhere it is
+# already on PATH and nothing changes (ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS).
+case ":$PATH:" in
+    *:/usr/bin:*) ;;
+    *) PATH="/usr/bin:$PATH" ;;
+esac
+
 # The repository root: the folder of this file, in the form pwsh reads (C:/... under Git Bash on Windows).
 if [ -n "${ZSH_VERSION:-}" ]; then
     # zsh's own form for the sourced file's path; this branch runs only under zsh, where it is valid.

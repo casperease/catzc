@@ -69,7 +69,7 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         $sourceOnDisk = Join-Path $script:fake.Root 'sources/fixture.yml'
         New-Item -ItemType HardLink -Path $script:copyTarget -Target $sourceOnDisk | Out-Null
 
-        $result = Build-RootConfig -Target 'fixture.yml' -PassThru
+        $result = Build-RootConfig -Path 'fixture.yml' -PassThru
         $result.Changed | Should -BeTrue
         (Get-Item -LiteralPath $script:copyTarget -Force).LinkType | Should -BeNullOrEmpty
         # The source of truth is untouched by the severing write.
@@ -105,14 +105,14 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         ($result | Where-Object { $_.Target -eq 'fixture.yml' }).Changed | Should -BeTrue
     }
 
-    It '-Target filters to one entry' {
-        $result = Build-RootConfig -Target 'fixture.yml' -PassThru
+    It '-Path filters to one entry' {
+        $result = Build-RootConfig -Path 'fixture.yml' -PassThru
         @($result) | Should -HaveCount 1
         Test-Path $script:genTarget | Should -BeFalse
     }
 
-    It 'throws when -Target matches no opted-in entry' {
-        { Build-RootConfig -Target 'opted-out.yml' } | Should -Throw '*No opted-in root-config entry*'
+    It 'throws when -Path matches no opted-in entry' {
+        { Build-RootConfig -Path 'opted-out.yml' } | Should -Throw '*No opted-in root-config entry*'
     }
 
     It 'is a reported no-op in build mode — nothing is read, composed, or written' {
@@ -196,19 +196,19 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText($script:beta) | Should -MatchExactly (& $script:headed "beta`n")
     }
 
-    It '-Target naming one file of the wildcard entry writes only that file' {
-        $result = Build-RootConfig -Target 'widgets/beta/gadget.txt' -PassThru
+    It '-Path naming one file of the wildcard entry writes only that file' {
+        $result = Build-RootConfig -Path 'widgets/beta/gadget.txt' -PassThru
         @($result) | Should -HaveCount 1
         $result.Target | Should -Be 'widgets/beta/gadget.txt'
         Test-Path $script:alpha | Should -BeFalse
     }
 
-    It '-Target naming the pattern writes every file of the entry' {
-        @(Build-RootConfig -Target 'widgets/*/gadget.txt' -PassThru) | Should -HaveCount 2
+    It '-Path naming the pattern writes every file of the entry' {
+        @(Build-RootConfig -Path 'widgets/*/gadget.txt' -PassThru) | Should -HaveCount 2
     }
 
-    It 'throws when -Target matches the pattern but names no rendered file' {
-        { Build-RootConfig -Target 'widgets/gamma/gadget.txt' } |
+    It 'throws when -Path matches the pattern but names no rendered file' {
+        { Build-RootConfig -Path 'widgets/gamma/gadget.txt' } |
             Should -Throw "*renders no file 'widgets/gamma/gadget.txt'*"
     }
 }

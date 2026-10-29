@@ -34,6 +34,7 @@ function New-TestAutomationShardScript {
     $resultsPath = Join-Path $RunDirectory "results-shard-$ShardIndex.xml"
     $rowsPath = Join-Path $RunDirectory "rows-shard-$ShardIndex.json"
     $filesPath = Join-Path $RunDirectory "files-shard-$ShardIndex.json"
+    $logPath = Join-Path $RunDirectory "worker-shard-$ShardIndex.log"
 
     $pathLiteral = ($TestPath | ForEach-Object { "'$_'" }) -join ', '
     $tagLiteral = ($ExcludeTag | ForEach-Object { "'$_'" }) -join ', '
@@ -48,7 +49,6 @@ function New-TestAutomationShardScript {
     }
     $languageLiteral = '@{ ' + ($languageEntries -join '; ') + ' }'
 
-    # The Pester configuration comes from the one shared builder, so this path and Invoke-TestFile never drift.
     $content = @"
 `$ErrorActionPreference = 'Stop'
 $entryLine
@@ -60,7 +60,16 @@ Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
     param(`$path, `$excludeTag, `$includeTag, `$verbosity, `$resultsPath, `$fullNameFilter, `$entryScript, `$languageExecutable)
     New-PesterRunConfiguration -Path `$path -ExcludeTag `$excludeTag -IncludeTag `$includeTag -Verbosity `$verbosity -ResultsPath `$resultsPath -FullNameFilter `$fullNameFilter -EntryScript `$entryScript -LanguageExecutable `$languageExecutable
 } @($pathLiteral) @($tagLiteral) @($includeTagLiteral) '$Verbosity' '$resultsPath' '$filterLiteral' '$entryLiteral' $languageLiteral
-`$result = Invoke-Pester -Configuration `$config
+`$result = Invoke-Pester -Configuration `$config -InformationVariable pesterOutput
+if (`$null -eq `$result) {
+    `$noResult = & (Get-Module Catzc.Base.QualityGates) {
+        param(`$testPath, `$resultsPath, `$logPath, `$pesterError)
+        New-TestAutomationNoResultSet -TestPath `$testPath -ResultsPath `$resultsPath -LogPath `$logPath -PesterError `$pesterError
+    } @($pathLiteral) '$resultsPath' '$logPath' "`$(@(`$pesterOutput) | Select-Object -Last 1)"
+    Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$noResult.Rows) -Depth 4) -Encoding utf8
+    Set-Content -Path '$filesPath' -Value (ConvertTo-Json -InputObject @(`$noResult.Files) -Depth 2) -Encoding utf8
+    exit 1
+}
 `$rows = & (Get-Module Catzc.Base.QualityGates) { param(`$runResult) ConvertTo-TestAutomationRowSet -Result `$runResult } `$result
 Set-Content -Path '$rowsPath' -Value (ConvertTo-Json -InputObject @(`$rows) -Depth 4) -Encoding utf8
 `$files = @(`$result.Containers | Where-Object { `$_.Type -eq 'File' } | ForEach-Object { [pscustomobject]@{ File = `$_.Item.FullName; DurationMs = [int] `$_.Duration.TotalMilliseconds; Result = "`$(`$_.Result)"; ErrorMessage = (@(`$_.ErrorRecord) | ForEach-Object { "`$(`$_.Exception.Message)" }) -join "``n" } })
@@ -76,5 +85,6 @@ exit ([int](`$result.Result -ne 'Passed'))
         ResultsPath = $resultsPath
         RowsPath    = $rowsPath
         FilesPath   = $filesPath
+        LogPath     = $logPath
     }
 }

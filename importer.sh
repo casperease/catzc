@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path importer.sh"
-#     with_body_sha: "26f75ab42483"
+#     with_body_sha: c86eb9c4b11c
 # ---
 
 # shellcheck shell=bash
@@ -34,6 +34,14 @@
     echo "importer.sh must be sourced, not run: source ./importer.sh" >&2
     exit 1
 }
+
+# The POSIX runtime's own tools (dirname, cygpath, sed, awk) are in /usr/bin. Git Bash's launcher puts it first on PATH, but zsh on
+# Windows is started as itself with only the Windows PATH, so the entry puts it there for every POSIX engine alike; elsewhere it is
+# already on PATH and nothing changes (ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS).
+case ":$PATH:" in
+    *:/usr/bin:*) ;;
+    *) PATH="/usr/bin:$PATH" ;;
+esac
 
 # The repository root: the folder of this file, in the form pwsh reads (C:/... under Git Bash on Windows).
 if [ -n "${ZSH_VERSION:-}" ]; then

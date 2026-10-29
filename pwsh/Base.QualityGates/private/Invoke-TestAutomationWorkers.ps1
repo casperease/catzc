@@ -207,12 +207,14 @@ function Invoke-TestAutomationWorkers {
         $shard = $allShards[$shardIndex]
         $workerResult = $workerResults[$shardIndex]
         $shardExitCodes[$shard.Label] = $workerResult.ExitCode
+        # Saved before the crash check, so a crashed worker's console is read after the run.
+        Save-TestAutomationWorkerLog -Path $shard.LogPath -StandardOutput $workerResult.Stdout -StandardError $workerResult.Stderr
 
         if ($workerResult.ExitCode -notin 0, 1 -or -not (Test-Path $shard.RowsPath) -or
             -not (Test-Path $shard.ResultsPath)) {
             $stderrTail = "$($workerResult.Stderr)".Trim()
             throw ("Test worker '$($shard.Label)' crashed (exit $($workerResult.ExitCode)) without completing its run" +
-                " — see $RunDirectory (run.json carries the run status)." +
+                " — see $($shard.LogPath) (run.json carries the run status)." +
                 $(if ($stderrTail) {
                         " Stderr:`n$stderrTail"
                     }))

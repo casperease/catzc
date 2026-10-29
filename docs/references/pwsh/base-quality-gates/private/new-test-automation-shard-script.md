@@ -99,3 +99,12 @@ The Pester configuration comes from the one shared builder, New-PesterRunConfigu
 Only the strict-mode setting stays inline: strict mode is scope-dynamic and the test scopes chain to the process's top scope, so the worker
 script itself must set it, and tests run strict
 ([ADR-AUTO-TEST-FILEPARALLELISM](../../../../drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)).
+
+## comment:1
+
+Above `$content = @"`, written with `#`.
+
+```text
+The Pester configuration comes from the one shared builder, so this path and Invoke-TestFile never drift.
+Pester returns nothing for an error after its run, so the worker records a failed container with the last message it printed.
+```
