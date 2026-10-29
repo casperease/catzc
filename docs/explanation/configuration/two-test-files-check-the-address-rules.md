@@ -140,5 +140,5 @@ In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the d
   [environment variables](../../drs/automation/environment-variables.md) for the secret hand-off.
 - The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
   [architecture](callers-in-four-modules-share-one-resolver.md), [implementation](strip-split-walk-every-wrong-turn-throws.md) and
-  [operations](type-an-address-get-the-value.md).
+  [operations](how-a-config-address-becomes-a-value.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -111,6 +111,6 @@ The loading record says only `Get-Config` is public, while the addressing record
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
 - The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
-  [implementation](strip-split-walk-every-wrong-turn-throws.md), [operations](type-an-address-get-the-value.md) and
+  [implementation](strip-split-walk-every-wrong-turn-throws.md), [operations](how-a-config-address-becomes-a-value.md) and
   [governance](two-test-files-check-the-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

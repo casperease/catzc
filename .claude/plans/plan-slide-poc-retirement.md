@@ -42,10 +42,9 @@ themselves are deleted once those are kept.
 
 ## Open steps
 
-- [ ] `python/diagrams/configs/drawio.yml`: `feeds` leaves `edge-labels` and `code-head-labels`, `returns: tail` joins them; each of the 145
-      `feeds` edges in 75 declarations is rewritten from what the code does, one declaration at a time: file to code reversed as `reads`,
-      code to code reversed as `calls`, steps inside one function `then`, result to code reversed as `reads`, code to a value `returns`
-      (check: `git grep "label: feeds"` lists none, the kit suite green, `Build-Diagrams` clean on each redrawn diagram).
+- [ ] `pwsh/Base.Languages/Invoke-PythonTest.ps1`: a strict editable install's link whose content differs from its source (an edit that
+      replaced the file broke the hardlink, so tests and renders run the stale copy) throws naming the relink command, as a missing link
+      does today (check: `Invoke-TestFile -Path pwsh/Base.Languages/tests/Invoke-PythonTest.Tests.ps1`, with a case for a broken link).
 - [ ] Every article-embedded diagram's `about.title` and article heading name the part of the system it shows, never its mechanism (approved
       examples: "How a command's time limit is chosen", "How an Azure resource gets its name"), and the diagram is renamed with it in the
       same change: its `.drawio.png` (and `.drawio.yml`) stem and the article that carries it take the kebab form of the new title, through

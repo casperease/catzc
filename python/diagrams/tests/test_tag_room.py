@@ -165,10 +165,10 @@ PLUMB = """
     - { id: band-widgets, label: WIDGETS }
     - { id: band-gadgets, label: GADGETS }
   glyphs:
-    - { id: s-widget, kind: store, label: widget store, in: band-widgets }
+    - { id: s-widget, kind: code, label: Invoke-WidgetFetch, in: band-widgets }
     - { id: w-load, kind: code, label: Invoke-WidgetLoad, in: band-gadgets }
   edges:
-    - { from: w-load, to: s-widget, kind: flow, label: reads }
+    - { from: s-widget, to: w-load, kind: flow, label: then }
 layout:
   band-widgets: { x: 20, y: 84, w: 900, h: 220 }
   band-gadgets: { x: 20, y: 330, w: 900, h: 120 }

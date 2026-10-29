@@ -1,7 +1,7 @@
-# Type an address and get its value back; a wrong address throws its message at the call
+# How a config address becomes a value
 
 ```text
-Type an address and get its value back; a wrong address throws its message at the call.
+How a config address becomes a value.
 
 1  Get-ConfigValue               the command: one address in, its value out
 2  'zct'                         what global.azure.org returns
@@ -33,7 +33,7 @@ about:
     - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
   lens: operations
 content:
-  title: Type an address and get its value back; a wrong address throws its message at the call
+  title: How a config address becomes a value
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -81,7 +81,7 @@ layout:
   f-invalid: { x: 920, y: 314, w: 320, h: 44 }
 ```
 
-![Type an address and get its value back](.assets/type-an-address-get-the-value.drawio.png)
+![How a config address becomes a value](.assets/how-a-config-address-becomes-a-value.drawio.png)
 
 ## Walkthrough
 
