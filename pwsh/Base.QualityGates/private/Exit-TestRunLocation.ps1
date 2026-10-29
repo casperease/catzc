@@ -54,7 +54,7 @@ function Exit-TestRunLocation {
     finally {
         if ($Location.PSObject.Properties['PythonEnvironment'] -and $Location.PythonEnvironment) {
             foreach ($name in $Location.PythonEnvironment.Keys) {
-                [System.Environment]::SetEnvironmentVariable($name, $Location.PythonEnvironment[$name])
+                [System.Environment]::SetEnvironmentVariable($name, $Location.PythonEnvironment[$name] ?? [NullString]::Value)
             }
         }
     }

@@ -132,7 +132,7 @@ function Enter-TestRunLocation {
         }
         finally {
             foreach ($name in $saved.Keys) {
-                [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
+                [System.Environment]::SetEnvironmentVariable($name, $saved[$name] ?? [NullString]::Value)
             }
         }
         if ($sync.ExitCode -ne 0) {

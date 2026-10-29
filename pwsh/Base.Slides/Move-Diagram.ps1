@@ -213,7 +213,8 @@ function Move-Diagram {
             $tool = Resolve-ToolExecutable -Tool uv
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
             Assert-DiagramKitSynced
-            Invoke-Executable "`"$($tool.Path)`" run --no-sync --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
+            $result = Invoke-Executable "`"$($tool.Path)`" run --no-sync --project `"$($kitCode.Folder)`" python -m $($kitCode.DeclarationModule()) rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent -PassThru -NoAssert
+            Assert-True ($result.ExitCode -eq 0) -ErrorText "Move-Diagram: the kit's rekey exited $($result.ExitCode): $($result.Errors)"
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again.
         $pages = @(foreach ($edit in $edits) {

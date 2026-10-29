@@ -128,6 +128,12 @@ sites:
     class: package-install
     trigger: offline-guarded
     gated_by: UV_OFFLINE=1, pyright held to its bundled copy at the python.yml pin, npm_config_offline=true
+  pwsh/Base.QualityGates/private/Enter-TestRunLocation.ps1#Enter-TestRunLocation:
+    class: package-install
+    trigger: offline-guarded
+    gated_by:
+      uv sync --offline with UV_OFFLINE=1 and UV_PYTHON_DOWNLOADS=never into the snapshot's own venv; a cache miss throws naming
+      Install-PythonWorkspace
   pwsh/Base.Languages/Invoke-GoTest.ps1#Invoke-GoTest:
     class: package-install
     trigger: offline-guarded
