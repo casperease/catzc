@@ -54,3 +54,12 @@ Get-GeneratedGateDrift -Writer $render -Writers $rows -Generated $tracked
 
 A checkout writes every file at one time, so file times say nothing of order. The commit that last touched a writer's outputs and the
 commits that touched its generated inputs since are the same on every clone, so the verdict is the same on every machine.
+
+## comment:1
+
+Above `$globs = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+One log over every glob that can hold a judged file; the first commit a path appears in is its newest. Rename
+detection is off: it costs most of the log's time, and a renamed path still shows in the commit that added it.
+```

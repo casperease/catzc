@@ -26,7 +26,6 @@ function Get-GeneratedGateDrift {
     $upstreamWriters = @($Writers | Where-Object { $_.name -cne $Writer.name -and @($_.outputs | Where-Object { $inputs.Contains($_.path) }).Count -gt 0 })
     $bySlide = @($inputGlobs | Where-Object { $_ -like '*.slide.md' }).Count -gt 0
 
-    # One log over every glob that can hold a judged file; the first commit a path appears in is its newest.
     $globs = [System.Collections.Generic.List[string]]::new()
     $globs.AddRange([string[]] @($Writer.outputs | ForEach-Object path))
     foreach ($upstream in $upstreamWriters) {
@@ -36,7 +35,7 @@ function Get-GeneratedGateDrift {
         $globs.AddRange($inputGlobs)
     }
     $specs = @($globs | Select-Object -Unique | ForEach-Object { "`":(glob)$_`"" }) -join ' '
-    $log = "$((Invoke-Executable "git -c core.quotepath=off log --format=%x01%h --name-only -- $specs" -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)"
+    $log = "$((Invoke-Executable "git -c core.quotepath=off log --no-renames --format=%x01%h --name-only -- $specs" -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)"
     $order = @{}
     $hashOf = @{}
     $position = -1

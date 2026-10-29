@@ -12,21 +12,21 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         # The variable a lock holder passes to the processes it starts, set and cleared by the cases that need it.
         . (Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1')
         $script:inherit = Get-CatzcRunLockInheritName -LockName $script:lockName
-        # Holds the lock on another thread for the given milliseconds, the way another run would.
         function script:Start-LockHolder {
             param([string] $Name, [int] $Milliseconds)
             $taken = [System.Threading.ManualResetEventSlim]::new($false)
+            $release = [System.Threading.ManualResetEventSlim]::new($false)
             $shell = [powershell]::Create().AddScript({
-                    param($Name, $Milliseconds, $Taken)
+                    param($Name, $Milliseconds, $Taken, $Release)
                     $held = [System.Threading.Mutex]::new($false, $Name)
                     $null = $held.WaitOne()
                     $Taken.Set()
-                    Start-Sleep -Milliseconds $Milliseconds
+                    $null = $Release.Wait($Milliseconds)
                     $held.ReleaseMutex()
                     $held.Dispose()
-                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken)
+                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($release)
             $handle = $shell.BeginInvoke()
-            [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
+            [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000); Release = $release }
         }
     }
 
@@ -200,9 +200,10 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         else {
             $script:inherit
         }
-        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 30000
         [System.Environment]::SetEnvironmentVariable($name, (& $Value))
         try {
+            $holder.Taken | Should -BeTrue
             $lines = @(& $script:entry 'throw "ran"' -Importer $script:throwingImporter -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 1
             $lines | Should -Be @(
@@ -212,14 +213,16 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         }
         finally {
             [System.Environment]::SetEnvironmentVariable($name, $null)
+            $holder.Release.Set()
             $holder.Shell.EndInvoke($holder.Handle)
             $holder.Shell.Dispose()
         }
     }
 
     It 'stops with run lock busy, importing and running nothing, when the lock stays held past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 30000
         try {
+            $holder.Taken | Should -BeTrue
             $lines = @(& $script:entry 'throw "ran"' -Importer $script:throwingImporter -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 1
             $lines | Should -Be @(
@@ -228,6 +231,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
             )
         }
         finally {
+            $holder.Release.Set()
             $holder.Shell.EndInvoke($holder.Handle)
             $holder.Shell.Dispose()
         }

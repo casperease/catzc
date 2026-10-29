@@ -279,18 +279,23 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         $self = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
         $whole = "$PID|$self|$([datetime]::UtcNow.AddSeconds(120).Ticks)|0|0|Get-Gadget"
         [System.IO.File]::WriteAllText($path, "$PID|$self")
+        # The read starts once the writer runs, so a slow runspace start under load never outlasts the reader's one retry.
+        $ready = [System.Threading.ManualResetEventSlim]::new($false)
         $writer = [powershell]::Create().AddScript({
-                param($Path, $Text)
+                param($Path, $Text, $Ready)
+                $Ready.Set()
                 Start-Sleep -Milliseconds 15
                 [System.IO.File]::WriteAllText($Path, $Text)
-            }).AddArgument($path).AddArgument($whole)
+            }).AddArgument($path).AddArgument($whole).AddArgument($ready)
         $handle = $writer.BeginInvoke()
         try {
-            (Get-CatzcRunLockHolder -LockName $script:lockName).Holding | Should -Be 'Get-Gadget'
+            $ready.Wait(10000) | Should -BeTrue
+            Get-CatzcRunLockHolder -LockName $script:lockName | ForEach-Object Holding | Should -Be 'Get-Gadget'
         }
         finally {
             $null = $writer.EndInvoke($handle)
             $writer.Dispose()
+            $ready.Dispose()
         }
         [System.IO.File]::WriteAllText($path, "$PID|$self")
         Get-CatzcRunLockHolder -LockName $script:lockName | Should -BeNullOrEmpty

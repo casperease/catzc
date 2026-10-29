@@ -6,7 +6,8 @@ function Get-TestAutomationTestPaths {
         [string[]] $Modules = @()
     )
 
-    $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
+    $codeTrack = @(Get-Track).Where({ $_.type -ceq 'modules' })[0]
+    $codePlace = $codeTrack.places[0]
     $modulesRoot = Join-Path (Get-RepositoryRoot) $codePlace
     # Every module folder, the dot folders too: their tests run as the infrastructure tests.
     $allDirs = @(Get-ChildPath $modulesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false)
@@ -18,8 +19,10 @@ function Get-TestAutomationTestPaths {
     foreach ($dir in $allDirs) {
         $dirName = [System.IO.Path]::GetFileName($dir)
         $isInfra = $dirName.StartsWith('.')
+        # The track declares the namespace the folder drops: the module's full name is what the order and the filter hold.
+        $moduleName = $isInfra ? $dirName : $codeTrack.FullNameOf($dirName)
 
-        if ($Modules -and ($isInfra -or $dirName -notin $Modules)) {
+        if ($Modules -and ($isInfra -or $moduleName -notin $Modules)) {
             continue
         }
 
@@ -32,8 +35,8 @@ function Get-TestAutomationTestPaths {
             $infraTestPaths.Add($testsPath)
         }
         else {
-            $moduleTestsByName[$dirName] = [System.Collections.Generic.List[string]]::new()
-            $moduleTestsByName[$dirName].Add($testsPath)
+            $moduleTestsByName[$moduleName] = [System.Collections.Generic.List[string]]::new()
+            $moduleTestsByName[$moduleName].Add($testsPath)
         }
     }
 

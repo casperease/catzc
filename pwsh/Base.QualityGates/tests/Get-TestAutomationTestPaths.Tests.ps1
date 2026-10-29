@@ -1,12 +1,13 @@
 Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:modulesRoot = Join-Path $TestDrive 'repo/pwsh'
-        foreach ($folder in 'Catzc.Widget/tests', 'Catzc.Gadget/tests', 'Catzc.Gizmo', '.internal/tests') {
+        foreach ($folder in 'Widget/tests', 'Gadget/tests', 'Gizmo', '.internal/tests') {
             [void][System.IO.Directory]::CreateDirectory((Join-Path $script:modulesRoot $folder))
         }
+        # A module's folder drops the namespace its full name carries.
         function Get-FixtureTests {
             param([string] $Folder)
-            [System.IO.Path]::Combine($script:modulesRoot, $Folder, 'tests')
+            [System.IO.Path]::Combine($script:modulesRoot, ($Folder -replace '^Catzc\.', ''), 'tests')
         }
     }
 
@@ -72,6 +73,15 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
     It 'narrows to the named modules and drops infrastructure when filtered' {
         $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Gadget' })
         $paths | Should -Be @((Get-FixtureTests 'Catzc.Gadget'))
+    }
+
+    It 'matches a named full module name to the module''s own tests folder, whose folder drops the namespace' {
+        $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Catzc.Widget' })
+        $paths | Should -Be @((Get-FixtureTests 'Catzc.Widget'))
+    }
+
+    It 'does not match a named folder name without the namespace' {
+        @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Widget' }) | Should -HaveCount 0
     }
 
     It 'returns nothing when no named module has a tests folder' {
