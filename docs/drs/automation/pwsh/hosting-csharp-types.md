@@ -111,7 +111,9 @@ loader keeps the loaded assembly whatever drifted and writes one yellow line, "l
 loaded hash and the source hash. It asks `Test-IsRunningInVsCode`, the loader's one reader of VS Code's terminal mark, after the pipeline
 check, so a pipeline is never softened by the mark. What a session may ask about its own binding is a toolset command that runs from inside
 it, `Get-VsCodeSession`, guarded by `Assert-IsRunningInVsCode`, which names the instance, the sources' hash, the committed builds and their
-holders, and the editor's own logs.
+holders, and the editor's own logs. No alarm of the editor is silenced to hide a symptom: the terminal's environment-change indicator stays
+on. A hung session is described first by `Get-VsCodeSession` run in a sibling terminal of the same window, and a stack capture comes only
+after that line shows what it lacks.
 
 - [One instance per session](#one-instance-per-session)
 
