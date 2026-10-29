@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"8e0500e3ed17\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"0e42b1814d1a\"",
   "types": [
     {
       "name": "Catzc.Base.CodeMeta.CodeMetaHead",
@@ -134,6 +134,10 @@
         },
         {
           "name": "exclude",
+          "kind": "property"
+        },
+        {
+          "name": "keep_extensions",
           "kind": "property"
         },
         {

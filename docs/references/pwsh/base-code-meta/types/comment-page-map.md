@@ -27,3 +27,12 @@ folder or module name is rendered in the kebab case, so a namespace never appear
 extension and its `.Tests` role and keeps an inner part, so `Get-OutputRoot.OutputOnlyByAddress.Tests.ps1` is
 `get-output-root-output-only-by-address`. A module's article is `<docs>/<module>/index.md`. A file directly under the prefix, or under a
 dot-prefixed folder, has no page from a `/*` entry.
+
+## comment:1
+
+Above `static string FileStem(string fileName, IReadOnlyCollection<string> keep)`, written with `//`.
+
+```text
+The name in the normal form, its extension and .Tests role dropped; an inner part is kept (A.B.Tests.ps1 -> a-b).
+An extension listed in `keep` stays in the name (a.bicepparam -> a-bicepparam), so it and a.yml derive different pages.
+```

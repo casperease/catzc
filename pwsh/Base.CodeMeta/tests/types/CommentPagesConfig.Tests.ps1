@@ -78,7 +78,25 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
 
     It 'rejects an unknown key, naming the allowed set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ gadget = 1 }) } |
-            Should -Throw '*unknown key*allowed: pages, articles, exclude*'
+            Should -Throw '*unknown key*allowed: pages, articles, exclude, keep_extensions*'
+    }
+
+    It 'keeps a secondary extension in the page name and drops the primary one: <Path>' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' -ForEach @(
+        @{ Path = 'pwsh/Widget.Gadgets/configs/widget.bicepparam'; Page = 'docs/references/pwsh/widget-gadgets/configs/widget-bicepparam.md' }
+        @{ Path = 'pwsh/Widget.Gadgets/configs/widget.bicep'; Page = 'docs/references/pwsh/widget-gadgets/configs/widget.md' }
+        @{ Path = 'pwsh/Widget.Gadgets/configs/widget.yml'; Page = 'docs/references/pwsh/widget-gadgets/configs/widget.md' }
+        @{ Path = 'pwsh/Widget.Gadgets/Widget.Gadgets.psm1'; Page = 'docs/references/pwsh/widget-gadgets/widget-gadgets.md' }
+        @{ Path = 'pwsh/Widget.Gadgets/Widget.Gadgets.psd1'; Page = 'docs/references/pwsh/widget-gadgets/widget-gadgets.md' }
+    ) {
+        [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{}).PageFor($Path) | Should -BeExactly $Page
+    }
+
+    It 'takes the extensions to keep from the keep_extensions key and rejects a malformed one' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+        $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ keep_extensions = @('.gadget') })
+        $config.PageFor('pwsh/Widget.Gadgets/widget.gadget') | Should -BeExactly 'docs/references/pwsh/widget-gadgets/widget-gadget.md'
+        $config.PageFor('pwsh/Widget.Gadgets/widget.bicepparam') | Should -BeExactly 'docs/references/pwsh/widget-gadgets/widget.md'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ keep_extensions = 'gadget' }) } | Should -Throw '*keep_extensions must be a list*'
+        { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ keep_extensions = @('gadget') }) } | Should -Throw '*leading dot*'
     }
 
     It 'rejects an empty pages list, and an article that is not a .md path under docs/' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {

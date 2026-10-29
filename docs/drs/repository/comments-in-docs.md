@@ -41,12 +41,14 @@ never reused, and a section a person edits stays as edited.
 A file's comment page lives at a path derived from the file's own: `docs/references/<language>/<module>/<aspect path>/<file>.md`, where the
 language is the file's track folder, the module is its module folder in the normal form with no namespace, the aspect path is every folder
 between the module and the file in the normal form (none for a module's public root files), and the file is its name in the normal form with
-only its trailing language extension and a `.Tests` role dropped. A module's reference article is its folder's `index.md`. One resolver maps
-a file to its page and a page back to its file, so a page maps back to exactly one file, and a collision, two files of one module and aspect
-path with one page, is a finding of `Test-ReferencePages`, never resolved silently. What moves — the file languages in scope, the shortest
-comment that moves, the comment heads each language keeps — is configured in `comments.yml`, each config with its defaults declared once on
-its config type. A kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole
-contiguous run it opens, and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
+its extension, except one listed in `keep_extensions` (default `.bicepparam`), and a `.Tests` role dropped; a kept extension stays in the
+name (`alpha.bicepparam` is `alpha-bicepparam.md`), so a file and its sibling of another kind never derive one page. A module's reference
+article is its folder's `index.md`. One resolver maps a file to its page and a page back to its file, so a page maps back to exactly one
+file, and a collision, two files of one module and aspect path with one page, is a finding of `Test-ReferencePages`, never resolved
+silently. What moves — the file languages in scope, the shortest comment that moves, the comment heads each language keeps — is configured
+in `comments.yml`, each config with its defaults declared once on its config type. A kept head keeps only its own line, but a head the
+configuration lists to keep its run (`keep_run:`) keeps the whole contiguous run it opens, and the front matter of a block comment that
+opens with such a head is kept whole, so the meta head of a code file
 ([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while prose directly
 under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule
 carries, stays whole.

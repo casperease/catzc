@@ -17,7 +17,7 @@ pages:
   - source: pwsh/.internal
     docs: docs/references/pwsh/internal
 
-# The folders whose files have no page: vendored scripts we ship but do not write, and fixture data.
+# The folders whose files have no page: vendored scripts we ship but do not write. Test fixture data has no page either.
 exclude:
   - pwsh/Tooling.Toolchain/assets/scripts
   - pwsh/Azure.Templates/tests/assets/templates

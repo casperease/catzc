@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -55,7 +56,7 @@ public sealed class CommentPageMap
     }
 
     // The page of a file under this map's source, or null: <docs>/[<module>/][<aspect path>/]<file>.md, every part in the normal form.
-    public string PageFor(string repoRelativePath)
+    public string PageFor(string repoRelativePath, IReadOnlyCollection<string> keepExtensions)
     {
         string below = Below(repoRelativePath, out string module);
         if (below == null)
@@ -64,7 +65,7 @@ public sealed class CommentPageMap
         }
         string[] parts = below.Split('/');
         var normal = parts.Take(parts.Length - 1).Select(Normal).ToList();
-        normal.Add(FileStem(parts[parts.Length - 1]));
+        normal.Add(FileStem(parts[parts.Length - 1], keepExtensions));
         if (module != null)
         {
             normal.Insert(0, Normal(module));
@@ -135,13 +136,16 @@ public sealed class CommentPageMap
     // A folder or module name in the normal form: Base.QualityGates is base-quality-gates; a namespace never appears in a folder.
     static string Normal(string segment) => Catzc.Base.Objects.NameCase.Render(segment, NormalCase);
 
-    // The name in the normal form, its extension and .Tests role dropped; an inner part is kept (A.B.Tests.ps1 -> a-b).
-    static string FileStem(string fileName)
+    static string FileStem(string fileName, IReadOnlyCollection<string> keep)
     {
         string stem = fileName;
         int dot = stem.LastIndexOf('.');
         if (dot > 0)
         {
+            if (keep.Contains(stem.Substring(dot), StringComparer.OrdinalIgnoreCase))
+            {
+                return Normal(stem);
+            }
             stem = stem.Substring(0, dot);
         }
         if (stem.EndsWith(TestsRole, StringComparison.Ordinal) && stem.Length > TestsRole.Length)

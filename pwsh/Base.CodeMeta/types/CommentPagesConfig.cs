@@ -10,7 +10,10 @@ public sealed class CommentPagesConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly string[] AllowedKeys = { "pages", "articles", "exclude" };
+    static readonly string[] AllowedKeys = { "pages", "articles", "exclude", "keep_extensions" };
+
+    // The extensions a page name keeps by default: a .bicepparam file would otherwise share its page with its sibling .yml.
+    public static readonly IReadOnlyList<string> DefaultKeepExtensions = new[] { ".bicepparam" };
 
     public static readonly IReadOnlyList<(string source, string docs)> DefaultPages = new[]
     {
@@ -28,8 +31,12 @@ public sealed class CommentPagesConfig
     // The folders under a pages source whose files have no page, such as vendored scripts we ship but do not write.
     public IReadOnlyList<string> exclude { get; }
 
+    // The extensions a page name keeps; every other extension is dropped, so a file and its sibling of another kind share no page.
+    public IReadOnlyList<string> keep_extensions { get; }
+
     public CommentPagesConfig(IDictionary raw)
     {
+        var keepList = DefaultKeepExtensions.ToList();
         const string name = "comment-pages config";
         var pageMaps = DefaultPages.Select(d => new CommentPageMap(name + ": pages", new Hashtable { ["source"] = d.source, ["docs"] = d.docs })).ToList();
         var articleList = new List<string>();
@@ -99,11 +106,31 @@ public sealed class CommentPagesConfig
                     excludeList.Add(folder);
                 }
             }
+
+            if (raw.Contains("keep_extensions") && raw["keep_extensions"] != null)
+            {
+                if (!(raw["keep_extensions"] is IList keepRaw) || raw["keep_extensions"] is string)
+                {
+                    throw new ArgumentException(name + ": keep_extensions must be a list of extensions");
+                }
+                keepList = new List<string>();
+                foreach (object entry in keepRaw)
+                {
+                    string extension = Convert.ToString(entry, CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(extension) || !extension.StartsWith(".", StringComparison.Ordinal) || extension.Length == 1 || extension.Contains('/'))
+                    {
+                        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                            "{0}: keep_extensions entry '{1}' must be an extension with its leading dot", name, extension));
+                    }
+                    keepList.Add(extension);
+                }
+            }
         }
 
         pages = pageMaps;
         articles = articleList;
         exclude = excludeList;
+        keep_extensions = keepList;
     }
 
     // True when a file sits in an excluded folder, so it has no page.
@@ -113,7 +140,7 @@ public sealed class CommentPagesConfig
 
     // The page of a repository-relative file: the first pages map that covers it, or null when none does or the file is excluded.
     public string PageFor(string repoRelativePath) =>
-        IsExcluded(repoRelativePath) ? null : pages.Select(map => map.PageFor(repoRelativePath)).FirstOrDefault(page => page != null);
+        IsExcluded(repoRelativePath) ? null : pages.Select(map => map.PageFor(repoRelativePath, keep_extensions)).FirstOrDefault(page => page != null);
 
     // The article page of a module folder: the first pages map whose modules include it, or null.
     public string ModulePageFor(string repoRelativeFolder) =>
@@ -135,12 +162,12 @@ public sealed class CommentPagesConfig
             {
                 continue;
             }
-            CommentPageMap map = pages.FirstOrDefault(m => m.PageFor(path) != null);
+            CommentPageMap map = pages.FirstOrDefault(m => m.PageFor(path, keep_extensions) != null);
             if (map == null)
             {
                 continue;
             }
-            Add(index, map.PageFor(path), path);
+            Add(index, map.PageFor(path, keep_extensions), path);
             string module = map.ModuleFolderOf(path);
             if (module != null && modules.Add(module))
             {
