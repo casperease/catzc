@@ -141,5 +141,5 @@ channel, is a per-channel choice with no gate. Neither carries a chip.
 
 - [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [meta](which-forms-a-path-takes.md), [architecture](where-a-repository-path-is-anchored.md),
-  [implementation](how-a-path-is-made-repo-relative.md) and [operations](one-out-string-two-places.md).
+  [implementation](how-a-path-is-made-repo-relative.md) and [operations](where-out-points-on-a-devbox-and-in-a-pipeline.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -83,7 +83,7 @@ layout:
 ## See also
 
 - [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the decision this article explains.
-- The other lenses on the same verdict: [architecture](hook-compiles-module-verdict-and-limits.md),
+- The other lenses on the same verdict: [architecture](how-the-hook-and-pwsh-share-one-verdict.md),
   [implementation](how-the-bash-time-guard-decides.md), [operations](when-the-hook-denies-a-call.md) and
   [governance](how-the-bash-time-guard-is-tested.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -32,8 +32,7 @@ Every entry runs one load sequence through the importer ([platform-bundle](../..
 - **meta**: [Every entry runs one load sequence](which-stages-a-load-runs.md)
 - **architecture**:
   [Two entry scripts feed one importer, and the importer leaves once the load is done](which-entry-scripts-start-an-import.md)
-- **implementation**:
-  [What the importer does in one run](invoke-importer-in-code-order.md)
+- **implementation**: [What the importer does in one run](what-the-importer-does-in-one-run.md)
 - **operations**:
   [Dot-source one entry script, and a failed check stops the load with a named error](how-the-entry-script-loads-the-modules.md)
 - **governance**: [Every load stage but the unload has a DRS rule and a gate](what-checks-each-load-stage.md)
@@ -43,7 +42,7 @@ Every entry runs one load sequence through the importer ([platform-bundle](../..
 One declared allow-list says what may depend on what, and the declared graph forms three layers
 ([controlling-module-dependencies](../../drs/automation/controlling-module-dependencies.md)).
 
-- **meta**: [Which layers may depend on which](a-declared-allow-list-of-layers.md)
+- **meta**: [Which layers may depend on which](which-layers-may-depend-on-which.md)
 - **architecture**: [Module dependencies form three layers, and every edge points down](how-modules-are-layered.md)
 - **implementation**:
   [Two sections of dependencies.yml are unioned into one allow-set per source module](which-modules-a-module-may-depend-on.md)
@@ -55,18 +54,18 @@ One declared allow-list says what may depend on what, and the declared graph for
 A flat list of harmless contracted calls proves a command from every engine
 ([accosted-language](../../drs/automation/accosted-language.md)).
 
-| Article                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------------------- |
-| [What happens when an accosted file is read](reading-an-accosted-file-writes-nothing.md) |
+| Article                                                                                     |
+| ------------------------------------------------------------------------------------------- |
+| [What happens when an accosted file is read](what-happens-when-an-accosted-file-is-read.md) |
 
 ## The spelling oracle
 
 The `Test-Spelling` quality gate judges every identifier fragment against one curated registry and one committed English word list
 ([spell-out-names](../../drs/automation/spell-out-names.md)).
 
-| Article                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------- |
-| [How the English dictionary is built](building-the-english-dictionary-writes-one-stamped-word-list.md) |
+| Article                                                                       |
+| ----------------------------------------------------------------------------- |
+| [How the English dictionary is built](how-the-english-dictionary-is-built.md) |
 
 ## The Python workspace
 
@@ -74,9 +73,9 @@ uv is the single handler for Python, and one command lays out the workspace it h
 ([uv-python-handler](../../drs/automation/uv-python-handler.md),
 [python-test-artifacts](../../drs/automation/python/python-test-artifacts.md)).
 
-| Article                                                                                                   |
-| --------------------------------------------------------------------------------------------------------- |
-| [How the Python workspace is laid out](one-command-lays-out-the-python-workspace.md) |
+| Article                                                                         |
+| ------------------------------------------------------------------------------- |
+| [How the Python workspace is laid out](how-the-python-workspace-is-laid-out.md) |
 
 ## Compiled types
 

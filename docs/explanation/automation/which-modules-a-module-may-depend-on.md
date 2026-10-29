@@ -128,6 +128,6 @@ layout:
 ## See also
 
 - [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the decision this article explains.
-- The other lenses on the same graph: [meta](a-declared-allow-list-of-layers.md), [architecture](how-modules-are-layered.md),
+- The other lenses on the same graph: [meta](which-layers-may-depend-on-which.md), [architecture](how-modules-are-layered.md),
   [operations](what-an-undeclared-module-dependency-reports.md) and [governance](what-checks-the-module-layers.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

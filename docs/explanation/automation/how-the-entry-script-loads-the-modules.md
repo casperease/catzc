@@ -111,5 +111,5 @@ layout:
 
 - [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - The other lenses on the same load sequence: [meta](which-stages-a-load-runs.md), [architecture](which-entry-scripts-start-an-import.md),
-  [implementation](invoke-importer-in-code-order.md) and [governance](what-checks-each-load-stage.md).
+  [implementation](what-the-importer-does-in-one-run.md) and [governance](what-checks-each-load-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
