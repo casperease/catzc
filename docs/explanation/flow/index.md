@@ -37,7 +37,7 @@ A pipeline step only names a command that a developer can run locally ([pipeline
 - **meta**: [How a pipeline step maps to a local command](how-a-pipeline-step-maps-to-a-local-command.md)
 - **architecture**: [How pipeline YAML enters PowerShell](how-pipeline-yaml-enters-powershell.md)
 - **implementation**: [What the three pipeline tasks share](three-tasks-one-guard-one-runner.md)
-- **operations**: [How an Azure DevOps step is named](the-step-is-named-after-its-command.md)
+- **operations**: [How an Azure DevOps step is named](how-an-azure-devops-step-is-named.md)
 - **governance**: [Which runner rules no gate checks](no-gate-checks-rules-one-and-four.md)
 
 ## Globset layers

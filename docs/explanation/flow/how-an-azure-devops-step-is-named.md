@@ -70,7 +70,7 @@ layout:
   a-developer: { x: 330, y: 352, w: 100, h: 64 }
 ```
 
-![How an Azure DevOps step is named](.assets/the-step-is-named-after-its-command.drawio.png)
+![How an Azure DevOps step is named](.assets/how-an-azure-devops-step-is-named.drawio.png)
 
 ## Walkthrough
 
