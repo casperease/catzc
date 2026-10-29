@@ -121,7 +121,7 @@ The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az se
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
-- The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [implementation](read-the-session-guard-then-pick-slot.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
+- The other lenses on the same deploy target: [meta](what-the-azure-deploy-target-is.md),
+  [implementation](how-a-bicep-deployment-context-is-built.md), [operations](how-a-deploy-target-is-chosen.md) and
   [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

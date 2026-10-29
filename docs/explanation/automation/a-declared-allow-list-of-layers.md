@@ -54,7 +54,6 @@ The two Tooling modules that belong to no group, Github and KeyHandler, also dep
 ## See also
 
 - [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the decision this article explains.
-- The other lenses on the same graph: [architecture](how-modules-are-layered.md),
-  [implementation](two-sections-unioned-into-one-allow-set.md), [operations](undeclared-edge-fails-with-one-line.md) and
-  [governance](two-gates-check-the-layer-pins.md).
+- The other lenses on the same graph: [architecture](how-modules-are-layered.md), [implementation](which-modules-a-module-may-depend-on.md),
+  [operations](undeclared-edge-fails-with-one-line.md) and [governance](what-checks-the-module-layers.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

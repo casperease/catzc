@@ -51,6 +51,6 @@ operates that type today, because no production code calls it.
 ## See also
 
 - [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
-- The other views of the same boundary: [meta](two-forms-never-a-third.md), [architecture](where-a-repository-path-is-anchored.md),
+- The other views of the same boundary: [meta](which-forms-a-path-takes.md), [architecture](where-a-repository-path-is-anchored.md),
   [implementation](how-a-path-is-made-repo-relative.md) and [governance](types-check-forms-review-checks-crossers.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

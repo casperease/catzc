@@ -67,7 +67,7 @@ The diagram below draws one configuration read from the source. The name resolve
 the configuration is sealed, and the registered type is built from the result. The cache key carries the fragment's timestamp, so an edited
 fragment is read again.
 
-![How a config is read and overlaid](../.assets/get-config-merge-seal-type.drawio.png)
+![How a config is read and overlaid](../.assets/how-a-config-is-read-and-overlaid.drawio.png)
 
 ## Division
 

@@ -69,7 +69,7 @@ layout:
   s-artifact: { x: 530, y: 374, w: 220, h: 52 }
 ```
 
-![Which forms a path takes](.assets/two-forms-never-a-third.drawio.png)
+![Which forms a path takes](.assets/which-forms-a-path-takes.drawio.png)
 
 ## Walkthrough
 

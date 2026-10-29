@@ -36,7 +36,7 @@ content:
     - { id: band-globs, label: CATZC.BASE.GLOBS }
     - { id: band-pipeline, label: PIPELINE }
     - { id: band-loader, label: CATZC.INTERNAL.LOADER }
-    - { id: band-outside, label: OUTSIDE CATS }
+    - { id: band-outside, label: OUTSIDE THE MODULE }
   glyphs:
     - { id: a-stage, kind: drsonly, label: a unit's pipeline stage, in: band-pipeline }
     - { id: g-affected, kind: code, label: Test-GlobSetAffected, in: band-globs }

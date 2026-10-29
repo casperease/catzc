@@ -35,7 +35,7 @@ The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual
 A pipeline step only names a command that a developer can run locally ([pipeline-runner-pattern](../../drs/ado/pipeline-runner-pattern.md)).
 
 - **meta**: [How a pipeline step maps to a local command](how-a-pipeline-step-maps-to-a-local-command.md)
-- **architecture**: [How pipeline YAML enters PowerShell](the-runner-is-the-only-seam.md)
+- **architecture**: [How pipeline YAML enters PowerShell](how-pipeline-yaml-enters-powershell.md)
 - **implementation**: [What the three pipeline tasks share](three-tasks-one-guard-one-runner.md)
 - **operations**: [How an Azure DevOps step is named](the-step-is-named-after-its-command.md)
 - **governance**: [Which runner rules no gate checks](no-gate-checks-rules-one-and-four.md)

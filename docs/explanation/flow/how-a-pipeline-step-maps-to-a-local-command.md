@@ -87,7 +87,7 @@ No gate checks that a step's command runs the same way in a terminal: nothing re
 ## See also
 
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
-- The other lenses on the same runner: [architecture](the-runner-is-the-only-seam.md),
+- The other lenses on the same runner: [architecture](how-pipeline-yaml-enters-powershell.md),
   [implementation](three-tasks-one-guard-one-runner.md), [operations](the-step-is-named-after-its-command.md) and
   [governance](no-gate-checks-rules-one-and-four.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

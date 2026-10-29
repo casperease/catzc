@@ -72,7 +72,7 @@ layout:
   a-developer: { x: 1040, y: 290, w: 100, h: 64 }
 ```
 
-![How pipeline YAML enters PowerShell](.assets/the-runner-is-the-only-seam.drawio.png)
+![How pipeline YAML enters PowerShell](.assets/how-pipeline-yaml-enters-powershell.drawio.png)
 
 ## Walkthrough
 

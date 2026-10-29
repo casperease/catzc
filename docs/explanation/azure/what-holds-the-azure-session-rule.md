@@ -130,7 +130,7 @@ accepts a pipeline call without the pin, so the first gate guards the deploy sur
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
-- The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [architecture](how-the-az-session-becomes-a-declared-identity.md), [implementation](read-the-session-guard-then-pick-slot.md) and
-  [operations](pipeline-pins-devbox-picks-the-target.md).
+- The other lenses on the same deploy target: [meta](what-the-azure-deploy-target-is.md),
+  [architecture](how-the-az-session-becomes-a-declared-identity.md), [implementation](how-a-bicep-deployment-context-is-built.md) and
+  [operations](how-a-deploy-target-is-chosen.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

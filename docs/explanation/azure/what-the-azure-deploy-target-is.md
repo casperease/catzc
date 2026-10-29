@@ -56,7 +56,7 @@ layout:
   f-mis-wired: { x: 700, y: 268, w: 200, h: 44 }
 ```
 
-![What the Azure deploy target is](.assets/the-session-is-the-deploy-target.drawio.png)
+![What the Azure deploy target is](.assets/what-the-azure-deploy-target-is.drawio.png)
 
 ## Walkthrough
 
@@ -83,6 +83,6 @@ layout:
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - The other lenses on the same deploy target: [architecture](how-the-az-session-becomes-a-declared-identity.md),
-  [implementation](read-the-session-guard-then-pick-slot.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
+  [implementation](how-a-bicep-deployment-context-is-built.md), [operations](how-a-deploy-target-is-chosen.md) and
   [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

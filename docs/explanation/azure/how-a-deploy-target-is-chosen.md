@@ -76,7 +76,7 @@ layout:
 
 ![How a deploy target is chosen][diagram]
 
-[diagram]: .assets/pipeline-pins-devbox-picks-the-target.drawio.png
+[diagram]: .assets/how-a-deploy-target-is-chosen.drawio.png
 
 ## Walkthrough
 
@@ -116,7 +116,7 @@ layout:
 ## See also
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
-- The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [architecture](how-the-az-session-becomes-a-declared-identity.md), [implementation](read-the-session-guard-then-pick-slot.md) and
+- The other lenses on the same deploy target: [meta](what-the-azure-deploy-target-is.md),
+  [architecture](how-the-az-session-becomes-a-declared-identity.md), [implementation](how-a-bicep-deployment-context-is-built.md) and
   [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

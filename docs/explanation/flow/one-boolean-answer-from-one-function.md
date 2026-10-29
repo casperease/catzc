@@ -88,7 +88,7 @@ layout:
 
 - [Pipeline detection](../../drs/automation/pwsh/pipeline-detection.md) — the decision this article explains;
   [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
-- The other lenses on the same detector: [architecture](the-loader-holds-the-one-detector.md),
+- The other lenses on the same detector: [architecture](where-the-pipeline-detector-lives.md),
   [implementation](two-variables-read-in-one-place.md), [operations](how-the-analyzer-reports-a-raw-read.md) and
   [governance](one-gate-checks-the-raw-read-rule.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

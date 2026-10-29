@@ -76,7 +76,7 @@ The diagram below draws module protection from the source, as the test runner us
 globset hash matches the hash recorded after its last green run in this session. The hash is held as pending before the workers run and
 promoted only after a green result. In a pipeline nothing is skipped.
 
-![When a protected module is skipped](../.assets/protected-module-skip-by-hash.drawio.png)
+![When a protected module is skipped](../.assets/when-a-protected-module-is-skipped.drawio.png)
 
 ## Division
 

@@ -46,9 +46,9 @@ One declared allow-list says what may depend on what, and the declared graph for
 - **meta**: [One declared allow-list says what may depend on what, and every edge points down](a-declared-allow-list-of-layers.md)
 - **architecture**: [Module dependencies form three layers, and every edge points down](how-modules-are-layered.md)
 - **implementation**:
-  [Two sections of dependencies.yml are unioned into one allow-set per source module](two-sections-unioned-into-one-allow-set.md)
+  [Two sections of dependencies.yml are unioned into one allow-set per source module](which-modules-a-module-may-depend-on.md)
 - **operations**: [An undeclared module edge fails the gate with one line per issue](undeclared-edge-fails-with-one-line.md)
-- **governance**: [Two gates check the layer pins, and one rule is left to review](two-gates-check-the-layer-pins.md)
+- **governance**: [Two gates check the layer pins, and one rule is left to review](what-checks-the-module-layers.md)
 
 ## The accosted language
 

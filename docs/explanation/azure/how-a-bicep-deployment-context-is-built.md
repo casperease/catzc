@@ -84,7 +84,7 @@ layout:
   g-group: { x: 960, y: 286, w: 280, h: 44 }
 ```
 
-![How a Bicep deployment context is built](.assets/read-the-session-guard-then-pick-slot.drawio.png)
+![How a Bicep deployment context is built](.assets/how-a-bicep-deployment-context-is-built.drawio.png)
 
 ## Walkthrough
 
@@ -123,7 +123,7 @@ layout:
 ## See also
 
 - [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
-- The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
-  [architecture](how-the-az-session-becomes-a-declared-identity.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
+- The other lenses on the same deploy target: [meta](what-the-azure-deploy-target-is.md),
+  [architecture](how-the-az-session-becomes-a-declared-identity.md), [operations](how-a-deploy-target-is-chosen.md) and
   [governance](what-holds-the-azure-session-rule.md).
 - [The azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

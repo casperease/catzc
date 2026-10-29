@@ -86,7 +86,7 @@ layout:
   g-analyzer-rule: { x: 730, y: 408, w: 300, h: 84 }
 ```
 
-![Where the pipeline detector lives](.assets/the-loader-holds-the-one-detector.drawio.png)
+![Where the pipeline detector lives](.assets/where-the-pipeline-detector-lives.drawio.png)
 
 ## Walkthrough
 
