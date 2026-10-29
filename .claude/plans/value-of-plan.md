@@ -24,22 +24,23 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                          |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ---------------------------------------------- |
-| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | four chunks; the user's and the sweep last     |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                      |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------ |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | four chunks; the user's and the sweep last |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                        | Needed docs                                 | Needed tests                                    | State |
-| ------ | --------------------------- | ------------------------------------------- | ----------------------------------------------- | ----- |
-| medium | plan-diagram-review         | the visual-design rules each answer changes | Test-Diagrams after every answer, the kit suite | active  |
-| medium | plan-vscode-session-binding |                                             |                                                 | blocked |
+| Value  | Plan                        | Needed docs                              | Needed tests                                     | State   |
+| ------ | --------------------------- | ---------------------------------------- | ------------------------------------------------ | ------- |
+| high   | plan-slide-poc-retirement   | the slide style and ideas reference page | the Base.Slides tests, Test-Diagrams, Test-Links | active  |
+| medium | plan-vscode-session-binding |                                          |                                                  | blocked |
 
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
-explanation of how the tool behaves when a team uses it; that belongs in the docs.
+deletion. plan-diagram-review was replaced on 2026-10-29 by plan-slide-poc-retirement: the slides are proofs of concept, harvested and
+deleted rather than reviewed. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof
+of built work, no explanation of how the tool behaves when a team uses it; that belongs in the docs.
 
 Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 
