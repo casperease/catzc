@@ -40,7 +40,7 @@ role segment. cats owns the grammar and the type list, so a consumer's `infrastr
 - **`names` and its sub-keys:** every name is written in full in the slot yml and matched against the canonical form
   ([ADR-AZ-NAMING-DETERMINISTICNAMES](../drs/azure/azure-naming-standard.md#rule-adr-az-naming-deterministicnames),
   [ADR-AZ-DATAMOD-STATICRESOURCENAMES](../drs/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)). `template` and
-  `owner_slot` become the owning template's `short_name` segment in the written name, checked by the gate against an existing slot of the
+  `owner_slot` become the owning template's `short_name` segment in the written name, checked by the gate against a slot that exists in the
   owner; `roles` and `each` become plain nested yml; `keys_from: nsg_subnets` becomes the gate's coverage check of
   `networkSecurityGroupNames` against `network.yml`. The resource group is the slot's `ResourceGroup:` key
   ([ADR-AZ-DATAMOD-DECLAREDGROUPNAME](../drs/azure/azure-data-model.md#rule-adr-az-datamod-declaredgroupname)).

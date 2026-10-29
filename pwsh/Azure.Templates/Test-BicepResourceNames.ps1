@@ -117,7 +117,7 @@ function Test-BicepResourceNames {
                 if ($isOwn -and $differs.Count -eq 0) {
                     continue
                 }
-                # A name off the file's coordinates, its own template's (a sibling slot, such as a hub) or another's, needs its owner's slot.
+                # A name off the file's coordinates, its own template's (such as the hub slot) or another's, needs its owner's slot.
                 $owner = $byShortName[$components.short_name]
                 $ownerSlot = if ($owner) {
                     @($owner.slots | Where-Object {

@@ -85,11 +85,13 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
 
         It 'throws on a bicepparam slot, naming its file, and writes nothing' {
             $file = Join-Path $script:templatesRoot 'sample-bicepparam/configuration/alpha.bicepparam'
+            $sibling = Join-Path $script:templatesRoot 'sample-bicepparam/configuration/alpha.yml'
             $before = [System.IO.File]::ReadAllText($file)
+            $siblingBefore = [System.IO.File]::ReadAllText($sibling)
             { Set-BicepTemplateConfiguration sample-bicepparam alpha -Parameters @{ storageAccountName = 'widget' } } |
                 Should -Throw "*slot 'alpha' is a bicepparam slot*alpha.bicepparam*edited by hand*"
             [System.IO.File]::ReadAllText($file) | Should -BeExactly $before
-            Join-Path $script:templatesRoot 'sample-bicepparam/configuration/alpha.yml' | Should -Not -Exist
+            [System.IO.File]::ReadAllText($sibling) | Should -BeExactly $siblingBefore
         }
 
         It 'merges into an existing config, preserving other parameters' {

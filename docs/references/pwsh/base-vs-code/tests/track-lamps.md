@@ -1,4 +1,4 @@
-# pwsh/Base.VSCode/tests/catzc-track-lamps.Tests.ps1
+# pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1
 
 The tests of the `catzc-track-lamps` extension from the PowerShell side: the shared vectors of the lamp language, the rendered manifest and
 the extension folder.

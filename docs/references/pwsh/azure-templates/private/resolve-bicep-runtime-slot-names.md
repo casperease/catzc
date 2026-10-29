@@ -12,12 +12,12 @@ Matches each declared name of a base slot and renders the template's own names a
 
 A runtime slot has no file, so it is the one place where the names are still computed
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-deterministicnames)). Each string leaf
-the name gate reads as a name (Get-BicepSlotNameLeaf: a key on its path ends in `Name` or `Names`, and none in a `not_names` suffix of
-`resource-types.yml`), and the base slot's `ResourceGroup`, is matched by ConvertFrom-AzureResourceName under the `naming` variant. A name
-on the base slot's own coordinates, its short_name the template's own, its env and customer the base slot's and no slot of its own, is
-rendered again by Get-AzureResourceName with the runtime slot. A name of another template, a name of a sibling slot of the same template (a
-hub in another environment, or a declared slot such as `001`), a parameter with a `naming_exception` and a value that is no name are
-returned as written. A name with no single match throws, since a runtime slot never deploys into a guessed name. The result holds the
+the naming quality gate reads as a name (Get-BicepSlotNameLeaf: a key on its path ends in `Name` or `Names`, and none in a `not_names`
+suffix of `resource-types.yml`), and the base slot's `ResourceGroup`, is matched by ConvertFrom-AzureResourceName under the `naming`
+variant. A name on the base slot's own coordinates, its short_name the template's own, its env and customer the base slot's and no slot of
+its own, is rendered again by Get-AzureResourceName with the runtime slot. A name of another template, a name of another slot of the same
+template (a hub in another environment, or a special slot such as `001`), a parameter with a `naming_exception` and a value that is no name
+are returned as written. A name with no single match throws, since a runtime slot never deploys into a guessed name. The result holds the
 `Parameters` map and the `ResourceGroup`.
 
 ### parameter `TemplateDescriptor`

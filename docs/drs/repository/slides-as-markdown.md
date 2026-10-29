@@ -60,9 +60,9 @@ ADR-REPO-SLIDES-CHECKABLECLAIMS derives what such a record would hold.
 
 ### Rule ADR-REPO-SLIDES-SLIDEFILEKIND
 
-`file-kinds.yml` places a slide file in the kind `slide` (`docs/**/*.slide.md`), ahead of the two documentation trees as the diagram kinds
-are, and the kit in `slides-kit` (`python/diagrams/assets/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`,
-and their tests run on neutral fixture decks, never on a real one
+A slide file is recognised by its `*.slide.md` suffix, and no file kind carries it while the repository holds no slide; `file-kinds.yml`
+places the kit in `slides-kit` (`python/diagrams/assets/slides/**`). The renderer, the gate and their types live in `Catzc.Base.Slides`, and
+their tests run on neutral fixture decks, never on a real one
 ([ADR-AUTO-TEST-DISTINCTFIXTURES](../automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 - [Kinds and home](#kinds-and-home)
@@ -256,9 +256,9 @@ proves, so there is none.
 
 `A kind for the file, a module for the code`
 
-The slide kind comes before the documentation trees in the kind registry so a slide file is a slide, not a page. The renderer and the gate
-are a module because that is where cats keeps a command with its types, its tests and its help; the draw.io kit is a Python folder because
-draw.io's own tooling is, and nothing here needs Python.
+A slide is told by its `*.slide.md` suffix, which the slide tooling keys on, so no kind in the registry is needed while the repository holds
+no slide. The renderer and the gate are a module because that is where cats keeps a command with its types, its tests and its help; the
+draw.io kit is a Python folder because draw.io's own tooling is, and nothing here needs Python.
 
 ### One command renders every diagram
 
@@ -317,8 +317,7 @@ the commit it crosses, and the picture in the editor is the picture in the png.
 - **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (ADR-REPO-SLIDES-FAILFORWARDRENDER).
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break ADR-REPO-SLIDES-SLIDEFILE,
   ADR-REPO-SLIDES-PATTERN or ADR-REPO-SLIDES-CHECKABLECLAIMS.
-- **`Get-FileKind`** places slide files and the kit by ADR-REPO-SLIDES-SLIDEFILEKIND, and the file-kind reachability test keeps both kinds
-  reachable.
+- **`Get-FileKind`** places the kit by ADR-REPO-SLIDES-SLIDEFILEKIND, and the file-kind reachability test keeps its kind reachable.
 - **`Build-Diagrams`** rebuilds one diagram, or every `*.drawio.yml` it finds under `docs/**/.assets/`, one render per diagram, and warns
   for each embedding page whose Supports line disagrees with the declaration (ADR-REPO-SLIDES-ONEBUILDCOMMAND); with `-FromDrawing` it syncs
   named diagrams after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict before put

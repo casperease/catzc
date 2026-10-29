@@ -1,5 +1,3 @@
-# A type line holds only what differs from the defaults on ResourceTypesConfig: pattern long, charset [a-z0-9-].
-# not_names, the *Name key suffixes the name gate skips, is absent: the default on ResourceTypesConfig (SkuName, SubnetName) holds.
 patterns:
   long: { separator: "-" } # hyphenated, generous; length does not bind, the type carries its own limit
   kv: { separator: "-", limit: 24 } # hyphenated but length-restricted (key-vault class: 24, binds)

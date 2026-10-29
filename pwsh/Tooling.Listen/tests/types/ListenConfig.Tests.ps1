@@ -53,7 +53,7 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
         It 'names the first tier that lists a kind, and the rest tier for any other kind or none' {
             $config = [Catzc.Tooling.Listen.ListenConfig]::new($null)
             $config.TierOf('record') | Should -BeExactly 'rule'
-            $config.TierOf('slide') | Should -BeExactly 'docs'
+            $config.TierOf('diagram') | Should -BeExactly 'docs'
             $config.TierOf('function') | Should -BeExactly 'code'
             $config.TierOf($null) | Should -BeExactly 'code'
         }
@@ -71,7 +71,7 @@ Describe 'Catzc.Tooling.Listen.ListenConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAU
             @{ Case = 'tiers that are no list'; Raw = [ordered]@{ tiers = 'rule' }; Expected = '*tiers must be a list*' }
             @{ Case = 'a tier without kinds'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @() }) }; Expected = '*tier 0 kinds must be a non-empty list*' }
             @{ Case = 'a tier name that is not kebab-case'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'Widget'; kinds = @('record') }) }; Expected = "*tier 0 name 'Widget'*" }
-            @{ Case = 'a repeated tier name'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record') }, [ordered]@{ name = 'widget'; kinds = @('slide') }) }; Expected = "*repeats the name 'widget'*" }
+            @{ Case = 'a repeated tier name'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record') }, [ordered]@{ name = 'widget'; kinds = @('script') }) }; Expected = "*repeats the name 'widget'*" }
             @{ Case = 'a kind in two tiers'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record') }, [ordered]@{ name = 'gadget'; kinds = @('record') }) }; Expected = "*kind 'record', which an earlier tier holds*" }
             @{ Case = 'an unknown tier key'; Raw = [ordered]@{ tiers = @([ordered]@{ name = 'widget'; kinds = @('record'); gizmo = 1 }) }; Expected = "*unknown key 'gizmo'*" }
             @{ Case = 'a rest tier that is also a listed tier'; Raw = [ordered]@{ rest_tier = 'rule' }; Expected = "*rest_tier 'rule' is also the name of a listed tier*" }

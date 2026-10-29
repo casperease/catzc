@@ -15,8 +15,9 @@ Builds the configuration of one Bicep slot, ready to become its parameters file.
 Reads the slot's configuration (Get-BicepTemplateConfiguration), refuses any key still `UNDEFINED`, and resolves its address parameters
 (Resolve-BicepParameterAddresses) and its fact parameters (Resolve-BicepEnvironmentFacts), both the slot's own `{ address: }` and
 `{ fact: }` entries. A runtime slot, one the template declares no file for, takes its base slot's names with the base slot's own ones
-rendered again with its slot (Resolve-BicepRuntimeSlotNames); a declared slot's names are its own values, used as written. The template's prepare hook then runs with the build invocation (template, environment,
-slot, subscription, customer), and its result must hold `ParametersFile`. Private helper of the Bicep build; not exported.
+rendered again with its slot (Resolve-BicepRuntimeSlotNames); the names of a slot with a file are its own values, used as written. The
+template's prepare hook then runs with the build invocation (template, environment, slot, subscription, customer), and its result must hold
+`ParametersFile`. Private helper of the Bicep build; not exported.
 
 ### parameter `TemplateDescriptor`
 

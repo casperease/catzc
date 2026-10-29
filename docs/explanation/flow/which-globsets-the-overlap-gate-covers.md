@@ -1,7 +1,7 @@
-# Which globsets the overlap gate covers
+# Which globsets the overlap quality gate covers
 
 ```text
-Which globsets the overlap gate covers.
+Which globsets the overlap quality gate covers.
 
 1  No phantom unit           a unit neither composed nor pipeline-bound; no code checks it
 2  deployable-unit sets      disjoint on their own contribution, compose ignored
@@ -28,7 +28,7 @@ about:
   rules: [FDR-GLOBS-EVERYSETHASLAYER, FDR-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-PROTGLOB]
   lens: governance
 content:
-  title: Which globsets the overlap gate covers
+  title: Which globsets the overlap quality gate covers
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -81,7 +81,7 @@ layout:
   g-config-load: { x: 1080, y: 424, w: 200, h: 84 }
 ```
 
-![Which globsets the overlap gate covers](.assets/which-globsets-the-overlap-gate-covers.drawio.png)
+![Which globsets the overlap quality gate covers](.assets/which-globsets-the-overlap-gate-covers.drawio.png)
 
 ## Walkthrough
 

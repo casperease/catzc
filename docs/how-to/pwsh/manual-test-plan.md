@@ -15,6 +15,7 @@ check on its own.
 
 - **[Repository conventions](manual-test-plan/repository-conventions.md)**: Folder, file, and naming conventions, repository paths, the git
   index, managed GUIDs
+- **[Git object readers](manual-test-plan/git-object-readers.md)**: The in-process readers of git commit trees and blobs
 - **[C# types](manual-test-plan/csharp-types.md)**: Shipped C# types and the committed combined assembly
 - **[Configs](manual-test-plan/configs.md)**: Config discovery, the config registry, and the shipped non-Azure configs
 - **[Module system](manual-test-plan/module-system.md)**: Module and function dependency graphs, test order, profiles, asset deps, the built

@@ -1,7 +1,7 @@
-# What the globset gates check
+# What the globset quality gates check
 
 ```text
-What the globset gates check.
+What the globset quality gates check.
 
 1  Registry                  globs.yml, the one source of truth; every set carries a layer
 2  Test-GlobSetIndependence  quality gate: same-layer sets never overlap on own contribution
@@ -43,7 +43,7 @@ about:
     - ADR-AUTO-TEST-QUALITYGATE
   lens: governance
 content:
-  title: What the globset gates check
+  title: What the globset quality gates check
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -113,7 +113,7 @@ layout:
   g-trigger-gates: { x: 70, y: 626, w: 260, h: 80 }
 ```
 
-![What the globset gates check](.assets/what-the-globset-gates-check.drawio.png)
+![What the globset quality gates check](.assets/what-the-globset-gates-check.drawio.png)
 
 ## Walkthrough
 

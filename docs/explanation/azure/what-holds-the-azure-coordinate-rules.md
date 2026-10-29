@@ -19,12 +19,12 @@ and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (governance lens).
 Two decisions govern a config file's coordinate in cats: the templating data model, which says what the path means and that it resolves to
 exactly one subscription, and the customer model, which says that a subfolder is a customer key and that a subscription may bind a customer
 by key or shortcode. Every rule is held by a gate: the shared check that discovery and the validator both run, the integrity tests that run
-the validator over the shipped tree, and, for the resource-group name each slot declares, the name gate `Test-BicepResourceNames`.
+the validator over the shipped tree, and, for the resource-group name each slot declares, the naming quality gate `Test-BicepResourceNames`.
 
 ```yml drawio
 description:
   "The rules that govern a config file's coordinate and the gates that hold them: discovery and the validator both run the one shared check,
-  an integrity test runs the validator over the shipped tree, and the declared resource-group name is matched by the name gate."
+  an integrity test runs the validator over the shipped tree, and the declared resource-group name is matched by the naming quality gate."
 about:
   rules:
     - ADR-AZ-DATAMOD-TWOCONFIGLAYERS

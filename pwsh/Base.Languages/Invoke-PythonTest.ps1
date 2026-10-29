@@ -79,8 +79,6 @@ function Invoke-PythonTest {
     if (-not (Test-Path -LiteralPath (Join-Path $pythonRoot '.venv/pyvenv.cfg') -PathType Leaf)) {
         throw "$pythonRelative/.venv is not synced, and a test run never syncs it; sync it once with: Install-PythonWorkspace"
     }
-    # A strict editable install links files one by one, so a new module has no link until its package is reinstalled, and an edit that
-    # replaces a file breaks its link: the installed copy keeps the old content while the tests read it.
     $memberRoot = Split-Path -Parent (Join-Path $root $member[0])
     $buildCopy = @(Get-Item -Path (Join-Path $memberRoot 'build/__editable__.*') -ErrorAction Ignore).Where({ $_.PSIsContainer }, 'First')
     if ($buildCopy) {

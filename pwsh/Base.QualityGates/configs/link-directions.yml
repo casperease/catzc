@@ -55,11 +55,11 @@ rows:
     to: { classes: [reference, how-to, explanation] }
     verdict: deny
     because: ADR-REPO-LINKS-RECORDSLINKGROUNDINGONLY
-  - from: { classes: [index, reference, how-to, explanation, readme, slide] }
+  - from: { classes: [index, reference, how-to, explanation, readme] }
     to: { track_types: [documentation] }
     verdict: allow
     because: ADR-REPO-LINKS-DIRECTIONSAREROWS
-  - from: { classes: [reference, how-to, explanation, readme, slide] }
+  - from: { classes: [reference, how-to, explanation, readme] }
     to: { track_types: [modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts] }
     verdict: allow
     because: ADR-REPO-LINKS-DIRECTIONSAREROWS

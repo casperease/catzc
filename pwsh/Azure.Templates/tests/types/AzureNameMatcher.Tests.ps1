@@ -89,9 +89,9 @@ Describe 'AzureNameMatcher' -Tag 'L0', 'logic' {
         $match.role | Should -Be ''
     }
 
-    It 'refuses a role that equals a customer shortcode, naming the rule' {
+    It 'refuses a role that equals a customer shortcode, naming the rule' -Tag 'ADR-AZ-NAMING-ROLENOTCUSTOMER' {
         { [Catzc.Azure.Templates.AzureNameMatcher]::Match('gadget-nrt-zed-wdgt-gz-cog', 'cog', $script:sets, $script:environmentFirst) } |
-            Should -Throw "*'gadget-nrt-zed-wdgt-gz-cog' matches no canonical form*role: leftover 'gz' equals a customer shortcode*ADR-AZ-NAMING-ROLENOTCUSTOMER*"
+            Should -Throw "*'gadget-nrt-zed-wdgt-gz-cog' matches no canonical form*role: leftover 'gz' equals a customer shortcode*"
     }
 
     It 'diagnoses a no-match <case> per part' -ForEach @(

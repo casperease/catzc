@@ -139,9 +139,6 @@ kinds:
   diagram:
     definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
     files: ["docs/**/.assets/**/*.png"]
-  slide:
-    definition: One slide of a deck, rendered through a pattern of the slides kit.
-    files: ["docs/**/*.slide.md"]
   reference:
     definition: A reference page that states facts for lookup.
     subkinds:
@@ -185,4 +182,3 @@ overlaps:
   - [diagram, reference]
   - [diagram-declaration, explanation]
   - [diagram, explanation]
-  - [slide, explanation]

@@ -46,8 +46,6 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 37  | L0   | [Get-FileKind][c37]                                                               |
 | 38  | L2   | [Get-WorldMapHighlight on the working tree][c38]                                  |
 | 39  | L1   | [Resolve-ModuleName — the real pwsh track][c39]                                   |
-| 40  | L2   | [Get-GitCommitTree — the real repository][c40]                                    |
-| 41  | L2   | [Get-GitBlobText — the real repository][c41]                                      |
 
 [c1]: #1-folder--file-conventions
 [c2]: #2-source--test-file-conventions
@@ -88,8 +86,6 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 [c37]: #37-get-filekind
 [c38]: #38-get-worldmaphighlight-on-the-working-tree
 [c39]: #39-resolve-modulename--the-real-pwsh-track
-[c40]: #40-get-gitcommittree--the-real-repository
-[c41]: #41-get-gitblobtext--the-real-repository
 
 ## Checks
 
@@ -398,27 +394,3 @@ before its body runs.
 
 **Guards:** the pwsh track declares the `Catzc` namespace, the bootstrap reads the same namespace before the types load, and every module
 folder resolves to its own full name through both `Resolve-ModuleName` and `VariantTrack.FullNameOf` (DDR-TRACK-MODULENAMESPACE).
-
-### 40. Get-GitCommitTree — the real repository
-
-**Test file:** `pwsh/Base.Files/tests/Get-GitCommitTree.Tests.ps1` (L2), block `Get-GitCommitTree — the real repository`.
-
-**Guards:** the in-process commit tree reader lists exactly the paths `git ls-tree` lists for `HEAD`.
-
-**Checks:**
-
-- The paths `Get-GitCommitTree` returns equal, in order, the paths of `git ls-tree -r --name-only -z HEAD`.
-
-**Prerequisite:** git.
-
-### 41. Get-GitBlobText — the real repository
-
-**Test file:** `pwsh/Base.Files/tests/Get-GitBlobText.Tests.ps1` (L2), block `Get-GitBlobText — the real repository`.
-
-**Guards:** the in-process blob reader returns a committed file's text as `git cat-file blob` prints it.
-
-**Checks:**
-
-- The text of the committed `importer.ps1` blob, end of line trimmed, equals the output of `git cat-file blob`.
-
-**Prerequisite:** git.

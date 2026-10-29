@@ -103,8 +103,8 @@ edges; a variant that needed to cross-check another asset would belong to that a
 
 ### The variants
 
-- **`naming`** — the resource-name component order (`ADR-REPO-VARIANT-NAMING`). The variant only picks the order the name assembler uses,
-  a preset or an explicit segment list; the order data lives in the Azure templating layer and the Azure domain's naming standard owns it.
+- **`naming`** — the resource-name component order (`ADR-REPO-VARIANT-NAMING`). The variant only picks the order the name assembler uses, a
+  preset or an explicit segment list; the order data lives in the Azure templating layer and the Azure domain's naming standard owns it.
 - **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT-GITWORKSPACE`), The variant exists for the one asymmetry, `main-via-pr`
   **and** standing on main/master locally, the only stop condition automation enforces (`Sync-GeneratedFile`'s branch guard reads
   `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration axis the value-chain diagrams prefix a flow with (`PR + CD + …`

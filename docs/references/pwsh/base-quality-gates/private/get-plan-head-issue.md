@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-PlanHeadIssue.ps1
 
-A private helper of the plans gate. It reads the `plan:` block of one plan's head and names every way it breaks the plan keys of the plans
-config.
+A private helper of the plans quality gate. It reads the `plan:` block of one plan's head and names every way it breaks the plan keys of the
+plans config.
 
 ## help
 
@@ -15,7 +15,7 @@ A head with no `plan:` block yields that one issue and nothing else. Otherwise e
 required and allowed keys, a `status` outside the configured statuses, a `blocked` plan that names neither `blocked_on` nor `waits_on`, a
 `value` outside the ranks, and each `targets` path the repository does not hold is one issue. A clean head yields nothing.
 
-Private helper of the plans gate; not exported.
+Private helper of the plans quality gate; not exported.
 
 ### parameter `FrontMatter`
 

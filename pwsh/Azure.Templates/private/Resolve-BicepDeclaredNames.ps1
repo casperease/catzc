@@ -60,7 +60,7 @@ function Resolve-BicepDeclaredNames {
         Get-AzureResourceName @nameArgs
     }
 
-    # The leaves the name gate reads as names (Get-BicepSlotNameLeaf); without a parameter every leaf is a name.
+    # The leaves the naming quality gate reads as names (Get-BicepSlotNameLeaf); without a parameter every leaf is a name.
     $named = $null
     if (-not [string]::IsNullOrEmpty($Parameter)) {
         $notNames = [string[]] @((Get-Config -Config resource-types).not_names)

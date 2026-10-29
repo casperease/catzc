@@ -8,13 +8,13 @@ later export.
 
 ### synopsis
 
-Finds the declared slot of a template for a coordinate, or derives an ephemeral slot on its base slot.
+Finds the slot a template declares for a coordinate, or derives an ephemeral slot on its base slot.
 
 ### description
 
-A declared slot with the environment, slot and customer wins. Otherwise, when a slot name is given and the base slot of that environment and
-customer exists, a runtime slot is built on it, named `<environment>-<slot>`, with the base slot's subscription and file. Anything else
-answers `$null`. Private helper of the Bicep commands; not exported.
+A slot the template declares with the environment, slot and customer wins. Otherwise, when a slot name is given and the base slot of that
+environment and customer exists, a runtime slot is built on it, named `<environment>-<slot>`, with the base slot's subscription and file.
+Anything else answers `$null`. Private helper of the Bicep commands; not exported.
 
 ### parameter `TemplateDescriptor`
 
@@ -30,7 +30,7 @@ The slot name. Empty selects the base slot.
 
 ### parameter `Customer`
 
-The customer of the coordinate. Empty for a shared slot.
+The customer of the coordinate. Empty for the shared platform.
 
 ### outputs
 

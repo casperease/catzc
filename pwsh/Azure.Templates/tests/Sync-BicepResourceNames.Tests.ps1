@@ -36,7 +36,7 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
                 'ParametersFile:'
                 '  parameters:'
                 '    ownerRoleId:'
-                '      value: 00000000-0000-0000-0000-000000000000'
+                "      value: $([guid]::Empty)"
             ) -join "`n"
             'gadget/main.bicep'              = "targetScope = 'subscription'"
             'gadget/options.yml'             = @(

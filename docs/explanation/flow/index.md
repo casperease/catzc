@@ -45,7 +45,7 @@ Peers in a layer never share a file, except in the loose-fileset layer ([durable
 - **architecture**: [Which globset layers are declared](which-globset-layers-are-declared.md)
 - **implementation**: [How the independence check pairs globsets](how-the-independence-check-pairs-globsets.md)
 - **operations**: [How a new unit or module folder is checked for overlap](how-a-new-unit-or-module-folder-is-checked-for-overlap.md)
-- **governance**: [Which globsets the overlap gate covers](which-globsets-the-overlap-gate-covers.md)
+- **governance**: [Which globsets the overlap quality gate covers](which-globsets-the-overlap-gate-covers.md)
 
 ## Globset roles
 
@@ -56,4 +56,4 @@ A globset is one ordered program, and its three views are derived live, never co
 - **architecture**: [What the Globs module owns](what-the-globs-module-owns.md)
 - **implementation**: [What the scan program feeds](what-the-scan-program-feeds.md)
 - **operations**: [How a globs.yml edit shows in the output](how-a-globs-yml-edit-shows-in-the-output.md)
-- **governance**: [What the globset gates check](what-the-globset-gates-check.md)
+- **governance**: [What the globset quality gates check](what-the-globset-gates-check.md)

@@ -3,5 +3,4 @@ head_policy:
   classes:
     agent: forbidden
     capability: config
-    slide: config
     diagram-declaration: forbidden

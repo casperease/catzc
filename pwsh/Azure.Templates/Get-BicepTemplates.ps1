@@ -107,7 +107,7 @@ function Get-BicepTemplates {
                     $subscription, $entry.customer, $entry.file))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)
-        # The template's env class is inferred from its slots, so slots that mix the two classes are the one class violation.
+        # The template's env class is inferred from its config files, so config files that mix the two classes are the one class violation.
         $classViolations = Get-BicepConfigClassViolations -Environment $environments -AzureConfig $azure -Location 'configuration/'
         if ($classViolations) {
             throw "Template '$name' has an invalid config: $($classViolations -join '; ')."

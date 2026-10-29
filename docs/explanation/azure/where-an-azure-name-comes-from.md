@@ -15,10 +15,10 @@ Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-
 ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (operations lens).
 ```
 
-An Azure resource name in cats is written in full in the slot config that deploys it, and the name gate matches it against the canonical
-form the naming standard renders from settings the repository already holds. A person runs a deploy or asks for the canonical name. A name
-that does not match, or an over-long one, stops with an error that says what is wrong, and the fix is a setting or the declared name, never
-a truncated name.
+An Azure resource name in cats is written in full in the slot config that deploys it, and the naming quality gate matches it against the
+canonical form the naming standard renders from settings the repository already holds. A person runs a deploy or asks for the canonical
+name. A name that does not match, or an over-long one, stops with an error that says what is wrong, and the fix is a setting or the declared
+name, never a truncated name.
 
 ```yml drawio
 description:
@@ -85,7 +85,7 @@ layout:
 
 1. **variants.yml.** Its `naming` variant picks the component order for every name, a preset (`standard` by default, or `classic`) or an
    explicit list of segments, and a consumer can overlay it from `.catzc/`. Changing it changes the canonical form, so every declared name
-   fails the name gate until it is re-spelled; it is deliberately not a flip-the-switch option.
+   fails the naming quality gate until it is re-spelled; it is deliberately not a flip-the-switch option.
 2. **options.yml.** A template's optional `options.yml` can set an explicit `short_name`. That is the setting to shorten when a name runs
    over its limit, and the way to pin a template's Azure identity against a folder rename.
 3. **Deploy-Bicep.** `Deploy-Bicep -Environment -Template [-Slot]` deploys to the resource group the slot declares in its `ResourceGroup:`
@@ -94,8 +94,8 @@ layout:
 4. **Get-BicepResourceName.** `Get-BicepResourceName <template> <env> <type> [-Slot] [-Customer] [-Role]` prints the canonical name for a
    coordinate without deploying anything, the spelling to write into a slot. It tab-completes templates, environments, types, slots and
    customers.
-5. **Get-AzureResourceName.** The namer applies the naming standard and is the one renderer the name gate matches candidates through. The
-   same inputs always give the same name.
+5. **Get-AzureResourceName.** The namer applies the naming standard and is the one renderer the naming quality gate matches candidates
+   through. The same inputs always give the same name.
 6. **dev-001-weu-zct-sidx-rg.** The name that passes: printed, or declared in the slot. It is what
    `Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg` prints.
 7. **Throw.** An error to act on, such as `Invalid Org 'X' — must be 2-3 alphanumeric, leading letter, lowercase.`,

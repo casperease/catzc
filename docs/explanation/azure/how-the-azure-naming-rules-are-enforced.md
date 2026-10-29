@@ -117,7 +117,7 @@ layout:
    overflowed.
 6. **Throw.** Every check ends in a throw that stops discovery or the deploy. Nothing is truncated or repaired along the way.
 
-## The declared-name gate
+## The declared-name naming quality gate
 
 A slot config spells each name it deploys in full: every string leaf under a parameter whose key ends in `Name` or `Names`, the top-level
 `ResourceGroup:` key, and the resource-group and resource-name segments of Azure resource IDs. `Test-BicepResourceNames` matches each one
@@ -125,7 +125,7 @@ against the canonical form. It renders candidates from the known environments, c
 one org through the namer under the configured `naming` order, then takes the leftover as the role, which must match `^[a-z][a-z0-9]{1,2}$`.
 A name is matched, never parsed. One match returns the components, no match fails with a diagnosis per part, and more than one fails as
 ambiguous. The gate checks that a name's environment, customer and slot equal those of its file and its `short_name` that of its template,
-that a name owned by another template points at an owner slot that exists, and that the keys of `networkSecurityGroupNames` equal the
+that a name owned by another template points at a slot that exists in its owner, and that the keys of `networkSecurityGroupNames` equal the
 subscription's subnets minus `no_nsg_subnets`. A parameter keeps a non-canonical name only with a `naming_exception: <reason>` beside its
 `value`, which the gate counts and lists (ADR-AZ-NAMING-EXCEPTIONENTRY).
 

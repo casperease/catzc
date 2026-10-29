@@ -17,14 +17,14 @@ head, its one `docs` edge to its comment page, and none when it has no page
 ([ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly)). Neither shows anything else: no
 rule codes (the codes a file cites are derived from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)),
 no `with_body_sha`, no `test` or `code` edge. A head an authored file does carry, a code file's navigation head or the authored `config`
-part of a capability or a slide, closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once
-on the meta-kind registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated
-file alone. A binary file is format-managed with no head possible, but for a generated picture, whose format has a carrier
+part of a capability, closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once on the
+meta-kind registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated file
+alone. A binary file is format-managed with no head possible, but for a generated picture, whose format has a carrier
 ([ADR-REPO-FILEMETA-EVERYFORMATCARRIES](#rule-adr-repo-filemeta-everyformatcarries)). Every other file carries no head, and a `Format-*` run
 removes a head the policy does not call for. The policy has three values, set per file class in `file-meta.yml`: **facts**, the default, a
 block holding the facts above, and none when every fact is empty; **forbidden**, no `catzc` block at all, for an agent definition, whose
 front matter belongs to the tool that loads it, and for a diagram declaration; and **config**, a block holding only the authored `config`
-part, for a capability definition and a slide, which keep their own tool's front matter as authored
+part, for a capability definition, which keeps its own tool's front matter as authored
 ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block disagrees with its policy, absent
 where the policy calls for it or present where it does not, is a finding. A Markdown file's carrier is the reserved front-matter key
 `catzc`, holding a generated file's head under `immutable`, an authored file's edges at the block's first level

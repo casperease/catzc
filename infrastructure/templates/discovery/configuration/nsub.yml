@@ -20,18 +20,18 @@ ParametersFile:
       address: global.network.nsg_flows
     spokes:
       value:
-      - subscription: apex_nonprod
-        resourceGroupName: nsub-weu-zct-disco-apex-rg
-        virtualNetworkName: nsub-weu-zct-disco-apex-vnet
-        peeringName: nsub-weu-zct-disco-apex-peer
-      - subscription: nova_nonprod
-        resourceGroupName: nsub-weu-zct-disco-nova-rg
-        virtualNetworkName: nsub-weu-zct-disco-nova-vnet
-        peeringName: nsub-weu-zct-disco-nova-peer
-      - subscription: flux_nonprod
-        resourceGroupName: nsub-weu-zct-disco-flux-rg
-        virtualNetworkName: nsub-weu-zct-disco-flux-vnet
-        peeringName: nsub-weu-zct-disco-flux-peer
+        - subscription: apex_nonprod
+          resourceGroupName: nsub-weu-zct-disco-apex-rg
+          virtualNetworkName: nsub-weu-zct-disco-apex-vnet
+          peeringName: nsub-weu-zct-disco-apex-peer
+        - subscription: nova_nonprod
+          resourceGroupName: nsub-weu-zct-disco-nova-rg
+          virtualNetworkName: nsub-weu-zct-disco-nova-vnet
+          peeringName: nsub-weu-zct-disco-nova-peer
+        - subscription: flux_nonprod
+          resourceGroupName: nsub-weu-zct-disco-flux-rg
+          virtualNetworkName: nsub-weu-zct-disco-flux-vnet
+          peeringName: nsub-weu-zct-disco-flux-peer
     budgetAmount:
       value: 500
     budgetStartDate:

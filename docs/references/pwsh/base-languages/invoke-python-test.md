@@ -137,3 +137,12 @@ Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, 
 The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter and
 UV_OFFLINE=1 keeps every uv call off the network.
 ```
+
+## comment:2
+
+Above `$memberRoot = Split-Path -Parent (Join-Path $root $member[0])`, written with `#`.
+
+```text
+A strict editable install links files one by one, so a new module has no link until its package is reinstalled, and an edit that
+replaces a file breaks its link: the installed copy keeps the old content while the tests read it.
+```

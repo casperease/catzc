@@ -165,8 +165,6 @@ terms:
       meaning: "placeholder kind name 'gadgetkind' in the diagram kit's declaration tests"
     - term: getwidget
       meaning: "placeholder function name 'getwidget' in the diagram kit's normal-form tests"
-    - term: deweuzctwdgtst
-      meaning: "a resource name composed from a widget template's shortcodes in Test-BicepResourceNames tests"
     - term: wsub
       meaning: "placeholder environment token 'wsub' (widget subscription) in Get-BicepRoleAssignmentPlan tests"
     - term: gadgetco

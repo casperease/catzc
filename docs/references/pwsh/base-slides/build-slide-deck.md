@@ -20,7 +20,7 @@ publishing the project tree to the artifact is a step a person takes after readi
 
 ### parameter `Deck`
 
-The deck folder, repository-relative, such as docs/explanation/<area>/<deck>.
+The deck folder, repository-relative, such as `docs/explanation/<area>/<deck>`.
 
 ### parameter `Kit`
 

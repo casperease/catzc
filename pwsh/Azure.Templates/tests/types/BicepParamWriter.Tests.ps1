@@ -69,15 +69,18 @@ Describe 'BicepParamWriter — bicep format leaves the render unchanged' -Tag 'L
             Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
-        $config = Get-Content (Join-Path (Get-RepositoryRoot) 'infrastructure/templates/expedition/configuration/dev.yml') -Raw | ConvertFrom-Yaml -Ordered
-        $parameters = [ordered]@{}
-        foreach ($name in $config.ParametersFile.parameters.Keys) {
-            $entry = $config.ParametersFile.parameters[$name]
-            $parameters[$name] = if ($entry.Contains('address')) {
-                @{ value = 'widget' }
-            }
-            else {
-                $entry
+        $templates = Get-BicepTemplates
+        $template = $templates | ForEach-Object { $_ } | Where-Object name -eq 'expedition' | Select-Object -First 1
+        $slot = $template.slots | Where-Object name -eq 'dev' | Select-Object -First 1
+        $descriptor = InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
+            param($Template, $Slot)
+            Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot -PrepareHook (Get-BicepPrepareHook -TemplateDescriptor $Template)
+        }
+        # The same plain-data round trip ConvertTo-BicepParam makes before the writer sees the parameters.
+        $parameters = $descriptor.ParametersFile.parameters | ConvertTo-Json -Depth 20 | ConvertFrom-Json -AsHashtable -DateKind String
+        foreach ($entry in $parameters.Values) {
+            if ($entry -is [System.Collections.IDictionary] -and $entry.Contains('naming_exception')) {
+                $entry.Remove('naming_exception')
             }
         }
         $text = [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep', $parameters)

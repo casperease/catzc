@@ -28,7 +28,7 @@ The slide file as its findings name it, repository-relative.
 
 ### parameter `RepositoryRoot`
 
-The repository root the picture source resolves against.
+The repository root the picture's source file resolves against.
 
 ### outputs
 

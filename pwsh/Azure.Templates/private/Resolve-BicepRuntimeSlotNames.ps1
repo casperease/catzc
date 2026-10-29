@@ -67,7 +67,7 @@ function Resolve-BicepRuntimeSlotNames {
         Get-AzureResourceName @nameArgs
     }
 
-    # The leaves the name gate reads as names (Get-BicepSlotNameLeaf); the walk copies the value and renders only those locations.
+    # The leaves the naming quality gate reads as names (Get-BicepSlotNameLeaf); the walk copies the value and renders only those locations.
     $walk = {
         param([object] $Value, [string] $Location, [System.Collections.Generic.HashSet[string]] $Named)
         if ($Value -is [System.Collections.IDictionary]) {

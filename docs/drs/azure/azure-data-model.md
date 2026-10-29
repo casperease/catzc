@@ -61,7 +61,7 @@ its resource group declares it as an ordinary `*Name` parameter.
 ### Rule ADR-AZ-DATAMOD-STATICRESOURCENAMES
 
 Resource names for a template's parameters, its own and those owned by another template, are written statically and in full in the per-slot
-config and matched against the canonical form by the name gate; the build passes them through unchanged.
+config and matched against the canonical form by the naming quality gate; the build passes them through unchanged.
 
 - [Resource names](#resource-names)
 
@@ -415,8 +415,8 @@ patterns, its 2-char **shortcode** for the restricted `kv`/`storage`/`vm` patter
 — arranged by the **active order**, the `naming` variant (`Get-Naming`). The **customer that renders is derived from the resolved
 subscription** (`subscription.customer`); the subscription itself is **never** a name component. `env` and `slot` are separate segments.
 Per-type render pattern (separator + limit) comes from `resource-types.yml`, through `Get-AzureNamePatternSet` and
-`Get-AzureResourceTypeSet`; the name is asserted against the limit. The builder is the one renderer: the name gate matches every declared
-name through it, and an ephemeral slot re-renders its template's own names through it
+`Get-AzureResourceTypeSet`; the name is asserted against the limit. The builder is the one renderer: the naming quality gate matches every
+declared name through it, and an ephemeral slot re-renders its template's own names through it
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](azure-naming-standard.md#rule-adr-az-naming-deterministicnames)).
 
 The **resource-group name** of a ResourceGroup-target slot is its declared `ResourceGroup:` key, matched like every name, and is the single
@@ -427,7 +427,7 @@ drift.
 
 Resource names are written **statically and in full** in `infrastructure/templates/<name>/configuration/[<customer>/]<env>[-<slot>].yml`
 under `ParametersFile.parameters`, a name owned by another template included, so the slot file shows every name it deploys. The build passes
-them through unchanged, and the name gate `Test-BicepResourceNames` matches each against the canonical form (see
+them through unchanged, and the naming quality gate `Test-BicepResourceNames` matches each against the canonical form (see
 [Declared names, matched](azure-naming-standard.md#declared-names-matched)); a parameter that keeps a name off the form carries a
 `naming_exception` entry ([ADR-AZ-NAMING-EXCEPTIONENTRY](azure-naming-standard.md#rule-adr-az-naming-exceptionentry)). An ephemeral slot is
 the one place the build computes a name: it re-renders the base slot's own names with the runtime slot.

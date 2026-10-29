@@ -79,8 +79,8 @@ from Microsoft's naming tool, and hold codes chosen in config, never a person's 
 ### Rule ADR-AZ-NAMING-EXCEPTIONENTRY
 
 A parameter keeps a name off the canonical form only with a `naming_exception: <reason>` entry beside its `value`
-([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)). The name gate counts
-and lists every exception, and the build drops the entry from the rendered parameters.
+([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)). The naming quality
+gate counts and lists every exception, and the build drops the entry from the rendered parameters.
 
 - [Declared names, matched](#declared-names-matched)
 
@@ -309,7 +309,7 @@ The type registry carries each type's length limit and the render pattern its ch
 ([ADR-AZ-NAMING-NEVERTRUNCATE](#rule-adr-az-naming-nevertruncate)). A deterministic name differs wherever its components differ, and every
 globally unique type carries the organisation and the template; an external collision fails the deploy and is fixed by another special slot
 or `short_name`, never by a random suffix. The names written in the template configs are matched against the canonical form, so a drift from
-the render fails the name gate before any deploy ([ADR-AZ-NAMING-DETERMINISTICNAMES](#rule-adr-az-naming-deterministicnames)).
+the render fails the naming quality gate before any deploy ([ADR-AZ-NAMING-DETERMINISTICNAMES](#rule-adr-az-naming-deterministicnames)).
 
 The component order is fixed repository-wide by the `naming` variant, and its default puts the environment first and the type last, unlike
 CAF's type-first examples, which the `classic` order reproduces. Hyphens appear where the type allows them, with no delimiter in the
@@ -360,17 +360,14 @@ in `network.yml` minus its `no_nsg_subnets`.
 
 **The one computed case.** An ephemeral slot has no file
 ([ADR-AZ-DATAMOD-EPHEMERALSLOT](azure-data-model.md#rule-adr-az-datamod-ephemeralslot)), so the build matches each declared name of the base
-slot and re-renders the template's own names with the runtime slot; a foreign name stays as written.
-
-`Test-BicepResourceNames` is the gate: it reports the names checked, the exceptions
-([ADR-AZ-NAMING-EXCEPTIONENTRY](#rule-adr-az-naming-exceptionentry)) and the foreign names. `Get-AzureResourceName` validates every
-component case-sensitively, checks the type against the registry, and throws on an over-limit render.
+slot and re-renders the template's own names with the runtime slot; a foreign name stays as written. `Test-BicepResourceNames` is the gate:
+it reports the names checked, the exceptions ([ADR-AZ-NAMING-EXCEPTIONENTRY](#rule-adr-az-naming-exceptionentry)) and the foreign names.
+`Get-AzureResourceName` validates every component case-sensitively, checks the type against the registry, and throws on an over-limit
+render.
 
 ### Worked examples
 
-Env `prod` (shortcode `pr`), org `fin`, region `weu`:
-
-Per-customer rows use customer `apex` (shortcode `ap`):
+Env `prod` (shortcode `pr`), org `fin`, region `weu`; per-customer rows use customer `apex` (shortcode `ap`):
 
 | Scenario                                 | Relaxed (name / key)                                     | Tight (shortcode)                                                                  |
 | ---------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |

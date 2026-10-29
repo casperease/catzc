@@ -66,8 +66,8 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   only commands a module exports
 - 2026-10-29 Cats: Token tip: read Get-BicepTemplates and Read-BicepTemplateOptions first for any options.yml change
 - 2026-10-29 Cats: Token tip: copy an existing plan head and Open steps shape before writing a new plan
-- 2026-10-29 Cats: In hindsight I wish I knew this fact: the diagram kit is a strict editable install that hardlinks each python/diagrams
-  file into build/__editable__, so an edit that replaces a file runs the stale copy until Install-PythonWorkspace -ReinstallPackage
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: the diagram kit is a strict editable install that hard links each python/diagrams
+  file into build/**editable**, so an edit that replaces a file runs the stale copy until Install-PythonWorkspace -ReinstallPackage
   catzc-diagrams; Invoke-PythonTest now refuses a stale link.
 - 2026-10-29 Cats: In hindsight I wish I knew this fact: Build-Diagrams finds an article that embeds a png only among git-tracked files, so
   a diagram moved on disk without git mv is an E_ORPHAN; Move-Diagram (git mv) is the way to rename.

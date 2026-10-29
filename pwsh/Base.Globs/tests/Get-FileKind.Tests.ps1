@@ -23,7 +23,6 @@ Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'docs/drs/widget/.assets/gadget-turns.drawio.yml'; Class = 'diagram-declaration' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.verify.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
-        @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.verify.md'; Class = 'reference' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }

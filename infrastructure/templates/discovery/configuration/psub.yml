@@ -20,10 +20,10 @@ ParametersFile:
       address: global.network.nsg_flows
     spokes:
       value:
-      - subscription: apex_prod
-        resourceGroupName: psub-weu-zct-disco-apex-rg
-        virtualNetworkName: psub-weu-zct-disco-apex-vnet
-        peeringName: psub-weu-zct-disco-apex-peer
+        - subscription: apex_prod
+          resourceGroupName: psub-weu-zct-disco-apex-rg
+          virtualNetworkName: psub-weu-zct-disco-apex-vnet
+          peeringName: psub-weu-zct-disco-apex-peer
     budgetAmount:
       value: 1200
     budgetStartDate:

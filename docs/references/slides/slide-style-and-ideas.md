@@ -105,8 +105,8 @@ judged bad and are not a model for anything here.
 
 - One artifact is built once and climbs to production unchanged: no "it worked on staging". (truth-travels, one-artifact-climbs;
   for-developer, rdr-dora-deploy-9)
-- The automated gate rejects a bad commit alone, and the next climb leaves from the last verified commit, never from the tip. "Landing is
-  not verifying." (delivery-ladder, bvt-rejects-alone, dirty-head-unsafe; manual-queues, leave-from-verified)
+- The automated quality gate rejects a bad commit alone, and the next climb leaves from the last verified commit, never from the tip.
+  "Landing is not verifying." (delivery-ladder, bvt-rejects-alone, dirty-head-unsafe; manual-queues, leave-from-verified)
 - Each environment holds one occupant, and production remembers the rest, so you can always say what is where. (delivery-ladder,
   one-occupant-per-env)
 - Production swaps by an automated, monitored, reversible switch with no approver: reliability is a rung, not a hope. (manual-queues,

@@ -14,7 +14,6 @@ function Get-BicepSlotResourceGroup {
         [string] $Customer
     )
 
-    # The slot declares its group (ADR-AZ-DATAMOD-DECLAREDGROUPNAME): a bicepparam slot in its sibling yml, a runtime slot through its base slot's yml.
     $slotMatch = Resolve-BicepSlot -TemplateDescriptor $TemplateDescriptor -Environment $Environment -Slot $Slot -Customer $Customer
     if (-not $slotMatch) {
         throw "Template '$($TemplateDescriptor.name)' has no slot '$(Get-BicepConfigName $Environment $Slot)'$(if ($Customer) { " for customer '$Customer'" }), so it has no declared resource group"

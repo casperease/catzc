@@ -11,8 +11,8 @@ Loads a template's per-slot config and returns the ordered dictionary.
 ### description
 
 Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the template's ARM parameters, written statically). No
-merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. A ResourceGroup-target slot's
-top-level `ResourceGroup:` key comes back with the rest, and Get-BicepDeploymentContext reads it as the deploy target
+merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. A ResourceGroup-target slot's top-level
+`ResourceGroup:` key comes back with the rest, and Get-BicepDeploymentContext reads it as the deploy target
 ([ADR-AZ-DATAMOD-DECLAREDGROUPNAME](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-declaredgroupname)).
 
 The config address is literal ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)): a configuration-root file

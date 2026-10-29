@@ -31,8 +31,8 @@ Management-group scope is out of scope here and gets its own plan.
    the consumer declares nothing per name.
 2. **Names are matched, not parsed.** In the `storage`/`vm` patterns the parts are joined without separators, and org, short_name, role and
    slot vary in length, so free parsing is ambiguous. Every part except role comes from a small, known set: envs (azure.yml), customers
-   (customer.yml), short_names (all templates), slots (all slot files), the type idents and one org. The matcher renders candidates through
-   the **one** renderer under the configured order, then takes the leftover as the role. The role must match `^[a-z][a-z0-9]{1,2}$`.
+   (customer.yml), short_names (all templates), slots (all slot files), the type identifiers and one org. The matcher renders candidates
+   through the **one** renderer under the configured order, then takes the leftover as the role. The role must match `^[a-z][a-z0-9]{1,2}$`.
    - Exactly one match: OK, returning the components.
    - No match: a per-part diagnosis.
    - More than one match: an ambiguity error, which in practice is a short_name collision the integrity test already blocks.
@@ -75,7 +75,7 @@ Management-group scope is out of scope here and gets its own plan.
 9. **Ephemeral slots.** A runtime slot has no file and is the one place cats still computes a name. `Build-Bicep -RuntimeSlots` matches each
    declared name of the base slot, then re-renders the ones whose short_name, env, customer and slot all equal the base slot's own, with
    `slot = <runtime>`. Foreign names and names pointing at a sibling slot of the same template (a hub) stay as written (delegated decision,
-   2026-10-29: the old resolver rendered such item names slotless, so this keeps them). One function, `Resolve-BicepRuntimeSlotNames`,
+   2026-10-29: the old resolver rendered such item names without a slot, so this keeps them). One function, `Resolve-BicepRuntimeSlotNames`,
    replaces `Resolve-BicepDerivedNames`.
 10. **The order variant** `ado_naming` becomes `naming`. It also orders the service-connection names, so it is the one naming order. The
     value is either a preset (`standard`, `classic`) or an explicit list of segments. It can be overlaid from `.catzc/`
@@ -101,6 +101,11 @@ Management-group scope is out of scope here and gets its own plan.
 
 Each file is verified with its tests before the next (CLAUDE.md editing rule).
 
-18. [ ] **Final run** (every other step landed; the rebuild proof read 35 of 37 byte-identical on 2026-10-29, the two discovery files
-        differing only in the four intended peering renames): the plan closes on the user's one full run, task-user-runs-and-commits step 1
-        (check: a fresh session dot-sources `importer.ps1` and `Test-Automation` reads green; then this plan is deleted).
+1. [ ] **Page derivation keeps the extension** (delegated decision, 2026-10-29: the fixture's `alpha.bicepparam` and `alpha.yml` both
+       derived to one reference page; the test-asset fixtures are excluded from pages for now, but a real template with a bicepparam slot
+       and its sibling yml would collide the same way): the reference-page derivation in `pwsh/Base.CodeMeta` keeps a non-code file's
+       extension in the derived page name (check: `Test-ReferencePages`; the fixture exclusion in
+       `pwsh/Base.CodeMeta/configs/comment-pages.yml` goes).
+2. [ ] **Final run** (every other step landed; the rebuild proof read 35 of 37 byte-identical on 2026-10-29, the two discovery files
+       differing only in the four intended peering renames): the plan closes on the user's one full run, task-user-runs-and-commits step 1
+       (check: a fresh session dot-sources `importer.ps1` and `Test-Automation` reads green; then this plan is deleted).

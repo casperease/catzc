@@ -110,8 +110,8 @@ layout:
 - Nothing reads the file directly; the private `Get-Variant` is the single access point the primitives share
   (ADR-REPO-VARIANT-NODIRECTREADS).
 - The module depends only on Config, Objects and Asserts, and its config type is self-contained (ADR-REPO-VARIANT-MINIMALDEPENDENCIES).
-- `naming` is a preset or a list naming each segment once (ADR-REPO-VARIANT-NAMING); `have_customers` is `false`, `all` or a list of
-  names (ADR-REPO-VARIANT-HAVECUSTOMERS); `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
+- `naming` is a preset or a list naming each segment once (ADR-REPO-VARIANT-NAMING); `have_customers` is `false`, `all` or a list of names
+  (ADR-REPO-VARIANT-HAVECUSTOMERS); `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
 - The declaration's shape is checked at load and the real edges by the gate (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY), and a quality gate is one
   `Test-<subject>` that collects every issue and throws once, run by an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 

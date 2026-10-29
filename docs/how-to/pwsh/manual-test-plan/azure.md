@@ -384,8 +384,7 @@ expedition has a slot.
 
 **Checks:**
 
-- Every stage template on the `prod` and `rollback` path of `deploy-apex.yaml` and `deploy-shared.yaml` gets `RemoveOrphans: true`, and the
-  release path does not.
+- Each `prod` and `rollback` stage template of `deploy-apex.yaml` and `deploy-shared.yaml` gets `RemoveOrphans: true`; the release path not.
 - After the deploy of every foundation and expedition job, the `-DryRun` listing runs, then the removal.
 - The unit's deploy path passes `RemoveOrphans` on to its expedition stage template.
 
@@ -398,5 +397,4 @@ expedition has a slot.
 
 **Checks:**
 
-- In every discovery job of `deploy-unit.yaml`, `Set-AnomalyAlertRecipientSecret` runs before the discovery what-if, with the
-  `AnomalyAlertRecipients` variable as its value.
+- Each discovery job of `deploy-unit.yaml` runs `Set-AnomalyAlertRecipientSecret` before the what-if, valued from `AnomalyAlertRecipients`.

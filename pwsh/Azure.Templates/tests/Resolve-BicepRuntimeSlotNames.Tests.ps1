@@ -17,7 +17,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
                 'deployment_target: ResourceGroup'
             ) -join "`n"
             'widget/configuration/alpha.yml'     = 'ParametersFile: {}'
-            # A declared slot puts 001 in the candidate set, so a name of that sibling slot matches.
+            # A slot that the yml declares puts 001 in the candidate set, so a name of that other slot matches.
             'widget/configuration/alpha-001.yml' = 'ParametersFile: {}'
             'gadget/main.bicep'                  = "targetScope = 'subscription'"
             'gadget/options.yml'                 = @(
