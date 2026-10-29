@@ -26,14 +26,14 @@ stale or superseded item is recorded as such, with the reason.
 
 | Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                          |
 | ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ---------------------------------------------- |
-| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | nineteen chunks; the user's and the sweep last |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | four chunks; the user's and the sweep last     |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
 | Value  | Plan                        | Needed docs                                 | Needed tests                                    | State |
 | ------ | --------------------------- | ------------------------------------------- | ----------------------------------------------- | ----- |
-| medium | plan-diagram-review         | the visual-design rules each answer changes | Test-Diagrams after every answer, the kit suite | new   |
-| medium | plan-vscode-session-binding |                                             |                                                 | new   |
+| medium | plan-diagram-review         | the visual-design rules each answer changes | Test-Diagrams after every answer, the kit suite | active  |
+| medium | plan-vscode-session-binding |                                             |                                                 | blocked |
 
 ## Pending deletion
 

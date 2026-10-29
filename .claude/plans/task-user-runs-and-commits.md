@@ -63,10 +63,8 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 9. The DORA delivery metrics, live (read-only; the agent could not run it, `az` is not on its PATH, so no sign-in):
    `Get-AdoDeliveryMetrics -Days 90 | Format-Table`, signed in to ADO. Check: one row per deployable unit, each with Deployments and
    DeploymentsPerDay, and LeadTimeHours, ChangeFailRate and RecoveryHours where its production environment saw deployments.
-10. `Test-DependencyAdvisories` now scans (pin 2.7, 120 s limit) but throws "The property 'summary' cannot be found on this object" at
-    `$vulnerability.summary` in `pwsh/Tooling.Toolchain/Test-DependencyAdvisories.ps1`: an OSV record without `summary` (it carries
-    `details`), so the scan found at least one vulnerability. Read the property optionally, then re-run. Check: the scan completes with its
-    report and findings count.
+10. Re-run `Test-DependencyAdvisories`: it now reads an advisory's optional `summary` (falling back to `details`), so the scan that threw
+    on it completes. Check: the scan completes with its report and findings count.
 11. One live break-glass rotation, signed in with `az` to the apex non-production subscription: first
     `Invoke-BreakGlassRotation dev -Customer apex -DryRun` (the agent could not run it, `az` is not on its PATH), then without `-DryRun`;
     then queue `cron-break-glass-rotation` once by hand in ADO. Check: the dry run names the server, vault and secret; the real run reports

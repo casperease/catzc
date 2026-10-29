@@ -1,8 +1,9 @@
 ---
 plan:
-  status: active
+  status: blocked
+  waits_on: the hang recurring once (task-user-runs-and-commits, the Get-VsCodeSession step)
   value: medium
-  reviewed: 2026-10-22
+  reviewed: 2026-10-29
   class: feature
   targets: [pwsh/Base.VSCode/Get-VsCodeSession.ps1, pwsh/.internal/Catzc.Internal.Importer.psm1]
 ---
@@ -11,7 +12,7 @@ plan:
 
 The rule ADR-PWSH-TYPES-ONEINSTANCEPERSESSION is in the tree with its code: no janitor stops or waits on a holder of a superseded types
 build, the editor's artifacts ask the loader for the one hash, and `Get-VsCodeSession` answers a session's binding from inside it. What is
-left is the observation that the hang of the PowerShell extension's session is gone, and two janitors the rule did not judge.
+left is the observation that the hang of the PowerShell extension's session is gone.
 
 ## Why its value is medium
 
