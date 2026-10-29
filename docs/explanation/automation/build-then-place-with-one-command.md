@@ -1,7 +1,7 @@
-# Build the bundle once, then place it with one command
+# How a bundle is built and placed
 
 ```text
-Build the bundle once, then place it with one command.
+How a bundle is built and placed.
 
 1  . ./importer.ps1             source mode, which building needs
 2  Build-Modules                builds; prints the local-version notice on a devbox
@@ -27,7 +27,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION]
   lens: operations
 content:
-  title: Build the bundle once, then place it with one command
+  title: How a bundle is built and placed
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-nuget: { x: 1030, y: 304, w: 210, h: 44 }
 ```
 
-![Build, then place with one command](.assets/build-then-place-with-one-command.drawio.png)
+![How a bundle is built and placed](.assets/build-then-place-with-one-command.drawio.png)
 
 ## Walkthrough
 

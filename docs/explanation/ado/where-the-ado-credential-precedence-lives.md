@@ -1,7 +1,7 @@
-# One function owns the credential precedence, and ado.yml anchors every proof
+# Where the ADO credential precedence lives
 
 ```text
-One function owns the credential precedence, and ado.yml anchors every proof.
+Where the ADO credential precedence lives.
 
 1  pipeline yaml           the usual start: a pipeline runs a catzc command as a step
 2  invoke-automation.yaml  the step template every pipeline step goes through; it maps the pipeline token in
@@ -36,7 +36,7 @@ about:
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
   lens: architecture
 content:
-  title: One function owns the credential precedence, and ado.yml anchors every proof
+  title: Where the ADO credential precedence lives
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -98,7 +98,7 @@ layout:
   g-cli-module: { x: 1000, y: 552, w: 240, h: 44 }
 ```
 
-![One header function owns the precedence](.assets/one-header-function-owns-precedence.drawio.png)
+![Where the ADO credential precedence lives](.assets/where-the-ado-credential-precedence-lives.drawio.png)
 
 ## Walkthrough
 

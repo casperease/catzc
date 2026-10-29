@@ -1,7 +1,7 @@
-# Each pipeline shape runs a stretch of the same ladder
+# Which ladder stretch each pipeline runs
 
 ```text
-Six pipeline shapes each run a stretch of one promotion ladder, and a commit can leave it at any step.
+Which ladder stretch each pipeline runs.
 
 1  the legend    seven commit states, each with a crossed discard
 2  the terms     PR, Direct, CI, CI+, CD, CDe, RC and RBC, each in one line
@@ -24,7 +24,7 @@ about:
   rules: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-LIFE-ONESTATEADVANCESONERUNG, FDR-LIFE-DISCARDISTERMINAL]
   lens: architecture
 content:
-  title: Each pipeline shape runs a stretch of the promotion ladder, and every state it reaches can be discarded
+  title: Which ladder stretch each pipeline runs
   kind: explanation
   flow: top-to-bottom
   relation: moved by the stage
@@ -97,7 +97,7 @@ content:
   minimaps: [code-locations, axis, lifecycle-position]
 ```
 
-![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/state-changes.drawio.png)
+![Which ladder stretch each pipeline runs](.assets/state-changes.drawio.png)
 
 ## Walkthrough
 

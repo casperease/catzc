@@ -1,7 +1,7 @@
-# Two crossers anchor on two roots, and a published artifact anchors on its artifact root
+# Where a repository path is anchored
 
 ```text
-Two crossers anchor on the repository root and the output root; a published artifact anchors on its own artifact root.
+Where a repository path is anchored.
 
 1  Returns, records, configs   where a communication-form path lives: a return value, a record field, a checked-in config
 2  Resolve-RepoPath            the crosser into binding form, anchored on one of the two roots
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
   lens: architecture
 content:
-  title: Two crossers anchor on two roots, and a published artifact anchors on its artifact root
+  title: Where a repository path is anchored
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -83,7 +83,7 @@ layout:
   g-reference: { x: 700, y: 410, w: 220, h: 52 }
 ```
 
-![Two crossers anchor on two roots](.assets/two-crossers-and-three-anchors.drawio.png)
+![Where a repository path is anchored](.assets/two-crossers-and-three-anchors.drawio.png)
 
 ## Walkthrough
 

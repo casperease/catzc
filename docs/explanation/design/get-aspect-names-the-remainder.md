@@ -1,7 +1,7 @@
-# Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
+# How a track's remainder aspect is named
 
 ```text
-Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads.
+How a track's remainder aspect is named.
 
 1  variants.yml                     the file a person edits to change a track's convention
 2  the last aspect must be '**'     the failure a wrong order raises the next time the config loads
@@ -29,7 +29,7 @@ about:
   rules: [DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: operations
 content:
-  title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
+  title: How a track's remainder aspect is named
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -79,7 +79,7 @@ layout:
   s-deployment-live: { x: 765, y: 430, w: 420, h: 44 }
 ```
 
-![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder.drawio.png)
+![How a track's remainder aspect is named](.assets/get-aspect-names-the-remainder.drawio.png)
 
 ## Walkthrough
 
@@ -112,5 +112,5 @@ layout:
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains. Also
   [repo-wide variants](../../drs/repository/repo-variants.md).
 - The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
-  [implementation](get-aspect-feeds-globs-and-maps.md) and [governance](gate-checks-order-not-liveness.md).
+  [implementation](get-aspect-feeds-globs-and-maps.md) and [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -1,7 +1,7 @@
-# Main loads the limits and the run environment, then Decide returns null or a reason
+# How the Bash time guard decides
 
 ```text
-Main loads the limits and the run environment, then Decide returns null to let the call through or a reason to deny it.
+How the Bash time guard decides.
 
 1  timeouts.yml                 loaded by the hook itself, three folders up from the published program
 2  TimeoutsConfig               the typed limits; no limits: section today, so the defaults apply
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: implementation
 content:
-  title: Main loads the limits and the run environment, then Decide returns null or a reason
+  title: How the Bash time guard decides
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-log: { x: 710, y: 512, w: 160, h: 52 }
 ```
 
-![Decide returns null or a reason](.assets/decide-returns-null-or-a-reason.drawio.png)
+![How the Bash time guard decides](.assets/decide-returns-null-or-a-reason.drawio.png)
 
 ## Walkthrough
 

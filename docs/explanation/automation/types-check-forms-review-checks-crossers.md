@@ -1,7 +1,7 @@
-# Three types check path forms at construction, and the crossing rules are left to review
+# What checks path forms
 
 ```text
-Three types check path forms at construction; the rules about crossing the boundary have no gate and are left to review.
+What checks path forms.
 
 1  Communication form  rules #1, #2, #6 and #11: relative, normalized, stored, {workspace}-anchored
 2  The two crossers    rules #4, #7 and #9: the only crossers, named by form, the out/ anchor; no gate
@@ -39,7 +39,7 @@ about:
     - ADR-AUTO-PATH-WORKSPACEANCHOR
   lens: governance
 content:
-  title: Three types check path forms at construction, and the crossing rules are left to review
+  title: What checks path forms
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -97,7 +97,7 @@ layout:
   g-reference: { x: 540, y: 438, w: 190, h: 68 }
 ```
 
-![Three types check path forms at construction](.assets/types-check-forms-review-checks-crossers.drawio.png)
+![What checks path forms](.assets/types-check-forms-review-checks-crossers.drawio.png)
 
 ## Walkthrough
 

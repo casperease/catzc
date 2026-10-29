@@ -1,7 +1,7 @@
-# The CI budget is the only promotion rule a quality gate checks
+# What the quality gate checks on the way to production
 
 ```text
-The CI budget is the only promotion rule a quality gate checks.
+What the quality gate checks on the way to production.
 
 1  CI inner loop    build-validation within the 5-10 minute integration cycle (#2)
 2  machine gate     Test-Automation -EnforceTimings: per-test limits, Azure DevOps only (#13)
@@ -41,7 +41,7 @@ about:
     - FDR-TYPE-DEPLOYCARRIESGOVERNANCE
   lens: governance
 content:
-  title: The CI budget is the only promotion rule a quality gate checks
+  title: What the quality gate checks on the way to production
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -105,7 +105,7 @@ layout:
   g-reviewer: { x: 700, y: 412, w: 120, h: 80 }
 ```
 
-![The CI budget is the only promotion rule a quality gate checks](.assets/ci-budget-is-the-only-quality-gate.drawio.png)
+![What the quality gate checks on the way to production](.assets/ci-budget-is-the-only-quality-gate.drawio.png)
 
 ## Walkthrough
 
@@ -150,5 +150,5 @@ layout:
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
   [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it rests on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [implementation](cd-builds-once-then-deploys-non-prod.md) and [operations](a-merge-runs-cd-through-non-prod.md).
+  [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md) and [operations](how-a-merge-to-main-reaches-non-prod.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

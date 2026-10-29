@@ -1,7 +1,7 @@
-# Two L0 test files check the address rules; read-only and committed-only rest on convention
+# What tests the config address rules
 
 ```text
-Two L0 test files check the address rules; read-only and committed-only rest on convention.
+What tests the config address rules.
 
 1  address grammar               global.<config>.<key>… names one node (A1, A2); the grammar is checked at binding
 2  one reader                    resolved on Get-Config (A1), over committed config only (A3); A3 has no check
@@ -35,7 +35,7 @@ about:
     - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
   lens: governance
 content:
-  title: Two L0 test files check the address rules; read-only and committed-only rest on convention
+  title: What tests the config address rules
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -93,7 +93,7 @@ layout:
   g-env-tests: { x: 1000, y: 330, w: 260, h: 68 }
 ```
 
-![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules.drawio.png)
+![What tests the config address rules](.assets/two-test-files-check-the-address-rules.drawio.png)
 
 In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the diagram's rule chips are keyed in its legend.
 
@@ -138,7 +138,6 @@ In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the d
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains, and
   [environment variables](../../drs/automation/environment-variables.md) for the secret hand-off.
-- The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
-  [architecture](callers-in-four-modules-share-one-resolver.md), [implementation](strip-split-walk-every-wrong-turn-throws.md) and
-  [operations](how-a-config-address-becomes-a-value.md).
+- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](callers-in-four-modules-share-one-resolver.md),
+  [implementation](how-a-config-address-is-walked.md) and [operations](how-a-config-address-becomes-a-value.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

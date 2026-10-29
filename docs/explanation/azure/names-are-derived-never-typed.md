@@ -1,7 +1,7 @@
-# Nobody types an Azure name: cats derives it, and a bad name stops with an error
+# Where an Azure name comes from
 
 ```text
-An operator changes settings and runs a command; cats derives the name or stops with an error.
+Where an Azure name comes from.
 
 1  variants.yml             the ado_naming variant: the component order for every name
 2  options.yml              an optional short_name: the setting to shorten or pin
@@ -32,7 +32,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: operations
 content:
-  title: "Nobody types an Azure name: it is derived, and a bad name stops with an error"
+  title: Where an Azure name comes from
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -78,7 +78,7 @@ layout:
   f-throw: { x: 820, y: 464, w: 300, h: 44 }
 ```
 
-![Nobody types an Azure name: cats derives it, and a bad name stops with an error](.assets/names-are-derived-never-typed.drawio.png)
+![Where an Azure name comes from](.assets/names-are-derived-never-typed.drawio.png)
 
 ## Walkthrough
 

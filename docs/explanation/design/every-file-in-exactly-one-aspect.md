@@ -1,7 +1,7 @@
-# Every module file is in exactly one aspect
+# Which aspect a module file belongs to
 
 ```text
-Every module file is in exactly one aspect: live first by a closed convention, tests as the remainder.
+Which aspect a module file belongs to.
 
 1  Module folder  every tracked file of the module
 2  live           the first aspect: a closed convention, what ships
@@ -26,7 +26,7 @@ about:
   rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
   lens: meta
 content:
-  title: Every module file is in exactly one aspect
+  title: Which aspect a module file belongs to
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -64,7 +64,7 @@ layout:
   a-tests-lock: { x: 860, y: 380, w: 360, h: 70 }
 ```
 
-![Every module file is in exactly one aspect](.assets/every-file-in-exactly-one-aspect.drawio.png)
+![Which aspect a module file belongs to](.assets/every-file-in-exactly-one-aspect.drawio.png)
 
 ## Walkthrough
 
@@ -100,6 +100,6 @@ layout:
 
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [architecture](one-folder-two-independent-readers.md),
-  [implementation](manifest-and-aspects-from-one-folder.md), [operations](drop-a-file-the-import-exports-it.md) and
+  [implementation](where-the-manifest-and-the-aspects-come-from.md), [operations](drop-a-file-the-import-exports-it.md) and
   [governance](partition-integrity-runs-only-in-unit-tests.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

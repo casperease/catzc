@@ -1,7 +1,7 @@
-# Dot-source one entry script, and a failed check stops the load with a named error
+# How the entry script loads the modules
 
 ```text
-Dot-source one entry script; a failed check stops the load with a named error.
+How the entry script loads the modules.
 
 1  . ./importer.ps1           enters source mode
 2  . Import-Catzc.ps1         enters build mode; Import-Module Catzc runs the same file
@@ -27,7 +27,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
   lens: operations
 content:
-  title: Dot-source one entry script, and a failed check stops the load with a named error
+  title: How the entry script loads the modules
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -75,7 +75,7 @@ layout:
   f-stops: { x: 900, y: 260, w: 220, h: 44 }
 ```
 
-![Dot-source one entry script; a failed check stops it](.assets/dot-source-one-entry-script.drawio.png)
+![How the entry script loads the modules](.assets/dot-source-one-entry-script.drawio.png)
 
 ## Walkthrough
 

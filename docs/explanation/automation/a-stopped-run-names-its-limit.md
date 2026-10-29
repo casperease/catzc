@@ -1,7 +1,7 @@
-# A run past its limit stops with a message that names the limit and where to change it
+# What a run stopped by its limit reports
 
 ```text
-A run past its limit stops with a message that names the limit and where to change it; no call runs without one.
+What a run stopped by its limit reports.
 
 1  agent               a coding agent whose every Bash call passes the hook
 2  developer           a person running pwsh work on a devbox, or a pipeline running it unattended
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: operations
 content:
-  title: A run past its limit stops with a message that names the limit and where to change it
+  title: What a run stopped by its limit reports
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   f-timeout: { x: 950, y: 276, w: 180, h: 44 }
 ```
 
-![A run past its limit stops with a message that names the limit](.assets/a-stopped-run-names-its-limit.drawio.png)
+![What a run stopped by its limit reports](.assets/a-stopped-run-names-its-limit.drawio.png)
 
 ## Walkthrough
 

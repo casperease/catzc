@@ -6,7 +6,7 @@ catzc:
     order: 3
     picture:
       mode: reduce
-      source: ../.assets/a-step-only-names-a-command.drawio.png
+      source: ../.assets/how-a-pipeline-step-maps-to-a-local-command.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
 ---
@@ -33,4 +33,4 @@ From the catalogue, reduced: a step only names a command.
 ## Notes
 
 Check it: the record ADR-ADO-TEMPLATE in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/a-step-only-names-a-command.drawio.png.
+docs/explanation/flow/.assets/how-a-pipeline-step-maps-to-a-local-command.drawio.png.

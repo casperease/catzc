@@ -1,7 +1,7 @@
-# Only PR build validation, the BVT and the failure stop are checked in code
+# Which ladder rungs have a gate in code
 
 ```text
-Three rung checks run in code: PR build validation, the BVT and the failure stop; the rest are DRS-only.
+Which ladder rungs have a gate in code.
 
 1  PR build validation       the inner CI gate before a topic commit merges
 2  landed                    the merged commit; an out-of-band topic deploy is not an integration
@@ -46,7 +46,7 @@ about:
     - DDR-VISUAL-FIXEDCOMMITPALETTE
   lens: governance
 content:
-  title: Only PR build validation, the BVT and the failure stop are checked in code
+  title: Which ladder rungs have a gate in code
   kind: explanation
   flow: left-to-right
   relation: next rung
@@ -134,7 +134,7 @@ layout:
   c-production: { x: 1150, y: 588, w: 100, h: 44 }
 ```
 
-![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code.drawio.png)
+![Which ladder rungs have a gate in code](.assets/which-rung-gates-exist-in-code.drawio.png)
 
 ## Walkthrough
 
@@ -182,6 +182,6 @@ layout:
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) ·
   [Test automation](../../drs/automation/test-automation.md) · [Visual design](../../drs/design/visual-design.md)
-- The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](four-domains-promote-one-artifact.md),
+- The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](how-one-build-reaches-production.md),
   [implementation](code-wires-only-the-first-rungs.md) and [operations](engineer-merges-pipelines-do-the-rest.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

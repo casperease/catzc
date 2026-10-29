@@ -1,7 +1,7 @@
-# An undeclared module edge fails the gate with one line per issue
+# What an undeclared module dependency reports
 
 ```text
-An undeclared module edge fails the gate with one line per issue.
+What an undeclared module dependency reports.
 
 1  Test-Automation        the usual entry point; its L1 integrity test runs the gate
 2  Test-ModuleDependency  the gate itself, run directly or by the test
@@ -25,7 +25,7 @@ about:
   rules: [ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-EXTENDBYDECLARING]
   lens: operations
 content:
-  title: An undeclared module edge fails the gate with one line per issue
+  title: What an undeclared module dependency reports
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -67,7 +67,7 @@ layout:
   g-dependencies: { x: 960, y: 404, w: 280, h: 52 }
 ```
 
-![An undeclared edge fails with one line](.assets/undeclared-edge-fails-with-one-line.drawio.png)
+![What an undeclared module dependency reports](.assets/undeclared-edge-fails-with-one-line.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
+# How the hook treats a shell call's limit
 
 ```text
-An agent's shell call carries its limit, or the hook denies it with a reason; it is never rewritten.
+How the hook treats a shell call's limit.
 
 1  coding agent     who makes the call: the main session, a subagent, or an agent in a pipeline
 2  time safeguard   the check run before every call: does the call carry a limit inside the bounds?
@@ -25,7 +25,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: meta
 content:
-  title: A shell call carries its limit, or the hook denies it with a reason; it is never rewritten
+  title: How the hook treats a shell call's limit
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -57,7 +57,7 @@ layout:
   f-denied: { x: 880, y: 298, w: 190, h: 44 }
 ```
 
-![A shell call carries its limit or is denied](.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png)
+![How the hook treats a shell call's limit](.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# A person turns on the local guard with one variant; an admin syncs the server policies with one command
+# How the guard and the server policies are turned on
 
 ```text
-A person turns on the local guard with one variant; an admin syncs the server policies with one command.
+How the guard and the server policies are turned on.
 
 1  variants.yml              set git_workspace: main-via-pr (the shipped value is main-direct)
 2  importer.ps1              re-run it; variants are fixed for the importer session
@@ -27,7 +27,7 @@ about:
   rules: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: operations
 content:
-  title: A person turns on the local guard with one variant; an admin syncs the server policies with one command
+  title: How the guard and the server policies are turned on
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -70,7 +70,7 @@ layout:
   c-list: { x: 590, y: 294, w: 210, h: 44 }
 ```
 
-![Flip git_workspace; sync the ADO policies](.assets/guard-and-policies-by-command.drawio.png)
+![How the guard and the server policies are turned on](.assets/guard-and-policies-by-command.drawio.png)
 
 ## Walkthrough
 
@@ -107,5 +107,5 @@ layout:
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - [Repo variants](../../drs/repository/repo-variants.md) — the `git_workspace` variant.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
-  [implementation](local-guard-and-server-policies.md) and [governance](ingress-gated-the-rest-by-review.md).
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md) and [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

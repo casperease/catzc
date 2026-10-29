@@ -1,7 +1,7 @@
-# A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
+# When the hook denies a call
 
 ```text
-A call inside the limit runs; outside it, the hook denies it and says how to re-issue it.
+When the hook denies a call.
 
 1  Assert-BashTimeout      runs before every Bash call: timeout: 3000 in the foreground, timeout 360 <one command> in the background
 2  the call runs           the hook is silent and the call meets the normal permission flow
@@ -25,7 +25,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: operations
 content:
-  title: A call inside the limit runs; outside it, the hook denies it and says how to re-issue it
+  title: When the hook denies a call
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -63,7 +63,7 @@ layout:
   f-stopped: { x: 410, y: 416, w: 170, h: 44 }
 ```
 
-![Pass the limit or the call is denied](.assets/pass-the-limit-or-the-call-is-denied.drawio.png)
+![When the hook denies a call](.assets/pass-the-limit-or-the-call-is-denied.drawio.png)
 
 ## Walkthrough
 

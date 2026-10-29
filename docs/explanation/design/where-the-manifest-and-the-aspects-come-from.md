@@ -1,7 +1,7 @@
-# The manifest and the aspects both come from one folder
+# Where the manifest and the aspects come from
 
 ```text
-The manifest and the aspects both come from one folder, by two code paths in call order.
+Where the manifest and the aspects come from.
 
 1  pwsh/<Module>/                the unit root both paths read
 2  Assert-Unique...FunctionName  the import guard: unique function names
@@ -29,7 +29,7 @@ about:
   rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: implementation
 content:
-  title: The manifest and the aspects both come from one folder
+  title: Where the manifest and the aspects come from
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -83,7 +83,7 @@ layout:
   g-tests: { x: 990, y: 490, w: 200, h: 44 }
 ```
 
-![Manifest and aspects from one folder](.assets/manifest-and-aspects-from-one-folder.drawio.png)
+![Where the manifest and the aspects come from](.assets/where-the-manifest-and-the-aspects-come-from.drawio.png)
 
 ## Walkthrough
 

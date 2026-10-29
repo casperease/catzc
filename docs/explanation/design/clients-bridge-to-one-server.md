@@ -117,6 +117,7 @@ layout:
 
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - [Commit lifecycle](../../drs/flow/commit-lifecycle.md) — the stable point and the dirty HEAD.
-- The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [implementation](local-guard-and-server-policies.md),
-  [operations](guard-and-policies-by-command.md) and [governance](ingress-gated-the-rest-by-review.md).
+- The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md),
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md), [operations](guard-and-policies-by-command.md) and
+  [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

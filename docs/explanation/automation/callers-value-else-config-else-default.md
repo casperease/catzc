@@ -1,7 +1,7 @@
-# Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it
+# Where a wait's limit comes from
 
 ```text
-Every wait is bounded, and its limit resolves in one order: the caller's value, else the config, else the declared default.
+Where a wait's limit comes from.
 
 1  the caller             the function that waits; a value it names wins
 2  the config file        timeouts.yml, read when the caller names nothing
@@ -26,7 +26,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: meta
 content:
-  title: "Every wait is bounded: the caller's value, else the config, else the default; an exemption only raises it"
+  title: Where a wait's limit comes from
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -64,7 +64,7 @@ layout:
   r-wait: { x: 1050, y: 170, w: 180, h: 44 }
 ```
 
-![Every wait is bounded: the caller's value, else the config, else the default](.assets/callers-value-else-config-else-default.drawio.png)
+![Where a wait's limit comes from](.assets/callers-value-else-config-else-default.drawio.png)
 
 ## Walkthrough
 

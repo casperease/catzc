@@ -1,7 +1,7 @@
-# Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
+# Which modules dereference a config address
 
 ```text
-Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private.
+Which modules dereference a config address.
 
 1  callers                  four modules hold addresses and hand them to Catzc.Base.Config
 2  Get-ConfigValue          the public resolver: strip the marker, read the config, walk the keys
@@ -26,7 +26,7 @@ about:
   rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY]
   lens: architecture
 content:
-  title: Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
+  title: Which modules dereference a config address
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -73,7 +73,7 @@ layout:
   g-file: { x: 1000, y: 226, w: 220, h: 52 }
 ```
 
-![Callers in four modules dereference an address through Catzc.Base.Config](.assets/callers-in-four-modules-share-one-resolver.drawio.png)
+![Which modules dereference a config address](.assets/callers-in-four-modules-share-one-resolver.drawio.png)
 
 ## Walkthrough
 
@@ -110,7 +110,6 @@ The loading record says only `Get-Config` is public, while the addressing record
 ## See also
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
-- The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
-  [implementation](strip-split-walk-every-wrong-turn-throws.md), [operations](how-a-config-address-becomes-a-value.md) and
-  [governance](two-test-files-check-the-address-rules.md).
+- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [implementation](how-a-config-address-is-walked.md),
+  [operations](how-a-config-address-becomes-a-value.md) and [governance](two-test-files-check-the-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

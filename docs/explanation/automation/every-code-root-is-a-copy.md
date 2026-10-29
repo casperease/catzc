@@ -1,7 +1,7 @@
-# One engine builds the bundle, and every code root is a copy of its output
+# Where the code roots get their bundle
 
 ```text
-One engine builds the bundle, and every code root is a copy of its output.
+Where the code roots get their bundle.
 
 1  pwsh/                    the source tree, the engine's only input
 2  Catzc.Internal.Builder   the .internal engine, Invoke-ModuleBuild, that writes the build
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: architecture
 content:
-  title: One engine builds the bundle, and every code root is a copy of its output
+  title: Where the code roots get their bundle
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -81,7 +81,7 @@ layout:
   r-saved: { x: 1030, y: 246, w: 210, h: 44 }
 ```
 
-![One engine builds, every code root is a copy](.assets/every-code-root-is-a-copy.drawio.png)
+![Where the code roots get their bundle](.assets/every-code-root-is-a-copy.drawio.png)
 
 ## Walkthrough
 

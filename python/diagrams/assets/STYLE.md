@@ -542,8 +542,8 @@ An approved slide lands as its pair and its article; the `.verify.md` stays in `
   fail markdownlint MD033). Example names copied from a record that are not words (`weudiscvm`) get a local `cspell:ignore` line, as the
   record does; never split a word across markup (`Co(nfig)` flags `nfig`).
 
-Quality bar for this format: `docs/explanation/automation/three-layers-edges-point-down.md` with its folder
-`docs/explanation/automation/.assets/three-layers-edges-point-down/`.
+Quality bar for this format: `docs/explanation/automation/how-modules-are-layered.md` with its folder
+`docs/explanation/automation/.assets/how-modules-are-layered/`.
 
 ## Readability rules
 

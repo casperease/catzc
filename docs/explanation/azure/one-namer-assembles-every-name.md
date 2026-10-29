@@ -1,7 +1,7 @@
-# One resolver gathers the components and one namer assembles every Azure name
+# Which code builds Azure names
 
 ```text
-Every Azure name comes out of one resolver and one namer; nothing else builds names.
+Which code builds Azure names.
 Each arrow runs from the one that acts to what it acts on or depends on: the resolver reads the sources and calls the namer, the namer
 reads the registries, the consumer calls the resolver, and the deploy code, the actor, calls the consumer.
 
@@ -35,7 +35,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: architecture
 content:
-  title: One resolver gathers the components and one namer assembles every Azure name
+  title: Which code builds Azure names
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -92,7 +92,7 @@ layout:
   g-group: { x: 450, y: 512, w: 400, h: 44 }
 ```
 
-![One resolver gathers the components and one namer assembles every Azure name](.assets/one-namer-assembles-every-name.drawio.png)
+![Which code builds Azure names](.assets/one-namer-assembles-every-name.drawio.png)
 
 ## Walkthrough
 

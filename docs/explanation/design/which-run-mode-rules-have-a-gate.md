@@ -1,7 +1,7 @@
-# Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none
+# Which run-mode rules have a gate
 
 ```text
-Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none.
+Which run-mode rules have a gate.
 
 1  Test-Automation               the source run: rules 2, 3 and 6
 2  Test-CatzcBuild               the build run: rules 3 and 6
@@ -35,7 +35,7 @@ about:
     - DDR-RUNMODE-THREEBUILDKINDS
   lens: governance
 content:
-  title: Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none
+  title: Which run-mode rules have a gate
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -95,7 +95,7 @@ layout:
   g-build-kinds: { x: 880, y: 456, w: 240, h: 52 }
 ```
 
-![Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](.assets/which-run-mode-rules-have-a-gate.drawio.png)
+![Which run-mode rules have a gate](.assets/which-run-mode-rules-have-a-gate.drawio.png)
 
 ## Walkthrough
 

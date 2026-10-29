@@ -1,7 +1,7 @@
-# Strip, split, read once, walk one segment at a time; every wrong turn throws
+# How a config address is walked
 
 ```text
-Strip, split, read once, walk one segment at a time; every wrong turn throws.
+How a config address is walked.
 
 1  Write-EnvironmentSet         a caller: hands a 'global.…' entry of -Set to Get-ConfigValue
 2  ValidatePattern              the grammar, checked when -Address binds
@@ -30,7 +30,7 @@ about:
   rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
   lens: implementation
 content:
-  title: Strip, split, read once, walk one segment at a time; every wrong turn throws
+  title: How a config address is walked
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -82,7 +82,7 @@ layout:
   f-key: { x: 960, y: 312, w: 200, h: 44 }
 ```
 
-![Strip, split, read once, walk one segment at a time](.assets/strip-split-walk-every-wrong-turn-throws.drawio.png)
+![How a config address is walked](.assets/how-a-config-address-is-walked.drawio.png)
 
 ## Walkthrough
 
@@ -128,7 +128,6 @@ A key cannot contain a dot, because `Get-ConfigValue` splits the whole address o
 ## See also
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
-- The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
-  [architecture](callers-in-four-modules-share-one-resolver.md), [operations](how-a-config-address-becomes-a-value.md) and
-  [governance](two-test-files-check-the-address-rules.md).
+- The other lenses on the same walk: [meta](how-a-config-address-is-read.md), [architecture](callers-in-four-modules-share-one-resolver.md),
+  [operations](how-a-config-address-becomes-a-value.md) and [governance](two-test-files-check-the-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

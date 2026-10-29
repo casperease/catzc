@@ -1,7 +1,7 @@
-# One resolver serves every consumer but the hook, which compiles the same config type
+# Who resolves the time limit
 
 ```text
-One resolver, Get-TimeoutSeconds, serves every consumer of the time safeguard but the hook, which compiles the same config type.
+Who resolves the time limit.
 
 1  Get-RunEnvironment       the environment axis: Devbox or Pipeline, read from the session
 2  TimeoutsConfig           the type that maps timeouts.yml and declares every default
@@ -27,7 +27,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: architecture
 content:
-  title: One resolver serves every consumer but the hook, which compiles the same config type
+  title: Who resolves the time limit
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -77,7 +77,7 @@ layout:
   g-with-timeout: { x: 1020, y: 322, w: 200, h: 44 }
 ```
 
-![One resolver serves every consumer but the hook](.assets/one-resolver-every-consumer-but-the-hook.drawio.png)
+![Who resolves the time limit](.assets/one-resolver-every-consumer-but-the-hook.drawio.png)
 
 ## Walkthrough
 

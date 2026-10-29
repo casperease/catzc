@@ -1,7 +1,7 @@
-# Every entry runs one load sequence
+# Which stages a load runs
 
 ```text
-Whatever the entry point, cats loads through the same five stages in the same order.
+Which stages a load runs.
 
 1  Enter                 a dot-sourced entry script hands over to the one importer
 2  Set up the session    version floor, fail-fast preferences, the working root and the code root
@@ -24,7 +24,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-ISSESSION]
   lens: meta
 content:
-  title: Every entry runs one load sequence
+  title: Which stages a load runs
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -58,7 +58,7 @@ layout:
   g-tidy: { x: 390, y: 420, w: 500, h: 44 }
 ```
 
-![Every entry runs one load sequence](.assets/every-entry-runs-one-load-sequence.drawio.png)
+![Which stages a load runs](.assets/every-entry-runs-one-load-sequence.drawio.png)
 
 ## Walkthrough
 

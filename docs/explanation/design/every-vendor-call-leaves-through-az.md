@@ -1,7 +1,7 @@
-# Every vendor call leaves cats through the az CLI
+# How vendor calls leave cats
 
 ```text
-Every vendor call leaves cats through the az CLI, the one exit to Azure.
+How vendor calls leave cats.
 
 1  Catzc.Azure.Templates    the module behind the deploy commands; never calls the vendor itself
 2  azure.yml, options.yml   the configuration both Azure modules read
@@ -34,7 +34,7 @@ about:
     - ADR-AZ-CLI-NOAZMODULEIMPORT
   lens: architecture
 content:
-  title: Every vendor call leaves through the az CLI
+  title: How vendor calls leave cats
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -83,7 +83,7 @@ layout:
   e-azure: { x: 380, y: 545, w: 280, h: 52 }
 ```
 
-![Every vendor call leaves through the az CLI](.assets/every-vendor-call-leaves-through-az.drawio.png)
+![How vendor calls leave cats](.assets/every-vendor-call-leaves-through-az.drawio.png)
 
 ## Walkthrough
 

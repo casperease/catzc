@@ -24,7 +24,7 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../d
 | Lens           | Article                                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------------------- |
 | meta           | [A commit only climbs, then ends in one of three ways](one-way-climb-three-endings.md)                           |
-| architecture   | [Four pipeline kinds promote one artifact that CI built once](four-domains-promote-one-artifact.md)              |
+| architecture   | [Four pipeline kinds promote one artifact that CI built once](how-one-build-reaches-production.md)               |
 | implementation | [The pipelines wire only topic, landed and BVT; past BVT there is no ladder](code-wires-only-the-first-rungs.md) |
 | operations     | [An engineer runs the tests and merges; pipelines do the rest](engineer-merges-pipelines-do-the-rest.md)         |
 | governance     | [Only PR build validation, the BVT and the failure stop are checked in code](which-rung-gates-exist-in-code.md)  |
@@ -74,13 +74,13 @@ Where the code loads from decides the run mode ([run-modes](../../drs/design/run
 Every module file is in exactly one aspect, and the manifest and the aspects both come from the module folder
 ([module-aspects](../../drs/design/module-aspects.md)).
 
-| Lens           | Article                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------- |
-| meta           | [Every module file is in exactly one aspect](every-file-in-exactly-one-aspect.md)                 |
-| architecture   | [One module folder has two independent readers](one-folder-two-independent-readers.md)            |
-| implementation | [The manifest and the aspects both come from one folder](manifest-and-aspects-from-one-folder.md) |
-| operations     | [Drop a file, and the next import exports it](drop-a-file-the-import-exports-it.md)               |
-| governance     | [Partition integrity runs only in unit tests](partition-integrity-runs-only-in-unit-tests.md)     |
+| Lens           | Article                                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------------------------- |
+| meta           | [Every module file is in exactly one aspect](every-file-in-exactly-one-aspect.md)                         |
+| architecture   | [One module folder has two independent readers](one-folder-two-independent-readers.md)                    |
+| implementation | [The manifest and the aspects both come from one folder](where-the-manifest-and-the-aspects-come-from.md) |
+| operations     | [Drop a file, and the next import exports it](drop-a-file-the-import-exports-it.md)                       |
+| governance     | [Partition integrity runs only in unit tests](partition-integrity-runs-only-in-unit-tests.md)             |
 
 ## Tracks, units and pipelines
 
@@ -124,7 +124,7 @@ Changes enter through one door, and consumers build on one stable point
   [Clients bridge to one server remote: in through a pull request, out from the verified point](clients-bridge-to-one-server.md)
 - **architecture**: [Out from the verified point, back in through its own topic](out-from-the-verified-point-back-through-a-topic.md)
 - **implementation**:
-  [The code carries both halves of ingress, but nothing finds the last verified commit](local-guard-and-server-policies.md)
+  [The code carries both halves of ingress, but nothing finds the last verified commit](how-ingress-is-guarded-locally-and-on-the-server.md)
 - **operations**: [A person turns on the local guard with one variant; an admin syncs the server policies with one command][guard-policies]
 - **governance**:
   [Only ingress is checked by gates; the source-of-truth and integration rules rest on code review](ingress-gated-the-rest-by-review.md)

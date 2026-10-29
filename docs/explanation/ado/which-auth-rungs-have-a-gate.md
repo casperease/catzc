@@ -1,7 +1,7 @@
-# The PAT proof and the empty-token assert have no gate
+# Which ADO auth checks have a gate
 
 ```text
-The PAT proof and the empty-token assert have no gate, and neither do #4 and #7.
+Which ADO auth checks have a gate.
 
 1  Header function         #1 checked by the throw tests; #4 and #7 have no gate
 2  Pipeline token          #3 and #2, checked by two L0 tests
@@ -33,7 +33,7 @@ about:
     - FDR-PIPELINE-NOSTOREDTOKENS
   lens: governance
 content:
-  title: The PAT proof and the empty-token assert have no gate
+  title: Which ADO auth checks have a gate
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -85,7 +85,7 @@ layout:
   g-job: { x: 960, y: 264, w: 260, h: 44 }
 ```
 
-![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate.drawio.png)
+![Which ADO auth checks have a gate](.assets/which-auth-rungs-have-a-gate.drawio.png)
 
 ## Walkthrough
 
@@ -126,6 +126,6 @@ No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDet
 
 - [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
-  [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
+  [architecture](where-the-ado-credential-precedence-lives.md), [implementation](three-guarded-early-returns.md) and
   [operations](what-you-set-decides-the-credential.md).
 - [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

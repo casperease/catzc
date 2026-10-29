@@ -1,7 +1,7 @@
-# Two sections of dependencies.yml are unioned into one allow-set per source module
+# Which modules a module may depend on
 
 ```text
-Two sections of dependencies.yml are unioned into one allow-set per source module.
+Which modules a module may depend on.
 
 1  groups:                   three groups, each with its own internal member-to-member map
 2  modules:                  fourteen consumer entries, each listing the groups or modules it may use
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
   lens: implementation
 content:
-  title: Two sections of dependencies.yml are unioned into one allow-set per source module
+  title: Which modules a module may depend on
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -85,7 +85,7 @@ layout:
   f-issues: { x: 960, y: 514, w: 280, h: 44 }
 ```
 
-![Two sections unioned into one allow-set](.assets/two-sections-unioned-into-one-allow-set.drawio.png)
+![Which modules a module may depend on](.assets/two-sections-unioned-into-one-allow-set.drawio.png)
 
 ## Walkthrough
 

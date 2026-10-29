@@ -1,7 +1,7 @@
-# Every Deploy stage in cats runs only from main, so no topic commit is deployed
+# Where a Deploy stage may run
 
 ```text
-A pull request run skips every Deploy_* stage; only the run on main deploys, so no topic commit is deployed.
+Where a Deploy stage may run.
 
 1  topic branch         a pull request into main starts a run (pr: [main])
 2  stage: CI            the PR run builds and publishes the templates
@@ -27,7 +27,7 @@ about:
   rules: [FDR-LIFE-TOPICDEPLOYSOUTOFBAND]
   lens: implementation
 content:
-  title: Every Deploy stage runs only from main, so no topic commit is deployed
+  title: Where a Deploy stage may run
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -89,7 +89,7 @@ layout:
   r-deploy: { x: 1115, y: 170, w: 150, h: 44 }
 ```
 
-![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only.drawio.png)
+![Where a Deploy stage may run](.assets/every-deploy-stage-is-main-only.drawio.png)
 
 ## Walkthrough
 

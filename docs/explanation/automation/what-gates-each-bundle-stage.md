@@ -1,7 +1,7 @@
-# Every stage of the bundle has a rule, and two gates check it
+# What checks each bundle stage
 
 ```text
-Every stage of the bundle has a rule, and two gates check it.
+What checks each bundle stage.
 
 1  Build-Modules            selection, merged payload and version (#1, #4, #7)
 2  Assert-CatzcBundle       the integrity gate on every build (#5)
@@ -32,7 +32,7 @@ about:
     - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
   lens: governance
 content:
-  title: Every stage of the bundle has a rule, and two gates check it
+  title: What checks each bundle stage
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -82,7 +82,7 @@ layout:
   r-installed: { x: 1030, y: 180, w: 210, h: 44 }
 ```
 
-![Every stage has a rule, two gates check it](.assets/what-gates-each-bundle-stage.drawio.png)
+![What checks each bundle stage](.assets/what-gates-each-bundle-stage.drawio.png)
 
 ## Walkthrough
 

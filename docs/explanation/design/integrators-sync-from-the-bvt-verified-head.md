@@ -1,7 +1,7 @@
-# Upstream integrators sync from the BVT-verified head, never from the tip of main
+# Where upstream integrators sync from
 
 ```text
-Upstream integrators take the BVT-verified head, every rung takes its commit from the rung before it, and nobody takes the tip of main.
+Where upstream integrators sync from.
 
 1  upstream integrator  builds on cats from outside; takes commit 6, the BVT-verified head
 2  main-UAT             holds commit 6, the BVT-verified head it took first: the sync point
@@ -35,7 +35,7 @@ about:
     - FDR-CD-PREPRODRUNG
   lens: architecture
 content:
-  title: Upstream integrators sync from the BVT-verified head, never from the tip of main
+  title: Where upstream integrators sync from
   kind: explanation
   flow: top-to-bottom
   relation: promotes to
@@ -90,7 +90,7 @@ layout:
   c-dirty: { x: 173, y: 526, w: 44, h: 44 }
 ```
 
-![Upstream integrators sync from the BVT-verified head, never from the tip of main][diagram]
+![Where upstream integrators sync from][diagram]
 
 [diagram]: .assets/integrators-sync-from-the-bvt-verified-head.drawio.png
 

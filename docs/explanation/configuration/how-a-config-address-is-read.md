@@ -1,7 +1,7 @@
-# A config address is a read-only walk over the one cached config, never a second reader
+# How a config address is read
 
 ```text
-A config address is a read-only walk over the one cached config, never a second reader.
+How a config address is read.
 
 1  caller          code in cats that holds an address as a string
 2  one reader      the single way in; it strips the marker and walks the keys
@@ -26,7 +26,7 @@ about:
   rules: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD]
   lens: meta
 content:
-  title: A config address is a read-only walk over the one cached config, never a second reader
+  title: How a config address is read
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -62,7 +62,7 @@ layout:
   f-wrong: { x: 460, y: 352, w: 220, h: 44 }
 ```
 
-![A config address is a read-only walk over the one cached config](.assets/an-address-is-a-read-only-walk.drawio.png)
+![How a config address is read](.assets/how-a-config-address-is-read.drawio.png)
 
 ## Walkthrough
 
@@ -96,6 +96,6 @@ The loading record says only `Get-Config` is public, while the addressing record
 
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
 - The other lenses on the same walk: [architecture](callers-in-four-modules-share-one-resolver.md),
-  [implementation](strip-split-walk-every-wrong-turn-throws.md), [operations](how-a-config-address-becomes-a-value.md) and
+  [implementation](how-a-config-address-is-walked.md), [operations](how-a-config-address-becomes-a-value.md) and
   [governance](two-test-files-check-the-address-rules.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

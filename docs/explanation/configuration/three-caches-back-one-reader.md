@@ -1,7 +1,7 @@
-# Three session caches back the one config reader
+# Which caches back the config reader
 
 ```text
-Three session caches back the one config reader, each filled once and kept until re-import.
+Which caches back the config reader.
 
 1   Get-Config                    the one reader: -Config <name>, optional -Module
 2   Resolve-ConfigEntry           the private discovery seam: name -> one entry, or a throw
@@ -36,7 +36,7 @@ about:
     ]
   lens: implementation
 content:
-  title: Three session caches back the one config reader
+  title: Which caches back the config reader
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -97,7 +97,7 @@ layout:
   s-registry: { x: 1040, y: 408, w: 230, h: 60 }
 ```
 
-![Three session caches back the one config reader](.assets/three-caches-back-one-reader.drawio.png)
+![Which caches back the config reader](.assets/three-caches-back-one-reader.drawio.png)
 
 ## Walkthrough
 

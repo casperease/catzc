@@ -1,7 +1,7 @@
-# Each track picks its catch-all: a stray module file falls to tests, a stray template file to live
+# Where a stray file lands in each track
 
 ```text
-Each track picks its catch-all: a stray module file falls to tests, a stray template file to live.
+Where a stray file lands in each track.
 
 1  a tracked file of a unit  any file git tracks under a module folder or a template
 2  live                      the code track's first aspect: a closed convention, what ships
@@ -25,7 +25,7 @@ about:
   rules: [DDR-ASPECT-MODULESPARTITIONED, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: meta
 content:
-  title: "Each track picks its catch-all: a stray module file falls to tests, a stray template file to live"
+  title: Where a stray file lands in each track
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -63,7 +63,7 @@ layout:
   s-deployment-live: { x: 960, y: 370, w: 280, h: 44 }
 ```
 
-![Each track picks its catch-all](.assets/each-track-picks-its-catch-all.drawio.png)
+![Where a stray file lands in each track](.assets/each-track-picks-its-catch-all.drawio.png)
 
 ## Walkthrough
 
@@ -103,5 +103,5 @@ layout:
 - [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same catch-all: [architecture](only-pwsh-compiles-its-aspects.md),
   [implementation](get-aspect-feeds-globs-and-maps.md), [operations](get-aspect-names-the-remainder.md) and
-  [governance](gate-checks-order-not-liveness.md).
+  [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

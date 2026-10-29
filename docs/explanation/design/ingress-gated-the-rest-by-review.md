@@ -1,7 +1,7 @@
-# Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
+# Which ingress rules have a gate
 
 ```text
-Only ingress is checked by gates; the source-of-truth and integration rules rest on code review.
+Which ingress rules have a gate.
 
 1  local clone      automation commits the files it generates here
 2  local guard      Sync-GeneratedFile's branch guard, the local half of ingress (V6)
@@ -34,7 +34,7 @@ about:
     - FDR-LIFE-SYNCFROMVERIFIEDHEAD
   lens: governance
 content:
-  title: Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
+  title: Which ingress rules have a gate
   kind: explanation
   flow: top-to-bottom
   relation: a commit moves to
@@ -89,7 +89,7 @@ layout:
   s-consumers: { x: 1080, y: 446, w: 150, h: 64 }
 ```
 
-![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review.drawio.png)
+![Which ingress rules have a gate](.assets/ingress-gated-the-rest-by-review.drawio.png)
 
 ## Walkthrough
 
@@ -132,5 +132,5 @@ layout:
 - [Repo variants](../../drs/repository/repo-variants.md) and [Commit lifecycle](../../drs/flow/commit-lifecycle.md) — the `git_workspace`
   variant and the stable point.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
-  [implementation](local-guard-and-server-policies.md) and [operations](guard-and-policies-by-command.md).
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md) and [operations](guard-and-policies-by-command.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

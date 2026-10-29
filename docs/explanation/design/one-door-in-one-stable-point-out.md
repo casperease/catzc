@@ -101,6 +101,6 @@ layout:
 
 - [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
 - The other lenses on the same decision: [architecture](clients-bridge-to-one-server.md),
-  [implementation](local-guard-and-server-policies.md), [operations](guard-and-policies-by-command.md) and
+  [implementation](how-ingress-is-guarded-locally-and-on-the-server.md), [operations](guard-and-policies-by-command.md) and
   [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

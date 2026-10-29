@@ -1,7 +1,7 @@
-# Output root first, then repository root, else absolute, and out/ re-anchors on the output root
+# How a path is made repo-relative
 
 ```text
-ConvertTo-RepoRelativePath tries the output root, then the repository root, else keeps the absolute; Resolve-RepoPath re-anchors out/.
+How a path is made repo-relative.
 
  1  out/template/sample/main.json  a path under the output root: out/ plus the remainder
  2  pwsh/mod/file.ps1              a path under the repository root: repo-relative
@@ -31,7 +31,7 @@ about:
   rules: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
   lens: implementation
 content:
-  title: Output root first, then repository root, else absolute, and out/ re-anchors on the output root
+  title: How a path is made repo-relative
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -92,7 +92,7 @@ layout:
   g-resolve-at: { x: 920, y: 452, w: 300, h: 52 }
 ```
 
-![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root.drawio.png)
+![How a path is made repo-relative](.assets/output-root-first-then-repo-root.drawio.png)
 
 ## Walkthrough
 

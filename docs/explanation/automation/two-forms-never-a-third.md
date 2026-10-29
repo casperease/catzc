@@ -1,7 +1,7 @@
-# A path has two forms, never a third, and one pair of crossers moves it between them
+# Which forms a path takes
 
 ```text
-A path has two forms, never a third, and one pair of crossers moves it between them.
+Which forms a path takes.
 
 1  Communication form  relative, slash-separated and normalized: what is stored, returned or logged
 2  The two crossers    the only two functions that move a path across the boundary
@@ -31,7 +31,7 @@ about:
     - ADR-AUTO-PATH-PUBLISHEDARTIFACT
   lens: meta
 content:
-  title: A path has two forms, never a third, and one pair of crossers moves it between them
+  title: Which forms a path takes
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -69,7 +69,7 @@ layout:
   s-artifact: { x: 530, y: 374, w: 220, h: 52 }
 ```
 
-![A path has two forms, never a third](.assets/two-forms-never-a-third.drawio.png)
+![Which forms a path takes](.assets/two-forms-never-a-third.drawio.png)
 
 ## Walkthrough
 

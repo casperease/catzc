@@ -1,7 +1,7 @@
-# The header function is four checks and three returns, and none falls through on failure
+# How the ADO header function checks a credential
 
 ```text
-Four checks in code order, three returns, and no check falls through on failure.
+How the ADO header function checks a credential.
 
 1  Test-IsRunningInPipeline      check 1: the pipeline rung; returns Bearer SYSTEM_ACCESSTOKEN
 2  does not match ado.yml        the throw when the collection is not the configured org
@@ -26,7 +26,7 @@ about:
   rules: [ADR-ADO-AUTH-FIXEDCREDENTIALORDER, ADR-ADO-AUTH-PROVETARGET, ADR-ADO-AUTH-EXPLICITDETECTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN]
   lens: implementation
 content:
-  title: The header function is four checks and three returns, and none falls through on failure
+  title: How the ADO header function checks a credential
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -81,7 +81,7 @@ layout:
   f-no-token: { x: 950, y: 468, w: 300, h: 44 }
 ```
 
-![Four checks in code order, three returns and three throws](.assets/three-guarded-early-returns.drawio.png)
+![How the ADO header function checks a credential](.assets/three-guarded-early-returns.drawio.png)
 
 ## Walkthrough
 
@@ -125,6 +125,6 @@ own sample code shows the same skip.
 
 - [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
-  [architecture](one-header-function-owns-precedence.md), [operations](what-you-set-decides-the-credential.md) and
+  [architecture](where-the-ado-credential-precedence-lives.md), [operations](what-you-set-decides-the-credential.md) and
   [governance](which-auth-rungs-have-a-gate.md).
 - [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

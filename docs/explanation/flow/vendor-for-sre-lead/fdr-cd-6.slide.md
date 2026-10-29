@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../flow/.assets/cd-builds-once-then-deploys-non-prod.drawio.png
+      source: ../../flow/.assets/how-the-customer-cd-pipeline-builds-and-deploys.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: cd builds once then deploys non-prod.
 ## Notes
 
 Check it: the record FDR-CD in docs/drs/index.md, and the diagram
-docs/explanation/flow/.assets/cd-builds-once-then-deploys-non-prod.drawio.png.
+docs/explanation/flow/.assets/how-the-customer-cd-pipeline-builds-and-deploys.drawio.png.

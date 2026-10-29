@@ -1,7 +1,7 @@
-# Code holds all eight naming rules, seven of them behind a check that throws
+# How the Azure naming rules are enforced
 
 ```text
-All eight naming rules are held in code; seven behind a check that throws, one by construction.
+How the Azure naming rules are enforced.
 
 1  BicepShortName         #2: throws at discovery on a malformed or missing short_name
 2  Get-BicepResourceName  #8: never reads a subscription; held by construction, no check
@@ -35,7 +35,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: governance
 content:
-  title: Code holds all eight naming rules, seven of them behind a check that throws
+  title: How the Azure naming rules are enforced
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -92,7 +92,7 @@ layout:
   f-throw: { x: 800, y: 470, w: 220, h: 44 }
 ```
 
-![Code holds all eight naming rules, seven of them behind a check that throws](.assets/how-each-naming-rule-is-held.drawio.png)
+![How the Azure naming rules are enforced](.assets/how-each-naming-rule-is-held.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
+# How the Bash time guard is tested
 
 ```text
-One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is DRS-only.
+How the Bash time guard is tested.
 
 1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT,
                               ADR-AUTO-DEFAULT-ONERESOLUTIONORDER)
@@ -27,7 +27,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: governance
 content:
-  title: One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
+  title: How the Bash time guard is tested
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -79,7 +79,7 @@ layout:
   g-published: { x: 990, y: 372, w: 220, h: 68 }
 ```
 
-![Three tests prove the hook](.assets/three-tests-prove-the-hook.drawio.png)
+![How the Bash time guard is tested](.assets/three-tests-prove-the-hook.drawio.png)
 
 ## Walkthrough
 

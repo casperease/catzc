@@ -1,7 +1,7 @@
-# A merge to main runs the CD pipeline through non-prod and stops there
+# How a merge to main reaches non-prod
 
 ```text
-A merge to main runs the CD pipeline through non-prod and stops there.
+How a merge to main reaches non-prod.
 
 1  developer                   a pull request or a merge to main starts the run
 2  Build-Bicep                 the CI stage builds and publishes three artifacts
@@ -26,7 +26,7 @@ about:
   rules: [FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY, FDR-CD-TWORELEASEGATES]
   lens: operations
 content:
-  title: A merge to main runs the CD pipeline through non-prod and stops there
+  title: How a merge to main reaches non-prod
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -79,7 +79,7 @@ layout:
   f-deployment-context: { x: 610, y: 398, w: 300, h: 44 }
 ```
 
-![A merge to main runs the CD pipeline through non-prod and stops there](.assets/a-merge-runs-cd-through-non-prod.drawio.png)
+![How a merge to main reaches non-prod](.assets/how-a-merge-to-main-reaches-non-prod.drawio.png)
 
 ## Walkthrough
 
@@ -113,5 +113,5 @@ layout:
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [implementation](cd-builds-once-then-deploys-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
+  [implementation](how-the-customer-cd-pipeline-builds-and-deploys.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

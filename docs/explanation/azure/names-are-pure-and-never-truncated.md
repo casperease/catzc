@@ -1,9 +1,9 @@
-# An Azure name is a pure function of its components, and it is never truncated
+# What an Azure name is made from
 
 <!-- cspell:ignore weufindiscxaphotst weudiscvm -->
 
 ```text
-An Azure name is computed from fixed components; it fits its limit or the deploy stops.
+What an Azure name is made from.
 
 1  fixed components  one canonical set in a fixed order, environment first
 2  type pattern      picks the environment and customer form, and the length limit
@@ -31,7 +31,7 @@ about:
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: meta
 content:
-  title: An Azure name is a pure function of its components, and it is never truncated
+  title: What an Azure name is made from
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -69,7 +69,7 @@ layout:
   r-name: { x: 510, y: 480, w: 280, h: 44 }
 ```
 
-![An Azure name is a pure function of its components, and it is never truncated](.assets/names-are-pure-and-never-truncated.drawio.png)
+![What an Azure name is made from](.assets/names-are-pure-and-never-truncated.drawio.png)
 
 ## Walkthrough
 

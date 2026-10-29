@@ -1,7 +1,7 @@
-# Two gates check the layer pins, and one rule is left to review
+# What checks the module layers
 
 ```text
-Two gates check the layer pins, and one rule is left to review.
+What checks the module layers.
 
 1  AzureExt            top layer: every member pins groups or single modules, never its own group
 2  Tooling             middle layer: four members also pin their own group
@@ -32,7 +32,7 @@ about:
     - ADR-AUTO-TEST-QUALITYGATE
   lens: governance
 content:
-  title: Two gates check the layer pins, and one rule is left to review
+  title: What checks the module layers
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -92,7 +92,7 @@ layout:
   a-review: { x: 830, y: 462, w: 300, h: 56 }
 ```
 
-![Two gates check the layer pins](.assets/two-gates-check-the-layer-pins.drawio.png)
+![What checks the module layers](.assets/two-gates-check-the-layer-pins.drawio.png)
 
 ## Walkthrough
 

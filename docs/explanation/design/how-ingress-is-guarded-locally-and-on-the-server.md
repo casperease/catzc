@@ -1,7 +1,7 @@
-# The code carries both halves of ingress, but nothing finds the last verified commit
+# How ingress is guarded locally and on the server
 
 ```text
-The code carries both halves of ingress, but nothing finds the last verified commit.
+How ingress is guarded locally and on the server.
 
 1   variants.yml                  ships git_workspace: main-direct
 2   Get-GitWorkspace              returns the mode, main-direct by default
@@ -29,7 +29,7 @@ about:
   rules: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: implementation
 content:
-  title: The code carries both halves of ingress, but nothing finds the last verified commit
+  title: How ingress is guarded locally and on the server
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -85,7 +85,7 @@ layout:
   g-get-validations: { x: 940, y: 440, w: 240, h: 44 }
 ```
 
-![A local guard and ADO policies, no resolver](.assets/local-guard-and-server-policies.drawio.png)
+![How ingress is guarded locally and on the server](.assets/how-ingress-is-guarded-locally-and-on-the-server.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# A pipeline step only names a command that a developer can run locally
+# How a pipeline step maps to a local command
 
 ```text
-A pipeline step only names a command, and a developer can run that same command locally.
+How a pipeline step maps to a local command.
 
 1  pipeline step  names a command and holds no PowerShell
 2  pipeline task  the pipeline host: adds authentication, token and label
@@ -24,7 +24,7 @@ about:
   rules: [ADR-ADO-RUNNER-NOINLINEPOWERSHELL, ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: meta
 content:
-  title: A pipeline step only names a command that a developer can run locally
+  title: How a pipeline step maps to a local command
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -60,7 +60,7 @@ layout:
   g-developer: { x: 1090, y: 290, w: 100, h: 70 }
 ```
 
-![A pipeline step only names a command you can run locally](.assets/a-step-only-names-a-command.drawio.png)
+![How a pipeline step maps to a local command](.assets/a-step-only-names-a-command.drawio.png)
 
 ## Walkthrough
 

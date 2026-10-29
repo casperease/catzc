@@ -1,7 +1,7 @@
-# Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
+# How a command's time limit is chosen
 
 ```text
-Get-TimeoutSeconds resolves the run environment, then the config entry or default, then the exemption ceiling, in that code order.
+How a command's time limit is chosen.
 
 1  Get-RunEnvironment      Devbox or Pipeline, the first thing the resolver reads
 2  timeouts.yml            the limits config: 22 executable entries today, no limits block
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: implementation
 content:
-  title: Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling, in that order
+  title: How a command's time limit is chosen
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -84,7 +84,7 @@ layout:
   g-with-timeout: { x: 1020, y: 322, w: 200, h: 44 }
 ```
 
-![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling][diagram]
+![How a command's time limit is chosen][diagram]
 
 [diagram]: .assets/resolve-one-limit-in-code-order.drawio.png
 

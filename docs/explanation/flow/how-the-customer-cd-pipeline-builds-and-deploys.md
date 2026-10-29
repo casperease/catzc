@@ -1,7 +1,7 @@
-# The customer CD pipeline builds once, then deploys non-prod only
+# How the customer CD pipeline builds and deploys
 
 ```text
-The customer CD pipeline builds once, then deploys non-prod only.
+How the customer CD pipeline builds and deploys.
 
 1  Build-Bicep                       the CI stage builds each of the three templates once
 2  foundation, discovery, expedition the three artifacts it publishes, untagged
@@ -26,7 +26,7 @@ about:
   rules: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD]
   lens: implementation
 content:
-  title: The customer CD pipeline builds once, then deploys non-prod only
+  title: How the customer CD pipeline builds and deploys
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -82,7 +82,7 @@ layout:
   e-non-prod: { x: 960, y: 160, w: 220, h: 56 }
 ```
 
-![The customer CD pipeline builds once, then deploys non-prod only](.assets/cd-builds-once-then-deploys-non-prod.drawio.png)
+![How the customer CD pipeline builds and deploys](.assets/how-the-customer-cd-pipeline-builds-and-deploys.drawio.png)
 
 ## Walkthrough
 
@@ -117,5 +117,5 @@ layout:
 
 - [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
-  [operations](a-merge-runs-cd-through-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
+  [operations](how-a-merge-to-main-reaches-non-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

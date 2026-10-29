@@ -51,7 +51,7 @@ opaque 401 errors, or worse, into a token aimed at the wrong organization.
 ## See also
 
 - [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
-- The other lenses on the same precedence: [architecture](one-header-function-owns-precedence.md),
+- The other lenses on the same precedence: [architecture](where-the-ado-credential-precedence-lives.md),
   [implementation](three-guarded-early-returns.md), [operations](what-you-set-decides-the-credential.md) and
   [governance](which-auth-rungs-have-a-gate.md).
 - [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

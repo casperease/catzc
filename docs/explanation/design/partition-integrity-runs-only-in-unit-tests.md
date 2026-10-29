@@ -1,7 +1,7 @@
-# Partition integrity runs only in unit tests
+# Where partition integrity is checked
 
 ```text
-Partition integrity runs only in unit tests, and the per-aspect sha lock has no mechanism.
+Where partition integrity is checked.
 
 1  pwsh/<Module>/                the module folder every stage starts from
 2  Test-SourceConventions        quality gate: one function per file, one definition per name
@@ -40,7 +40,7 @@ about:
     - FDR-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: governance
 content:
-  title: Partition integrity runs only in unit tests
+  title: Where partition integrity is checked
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -103,7 +103,7 @@ layout:
   g-sha-lock: { x: 1115, y: 160, w: 150, h: 52 }
 ```
 
-![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests.drawio.png)
+![Where partition integrity is checked](.assets/partition-integrity-runs-only-in-unit-tests.drawio.png)
 
 ## Walkthrough
 
@@ -158,5 +158,5 @@ layout:
   [one function per file](../../drs/automation/pwsh/one-function-per-file.md),
   [conventional folders](../../drs/repository/conventional-folders.md) and [durable sha globs](../../drs/flow/durable-sha-globs.md).
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
-  [implementation](manifest-and-aspects-from-one-folder.md) and [operations](drop-a-file-the-import-exports-it.md).
+  [implementation](where-the-manifest-and-the-aspects-come-from.md) and [operations](drop-a-file-the-import-exports-it.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

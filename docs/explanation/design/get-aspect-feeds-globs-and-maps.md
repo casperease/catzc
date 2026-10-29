@@ -1,7 +1,7 @@
-# Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
+# How aspects become glob sets and maps
 
 ```text
-Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live.
+How aspects become glob sets and maps.
 
 1   variants.yml                  the aspects entry: infrastructure tests then live
 2   VariantsConfig                the config type: validates the map when the variants config loads
@@ -30,7 +30,7 @@ about:
   rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ISAGLOBSET]
   lens: implementation
 content:
-  title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
+  title: How aspects become glob sets and maps
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -88,7 +88,7 @@ layout:
   c-is-live: { x: 765, y: 430, w: 420, h: 44 }
 ```
 
-![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps.drawio.png)
+![How aspects become glob sets and maps](.assets/get-aspect-feeds-globs-and-maps.drawio.png)
 
 ## Walkthrough
 
@@ -147,5 +147,5 @@ layout:
   [durable sha globs](../../drs/flow/durable-sha-globs.md), [repo-wide variants](../../drs/repository/repo-variants.md) and
   [tracks](../../drs/design/tracks.md).
 - The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
-  [operations](get-aspect-names-the-remainder.md) and [governance](gate-checks-order-not-liveness.md).
+  [operations](get-aspect-names-the-remainder.md) and [governance](what-the-config-quality-gate-checks.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

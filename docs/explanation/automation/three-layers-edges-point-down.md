@@ -1,7 +1,7 @@
-# Module dependencies form three layers, and every edge points down
+# How modules are layered
 
 ```text
-Module dependencies form three layers, and every allowed edge points down.
+How modules are layered.
 
 1  AzureExt             top layer: the five Azure extension modules, one group
 2  Catzc.Azure          middle layer: the Azure root, one module
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
   lens: architecture
 content:
-  title: Module dependencies form three layers, and every edge points down
+  title: How modules are layered
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -72,7 +72,7 @@ layout:
   s-base: { x: 40, y: 462, w: 1200, h: 56 }
 ```
 
-![Module dependencies form three layers, and every edge points down](.assets/three-layers-edges-point-down.drawio.png)
+![How modules are layered](.assets/three-layers-edges-point-down.drawio.png)
 
 ## Walkthrough
 

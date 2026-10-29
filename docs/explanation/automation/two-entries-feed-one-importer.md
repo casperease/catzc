@@ -1,7 +1,7 @@
-# Two entry scripts feed one importer, and the importer leaves once the load is done
+# Which entry scripts start an import
 
 ```text
-Two entry scripts feed one importer, and the importer leaves once the load is done.
+Which entry scripts start an import.
 
 1  importer.ps1               the source-mode entry, a generated shim
 2  Import-Catzc.ps1           the build-mode entry, copied into every build
@@ -29,7 +29,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
   lens: architecture
 content:
-  title: Two entry scripts feed one importer, and the importer leaves once the load is done
+  title: Which entry scripts start an import
   kind: explanation
   flow: top-to-bottom
   theme: dark
@@ -80,7 +80,7 @@ layout:
   s-modules: { x: 820, y: 460, w: 440, h: 44 }
 ```
 
-![Two entries feed one importer, removed after load](.assets/two-entries-feed-one-importer.drawio.png)
+![Which entry scripts start an import](.assets/two-entries-feed-one-importer.drawio.png)
 
 ## Walkthrough
 

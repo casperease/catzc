@@ -1,7 +1,7 @@
-# The namer looks up, forms, checks and renders a name in that order
+# How an Azure resource gets its name
 
 ```text
-Get-AzureResourceName looks up, forms, checks and renders, then throws or returns.
+How an Azure resource gets its name.
 
 1   Deploy-Bicep           the in-tree caller, through the resource-group name
 2   Get-BicepResourceName  reads azure.yml, short_name, the customer and the order
@@ -32,7 +32,7 @@ about:
     [ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE]
   lens: implementation
 content:
-  title: The namer looks up, forms, checks and renders a name in that order
+  title: How an Azure resource gets its name
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -91,7 +91,7 @@ layout:
   f-limit: { x: 840, y: 582, w: 240, h: 44 }
 ```
 
-![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order.drawio.png)
+![How an Azure resource gets its name](.assets/lookup-form-check-render-in-order.drawio.png)
 
 ## Walkthrough
 

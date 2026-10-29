@@ -1,7 +1,7 @@
-# Build-Modules builds, verifies, and leaves one folder that every target copies whole
+# What Build-Modules leaves behind
 
 ```text
-Build-Modules builds, verifies, and leaves one folder that every target copies whole.
+What Build-Modules leaves behind.
 
 1  exporter.yml             the exporter's one config: versions, default profile, vendor policy
 2  Build-Modules            settles the selection and version, loads the engine, calls it
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-BUNDLEVERSION]
   lens: implementation
 content:
-  title: Build-Modules builds, verifies, and leaves one folder that every target copies whole
+  title: What Build-Modules leaves behind
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -80,7 +80,7 @@ layout:
   g-package: { x: 1030, y: 246, w: 210, h: 44 }
 ```
 
-![Build, verify, then copy the folder](.assets/build-verify-then-copy-the-folder.drawio.png)
+![What Build-Modules leaves behind](.assets/build-verify-then-copy-the-folder.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# Four pipeline kinds promote one artifact that CI built once
+# How one build reaches production
 
 ```text
-Every pipeline kind after CI promotes the one artifact CI built, and each environment holds one occupant.
+How one build reaches production.
 
 1  topic -> main            the GIT domain: a topic commit, then the commit landed on main
 2  CI engine                builds and verifies the landed commit once; the BVT-verified commit
@@ -30,7 +30,7 @@ about:
     - FDR-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
-  title: Four pipeline kinds promote one artifact that CI built once
+  title: How one build reaches production
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -109,7 +109,7 @@ layout:
   s-artifact: { x: 236, y: 310, w: 1030, h: 60 }
 ```
 
-![Four pipeline kinds promote one artifact that CI built once](.assets/four-domains-promote-one-artifact.drawio.png)
+![How one build reaches production](.assets/how-one-build-reaches-production.drawio.png)
 
 ## Walkthrough
 

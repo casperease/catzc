@@ -1,7 +1,7 @@
-# What you set decides the credential, and each wrong setup stops with its own message
+# Which ADO credential a setup selects
 
 ```text
-What you set decides the credential, and each wrong setup stops with its own message.
+Which ADO credential a setup selects.
 
 1  ExposeAccessToken: true    the step flag that maps the pipeline token in
 2  does not match ado.yml     the message when the collection is not the configured org
@@ -32,7 +32,7 @@ about:
     - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
   lens: operations
 content:
-  title: What you set decides the credential, and each wrong setup stops with its own message
+  title: Which ADO credential a setup selects
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -84,7 +84,7 @@ layout:
   f-no-token: { x: 920, y: 418, w: 320, h: 36 }
 ```
 
-![What you set decides the credential](.assets/what-you-set-decides-the-credential.drawio.png)
+![Which ADO credential a setup selects](.assets/what-you-set-decides-the-credential.drawio.png)
 
 Each failure carries a verbatim fragment of its message; the full messages are quoted below.
 
@@ -124,6 +124,6 @@ The record's step-template sample shows only the `PowerShell@2` task, while `inv
 
 - [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
-  [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
+  [architecture](where-the-ado-credential-precedence-lives.md), [implementation](three-guarded-early-returns.md) and
   [governance](which-auth-rungs-have-a-gate.md).
 - [The ado explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

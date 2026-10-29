@@ -1,7 +1,7 @@
-# Two rules govern every stage, tests and the hook check them, and two gaps remain
+# What guards the limit's resolution
 
 ```text
-Two rules govern every stage of the limit's resolution, tests and the hook check them, and two gaps remain.
+What guards the limit's resolution.
 
 1  Get-RunEnvironment        F7: limits are keyed by run environment and execution engine
 2  timeouts.yml              F7: one config, every value a positive whole number
@@ -28,7 +28,7 @@ about:
   rules: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: governance
 content:
-  title: Two rules govern every stage, tests and the hook check them, and two gaps remain
+  title: What guards the limit's resolution
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -85,7 +85,7 @@ layout:
   g-direct: { x: 1060, y: 326, w: 200, h: 44 }
 ```
 
-![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps.drawio.png)
+![What guards the limit's resolution](.assets/one-rule-per-stage-and-two-gaps.drawio.png)
 
 ## Walkthrough
 

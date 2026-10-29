@@ -1,7 +1,7 @@
-# The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
+# What the config quality gate checks
 
 ```text
-The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call.
+What the config quality gate checks.
 
 1  live                      pwsh's closed convention: no gate checks that it stays closed
 2  tests                     pwsh's remainder: that it is the non-live one is the track's call
@@ -26,7 +26,7 @@ about:
   rules: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-PARTITIONISCHECKED]
   lens: governance
 content:
-  title: The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
+  title: What the config quality gate checks
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -73,7 +73,7 @@ layout:
   g-config-deployment: { x: 1010, y: 280, w: 240, h: 76 }
 ```
 
-![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness.drawio.png)
+![What the config quality gate checks](.assets/what-the-config-quality-gate-checks.drawio.png)
 
 ## Walkthrough
 

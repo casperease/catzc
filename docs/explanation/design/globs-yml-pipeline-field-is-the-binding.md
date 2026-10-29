@@ -1,7 +1,7 @@
-# One field in globs.yml, pipeline:, binds a set to its pipeline file
+# How a glob set binds to its pipeline
 
 ```text
-One key in globs.yml, pipeline:, binds a globset to the file .ado/pipelines/<name>.yaml.
+How a glob set binds to its pipeline.
 
 1  globs.yml                    the globset registry, validated by GlobsConfig on load
 2  pwsh:                        loose-fileset, pipeline: ci-pwsh, pwsh/**
@@ -26,7 +26,7 @@ about:
   rules: [DDR-TRACK-SUBSCRIBABLENOTPATH, DDR-TRACK-DEPLOYABLEUNIT]
   lens: implementation
 content:
-  title: One field in globs.yml, pipeline:, binds a set to its pipeline file
+  title: How a glob set binds to its pipeline
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -75,7 +75,7 @@ layout:
   r-extends: { x: 1020, y: 340, w: 240, h: 56 }
 ```
 
-![globs.yml's pipeline: field is the binding](.assets/globs-yml-pipeline-field-is-the-binding.drawio.png)
+![How a glob set binds to its pipeline](.assets/globs-yml-pipeline-field-is-the-binding.drawio.png)
 
 ## Walkthrough
 

@@ -1,7 +1,7 @@
-# One commit becomes one verified, immutable package, and every code root is a copy of it
+# How a commit becomes a package
 
 ```text
-One commit becomes one verified, immutable package, and every code root is a copy of it.
+How a commit becomes a package.
 
 1  Selected modules         the input: modules named or profiled, closure-expanded
 2  One build                writes the runtime payload in merged form
@@ -25,7 +25,7 @@ about:
   rules: [ADR-AUTO-BUNDLE-ISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: meta
 content:
-  title: One commit becomes one verified, immutable package, and every code root is a copy of it
+  title: How a commit becomes a package
   kind: explanation
   flow: left-to-right
   theme: dark
@@ -70,7 +70,7 @@ layout:
   r-installed: { x: 1030, y: 180, w: 210, h: 44 }
 ```
 
-![One commit, one verified, immutable package](.assets/one-commit-one-immutable-package.drawio.png)
+![How a commit becomes a package](.assets/one-commit-one-immutable-package.drawio.png)
 
 ## Walkthrough
 
