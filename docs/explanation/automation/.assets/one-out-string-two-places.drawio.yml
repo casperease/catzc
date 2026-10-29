@@ -24,9 +24,9 @@ content:
     - { id: r-pipeline, kind: result, label: "{staging}/.../main.json", in: grp-bound }
     - { id: f-missing, kind: failure, label: Path does not exist, in: band-binding }
   edges:
-    - { from: r-stored, to: g-resolve, kind: flow, label: feeds }
-    - { from: g-output-root, to: g-resolve, kind: flow, label: feeds }
-    - { from: n-pipeline, to: g-output-root, kind: flow, label: feeds }
+    - { from: g-resolve, to: r-stored, kind: flow, label: reads }
+    - { from: g-resolve, to: g-output-root, kind: flow, label: calls }
+    - { from: g-output-root, to: n-pipeline, kind: flow, label: reads }
     - { from: g-resolve, to: grp-bound, kind: flow, label: "" }
     - { from: g-output-root, to: f-missing, kind: fail, label: "" }
   markers:

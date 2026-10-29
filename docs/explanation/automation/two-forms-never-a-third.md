@@ -47,9 +47,7 @@ content:
     - { id: s-binding, kind: set, label: Binding form, in: band-binding }
     - { id: s-artifact, kind: set, label: Published artifact, in: band-stage }
   edges:
-    - { from: s-communication, to: g-crossers, kind: flow, label: feeds }
     - { from: g-crossers, to: s-binding, kind: flow, label: "" }
-    - { from: s-binding, to: g-crossers, kind: flow, label: feeds }
     - { from: g-crossers, to: s-communication, kind: flow, label: "" }
   markers:
     - { at: s-communication, number: 1 }

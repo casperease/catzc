@@ -49,9 +49,9 @@ content:
     - { id: g-test, kind: gate, label: Test-ModuleDependency, in: band-gate }
     - { id: f-issues, kind: failure, label: "failed: N issue(s)", in: band-gate }
   edges:
-    - { from: g-groups, to: g-config, kind: flow, label: feeds }
-    - { from: g-modules, to: g-config, kind: flow, label: feeds }
-    - { from: g-config, to: g-allowed, kind: flow, label: feeds }
+    - { from: g-config, to: g-groups, kind: flow, label: reads }
+    - { from: g-config, to: g-modules, kind: flow, label: reads }
+    - { from: g-allowed, to: g-config, kind: flow, label: calls }
     - { from: g-function, to: g-allowed, kind: flow, label: calls }
     - { from: g-type, to: g-allowed, kind: flow, label: calls }
     - { from: g-allowed, to: g-test, kind: flow, label: "" }

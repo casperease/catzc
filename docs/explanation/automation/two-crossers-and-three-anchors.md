@@ -51,7 +51,7 @@ content:
     - { from: g-resolve, to: s-records, kind: flow, label: "" }
     - { from: s-effects, to: g-resolve, kind: flow, label: calls }
     - { from: s-effects, to: g-convert, kind: flow, label: calls }
-    - { from: g-convert, to: s-records, kind: flow, label: feeds }
+    - { from: g-convert, to: s-records, kind: flow, label: returns }
     - { from: g-resolve, to: t-output, kind: flow, label: reads }
     - { from: g-convert, to: t-output, kind: flow, label: reads }
     - { from: g-resolve, to: t-repository, kind: flow, label: reads }

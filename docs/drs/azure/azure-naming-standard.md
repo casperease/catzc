@@ -130,7 +130,7 @@ content:
     - { id: n-storage-slot, kind: result, label: pr001weufindiscxaphotst (23), in: grp-storage }
     - { id: n-vm, kind: result, label: pr001weudiscvm (14), in: grp-virtual-machine }
   edges:
-    - { from: grp-name, to: g-pattern, kind: flow, label: feeds }
+    - { from: g-pattern, to: grp-name, kind: flow, label: reads }
     - { from: g-pattern, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: fits }
     - { from: g-limit, to: f-throws, kind: fail, label: exceeds }

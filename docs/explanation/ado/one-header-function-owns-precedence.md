@@ -63,7 +63,7 @@ content:
     - { from: g-template, to: g-api, kind: flow, label: calls }
     - { from: g-api, to: g-invoke, kind: flow, label: calls }
     - { from: g-invoke, to: grp-header, kind: flow, label: "" }
-    - { from: g-pipeline, to: g-template, kind: flow, label: feeds }
+    - { from: g-template, to: g-pipeline, kind: flow, label: reads }
     - { from: g-pipeline, to: g-ado-yml, kind: flow, label: "" }
     - { from: g-pat, to: g-ado-yml, kind: record, label: "" }
     - { from: g-azcli, to: g-ado-yml, kind: flow, label: "" }

@@ -54,7 +54,7 @@ content:
     - { id: g-reference, kind: code, label: ArtifactRef, in: band-stage }
     - { id: g-resolve-at, kind: code, label: ResolveAt / ExistsAt, in: band-stage }
   edges:
-    - { from: grp-paths, to: g-resolve, kind: flow, label: feeds }
+    - { from: g-resolve, to: grp-paths, kind: flow, label: reads }
     - { from: g-resolve, to: s-effects, kind: flow, label: "" }
     - { from: g-output-root, to: g-resolve, kind: flow, label: calls }
     - { from: g-output-root, to: g-convert, kind: flow, label: calls }

@@ -35,7 +35,7 @@ content:
     - { id: band-import, label: EVERY IMPORT }
     - { id: band-aspect, label: WHICH ASPECT }
   glyphs:
-    - { id: c-file, kind: code, label: Verb-Noun.ps1, in: band-file }
+    - { id: c-file, kind: file, label: Verb-Noun.ps1, in: band-file }
     - { id: g-quality, kind: gate, label: Quality gates, in: band-file }
     - { id: c-importer, kind: code, label: . ./importer.ps1, in: band-import }
     - { id: r-exported, kind: result, label: Verb-Noun exported, in: band-import }

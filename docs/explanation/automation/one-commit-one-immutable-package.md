@@ -43,7 +43,7 @@ content:
     - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
     - { id: r-installed, kind: result, label: Installed · saved, in: grp-copies }
   edges:
-    - { from: s-modules, to: g-build, kind: flow, label: feeds }
+    - { from: g-build, to: s-modules, kind: flow, label: reads }
     - { from: g-build, to: g-integrity, kind: flow, label: "" }
     - { from: g-integrity, to: r-temporary, kind: flow, label: "" }
     - { from: r-temporary, to: grp-copies, kind: flow, label: "" }

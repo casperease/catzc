@@ -47,10 +47,10 @@ content:
     - { id: g-executable, kind: code, label: Invoke-Executable, in: grp-consumers }
     - { id: g-with-timeout, kind: code, label: Invoke-WithTimeout, in: grp-consumers }
   edges:
-    - { from: g-environment, to: g-seconds, kind: flow, label: feeds }
-    - { from: g-config, to: g-seconds, kind: flow, label: feeds }
+    - { from: g-seconds, to: g-environment, kind: flow, label: calls }
+    - { from: g-seconds, to: g-config, kind: flow, label: calls }
     - { from: g-config, to: g-hook, kind: flow, label: "" }
-    - { from: g-exemptions, to: g-seconds, kind: flow, label: feeds }
+    - { from: g-seconds, to: g-exemptions, kind: flow, label: calls }
     - { from: g-seconds, to: grp-consumers, kind: flow, label: "" }
   markers:
     - { at: g-environment, number: 1 }

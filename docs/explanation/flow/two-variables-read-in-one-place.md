@@ -41,8 +41,8 @@ content:
   groups:
     - { id: grp-callers, label: callers of the detector, in: band-consumers }
   glyphs:
-    - { id: r-azure-agent, kind: runner, label: "Azure DevOps agent, TF_BUILD", in: band-platform }
-    - { id: r-github-runner, kind: runner, label: "GitHub Actions runner, GITHUB_ACTIONS", in: band-platform }
+    - { id: r-azure-agent, kind: env, label: "Azure DevOps agent, TF_BUILD", in: band-platform }
+    - { id: r-github-runner, kind: env, label: "GitHub Actions runner, GITHUB_ACTIONS", in: band-platform }
     - { id: c-detector, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
     - { id: c-output-root, kind: code, label: Get-OutputRoot, in: grp-callers }
     - { id: c-run-environment, kind: code, label: Get-RunEnvironment, in: grp-callers }
