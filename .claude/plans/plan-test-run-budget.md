@@ -15,11 +15,16 @@ end at 193-215 s, and the greedy files end 24 s after them. The limit stays; the
 
 ## Open steps
 
-1. [ ] Profile `pwsh/Base.QualityGates/tests/Invoke-TestFile.Tests.ps1`'s snapshot case (54 s of its 72 s alone): the snapshot copy, the
-       priming import and the offline uv sync, timed apart in `packing.md`. Check: the three parts sum to the case's time, within 10%.
-2. [ ] If the priming import dominates, give the snapshot case a smaller fixture tree, never a skipped stage. Check: `Invoke-TestFile` on
-       that file, green, with its seconds before and after.
-3. [ ] Run `test-speed` on the next files by cost: `TrackLamps.Tests.ps1`, `Import-Catzc.Tests.ps1`, `Test-Spelling.Tests.ps1`. Check: each
-       file's own `Invoke-TestFile`, green, with its seconds before and after.
+1. [ ] Let `New-RepositorySnapshot` carry the working tree's already-generated files into the snapshot, so `Enter-TestRunLocation`'s priming
+       import has less to materialise: the priming import is 34.3 s of the isolated case's 53.1 s (`packing.md`), and the case's own fixture
+       is 9.8 s. Measure the priming import with and without the carried files first; land it only on a measured gain. Check:
+       `Enter-TestRunLocation.Tests.ps1` and `New-RepositorySnapshot.Tests.ps1`, then `Invoke-TestFile` on `Invoke-TestFile.Tests.ps1` with
+       its seconds before and after.
+2. [ ] Give `Test-Spelling.ps1`'s whole-repository `cspell lint` a cache (`--cache` with its cache file under `out/`): the real-repository
+       case is 15.2 s of `Test-Spelling.Tests.ps1`'s 25 s alone. Measure a warm run with and without the cache first; land it only on a
+       measured gain. Check: `Invoke-TestFile` on `Test-Spelling.Tests.ps1`, with its seconds before and after.
+3. [ ] Let `extension.js` in the track-lamps extension walk the disk once and reuse it across lamps in `hiddenPlan` and `census`: the
+       every-file census case is 13.9 s of `TrackLamps.Tests.ps1`'s 34 s alone. Check: `Invoke-TestFile` on `TrackLamps.Tests.ps1`, green,
+       with its seconds before and after, and the extension's own lamp-vector tests.
 
 The plan closes on the user's full `Test-Automation` run inside 180 s.
