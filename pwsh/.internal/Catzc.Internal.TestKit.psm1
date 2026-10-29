@@ -96,6 +96,8 @@ function New-FakeRepositoryRoot {
     if (-not $WorkingRootOnly) {
         $env:CatzcModulesRoot = $modulesRoot
     }
+    # The config caches index the modules root they were built under, so each swap drops them.
+    Clear-ConfigState
     @{ Root = $root; ModulesRoot = $modulesRoot; Saved = $saved }
 }
 
@@ -110,8 +112,23 @@ function Remove-FakeRepositoryRoot {
 
     $env:RepositoryRoot = $Handle.Saved.RepositoryRoot
     $env:CatzcModulesRoot = $Handle.Saved.CatzcModulesRoot
+    Clear-ConfigState
     if ($Handle.Root -and (Test-Path $Handle.Root)) {
         Remove-Item $Handle.Root -Recurse -Force -ErrorAction SilentlyContinue
+    }
+}
+
+function Clear-ConfigState {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: drops the config caches a root swap made stale, inside the same test''s lifecycle; its output belongs to Pester')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Test fixture: clears in-memory caches only')]
+    [CmdletBinding()]
+    param()
+
+    $config = Get-Module Catzc.Base.Config
+    if ($config) {
+        & $config { $script:configCache = $null; $script:configRegistryCache = $null; $script:configIndex = $null }
     }
 }
 

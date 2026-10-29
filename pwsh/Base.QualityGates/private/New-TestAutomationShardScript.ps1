@@ -63,7 +63,7 @@ Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/Pester') -Force
 `$workerRepositoryRoot = `$env:RepositoryRoot
 `$result = Invoke-Pester -Configuration `$config -InformationVariable pesterOutput
 `$env:RepositoryRoot = `$workerRepositoryRoot
-& (Get-Module Catzc.Base.Config) { `$script:configCache = `$null; `$script:configRegistryCache = `$null }
+& (Get-Module Catzc.Base.Config) { `$script:configCache = `$null; `$script:configRegistryCache = `$null; `$script:configIndex = `$null }
 if (`$null -eq `$result) {
     `$noResult = & (Get-Module Catzc.Base.QualityGates) {
         param(`$testPath, `$resultsPath, `$logPath, `$pesterError)
