@@ -9,7 +9,7 @@ namespace Catzc.Base.Variants;
 // The repo-wide variants, fixed for the importer session; read through Get-Config -Config variants.
 public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "ado_naming", "git_workspace", "have_customers", "aspects", "tracks" };
+    private static readonly string[] AllowedKeys = { "naming", "git_workspace", "have_customers", "aspects", "tracks" };
     private static readonly string[] AllowedTrackKeys = { "members", "type", "vendor", "languages", "execution_engines", "module_execution_engines", "kinds", "namespace", "join", "namespace_exempt" };
     // A namespace in the casing its track's language spells: dotted PascalCase (Catzc) or one lower-case word (catzc).
     private static readonly System.Text.RegularExpressions.Regex NamespaceName = new System.Text.RegularExpressions.Regex(@"^(?:[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)*|[a-z][a-z0-9]*)$");
@@ -21,7 +21,13 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex TrackTypeName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The defaults, declared once; a getter never restates them.
-    public const string DefaultAdoNaming = "standard";
+    public const string DefaultNaming = "standard";
+
+    // The named naming orders; the segments each spells are Get-AzureNameOrderSet's.
+    public static readonly string[] NamingPresets = { "standard", "classic" };
+
+    // The segments of an Azure resource name; an explicit naming list names each exactly once.
+    public static readonly string[] NamingSegments = { "env", "slot", "region", "org", "short_name", "customer", "role", "type" };
     public const string DefaultGitWorkspace = "main-direct";
     public const bool DefaultHaveCustomers = false;
 
@@ -29,8 +35,8 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     public static IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> DefaultAspects =>
         ReadAspects(new Hashtable { ["vendor_azure.bicep"] = new object[] { new Hashtable { ["tests"] = new object[] { "**/tests/**" } }, new Hashtable { ["live"] = new object[] { "**" } } } }, new List<string>());
 
-    // Azure resource-name component order: 'standard' or 'classic'.
-    public string ado_naming { get; }
+    // The one Azure name segment order: a preset name (a string) or an explicit segment list (a string[]).
+    public object naming { get; }
 
     // How changes reach main: 'main-direct' or 'main-via-pr'.
     public string git_workspace { get; }
@@ -59,16 +65,11 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        ado_naming = DefaultAdoNaming;
+        naming = DefaultNaming;
         git_workspace = DefaultGitWorkspace;
         have_customers = DefaultHaveCustomers;
 
-        if (Present(d, "ado_naming"))
-        {
-            string value = Text(d["ado_naming"]);
-            if (value == "standard" || value == "classic") { ado_naming = value; }
-            else { errors.Add(string.Format("invalid ado_naming '{0}' (valid: standard, classic)", value)); }
-        }
+        if (Present(d, "naming")) { naming = ReadNaming(d["naming"], errors); }
 
         if (Present(d, "git_workspace"))
         {
@@ -116,6 +117,47 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         if (list == null) { items.Add(value); return items; }
         foreach (object item in list) { items.Add(item); }
         return items;
+    }
+
+    // A preset name stays a string; a list must name every segment exactly once, type among them.
+    private static object ReadNaming(object value, List<string> errors)
+    {
+        string text = value as string;
+        if (text != null)
+        {
+            if (Array.IndexOf(NamingPresets, text) >= 0) { return text; }
+            errors.Add(string.Format("invalid naming '{0}' (a preset: {1}; or a list naming each segment once: {2})", text, string.Join(", ", NamingPresets), string.Join(", ", NamingSegments)));
+            return null;
+        }
+        if (!(value is IList))
+        {
+            errors.Add(string.Format("invalid naming '{0}' (a preset: {1}; or a list naming each segment once: {2})", Text(value), string.Join(", ", NamingPresets), string.Join(", ", NamingSegments)));
+            return null;
+        }
+        List<string> segments = new List<string>();
+        foreach (object item in Items(value))
+        {
+            string segment = Text(item);
+            if (Array.IndexOf(NamingSegments, segment) < 0)
+            {
+                errors.Add(string.Format("invalid naming segment '{0}' (one of: {1})", segment, string.Join(", ", NamingSegments)));
+            }
+            else if (segments.Contains(segment))
+            {
+                errors.Add(string.Format("duplicate naming segment '{0}' (each segment once)", segment));
+            }
+            else { segments.Add(segment); }
+        }
+        if (!segments.Contains("type"))
+        {
+            errors.Add("naming list has no 'type' segment (every name carries its resource type)");
+        }
+        string[] missing = NamingSegments.Where(s => s != "type" && !segments.Contains(s)).ToArray();
+        if (missing.Length > 0)
+        {
+            errors.Add(string.Format("naming list misses segment(s) {0} (each segment once)", string.Join(", ", missing)));
+        }
+        return segments.ToArray();
     }
 
     private static object ReadCustomers(object value, List<string> errors)

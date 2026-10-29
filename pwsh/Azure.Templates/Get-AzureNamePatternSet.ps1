@@ -1,10 +1,15 @@
 function Get-AzureNamePatternSet {
     param()
 
-    [ordered]@{
-        long    = @{ separator = '-' }              # hyphenated, generous — length doesn't bind; type carries its own limit
-        kv      = @{ separator = '-'; limit = 24 }  # hyphenated but length-restricted (key-vault class: 24, binds)
-        storage = @{ separator = ''; limit = 24 }   # tight (concatenated, no hyphens), 24
-        vm      = @{ separator = ''; limit = 15 }   # same tight render as storage, capped at the Windows computer-name 15
+    # A copy per call, so a caller that changes an entry never changes the cached config.
+    $patterns = (Get-Config -Config resource-types).patterns
+    $set = [ordered]@{}
+    foreach ($name in $patterns.Keys) {
+        $entry = @{}
+        foreach ($key in $patterns[$name].Keys) {
+            $entry[$key] = $patterns[$name][$key]
+        }
+        $set[$name] = $entry
     }
+    $set
 }

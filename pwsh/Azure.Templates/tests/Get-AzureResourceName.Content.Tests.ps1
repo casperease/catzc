@@ -13,8 +13,8 @@ Describe 'Get-AzureResourceName (tests/assets/Get-AzureResourceName.Content.yml)
     }
 
     BeforeEach {
-        # The order is the ado_naming variant; the cases pin it so the repository's own variant never moves them.
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'standard' }
+        # The order is the naming variant; the cases pin it so the repository's own variant never moves them.
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'standard' }
     }
 
     It 'generates the expected name: <name>' -ForEach $okCases {

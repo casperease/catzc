@@ -7,7 +7,7 @@ reads the registries, the consumer calls the resolver, and the deploy code, the 
 
 1  azure.yml, customer.yml     environment identity, org, and the customer key and shortcode
 2  template, options.yml       the template folder derives short_name; options.yml may override it
-3  variants.yml                the ado_naming repo variant picks the component order
+3  variants.yml                the naming repo variant picks the component order
 4  Get-BicepResourceName       the resolver: reads all three sources, adds type, slot, customer, role
 5  registries                  three pure-data sets: 2 orders, 20 resource types, 4 patterns
 6  Get-AzureResourceName       the namer: validates, renders in order, asserts the length limit
@@ -102,8 +102,8 @@ layout:
 2. **The template and its options.yml.** The template folder under `infrastructure/templates/<folder>/` and its optional `options.yml`. The
    folder name derives the `short_name` (its first 5 `[a-z0-9]` characters) through `BicepShortName`, and an explicit `short_name` in
    `options.yml` overrides it.
-3. **variants.yml.** It carries the `ado_naming` repo variant, which `Get-AdoNaming` reads with `standard` as the default. The variant picks
-   the component order for every name.
+3. **variants.yml.** It carries the `naming` repo variant, which `Get-Naming` reads with `standard` as the default. The variant picks the
+   component order for every name.
 4. **Get-BicepResourceName.** The resolver in the templating layer reads all three sources side by side. The caller adds only what is
    genuinely per call: the resource type and the optional slot, customer and role. An unknown customer stops it here.
 5. **The registries.** Three pure-data registries: `Get-AzureNameOrderSet` holds the two orders `standard` and `classic`,
@@ -125,7 +125,7 @@ layout:
   (ADR-AZ-NAMING-DETERMINISTICNAMES).
 - Each resource type ties to one pattern in the type registry, and the pattern fixes the separator, the length budget and the form of the
   environment and customer segments (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
-- The component order is the `ado_naming` repo variant, not a per-name argument, so changing it re-spells every derived name
+- The component order is the `naming` repo variant, not a per-name argument, so changing it re-spells every derived name
   (ADR-AZ-NAMING-ORDERISVARIANT).
 - The subscription only selects the deploy target. It is never a name component and never an input to the resolver; the customer that
   renders is derived from it by the caller (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).

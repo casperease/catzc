@@ -6,7 +6,7 @@
 
 A repo-wide **variant** is a setting fixed for the importer session, declared in `configs/variants.yml` in the `Catzc.Base.Variants` module
 and read through `Get-Config -Config variants` (so it inherits the session cache — re-run the importer to change it). The file is a
-**growing dictionary**: `ado_naming`, `git_workspace`, `have_customers`, `aspects` (read by `Get-Aspect`; see
+**growing dictionary**: `naming`, `git_workspace`, `have_customers`, `aspects` (read by `Get-Aspect`; see
 [module-aspects](../design/module-aspects.md)), and `tracks` (read by `Get-Track`; see [tracks](../design/tracks.md)), more as needed. A
 variant is the one home for a "this whole repo works this way" switch — not a per-module config, not an environment variable.
 
@@ -15,7 +15,7 @@ variant is the one home for a "this whole repo works this way" switch — not a 
 ### Rule ADR-REPO-VARIANT-NODIRECTREADS
 
 Nothing reads `variants.yml` directly. Each variant is exposed as typed primitives — a `Get-` value accessor and `Test-`/`Assert-` guards —
-so a repo-wide decision is a one-liner (`Assert-HaveCustomers`, `Test-AdoNaming -Classic`) anywhere it is needed. The private `Get-Variant`
+so a repo-wide decision is a one-liner (`Assert-HaveCustomers`, `Test-Naming -Classic`) anywhere it is needed. The private `Get-Variant`
 reader is the single access point the primitives share.
 
 - [Primitives, not raw reads](#primitives-not-raw-reads)
@@ -31,10 +31,10 @@ Config layer** (all of `AzureExt`, `Tooling`, and the upper `Base` modules) — 
 
 - [A Base module](#a-base-module)
 
-### Rule ADR-REPO-VARIANT-ADONAMING
+### Rule ADR-REPO-VARIANT-NAMING
 
-`ado_naming` (`standard` | `classic`) selects the Azure resource-name component order — the key of `Get-AzureNameOrderSet` that
-`Get-BicepResourceName` passes to the name assembler. It is a **variant, not a code constant**: `Get-AdoNaming` reads it (default
+`naming` (a preset, `standard` | `classic`, or an explicit list naming all eight segments once) selects the Azure resource-name component
+order that `Get-BicepResourceName` passes to the name assembler. It is a **variant, not a code constant**: `Get-Naming` reads it (default
 `standard`). Changing it re-spells every generated resource name, so it is a deliberate, one-time repo decision, not a runtime toggle.
 
 - [The variants](#the-variants)
@@ -82,8 +82,8 @@ and re-running the importer is the only way to pick up an edit. The set of varia
 
 A flat config value read ad hoc gives every caller its own defaulting and interpretation. Instead each variant is a small, typed surface:
 
-- a **value accessor** (`Get-AdoNaming`, `Get-EnabledCustomers`) that reads the variant and applies its default;
-- **`Test-`** predicates that answer a boolean (`Test-AdoNaming -Standard`, `Test-HaveCustomer -Name acme`);
+- a **value accessor** (`Get-Naming`, `Get-EnabledCustomers`) that reads the variant and applies its default;
+- **`Test-`** predicates that answer a boolean (`Test-Naming -Standard`, `Test-HaveCustomer -Name acme`);
 - **`Assert-`** guards that throw with an actionable message when the repo is not in the required state (`Assert-HaveCustomers`).
 
 All of them route through one private reader, `Get-Variant -Name <key> -Default <x>`, so the growing dictionary has a single access point
@@ -103,9 +103,8 @@ edges; a variant that needed to cross-check another asset would belong to that a
 
 ### The variants
 
-- **`ado_naming`** — the resource-name component order (`ADR-REPO-VARIANT-ADONAMING`). The variant only picks which key of
-  `Get-AzureNameOrderSet` the name assembler uses; the order data lives in the Azure templating layer and the Azure domain's naming standard
-  owns it.
+- **`naming`** — the resource-name component order (`ADR-REPO-VARIANT-NAMING`). The variant only picks the order the name assembler uses,
+  a preset or an explicit segment list; the order data lives in the Azure templating layer and the Azure domain's naming standard owns it.
 - **`git_workspace`** — how changes reach main (`ADR-REPO-VARIANT-GITWORKSPACE`), The variant exists for the one asymmetry, `main-via-pr`
   **and** standing on main/master locally, the only stop condition automation enforces (`Sync-GeneratedFile`'s branch guard reads
   `Test-GitWorkspace -MainViaPr`). This is the **PR-vs-Direct** integration axis the value-chain diagrams prefix a flow with (`PR + CD + …`
@@ -128,9 +127,9 @@ Repo-wide, session-fixed settings are **variants**: keys in `Catzc.Base.Variants
 ### How this is enforced
 
 - **`VariantsConfig`** (the C# config type registered for `variants` in `configs.yml`) validates `variants.yml` when `Get-Config` loads it:
-  known keys only, `ado_naming ∈ {standard, classic}`, `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is
-  `false`/`true`/`all`/a valid name list, and each `aspects` track is a well-formed ordered classification ending in the `**` catch-all. A
-  typo fails fast at load, with every violation in one error.
+  known keys only, `naming` is a preset (`standard`, `classic`) or a list naming each segment once,
+  `git_workspace ∈ {main-direct, main-via-pr}`, `have_customers` is `false`/`true`/`all`/a valid name list, and each `aspects` track is a
+  well-formed ordered classification ending in the `**` catch-all. A typo fails fast at load, with every violation in one error.
 - **The dependency graph** (`dependencies.yml`, the `Test-ModuleDependency` quality gate) declares
   `Catzc.Base.Variants: [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Asserts]` in the `Base` group; `DependenciesConfig` rejects a
   cyclic declaration at load, and the gate's L1 integrity test fails on any actual edge outside it.

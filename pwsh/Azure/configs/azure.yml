@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=.not-azure-schema.json
 
-# The <org> segment of every Azure resource name; the segment order is the ado_naming variant.
+# The <org> segment of every Azure resource name; the segment order is the naming variant.
 org: zct
 
 # The IDs are placeholders: replace them with the real tenant and subscription IDs of each deployment target.

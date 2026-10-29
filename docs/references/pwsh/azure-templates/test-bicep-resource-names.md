@@ -1,34 +1,37 @@
 # pwsh/Azure.Templates/Test-BicepResourceNames.ps1
 
-The gate that keeps resource names out of the template configuration: a name a template declares is derived from the namer at build time, so
-a slot that writes one by hand is an issue.
+The gate that checks every resource name a template slot declares against the canonical form: each name is written in full in the slot yml,
+and a name that does not match is an issue.
 
 ## help
 
 ### synopsis
 
-Lists every template slot that writes a name its template's options.yml derives, and every declared name that does not derive for a slot.
+Lists every declared name in a template's slots that does not match the canonical form, and reports the names checked, the exceptions and
+the foreign names.
 
 ### description
 
-Reads the names section of each template's options.yml: each entry maps a slot parameter to the namer's resource type, an optional role,
-and, for another template's resource, that template and optionally `owner_slot: hub`. For every slot it reports a declared parameter the
-slot's yml writes, and resolves every declared name for the slot (Resolve-BicepDerivedNames, the same step Build-Bicep runs before the
-template's hook), reporting one that does not derive. Build-Bicep refuses such a slot as well; the gate finds it without a build.
+Reads each slot yml of the template and collects its names: every string leaf, at any depth, under a parameter whose key ends in `Name` or
+`Names`; the slot's top-level `ResourceGroup` key; and the resource-group and resource-name segments of an Azure resource ID anywhere in the
+slot. Each name is matched against the canonical form (ADR-AZ-NAMING-DETERMINISTICNAMES). The match renders candidates from the known
+environments, customers, template `short_name` values, slots, type abbreviations and the org through the one renderer, under the configured
+`naming` order, and takes the leftover as the role, which must match `^[a-z][a-z0-9]{1,2}$`. A name is matched, never parsed:
 
-The keys of a names entry, each a closed set where it names a choice:
+- Exactly one match is a pass, and returns the components.
+- No match is an issue with a diagnosis per part.
+- More than one match is an ambiguity issue, in practice a `short_name` collision.
 
-- `type`: the namer's resource type key (Get-AzureResourceTypeSet), checked when options.yml is read.
-- `role`: the 2-3 character role segment of the name.
-- `template`: another template that owns the named resource; its slot on this slot's subscription renders the name.
-- `owner_slot: hub`: with `template`, the hub that slot peers to renders the name instead (the private DNS zones live in the hub).
-- `roles`: makes the parameter an object with one derived name per key, each key with its own role (discovery's policy assignments).
-- `keys_from: nsg_subnets`: with `roles`, the keys are the slot's subnets that carry a network security group, every subnet but the ones
-  network.yml's `no_nsg_subnets` lists.
-- `each: subscription` with `names`: the parameter is an array of items, or one object, each naming another slot of this template by its
-  subscription. The slot writes the items' subscriptions, and each name under `names` is derived per item. An item name takes `type`, `role`
-  or `role_from: customer_shortcode` (the customer shortcode of the item's slot), and `from: item` (the default: the item's slot renders it)
-  or `from: self` (the slot holding the list renders it).
+Beyond the match, the gate checks that:
+
+- a name's environment, customer and slot equal those of its file, and its `short_name` that of its template;
+- a name owned by another template carries that template's `short_name`, and the owner has a slot at those coordinates;
+- the keys of `networkSecurityGroupNames` equal the subscription's subnets in network.yml minus its `no_nsg_subnets`.
+
+A parameter keeps a non-canonical name only with `naming_exception: <reason>` beside its `value` (ADR-AZ-NAMING-EXCEPTIONENTRY). The gate
+counts and lists every exception, and the build drops the entry from the rendered parameters.
+
+The gate reports three facts: Names (the names checked), Exceptions and Foreign (the names another template owns).
 
 ### parameter `Template`
 

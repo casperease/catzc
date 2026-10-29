@@ -3,11 +3,11 @@
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the
 `Get-Config` cache boundary, see [caching](../../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
-component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track
-aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a
-repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../../drs/repository/repo-variants.md)). It is a
-member of the `Base` group and depends on [Catzc.Base.Config](../base-config/index.md) (to read the config),
-[Catzc.Base.Objects](../base-objects/index.md) (the base of its config type), and [Catzc.Base.Asserts](../base-asserts/index.md).
+component order (`naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track aspect
+classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a repo-wide guard
+is a one-liner anywhere above the config layer (see [repo-variants](../../../drs/repository/repo-variants.md)). It is a member of the `Base`
+group and depends on [Catzc.Base.Config](../base-config/index.md) (to read the config), [Catzc.Base.Objects](../base-objects/index.md) (the
+base of its config type), and [Catzc.Base.Asserts](../base-asserts/index.md).
 
 ## Responsibilities
 
@@ -21,10 +21,11 @@ member of the `Base` group and depends on [Catzc.Base.Config](../base-config/ind
 
 ### responsibility:1 — Resource-name order variant
 
-Which Azure resource-name component order the repo uses — `standard` (env/slot first) or `classic` (type first, CAF-style). `Get-AdoNaming`
-returns the value that `Get-BicepResourceName` passes to the name assembler (a key of `Get-AzureNameOrderSet`); `Test-AdoNaming` and
-`Assert-AdoNaming` guard a code path that only holds under one convention. Changing this variant re-spells every generated resource name, so
-it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../../drs/azure/azure-naming-standard.md)).
+Which Azure resource-name component order the repo uses — the preset `standard` (env/slot first) or `classic` (type first, CAF-style), or an
+explicit list naming all eight segments once. `Get-Naming` returns the value that `Get-BicepResourceName` passes to the name assembler;
+`Test-Naming` and `Assert-Naming` guard a code path that only holds under one preset. Changing this variant re-spells every generated
+resource name, so it is a deliberate, one-time repo decision, not a runtime toggle (see
+[naming-standard](../../../drs/azure/azure-naming-standard.md)).
 
 ### responsibility:2 — Enabled-customer set variant
 
@@ -83,9 +84,9 @@ The module's public functions, sorted into the responsibilities above.
 
 | Responsibility                                   | Function                 |
 | ------------------------------------------------ | ------------------------ |
-| responsibility:1 — Resource-name order variant   | `Get-AdoNaming`          |
-|                                                  | `Test-AdoNaming`         |
-|                                                  | `Assert-AdoNaming`       |
+| responsibility:1 — Resource-name order variant   | `Get-Naming`             |
+|                                                  | `Test-Naming`            |
+|                                                  | `Assert-Naming`          |
 | responsibility:2 — Enabled-customer set variant  | `Get-EnabledCustomers`   |
 |                                                  | `Test-HaveCustomers`     |
 |                                                  | `Assert-HaveCustomers`   |

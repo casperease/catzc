@@ -17,7 +17,9 @@ and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 
 The Azure naming standard has eight rules, and cats holds every one of them in code. Seven sit behind a check that throws: one at template
 discovery, the rest inside the namer, in the order a name is built. The eighth, that the subscription never enters a name, holds by
-construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the record.
+construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the record. Beside the
+namer, `Test-BicepResourceNames` holds the declared-name half of the standard: every name a slot spells is matched against the canonical
+form the namer renders.
 
 ```yml drawio
 description:
@@ -106,7 +108,7 @@ layout:
    throws on an unknown customer.
 3. **Registry lookups.** The namer first looks up the resource type, then the order, then the type's pattern, and throws on any it does not
    know. L0 tests pin the `standard` and `classic` orders and the four patterns, and check that every type ties to a known pattern. The
-   order is fixed once per importer session by the `ado_naming` variant.
+   order is fixed once per importer session by the `naming` variant.
 4. **Format checks.** Every component is matched case-sensitively against its format, and the namer throws on the first that fails. Just
    before, it throws when a restricted pattern lacks the 2-char environment or customer shortcode. The L0 content cases hold 12 rejects,
    seven of them format rejects.
@@ -115,16 +117,31 @@ layout:
    overflowed.
 6. **Throw.** Every check ends in a throw that stops discovery or the deploy. Nothing is truncated or repaired along the way.
 
+## The declared-name gate
+
+A slot config spells each name it deploys in full: every string leaf under a parameter whose key ends in `Name` or `Names`, the top-level
+`ResourceGroup:` key, and the resource-group and resource-name segments of Azure resource IDs. `Test-BicepResourceNames` matches each one
+against the canonical form. It renders candidates from the known environments, customers, template `short_name` values, slots, types and the
+one org through the namer under the configured `naming` order, then takes the leftover as the role, which must match `^[a-z][a-z0-9]{1,2}$`.
+A name is matched, never parsed. One match returns the components, no match fails with a diagnosis per part, and more than one fails as
+ambiguous. The gate checks that a name's environment, customer and slot equal those of its file and its `short_name` that of its template,
+that a name owned by another template points at an owner slot that exists, and that the keys of `networkSecurityGroupNames` equal the
+subscription's subnets minus `no_nsg_subnets`. A parameter keeps a non-canonical name only with a `naming_exception: <reason>` beside its
+`value`, which the gate counts and lists (ADR-AZ-NAMING-EXCEPTIONENTRY).
+
 ## Why it holds
 
-- Every name is assembled deterministically from one canonical component set (ADR-AZ-NAMING-DETERMINISTICNAMES).
+- Every name is written in full in its slot and matched against one canonical component set; the match renders candidates through the one
+  renderer, so a name is never parsed (ADR-AZ-NAMING-DETERMINISTICNAMES).
+- A name off the canonical form is allowed only with a `naming_exception` entry that the gate counts (ADR-AZ-NAMING-EXCEPTIONENTRY).
 - Each template has a readable folder name and a 2–5 char `short_name`, derived from the folder and optionally overridden in `options.yml`
   (ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS).
 - The environment comes first, and environment and customer take their 2-char shortcode in the restricted patterns
   (ADR-AZ-NAMING-ENVIRONMENTFIRST).
 - Each resource type ties to one pattern, which fixes the separator, the length budget and the segment forms
   (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
-- The component order is the `ado_naming` repo variant, never a per-name argument (ADR-AZ-NAMING-ORDERISVARIANT).
+- The component order is the `naming` repo variant, never a per-name argument, and it changes the canonical form every declared name is
+  matched against (ADR-AZ-NAMING-ORDERISVARIANT).
 - All components are lowercase, validated case-sensitively, and most must start with a letter (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
 - A name is never truncated to fit; the namer throws instead (ADR-AZ-NAMING-NEVERTRUNCATE).
 - The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
@@ -132,6 +149,7 @@ layout:
 ## See also
 
 - [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — the decision this article explains.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the declared resource group a slot spells.
 - The other lenses on the same naming standard: [meta](what-an-azure-name-is-made-from.md),
   [architecture](which-code-builds-azure-names.md), [implementation](how-an-azure-resource-gets-its-name.md) and
   [operations](where-an-azure-name-comes-from.md).

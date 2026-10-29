@@ -22,16 +22,16 @@ Describe 'VariantsConfig' -Tag 'L0' {
 
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'passes for a minimal valid config' {
-            $config = & $script:make ([ordered]@{ ado_naming = 'standard'; have_customers = $false })
-            $config.ado_naming | Should -Be 'standard'
+            $config = & $script:make ([ordered]@{ naming = 'standard'; have_customers = $false })
+            $config.naming | Should -Be 'standard'
             $config.have_customers | Should -BeFalse
             $config.Contains('have_customers') | Should -BeTrue
         }
 
         It 'gives every defaulted key its declared default when the config states only tracks' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $config = & $script:make ([ordered]@{})
-            $config.ado_naming | Should -Be ([Catzc.Base.Variants.VariantsConfig]::DefaultAdoNaming)
-            $config.ado_naming | Should -Be 'standard'
+            $config.naming | Should -Be ([Catzc.Base.Variants.VariantsConfig]::DefaultNaming)
+            $config.naming | Should -Be 'standard'
             $config.git_workspace | Should -Be 'main-direct'
             $config.have_customers | Should -BeFalse
             $config.aspects.Keys | Should -Be @('vendor_azure.bicep')
@@ -39,9 +39,9 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            $nulls = & $script:make ([ordered]@{ ado_naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
+            $nulls = & $script:make ([ordered]@{ naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})
-            $nulls.ado_naming | Should -Be $omitted.ado_naming
+            $nulls.naming | Should -Be $omitted.naming
             $nulls.git_workspace | Should -Be $omitted.git_workspace
             $nulls.have_customers | Should -Be $omitted.have_customers
             $nulls.aspects.Keys | Should -Be $omitted.aspects.Keys
@@ -74,11 +74,42 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown key' {
-            { & $script:make ([ordered]@{ ado_naming = 'standard'; bogus = 1 }) } | Should -Throw '*unknown key*bogus*'
+            { & $script:make ([ordered]@{ naming = 'standard'; bogus = 1 }) } | Should -Throw '*unknown key*bogus*'
         }
 
-        It 'throws on an invalid ado_naming' {
-            { & $script:make ([ordered]@{ ado_naming = 'sideways' }) } | Should -Throw '*invalid ado_naming*'
+        It 'throws on an invalid naming' {
+            { & $script:make ([ordered]@{ naming = 'sideways' }) } | Should -Throw '*invalid naming*'
+        }
+
+        It 'accepts each naming preset as its name' {
+            foreach ($preset in 'standard', 'classic') {
+                (& $script:make ([ordered]@{ naming = $preset })).naming | Should -BeExactly $preset
+            }
+        }
+
+        It 'accepts an explicit naming list that names every segment once, in its order' {
+            $segments = @('type', 'org', 'short_name', 'customer', 'env', 'region', 'slot', 'role')
+            $naming = (& $script:make ([ordered]@{ naming = $segments })).naming
+            , $naming | Should -BeOfType [string[]]
+            $naming | Should -Be $segments
+        }
+
+        It 'throws on a naming list with a duplicate or an unknown segment' {
+            $twice = @('type', 'org', 'org', 'short_name', 'customer', 'env', 'region', 'slot', 'role')
+            { & $script:make ([ordered]@{ naming = $twice }) } | Should -Throw "*duplicate naming segment 'org'*"
+            $unknown = @('type', 'org', 'short_name', 'customer', 'env', 'region', 'slot', 'role', 'widget')
+            { & $script:make ([ordered]@{ naming = $unknown }) } | Should -Throw "*invalid naming segment 'widget'*"
+        }
+
+        It 'throws on a naming list without type, and names a missing segment' {
+            { & $script:make ([ordered]@{ naming = @('org', 'short_name', 'customer', 'env', 'region', 'slot', 'role') }) } |
+                Should -Throw "*no 'type' segment*"
+            { & $script:make ([ordered]@{ naming = @('type', 'org', 'short_name', 'customer', 'env', 'region', 'slot') }) } |
+                Should -Throw '*misses segment(s) role*'
+        }
+
+        It 'throws on a naming that is neither a preset nor a list' {
+            { & $script:make ([ordered]@{ naming = [ordered]@{ widget = 'gadget' } }) } | Should -Throw '*invalid naming*'
         }
 
         It 'accepts both git_workspace modes and throws on any other value' {
@@ -297,9 +328,9 @@ Describe 'VariantsConfig' -Tag 'L0' {
         }
 
         It 'reports every violation in one throw' {
-            $err = { & $script:make ([ordered]@{ ado_naming = 'sideways'; git_workspace = 'anarchy'; have_customers = 'some'; bogus = 1 }) } |
+            $err = { & $script:make ([ordered]@{ naming = 'sideways'; git_workspace = 'anarchy'; have_customers = 'some'; bogus = 1 }) } |
                 Should -Throw -PassThru
-            foreach ($expected in '*unknown key*bogus*', '*invalid ado_naming*', '*invalid git_workspace*',
+            foreach ($expected in '*unknown key*bogus*', '*invalid naming*', '*invalid git_workspace*',
                 "*a string must be 'all'*") {
                 $err.Exception.Message | Should -BeLike $expected
             }

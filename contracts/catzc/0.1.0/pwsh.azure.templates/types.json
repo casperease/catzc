@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"92d508c1ae49\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"0254c26541ed\"",
   "types": [
     {
       "name": "Catzc.Azure.Templates.AnomalyAlertConfig",
@@ -65,6 +65,44 @@
         },
         {
           "name": "ProviderPath",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.AzureNameMatcher",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Match",
+          "kind": "method"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.AzureNameRenderer",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ComponentForm",
+          "kind": "method"
+        },
+        {
+          "name": "Join",
+          "kind": "method"
+        },
+        {
+          "name": "Limit",
+          "kind": "method"
+        },
+        {
+          "name": "Omit",
+          "kind": "method"
+        },
+        {
+          "name": "Render",
           "kind": "method"
         }
       ]
@@ -692,6 +730,21 @@
         },
         {
           "name": "azure_created",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Azure.Templates.ResourceTypesConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "patterns",
+          "kind": "property"
+        },
+        {
+          "name": "types",
           "kind": "property"
         }
       ]

@@ -60,12 +60,12 @@ Describe 'ConfigsConfig' -Tag 'L0' {
         It 'compares a shipped key with the type''s Default constant of that key, scalars only' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $type = [Catzc.Base.Variants.VariantsConfig]
             $same = [Catzc.Base.Config.ConfigDefaultDifference]::Compare($type,
-                [ordered]@{ ado_naming = 'standard'; have_customers = $false })
+                [ordered]@{ naming = 'standard'; have_customers = $false })
             @($same).Count | Should -Be 0
             $differs = @([Catzc.Base.Config.ConfigDefaultDifference]::Compare($type,
-                    [ordered]@{ ado_naming = 'gadget'; tracks = @{ widgets = @{} }; widget_size = 3 }))
+                    [ordered]@{ naming = 'gadget'; tracks = @{ widgets = @{} }; widget_size = 3 }))
             $differs.Count | Should -Be 1
-            $differs[0].key | Should -BeExactly 'ado_naming'
+            $differs[0].key | Should -BeExactly 'naming'
             $differs[0].shipped | Should -BeExactly 'gadget'
             $differs[0].declared | Should -BeExactly 'standard'
             [Catzc.Base.Config.ConfigDefaultDifference]::Pascal('have_customers') | Should -BeExactly 'HaveCustomers'

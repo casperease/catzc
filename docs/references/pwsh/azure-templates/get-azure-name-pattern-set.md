@@ -10,9 +10,10 @@ The four Azure resource-name patterns the generator (Get-AzureResourceName) rend
 
 ### description
 
-Every resource type (Get-AzureResourceTypeSet) ties to exactly one pattern via its `pattern` property. A pattern is the recipe for turning
-the name components into a name — it fixes BOTH the render separator AND the length budget (a restriction is length as much as format, not
-just the missing hyphens):
+It reads the `patterns` of `pwsh/Azure.Templates/configs/resource-types.yml`, typed by `ResourceTypesConfig`. Every resource type
+(Get-AzureResourceTypeSet) ties to exactly one pattern via its `pattern` property, `long` when it names none. A pattern is the recipe for
+turning the name components into a name — it fixes BOTH the render separator AND the length budget (a restriction is length as much as
+format, not just the missing hyphens):
 
 ```text
 long    — hyphen-separated, generous: length does NOT bind, so the type carries its own `limit`

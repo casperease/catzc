@@ -41,13 +41,13 @@ holds the enabled set so its `Test-`/`Assert-HaveCustomer(s)` primitives can liv
 
 - [Catalogue vs enabled set](#catalogue-vs-enabled-set)
 
-### Rule ADR-AZ-CUSTOMER-TEMPLATEOPTION
+### Rule ADR-AZ-CUSTOMER-TEMPLATEFROMFOLDER
 
-A template declares whether it is a customer template with an `options.yml` `customer_deployment` bit (bool), which **defaults to the
-`have_customers` variant** (`Test-HaveCustomers`). An explicit `customer_deployment: true` is only permitted when customers are enabled (the
-repo-level guard). The class rule per config is asymmetric: `false` ⇒ the config must **not** live under a customer subfolder (root configs
-only); `true` ⇒ a customer subfolder is allowed but its customer must be **enabled** by the variant. `Get-BicepCustomerClassViolations` is
-the shared rule used by `Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` (collect-all), so the two never drift.
+Whether a template is a customer template is **inferred from its folders**: it is one exactly when it has a customer subfolder under
+`configuration/` (ADR-AZ-CUSTOMER-KEYISSUBFOLDER), and nothing in `options.yml` says so. A customer subfolder is only permitted when
+customers are enabled by the `have_customers` variant (the repo-level guard), and its customer must be **enabled** by the variant; a
+template with root configs only is a non-customer template. `Get-BicepCustomerClassViolations` is the shared rule used by
+`Get-BicepTemplates` (fail-fast) and `Assert-BicepTemplate` (collect-all), so the two never drift.
 
 - [The per-template switch](#the-per-template-switch)
 
@@ -108,15 +108,14 @@ every name a `have_customers` list enables must be a defined customer.
 
 `The per-template switch and its gate`
 
-A template says whether it is a customer template with `options.yml` `customer_deployment` (bool). Its effective value defaults to the
-`have_customers` variant (`Test-HaveCustomers`) unless the template sets it, so a repo with customers disabled (`false`) has only
-non-customer templates by default, and an explicit `customer_deployment: true` there is a fail-fast error (the repo-level guard). The
-per-config rule is asymmetric and lives in `Get-BicepCustomerClassViolations`:
+A template's folders say whether it is a customer template: its `customer_deployment` is true exactly when a customer subfolder sits under
+its `configuration/`. A second declaration in `options.yml` could only agree with the folders or contradict them, so the folder is the one
+source. The per-config rule lives in `Get-BicepCustomerClassViolations`:
 
-- `customer_deployment: false` ⇒ the config must not live under a customer subfolder — a non-customer template ships configuration-root
-  configs only;
-- `customer_deployment: true` ⇒ a customer subfolder is allowed, but the customer it deploys for must be **enabled** by `have_customers` (so
-  `have_customers: [acme]` rejects a `configuration/globex/` config even with the switch on); root configs are still fine.
+- a configuration-root config is always fine — a template with root configs only is a non-customer template;
+- a customer subfolder needs customers enabled (`Test-HaveCustomers`; a repo with `have_customers: false` rejects any customer subfolder,
+  the repo-level guard), and the customer it deploys for must be **enabled** by `have_customers` (so `have_customers: [acme]` rejects a
+  `configuration/globex/` config).
 
 The rule is shared by discovery (`Get-BicepTemplates`, fail-fast) and the collect-all validator (`Assert-BicepTemplate`), the same
 two-caller / one-rule shape as the env-class and subscription-folder checks (see [data-model](azure-data-model.md)).
@@ -125,8 +124,8 @@ two-caller / one-rule shape as the env-class and subscription-folder checks (see
 
 Customer definitions live in `customer.yml` (a self-contained catalogue), referenced by a subscription's `customer` field by key or
 shortcode and resolved through `Get-AzureCustomer`; the FK is enforced by integrity + runtime, not at azure load. Which customers are
-enabled is the `have_customers` variant, and a template's `customer_deployment` bit (defaulting to that variant, guarded by it) decides
-whether it may deploy into customer subscriptions.
+enabled is the `have_customers` variant, and a template is a customer template when it has a customer subfolder, each guarded by that
+variant.
 
 ### A customer in the one tenant
 
@@ -148,8 +147,8 @@ guardrails; an experiment needing what the landing zone denies would be the trig
   **`Get-AzureSubscription`** normalizes a subscription's `customer` to the canonical key.
 - **Integrity tests** — every shipped subscription's customer resolves in `customer.yml`; every name in a `have_customers` list is a defined
   customer.
-- **`Get-BicepCustomerClassViolations`** — the shared per-config class rule, run by `Get-BicepTemplates` and `Assert-BicepTemplate`;
-  `Read-BicepTemplateOptions` validates the `customer_deployment` bool.
+- **`Get-BicepCustomerClassViolations`** — the shared per-config class rule, run by `Get-BicepTemplates` and `Assert-BicepTemplate`, over
+  the customer subfolders a template has.
 
 ## Consequences
 
@@ -158,7 +157,7 @@ guardrails; an experiment needing what the landing zone denies would be the trig
 - A subscription may reference a customer by the readable key or the terse shortcode, and everything downstream sees the canonical key.
 - Azure-config loading stays hermetic — the customer FK is guarded by integrity and runtime, not by coupling every azure read to the
   catalogue.
-- The per-template `customer_deployment` bit makes customer-ness an explicit, guarded property: disabled repos are non-customer-only by
-  default, and a template can only deploy for a customer the repo has enabled.
+- A template's customer-ness is visible in its folders and guarded: a repo with customers disabled has non-customer templates only, and a
+  template can only deploy for a customer the repo has enabled.
 - The cost is one more asset and one more variant to keep in step — reconciled by the two integrity tests, which are the only place the
   catalogue, the enabled set, and the subscriptions are checked against one another.

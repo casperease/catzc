@@ -1,4 +1,4 @@
-function Test-AdoNaming {
+function Test-Naming {
     [CmdletBinding()]
     [OutputType([bool])]
     param(
@@ -9,6 +9,12 @@ function Test-AdoNaming {
         [switch] $Classic
     )
 
-    $order = Get-AdoNaming
-    ($Standard -and $order -eq 'standard') -or ($Classic -and $order -eq 'classic')
+    $naming = Get-Naming
+    $want = if ($Standard) {
+        'standard'
+    }
+    elseif ($Classic) {
+        'classic'
+    }
+    $naming -is [string] -and $naming -eq $want
 }

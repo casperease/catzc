@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"3078cf0ab3c2\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: a6095aaffd75",
   "types": [
     {
       "name": "Catzc.Base.Variants.GeneratedConfig",
@@ -358,10 +358,6 @@
           "kind": "property"
         },
         {
-          "name": "ado_naming",
-          "kind": "property"
-        },
-        {
           "name": "aspects",
           "kind": "property"
         },
@@ -371,6 +367,10 @@
         },
         {
           "name": "have_customers",
+          "kind": "property"
+        },
+        {
+          "name": "naming",
           "kind": "property"
         },
         {

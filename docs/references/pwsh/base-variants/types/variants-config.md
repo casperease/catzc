@@ -2,7 +2,7 @@
 
 The typed record for `configs/variants.yml`, the repo-wide variants ([ADR-REPO-VARIANT](../../../../drs/repository/repo-variants.md)):
 settings fixed for the importer session. It is registered in `Catzc.Base.Config/configs/configs.yml`, so `Get-Config -Config variants`
-returns it; the private `Get-Variant` reads one key off it, and the named getters (`Get-AdoNaming`, `Get-EnabledCustomers`, `Get-Track`, …)
+returns it; the private `Get-Variant` reads one key off it, and the named getters (`Get-Naming`, `Get-EnabledCustomers`, `Get-Track`, …)
 build on that. The properties mirror the YAML keys, so they are snake_case
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
@@ -10,7 +10,8 @@ build on that. The properties mirror the YAML keys, so they are snake_case
 
 Every key is optional, and an unknown key throws, so a typo fails at load.
 
-- **`ado_naming`** — `standard` or `classic`, the Azure resource-name order. The two values are spelled here as literals because this Base
+- **`naming`** — a preset, `standard` or `classic`, or an explicit list naming all eight segments (env, slot, region, org, short_name,
+  customer, role, type) exactly once, the Azure resource-name order. The presets and segments are spelled here as literals because this Base
   type must not depend up into the Azure layer that owns the name-order sets.
 - **`git_workspace`** — `main-direct` or `main-via-pr`.
 - **`have_customers`** — a bool (false for none, true for all), the literal `all`, or a list of unique customer names. It is kept as

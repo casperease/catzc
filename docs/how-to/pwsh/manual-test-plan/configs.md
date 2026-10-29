@@ -128,8 +128,8 @@ belongs to a real config.
 
 **Test file:** `pwsh/Base.Variants/tests/types/VariantsConfig.Tests.ps1` (L0), block `integrity (shipped variants.yml)`.
 
-**Guards:** The shipped variants.yml loads through `VariantsConfig` — ado_naming is a known order and have_customers is false, all, or a
-valid customer-name list.
+**Guards:** The shipped variants.yml loads through `VariantsConfig` — naming is a known order and have_customers is false, all, or a valid
+customer-name list.
 
 ### 5. against a real shipped config
 

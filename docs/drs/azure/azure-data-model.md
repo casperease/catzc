@@ -49,19 +49,31 @@ ADR-AZ-DATAMOD-JOINSINPOWERSHELL.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 
-### Rule ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+### Rule ADR-AZ-DATAMOD-DECLAREDGROUPNAME
 
-The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed; the name-component order is the `ado_naming` repo
-variant (`Get-AdoNaming`).
+A ResourceGroup-target slot declares its resource group in its top-level `ResourceGroup: <name>` key, matched against the canonical form
+like every other name ([ADR-AZ-NAMING-DETERMINISTICNAMES](azure-naming-standard.md#rule-adr-az-naming-deterministicnames)); the declared
+name is the deploy target and the tracking-tag scope alike. A Subscription-target slot carries no `ResourceGroup:` key, and one that creates
+its resource group declares it as an ordinary `*Name` parameter.
 
 - [The name builder](#the-name-builder)
 
 ### Rule ADR-AZ-DATAMOD-STATICRESOURCENAMES
 
-Resource names for a template's own parameters are written statically in the per-slot config; the build passes them through unchanged (no
-generation or validation).
+Resource names for a template's parameters, its own and those owned by another template, are written statically and in full in the per-slot
+config and matched against the canonical form by the name gate; the build passes them through unchanged.
 
 - [Resource names](#resource-names)
+
+### Rule ADR-AZ-DATAMOD-VALUEBYFACT
+
+A template config parameter may name its value by a fact the build derives for the slot, `{ fact: <field> }`, a sibling of the address form
+(ADR-AZ-DATAMOD-VALUEBYADDRESS). A fact is a field computed from `azure.yml` and the slot's coordinate that no config address holds:
+`policy_enforcement`, `subscription_production`, `production`, `groups`, `module_resource_types` and the environment fields. The build
+resolves it into `{ value: <resolved> }`; an unknown field, or a fact set together with `value`, `reference` or `address`, fails the build,
+naming the config file and the parameter.
+
+- [Config-addressed parameters](#config-addressed-parameters)
 
 ### Rule ADR-AZ-DATAMOD-JOINSINPOWERSHELL
 
@@ -197,7 +209,7 @@ Governing principle:
 `azure.yml`
 
 All named entities are **maps keyed by name** (uniform access; duplicate names are structurally impossible). One global — `org` — supplies a
-name component. The component _order_ is **not** here — it is the `ado_naming` repo variant, `Get-AdoNaming` (see
+name component. The component _order_ is **not** here — it is the `naming` repo variant, `Get-Naming` (see
 [The name builder](#the-name-builder)).
 
 There is **no subscription-group entity**, and no subscription name appears in a template path, so the subscription stays a pure Layer-1
@@ -231,7 +243,7 @@ erDiagram
         string shortcode        UK "2 letters, unique (de/pp/…); tight-pattern env-segment"
         string region           "Azure location"
         string region_code      "3 letters (name component)"
-        bool   per_subscription "optional; true marks a sub-identity env (nsub/psub) for environment_kind: subscription"
+        bool   per_subscription "optional; true marks a sub-identity env (nsub/psub), the subscription environment kind"
         string staging_for      FK "optional; -> ENVIRONMENT.name it stages (preprod -> prod)"
     }
     SUBSCRIPTION {
@@ -276,8 +288,8 @@ The setting resolves in the one fixed order of a configurable setting
 sensible default `{ production: Default, nonproduction: DoNotEnforce }`. The default is declared once, on `AzureConfig`, so an omitted map,
 a partial map, and a fresh checkout behave alike: the type fills each key the file omits, and every reader sees a complete map. An unknown
 key or mode is rejected at load, with every other violation of the file, in one error. A template takes the mode as a fact the build derives
-(`options.yml` `facts`, value `policy_enforcement`): the subscription a slot targets is production when it holds a production environment,
-so no slot names the class, no template restates the mode, and changing it is one edit to `azure.yml`.
+(the slot value `{ fact: policy_enforcement }`, ADR-AZ-DATAMOD-VALUEBYFACT): the subscription a slot targets is production when it holds a
+production environment, so no slot names the class, no template restates the mode, and changing it is one edit to `azure.yml`.
 
 ### The subscription as the unit
 
@@ -346,16 +358,16 @@ erDiagram
         string short_name UK "2-5 alnum (Azure id segment); DERIVED from name, options.yml may override"
         string deployment_mode
         string deployment_target
+        string environment_kind "INFERRED: the slots' environment class"
+        bool   customer_deployment "INFERRED: a customer folder under configuration/"
         list   slots
         list   customers "distinct configuration subfolders (customer keys)"
         list   subscriptions "distinct RESOLVED subscriptions across the slots"
     }
     TEMPLATE_OPTIONS {
         string short_name      "optional override (else derived from folder name)"
-        string environment_kind
         string deployment_mode
         string deployment_target
-        bool   customer_deployment "optional; defaults to the have_customers variant"
     }
     SLOT {
         string name         "the config-name (<env>[-<slot>]); the (customer?,env,slot) triple is the PK, 1:1 with the RG"
@@ -366,11 +378,12 @@ erDiagram
     }
     SLOT_CONFIG {
         string format         "yml or bicepparam, from the extension"
-        object ParametersFile "yml: the template's parameters; resource names written statically"
+        string ResourceGroup  "yml, ResourceGroup target: the declared resource-group name"
+        object ParametersFile "yml: the template's parameters; resource names written in full"
         string using          "bicepparam: the relative path to main.bicep"
     }
     DEPLOY_CONTEXT {
-        object deployment  "PLAN: template, name, mode, target, resource_group (DERIVED)"
+        object deployment  "PLAN: template, name, mode, target, resource_group (DECLARED)"
         object artifacts   "FILES: folder, template_file, parameters_file"
         object environment "IDENTITY: Get-AzureEnvironment (env + the session subscription)"
     }
@@ -378,14 +391,17 @@ erDiagram
 
 - `short_name` (the globally-unique Azure id segment) is **derived** from the template folder name (first 5 `[a-z0-9]`, hyphens dropped) by
   `Catzc.Azure.Templates.BicepShortName`; `Get-BicepTemplates` resolves it and enforces uniqueness across all templates. `options.yml` is
-  **optional** and, when present, may **override** `short_name` and/or declare `deployment_mode` / `deployment_target` / `environment_kind`
-  / `customer_deployment` (strict schema, validated at discovery by `Read-BicepTemplateOptions`; see
-  [`customer-model`](azure-customer-model.md)). It does **not** declare which subscriptions the template targets — that follows from its
-  configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
-- `environment_kind` (`standard` | `subscription`, default `standard`) is the template's one classification bit: every config's env must
-  match it — `subscription` ⇒ a `per_subscription` env (`nsub`/`psub`, deployed once per subscription), `standard` ⇒ an ordinary env
-  (`dev`/`test`/…). Enforced per-config by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is
-  NOT a template-level bit — a single template may freely **mix** a base `<env>.yml` and slotted `<env>-<slot>.yml` configs.
+  **optional** and, when present, holds only `short_name`, `deployment_mode` and `deployment_target` (strict schema, validated at discovery
+  by `Read-BicepTemplateOptions`). It declares no name, fact or address — those live in the slot configs
+  ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](#rule-adr-az-datamod-staticresourcenames)) — and not which subscriptions the template targets, which
+  follows from its configuration coordinates. See [`naming-standard`](azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
+- `environment_kind` (`standard` | `subscription`) is the template's one classification, **inferred** from its slots' environment class
+  (`per_subscription` in `azure.yml`): `subscription` when every slot's env is a `per_subscription` env (`nsub`/`psub`, deployed once per
+  subscription), `standard` when every slot's env is an ordinary one (`dev`/`test`/…). A template whose slots mix the two classes is a
+  violation, raised by `Get-BicepConfigClassViolations` (shared by discovery and `Assert-BicepTemplate`). The slot is NOT a template-level
+  bit — a single template may freely **mix** a base `<env>.yml` and slotted `<env>-<slot>.yml` configs.
+- `customer_deployment` is **inferred** from the configuration tree: true when the template has a customer folder under `configuration/`
+  (see [`customer-model`](azure-customer-model.md#rule-adr-az-customer-templatefromfolder)).
 - The slot **metadata** is `{ name, environment, slot, subscription, customer }`, parsed from the path (`[<customer>/]<env>[-<slot>]`) by
   `Get-BicepTemplates`; `customer` is the subfolder and `subscription` is resolved from the coordinate
   (`Get-BicepConfigSubscriptionCandidates`, asserted unique). The slot's **config content** carries a `ParametersFile` of the template's
@@ -396,21 +412,25 @@ erDiagram
 Every Azure name is assembled deterministically by `Get-AzureResourceName` from the component set — the env (its **name** for generous
 patterns, its 2-char **shortcode** for the restricted `kv`/`storage`/`vm` patterns), `slot`, region_code, org, short_name, optional
 **customer** (likewise its readable **key** for generous patterns, its 2-char **shortcode** for restricted) / `role`, and the resource type
-— arranged by the **active order**, the `ado_naming` variant (`Get-AdoNaming`). The **customer that renders is derived from the resolved
+— arranged by the **active order**, the `naming` variant (`Get-Naming`). The **customer that renders is derived from the resolved
 subscription** (`subscription.customer`); the subscription itself is **never** a name component. `env` and `slot` are separate segments.
-Per-type render pattern (separator + limit) comes from `Get-AzureNamePatternSet` via `Get-AzureResourceTypeSet`; the name is asserted
-against the limit.
+Per-type render pattern (separator + limit) comes from `resource-types.yml`, through `Get-AzureNamePatternSet` and
+`Get-AzureResourceTypeSet`; the name is asserted against the limit. The builder is the one renderer: the name gate matches every declared
+name through it, and an ephemeral slot re-renders its template's own names through it
+([ADR-AZ-NAMING-DETERMINISTICNAMES](azure-naming-standard.md#rule-adr-az-naming-deterministicnames)).
 
-The **resource-group name** is derived from (env, slot, customer) by `Get-BicepResourceGroupName` (over the builder) and is the single
+The **resource-group name** of a ResourceGroup-target slot is its declared `ResourceGroup:` key, matched like every name, and is the single
 source for both the deploy target (`Get-BicepDeploymentContext`) and the tracking-tag scope (`Set-BicepTrackingTagSet`), so the two never
 drift.
 
 ### Resource names
 
-Resource names for a template's own parameters are written **statically** in
-`infrastructure/templates/<name>/configuration/[<customer>/]<env>[-<slot>].yml` under `ParametersFile.parameters`. The build passes them
-through unchanged — it does not generate or validate them. (Automated generation/validation of in-template names against the builder is
-intentionally deferred; the resource-group name above is the only name the system derives.)
+Resource names are written **statically and in full** in `infrastructure/templates/<name>/configuration/[<customer>/]<env>[-<slot>].yml`
+under `ParametersFile.parameters`, a name owned by another template included, so the slot file shows every name it deploys. The build passes
+them through unchanged, and the name gate `Test-BicepResourceNames` matches each against the canonical form (see
+[Declared names, matched](azure-naming-standard.md#declared-names-matched)); a parameter that keeps a name off the form carries a
+`naming_exception` entry ([ADR-AZ-NAMING-EXCEPTIONENTRY](azure-naming-standard.md#rule-adr-az-naming-exceptionentry)). An ephemeral slot is
+the one place the build computes a name: it re-renders the base slot's own names with the runtime slot.
 
 ### Orphan removal
 
@@ -430,8 +450,8 @@ the production and rollback paths, the listing first.
 
 `A parameter that names its value by config address`
 
-A parameter in `ParametersFile.parameters` takes one of three forms: a literal `value`, an ARM Key Vault `reference`, or a config address.
-The address form names a node of a version-controlled config instead of copying its value:
+A parameter in `ParametersFile.parameters` takes one of four forms: a literal `value`, an ARM Key Vault `reference`, a config address, or a
+derived fact. The address form names a node of a version-controlled config instead of copying its value:
 
 ```yaml
 ParametersFile:
@@ -449,6 +469,18 @@ An address reaches only committed config, so nothing it names is a secret; a sec
 parameter contract rejects any literal for it, addressed or not. The build fails fast, with every violation of a config file in one error
 that names the file and each parameter: an `address` set together with `value`, `reference`, or any other key, an address that is not a
 string, and an address that does not resolve — an unknown config, a missing key, or a malformed address.
+
+The fact form, `{ fact: <field> }` (ADR-AZ-DATAMOD-VALUEBYFACT), names a value no config holds at an address, because the build computes it
+for the slot: whether the slot's subscription holds a production environment, the policy enforcement mode of that class, the Entra groups of
+the slot's owner, the resource types the shared modules declare, and the environment's fields. It resolves with the addresses, before the
+PrePost hook, so the hook and the parameter contract see only ARM entries, and the slot that uses a fact names its source in place:
+
+```yaml
+ParametersFile:
+  parameters:
+    policyEnforcementMode:
+      fact: policy_enforcement
+```
 
 ### Slot configs in two formats
 

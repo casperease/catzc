@@ -1,0 +1,36 @@
+# A type line holds only what differs from the defaults on ResourceTypesConfig: pattern long, charset [a-z0-9-].
+patterns:
+  long: { separator: "-" } # hyphenated, generous; length does not bind, the type carries its own limit
+  kv: { separator: "-", limit: 24 } # hyphenated but length-restricted (key-vault class: 24, binds)
+  storage: { separator: "", limit: 24 } # tight (concatenated, no hyphens), 24
+  vm: { separator: "", limit: 15 } # same tight render as storage, capped at the Windows computer-name 15
+types:
+  rg: { limit: 90 } # resource group
+  st: { pattern: storage, charset: "[a-z0-9]" } # storage account (tight, no hyphens, 24)
+  kv: { pattern: kv } # key vault: hyphenated but length-restricted to 24
+  waf: { limit: 128 } # web application firewall policy
+  vnet: { limit: 64 } # virtual network
+  sql: { limit: 63 } # SQL logical server (lowercase, hyphens ok)
+  sqldb: { limit: 128 } # SQL database (5-char type ok: long pattern)
+  vm: { pattern: vm, omit: [org, customer, role] } # virtual machine (15; omits the segments the resource group encodes, to fit)
+  synw: { limit: 50 } # Synapse Analytics workspace
+  adf: { limit: 63 } # Data Factory (V2): 3-63 chars
+  log: { limit: 63 } # Log Analytics workspace (4-63)
+  nic: { limit: 80 } # network interface
+  pip: { limit: 80 } # public IP address
+  nsg: { limit: 80 } # network security group: 1-80, unique in the resource group
+  snet: { limit: 80 } # subnet: 1-80, unique in the virtual network
+  rt: { limit: 80 } # route table: 1-80, unique in the resource group
+  peer: { limit: 80 } # virtual network peering: 1-80, unique in the virtual network
+  pep: { limit: 64 } # private endpoint: 2-64, unique in the resource group
+  budg: { limit: 63 } # budget: 1-63 (letters, digits, _ and -), unique in the subscription
+  cexp: { limit: 64 } # Cost Management export: 1-64 (letters, digits, _ and -), unique in the subscription
+  pa: { limit: 64 } # policy assignment: 1-64 at the subscription, unique there
+  ag: { limit: 260 } # action group: 1-260, unique in the resource group
+  alert: { limit: 260 } # alert rule (metric, activity log, scheduled query): 1-260, unique in the resource group
+  wb: { limit: 128 } # workbook display name (the resource name is a GUID derived from it)
+  pack: { limit: 63 } # Log Analytics query pack: unique in the resource group
+  afw: { limit: 56 } # Azure Firewall: 1-56, unique in the resource group
+  afwp: { limit: 80 } # firewall policy: 1-80, unique in the resource group
+  dash: { limit: 160 } # portal dashboard: letters, digits and hyphens, unique in the resource group
+  sc: { limit: 256 } # Azure DevOps service connection: up to 256, unique in the project

@@ -29,4 +29,17 @@ Describe 'Get-AzureNamePatternSet' -Tag 'L0', 'logic' {
         $vm.separator | Should -Be ''
         $vm.limit | Should -Be 15
     }
+
+    It 'reads the resource-types config and returns a copy per call' {
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'resource-types' } {
+            [Catzc.Azure.Templates.ResourceTypesConfig]::new([ordered]@{
+                    patterns = [ordered]@{ wide = [ordered]@{ separator = '-' }; tight = [ordered]@{ separator = ''; limit = 12 } }
+                    types    = [ordered]@{ cog = [ordered]@{ pattern = 'tight' } }
+                })
+        }
+        $first = Get-AzureNamePatternSet
+        @($first.Keys) | Should -Be @('wide', 'tight')
+        $first.tight.limit = 1
+        (Get-AzureNamePatternSet).tight.limit | Should -Be 12
+    }
 }

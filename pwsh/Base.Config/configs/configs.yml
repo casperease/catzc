@@ -50,6 +50,8 @@ configs:
     type: Catzc.Azure.Templates.OrphanRemovalConfig
   anomaly-alert:
     type: Catzc.Azure.Templates.AnomalyAlertConfig
+  resource-types:
+    type: Catzc.Azure.Templates.ResourceTypesConfig
   markdownlint:
     type: Catzc.Base.QualityGates.MarkdownlintConfig
   identity-tokens:

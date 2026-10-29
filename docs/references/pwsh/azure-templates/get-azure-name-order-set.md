@@ -22,8 +22,8 @@ classic  — type first (CAF-style), slot trailing:
            <type>-<org>-<short_name>[-<customer>]-<env>-<region>[-<slot>][-<role>]
 ```
 
-The active order is selected by the `ado_naming` repo-wide variant — Get-AdoNaming (default `standard`), a variants.yml setting fixed for
-the importer session. Orders are pure data — add or reorder one here without touching the assembler.
+The active order is selected by the `naming` repo-wide variant — Get-Naming (default `standard`), a variants.yml setting fixed for the
+importer session. Orders are pure data — add or reorder one here without touching the assembler.
 
 ### example 1
 

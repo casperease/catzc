@@ -82,7 +82,7 @@ layout:
 
 ## Walkthrough
 
-1. **variants.yml.** The file lives in the module's own `configs/` folder and holds the five variants: `ado_naming`, `git_workspace`,
+1. **variants.yml.** The file lives in the module's own `configs/` folder and holds the five variants: `naming`, `git_workspace`,
    `have_customers`, `aspects` and `tracks`. It is data, read by the configuration layer below the module, never by the module's callers.
 2. **Catzc.Base.Config.** The configuration module loads the file through `Get-Config -Config variants`, hands it to the module's config
    type for validation, and caches the result for the session. Reading a config never bypasses this loader. Config itself depends only on
@@ -94,7 +94,7 @@ layout:
 5. **Catzc.Base.Variants.** One private reader and eighteen exported primitives. The module is a member of the Base group, declared in
    `dependencies.yml` with exactly the three edges above.
 6. **AzureExt.** Every Azure extension module pins Base, so all five may call the primitives. One does: `Catzc.Azure.Templates` asks
-   `Get-AdoNaming` for the resource-name order, and `Test-HaveCustomers` and `Test-HaveCustomer` before it accepts a customer deployment.
+   `Get-Naming` for the resource-name order, and `Test-HaveCustomers` and `Test-HaveCustomer` before it accepts a customer deployment.
 7. **Globs · ModuleSystem · Maps.** Three upper-Base modules declare Variants among their dependencies and call it: Globs asks `Get-Aspect`
    to classify a module's files, ModuleSystem asks `Test-GitWorkspace -MainViaPr` before it commits a generated file, and Maps asks
    `Get-Track` and `Get-Aspect` to build the world map.

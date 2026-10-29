@@ -116,4 +116,25 @@ Describe 'Get-AzureResourceTypeSet' -Tag 'L0', 'logic' {
     It 'vm uses the vm pattern' {
         (Get-AzureResourceTypeSet).vm.pattern | Should -Be 'vm'
     }
+
+    It 'storage account takes the no-hyphen charset, every other type the default' {
+        $types = Get-AzureResourceTypeSet
+        $types.st.charset | Should -Be '[a-z0-9]'
+        foreach ($k in @($types.Keys | Where-Object { $_ -ne 'st' })) {
+            $types[$k].charset | Should -Be ([Catzc.Azure.Templates.ResourceTypesConfig]::DefaultCharset) -Because "type '$k' declares no charset"
+        }
+    }
+
+    It 'reads the resource-types config and returns a copy per call' {
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'resource-types' } {
+            [Catzc.Azure.Templates.ResourceTypesConfig]::new([ordered]@{
+                    patterns = [ordered]@{ long = [ordered]@{ separator = '-' } }
+                    types    = [ordered]@{ cog = [ordered]@{ limit = 40 }; gear = [ordered]@{ limit = 9 } }
+                })
+        }
+        $first = Get-AzureResourceTypeSet
+        @($first.Keys) | Should -Be @('cog', 'gear')
+        $first.cog.limit = 1
+        (Get-AzureResourceTypeSet).cog.limit | Should -Be 40
+    }
 }

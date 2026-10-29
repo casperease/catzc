@@ -3,26 +3,27 @@
 ```text
 Where an Azure name comes from.
 
-1  variants.yml             the ado_naming variant: the component order for every name
+1  variants.yml             the naming variant: the component order for every name
 2  options.yml              an optional short_name: the setting to shorten or pin
-3  Deploy-Bicep             deploys, deriving the resource-group name it targets
-4  Get-BicepResourceName    prints a name without deploying anything
-5  Get-AzureResourceName    the namer; nobody calls it directly in this flow
-6  dev-001-weu-zct-sidx-rg  the name that passes: printed, or the deploy's resource group
-7  throw                    an error to act on: fix a setting and rerun
+3  Deploy-Bicep             deploys to the resource group the slot declares
+4  Get-BicepResourceName    prints the canonical name for a coordinate without deploying anything
+5  Get-AzureResourceName    the namer; the one renderer, the form every declared name is matched against
+6  dev-001-weu-zct-sidx-rg  the name that passes: printed, or the one a slot declares
+7  throw                    an error to act on: fix a setting or a declared name and rerun
 
 Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS,
 ADR-AZ-NAMING-NEVERTRUNCATE and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (operations lens).
 ```
 
-An Azure resource name in cats is never typed by an operator. A person runs a deploy or asks for a name, and the naming standard derives it
-from settings the repository already holds. A bad or over-long name stops with an error that says what is wrong, and the fix is always a
-setting, never a hand-typed or truncated name.
+An Azure resource name in cats is written in full in the slot config that deploys it, and the name gate matches it against the canonical
+form the naming standard renders from settings the repository already holds. A person runs a deploy or asks for the canonical name. A name
+that does not match, or an over-long one, stops with an error that says what is wrong, and the fix is a setting or the declared name, never
+a truncated name.
 
 ```yml drawio
 description:
-  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; the name is derived or the run
-  stops with an error to act on, and nobody types a name.
+  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; the name matches the canonical
+  form or the run stops with an error to act on.
 about:
   rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
@@ -82,27 +83,33 @@ layout:
 
 ## Walkthrough
 
-1. **variants.yml.** Its `ado_naming` variant picks the component order for every name, `standard` by default. Changing it re-spells every
-   derived name, so it is deliberately not a flip-the-switch option.
+1. **variants.yml.** Its `naming` variant picks the component order for every name, a preset (`standard` by default, or `classic`) or an
+   explicit list of segments, and a consumer can overlay it from `.catzc/`. Changing it changes the canonical form, so every declared name
+   fails the name gate until it is re-spelled; it is deliberately not a flip-the-switch option.
 2. **options.yml.** A template's optional `options.yml` can set an explicit `short_name`. That is the setting to shorten when a name runs
    over its limit, and the way to pin a template's Azure identity against a folder rename.
-3. **Deploy-Bicep.** `Deploy-Bicep -Environment -Template [-Slot]` derives the resource-group name it deploys to. The customer comes from
-   the az session's subscription, not from an argument, and in a pipeline the command also needs `-SubscriptionIdAssertIs`.
-4. **Get-BicepResourceName.** `Get-BicepResourceName <template> <env> <type> [-Slot] [-Customer] [-Role]` prints a name without deploying
-   anything. It tab-completes templates, environments, types, slots and customers.
-5. **Get-AzureResourceName.** The namer applies the naming standard. Nobody calls it directly in this flow, and the same inputs always give
-   the same name.
-6. **dev-001-weu-zct-sidx-rg.** The name that passes: printed, or used as the deploy's resource group. It comes from
-   `Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg`.
+3. **Deploy-Bicep.** `Deploy-Bicep -Environment -Template [-Slot]` deploys to the resource group the slot declares in its `ResourceGroup:`
+   key. The customer comes from the az session's subscription, not from an argument, and in a pipeline the command also needs
+   `-SubscriptionIdAssertIs`.
+4. **Get-BicepResourceName.** `Get-BicepResourceName <template> <env> <type> [-Slot] [-Customer] [-Role]` prints the canonical name for a
+   coordinate without deploying anything, the spelling to write into a slot. It tab-completes templates, environments, types, slots and
+   customers.
+5. **Get-AzureResourceName.** The namer applies the naming standard and is the one renderer the name gate matches candidates through. The
+   same inputs always give the same name.
+6. **dev-001-weu-zct-sidx-rg.** The name that passes: printed, or declared in the slot. It is what
+   `Get-BicepResourceName -Template sample-indexed -Environment dev -Slot 001 -Type rg` prints.
 7. **Throw.** An error to act on, such as `Invalid Org 'X' — must be 2-3 alphanumeric, leading letter, lowercase.`,
-   `Unknown customer 'X' — not a customer key or shortcode in customer.yml …`, or
-   `Resource name '…' (30 chars) exceeds the 'kv' limit of 24 — shorten short_name / slot / customer / role.` The fix is to shorten and
-   rerun: set a shorter `short_name` in `options.yml`, or pass a shorter `-Slot` or `-Role`.
+   `Unknown customer 'X' — not a customer key or shortcode in customer.yml …`, a declared name with a per-part diagnosis from
+   `Test-BicepResourceNames`, or `Resource name '…' (30 chars) exceeds the 'kv' limit of 24 — shorten short_name / slot / customer / role.`
+   The fix is to correct the declared name, or to shorten and rerun: set a shorter `short_name` in `options.yml`, or pass a shorter `-Slot`
+   or `-Role`.
 
 ## Why it holds
 
-- Every name is assembled deterministically from one canonical component set, so nobody types one (ADR-AZ-NAMING-DETERMINISTICNAMES).
-- The component order is the `ado_naming` repo variant, and changing it re-spells every derived name (ADR-AZ-NAMING-ORDERISVARIANT).
+- Every name is written in full in its slot and matched against the one canonical component set, so a drifted name fails before a deploy
+  (ADR-AZ-NAMING-DETERMINISTICNAMES).
+- The component order is the `naming` repo variant, and changing it changes the canonical form every declared name is matched against
+  (ADR-AZ-NAMING-ORDERISVARIANT).
 - Components are lowercase and validated case-sensitively, so a malformed value stops the run (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
 - A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING-NEVERTRUNCATE).
 - The subscription picks the deploy target and the customer, never a name segment (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).

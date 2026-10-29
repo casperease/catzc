@@ -1,14 +1,20 @@
 # cspell:ignore alweufxosmplst weuwkspvm stfxosmplalweu alweusmplvm vmsmplalweu weufxosmplst
 Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
     BeforeEach {
-        # The order is the ado_naming variant; these cases pin it so the repository's own variant never moves them.
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'standard' }
+        # The order is the naming variant; these cases pin it so the repository's own variant never moves them.
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'standard' }
     }
 
-    It 'takes the name order from the ado_naming variant when -Order is omitted' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'classic' }
+    It 'takes the name order from the naming variant when -Order is omitted' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'classic' }
         Get-AzureResourceName -Env alpha -RegionCode weu -Org fxo -ShortName smpl -Type rg |
             Should -Be 'rg-fxo-smpl-alpha-weu'
+    }
+
+    It 'follows an explicit segment list as the naming variant' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { , [string[]] @('type', 'env', 'slot', 'region', 'org', 'short_name', 'customer', 'role') }
+        Get-AzureResourceName -Env alpha -RegionCode weu -Org fxo -ShortName smpl -Type rg |
+            Should -Be 'rg-alpha-weu-fxo-smpl'
     }
 
     It 'renders the env NAME for a generous (long) type' {

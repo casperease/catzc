@@ -56,41 +56,41 @@ Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {
     }
 
     Context 'the shipped file shows its type''s defaults' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        # A real type with a Default<Key> constant: VariantsConfig declares DefaultAdoNaming = 'standard'.
+        # A real type with a Default<Key> constant: VariantsConfig declares DefaultNaming = 'standard'.
         AfterEach {
             [System.IO.File]::WriteAllText($script:widgetFile, '')
         }
 
         It 'reports a key whose shipped value differs from the type''s default' {
-            [System.IO.File]::WriteAllText($script:widgetFile, "ado_naming: gadget`n")
+            [System.IO.File]::WriteAllText($script:widgetFile, "naming: gadget`n")
             $registry = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' }
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $registry }.GetNewClosure()
 
             $thrown = { Test-ShippedConfigs -OutputFolder $out } | Should -Throw -PassThru
             $thrown.Exception.Message |
-                Should -BeLike "*TstWidget/configs/widget.yml: 'ado_naming' ships 'gadget' where its type's default is 'standard'*"
+                Should -BeLike "*TstWidget/configs/widget.yml: 'naming' ships 'gadget' where its type's default is 'standard'*"
         }
 
         It 'passes a difference that carries its reason, and a value that matches' {
-            [System.IO.File]::WriteAllText($script:widgetFile, "ado_naming: gadget`n")
-            $registry = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' } @{ widget = @{ ado_naming = 'The widgets name their projects their own way.' } }
+            [System.IO.File]::WriteAllText($script:widgetFile, "naming: gadget`n")
+            $registry = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' } @{ widget = @{ naming = 'The widgets name their projects their own way.' } }
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $registry }.GetNewClosure()
             (Test-ShippedConfigs -OutputFolder $out -PassThru).IssueCount | Should -Be 0
 
-            [System.IO.File]::WriteAllText($script:widgetFile, "ado_naming: standard`n")
+            [System.IO.File]::WriteAllText($script:widgetFile, "naming: standard`n")
             $plain = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' }
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $plain }.GetNewClosure()
             (Test-ShippedConfigs -OutputFolder $out -PassThru).IssueCount | Should -Be 0
         }
 
         It 'reports a reason for a key whose values agree' {
-            [System.IO.File]::WriteAllText($script:widgetFile, "ado_naming: standard`n")
-            $registry = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' } @{ widget = @{ ado_naming = 'A stale reason.' } }
+            [System.IO.File]::WriteAllText($script:widgetFile, "naming: standard`n")
+            $registry = New-FixtureRegistry @{ widget = 'Catzc.Base.Variants.VariantsConfig'; 'widget-parts' = 'System.String'; gadget = 'System.String' } @{ widget = @{ naming = 'A stale reason.' } }
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'configs' } { $registry }.GetNewClosure()
 
             $thrown = { Test-ShippedConfigs -OutputFolder $out } | Should -Throw -PassThru
             $thrown.Exception.Message |
-                Should -BeLike "*configs.yml: 'widget' differs 'ado_naming', but the shipped value and the type's default agree*"
+                Should -BeLike "*configs.yml: 'widget' differs 'naming', but the shipped value and the type's default agree*"
         }
     }
 }

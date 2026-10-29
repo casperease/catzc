@@ -1,4 +1,4 @@
-function Assert-AdoNaming {
+function Assert-Naming {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, ParameterSetName = 'Standard')]
@@ -8,13 +8,18 @@ function Assert-AdoNaming {
         [switch] $Classic
     )
 
-    $order = Get-AdoNaming
-    $isMatch = ($Standard -and $order -eq 'standard') -or ($Classic -and $order -eq 'classic')
     $want = if ($Standard) {
         'standard'
     }
     else {
         'classic'
     }
-    Assert-True $isMatch -ErrorText "Expected ado_naming '$want' but the repo is '$order' — set ado_naming in variants.yml."
+    $isMatch = if ($Classic) {
+        Test-Naming -Classic
+    }
+    else {
+        Test-Naming -Standard
+    }
+    $naming = Get-Naming
+    Assert-True $isMatch -ErrorText "Expected naming '$want' but the repo is '$($naming -join ', ')' — set naming in variants.yml."
 }

@@ -26,7 +26,7 @@ function Get-BicepServiceConnectionName {
         ShortName  = $config.short_name
         Role       = $config.identities[$Identity].role
         Type       = 'sc'
-        Order      = Get-AdoNaming
+        Order      = Get-Naming
     }
     $customer = (Get-AzureSubscription -Subscription $Subscription).customer
     if (-not [string]::IsNullOrEmpty($customer)) {

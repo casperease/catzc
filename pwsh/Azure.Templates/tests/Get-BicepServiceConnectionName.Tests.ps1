@@ -32,7 +32,7 @@ Describe 'Get-BicepServiceConnectionName' -Tag 'L0', 'logic' {
                     })
             }
         }
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'standard' }
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'standard' }
     }
 
     It 'names <subscription>''s <identity> connection <expected>' -ForEach @(
@@ -44,7 +44,7 @@ Describe 'Get-BicepServiceConnectionName' -Tag 'L0', 'logic' {
     }
 
     It 'takes the subscription and the identity by position, and follows the name order' {
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'classic' }
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'classic' }
         Get-BicepServiceConnectionName gadget_nonprod view | Should -BeExactly 'sc-wco-ado-gadget-nsub-weu-vw'
     }
 

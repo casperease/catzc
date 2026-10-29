@@ -9,26 +9,26 @@ What holds the Azure session rule.
 4  customer from the session   #4: the customer is read off the session; Deploy-Bicep has no -Customer
 5  serves the env              #7: Get-AzureEnvironment throws when the subscription does not serve the env
 6  throw                       every gate ends here when it fails; nothing retargets or falls back
-7  RG name derived             #5 and NAMING#8: Get-BicepResourceGroupName builds the name; no subscription in it
+7  RG name declared            #5 and NAMING#8: the slot's ResourceGroup: key, matched against the canonical form; no subscription in it
 
-Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL,
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DECLAREDGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL,
 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
 
 The rule that the az session is the deploy target has four parts, and cats holds each one behind a check that throws: a pipeline must give
 the pin, the session must be declared, the session must match the pin, and the session's subscription must serve the environment. Two
-neighbouring rules need no check at all. The customer comes from the session because the deploy has no way to say otherwise, and the
-resource-group name is built by one function that never sees a subscription. No message or help text contradicts these rules; one help text
-misstates a config path.
+neighbouring rules hold differently. The customer comes from the session because the deploy has no way to say otherwise, and the
+resource-group name is declared in the slot's `ResourceGroup:` key and matched against the canonical form, in which the subscription is
+never a component. No message or help text contradicts these rules; one help text misstates a config path.
 
 ```yml drawio
 description:
-  Four throwing gates hold the rule that the az session is the deploy target; the customer and the resource-group name hold by construction,
-  with no gate, and every gate ends in a throw.
+  Four throwing gates hold the rule that the az session is the deploy target; the customer holds by construction, the declared
+  resource-group name is matched against the canonical form, and every gate ends in a throw.
 about:
   rules:
     - ADR-AZ-DATAMOD-CUSTOMERAXIS
-    - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+    - ADR-AZ-DATAMOD-DECLAREDGROUPNAME
     - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
     - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
   lens: governance
@@ -46,7 +46,7 @@ content:
     - { id: g-customer, kind: code, label: customer from the session, in: band-gates }
     - { id: g-serves, kind: gate, label: serves the env, in: band-gates }
     - { id: f-throw, kind: failure, label: throw, in: band-gates }
-    - { id: g-group, kind: result, label: RG name derived, in: band-gates }
+    - { id: g-group, kind: result, label: RG name declared, in: band-gates }
   edges:
     - { from: g-pipeline-assert, to: g-declared, kind: flow, label: "" }
     - { from: g-declared, to: g-matches, kind: flow, label: "" }
@@ -71,7 +71,7 @@ content:
     - { at: g-matches, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-serves, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-customer, kind: rule, rule: ADR-AZ-DATAMOD-CUSTOMERAXIS, gated: false, corner: bottom-right }
-    - { at: g-group, kind: rule, rule: ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, gated: false }
+    - { at: g-group, kind: rule, rule: ADR-AZ-DATAMOD-DECLAREDGROUPNAME }
     - { at: g-group, kind: rule, rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
@@ -107,16 +107,18 @@ layout:
 6. **Throw.** A gate that fails ends in a throw. A red arrow labelled `failed` runs from each of the four gates that can throw to it; the
    customer step has none, since it cannot fail. The throw stops the deploy before a build artifact is read or `az deployment` is called.
    Nothing is retargeted, defaulted or repaired along the way. It is the one red box in the band.
-7. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
-   session's customer, through `Get-BicepResourceName` and the namer. No gate asserts that nobody typed the name or that the subscription
-   stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and
-   ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction. The name is the green outcome: it is what a deploy that passed every gate
-   goes on with. It is the one green box in the band.
+7. **RG name declared.** A ResourceGroup-target slot spells its resource group in its top-level `ResourceGroup:` key, and the deployment
+   context reads that name as the deploy target and the tracking-tag scope. `Test-BicepResourceNames` matches it against the canonical form
+   for the slot's template, environment, slot and customer, so a name that drifts fails the gate before a deploy. The canonical form has no
+   subscription component, so the subscription stays out of the name (ADR-AZ-DATAMOD-DECLAREDGROUPNAME and
+   ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT). The name is the green outcome: it is what a deploy that passed every gate goes on with. It is
+   the one green box in the band.
 
 ## Why it holds
 
 - The customer is derived from the session subscription at deploy time, never a deploy argument (ADR-AZ-DATAMOD-CUSTOMERAXIS).
-- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME).
+- The resource-group name is declared in the slot's `ResourceGroup:` key and matched against the canonical form
+  (ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 - The deploy-time subscription is the az session's, reverse-resolved against `azure.yml`; `-SubscriptionIdAssertIs` is mandatory in a
   pipeline and optional on a devbox, and it is a guard, never a selector (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 - The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).

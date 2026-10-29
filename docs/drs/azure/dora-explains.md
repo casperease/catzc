@@ -43,12 +43,13 @@ live in the records themselves; this file carries only their DORA rationale.
 [ADR-AZ-NAMING](azure-naming-standard.md)
 
 > DORA research shows that standardized, maintainable naming and configuration-driven automation reduce deployment lead time and errors.
-> This record encodes deterministic, derived resource names that are never hand-typed, enabling safe infrastructure automation.
+> This record encodes deterministic resource names, declared in full where they deploy and matched against one canonical form, enabling safe
+> infrastructure automation.
 
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — standardized, deterministic naming rules reduce
   cognitive load.
-- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — derived naming enables reliable, repeatable
-  resource naming.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — a gate-matched canonical form enables reliable,
+  repeatable resource naming.
 - [Version control](../../references/dora/capabilities.md#version-control) — naming rules versioned as configuration, reproducible and
   auditable.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

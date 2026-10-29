@@ -92,30 +92,12 @@ Management-group scope is out of scope here and gets its own plan.
 
 Each file is verified with its tests before the next (CLAUDE.md editing rule).
 
-1. [ ] **Baseline:** capture `Build-Bicep -OutputFolder` output for every slot of every template into a session scratchpad (check: one
-       `.bicepparam` per slot is captured).
-2. [ ] **DRS** (check: `Test-DrsCode` and `Test-DrsRegistry` on `docs/drs/azure`):
-   - ADR-AZ-NAMING: rewrite DETERMINISTICNAMES and CAFALIGNMENT as "declared, matched against the canonical form", ORDERISVARIANT as
-     `naming` with preset-or-list, and drop the stale "literal in config" section (around l.296–307).
-   - ADR-AZ-DATAMOD: DERIVEDRESOURCEGROUPNAME becomes "declared RG, matched", and STATICRESOURCENAMES gains "matched".
-   - ADR-AZ-CUSTOMER-TEMPLATEOPTION becomes "inferred from folder".
-   - Add rules for the exception entry and for `{ fact: }`.
-   - Every removed options key first gets its meaning on a md page (never drop keys silently).
-
-3. [ ] **Type config:** add `resource-types.yml`, `ResourceTypesConfig.cs` and the schema, registered in `configs.yml`
-       (ADR-CONF-LOADING-CSHARPCONFIGTYPE). `Get-AzureResourceTypeSet` / `Get-AzureNamePatternSet` read it, keeping their names and output
-       shape so callers don't change (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-AzureResourceName.Tests.ps1`).
-4. [ ] **Renderer in C#:** `AzureNameRenderer.Render(components, order, typeSpec, pattern)`, a port of the loop in
-       `Get-AzureResourceName.ps1:100-128` (type-first). `Get-AzureResourceName` becomes a thin wrapper around it, and its existing tests
-       must stay green unchanged (check: the same test file and `Get-AzureResourceName.Content.Tests.ps1`, in a fresh process).
-5. [ ] **Matcher:** `AzureNameMatcher.Match(name, ident, candidateSets, order)` reuses `Render`. Public `ConvertFrom-AzureResourceName`
-       lands by staged burst. L0 tests use widget/gadget fixtures, with a round trip for every ident × pattern × order and the ambiguity and
-       no-match cases, plus a per-part diagnosis for each no-match (check:
-       `Invoke-TestFile -Path pwsh/Azure.Templates/tests/ConvertFrom-AzureResourceName.Tests.ps1`).
-6. [ ] **Variant rename:** `ado_naming` → `naming` with preset-or-list across the 20 files, in one pass with type and callers together, then
-       a fresh full import (the importer-path rule). The variants file validates a preset or a list with every component exactly once
-       (check: `Invoke-TestFile -Path pwsh/Base.Variants/tests/Get-Naming.Tests.ps1` and
-       `pwsh/Base.Variants/tests/types/VariantsConfig.Tests.ps1`; a Grep for `ado_naming|AdoNaming` returns nothing).
+6. [ ] **Variants diagram** (blocked on task-user-runs-and-commits step 1: the render reads the committed tree, whose `variants.yml` still
+       holds `ado_naming`, and the new validator refuses it): re-render the `.drawio.png` of
+       `docs/explanation/repository/how-variants-yml-keys-are-read.md` (blocks `g-naming`/`g-test-naming`) and of
+       `docs/explanation/azure/what-holds-the-azure-session-rule.md`, `what-holds-the-azure-coordinate-rules.md` and
+       `how-a-bicep-deployment-context-is-built.md` (declared resource group), from each page's inline `yml drawio` block, and look at each
+       (check: each render shows its new labels; `Test-Links` on the pages).
 7. [ ] **Scaffold:** `Sync-BicepResourceNames [-Template] [-WhatIf]` (staged burst). For each slot it writes today's
        `Resolve-BicepDerivedNames` output into the slot yml (plus `ResourceGroup:`), and moves `facts:` and `addresses:` into slot values.
        It runs once over `infrastructure/templates/*` and the 9 test-asset templates, **before** the deletions. Afterwards it is a one-shot
@@ -142,8 +124,10 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
 13. [ ] **Old resolver deleted:** `Resolve-BicepDerivedNames`, `pwsh/Azure.Templates/types/BicepNameEntry.cs` and
         `pwsh/Azure.Templates/types/BicepItemName.cs` deleted with their tests, after the runtime-slots step lands (check: a Grep for the
         three deleted names under `pwsh` and `docs` returns nothing).
-14. [ ] **Resource-group namer deleted:** `Get-BicepResourceGroupName` and its test deleted, after the declared-resource-group step lands
-        (check: a Grep for the deleted function's name under `pwsh` and `docs` returns nothing).
+14. [ ] **Resource-group namer deleted:** `Get-BicepResourceGroupName` and its test deleted, after the declared-resource-group step lands;
+        `docs/explanation/azure/which-code-builds-azure-names.md` (l.16, 56, 117), `how-the-az-session-becomes-a-declared-identity.md`
+        (l.109) and `how-an-azure-resource-gets-its-name.md` (l.99) then name the declared `ResourceGroup:` key (check: a Grep for the
+        deleted function's name under `pwsh` and `docs` returns nothing).
 15. [ ] **Contracts:** `contracts/catzc/0.1.0/pwsh.azure.templates/*` describe the shrunk options and the new commands (check:
         `Test-Contracts` on `contracts/catzc/0.1.0/pwsh.azure.templates`).
 16. [ ] **Consumer options:** the 3 `infrastructure/templates/*/options.yml` and the test-asset fixtures hold only `short_name`,
@@ -152,5 +136,5 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
 17. [ ] **Consumer docs:** `infrastructure/README.md` and `docs/how-to/getting-started/automation/add-an-infrastructure-template.md`
         describe declared names and the two-key options (check: `Test-Links` and `Test-Spelling` on both).
 
-18. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
+19. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
         is byte-identical). The full Test-Automation run is the user's final run.

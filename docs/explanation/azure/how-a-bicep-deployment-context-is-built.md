@@ -11,22 +11,22 @@ How a Bicep deployment context is built.
 6  wrong subscription              the throw when they differ: a mis-wired service connection
 7  Get-AzureEnvironment            asserts that the session's subscription serves the environment
 8  Get-BicepTemplateConfiguration  reads configuration/[<customer>/]<env>[-<slot>].yml
-9  Get-BicepResourceGroupName      derives the resource-group name from the env, the slot and the customer
+9  ResourceGroup:                  the resource-group name the slot declares, matched against the canonical form
 
-Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL (implementation lens).
+Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DECLAREDGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL (implementation lens).
 ```
 
 `Get-BicepDeploymentContext` is where cats turns an az session into a deployment. It runs three stages in a fixed order: it reads the
 session and resolves it against `azure.yml`, it applies the optional guard, and only then does it address the slot, with the session's
-customer deciding which config file, which environment check and which resource-group name apply. Everything downstream reads the one
-identity resolved here.
+customer deciding which config file and which environment check apply, and the config file declaring the resource-group name. Everything
+downstream reads the one identity resolved here.
 
 ```yml drawio
 description:
   "Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
   addresses the slot: the environment check, the configuration file and the resource-group name."
 about:
-  rules: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  rules: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DECLAREDGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: implementation
 content:
   title: How a Bicep deployment context is built
@@ -48,7 +48,7 @@ content:
     - { id: f-wrong, kind: failure, label: wrong subscription, in: band-guard }
     - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-slot }
     - { id: g-configuration, kind: code, label: Get-BicepTemplateConfiguration, in: grp-slot }
-    - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: grp-slot }
+    - { id: g-group, kind: file, label: "ResourceGroup: key", in: grp-slot }
   edges:
     - { from: g-session, to: g-current, kind: flow, label: calls }
     - { from: g-session, to: g-azure, kind: flow, label: reads }
@@ -107,15 +107,17 @@ layout:
    context checks that the template has a config for the (customer, env, slot) coordinate and throws with the coordinate otherwise.
 8. **Get-BicepTemplateConfiguration.** Reads the slot's config file. With a customer it is `configuration/<customer>/<env>[-<slot>].yml`;
    without one it is the configuration-root file. The coordinate is the file address, with no resolution machinery.
-9. **Get-BicepResourceGroupName.** For a ResourceGroup-target template, derives the resource-group name from the template, the environment,
-   the slot and the session's customer through the namer. Nothing is hand-typed; a Subscription-target template leaves the resource group
-   unset.
+9. **ResourceGroup key.** For a ResourceGroup-target template, the context reads the resource-group name from the slot config's top-level
+   `ResourceGroup:` key. The name is written in full in the file and `Test-BicepResourceNames` matches it against the canonical form for the
+   slot's coordinate. A Subscription-target template carries no such key and leaves the resource group unset; one that creates its group
+   declares it as an ordinary `*Name` parameter.
 
 ## Why it holds
 
 - The customer is derived from the session subscription (`subscription.customer`), never a deploy argument: `Deploy-Bicep` has no
   `-Customer` parameter, and a customer-subscription session addresses the customer's subfolder config (ADR-AZ-DATAMOD-CUSTOMERAXIS).
-- The resource-group name is derived by `Get-BicepResourceGroupName`, never hand-typed (ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME).
+- The resource-group name is declared in the slot's `ResourceGroup:` key and matched against the canonical form
+  (ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 - The joins resolve on demand in `Get-AzureEnvironment` and `Get-BicepDeploymentContext`; the deploy-time subscription is the az session's,
   reverse-resolved by `Get-AzCliSessionSubscription`, and `-SubscriptionIdAssertIs` is a guard, never a selector
   (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).

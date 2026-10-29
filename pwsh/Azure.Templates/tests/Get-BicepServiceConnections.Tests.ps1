@@ -46,7 +46,7 @@ Describe 'Get-BicepServiceConnections' -Tag 'L0', 'logic' {
                     })
             }
         }
-        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'standard' }
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'standard' }
     }
 
     It 'derives one connection per identity in each subscription that hosts a slot of its templates, in subscription then identity order' {

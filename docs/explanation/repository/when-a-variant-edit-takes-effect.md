@@ -88,16 +88,16 @@ layout:
 ## Walkthrough
 
 1. **variants.yml.** Set the key: `have_customers: all`, a list of names, or `false`; `git_workspace: main-via-pr` when the repository goes
-   from one author to more; `ado_naming: classic` only as a deliberate one-time decision, because it re-spells every resource name.
+   from one author to more; `naming` is changed only as a deliberate one-time decision, because it re-spells every resource name.
 2. **importer.ps1.** Re-run the importer. `Get-Config` caches each parsed config in module state that lives for the session, so a running
    session keeps answering from the old file until it is re-imported. The importer does not load the variants itself; the first primitive
    asked afterwards does.
 3. **VariantsConfig.** At that first ask, `Get-Config -Config variants` constructs the config type, which checks the file: only the five
-   known keys, `ado_naming` in `standard` or `classic`, `git_workspace` in `main-direct` or `main-via-pr`, `have_customers` a boolean, `all`
-   or a list of unique lowercase names, and well-formed `aspects` and `tracks`.
+   known keys, `naming` a preset or a segment list, `git_workspace` in `main-direct` or `main-via-pr`, `have_customers` a boolean, `all` or
+   a list of unique lowercase names, and well-formed `aspects` and `tracks`.
 4. **validation failed.** A wrong value throws once, `variants configuration validation failed:` followed by one line per violation, such as
-   `invalid ado_naming '<value>' (valid: standard, classic)`. The ask that triggered the load fails, and so does every later one, until the
-   file is fixed and the session re-imported.
+   `invalid naming '<value>' (a preset: standard, classic; or a list naming each segment once: …)`. The ask that triggered the load fails,
+   and so does every later one, until the file is fixed and the session re-imported.
 5. **Assert-HaveCustomers.** The guard an operator can run at the prompt, and the one-liner the record gives for code: with no `-Name` it
    requires the repository to have customer deployments enabled; with `-Name` it requires each named customer to be enabled.
 6. **deployments are disabled.** When the variant is `false`, the guard throws

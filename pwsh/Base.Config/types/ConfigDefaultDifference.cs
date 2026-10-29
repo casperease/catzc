@@ -44,7 +44,7 @@ public sealed class ConfigDefaultDifference
         return differences;
     }
 
-    // snake_case or kebab-case to PascalCase: ado_naming -> AdoNaming.
+    // snake_case or kebab-case to PascalCase: git_workspace -> GitWorkspace.
     public static string Pascal(string key)
     {
         var text = new StringBuilder();

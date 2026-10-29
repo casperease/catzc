@@ -99,7 +99,7 @@ layout:
    `Get-BicepResourceGroupName`, which in turn calls `Get-BicepResourceName -Type rg`.
 2. **Get-BicepResourceName.** It reads the environment's entry in `azure.yml` (its name, `shortcode` and `region_code`) and the repo-wide
    `org`, takes the template's `short_name`, resolves the customer through `Get-AzureCustomer` when `-Customer` is given, and sets `Order`
-   from `Get-AdoNaming`. Then it calls the namer.
+   from `Get-Naming`. Then it calls the namer.
 3. **Lookup.** The namer looks up the type in `Get-AzureResourceTypeSet`, then the order in `Get-AzureNameOrderSet`, then the type's pattern
    in `Get-AzureNamePatternSet`.
 4. **Omit and form.** The type's `omit` components are dropped. The `long` pattern takes the readable `-Env` and `-Customer`; the restricted
@@ -114,15 +114,15 @@ layout:
    `Resource name 'gm-001-weu-abc-discw-ac-hot-kv' (30 chars) exceeds the 'kv' limit of 24 — shorten short_name / slot / customer / role.`
 10. **Return the name.** A name within the limit is returned unchanged.
 
-Every function here lives in `Catzc.Azure.Templates`, except `Get-AzureCustomer` (`Catzc.Azure`) and `Get-AdoNaming`
-(`Catzc.Base.Variants`). The pattern caps are 24 for `kv` and `storage` and 15 for `vm`; each `long` type carries its own limit, such as 90
-for `rg`, 64 for `vnet` and 63 for `sql`.
+Every function here lives in `Catzc.Azure.Templates`, except `Get-AzureCustomer` (`Catzc.Azure`) and `Get-Naming` (`Catzc.Base.Variants`).
+The pattern caps are 24 for `kv` and `storage` and 15 for `vm`; each `long` type carries its own limit, such as 90 for `rg`, 64 for `vnet`
+and 63 for `sql`.
 
 ## Why it holds
 
 - Each resource type ties to one pattern, which fixes the separator, the length budget and the form of the environment and customer segments
   (ADR-AZ-NAMING-PATTERNPERRESOURCETYPE).
-- The component order is the `ado_naming` repo variant, handed to the namer as data, never chosen per name (ADR-AZ-NAMING-ORDERISVARIANT).
+- The component order is the `naming` repo variant, handed to the namer as data, never chosen per name (ADR-AZ-NAMING-ORDERISVARIANT).
 - Every component is lowercase and validated case-sensitively (ADR-AZ-NAMING-LOWERCASECOMPONENTS).
 - A name is never truncated to fit; the namer throws at deploy time instead (ADR-AZ-NAMING-NEVERTRUNCATE).
 

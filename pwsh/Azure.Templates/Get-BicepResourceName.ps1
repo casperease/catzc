@@ -45,7 +45,7 @@ function Get-BicepResourceName {
         Org        = $azure.org
         ShortName  = $templateDescriptor.short_name
         Type       = $Type
-        Order      = Get-AdoNaming
+        Order      = Get-Naming
     }
     if (-not [string]::IsNullOrEmpty($Slot)) {
         $nameArgs['Slot'] = $Slot

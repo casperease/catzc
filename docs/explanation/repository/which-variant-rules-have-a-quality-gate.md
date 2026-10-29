@@ -11,7 +11,7 @@ Which variant rules have a quality gate.
 6  Test-ModuleDependency  the quality gate for rule 3, run by an L1 integrity test
 
 Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-REPO-VARIANT-MINIMALDEPENDENCIES,
-ADR-REPO-VARIANT-ADONAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (governance lens).
+ADR-REPO-VARIANT-NAMING, ADR-REPO-VARIANT-HAVECUSTOMERS and ADR-REPO-VARIANT-GITWORKSPACE (governance lens).
 ```
 
 The six rules of the variants decision are held by two gates and one habit. The config type checks the file and its values whenever it
@@ -27,7 +27,7 @@ about:
     - ADR-REPO-VARIANT-SESSIONVARIANT
     - ADR-REPO-VARIANT-NODIRECTREADS
     - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-    - ADR-REPO-VARIANT-ADONAMING
+    - ADR-REPO-VARIANT-NAMING
     - ADR-REPO-VARIANT-HAVECUSTOMERS
     - ADR-REPO-VARIANT-GITWORKSPACE
   lens: governance
@@ -61,7 +61,7 @@ content:
   chips:
     - { at: g-variants-yml, kind: rule, rule: ADR-REPO-VARIANT-SESSIONVARIANT }
     - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-SESSIONVARIANT }
-    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-ADONAMING }
+    - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-NAMING }
     - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-HAVECUSTOMERS }
     - { at: g-variants-config, kind: rule, rule: ADR-REPO-VARIANT-GITWORKSPACE }
     - { at: g-get-variant, kind: rule, rule: ADR-REPO-VARIANT-NODIRECTREADS, gated: false }
@@ -89,9 +89,9 @@ layout:
 1. **variants.yml.** Rule 1 makes the file the one home of every repo-wide switch: a growing dictionary whose keys are known. Any other
    home, a per-module config or an environment variable, is out.
 2. **VariantsConfig.** The C# config type registered for `variants` is the quality gate at load time for rules 1, 4, 5 and 6. It rejects an
-   unknown key, an `ado_naming` outside `standard` and `classic`, a `git_workspace` outside `main-direct` and `main-via-pr`, a
-   `have_customers` that is not a boolean, `all` or a list of unique names, and an `aspects` or `tracks` map of the wrong shape. Every
-   violation goes into one throw. An integrity test loads the shipped file through it.
+   unknown key, a `naming` that is neither a preset (`standard`, `classic`) nor a list naming each segment once, a `git_workspace` outside
+   `main-direct` and `main-via-pr`, a `have_customers` that is not a boolean, `all` or a list of unique names, and an `aspects` or `tracks`
+   map of the wrong shape. Every violation goes into one throw. An integrity test loads the shipped file through it.
 3. **Get-Variant.** Rule 2 makes the private reader the single access point, and no gate checks it: nothing asserts that the function stays
    private, and nothing scans the modules for a direct read of the loaded config. Today `Get-Aspect` and `Test-AspectDeclaration` in
    `Catzc.Base.Modules` read the `aspects` key straight off `Get-Config -Config variants`, and nothing catches it.
@@ -110,8 +110,8 @@ layout:
 - Nothing reads the file directly; the private `Get-Variant` is the single access point the primitives share
   (ADR-REPO-VARIANT-NODIRECTREADS).
 - The module depends only on Config, Objects and Asserts, and its config type is self-contained (ADR-REPO-VARIANT-MINIMALDEPENDENCIES).
-- `ado_naming` is `standard` or `classic` (ADR-REPO-VARIANT-ADONAMING); `have_customers` is `false`, `all` or a list of names
-  (ADR-REPO-VARIANT-HAVECUSTOMERS); `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
+- `naming` is a preset or a list naming each segment once (ADR-REPO-VARIANT-NAMING); `have_customers` is `false`, `all` or a list of
+  names (ADR-REPO-VARIANT-HAVECUSTOMERS); `git_workspace` is `main-direct` or `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
 - The declaration's shape is checked at load and the real edges by the gate (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY), and a quality gate is one
   `Test-<subject>` that collects every issue and throws once, run by an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 

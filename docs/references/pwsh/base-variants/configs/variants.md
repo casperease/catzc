@@ -5,9 +5,10 @@ The repo-wide variants: a growing dictionary of switches fixed for the importer 
 `Get-Config -Config variants`, validated by the VariantsConfig type, and read only through the module's `Get-`, `Test-` and `Assert-`
 commands.
 
-## ado_naming
+## naming
 
-The order of the components in every generated Azure resource name, `standard` or `classic`
+The order of the segments in every generated Azure resource name: a preset, `standard` or `classic`, or an explicit list naming all eight
+segments (env, slot, region, org, short_name, customer, role, type) exactly once
 ([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)). Changing it re-spells every resource name, so every typed name in each
 template's configuration has to be edited to match; it is deliberately not a casual flip.
 
@@ -44,3 +45,12 @@ The repository's root concerns, the one declaration of what a track is ([DDR-TRA
   target.
 - `namespace_exempt` lists the files that name the product rather than a module folder, so they keep the namespace on disk: the loaders
   PowerShell names its modules after, and the types assembly's identity.
+
+## comment:1
+
+Above `naming: standard`, written with `#`.
+
+```text
+Flipping this re-spells every resource name, so every typed name in each template's configuration must be edited to match.
+A preset (standard, classic) or an explicit list naming each segment once, e.g. [type, org, short_name, customer, env, region, slot, role].
+```

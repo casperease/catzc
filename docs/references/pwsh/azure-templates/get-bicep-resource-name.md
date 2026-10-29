@@ -21,7 +21,7 @@ requested resource type via Get-AzureResourceName:
 - region_code — the environment's azure.yml region_code
 - org — azure.yml top-level org
 - short_name — the template's options.yml short_name
-- order — the active naming order (Get-AdoNaming; the ado_naming repo-wide variant)
+- order — the active naming order (Get-Naming; the naming repo-wide variant)
 
 The caller supplies only what is genuinely per-call: the resource Type and optional Customer / Role. The name it returns is the one injected
 into the built parameter files (the PrePost seam); a name is derived, never typed into a config, so there is nothing to compare it against.

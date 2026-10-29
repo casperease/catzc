@@ -15,13 +15,12 @@ function Get-AzureResourceName {
         [string] $CustomerShortcode,
         [string] $Role,
         [ArgumentCompleter({ (Get-AzureNameOrderSet).Keys })]
-        [string] $Order = (Get-AdoNaming)
+        [object] $Order = (Get-Naming)
     )
 
     $types = Get-AzureResourceTypeSet
     Assert-True $types.Contains($Type) -ErrorText "Unknown resource type '$Type' (known: $(@($types.Keys) -join ', '))"
-    $orders = Get-AzureNameOrderSet
-    Assert-True $orders.Contains($Order) -ErrorText "Unknown name order '$Order' (known: $(@($orders.Keys) -join ', '))"
+    $sequence = Resolve-AzureNameOrder -Order $Order
 
     $specification = $types[$Type]
     $patterns = Get-AzureNamePatternSet
@@ -29,32 +28,17 @@ function Get-AzureResourceName {
     $pattern = $patterns[$specification.pattern]
 
     # A type may omit components (the vm's 15-char cap drops org, customer and role, which the resource group encodes); type is never omitted.
-    $omit = @(if ($specification.Contains('omit')) {
-            @($specification.omit)
-        }
-        else {
-            @()
-        })
+    $omit = [Catzc.Azure.Templates.AzureNameRenderer]::Omit($specification)
 
-    # The generous long pattern gets the readable env name, the restricted patterns the 2-char shortcode.
-    $envValue = if ($specification.pattern -eq 'long') {
-        $Env
-    }
-    else {
-        Assert-False ([string]::IsNullOrEmpty($Shortcode)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -Shortcode"
-        $Shortcode
-    }
+    # The generous long pattern gets the readable env name, the restricted patterns the 2-char shortcode; only a restricted form can be empty.
+    $envValue = [Catzc.Azure.Templates.AzureNameRenderer]::ComponentForm($specification.pattern, $Env, $Shortcode)
+    Assert-False ([string]::IsNullOrEmpty($envValue)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -Shortcode"
 
     # The customer follows the same split as env, and applies only when one is given.
     $customerValue = ''
     if ((-not [string]::IsNullOrEmpty($Customer)) -and ('customer' -notin $omit)) {
-        $customerValue = if ($specification.pattern -eq 'long') {
-            $Customer
-        }
-        else {
-            Assert-False ([string]::IsNullOrEmpty($CustomerShortcode)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -CustomerShortcode when -Customer is set"
-            $CustomerShortcode
-        }
+        $customerValue = [Catzc.Azure.Templates.AzureNameRenderer]::ComponentForm($specification.pattern, $Customer, $CustomerShortcode)
+        Assert-False ([string]::IsNullOrEmpty($customerValue)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -CustomerShortcode when -Customer is set"
     }
 
     # Every component is checked case-sensitively as lowercase.
@@ -96,36 +80,5 @@ function Get-AzureResourceName {
         type       = $Type
     }
 
-    # Render each segment (fuse its present components); drop empty segments.
-    $segments = foreach ($segment in $orders[$Order]) {
-        $present = foreach ($component in $segment) {
-            if ($component -in $omit) {
-                continue
-            }
-            if (-not [string]::IsNullOrEmpty($values[$component])) {
-                $values[$component]
-            }
-        }
-        if ($present) {
-            -join $present
-        }
-    }
-    $segments = @($segments | Where-Object { $_ })
-
-    # The limit is the pattern's intrinsic cap (kv/storage/vm) or — for `long` — the type's own.
-    $limit = if ($pattern.Contains('limit')) {
-        $pattern.limit
-    }
-    elseif ($specification.Contains('limit')) {
-        $specification.limit
-    }
-    else {
-        throw "Type '$Type' (pattern '$($specification.pattern)') has no length limit"
-    }
-
-    $name = $segments -join $pattern.separator
-
-    Assert-True ($name.Length -le $limit) -ErrorText "Resource name '$name' ($($name.Length) chars) exceeds the '$Type' limit of $limit — shorten short_name / slot / customer / role."
-
-    $name
+    [Catzc.Azure.Templates.AzureNameRenderer]::Render($values, $sequence, $specification, $pattern)
 }
