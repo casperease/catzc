@@ -123,6 +123,6 @@ layout:
 - [Pipeline runner pattern](../../drs/ado/pipeline-runner-pattern.md) — the decision this article explains.
 - [Pipeline naming and placement](../../drs/ado/pipeline-naming-and-placement.md) — the rules `Test-Pipelines` checks.
 - The other lenses on the same runner: [meta](how-a-pipeline-step-maps-to-a-local-command.md),
-  [architecture](how-pipeline-yaml-enters-powershell.md), [implementation](three-tasks-one-guard-one-runner.md) and
+  [architecture](how-pipeline-yaml-enters-powershell.md), [implementation](what-the-three-pipeline-tasks-share.md) and
   [operations](how-an-azure-devops-step-is-named.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

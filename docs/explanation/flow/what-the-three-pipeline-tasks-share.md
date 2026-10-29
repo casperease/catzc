@@ -78,7 +78,7 @@ layout:
   c-invoke-command: { x: 1110, y: 122, w: 150, h: 56 }
 ```
 
-![What the three pipeline tasks share](.assets/three-tasks-one-guard-one-runner.drawio.png)
+![What the three pipeline tasks share](.assets/what-the-three-pipeline-tasks-share.drawio.png)
 
 ## Walkthrough
 

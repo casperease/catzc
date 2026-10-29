@@ -108,7 +108,7 @@ layout:
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- The other lenses on the same globset roles: [meta](three-views-derived-live-from-one-program.md),
+- The other lenses on the same globset roles: [meta](how-the-three-views-of-a-globset-are-derived.md),
   [architecture](what-the-globs-module-owns.md), [implementation](one-scan-program-feeds-three-roles.md) and
   [governance](what-the-globset-gates-check.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

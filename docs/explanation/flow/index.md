@@ -36,7 +36,7 @@ A pipeline step only names a command that a developer can run locally ([pipeline
 
 - **meta**: [How a pipeline step maps to a local command](how-a-pipeline-step-maps-to-a-local-command.md)
 - **architecture**: [How pipeline YAML enters PowerShell](how-pipeline-yaml-enters-powershell.md)
-- **implementation**: [What the three pipeline tasks share](three-tasks-one-guard-one-runner.md)
+- **implementation**: [What the three pipeline tasks share](what-the-three-pipeline-tasks-share.md)
 - **operations**: [How an Azure DevOps step is named](how-an-azure-devops-step-is-named.md)
 - **governance**: [Which runner rules no gate checks](no-gate-checks-rules-one-and-four.md)
 
@@ -55,7 +55,7 @@ Peers in a layer never share a file, except in the loose-fileset layer ([durable
 A globset is one ordered program, and its three views are derived live, never committed
 ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
-- **meta**: [How the three views of a globset are derived](three-views-derived-live-from-one-program.md)
+- **meta**: [How the three views of a globset are derived](how-the-three-views-of-a-globset-are-derived.md)
 - **architecture**: [What the Globs module owns](what-the-globs-module-owns.md)
 - **implementation**: [What the scan program feeds](one-scan-program-feeds-three-roles.md)
 - **operations**: [How a globs.yml edit shows in the output](how-a-globs-yml-edit-shows-in-the-output.md)

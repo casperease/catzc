@@ -63,7 +63,7 @@ layout:
   c-protection: { x: 600, y: 332, w: 300, h: 56 }
 ```
 
-![How the three views of a globset are derived](.assets/three-views-derived-live-from-one-program.drawio.png)
+![How the three views of a globset are derived](.assets/how-the-three-views-of-a-globset-are-derived.drawio.png)
 
 ## Walkthrough
 
