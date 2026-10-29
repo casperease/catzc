@@ -20,7 +20,7 @@ One artifact is built once and climbs to production unchanged
 
 | Lens           | Article                                                                                                           |
 | -------------- | ----------------------------------------------------------------------------------------------------------------- |
-| meta           | [How one artifact climbs to production](how-one-artifact-climbs-to-production.md)                                         |
+| meta           | [How one artifact climbs to production](how-one-artifact-climbs-to-production.md)                                 |
 | architecture   | [How CI, CD and DEPLOY pipelines link](how-ci-cd-and-deploy-pipelines-link.md)                                    |
 | implementation | [How the customer CD pipeline builds and deploys](how-the-customer-cd-pipeline-builds-and-deploys.md)             |
 | operations     | [How a merge to main reaches non-prod](how-a-merge-to-main-reaches-non-prod.md)                                   |

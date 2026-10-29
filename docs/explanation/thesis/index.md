@@ -9,8 +9,8 @@ Eac normal form  a file leaves the unordered track only in the normal form
 These pages explain the [thesis decision-record domain](../../drs/index.md#thesis); the [explanation index](../index.md) says how to read
 the explanations.
 
-- [When a file may leave the unordered track](when-a-file-may-leave-the-unordered-track.md) — the eac normal form and
-  fragment migration ([TDR-NORMALFORM](../../drs/thesis/eac-normal-form.md)).
+- [When a file may leave the unordered track](when-a-file-may-leave-the-unordered-track.md) — the eac normal form and fragment migration
+  ([TDR-NORMALFORM](../../drs/thesis/eac-normal-form.md)).
 
 ```yml drawio
 description:

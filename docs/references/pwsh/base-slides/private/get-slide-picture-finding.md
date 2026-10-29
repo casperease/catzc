@@ -12,9 +12,9 @@ Returns the faults of one slide's picture, one per broken expectation.
 ### description
 
 A slide whose head names no `picture.source` is text-only and yields nothing. Otherwise the source must be a catalogue diagram, an
-`.assets/<name>.drawio.png` inside the repository, and must exist. The diagram's declaration must exist, the slide's eyebrow must name a rule
-code, and the declaration's `about.rules` must cover one of the eyebrow's codes. The slide's `## Image` must hold the picture's link, and a
-picture older than its source is stale.
+`.assets/<name>.drawio.png` inside the repository, and must exist. The diagram's declaration must exist, the slide's eyebrow must name a
+rule code, and the declaration's `about.rules` must cover one of the eyebrow's codes. The slide's `## Image` must hold the picture's link,
+and a picture older than its source is stale.
 
 Private helper of Get-SlideFinding; not exported.
 

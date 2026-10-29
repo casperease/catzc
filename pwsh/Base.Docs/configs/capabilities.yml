@@ -123,12 +123,6 @@ capabilities:
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCSMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
 
-  # The one-slide cycle of the visual review of the diagrams: a named slide read by the agent, every fix decided and landed by it.
-  - name: diagram-review
-    invoked_by: user
-    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
-    checks: [Test-Diagrams, Test-Plans]
-
   # Fail-forward render of a .drawio.png with its minimaps, on the dark page by default.
   - name: drawio-renderer
     invoked_by: brief
