@@ -31,3 +31,12 @@ cause instead of one `BeforeAll` failure hiding it, and the other engines still 
 
 The tests start the engine in processes of their own, so the file runs in the greedy phase
 ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
+
+## comment:1
+
+Above `$runs = & (Get-Module Catzc.Base.QualityGates) {`, written with `#`.
+
+```text
+Every test runs once per execution engine: the same test, a different contract.
+The engines run side by side, each in its own process under its own contract, so the folder takes its slowest engine.
+```

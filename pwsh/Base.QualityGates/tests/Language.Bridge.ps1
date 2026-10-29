@@ -57,20 +57,20 @@ Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy
         EngineTools = $EngineExecutable
     }) {
     BeforeAll {
-        # Every test runs once per execution engine: the same test, a different contract.
+        $runs = & (Get-Module Catzc.Base.QualityGates) {
+            param($language, $module, $cases, $engines, $entry, $tool, $engineTools, $folder)
+            Get-LanguageEngineOutcomes -Language $language -Module $module -Case $cases -Engine $engines -EntryScript $entry `
+                -Executable $tool -EngineExecutable $engineTools -Folder $folder
+        } $Language $Module $Cases $Engines $Entry $Tool $EngineTools $Folder
         $script:languageOutcomes = @{}
         # A run that throws fails each of its cases with its message, so one BeforeAll failure hides nothing.
         $script:languageErrors = @{}
         foreach ($engineName in $Engines) {
-            try {
-                $script:languageOutcomes[$engineName] = & (Get-Module Catzc.Base.QualityGates) {
-                    param($language, $module, $cases, $entry, $tool, $engine, $engineTool, $folder)
-                    Get-LanguageTestOutcomes -Language $language -Module $module -Case $cases -EntryScript $entry -Executable $tool `
-                        -Engine $engine -EngineExecutable $engineTool -Folder $folder
-                } $Language $Module $Cases $Entry $Tool $engineName "$($EngineTools[$engineName])" $Folder
+            if ($runs[$engineName].Error) {
+                $script:languageErrors[$engineName] = $runs[$engineName].Error
             }
-            catch {
-                $script:languageErrors[$engineName] = $_.Exception.Message
+            else {
+                $script:languageOutcomes[$engineName] = $runs[$engineName].Outcomes
             }
         }
     }
