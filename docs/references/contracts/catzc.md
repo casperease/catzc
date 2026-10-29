@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-ContractReference -Path docs/references/contracts/catzc.md"
-    with_body_sha: b4f850d28fe4
+    with_body_sha: "4a5a13d4eafe"
 ---
 
 # docs/references/contracts/catzc.md
@@ -66,6 +66,7 @@ The current version: edited in place
 | `pwsh.azure.templates`                | `get_bicep_template_names.command.yml`           | `pwsh/Azure.Templates/Get-BicepTemplateNames.ps1`                      | provided  | command contract | `no parameters -> string[]`                                                                                                                                                                                                                                                                                                                                         |
 | `pwsh.azure.templates`                | `remove_bicep_orphan_resources.command.yml`      | `pwsh/Azure.Templates/Remove-BicepOrphanResources.ps1`                 | provided  | command contract | `environment: string!, template: string!, slot: string, subscription_id_assert_is: string, artifacts_folder: string, dry_run: switch -> string[]`                                                                                                                                                                                                                   |
 | `pwsh.azure.templates`                | `set_anomaly_alert_recipient_secret.command.yml` | `pwsh/Azure.Templates/Set-AnomalyAlertRecipientSecret.ps1`             | provided  | command contract | `environment: string!, value: string!, subscription_id_assert_is: string, dry_run: switch`                                                                                                                                                                                                                                                                          |
+| `pwsh.azure.templates`                | `sync_bicep_resource_names.command.yml`          | `pwsh/Azure.Templates/Sync-BicepResourceNames.ps1`                     | provided  | command contract | `template: string[]`                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.templates`                | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.azure.templates`                | `arm/main.json.schema.json`                      | `pwsh/Azure.Templates/tests/assets/parameter-model/main.json`          | provided  | schema           | none                                                                                                                                                                                                                                                                                                                                                                |
 | `pwsh.base.asserts`                   | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -345,6 +346,8 @@ Notes:
   template no longer declares, and returns their ids.
 - `pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml`: Writes the anomaly alert's recipients to the secret discovery
   references, in the session subscription's foundation vault.
+- `pwsh.azure.templates/sync_bicep_resource_names.command.yml`: Renders each slot's declared resource names and its resource group again in
+  the configured naming order.
 - `pwsh.azure.templates/arm/main.json.schema.json`: Our schema of a compiled ARM template, the top-level skeleton Azure Resource Manager
   reads, kept local so an editor and a gate need no download.
 - `pwsh.base.config_extensions/test_config_validators.command.yml`: Checks that every config validator maps to the config file of the same

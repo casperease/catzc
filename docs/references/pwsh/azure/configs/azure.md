@@ -39,8 +39,8 @@ names ([ADR-AZ-NAMING](../../../../drs/azure/azure-naming-standard.md)), and it 
 ## per-subscription environments
 
 An environment with `per_subscription: true` exists exactly once per subscription: the subscription's identity environment, used by
-templates of `environment_kind: subscription`, such as the foundation. `nsub` belongs to the nonprod subscription and `psub` to the prod
-subscription. The standard environments above are many-per-subscription.
+templates of the subscription kind (inferred from this flag), such as the foundation. `nsub` belongs to the nonprod subscription and `psub`
+to the prod subscription. The standard environments above are many-per-subscription.
 
 ## subscriptions
 

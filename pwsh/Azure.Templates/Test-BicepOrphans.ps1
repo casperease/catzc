@@ -17,7 +17,7 @@ function Test-BicepOrphans {
         $descriptor = Get-BicepTemplate $template
         foreach ($slot in @($descriptor.slots | Where-Object { $_.subscription -eq $session.name })) {
             if ($descriptor.deployment_target -eq 'ResourceGroup') {
-                $null = $expected.Add((Get-BicepResourceGroupName -Template $template -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer))
+                $null = $expected.Add((Get-BicepSlotResourceGroup -TemplateDescriptor $descriptor -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer))
             }
             # A named slot is a special one (a blue/green or a trial copy): it is reported so it is removed when its job is done.
             if (-not [string]::IsNullOrEmpty($slot.slot)) {

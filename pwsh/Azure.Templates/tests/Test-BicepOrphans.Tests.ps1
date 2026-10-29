@@ -26,7 +26,7 @@ Describe 'Test-BicepOrphans' -Tag 'L0', 'logic' {
                         continue
                     }
                     foreach ($slot in @($descriptor.slots | Where-Object { $_.subscription -eq $Subscription })) {
-                        Get-BicepResourceGroupName -Template $template -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer
+                        Get-BicepSlotResourceGroup -TemplateDescriptor $descriptor -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer
                     }
                 }
             })

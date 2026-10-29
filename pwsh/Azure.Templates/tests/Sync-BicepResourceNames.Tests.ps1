@@ -16,25 +16,23 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
                 '# The widget fixture template.'
                 'short_name: widg'
                 'deployment_target: ResourceGroup'
-                'names:'
-                '  logName: { type: log, role: ops }'
-                '  storageName: { type: st }'
-                '# The enforcement fact every slot takes.'
-                'facts:'
-                '  enforcePolicy: policy_enforcement'
-                'addresses:'
-                '  ownerRoleId: global.roles.roles.owner.id'
             ) -join "`n"
             'widget/configuration/alpha.yml' = @(
                 '# widget, env alpha.'
+                'ResourceGroup: alpha-weu-fxo-widg-rg'
                 'ParametersFile:'
                 '  parameters:'
                 '    # The tags every resource carries.'
                 '    tags:'
                 '      value:'
                 '        workload: widget'
+                '    logName:'
+                '      value: alpha-weu-fxo-widg-ops-log'
+                '    ownerRoleId:'
+                '      address: global.roles.roles.owner.id'
             ) -join "`n"
             'widget/configuration/beta.yml'  = @(
+                'ResourceGroup: beta-weu-fxo-widg-rg'
                 'ParametersFile:'
                 '  parameters:'
                 '    ownerRoleId:'
@@ -44,17 +42,19 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
             'gadget/options.yml'             = @(
                 'short_name: gadg'
                 'deployment_target: Subscription'
-                'names:'
-                '  widgetGroupName: { type: rg, template: widget }'
             ) -join "`n"
             'gadget/configuration/alpha.yml' = @(
                 'ParametersFile:'
                 '  parameters:'
+                '    widgetGroupName:'
+                '      value: alpha-weu-fxo-widg-rg'
                 '    legacyName:'
                 '      value: hand-written-legacy'
                 '      naming_exception: an imported name kept as it is'
                 '    oddName:'
                 '      value: not-a-canonical-name'
+                '    gadgetSkuName:'
+                '      value: Standard_LRS'
             ) -join "`n"
         }
     }
@@ -70,7 +70,7 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Azure.Templates { }
     }
 
-    It 'writes each slot''s derived names under their parameters and keeps its comments' -Tag 'ADR-AZ-NAMING-DETERMINISTICNAMES' {
+    It 'keeps every declared name already in the configured order, and the slot''s comments and other values' -Tag 'ADR-AZ-NAMING-DETERMINISTICNAMES' {
         Sync-BicepResourceNames -Template widget -WarningAction SilentlyContinue
         $text = Get-Content (Join-Path $script:root 'widget/configuration/alpha.yml') -Raw
         $text | Should -BeLike '# widget, env alpha.*'
@@ -78,33 +78,23 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
         $slot = $text | ConvertFrom-Yaml -Ordered
         $slot.ParametersFile.parameters.tags.value.workload | Should -Be 'widget'
         $slot.ParametersFile.parameters.logName.value | Should -BeExactly 'alpha-weu-fxo-widg-ops-log'
-        $slot.ParametersFile.parameters.storageName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Type st)
+        $slot.ParametersFile.parameters.ownerRoleId.address | Should -BeExactly 'global.roles.roles.owner.id'
     }
 
-    It 'declares the resource group of a ResourceGroup-target slot as a top-level key' {
+    It 'keeps the resource group a ResourceGroup-target slot declares as a top-level key' -Tag 'ADR-AZ-DATAMOD-DECLAREDGROUPNAME' {
         Sync-BicepResourceNames -Template widget
         $text = Get-Content (Join-Path $script:root 'widget/configuration/alpha.yml') -Raw
         ($text | ConvertFrom-Yaml -Ordered).ResourceGroup | Should -BeExactly 'alpha-weu-fxo-widg-rg'
         $text.IndexOf('ResourceGroup:') | Should -BeLessThan $text.IndexOf('ParametersFile:')
     }
 
-    It 'moves the facts and addresses of the options into each slot, and a slot that sets the parameter keeps its own' -Tag 'ADR-AZ-DATAMOD-VALUEBYADDRESS' {
-        Sync-BicepResourceNames -Template widget
-        $alpha = (Get-Content (Join-Path $script:root 'widget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
-        $alpha.enforcePolicy.fact | Should -BeExactly 'policy_enforcement'
-        $alpha.ownerRoleId.address | Should -BeExactly 'global.roles.roles.owner.id'
-        $beta = (Get-Content (Join-Path $script:root 'widget/configuration/beta.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
-        $beta.ownerRoleId.value | Should -BeExactly '00000000-0000-0000-0000-000000000000'
-        $beta.ownerRoleId.Contains('address') | Should -BeFalse
+    It 'refuses a ResourceGroup-target slot that declares no resource group, naming the file and the key' -Tag 'ADR-AZ-DATAMOD-DECLAREDGROUPNAME' {
+        $beta = Join-Path $script:root 'widget/configuration/beta.yml'
+        [System.IO.File]::WriteAllText($beta, "ParametersFile:`n  parameters: {}`n")
+        { Sync-BicepResourceNames -Template widget -WarningAction SilentlyContinue } | Should -Throw "*beta.yml' declares no top-level 'ResourceGroup' key*"
     }
 
-    It 'removes names, facts and addresses from the options with their comments and keeps the rest' {
-        Sync-BicepResourceNames -Template widget
-        $options = Get-Content (Join-Path $script:root 'widget/options.yml') -Raw
-        $options -replace "`r", '' | Should -BeExactly "# The widget fixture template.`nshort_name: widg`ndeployment_target: ResourceGroup`n"
-    }
-
-    It 'writes a foreign name under its owner''s short_name and no resource group for a Subscription target' {
+    It 'keeps a foreign name and writes no resource group for a Subscription target' {
         Sync-BicepResourceNames -Template gadget -WarningAction SilentlyContinue
         $slot = Get-Content (Join-Path $script:root 'gadget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered
         $slot.ParametersFile.parameters.widgetGroupName.value | Should -BeExactly 'alpha-weu-fxo-widg-rg'
@@ -112,13 +102,19 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
     }
 
     It 'keeps a name with a naming_exception, and reports and keeps a name that matches no canonical form' {
-        Mock Write-Message -ModuleName Catzc.Azure.Templates { }
         Sync-BicepResourceNames -Template gadget
         $parameters = (Get-Content (Join-Path $script:root 'gadget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
         $parameters.legacyName.value | Should -BeExactly 'hand-written-legacy'
         $parameters.legacyName.naming_exception | Should -Not -BeNullOrEmpty
         $parameters.oddName.value | Should -BeExactly 'not-a-canonical-name'
         Should -Invoke Write-Message -ModuleName Catzc.Azure.Templates -Times 1 -Exactly -ParameterFilter { $Message -like "*oddName: 'not-a-canonical-name' has no single canonical match*" }
+    }
+
+    It 'leaves a parameter under a not_names suffix untouched and reports nothing for it' {
+        Sync-BicepResourceNames -Template gadget
+        $parameters = (Get-Content (Join-Path $script:root 'gadget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
+        $parameters.gadgetSkuName.value | Should -BeExactly 'Standard_LRS'
+        Should -Invoke Write-Message -ModuleName Catzc.Azure.Templates -Times 0 -Exactly -ParameterFilter { $Message -like '*gadgetSkuName*' }
     }
 
     It 'renders every name in the classic order once the naming overlay sets classic' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
@@ -129,9 +125,16 @@ Describe 'Sync-BicepResourceNames' -Tag 'L0', 'logic' {
         $widget = Get-Content (Join-Path $script:root 'widget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered
         $widget.ResourceGroup | Should -BeExactly 'rg-fxo-widg-alpha-weu'
         $widget.ParametersFile.parameters.logName.value | Should -BeExactly 'log-fxo-widg-alpha-weu-ops'
-        $widget.ParametersFile.parameters.storageName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Type st)
         $gadget = Get-Content (Join-Path $script:root 'gadget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered
         $gadget.ParametersFile.parameters.widgetGroupName.value | Should -BeExactly 'rg-fxo-widg-alpha-weu'
+    }
+
+    It 'keeps the slot''s parameters in their order when it renders a name again' {
+        Mock Get-Variant -ModuleName Catzc.Base.Variants -ParameterFilter { $Name -eq 'naming' } { 'classic' }
+        Sync-BicepResourceNames -Template widget -WarningAction SilentlyContinue
+        $alpha = (Get-Content (Join-Path $script:root 'widget/configuration/alpha.yml') -Raw | ConvertFrom-Yaml -Ordered).ParametersFile.parameters
+        @($alpha.Keys) | Should -Be @('tags', 'logName', 'ownerRoleId')
+        $alpha.logName.value | Should -BeExactly 'log-fxo-widg-alpha-weu-ops'
     }
 
     It 'changes nothing on a second run under the same order' {

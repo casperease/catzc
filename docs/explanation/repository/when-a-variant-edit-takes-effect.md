@@ -104,8 +104,7 @@ layout:
    `Customer deployments are disabled — set have_customers in variants.yml (all, or a list of customer names).`; with names that are not
    enabled it throws
    `Customer(s) not enabled for this repo: <names> — set have_customers in variants.yml (all, or include them in the list).` The callers in
-   `Catzc.Azure.Templates` ask the `Test-` form instead and throw their own message, naming the template that set
-   `customer_deployment: true`.
+   `Catzc.Azure.Templates` ask the `Test-` form instead and throw their own message, naming the config that sits in a customer folder.
 7. **Sync-GeneratedFile.** A committer in `Catzc.Base.ModuleSystem`: before it commits a generated file it asks
    `Test-GitWorkspace -MainViaPr`.
 8. **Skipped: main-via-pr on main.** On `main` or `master` in `main-via-pr` mode it writes

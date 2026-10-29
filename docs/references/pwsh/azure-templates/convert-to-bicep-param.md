@@ -17,6 +17,9 @@ addresses resolve and its PrePost hook runs: a value becomes a Bicep literal and
 layout bicep format leaves unchanged. The parameters pass through the same JSON the ARM parameters file is written as, so a typed config
 record an address resolves to, or a hook's wrapped value, reaches the writer as exactly the data that JSON holds.
 
+A parameter's naming_exception key ([ADR-AZ-NAMING-EXCEPTIONENTRY](../../../drs/azure/azure-naming-standard.md)) is a declaration for the
+naming checks, not a value: it is dropped before the render, so the parameter renders exactly as `{ value: … }` alone.
+
 A descriptor with no ParametersFile.parameters fails with a named error.
 
 ### parameter `Descriptor`

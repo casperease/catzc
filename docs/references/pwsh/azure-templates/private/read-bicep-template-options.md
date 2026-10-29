@@ -17,9 +17,10 @@ deploys:
 short_name: smpl                  # 2-5 lowercase alnum — OVERRIDES the folder-derived Azure id segment
 deployment_mode: Incremental      # Incremental | Complete | DoNotRun
 deployment_target: Subscription   # ResourceGroup | Subscription
-environment_kind: subscription    # standard | subscription
-customer_deployment: true         # bool — is this a customer template? (defaults to the have_customers variant)
 ```
+
+The template's environment kind and customer-deployment bit are inferred, never declared: `BicepTemplate` derives the kind from the
+`per_subscription` class of its slots' environments in `azure.yml`, and the customer bit from a slot sitting in a customer folder.
 
 Every key is OPTIONAL — the file itself is optional (Read-BicepTemplateOptions just validates what is present). `short_name` here is a pure
 OVERRIDE: with no options.yml (or no `short_name` key) the template's short_name is DERIVED from its folder name by `Get-BicepTemplates`
@@ -27,9 +28,9 @@ OVERRIDE: with no options.yml (or no `short_name` key) the template's short_name
 `Get-BicepTemplates` overlays the returned keys onto each template's descriptor, replacing the hardcoded `Incremental` / `ResourceGroup`
 defaults.
 
-The schema is STRICT: any key other than the allowed set (`short_name` / `deployment_mode` / `deployment_target` / `environment_kind` /
-`customer_deployment`), or any value outside the matching enum / format / type, throws — so a typo fails fast at discovery time rather than
-silently doing nothing.
+The schema is STRICT: any key other than the allowed set (`short_name` / `deployment_mode` / `deployment_target`), or any value outside the
+matching enum / format / type, throws, naming the options file and the key, so a typo fails fast at discovery time rather than silently
+doing nothing. Names, environment facts and shared addresses are slot values, never options keys.
 
 Returns an ordered dictionary containing ONLY the keys present in the file (empty when the file is absent or carries no recognised keys).
 
@@ -42,13 +43,4 @@ Absolute path to the template folder (the one containing `main.bicep`).
 ```powershell
 Read-BicepTemplateOptions 'C:\repo\infrastructure\templates\sample-subscription'
 # -> [ordered]@{ deployment_target = 'Subscription' }
-```
-
-## comment:1
-
-Above `if ($options.Contains('facts')) {`, written with `#`.
-
-```text
-A fact is a boolean field of the azure.yml environment record, read from the type so the record stays the one list of them, or
-policy_enforcement, the enforcement mode of the subscription the slot targets.
 ```

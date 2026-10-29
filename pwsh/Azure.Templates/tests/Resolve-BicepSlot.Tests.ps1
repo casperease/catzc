@@ -4,7 +4,7 @@ Describe 'Resolve-BicepSlot' -Tag 'L0', 'logic' {
         $script:declared = [Catzc.Azure.Templates.BicepSlot]::new('alpha-red', 'alpha', 'red', 'widget_sub', 'gadget', 'C:/widget/configuration/gadget/alpha-red.yml')
         $script:template = [Catzc.Azure.Templates.BicepTemplate]::new([ordered]@{
                 name = 'widget'; folder = 'C:/widget'; main = 'C:/widget/main.bicep'; configuration_folder = 'C:/widget/configuration'
-                output_folder = 'C:/out/widget'; deployment_mode = 'Incremental'; deployment_target = 'ResourceGroup'; environment_kind = 'standard'
+                output_folder = 'C:/out/widget'; deployment_mode = 'Incremental'; deployment_target = 'ResourceGroup'
                 short_name = 'wdg'; slots = @($base, $declared)
             })
     }

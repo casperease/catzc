@@ -47,30 +47,6 @@ function Assert-BicepTemplate {
             continue
         }
 
-        $environmentKind = if ($options.Contains('environment_kind')) {
-            "$($options.environment_kind)"
-        }
-        else {
-            'standard'
-        }
-
-        # An explicit customer_deployment: true is allowed only when customers are enabled; absent, it follows the have_customers variant.
-        $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
-            [bool]$options.customer_deployment
-        }
-        else {
-            $null
-        }
-        if ($customerDeploymentOption -eq $true -and -not (Test-HaveCustomers)) {
-            $errors.Add("[$name] sets customer_deployment: true but customer deployments are disabled — set have_customers in variants.yml (all, or a list of customer names)")
-        }
-        $customerDeployment = if ($null -ne $customerDeploymentOption) {
-            $customerDeploymentOption
-        }
-        else {
-            [bool](Test-HaveCustomers)
-        }
-
         # BicepShortName throws on a malformed override or a folder name it cannot derive from; the value feeds the uniqueness check.
         $shortNameOverride = if ($options.Contains('short_name')) {
             "$($options.short_name)"
@@ -111,17 +87,20 @@ function Assert-BicepTemplate {
         foreach ($folder in $configFolders) {
             $files = @([Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder.path,
                     '*.yml', 1).AddPattern($folder.path, '*.bicepparam', 1).ToArray())
-            $relativeFolder = if ($folder.customer) {
-                "configuration/$($folder.customer)"
+            # A yml beside a bicepparam of the same name is no slot: it may hold only ResourceGroup.
+            $siblings = @($files | Where-Object {
+                    [System.IO.Path]::GetExtension($_) -eq '.yml' -and
+                    [System.IO.File]::Exists([System.IO.Path]::ChangeExtension($_, '.bicepparam'))
+                })
+            foreach ($sibling in $siblings) {
+                try {
+                    Assert-BicepParamSibling -File $sibling -Template $name
+                }
+                catch {
+                    $errors.Add("[$name] $($_.Exception.Message)")
+                }
             }
-            else {
-                'configuration'
-            }
-            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
-                        Where-Object Count -GT 1)) {
-                $errors.Add("[$name] has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one")
-            }
-            foreach ($file in $files) {
+            foreach ($file in @($files | Where-Object { $_ -notin $siblings })) {
                 if ([System.IO.Path]::GetExtension($file) -eq '.bicepparam') {
                     try {
                         Assert-BicepParamSlot -File $file -Main $main -Template $name -HasPrePost $hasPrePost
@@ -139,6 +118,8 @@ function Assert-BicepTemplate {
             $errors.Add("[$name] has no config files under configuration/")
         }
 
+        # The template's env class is inferred from its slots, collected here and checked once after the loop.
+        $slotEnvironments = [System.Collections.Generic.List[string]]::new()
         foreach ($entry in $nonDefault) {
             $configName = [IO.Path]::GetFileNameWithoutExtension($entry.file)
             $extension = [IO.Path]::GetExtension($entry.file)
@@ -160,10 +141,8 @@ function Assert-BicepTemplate {
                 foreach ($violation in (Get-BicepSubscriptionConfigViolations -Customer $entry.customer -Environment $resolved.environment -AzureConfig $azure -Location $location)) {
                     $errors.Add("[$name] $violation")
                 }
-                foreach ($violation in (Get-BicepConfigClassViolations -Environment $resolved.environment -EnvironmentKind $environmentKind -AzureConfig $azure -Location $location)) {
-                    $errors.Add("[$name] $violation")
-                }
-                foreach ($violation in (Get-BicepCustomerClassViolations -Customer $entry.customer -CustomerDeployment $customerDeployment -Location $location)) {
+                $slotEnvironments.Add($resolved.environment)
+                foreach ($violation in (Get-BicepCustomerClassViolations -Customer $entry.customer -Location $location)) {
                     $errors.Add("[$name] $violation")
                 }
             }
@@ -196,6 +175,9 @@ function Assert-BicepTemplate {
                     }
                 }
             }
+        }
+        foreach ($violation in (Get-BicepConfigClassViolations -Environment $slotEnvironments.ToArray() -AzureConfig $azure -Location 'configuration/')) {
+            $errors.Add("[$name] $violation")
         }
 
         if ($Build -and (Test-Path $main -PathType Leaf)) {

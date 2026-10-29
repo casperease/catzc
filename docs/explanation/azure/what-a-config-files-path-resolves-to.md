@@ -7,7 +7,7 @@ What a config file's path resolves to.
 2  customer config           a config under configuration/<customer>/: a deployment of that customer
 3  exactly one subscription  the check that the coordinate is served by exactly one subscription
 4  subscription              the one subscription the coordinate resolves to, never spelled into the path
-5  resource group            the one resource group the config deploys, its name derived from the coordinate
+5  resource group            the one resource group the config deploys, its name declared in the config's ResourceGroup key
 
 Supports ADR-AZ-DATAMOD-TWOCONFIGLAYERS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION and ADR-AZ-DATAMOD-NAMEKEYEDMAPS,
 and ADR-AZ-CUSTOMER-KEYISSUBFOLDER (meta lens).
@@ -82,8 +82,8 @@ layout:
    plays no part in this choice.
 4. **Subscription.** The one match is the subscription the config deploys into. It is a resolved value, never an argument and never a path
    segment, so no subscription name appears anywhere in the templating layer.
-5. **Resource group.** Each config is one slot and one resource group. The group's name is derived from the coordinate by the namer, never
-   typed into a config, so the file, the subscription and the group stay one-to-one.
+5. **Resource group.** Each config is one slot and one resource group. The config declares the group's name in its top-level
+   `ResourceGroup:` key (ADR-AZ-DATAMOD-DECLAREDGROUPNAME), so the file, the subscription and the group stay one-to-one.
 
 ## Why it holds
 

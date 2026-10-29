@@ -14,7 +14,8 @@ the foreign names.
 
 Reads each slot yml of the template and collects its names: every string leaf, at any depth, under a parameter whose key ends in `Name` or
 `Names`; the slot's top-level `ResourceGroup` key; and the resource-group and resource-name segments of an Azure resource ID anywhere in the
-slot. Each name is matched against the canonical form (ADR-AZ-NAMING-DETERMINISTICNAMES). The match renders candidates from the known
+slot. A key ending in a suffix that `not_names` in `resource-types.yml` lists (by default `SkuName` and `SubnetName`) holds no name, nor
+does any leaf below it. Each name is matched against the canonical form (ADR-AZ-NAMING-DETERMINISTICNAMES). The match renders candidates from the known
 environments, customers, template `short_name` values, slots, type abbreviations and the org through the one renderer, under the configured
 `naming` order, and takes the leftover as the role, which must match `^[a-z][a-z0-9]{1,2}$`. A name is matched, never parsed:
 
@@ -25,13 +26,16 @@ environments, customers, template `short_name` values, slots, type abbreviations
 Beyond the match, the gate checks that:
 
 - a name's environment, customer and slot equal those of its file, and its `short_name` that of its template;
-- a name owned by another template carries that template's `short_name`, and the owner has a slot at those coordinates;
+- a name owned by another template carries that template's `short_name`, and the owner has a slot at those coordinates; a name of its own
+  template off the file's coordinates, such as a hub's spoke, needs that sibling slot the same way, and a component the type omits is not
+  compared;
 - the keys of `networkSecurityGroupNames` equal the subscription's subnets in network.yml minus its `no_nsg_subnets`.
 
 A parameter keeps a non-canonical name only with `naming_exception: <reason>` beside its `value` (ADR-AZ-NAMING-EXCEPTIONENTRY). The gate
 counts and lists every exception, and the build drops the entry from the rendered parameters.
 
-The gate reports three facts: Names (the names checked), Exceptions and Foreign (the names another template owns).
+The gate reports three facts: Names (the names checked), Exceptions and Foreign (the names another slot owns), and writes one message per
+exception. A `.bicepparam` slot's names are those of its sibling yml, which holds only `ResourceGroup`.
 
 ### parameter `Template`
 

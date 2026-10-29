@@ -11,13 +11,13 @@ Lists every resource group of the org in the session's subscription that no temp
 
 ### description
 
-Resolves the az session's subscription (Get-AzCliSessionSubscription), derives the resource group of every resource-group-target template
-slot that subscription serves (Get-BicepResourceGroupName), and lists the subscription's resource groups (`az group list`). A group whose
-name carries the azure.yml org segment and the `-rg` suffix, as every derived name does, but that no slot derives is an issue: a config was
-removed and its group left behind. A group outside that naming belongs to someone else and is ignored. Every named slot the subscription
-serves is listed in the report's facts as one to remove when its job is done. An ephemeral slot (a blue/green or a trial copy, such as
-`dev-blu`, or the L3 test slot `l3`) has no file, so the group it leaves is one no slot derives, and the gate reports it as an issue until
-it is removed.
+Resolves the az session's subscription (Get-AzCliSessionSubscription), reads the resource group every resource-group-target template slot
+that subscription serves declares under its `ResourceGroup:` key (Get-BicepSlotResourceGroup), and lists the subscription's resource groups
+(`az group list`). A group whose name carries the azure.yml org segment and the `-rg` suffix, as every declared name does, but that no slot
+declares is an issue: a config was removed and its group left behind. A group outside that naming belongs to someone else and is ignored.
+Every named slot the subscription serves is listed in the report's facts as one to remove when its job is done. An ephemeral slot (a
+blue/green or a trial copy, such as `dev-blu`, or the L3 test slot `l3`) has no file, so the group it leaves is one no slot declares, and
+the gate reports it as an issue until it is removed.
 
 ### parameter `OutputFolder`
 

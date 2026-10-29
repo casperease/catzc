@@ -6,10 +6,10 @@ Describe 'Get-BicepSlotDeploymentFacts' -Tag 'L0', 'logic' {
                 subscriptions = @{ widget_sub = @{ id = '00000000-0000-0000-0000-00000000000a' } }
             }
         }
-        Mock Get-BicepResourceGroupName -ModuleName Catzc.Azure.Templates { "rg-$Template-$Environment-$Slot-$Customer" }
+        Mock Get-BicepSlotResourceGroup -ModuleName Catzc.Azure.Templates { "rg-$($TemplateDescriptor.name)-$Environment-$Slot-$Customer" }
     }
 
-    It 'reads a resource-group slot''s region, subscription id and resource group from azure.yml and the naming standard' {
+    It 'reads a resource-group slot''s region, subscription id and declared resource group' {
         InModuleScope Catzc.Azure.Templates {
             $facts = Get-BicepSlotDeploymentFacts -Template @{ name = 'gadget'; deployment_target = 'ResourceGroup' } -Slot ([pscustomobject]@{
                     environment = 'widget'; slot = 'blue'; customer = 'sprocket'; subscription = 'widget_sub'
@@ -28,7 +28,7 @@ Describe 'Get-BicepSlotDeploymentFacts' -Tag 'L0', 'logic' {
             $facts.Location | Should -BeExactly ''
             $facts.SubscriptionId | Should -BeExactly ''
             $facts.ResourceGroupName | Should -BeExactly ''
-            Should -Invoke Get-BicepResourceGroupName -ModuleName Catzc.Azure.Templates -Times 0
+            Should -Invoke Get-BicepSlotResourceGroup -ModuleName Catzc.Azure.Templates -Times 0
         }
     }
 }

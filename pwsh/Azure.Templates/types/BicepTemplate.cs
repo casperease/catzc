@@ -46,10 +46,10 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The deployment scope target (e.g. ResourceGroup / Subscription). Always present.
     public string deployment_target { get; }
 
-    // The kind of environment this template targets (e.g. per-subscription vs shared). Always present.
+    // Inferred from the slots' environment class: subscription when every slot's env is in per_subscription_environments, else standard.
     public string environment_kind { get; }
 
-    // Defaults to the have_customers repo variant, and is always present as a bool.
+    // Inferred from the configuration tree: true when a slot sits in a customer folder under configuration/.
     public bool customer_deployment { get; }
 
     // The short name used when composing resource names. Always present.
@@ -60,13 +60,6 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
 
     // Supporting resource files the template carries. Null when the template has no resources/ folder.
     public string[] resources { get; }
-
-    // The names the build derives from the namer, keyed by slot parameter (options.yml names); a slot never writes one. Empty when none.
-    public IReadOnlyDictionary<string, BicepNameEntry> names { get; }
-
-    public IReadOnlyDictionary<string, string> facts { get; }
-
-    public IReadOnlyDictionary<string, string> addresses { get; }
 
     // Validates the required keys, so a malformed template cannot produce an instance.
     public BicepTemplate(IDictionary d)
@@ -79,8 +72,6 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
         output_folder = Req(d, "output_folder");
         deployment_mode = Req(d, "deployment_mode");
         deployment_target = Req(d, "deployment_target");
-        environment_kind = Req(d, "environment_kind");
-        customer_deployment = (d.Contains("customer_deployment") && d["customer_deployment"] is bool cd) && cd;
         short_name = Req(d, "short_name");
         bicep_files = StrArr(d, "bicep_files");
         configuration_files = StrArr(d, "configuration_files");
@@ -88,21 +79,18 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
         subscriptions = StrArr(d, "subscriptions");
         customers = StrArr(d, "customers");
         slots = SlotArr(d, "slots");
+        environment_kind = InferEnvironmentKind(slots, StrArr(d, "per_subscription_environments"));
+        customer_deployment = Array.Exists(slots, s => s.customer.Length > 0);
         prepost_module = OptStr(d, "prepost_module");
         resources = (d.Contains("resources") && d["resources"] != null) ? StrArr(d, "resources") : null;
-        names = BicepNameEntry.ReadAll(d.Contains("names") ? d["names"] : null, name);
-        Dictionary<string, string> factMap = new Dictionary<string, string>(StringComparer.Ordinal);
-        if (d.Contains("facts") && d["facts"] is IDictionary rawFacts)
-        {
-            foreach (DictionaryEntry entry in rawFacts) { factMap[entry.Key.ToString()] = Convert.ToString(entry.Value, System.Globalization.CultureInfo.InvariantCulture); }
-        }
-        facts = factMap;
-        Dictionary<string, string> addressMap = new Dictionary<string, string>(StringComparer.Ordinal);
-        if (d.Contains("addresses") && d["addresses"] is IDictionary rawAddresses)
-        {
-            foreach (DictionaryEntry entry in rawAddresses) { addressMap[entry.Key.ToString()] = Convert.ToString(entry.Value, System.Globalization.CultureInfo.InvariantCulture); }
-        }
-        addresses = addressMap;
+    }
+
+    // A template with no slot, or one whose slots mix the classes, is standard; discovery raises the mix before it builds the template.
+    private static string InferEnvironmentKind(BicepSlot[] templateSlots, string[] perSubscriptionEnvironments)
+    {
+        if (templateSlots.Length == 0) { return "standard"; }
+        var perSubscription = new HashSet<string>(perSubscriptionEnvironments, StringComparer.Ordinal);
+        return Array.TrueForAll(templateSlots, s => perSubscription.Contains(s.environment)) ? "subscription" : "standard";
     }
 
     private static BicepSlot[] SlotArr(IDictionary d, string key)

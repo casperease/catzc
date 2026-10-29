@@ -12,6 +12,11 @@ function Resolve-BicepRuntimeSlotNames {
         [string] $ResourceGroup,
 
         [Parameter(Mandatory)]
+        [string] $Environment,
+
+        [string] $Customer,
+
+        [Parameter(Mandatory)]
         [ValidatePattern('(?-i)^[a-z0-9]{1,3}$')]
         [string] $RuntimeSlot,
 
@@ -24,8 +29,11 @@ function Resolve-BicepRuntimeSlotNames {
     }
     $naming = Get-Naming
     $azure = Get-Config -Config azure
+    $notNames = [string[]] @((Get-Config -Config resource-types).not_names)
     $template = $TemplateDescriptor.name
     $runtime = $RuntimeSlot
+    $baseEnvironment = $Environment
+    $baseCustomer = $Customer
 
     $renderName = {
         param([string] $Name, [string] $Location)
@@ -35,7 +43,8 @@ function Resolve-BicepRuntimeSlotNames {
         catch [System.Management.Automation.MethodInvocationException] {
             throw "${Location} of template '$template': '$Name' has no single canonical match, so runtime slot '$runtime' cannot derive its name: $($_.Exception.InnerException.Message)"
         }
-        if ($components.short_name -cne $TemplateDescriptor.short_name) {
+        if ($components.short_name -cne $TemplateDescriptor.short_name -or $components.env -cne $baseEnvironment -or
+            "$($components.customer)" -cne "$baseCustomer" -or "$($components.slot)" -cne '') {
             return $Name
         }
         $nameArgs = @{
@@ -58,22 +67,23 @@ function Resolve-BicepRuntimeSlotNames {
         Get-AzureResourceName @nameArgs
     }
 
+    # The leaves the name gate reads as names (Get-BicepSlotNameLeaf); the walk copies the value and renders only those locations.
     $walk = {
-        param([object] $Value, [string] $Location, [bool] $IsName)
+        param([object] $Value, [string] $Location, [System.Collections.Generic.HashSet[string]] $Named)
         if ($Value -is [System.Collections.IDictionary]) {
             $object = [ordered]@{}
             foreach ($key in @($Value.Keys)) {
-                $object[$key] = & $walk $Value[$key] "$Location.$key" ($IsName -or "$key" -cmatch 'Names?$')
+                $object[$key] = & $walk $Value[$key] "$Location.$key" $Named
             }
             return $object
         }
         if ($Value -is [System.Collections.IList]) {
             $items = for ($index = 0; $index -lt $Value.Count; $index++) {
-                , (& $walk $Value[$index] "$Location[$index]" $IsName)
+                , (& $walk $Value[$index] "$Location[$index]" $Named)
             }
             return , [object[]] @($items)
         }
-        if ($IsName -and $Value -is [string] -and -not [string]::IsNullOrEmpty($Value)) {
+        if ($Value -is [string] -and $Named.Contains($Location)) {
             return & $renderName $Value $Location
         }
         $Value
@@ -82,16 +92,21 @@ function Resolve-BicepRuntimeSlotNames {
     $resolved = [ordered]@{}
     foreach ($parameter in @($Parameters.Keys)) {
         $entry = $Parameters[$parameter]
-        $named = "$parameter" -cmatch 'Names?$'
         if ($entry -isnot [System.Collections.IDictionary] -or -not $entry.Contains('value') -or $entry.Contains('naming_exception')) {
             $resolved[$parameter] = $entry
             continue
+        }
+        $named = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($leaf in @(Get-BicepSlotNameLeaf -Value ([ordered]@{ "$parameter" = $entry.value }) -Location '' -NotNames $notNames)) {
+            if ($leaf.named) {
+                [void] $named.Add($leaf.location)
+            }
         }
         $copy = [ordered]@{}
         foreach ($key in @($entry.Keys)) {
             $copy[$key] = $entry[$key]
         }
-        $copy['value'] = & $walk $entry.value $parameter $named
+        $copy['value'] = & $walk $entry.value "$parameter" $named
         $resolved[$parameter] = $copy
     }
 

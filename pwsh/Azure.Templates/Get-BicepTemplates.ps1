@@ -35,30 +35,6 @@ function Get-BicepTemplates {
         Assert-PathExist $configurationFolder -PathType Container
 
         $options = Read-BicepTemplateOptions $folderPath
-        # Env-class bit (standard or subscription, default standard) that every config must match; the slot is per config, not per template.
-        $environmentKind = if ($options.Contains('environment_kind')) {
-            "$($options.environment_kind)"
-        }
-        else {
-            'standard'
-        }
-
-        # Customer-class bit: defaults to the have_customers variant, and an explicit true is allowed only when customers are enabled.
-        $customerDeploymentOption = if ($options.Contains('customer_deployment')) {
-            [bool]$options.customer_deployment
-        }
-        else {
-            $null
-        }
-        if ($customerDeploymentOption -eq $true -and -not (Test-HaveCustomers)) {
-            throw "Template '$name' sets customer_deployment: true but customer deployments are disabled — set have_customers in variants.yml (all, or a list of customer names)."
-        }
-        $customerDeployment = if ($null -ne $customerDeploymentOption) {
-            $customerDeploymentOption
-        }
-        else {
-            [bool](Test-HaveCustomers)
-        }
 
         # short_name derives from the folder name unless overridden; BicepShortName throws, naming the template, when neither works.
         $shortNameOverride = if ($options.Contains('short_name')) {
@@ -78,18 +54,15 @@ function Get-BicepTemplates {
         foreach ($configFolder in $configFolders) {
             $files = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($configFolder.path, '*.yml',
                     1).AddPattern($configFolder.path, '*.bicepparam', 1).ToArray())
-            $relativeFolder = if ($configFolder.customer) {
-                "configuration/$($configFolder.customer)"
+            # A yml beside a bicepparam of the same name is no slot: it may hold only ResourceGroup.
+            $siblings = @($files | Where-Object {
+                    [System.IO.Path]::GetExtension($_) -eq '.yml' -and
+                    [System.IO.File]::Exists([System.IO.Path]::ChangeExtension($_, '.bicepparam'))
+                })
+            foreach ($sibling in $siblings) {
+                Assert-BicepParamSibling -File $sibling -Template $name
             }
-            else {
-                'configuration'
-            }
-            # One config per coordinate: never a yml and a bicepparam of the same name.
-            foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } |
-                        Where-Object Count -GT 1)) {
-                throw "Template '$name' has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one."
-            }
-            foreach ($file in $files) {
+            foreach ($file in @($files | Where-Object { $_ -notin $siblings })) {
                 if ([System.IO.Path]::GetExtension($file) -eq '.bicepparam') {
                     Assert-BicepParamSlot -File $file -Main $main -Template $name -HasPrePost $hasPrePost
                 }
@@ -123,11 +96,7 @@ function Get-BicepTemplates {
             if ($subscriptionViolations) {
                 throw "Template '$name' has an invalid config: $($subscriptionViolations -join '; ')."
             }
-            $classViolations = Get-BicepConfigClassViolations -Environment $resolved.environment -EnvironmentKind $environmentKind -AzureConfig $azure -Location $location
-            if ($classViolations) {
-                throw "Template '$name' has an invalid config: $($classViolations -join '; ')."
-            }
-            $customerViolations = Get-BicepCustomerClassViolations -Customer $entry.customer -CustomerDeployment $customerDeployment -Location $location
+            $customerViolations = Get-BicepCustomerClassViolations -Customer $entry.customer -Location $location
             if ($customerViolations) {
                 throw "Template '$name' has an invalid config: $($customerViolations -join '; ')."
             }
@@ -138,33 +107,41 @@ function Get-BicepTemplates {
                     $subscription, $entry.customer, $entry.file))
         }
         $environments = @($slots | ForEach-Object { $_.environment } | Select-Object -Unique)
+        # The template's env class is inferred from its slots, so slots that mix the two classes are the one class violation.
+        $classViolations = Get-BicepConfigClassViolations -Environment $environments -AzureConfig $azure -Location 'configuration/'
+        if ($classViolations) {
+            throw "Template '$name' has an invalid config: $($classViolations -join '; ')."
+        }
+        $perSubscriptionEnvironments = @($azure.environments.Keys | Where-Object {
+                $azure.environments[$_].Contains('per_subscription') -and $azure.environments[$_]['per_subscription']
+            })
         $subscriptions = @($slots | ForEach-Object { $_.subscription } | Select-Object -Unique)
         $customers = @($slots | Where-Object { $_.customer } | ForEach-Object { $_.customer } | Select-Object -Unique)
 
         $bicepFiles = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($folderPath, '*.bicep', 1).ToArray())
 
         $template = [ordered]@{
-            name                 = $name
-            folder               = $folderPath
-            main                 = $main
-            bicep_files          = $bicepFiles
-            configuration_folder = $configurationFolder
-            configuration_files  = $configurationFiles.ToArray()
-            environments         = $environments
-            subscriptions        = $subscriptions
-            customers            = $customers
-            slots                = $slots.ToArray()
-            short_name           = $shortName.value
-            output_folder        = Join-Path $outputRoot "template/$name"
-            deployment_mode      = 'Incremental'
-            deployment_target    = 'ResourceGroup'
-            environment_kind     = $environmentKind
-            customer_deployment  = $customerDeployment
+            name                          = $name
+            folder                        = $folderPath
+            main                          = $main
+            bicep_files                   = $bicepFiles
+            configuration_folder          = $configurationFolder
+            configuration_files           = $configurationFiles.ToArray()
+            environments                  = $environments
+            subscriptions                 = $subscriptions
+            customers                     = $customers
+            slots                         = $slots.ToArray()
+            short_name                    = $shortName.value
+            output_folder                 = Join-Path $outputRoot "template/$name"
+            deployment_mode               = 'Incremental'
+            deployment_target             = 'ResourceGroup'
+            # BicepTemplate infers environment_kind and customer_deployment from the slots.
+            per_subscription_environments = $perSubscriptionEnvironments
         }
 
-        # short_name, environment_kind and customer_deployment are already applied above, so the overlay skips all three.
+        # short_name is already applied above, so the overlay skips it.
         foreach ($key in @($options.Keys)) {
-            if ($key -in 'short_name', 'environment_kind', 'customer_deployment') {
+            if ($key -eq 'short_name') {
                 continue
             }
             $template[$key] = $options[$key]

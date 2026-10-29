@@ -6,7 +6,7 @@ How a configuration slot is added.
 1  configuration slot file    one <env>[-<slot>].yml added to a template's configuration folder
 2  exactly one subscription   the check at discovery that the file's coordinate resolves to one subscription
 3  the owner's CD pipeline    the shared pipeline for a root slot, the customer's for a slot under its subfolder
-4  a new resource group       the one group the new configuration slot deploys, its name derived from the coordinate
+4  a new resource group       the one group the new configuration slot deploys, its name declared in the file's ResourceGroup key
 
 Supports ADR-AZ-IACKIND-THREEIACKINDS, ADR-AZ-DATAMOD-TWOCONFIGLAYERS and ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION (operations lens).
 ```
@@ -68,7 +68,8 @@ layout:
 2. **Exactly one subscription.** Discovery reads the new file and matches its coordinate against the subscriptions that serve the
    environment. Zero or several matches stop discovery, so a slot that fits no subscription never reaches a pipeline.
 3. **The owner's CD pipeline.** The owner's pipeline already includes its slots in its path filter, so the merge that adds the file runs it.
-4. **A new resource group.** The slot is one resource group, and the namer derives its name from the coordinate, so nobody types it.
+4. **A new resource group.** The slot is one resource group, and the new file declares its name in the top-level `ResourceGroup:` key
+   (ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 
 ## Why it holds
 

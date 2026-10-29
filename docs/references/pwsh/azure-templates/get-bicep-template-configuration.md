@@ -11,8 +11,9 @@ Loads a template's per-slot config and returns the ordered dictionary.
 ### description
 
 Returns the parsed yml as an ordered dictionary — typically just a `ParametersFile` (the template's ARM parameters, written statically). No
-merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not read from
-this file — it is derived by Get-BicepResourceGroupName.
+merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. A ResourceGroup-target slot's
+top-level `ResourceGroup:` key comes back with the rest, and Get-BicepDeploymentContext reads it as the deploy target
+([ADR-AZ-DATAMOD-DECLAREDGROUPNAME](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-declaredgroupname)).
 
 The config address is literal ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)): a configuration-root file
 `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file `configuration/<customer>/<env>[-<slot>].yml` when
@@ -62,5 +63,6 @@ shared platform, `configuration/<customer>/` for a customer deployment.
 
 ## A bicepparam slot
 
-The Bicep compiler reads a `.bicepparam` slot, not this function, so its descriptor carries only its source path
-([ADR-AZ-DATAMOD-BICEPPARAMSLOT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
+The Bicep compiler reads a `.bicepparam` slot, not this function, so its descriptor carries its source path
+([ADR-AZ-DATAMOD-BICEPPARAMSLOT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)) and, for a ResourceGroup-target
+slot, the `ResourceGroup` its sibling `<slot>.yml` declares, the one key that sibling holds.

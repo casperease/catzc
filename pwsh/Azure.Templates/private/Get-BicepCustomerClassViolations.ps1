@@ -5,7 +5,6 @@ function Get-BicepCustomerClassViolations {
         [AllowEmptyString()]
         [string] $Customer,
 
-        [Parameter(Mandatory)] [bool] $CustomerDeployment,
         [Parameter(Mandatory)] [string] $Location
     )
 
@@ -15,8 +14,8 @@ function Get-BicepCustomerClassViolations {
         return $violations
     }
 
-    if (-not $CustomerDeployment) {
-        $violations += "$Location deploys for customer '$Customer', but the template is not a customer_deployment — set 'customer_deployment: true' in options.yml (and enable customers via have_customers in variants.yml)"
+    if (-not (Test-HaveCustomers)) {
+        $violations += "$Location deploys for customer '$Customer', but customer deployments are disabled — set have_customers in variants.yml (all, or a list of customer names)"
         return $violations
     }
 

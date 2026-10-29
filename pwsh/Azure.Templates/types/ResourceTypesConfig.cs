@@ -11,13 +11,14 @@ namespace Catzc.Azure.Templates;
 public sealed class ResourceTypesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "resource-types configuration validation failed:\n";
-    private static readonly string[] AllowedKeys = { "patterns", "types" };
+    private static readonly string[] AllowedKeys = { "patterns", "types", "not_names" };
     private static readonly string[] PatternKeys = { "separator", "limit" };
     private static readonly string[] TypeKeys = { "pattern", "charset", "limit", "omit" };
     private static readonly string[] OmittableComponents = { "env", "slot", "region", "org", "short_name", "customer", "role" };
     private static readonly Regex PatternName = new Regex("^[a-z]+$", RegexOptions.CultureInvariant);
     private static readonly Regex Ident = new Regex("^[a-z]{2,5}$", RegexOptions.CultureInvariant);
     private static readonly Regex CharacterClass = new Regex(@"^\[[^\[\]]+\]$", RegexOptions.CultureInvariant);
+    private static readonly Regex NameSuffix = new Regex("^[A-Z][A-Za-z0-9]*Names?$", RegexOptions.CultureInvariant);
 
     // The render pattern a type takes when its line names none: hyphenated, generous, the type carrying its own limit.
     public const string DefaultPattern = "long";
@@ -30,6 +31,12 @@ public sealed class ResourceTypesConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Type ident -> { pattern, charset, limit when the type declares one, omit when it drops components }, in file order.
     public OrderedDictionary types { get; }
+
+    // The slot-parameter key suffixes that end in Name or Names yet hold no resource name: a SKU, a pinned subnet.
+    public static readonly IReadOnlyList<string> DefaultNotNames = new[] { "SkuName", "SubnetName" };
+
+    // The key suffixes the name gate skips; DefaultNotNames when the file names none.
+    public IReadOnlyList<string> not_names { get; }
 
     public ResourceTypesConfig(IDictionary raw)
     {
@@ -45,6 +52,7 @@ public sealed class ResourceTypesConfig : Catzc.Base.Objects.DictionaryRecord
         }
         patterns = Patterns(raw.Contains("patterns") ? raw["patterns"] : null, errors);
         types = Types(raw.Contains("types") ? raw["types"] : null, patterns, errors);
+        not_names = raw.Contains("not_names") ? NotNames(raw["not_names"], errors) : DefaultNotNames;
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
 
@@ -173,5 +181,29 @@ public sealed class ResourceTypesConfig : Catzc.Base.Objects.DictionaryRecord
         }
         if (omit.Count == 0) { errors.Add(at + ": omit must name at least one component"); return null; }
         return omit.ToArray();
+    }
+
+    private static IReadOnlyList<string> NotNames(object value, List<string> errors)
+    {
+        if (!(value is IEnumerable list) || value is string || value is IDictionary)
+        {
+            errors.Add("not_names must be a list of key suffixes, such as SkuName");
+            return DefaultNotNames;
+        }
+        List<string> suffixes = new List<string>();
+        bool invalid = false;
+        foreach (object item in list)
+        {
+            string suffix = item == null ? string.Empty : item.ToString();
+            if (!NameSuffix.IsMatch(suffix))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "not_names: '{0}' is not a key suffix ending in Name or Names, such as SkuName", suffix));
+                invalid = true;
+                continue;
+            }
+            suffixes.Add(suffix);
+        }
+        if (suffixes.Count == 0 && !invalid) { errors.Add("not_names must name at least one key suffix"); }
+        return suffixes.ToArray();
     }
 }

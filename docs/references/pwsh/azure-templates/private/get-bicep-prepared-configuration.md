@@ -13,10 +13,10 @@ Builds the configuration of one Bicep slot, ready to become its parameters file.
 ### description
 
 Reads the slot's configuration (Get-BicepTemplateConfiguration), refuses any key still `UNDEFINED`, and resolves its address parameters
-(Resolve-BicepParameterAddresses) and its fact parameters (Resolve-BicepEnvironmentFacts). The shared addresses, derived names and
-environment facts that options.yml declares are added as parameter entries; a slot that writes one of them is refused. The template's
-prepare hook then runs with the build invocation (template, environment, slot, subscription, customer), and its result must hold
-`ParametersFile`. Private helper of the Bicep build; not exported.
+(Resolve-BicepParameterAddresses) and its fact parameters (Resolve-BicepEnvironmentFacts), both the slot's own `{ address: }` and
+`{ fact: }` entries. A runtime slot, one the template declares no file for, takes its base slot's names with the base slot's own ones
+rendered again with its slot (Resolve-BicepRuntimeSlotNames); a declared slot's names are its own values, used as written. The template's prepare hook then runs with the build invocation (template, environment,
+slot, subscription, customer), and its result must hold `ParametersFile`. Private helper of the Bicep build; not exported.
 
 ### parameter `TemplateDescriptor`
 
@@ -42,9 +42,9 @@ Get-BicepPreparedConfiguration -TemplateDescriptor $template -Slot $slot -Prepar
 
 ## comment:1
 
-Above `$slotParameters = $configurationDescriptor.ParametersFile.parameters`, written with `#`.
+Above `$declared = @($TemplateDescriptor.slots | Where-Object { $_.name -eq...`, written with `#`.
 
 ```text
-The names options.yml declares come from the namer, before the hook, so a hook sees them; a slot that writes one is refused.
-An each entry's items are the slot's own (their subscriptions); the resolver fills their names and refuses an item that writes one.
+A runtime slot is no slot the template declares: it reads its base slot's names and renders the base slot's own ones with its slot.
+A declared slot's names are its own values, used as written.
 ```

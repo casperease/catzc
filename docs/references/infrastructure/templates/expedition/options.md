@@ -5,6 +5,6 @@ discovery network. It deploys into its own resource group, one per configuration
 
 ## Classification
 
-The classification follows [ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md).
+The classification follows [ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md) and is inferred, never declared in `options.yml`.
 
-- `environment_kind: standard` — configs use the standard envs (dev, test, preprod, prod), slotted per config.
+- The environment kind is standard — configs use the standard envs (dev, test, preprod, prod), slotted per config.

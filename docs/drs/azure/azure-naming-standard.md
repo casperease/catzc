@@ -84,6 +84,13 @@ and lists every exception, and the build drops the entry from the rendered param
 
 - [Declared names, matched](#declared-names-matched)
 
+### Rule ADR-AZ-NAMING-ROLENOTCUSTOMER
+
+A role never equals a customer shortcode, so a name with a customer shortcode where a role could sit reads as that customer only, and a role
+that equals a shortcode matches no canonical form.
+
+- [Declared names, matched](#declared-names-matched)
+
 ## Context
 
 The binding constraint is the **storage account**: 3–24 chars, lowercase letters and digits only, globally unique, so a storage name's
@@ -331,18 +338,19 @@ no naming rule. A canonical name describes itself: it carries the environment, s
 role and type, so the consumer declares nothing per name beside it.
 
 **Which values are names.** Every string leaf, at any depth, under a slot parameter whose key ends in `Name` or `Names`; the slot's
-top-level `ResourceGroup` key ([ADR-AZ-DATAMOD-DECLAREDGROUPNAME][r1]);
-and the `resourceGroups/<x>` and resource-name segments of an Azure resource ID anywhere in the slot. The key suffix decides, never a trace
-through the bicep, because a name reaches a template through `scope:`, string interpolation and display names alike; with the suffix rule a
-wrong type ident cannot slip through, since every such value either matches or fails.
+top-level `ResourceGroup` key ([ADR-AZ-DATAMOD-DECLAREDGROUPNAME][r1]); and the `resourceGroups/<x>` and resource-name segments of an Azure
+resource ID anywhere in the slot. The key suffix decides, never a trace through the bicep, because a name reaches a template through
+`scope:`, string interpolation and display names alike; with the suffix rule a wrong type ident cannot slip through, since every such value
+either matches or fails.
 
 **Matched, not parsed.** The `storage` and `vm` renders join their parts with no separator, and org, `short_name`, role and slot vary in
 length, so splitting a name is ambiguous. Every part except the role comes from a small known set: the environments (`azure.yml`), the
 customers (`customer.yml`), the `short_name` of every template, the slots of every slot file, the type abbreviations and the one org. The
 matcher renders the candidates through the one renderer under the configured order and takes the leftover as the role, which must match
-`^[a-z][a-z0-9]{1,2}$` ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](#rule-adr-az-naming-lowercasecomponents)). Exactly one match returns the
-components; no match fails with a diagnosis per part; more than one fails as ambiguous, in practice a `short_name` collision the integrity
-test blocks first.
+`^[a-z][a-z0-9]{1,2}$` ([ADR-AZ-NAMING-LOWERCASECOMPONENTS](#rule-adr-az-naming-lowercasecomponents)) and never equals a customer shortcode
+([ADR-AZ-NAMING-ROLENOTCUSTOMER](#rule-adr-az-naming-rolenotcustomer)): the customer is optional and the role is free, so a role spelled
+like a shortcode would read both ways, and the matcher keeps the customer reading. Exactly one match returns the components; no match fails
+with a diagnosis per part; more than one fails as ambiguous, in practice a `short_name` collision the integrity test blocks first.
 
 **Own and foreign names.** A name's environment, customer and slot equal those of its file, and its `short_name` that of its template, or
 the name belongs to another template: a name owned by another template is written in full with that template's `short_name`, and the gate

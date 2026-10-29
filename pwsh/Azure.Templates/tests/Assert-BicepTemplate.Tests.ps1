@@ -50,10 +50,14 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
             Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         }
 
-        It 'reports a yml and a bicepparam for one coordinate' {
-            Copy-Item (Join-Path $script:sampleTemplate 'configuration/beta.yml') (Join-Path $script:sampleTemplate 'configuration/alpha.yml')
+        It 'accepts a yml beside a bicepparam that holds only a ResourceGroup' {
+            { Assert-BicepTemplate sample-bicepparam } | Should -Not -Throw
+        }
+
+        It 'reports a yml beside a bicepparam that holds another key, naming the file and the key' {
+            Copy-Item (Join-Path $script:sampleTemplate 'configuration/beta.yml') (Join-Path $script:sampleTemplate 'configuration/alpha.yml') -Force
             { Assert-BicepTemplate sample-bicepparam } |
-                Should -Throw '*both configuration/alpha.yml and configuration/alpha.bicepparam*'
+                Should -Throw "*alpha.yml sits beside a bicepparam slot, so it may hold only ResourceGroup, not 'ParametersFile'*"
         }
 
         It 'reports a using line that is not the template''s main.bicep' {
@@ -91,11 +95,11 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
             { Assert-BicepTemplate sample } | Should -Not -Throw
         }
 
-        It 'reports an env-class violation (per-subscription env on a standard template)' {
-            # nsub is a per-subscription env; placing it on a standard template trips the env-class rule.
+        It 'reports an env-class violation (slots that mix per-subscription and standard envs)' {
+            # nsub is a per-subscription env; placing it beside the standard alpha and beta slots trips the env-class rule.
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'),
                 "ParametersFile:`n  parameters: {}")
-            { Assert-BicepTemplate sample } | Should -Throw '*environment_kind*'
+            { Assert-BicepTemplate sample } | Should -Throw '*mixes environment classes*'
         }
 
         It 'reports a config whose coordinate resolves to no subscription' {
@@ -130,7 +134,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
         }
 
         It 'collects multiple violations into one consolidated error' {
-            # One config trips two rules: a per-subscription env on a standard template, and a parameter main.bicep does not declare.
+            # One config trips two rules: a per-subscription env beside standard slots, and a parameter main.bicep does not declare.
             [System.IO.File]::WriteAllText((Join-Path $script:templatesRoot 'sample/configuration/nsub.yml'),
                 "ParametersFile:`n  parameters:`n    bogusParam:`n      value: 1")
             $err = $null
@@ -140,7 +144,7 @@ Describe 'Assert-BicepTemplate' -Tag 'L0', 'logic' {
             catch {
                 $err = $_.Exception.Message
             }
-            $err | Should -Match 'environment_kind'
+            $err | Should -Match 'mixes environment classes'
             $err | Should -Match 'bogusParam'
         }
     }

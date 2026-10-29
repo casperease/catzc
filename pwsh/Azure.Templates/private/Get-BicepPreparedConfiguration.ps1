@@ -34,32 +34,18 @@ function Get-BicepPreparedConfiguration {
         else {
             Join-Path $TemplateDescriptor.configuration_folder $Slot.customer
         }
-        # The addresses options.yml declares join the slot's own, so one resolution reads them all; a slot that sets one is refused.
-        foreach ($parameter in @($TemplateDescriptor.addresses.Keys)) {
-            if ($configurationDescriptor.ParametersFile.parameters.Contains($parameter)) {
-                throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a shared value of the template (options.yml addresses): delete it from the slot"
-            }
-            $configurationDescriptor.ParametersFile.parameters[$parameter] = [ordered]@{ address = $TemplateDescriptor.addresses[$parameter] }
-        }
         $configFile = Join-Path $configFolder "$($Slot.name).yml"
         $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile $configFile
-        # The facts options.yml declares join the slot's own fact entries the same way, resolved from azure.yml for the slot.
-        foreach ($parameter in @($TemplateDescriptor.facts.Keys)) {
-            if ($configurationDescriptor.ParametersFile.parameters.Contains($parameter)) {
-                throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a fact of its environment (options.yml facts): delete it from the slot"
-            }
-            $configurationDescriptor.ParametersFile.parameters[$parameter] = [ordered]@{ fact = $TemplateDescriptor.facts[$parameter] }
-        }
         $configurationDescriptor.ParametersFile.parameters = Resolve-BicepEnvironmentFacts -Parameters $configurationDescriptor.ParametersFile.parameters -Slot $Slot -ConfigFile $configFile
     }
 
-    $slotParameters = $configurationDescriptor.ParametersFile.parameters
-    $derivedNames = Resolve-BicepDerivedNames -TemplateDescriptor $TemplateDescriptor -Slot $Slot -SlotParameters $slotParameters
-    foreach ($parameter in @($derivedNames.Keys)) {
-        if (-not $TemplateDescriptor.names[$parameter].each -and $slotParameters.Contains($parameter)) {
-            throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a name the namer derives (options.yml names): delete it from the slot"
+    $declared = @($TemplateDescriptor.slots | Where-Object { $_.name -eq $Slot.name -and $_.customer -eq $Slot.customer })
+    if ($Slot.slot -and $declared.Count -eq 0) {
+        if ($configurationDescriptor.ParametersFile.parameters -isnot [System.Collections.IDictionary]) {
+            $configurationDescriptor.ParametersFile.parameters = [ordered]@{}
         }
-        $slotParameters[$parameter] = [ordered]@{ value = $derivedNames[$parameter] }
+        $runtimeNames = Resolve-BicepRuntimeSlotNames -TemplateDescriptor $TemplateDescriptor -Parameters $configurationDescriptor.ParametersFile.parameters -Environment $Slot.environment -Customer $Slot.customer -RuntimeSlot $Slot.slot
+        $configurationDescriptor.ParametersFile.parameters = $runtimeNames.Parameters
     }
 
     # Hooks read their dimensions from this invocation, not raw params, so a new dimension never changes the hook signature.

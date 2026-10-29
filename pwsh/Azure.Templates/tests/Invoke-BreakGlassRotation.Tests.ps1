@@ -30,7 +30,7 @@ Describe 'Invoke-BreakGlassRotation' -Tag 'L0', 'logic' {
                 }
             }
         }
-        Mock Get-BicepResourceGroupName -ModuleName Catzc.Azure.Templates -RemoveParameterValidation Template, Environment, Customer, Slot { 'gadget-rg' }
+        Mock Get-BicepSlotResourceGroup -ModuleName Catzc.Azure.Templates -RemoveParameterValidation TemplateDescriptor, Environment { 'gadget-rg' }
         Mock Get-BicepResourceName -ModuleName Catzc.Azure.Templates -RemoveParameterValidation Template, Environment, Customer, Slot { 'gadget-sql' }
         Mock Write-Message -ModuleName Catzc.Azure.Templates { $script:messages.Add("$Message") }
         Mock Invoke-AzCli -ModuleName Catzc.Azure.Templates {

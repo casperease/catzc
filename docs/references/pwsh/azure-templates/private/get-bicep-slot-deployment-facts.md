@@ -13,8 +13,8 @@ Names where a Bicep slot deploys: location, subscription id and resource group.
 ### description
 
 Reads azure.yml: the region of the slot's environment and the id of its subscription. For a template whose deployment target is
-`ResourceGroup`, the resource group name comes from the naming standard (Get-BicepResourceGroupName). A fact azure.yml does not declare
-stays an empty string. Private helper of the deploy; not exported.
+`ResourceGroup`, the resource group name is the one the slot declares under its `ResourceGroup:` key (Get-BicepSlotResourceGroup). A fact
+azure.yml does not declare stays an empty string. Private helper of the deploy; not exported.
 
 ### parameter `Template`
 

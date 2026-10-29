@@ -42,10 +42,9 @@ short_name            — the Azure id segment (2-5 alnum, globally unique). DER
 output_folder         — where Build-Bicep writes main.json + parameters.<subscription>.<slot>.json
 deployment_mode       — 'Incremental' unless overridden by options.yml
 deployment_target     — 'ResourceGroup' unless overridden by options.yml
-environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see
-[ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md))
-customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless
-                        options.yml sets it
+environment_kind      — INFERRED: 'subscription' when every slot's env is a per_subscription env in azure.yml, else 'standard'
+                        (see [ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md))
+customer_deployment   — INFERRED: true when a slot sits in a customer folder under configuration/
 prepost_module        — path to PrePost.psm1 if present (key omitted otherwise)
 resources             — extra files in resources/ if present (key omitted otherwise)
 ```
@@ -53,9 +52,9 @@ resources             — extra files in resources/ if present (key omitted othe
 Returns an empty array if no `infrastructure/templates/` folder exists at the repo root.
 
 A template's `short_name` is DERIVED from its folder name by default (the first 5 `[a-z0-9]` characters, hyphens dropped via
-`[Catzc.Azure.Templates.BicepShortName]::Resolve`. A template MAY override it (and/or declare `deployment_mode` / `deployment_target` /
-`environment_kind`) in an OPTIONAL `options.yml` beside `main.bicep`; Read-BicepTemplateOptions validates it (strict schema) and the values
-overlay the defaults here. Templates with no options.yml take the derived short_name and the mode/target defaults.
+`[Catzc.Azure.Templates.BicepShortName]::Resolve`. A template MAY override it (and/or declare `deployment_mode` / `deployment_target`) in an
+OPTIONAL `options.yml` beside `main.bicep`; Read-BicepTemplateOptions validates it (strict schema) and the values overlay the defaults here.
+Templates with no options.yml take the derived short_name and the mode/target defaults.
 
 ### example 1
 
@@ -81,18 +80,18 @@ is deterministic, and it carries none of `Get-ChildItem`'s per-call provider ove
 
 ## Template options
 
-- **Environment class.** The environment-class bit (standard or subscription, default standard) classifies the template
-  ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)), and every config must match it. The slot is a per-config dimension, not a
-  template bit, so a template may mix slotted and non-slotted configs.
-- **Customer class.** The customer-class bit says whether this is a customer template
-  ([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)). It defaults to the `have_customers` repo variant (`Test-HaveCustomers`)
-  unless `options.yml` sets it, and an explicit `customer_deployment: true` is allowed only when customers are enabled.
+- **Environment class.** The environment kind (standard or subscription) is inferred from the class of the slots' environments, by their
+  `per_subscription` flag in `azure.yml` ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)). Slots that mix the two classes are a
+  discovery violation, so the template splits in two. The slot is a per-config dimension, not a template bit, so a template may mix slotted
+  and non-slotted configs.
+- **Customer class.** Whether this is a customer template is inferred from the configuration tree: a slot in a customer folder makes it one
+  ([ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)). A customer folder is allowed only when the `have_customers` repo variant
+  (`Test-HaveCustomers`) enables customers and that customer.
 - **Short name.** `short_name` is the Azure id segment every resource name is built from. It is derived from the folder name by default, and
   an `options.yml` `short_name` overrides it. `BicepShortName` owns the derivation and the format validation, and a malformed override, or a
   folder that cannot yield a valid short name without one, throws here and names the template
   ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)).
-- **Other overrides.** The remaining deployment overrides are overlaid; `short_name`, `environment_kind` and `customer_deployment` are
-  already applied, so all three are excluded from the overlay.
+- **Other overrides.** The remaining deployment overrides are overlaid; `short_name` is already applied, so it is excluded from the overlay.
 
 ## Configs and slots
 

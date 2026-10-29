@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"0254c26541ed\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: ff2360e02979",
   "types": [
     {
       "name": "Catzc.Azure.Templates.AnomalyAlertConfig",
@@ -188,84 +188,6 @@
         },
         {
           "name": "template",
-          "kind": "property"
-        }
-      ]
-    },
-    {
-      "name": "Catzc.Azure.Templates.BicepItemName",
-      "aliases": [],
-      "display": [],
-      "members": [
-        {
-          "name": "ToString",
-          "kind": "method"
-        },
-        {
-          "name": "from",
-          "kind": "property"
-        },
-        {
-          "name": "role_from",
-          "kind": "property"
-        },
-        {
-          "name": "role",
-          "kind": "property"
-        },
-        {
-          "name": "type",
-          "kind": "property"
-        }
-      ]
-    },
-    {
-      "name": "Catzc.Azure.Templates.BicepNameEntry",
-      "aliases": [],
-      "display": [],
-      "members": [
-        {
-          "name": "ReadAll",
-          "kind": "method"
-        },
-        {
-          "name": "ToString",
-          "kind": "method"
-        },
-        {
-          "name": "each",
-          "kind": "property"
-        },
-        {
-          "name": "item_names",
-          "kind": "property"
-        },
-        {
-          "name": "keys_from",
-          "kind": "property"
-        },
-        {
-          "name": "owner_slot",
-          "kind": "property"
-        },
-        {
-          "name": "parameter",
-          "kind": "property"
-        },
-        {
-          "name": "roles",
-          "kind": "property"
-        },
-        {
-          "name": "role",
-          "kind": "property"
-        },
-        {
-          "name": "template",
-          "kind": "property"
-        },
-        {
-          "name": "type",
           "kind": "property"
         }
       ]
@@ -521,10 +443,6 @@
       "display": [],
       "members": [
         {
-          "name": "addresses",
-          "kind": "property"
-        },
-        {
           "name": "bicep_files",
           "kind": "property"
         },
@@ -561,19 +479,11 @@
           "kind": "property"
         },
         {
-          "name": "facts",
-          "kind": "property"
-        },
-        {
           "name": "folder",
           "kind": "property"
         },
         {
           "name": "main",
-          "kind": "property"
-        },
-        {
-          "name": "names",
           "kind": "property"
         },
         {
@@ -739,6 +649,10 @@
       "aliases": [],
       "display": [],
       "members": [
+        {
+          "name": "not_names",
+          "kind": "property"
+        },
         {
           "name": "patterns",
           "kind": "property"

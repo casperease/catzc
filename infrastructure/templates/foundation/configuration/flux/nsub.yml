@@ -12,6 +12,8 @@ ParametersFile:
         data-classification: confidential
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    ownerRoleId:
+      address: global.roles.roles.owner.id
     keyVaultName:
       value: ns-weu-zct-fnd-fl-kv
     logAnalyticsName:
@@ -34,5 +36,3 @@ ParametersFile:
       value: nsub-weu-zct-disco-flux-vnet
     privateDnsZoneResourceGroupName:
       value: nsub-weu-zct-disco-rg
-    ownerRoleId:
-      address: global.roles.roles.owner.id

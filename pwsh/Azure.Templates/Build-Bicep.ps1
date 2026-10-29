@@ -94,9 +94,6 @@ function Build-Bicep {
         $paramsPath = Join-Path $outputFolder (Get-BicepParametersFileName -Environment $environment -Slot $slot.slot -Customer $slot.customer)
         $bicepParamPath = [System.IO.Path]::ChangeExtension($paramsPath, '.bicepparam')
         if ($slot.format -eq [Catzc.Azure.Templates.BicepSlot]::BicepparamFormat) {
-            if ($templateDescriptor.names.Count -gt 0) {
-                throw "Slot '$($slot.name)' of template '$Template' is a .bicepparam, which takes no derived names; options.yml declares names, so the slot must be a .yml"
-            }
             $source = [System.IO.File]::ReadAllText($slot.file)
             [System.IO.File]::WriteAllText($bicepParamPath, $usingLine.Replace($source, "`$1'$using'", 1))
         }

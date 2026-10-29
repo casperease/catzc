@@ -12,6 +12,14 @@ Describe 'ConvertTo-BicepParam' -Tag 'L0', 'logic' {
             Should -Match "param zones = \[`n  '1'`n  '2'`n\]"
     }
 
+    It 'renders a parameter with a naming_exception exactly as one without' {
+        $plain = [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = @{ value = 'widget' } } } }
+        $excepted = [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = [ordered]@{ value = 'widget'; naming_exception = 'kept for the gadget' } } } }
+        $text = ConvertTo-BicepParam -Descriptor $excepted -Using '../main.bicep'
+        $text | Should -BeExactly (ConvertTo-BicepParam -Descriptor $plain -Using '../main.bicep')
+        $text | Should -Not -Match 'naming_exception'
+    }
+
     It 'throws when the descriptor holds no ParametersFile.parameters' {
         { ConvertTo-BicepParam -Descriptor ([ordered]@{ widget = 1 }) -Using '../main.bicep' } |
             Should -Throw '*holds no ParametersFile.parameters*'
@@ -32,10 +40,9 @@ Describe 'ConvertTo-BicepParam — every shipped yml slot renders as bicep forma
         foreach ($template in $templates) {
             # A bicepparam slot is read by the Bicep compiler, never rendered here.
             foreach ($slot in @($template.slots | Where-Object format -eq ([Catzc.Azure.Templates.BicepSlot]::YmlFormat))) {
-                $descriptor = Get-BicepTemplateConfiguration $template.name $slot.environment -Slot $slot.slot -Customer $slot.customer
-                $descriptor.ParametersFile.parameters = InModuleScope Catzc.Azure.Templates -Parameters @{ Parameters = $descriptor.ParametersFile.parameters } {
-                    param($Parameters)
-                    Resolve-BicepParameterAddresses -Parameters $Parameters -ConfigFile 'shipped.yml'
+                $descriptor = InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
+                    param($Template, $Slot)
+                    Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot -PrepareHook (Get-BicepPrepareHook -TemplateDescriptor $Template)
                 }
                 $file = Join-Path $folder "$($rendered.Count).bicepparam"
                 $rendered[$file] = ConvertTo-BicepParam -Descriptor $descriptor -Using '../main.bicep'

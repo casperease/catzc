@@ -23,15 +23,15 @@ ParametersFile:
       - subscription: apex_nonprod
         resourceGroupName: nsub-weu-zct-disco-apex-rg
         virtualNetworkName: nsub-weu-zct-disco-apex-vnet
-        peeringName: nsub-weu-zct-disco-ap-peer
+        peeringName: nsub-weu-zct-disco-apex-peer
       - subscription: nova_nonprod
         resourceGroupName: nsub-weu-zct-disco-nova-rg
         virtualNetworkName: nsub-weu-zct-disco-nova-vnet
-        peeringName: nsub-weu-zct-disco-nv-peer
+        peeringName: nsub-weu-zct-disco-nova-peer
       - subscription: flux_nonprod
         resourceGroupName: nsub-weu-zct-disco-flux-rg
         virtualNetworkName: nsub-weu-zct-disco-flux-vnet
-        peeringName: nsub-weu-zct-disco-fl-peer
+        peeringName: nsub-weu-zct-disco-flux-peer
     budgetAmount:
       value: 500
     budgetStartDate:
@@ -41,6 +41,8 @@ ParametersFile:
         keyVault:
           id: /subscriptions/50a0ed00-de00-50b0-0000-000000000000/resourceGroups/nsub-weu-zct-fnd-rg/providers/Microsoft.KeyVault/vaults/ns-weu-zct-fnd-kv
         secretName: disco-anomaly-recipients
+    roles:
+      address: global.roles.roles
     resourceGroupName:
       value: nsub-weu-zct-disco-rg
     virtualNetworkName:
@@ -96,5 +98,3 @@ ParametersFile:
       fact: groups
     allowedResourceTypes:
       fact: module_resource_types
-    roles:
-      address: global.roles.roles

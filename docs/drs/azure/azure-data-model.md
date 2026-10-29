@@ -16,8 +16,8 @@ customer's; the subscription is always RESOLVED from that coordinate, never spel
 
 One config file ⟷ one (customer?, env, **slot**) ⟷ one Azure resource group, in the one subscription its coordinate resolves to
 (ADR-AZ-DATAMOD-NAMEKEYEDMAPS); every config lives at `configuration/[<customer>/]<env>[-<slot>].yml` or
-`configuration/[<customer>/]<env>[-<slot>].bicepparam`, never both for one coordinate (discovery fails on both, naming the coordinate), and
-listing that tree is the resource-group inventory.
+`configuration/[<customer>/]<env>[-<slot>].bicepparam`; a `<slot>.yml` beside a `<slot>.bicepparam` may hold only `ResourceGroup:` and is
+not a slot, and listing that tree is the resource-group inventory.
 
 - [Layer 2 — Templating (`infrastructure/templates/<name>/`)](#layer-2--templating)
 

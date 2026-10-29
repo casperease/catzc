@@ -104,7 +104,7 @@ terms:
     - term: sekret
       meaning: "deliberately-misspelled placeholder secret value 'sekret' in Write-EnvironmentSet tests"
     - term: sidx
-      meaning: "resource-name shortcode in restricted-naming examples (Get-BicepResourceGroupName)"
+      meaning: "resource-name shortcode in restricted-naming examples (the sample-indexed fixture's declared resource groups)"
     - term: smod
       meaning: "short_name 'smod' of the sample-with-module test template"
     - term: smpl

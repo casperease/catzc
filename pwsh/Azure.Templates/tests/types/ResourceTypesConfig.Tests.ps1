@@ -33,6 +33,18 @@ Describe 'ResourceTypesConfig' -Tag 'L0', 'logic' {
         $config.patterns['wide'].ContainsKey('limit') | Should -BeFalse
     }
 
+    It 'gives the default not_names when the file names none, and keeps a declared list' {
+        $config = & $script:newConfig ([ordered]@{ cog = [ordered]@{ pattern = 'wide'; limit = 30 } })
+        $config.not_names | Should -Be ([Catzc.Azure.Templates.ResourceTypesConfig]::DefaultNotNames)
+        $config.not_names | Should -Be @('SkuName', 'SubnetName')
+        $declared = [Catzc.Azure.Templates.ResourceTypesConfig]::new([ordered]@{
+                patterns  = $script:patterns
+                types     = [ordered]@{ cog = [ordered]@{ pattern = 'wide'; limit = 30 } }
+                not_names = @('WidgetName', 'GadgetNames')
+            })
+        $declared.not_names | Should -Be @('WidgetName', 'GadgetNames')
+    }
+
     It 'requires both maps' {
         { [Catzc.Azure.Templates.ResourceTypesConfig]::new($null) } | Should -Throw "*'patterns' is required*"
         { [Catzc.Azure.Templates.ResourceTypesConfig]::new(@{ patterns = $script:patterns }) } | Should -Throw "*'types' is required*"
@@ -55,6 +67,9 @@ Describe 'ResourceTypesConfig' -Tag 'L0', 'logic' {
         @{ case = 'an omit of the type component'; raw = @{ patterns = @{ tight = @{ separator = ''; limit = 9 } }; types = @{ cog = @{ pattern = 'tight'; omit = @('type') } } }; message = "*types.cog: omit names 'type'*" }
         @{ case = 'an empty omit'; raw = @{ patterns = @{ tight = @{ separator = ''; limit = 9 } }; types = @{ cog = @{ pattern = 'tight'; omit = @() } } }; message = '*types.cog: omit must name at least one component*' }
         @{ case = 'a type line that is not a mapping'; raw = @{ patterns = @{ wide = @{ separator = '-' } }; types = @{ cog = 'wide' } }; message = '*types.cog must be a mapping*' }
+        @{ case = 'a not_names that is not a list'; raw = @{ patterns = @{ wide = @{ separator = '-' } }; types = @{ cog = @{ pattern = 'wide'; limit = 3 } }; not_names = 'SkuName' }; message = '*not_names must be a list of key suffixes*' }
+        @{ case = 'a not_names suffix that does not end in Name'; raw = @{ patterns = @{ wide = @{ separator = '-' } }; types = @{ cog = @{ pattern = 'wide'; limit = 3 } }; not_names = @('WidgetSku') }; message = "*not_names: 'WidgetSku' is not a key suffix ending in Name or Names*" }
+        @{ case = 'an empty not_names'; raw = @{ patterns = @{ wide = @{ separator = '-' } }; types = @{ cog = @{ pattern = 'wide'; limit = 3 } }; not_names = @() }; message = '*not_names must name at least one key suffix*' }
     ) {
         { [Catzc.Azure.Templates.ResourceTypesConfig]::new($raw) } | Should -Throw $message
     }

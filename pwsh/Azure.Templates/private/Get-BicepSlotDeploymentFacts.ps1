@@ -20,7 +20,7 @@ function Get-BicepSlotDeploymentFacts {
         $facts.SubscriptionId = "$($azure.subscriptions[$Slot.subscription].id)"
     }
     if ($Template.deployment_target -eq 'ResourceGroup') {
-        $facts.ResourceGroupName = Get-BicepResourceGroupName -Template $Template.name -Environment $Slot.environment -Slot $Slot.slot -Customer $Slot.customer
+        $facts.ResourceGroupName = Get-BicepSlotResourceGroup -TemplateDescriptor $Template -Environment $Slot.environment -Slot $Slot.slot -Customer $Slot.customer
     }
     $facts
 }

@@ -13,12 +13,13 @@ discovery) and Assert-BicepTemplate (collect-all), so the two never drift. Paral
 
 ### description
 
-Checks one config against the template's `customer_deployment` bit and returns a (possibly empty) array of human-readable violation strings.
-The config's customer is its configuration subfolder ('' for a configuration-root config). The rule is asymmetric:
+Checks one config's customer and returns a (possibly empty) array of human-readable violation strings. The config's customer is its
+configuration subfolder ('' for a configuration-root config). Whether a template is a customer deployment is inferred from the configuration
+tree (a slot in a customer folder), never declared, so the rule needs only the customer:
 
-- customer_deployment = false ⇒ the config must NOT live under a customer subfolder (a non-customer template ships root configs only);
-- customer_deployment = true ⇒ a customer subfolder is allowed, but its customer must be ENABLED by the have_customers variant
-  (Test-HaveCustomer). A true template may still ship root configs.
+- a root config (no customer) never violates;
+- a customer config needs customer deployments enabled by the have_customers variant (Test-HaveCustomers) and its customer enabled
+  (Test-HaveCustomer).
 
 Empty result means the config conforms.
 
@@ -27,10 +28,6 @@ It rests on [ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md).
 ### parameter `Customer`
 
 The configuration subfolder name (a customer key), or '' for a configuration-root config.
-
-### parameter `CustomerDeployment`
-
-The template's effective customer_deployment bit.
 
 ### parameter `Location`
 

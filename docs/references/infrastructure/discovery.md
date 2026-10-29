@@ -35,7 +35,7 @@ plan is [network-model](../../drs/azure/azure-network-model.md); the configurati
 
 ## Configuration
 
-- `short_name`: `disco`; `environment_kind`: `subscription`; `deployment_target`: `Subscription` (`az deployment sub create`).
+- `short_name`: `disco`; environment kind (inferred): subscription; `deployment_target`: `Subscription` (`az deployment sub create`).
 - One config per subscription, keyed by the per-subscription environment (`nsub` non-production, `psub` production); no special slot.
 - `configuration/<nsub|psub>.yml` at the configuration root are the two hubs; `configuration/<customer>/<nsub|psub>.yml` are the spokes of
   the `apex`, `nova`, and `flux` customers (non-production and, for apex, production) — the same coordinates as `foundation`.

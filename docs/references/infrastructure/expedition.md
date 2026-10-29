@@ -40,7 +40,7 @@ per environment class follow from the backups the configuration sets; a change t
 
 ## Configuration
 
-- `short_name`: `exped`; `environment_kind`: `standard` (per environment).
+- `short_name`: `exped`; environment kind (inferred): standard (per environment).
 - `configuration/apex/dev.yml`, the ephemeral slot `dev-blu` on it (a second deployment beside the base one, with no file: cd-apex deploys
   it from its own target list), and `configuration/apex/prod.yml` for apex; `configuration/nova/dev.yml` for nova; `configuration/dev.yml`
   and `configuration/test.yml` at the configuration root, for the shared platform.

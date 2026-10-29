@@ -12,10 +12,13 @@ Matches each declared name of a base slot and renders the template's own names a
 
 A runtime slot has no file, so it is the one place where the names are still computed
 ([ADR-AZ-NAMING-DETERMINISTICNAMES](../../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-deterministicnames)). Each string leaf
-under a parameter whose key ends in `Name` or `Names`, and the base slot's `ResourceGroup`, is matched by ConvertFrom-AzureResourceName
-under the `naming` variant. A name whose short_name is the template's own is rendered again by Get-AzureResourceName with the runtime slot.
-A name of another template, a parameter with a `naming_exception` and a value that is no name are returned as written. A name with no single
-match throws, since a runtime slot never deploys into a guessed name. The result holds the `Parameters` map and the `ResourceGroup`.
+the name gate reads as a name (Get-BicepSlotNameLeaf: a key on its path ends in `Name` or `Names`, and none in a `not_names` suffix of
+`resource-types.yml`), and the base slot's `ResourceGroup`, is matched by ConvertFrom-AzureResourceName under the `naming` variant. A name
+on the base slot's own coordinates, its short_name the template's own, its env and customer the base slot's and no slot of its own, is
+rendered again by Get-AzureResourceName with the runtime slot. A name of another template, a name of a sibling slot of the same template (a
+hub in another environment, or a declared slot such as `001`), a parameter with a `naming_exception` and a value that is no name are
+returned as written. A name with no single match throws, since a runtime slot never deploys into a guessed name. The result holds the
+`Parameters` map and the `ResourceGroup`.
 
 ### parameter `TemplateDescriptor`
 
@@ -28,6 +31,14 @@ The base slot's declared parameters, each a map with its `value`.
 ### parameter `ResourceGroup`
 
 The base slot's declared resource group; empty for a Subscription target.
+
+### parameter `Environment`
+
+The base slot's environment, which an own name carries.
+
+### parameter `Customer`
+
+The base slot's customer, which an own name carries; empty for the shared platform.
 
 ### parameter `RuntimeSlot`
 

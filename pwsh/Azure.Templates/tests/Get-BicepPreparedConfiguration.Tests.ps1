@@ -1,18 +1,16 @@
-Describe 'Get-BicepPreparedConfiguration: addresses and facts' -Tag 'L0', 'logic' {
+Describe 'Get-BicepPreparedConfiguration: slot addresses, facts and runtime slot names' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:slot = [Catzc.Azure.Templates.BicepSlot]::new('alpha', 'alpha', '', 'widget_sub', '', 'C:/widget/configuration/alpha.yml')
         $script:template = [Catzc.Azure.Templates.BicepTemplate]::new([ordered]@{
                 name = 'widget'; folder = 'C:/widget'; main = 'C:/widget/main.bicep'; configuration_folder = 'C:/widget/configuration'
-                output_folder = 'C:/out/widget'; deployment_mode = 'Incremental'; deployment_target = 'ResourceGroup'; environment_kind = 'standard'
-                short_name = 'wdg'; slots = @($slot); addresses = [ordered]@{ gadgetRoleId = 'global.roles.gadget.id' }
-                facts = [ordered]@{ gadgetEnforcement = 'policy_enforcement' }
+                output_folder = 'C:/out/widget'; deployment_mode = 'Incremental'; deployment_target = 'ResourceGroup'
+                short_name = 'wdg'; slots = @($slot)
             })
     }
 
     BeforeEach {
         # A mock keeps Get-BicepTemplateConfiguration's own -Template validation, so the fixture template is a known name.
         Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
-        Mock Resolve-BicepDerivedNames -ModuleName Catzc.Azure.Templates { [ordered]@{} }
         # The fact resolution itself is Resolve-BicepEnvironmentFacts's; here it reports the field it was handed and the file it names.
         Mock Resolve-BicepEnvironmentFacts -ModuleName Catzc.Azure.Templates {
             $resolved = [ordered]@{}
@@ -41,31 +39,25 @@ Describe 'Get-BicepPreparedConfiguration: addresses and facts' -Tag 'L0', 'logic
         }
     }
 
-    It 'gives every slot the declared address, resolved with the slot''s own addresses' {
+    It 'resolves the slot''s own { address: } entries and keeps its plain values' {
         Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates {
-            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = [ordered]@{ value = 'widget' } } } }
+            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{
+                        widgetName   = [ordered]@{ value = 'widget' }
+                        gadgetRoleId = [ordered]@{ address = 'global.roles.gadget.id' }
+                    }
+                }
+            }
         }
         InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
             param($Template, $Slot)
             $parameters = (Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot).ParametersFile.parameters
             $parameters.gadgetRoleId.value | Should -Be 'resolved:global.roles.gadget.id'
             $parameters.widgetName.value | Should -Be 'widget'
+            @($parameters.Keys) | Should -Be @('widgetName', 'gadgetRoleId')
         }
     }
 
-    It 'refuses a slot that sets a parameter the template addresses' {
-        Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates {
-            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ gadgetRoleId = [ordered]@{ value = 'hand-typed' } } } }
-        }
-        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
-            param($Template, $Slot)
-            $arguments = @{ TemplateDescriptor = $Template; Slot = $Slot }
-            { Get-BicepPreparedConfiguration @arguments } |
-                Should -Throw "*writes 'gadgetRoleId', a shared value of the template (options.yml addresses)*"
-        }
-    }
-
-    It 'resolves the options.yml facts and the slot''s own { fact: } entries in one pass, naming the slot file' {
+    It 'resolves the slot''s own { fact: } entries, naming the slot file' {
         Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates {
             [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetZoned = [ordered]@{ fact = 'subscription_production' } } } }
         }
@@ -74,19 +66,38 @@ Describe 'Get-BicepPreparedConfiguration: addresses and facts' -Tag 'L0', 'logic
             $parameters = (Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot).ParametersFile.parameters
             $configFile = Join-Path 'C:/widget/configuration' 'alpha.yml'
             $parameters.widgetZoned.value | Should -Be "fact:subscription_production@$configFile"
-            $parameters.gadgetEnforcement.value | Should -Be "fact:policy_enforcement@$configFile"
+            @($parameters.Keys) | Should -Be @('widgetZoned')
         }
     }
 
-    It 'refuses a slot that sets a parameter the template''s options.yml facts declare' {
+    It 'renders a runtime slot''s names from its base slot''s with Resolve-BicepRuntimeSlotNames' -Tag 'ADR-AZ-NAMING-DETERMINISTICNAMES' {
         Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates {
-            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ gadgetEnforcement = [ordered]@{ value = 'hand-typed' } } } }
+            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = [ordered]@{ value = 'widget' } } } }
         }
+        Mock Resolve-BicepRuntimeSlotNames -ModuleName Catzc.Azure.Templates -RemoveParameterType TemplateDescriptor {
+            [ordered]@{
+                Parameters    = [ordered]@{ widgetName = [ordered]@{ value = "$($Parameters.widgetName.value)@$Environment-$RuntimeSlot" } }
+                ResourceGroup = ''
+            }
+        }
+        $runtime = [Catzc.Azure.Templates.BicepSlot]::new('alpha-red', 'alpha', 'red', 'widget_sub', '', 'C:/widget/configuration/alpha.yml')
+        InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $runtime } {
+            param($Template, $Slot)
+            $parameters = (Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot).ParametersFile.parameters
+            $parameters.widgetName.value | Should -Be 'widget@alpha-red'
+        }
+    }
+
+    It 'uses a declared slot''s names as written, never the runtime slot names' -Tag 'ADR-AZ-NAMING-DETERMINISTICNAMES' {
+        Mock Get-BicepTemplateConfiguration -ModuleName Catzc.Azure.Templates {
+            [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = [ordered]@{ value = 'widget' } } } }
+        }
+        Mock Resolve-BicepRuntimeSlotNames -ModuleName Catzc.Azure.Templates -RemoveParameterType TemplateDescriptor { throw 'not a runtime slot' }
         InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
             param($Template, $Slot)
-            $arguments = @{ TemplateDescriptor = $Template; Slot = $Slot }
-            { Get-BicepPreparedConfiguration @arguments } |
-                Should -Throw "*writes 'gadgetEnforcement', a fact of its environment (options.yml facts)*"
+            $parameters = (Get-BicepPreparedConfiguration -TemplateDescriptor $Template -Slot $Slot).ParametersFile.parameters
+            $parameters.widgetName.value | Should -BeExactly 'widget'
+            @($parameters.Keys) | Should -Be @('widgetName')
         }
     }
 }

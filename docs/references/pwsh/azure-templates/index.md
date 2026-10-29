@@ -125,8 +125,7 @@ by [Catzc.Azure](../azure/index.md)).
 |                                                                   | `Get-AzureNameOrderSet`           |
 |                                                                   | `Get-AzureNamePatternSet`         |
 |                                                                   | `Get-AzureResourceTypeSet`        |
-| responsibility:3 — Deployment classification                      | `Get-AzureBicepEnvironmentKinds`  |
-|                                                                   | `Get-AzureBicepDeploymentModes`   |
+| responsibility:3 — Deployment classification                      | `Get-AzureBicepDeploymentModes`   |
 |                                                                   | `Get-AzureBicepDeploymentTargets` |
 |                                                                   | `Get-BicepDeploymentName`         |
 | responsibility:4 — Build                                          | `Build-Bicep`                     |

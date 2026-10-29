@@ -1,0 +1,3 @@
+description: Renders each slot's declared resource names and its resource group again in the configured naming order.
+parameters:
+  template: string[]

@@ -100,4 +100,38 @@ Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
         It 'vm / standard' { Get-AzureResourceName @parts -Type vm                | Should -Be 'alweusmplvm' }
         It 'vm / classic' { Get-AzureResourceName @parts -Type vm -Order classic | Should -Be 'vmsmplalweu' }
     }
+
+    It 'renders every type so the matcher reads back its components under the <order> order' -ForEach @(
+        @{ order = 'standard' }
+        @{ order = 'classic' }
+    ) {
+        $module = Get-Module Catzc.Azure.Templates
+        $types = & $module { Get-AzureResourceTypeSet }
+        $sets = @{
+            env        = @{ alpha = 'al' }
+            customer   = @{ acme = 'ac' }
+            slot       = @('1')
+            region     = @('weu')
+            org        = @('fxo')
+            short_name = @('sm')
+            types      = $types
+            patterns   = & $module { Get-AzureNamePatternSet }
+        }
+        $sequence = & $module { param($name) Resolve-AzureNameOrder -Order $name } $order
+        foreach ($type in @($types.Keys)) {
+            $name = Get-AzureResourceName -Env alpha -Shortcode al -Slot 1 -RegionCode weu -Org fxo -ShortName sm -Customer acme -CustomerShortcode ac -Role ho -Type $type -Order $order
+            $omit = [Catzc.Azure.Templates.AzureNameRenderer]::Omit($types[$type])
+            $match = [Catzc.Azure.Templates.AzureNameMatcher]::Match($name, $type, $sets, $sequence)
+            $expected = [ordered]@{ env = 'alpha'; slot = '1'; region = 'weu'; org = 'fxo'; short_name = 'sm'; customer = 'acme'; role = 'ho'; type = $type }
+            foreach ($key in $expected.Keys) {
+                $want = if ($key -in $omit) {
+                    ''
+                }
+                else {
+                    $expected[$key]
+                }
+                $match[$key] | Should -Be $want -Because "$key of the $type name '$name'"
+            }
+        }
+    }
 }

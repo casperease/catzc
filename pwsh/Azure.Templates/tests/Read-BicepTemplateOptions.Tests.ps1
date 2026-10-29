@@ -52,33 +52,16 @@ Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
         $result.short_name | Should -Be 'smpl'
     }
 
-    It 'parses a facts map whose values are boolean fields of the environment record' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value "facts:`n  deployWidgetAlerts: production"
-        $result = & $script:invoke $script:folder
-        $result.facts.deployWidgetAlerts | Should -Be 'production'
-    }
-
-    It 'throws on a fact that is no boolean field of the environment record, naming the valid fields' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value "facts:`n  deployWidgetAlerts: region"
-        { & $script:invoke $script:folder } | Should -Throw "*facts.deployWidgetAlerts: unknown environment field 'region'*production*"
-    }
-
-    It 'parses an addresses map of global config addresses, and throws on a value that is not one' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value "addresses:`n  widgetRoleId: global.roles.widget.id"
-        (& $script:invoke $script:folder).addresses.widgetRoleId | Should -Be 'global.roles.widget.id'
-        Set-Content (Join-Path $script:folder 'options.yml') -Value "addresses:`n  widgetRoleId: roles.widget.id"
-        { & $script:invoke $script:folder } | Should -Throw "*addresses.widgetRoleId: 'roles.widget.id' is not a global config address*"
-    }
-
-    It 'parses a customer_deployment boolean' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value 'customer_deployment: true'
-        $result = & $script:invoke $script:folder
-        $result.customer_deployment | Should -BeTrue
-    }
-
-    It 'throws on a non-boolean customer_deployment' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value 'customer_deployment: maybe'
-        { & $script:invoke $script:folder } | Should -Throw '*invalid customer_deployment*'
+    It 'rejects the removed <Key> key as unknown, naming the options file' -ForEach @(
+        @{ Key = 'names'; Yaml = "names:`n  widgetName: { type: kv }" }
+        @{ Key = 'facts'; Yaml = "facts:`n  deployWidgetAlerts: production" }
+        @{ Key = 'addresses'; Yaml = "addresses:`n  widgetRoleId: global.roles.widget.id" }
+        @{ Key = 'environment_kind'; Yaml = 'environment_kind: subscription' }
+        @{ Key = 'customer_deployment'; Yaml = 'customer_deployment: true' }
+    ) {
+        $file = Join-Path $script:folder 'options.yml'
+        Set-Content $file -Value $Yaml
+        { & $script:invoke $script:folder } | Should -Throw "$file validation failed*unknown key '$Key'*"
     }
 
     It 'throws on a malformed short_name' {
@@ -109,16 +92,6 @@ Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
     It 'rejects the removed slotted key (slot is per-config, not a template bit)' {
         Set-Content (Join-Path $script:folder 'options.yml') -Value 'slotted: true'
         { & $script:invoke $script:folder } | Should -Throw "*unknown key 'slotted'*"
-    }
-
-    It 'parses environment_kind' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value 'environment_kind: subscription'
-        (& $script:invoke $script:folder).environment_kind | Should -Be 'subscription'
-    }
-
-    It 'throws on an invalid environment_kind, naming the valid set' {
-        Set-Content (Join-Path $script:folder 'options.yml') -Value 'environment_kind: tenant'
-        { & $script:invoke $script:folder } | Should -Throw '*invalid environment_kind*standard*subscription*'
     }
 
     It 'rejects the removed subscription_groups key as unknown (templates target subscriptions by config folder now)' {

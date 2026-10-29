@@ -67,10 +67,10 @@ Describe 'sample-indexed (indexed slots)' -Tag 'L0', 'logic' {
         $a002.parameters.storageAccountName.value | Should -Be 'al002weufxosidxst'
     }
 
-    It 'derives a distinct resource group per slot (one config file maps to one RG)' {
-        & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-indexed -Environment alpha -Slot 001 } |
+    It 'reads a distinct declared resource group per slot (one config file maps to one RG)' {
+        & (Get-Module Catzc.Azure.Templates) { Get-BicepSlotResourceGroup -TemplateDescriptor (Get-BicepTemplate sample-indexed) -Environment alpha -Slot 001 } |
             Should -Be 'alpha-001-weu-fxo-sidx-rg'
-        & (Get-Module Catzc.Azure.Templates) { Get-BicepResourceGroupName -Template sample-indexed -Environment alpha -Slot 002 } |
+        & (Get-Module Catzc.Azure.Templates) { Get-BicepSlotResourceGroup -TemplateDescriptor (Get-BicepTemplate sample-indexed) -Environment alpha -Slot 002 } |
             Should -Be 'alpha-002-weu-fxo-sidx-rg'
     }
 

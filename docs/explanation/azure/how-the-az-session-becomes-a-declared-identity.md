@@ -10,7 +10,7 @@ How the az session becomes a declared identity.
 5  Catzc.Azure            the identity joins: Get-AzureSubscription, Get-AzureEnvironment and the namer
 6  Catzc.Azure.Templates  Get-BicepDeploymentContext and Deploy-Bicep: the deploy surface
 7  configuration tree     configuration/[<customer>/]<env>[-<slot>].yml, one file per slot
-8  resource-group name    derived from the env, the slot and the session's customer; never typed
+8  resource-group name    declared by the slot the env, the slot and the session's customer select
 
 Supports ADR-AZ-DATAMOD-CUSTOMERAXIS and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 ```
@@ -18,7 +18,7 @@ Supports ADR-AZ-DATAMOD-CUSTOMERAXIS and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and A
 Cats keeps Azure identity in one file, `azure.yml`, and the deploy target in one place, the az session. The two meet in a single reverse
 lookup: `Catzc.Azure.Cli` resolves the session's subscription id to the identity the file declares, and every module further along reads
 that identity instead of asking the session again. The templating module picks the configuration slot from it, the Azure root module checks
-it against the environment, and the namer renders its customer into the resource-group name.
+it against the environment, and the slot it selects declares the resource-group name.
 
 ```yml drawio
 description:
@@ -106,8 +106,8 @@ The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az se
 7. **Configuration tree.** A template's configs live at `configuration/[<customer>/]<env>[-<slot>].yml`, one file per slot. The session's
    customer decides whether the deploy reads the customer's subfolder or the configuration root; the environment and the slot are the
    deploy's own arguments.
-8. **Resource-group name.** `Get-BicepResourceGroupName` derives it from the environment, the slot and the session's customer through the
-   namer. The subscription is a resolution axis only and never a name component.
+8. **Resource-group name.** The slot the session's customer, the environment and the slot select declares it under its top-level
+   `ResourceGroup:` key (ADR-AZ-DATAMOD-DECLAREDGROUPNAME). The subscription is a resolution axis only and never a name component.
 
 ## Why it holds
 

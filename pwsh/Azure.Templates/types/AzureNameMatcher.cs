@@ -28,6 +28,8 @@ public static class AzureNameMatcher
         Dictionary<string, OrderedDictionary> matches = new Dictionary<string, OrderedDictionary>();
         Dictionary<string, SortedSet<string>> tokens = Parts.ToDictionary(part => part, part => new SortedSet<string>(StringComparer.Ordinal));
         SortedSet<string> leftovers = new SortedSet<string>(StringComparer.Ordinal);
+        HashSet<string> shortcodes = CustomerShortcodes(candidateSets);
+        SortedSet<string> shortcodeRoles = new SortedSet<string>(StringComparer.Ordinal);
         foreach (string candidate in typeKeys)
         {
             IDictionary typeSpec = types[candidate] as IDictionary
@@ -46,16 +48,18 @@ public static class AzureNameMatcher
             }
             bool roleOmitted = AzureNameRenderer.Omit(typeSpec).Contains("role");
             Walk(sets, 0, new Hashtable(), new Hashtable(), combination =>
-                Try(name, combination.Item1, combination.Item2, order, typeSpec, pattern, roleOmitted, matches, leftovers));
+                Try(name, combination.Item1, combination.Item2, order, typeSpec, pattern, roleOmitted, matches, leftovers, shortcodes,
+                    shortcodeRoles));
         }
         if (matches.Count == 1) { return matches.Values.First(); }
-        if (matches.Count == 0) { throw new ArgumentException(Diagnose(name, tokens, leftovers)); }
+        if (matches.Count == 0) { throw new ArgumentException(Diagnose(name, tokens, leftovers, shortcodeRoles)); }
         throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Name '{0}' is ambiguous: it matches {1} canonical forms: {2}",
             name, matches.Count, string.Join("; ", matches.Keys.OrderBy(key => key, StringComparer.Ordinal))));
     }
 
     private static void Try(string name, Hashtable rendered, Hashtable values, IEnumerable order, IDictionary typeSpec, IDictionary pattern,
-        bool roleOmitted, Dictionary<string, OrderedDictionary> matches, SortedSet<string> leftovers)
+        bool roleOmitted, Dictionary<string, OrderedDictionary> matches, SortedSet<string> leftovers, HashSet<string> shortcodes,
+        SortedSet<string> shortcodeRoles)
     {
         rendered["role"] = string.Empty;
         if (AzureNameRenderer.Join(rendered, order, typeSpec, pattern) == name) { Add(matches, values, string.Empty); }
@@ -69,7 +73,25 @@ public static class AzureNameMatcher
         if (name.Length <= prefix.Length + suffix.Length) { return; }
         if (!name.StartsWith(prefix, StringComparison.Ordinal) || !name.EndsWith(suffix, StringComparison.Ordinal)) { return; }
         string role = name.Substring(prefix.Length, name.Length - prefix.Length - suffix.Length);
-        if (Regex.IsMatch(role, RolePattern)) { Add(matches, values, role); } else { leftovers.Add(role); }
+        if (!Regex.IsMatch(role, RolePattern)) { leftovers.Add(role); }
+        else if (shortcodes.Contains(role)) { shortcodeRoles.Add(role); }
+        else { Add(matches, values, role); }
+    }
+
+    private static HashSet<string> CustomerShortcodes(IDictionary candidateSets)
+    {
+        HashSet<string> shortcodes = new HashSet<string>(StringComparer.Ordinal);
+        object source = candidateSets.Contains("customer") ? candidateSets["customer"] : null;
+        if (source is IDictionary forms)
+        {
+            foreach (DictionaryEntry entry in forms) { shortcodes.Add(entry.Value == null ? entry.Key.ToString() : entry.Value.ToString()); }
+        }
+        else if (source is IEnumerable list && !(source is string))
+        {
+            foreach (object item in list) { if (item != null) { shortcodes.Add(item.ToString()); } }
+        }
+        else if (source != null) { shortcodes.Add(source.ToString()); }
+        return shortcodes;
     }
 
     private static void Add(Dictionary<string, OrderedDictionary> matches, Hashtable values, string role)
@@ -131,7 +153,8 @@ public static class AzureNameMatcher
         }
     }
 
-    private static string Diagnose(string name, Dictionary<string, SortedSet<string>> tokens, SortedSet<string> leftovers)
+    private static string Diagnose(string name, Dictionary<string, SortedSet<string>> tokens, SortedSet<string> leftovers,
+        SortedSet<string> shortcodeRoles)
     {
         List<string> lines = new List<string>
         {
@@ -147,9 +170,17 @@ public static class AzureNameMatcher
                 lines.Add(string.Format(CultureInfo.InvariantCulture, "  {0}: none of ({1}) in the name", part, string.Join(", ", tokens[part])));
             }
         }
-        lines.Add(leftovers.Count > 0
-            ? string.Format(CultureInfo.InvariantCulture, "  role: leftover '{0}' is not {1}", string.Join("', '", leftovers), RolePattern)
-            : "  role: no render of the other parts frames the name");
+        if (shortcodeRoles.Count > 0)
+        {
+            lines.Add(string.Format(CultureInfo.InvariantCulture,
+                "  role: leftover '{0}' equals a customer shortcode, and a role never does (ADR-AZ-NAMING-ROLENOTCUSTOMER)",
+                string.Join("', '", shortcodeRoles)));
+        }
+        if (leftovers.Count > 0)
+        {
+            lines.Add(string.Format(CultureInfo.InvariantCulture, "  role: leftover '{0}' is not {1}", string.Join("', '", leftovers), RolePattern));
+        }
+        if (shortcodeRoles.Count == 0 && leftovers.Count == 0) { lines.Add("  role: no render of the other parts frames the name"); }
         return string.Join(Environment.NewLine, lines);
     }
 

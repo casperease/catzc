@@ -133,7 +133,7 @@ that need it. The one unavoidably eager step is the bootstrap module's own disco
 `Get-BicepTemplates` is the canonical case: without caching it would rescan `infrastructure/templates/`, read **and re-validate every
 `options.yml`**, and re-check `short_name` global uniqueness **on every call**. A single `Deploy-Bicep` triggers it many times over: the
 `-Template` `ValidateScript`, `Get-BicepTemplate`, `Get-BicepDeploymentContext`, `Get-BicepTemplateConfiguration`,
-`Get-BicepDeploymentName`, `Get-BicepResourceGroupName`, and the completers — easily 8–10 full filesystem rescans producing an identical
+`Get-BicepDeploymentName`, `Get-BicepSlotResourceGroup`, and the completers — easily 8–10 full filesystem rescans producing an identical
 result. This is pure [waste](../principles/reduce-waste.md), and on enterprise machines where the home directory and its repositories can
 sit on network storage it is also latency that compounds (see [effective-in-enterprises](effective-in-enterprises.md)).
 

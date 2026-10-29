@@ -3,7 +3,7 @@
 ```text
 How an Azure resource gets its name.
 
-1   Deploy-Bicep           the in-tree caller, through the resource-group name
+1   Invoke-BreakGlassRotation  an in-tree caller, naming the sql server it rotates
 2   Get-BicepResourceName  reads azure.yml, short_name, the customer and the order
 3   lookup                 type, then order, then the type's pattern
 4   omit + form            drops omitted components; picks the name or shortcode form
@@ -42,7 +42,7 @@ content:
   groups:
     - { id: grp-guarded, label: GUARDED, in: band-namer }
   glyphs:
-    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-namer }
+    - { id: g-rotation, kind: code, label: Invoke-BreakGlassRotation, in: band-namer }
     - { id: g-resource-name, kind: code, label: Get-BicepResourceName, in: band-namer }
     - { id: g-lookup, kind: code, label: lookup, in: grp-guarded }
     - { id: g-form, kind: code, label: omit + form, in: grp-guarded }
@@ -53,7 +53,7 @@ content:
     - { id: f-guard, kind: failure, label: guard throws, in: band-stop }
     - { id: f-limit, kind: failure, label: limit throw, in: band-stop }
   edges:
-    - { from: g-deploy, to: g-resource-name, kind: flow, label: calls }
+    - { from: g-rotation, to: g-resource-name, kind: flow, label: calls }
     - { from: g-resource-name, to: g-lookup, kind: flow, label: calls }
     - { from: g-lookup, to: g-form, kind: flow, label: then }
     - { from: g-form, to: g-format, kind: flow, label: then }
@@ -63,7 +63,7 @@ content:
     - { from: grp-guarded, to: f-guard, kind: fail, label: "" }
     - { from: g-limit, to: f-limit, kind: fail, label: "" }
   markers:
-    - { at: g-deploy, number: 1 }
+    - { at: g-rotation, number: 1 }
     - { at: g-resource-name, number: 2 }
     - { at: g-lookup, number: 3 }
     - { at: g-form, number: 4 }
@@ -78,7 +78,7 @@ content:
 layout:
   band-namer: { x: 20, y: 84, w: 700, h: 650 }
   band-stop: { x: 740, y: 84, w: 540, h: 650 }
-  g-deploy: { x: 220, y: 124, w: 300, h: 44 }
+  g-rotation: { x: 220, y: 124, w: 300, h: 44 }
   g-resource-name: { x: 220, y: 196, w: 300, h: 44 }
   grp-guarded: { x: 180, y: 256, w: 380, h: 284 }
   g-lookup: { x: 220, y: 300, w: 300, h: 44 }
@@ -95,8 +95,9 @@ layout:
 
 ## Walkthrough
 
-1. **Deploy-Bicep.** The in-tree caller. It calls `Get-BicepDeploymentContext`, which for a resource-group template calls the private
-   `Get-BicepResourceGroupName`, which in turn calls `Get-BicepResourceName -Type rg`.
+1. **Invoke-BreakGlassRotation.** It names the sql server it rotates with `Get-BicepResourceName -Type sql`, as
+   `Set-AnomalyAlertRecipientSecret` names its vault with `-Type kv`. A resource group is never built here: the slot declares it under its
+   top-level `ResourceGroup:` key (ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 2. **Get-BicepResourceName.** It reads the environment's entry in `azure.yml` (its name, `shortcode` and `region_code`) and the repo-wide
    `org`, takes the template's `short_name`, resolves the customer through `Get-AzureCustomer` when `-Customer` is given, and sets `Order`
    from `Get-Naming`. Then it calls the namer.

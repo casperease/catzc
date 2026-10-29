@@ -9,8 +9,12 @@ It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also prese
 
 ## Properties
 
-- **`customer_deployment`** — whether this is a customer template, whose configs deploy into customer subscriptions. It defaults to the
-  `have_customers` repo variant ([ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)) and is always present as a bool.
+- **`environment_kind`** — `subscription` when every slot's environment is a `per_subscription` one in `azure.yml`, else `standard`; a
+  template with no slot is `standard`. It is inferred from the slots and the `per_subscription_environments` list, never read from
+  `options.yml`.
+- **`customer_deployment`** — whether this is a customer template, whose configs deploy into customer subscriptions. It is inferred: true
+  when any slot has a customer (a customer folder under `configuration/`, [ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md)),
+  and always present as a bool.
 
 ## Construction
 

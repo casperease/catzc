@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-commands.sh"
-#     with_body_sha: e397deab62dc
+#     with_body_sha: cde72e0b4537
 # ---
 
 # shellcheck shell=bash
@@ -164,6 +164,7 @@ start_claude_drone	count	int	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/sta
 start_claude_drone	launcher	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	launcher	Start-ClaudeDrone	Launcher
 start_claude_drone	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	pass-thru	Start-ClaudeDrone	PassThru
 start_claude_drone	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/start_claude_drone.command.yml			start-claude-drone	dry-run	Start-ClaudeDrone	DryRun
+sync_bicep_resource_names	template	string	1	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/sync_bicep_resource_names.command.yml			sync-bicep-resource-names	template	Sync-BicepResourceNames	Template
 test_accosted_command	call	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.contracts/test_accosted_command.command.yml			test-accosted-command	call	Test-AccostedCommand	Call
 test_accosted_command	where	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.contracts/test_accosted_command.command.yml			test-accosted-command	where	Test-AccostedCommand	Where
 test_accosted_command	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/test_accosted_command.command.yml			test-accosted-command	repository-root	Test-AccostedCommand	RepositoryRoot

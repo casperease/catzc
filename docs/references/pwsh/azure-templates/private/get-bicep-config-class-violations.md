@@ -12,27 +12,24 @@ Assert-BicepTemplate (collect-all), so the two never drift.
 
 ### description
 
-Checks one config against the template's env-class bit and returns a (possibly empty) array of human-readable violation strings:
-
-- env-class bit: subscription ⇒ the config env must be a per_subscription env (nsub/psub); standard ⇒ it must be a standard env.
+Checks the environments of a template's slots and returns a (possibly empty) array of human-readable violation strings. The template's
+environment kind is inferred, never declared: each environment is classed by its `per_subscription` flag in `azure.yml`, and the only
+violation is a template whose slots mix per-subscription environments (nsub/psub) with standard ones. Such a template splits into two
+templates.
 
 The slot is a per-config dimension, not a template-level bit — a template may freely mix slotted (`<env>-<slot>.yml`) and non-slotted
-(`<env>.yml`) configs — so there is no slot rule here. Empty result means the config conforms.
+(`<env>.yml`) configs — so there is no slot rule here. Empty result means the environments share one class.
 
 It rests on [ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-schemaandintegrity).
 
 ### parameter `Environment`
 
-The config's resolved environment name.
-
-### parameter `EnvironmentKind`
-
-The template's env-class bit ('standard' or 'subscription').
+The environment names of the template's slots (may be empty).
 
 ### parameter `AzureConfig`
 
-The loaded azure config (Get-Config -Config azure) — used to read the env's per_subscription flag.
+The loaded azure config (Get-Config -Config azure) — used to read each env's per_subscription flag.
 
 ### parameter `Location`
 
-A human-readable label for the config (e.g. 'configuration/apex/dev.yml') used in messages.
+A human-readable label for the template (used in messages).

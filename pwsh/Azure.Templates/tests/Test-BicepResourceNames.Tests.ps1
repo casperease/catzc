@@ -1,89 +1,160 @@
+# cspell:ignore widg gadg wdg nrt envfirst
 Describe 'Test-BicepResourceNames' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:out = Join-Path $TestDrive 'out'
-        $script:slotFile = Join-Path $TestDrive 'dev.yml'
-        $script:entry = [Catzc.Azure.Templates.BicepNameEntry]::new('widgetName', @{ type = 'st' }, 'widget')
+        $script:widgetFile = Join-Path $TestDrive 'widget.yml'
+        $script:gadgetFile = Join-Path $TestDrive 'gadget.yml'
+        $script:yml = [Catzc.Azure.Templates.BicepSlot]::YmlFormat
+        $script:baseline = @'
+ResourceGroup: widget-nrt-wdg-widg-rg
+ParametersFile:
+  parameters:
+    widgetName:
+      value: widget-nrt-wdg-widg-wd-cog
+    widgetSkuName:
+      value: Standard
+    gadgetNames:
+      value:
+        first: widget-nrt-wdg-gadg-rg
+    secret:
+      reference:
+        keyVault:
+          id: /subscriptions/0000/resourceGroups/widget-nrt-wdg-gadg-rg/providers/Microsoft.KeyVault/vaults/widget-nrt-wdg-gadg-cog
+        secretName: widget-secret
+    networkSecurityGroupNames:
+      value:
+        front: widget-nrt-wdg-widg-fr-nsg
+        back: widget-nrt-wdg-widg-bk-nsg
+    legacyName:
+      value: Hand-Typed
+      naming_exception: kept for the gadget import
+'@
+        $script:check = {
+            param([string] $Text)
+            Set-Content -LiteralPath $script:widgetFile -Value $Text
+            Test-BicepResourceNames -Template widget -OutputFolder $script:out -PassThru
+        }
     }
 
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        # A mock keeps Get-BicepTemplate's own -Name validation, so the fixture template is a known name.
-        Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget' }
+        Mock Write-Message -ModuleName Catzc.Azure.Templates { }
+        Mock Get-BicepTemplateNames -ModuleName Catzc.Azure.Templates { 'widget', 'gadget' }
         Mock Get-BicepTemplate -ModuleName Catzc.Azure.Templates {
+            $short = @{ widget = 'widg'; gadget = 'gadg' }[$Name]
+            $file = @{ widget = $widgetFile; gadget = $gadgetFile }[$Name]
             [pscustomobject]@{
-                name  = 'widget'
-                names = @{ widgetName = $entry }
-                slots = @([pscustomobject]@{ name = 'dev'; file = $slotFile })
+                name       = $Name
+                short_name = $short
+                slots      = @([pscustomobject]@{
+                        name = $Name; environment = 'widget'; customer = $null; slot = $null; subscription = 'widget_sub'; file = $file; format = $yml
+                    })
             }
         }
-        # The fixture descriptor is a plain object, so the mock drops the typed parameters it would not bind to.
-        Mock Resolve-BicepDerivedNames -ModuleName Catzc.Azure.Templates -RemoveParameterType TemplateDescriptor, Slot {
-            [ordered]@{ widgetName = 'deweuzctwdgtst' }
+        Mock Get-BicepNameCandidateSet -ModuleName Catzc.Azure.Templates {
+            @{
+                env        = [ordered]@{ widget = 'wi'; gadget = 'ga' }
+                slot       = [string[]] @()
+                region     = [string[]] @('nrt')
+                org        = [string[]] @('wdg')
+                short_name = [string[]] @('gadg', 'widg')
+                customer   = [ordered]@{ gizmo = 'gz' }
+            }
         }
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'resource-types' } {
+            [pscustomobject]@{ not_names = @('SkuName', 'SubnetName') }
+        }
+        Mock Get-Config -ModuleName Catzc.Azure.Templates -ParameterFilter { $Config -eq 'network' } {
+            [pscustomobject]@{
+                subscriptions  = @{ widget_sub = @{ subnets = [ordered]@{ front = @{}; back = @{}; gateway = @{} } } }
+                no_nsg_subnets = @('gateway')
+            }
+        }
+        Mock Get-Naming -ModuleName Catzc.Azure.Templates { 'envfirst' }
+        Mock Get-AzureNameOrderSet -ModuleName Catzc.Azure.Templates {
+            [ordered]@{ envfirst = @(@('env'), @('slot'), @('region'), @('org'), @('short_name'), @('customer'), @('role'), @('type')) }
+        }
+        Mock Get-AzureResourceTypeSet -ModuleName Catzc.Azure.Templates {
+            [ordered]@{ cog = @{ pattern = 'long' }; rg = @{ pattern = 'long' }; nsg = @{ pattern = 'long' } }
+        }
+        Mock Get-AzureNamePatternSet -ModuleName Catzc.Azure.Templates { [ordered]@{ long = @{ separator = '-' } } }
     }
 
-    It 'passes a slot that leaves every declared name to the namer' {
-        Set-Content $slotFile "ParametersFile:`n  parameters:`n    gadgetSku:`n      value: small"
-        $result = Test-BicepResourceNames -Template widget -OutputFolder $out -PassThru
-        $result.IssueCount | Should -Be 0
-        $result.Facts['DeclaredNames'] | Should -Be 1
+    It 'passes a slot whose names match, counting the names, the foreign ones and the exception' -Tag 'ADR-AZ-NAMING-EXCEPTIONENTRY' {
+        $result = & $script:check $script:baseline
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+        $result.Facts['Names'] | Should -Be 7
+        $result.Facts['Foreign'] | Should -Be 3
+        $result.Facts['Exceptions'] | Should -Be 1
     }
 
-    It 'refuses a slot that writes a declared name by hand' {
-        Set-Content $slotFile "ParametersFile:`n  parameters:`n    widgetName:`n      value: hand-typed-widget"
-        $result = Test-BicepResourceNames -Template widget -OutputFolder $out -PassThru
-        $result.Issues | Should -Be @("widget/dev: writes 'widgetName', a name the namer derives (options.yml names) — delete it from the slot")
+    It 'refuses <case>' -ForEach @(
+        @{
+            case    = 'a wrong type ident'
+            from    = 'widget-nrt-wdg-widg-wd-cog'
+            to      = 'widget-nrt-wdg-widg-wd-cg'
+            message = "widget/widget: widgetName: Name 'widget-nrt-wdg-widg-wd-cg' matches no canonical form*type: none of (cog, nsg, rg) in the name*"
+        }
+        @{
+            case    = 'a foreign short_name whose owner has no slot there'
+            from    = 'first: widget-nrt-wdg-gadg-rg'
+            to      = 'first: gadget-nrt-wdg-gadg-rg'
+            message = "widget/widget: gadgetNames.first: 'gadget-nrt-wdg-gadg-rg' belongs to template 'gadget' (short_name 'gadg'), which has no slot at env 'gadget', customer '', slot ''"
+        }
+        @{
+            case    = 'a wrong environment'
+            from    = 'widget-nrt-wdg-widg-wd-cog'
+            to      = 'gadget-nrt-wdg-widg-wd-cog'
+            message = "widget/widget: widgetName: 'gadget-nrt-wdg-widg-wd-cog' has env 'gadget' where the file has 'widget', and template 'widget' has no slot at env 'gadget', customer '', slot ''"
+        }
+        @{
+            case    = 'a wrong customer'
+            from    = 'widget-nrt-wdg-widg-wd-cog'
+            to      = 'widget-nrt-wdg-widg-gizmo-wd-cog'
+            message = "widget/widget: widgetName: 'widget-nrt-wdg-widg-gizmo-wd-cog' has customer 'gizmo' where the file has '', and template 'widget' has no slot at env 'widget', customer 'gizmo', slot ''"
+        }
+        @{
+            case    = 'a missing NSG key'
+            from    = "        back: widget-nrt-wdg-widg-bk-nsg`n"
+            to      = ''
+            message = "widget/widget: networkSecurityGroupNames lacks subnet 'back' of subscription 'widget_sub'"
+        }
+        @{
+            case    = 'a resource group typo in an Azure resource ID'
+            from    = 'resourceGroups/widget-nrt-wdg-gadg-rg'
+            to      = 'resourceGroups/widget-nrt-wdg-gadg-gr'
+            message = "widget/widget: ParametersFile.parameters.secret.reference.keyVault.id (resource group): Name 'widget-nrt-wdg-gadg-gr' matches no canonical form*"
+        }
+    ) {
+        $text = ($script:baseline -replace "`r", '').Replace($from, $to)
+        $text | Should -Not -Be ($script:baseline -replace "`r", '')
+        $result = & $script:check $text
+        $result.IssueCount | Should -Be 1 -Because ($result.Issues -join "`n")
+        $result.Issues[0] | Should -BeLike $message
     }
 
-    It 'reports a declared name the namer cannot derive' {
-        Set-Content $slotFile "ParametersFile:`n  parameters: {}"
-        Mock Resolve-BicepDerivedNames -ModuleName Catzc.Azure.Templates -RemoveParameterType TemplateDescriptor, Slot { throw "template 'gadget' has no slot on subscription 'widget_sub'" }
-        $result = Test-BicepResourceNames -Template widget -OutputFolder $out -PassThru
-        $result.Issues | Should -Be @("widget/dev: a declared name does not derive — template 'gadget' has no slot on subscription 'widget_sub'")
-    }
-}
-
-Describe 'BicepNameEntry' -Tag 'L0', 'logic' {
-    It 'reads type, role, template and owner_slot, and refuses an unknown owner_slot, a long role or an unknown key' {
-        $entry = [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetName', @{ type = 'rg'; role = 'gd'; template = 'gadget'; owner_slot = 'hub' }, 'widget')
-        $entry.owner_slot | Should -Be 'hub'
-        $entry.role | Should -Be 'gd'
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetName', @{ type = 'rg'; template = 'gadget'; owner_slot = 'spoke' }, 'widget') } |
-            Should -Throw "*unknown owner_slot 'spoke' (allowed: hub)*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetName', @{ type = 'rg'; role = 'gadget' }, 'widget') } | Should -Throw "*role 'gadget' must be 2-3*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetName', @{ type = 'rg'; colour = 'blue' }, 'widget') } | Should -Throw "*unknown key 'colour'*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetName', @{ type = 'rg'; owner_slot = 'hub' }, 'widget') } | Should -Throw '*needs template*'
+    It 'reports an NSG key that is not a subnet taking an NSG' {
+        $result = & $script:check (($script:baseline -replace "`r", '').Replace('back: widget-nrt-wdg-widg-bk-nsg', "back: widget-nrt-wdg-widg-bk-nsg`n        gateway: widget-nrt-wdg-widg-gw-nsg"))
+        $result.Issues | Should -Be @("widget/widget: networkSecurityGroupNames has 'gateway', not a subnet of subscription 'widget_sub' that takes an NSG")
     }
 
-    It 'reads a roles object entry and its keys_from, and refuses a bad role, an unknown key source, keys_from without roles, or role with roles' {
-        $entry = [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetNames', @{ type = 'nsg'; keys_from = 'nsg_subnets'; roles = [ordered]@{ widget = 'wd'; gadget = 'gd' } }, 'widget')
-        @($entry.roles.Keys) | Should -Be @('widget', 'gadget')
-        $entry.keys_from | Should -Be 'nsg_subnets'
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetNames', @{ type = 'pa'; roles = @{ widget = 'widget' } }, 'widget') } | Should -Throw "* 'widget' must be 2-3 alphanumeric*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetNames', @{ type = 'nsg'; keys_from = 'subnets'; roles = @{ widget = 'wd' } }, 'widget') } | Should -Throw "*unknown keys_from 'subnets' (allowed: nsg_subnets)*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetNames', @{ type = 'nsg'; keys_from = 'nsg_subnets' }, 'widget') } | Should -Throw '*so it needs roles*'
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgetNames', @{ type = 'pa'; role = 'wd'; roles = @{ widget = 'wd' } }, 'widget') } | Should -Throw '*role and roles exclude each other*'
-    }
-
-    It 'reads an each entry and its item names, and refuses an unknown each, a stray key, an unknown from or role_from, or role with role_from' {
-        $names = [ordered]@{ gadgetGroup = @{ type = 'rg' }; gadgetLink = @{ type = 'peer'; from = 'self'; role_from = 'customer_shortcode' } }
-        $entry = [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'subscription'; names = $names }, 'widget')
-        $entry.each | Should -Be 'subscription'
-        $entry.item_names['gadgetGroup'].from | Should -Be 'item'
-        $entry.item_names['gadgetLink'].from | Should -Be 'self'
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'region'; names = $names }, 'widget') } | Should -Throw "*unknown each 'region' (allowed: subscription)*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'subscription'; names = $names; type = 'rg' }, 'widget') } | Should -Throw "*holds only each and names, not 'type'*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'subscription'; names = @{ g = @{ type = 'rg'; from = 'hub' } } }, 'widget') } | Should -Throw "*unknown from 'hub' (allowed: item, self)*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'subscription'; names = @{ g = @{ type = 'rg'; role_from = 'region' } } }, 'widget') } | Should -Throw "*unknown role_from 'region' (allowed: customer_shortcode)*"
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ each = 'subscription'; names = @{ g = @{ type = 'rg'; role = 'gd'; role_from = 'customer_shortcode' } } }, 'widget') } | Should -Throw '*role and role_from exclude each other*'
-        { [Catzc.Azure.Templates.BicepNameEntry]::new('gadgets', @{ type = 'rg'; names = $names }, 'widget') } | Should -Throw '*names belongs to an each entry*'
+    It 'skips a key ending in a not_names suffix and a leaf under no Name key' {
+        $text = "ParametersFile:`n  parameters:`n    widgetSubnetName:`n      value: Not A Name`n    gadgets:`n      value:`n      - label: Free Text`n        gadgetName: widget-nrt-wdg-widg-gd-cog`n"
+        $result = & $script:check $text
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+        $result.Facts['Names'] | Should -Be 1
     }
 }
 
 Describe 'Test-BicepResourceNames (real templates)' -Tag 'L1', 'integrity' {
-    It 'no shipped slot writes a name its template derives, and every declared name derives for every slot' {
-        $result = Test-BicepResourceNames -PassThru -OutputFolder (Join-Path $TestDrive 'names')
-        $result.Facts['DeclaredNames'] | Should -BeGreaterThan 0
+    BeforeEach {
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        Mock Write-Message -ModuleName Catzc.Azure.Templates { }
+    }
+
+    It 'checks the names of every shipped slot and finds no issue' {
+        $result = Test-BicepResourceNames -OutputFolder (Join-Path $TestDrive 'out') -PassThru
+        $result.Facts['Names'] | Should -BeGreaterThan 0
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

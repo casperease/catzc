@@ -140,10 +140,31 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'env-class classification (environment_kind)' {
-        It 'defaults to standard when options omit the bit' {
+    Context 'inferred classification (environment_kind, customer_deployment)' {
+        It 'infers standard from slots in standard envs' {
             $s = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1
             $s.environment_kind | Should -Be 'standard'
+        }
+
+        It 'infers customer_deployment from a customer folder under configuration/' {
+            $templates = Get-BicepTemplates
+            ($templates | Where-Object { $_.name -eq 'sample-customer' } | Select-Object -First 1).customer_deployment | Should -BeTrue
+            ($templates | Where-Object { $_.name -eq 'sample' } | Select-Object -First 1).customer_deployment | Should -BeFalse
+        }
+
+        It 'rejects a template whose slots mix the env classes' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            $fixtures = Join-Path (Get-CatzcModuleRoot -Module Catzc.Azure.Templates) 'tests/assets/templates'
+            Copy-Item (Join-Path $fixtures 'sample') (Join-Path $root 'sample') -Recurse
+            [System.IO.File]::WriteAllText((Join-Path $root 'sample/configuration/nsub.yml'), "ParametersFile:`n  parameters: {}")
+            Mock Get-BicepTemplatesRoot -ModuleName Catzc.Azure.Templates { $root }.GetNewClosure()
+            InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+            try {
+                { Get-BicepTemplates } | Should -Throw '*mixes environment classes*nsub*'
+            }
+            finally {
+                InModuleScope Catzc.Azure.Templates { $script:bicepTemplatesCache = $null }
+            }
         }
 
         It 'accepts a template that MIXES slotted and non-slotted configs (slot is per-config)' {
@@ -154,7 +175,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             $acmeSlots | Should -Be @('', '001')
         }
 
-        It 'reads environment_kind: subscription and accepts per-subscription envs (nsub/psub)' {
+        It 'infers subscription and accepts per-subscription envs (nsub/psub)' {
             $se = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-subenv' } | Select-Object -First 1
             $se.environment_kind | Should -Be 'subscription'
             @($se.slots | ForEach-Object { $_.environment } | Sort-Object -Unique) | Should -Be @('nsub', 'psub')
@@ -189,9 +210,15 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
             ($template.slots | Where-Object { $_.name -eq 'beta' }).format | Should -BeExactly 'yml'
         }
 
-        It 'throws on a yml and a bicepparam for one coordinate, naming both' {
-            { & $script:discoverCopy { param($t) Copy-Item (Join-Path $t 'configuration/beta.yml') (Join-Path $t 'configuration/alpha.yml') } } |
-                Should -Throw '*has both configuration/alpha.yml and configuration/alpha.bicepparam for one coordinate*'
+        It 'accepts a yml beside a bicepparam that holds only a ResourceGroup, and it is not a slot' {
+            $template = (Get-BicepTemplates) | Where-Object { $_.name -eq 'sample-bicepparam' } | Select-Object -First 1
+            @($template.slots | Where-Object { $_.name -eq 'alpha' }).Count | Should -Be 1
+            @($template.configuration_files | Where-Object { $_ -like '*alpha.yml' }).Count | Should -Be 0
+        }
+
+        It 'throws on a yml beside a bicepparam that holds another key, naming the file and the key' {
+            { & $script:discoverCopy { param($t) Copy-Item (Join-Path $t 'configuration/beta.yml') (Join-Path $t 'configuration/alpha.yml') -Force } } |
+                Should -Throw "*alpha.yml sits beside a bicepparam slot, so it may hold only ResourceGroup, not 'ParametersFile'*"
         }
 
         It 'throws on a using line that is not the template''s main.bicep, naming the file' {

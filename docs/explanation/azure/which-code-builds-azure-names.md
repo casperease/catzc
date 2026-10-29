@@ -12,8 +12,8 @@ reads the registries, the consumer calls the resolver, and the deploy code, the 
 5  registries                  three pure-data sets: 2 orders, 20 resource types, 4 patterns
 6  Get-AzureResourceName       the namer: validates, renders in order, asserts the length limit
 7  throw                       a bad component, unknown customer or over-limit name stops here
-8  deploy code                 the actor that starts the flow: the deploy asks for the resource-group name
-9  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
+8  operator                    the actor that starts the flow: a rotation asks for a vault or server name
+9  rotation commands           the in-tree consumers: the Key Vault and the SQL server name
 
 Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT
 and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
@@ -21,12 +21,13 @@ and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 
 Every Azure resource name in cats comes out of one place. A resolver gathers the name components from three config files, and a single
 namer, reading three pure-data registries, assembles and checks the name. A bad component or an over-limit name throws; a name that passes
-is the resource-group name the deploy uses. Because nothing else builds names, a rule changed in the namer reaches every name at once.
+is the vault or server name a rotation command uses. The resource-group name is not built here: each slot declares it under its
+`ResourceGroup:` key. Because nothing else builds names, a rule changed in the namer reaches every built name at once.
 
 ```yml drawio
 description:
   Every Azure name comes out of one resolver, which gathers the components from three config sources, and one namer, which reads three
-  registries and assembles and checks the name; the resource-group name is the one in-tree consumer.
+  registries and assembles and checks the name; the rotation commands are the in-tree consumers.
 about:
   rules:
     - ADR-AZ-NAMING-DETERMINISTICNAMES
@@ -52,8 +53,8 @@ content:
     - { id: s-registries, kind: set, label: registries, in: band-assembler }
     - { id: g-namer, kind: code, label: Get-AzureResourceName, in: band-assembler }
     - { id: f-throw, kind: failure, label: throw, in: band-assembler }
-    - { id: g-caller, kind: actor, label: deploy code, in: band-consumers }
-    - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: band-consumers }
+    - { id: g-caller, kind: actor, label: operator, in: band-consumers }
+    - { id: g-group, kind: code, label: rotation commands, in: band-consumers }
   edges:
     - { from: g-resolver, to: g-azure, kind: flow, label: "" }
     - { from: g-resolver, to: g-options, kind: flow, label: "" }
@@ -112,12 +113,13 @@ layout:
 6. **Get-AzureResourceName.** The namer validates every component, renders the name in the order the registry gives, and asserts the length
    limit. It is order-agnostic: the order is data it is handed.
 7. **Throw.** A bad component, an unknown customer or an over-limit name throws. A name is never truncated to fit.
-8. **Deploy code.** The actor that starts the flow. Nothing in the tree writes the resolver's inputs from this slide; the deploy asks for
-   the resource-group name, and the arrow runs from it to the consumer because the actor acts and the consumer is what it acts on.
-9. **Get-BicepResourceGroupName.** The one in-tree consumer, so only the `rg` type is generated in the tree today. It is the single source
-   of the resource-group name for both the deploy target (`Get-BicepDeploymentContext`) and the tracking-tag scope
-   (`Set-BicepTrackingTagSet`), so the two never drift. It calls `Get-BicepResourceName` with the `rg` type, so its arrow is a labelled call
-   to the resolver; other types call `Get-BicepResourceName` directly.
+8. **Operator.** The actor that starts the flow. Nothing in the tree writes the resolver's inputs from this slide; the operator runs a
+   rotation, and the arrow runs from it to the consumer because the actor acts and the consumer is what it acts on.
+9. **Rotation commands.** The in-tree consumers: `Invoke-BreakGlassRotation` asks for the SQL server name (`sql`) and
+   `Set-AnomalyAlertRecipientSecret` for the Key Vault name (`kv`), so their arrow is a labelled call to the resolver. The resource-group
+   name is not among them: every ResourceGroup-target slot declares it under its top-level `ResourceGroup:` key, and
+   `Get-BicepSlotResourceGroup` reads it for both the deploy target (`Get-BicepDeploymentContext`) and the tracking-tag scope
+   (`Set-BicepTrackingTagSet`), so the two never drift (ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 
 ## Why it holds
 

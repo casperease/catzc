@@ -81,8 +81,7 @@ function Get-BicepDeploymentContext {
     $resourceGroup = $null
     switch ($templateDescriptor.deployment_target) {
         'ResourceGroup' {
-            # Derived from the (customer, env, slot) + naming standard — never hand-typed.
-            $resourceGroup = Get-BicepResourceGroupName -Template $Template -Environment $Environment -Slot $Slot -Customer $customer
+            $resourceGroup = Get-BicepSlotResourceGroup -TemplateDescriptor $templateDescriptor -Environment $Environment -Slot $Slot -Customer $customer
         }
         'Subscription' {
             if ($configurationDescriptor.Contains('ResourceGroup')) {

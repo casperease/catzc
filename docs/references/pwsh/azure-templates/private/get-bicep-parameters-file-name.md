@@ -11,7 +11,7 @@ The build-artifact parameters filename for a (customer?, env, slot) config.
 ### description
 
 The single source of the per-slot parameters artifact name, used by both Build-Bicep (which writes it) and Get-BicepDeploymentContext (which
-reads it) so the two can never drift — the same principle as the derived RG name (Get-BicepResourceGroupName).
+reads it) so the two can never drift — the same principle as the one reader of the declared RG name (Get-BicepSlotResourceGroup).
 
 `parameters.<config>.json` for a configuration-root (shared-platform) slot, or `parameters.<customer>.<config>.json` for a customer slot —
 where `<config>` is `<env>[-<slot>]` (Get-BicepConfigName). The artifact names mirror the configuration tree exactly: all of a template's

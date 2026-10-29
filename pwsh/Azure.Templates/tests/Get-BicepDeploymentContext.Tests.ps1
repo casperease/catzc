@@ -11,11 +11,12 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         Mock Build-Bicep {
             $outputFolder = (Get-BicepTemplate $Template).output_folder
             [System.IO.Directory]::CreateDirectory($outputFolder) | Out-Null
-            foreach ($file in 'main.json', 'parameters.alpha.json', 'parameters.beta.json') {
+            foreach ($file in 'main.json', 'parameters.alpha.json', 'parameters.beta.json', 'parameters.alpha-red.json') {
                 [System.IO.File]::WriteAllText((Join-Path $outputFolder $file), '{}')
             }
             $outputFolder
         } -ModuleName Catzc.Azure.Templates
+        $script:bicepparamOutputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/deployment-context/template/sample-bicepparam'
 
         # The session subscription stands in for the service connection or az account set, mocked at the whole module boundary.
         Mock Get-AzCliSessionSubscription {
@@ -47,8 +48,10 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
     }
 
     AfterAll {
-        if ($script:outputRoot -and (Test-Path $script:outputRoot)) {
-            Remove-Item $script:outputRoot -Recurse -Force
+        foreach ($root in @($script:outputRoot, $script:bicepparamOutputRoot)) {
+            if ($root -and [System.IO.Directory]::Exists($root)) {
+                [System.IO.Directory]::Delete($root, $true)
+            }
         }
     }
 
@@ -71,9 +74,36 @@ Describe 'Get-BicepDeploymentContext (devbox)' -Tag 'L0', 'logic' {
         $context.deployment.target | Should -Be 'ResourceGroup'
     }
 
-    It 'deployment.resource_group is derived from the slot + naming standard for RG-target templates' {
+    It 'deployment.resource_group is the slot''s declared ResourceGroup for RG-target templates' {
         $context = Get-BicepDeploymentContext -Environment alpha -Template sample
-        $context.deployment.resource_group | Should -Be 'alpha-weu-fxo-smpl-rg'
+        $context.deployment.resource_group | Should -BeExactly 'alpha-weu-fxo-smpl-rg'
+    }
+
+    It 'a runtime slot takes its base slot''s declared group re-rendered with the runtime slot' {
+        $context = Get-BicepDeploymentContext -Environment alpha -Template sample -Slot red
+        $context.deployment.resource_group | Should -BeExactly 'alpha-red-weu-fxo-smpl-rg'
+    }
+
+    It 'throws naming the config file and the key when a ResourceGroup-target slot declares no ResourceGroup' {
+        Mock Get-BicepTemplateConfiguration { [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{} } } } -ModuleName Catzc.Azure.Templates
+        { Get-BicepDeploymentContext -Environment alpha -Template sample } |
+            Should -Throw "*sample*configuration*alpha.yml*declares no top-level 'ResourceGroup' key*"
+    }
+
+    It 'a bicepparam slot takes its group from its sibling yml' {
+        Mock Get-BicepTemplateConfiguration {
+            [ordered]@{ BicepParamFile = 'widget/configuration/alpha.bicepparam'; ResourceGroup = 'alpha-weu-fxo-sbpp-rg' }
+        } -ModuleName Catzc.Azure.Templates
+        $context = Get-BicepDeploymentContext -Environment alpha -Template sample-bicepparam
+        $context.deployment.resource_group | Should -BeExactly 'alpha-weu-fxo-sbpp-rg'
+    }
+
+    It 'throws naming the sibling yml when a bicepparam slot has no sibling declaring its group' {
+        Mock Get-BicepTemplateConfiguration {
+            [ordered]@{ BicepParamFile = 'widget/configuration/alpha.bicepparam' }
+        } -ModuleName Catzc.Azure.Templates
+        { Get-BicepDeploymentContext -Environment alpha -Template sample-bicepparam } |
+            Should -Throw "*sample-bicepparam*configuration*alpha.yml*declares no top-level 'ResourceGroup' key*"
     }
 
     It 'artifacts.did_local_build is true on devbox (Build-Bicep is invoked)' {

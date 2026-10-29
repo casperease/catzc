@@ -1,4 +1,4 @@
-# cspell:ignore gdgt wdgt nrt sprock acmex wxyz zzzz ganrtzedwdgtgzgear envfirst typefirst nrtwdgtgear
+# cspell:ignore gdgt wdgt nrt sprock acmex wxyz zzzz ganrtzedwdgtgzgear envfirst typefirst nrtwdgtgear gearzedwdgtganrtx
 Describe 'AzureNameMatcher' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:orders = @{
@@ -79,8 +79,19 @@ Describe 'AzureNameMatcher' -Tag 'L0', 'logic' {
     }
 
     It 'refuses a name that matches more than one canonical form' {
-        { [Catzc.Azure.Templates.AzureNameMatcher]::Match('ganrtzedwdgtgzgear', 'gear', $script:sets, $script:environmentFirst) } |
-            Should -Throw "*'ganrtzedwdgtgzgear' is ambiguous: it matches 2 canonical forms*customer=gizmo*role=gz*"
+        { [Catzc.Azure.Templates.AzureNameMatcher]::Match('gearzedwdgtganrtx2', 'gear', $script:sets, $script:orders['typefirst']) } |
+            Should -Throw "*'gearzedwdgtganrtx2' is ambiguous: it matches 2 canonical forms*role=x2*slot=x2*"
+    }
+
+    It 'reads a customer shortcode where a role could sit as the customer only' {
+        $match = [Catzc.Azure.Templates.AzureNameMatcher]::Match('ganrtzedwdgtgzgear', 'gear', $script:sets, $script:environmentFirst)
+        $match.customer | Should -Be 'gizmo'
+        $match.role | Should -Be ''
+    }
+
+    It 'refuses a role that equals a customer shortcode, naming the rule' {
+        { [Catzc.Azure.Templates.AzureNameMatcher]::Match('gadget-nrt-zed-wdgt-gz-cog', 'cog', $script:sets, $script:environmentFirst) } |
+            Should -Throw "*'gadget-nrt-zed-wdgt-gz-cog' matches no canonical form*role: leftover 'gz' equals a customer shortcode*ADR-AZ-NAMING-ROLENOTCUSTOMER*"
     }
 
     It 'diagnoses a no-match <case> per part' -ForEach @(

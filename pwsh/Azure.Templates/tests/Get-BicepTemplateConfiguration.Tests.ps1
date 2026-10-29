@@ -1,4 +1,4 @@
-# cspell:ignore alweufxoscusacst alweufxoscusst
+# cspell:ignore alweufxoscusacst alweufxoscusst wdgt
 Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
     # Read-only resolver: mocks and the cache reset run once, since the mocked config is identical every test and none mutates it.
     BeforeAll {
@@ -30,6 +30,22 @@ Describe 'Get-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
         $bicepparam.Contains('ParametersFile') | Should -BeFalse
         (Get-BicepTemplateConfiguration sample-bicepparam beta).ParametersFile.parameters.storageAccountName.value |
             Should -BeExactly 'btweufxosbppst'
+    }
+
+    It 'a bicepparam slot''s descriptor carries the ResourceGroup of the fixture''s sibling yml' {
+        (Get-BicepTemplateConfiguration sample-bicepparam alpha).ResourceGroup | Should -BeExactly 'alpha-weu-fxo-sbpp-rg'
+    }
+
+    It 'a bicepparam slot''s descriptor carries the ResourceGroup its sibling yml declares' {
+        $folder = Join-Path $TestDrive 'widget/configuration'
+        [System.IO.Directory]::CreateDirectory($folder) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $folder 'alpha.bicepparam'), "using '../main.bicep'`n")
+        [System.IO.File]::WriteAllText((Join-Path $folder 'alpha.yml'), "ResourceGroup: alpha-weu-fxo-wdgt-rg`n")
+        $script:widgetFolder = $folder
+        Mock Get-BicepTemplate { [pscustomobject]@{ configuration_folder = $script:widgetFolder } } -ModuleName Catzc.Azure.Templates
+        $descriptor = Get-BicepTemplateConfiguration sample-bicepparam alpha
+        $descriptor.BicepParamFile | Should -Be (Join-Path $folder 'alpha.bicepparam')
+        $descriptor.ResourceGroup | Should -BeExactly 'alpha-weu-fxo-wdgt-rg'
     }
 
     It 'throws on an environment not in the template list' {

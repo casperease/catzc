@@ -33,6 +33,8 @@ ParametersFile:
         keyVault:
           id: /subscriptions/a0e00000-000d-50b0-0000-000000000000/resourceGroups/psub-weu-zct-fnd-apex-rg/providers/Microsoft.KeyVault/vaults/ps-weu-zct-fnd-ap-kv
         secretName: disco-anomaly-recipients
+    roles:
+      address: global.roles.roles
     resourceGroupName:
       value: psub-weu-zct-disco-apex-rg
     virtualNetworkName:
@@ -90,5 +92,3 @@ ParametersFile:
       fact: groups
     allowedResourceTypes:
       fact: module_resource_types
-    roles:
-      address: global.roles.roles

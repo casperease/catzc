@@ -14,6 +14,8 @@ ParametersFile:
       value: 90
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_prod.id
+    ownerRoleId:
+      address: global.roles.roles.owner.id
     keyVaultName:
       value: ps-weu-zct-fnd-kv
     logAnalyticsName:
@@ -36,5 +38,3 @@ ParametersFile:
       value: psub-weu-zct-disco-vnet
     privateDnsZoneResourceGroupName:
       value: psub-weu-zct-disco-rg
-    ownerRoleId:
-      address: global.roles.roles.owner.id

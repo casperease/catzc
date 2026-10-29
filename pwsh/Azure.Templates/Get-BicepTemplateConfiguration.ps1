@@ -46,10 +46,17 @@ function Get-BicepTemplateConfiguration {
     else {
         "under configuration/$Customer/"
     }
-    # The Bicep compiler reads a bicepparam slot, so its descriptor carries only the source path.
+    # The Bicep compiler reads a bicepparam slot, so its descriptor carries the source path and its sibling yml's declared group.
     $bicepParamFile = Join-Path $folder "$configName.bicepparam"
     if ([System.IO.File]::Exists($bicepParamFile)) {
-        return [ordered]@{ BicepParamFile = $bicepParamFile }
+        $descriptor = [ordered]@{ BicepParamFile = $bicepParamFile }
+        if ([System.IO.File]::Exists($environmentFile)) {
+            $sibling = [System.IO.File]::ReadAllText($environmentFile) | ConvertFrom-Yaml -Ordered
+            if ($sibling -is [System.Collections.IDictionary] -and $sibling.Contains('ResourceGroup')) {
+                $descriptor['ResourceGroup'] = $sibling.ResourceGroup
+            }
+        }
+        return $descriptor
     }
     # A slot with no file of its own is an ephemeral slot: it reads its base slot's config (Resolve-BicepSlot).
     if (-not [System.IO.File]::Exists($environmentFile) -and -not [string]::IsNullOrEmpty($Slot)) {

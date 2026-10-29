@@ -60,7 +60,7 @@ function Set-BicepTrackingTagSet {
         "/subscriptions/$subscriptionId"
     }
     else {
-        $resourceGroup = Get-BicepResourceGroupName -Template $Template -Environment $Environment -Slot $Slot -Customer $customer
+        $resourceGroup = Get-BicepSlotResourceGroup -TemplateDescriptor $templateDescriptor -Environment $Environment -Slot $Slot -Customer $customer
         "/subscriptions/$subscriptionId/resourceGroups/$resourceGroup"
     }
 

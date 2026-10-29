@@ -45,6 +45,10 @@ Management-group scope is out of scope here and gets its own plan.
      `discovery/configuration/nsub.yml:33` hard-codes `nsub-weu-zct-fnd-rg` and `ns-weu-zct-fnd-kv` in a key vault reference, and nothing
      checks them.
 
+   Keys ending in a suffix listed under `not_names` in `pwsh/Azure.Templates/configs/resource-types.yml` (default on the type: `SkuName`,
+   `SubnetName`) are not names: a SKU or a pinned subnet name is not a resource name (delegated decision, 2026-10-29, from the scaffold
+   run's false matches on `storageSkuName`, `databaseSkuName`, `privateEndpointSubnetName`; PDR-CONFIG-DEFAULTDECLAREDONCE).
+
    This uses a key suffix instead of tracing through bicep. `main.bicep` uses names in `scope: resourceGroup(x)`, in `'${vnet}/${subnet}'`
    and in `displayName:`, so module-param tracing would be fragile. A wrong ident cannot slip through either, because the suffix rule makes
    every `*Name` value either match or fail.
@@ -97,44 +101,6 @@ Management-group scope is out of scope here and gets its own plan.
 
 Each file is verified with its tests before the next (CLAUDE.md editing rule).
 
-9. [ ] **Scaffold run:** `Sync-BicepResourceNames` over `infrastructure/templates/*` and the 9 test-asset templates, `-WhatIf` first, before
-       any deletion; ARM-id names stay as written for the gate step (check: `Build-Bicep -OutputFolder` for every slot is byte-identical to
-       the step-1 baseline in the session scratchpad `baseline-bicepparam`; a Grep for `^ResourceGroup:` finds every ResourceGroup-target
-       slot; the worked example `dev-weu-zct-surve-rg` in `docs/how-to/getting-started/automation/add-an-infrastructure-template.md` has the
-       shape Sync writes for a ResourceGroup).
-10. [ ] **Gate:** rewrite `Test-BicepResourceNames` with the which-values-are-names scope, the matched-not-parsed match, own-coordinate
-        equality (env, customer and slot of the file; short_name of the template), owner-slot existence for foreign names, the NSG coverage
-        check and the exception count. It reports facts: Names, Exceptions, Foreign. The tests seed 6 faults (wrong ident, a foreign
-        short_name without an owner slot, wrong env, wrong customer, a missing NSG key, an RG typo in an Azure resource ID), each with its
-        expected message (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1`, then
-        `Test-BicepResourceNames` on the tree).
-11. [ ] **Runtime slots wired** (after the scaffold run; the helper `pwsh/Azure.Templates/private/Resolve-BicepRuntimeSlotNames.ps1` has
-        landed): it re-renders only names on the base slot's own coordinates (Decision 9; a sibling-slot case added to its test), and
-        `Build-Bicep -RuntimeSlots` calls it in place of `Resolve-BicepDerivedNames` (check:
-        `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Resolve-BicepRuntimeSlotNames.Tests.ps1`, a runtime slot producing the names the
-        old resolver produced).
-12. [ ] **Declared resource group** (after the scaffold run over the templates and the runtime-slots step):
-        `pwsh/Azure.Templates/Get-BicepDeploymentContext.ps1` reads the slot's `ResourceGroup:` key for a ResourceGroup target (l.83-86; a
-        missing key throws naming the file and the key), a runtime slot's group from `Resolve-BicepRuntimeSlotNames`, and a `.bicepparam`
-        slot's from its sibling yml via `Get-BicepTemplateConfiguration.ps1` (l.52-56); `Deploy-Bicep.L3.Tests.ps1` l.46 stops calling
-        `Get-BicepResourceGroupName` (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-BicepDeploymentContext.Tests.ps1`).
-13. [ ] **Options shrink:** `pwsh/Azure.Templates/private/Read-BicepTemplateOptions.ps1` allows only `short_name`, `deployment_mode` and
-        `deployment_target` (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Read-BicepTemplateOptions.Tests.ps1`).
-14. [ ] **Template type:** `pwsh/Azure.Templates/types/BicepTemplate.cs` computes `environment_kind` and `customer_deployment`, and its
-        `names`, `facts` and `addresses` go (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Get-BicepTemplate.Tests.ps1` in a
-        fresh process).
-15. [ ] **Old resolver deleted:** `Resolve-BicepDerivedNames`, `pwsh/Azure.Templates/types/BicepNameEntry.cs` and
-        `pwsh/Azure.Templates/types/BicepItemName.cs` deleted with their tests, after the runtime-slots step lands (check: a Grep for the
-        three deleted names under `pwsh` and `docs` returns nothing).
-16. [ ] **Resource-group namer deleted:** `Get-BicepResourceGroupName` and its test deleted, after the declared-resource-group step lands;
-        `docs/explanation/azure/which-code-builds-azure-names.md` (l.16, 56, 117), `how-the-az-session-becomes-a-declared-identity.md`
-        (l.109) and `how-an-azure-resource-gets-its-name.md` (l.99) then name the declared `ResourceGroup:` key (check: a Grep for the
-        deleted function's name under `pwsh` and `docs` returns nothing).
-17. [ ] **Contracts:** `contracts/catzc/0.1.0/pwsh.azure.templates/*` describe the shrunk options and the new commands (check:
-        `Test-Contracts` on `contracts/catzc/0.1.0/pwsh.azure.templates`).
-18. [ ] **Consumer options:** the 3 `infrastructure/templates/*/options.yml` and the test-asset fixtures hold only `short_name`,
-        `deployment_mode` and `deployment_target` (check: a Grep for `names:|facts:|environment_kind|customer_deployment` under
-        `infrastructure/templates` and the fixtures returns nothing).
-
-19. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
-        is byte-identical). The full Test-Automation run is the user's final run.
+18. [ ] **Final run** (every other step landed; the rebuild proof read 35 of 37 byte-identical on 2026-10-29, the two discovery files
+        differing only in the four intended peering renames): the plan closes on the user's one full run, task-user-runs-and-commits step 1
+        (check: a fresh session dot-sources `importer.ps1` and `Test-Automation` reads green; then this plan is deleted).

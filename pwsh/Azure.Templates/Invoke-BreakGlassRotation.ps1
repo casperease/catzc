@@ -15,7 +15,8 @@ function Invoke-BreakGlassRotation {
         [switch] $DryRun
     )
 
-    $slots = @((Get-BicepTemplate expedition).slots | Where-Object {
+    $descriptor = Get-BicepTemplate expedition
+    $slots = @($descriptor.slots | Where-Object {
             $_.environment -eq $Environment -and ([string]::IsNullOrEmpty($Customer) -or $_.customer -eq $Customer)
         })
     $rotated = 0
@@ -34,7 +35,7 @@ function Invoke-BreakGlassRotation {
         $reference = $parameters['administratorLoginPassword'].reference
         $target = [pscustomobject]@{
             Slot          = $slot.name
-            ResourceGroup = Get-BicepResourceGroupName @coordinate
+            ResourceGroup = Get-BicepSlotResourceGroup -TemplateDescriptor $descriptor -Environment $slot.environment -Slot $slot.slot -Customer $slot.customer
             Server        = Get-BicepResourceName -Type sql @coordinate
             Vault         = ($reference.keyVault.id -split '/')[-1]
             Secret        = $reference.secretName

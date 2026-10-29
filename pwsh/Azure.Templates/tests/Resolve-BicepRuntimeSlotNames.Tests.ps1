@@ -11,21 +11,20 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.Config { $script:configCache = $null }
 
         $files = [ordered]@{
-            'widget/main.bicep'              = "targetScope = 'resourceGroup'"
-            'widget/options.yml'             = @(
+            'widget/main.bicep'                  = "targetScope = 'resourceGroup'"
+            'widget/options.yml'                 = @(
                 'short_name: widg'
                 'deployment_target: ResourceGroup'
-                'names:'
-                '  logName: { type: log, role: ops }'
-                '  storageName: { type: st }'
             ) -join "`n"
-            'widget/configuration/alpha.yml' = 'ParametersFile: {}'
-            'gadget/main.bicep'              = "targetScope = 'subscription'"
-            'gadget/options.yml'             = @(
+            'widget/configuration/alpha.yml'     = 'ParametersFile: {}'
+            # A declared slot puts 001 in the candidate set, so a name of that sibling slot matches.
+            'widget/configuration/alpha-001.yml' = 'ParametersFile: {}'
+            'gadget/main.bicep'                  = "targetScope = 'subscription'"
+            'gadget/options.yml'                 = @(
                 'short_name: gadg'
                 'deployment_target: Subscription'
             ) -join "`n"
-            'gadget/configuration/alpha.yml' = 'ParametersFile: {}'
+            'gadget/configuration/alpha.yml'     = 'ParametersFile: {}'
         }
         foreach ($relative in $files.Keys) {
             $path = Join-Path $script:root $relative
@@ -41,7 +40,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
                 logName = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Type log -Role ops) }
                 tags    = [ordered]@{ value = [ordered]@{ workload = 'widget' } }
             }
-            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
         }
         $result.Parameters.logName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Slot red -Type log -Role ops)
         $result.Parameters.tags.value.workload | Should -BeExactly 'widget'
@@ -53,7 +52,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
                 widgetGroupName   = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Type rg) }
                 resourceGroupName = [ordered]@{ value = (Get-BicepResourceName -Template gadget -Environment alpha -Type rg) }
             }
-            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate gadget) -Parameters $parameters -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate gadget) -Parameters $parameters -Environment alpha -RuntimeSlot red
         }
         $result.Parameters.widgetGroupName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Type rg)
         $result.Parameters.resourceGroupName.value | Should -BeExactly (Get-BicepResourceName -Template gadget -Environment alpha -Slot red -Type rg)
@@ -65,7 +64,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
             $parameters = [ordered]@{
                 legacyName = [ordered]@{ value = 'hand-written-legacy'; naming_exception = 'an imported name kept as it is' }
             }
-            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
         }
         $result.Parameters.legacyName.value | Should -BeExactly 'hand-written-legacy'
         $result.Parameters.legacyName.naming_exception | Should -BeExactly 'an imported name kept as it is'
@@ -74,7 +73,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
     It 're-renders the declared resource group with the runtime slot' {
         $result = InModuleScope Catzc.Azure.Templates {
             $group = Get-BicepResourceName -Template widget -Environment alpha -Type rg
-            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -ResourceGroup $group -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -ResourceGroup $group -Environment alpha -RuntimeSlot red
         }
         $result.ResourceGroup | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Slot red -Type rg)
         $result.Parameters.Count | Should -Be 0
@@ -87,7 +86,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
                 logNames = [ordered]@{ value = [ordered]@{ ops = (Get-BicepResourceName -Template widget -Environment alpha -Type log -Role ops) } }
                 spokes   = [ordered]@{ value = @([ordered]@{ subscription = 'widget_sub'; resourceGroupName = $own }) }
             }
-            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
         }
         $result.Parameters.logNames.value.ops | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Slot red -Type log -Role ops)
         $result.Parameters.spokes.value[0].subscription | Should -BeExactly 'widget_sub'
@@ -98,7 +97,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
         {
             InModuleScope Catzc.Azure.Templates {
                 $parameters = [ordered]@{ oddName = [ordered]@{ value = 'not-a-canonical-name' } }
-                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -RuntimeSlot red
+                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
             }
         } | Should -Throw "*oddName of template 'widget': 'not-a-canonical-name' has no single canonical match*"
     }
@@ -106,7 +105,7 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
     It 'throws on an unmatched resource group' {
         {
             InModuleScope Catzc.Azure.Templates {
-                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -ResourceGroup 'some-guessed-rg' -RuntimeSlot red
+                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -ResourceGroup 'some-guessed-rg' -Environment alpha -RuntimeSlot red
             }
         } | Should -Throw "*ResourceGroup of template 'widget'*"
     }
@@ -114,29 +113,46 @@ Describe 'Resolve-BicepRuntimeSlotNames' -Tag 'L0', 'logic' {
     It 'refuses a runtime slot the namer cannot render' {
         {
             InModuleScope Catzc.Azure.Templates {
-                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -RuntimeSlot 'Too-long'
+                Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters @{} -Environment alpha -RuntimeSlot 'Too-long'
             }
         } | Should -Throw '*RuntimeSlot*'
     }
 
-    It 'gives the names the derived-names resolver gives for the same runtime slot' {
-        $pair = InModuleScope Catzc.Azure.Templates {
-            $descriptor = Get-BicepTemplate widget
-            $base = $descriptor.slots | Where-Object { $_.environment -eq 'alpha' -and $_.slot -eq '' } | Select-Object -First 1
-            $declared = Resolve-BicepDerivedNames -TemplateDescriptor $descriptor -Slot $base
-            $parameters = [ordered]@{}
-            foreach ($key in @($declared.Keys)) {
-                $parameters[$key] = [ordered]@{ value = $declared[$key] }
+    It 'keeps a name of a sibling slot or another environment of the template and re-renders the base slot''s own coordinates' {
+        $result = InModuleScope Catzc.Azure.Templates {
+            $parameters = [ordered]@{
+                hubGroupName   = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment beta -Type rg) }
+                peerLogName    = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Slot '001' -Type log -Role ops) }
+                ownStorageName = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Type st) }
             }
-            $runtime = [Catzc.Azure.Templates.BicepSlot]::new('alpha-red', 'alpha', 'red', $base.subscription, '', $base.file)
-            @{
-                Old = Resolve-BicepDerivedNames -TemplateDescriptor $descriptor -Slot $runtime
-                New = Resolve-BicepRuntimeSlotNames -TemplateDescriptor $descriptor -Parameters $parameters -RuntimeSlot red
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
+        }
+        $result.Parameters.hubGroupName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment beta -Type rg)
+        $result.Parameters.peerLogName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Slot '001' -Type log -Role ops)
+        $result.Parameters.ownStorageName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Slot red -Type st)
+    }
+
+    It 're-renders only the names of the base slot''s customer' {
+        $result = InModuleScope Catzc.Azure.Templates {
+            $parameters = [ordered]@{
+                acmeLogName   = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Customer acme -Type log -Role ops) }
+                sharedLogName = [ordered]@{ value = (Get-BicepResourceName -Template widget -Environment alpha -Type log -Role ops) }
             }
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -Customer acme -RuntimeSlot red
         }
-        @($pair.New.Parameters.Keys) | Should -Be @($pair.Old.Keys)
-        foreach ($key in @($pair.Old.Keys)) {
-            $pair.New.Parameters[$key].value | Should -BeExactly $pair.Old[$key]
+        $result.Parameters.acmeLogName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Customer acme -Slot red -Type log -Role ops)
+        $result.Parameters.sharedLogName.value | Should -BeExactly (Get-BicepResourceName -Template widget -Environment alpha -Type log -Role ops)
+    }
+
+    It 'keeps a leaf under a not_names key as written, the name gate''s one predicate' {
+        $result = InModuleScope Catzc.Azure.Templates {
+            $parameters = [ordered]@{
+                widgetSkuName = [ordered]@{ value = 'Standard_LRS' }
+                gadgetNames   = [ordered]@{ value = [ordered]@{ gadgetSubnetName = 'not-a-canonical-name' } }
+            }
+            Resolve-BicepRuntimeSlotNames -TemplateDescriptor (Get-BicepTemplate widget) -Parameters $parameters -Environment alpha -RuntimeSlot red
         }
+        $result.Parameters.widgetSkuName.value | Should -BeExactly 'Standard_LRS'
+        $result.Parameters.gadgetNames.value.gadgetSubnetName | Should -BeExactly 'not-a-canonical-name'
     }
 }

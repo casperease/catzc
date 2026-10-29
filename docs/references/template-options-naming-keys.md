@@ -25,8 +25,8 @@ build read. This page keeps what each key said until the Azure decision records 
 | `environment_kind`     | `infrastructure/templates/*/options.yml`, the fixtures            | `standard` or `subscription`: whether every slot's environment is an ordinary one or a `per_subscription` one (`nsub`/`psub`).                                                                          |
 | `customer_deployment`  | the fixtures                                                      | Whether the template deploys for customers, defaulting to the `have_customers` variant; `true` allowed customer subfolders.                                                                             |
 
-The names entries were read by `BicepNameEntry` and `BicepItemName` and rendered by `Resolve-BicepDerivedNames`; the resource group of a
-resource-group-target slot was rendered by `Get-BicepResourceGroupName`.
+Each slot writes its names in full, and a resource-group-target slot declares its group under its top-level `ResourceGroup:` key
+(ADR-AZ-DATAMOD-DECLAREDGROUPNAME).
 
 ## Why they go
 
@@ -48,6 +48,11 @@ role segment. cats owns the grammar and the type list, so a consumer's `infrastr
   ([ADR-AZ-DATAMOD-VALUEBYFACT](../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyfact)).
 - **`addresses`:** a slot value `{ address: … }` in each slot
   ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)).
-- **`environment_kind`:** inferred from the slots' environment class, a template whose slots mix classes being a violation.
-- **`customer_deployment`:** inferred from a customer folder under `configuration/`
+- **`environment_kind`:** removed from `options.yml` and the fixtures. `BicepTemplate` infers it: `subscription` when every slot's
+  environment has `per_subscription` in `azure.yml`, else `standard`; a template whose slots mix the two classes is a violation raised at
+  discovery (`Get-BicepConfigClassViolations`).
+- **`customer_deployment`:** removed from the fixtures. `BicepTemplate` infers it: true when a slot sits in a customer folder under
+  `configuration/`, and a customer folder needs the customer enabled by `have_customers`
   ([ADR-AZ-CUSTOMER-TEMPLATEFROMFOLDER](../drs/azure/azure-customer-model.md#rule-adr-az-customer-templatefromfolder)).
+
+A removed key keeps its meaning on this page first, and the decision record absorbs it later: a key is never dropped silently.

@@ -48,6 +48,8 @@ ParametersFile:
       value: "0.5"
     privateDnsZoneSubscriptionId:
       address: global.azure.subscriptions.shared_nonprod.id
+    roles:
+      address: global.roles.roles
     storageAccountName:
       value: deweuzctexpedapst
     sqlServerName:
@@ -89,5 +91,3 @@ ParametersFile:
       fact: production
     groups:
       fact: groups
-    roles:
-      address: global.roles.roles

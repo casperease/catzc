@@ -43,9 +43,10 @@ Describe 'Deploy-Bicep to an ephemeral l3 slot (live Azure)' -Tag 'L3', 'integri
             return
         }
         foreach ($target in $targets) {
-            $group = Get-BicepResourceGroupName -Template $target.Template -Environment $target.Environment -Slot l3 -Customer $target.Customer
+            # The context builds the l3 slot and names its group, the base slot's declared group re-rendered for l3.
+            $group = (Get-BicepDeploymentContext -Environment $target.Environment -Template $target.Template -Slot l3).deployment.resource_group
             $script:created.Add([pscustomobject]@{ Name = $group; Subscription = $session.id })
-            Deploy-Bicep -Environment $target.Environment -Template $target.Template -Slot l3
+            Deploy-Bicep -Environment $target.Environment -Template $target.Template -Slot l3 -DoNotRebuild
             $tags = (Invoke-AzCli "group show --name `"$group`" --subscription $($session.id) --query tags --output json" -PassThru).Output | ConvertFrom-Json -AsHashtable
             $names = Get-BicepTrackTagNameSet $target.Template
             $tags.Contains($names.commit) | Should -BeTrue -Because "the l3 group of $($target.Template) records its commit"
