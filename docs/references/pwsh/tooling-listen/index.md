@@ -57,7 +57,7 @@ its own time.
 
 ![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone][diagram]
 
-[diagram]: ../.assets/listen-mode-flow.drawio.png
+[diagram]: ../.assets/how-the-listen-mode-turns-edits-into-plans.drawio.png
 
 Detection compares the disk with the session's copies and their indexes, hashing only the files whose length or write time moved; git is
 read once, at the start, to pin the reference, which is the repository at HEAD with committed files only. Every wait is bounded

@@ -79,7 +79,7 @@ layout:
   f-pipelines: { x: 1000, y: 408, w: 220, h: 56 }
 ```
 
-![Who reads the globs projection](.assets/globs-projects-and-three-consumers-read.drawio.png)
+![Who reads the globs projection](.assets/who-reads-the-globs-projection.drawio.png)
 
 ## Walkthrough
 

@@ -66,7 +66,7 @@ The diagram below draws identity resolution from the source. Every Azure identit
 configuration loader, each into its own registered type. The live az session is matched back to the declared subscriptions and must match
 exactly one.
 
-![How an Azure identity is resolved](../.assets/azure-identity-resolves-from-config.drawio.png)
+![How an Azure identity is resolved](../.assets/how-an-azure-identity-is-resolved.drawio.png)
 
 ## Division
 

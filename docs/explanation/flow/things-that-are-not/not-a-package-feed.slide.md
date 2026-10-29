@@ -6,7 +6,7 @@ catzc:
     order: 7
     picture:
       mode: reduce
-      source: ../../../references/pwsh/.assets/tools-yml-install-dispatch.drawio.png
+      source: ../../../references/pwsh/.assets/how-a-devbox-tool-gets-installed.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
 ---
@@ -32,4 +32,4 @@ From the catalogue, reduced: tools yml install dispatch.
 ## Notes
 
 Check it: the record ADR-AUTO-PKGMGR in docs/drs/index.md, and the diagram
-docs/references/pwsh/.assets/tools-yml-install-dispatch.drawio.png.
+docs/references/pwsh/.assets/how-a-devbox-tool-gets-installed.drawio.png.

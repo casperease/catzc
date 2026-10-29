@@ -6,7 +6,7 @@ catzc:
     order: 4
     picture:
       mode: reduce
-      source: ../../../references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png
+      source: ../../../references/pwsh/.assets/how-the-azure-cli-session-is-checked.drawio.png
       scale: 0.4
 ---
 
@@ -32,4 +32,4 @@ From the catalogue, reduced: two az checks, Test and Assert share one state call
 ## Notes
 
 Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
-docs/references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.png.
+docs/references/pwsh/.assets/how-the-azure-cli-session-is-checked.drawio.png.

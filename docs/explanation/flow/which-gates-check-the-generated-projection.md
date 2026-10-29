@@ -132,7 +132,6 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains, with
   [test automation](../../drs/automation/test-automation.md).
-- The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
-  [architecture](globs-projects-and-three-consumers-read.md), [implementation](how-the-apex-unit-flattens-into-path-filters.md) and
-  [operations](how-pipeline-filter-drift-is-reported.md).
+- The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md), [architecture](who-reads-the-globs-projection.md),
+  [implementation](how-the-apex-unit-flattens-into-path-filters.md) and [operations](how-pipeline-filter-drift-is-reported.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
