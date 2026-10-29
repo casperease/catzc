@@ -2,9 +2,9 @@
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-TESTLANG-BLACKBOX): setup sources the engine's entry
 # (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Three of
-# them start pwsh and import catzc: setup_file starts those three cats calls at once and saves each one's exit code and
-# output, and each test asserts on its own saved call (ADR-AUTO-TEST-ONEIMPORTPERCASE); the list case starts pwsh on a
-# stand-in entry, and the run-directly case and the contract refusals start no pwsh.
+# them start pwsh and import catzc, and the list case starts pwsh on a stand-in entry: setup_file starts those four cats
+# calls at once and saves each one's exit code and output, and each test asserts on its own saved call
+# (ADR-AUTO-TEST-ONEIMPORTPERCASE); the run-directly case and the contract refusals start no pwsh.
 
 _cats_source_entry() {
     if [ -z "${CATZC_ENGINE_ENTRY:-}" ]; then
@@ -37,6 +37,22 @@ setup_file() {
     (
         _cats_fixture_lookup "$BATS_FILE_TMPDIR"
         _cats_save kebab test-is-guid --object-guid "it's not a guid"
+    ) &
+    (
+        mkdir -p "$BATS_FILE_TMPDIR/list"
+        _cats_fixture_lookup "$BATS_FILE_TMPDIR/list"
+        # A stand-in entry that defines the one command, so the call reaches pwsh without importing catzc.
+        local entry="$BATS_FILE_TMPDIR/widget-importer.ps1"
+        # The quoted text is PowerShell source, written as it stands; bash expands nothing in it.
+        # shellcheck disable=SC2016
+        printf '%s\n' 'function Join-Widget { param([string[]] $Name) "$($Name.Count):$($Name -join "|")" }' >"$entry"
+        # pwsh reads the path in its own form (C:/... under Git Bash on Windows), as importer.sh does for its root.
+        if command -v cygpath >/dev/null 2>&1; then
+            entry="$(cygpath -m "$entry")"
+        fi
+        CATZC_IMPORTER="$entry"
+        export CATZC_IMPORTER
+        _cats_save list join-widget --name gadget --name "it's a sprocket"
     ) &
     wait
 }
@@ -194,19 +210,7 @@ _cats_fixture_lookup() {
 }
 
 @test "a contracted list parameter repeats its name and reaches pwsh as one array" {
-    _cats_fixture_lookup
-    # A stand-in entry that defines the one command, so the call reaches pwsh without importing catzc.
-    local entry="$BATS_TEST_TMPDIR/widget-importer.ps1"
-    # The quoted text is PowerShell source, written as it stands; bash expands nothing in it.
-    # shellcheck disable=SC2016
-    printf '%s\n' 'function Join-Widget { param([string[]] $Name) "$($Name.Count):$($Name -join "|")" }' >"$entry"
-    # pwsh reads the path in its own form (C:/... under Git Bash on Windows), as importer.sh does for its root.
-    if command -v cygpath >/dev/null 2>&1; then
-        entry="$(cygpath -m "$entry")"
-    fi
-    CATZC_IMPORTER="$entry"
-    export CATZC_IMPORTER
-    run cats join-widget --name gadget --name "it's a sprocket"
+    _cats_saved list
     [ "$status" -eq 0 ] || {
         echo "cats join-widget failed with exit $status: $output" >&2
         return 1

@@ -7,12 +7,14 @@ package repository
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 )
@@ -29,8 +31,8 @@ func requireEnv(t *testing.T, name string) string {
 }
 
 // runEngine starts the engine the contract names, which loads the entry with its output discarded, runs the command,
-// and returns what the command printed, trimmed.
-func runEngine(t *testing.T, command string) string {
+// and returns what the command printed, trimmed, or the reason it could not.
+func runEngine(t *testing.T, command string) (string, error) {
 	t.Helper()
 	executable := requireEnv(t, "CATZC_ENGINE_EXECUTABLE")
 	var start []string
@@ -49,9 +51,9 @@ func runEngine(t *testing.T, command string) string {
 	defer cancel()
 	output, err := exec.CommandContext(ctx, executable, arguments...).CombinedOutput()
 	if err != nil {
-		t.Fatalf("the engine failed to run %q: %v\n%s", command, err, output)
+		return "", fmt.Errorf("the engine failed to run %q: %v\n%s", command, err, output)
 	}
-	return strings.TrimSpace(string(output))
+	return strings.TrimSpace(string(output)), nil
 }
 
 // normalizePath makes two spellings of one folder compare equal: forward slashes, no trailing slash, and on
@@ -64,11 +66,31 @@ func normalizePath(path string) string {
 	return normalized
 }
 
+// The one engine start both tests share: a start is an import plus a command, so the tests assert on one saved call
+// (ADR-AUTO-TEST-ONEIMPORTPERCASE).
+var (
+	rootStart  sync.Once
+	rootOutput string
+	rootErr    error
+)
+
+// repositoryRootOutput returns what the one engine start printed, failing the test when that start failed.
+func repositoryRootOutput(t *testing.T) string {
+	t.Helper()
+	rootStart.Do(func() {
+		rootOutput, rootErr = runEngine(t, "Get-RepositoryRoot")
+	})
+	if rootErr != nil {
+		t.Fatal(rootErr)
+	}
+	return rootOutput
+}
+
 // assertRepositoryRoot checks that the engine reports the repository root the test contract names.
 func assertRepositoryRoot(t *testing.T) {
 	t.Helper()
 	want := requireEnv(t, "CATZC_REPOSITORY_ROOT")
-	got := runEngine(t, "Get-RepositoryRoot")
+	got := repositoryRootOutput(t)
 	if normalizePath(got) != normalizePath(want) {
 		t.Fatalf("Get-RepositoryRoot printed %q, want %q", got, want)
 	}

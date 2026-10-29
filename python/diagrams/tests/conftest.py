@@ -5,10 +5,11 @@ diagram by its tmp_path as the stem, so the pair is `<tmp_path>.drawio.yml` and 
 
 
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pytest
-from catzc.diagrams import declaration, declaration_settings, declaration_sync
+from catzc.diagrams import declaration, declaration_settings, declaration_sync, drawio_forward, drawio_png
 
 # The importlib import mode leaves the tests folder off sys.path, so the sample modules beside the tests import by name.
 sys.path.insert(0, str(Path(__file__).parent))
@@ -25,6 +26,29 @@ def empty_minimaps(folder):
 @pytest.fixture(autouse=True)
 def fixture_minimap_data(monkeypatch):
     monkeypatch.setattr(declaration_sync, "minimap_data", empty_minimaps)
+
+
+RENDERED = {}
+
+
+def memoised_render(real):
+    """The raster of a model, drawn once per run: the same model XML under the same renderer settings draws the same image, and the
+    drawing is most of a put's cost. Each caller gets its own copy, so no test's edit of an image reaches the next."""
+
+    def render(root, page=None):
+        key = (ET.tostring(root), page, repr(drawio_png.DEFAULTS))
+        if key not in RENDERED:
+            RENDERED[key] = real(root, page)
+        return RENDERED[key].copy()
+
+    return render
+
+
+@pytest.fixture(autouse=True)
+def put_draws_a_model_once(monkeypatch):
+    """The put paths draw through the memoised render; the tests of the raster itself call drawio_png.render, which stays the real one."""
+    monkeypatch.setattr(declaration_sync, "render", memoised_render(drawio_png.render))
+    monkeypatch.setattr(drawio_forward, "render", memoised_render(drawio_png.render))
 
 
 @pytest.fixture(autouse=True)

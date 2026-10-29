@@ -5,13 +5,27 @@
 # (CATZC_IMPORTER: the repository's importer.ps1 in a source run, the build's Import-Catzc.ps1 in a build run).
 # Invoke-BashTest sets the contract and CATZC_REPOSITORY_ROOT for the bats run.
 
-setup() {
+_require_contract() {
     if [ -z "${CATZC_ENGINE_ENTRY:-}" ] || [ -z "${CATZC_REPOSITORY_ROOT:-}" ]; then
         echo "CATZC_ENGINE_ENTRY or CATZC_REPOSITORY_ROOT is not set; run the Bash tests through Invoke-BashTest" >&2
         return 1
     fi
     # shellcheck source=/dev/null
     source "$CATZC_ENGINE_ENTRY"
+}
+
+# One cats call starts pwsh and imports catzc, so setup_file makes it once, saves its exit code and output, and both
+# tests assert on that saved call (ADR-AUTO-TEST-ONEIMPORTPERCASE).
+setup_file() {
+    _require_contract || return 1
+    local code=0
+    # bats runs setup_file under errexit, so a failing call is caught here and its code saved.
+    cats Get-RepositoryRoot >"$BATS_FILE_TMPDIR/root.out" 2>&1 || code=$?
+    echo "$code" >"$BATS_FILE_TMPDIR/root.status"
+}
+
+setup() {
+    _require_contract
 }
 
 # Makes two spellings of one folder compare equal: forward slashes, no trailing slash, and on Windows (where cygpath
@@ -26,7 +40,9 @@ normalize_path() {
 
 # Checks that the engine, through cats, reports the repository root the test contract names.
 assert_repository_root() {
-    run cats Get-RepositoryRoot
+    local status output
+    status="$(cat "$BATS_FILE_TMPDIR/root.status")"
+    output="$(cat "$BATS_FILE_TMPDIR/root.out")"
     [ "$status" -eq 0 ] || {
         echo "cats Get-RepositoryRoot failed with exit $status: $output" >&2
         return 1

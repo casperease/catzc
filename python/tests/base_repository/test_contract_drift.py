@@ -25,7 +25,6 @@ GROUP = "pwsh.base.repository"
 CALLER_ARGUMENTS = {"path": "README.md"}
 CALLER_OUTPUT = "string"
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
-POWERSHELL_ENGINE = "pwsh"
 
 
 @dataclass(frozen=True)
@@ -70,13 +69,6 @@ def run_engine(command: str) -> str:
     return ANSI.sub("", completed.stdout).strip()
 
 
-def expression(text: str) -> str:
-    """The command text for a PowerShell expression: as written under pwsh, single-quoted as one argument under a POSIX engine's cats."""
-    if require_env("CATZC_ENGINE") == POWERSHELL_ENGINE:
-        return text
-    return "'" + text.replace("'", "'\\''") + "'"
-
-
 def parse_signature(text: str) -> Signature:
     """Read a contract signature line, 'Name: spec, Name: spec[; default set X][ -> Output]', into its parameters and output."""
     body, _, output = text.partition(" -> ")
@@ -111,12 +103,11 @@ def drift(signature: Signature, arguments: dict[str, str], output: str) -> list[
     return findings
 
 
-def read_signature() -> Signature:
-    """Read the command's contract signature from the contracts under CATZC_REPOSITORY_ROOT, through the one reader."""
-    root = require_env("CATZC_REPOSITORY_ROOT").replace("\\", "/")
-    text = run_engine(expression(f"(Get-CommandContract -Name {CONTRACT} -Module {GROUP} -RepositoryRoot {root}).Signature"))
+def read_signature(text: str) -> Signature:
+    """Read the command's contract signature, which the conftest's one engine start read from the contracts under
+    CATZC_REPOSITORY_ROOT through the one reader."""
     if not text:
-        pytest.fail(f"no command contract names {GROUP}/{CONTRACT} under {root}/contracts")
+        pytest.fail(f"no command contract names {GROUP}/{CONTRACT} under {require_env('CATZC_REPOSITORY_ROOT')}/contracts")
     return parse_signature(text)
 
 
@@ -126,13 +117,14 @@ def normalize_path(path: str) -> str:
     return normalized.lower() if sys.platform == "win32" else normalized
 
 
-def test_contract_drift() -> None:
+def test_contract_drift(engine_answers: dict[str, str]) -> None:
     """The caller's call fits Get-RepositoryFile's contract, and the call built from the contract returns the file's path."""
-    signature = read_signature()
+    signature = read_signature(engine_answers["signature"])
     findings = drift(signature, CALLER_ARGUMENTS, CALLER_OUTPUT)
     assert not findings, f"{COMMAND}'s contract changed and this caller did not:\n" + "\n".join(findings)
     call = " ".join([COMMAND, *(f"-{p.name} {CALLER_ARGUMENTS[p.name]}" for p in signature.parameters if p.name in CALLER_ARGUMENTS)])
-    got = run_engine(call)
+    # The conftest's start already ran the caller's call; only a call the contract orders differently starts the engine again.
+    got = engine_answers["file"] if call == engine_answers["file_call"] else run_engine(call)
     want = f"{require_env('CATZC_REPOSITORY_ROOT')}/{CALLER_ARGUMENTS['path']}"
     assert normalize_path(got) == normalize_path(want), f"{call} printed {got!r}, want {want!r}"
 

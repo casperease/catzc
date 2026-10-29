@@ -185,6 +185,10 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
         }
 
         It 'keeps uv offline and off interpreter downloads, and passes the engine contract loading the entry, and the root' {
+            $names = 'UV_PYTHON_DOWNLOADS', 'UV_OFFLINE', 'CATZC_ENGINE_START'
+            $before = @(foreach ($name in $names) {
+                    [System.Environment]::GetEnvironmentVariable($name)
+                })
             $null = Invoke-PythonTest Catzc.Widget -EntryScript $script:buildEntry
             $expected = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.StartArguments((Resolve-Path -LiteralPath $script:buildEntry).ProviderPath, '{command}')
             foreach ($call in $script:seen) {
@@ -194,9 +198,10 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
                 @($call.Start | ConvertFrom-Json) | Should -Be $expected
                 $call.Root | Should -Be $script:root
             }
-            Test-Path Env:UV_PYTHON_DOWNLOADS | Should -BeFalse
-            Test-Path Env:UV_OFFLINE | Should -BeFalse
-            Test-Path Env:CATZC_ENGINE_START | Should -BeFalse
+            # Each variable is put back as the run found it, which an earlier run of the caller may have set.
+            foreach ($index in 0..($names.Count - 1)) {
+                [System.Environment]::GetEnvironmentVariable($names[$index]) | Should -Be $before[$index] -Because "$($names[$index]) is restored"
+            }
         }
 
         It 'throws with the ruff output when ruff check fails' {
