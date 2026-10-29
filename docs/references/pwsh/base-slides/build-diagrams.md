@@ -41,7 +41,8 @@ on `SlidesConfig`.
 ### parameter `Path`
 
 Repository-relative diagrams to rebuild, each named by its `.drawio.yml`, its `.drawio.png` or its stem. Default: every diagram under
-`docs/**/.assets/`. A path that is not a diagram stops the run.
+`docs/**/.assets/`. A path that is not a diagram stops the run, a folder among them; a set of diagrams is a list of their paths, such as
+`-Path (Get-Content <list file>)`.
 
 ### parameter `Kit`
 

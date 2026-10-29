@@ -25,7 +25,8 @@ quality-gate report.
 ### parameter `Path`
 
 Declared diagrams, repository-relative or absolute, each named by its `.drawio.yml`, its `.drawio.png` or its stem. A path that is not a
-declared diagram throws. The default is every declared diagram.
+declared diagram throws, a folder among them; a set of diagrams is a list of their paths, such as `-Path (Get-Content <list file>)`. The
+default is every declared diagram.
 
 ### parameter `Kit`
 

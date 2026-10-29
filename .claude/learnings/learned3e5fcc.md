@@ -66,3 +66,18 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   only commands a module exports
 - 2026-10-29 Cats: Token tip: read Get-BicepTemplates and Read-BicepTemplateOptions first for any options.yml change
 - 2026-10-29 Cats: Token tip: copy an existing plan head and Open steps shape before writing a new plan
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: the diagram kit is a strict editable install that hardlinks each python/diagrams
+  file into build/__editable__, so an edit that replaces a file runs the stale copy until Install-PythonWorkspace -ReinstallPackage
+  catzc-diagrams; Invoke-PythonTest now refuses a stale link.
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: Build-Diagrams finds an article that embeds a png only among git-tracked files, so
+  a diagram moved on disk without git mv is an E_ORPHAN; Move-Diagram (git mv) is the way to rename.
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: Build-Diagrams and Test-Diagrams take diagram paths, never a folder; pass a list
+  through (Get-Content \<file>).
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: in a minimap place row, x.+N is N places and a.(root)|b|c is three, per
+  ADR-AUTO-IDIOM-PLACENORMALFORM; reviewers misread the counter otherwise.
+- 2026-10-29 Cats: In hindsight I wish I knew this fact: Test-Plans resolves every command named inside a check through Get-Command, so a
+  private function or a deleted name in a check is a finding.
+- 2026-10-29 Cats: Token tip: Next time, save tokens by: briefing haiku reviewers with the place-row notation up front, so a 181-png round
+  returns no false counter findings.
+- 2026-10-29 Cats: Token tip: Next time, save tokens by: telling every drone to report after about 40 turns, since drones at the 50-turn
+  limit stop with no report and need a resume.
