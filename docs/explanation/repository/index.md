@@ -16,9 +16,9 @@ These articles explain decisions from the [repository DRS domain](../../drs/inde
 One command reads the contract assets through the one reader and writes a reference page per unit
 ([api-contracts](../../drs/repository/api-contracts.md), [command-contracts](../../drs/repository/command-contracts.md)).
 
-| Article                                                                                                                 |
-| ----------------------------------------------------------------------------------------------------------------------- |
-| [How the contract reference is built](building-the-contract-reference-writes-one-page-per-unit.md) |
+| Article                                                                       |
+| ----------------------------------------------------------------------------- |
+| [How the contract reference is built](how-the-contract-reference-is-built.md) |
 
 ## Minimaps
 

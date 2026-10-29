@@ -10,8 +10,8 @@ Supports ADR-AUTO-DEFAULT-ONERESOLUTIONORDER and ADR-REPO-FOLDERS-NAMESARESETTIN
 
 A model that lives in more than one place drifts, so each one is declared once
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The table
-names, for each part of the [physical model](the-physical-model.md) and the [meta model](the-meta-model.md), the one config that declares
-it, the query that answers it, and the gate that refuses a tree that disagrees with it.
+names, for each part of the [physical model](what-layers-sit-over-the-tree.md) and the [meta model](what-makes-up-the-meta-model.md), the
+one config that declares it, the query that answers it, and the gate that refuses a tree that disagrees with it.
 
 - **Folder names**
   - Declared in: `pwsh/Base.Languages/configs/languages.yml` (layout)

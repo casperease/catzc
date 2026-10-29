@@ -16,8 +16,8 @@ ADR-REPO-DRSCODE-PATHOFSEGMENTS and ADR-REPO-VOCAB-GLOSSARYSOURCE (meta lens).
 
 ![What makes up the meta model](.assets/what-makes-up-the-meta-model.drawio.png)
 
-The [physical model](the-physical-model.md) says where each file is; the meta model says what the files make up and what governs them. Like
-the physical model, each part is declared once and read through a query.
+The [physical model](what-layers-sit-over-the-tree.md) says where each file is; the meta model says what the files make up and what governs
+them. Like the physical model, each part is declared once and read through a query.
 
 ## Modules
 

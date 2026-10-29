@@ -108,7 +108,7 @@ layout:
 ## See also
 
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
-- The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
+- The other lenses on the same mechanism: [meta](who-owns-each-managed-root-file.md),
   [implementation](how-an-opted-in-root-file-is-placed.md), [operations](how-the-import-keeps-root-files-current.md) and
   [governance](what-checks-the-root-config-registry.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

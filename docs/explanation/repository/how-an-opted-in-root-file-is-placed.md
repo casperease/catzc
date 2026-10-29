@@ -131,6 +131,5 @@ layout:
 ## See also
 
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
-- The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
-  [architecture](what-materialises-the-root-config.md), [operations](how-the-import-keeps-root-files-current.md) and
-  [governance](what-checks-the-root-config-registry.md).
+- The other lenses on the same mechanism: [meta](who-owns-each-managed-root-file.md), [architecture](what-materialises-the-root-config.md),
+  [operations](how-the-import-keeps-root-files-current.md) and [governance](what-checks-the-root-config-registry.md).
