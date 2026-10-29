@@ -166,5 +166,5 @@ legend.
 - [Config value addressing](../../drs/configuration/config-value-addressing.md) and
   [test automation](../../drs/automation/test-automation.md) — the other rules on the diagram.
 - The other lenses on the same read path: [meta](how-a-config-read-is-cached.md), [architecture](how-callers-in-any-module-read-config.md),
-  [implementation](which-caches-back-the-config-reader.md) and [operations](ask-by-name-get-the-cached-object.md).
+  [implementation](which-caches-back-the-config-reader.md) and [operations](how-a-config-is-fetched-by-name.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

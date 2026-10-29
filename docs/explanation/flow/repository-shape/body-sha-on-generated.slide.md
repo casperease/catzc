@@ -6,7 +6,7 @@ catzc:
     order: 6
     picture:
       mode: reduce
-      source: ../../../how-to/pwsh/.assets/head-outcomes.drawio.png
+      source: ../../../how-to/pwsh/.assets/which-keys-a-file-head-holds.drawio.png
       scale: 0.4
 ---
 
@@ -30,4 +30,4 @@ From the catalogue, reduced: head outcomes.
 
 ## Notes
 
-Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/how-to/pwsh/.assets/head-outcomes.drawio.png.
+Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/how-to/pwsh/.assets/which-keys-a-file-head-holds.drawio.png.

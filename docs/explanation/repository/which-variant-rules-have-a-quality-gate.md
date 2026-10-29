@@ -128,7 +128,6 @@ layout:
 - [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) and
   [test automation](../../drs/automation/test-automation.md) — the gate rules, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and
   ADR-AUTO-TEST-QUALITYGATE.
-- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md),
-  [architecture](a-base-module-between-config-and-its-callers.md), [implementation](five-keys-one-reader-twelve-primitives.md) and
-  [operations](an-edit-lands-at-the-next-import.md).
+- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md), [architecture](where-the-variants-module-sits.md),
+  [implementation](how-variants-yml-keys-are-read.md) and [operations](when-a-variant-edit-takes-effect.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

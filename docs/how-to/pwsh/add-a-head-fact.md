@@ -71,7 +71,7 @@ layout:
   g-other-head: { x: 960, y: 474, w: 260, h: 60 }
 ```
 
-![Which keys a file head holds](.assets/head-outcomes.drawio.png)
+![Which keys a file head holds](.assets/which-keys-a-file-head-holds.drawio.png)
 
 The sidebar lights one cell. Which layer: automation, because ADR-REPO-FILEMETA and ADR-REPO-CODEMETA name no layer in `drs.yml` and so take
 the declared default. The code-locations and track-placement maps light nothing.

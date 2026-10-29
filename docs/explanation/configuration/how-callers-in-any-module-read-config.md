@@ -123,5 +123,5 @@ which reads no file itself.
 
 - [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains.
 - The other lenses on the same read path: [meta](how-a-config-read-is-cached.md), [implementation](which-caches-back-the-config-reader.md),
-  [operations](ask-by-name-get-the-cached-object.md) and [governance](what-guards-the-config-read-path.md).
+  [operations](how-a-config-is-fetched-by-name.md) and [governance](what-guards-the-config-read-path.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

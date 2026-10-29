@@ -95,7 +95,7 @@ layout:
   g-test-customers: { x: 680, y: 514, w: 260, h: 44 }
 ```
 
-![How variants.yml keys are read](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
+![How variants.yml keys are read](.assets/how-variants-yml-keys-are-read.drawio.png)
 
 ## Walkthrough
 
@@ -142,7 +142,6 @@ layout:
 ## See also
 
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
-- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md),
-  [architecture](a-base-module-between-config-and-its-callers.md), [operations](an-edit-lands-at-the-next-import.md) and
-  [governance](which-variant-rules-have-a-quality-gate.md).
+- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md), [architecture](where-the-variants-module-sits.md),
+  [operations](when-a-variant-edit-takes-effect.md) and [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

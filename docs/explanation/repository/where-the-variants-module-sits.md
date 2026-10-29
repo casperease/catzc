@@ -78,7 +78,7 @@ layout:
   g-tooling: { x: 940, y: 392, w: 200, h: 44 }
 ```
 
-![Where the variants module sits](.assets/a-base-module-between-config-and-its-callers.drawio.png)
+![Where the variants module sits](.assets/where-the-variants-module-sits.drawio.png)
 
 ## Walkthrough
 
@@ -120,7 +120,6 @@ layout:
 
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
 - [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the declaration the edges live in.
-- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md),
-  [implementation](five-keys-one-reader-twelve-primitives.md), [operations](an-edit-lands-at-the-next-import.md) and
-  [governance](which-variant-rules-have-a-quality-gate.md).
+- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md), [implementation](how-variants-yml-keys-are-read.md),
+  [operations](when-a-variant-edit-takes-effect.md) and [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

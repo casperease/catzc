@@ -83,7 +83,7 @@ layout:
   f-skipped: { x: 700, y: 566, w: 260, h: 44 }
 ```
 
-![When a variant edit takes effect](.assets/an-edit-lands-at-the-next-import.drawio.png)
+![When a variant edit takes effect](.assets/when-a-variant-edit-takes-effect.drawio.png)
 
 ## Walkthrough
 
@@ -126,7 +126,6 @@ layout:
 ## See also
 
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
-- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md),
-  [architecture](a-base-module-between-config-and-its-callers.md), [implementation](five-keys-one-reader-twelve-primitives.md) and
-  [governance](which-variant-rules-have-a-quality-gate.md).
+- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md), [architecture](where-the-variants-module-sits.md),
+  [implementation](how-variants-yml-keys-are-read.md) and [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -84,7 +84,7 @@ layout:
   f-malformed: { x: 810, y: 412, w: 220, h: 44 }
 ```
 
-![How a config is fetched by name](.assets/ask-by-name-get-the-cached-object.drawio.png)
+![How a config is fetched by name](.assets/how-a-config-is-fetched-by-name.drawio.png)
 
 ## Walkthrough
 

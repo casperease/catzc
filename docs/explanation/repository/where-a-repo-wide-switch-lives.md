@@ -92,7 +92,7 @@ straight off the loaded variants config instead of through `Get-Variant`, so the
 ## See also
 
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
-- The other lenses on the same diagram: [architecture](a-base-module-between-config-and-its-callers.md),
-  [implementation](five-keys-one-reader-twelve-primitives.md), [operations](an-edit-lands-at-the-next-import.md) and
+- The other lenses on the same diagram: [architecture](where-the-variants-module-sits.md),
+  [implementation](how-variants-yml-keys-are-read.md), [operations](when-a-variant-edit-takes-effect.md) and
   [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -34,6 +34,6 @@ A diagram's minimaps are one projection, computed from data and never drawn by h
 Build-Diagrams runs five stages in one command, and rendering is the cost
 ([slides-as-markdown](../../drs/repository/slides-as-markdown.md)).
 
-| Lens           | Article                                                                                          |
-| -------------- | ------------------------------------------------------------------------------------------------ |
-| implementation | [Build-Diagrams runs five stages, and rendering is the cost](build-diagrams-runs-five-stages.md) |
+| Lens           | Article                                                                                 |
+| -------------- | --------------------------------------------------------------------------------------- |
+| implementation | [Build-Diagrams runs five stages, and rendering is the cost](how-diagrams-are-built.md) |

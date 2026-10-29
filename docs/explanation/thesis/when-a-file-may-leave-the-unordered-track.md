@@ -64,7 +64,7 @@ content:
   minimaps: [axis, lifecycle-position, layer-stack]
 ```
 
-![When a file may leave the unordered track](.assets/eac-normal-form.drawio.png)
+![When a file may leave the unordered track](.assets/when-a-file-may-leave-the-unordered-track.drawio.png)
 
 ## Walkthrough
 

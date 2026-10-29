@@ -55,7 +55,7 @@ layout:
   g-report: { x: 1060, y: 144, w: 180, h: 60 }
 ```
 
-![How diagrams are built](.assets/build-diagrams-runs-five-stages.drawio.png)
+![How diagrams are built](.assets/how-diagrams-are-built.drawio.png)
 
 ## Walkthrough
 
