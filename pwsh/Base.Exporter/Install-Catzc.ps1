@@ -53,7 +53,15 @@ function Install-Catzc {
                     foreach ($extension in $engine.ScriptExtensions) {
                         # A named whole-tree walk: every shebang script of the installed module is re-marked.
                         foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extension" -Depth 64 -Exclude @() -PruneVendor $false) {
-                            if ([System.IO.File]::ReadLines($script) | Select-Object -First 1 | Where-Object { $_.StartsWith('#!') }) {
+                            # The reader is disposed here, since a pipeline cut short by Select-Object -First leaves a ReadLines enumerator holding the file open.
+                            $reader = [System.IO.StreamReader]::new($script)
+                            try {
+                                $first = $reader.ReadLine()
+                            }
+                            finally {
+                                $reader.Dispose()
+                            }
+                            if ($null -ne $first -and $first.StartsWith('#!')) {
                                 [System.IO.File]::SetUnixFileMode($script,
                                     [System.IO.File]::GetUnixFileMode($script) -bor $execute)
                             }
