@@ -1,4 +1,4 @@
-Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
+Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         # The bicep binary is resolved once for the file; the real builds below run only when it is there.
         $bicep = Resolve-ToolExecutable -Tool bicep
@@ -38,6 +38,12 @@ Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
                 }
             }
         }
+
+        if ($script:bicepReady) {
+            $script:foundationSlots = @(Get-SlotResource -Template foundation)
+            $script:expeditionSlots = @(Get-SlotResource -Template expedition)
+            $script:discoverySlots = @(Get-SlotResource -Template discovery)
+        }
     }
 
     It 'gives every foundation slot one action group, addressed to the Owner role' {
@@ -45,7 +51,7 @@ Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
             Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
-        $slots = @(Get-SlotResource -Template foundation)
+        $slots = @($script:foundationSlots)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
             @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/actionGroups').Count | Should -Be 1 -Because "slot $($slot.Slot) has its action group"
@@ -59,7 +65,7 @@ Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
             Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
-        $slots = @(Get-SlotResource -Template expedition)
+        $slots = @($script:expeditionSlots)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
             @($slot.Resources | Where-Object Type -EQ 'Microsoft.Sql/servers/auditingSettings').Count | Should -Be 1 -Because "slot $($slot.Slot) audits its server"
@@ -73,7 +79,7 @@ Describe 'Alerts: every compiled slot' -Tag 'L2', 'integrity' {
             Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
-        $slots = @(Get-SlotResource -Template discovery)
+        $slots = @($script:discoverySlots)
         $slots.Count | Should -BeGreaterThan 0
         foreach ($slot in $slots) {
             @($slot.Resources | Where-Object Type -EQ 'Microsoft.Insights/activityLogAlerts').Count | Should -BeGreaterThan 0 -Because "slot $($slot.Slot) alerts on health"

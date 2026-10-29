@@ -65,7 +65,8 @@ function Invoke-TestAutomationWorkers {
             $history[$relative]
         }
         else {
-            0
+            # An unmeasured greedy file goes first: sorted last it never starts in a run that overruns, so it is never measured.
+            [double]::MaxValue
         }
     }
     $GreedyFiles = @($GreedyFiles | Sort-Object -Property @{ Expression = { & $weightOf $_ }; Descending = $true }, @{ Expression = { $_ } })
@@ -156,11 +157,17 @@ function Invoke-TestAutomationWorkers {
         @{}
     }
     $WorkerEnvironment['CATZC_TEST_RUN_LOCATION_HELD'] = '1'
+    # One bicep build cache per run, so each template compiles once for all the files that build it (Build-Bicep).
+    $WorkerEnvironment['CATZC_BICEP_BUILD_CACHE'] = Join-Path $RunDirectory 'bicep-build-cache'
+
+    # The prewarm counts in the run's time: it fills the caches the pool's files would otherwise fill side by side.
+    $stopwatch.Start()
+    $null = Invoke-TestRunPrewarm -TestFile (@($ParallelFiles) + @($GreedyFiles) + @($SerialFiles)) -RunDirectory $RunDirectory `
+        -WorkerEnvironment $WorkerEnvironment -TimeoutSeconds $TimeoutSeconds -EntryScript $shardArguments['EntryScript'] -EntryParameter $shardArguments['EntryParameter']
 
     # Announced before the pool blocks: each worker's imports would otherwise read as a hang.
     Write-Message "Running $($ParallelFiles.Count) test file(s) across $($shards.Count) parallel worker(s)$(if ($greedyShards.Count) { ", with $($GreedyFiles.Count) greedy file(s) taking slots as they free, up to $greedyGroupSize at once" })$(if ($serialShard) { ", then $($SerialFiles.Count) serial-tagged file(s)" })..." -NoHeader
 
-    $stopwatch.Start()
     # Parallel and greedy share one pool and timeline; only the serial phase carries an offset.
     $pooled = @($shards) + @($greedyShards)
     if ($pooled.Count -gt 0) {

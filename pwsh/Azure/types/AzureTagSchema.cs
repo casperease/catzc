@@ -6,8 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
-// The tags section of azure.yml: the CAF tag keys every taggable resource carries, the closed value set of those that have one, and the
-// lowercase provenance tag names a deploy writes. Declared once; the compliance gate and every config check read it.
 public sealed class AzureTagSchema
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

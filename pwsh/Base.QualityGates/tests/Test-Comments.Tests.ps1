@@ -25,7 +25,7 @@ Describe 'Test-Comments' -Tag 'L0', 'logic' {
             $root
         }
         $script:file = "$(Get-CatzcModulesFolder)/Widget/Get-Widget.ps1"
-        $script:pageRelative = 'docs/references/pwsh/catzc-widget/Get-Widget.ps1.md'
+        $script:pageRelative = 'docs/references/pwsh/widget/get-widget.md'
         $script:check = {
             param([string] $Root)
             Test-Comments -RepositoryRoot $Root -Path (Join-Path $Root (Get-CatzcModulesFolder)) -OutputFolder (Join-Path $Root 'out/report') -PassThru

@@ -61,7 +61,10 @@ resource egress 'Microsoft.Network/firewallPolicies/ruleCollectionGroups@2024-05
                     'TCP'
                   ]
                   sourceAddresses: sourceAddresses
-                  destinationAddresses: map(serviceTags, serviceTag => replace(serviceTag, '{region}', serviceTagRegions[location]))
+                  destinationAddresses: map(
+                    serviceTags,
+                    serviceTag => replace(serviceTag, '{region}', serviceTagRegions[location])
+                  )
                   destinationPorts: [
                     '443'
                   ]

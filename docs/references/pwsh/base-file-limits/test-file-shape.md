@@ -30,3 +30,12 @@ Test-FileShape -Path pwsh/Base.Folders/Get-ChildPath.ps1
 ## String overflow
 
 A line whose overflow lies wholly inside one string literal passes, so the width is the widest line that is not one.
+
+## comment:1
+
+Above `$text = [System.IO.File]::ReadAllText((Resolve-Path -LiteralPath...`, written with `#`.
+
+```text
+A line whose overflow lies wholly inside one string literal passes, so the width is the widest line that is not one.
+Through the provider, as Measure-FileShape reads it: .NET resolves a relative path against the process directory, not the location.
+```

@@ -11,8 +11,8 @@ Creates, converts or leaves one Azure service connection, federated by workload 
 ### description
 
 Reads the connection by name. A missing one is created as an azurerm endpoint with the WorkloadIdentityFederation scheme, its identity
-created by Azure DevOps, at the Subscription scope level: Azure DevOps sets a scope that is narrower only through one resource group, and the
-identity's least privilege comes from the role assignments the templates grant. One with another scheme, on another subscription or at
+created by Azure DevOps, at the Subscription scope level: Azure DevOps sets a scope that is narrower only through one resource group, and
+the identity's least privilege comes from the role assignments the templates grant. One with another scheme, on another subscription or at
 another scope level is converted in place with the ConvertAuthenticationScheme operation. A federated one that matches is left alone.
 Returns the action: Create, Update or Unchanged.
 

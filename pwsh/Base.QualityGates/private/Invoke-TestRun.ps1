@@ -87,8 +87,9 @@ function Invoke-TestRun {
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
     }
-    # Runs whose owner died never reached their finally, so they are marked abandoned.
-    Set-AbandonedTestRun -OutputFolder $OutputFolder | Out-Null
+    # Runs whose owner died never reached their finally, so they are marked abandoned and their finished shards' durations kept.
+    $abandonedRuns = @(Set-AbandonedTestRun -OutputFolder $OutputFolder)
+    Save-AbandonedRunDurationHistory -RunDirectory $abandonedRuns -Path (Join-Path $OutputFolder 'durations.json')
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
 
     # The location is claimed before anything is filtered; the finally releases it.

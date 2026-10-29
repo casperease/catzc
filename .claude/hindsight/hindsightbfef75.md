@@ -8,8 +8,9 @@ Started 2026-10-27T19:34:23.5689120+01:00.
 - 2026-10-27 Jack: If only the contract tester had looked at the checker before matching on AssetPath alone: half,
   `pwsh/Base.Contracts/private/Get-ContractCheckResult.ps1:33` yields per-asset findings, and the one-record-per-Target rule lives in code,
   nowhere a session starts.
-- 2026-10-27 Jack: If only the rename author had known git keeps the old case: half, `pwsh/Base.Git/tests/New-RepositorySnapshot.Tests.ps1:139`
-  knows it and plan-idiomatic-names waits on the user's git mv, but no skill or how-to says a case-only rename is the user's.
+- 2026-10-27 Jack: If only the rename author had known git keeps the old case: half,
+  `pwsh/Base.Git/tests/New-RepositorySnapshot.Tests.ps1:139` knows it and plan-idiomatic-names waits on the user's git mv, but no skill or
+  how-to says a case-only rename is the user's.
 - 2026-10-27 Jack: If only the GUID minter had read the managed-guids record: half, `docs/drs/automation/managed-guids.md:30` names
   SentenceGuid, which a session finds only by grepping the DRS.
 - 2026-10-27 Jack: If only the types debugger had read the native-csharp-types record before chasing ghosts: half,
@@ -55,8 +56,9 @@ Started 2026-10-27T19:34:23.5689120+01:00.
   describes file-icons.yml, but the glyph folder and the missing folder icons are nowhere a session starts.
 - 2026-10-27 Jack: If only the plan author had run New-Plan: automated, it writes the master line and the value row together, and
   ADR-REPO-PLANS-THREEPARTS makes a missing one a Test-Plans finding.
-- 2026-10-27 Jack: If only the script author had read catzc-run before writing out/ scripts: declared, `.claude/skills/catzc-run/SKILL.md:17`
-  runs a cats command through the entry script, never an out/*.ps1 of its own, which settles every 'one out/ script' tip.
+- 2026-10-27 Jack: If only the script author had read catzc-run before writing out/ scripts: declared,
+  `.claude/skills/catzc-run/SKILL.md:17` runs a cats command through the entry script, never an out/*.ps1 of its own, which settles every
+  'one out/ script' tip.
 - 2026-10-27 Jack: If only the namespace hunter had found the resolver: automated,
   `pwsh/.internal/assets/bootstrap/Resolve-ModuleName.ps1:2` and VariantTrack.FullNameOf/FolderNameOf map folder and full name, and
   `.claude/CLAUDE.md` says module folders drop the prefix.

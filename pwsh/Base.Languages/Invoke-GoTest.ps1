@@ -54,9 +54,6 @@ function Invoke-GoTest {
     }
     $goCommand = "`"$goPath`""
 
-    # The engine contract is set for these commands only; GOTOOLCHAIN=local stops go downloading go.work's toolchain, and
-    # GOPROXY=off with GOFLAGS=-mod=mod keeps every go command on the module cache, writing go.sum from it; GOWORK=off runs each
-    # command in its own module, since workspace mode refuses -mod=mod and go.work is the editors' layout.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['GOTOOLCHAIN'] = 'local'
     $environment['GOPROXY'] = 'off'

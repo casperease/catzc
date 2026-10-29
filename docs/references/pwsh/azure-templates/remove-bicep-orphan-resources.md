@@ -60,3 +60,12 @@ Remove-BicepOrphanResources nsub expedition -DryRun
 ```powershell
 Remove-BicepOrphanResources psub foundation -SubscriptionIdAssertIs 50a0ed00-000d-50b0-0000-000000000000 -ArtifactsFolder ./out/foundation
 ```
+
+## comment:1
+
+Above `if ($unresolvedNames.Count -gt 0) {`, written with `#`.
+
+```text
+An unresolved name could match any deployed resource, so a deletion is refused and the candidates are only listed
+([ADR-AZ-DATAMOD-ORPHANSNEEDRESOLVEDNAMES](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-orphansneedresolvednames)).
+```

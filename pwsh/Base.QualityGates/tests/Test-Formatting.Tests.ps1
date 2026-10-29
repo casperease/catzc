@@ -104,7 +104,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only' {
+Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only', 'greedy' {
     It 'formatting leaves the repository unchanged (Test-Formatting)' {
         $go = Resolve-ToolExecutable -Tool go
         $uv = Resolve-ToolExecutable -Tool uv

@@ -23,6 +23,6 @@ The cases show that a declared deadline bounds the wait without deciding when th
 
 ## A hold passes to the processes the holder starts
 
-A run or a burst that holds the lock names its process in the lock's own environment variable while it holds it, so only its child
-processes inherit it and a nested run waits for no ancestor. The cases show that only a live ancestor's hold counts: a variable naming a gone
-process, a reused process id, or text it cannot read holds nothing, and a hold on another lock never stands in for this one.
+A run or a burst that holds the lock names its process in the lock's own environment variable while it holds it, so only its child processes
+inherit it and a nested run waits for no ancestor. The cases show that only a live ancestor's hold counts: a variable naming a gone process,
+a reused process id, or text it cannot read holds nothing, and a hold on another lock never stands in for this one.

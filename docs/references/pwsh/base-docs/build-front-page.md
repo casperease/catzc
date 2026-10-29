@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Build-FrontPage.ps1
 
-The writer of the repository's front page: it composes the page from `frontpage.yml`, its title, tagline, badges, sections and closing,
-and writes it with the generated-file head only when the content differs.
+The writer of the repository's front page: it composes the page from `frontpage.yml`, its title, tagline, badges, sections and closing, and
+writes it with the generated-file head only when the content differs.
 
 ## help
 

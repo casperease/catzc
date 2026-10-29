@@ -15,8 +15,8 @@ FDR-CD-TWORELEASEGATES and FDR-CD-TWORELEASEGATES (meta lens).
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
 and then let into production by a manual gate. Because nothing downstream rebuilds it, production runs exactly the bytes that non-prod
-certified. The flow splits into an automated side and a governed side: the CD pipelines in the repository stop in non-prod, and the prod tier
-is reached only by the manual DEPLOY pipelines.
+certified. The flow splits into an automated side and a governed side: the CD pipelines in the repository stop in non-prod, and the prod
+tier is reached only by the manual DEPLOY pipelines.
 
 ```yml drawio
 description:

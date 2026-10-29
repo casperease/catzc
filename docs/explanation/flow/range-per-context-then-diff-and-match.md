@@ -128,7 +128,8 @@ layout:
 - The change is computed from git at real refs: `Get-ChangedGlobSet` diffs a commit range with `git diff --name-only --no-renames` and
   matches the paths against the registry; `Test-GlobSetAffected` resolves the reference commit per context and fails open on any doubt
   (FDR-GLOBS-CHANGECOMPUTEDFROMGIT).
-- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
+- The context is read through `Test-IsRunningInPipeline`, never from the detection variables directly
+  (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 
 ## See also
 

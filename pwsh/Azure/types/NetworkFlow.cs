@@ -5,8 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
-// One inbound flow a subnet's security group allows; every other inbound flow from the network is denied. Subnets are named by role, so a
-// flow holds for every subnet of that role in every network.
 public sealed class NetworkFlow : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "name", "to", "from", "ports", "protocol" };

@@ -31,4 +31,5 @@ From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
-Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.
+Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

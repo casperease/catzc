@@ -56,7 +56,7 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
         $seen['npm_config_offline'] | Should -Be 'true'
         $seen['PYRIGHT_PYTHON_FORCE_VERSION'] | Should -Be '1.1.414'
         foreach ($name in $script:offline) {
-            [System.Environment]::GetEnvironmentVariable($name) | Should -BeNullOrEmpty -Because "$name is set for the tool only"
+            Test-Path -LiteralPath "Env:$name" | Should -BeFalse -Because "$name is set for the tool only, and an empty value would still reach uv"
         }
     }
 

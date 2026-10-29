@@ -4,8 +4,8 @@ The tests of `Test-AgentDefinitions`, in two blocks.
 
 ## Fixture tree
 
-A fixture `.claude/` tree in `$TestDrive` and a fixture `AgentsConfig` (`Get-Config`, `Resolve-RepoPath` and `Get-DrsRuleIds` mocked),
-so each test pins one rule. Fixture names are neutral
+A fixture `.claude/` tree in `$TestDrive` and a fixture `AgentsConfig` (`Get-Config`, `Resolve-RepoPath` and `Get-DrsRuleIds` mocked), so
+each test pins one rule. Fixture names are neutral
 ([ADR-AUTO-TEST-DISTINCTFIXTURES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtures)).
 
 ## Real definitions

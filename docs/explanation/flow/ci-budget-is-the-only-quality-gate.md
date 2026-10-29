@@ -116,8 +116,8 @@ layout:
    `tests.run_seconds` (180 seconds by default), is reported and never fails the run. The GitHub mirror runs `Test-Automation -Level 2`
    without `-EnforceTimings`, so the gate binds the Azure DevOps pipeline only.
 3. **CD.** CD runs the CI component, then takes the artifact through non-prod and stays there. Code review is meant to check both this and
-   build-once. The code keeps both: every deploy job downloads the artifact the CI stage published, and no CD pipeline lists a prod-subscription
-   target.
+   build-once. The code keeps both: every deploy job downloads the artifact the CI stage published, and no CD pipeline lists a
+   prod-subscription target.
 4. **RC.** Release Certification is the manual gate at main-uat, cleared when main-AT is verified. No pipeline or check carries it.
 5. **DEPLOY-Non-Prod.** DEPLOY is the actuator that rolls the artifact on once a gate clears; DEPLOY-Non-Prod drives it into the non-prod
    acceptance environments. In the repository, the `release-uat` target of `deploy-apex.yaml` and `deploy-shared.yaml` is that path.

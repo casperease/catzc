@@ -326,15 +326,22 @@ Describe 'Get-ArmDeployedResource' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L2', 'integrity' {
-    It 'every compiled template slot holds to the compliance rules, but for the known findings, and every known finding still occurs' {
+Describe 'Test-BicepTemplateCompliance (real templates)' -Tag 'L2', 'integrity', 'greedy' {
+    BeforeAll {
         $bicep = Resolve-ToolExecutable -Tool bicep
-        if (-not ($bicep.Found -and $bicep.VersionOk)) {
+        $script:bicepReady = $bicep.Found -and $bicep.VersionOk
+        if ($script:bicepReady) {
+            $script:result = Test-BicepTemplateCompliance -PassThru -OutputFolder (Join-Path $TestDrive 'compliance')
+        }
+    }
+
+    It 'every compiled template slot holds to the compliance rules, but for the known findings, and every known finding still occurs' {
+        if (-not $script:bicepReady) {
             Set-ItResult -Skipped -Because 'tool_bicep_missing'
             return
         }
         $known = (Get-Config -Config template-compliance).known_findings
-        $result = Test-BicepTemplateCompliance -PassThru -OutputFolder (Join-Path $TestDrive 'compliance')
+        $result = $script:result
         $result.Facts['Resources'] | Should -BeGreaterThan 0
         $new = @($result.Issues | Where-Object { -not $known.ContainsKey($_) })
         $new | Should -BeNullOrEmpty -Because 'a finding not in known_findings is a regression (template-compliance.yml)'

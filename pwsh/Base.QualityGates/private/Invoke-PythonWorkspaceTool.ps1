@@ -52,7 +52,12 @@ function Invoke-PythonWorkspaceTool {
     }
     finally {
         foreach ($name in $environment.Keys) {
-            [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
+            if ($null -eq $saved[$name]) {
+                Remove-Item -LiteralPath "Env:$name" -ErrorAction Ignore
+            }
+            else {
+                [System.Environment]::SetEnvironmentVariable($name, $saved[$name])
+            }
         }
     }
 }

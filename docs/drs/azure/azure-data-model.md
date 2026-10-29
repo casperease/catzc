@@ -481,7 +481,7 @@ The config is resolved into runtime objects on demand — where the "complex joi
   subscription; the customer that renders into names is read off it.
 
 The lookups, their return shapes, and the thin read-only accessors and argument completers over the two layers are documented with their
-modules, [Catzc.Azure](../../references/pwsh/azure/index.md) and [Catzc.Azure.Templates](../../references/pwsh/azure-templates/index.md).
+modules, `Catzc.Azure` and `Catzc.Azure.Templates`, in their module references.
 
 ### Validation
 

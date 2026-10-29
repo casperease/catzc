@@ -1,8 +1,8 @@
 # .ado/pipelines/stages/deploy-expedition.yaml
 
-The expedition stage of a unit's one deploy path. Only [`deploy-unit.yaml`](deploy-unit.md) includes it, as its last stage, so the CD and
-DEPLOY pipelines still call one entry; it is a separate file only to keep `deploy-unit.yaml` under the config line limit, the one nesting
-level [ADR-ADO-TEMPLATE-MINIMALNESTING](../../../../drs/ado/custom-template-discipline.md#rule-adr-ado-template-minimalnesting) allows.
+The expedition stage of a unit's one deploy path. Only `deploy-unit.yaml` includes it, as its last stage, so the CD and DEPLOY pipelines
+still call one entry; it is a separate file only to keep `deploy-unit.yaml` under the config line limit, the one nesting level
+[ADR-ADO-TEMPLATE-MINIMALNESTING](../../../../drs/ado/custom-template-discipline.md#rule-adr-ado-template-minimalnesting) allows.
 
 ## Parameters
 

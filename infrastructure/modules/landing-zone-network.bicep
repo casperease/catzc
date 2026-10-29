@@ -81,7 +81,10 @@ var subnetRoles = toObject(
   subnetName => subnetName,
   subnetName => contains(['private-endpoints', 'shared-services'], subnetName) ? subnetName : 'workload'
 )
-var workloadPrefixes = map(filter(subnetNames, subnetName => subnetRoles[subnetName] == 'workload'), subnetName => subnetPrefixes[subnetName])
+var workloadPrefixes = map(
+  filter(subnetNames, subnetName => subnetRoles[subnetName] == 'workload'),
+  subnetName => subnetPrefixes[subnetName]
+)
 
 // Each subnet allows the declared flows to its role, and nothing else from the network or the internet.
 var flowRules = toObject(

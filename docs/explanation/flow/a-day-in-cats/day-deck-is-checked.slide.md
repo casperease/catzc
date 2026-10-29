@@ -30,4 +30,5 @@ From the catalogue, reduced: build diagrams runs five stages.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
+docs/explanation/repository/.assets/build-diagrams-runs-five-stages.drawio.png.

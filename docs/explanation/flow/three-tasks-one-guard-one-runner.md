@@ -110,7 +110,8 @@ trap, and no code runs it, so it is not drawn.
 - YAML never holds inline PowerShell beyond calling the runner; the template's tasks are the one place that calls it
   (ADR-ADO-RUNNER-NOINLINEPOWERSHELL).
 - The runner imports the module system once at its start, and the command runs in the same scope (ADR-ADO-RUNNER-IMPORTONCE).
-- The step template adds pipeline concerns, such as the service connection, the token and the display name (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
+- The step template adds pipeline concerns, such as the service connection, the token and the display name
+  (ADR-ADO-RUNNER-THINSTEPTEMPLATES).
 
 ## Where the code and the decision record differ
 

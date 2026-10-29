@@ -16,11 +16,10 @@ public sealed class TestPolicyConfig
     // The mode of an environment the config does not list.
     public const string DefaultMutation = "read-only";
 
-    // How many greedy files run at once in the pool: 1 runs them one after another, 2 two at a time, 3 three at a time.
-    public const int DefaultGreedyGroupSize = 2;
+    // How many greedy files run at once in the pool: four ended the 25-file greedy queue inside the pool's time on the devbox.
+    public const int DefaultGreedyGroupSize = 4;
     public const int MaxGreedyGroupSize = 64;
 
-    // The greedy files that each run real builds, named by their test file without '.Tests.ps1': at most one of them runs at a time.
     public static readonly string[] DefaultGreedyApart =
     {
         "Import-Catzc", "Test-CatzcBuild.Parity", "Test-CatzcBuild.ScopeIsolation", "Build-Bicep.L2", "Get-BicepParameterModel.Shipped"

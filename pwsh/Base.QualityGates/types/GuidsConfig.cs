@@ -16,8 +16,6 @@ public sealed class GuidsConfig : Catzc.Base.Objects.DictionaryRecord
     // Registered entry name -> ManagedGuidEntry, in declaration order; read-only (empty when none).
     public OrderedDictionary guids { get; }
 
-    // Repository-relative yml files that are the one declaration of a set of fixed GUIDs (the built-in role ids): every GUID value in one
-    // counts as registered, so a value is declared once, in its own registry, never here as well. None by default.
     public IReadOnlyList<string> registries { get; }
 
     public GuidsConfig(IDictionary raw)

@@ -48,8 +48,8 @@ Started 2026-10-27T19:36:13.6279071+01:00.
   after a grep shows its gap is still in the tree.
 - 2026-10-27 Jack: If only the messenger had known prompting mode holds messages: gap, nothing in the tree says a repeated idle timestamp
   means an unapproved, unread message.
-- 2026-10-27 Jack: If only the burst script author had known .NET keeps its own cwd: gap, nothing in the tree, Invoke-StagedBurst sets no .NET
-  current directory and no skill warns [IO.File] off relative paths.
+- 2026-10-27 Jack: If only the burst script author had known .NET keeps its own cwd: gap, nothing in the tree, Invoke-StagedBurst sets no
+  .NET current directory and no skill warns [IO.File] off relative paths.
 - 2026-10-27 Jack: If only the bicep checker had read catzc-run: declared, `.claude/skills/catzc-run/SKILL.md` step 4 proves 0 warnings only
   by Test-BicepLint, builds read-only with -OutputFolder and lands a module with its callers in one burst.
 - 2026-10-27 Jack: If only the price fetcher had read the config: declared, `pwsh/Azure.Templates/configs/cost-model.yml:1` sets

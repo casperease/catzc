@@ -13,9 +13,19 @@ unknown key throws.
 - **`l4_mutation`** — per target environment, how far an L4 test (the released system, after final approval) may change it: `read-only`
   (probes and observations only) or `synthetic` (transactions the system is built to accept and clean up). Each mode allows every mode
   before it. An environment not listed is `read-only`.
-- **`greedy_group_size`** — how many greedy files run at once in the pool: 1 runs them one after another, 2 two at a time. Default 2, at
-  most 64.
+- **`greedy_group_size`** — how many greedy files run at once in the pool: 1 runs them one after another, 2 two at a time. Default 4, at
+  most 64: on the 20-processor devbox four at once ended the 25-file greedy queue inside the pool's time.
 - **`greedy_apart`** — the greedy files that each run real builds, named by their test file without `.Tests.ps1`. At most one of them runs
-  at a time. The default names five such files.
+  at a time. The default names five such files; the other bicep-compiling files are greedy only, so at most `greedy_group_size` of them
+  compile at once.
 - **`duration_decay`** — the share of a file's stored duration a faster run keeps, so a cold-cache spike fades over about twenty runs. 0
   trusts the last run. Default 0.9.
+
+## comment:1
+
+Above `public static readonly string[] DefaultGreedyApart =`, written with `//`.
+
+```text
+The greedy files that each run real builds, named by their test file without '.Tests.ps1': at most one of them runs at a time.
+Naming every bicep-compiling file here queued them one after another past the run's roof; they are greedy only.
+```

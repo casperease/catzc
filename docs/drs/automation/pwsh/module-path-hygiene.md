@@ -29,8 +29,8 @@ leaves `$env:PSModulePath` alone and **warns** when it contains a network share,
 ## Context
 
 [effective-in-enterprises](../effective-in-enterprises.md) (`ADR-AUTO-ENTERP`) fixes the constraints: home folders on network storage, no
-local admin, no network access at runtime. This record realises it in pwsh — how the module path is kept fast, local, and deterministic on such
-a machine. The gallery half of the same constraint, no PowerShell Gallery at runtime, is
+local admin, no network access at runtime. This record realises it in pwsh — how the module path is kept fast, local, and deterministic on
+such a machine. The gallery half of the same constraint, no PowerShell Gallery at runtime, is
 [vendor-toolset-dependencies](vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-noruntimegallery).
 
 ### PSModulePath

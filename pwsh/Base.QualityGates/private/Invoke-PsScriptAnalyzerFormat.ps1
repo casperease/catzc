@@ -19,17 +19,12 @@ function Invoke-PsScriptAnalyzerFormat {
     # The one per-file step, run in this session or, source-copied, in a shard process.
     $formatFiles = {
         param([string[]] $Files, [string] $Settings, [bool] $Preview)
-        # The formatter reads only the rule settings: the analyzer's custom rule path, loaded again on every call, costs about
-        # 60 ms a file and formats nothing, so each call gets the declared rules alone, which format every file to the same text.
-        # The table is built here, in the process that formats, since a table handed to a job arrives deserialized.
-        $declared = Import-PowerShellDataFile -LiteralPath $Settings
-        $formatSettings = @{ IncludeRules = @($declared.Rules.Keys); Rules = $declared.Rules }
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
         foreach ($path in $Files) {
             $original = [System.IO.File]::ReadAllText($path)
             # A file the formatter throws on is named, never allowed to end the run nameless.
             try {
-                $text = Invoke-Formatter -ScriptDefinition $original -Settings $formatSettings
+                $text = Invoke-Formatter -ScriptDefinition $original -Settings $Settings
             }
             catch {
                 [pscustomobject]@{ Path = $path; Problem = "PSScriptAnalyzer's formatter throws on it: $($_.Exception.Message)" }
@@ -48,7 +43,7 @@ function Invoke-PsScriptAnalyzerFormat {
         }
     }
 
-    # A large batch shards across a few processes, each paying its own analyzer import and warm-up.
+    # A cold pass costs about 40 ms a file, so a large batch shards across a few processes.
     $shardCount = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 4)),
         [int][Math]::Floor($File.Count / 25))
     if ($shardCount -lt 2) {

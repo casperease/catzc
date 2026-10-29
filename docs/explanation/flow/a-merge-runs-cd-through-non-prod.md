@@ -91,8 +91,8 @@ layout:
 4. **Non-prod targets.** Foundation and discovery deploy per subscription, to `nsub`; the expedition template deploys to `dev` and, in
    `cd-apex`, to its slot `dev-blu`. Each target shows as an Azure DevOps environment named `<customer>-<env>`, or `<customer>-<env>-<slot>`
    for an expedition entry with a slot, with one deployment job each. Every target goes through the customer's `sc-<customer>-nonprod`
-   service connection. The prod subscription's targets (`psub`, `preprod`, `prod`) are in `deploy-apex.yaml` and `deploy-shared.yaml`, behind
-   a manual run and a `Target` of `prod` or `rollback`; a pipeline test checks that no CD pipeline lists them.
+   service connection. The prod subscription's targets (`psub`, `preprod`, `prod`) are in `deploy-apex.yaml` and `deploy-shared.yaml`,
+   behind a manual run and a `Target` of `prod` or `rollback`; a pipeline test checks that no CD pipeline lists them.
 5. **Deploy-Bicep.** It throws when a pipeline omits the assert: "Deploy-Bicep requires -SubscriptionIdAssertIs in a pipeline — the pipeline
    must pin the subscription GUID its service connection is expected to target, …".
 6. **Get-BicepDeploymentContext.** It throws on a subscription mismatch instead of retargeting: "-SubscriptionIdAssertIs failed: the az

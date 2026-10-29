@@ -22,8 +22,6 @@ function Resolve-BicepSlot {
     if ([string]::IsNullOrEmpty($wantSlot)) {
         return $null
     }
-    # An ephemeral slot has no file: the base slot of its coordinate deploys again under a runtime slot segment, so every name it
-    # derives carries the segment and nothing else differs.
     $base = @($TemplateDescriptor.slots | Where-Object { $_.environment -eq $Environment -and $_.slot -eq '' -and $_.customer -eq $wantCustomer })
     if ($base.Count -eq 0) {
         return $null

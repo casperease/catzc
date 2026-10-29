@@ -66,7 +66,9 @@ terms:
     - term: protectable
       meaning: "coined adjective 'protectable' - a scan the protected-glob skip may pass over (ADR-REPO-PROTGLOB)"
     - term: rollable
-      meaning: "coined adjective 'rollable' - the writer class whose files Remove-Generated takes off and Restore-Generated renders back (ADR-REPO-ROOTCFG-ONECLASSPERWRITER)"
+      meaning:
+        "coined adjective 'rollable' - the writer class whose files Remove-Generated takes off and Restore-Generated renders back
+        (ADR-REPO-ROOTCFG-ONECLASSPERWRITER)"
     - term: stringly
       meaning: "'stringly-typed' (stringly)"
     - term: subkind

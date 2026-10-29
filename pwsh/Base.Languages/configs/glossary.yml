@@ -20,8 +20,8 @@ concepts:
     domain: automation
     defined_by: ADR-AUTO-PY-PYTESTFOLDER
     short:
-      The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case
-      (`base_repository`), holding its black-box Python tests; each is a member of the one generated uv workspace.
+      The folder `<root>/tests/<module>/` under the Python root — one per catzc module, named for it in snake case (`base_repository`),
+      holding its black-box Python tests; each is a member of the one generated uv workspace.
     realized_by: { kind: prose-only }
   repository normal form:
     key: repository_normal_form

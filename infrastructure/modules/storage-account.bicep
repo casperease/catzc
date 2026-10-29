@@ -117,31 +117,28 @@ var tierRules = coolAfterDays > 0 || archiveAfterDays > 0
       }
     ]
   : []
-var deleteRules = map(
-  filter(containers, entry => (entry.?deleteAfterDays ?? 0) > 0),
-  entry => {
-    name: 'delete-${entry.name}'
-    enabled: true
-    type: 'Lifecycle'
-    definition: {
-      filters: {
-        blobTypes: [
-          'blockBlob'
-        ]
-        prefixMatch: [
-          '${entry.name}/'
-        ]
-      }
-      actions: {
-        baseBlob: {
-          delete: {
-            daysAfterModificationGreaterThan: entry.deleteAfterDays
-          }
+var deleteRules = map(filter(containers, entry => (entry.?deleteAfterDays ?? 0) > 0), entry => {
+  name: 'delete-${entry.name}'
+  enabled: true
+  type: 'Lifecycle'
+  definition: {
+    filters: {
+      blobTypes: [
+        'blockBlob'
+      ]
+      prefixMatch: [
+        '${entry.name}/'
+      ]
+    }
+    actions: {
+      baseBlob: {
+        delete: {
+          daysAfterModificationGreaterThan: entry.deleteAfterDays
         }
       }
     }
   }
-)
+})
 var lifecycleRules = concat(tierRules, deleteRules)
 
 // The policy exists only when it has a rule, so an account with no move and no container retention carries none.

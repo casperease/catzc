@@ -125,8 +125,8 @@ layout:
 The decision records describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and
 RBC gates. The CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage,
 CD deploys it to every non-prod target of a stage at once (`nsub`, or the expedition's `dev`), and the prod subscription is reached only by
-the manual DEPLOY pipelines. In code, every CD environment therefore takes the tip of main. The decision records also spell the
-environment two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
+the manual DEPLOY pipelines. In code, every CD environment therefore takes the tip of main. The decision records also spell the environment
+two ways: `main-UAT` in the commit lifecycle and `main-uat` in the promotion flow.
 
 ## See also
 

@@ -37,3 +37,12 @@ Above `$rows = @(foreach ($owner in @(Get-Config -Config generated -ListOwners))
 ```text
 Every writer row, each declared once in its module's generated.yml.
 ```
+
+## comment:2
+
+Above `'comment-pages' {`, written with `#`.
+
+```text
+A comment page is authored
+([ADR-REPO-COMMENTS-PAGEISAUTHORED](/docs/drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the config that maps them answers no target.
+```

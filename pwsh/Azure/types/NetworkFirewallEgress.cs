@@ -5,8 +5,6 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Azure;
 
-// The egress every hub firewall allows from the spoke workload subnets, one rule set for both tiers: service tags in network rules and
-// FQDN tags in application rules, so no rule leans on the DNS proxy that only Standard runs. Everything else is denied.
 public sealed class NetworkFirewallEgress : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "service_tags", "fqdn_tags", "service_tag_regions" };
@@ -22,8 +20,6 @@ public sealed class NetworkFirewallEgress : Catzc.Base.Objects.DictionaryRecord
     // FQDN tags allowed outbound over HTTPS, in application rules.
     public IReadOnlyList<string> fqdn_tags { get; }
 
-    // The tag name of each Azure region, as the service-tag list spells it (westeurope is WestEurope), so a regional tag is emitted in the
-    // documented casing rather than the location's.
     public IReadOnlyDictionary<string, string> service_tag_regions { get; }
 
     private NetworkFirewallEgress(string[] serviceTags, string[] fqdnTags, Dictionary<string, string> serviceTagRegions)

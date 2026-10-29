@@ -16,3 +16,8 @@ namespaces hold, where each source declares its module's file-scoped namespace, 
 because it drives the real engines, and it self-skips when one of their tools is absent
 ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)). It is
 source-only, because it reads the repository's own files, which give the same answer in both run modes.
+
+It is greedy ([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)): on a
+cold format cache it runs every formatter over the whole tree, the psscriptanalyzer engine in its own background jobs, so it consumes the
+machine beyond its own process. In a parallel shard it held that shard past the run's time roof; in the greedy phase its file is a shard of
+its own, started by its measured duration beside the parallel shards.

@@ -121,6 +121,13 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'leaves the lock''s inherit variable absent, not empty, after a run when it was unset before' {
+        Remove-Item -LiteralPath "Env:$script:inherit" -ErrorAction Ignore
+        $null = & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName
+        $LASTEXITCODE | Should -Be 0
+        Test-Path -LiteralPath "Env:$script:inherit" | Should -BeFalse
+    }
+
     It 'throws on -InBurst when no burst holds the lock' {
         { & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst } |
             Should -Throw '*no burst holds*'

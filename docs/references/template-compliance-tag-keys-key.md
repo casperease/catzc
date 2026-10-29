@@ -14,9 +14,9 @@ value passed.
 
 ## Why it goes
 
-The CAF tag keys were then declared twice: here for the compliance quality gate, and by convention in every template configuration. The tag-schema
-step of the Azure gaps plan declares one schema that also states each key's allowed values and the lowercase rule, so a second list of the
-keys would drift from it ([one-living-version](../drs/principles/one-living-version.md)).
+The CAF tag keys were then declared twice: here for the compliance quality gate, and by convention in every template configuration. The
+tag-schema step of the Azure gaps plan declares one schema that also states each key's allowed values and the lowercase rule, so a second
+list of the keys would drift from it ([one-living-version](../drs/principles/one-living-version.md)).
 
 ## What replaces it
 

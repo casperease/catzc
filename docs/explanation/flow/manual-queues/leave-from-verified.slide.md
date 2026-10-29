@@ -27,7 +27,8 @@ the last verified commit.
 
 ## Caption
 
-Reduced: the integrator takes its commit from the BVT-verified head, also the main-UAT occupant, never from the dirty HEAD that failed there.
+Reduced: the integrator takes its commit from the BVT-verified head, also the main-UAT occupant, never from the dirty HEAD that failed
+there.
 
 ## Notes
 

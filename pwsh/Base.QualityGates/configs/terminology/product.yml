@@ -21,6 +21,8 @@ terms:
       meaning: "GOPROXY — where go fetches modules from; off keeps a test run on the module cache (ADR-AUTO-NET)"
     - term: goflags
       meaning: "GOFLAGS — default flags every go command takes, such as -mod=mod"
+    - term: gowork
+      meaning: "GOWORK — which go.work workspace file go reads; off runs each module on its own go.mod"
     - term: gopls
       meaning: "gopls — the Go language server editors use"
     - term: pytest

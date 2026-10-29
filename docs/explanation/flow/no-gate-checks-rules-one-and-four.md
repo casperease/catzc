@@ -94,8 +94,8 @@ layout:
    replays a `RunCommand` outside the runner, so only the FDR keeps it, and no gate stands below it.
 5. **Test-Pipelines.** The pipeline-layout check runs over `.ado/pipelines/` and checks FDR-PIPELINE-TYPEPREFIX,
    ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-TEMPLATE-ABSOLUTEPATHS and
-   FDR-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-TEMPLATE-ABSOLUTEPATHS, that templates are referenced
-   by absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
+   FDR-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-TEMPLATE-ABSOLUTEPATHS, that templates are referenced by
+   absolute path. It checks no runner rule. Its L1 test requires zero violations over the real tree.
 6. **Expected-failures 1b.** Step 1b of `ci-pwsh-expected-failures.yaml` proves that a multiline command without a display name throws, but
    it replays its own copy of the guard rather than running the template's. The pipeline itself is the sanctioned exception to rule 1: it
    inlines PowerShell on purpose.

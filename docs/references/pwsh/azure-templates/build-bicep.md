@@ -130,3 +130,12 @@ edit of the template.
 `bicep build` can exit 0 yet emit nothing, so the command asserts the compiled `main.json` at the source. The failure then names the real
 culprit here, not later as a generic missing file in `Get-BicepDeploymentContext`. The Bicep CLI was proved available above, so a missing
 `main.json` is an unexpected build failure and not a missing install, and the message says exactly that.
+
+## comment:1
+
+Above `$cacheEntry = $null`, written with `#`.
+
+```text
+A test run names a build cache (CATZC_BICEP_BUILD_CACHE, in its run folder): the prepared folder's bytes and the bicep version key
+each compile, so a template every slot test builds compiles once per run instead of once per test file under the run's load.
+```

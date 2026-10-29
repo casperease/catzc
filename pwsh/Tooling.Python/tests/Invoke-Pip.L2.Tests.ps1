@@ -12,8 +12,8 @@ Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
         if (-not $script:pythonAvailable) {
             Set-ItResult -Skipped -Because 'tool_python_missing'; return
         }
-        $result = Invoke-Pip 'list --format json' -PassThru -Silent
-        $result.ExitCode | Should -Be 0
+        $result = Invoke-Pip 'list --format json' -PassThru -Silent -NoAssert
+        $result.ExitCode | Should -Be 0 -Because "uv said: $($result.Full)"
         $packages = $result.Output | ConvertFrom-Json
         $packages.Count | Should -BeGreaterThan 0
         $packages[0].name | Should -Not -BeNullOrEmpty

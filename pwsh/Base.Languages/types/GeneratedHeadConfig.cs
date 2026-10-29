@@ -18,7 +18,6 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
 
     private const string Failed = "generated-head configuration validation failed:\n";
 
-    // The head keys in the one order ADR-REPO-FILEMETA-COMPOSEDFILES fixes, the body hash closing the head.
     private static readonly string[] Known = ["warning", "regenerate", "with_body_sha"];
     private static readonly string[] TopLevel = ["keys", "warning", "regenerate"];
     private static readonly string[] Placeholders = ["{writer}", "{path}"];

@@ -1,4 +1,4 @@
-Describe 'Role assignments: every compiled discovery and expedition slot assigns the declared set' -Tag 'L2', 'integrity' {
+Describe 'Role assignments: every compiled discovery and expedition slot assigns the declared set' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         # The bicep binary is resolved once for the file; the real builds run only when it is there.
         $bicep = Resolve-ToolExecutable -Tool bicep

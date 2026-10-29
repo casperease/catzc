@@ -1,7 +1,7 @@
 # pwsh/Azure.DevOps/Get-AdoDeliveryMetrics.ps1
 
 Reports DORA's four delivery metrics per deployable unit, read from the deployments of the unit's production environment in Azure DevOps:
-deployment frequency, change lead time, change fail rate and failed deployment recovery time ([metrics](../../dora/metrics.md)).
+deployment frequency, change lead time, change fail rate and failed deployment recovery time, as the DORA metrics reference defines them.
 
 ## help
 

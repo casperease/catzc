@@ -44,7 +44,7 @@ Get-GeneratedWriterDue | Where-Object Due
 
 ## Why a dirty tree is not enough
 
-A dirty tree is not a stale output: a writer is due when an output is missing, or when the stamp of every file its inputs match differs
-from the one stored after its last run (`Save-GeneratedWriterStamp`). A missing or unreadable memo makes every writer due. The input files
-are walked once for all writers, and the index once for every wildcard output; an output glob is walked on disk only for a rollable writer
-whose tracked files under it are all gone, so a whole tree is never walked for a writer whose files are in place.
+A dirty tree is not a stale output: a writer is due when an output is missing, or when the stamp of every file its inputs match differs from
+the one stored after its last run (`Save-GeneratedWriterStamp`). A missing or unreadable memo makes every writer due. The input files are
+walked once for all writers, and the index once for every wildcard output; an output glob is walked on disk only for a rollable writer whose
+tracked files under it are all gone, so a whole tree is never walked for a writer whose files are in place.

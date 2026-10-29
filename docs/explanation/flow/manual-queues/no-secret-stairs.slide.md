@@ -27,8 +27,8 @@ down, with a server, a store and a measured wait, before anyone climbs it.
 
 ## Caption
 
-Reduced: the whole ladder with its three manual queues drawn as gates marked manual and the slot switch automated; what is not drawn is
-not allowed.
+Reduced: the whole ladder with its three manual queues drawn as gates marked manual and the slot switch automated; what is not drawn is not
+allowed.
 
 ## Notes
 

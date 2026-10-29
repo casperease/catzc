@@ -29,8 +29,8 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
             Should -Throw "*greedy_apart entry 'Get-Gadget.Tests.ps1'*"
     }
 
-    It 'runs greedy files two at a time unless the config says otherwise' {
-        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).greedy_group_size | Should -Be 2
+    It 'runs greedy files four at a time unless the config says otherwise' {
+        [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).greedy_group_size | Should -Be 4
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 1 }).greedy_group_size |
             Should -Be 1
         [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_group_size = 3 }).greedy_group_size |

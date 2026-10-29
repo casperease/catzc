@@ -107,7 +107,7 @@ its `ArmExpression.Tests.ps1` case or asserts a value the subset resolves.
 
 ## comment:1
 
-Above `[string] $Location`, written with `#`.
+Above `[string] $Location,`, written with `#`.
 
 ```text
 The location the deployment is sent to: Deploy-Bicep's --location, the slot's environment region. deployment().location reads
@@ -125,7 +125,7 @@ uncertain item when the count does not resolve.
 
 ## comment:3
 
-Above `[object] $ResourceGroupName = ''`, written with `#`.
+Above `[object] $ResourceGroupName = '',`, written with `#`.
 
 ```text
 The resource group a resource-group deployment lands in: the slot's group, a nested deployment's own, '' when none is known, or

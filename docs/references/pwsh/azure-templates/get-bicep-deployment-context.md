@@ -87,3 +87,12 @@ The artifacts are verified as absolute paths, because this process touches the f
 root where possible (`ConvertTo-RepoRelativePath`). A pipeline's external `$(Pipeline.Workspace)` artifact area has no repo-relative form
 and stays absolute. Consumers turn the stored paths back into absolute ones through `Resolve-RepoPath`, or hand them to az, which runs from
 the repository root, so a repo-relative path resolves there.
+
+## comment:1
+
+Above `$slotMatch = Resolve-BicepSlot -TemplateDescriptor $templateDescriptor...`, written with `#`.
+
+```text
+The configuration slot is the session's customer, the environment and the slot; the subscription must serve the environment.
+A named slot with no file of its own is an ephemeral slot on its base slot's config (Resolve-BicepSlot).
+```

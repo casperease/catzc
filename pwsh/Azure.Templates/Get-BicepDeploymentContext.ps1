@@ -64,8 +64,6 @@ function Get-BicepDeploymentContext {
     $subscription = $sessionSubscription.name
     $customer = $sessionSubscription.customer
 
-    # The configuration slot is the session's customer, the environment and the slot; the subscription must serve the environment.
-    # A named slot with no file of its own is an ephemeral slot on its base slot's config (Resolve-BicepSlot).
     $slotMatch = Resolve-BicepSlot -TemplateDescriptor $templateDescriptor -Environment $Environment -Slot $Slot -Customer $customer
     if (-not $slotMatch) {
         $where = if ([string]::IsNullOrEmpty($customer)) {

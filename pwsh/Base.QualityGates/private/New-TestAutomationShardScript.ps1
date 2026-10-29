@@ -29,26 +29,7 @@ function New-TestAutomationShardScript {
 
     Assert-PathExist $RunDirectory -PathType Container
 
-    $repositoryRoot = Get-RepositoryRoot
-
-    # The one seam between the runs: the repository importer, or the build's Import-Catzc.ps1.
-    $entryLine = if ($EntryScript) {
-        $entryArguments = foreach ($name in ($EntryParameter.Keys | Sort-Object)) {
-            $value = $EntryParameter[$name]
-            if ($value -is [bool] -or $value -is [switch]) {
-                if ($value) {
-                    "-$name"
-                }
-            }
-            else {
-                "-$name '$("$value" -replace "'", "''")'"
-            }
-        }
-        (@(". '$($EntryScript -replace "'", "''")'") + @($entryArguments)) -join ' '
-    }
-    else {
-        ". '$repositoryRoot/importer.ps1' -SkipJanitors"
-    }
+    $entryLine = Get-TestRunEntryLine -EntryScript $EntryScript -EntryParameter $EntryParameter
     $scriptPath = Join-Path $RunDirectory "shard-$ShardIndex.ps1"
     $resultsPath = Join-Path $RunDirectory "results-shard-$ShardIndex.xml"
     $rowsPath = Join-Path $RunDirectory "rows-shard-$ShardIndex.json"

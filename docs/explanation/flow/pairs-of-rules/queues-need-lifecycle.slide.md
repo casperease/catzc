@@ -30,4 +30,5 @@ From the catalogue, reduced: manual queues 1, where a person stands.
 
 ## Notes
 
-Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.
+Check it: the record FDR-QUEUE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

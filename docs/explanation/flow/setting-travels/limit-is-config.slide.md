@@ -31,4 +31,5 @@ From the catalogue, reduced: a shell call carries its limit or is denied.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied.drawio.png.

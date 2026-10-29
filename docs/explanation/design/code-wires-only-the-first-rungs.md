@@ -128,8 +128,8 @@ layout:
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (FDR-LIFE-DIRTYHEADUNSAFE). In the code that rule is the `succeeded()` condition on
-every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
+A commit that fails a stage cannot go downstream (FDR-LIFE-DIRTYHEADUNSAFE). In the code that rule is the `succeeded()` condition on every
+`Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the decision record differ
 

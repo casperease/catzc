@@ -6,7 +6,7 @@ line naming the source as the one place to edit (`Build-Readme`). The README is 
 markdown and spelling quality gates check, and the importer regenerates it on every load. A folder not covered here keeps a hand-authored,
 committed README (opt-out) and is un-ignored in `.gitignore`. See [ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
-The shape is validated by [DocsConfig](../types/docs-config.md); the file is read through `Get-Config -Config readme`, and the patterns
+The shape is validated by the `DocsConfig` type; the file is read through `Get-Config -Config readme`, and the patterns
 are expanded by `Get-ReadmeMappings`. All paths are repository-root-relative and forward-slashed, the communication form
 ([ADR-AUTO-PATH](../../../../drs/automation/path-representation.md)).
 

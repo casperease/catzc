@@ -41,7 +41,6 @@ function Get-GeneratedTarget {
                     [Catzc.Base.Variants.GeneratedTarget]::new("$($mapping.folder)/README.md", $row.name, $row.class)
                 }
             }
-            # A comment page is authored (ADR-REPO-COMMENTS-PAGEISAUTHORED), so the config that maps them answers no target.
             'comment-pages' {
             }
             default {

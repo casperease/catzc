@@ -1,4 +1,4 @@
-Describe 'Monitoring views: every compiled foundation slot' -Tag 'L2', 'integrity' {
+Describe 'Monitoring views: every compiled foundation slot' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         # The bicep binary is resolved once for the file; the real build runs only when it is there.
         $bicep = Resolve-ToolExecutable -Tool bicep

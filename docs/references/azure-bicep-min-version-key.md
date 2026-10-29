@@ -10,8 +10,8 @@ bicep_min_version: "0.43.8"
 
 `Get-AzureBicepMinVersion` read it as a `[version]`, and `Assert-AzCliBicep` compared the CLI that `az bicep version` reported against it
 before every `az bicep build`, so a missing or too-old Bicep failed fast with `az bicep install` or `az bicep upgrade` instead of a build
-that exited 0 and wrote no `main.json`. `Test-AzCliBicep`, `Install-AzCliBicep` and the private `Get-AzCliBicepState` served the same
-check. `AzureConfig` carried the key, and the `pwsh.azure` types contract exposed it.
+that exited 0 and wrote no `main.json`. `Test-AzCliBicep`, `Install-AzCliBicep` and the private `Get-AzCliBicepState` served the same check.
+`AzureConfig` carried the key, and the `pwsh.azure` types contract exposed it.
 
 ## Why it goes
 

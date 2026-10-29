@@ -9,8 +9,6 @@ public static class TestTiers
     // The highest tier number.
     public const int Highest = 4;
 
-    // The top tier a run includes when it names none: L3, the live tier, and L4 are opt-in (-MaxLevel 3 or 4), so a default run stops at L2
-    // ([ADR-AUTO-NET-TESTSOFFLINE](/docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)).
     public const int DefaultTop = 2;
 
     // The first tier that may launch a real process; L0 and L1 launch none.

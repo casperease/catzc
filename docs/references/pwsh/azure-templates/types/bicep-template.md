@@ -15,3 +15,21 @@ It derives from `Catzc.Base.Objects.DictionaryRecord`, so an instance also prese
 ## Construction
 
 The constructor validates the required keys, so a malformed template cannot produce an instance.
+
+## comment:1
+
+Above `public IReadOnlyDictionary<string, string> facts { get; }`, written with `//`.
+
+```text
+The environment facts the build passes as parameters, keyed by slot parameter, valued by the azure.yml environment field
+(options.yml facts); a slot never writes one. Empty when none.
+```
+
+## comment:2
+
+Above `public IReadOnlyDictionary<string, string> addresses { get; }`, written with `//`.
+
+```text
+The shared config the build passes as parameters, keyed by slot parameter, valued by the global config address it resolves
+(options.yml addresses); a slot never writes one. Empty when none.
+```

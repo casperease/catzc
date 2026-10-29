@@ -137,3 +137,12 @@ The module-internal helpers `Invoke-Importer` drives (not exported):
 - Decision record: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the overlay is a sanctioned `.psm1`.
 - Reference: `Catzc.Base.ModuleSystem` — `New-Importer` generates the `importer.ps1` shim from this block; `Bootstrap`, `Vendor`, and
   `Types` — the shared modules it drives; the internal area overview.
+
+## comment:1
+
+Above `function Invoke-GeneratedFilesJanitor {`, written with `#`.
+
+```text
+The stamp of every changed generated file is the fast path: a match passes, a miss renders its writer, and one line names each file
+that render finds stale, or one line when the roof stops it.
+```

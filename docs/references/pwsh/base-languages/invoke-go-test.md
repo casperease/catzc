@@ -25,8 +25,8 @@ go test -json -count=1 ./...   runs every test, uncached, as a test2json event s
 
 Every go command runs offline: the module proxy is off and `-mod=mod` is set, which keeps it on the module cache, writing go.sum from it,
 and GOTOOLCHAIN=local keeps it on the managed toolchain. GOWORK=off runs each command in its own module rather than the root go.work, which
-is the editors' layout and whose workspace mode refuses `-mod=mod`. A module missing from the cache fails the run with the explicit fetch that fills
-it, `Invoke-Go '-C <folder> mod download'`.
+is the editors' layout and whose workspace mode refuses `-mod=mod`. A module missing from the cache fails the run with the explicit fetch
+that fills it, `Invoke-Go '-C <folder> mod download'`.
 
 The Go tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
 (Get-EngineContract), set for these commands only and restored afterwards:
@@ -106,3 +106,13 @@ commands only, then restored. `GOTOOLCHAIN=local` keeps go on the managed binary
 
 The folder is the one named, a module's own `tests/` or the holder's, else the holder's `tests/<kebab>` of the module under the Go root from
 `go.yml` (`GoConfig.ResolveRoot`: the declared root, else `go/` when present, else `.go/`), in go's folder case.
+
+## comment:1
+
+Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, written with `#`.
+
+```text
+The engine contract is set for these commands only; GOTOOLCHAIN=local stops go downloading go.work's toolchain, and
+GOPROXY=off with GOFLAGS=-mod=mod keeps every go command on the module cache, writing go.sum from it; GOWORK=off runs each
+command in its own module, since workspace mode refuses -mod=mod and go.work is the editors' layout.
+```

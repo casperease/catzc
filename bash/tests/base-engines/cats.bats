@@ -2,16 +2,47 @@
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-TESTLANG-BLACKBOX): setup sources the engine's entry
 # (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Three of
-# them start pwsh and import catzc; the list case starts pwsh on a stand-in entry, and the run-directly case and the contract
-# refusals start no pwsh.
+# them start pwsh and import catzc: setup_file starts those three cats calls at once and saves each one's exit code and
+# output, and each test asserts on its own saved call (ADR-AUTO-TEST-ONEIMPORTPERCASE); the list case starts pwsh on a
+# stand-in entry, and the run-directly case and the contract refusals start no pwsh.
 
-setup() {
+_cats_source_entry() {
     if [ -z "${CATZC_ENGINE_ENTRY:-}" ]; then
         echo "CATZC_ENGINE_ENTRY is not set; run the Bash tests through Invoke-BashTest" >&2
         return 1
     fi
     # shellcheck source=/dev/null
     source "$CATZC_ENGINE_ENTRY"
+}
+
+# One cats call, its exit code and output saved under a name for the test that asserts on it.
+_cats_save() {
+    local name="$1" code=0
+    shift
+    # bats runs setup_file under errexit, so a failing call is caught here and its code saved.
+    cats "$@" >"$BATS_FILE_TMPDIR/$name.out" 2>&1 || code=$?
+    echo "$code" >"$BATS_FILE_TMPDIR/$name.status"
+}
+
+# The saved call as bats' run leaves it: status and output, trailing newlines trimmed.
+_cats_saved() {
+    status="$(cat "$BATS_FILE_TMPDIR/$1.status")"
+    output="$(cat "$BATS_FILE_TMPDIR/$1.out")"
+}
+
+setup_file() {
+    _cats_source_entry || return 1
+    _cats_save guid Test-IsGuid -ObjectGuid "it's not a guid" &
+    _cats_save unknown Get-NoSuchWidget &
+    (
+        _cats_fixture_lookup "$BATS_FILE_TMPDIR"
+        _cats_save kebab test-is-guid --object-guid "it's not a guid"
+    ) &
+    wait
+}
+
+setup() {
+    _cats_source_entry
 }
 
 @test "importer.sh run instead of sourced exits 1 and says to source it" {
@@ -27,7 +58,7 @@ setup() {
 }
 
 @test "a parameter name passes through and a value with a space and a quote stays one value" {
-    run cats Test-IsGuid -ObjectGuid "it's not a guid"
+    _cats_saved guid
     [ "$status" -eq 0 ] || {
         echo "cats Test-IsGuid failed with exit $status: $output" >&2
         return 1
@@ -41,7 +72,7 @@ setup() {
 }
 
 @test "an unknown command fails and names the command" {
-    run cats Get-NoSuchWidget
+    _cats_saved unknown
     [ "$status" -ne 0 ] || {
         echo "cats Get-NoSuchWidget exited 0, want a failure: $output" >&2
         return 1
@@ -52,9 +83,9 @@ setup() {
     }
 }
 
-# A neutral lookup for the contract checks: each case fails before pwsh starts.
+# A neutral lookup for the contract checks: each case fails before pwsh starts. It lands in the folder named, else the test's own.
 _cats_fixture_lookup() {
-    CATZC_COMMAND_LOOKUP="$BATS_TEST_TMPDIR/importer-commands.sh"
+    CATZC_COMMAND_LOOKUP="${1:-$BATS_TEST_TMPDIR}/importer-commands.sh"
     export CATZC_COMMAND_LOOKUP
     {
         printf "_catzc_commands='\n"
@@ -71,8 +102,7 @@ _cats_fixture_lookup() {
 }
 
 @test "a contracted command named in kebab case reaches pwsh by its pwsh names" {
-    _cats_fixture_lookup
-    run cats test-is-guid --object-guid "it's not a guid"
+    _cats_saved kebab
     [ "$status" -eq 0 ] || {
         echo "cats test-is-guid failed with exit $status: $output" >&2
         return 1

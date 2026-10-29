@@ -15,9 +15,9 @@ but the network's is a zone's, one per zone the evaluator reports.
 
 ## comment:2
 
-Above `Set-ItResult -Pending -Because 'the ARM evaluator resolves no variables() and...`, written with `#`.
+Above `if ($script:bicepReady) {`, written with `#`.
 
 ```text
-The locks are hub-only through the variable isHub, which the ARM evaluator does not resolve yet, so every spoke reports the hub's
-resources; the plan-debt-azure-gaps step for variables() and copy evaluation in ArmExpression makes this assertable.
+Each template builds once for the file, so its compile is shared by every It below
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```

@@ -29,3 +29,12 @@ is the quality gate `Test-AzureNetworkPlan`, not a constructor that reads anothe
 `environments` holds the per-environment IP plans, keyed by environment name in file order. `subscriptions` holds the hub and spoke
 networks, keyed by subscription name in file order, and is empty when the file has no `subscriptions` key. A dictionary enumerates in
 insertion order when nothing is removed, and these are never mutated after construction.
+
+## comment:1
+
+Above `public static IReadOnlyList<string> DefaultNoNsgSubnets { get; } = new[] {...`, written with `//`.
+
+```text
+The subnets Azure does not let a network security group attach to (its gateway, firewall and route-server subnets); every other
+subnet carries one. Declared once here; network.yml may override the list.
+```

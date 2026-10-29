@@ -27,12 +27,3 @@ The reserved hub subnets (`GatewaySubnet`, `AzureFirewallSubnet`) get no network
 
 The inbound rules allow traffic inside the virtual networks and deny traffic from the internet. The Azure default rules (deny all other
 inbound) apply beneath them.
-
-## comment:1
-
-Above `resource cafTagsDefinition...`, written with `//`.
-
-```text
-The built-in "Require a tag on resources" takes one tag per assignment; this definition denies a resource that misses any CAF tag, in
-one assignment, with the same Indexed mode, so it never denies a type that cannot carry a tag.
-```

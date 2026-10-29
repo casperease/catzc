@@ -133,7 +133,7 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-Bicep (real bicep)' -Tag 'L2', 'logic' {
+Describe 'Build-Bicep (real bicep)' -Tag 'L2', 'logic', 'greedy' {
     BeforeAll {
         # Same isolated root as the mocked block; one file runs in one worker, so its blocks never overlap.
         $script:outputRoot = Join-Path (Get-RepositoryRoot) 'out/test-isolation/build-bicep/template/sample'

@@ -28,7 +28,8 @@ description:
   "Get-AzureResourceName runs four guarded steps in code order, lookup, omit and form, format checks and render, then compares the rendered
   length with the limit: any guard throws, an over-limit name throws, and a name within the limit is returned unchanged."
 about:
-  rules: [ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE]
+  rules:
+    [ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE]
   lens: implementation
 content:
   title: The namer looks up, forms, checks and renders a name in that order

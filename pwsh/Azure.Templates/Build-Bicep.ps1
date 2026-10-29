@@ -119,8 +119,70 @@ function Build-Bicep {
             Parameters = $null
         })
 
-    Write-Message "Building $main and $($compiles.Count - 1) slot(s) to $outputFolder"
-    $results = @(Invoke-ExecutableParallel -Command @($compiles | ForEach-Object Command) -NoAssert -Silent)
+    $cacheEntry = $null
+    $cacheLock = $null
+    if ($env:CATZC_BICEP_BUILD_CACHE) {
+        $keyHash = [System.Security.Cryptography.IncrementalHash]::CreateHash([System.Security.Cryptography.HashAlgorithmName]::SHA256)
+        $binaryStamp = [System.IO.File]::GetLastWriteTimeUtc($bicep.Path).Ticks
+        $keyHash.AppendData([System.Text.Encoding]::UTF8.GetBytes("bicep $($bicep.Path) $binaryStamp`n"))
+        $preparedFiles = [string[]] @(Get-ChildPath $outputFolder -File -Depth 16 -Exclude @() -PruneVendor $false)
+        [System.Array]::Sort($preparedFiles, [System.StringComparer]::Ordinal)
+        foreach ($preparedFile in $preparedFiles) {
+            $keyHash.AppendData([System.Text.Encoding]::UTF8.GetBytes([System.IO.Path]::GetRelativePath($outputFolder, $preparedFile).Replace('\', '/') + "`n"))
+            $keyHash.AppendData([System.IO.File]::ReadAllBytes($preparedFile))
+        }
+        $key = [System.Convert]::ToHexString($keyHash.GetHashAndReset())
+        $cacheEntry = Join-Path $env:CATZC_BICEP_BUILD_CACHE $key
+        # One builder per key at a time: a second file wanting the same template waits for the first compile instead of racing it.
+        $cacheLock = [System.Threading.Mutex]::new($false, "Local\catzc-bicep-build-$key")
+        try {
+            if (-not $cacheLock.WaitOne([TimeSpan]::FromSeconds((Get-TimeoutSeconds -Command Build-Bicep)))) {
+                $cacheLock.Dispose()
+                $cacheLock = $null
+                throw "Template '$Template': another worker of this test run held the bicep build cache key $key past Build-Bicep's time limit."
+            }
+        }
+        catch [System.Threading.AbandonedMutexException] {
+            Write-Message "Template '$Template': a worker died holding the bicep build cache key $key; building it here."
+        }
+    }
+    try {
+        $cachedOutputs = @(if ($cacheEntry -and [System.IO.Directory]::Exists($cacheEntry)) {
+                [System.IO.Directory]::GetFiles($cacheEntry, '*.json')
+            })
+        if ($cachedOutputs.Count -gt 0) {
+            Write-Message "Restoring $main and $($compiles.Count - 1) slot(s) to $outputFolder from the run's build cache"
+            foreach ($cachedOutput in $cachedOutputs) {
+                [System.IO.File]::Copy($cachedOutput, (Join-Path $outputFolder ([System.IO.Path]::GetFileName($cachedOutput))), $true)
+            }
+            $results = @(foreach ($compile in $compiles) {
+                    [pscustomobject]@{ ExitCode = 0; Errors = ''; Full = '' }
+                })
+        }
+        else {
+            Write-Message "Building $main and $($compiles.Count - 1) slot(s) to $outputFolder"
+            $results = @(Invoke-ExecutableParallel -Command @($compiles | ForEach-Object Command) -NoAssert -Silent)
+            # Only a whole real compile is kept (bicep stamps itself as main.json's generator), so a test's stand-in never reaches a real build.
+            $builtMain = Join-Path $outputFolder 'main.json'
+            if ($cacheEntry -and -not @($results | Where-Object { $_.ExitCode -ne 0 }) -and [System.IO.File]::Exists($builtMain) -and
+                [System.IO.File]::ReadAllText($builtMain).Contains('"name": "bicep"')) {
+                $staging = "$cacheEntry.$PID"
+                [void][System.IO.Directory]::CreateDirectory($staging)
+                foreach ($output in @($builtMain) + @($compiles | Where-Object Parameters | ForEach-Object Parameters)) {
+                    if ([System.IO.File]::Exists($output)) {
+                        [System.IO.File]::Copy($output, (Join-Path $staging ([System.IO.Path]::GetFileName($output))), $true)
+                    }
+                }
+                [System.IO.Directory]::Move($staging, $cacheEntry)
+            }
+        }
+    }
+    finally {
+        if ($cacheLock) {
+            $cacheLock.ReleaseMutex()
+            $cacheLock.Dispose()
+        }
+    }
     $failures = [System.Collections.Generic.List[string]]::new()
     for ($index = 0; $index -lt $compiles.Count; $index++) {
         $compile = $compiles[$index]

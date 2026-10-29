@@ -1,4 +1,4 @@
-Describe 'Production database alerts: every compiled expedition and discovery slot' -Tag 'L2', 'integrity' {
+Describe 'Production database alerts: every compiled expedition and discovery slot' -Tag 'L2', 'integrity', 'greedy' {
     BeforeAll {
         # The bicep binary is resolved once for the file; the real builds run only when it is there.
         $bicep = Resolve-ToolExecutable -Tool bicep

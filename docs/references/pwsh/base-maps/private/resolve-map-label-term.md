@@ -14,8 +14,7 @@ A label names the concept it prints in its head: the text before its first ':', 
 the whole label when it has no ':'. The head resolves when, compared without case, it is a term of -Term or that term's plural (the term
 followed by 's' or 'es': 'Root files' names the term 'root file'). Every label the world map or the value-chain map prints names a defined
 term in its head ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](../../../../drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms),
-[ADR-REPO-VALUECHAIN-MAP][r1]), so Test-WorldMap and Test-ValueChainMap report a
-label this returns nothing for.
+[ADR-REPO-VALUECHAIN-MAP][r1]), so Test-WorldMap and Test-ValueChainMap report a label this returns nothing for.
 
 ### parameter `Label`
 

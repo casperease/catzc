@@ -31,5 +31,4 @@ From the catalogue, reduced: eac normal form.
 
 ## Notes
 
-Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram
-docs/explanation/thesis/.assets/eac-normal-form.drawio.png.
+Check it: the record DDR-TRACK in docs/drs/index.md, and the diagram docs/explanation/thesis/.assets/eac-normal-form.drawio.png.

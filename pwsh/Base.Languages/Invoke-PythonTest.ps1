@@ -100,8 +100,6 @@ function Invoke-PythonTest {
 
     $cacheDir = Join-Path $root $python.pytest_cache
 
-    # The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter and
-    # UV_OFFLINE=1 keeps every uv call off the network.
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
     $environment['UV_OFFLINE'] = '1'

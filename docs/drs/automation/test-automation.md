@@ -193,10 +193,13 @@ so one tagged test moves its whole file (serial wins over greedy):
 - **`greedy`** — the test consumes the machine beyond its own process (`Test-ScriptAnalyzer`'s background-process pool, tests that spawn
   importer-loading pwsh workers) but shares no mutable state with other files. Its file runs in the **greedy phase**, a single-file shard
   queued in the same pool beside the parallel shards: the pool holds one slot per parallel shard and up to `greedy_group_size` slots more,
-  so the longest greedy files (heaviest measured duration first) start with the run and overlap the shards, and the serial phase waits for
-  them. At most `greedy_group_size` greedy files run at once, and of the files `greedy_apart` names (the ones that run real builds) one at a
-  time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. A greedy file can overlap the last parallel shards and inflate
-  their L0/L1 timings, so over-limit timings stay report-only in a full run.
+  so the longest greedy files (heaviest measured duration first, and an unmeasured file before every measured one, since sorted last it
+  never starts in a run that overruns and so is never measured) start with the run and overlap the shards, and the serial phase waits for
+  them. The measured durations live in `durations.json` beside the runs; a run that ends saves its files' durations there, and so does the
+  next run for one whose owner died (`Save-AbandonedRunDurationHistory`, from the shards that finished), so a run killed at its roof still
+  teaches the dealing. At most `greedy_group_size` greedy files run at once, and of the files `greedy_apart` names (the ones that run real
+  builds) one at a time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. A greedy file can overlap the last parallel
+  shards and inflate their L0/L1 timings, so over-limit timings stay report-only in a full run.
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
 whether it runs (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).

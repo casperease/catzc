@@ -15,15 +15,14 @@ function Get-ModuleProtectionIdentity {
         [hashtable] $HashCache
     )
 
-    # A holder, so the closure below fills it once and every set shares it.
-    $universe = @{}
     $setHash = {
         param([string] $setName)
         if (-not $HashCache.ContainsKey($setName)) {
-            if (-not $universe.ContainsKey('tracked')) {
-                $universe['tracked'] = [string[]] @(Get-TrackedFile)
+            # The tracked list rides the caller's cache under a key no set name takes, so one listing serves every module of the run.
+            if (-not $HashCache.ContainsKey('<tracked>')) {
+                $HashCache['<tracked>'] = [string[]] @(Get-TrackedFile)
             }
-            $tracked = $universe['tracked']
+            $tracked = $HashCache['<tracked>']
             $HashCache[$setName] = if ($setName -eq 'repository') {
                 Get-GlobSetHash -Name repository -TrackedFile $tracked
             }

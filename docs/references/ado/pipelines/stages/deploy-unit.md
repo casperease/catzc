@@ -2,7 +2,7 @@
 
 The one deploy path of a unit ([FDR-TYPE-ONEDEPLOYPATH](../../../../drs/flow/pipeline-types.md#rule-fdr-type-onedeploypath)). The CD
 pipeline of a unit and its DEPLOY pipeline both include it: foundation, then discovery, then expedition. The expedition stage lives in
-[`deploy-expedition.yaml`](deploy-expedition.md), which this file includes with the stage's dependency and condition resolved.
+`deploy-expedition.yaml`, which this file includes with the stage's dependency and condition resolved.
 
 ## Parameters
 
@@ -24,3 +24,13 @@ Every entry becomes one deployment job: it checks out, asserts the deployment hi
 artifact, and runs `Deploy-Bicep` under the entry's service connection with `-SubscriptionIdAssertIs` pinned. A discovery job first runs
 `Set-AnomalyAlertRecipientSecret` with the secret pipeline variable `AnomalyAlertRecipients`, which seeds the secret its anomaly alert reads
 from the foundation vault, so the what-if resolves the reference.
+
+## comment:1
+
+Above `- ${{ if gt(length(parameters.Expeditions), 0) }}:`, written with `#`.
+
+```text
+A second nesting level
+([ADR-ADO-TEMPLATE-MINIMALNESTING](/docs/drs/ado/custom-template-discipline.md#rule-adr-ado-template-minimalnesting)), taken only to
+keep this file under the config line limit.
+```

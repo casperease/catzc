@@ -6,8 +6,6 @@ writers:
     check: none
     inputs: [pwsh/Azure.Templates/configs/cost-model.yml]
     outputs: [pwsh/Azure.Templates/assets/cost-prices.json]
-  # It writes one configuration file per template, environment and customer from the parameters it is given, which are read outside the tree,
-  # so a rolled-off file could not be rendered again.
   Set-BicepTemplateConfiguration:
     class: snapshot
     check: none

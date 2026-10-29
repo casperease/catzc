@@ -13,8 +13,6 @@ public sealed class NetworkConfig : Catzc.Base.Objects.DictionaryRecord
     // Empty when the file has no subscriptions key.
     public IReadOnlyDictionary<string, NetworkSubscription> subscriptions { get; }
 
-    // The subnets Azure does not let a network security group attach to (its gateway, firewall and route-server subnets); every other
-    // subnet carries one. Declared once here; network.yml may override the list.
     public static IReadOnlyList<string> DefaultNoNsgSubnets { get; } = new[] { "GatewaySubnet", "AzureFirewallSubnet", "AzureFirewallManagementSubnet", "RouteServerSubnet" };
 
     public IReadOnlyList<string> no_nsg_subnets { get; }

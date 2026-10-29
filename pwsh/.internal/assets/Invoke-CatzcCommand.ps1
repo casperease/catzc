@@ -242,7 +242,12 @@ finally {
         $runFinished.Dispose()
     }
     if ($lock) {
-        [System.Environment]::SetEnvironmentVariable($inherit, $priorHold)
+        if ($null -eq $priorHold) {
+            Remove-Item -LiteralPath "Env:$inherit" -ErrorAction Ignore
+        }
+        else {
+            [System.Environment]::SetEnvironmentVariable($inherit, $priorHold)
+        }
         Remove-CatzcRunLockHolder -LockName $LockName
         $lock.ReleaseMutex()
         $lock.Dispose()

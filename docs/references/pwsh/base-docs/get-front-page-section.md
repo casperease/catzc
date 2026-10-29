@@ -1,7 +1,7 @@
 # pwsh/Base.Docs/Get-FrontPageSection.ps1
 
-Renders the front page's sections, one record each, in the order `frontpage.yml` declares them: a fragment from its article, a records
-table from the decision records it names, or the contents list of every other section.
+Renders the front page's sections, one record each, in the order `frontpage.yml` declares them: a fragment from its article, a records table
+from the decision records it names, or the contents list of every other section.
 
 ## help
 

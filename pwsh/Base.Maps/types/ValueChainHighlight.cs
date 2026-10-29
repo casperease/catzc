@@ -73,7 +73,7 @@ public sealed class ValueChainHighlight
                     why[cell] = new List<ValueChainReason>();
                 }
                 if (!lit[cell].Contains(record)) { lit[cell].Add(record); }
-                why[cell].Add(new ValueChainReason(canonical, record,ruleSet.Domain, cell.Stack, cell.Concern, ruleSet.Concerns, ruleSet.DomainConcerns));
+                why[cell].Add(new ValueChainReason(canonical, record, ruleSet.Domain, cell.Stack, cell.Concern, ruleSet.Concerns, ruleSet.DomainConcerns));
             }
         }
         if (errors.Count > 0) { throw new ArgumentException("value-chain highlight: " + string.Join("; ", errors)); }

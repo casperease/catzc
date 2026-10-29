@@ -33,11 +33,13 @@ function Select-ProtectedTestFile {
 
     # which units carry integrity-tagged tests (they read the real repo -> widened to the repo-wide set)
     $integrityModules = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    # One module lookup per file, not per test: a file holds many tests, and each lookup resolves the modules root again.
+    $integrityFiles = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($test in @($Discovery.Tests)) {
         $categoryTags = @(Get-TestBlockTag -Test $test -Valid 'logic', 'integrity')
         # The test's run file: its test file, or the Go test folder of a Go bridge test.
         $file = Get-TestRunFile -Test $test
-        if ($categoryTags -contains 'integrity' -and $file) {
+        if ($categoryTags -contains 'integrity' -and $file -and $integrityFiles.Add($file)) {
             [void]$integrityModules.Add((Get-TestFileModule $file))
         }
     }

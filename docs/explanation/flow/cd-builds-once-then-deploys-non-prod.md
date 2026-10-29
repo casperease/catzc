@@ -15,8 +15,8 @@ Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI and FDR-CD-CDSTAYSINN
 Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/extends/cd-customer.yaml`. The thin root pipelines
 (`cd-apex.yaml`, `cd-nova.yaml`, `cd-flux.yaml`) supply only the customer key and the per-deployment environment, slot, service connection
 and subscription assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages
-that apply them in dependency order. Each deploy stage reaches the non-prod targets and no others; the prod subscription is the manual DEPLOY
-pipeline's.
+that apply them in dependency order. Each deploy stage reaches the non-prod targets and no others; the prod subscription is the manual
+DEPLOY pipeline's.
 
 ```yml drawio
 description:

@@ -20,8 +20,7 @@ Only genuine file references are returned: a value that is a template EXPRESSION
 skipped (its target is not statically known), and a value that does not end in `.yaml` is ignored (it is not a template path). Comment lines
 (`#`) never match.
 
-It rests on
-[ADR-ADO-TEMPLATE-ABSOLUTEPATHS](../../../../drs/ado/custom-template-discipline.md#rule-adr-ado-template-absolutepaths).
+It rests on [ADR-ADO-TEMPLATE-ABSOLUTEPATHS](../../../../drs/ado/custom-template-discipline.md#rule-adr-ado-template-absolutepaths).
 
 ### parameter `Path`
 

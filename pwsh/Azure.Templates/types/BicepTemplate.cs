@@ -64,12 +64,8 @@ public sealed class BicepTemplate : Catzc.Base.Objects.DictionaryRecord
     // The names the build derives from the namer, keyed by slot parameter (options.yml names); a slot never writes one. Empty when none.
     public IReadOnlyDictionary<string, BicepNameEntry> names { get; }
 
-    // The environment facts the build passes as parameters, keyed by slot parameter, valued by the azure.yml environment field
-    // (options.yml facts); a slot never writes one. Empty when none.
     public IReadOnlyDictionary<string, string> facts { get; }
 
-    // The shared config the build passes as parameters, keyed by slot parameter, valued by the global config address it resolves
-    // (options.yml addresses); a slot never writes one. Empty when none.
     public IReadOnlyDictionary<string, string> addresses { get; }
 
     // Validates the required keys, so a malformed template cannot produce an instance.

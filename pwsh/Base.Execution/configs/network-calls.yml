@@ -131,7 +131,8 @@ sites:
   pwsh/Base.Languages/Invoke-GoTest.ps1#Invoke-GoTest:
     class: package-install
     trigger: offline-guarded
-    gated_by: GOPROXY=off, GOFLAGS=-mod=mod, GOTOOLCHAIN=local, GOWORK=off; a missing module throws naming Invoke-Go '-C <folder> mod download'
+    gated_by:
+      GOPROXY=off, GOFLAGS=-mod=mod, GOTOOLCHAIN=local, GOWORK=off; a missing module throws naming Invoke-Go '-C <folder> mod download'
   pwsh/Azure.Templates/Update-AzurePriceTable.ps1#Update-AzurePriceTable:
     class: price-data
     trigger: on-request

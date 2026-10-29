@@ -32,5 +32,4 @@ From the catalogue, reduced: commit promotion states.
 
 ## Notes
 
-Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram
-docs/drs/flow/.assets/commit-promotion-states.drawio.png.
+Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram docs/drs/flow/.assets/commit-promotion-states.drawio.png.

@@ -86,15 +86,26 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
 }
 '@
         [System.IO.File]::WriteAllText($script:fixture, $fixtureContent)
+        $script:setup = Join-Path $TestDrive 'Setup.Tests.ps1'
+        [System.IO.File]::WriteAllText($script:setup,
+            "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
+
+        # One worker spawn serves both failing fixtures; each It reads its own file's rows.
+        $script:runError = $null
+        try {
+            $script:run = Invoke-TestFile $script:fixture, $script:setup -Output Minimal -PassThru
+        }
+        catch {
+            $script:runError = $_
+        }
     }
 
     It 'runs tests strict, and an It-level opt-out runs that test non-strict (the harness parity contract)' {
-        { $script:run = Invoke-TestFile $script:fixture -Output Minimal -PassThru } |
-            Should -Not -Throw -Because 'a failing file is a result, not an error'
+        $script:runError | Should -BeNullOrEmpty -Because 'a failing file is a result, not an error'
         $run = $script:run
         $run.Result | Should -Be 'Failed' -Because 'the worker runs tests strict, like every harness shard'
         $run.ExitCode | Should -Be 1
-        @($run.Rows) | Should -HaveCount 3
+        @($run.Rows | Where-Object File -EQ $script:fixture) | Should -HaveCount 3
         @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar without opting out').Result |
             Should -Be 'Failed'
         @($run.Rows | Where-Object ExpandedName -EQ 'reads Count on a scalar behind an It-level opt-out').Result |
@@ -115,13 +126,12 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
     }
 
     It 'prints the error of a failed BeforeAll in its summary, so a test its setup never ran names the cause' {
-        $setup = Join-Path $TestDrive 'Setup.Tests.ps1'
-        [System.IO.File]::WriteAllText($setup,
-            "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
-        $run = Invoke-TestFile $setup -Output Minimal -PassThru
+        $run = $script:run
         $run.Result | Should -Be 'Failed'
-        $run.Rows | Select-Object -First 1 -ExpandProperty ErrorMessage | Should -BeLike '*widget setup broke*'
-        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Message" -like '*widget setup broke*' }
+        $run.Rows | Where-Object File -EQ $script:setup | Select-Object -First 1 -ExpandProperty ErrorMessage |
+            Should -BeLike '*widget setup broke*'
+        # The run is the shared one from BeforeAll, so its messages count in the Describe's Pester scope.
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Scope Describe -ParameterFilter { "$Message" -like '*widget setup broke*' }
     }
 
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {

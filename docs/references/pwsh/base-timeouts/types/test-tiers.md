@@ -18,3 +18,12 @@ graph.
   container whose outermost tier is below `FirstRealProcessTier`. Any other value is an error.
 - `FirstRealProcessTier` is the first tier that may launch a real process: L0 and L1, the tiers below it, launch none
   ([ADR-AUTO-TEST-PROCESSTRIPWIRE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-processtripwire)).
+
+## comment:1
+
+Above `public const int DefaultTop = 2;`, written with `//`.
+
+```text
+The top tier a run includes when it names none: L3, the live tier, and L4 are opt-in (-MaxLevel 3 or 4), so a default run stops at L2
+([ADR-AUTO-NET-TESTSOFFLINE](/docs/drs/automation/network-calls.md#rule-adr-auto-net-testsoffline)).
+```

@@ -130,6 +130,23 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         { & $script:exit -LockName $script:lockName } | Should -Throw '*no burst holds*'
     }
 
+    It 'leaves the lock''s inherit variable absent, not empty, after the burst when it was unset before' {
+        . (Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1')
+        $inherit = Get-CatzcRunLockInheritName -LockName $script:lockName
+        Remove-Item -LiteralPath "Env:$inherit" -ErrorAction Ignore
+        $burst = [powershell]::Create().AddScript({
+                param($Enter, $Name)
+                & $Enter -Seconds 5 -LockName $Name -LockSeconds 1 -Run @("'widget'")
+            }).AddArgument($script:enter).AddArgument($script:lockName)
+        try {
+            $null = $burst.Invoke()
+        }
+        finally {
+            $burst.Dispose()
+        }
+        Test-Path -LiteralPath "Env:$inherit" | Should -BeFalse
+    }
+
     It 'stops at a failing -Run step, runs none after it, releases the lock and exits 1: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
         @{ case = 'a throw'; Step = "throw 'broken gadget'"; Reason = 'broken gadget' }
         @{ case = 'a non-zero exit code'; Step = '$global:LASTEXITCODE = 3'; Reason = 'exit code 3' }

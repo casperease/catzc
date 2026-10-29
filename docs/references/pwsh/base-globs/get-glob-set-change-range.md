@@ -1,7 +1,7 @@
 # pwsh/Base.Globs/Get-GlobSetChangeRange.ps1
 
-The reference-commit resolver ([ADR-PWSH-DETECT][r1]): it returns the git diff range that the current
-execution context measures a globset change against, or null when the range cannot be resolved, which callers treat as affected.
+The reference-commit resolver ([ADR-PWSH-DETECT][r1]): it returns the git diff range that the current execution context measures a globset
+change against, or null when the range cannot be resolved, which callers treat as affected.
 
 ## help
 

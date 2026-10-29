@@ -223,7 +223,9 @@ guids:
     description: Assert-IsGuid comment-based-help example value
   fixture_subscription_a:
     guid: 00000000-0000-0000-0000-00000000000a
-    description: the first placeholder subscription id of Azure.Templates and Azure.DevOps logic tests (Test-Pipelines, ArmExpression, orphan and compliance tests)
+    description:
+      the first placeholder subscription id of Azure.Templates and Azure.DevOps logic tests (Test-Pipelines, ArmExpression, orphan and
+      compliance tests)
   fixture_subscription_b:
     guid: 00000000-0000-0000-0000-00000000000b
     description: the second placeholder subscription id of logic tests — a subscription other than fixture_subscription_a

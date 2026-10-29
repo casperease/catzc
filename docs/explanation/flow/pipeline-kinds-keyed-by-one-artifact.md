@@ -107,10 +107,9 @@ layout:
    release branch. In the repository, the `release-uat` target of `deploy-apex.yaml` and `deploy-shared.yaml` is that path.
 6. **RBC.** Release Branch Certification is the second manual gate, at release-uat, and it clears when release-AT is verified.
 7. **Pre-prod and production.** DEPLOY-Prod drives the RBC-cleared artifact first into pre-prod, staged but not serving, and then activates
-   the same bytes live in production.
-   In the repository, `deploy-apex.yaml` and `deploy-shared.yaml` are the only pipelines that reach the prod subscription (`psub`,
-   `preprod`, `prod`), by a `Target` of `prod` or `rollback`; the approval check on a prod-tier environment is the engine's, configured by
-   the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`
+   the same bytes live in production. In the repository, `deploy-apex.yaml` and `deploy-shared.yaml` are the only pipelines that reach the
+   prod subscription (`psub`, `preprod`, `prod`), by a `Target` of `prod` or `rollback`; the approval check on a prod-tier environment is
+   the engine's, configured by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`
    (FDR-CD-PRODAPPROVALGATE).
 
 ## Why it holds

@@ -26,7 +26,12 @@ function Invoke-AzCli {
     }
     finally {
         if (-not $DryRun) {
-            [Environment]::SetEnvironmentVariable($dynamicInstallVar, $priorDynamicInstall, 'Process')
+            if ($null -eq $priorDynamicInstall) {
+                Remove-Item -LiteralPath "Env:$dynamicInstallVar" -ErrorAction Ignore
+            }
+            else {
+                [Environment]::SetEnvironmentVariable($dynamicInstallVar, $priorDynamicInstall, 'Process')
+            }
         }
     }
 }

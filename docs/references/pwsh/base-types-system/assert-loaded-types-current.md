@@ -14,8 +14,8 @@ Asserts that the C# types loaded in this PowerShell process are current with the
 The throwing form of Test-LoadedTypesCurrent
 ([ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-assertpreconditions)): a
 precondition for work that must run on the types as written, such as a test of a type just edited. A loaded assembly cannot be swapped in a
-running process ([ADR-PWSH-TYPES-RESTARTTORELOAD][r1]),
-so the one remedy is a new process; the message names it, with every drifted type and both hashes or code roots.
+running process ([ADR-PWSH-TYPES-RESTARTTORELOAD][r1]), so the one remedy is a new process; the message names it, with every drifted type
+and both hashes or code roots.
 
 ### parameter `ModulesRoot`
 

@@ -173,11 +173,13 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
 
 Describe 'Format-FileMeta on the repository' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'leaves a generated page''s head to its generator: the page is outside the scope, so a run changes nothing' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
-        $before = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'docs/drs/index.md'))
-        $result = Format-FileMeta -Path 'docs/drs/index.md' -DryRun -NoCache -PassThru
+        # A full path: a relative one resolves against the location, which a shard's earlier file may leave inside the repository.
+        $page = Join-Path (Get-RepositoryRoot) 'docs/drs/index.md'
+        $before = [System.IO.File]::ReadAllText($page)
+        $result = Format-FileMeta -Path $page -DryRun -NoCache -PassThru
         $result.FileCount | Should -Be 0
         $result.ChangedCount | Should -Be 0
-        [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'docs/drs/index.md')) | Should -BeExactly $before
+        [System.IO.File]::ReadAllText($page) | Should -BeExactly $before
     }
 }
 

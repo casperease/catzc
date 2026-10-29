@@ -95,7 +95,8 @@ layout:
 
 ## Why it holds
 
-- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
+- Never check the detection variables directly; one analyzer rule checks it on every PowerShell file
+  (ADR-PWSH-DETECT-NODIRECTVARIABLECHECK).
 - Context-dependent behavior must be intentional and visible, through the detector or a parameter; the FDR alone states it
   (ADR-PWSH-DETECT-VISIBLECONTEXTBEHAVIOUR).
 - Prefer a parameter over detection; detection is the fallback; the FDR alone states it (ADR-PWSH-DETECT-PARAMETERSOVERDETECTION).

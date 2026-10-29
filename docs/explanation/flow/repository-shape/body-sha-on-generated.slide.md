@@ -30,5 +30,4 @@ From the catalogue, reduced: head outcomes.
 
 ## Notes
 
-Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram
-docs/how-to/pwsh/.assets/head-outcomes.drawio.png.
+Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/how-to/pwsh/.assets/head-outcomes.drawio.png.

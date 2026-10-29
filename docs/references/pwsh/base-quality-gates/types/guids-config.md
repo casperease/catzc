@@ -16,3 +16,12 @@ Constructing the record maps and validates the parsed YAML and gathers every vio
 
 That every registered GUID appears in tracked text, and that no unregistered or denied one does, is the managed-guid integrity test's job,
 not load's.
+
+## comment:1
+
+Above `public IReadOnlyList<string> registries { get; }`, written with `//`.
+
+```text
+Repository-relative yml files that are the one declaration of a set of fixed GUIDs (the built-in role ids): every GUID value in one
+counts as registered, so a value is declared once, in its own registry, never here as well. None by default.
+```

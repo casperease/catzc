@@ -128,3 +128,12 @@ collection error, or no tests collected (exit 5). The call throws then, with the
 The folder is the one named, a module's own `tests/` or the holder's, else the module's folder under the holder's `tests/` in python's
 folder case. That folder is named for the module's folder, which drops the modules track's namespace
 ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)).
+
+## comment:1
+
+Above `$environment = Get-EngineContract -Engine $Engine -EngineExecutable...`, written with `#`.
+
+```text
+The engine contract is set for these commands only; UV_PYTHON_DOWNLOADS=never keeps uv on the pinned interpreter and
+UV_OFFLINE=1 keeps every uv call off the network.
+```
