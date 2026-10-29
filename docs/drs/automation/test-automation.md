@@ -665,14 +665,17 @@ where a checkout would not — a checkout re-applies line-ending conversion and 
 snapshot is then **verified**: its `git status` must equal the source's line for line, or the run throws, because a run on a tree that
 differs from its source proves nothing about the source.
 
-Ignored content is never copied, so a snapshot starts with a clean `out/`. The generated files the repository ignores — module manifests,
-READMEs, root configs, dictionaries — are materialised by one priming import in the snapshot, exactly as a fresh clone's first import does,
-before any worker starts; workers import without janitors and nothing is ever auto-committed. Each worker loads the snapshot's own importer,
-so every path it resolves lands inside the snapshot ([never-depend-on-pwd](never-depend-on-pwd.md)), while the run folder stays in the
-working folder's `out/` — reports land where a reader always looks, with row paths mapped back to working-folder paths, and `run.json`
-records the location and the snapshot's provenance. The snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem.
-Where a run executes is its **location**, one record: the claim (`Enter-TestRunLocation`) returns it, and the context block, the workers,
-the report's Location line, and `run.json` all read that same record.
+The snapshot copy carries no ignored content. The claim then seeds it with two outputs that check their own key: the result caches under
+`out/cache`, keyed on content and input stamps, and the published agent hooks under `.claude/hooks/bin`, each stamped with its sources'
+hash, so the priming import republishes only a hook whose sources differ. Either is redone when its key no longer matches, never trusted
+blindly. The generated files the repository ignores — module manifests, READMEs, root configs, dictionaries — are materialised by one
+priming import in the snapshot, exactly as a fresh clone's first import does, before any worker starts; workers import without janitors and
+nothing is ever auto-committed. Each worker loads the snapshot's own importer, so every path it resolves lands inside the snapshot
+([never-depend-on-pwd](never-depend-on-pwd.md)), while the run folder stays in the working folder's `out/` — reports land where a reader
+always looks, with row paths mapped back to working-folder paths, and `run.json` records the location and the snapshot's provenance. The
+snapshot is removed afterwards unless `-KeepSandbox` keeps it for a post-mortem. Where a run executes is its **location**, one record: the
+claim (`Enter-TestRunLocation`) returns it, and the context block, the workers, the report's Location line, and `run.json` all read that
+same record.
 
 A snapshot is also frozen: edits made in the working folder while it runs never reach it. `-Isolated` takes the snapshot even when the lock
 is free, for a deterministic run against the tree as it was when the run started.

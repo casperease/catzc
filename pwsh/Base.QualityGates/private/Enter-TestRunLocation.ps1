@@ -82,6 +82,11 @@ function Enter-TestRunLocation {
     if ([System.IO.Directory]::Exists($sourceCache)) {
         Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
     }
+    # It starts with the published agent hooks too: each carries its sources' hash, so the import republishes only a hook whose sources differ.
+    $sourceHooks = Join-Path $sourceRoot '.claude/hooks/bin'
+    if ([System.IO.Directory]::Exists($sourceHooks)) {
+        Copy-Directory $sourceHooks (Join-Path $location.Snapshot.Path '.claude/hooks/bin')
+    }
 
     # One full import, as a fresh clone's, materialises the gitignored generated files.
     Write-Message 'Priming the snapshot: one import materialises its generated files...'

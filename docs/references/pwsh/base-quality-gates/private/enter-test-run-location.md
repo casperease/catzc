@@ -74,6 +74,13 @@ entry is keyed on a file's content and the stamps of the check's inputs
 copy of the same tree, and a file the snapshot changed is simply a new key. Without the copy every snapshot run would format and analyse
 every file from cold. The snapshot's own updates stay in the snapshot until Exit-TestRunLocation hands them home.
 
+## the snapshot's agent hooks
+
+The snapshot also starts with the working folder's published agent hooks (`.claude/hooks/bin`). Each published hook carries a stamp of its
+sources' hash beside it, and the priming import's Build-AgentHook republishes only a hook whose sources differ, so a carried hook is rebuilt
+whenever it no longer matches the snapshot's own sources. Without the copy the priming import publishes every hook from cold: 31.7 s of
+priming against 15.3 s with it (2026-10-29).
+
 ## the snapshot's Python environment
 
 The Python environment (`python/.venv`) and its uv lock are gitignored, so a snapshot carries neither. When the working folder has a synced

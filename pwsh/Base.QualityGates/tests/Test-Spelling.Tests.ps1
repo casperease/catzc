@@ -19,6 +19,7 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
             }
         }
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'out' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -142,6 +143,17 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         Test-Spelling -Path '**/*.md' -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
             @($Command).Count -eq 1 -and $Command[0] -match 'lint' -and $Command[0] -match 'cspell\.yml' -and $Command[0] -match '\*\*/\*\.md'
+        }
+    }
+
+    It 'caches by content under the output root, one cache file per path group' {
+        Test-Spelling -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            $lines = @($Command)
+            $locations = @($lines | ForEach-Object { [regex]::Match($_, "--cache-location '(?<p>[^']+)'").Groups['p'].Value })
+            $lines.Count -gt 1 -and @($lines | Where-Object { $_ -notmatch '--cache --cache-strategy content ' }).Count -eq 0 -and
+            @($locations | Where-Object { $_ -notlike '*out*spelling-cache*.json' }).Count -eq 0 -and
+            @($locations | Select-Object -Unique).Count -eq $lines.Count
         }
     }
 

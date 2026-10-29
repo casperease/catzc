@@ -160,6 +160,32 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Exists((Join-Path $snapshotPath 'out/cache')) | Should -BeFalse
     }
 
+    It 'starts the snapshot with the published agent hooks and their source stamps, and without them when there are none' {
+        $hooks = Join-Path $script:root '.claude/hooks/bin'
+        [System.IO.Directory]::CreateDirectory($hooks) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $hooks 'Widget.source.sha256'), 'gadget-hash')
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        try {
+            $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+            [System.IO.File]::ReadAllText((Join-Path $snapshotPath '.claude/hooks/bin/Widget.source.sha256')) | Should -Be 'gadget-hash'
+        }
+        finally {
+            [System.IO.Directory]::Delete((Join-Path $script:root '.claude'), $true)
+        }
+
+        $bareSnapshot = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $bareSnapshot; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+        InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+        [System.IO.Directory]::Exists((Join-Path $bareSnapshot '.claude/hooks/bin')) | Should -BeFalse
+    }
+
     It 'syncs the snapshot''s own Python environment offline from the working folder''s lock, and stops uv syncing until the run exits' {
         $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
         $venv = Join-Path $widgetRoot 'python/.venv'

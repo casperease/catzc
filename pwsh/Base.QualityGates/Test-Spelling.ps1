@@ -54,14 +54,20 @@ function Test-Spelling {
             $groups.Add([string[]] @($Path[$start..([Math]::Min($start + $batchSize, $Path.Count) - 1)]))
         }
     }
+    $cacheFolder = Join-Path (Get-OutputRoot -EnsureExists) 'spelling-cache'
+    $null = New-Item -ItemType Directory -Path $cacheFolder -Force
     $commands = @(foreach ($group in $groups) {
             $quotedPaths = foreach ($p in $group) {
                 "'$p'"
             }
-            # --dot reaches tracked files under dot folders; --gitignore keeps the untracked ones out.
+            # One cache file per path group: shards run side by side, and two cspell processes must not write one file.
+            $groupBytes = [System.Text.Encoding]::UTF8.GetBytes(($group -join '|'))
+            $cacheName = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($groupBytes)).Substring(0, 16)
+            $cacheLocation = Join-Path $cacheFolder "$cacheName.json"
             $command = (
                 "cspell lint $($quotedPaths -join ' ') $($excludeArgs -join ' ') " +
-                "--config '$configPath' --dot --gitignore --no-progress --no-color --relative"
+                "--config '$configPath' --dot --gitignore --no-progress --no-color --relative " +
+                "--cache --cache-strategy content --cache-location '$cacheLocation'"
             )
             # A default shard may match no file at all; the run as a whole still fails when nothing was checked.
             if ($defaultScope) {
