@@ -339,7 +339,7 @@ def place_edges(frame, delta, check_routes):
                     route["word_on"] = [
                         g["id"]
                         for g in content["glyphs"]
-                        if g["id"] in box_of and overlaps(route["word"], tuple(box_of[g["id"]][k] for k in "xywh"), 0)
+                        if g["id"] in box_of and overlaps(route["word"], tuple(box_of[g["id"]][k] for k in ("x", "y", "w", "h")), 0)
                     ]
                 # The word presentation: a word on a line that crosses into another band becomes a transition bubble on that band's
                 # border; a line inside one band keeps its word beside it.
@@ -393,6 +393,7 @@ def place_marks(frame, delta):
             continue
         box = box_of[m["at"]]
         kind = next((g["kind"] for g in content["glyphs"] if g["id"] == m["at"]), "")
+        auto = ""
         if "corner" in m:
             mx, my = marker_xy(box, m["corner"])
         elif kind == "gate":  # a diamond's corner is empty space, so its marker sits beside its top point
@@ -404,7 +405,7 @@ def place_marks(frame, delta):
             mx, my = auto_marker_spot(box, sources, free, spans.get(m["at"]))
             auto = "catzcAuto=1;"  # the corner is the kit's choice, so get names none
         taken.append((mx, my, size[0], size[1]))
-        style = LIB["marks"]["marker"]["style"] + (auto if "corner" not in m and kind not in ("", "gate") else "")
+        style = LIB["marks"]["marker"]["style"] + auto
         if "corner" not in m and not kind:  # the spot beside the name moves with the name's length, so get reads the holder from it
             style += f"catzcAt={m['at']};"
         cells.append(cell(f"mark-{m['number']}", str(m["number"]), style, mx, my, size[0], size[1]))
