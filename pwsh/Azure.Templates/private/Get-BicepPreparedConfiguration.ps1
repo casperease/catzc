@@ -23,7 +23,7 @@ function Get-BicepPreparedConfiguration {
         }
     }
 
-    # Addressed parameters resolve to their value before the hook, so the hook and the parameters file see only ARM entries.
+    # Address and fact parameters resolve to their value before the hook, so the hook and the parameters file see only ARM entries.
     if ($configurationDescriptor.Contains('ParametersFile') -and
         $configurationDescriptor.ParametersFile -is [System.Collections.IDictionary] -and
         $configurationDescriptor.ParametersFile.Contains('parameters') -and
@@ -41,7 +41,16 @@ function Get-BicepPreparedConfiguration {
             }
             $configurationDescriptor.ParametersFile.parameters[$parameter] = [ordered]@{ address = $TemplateDescriptor.addresses[$parameter] }
         }
-        $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile (Join-Path $configFolder "$($Slot.name).yml")
+        $configFile = Join-Path $configFolder "$($Slot.name).yml"
+        $configurationDescriptor.ParametersFile.parameters = Resolve-BicepParameterAddresses -Parameters $configurationDescriptor.ParametersFile.parameters -ConfigFile $configFile
+        # The facts options.yml declares join the slot's own fact entries the same way, resolved from azure.yml for the slot.
+        foreach ($parameter in @($TemplateDescriptor.facts.Keys)) {
+            if ($configurationDescriptor.ParametersFile.parameters.Contains($parameter)) {
+                throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a fact of its environment (options.yml facts): delete it from the slot"
+            }
+            $configurationDescriptor.ParametersFile.parameters[$parameter] = [ordered]@{ fact = $TemplateDescriptor.facts[$parameter] }
+        }
+        $configurationDescriptor.ParametersFile.parameters = Resolve-BicepEnvironmentFacts -Parameters $configurationDescriptor.ParametersFile.parameters -Slot $Slot -ConfigFile $configFile
     }
 
     $slotParameters = $configurationDescriptor.ParametersFile.parameters
@@ -51,15 +60,6 @@ function Get-BicepPreparedConfiguration {
             throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a name the namer derives (options.yml names): delete it from the slot"
         }
         $slotParameters[$parameter] = [ordered]@{ value = $derivedNames[$parameter] }
-    }
-
-    # The facts options.yml declares come from the slot's azure.yml environment the same way; a slot that writes one is refused.
-    $environmentFacts = Resolve-BicepEnvironmentFacts -TemplateDescriptor $TemplateDescriptor -Slot $Slot
-    foreach ($parameter in @($environmentFacts.Keys)) {
-        if ($slotParameters.Contains($parameter)) {
-            throw "Slot '$($Slot.name)' of template '$template' writes '$parameter', a fact of its environment (options.yml facts): delete it from the slot"
-        }
-        $slotParameters[$parameter] = [ordered]@{ value = $environmentFacts[$parameter] }
     }
 
     # Hooks read their dimensions from this invocation, not raw params, so a new dimension never changes the hook signature.

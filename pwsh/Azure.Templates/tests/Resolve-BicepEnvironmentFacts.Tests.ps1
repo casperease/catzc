@@ -1,15 +1,11 @@
 Describe 'Resolve-BicepEnvironmentFacts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:resolve = {
-            param([System.Collections.IDictionary] $Facts, [string] $Environment, [string] $Subscription = 'widget_sub', [string] $Customer = '')
-            $template = [Catzc.Azure.Templates.BicepTemplate]::new([ordered]@{
-                    name = 'widget'; folder = 'f'; main = 'm'; configuration_folder = 'c'; output_folder = 'o'; deployment_mode = 'Incremental'
-                    deployment_target = 'ResourceGroup'; environment_kind = 'environment'; short_name = 'wdg'; facts = $Facts
-                })
+            param([System.Collections.IDictionary] $Parameters, [string] $Environment, [string] $Subscription = 'widget_sub', [string] $Customer = '')
             $slot = [Catzc.Azure.Templates.BicepSlot]::new($Environment, $Environment, '', $Subscription, $Customer, 'widget.yml')
-            InModuleScope Catzc.Azure.Templates -Parameters @{ Template = $template; Slot = $slot } {
-                param($Template, $Slot)
-                Resolve-BicepEnvironmentFacts -TemplateDescriptor $Template -Slot $Slot
+            InModuleScope Catzc.Azure.Templates -Parameters @{ Parameters = $Parameters; Slot = $slot } {
+                param($Parameters, $Slot)
+                Resolve-BicepEnvironmentFacts -Parameters $Parameters -Slot $Slot -ConfigFile 'C:/widget/configuration/widget.yml'
             }
         }
     }
@@ -36,25 +32,25 @@ Describe 'Resolve-BicepEnvironmentFacts' -Tag 'L0', 'logic' {
         @{ subscription = 'widget_sub'; customer = 'widget'; expected = '1a,1b,1c,1d' }
         @{ subscription = 'widget_sub'; customer = ''; expected = ',,,' }
     ) {
-        $facts = & $script:resolve ([ordered]@{ widgetGroups = 'groups' }) 'cog' $subscription $customer
-        @($facts.widgetGroups.Keys) | Should -Be @('readers', 'operators', 'data_readers', 'data_writers')
-        @($facts.widgetGroups.Values) -join ',' | Should -Be $expected
+        $resolved = & $script:resolve ([ordered]@{ widgetGroups = [ordered]@{ fact = 'groups' } }) 'cog' $subscription $customer
+        @($resolved.widgetGroups.value.Keys) | Should -Be @('readers', 'operators', 'data_readers', 'data_writers')
+        @($resolved.widgetGroups.value.Values) -join ',' | Should -Be $expected
     }
 
-    It 'takes the policy enforcement of the slot''s subscription class, whatever its own environment: <subscription> -> <expected>' -ForEach @(
+    It 'resolves { fact: policy_enforcement } to the slot''s subscription class, whatever its own environment: <subscription> -> <expected>' -ForEach @(
         @{ subscription = 'gadget_sub'; expected = 'Default' }
         @{ subscription = 'widget_sub'; expected = 'DoNotEnforce' }
     ) {
-        $facts = & $script:resolve ([ordered]@{ widgetEnforcement = 'policy_enforcement' }) 'cog' $subscription
-        $facts.widgetEnforcement | Should -Be $expected
+        $resolved = & $script:resolve ([ordered]@{ widgetEnforcement = [ordered]@{ fact = 'policy_enforcement' } }) 'cog' $subscription
+        $resolved.widgetEnforcement.value | Should -Be $expected
     }
 
     It 'passes whether the slot''s subscription holds a production environment: <subscription> -> <expected>' -ForEach @(
         @{ subscription = 'gadget_sub'; expected = $true }
         @{ subscription = 'widget_sub'; expected = $false }
     ) {
-        $facts = & $script:resolve ([ordered]@{ widgetZoned = 'subscription_production' }) 'cog' $subscription
-        $facts.widgetZoned | Should -Be $expected
+        $resolved = & $script:resolve ([ordered]@{ widgetZoned = [ordered]@{ fact = 'subscription_production' } }) 'cog' $subscription
+        $resolved.widgetZoned.value | Should -Be $expected
     }
 
     It 'passes the types the shared modules declare, as an array even when there is one: <types>' -ForEach @(
@@ -62,25 +58,48 @@ Describe 'Resolve-BicepEnvironmentFacts' -Tag 'L0', 'logic' {
         @{ types = @('Widget.Parts/gadgets', 'Widget.Parts/widgets') }
     ) {
         Mock Get-BicepModuleResourceTypes -ModuleName Catzc.Azure.Templates { $types }
-        $facts = & $script:resolve ([ordered]@{ widgetTypes = 'module_resource_types' }) 'cog'
-        , $facts.widgetTypes | Should -BeOfType ([string[]])
-        $facts.widgetTypes | Should -Be $types
+        $resolved = & $script:resolve ([ordered]@{ widgetTypes = [ordered]@{ fact = 'module_resource_types' } }) 'cog'
+        , $resolved.widgetTypes.value | Should -BeOfType ([string[]])
+        $resolved.widgetTypes.value | Should -Be $types
     }
 
     It 'passes the slot environment''s field as the parameter: <environment> -> <expected>' -ForEach @(
         @{ environment = 'gadget'; expected = $true }
         @{ environment = 'sprocket'; expected = $false }
     ) {
-        $facts = & $script:resolve ([ordered]@{ deployWidgetAlerts = 'production' }) $environment
-        $facts.deployWidgetAlerts | Should -Be $expected
+        $resolved = & $script:resolve ([ordered]@{ deployWidgetAlerts = [ordered]@{ fact = 'production' } }) $environment
+        $resolved.deployWidgetAlerts.value | Should -Be $expected
     }
 
-    It 'resolves nothing, and reads no config, for a template with no facts' {
-        (& $script:resolve ([ordered]@{}) 'gadget').Count | Should -Be 0
+    It 'passes every other entry through unchanged, in order' {
+        $resolved = & $script:resolve ([ordered]@{
+                widgetName        = [ordered]@{ value = 'widget' }
+                gadgetEnforcement = [ordered]@{ fact = 'policy_enforcement' }
+                gadgetSecret      = [ordered]@{ reference = 'kv' }
+            }) 'cog'
+        @($resolved.Keys) | Should -Be @('widgetName', 'gadgetEnforcement', 'gadgetSecret')
+        $resolved.widgetName.value | Should -Be 'widget'
+        $resolved.gadgetSecret.reference | Should -Be 'kv'
+    }
+
+    It 'resolves nothing, and reads no config, for a slot with no fact' {
+        $resolved = & $script:resolve ([ordered]@{ widgetName = [ordered]@{ value = 'widget' } }) 'gadget'
+        $resolved.widgetName.value | Should -Be 'widget'
         Should -Invoke Get-Config -ModuleName Catzc.Azure.Templates -Times 0 -ParameterFilter { $Config -eq 'azure' }
     }
 
+    It 'throws on an unknown field, naming the slot file, the parameter and the field' {
+        { & $script:resolve ([ordered]@{ widgetMode = [ordered]@{ fact = 'gadget_mode' } }) 'cog' } |
+            Should -Throw "*'C:/widget/configuration/widget.yml'*parameter 'widgetMode' names fact 'gadget_mode', which is not a known field*"
+    }
+
+    It 'throws on a fact set together with another key' {
+        { & $script:resolve ([ordered]@{ widgetMode = [ordered]@{ fact = 'production'; value = $true } }) 'cog' } |
+            Should -Throw "*'C:/widget/configuration/widget.yml'*parameter 'widgetMode' sets 'fact' together with 'value'*"
+    }
+
     It 'throws on a slot environment azure.yml does not declare' {
-        { & $script:resolve ([ordered]@{ deployWidgetAlerts = 'production' }) 'sprocket-x' } | Should -Throw "*environment 'sprocket-x', which azure.yml does not declare*"
+        { & $script:resolve ([ordered]@{ deployWidgetAlerts = [ordered]@{ fact = 'production' } }) 'sprocket-x' } |
+            Should -Throw "*environment 'sprocket-x', which azure.yml does not declare*"
     }
 }

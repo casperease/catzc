@@ -13,7 +13,7 @@ deployment options. The data model behind this is in [data-model](../../../drs/a
 ```text
 infrastructure/templates/<name>/
   main.bicep                                       required — the root Bicep file
-  options.yml                                      optional — override short_name (else derived) + classification
+  options.yml                                      optional — override short_name (else derived), deployment mode and target
   PrePost.psm1                                     optional — build/deploy hooks
   configuration/
     <env>.yml                                      a shared-platform config (base slot) — one file = one resource group
@@ -59,12 +59,15 @@ module adfMain '../../modules/data-factory.bicep' = {
 }
 ```
 
-**`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Resource names are written
-**statically** here (the build passes them through unchanged); they follow the
-[naming standard](../../../drs/azure/azure-naming-standard.md):
+**`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Every real name is written
+**in full** here (the build passes it through unchanged,
+[ADR-AZ-DATAMOD-STATICRESOURCENAMES](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), and the top-level
+`ResourceGroup:` key names the group the slot deploys into
+([ADR-AZ-DATAMOD-DECLAREDGROUPNAME](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-declaredgroupname)):
 
 ```yaml
 # survey, shared dev.
+ResourceGroup: dev-weu-zct-surve-rg
 ParametersFile:
   parameters:
     storageCoreName:
@@ -75,17 +78,37 @@ ParametersFile:
       value: deweuzctsurvemaadf
 ```
 
-## options.yml classification
+A canonical name carries the environment, region, organisation, `short_name`, role and type, so nothing beside the name is declared. The
+gate matches it against the canonical form under the configured order
+([ADR-AZ-NAMING-DETERMINISTICNAMES](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-deterministicnames)); the role is the one
+part you choose. A `.bicepparam` slot declares its group in a sibling `<slot>.yml` that holds only `ResourceGroup:`.
 
-| Key                 | Default               | Meaning                                                                                  |
-| ------------------- | --------------------- | ---------------------------------------------------------------------------------------- |
-| `short_name`        | _derived from folder_ | 2–5 lowercase-alnum, unique across templates: the Azure id segment. Override only        |
-| `environment_kind`  | `standard`            | `standard`: ordinary envs (dev/test/…); `subscription`: one per subscription (nsub/psub) |
-| `deployment_mode`   | _optional_            | `Incremental` / `Complete` / …                                                           |
-| `deployment_target` | _optional_            | `ResourceGroup` / `Subscription`                                                         |
+## Names, facts and addresses
 
-Every config's environment must match `environment_kind`. The shipped `foundation` template (Log Analytics + Key Vault, once per
-subscription) sets `environment_kind: subscription`; data templates leave it at `standard`.
+- A parameter whose key ends in `Name` or `Names` holds names, at any depth; lists and objects of names are plain nested yml.
+- A value that is not a name comes from a config with `{ address: … }`
+  ([ADR-AZ-DATAMOD-VALUEBYADDRESS](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)) or from a computed field with
+  `{ fact: <field> }` ([ADR-AZ-DATAMOD-VALUEBYFACT](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyfact)).
+- A name owned by another template is written in full with that template's `short_name`; the gate checks that the owner has a slot at those
+  coordinates.
+- A name that must stay off the canonical form carries `naming_exception: <reason>` beside its `value`
+  ([ADR-AZ-NAMING-EXCEPTIONENTRY](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-exceptionentry)); the gate lists every
+  exception.
+
+Scaffold the names for a new environment, or after a change of the `naming` order
+([ADR-AZ-NAMING-ORDERISVARIANT](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-orderisvariant)), with
+`Sync-BicepResourceNames`, then check them with `Test-BicepResourceNames`.
+
+## options.yml
+
+| Key                 | Default               | Meaning                                                                           |
+| ------------------- | --------------------- | --------------------------------------------------------------------------------- |
+| `short_name`        | _derived from folder_ | 2–5 lowercase-alnum, unique across templates: the Azure id segment. Override only |
+| `deployment_mode`   | _optional_            | `Incremental` / `Complete` / …                                                    |
+| `deployment_target` | _optional_            | `ResourceGroup` / `Subscription`                                                  |
+
+No other key is allowed. The environment class of a template is read from its slots (a template's slots all share one class), and a template
+is a customer deployment when it has a customer folder under `configuration/`.
 
 ## PrePost hooks
 
@@ -132,8 +155,8 @@ target with `-SubscriptionIdAssertIs <guid>` (mandatory there); on a devbox the 
 ## Verify
 
 `Test-Automation` includes generic integrity tests that build **every** shipped template and check each references only defined
-environments/subscriptions and renders well-formed names — so a misnamed config folder or an undefined environment fails the tests. Run it
-after adding a template:
+environments/subscriptions and matches every declared name against the canonical form — so a misnamed config folder, an undefined
+environment or a mistyped name fails the tests. Run it after adding a template:
 
 ```powershell
 Test-Automation -Modules Catzc.Azure.Templates -Level 2

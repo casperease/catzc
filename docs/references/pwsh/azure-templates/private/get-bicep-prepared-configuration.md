@@ -12,10 +12,11 @@ Builds the configuration of one Bicep slot, ready to become its parameters file.
 
 ### description
 
-Reads the slot's configuration (Get-BicepTemplateConfiguration), refuses any key still `UNDEFINED`, and resolves addressed parameters. The
-shared addresses, derived names and environment facts that options.yml declares are added as parameter entries; a slot that writes one of
-them is refused. The template's prepare hook then runs with the build invocation (template, environment, slot, subscription, customer), and
-its result must hold `ParametersFile`. Private helper of the Bicep build; not exported.
+Reads the slot's configuration (Get-BicepTemplateConfiguration), refuses any key still `UNDEFINED`, and resolves its address parameters
+(Resolve-BicepParameterAddresses) and its fact parameters (Resolve-BicepEnvironmentFacts). The shared addresses, derived names and
+environment facts that options.yml declares are added as parameter entries; a slot that writes one of them is refused. The template's
+prepare hook then runs with the build invocation (template, environment, slot, subscription, customer), and its result must hold
+`ParametersFile`. Private helper of the Bicep build; not exported.
 
 ### parameter `TemplateDescriptor`
 

@@ -69,8 +69,10 @@ Management-group scope is out of scope here and gets its own plan.
    the subscription's subnets in `network.yml` minus `no_nsg_subnets`.
 
 9. **Ephemeral slots.** A runtime slot has no file and is the one place cats still computes a name. `Build-Bicep -RuntimeSlots` matches each
-   declared name of the base slot, then re-renders the ones whose short_name is this template's, with `slot = <runtime>`. Foreign names stay
-   as written. One function, `Resolve-BicepRuntimeSlotNames`, replaces `Resolve-BicepDerivedNames`.
+   declared name of the base slot, then re-renders the ones whose short_name, env, customer and slot all equal the base slot's own, with
+   `slot = <runtime>`. Foreign names and names pointing at a sibling slot of the same template (a hub) stay as written (delegated decision,
+   2026-10-29: the old resolver rendered such item names slotless, so this keeps them). One function, `Resolve-BicepRuntimeSlotNames`,
+   replaces `Resolve-BicepDerivedNames`.
 10. **The order variant** `ado_naming` becomes `naming`. It also orders the service-connection names, so it is the one naming order. The
     value is either a preset (`standard`, `classic`) or an explicit list of segments. It can be overlaid from `.catzc/`
     (ADR-AUTO-OVERLAY-CONFIGFRAGMENT; the variants file is not among SEALEDENGINECONFIGS). `Get/Test/Assert-AdoNaming` become
@@ -95,26 +97,22 @@ Management-group scope is out of scope here and gets its own plan.
 
 Each file is verified with its tests before the next (CLAUDE.md editing rule).
 
-7. [ ] **Scaffold gates:** `Sync-BicepResourceNames` (landed, 10 L0 tests green) clears its 3 ScriptAnalyzer issues: Write-Message in
-       `pwsh/Azure.Templates/private/Resolve-BicepDeclaredNames.ps1`, no Get-ChildItem in `Sync-BicepResourceNames.Tests.ps1` (check:
-       `Test-ScriptAnalyzer` on both; `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Sync-BicepResourceNames.Tests.ps1`).
-8. [ ] **Fact slot form:** `Resolve-BicepEnvironmentFacts` and the slot-value reader take `{ fact: <field> }` in a slot yml (Decision 14),
-       beside today's options `facts:`, so builds stay whole while Sync moves the facts (check: `Invoke-TestFile` on the reader's test with
-       a `{ fact: policy_enforcement }` case).
 9. [ ] **Scaffold run:** `Sync-BicepResourceNames` over `infrastructure/templates/*` and the 9 test-asset templates, `-WhatIf` first, before
        any deletion; ARM-id names stay as written for the gate step (check: `Build-Bicep -OutputFolder` for every slot is byte-identical to
        the step-1 baseline in the session scratchpad `baseline-bicepparam`; a Grep for `^ResourceGroup:` finds every ResourceGroup-target
-       slot).
+       slot; the worked example `dev-weu-zct-surve-rg` in `docs/how-to/getting-started/automation/add-an-infrastructure-template.md` has the
+       shape Sync writes for a ResourceGroup).
 10. [ ] **Gate:** rewrite `Test-BicepResourceNames` with the which-values-are-names scope, the matched-not-parsed match, own-coordinate
         equality (env, customer and slot of the file; short_name of the template), owner-slot existence for foreign names, the NSG coverage
         check and the exception count. It reports facts: Names, Exceptions, Foreign. The tests seed 6 faults (wrong ident, a foreign
         short_name without an owner slot, wrong env, wrong customer, a missing NSG key, an RG typo in an Azure resource ID), each with its
         expected message (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1`, then
         `Test-BicepResourceNames` on the tree).
-11. [ ] **Runtime slots:** add `pwsh/Azure.Templates/private/Resolve-BicepRuntimeSlotNames.ps1`, which matches each declared name of the
-        base slot and re-renders this template's own with `slot = <runtime>`, foreign names as written; `Build-Bicep -RuntimeSlots` calls it
-        (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Resolve-BicepRuntimeSlotNames.Tests.ps1`, a runtime slot producing the
-        names the old resolver produced).
+11. [ ] **Runtime slots wired** (after the scaffold run; the helper `pwsh/Azure.Templates/private/Resolve-BicepRuntimeSlotNames.ps1` has
+        landed): it re-renders only names on the base slot's own coordinates (Decision 9; a sibling-slot case added to its test), and
+        `Build-Bicep -RuntimeSlots` calls it in place of `Resolve-BicepDerivedNames` (check:
+        `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Resolve-BicepRuntimeSlotNames.Tests.ps1`, a runtime slot producing the names the
+        old resolver produced).
 12. [ ] **Declared resource group** (after the scaffold run over the templates and the runtime-slots step):
         `pwsh/Azure.Templates/Get-BicepDeploymentContext.ps1` reads the slot's `ResourceGroup:` key for a ResourceGroup target (l.83-86; a
         missing key throws naming the file and the key), a runtime slot's group from `Resolve-BicepRuntimeSlotNames`, and a `.bicepparam`
@@ -137,8 +135,6 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
 18. [ ] **Consumer options:** the 3 `infrastructure/templates/*/options.yml` and the test-asset fixtures hold only `short_name`,
         `deployment_mode` and `deployment_target` (check: a Grep for `names:|facts:|environment_kind|customer_deployment` under
         `infrastructure/templates` and the fixtures returns nothing).
-19. [ ] **Consumer docs:** `infrastructure/README.md` and `docs/how-to/getting-started/automation/add-an-infrastructure-template.md`
-        describe declared names and the two-key options (check: `Test-Links` and `Test-Spelling` on both).
 
-20. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
+19. [ ] **Proof:** rebuild every slot with `Build-Bicep -OutputFolder` and compare it with the captured baseline (check: every `.bicepparam`
         is byte-identical). The full Test-Automation run is the user's final run.

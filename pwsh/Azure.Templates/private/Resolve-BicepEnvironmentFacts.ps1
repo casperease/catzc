@@ -3,33 +3,69 @@ function Resolve-BicepEnvironmentFacts {
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     param(
         [Parameter(Mandatory)]
-        [Catzc.Azure.Templates.BicepTemplate] $TemplateDescriptor,
+        [System.Collections.IDictionary] $Parameters,
 
         [Parameter(Mandatory)]
-        [Catzc.Azure.Templates.BicepSlot] $Slot
+        [Catzc.Azure.Templates.BicepSlot] $Slot,
+
+        [Parameter(Mandatory)]
+        [string] $ConfigFile
     )
 
+    $resolved = [ordered]@{}
     $facts = [ordered]@{}
-    if ($TemplateDescriptor.facts.Count -eq 0) {
-        return $facts
+    $violations = [System.Collections.Generic.List[string]]::new()
+    $fields = @([Catzc.Azure.AzureEnvironmentRecord].GetProperties() | Where-Object PropertyType -EQ ([bool]) | ForEach-Object Name) + 'policy_enforcement', 'subscription_production', 'groups', 'module_resource_types'
+
+    foreach ($name in @($Parameters.Keys)) {
+        $entry = $Parameters[$name]
+        $resolved[$name] = $entry
+        if ($entry -isnot [System.Collections.IDictionary] -or -not $entry.Contains('fact')) {
+            continue
+        }
+
+        $otherKeys = @(foreach ($key in $entry.Keys) {
+                if ($key -ne 'fact') {
+                    $key
+                }
+            })
+        if ($otherKeys.Count -gt 0) {
+            $violations.Add("parameter '$name' sets 'fact' together with '$($otherKeys -join "', '")' — a fact parameter sets 'fact' alone")
+            continue
+        }
+
+        $field = $entry['fact']
+        if ($field -isnot [string] -or $field -cnotin $fields) {
+            $violations.Add("parameter '$name' names fact '$field', which is not a known field (valid: $($fields -join ', '))")
+            continue
+        }
+        $facts[$name] = $field
     }
+
+    if ($violations.Count -gt 0) {
+        throw "Template config '$ConfigFile' has invalid fact parameters:`n  - $($violations -join "`n  - ")"
+    }
+    if ($facts.Count -eq 0) {
+        return $resolved
+    }
+
     $azure = Get-Config -Config azure
     $environments = $azure.environments
     if (-not $environments.ContainsKey($Slot.environment)) {
-        throw "facts of template '$($TemplateDescriptor.name)': slot '$($Slot.name)' targets environment '$($Slot.environment)', which azure.yml does not declare"
+        throw "Template config '$ConfigFile': slot '$($Slot.name)' targets environment '$($Slot.environment)', which azure.yml does not declare"
     }
     $environment = $environments[$Slot.environment]
-    foreach ($parameter in @($TemplateDescriptor.facts.Keys)) {
-        $field = $TemplateDescriptor.facts[$parameter]
+    foreach ($parameter in @($facts.Keys)) {
+        $field = $facts[$parameter]
         if ($field -ceq 'module_resource_types') {
             # The types the shared modules declare, read at build time, so a new module's type needs no list edit.
-            $facts[$parameter] = [string[]] @(Get-BicepModuleResourceTypes)
+            $resolved[$parameter] = [ordered]@{ value = [string[]] @(Get-BicepModuleResourceTypes) }
             continue
         }
-        $facts[$parameter] = if ($field -cin 'policy_enforcement', 'subscription_production', 'groups') {
+        $value = if ($field -cin 'policy_enforcement', 'subscription_production', 'groups') {
             # The subscription's class, not the slot environment's: a subscription that holds a production environment is production.
             if (-not $azure.subscriptions.ContainsKey($Slot.subscription)) {
-                throw "facts of template '$($TemplateDescriptor.name)': slot '$($Slot.name)' targets subscription '$($Slot.subscription)', which azure.yml does not declare"
+                throw "Template config '$ConfigFile': slot '$($Slot.name)' targets subscription '$($Slot.subscription)', which azure.yml does not declare"
             }
             $production = @($azure.subscriptions[$Slot.subscription].environments | Where-Object {
                     $environments.ContainsKey($_) -and $environments[$_].production
@@ -74,6 +110,7 @@ function Resolve-BicepEnvironmentFacts {
         else {
             $environment.$field
         }
+        $resolved[$parameter] = [ordered]@{ value = $value }
     }
-    $facts
+    $resolved
 }
