@@ -88,7 +88,7 @@ layout:
   c-protection: { x: 960, y: 332, w: 300, h: 56 }
 ```
 
-![What the scan program feeds](.assets/one-scan-program-feeds-three-roles.drawio.png)
+![What the scan program feeds](.assets/what-the-scan-program-feeds.drawio.png)
 
 ## Walkthrough
 

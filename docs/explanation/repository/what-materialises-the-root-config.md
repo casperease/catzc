@@ -75,7 +75,7 @@ layout:
   r-tracked: { x: 1020, y: 290, w: 240, h: 44 }
 ```
 
-![What materialises the root config](.assets/one-registry-one-writer-two-primitives.drawio.png)
+![What materialises the root config](.assets/what-materialises-the-root-config.drawio.png)
 
 ## Walkthrough
 
@@ -109,6 +109,6 @@ layout:
 
 - [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
-  [implementation](how-an-opted-in-root-file-is-placed.md), [operations](import-materialises-two-gates-name-the-fix.md) and
+  [implementation](how-an-opted-in-root-file-is-placed.md), [operations](how-the-import-keeps-root-files-current.md) and
   [governance](what-checks-the-root-config-registry.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

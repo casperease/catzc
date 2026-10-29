@@ -61,7 +61,7 @@ layout:
   r-ado-filters: { x: 980, y: 380, w: 200, h: 44 }
 ```
 
-![How one scan program renders for GitHub and Azure DevOps](.assets/one-program-two-vendor-dialects.drawio.png)
+![How one scan program renders for GitHub and Azure DevOps](.assets/how-one-scan-program-renders-for-github-and-azure-devops.drawio.png)
 
 ## Walkthrough
 

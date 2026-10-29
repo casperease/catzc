@@ -59,7 +59,7 @@ layout:
   g-callers: { x: 520, y: 412, w: 230, h: 44 }
 ```
 
-![Where a repo-wide switch lives](.assets/one-home-one-read-path-one-vocabulary.drawio.png)
+![Where a repo-wide switch lives](.assets/where-a-repo-wide-switch-lives.drawio.png)
 
 ## Walkthrough
 

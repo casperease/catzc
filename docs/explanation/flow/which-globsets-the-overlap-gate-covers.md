@@ -81,7 +81,7 @@ layout:
   g-config-load: { x: 1080, y: 424, w: 200, h: 84 }
 ```
 
-![Which globsets the overlap gate covers](.assets/overlap-gated-for-units-and-modules.drawio.png)
+![Which globsets the overlap gate covers](.assets/which-globsets-the-overlap-gate-covers.drawio.png)
 
 ## Walkthrough
 

@@ -117,7 +117,7 @@ layout:
 ## See also
 
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
-- The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
+- The other lenses on the same projection: [meta](how-one-scan-program-renders-for-github-and-azure-devops.md),
   [implementation](how-the-apex-unit-flattens-into-path-filters.md), [operations](how-pipeline-filter-drift-is-reported.md) and
   [governance](which-gates-check-the-generated-projection.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

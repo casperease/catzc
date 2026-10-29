@@ -142,7 +142,7 @@ layout:
 ## See also
 
 - [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
-- The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
+- The other lenses on the same diagram: [meta](where-a-repo-wide-switch-lives.md),
   [architecture](a-base-module-between-config-and-its-callers.md), [operations](an-edit-lands-at-the-next-import.md) and
   [governance](which-variant-rules-have-a-quality-gate.md).
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)
