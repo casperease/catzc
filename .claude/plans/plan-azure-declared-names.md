@@ -9,7 +9,7 @@ plan:
 
 # Azure declared names: full names in the slot yml, thin options, cats matches
 
-## Context
+## Why its value is high
 
 cats is a thin platform (DDR-THINPLAT-DELEGATENOTREIMPLEMENT). A consumer's `infrastructure/` should hold only what cats cannot know. Today
 it holds the opposite. Each `options.yml` carries a naming rule language: `names:` with
@@ -94,15 +94,13 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
 
 1. [ ] **Baseline:** capture `Build-Bicep -OutputFolder` output for every slot of every template into a session scratchpad (check: one
        `.bicepparam` per slot is captured).
-2. [ ] **DRS** (check: `Test-DrsCode` and `Test-DrsRegistry`):
+2. [ ] **DRS** (check: `Test-DrsCode` and `Test-DrsRegistry` on `docs/drs/azure`):
    - ADR-AZ-NAMING: rewrite DETERMINISTICNAMES and CAFALIGNMENT as "declared, matched against the canonical form", ORDERISVARIANT as
      `naming` with preset-or-list, and drop the stale "literal in config" section (around l.296–307).
    - ADR-AZ-DATAMOD: DERIVEDRESOURCEGROUPNAME becomes "declared RG, matched", and STATICRESOURCENAMES gains "matched".
    - ADR-AZ-CUSTOMER-TEMPLATEOPTION becomes "inferred from folder".
    - Add rules for the exception entry and for `{ fact: }`.
    - Every removed options key first gets its meaning on a md page (never drop keys silently).
-
-   (check: `Test-Drs -Path docs/drs/azure`.)
 
 3. [ ] **Type config:** add `resource-types.yml`, `ResourceTypesConfig.cs` and the schema, registered in `configs.yml`
        (ADR-CONF-LOADING-CSHARPCONFIGTYPE). `Get-AzureResourceTypeSet` / `Get-AzureNamePatternSet` read it, keeping their names and output
@@ -124,11 +122,12 @@ Each file is verified with its tests before the next (CLAUDE.md editing rule).
        re-render for a new env or an order change, reusing the matcher plus the renderer. Setting `naming: classic` in a test overlay and
        then running Sync makes the gate pass again (check:
        `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Sync-BicepResourceNames.Tests.ps1`).
-8. [ ] **Gate:** rewrite `Test-BicepResourceNames` with decision 4 (scope), decision 2 (match), own-coordinate equality (env, customer and
-       slot of the file; short_name of the template), owner-slot existence for foreign names, the NSG coverage check and the exception
-       count. It reports facts: Names, Exceptions, Foreign. The tests seed 6 faults (wrong ident, a foreign short_name without an owner
-       slot, wrong env, wrong customer, a missing NSG key, an RG typo in an Azure resource ID), each with its expected message (check:
-       `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1`, then `Test-BicepResourceNames` on the tree).
+8. [ ] **Gate:** rewrite `Test-BicepResourceNames` with the which-values-are-names scope, the matched-not-parsed match, own-coordinate
+       equality (env, customer and slot of the file; short_name of the template), owner-slot existence for foreign names, the NSG coverage
+       check and the exception count. It reports facts: Names, Exceptions, Foreign. The tests seed 6 faults (wrong ident, a foreign
+       short_name without an owner slot, wrong env, wrong customer, a missing NSG key, an RG typo in an Azure resource ID), each with its
+       expected message (check: `Invoke-TestFile -Path pwsh/Azure.Templates/tests/Test-BicepResourceNames.Tests.ps1`, then
+       `Test-BicepResourceNames` on the tree).
 9. [ ] **Shrink and delete** (check: below):
    - `Read-BicepTemplateOptions` allows only `short_name`, `deployment_mode` and `deployment_target`.
    - `BicepTemplate.cs` computes `environment_kind` and `customer_deployment`, and its `names`/`facts`/`addresses` go.
