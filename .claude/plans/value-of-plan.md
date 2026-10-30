@@ -24,9 +24,10 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
-| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
+| Value   | Plan                     | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
+| ------- | ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| highest | plan-master              | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
+| medium  | plan-drone-closing-gates | A drone closes on the gates a full run applies, so the user's run is not the first to find them.        | none                                                   | Test-Plans                                    | one open question                           |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
