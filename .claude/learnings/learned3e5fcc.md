@@ -81,3 +81,19 @@ Started 2026-10-27T09:07:37.7185717+01:00.
   returns no false counter findings.
 - 2026-10-29 Cats: Token tip: Next time, save tokens by: telling every drone to report after about 40 turns, since drones at the 50-turn
   limit stop with no report and need a resume.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: [Environment]::SetEnvironmentVariable(name, $null) from PowerShell sets the
+  variable to an empty string, so a restore of an unset variable must pass [NullString]::Value.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: Catzc.Base.Config caches configIndex from whatever Get-CatzcModulesRoot returns at
+  first use, so a fake root swap can index a registered config with no file; New-/Remove-FakeRepositoryRoot now save and restore that state.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: ConfigDefaultDifference compares only top-level scalar keys, so a value nested in a
+  map such as tests.run_seconds needs no differs reason.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: a snapshot priming import spends about 16 s republishing the agent hooks with
+  dotnet publish unless .claude/hooks/bin is carried into the snapshot.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: run.json carries each shard's start and end seconds, the one place that shows which
+  lane ends a test run.
+- 2026-10-30 Cats: Token tip: Next time, save tokens by: bisecting an order-dependent test failure with one scratch script that takes
+  From/To indexes over the worker log's file order.
+- 2026-10-30 Cats: Token tip: Next time, save tokens by: telling every drone up front to wait on its background runs with a short timeout 2
+  tail, since three drones stalled on that.
+- 2026-10-30 Cats: In hindsight I wish I knew this fact: only Invoke-TestFile writes or clears out/test-results markers; Invoke-TestRun
+  (Test-Automation) never does.

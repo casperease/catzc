@@ -30,8 +30,10 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan | Needed docs | Needed tests | State |
-| ----- | ---- | ----------- | ------------ | ----- |
+| Value  | Plan                     | Needed docs | Needed tests              | State                              |
+| ------ | ------------------------ | ----------- | ------------------------- | ---------------------------------- |
+| high   | plan-test-result-markers | none new    | each step's own test file | open, seven steps                  |
+| medium | plan-debt-run-hygiene    | none new    | each step's own test file | open, two steps, one open question |
 
 ## Pending deletion
 
