@@ -33,19 +33,19 @@ The run's start as ISO text. The lamps compare it with the module's file times, 
 
 ### parameter `MinLevel`
 
-The lowest test level the run covered; part of the stored scope.
+The lowest test level the run covered; part of the result's scope.
 
 ### parameter `MaxLevel`
 
-The highest test level the run covered; part of the stored scope.
+The highest test level the run covered; part of the result's scope.
 
 ### parameter `Category`
 
-The test category the run covered, `Logic`, `Integrity` or `Both`; part of the stored scope.
+The test category the run covered, `Logic`, `Integrity` or `Both`; part of the result's scope.
 
 ### parameter `Rule`
 
-The rule tags the run was limited to; part of the stored scope.
+The rule tags the run was limited to; part of the result's scope.
 
 ### parameter `Filtered`
 
@@ -76,5 +76,5 @@ half a file.
 ## Scope
 
 A failure is always written, so the file holds the newest failure. A pass replaces a stored failure only when its scope covers the failure's
-scope: its levels reach at least as low and as high, and its category is `Both` or the same. A narrower pass leaves the failure standing, and
-a filtered pass writes nothing, since it ran only some of the tests. A stored result that does not parse is treated as none.
+scope: its levels reach at least as low and as high, and its category is `Both` or the same. A narrower pass leaves the failure standing,
+and a filtered pass writes nothing, since it ran only some of the tests. A stored result that does not parse is treated as none.

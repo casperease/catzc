@@ -83,7 +83,12 @@ test("stands two ticked languages in the row, puts one out and vetoes the other,
 
 test("words the problem of a failed test file with its count, runner, levels, run and process", () => {
     const { failureMessage } = require("../engine.js");
-    const run = { failedCount: 4, runner: "Invoke-TestFile", pid: 1234, runDirectory: "C:\\widget\\out\\test-file\\20261029-231202-c7f456" };
+    const run = {
+        failedCount: 4,
+        runner: "Invoke-TestFile",
+        pid: 1234,
+        runDirectory: "C:\\widget\\out\\test-file\\20261029-231202-c7f456",
+    };
     assert.strictEqual(
         failureMessage({ ...run, scope: { minLevel: 0, maxLevel: 2, category: "Both" } }),
         "4 failed in Invoke-TestFile, L0-L2, run 20261029-231202-c7f456 (pid 1234)",

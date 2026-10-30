@@ -13,7 +13,7 @@ function Remove-OrphanTestResult {
         return
     }
     $staleTemporary = [DateTime]::UtcNow.AddHours(-1)
-    foreach ($path in [System.IO.Directory]::EnumerateFiles($resultRoot, '*', [System.IO.SearchOption]::AllDirectories)) {
+    foreach ($path in (Get-ChildPath -Path $resultRoot -Depth 16 -File -Exclude @() -PruneVendor $false)) {
         $relative = [System.IO.Path]::GetRelativePath($resultRoot, $path).Replace('\', '/')
         $orphan = if ($relative.EndsWith('.result.json')) {
             $test = $relative.Substring(0, $relative.Length - '.result.json'.Length)

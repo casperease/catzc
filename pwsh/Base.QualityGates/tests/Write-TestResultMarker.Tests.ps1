@@ -47,7 +47,7 @@ Describe 'Write-TestResultMarker' -Tag 'L0', 'logic' {
         & $script:record $true @{ MaxLevel = 2 } | Out-Null
         & $script:record $false @{ MaxLevel = 3 } | Out-Null
         (& $script:read).result | Should -Be 'passed'
-        @(Get-ChildItem -LiteralPath (Split-Path $script:result) -Filter '*.tmp') | Should -HaveCount 0
+        @(Get-ChildPath -Path (Split-Path $script:result) -Depth 1 -File -Filter '*.tmp') | Should -HaveCount 0
     }
 
     It 'keeps the failure when a pass is narrower than the failed run' {

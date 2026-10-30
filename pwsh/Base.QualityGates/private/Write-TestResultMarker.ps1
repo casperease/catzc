@@ -76,7 +76,12 @@ function Write-TestResultMarker {
             }
         }
         $result = [ordered]@{
-            result       = if ($item.Failed) { 'failed' } else { 'passed' }
+            result       = if ($item.Failed) {
+                'failed'
+            }
+            else {
+                'passed'
+            }
             failedCount  = [int] $item.FailedCount
             startedAt    = $StartedAt
             runner       = $Runner

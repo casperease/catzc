@@ -21,13 +21,18 @@ function Get-TestRunOutcome {
         [pscustomobject] $Location
     )
 
-    # One outcome per file that ran. A NotRun row or a protected module has no file entry, so it has no outcome.
+    $failedByFile = @{}
+    foreach ($item in $Row) {
+        if ($item.Result -eq 'Failed') {
+            $failedByFile[$item.File] = [int] $failedByFile[$item.File] + 1
+        }
+    }
     $outcomes = [ordered]@{}
     foreach ($entry in $File) {
         if ($entry.Result -eq 'NotRun') {
             continue
         }
-        $failedTests = @($Row | Where-Object { $_.Result -eq 'Failed' -and $_.File -eq $entry.File }).Count
+        $failedTests = [int] $failedByFile[$entry.File]
         $outcomes[$entry.File] = [pscustomobject]@{
             Path        = $entry.File
             Failed      = $entry.Result -eq 'Failed' -or $failedTests -gt 0

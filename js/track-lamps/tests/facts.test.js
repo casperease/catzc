@@ -141,7 +141,11 @@ test("reads a failed test result as a failed test file, with its provenance", as
 test("reads a result that replaced the failure with a pass as no fault, and keeps a failure a narrower pass could not clear", async () => {
     assert.deepStrictEqual(Object.keys(await engine.markerFacts(withResult(run("passed")))), [], "a covering pass wrote passed");
     const kept = withResult(run("failed"));
-    assert.strictEqual((await engine.markerFacts(kept))[tested].fault, "failed", "the writer kept the failure, so the file still says failed");
+    assert.strictEqual(
+        (await engine.markerFacts(kept))[tested].fault,
+        "failed",
+        "the writer kept the failure, so the file still says failed",
+    );
 });
 
 test("lapses a failed result whose run started before an edit of the tested module", async () => {

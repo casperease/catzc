@@ -31,13 +31,15 @@ formats:
     validator: { kind: nunit-xml }
   test-run-rows:
     area: run
-    patterns: ["test-automation/{stamp}/rows-shard-*.json", "test-catzc-build/{stamp}/rows-shard-*.json", "test-file/{stamp}/rows-shard-*.json"]
+    patterns:
+      ["test-automation/{stamp}/rows-shard-*.json", "test-catzc-build/{stamp}/rows-shard-*.json", "test-file/{stamp}/rows-shard-*.json"]
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (one row file per shard)
     audience: the run itself, merging shard results
     validator: { kind: json }
   test-run-shard-files:
     area: run
-    patterns: ["test-automation/{stamp}/files-shard-*.json", "test-catzc-build/{stamp}/files-shard-*.json", "test-file/{stamp}/files-shard-*.json"]
+    patterns:
+      ["test-automation/{stamp}/files-shard-*.json", "test-catzc-build/{stamp}/files-shard-*.json", "test-file/{stamp}/files-shard-*.json"]
     producer: Test-Automation, Test-CatzcBuild, Invoke-TestFile (the test files each shard runs, from New-TestAutomationShardScript)
     audience: the shard worker, and a person re-running one shard
     validator: { kind: json }
@@ -56,7 +58,8 @@ formats:
   test-result-marker:
     area: cache
     patterns: ["test-results/**/*.result.json"]
-    producer: Invoke-TestFile, Test-Automation, Test-CatzcBuild (one result per test file that ran, replaced by the newest run that covers it)
+    producer:
+      Invoke-TestFile, Test-Automation, Test-CatzcBuild (one result per test file that ran, replaced by the newest run that covers it)
     audience: the editor's lamps, which read a result's outcome, start time and scope
     validator: { kind: json, required_keys: [result, failedCount, startedAt, runner, pid, isolated, scope, runDirectory] }
   test-run-rule-coverage:

@@ -29,10 +29,6 @@ terms:
       meaning: "the Diagnoser half of BenchmarkDotNet's MemoryDiagnoser, quoted in the unboxing reference"
     - term: claudecode
       meaning: "the CLAUDECODE environment variable Claude Code sets in its shells (Test-IsRunningAsAgent)"
-    - term: untracking
-      meaning: "removing a committed file from git's index while keeping it on disk (git rm --cached)"
-    - term: backticked
-      meaning: "set in backticks, Markdown's code-span delimiter"
     - term: heredocs
       meaning: "shell here-documents, the <<EOF blocks a Bash call writes a file with"
     - term: segoe
