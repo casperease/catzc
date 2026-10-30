@@ -23,7 +23,7 @@ function Get-TestRunOutcome {
 
     $failedByFile = @{}
     foreach ($item in $Row) {
-        if ($item.Result -eq 'Failed') {
+        if ($item.Result -eq 'Failed' -and $item.PSObject.Properties['File']) {
             $failedByFile[$item.File] = [int] $failedByFile[$item.File] + 1
         }
     }
