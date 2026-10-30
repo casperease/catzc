@@ -65,8 +65,9 @@ visible wherever the reader looks for errors.
 
 The lamp language (the inputs, the total union, the coverage and the condition) is engine-neutral, and every engine runs the shared vectors
 `pwsh/Base.Globs/tests/assets/lamp-vectors.yml`. An engine only adapts its own sources into facts and computes no identity of its own: the
-editor reads the facts its git integration and diagnostics already hold, and a test failure through the test-result markers
-`out/test-results/<test file>.failed`, a marker counting while it is newer than the test file and every file of the module it tests.
+editor reads the facts its git integration and diagnostics already hold, and a test failure through the test-result files
+`out/test-results/<test file>.result.json`, a failed result counting while its run started after the test file and every file of the module
+it tests.
 
 - [Decision](#decision)
 - [Consequences](#consequences)

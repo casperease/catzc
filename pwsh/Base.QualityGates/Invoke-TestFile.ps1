@@ -130,7 +130,9 @@ function Invoke-TestFile {
                     FailedCount = $failedTests
                 }
             })
-        Write-TestResultMarker -Outcome $outcome -RunDirectory $runDirectory -KeepPassing:(-not [string]::IsNullOrEmpty($FullNameFilter)) | Out-Null
+        Write-TestResultMarker -Outcome $outcome -RunDirectory $runDirectory -Runner 'Invoke-TestFile' -StartedAt $runStartedAt `
+            -MinLevel 0 -MaxLevel $effectiveMaxLevel -Filtered:(-not [string]::IsNullOrEmpty($FullNameFilter)) `
+            -Isolated:($location.Mode -eq 'snapshot') | Out-Null
         Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
                 'Green'
             }

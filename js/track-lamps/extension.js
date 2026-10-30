@@ -6,7 +6,7 @@
 // claims is hidden even when a lit lamp claims it too), a file no lamp claims shows and is unaccounted, and each lamp's condition is the highest fact over the
 // files it claims, failed > unstaged > staged > committed, whether it is lit or not. Every lamp lit is the default and shows everything.
 // The adapter feeds the core from what the editor already knows: the built-in git extension's changes, the Error diagnostics, and the
-// test-result markers out/test-results/<test file>.failed (Invoke-TestFile), read by existence and timestamp only.
+// test-result files out/test-results/<test file>.result.json (Invoke-TestFile, Test-Automation), read by result, start time and scope.
 // The title row shows each lamp's icon by two context keys, catzc.lamps.out.<lamp> (the switch) and catzc.lamps.state.<lamp> (the
 // condition). Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension owns the keys it adds and
 // nothing else, so an authored exclusion survives and a regenerated settings file is re-applied. The counter in the status bar re-checks

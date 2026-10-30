@@ -13,7 +13,10 @@ function Get-MarkdownScope {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-MarkdownScope
 
-    $markdown = @(Get-GitTrackedPath $lookup | Where-Object { $_ -like '*.md' })
+    # A tracked file deleted from disk but not yet committed has nothing to read.
+    $markdown = @(Get-GitTrackedPath $lookup | Where-Object {
+            $_ -like '*.md' -and [System.IO.File]::Exists((Join-Path $root $_))
+        })
     if ($markdown.Count -eq 0) {
         return , [string[]] @()
     }

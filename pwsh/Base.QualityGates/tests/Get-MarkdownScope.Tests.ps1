@@ -1,7 +1,12 @@
 Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'
-        [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
+        foreach ($relative in 'docs/widget.md', 'docs/own-meta.md', 'widgets/.vendor/Gadget/README.md',
+            'widgets/Widget/tests/assets/fixture.md', 'docs/generated-widget.md', 'contracts/widget/0.0.0/Gadget/.github/README.md') {
+            $file = Join-Path $script:widgetRoot $relative
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file)) | Out-Null
+            [System.IO.File]::WriteAllText($file, '# widget')
+        }
     }
 
     BeforeEach {
@@ -71,6 +76,15 @@ Describe 'Get-MarkdownScope' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-MARKDOWNTITLE'
                 Get-MarkdownScope -RepositoryRoot $Root -Path $Item
             }
         } | Should -Throw '*outside the repository*'
+    }
+
+    It 'skips a tracked Markdown file that is gone from disk' {
+        Mock Get-GitTrackedPath { 'docs/widget.md', 'docs/gadget-removed.md' } -ModuleName Catzc.Base.QualityGates
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
+            param($Root)
+            Get-MarkdownScope -RepositoryRoot $Root
+        }
+        $scope | Should -Be @('docs/widget.md')
     }
 
     It 'returns nothing, without asking git about attributes, when no Markdown is tracked' {

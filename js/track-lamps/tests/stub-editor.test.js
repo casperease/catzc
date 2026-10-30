@@ -81,6 +81,16 @@ test("stands two ticked languages in the row, puts one out and vetoes the other,
     assert.deepStrictEqual(result.remembered, { ticked: [], out: [], vetoed: [] });
 });
 
+test("words the problem of a failed test file with its count, runner, levels, run and process", () => {
+    const { failureMessage } = require("../engine.js");
+    const run = { failedCount: 4, runner: "Invoke-TestFile", pid: 1234, runDirectory: "C:\\widget\\out\\test-file\\20261029-231202-c7f456" };
+    assert.strictEqual(
+        failureMessage({ ...run, scope: { minLevel: 0, maxLevel: 2, category: "Both" } }),
+        "4 failed in Invoke-TestFile, L0-L2, run 20261029-231202-c7f456 (pid 1234)",
+    );
+    assert.strictEqual(failureMessage(undefined), "its last test run failed");
+});
+
 test("swaps the repository's engine on a save, every old part disposed first, and falls back to its own copy when it does not load", () => {
     const result = scenario("swap", true);
     assert.strictEqual(result.first.light, true, "the shell runs the repository's engine");

@@ -33,6 +33,19 @@ const VETO = "catzc.trackLamps.veto";
 const HELD = "catzc.lamps.remembered";
 const TICKED = "catzc.trackLamps.languages.ticked";
 
+// The problem a failed test file shows: how many failed, who ran it, which levels, which run and process. A file with no result of its own
+// (the place was failed some other way) gets the plain words.
+/**
+ * @param {import("./facts.js").TestResult | undefined} run
+ * @returns {string}
+ */
+function failureMessage(run) {
+    if (!run) return "its last test run failed";
+    const levels = run.scope ? `, L${run.scope.minLevel}-L${run.scope.maxLevel}` : "";
+    const folder = run.runDirectory ? `, run ${run.runDirectory.split(/[\\/]/).pop()}` : "";
+    return `${run.failedCount ?? 0} failed in ${run.runner ?? "a test run"}${levels}${folder} (pid ${run.pid ?? "unknown"})`;
+}
+
 // The engine: everything the lamps do in the editor. The installed package is a shell that runs the repository's copy of this file and
 // swaps it on save (activate in extension.js), so a change of logic lands without an install or a reload; api is the shell's vscode
 // module, since a file outside the installed package cannot require it itself.
@@ -116,6 +129,8 @@ function activateEngine(context, api) {
     let conditions = {};
     /** @type {Promise<import("./language.js").Facts> | null} */
     let markerCache = null;
+    /** @type {Record<string, import("./facts.js").TestResult>} */
+    let markerRuns = {};
     // The facts and sets of the last judgement, which the red journey reads; it never judges itself.
     /** @type {import("./language.js").Facts} */
     let lastFacts = {};
@@ -192,14 +207,14 @@ function activateEngine(context, api) {
         diagnosticFacts(root, entries, facts);
         for (const place of heldPlaces) addFact(facts, place, "fault", "failed");
         // The markers are read once and again only when a marker or a file changes, never on each diagnostics event.
-        markerCache ??= markerFacts(root, {});
+        markerCache ??= markerFacts(root, {}, (markerRuns = {}));
         for (const [place, fact] of Object.entries(await markerCache)) if (fact.fault) addFact(facts, place, "fault", fact.fault);
-        // Every file the lamps hold as failed shows red in the tree: the remembered Errors, and a test file whose run left a failed marker.
+        // Every file the lamps hold as failed shows red in the tree: the remembered Errors, and a test file whose last run failed it.
         const wanted = remembering(root, held, entries);
         const live = new Set(errorPlaces(root, entries));
         for (const [place, fact] of Object.entries(facts))
             if (fact.fault === "failed" && !(place in wanted) && !live.has(place))
-                wanted[place] = [{ message: "its last test run failed", range: [0, 0, 0, 0], source: "tests" }];
+                wanted[place] = [{ message: failureMessage(markerRuns[place]), range: [0, 0, 0, 0], source: "tests" }];
         publish(root, wanted);
         const sets = lampSets(filters(), openFiles(root, vscode.window.tabGroups.all));
         lastFacts = facts;
@@ -552,4 +567,4 @@ function activateEngine(context, api) {
     rejudge();
 }
 
-module.exports = { activateEngine };
+module.exports = { activateEngine, failureMessage };

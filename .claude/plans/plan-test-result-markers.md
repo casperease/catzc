@@ -32,42 +32,39 @@ newest result that covers a failure clears it, the problem names who failed it, 
 
 ## Open steps
 
-1. [ ] Make `Write-TestResultMarker` (`pwsh/Base.QualityGates/private/Write-TestResultMarker.ps1`) write one JSON result per test file,
+1. [x] Make `Write-TestResultMarker` (`pwsh/Base.QualityGates/private/Write-TestResultMarker.ps1`) write one JSON result per test file,
        `out/test-results/<test file>.result.json`: `result` (`failed` or `passed`), `failedCount`, `startedAt` (the run's start), `runner`
        (`Invoke-TestFile` or `Test-Automation`), `pid`, `isolated`, `scope` (`minLevel`, `maxLevel`, `category`, `rule`, `filtered`) and
        `runDirectory`; written by temporary file and move. A filtered run (`-FullNameFilter` or `-Rule`) writes a failure only. Delete the
        `.failed` shape in the same change. Check: `Invoke-TestFile` on `pwsh/Base.QualityGates/tests/Write-TestResultMarker.Tests.ps1` with
        cases for a pass, a fail, a filtered pass and every field.
-2. [ ] Call `Write-TestResultMarker` from `Invoke-TestRun` (`pwsh/Base.QualityGates/private/Invoke-TestRun.ps1`) after the rows return: one
+2. [x] Call `Write-TestResultMarker` from `Invoke-TestRun` (`pwsh/Base.QualityGates/private/Invoke-TestRun.ps1`) after the rows return: one
        outcome per file that ran (no `NotRun` row, no protected module), a file in a failed shard counted as failed, paths mapped
        `-ToSource`, the run's scope and start passed in. Check: `Invoke-TestFile` on a new
        `pwsh/Base.QualityGates/tests/Write-TestResultMarker.Automation.Tests.ps1` with a widget/gadget outcome set, a shard failure and a
        NotRun row.
-3. [ ] Pass `Invoke-TestFile`'s own start and scope to the same writer (`pwsh/Base.QualityGates/Invoke-TestFile.ps1:133`). Check:
+3. [x] Pass `Invoke-TestFile`'s own start and scope to the same writer (`pwsh/Base.QualityGates/Invoke-TestFile.ps1:133`). Check:
        `Invoke-TestFile` on `pwsh/Base.QualityGates/tests/Write-TestResultMarker.Tests.ps1`.
-4. [ ] At the start of an unfiltered `Invoke-TestRun`, delete every result whose test file is gone or is not a test file, and every old
+4. [x] At the start of an unfiltered `Invoke-TestRun`, delete every result whose test file is gone or is not a test file, and every old
        `.failed` file. Check: a case in `pwsh/Base.QualityGates/tests/Write-TestResultMarker.Automation.Tests.ps1` that seeds an orphan, a
        `.failed` file and a live result, and sees only the live result stay.
-5. [ ] In the lamps, `markerFacts` (`js/track-lamps/facts.js`) reads `*.result.json`: a test file is failed when its result says `failed`
+5. [x] In the lamps, `markerFacts` (`js/track-lamps/facts.js`) reads `*.result.json`: a test file is failed when its result says `failed`
        and its `startedAt` is newer than the test file and every file of its module. A `passed` result in the same file has replaced the
        failure on disk only when its scope covered it (step 1's writer keeps a failure that a narrower pass cannot clear). An unreadable
        result counts as no result. Check: `js/track-lamps/tests/facts.test.js` cases for failed, failed-then-passed, a narrow pass that
        keeps the failure, a run started before an edit, and an unreadable file; the lamp vectors stay green.
-6. [ ] Show the provenance in the problem (`js/track-lamps/engine.js:202`): "4 failed in Invoke-TestFile, L0-L2, run 20261029-231202-c7f456
+6. [x] Show the provenance in the problem (`js/track-lamps/engine.js:202`): "4 failed in Invoke-TestFile, L0-L2, run 20261029-231202-c7f456
        (pid 1234)". Check: a `js/track-lamps/tests/stub-editor.test.js` case asserting the message; `Invoke-TestFile` on
        `pwsh/Base.VSCode/tests/TrackLamps.Tests.ps1`, green.
-7. [ ] Name the new shape where the old one is named: `pwsh/Base.Reports/configs/output-formats.yml:58`,
+7. [x] Name the new shape where the old one is named: `pwsh/Base.Reports/configs/output-formats.yml:58`,
        `docs/drs/design/repository-filters.md:69`, `docs/references/pwsh/base-quality-gates/private/write-test-result-marker.md`, and the
        header comments of `js/track-lamps/extension.js:9` and `js/track-lamps/facts.js:2,207`. Check: the Grep tool finds no `\.failed`
        outside `out/`.
 
-## Open questions
-
-- Simplify proposal, not yet answered: one sentence in the `catzc-run` skill that a background `Invoke-CatzcCommand` call is waited on by
-  its completion notification alone (a `tail --pid` waiter is denied as compound), and one line in the `Write-TestResultMarker` reference
-  page naming every runner that writes results, so the next session finds the writers without a search.
-
 ## Decided
+
+- No new wait sentence in `catzc-run`: its step 4 already names how a background run is waited on, one rule in one place; the reference page
+  names every runner that writes results.
 
 - The scope check lives in the writer, not the reader: a pass whose scope does not cover the stored failure's scope leaves the failure, so
   the file on disk is always the answer and the lamps stay a reader of existence, time and one field.

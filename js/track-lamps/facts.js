@@ -1,6 +1,6 @@
 // The facts the lamps' conditions are read from (see extension.js for the whole): the built-in git extension's changes, the Error
-// diagnostics (held while a language server falls silent), and the test-result markers out/test-results/<test file>.failed, read by
-// existence and timestamp only, and the editor's open files. Everything here is pure or reads the disk only.
+// diagnostics (held while a language server falls silent), and the test-result files out/test-results/<test file>.result.json, read by
+// their result, start time and scope, and the editor's open files. Everything here is pure or reads the disk only.
 
 const fs = require("fs");
 const path = require("path");
@@ -10,6 +10,7 @@ const { walkDisk } = require("./tree.js");
 const REMEMBERED = " · remembered";
 const MAX_REMEMBERED = 20;
 const MARKERS = "out/test-results";
+const RESULT = ".result.json";
 
 // The shapes read here, structural so the editor's objects and the tests' plain ones both fit.
 /** @typedef {import("./language.js").Facts} Facts */
@@ -204,15 +205,21 @@ function testedModule(test) {
     return (at > 0 ? parts.slice(0, at) : parts.slice(0, -1)).join("/") || ".";
 }
 
-// The fault facts from the test-result markers, out/test-results/<test file>.failed: a marker makes its test file failed while it is
-// newer than the test file and every file of the module it tests, so an edit after the run lapses it. Existence and timestamps only.
+// The fault facts from the test-result files, out/test-results/<test file>.result.json: a result that says failed makes its test file failed
+// while the run started after the test file and every file of the module it tests, so an edit after the run began lapses it. A result
+// that does not parse is no result. The failed results are also kept in `provenance`, by test file, for the problem's wording.
+/**
+ * @typedef {{ failedCount?: number, runner?: string, pid?: number, runDirectory?: string,
+ *   scope?: { minLevel?: number, maxLevel?: number, category?: string } }} TestResult
+ */
 /**
  * @param {string} root
  * @param {Facts} [facts]
+ * @param {Record<string, TestResult>} [provenance]
  * @returns {Promise<Facts>}
  */
-async function markerFacts(root, facts = {}) {
-    const markers = (await walkDisk(path.join(root, MARKERS))).files.filter((place) => place.endsWith(".failed"));
+async function markerFacts(root, facts = {}, provenance = {}) {
+    const markers = (await walkDisk(path.join(root, MARKERS))).files.filter((place) => place.endsWith(RESULT));
     const newest = async (/** @type {string} */ folder) => {
         let latest = 0;
         for (const place of (await walkDisk(path.join(root, folder))).files) {
@@ -223,17 +230,23 @@ async function markerFacts(root, facts = {}) {
         return latest;
     };
     for (const marker of markers) {
-        const test = marker.slice(0, -".failed".length);
-        let written;
+        const test = marker.slice(0, -RESULT.length);
+        /** @type {TestResult & { result?: string, startedAt?: string }} */
+        let stored;
         let tested;
         try {
-            written = (await fs.promises.stat(path.join(root, MARKERS, marker))).mtimeMs;
+            stored = JSON.parse(await fs.promises.readFile(path.join(root, MARKERS, marker), "utf8"));
             tested = (await fs.promises.stat(path.join(root, test))).mtimeMs;
         } catch {
             continue;
         }
+        const started = Date.parse(stored?.startedAt ?? "");
+        if (stored?.result !== "failed" || Number.isNaN(started)) continue;
         const module = testedModule(test);
-        if (written > tested && (module === "." || written > (await newest(module)))) addFact(facts, test, "fault", "failed");
+        if (started > tested && (module === "." || started > (await newest(module)))) {
+            addFact(facts, test, "fault", "failed");
+            provenance[test] = stored;
+        }
     }
     return facts;
 }

@@ -83,6 +83,11 @@ function Invoke-TestRun {
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
     Assert-TestTagGate -Discovery $discovery
 
+    # An unfiltered run sweeps the results whose test file is gone, and any other file the result folder holds.
+    if ($Rule.Count -eq 0) {
+        Remove-OrphanTestResult | Out-Null
+    }
+
     # A timestamped run folder under the report base keeps each run's artifacts.
     if (-not $OutputFolder) {
         $OutputFolder = Join-Path (Get-OutputRoot -EnsureExists) $entryPointKey
@@ -189,6 +194,13 @@ function Invoke-TestRun {
         # Green candidates are promoted, conservatively on anything unattributable.
         Protect-TestedModule -Candidates @($protectionPlan.Candidates) -Rows $rows `
             -FailedShardLabels $failedShardLabels -ProtectionKey $protectionKey
+
+        # Each file that ran records its outcome and the scope it ran in; the lamps read these results. Written before the NotRun rows join.
+        $outcome = @(Get-TestRunOutcome -Row $rows -File @($workerRun.Files) -Shard @($workerRun.Shards) `
+                -FailedShardLabel $failedShardLabels -Location $location)
+        Write-TestResultMarker -Outcome $outcome -RunDirectory $runDir -Runner $EntryPoint -StartedAt $runStartedAt `
+            -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Rule $Rule -Filtered:($Rule.Count -gt 0) `
+            -Isolated:($location.Mode -eq 'snapshot') | Out-Null
 
         # Out-of-scope rows join after protection, so every report reads the same rows.
         $rows = @($rows) + @($selection.OutOfScopeRows)

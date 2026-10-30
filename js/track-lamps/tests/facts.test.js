@@ -107,15 +107,51 @@ test("holds a file's Error while the diagnostics fall silent, so red wins on the
     assert.strictEqual(engine.evaluate({ open: [set([red, other])] }, new Set(["open"]), [], facts).conditions.open, "failed");
 });
 
-test("reads a fresh test-result marker as a failed test file, and lapses one older than the tested module", async () => {
-    const tested = "mods/Widget/tests/Get-Widget.Tests.ps1";
-    const root = folder([tested, "mods/Widget/Get-Widget.ps1", `out/test-results/${tested}.failed`]);
+const tested = "mods/Widget/tests/Get-Widget.Tests.ps1";
+const code = "mods/Widget/Get-Widget.ps1";
+// A repository whose widget files are ten minutes old and whose test-result file holds the given JSON (the text as given when a string).
+const withResult = (/** @type {unknown} */ result) => {
+    const root = folder([tested, code]);
     const past = new Date(Date.now() - 10 * 60 * 1000);
-    for (const file of [tested, "mods/Widget/Get-Widget.ps1"]) fs.utimesSync(path.join(root, file), past, past);
+    for (const file of [tested, code]) fs.utimesSync(path.join(root, file), past, past);
+    const at = path.join(root, `out/test-results/${tested}.result.json`);
+    fs.mkdirSync(path.dirname(at), { recursive: true });
+    fs.writeFileSync(at, typeof result === "string" ? result : JSON.stringify(result));
+    return root;
+};
+const run = (/** @type {string} */ result, /** @type {number} */ minutesAgo = 1) => ({
+    result,
+    failedCount: 2,
+    startedAt: new Date(Date.now() - minutesAgo * 60 * 1000).toISOString(),
+    runner: "Invoke-TestFile",
+    pid: 1234,
+    scope: { minLevel: 0, maxLevel: 2, category: "Both", rule: [], filtered: false },
+    runDirectory: "run-widget",
+});
+
+test("reads a failed test result as a failed test file, with its provenance", async () => {
+    const root = withResult(run("failed"));
+    const provenance = {};
     assert.strictEqual(engine.testedModule(tested), "mods/Widget");
-    assert.strictEqual((await engine.markerFacts(root))[tested].fault, "failed");
-    const later = new Date(Date.now() + 5 * 60 * 1000);
-    fs.utimesSync(path.join(root, "mods/Widget/Get-Widget.ps1"), later, later);
-    assert.deepStrictEqual(Object.keys(await engine.markerFacts(root)), [], "the module changed after the run, so the marker lapses");
+    assert.strictEqual((await engine.markerFacts(root, {}, provenance))[tested].fault, "failed");
+    assert.strictEqual(provenance[tested].runner, "Invoke-TestFile");
     assert.deepStrictEqual(Object.keys(await engine.markerFacts(folder())), []);
+});
+
+test("reads a result that replaced the failure with a pass as no fault, and keeps a failure a narrower pass could not clear", async () => {
+    assert.deepStrictEqual(Object.keys(await engine.markerFacts(withResult(run("passed")))), [], "a covering pass wrote passed");
+    const kept = withResult(run("failed"));
+    assert.strictEqual((await engine.markerFacts(kept))[tested].fault, "failed", "the writer kept the failure, so the file still says failed");
+});
+
+test("lapses a failed result whose run started before an edit of the tested module", async () => {
+    const root = withResult(run("failed", 5));
+    const later = new Date(Date.now() - 2 * 60 * 1000);
+    fs.utimesSync(path.join(root, code), later, later);
+    assert.deepStrictEqual(Object.keys(await engine.markerFacts(root)), [], "the module changed after the run began");
+});
+
+test("counts an unreadable result as no result", async () => {
+    for (const text of ["{ broken", JSON.stringify({ result: "failed" }), JSON.stringify({ result: "failed", startedAt: "never" })])
+        assert.deepStrictEqual(Object.keys(await engine.markerFacts(withResult(text))), [], text);
 });
