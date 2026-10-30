@@ -16,9 +16,9 @@ faster (ADR-AUTO-TEST).
 
 ## Open steps
 
-1. [ ] Run the bicep build-cache prewarm (`BicepBuildCache.Prewarm.ps1`) inside the pool instead of before it: it holds every worker back 19
-       s, and a test that needs a cache entry already waits on that entry's lock in `Build-Bicep`. Measure the full run's wall clock with
-       the prewarm before and inside the pool first; land it only on a measured gain. Check: the Azure.Templates module run, green, then a
-       full `Test-Automation` run with its wall clock against 206.1 s.
+1. [ ] Build the three templates side by side in the bicep build-cache prewarm (`BicepBuildCache.Prewarm.ps1`), which builds them one after
+       another today: 5.4-5.8 s, 5.5-6.2 s and 3.4 s of its 19-20 s, the rest its process start. Skipping the prewarm was slower (221.3 s
+       against 206.1 s, `packing.md`), so it stays before the pool. Land it only on a measured gain. Check: the prewarm's own "Prewarm done"
+       seconds before and after, then a full `Test-Automation` run with its wall clock against 206.1 s.
 
 The plan closes on the user's full `Test-Automation` run inside 180 s.

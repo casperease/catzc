@@ -34,6 +34,10 @@ configs:
     type: Catzc.Base.Languages.GeneratedHeadConfig
   test-policy:
     type: Catzc.Base.QualityGates.TestPolicyConfig
+    differs:
+      greedy_group_size:
+        This repository's full run measured fastest with 6 greedy files at once beside 8 workers (206 s, against 217 s with 4); a consumer
+        starts from the type's 4.
   parameter-consistency:
     type: Catzc.Base.QualityGates.ParameterConsistencyConfig
   plans:
