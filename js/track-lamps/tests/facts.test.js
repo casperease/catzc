@@ -131,6 +131,7 @@ const run = (/** @type {string} */ result, /** @type {number} */ minutesAgo = 1)
 
 test("reads a failed test result as a failed test file, with its provenance", async () => {
     const root = withResult(run("failed"));
+    /** @type {Record<string, import("../facts.js").TestResult>} */
     const provenance = {};
     assert.strictEqual(engine.testedModule(tested), "mods/Widget");
     assert.strictEqual((await engine.markerFacts(root, {}, provenance))[tested].fault, "failed");
