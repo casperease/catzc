@@ -170,7 +170,21 @@ function Build-Bicep {
                         [System.IO.File]::Copy($output, (Join-Path $staging ([System.IO.Path]::GetFileName($output))), $true)
                     }
                 }
-                [System.IO.Directory]::Move($staging, $cacheEntry)
+                try {
+                    [System.IO.Directory]::Move($staging, $cacheEntry)
+                }
+                catch [System.IO.IOException], [System.UnauthorizedAccessException] {
+                    # The build already succeeded; a scanner holding a fresh file only costs the next build its cache hit.
+                    Write-Message "Template '$Template': kept the build, but could not publish it to the run's build cache: $($_.Exception.Message)" -ForegroundColor Yellow
+                    if ([System.IO.Directory]::Exists($staging)) {
+                        try {
+                            [System.IO.Directory]::Delete($staging, $true)
+                        }
+                        catch [System.IO.IOException], [System.UnauthorizedAccessException] {
+                            Write-Message "Template '$Template': left the staging folder $staging behind: $($_.Exception.Message)" -ForegroundColor Yellow
+                        }
+                    }
+                }
             }
         }
     }

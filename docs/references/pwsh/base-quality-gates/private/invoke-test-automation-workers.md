@@ -62,7 +62,7 @@ Pester output verbosity inside each worker.
 
 ### parameter `Workers`
 
-Explicit pool size; 0 sizes automatically — max(1, ProcessorCount / 4), never more than the file count.
+Explicit pool size; 0 sizes automatically — max(1, two fifths of ProcessorCount), never more than the file count.
 
 ### parameter `GreedyGroupSize`
 

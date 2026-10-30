@@ -86,12 +86,12 @@ function Invoke-TestAutomationWorkers {
         LanguageExecutable = Get-LanguageTestExecutable
     } + (Get-TestRunLocationEntry -Location $Location -EntryScript $EntryScript -EntryParameter $EntryParameter)
 
-    # ProcessorCount / 4 by default: measured flat up to / 2, while per-test time inflates.
+    # Two fifths of the processors by default: on 20, 8 workers ended the full run at 206-217 s against 224-233 s for 5 (2026-10-30).
     $workerCount = if ($Workers -gt 0) {
         $Workers
     }
     else {
-        [Math]::Max(1, [int][Math]::Floor([Environment]::ProcessorCount / 4))
+        [Math]::Max(1, [int][Math]::Floor([Environment]::ProcessorCount * 2 / 5))
     }
     $workerCount = [Math]::Max(1, [Math]::Min($workerCount, $ParallelFiles.Count))
 
