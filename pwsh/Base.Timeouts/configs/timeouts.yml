@@ -33,6 +33,7 @@ commands:
   Format-Links: 30 # -MoveMap over 4186 files for 1937 moved pages: 4.3 s (2026-10-26, reference-normal-form 4b)
   Update-AzurePriceTable: 120 # one read-only Retail Prices API GET per cost-model meter, each bounded by this limit
 tests:
+  run_seconds: 240 # a full run to L2: 206-233 s on 20 processors at 8 workers, its test time alone about 182 s over 9 slots (2026-10-30)
   engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360
   run_list_seconds: 300 # one run of a run list under one engine: an engine start and its few commands, under pwsh's 360
 # The machine's run lock (Wait-CatzcRunLock.ps1), read before any import; the defaults on TimeoutsConfig, shown here.
