@@ -134,5 +134,7 @@ function Install-Catzc {
         ContentHash    = $sourceHash
         AlreadyCurrent = -not $copy
         RootConfigs    = $rootConfigs
+        # The build this install copied from, so a caller installs the same build again without naming its folder.
+        Source         = $Source
     }
 }

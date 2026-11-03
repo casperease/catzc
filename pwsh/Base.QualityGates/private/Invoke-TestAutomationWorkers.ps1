@@ -58,18 +58,8 @@ function Invoke-TestAutomationWorkers {
     $repositoryRoot = Get-RepositoryRoot
     $historyPath = Join-Path ([System.IO.Path]::GetDirectoryName([System.IO.Path]::TrimEndingDirectorySeparator($RunDirectory))) 'durations.json'
     $history = Get-TestDurationHistory -Path $historyPath
-    $weightOf = {
-        param([string] $Path)
-        $relative = [System.IO.Path]::GetRelativePath($repositoryRoot, $Path) -replace '\\', '/'
-        if ($history.Contains($relative)) {
-            $history[$relative]
-        }
-        else {
-            # An unmeasured greedy file goes first: sorted last it never starts in a run that overruns, so it is never measured.
-            [double]::MaxValue
-        }
-    }
-    $GreedyFiles = @($GreedyFiles | Sort-Object -Property @{ Expression = { & $weightOf $_ }; Descending = $true }, @{ Expression = { $_ } })
+    $policy = Get-Config -Config test-policy
+    $GreedyFiles = @(Select-GreedyFileOrder -File $GreedyFiles -DurationMs $history -RepositoryRoot $repositoryRoot -Policy $policy)
 
     # The test files and the entry script, as seen from the root the run executes in (a no-op in place).
     $sourceParallelFiles = @($ParallelFiles)
@@ -114,18 +104,12 @@ function Invoke-TestAutomationWorkers {
         $shards.Add($shard)
         $shardFileCounts[$shard.Label] = $shardFiles[$shardIndex].Count
     }
-    $policy = if ($GreedyFiles.Count -gt 0) {
-        Get-Config -Config test-policy
-    }
     # Greedy files queue behind the parallel shards and overlap only up to the greedy cap.
     $greedyGroupSize = if ($GreedyGroupSize -gt 0) {
         $GreedyGroupSize
     }
-    elseif ($policy) {
-        $policy.greedy_group_size
-    }
     else {
-        1
+        $policy.greedy_group_size
     }
     # A file kept apart (it runs real builds) also counts against the one-at-a-time cap.
     $greedyCaps = [System.Collections.Generic.List[string[]]]::new()
@@ -179,10 +163,18 @@ function Invoke-TestAutomationWorkers {
                     , $cap
                 }))
         $poolSize = Get-TestPoolSize -ParallelShardCount $shards.Count -GreedyFileCount $greedyShards.Count -GreedyGroupSize $greedyGroupSize
-        $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
-                [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
-                @{ greedy = $shards.Count + $greedyGroupSize; apart = 1 },
-                $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false))
+        try {
+            $runner = Wait-PesterRunner -Runner ([Catzc.Base.QualityGates.PesterRunner]::Start(
+                    [string[]] @($pooled.ScriptPath), [string[]] @($pooled.Label), $caps,
+                    @{ greedy = $shards.Count + $greedyGroupSize; apart = 1 },
+                    $poolSize, $WorkerEnvironment, $TimeoutSeconds, $false))
+        }
+        catch {
+            # A run killed at its roof still records the shards it finished, so the next run deals from their durations.
+            $null = Save-TestShardDurations -Shard @($pooled) -GreedyShardFile $greedyShardFile -Location $Location `
+                -RepositoryRoot $repositoryRoot -HistoryPath $historyPath
+            throw
+        }
         $workerResults.AddRange($runner.Results)
         $allShards.AddRange([object[]] $pooled)
         $poolEndMs = $stopwatch.ElapsedMilliseconds

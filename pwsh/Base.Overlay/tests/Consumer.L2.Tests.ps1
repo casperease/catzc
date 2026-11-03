@@ -202,6 +202,8 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
             "$overlay/Base.Asserts/Test-IsGuid.ps1"         = $overridden
         }
 
+        $script:builtSource = [string] $script:handle.Install.Source
+
         foreach ($step in @(@('init', '-q'), @('add', '-A'), @('update-index', '--chmod=+x', 'bash/gadget/gadget.sh'))) {
             $gitOutput = & git -C $script:handle.WorkingRoot @step 2>&1
             if ($LASTEXITCODE -ne 0) {
@@ -501,10 +503,18 @@ tracks:
 
 '@
         # The bundle installed and no `git init`: the working root is no checkout.
-        $script:handle = New-ConsumerRoot -Bundle 'full' -File @{
+        $noRepoFile = @{
             'widget/Local/Get-LocalWidget.ps1' = $widget
             '.catzc/configs/variants.yml'      = $variants
         }
+        # The bundle the first Describe built is installed again, so this root pays the install and not a second build.
+        $source = if ($script:builtSource -and [System.IO.Directory]::Exists($script:builtSource)) {
+            @{ Source = $script:builtSource }
+        }
+        else {
+            @{ Bundle = 'full' }
+        }
+        $script:handle = New-ConsumerRoot @source -File $noRepoFile
 
         $script:session = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
             [pscustomobject]@{

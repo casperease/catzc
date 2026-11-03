@@ -126,6 +126,24 @@ Describe 'New-ConsumerRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS
         }
     }
 
+    It 'installs from a build already on disk when -Source names one, and builds nothing' -Tag 'ADR-AUTO-TEST-SETUPONCE' {
+        Mock Install-Catzc -ModuleName Catzc.Internal.TestKit {
+            $modulePath = Join-Path $Root '.vendor/Catzc/6.6.666'
+            [void][System.IO.Directory]::CreateDirectory($modulePath)
+            [pscustomobject]@{ ModulePath = $modulePath; Importer = (Join-Path $Root 'widget-importer.ps1'); Version = '6.6.666' }
+        }
+        $handle = New-ConsumerRoot -Source 'C:\widget\built\Catzc\6.6.666'
+        try {
+            Should -Invoke Install-Catzc -ModuleName Catzc.Internal.TestKit -Times 1 -ParameterFilter { $Source -eq 'C:\widget\built\Catzc\6.6.666' }
+            Should -Invoke Export-Catzc -ModuleName Catzc.Internal.TestKit -Times 0
+            $handle.BuildRoot | Should -Be (Join-Path $handle.Root '.vendor/Catzc/6.6.666')
+            $handle.Install.Version | Should -Be '6.6.666'
+        }
+        finally {
+            Remove-BuiltCatzcRoot $handle
+        }
+    }
+
     It 'refuses a file path that leaves the root, before it installs anything' {
         { New-ConsumerRoot -File @{ '../widget.yml' = 'x' } } | Should -Throw '*not relative to the consumer root*'
         Should -Invoke Export-Catzc -ModuleName Catzc.Internal.TestKit -Times 0

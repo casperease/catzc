@@ -256,7 +256,10 @@ function New-ConsumerRoot {
 
         [string] $ModuleProfile,
 
-        [hashtable] $File = @{}
+        [hashtable] $File = @{},
+
+        # A build already on disk to install from, so a second root of one test file pays the install and not a second build.
+        [string] $Source
     )
 
     if (-not (Get-Command Export-Catzc -ErrorAction Ignore)) {
@@ -295,7 +298,12 @@ function New-ConsumerRoot {
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targets[$relative])) | Out-Null
             [System.IO.File]::WriteAllText($targets[$relative], [string] $File[$relative], $utf8)
         }
-        $install = Export-Catzc -Root $root @selection -Silent
+        $install = if ($Source) {
+            Install-Catzc -Root $root -Source $Source -Silent
+        }
+        else {
+            Export-Catzc -Root $root @selection -Silent
+        }
     }
     catch {
         if ([System.IO.Directory]::Exists($root)) {

@@ -34,6 +34,7 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
             $WorkingDirectory -eq $root
         }
         $result.RootConfigs | Should -Be @('widget.yml')
+        $result.Source | Should -Be $source
     }
 
     It 'throws with the child output when rendering the root files fails' {
