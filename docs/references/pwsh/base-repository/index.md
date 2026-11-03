@@ -66,6 +66,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Get-CatzcModulesFolder`     |
 |                                                       | `Get-CatzcModulesRoot`       |
 |                                                       | `Get-CatzcModuleRoot`        |
+|                                                       | `Resolve-CodeModuleFolder`   |
 |                                                       | `Get-ModuleFullName`         |
 |                                                       | `Get-OverlayRoot`            |
 |                                                       | `Resolve-RepoPath`           |
@@ -76,6 +77,8 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Test-IsRunningAsAgent`      |
 |                                                       | `Get-CatzcRunMode`           |
 |                                                       | `Assert-SourceTree`          |
+|                                                       | `Assert-CatzcSourceTree`     |
+|                                                       | `Assert-GitWorkTree`         |
 | responsibility:3 — Repository text source             | `Read-RepositoryText`        |
 |                                                       | `Get-RepositoryTextFile`     |
 |                                                       | `Use-RepositoryTextSource`   |

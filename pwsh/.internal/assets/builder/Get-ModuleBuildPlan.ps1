@@ -19,15 +19,16 @@ function Get-ModuleBuildPlan {
         [string] $Version,
 
         [Parameter(Mandatory)]
-        [string] $VendorPolicy,
-
-        [Parameter(Mandatory)]
         [hashtable] $PackageMetadata,
 
         [Parameter(Mandatory)]
         [System.Collections.Generic.Dictionary[string, bool]] $Index,
 
-        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new(),
+
+        [switch] $AllLanguageModule,
+
+        [string[]] $Platform = @()
     )
 
     $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
@@ -64,16 +65,20 @@ function Get-ModuleBuildPlan {
         }
     }
 
-    # The runtime loader and its assets, plus the analyzer settings and rules under the full vendor policy.
+    # The gates module brings its tooling: a selection holding Catzc.Base.QualityGates ships the TestKit, the analyzer
+    # settings and rules, and the test-tool vendor modules; any other selection ships none of them.
+    $withGates = 'Catzc.Base.QualityGates' -in $Module
+
+    # The runtime loader and its assets, plus the gate files when the gates module is selected.
     # A file ships only when an exporter glob names it, so a new asset in a shipped folder needs no row and a new tool
     # outside them never ships.
     $exporter = Get-Config -Config exporter
-    $globs = [string[]] @(@($exporter.runtime_internal_files) + @(if ($VendorPolicy -eq 'full') {
-                $exporter.full_internal_files
+    $globs = [string[]] @(@($exporter.runtime_internal_files) + @(if ($withGates) {
+                $exporter.gate_internal_files
             }))
     $internalRoot = [System.IO.Path]::Combine($SourceRoot, '.internal')
     $present = [string[]] @(if ([System.IO.Directory]::Exists($internalRoot)) {
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($internalRoot, '*', [System.IO.SearchOption]::AllDirectories)) {
+            foreach ($file in (Get-ChildPath $internalRoot -Depth 8 -File)) {
                 [System.IO.Path]::GetRelativePath($internalRoot, $file).Replace('\', '/')
             }
         })
@@ -87,14 +92,23 @@ function Get-ModuleBuildPlan {
         $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source
         $entries.Add([pscustomobject]@{ Path = ".internal/$relativePath"; Kind = 'Copy'; Source = $source; Content = $null; Exports = $null; Normalize = $normalize })
     }
-    if ($VendorPolicy -eq 'full') {
+    if ($withGates) {
         foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot,
                         '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
             $entries.Add($copy)
         }
+        # A consumer's bash tests run through the shipped bats runner, which Invoke-BashTest finds at the code root.
+        $batsRoot = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($SourceRoot.TrimEnd('\', '/')), 'bash', '.vendor', 'bats-core')
+        # The repository root's bash tree is outside the source root, so its own index decides what ships.
+        if ([System.IO.Directory]::Exists($batsRoot)) {
+            $batsIndex = Get-BuildSourceIndex -SourceRoot $batsRoot
+            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory $batsRoot -TargetPath '.internal/bats-core' -SourceRoot $batsRoot -Index $batsIndex)) {
+                $entries.Add($copy)
+            }
+        }
     }
 
-    # Vendored modules, verbatim (never re-downloaded): every one under 'full', the runtime ones under 'runtime'.
+    # Vendored modules, verbatim (never re-downloaded): every one with the gates module, the runtime ones without it.
     $vendorRoot = [System.IO.Path]::Combine($SourceRoot, '.vendor')
     if ([System.IO.Directory]::Exists($vendorRoot)) {
         $vendorNames = [string[]] @(foreach ($vendorDirectory in [System.IO.Directory]::GetDirectories($vendorRoot)) {
@@ -102,7 +116,7 @@ function Get-ModuleBuildPlan {
             })
         [System.Array]::Sort($vendorNames, [System.StringComparer]::Ordinal)
         foreach ($vendorName in $vendorNames) {
-            if ($VendorPolicy -eq 'runtime' -and $vendorName -in $script:testToolVendorModules) {
+            if (-not $withGates -and $vendorName -in $script:testToolVendorModules) {
                 continue
             }
             foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot,
@@ -179,10 +193,67 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.json"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
     }
 
+    # The modules of every other language track the selection holds (ADR-AUTO-BUNDLE-EVERYLANGUAGE): a track's primary language,
+    # the first it declares, names the package handler; the builder runs it, never branching on a language.
+    $languageConfig = Get-Config -Config languages
+    $languageRows = [System.Collections.Generic.List[object]]::new()
+    $knownLanguagePaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $declaredLanguagePaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $declaredModules = (Get-Config -Config dependencies).modules
+    foreach ($name in $Module) {
+        if ($declaredModules.Contains($name)) {
+            foreach ($target in @($declaredModules[$name])) {
+                if (([string] $target).Contains('/')) {
+                    [void] $declaredLanguagePaths.Add([string] $target)
+                }
+            }
+        }
+    }
+    foreach ($track in @(Get-Track)) {
+        if ($track.type -cne 'modules' -or $track.languages.Count -eq 0) {
+            continue
+        }
+        $primary = @($languageConfig.languages.Where({ $_.name -ceq $track.languages[0] }))
+        if ($primary.Count -eq 0 -or $null -eq $primary[0].package) {
+            continue
+        }
+        foreach ($languageModule in @(Get-CatzcModule -Track $track.name)) {
+            if ($languageModule.shape -cne 'folder') {
+                continue
+            }
+            $root = ([string] $languageModule.root).Replace('\', '/').TrimEnd('/')
+            [void] $knownLanguagePaths.Add($root)
+            # A profile that holds the whole repository holds every language module; any other selection holds those
+            # a selected module declares in dependencies.yml.
+            if (-not $AllLanguageModule -and -not $declaredLanguagePaths.Contains($root)) {
+                continue
+            }
+            $languageRows.Add([pscustomobject]@{
+                    Track       = $track.name
+                    Place       = $root.Contains('/') ? $root.Substring(0, $root.LastIndexOf('/')) : ''
+                    Module      = $root.Substring($root.LastIndexOf('/') + 1)
+                    Name        = $languageModule.name
+                    Language    = $primary[0].name
+                    Command     = $primary[0].package.command
+                    Form        = $primary[0].package.form
+                    Source      = $root
+                    Destination = $root
+                    Platform    = [string[]] @($Platform)
+                })
+        }
+    }
+
+    foreach ($path in $declaredLanguagePaths) {
+        if (-not $knownLanguagePaths.Contains($path)) {
+            $violations.Add("${sourceFolder}: dependencies.yml declares the language module '$path', which no language track holds")
+        }
+    }
+
     [pscustomobject]@{
         Entries     = $entries.ToArray()
         Violations  = $violations.ToArray()
         TypesHash   = $typeHash
         TypeSources = $typeSources
+        Languages   = $languageRows.ToArray()
     }
 }

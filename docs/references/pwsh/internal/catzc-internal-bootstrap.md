@@ -29,8 +29,11 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn once per hash,
   verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades gracefully when a
   live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI a stale-types
-  load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) decision record
-  and the BCL type-system reference (`docs/references/BCL/types-system.md`).
+  load is a hard failure. In a bundle it also compiles the consumer's own `types/*.cs`, read from the tracks of the working root's variants
+  config, in-process into `<Namespace>.Types.<hash>.dll` under the working root's `out/`, against catzc's loaded assembly, reused while the
+  hash holds ([ADR-AUTO-CONSUMER-OWNTYPES](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-owntypes)); source mode
+  compiles nothing for a consumer. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)
+  decision record and the BCL type-system reference (`docs/references/BCL/types-system.md`).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
   automation function whose name would shadow an already-imported shipped command (a vendored module, a built-in, or an `.internal` module).
@@ -84,6 +87,7 @@ The module-internal engine `Import-AllModules` drives (not exported):
 - `Get-DynamicManifestContent` — render the manifest hashtable as canonical, formatter-stable `.psd1` text.
 - `Get-PrivateFunctionFolder` — read the private-function folder name from the languages config before types load.
 - `Import-CSharpTypes` — compile and load every module's `types/*.cs` into the one hash-keyed `Catzc.Types.<hash>.dll`.
+- `Build-ConsumerTypes` — compile and load a bundle's consumer-own `types/*.cs`, called by `Import-CSharpTypes` after catzc's load.
 - `Assert-UniqueModuleFunctionName` — fail the import on a duplicate or shadowing exported function name.
 
 ## Related

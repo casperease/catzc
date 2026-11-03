@@ -22,7 +22,7 @@ corrected when it names the wrong module, and left untouched when already correc
 line endings (repo convention). Logic is never changed — only the namespace line. A block-scoped `namespace X { … }` is the one shape it
 cannot fix: it is left untouched and reported in BlockScopedFiles (Test-Formatting turns each into an issue).
 
-A source-tree tool: it rewrites the repository's type sources, so it throws in build mode (Assert-SourceTree).
+A source-tree tool: it rewrites the repository's type sources, so it runs in catzc's source tree only (Assert-CatzcSourceTree).
 
 ### parameter `Path`
 

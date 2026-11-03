@@ -28,7 +28,8 @@ The icons to render. Default: the shipped file-icons config.
 ### parameter `GlyphDirectory`
 
 The folders an icon's `glyph` is looked up in, in order, as `<glyph>.svg` or `<glyph>-on.svg`. Default: the icon theme's own glyphs, then
-the catzc-track-lamps assets.
+the catzc-track-lamps assets, each located with `Get-CatzcModuleRoot assets -Place <the js track's first place> -Module <folder>`, so a
+consumer root's render reads the bundle's copy.
 
 ### parameter `Languages`
 

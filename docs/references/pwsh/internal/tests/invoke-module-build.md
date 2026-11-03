@@ -21,7 +21,7 @@ files (the help text, the initializer) are stored LF, as git stores them in the 
 
 ## Boundaries
 
-`Assert-SourceTree` is mocked because the fixture root is not the session's code root; the profile and closure resolver and the asset
+`Assert-CatzcSourceTree` is mocked because the fixture root is not the session's code root; the profile and closure resolver and the asset
 inventory both read the real configs and tree, and so does git.
 
 ## Whole-tree walks

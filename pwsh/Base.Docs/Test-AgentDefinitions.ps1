@@ -11,7 +11,7 @@ function Test-AgentDefinitions {
     $capabilityConfig = Get-Config -Config capabilities
     $agentsFile = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/agents.yml')
     $capabilitiesFile = ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/capabilities.yml')
-    $agentsRoot = Resolve-RepoPath '.claude/agents'
+    $agentsRoot = Resolve-RepoPath $config.folder
     $skillsRoot = Resolve-RepoPath '.claude/skills'
     $claudeMd = Resolve-RepoPath '.claude/CLAUDE.md'
     $issues = [System.Collections.Generic.List[string]]::new()
@@ -131,7 +131,7 @@ function Test-AgentDefinitions {
     $preloaded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
-        $relative = ".claude/agents/$name.md"
+        $relative = "$($config.folder)/$name.md"
         if (-not $entries.Contains($name)) {
             $issues.Add("${relative}: has no entry in agents.yml")
         }

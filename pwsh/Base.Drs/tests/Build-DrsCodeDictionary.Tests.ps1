@@ -75,6 +75,19 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         (Build-DrsCodeDictionary -DryRun -PassThru -Silent).Changed | Should -BeTrue
         Join-Path $script:root '.cspell/drs-codes.txt' | Should -Not -Exist
     }
+
+    It 'in the run mode build writes the working root''s codes into its .cspell/' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.Drs { 'build' }
+        Build-DrsCodeDictionary -Silent | Out-Null
+        $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/drs-codes.txt'))
+        @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' }) | Should -Contain 'spinner'
+    }
+
+    It 'in a working root without a DRS folder writes the rule-set codes alone' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.Drs { 'build' }
+        Remove-Item -LiteralPath (Join-Path $script:root 'docs') -Recurse -Force
+        (Build-DrsCodeDictionary -PassThru -Silent).WordCount | Should -Be 4
+    }
 }
 
 Describe 'Build-DrsCodeDictionary — shipped configs/drs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {

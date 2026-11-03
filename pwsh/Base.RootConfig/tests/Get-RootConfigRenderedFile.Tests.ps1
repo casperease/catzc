@@ -59,6 +59,18 @@ Describe 'Get-RootConfigRenderedFile' -Tag 'L0', 'logic' {
         { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } | Should -Throw '*does not match*'
     }
 
+    It 'accepts no file for an optional literal target' {
+        Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { }
+        $entry = [pscustomobject]@{ target = 'widget.txt'; generator = 'New-Widget'; optional = $true }
+        @(InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry) | Should -HaveCount 0
+    }
+
+    It 'throws when a non-optional literal target renders no file' {
+        Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { }
+        $entry = [pscustomobject]@{ target = 'widget.txt'; generator = 'New-Widget'; optional = $false }
+        { InModuleScope Catzc.Base.RootConfig $render -ArgumentList $entry } | Should -Throw '*must render exactly one*'
+    }
+
     It 'throws on output that is neither one string nor records' {
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { 'one', 'two' }
         $entry = [pscustomobject]@{ target = 'widget.txt'; generator = 'New-Widget' }

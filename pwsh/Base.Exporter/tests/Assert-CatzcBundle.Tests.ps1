@@ -52,7 +52,44 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
             $buildFile = Join-Path $fixture.Root 'build.json'
             [System.IO.File]::Delete($buildFile)
             $fixture.Build.contentHash = Get-ContentHash -Path $fixture.Root
-            [System.IO.File]::WriteAllText($buildFile, ($fixture.Build | ConvertTo-Json))
+            [System.IO.File]::WriteAllText($buildFile, ($fixture.Build | ConvertTo-Json -Depth 5))
+        }
+
+        # Adds a packaged Widget module of one form under the widgets place, the way a language handler leaves it, and records it in build.json.
+        $script:addWidgetModule = {
+            param($fixture, $form)
+            $write = {
+                param($relative, $content)
+                $target = Join-Path $fixture.Root $relative
+                [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target)) | Out-Null
+                [System.IO.File]::WriteAllText($target, $content)
+            }
+            $record = switch ($form) {
+                'source' {
+                    & $write 'widgets/Widget/run.sh' '# widget'
+                    & $write 'widgets/Widget/executables.json' "[`n  `"run.sh`"`n]`n"
+                    @{ Module = 'widgets/Widget'; Files = 1; Executables = 1 }
+                }
+                'vsix' {
+                    & $write 'widgets/Widget/acme.widget-1.0.0.vsix' 'PK'
+                    @{ Module = 'widgets/Widget'; Form = 'vsix'; Files = 3 }
+                }
+                'binary' {
+                    & $write 'widgets/Widget/linux-amd64/widget' 'ELF'
+                    & $write 'widgets/Widget/binaries.json' "[`n  {`"path`":`"linux-amd64/widget`",`"sha256`":`"00`"}`n]`n"
+                    @{ Module = 'widgets/Widget'; Platforms = 1 }
+                }
+                'wheels' {
+                    & $write 'widgets/Widget/uv.lock' 'version = 1'
+                    & $write 'widgets/Widget/wheels/gadget-1.0-py3-none-any.whl' 'PK'
+                    & $write 'widgets/Widget/wheels.json' "[`n  {`"name`":`"gadget-1.0-py3-none-any.whl`",`"sha256`":`"00`"}`n]`n"
+                    @{ Module = 'widgets/Widget'; Files = 1; Wheels = 1 }
+                }
+            }
+            $fixture.Build.languages = @(@{
+                    track = 'widgets'; module = 'Widget'; language = 'widgetry'; form = $form
+                    command = 'Export-WidgetModule'; path = 'widgets/Widget'; record = $record
+                })
         }
     }
 
@@ -264,5 +301,45 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -BeLike '*missing Catzc.psm1*'
         $thrown.Exception.Message | Should -BeLike '*missing its merged*'
         $thrown.Exception.Message | Should -BeLike '*content hash mismatch*'
+    }
+
+    It 'passes a language place holding a packaged <Form> module, never reading it as a pwsh module folder' -ForEach @(
+        @{ Form = 'source' }
+        @{ Form = 'vsix' }
+        @{ Form = 'binary' }
+        @{ Form = 'wheels' }
+    ) {
+        & $script:addWidgetModule $fixture $Form
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Not -Throw
+    }
+
+    It 'throws when the packaged <Form> module is missing <Missing>' -ForEach @(
+        @{ Form = 'source'; File = 'widgets/Widget/executables.json'; Message = "*language module 'widgets/Widget' (source) is missing its executables.json*"; Missing = 'its carrier' }
+        @{ Form = 'vsix'; File = 'widgets/Widget/acme.widget-1.0.0.vsix'; Message = "*language module 'widgets/Widget' (vsix) is missing its extension*"; Missing = 'its extension' }
+        @{ Form = 'binary'; File = 'widgets/Widget/linux-amd64/widget'; Message = "*language module 'widgets/Widget' (binary) is missing the binary linux-amd64/widget*"; Missing = 'a listed binary' }
+        @{ Form = 'wheels'; File = 'widgets/Widget/wheels/gadget-1.0-py3-none-any.whl'; Message = "*language module 'widgets/Widget' (wheels) is missing the wheel gadget-1.0-py3-none-any.whl*"; Missing = 'a listed wheel' }
+    ) {
+        & $script:addWidgetModule $fixture $Form
+        [System.IO.File]::Delete((Join-Path $fixture.Root $File))
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage $Message
+    }
+
+    It 'throws when a folder under a language place is not named by a languages entry' {
+        & $script:addWidgetModule $fixture 'vsix'
+        [System.IO.Directory]::CreateDirectory((Join-Path $fixture.Root 'widgets/Gizmo')) | Out-Null
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage "*folder 'widgets/Gizmo' is under the language place 'widgets' but no build.json languages entry names it*"
+    }
+
+    It 'throws when a tests folder shipped under a language module' {
+        & $script:addWidgetModule $fixture 'vsix'
+        [System.IO.Directory]::CreateDirectory((Join-Path $fixture.Root 'widgets/Widget/tests')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $fixture.Root 'widgets/Widget/tests/test_widget.py'), 'x')
+        & $script:resealBuild $fixture
+        { Assert-CatzcBundle -Path $fixture.Root } |
+            Should -Throw -ExpectedMessage '*1 test file(s) shipped*widgets/Widget/tests/test_widget.py*'
     }
 }

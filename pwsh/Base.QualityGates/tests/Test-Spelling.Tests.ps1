@@ -184,6 +184,32 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'in build mode spells the tracked files with a spelled extension, in batches, and names no glob' {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'build' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widget/readme.md', 'gadget.txt') }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } {
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name ExtensionsCheckedBy -Value { @('.md', '.yml') } -PassThru
+        }
+        $script:cspellOut = 'CSpell: Files checked: 1, Issues found: 0 in 0 files.'
+        $script:answer = {
+            [pscustomobject]@{ ExitCode = 0; Full = $script:cspellOut; Output = '' }
+        }
+        (Test-Spelling -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
+        Should -Invoke Invoke-ExecutableParallel -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            @($Command).Count -eq 1 -and $Command[0] -match "'widget/readme\.md'" -and $Command[0] -notmatch 'gadget\.txt' -and
+            $Command[0] -notmatch '\*\*' -and $Command[0] -match ' --no-must-find-files$'
+        }
+    }
+
+    It 'in build mode a tracked list without a spelled file is a pass, never a checked-no-file finding' {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'build' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('gadget.txt') }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } {
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name ExtensionsCheckedBy -Value { @('.md') } -PassThru
+        }
+        (Test-Spelling -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
+    }
+
     It 'throws an actionable error when cspell is not installed' {
         Mock Test-Command -ModuleName Catzc.Base.QualityGates { $false }
         { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*Install-Cspell*'

@@ -24,10 +24,9 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan                     | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
-| ------- | ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
-| highest | plan-master              | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
-| medium  | plan-drone-closing-gates | A drone closes on the gates a full run applies, so the user's run is not the first to find them.        | none                                                   | Test-Plans                                    | one open question                           |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
@@ -38,13 +37,15 @@ stale or superseded item is recorded as such, with the reason.
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. Deleted 2026-10-29, every step landed: plan-slide-poc-retirement (it replaced plan-diagram-review): feeds edges gone from the
-diagram language, every diagram retitled and renamed to the system part it shows, the side panels and edge markers fixed, the diagram and
-slide commands proven, the 13 proof-of-concept decks harvested into docs/references/slides/slide-style-and-ideas.md and deleted with the
-diagram-review skill. Deleted 2026-10-29, closed by its own rule (no hang in VS Code for a week, the user): plan-vscode-session-binding: its
-decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION, `Get-VsCodeSession` stays the first instrument for a recurrence. A plan holds only
-planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no explanation of how the tool
-behaves when a team uses it; that belongs in the docs.
+deletion. Deleted 2026-11-02, every step landed: plan-drone-closing-gates: the `catzc-verify` end-of-task checks name `Test-Formatting` and
+`Test-Terminology` and the comment page a new function needs, `catzc-core` splits a chunk of more than four steps across two drones, and the
+capability registry lists the two gates. Deleted 2026-10-29, every step landed: plan-slide-poc-retirement (it replaced plan-diagram-review):
+feeds edges gone from the diagram language, every diagram retitled and renamed to the system part it shows, the side panels and edge markers
+fixed, the diagram and slide commands proven, the 13 proof-of-concept decks harvested into docs/references/slides/slide-style-and-ideas.md
+and deleted with the diagram-review skill. Deleted 2026-10-29, closed by its own rule (no hang in VS Code for a week, the user):
+plan-vscode-session-binding: its decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION, `Get-VsCodeSession` stays the first instrument for
+a recurrence. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
+explanation of how the tool behaves when a team uses it; that belongs in the docs.
 
 Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 

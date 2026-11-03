@@ -80,6 +80,16 @@ Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'returns the track modules'' own test folders by layout when the working root holds no engine-track modules' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        $consumer = Join-Path $TestDrive 'consumer'
+        New-FixtureFile $consumer 'python/Widget.Kit/kit.py' -Text ''
+        New-FixtureFile $consumer 'python/Widget.Kit/tests/test_kit.py' -Text 'def test_kit(): pass'
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'consumer' }
+        Mock Get-CatzcModule -ModuleName Catzc.Base.QualityGates -ParameterFilter { $EngineTrack } { }
+        $folders = @(InModuleScope Catzc.Base.QualityGates { Get-LanguageTestFolders })
+        @($folders.ForEach({ "$($_.Language) $($_.Name)" })) | Should -Be @('python catzc_Widget.Kit')
+    }
+
     It 'returns nothing when the repository has no test folder' {
         $empty = Join-Path $TestDrive 'empty'
         [void][System.IO.Directory]::CreateDirectory((Join-Path $empty 'widget-modules/Catzc.Widget'))

@@ -245,7 +245,7 @@ The root is a closed set of folders, each with a fixed meaning. The **Kind** col
   - Programmed against by: The owning modules' contract tests; outside consumers and platforms
 - **`go/`**
   - Kind: declared
-  - Meaning: The Go root: black-box Go tests, `tests/<module>/`; see [go-test-artifacts](../automation/go/go-test-artifacts.md)
+  - Meaning: The Go root: black-box Go tests, `tests/<module>/`; see [go-language](../automation/go/go-language.md)
   - Programmed against by: `GoConfig`, `New-GoWorkspace`, `Invoke-GoTest`
 - **`python/`**
   - Kind: declared
@@ -331,12 +331,12 @@ include kinds — `steps/`, `jobs/`, `stages/`, `variables/`, `extends/`; the ad
 because here, unlike the internal code, external consumers genuinely exist (see
 [one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)).
 
-**`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships
-([go-test-artifacts](../automation/go/go-test-artifacts.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for
-that module in kebab case; `go.work` sits at the repository root, beside it. Every file Go needs besides the `*_test.go` files is generated
-and gitignored. A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go
-root elsewhere when declared; the two names are the sensible defaults of that one setting
-([sensible-defaults](../automation/sensible-defaults.md)), and the code that reads them is `GoConfig.ResolveRoot`.
+**`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine, and a test never ships
+([go-language](../automation/go/go-language.md)). It holds `tests/<module>/`, one Go test module per catzc module, named for that module in
+kebab case; `go.work` sits at the repository root, beside it. Every file Go needs besides the `*_test.go` files is generated and gitignored.
+A repository with no `go/` folder keeps the same layout under the dot-prefixed `.go/`, and `go.yml`'s `root` places the Go root elsewhere
+when declared; the two names are the sensible defaults of that one setting ([sensible-defaults](../automation/sensible-defaults.md)), and
+the code that reads them is `GoConfig.ResolveRoot`.
 
 **`python/`** is the Python root: the repository's Python tests, which are black-box tests of the engine and never ship
 ([python-test-artifacts](../automation/python/python-test-artifacts.md)). It holds `tests/<module>/`, one Python test folder per catzc

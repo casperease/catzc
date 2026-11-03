@@ -21,7 +21,7 @@ Describe 'Get-FunctionDependency — shared parse' -Tag 'L0', 'logic' {
             'Catzc.Base.Widget' = @{ Files = @{ 'Get-Widget.ps1' = "function Get-Widget {`n    Get-Gadget`n}" } }
             'Catzc.Base.Gadget' = @{ Files = @{ 'Get-Gadget.ps1' = "function Get-Gadget {`n    'gadget'`n}" } }
         }
-        Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.ModuleSystem { }
     }
 
     AfterAll {
@@ -41,6 +41,6 @@ Describe 'Get-FunctionDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         { Get-FunctionDependency -ModulesRoot $TestDrive } |
-            Should -Throw '*Get-FunctionDependency operates on the catzc source tree*'
+            Should -Throw '*Get-FunctionDependency runs in catzc*s source tree only*'
     }
 }

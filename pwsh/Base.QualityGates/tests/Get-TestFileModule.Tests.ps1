@@ -20,6 +20,26 @@ Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = (Get-RepoPath 'go/tests/catzc-widget'); Name = 'catzc-widget' }
             [pscustomobject]@{ Language = 'python'; Module = 'Catzc.Gadget'; Folder = (Get-RepoPath 'python/tests/catzc-gadget'); Name = 'catzc-gadget' }
         }
+        Mock Get-TrackModuleName -ModuleName Catzc.Base.QualityGates {
+            if ($Path -like '*widget?Local?*') {
+                'Widget.Local'
+            }
+        }
+    }
+
+    It 'names the track module that holds a test file under a place of a consumer track' {
+        Get-Unit (Get-RepoPath 'widget/Local/tests/Get-LocalWidget.Tests.ps1') | Should -Be 'Widget.Local'
+        Should -Invoke Get-TrackModuleName -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+    }
+
+    It 'throws naming the track lookup for a path under none of the three' {
+        { Get-Unit (Get-RepoPath 'sprocket/tests/x.Tests.ps1') } | Should -Throw '*nor under a place of a consumer modules track (Get-TrackModuleName).'
+    }
+
+    It 'never asks the track lookup for modules-root and language test folder paths' {
+        Get-Unit (Get-RepoPath "$(Get-CatzcModulesFolder)/Catzc.Gadget/tests/Get-Gadget.Tests.ps1") | Should -Be 'Catzc.Gadget'
+        Get-Unit (Get-RepoPath 'go/tests/catzc-widget') | Should -Be 'Catzc.Widget'
+        Should -Invoke Get-TrackModuleName -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
     }
 
     It 'names the module folder of a test file under the modules folder' {

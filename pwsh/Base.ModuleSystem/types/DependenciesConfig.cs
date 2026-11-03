@@ -80,7 +80,16 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
                 string module = (string)entry.Key;
                 foreach (string target in (string[])entry.Value)
                 {
-                    if (string.Equals(target, module, StringComparison.OrdinalIgnoreCase))
+                    if (target.IndexOf('/') >= 0)
+                    {
+                        if (!IsLanguageModulePath(target))
+                        {
+                            errors.Add(string.Format(
+                                "module '{0}' depends on '{1}', which is not a language module path (write <track>/<Module>: two folder names joined by one '/')",
+                                module, target));
+                        }
+                    }
+                    else if (string.Equals(target, module, StringComparison.OrdinalIgnoreCase))
                     {
                         errors.Add(string.Format("module '{0}' declares a dependency on itself", module));
                     }
@@ -112,5 +121,21 @@ public sealed class DependenciesConfig : Catzc.Base.Objects.DictionaryRecord
 
         groups = groupMap.AsReadOnly();
         modules = moduleMap.AsReadOnly();
+    }
+
+    // A language module path is <track>/<Module>: two folder names, each of letters, digits, '.', '-' or '_', neither starting with '.'.
+    private static bool IsLanguageModulePath(string path)
+    {
+        string[] parts = path.Split('/');
+        if (parts.Length != 2) { return false; }
+        foreach (string part in parts)
+        {
+            if (part.Length == 0 || part[0] == '.') { return false; }
+            foreach (char c in part)
+            {
+                if (!char.IsLetterOrDigit(c) && c != '.' && c != '-' && c != '_') { return false; }
+            }
+        }
+        return true;
     }
 }

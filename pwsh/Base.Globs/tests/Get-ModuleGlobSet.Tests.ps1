@@ -38,7 +38,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
                 })
         } -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'languages' }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Globs { }
     }
 
     It 'derives live/tests aspect sets per module folder, partitioning the module tree (DDR-ASPECT)' {
@@ -157,6 +157,6 @@ Describe 'GlobsConfig reserved names' -Tag 'L0', 'logic' {
 Describe 'Get-ModuleGlobSet — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
-        { Get-ModuleGlobSet } | Should -Throw '*Get-ModuleGlobSet operates on the catzc source tree*'
+        { Get-ModuleGlobSet } | Should -Throw '*Get-ModuleGlobSet runs in catzc*s source tree only*'
     }
 }

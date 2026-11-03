@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Catzc.Base.RootConfig;
 
-// One managed root file: exactly one of source or generator supplies it; optIn and committed default to false.
+// One managed root file: exactly one of source or generator supplies it; optIn, committed, consumer and optional default to false.
 public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
@@ -29,6 +29,12 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // Tracked in git only for files read before the importer runs.
     public bool committed { get; }
 
+    // The root files a consumer root needs for its gates: a build-mode session materialises exactly these.
+    public bool consumer { get; }
+
+    // May a literal generator target render no file? Then none is written and none is expected; false (the default) requires exactly one.
+    public bool optional { get; }
+
     public RootConfigFile(IDictionary d)
     {
         if (d == null) { throw new ArgumentException("RootConfigFile requires a dictionary"); }
@@ -39,6 +45,8 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
         carrier = OptStr(d, "carrier");
         optIn = Flag(d, "optIn");
         committed = Flag(d, "committed");
+        consumer = Flag(d, "consumer");
+        optional = Flag(d, "optional");
 
         if ((source == null) == (generator == null))
         {

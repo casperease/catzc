@@ -53,7 +53,7 @@ Describe 'New-Importer — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         { New-Importer -RepositoryRoot $TestDrive -DryRun } |
-            Should -Throw '*New-Importer operates on the catzc source tree*'
+            Should -Throw '*New-Importer runs in catzc*s source tree only*'
     }
 }
 

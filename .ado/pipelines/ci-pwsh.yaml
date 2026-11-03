@@ -49,6 +49,10 @@ jobs:
 
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
+          RunCommand: "Test-QualityGates"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
           RunCommand: "Test-Automation -Level 2 -EnforceTimings"
 
   - job: FrameworkTests

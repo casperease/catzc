@@ -22,13 +22,18 @@ tests/<path>            LocalTest                    a local test of the module 
 anything else           Unknown                      not an override point (Assert-Overlay rejects it)
 ```
 
-A folder that names no bundled module is a LocalModule. Nothing is loaded or checked here; the inventory is what Assert-Overlay checks and
-Import-Overlay applies, and what a reader asks to see what a session changed. Returns nothing when there is no overlay (source mode, or no
-.catzc/automation/).
+The overlay holds overrides of bundled modules only. A folder that names no bundled module is a finding, never a module of its own: its
+record has the kind Finding and carries a `Finding` text that says the overlay holds overrides of bundled modules only and names the
+consumer's tracks that exist (the tracks `Get-Track` lists in build mode, apart from the engine's own), or says the consumer declares none
+([ADR-AUTO-OVERLAY-MODULEOVERRIDEENTRIES](../../../drs/automation/consumer-overlay.md#rule-adr-auto-overlay-moduleoverrideentries),
+[ADR-AUTO-CONSUMER-OWNTRACKS](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-owntracks)). Nothing is loaded or
+checked here; the inventory is what Assert-Overlay checks and Import-Overlay applies, and what a reader asks to see what a session changed.
+Returns nothing when there is no overlay (source mode, or no .catzc/automation/).
 
 ### outputs
 
-`[pscustomobject]` Kind, Module, Target, Visibility, File, RelativePath — in ordinal path order.
+`[pscustomobject]` Kind, Module, Target, Visibility, File, RelativePath, Finding — in ordinal path order; Finding is set on the record of a
+folder that names no bundled module and is empty otherwise.
 
 ### example 1
 
@@ -49,5 +54,5 @@ The overlay root is `.catzc/<track folder>`
 records spell no track folder of their own.
 
 An overlay folder mirrors a bundled module's folder, which never spells the namespace; the record carries the folder and the full name the
-resolver gives it ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)). A local module's name is its
-folder's.
+resolver gives it ([DDR-TRACK-MODULENAMESPACE](../../../drs/design/tracks.md#rule-ddr-track-modulenamespace)). A folder that names no
+bundled module keeps its own name.

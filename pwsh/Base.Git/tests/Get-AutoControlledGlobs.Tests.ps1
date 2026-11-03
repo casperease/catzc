@@ -1,22 +1,15 @@
 Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
-    BeforeEach {
-        # One gitignored managed target (whitelisted), one committed one (never whitelisted), one not opted in.
-        Mock Get-Config {
-            [pscustomobject]@{
-                files = @(
-                    [pscustomobject]@{ target = '.editorconfig'; optIn = $true; committed = $false }
-                    [pscustomobject]@{ target = 'importer.ps1'; optIn = $true; committed = $true }
-                    [pscustomobject]@{ target = 'LICENSE'; optIn = $false; committed = $false }
-                )
-            }
-        } -ModuleName Catzc.Base.Git -ParameterFilter { $Config -eq 'rootconfig' }
-    }
-
-    It 'includes the gitignored managed root-config targets, and only those' {
+    It 'includes the gitignored generated targets of an exact path, and only those' {
+        # One gitignored target (whitelisted), one committed one (never whitelisted), one glob (left to the member loop).
+        Mock Get-GeneratedTarget {
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget.cfg', 'Build-Widget', 'rollable', $false)
+            [Catzc.Base.Variants.GeneratedTarget]::new('gadget.ps1', 'Build-Gadget', 'import-critical', $true)
+            [Catzc.Base.Variants.GeneratedTarget]::new('sprocket/*.cfg', 'Build-Sprocket', 'rollable', $false)
+        } -ModuleName Catzc.Base.Git
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
-        $globs | Should -Contain '.editorconfig'
-        $globs | Should -Not -Contain 'importer.ps1'
-        $globs | Should -Not -Contain 'LICENSE'
+        $globs | Should -Contain 'widget.cfg'
+        $globs | Should -Not -Contain 'gadget.ps1'
+        $globs | Should -Not -Contain 'sprocket/*.cfg'
     }
 
     It 'takes the gitignored members a generator writes from the track model, a folder glob as its folder and contents' -Tag 'DDR-TRACK-ISPLACEDCLUSTER' {
@@ -27,8 +20,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
             [Catzc.Base.Variants.TrackMember]::new('widget', [Catzc.Base.Variants.VariantMember]::new('widget/cache', $true, $false))
         }
         Mock Get-GeneratedTarget -ModuleName Catzc.Base.Git {
-            [pscustomobject]@{ path = 'widget/*/*.wdg'; generator = 'Build-Widget' }
-            [pscustomobject]@{ path = 'widget/build/**'; generator = 'dotnet build' }
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/*/*.wdg', 'Build-Widget', 'rollable')
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget/build/**', 'dotnet build', 'rollable')
         }
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
         foreach ($expected in 'widget/*/*.wdg', 'widget/build', 'widget/build/*', 'widget/cache') {

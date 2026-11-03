@@ -12,8 +12,7 @@ Renders one of the repository's own editor extensions to a folder the editor can
 ### description
 
 The extension's package.json is rendered from its entry under `extensions:` in vscode-extensions.yml, and its script is copied from the
-module's `assets/extensions/<name>.js` to `extension.js`. The folder is generated output: it is replaced on every render, so nothing in it
-is edited by hand.
+module's `extension.js`. The folder is generated output: it is replaced on every render, so nothing in it is edited by hand.
 
 It rests on
 [ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency).
@@ -28,7 +27,9 @@ The folder the extension folder is written under, as `<OutputDirectory>/<name>/`
 
 ### parameter `AssetDirectory`
 
-The folder that holds the extension scripts. Default: the module's assets/extensions/.
+The folder that holds the extension modules, each as `<folder>/extension.js`. Default: none; the extension's module is then located with
+`Get-CatzcModuleRoot -Place <the js track's first place> -Module <folder>`, under the repository root in source mode and under the code root
+in build mode. A given folder stands in for the place, and `catzc.source` then names `<place>/<folder>`.
 
 ### outputs
 

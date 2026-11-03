@@ -7,6 +7,9 @@ Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {
             [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path))
             [System.IO.File]::WriteAllText($path, ($Line -join "`n") + "`n")
         }
+        New-FixtureFile 'go.mod' @('module catzc/go/tests/catzc-widget', '', 'go 1.27')
+        New-FixtureFile '../gadget/go.mod' @('module catzc/go/gadget', '', 'go 1.27')
+        New-FixtureFile '../gadget/tests/gadget_test.go' @('package tests', 'func TestGadget(t *testing.T) {}')
         New-FixtureFile 'widget_test.go' @(
             'package widget'
             'func TestWidgetSpins(t *testing.T) {}'
@@ -24,10 +27,23 @@ Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {
         New-FixtureFile '_scratch/scratch_test.go' @('func TestIgnoredScratch(t *testing.T) {}')
     }
 
-    BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'go' } {
-            [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
-        }
+    It 'keys a module test folder by the module line of the go.mod above it' {
+        $cases = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Folder = (Join-Path $TestDrive 'gadget/tests') } {
+                param($Folder)
+                Get-GoTestCases -Folder $Folder
+            })
+        $cases[0].Key | Should -Be 'catzc/go/gadget/tests TestGadget'
+    }
+
+    It 'throws when no go.mod is in the folder or above it' {
+        $bare = Join-Path $TestDrive 'bare/tests'
+        [void][System.IO.Directory]::CreateDirectory($bare)
+        {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Folder = $bare } {
+                param($Folder)
+                Get-GoTestCases -Folder $Folder
+            }
+        } | Should -Throw '*no go.mod*'
     }
 
     It 'lists every top-level Go test of the *_test.go files, with its package, category, and title' {

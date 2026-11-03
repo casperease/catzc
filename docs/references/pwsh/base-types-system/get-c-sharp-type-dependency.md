@@ -27,8 +27,8 @@ Detection, made precise so Catzc.Azure is not confused with Catzc.Azure.Template
 These edges are folded into Get-ModuleDependencyViolations beside the function-call edges, so the same acyclic allow-list
 (configs/dependencies.yml, asserted by the L2 tests) governs C# type layering.
 
-Reads each module's C# type files (`types/*.cs`), which exist only in the source tree, so it stops with a named error in build mode
-(Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
+Reads each module's C# type files (`types/*.cs`), which exist only in the source tree, so it runs in catzc's source tree only
+(Assert-CatzcSourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 

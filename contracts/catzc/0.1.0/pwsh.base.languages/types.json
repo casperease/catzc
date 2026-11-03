@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: a3682b33ddfc",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: c7179f188fed",
   "types": [
     {
       "name": "Catzc.Base.Languages.BashConfig",
@@ -275,6 +275,10 @@
         },
         {
           "name": "no_formatter",
+          "kind": "property"
+        },
+        {
+          "name": "package",
           "kind": "property"
         },
         {
@@ -558,6 +562,25 @@
         },
         {
           "name": "type",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguagePackage",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "command",
+          "kind": "property"
+        },
+        {
+          "name": "form",
           "kind": "property"
         }
       ]

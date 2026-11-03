@@ -14,7 +14,11 @@ function Get-TestFileModule {
                 return $testFolder.Module
             }
         }
-        throw "'$Path' is neither under $modulesRoot nor a language test folder (Get-LanguageTestFolders)."
+        $trackModule = Get-TrackModuleName $Path
+        if ($trackModule) {
+            return $trackModule
+        }
+        throw "'$Path' is neither under $modulesRoot nor a language test folder (Get-LanguageTestFolders), nor under a place of a consumer modules track (Get-TrackModuleName)."
     }
     $relative = $Path.Substring($modulesRoot.Length).TrimStart('\', '/')
     ($relative -split '[\\/]')[0]

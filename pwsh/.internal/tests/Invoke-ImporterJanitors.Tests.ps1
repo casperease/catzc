@@ -76,9 +76,9 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         $script:writers = [ordered]@{}
         foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme',
             'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
-            $script:writers[$name] = [pscustomobject]@{ name = $name; at_import = $true }
+            $script:writers[$name] = [pscustomobject]@{ name = $name; at_import = $true; consumer = $name -in 'Build-TerminologyDictionary', 'Build-RootConfig' }
         }
-        $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false }
+        $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false; consumer = $false }
         Mock Get-GeneratedWriterOrder { $script:writers.Values } -ModuleName Catzc.Internal.Importer
         Mock Build-EnglishDictionary { } -ModuleName Catzc.Internal.Importer
         # A writer the janitor runs stores its stamp; the test keeps that out of the repository's memo.
@@ -138,6 +138,34 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
 
         Should -Invoke Build-Glossary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
         Should -Invoke Build-EnglishDictionary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'with -Consumer runs only the due writers marked consumer and none of the other janitors' {
+        foreach ($row in $script:rows) {
+            $row.Due = $true
+        }
+        Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
+
+        InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors -Consumer }
+
+        Should -Invoke Build-TerminologyDictionary -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+        Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+        Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Build-DrsCodeDictionary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Invoke-GeneratedFilesJanitor -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Invoke-TypeCacheJanitor -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Sync-SessionTools -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Invoke-AgentHookJanitor -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Invoke-EditorExtensionJanitor -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'with -Consumer re-renders nothing when no consumer writer is due' {
+        Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
+
+        InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors -Consumer }
+
+        Should -Invoke Build-TerminologyDictionary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }
 
     It 'runs every build janitor when the due rows cannot be read' {

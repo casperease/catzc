@@ -16,7 +16,7 @@ plan:
       pwsh/Base.Languages,
       pwsh/Base.ModuleSystem/configs/profiles.yml,
       docs/drs/automation/consumer-overlay.md,
-      docs/drs/automation/go/go-test-artifacts.md,
+      docs/drs/automation/go/go-language.md,
     ]
 ---
 
@@ -82,8 +82,10 @@ gates, DRS) applied to that team's code. Verified against the tree on 2026-11-02
   type accelerators under the consumer's prefix. A `Catzc.` C# namespace in consumer code is refused. Lands in hosting-csharp-types.md
   (ADR-PWSH-TYPES) and native-csharp-types.md (ADR-BCL-TYPES: one combined assembly per namespace).
 - **The gate tooling follows the gates, not a policy flag.** A bundle that carries `Catzc.Base.QualityGates` carries Pester,
-  PSScriptAnalyzer, the analyzer settings and rules and `Catzc.Internal.TestKit`; `vendor_policy` stops deciding that. Node, Python, Go and
-  their formatters stay tools a consumer installs through the Toolchain commands (ADR-AUTO-PKGMGR); a gate whose tool is missing says which
+  PSScriptAnalyzer, the analyzer settings and rules and `Catzc.Internal.TestKit`; `vendor_policy` decided nothing else (read 2026-11-02), so
+  the key, the `VendorPolicy` parameters and the manifest line are deleted (PDR-ONELIVE), and a gate that enters a built module's scope puts
+  `Catzc.Base.QualityGates` in its build selection, as `Test-CatzcBuild` already does with its harness module. Node, Python, Go and their
+  formatters stay tools a consumer installs through the Toolchain commands (ADR-AUTO-PKGMGR); a gate whose tool is missing says which
   install command to run.
 - **The source-tree guard splits.** `Assert-CatzcSourceTree` guards catzc-only tools; `Assert-SourceTree` keeps its name and means "the
   working root has tracks to check", true in catzc and in a consumer. The generic gates keep calling `Assert-SourceTree` and scan the
@@ -98,9 +100,13 @@ gates, DRS) applied to that team's code. Verified against the tree on 2026-11-02
   ADR-AUTO-GO-GOTESTMODULE, which confines Go to `tests/`. The engines stay pwsh, bash and zsh (ADR-AUTO-ENGINE-THREEENGINES); a consumer's
   Go, Python and JavaScript modules run through the handlers the bundle carries, configured by the consumer's working-root `go`, `python`
   and `javascript` configs.
-- **One place names the modules folder.** `pwsh` is the `pwsh` track's place in `variants`; `Get-CatzcRunMode`, `Get-CatzcModulesRoot`'s
-  fallback, `Get-OverlayRoot` and `Get-ConfigOverlayRoot` read it from there. `Get-CatzcModulesFolder` stays source-only (it throws outside
-  the repository by design).
+- **One place names the modules folder.** `Catzc.Base.Repository` cannot read `variants`: `Catzc.Base.Variants` depends on
+  `Catzc.Base.Config`, which depends on `Catzc.Base.Repository`, and `Get-Config` itself calls `Get-CatzcRunMode` through
+  `Get-ConfigOverlayRoot` (read 2026-11-02). The one place is the bootstrap constant `$script:modulesFolder` in
+  `Catzc.Internal.Importer.psm1`, which every import publishes as `$env:CatzcModulesFolder` beside `$env:CatzcModulesRoot`;
+  `Get-CatzcRunMode`, `Get-CatzcModulesRoot`'s fallback, `Get-OverlayRoot` and `Get-ConfigOverlayRoot` read that variable, never the
+  literal, and a test pins the `pwsh` track's first member and the module-types folder place `root` to it. `Get-CatzcModulesFolder` stays
+  source-only (it throws outside the repository by design).
 - **A command that needs git asserts it.** A new `Assert-GitWorkTree` realises ADR-REPO-REPOKIND-NOREPO, built on `Get-GitIndexPath`'s
   existing check.
 - **Every declared combination is buildable.** Each `exporter.yml` bundle and each `profiles.yml` profile builds, closes, self-checks and
@@ -119,214 +125,19 @@ gates, DRS) applied to that team's code. Verified against the tree on 2026-11-02
 
 ## Open steps
 
-### A: the builder and the install
-
-1. [ ] `pwsh/Base.Repository/Get-RepositoryRoot.ps1`: throw when `$env:RepositoryRoot` is unset, naming the importer. (check:
-       `Invoke-TestFile -Path pwsh/Base.Repository/tests/Get-RepositoryRoot.Tests.ps1`, then
-       `Invoke-TestFile -Path pwsh/.internal/tests/Import-Catzc.Tests.ps1`)
-2. [ ] `pwsh/Base.Repository/Get-CatzcRunMode.ps1`: compare against the `pwsh` track's place from `variants`, not the literal. (check:
-       `Invoke-TestFile -Path pwsh/Base.Repository/tests/Get-CatzcRunMode.Tests.ps1`)
-3. [ ] `pwsh/Base.Repository/Get-CatzcModulesRoot.ps1`: the same for the unset-variable fallback. (check:
-       `Invoke-TestFile -Path pwsh/Base.Repository/tests/Get-CatzcModulesRoot.Tests.ps1`)
-4. [ ] `pwsh/Base.Repository/Get-OverlayRoot.ps1`: `.catzc/<place>` from the same source. (check:
-       `Invoke-TestFile -Path pwsh/Base.Repository/tests/Get-OverlayRoot.Tests.ps1`)
-5. [ ] `pwsh/Base.Config/private/Get-ConfigOverlayRoot.ps1`: replace the leaf-of-modules-root at line 15 (the version in a bundle) with the
-       same source. (check: `Invoke-TestFile -Path pwsh/Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1`)
-6. [ ] `pwsh/.internal/assets/bootstrap/Import-CSharpTypes.ps1`: in a bundle load, skip `Sync-TypesContract`, which would write into the
-       working root from a contract derived from the bundle folder (ADR-AUTO-BUNDLE-ISSESSION). (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Import-CSharpTypes.Shipped.Tests.ps1`)
-7. [ ] `pwsh/.internal/assets/types/Write-TypesContract.ps1`: make `RepositoryRoot` mandatory instead of the code root's parent. (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Write-TypesContract.Tests.ps1`)
-8. [ ] `pwsh/.internal/assets/builder/Get-ModuleBuildPlan.ps1`: ship Pester, PSScriptAnalyzer, the analyzer settings and rules and
-       `Catzc.Internal.TestKit` exactly when the selection holds `Catzc.Base.QualityGates`, whatever `vendor_policy` says. (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`)
-9. [ ] `pwsh/Base.Exporter/types/ExporterConfig.cs`: move `Catzc.Internal.TestKit` out of `DefaultFullInternalFiles` into the gate-following
-       set. (check: `Invoke-TestFile -Path pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1`)
-10. [ ] `pwsh/Base.Exporter/configs/exporter.yml`: add `base` and `tooling` bundles, each with its version line and footprint limits
-        measured from a first build. (check: `Invoke-TestFile -Path pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1`)
-11. [ ] `pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1`: "every profile has a bundle", beside the test at line 160. (check: the
-        same file under `Invoke-TestFile`)
-12. [ ] `pwsh/Base.Exporter/tests/Build-Modules.Bundles.Tests.ps1` (new, L2 integrity, greedy, source-only): build every declared bundle
-        unmocked into a temp destination; assert `Assert-CatzcBundle` and a fresh-session load through `New-BuiltCatzcRoot` and
-        `Invoke-InBuiltCatzc` calling one public function of each module. (check: the file under `Invoke-TestFile`)
-13. [ ] `pwsh/Base.Exporter/tests/Export-Catzc.Install.Tests.ps1` (new, L2, source-only): unmocked `Export-Catzc -Root` into a temp git repo
-        and a temp folder with no `.git`; assert the root `importer.ps1`, the idempotent re-install, the derived mode `build`, and that the
-        load wrote nothing outside the working root's `out/`. (check: the file under `Invoke-TestFile`)
-
-### B: the walking skeleton
-
-1. [ ] `pwsh/.internal/Catzc.Internal.TestKit.psm1`: `New-ConsumerRoot` (a temp working root with an installed bundle and a given file tree)
-       beside `New-BuiltCatzcRoot`, reusing its build. (check: `Invoke-TestFile -Path pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1`)
-2. [ ] `pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1` (new, L2 greedy, source-only): a consumer with a `.catzc/` config fragment and
-       function override and today's local module; asserts what works today. Each later step below adds its assertion here. (check: the file
-       under `Invoke-TestFile`)
-
-### C: the consumer's configs
-
-1. [ ] `docs/drs/configuration/module-config-loading.md`: the three config scopes and the whole-file read of a working-root config in build
-       mode. (check: `Test-DrsRegistry`, `Test-Links -Path docs/drs/configuration/module-config-loading.md`)
-2. [ ] `pwsh/Base.Config/types/ConfigsConfig.cs`: the `scope` key (engine, module, working-root), with `overridable: false` folded into
-       `engine`. (check: `Invoke-TestFile -Path pwsh/Base.Config/tests/types/ConfigsConfig.Tests.ps1`)
-3. [ ] `pwsh/Base.Config/configs/configs.yml`: a `scope` on every entry that is not the default. (check: the same test file)
-4. [ ] `pwsh/Base.Config/Get-Config.ps1`: in build mode, read a working-root config whole from `.catzc/configs/`; add the consumer
-       registries beside the sealed one; assertion in the consumer test: a consumer `variants` and a typed consumer config. (check:
-       `Invoke-TestFile -Path pwsh/Base.Config/tests/Get-Config.Tests.ps1`, then the consumer test)
-5. [ ] `pwsh/Base.Config/private/Resolve-ConfigEntry.ps1`: key the index by namespace and name, and index consumer tracks' `configs/` under
-       the consumer's namespace. (check: `Invoke-TestFile -Path pwsh/Base.Config/tests/Resolve-ConfigEntry.Tests.ps1`)
-6. [ ] `pwsh/Base.Config/Get-Config.ps1`: resolve a bare name in the calling module's namespace, with `-Namespace` to name another;
-       assertion in the consumer test: a consumer config named like a catzc config, typed by a consumer type, read by both sides without
-       collision. (check: `Invoke-TestFile -Path pwsh/Base.Config/tests/Get-Config.Tests.ps1`, then the consumer test)
-
-### D: the consumer's modules
-
-1. [ ] `docs/drs/automation/consumer-overlay.md`: keep the `.catzc/` override rules; the overlay names no local module; the scopes of
-       configs a fragment may touch. (check: `Test-DrsRegistry`, `Test-Links -Path docs/drs/automation/consumer-overlay.md`)
-2. [ ] `docs/drs/automation/consumer-repository.md` (new ADR-AUTO record, registered in `drs.yml`): consumer tracks and namespace, modules
-       through the one source loader, its own dependencies, config registry, types, DRS and gates. (check: `Test-DrsRegistry`,
-       `Test-Links -Path docs/drs/automation/consumer-repository.md`)
-3. [ ] `docs/drs/design/run-modes.md`: consumer modules load from source on top of a bundle; the modes' exclusion is about catzc's modules.
-       (check: `Test-DrsRegistry`, `Test-Links -Path docs/drs/design/run-modes.md`)
-4. [ ] `pwsh/Base.Overlay/Get-Overlay.ps1`: inventory only `.catzc/` overrides; a non-bundled folder is a finding naming the consumer
-       tracks. (check: `Invoke-TestFile -Path pwsh/Base.Overlay/tests/Get-Overlay.Tests.ps1`)
-5. [ ] `pwsh/Base.Overlay/private/Get-LocalModuleViolation.ps1`: becomes the consumer-module check over every consumer track (namespace not
-       `Catzc`, no command shadowing, no config name catzc owns, `types/` allowed); rename to `Get-ConsumerModuleViolation.ps1`. (check:
-       `Invoke-TestFile -Path pwsh/Base.Overlay/tests/Assert-Overlay.Tests.ps1`)
-6. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`: after the bundle and `Import-Overlay`, load the consumer's pwsh modules from its
-       tracks through `Import-ModuleFiles.ps1` with generated manifests, in its `dependencies` order; assertion in the consumer test:
-       `<Namespace>.<Folder>` loads, an edit is live after re-import. (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Import-AllModules.Tests.ps1`, then the consumer test)
-7. [ ] `pwsh/Base.Overlay/Import-Overlay.ps1`: delete the `New-Module` local-module path. (check:
-       `Invoke-TestFile -Path pwsh/Base.Overlay/tests/Import-Overlay.Tests.ps1`)
-
-### E: the consumer's types
-
-1. [ ] `docs/drs/automation/pwsh/hosting-csharp-types.md` and `docs/drs/automation/BCL/native-csharp-types.md`, one each: one combined
-       assembly per namespace; a bundle never compiles catzc's, a consumer's compiles in-process. (check: `Test-DrsRegistry`, `Test-Links`
-       on each)
-2. [ ] `pwsh/.internal/Catzc.Internal.Types.psm1`: the `Catzc.Types.` prefix becomes a namespace parameter in the load, janitor, holds and
-       accelerator code. (check: `Invoke-TestFile -Path pwsh/.internal/tests/Import-TypesAssembly.Tests.ps1`, then
-       `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-TypeCacheJanitor.Tests.ps1`)
-3. [ ] `pwsh/.internal/assets/bootstrap/Build-CombinedTypeAssembly.ps1`: take the namespace, the source set, the output folder and extra
-       references. (check: `Invoke-TestFile -Path pwsh/.internal/tests/Build-CombinedTypeAssembly.Tests.ps1`)
-4. [ ] `pwsh/.internal/assets/bootstrap/Import-CSharpTypes.ps1`: after catzc's prebuilt load, compile and load the consumer's types into
-       `<Namespace>.Types.<hash>.dll` under `out/`, reused while the hash holds; refuse a `Catzc.` C# namespace; assertion in the consumer
-       test: a consumer type and its accelerator. (check: `Invoke-TestFile -Path pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1`, then
-       the consumer test)
-
-### F: the consumer's gates and DRS
-
-1. [ ] `pwsh/Base.Repository/Assert-CatzcSourceTree.ps1` (new public, by staged burst): the guard for catzc-only tools, true only when the
-       working root is catzc's own repository. (check: `Invoke-TestFile -Path pwsh/Base.Repository/tests/Assert-CatzcSourceTree.Tests.ps1`)
-2. [ ] `pwsh/Base.Repository/Assert-SourceTree.ps1`: true when the working root has tracks to check, in either mode. (check:
-       `Invoke-TestFile -Path pwsh/Base.Repository/tests/Assert-SourceTree.Tests.ps1`)
-3. [ ] One step per catzc-only tool, switching it to `Assert-CatzcSourceTree`, each proven by its own test file: the Builder,
-       `Test-CatzcBuild`, `Test-BuildArtifact`, `Test-GeneratedFiles`, `Build-Readme`, `Get-ReadmeMappings`, `Get-RuleEnforcers`,
-       `Get-GlossarySources`, `Test-Glossary`, `Build-EnglishDictionary`, `Install-VendorModule`, `Remove-VendorModules`, `Build-AgentHook`,
-       `Invoke-BuildForVsCode`, `Get-CSharpTypeDependency`, `New-Importer`, `Copy-CatzcModule`, `Get-ModuleFunction`,
-       `Get-FunctionDependency`, `Test-FunctionDependency`, `Get-InternalAssetDependency`, `Get-ModuleGlobSet`, `Get-ModuleSourceFile`,
-       `Test-AnalyzerDrsMap`, `Test-TrackNamespace`, `Test-TrackMemberCommitted`, `Test-LogicTestIdentity`, `Get-FixtureIdentityTokens`,
-       `Test-ConfigIdentityHygiene`, `Save-PsReadLineKeyHandlerSet`, `Format-Types`, `Test-ReferencePages`, `Build-CommentView`,
-       `Export-Comments`, `Resolve-CatzcBuildVersion`, `Build-DrsCodeDictionary`, `Build-TerminologyDictionary`; the task file splits it
-       into one step per file. (check: each file's own test under `Invoke-TestFile`)
-4. [ ] `pwsh/Base.QualityGates/private/Get-ScriptAnalyzerInputs.ps1`: analyzer rules from the bundle, settings from the working root's
-       analyzer config. (check: `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Get-ScriptAnalyzerInputs.Tests.ps1`)
-5. [ ] `pwsh/Base.QualityGates/private/Get-TestAutomationTestPaths.ps1`: the working root's tracks' `tests/` folders plus `.catzc/` override
-       tests in build mode, never the bundle's. (check:
-       `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Get-TestAutomationTestPaths.Tests.ps1`)
-6. [ ] `pwsh/Base.QualityGates/Test-QualityGates.ps1` (new public, by staged burst): run the `checks:` union over the working root, one
-       report, fail on any issue; assertion in the consumer test: green on the clean consumer, red on a planted defect. (check:
-       `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-QualityGates.Tests.ps1`, then the consumer test)
-7. [ ] `.github/workflows/ci-pwsh.yml` and `.ado/pipelines/ci-pwsh.yaml`, one each: `Test-QualityGates` before `Test-Automation`. (check:
-       each pipeline's trigger test under `Invoke-TestFile`)
-8. [ ] `pwsh/Base.Drs/types/DrsConfig.cs`: `drs` registered as a working-root config, so a consumer's `drs.yml` replaces catzc's; assertion
-       in the consumer test: `Test-DrsRegistry` on the consumer's one record, no catzc domain in its index. (check:
-       `Invoke-TestFile -Path pwsh/Base.Drs/tests/types/DrsConfig.Tests.ps1`, then the consumer test)
-9. [ ] `docs/how-to/consumer-repository.md` (new): install a bundle, override a catzc config, add a module in each language with its config
-       and types, start a DRS, run `Test-QualityGates` and `Test-Automation` as CI. (check:
-       `Test-Links -Path docs/how-to/consumer-repository.md`)
-
-### G: Go as a module language
-
-1. [ ] `docs/drs/automation/go/go-test-artifacts.md`: becomes the Go language record (a `go` track of modules by layout, tests one use),
-       renamed `go-language.md` with its `drs.yml` row. (check: `Test-DrsRegistry`,
-       `Test-Links -Path docs/drs/automation/go/go-language.md`)
-2. [ ] `.claude/CLAUDE.md`: point the ADR-AUTO-GO link at `go-language.md`. (check: `Test-Links -Path .claude/CLAUDE.md`)
-3. [ ] `docs/drs/automation/test-artifact-languages.md`: Go named beside python and javascript as a module language. (check:
-       `Test-Links -Path docs/drs/automation/test-artifact-languages.md`)
-4. [ ] `pwsh/Base.Languages/types/GoConfig.cs`: module roots beside the test root, and `go` registered as a working-root config. (check:
-       `Invoke-TestFile -Path pwsh/Base.Languages/tests/types/GoConfig.Tests.ps1`)
-5. [ ] `pwsh/Base.Languages/New-GoWorkspace.ps1`: render `go.work` over module folders as well as test folders. (check:
-       `Invoke-TestFile -Path pwsh/Base.Languages/tests/New-GoWorkspace.Tests.ps1`)
-6. [ ] `pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1`: a python, a go, a bash and a javascript consumer module, each with its test, run by
-       `Test-Automation` in the consumer. (check: the file under `Invoke-TestFile`)
-
-### H: a working root with no repository
-
-1. [ ] `pwsh/Base.Repository/Assert-GitWorkTree.ps1` (new public, by staged burst): the ADR-REPO-REPOKIND-NOREPO message naming the caller,
-       built on `Get-GitIndexPath`'s check. (check: `Invoke-TestFile -Path pwsh/Base.Repository/tests/Assert-GitWorkTree.Tests.ps1`)
-2. [ ] `pwsh/Base.Files/Get-RepoStatus.ps1`: call `Assert-GitWorkTree`. (check:
-       `Invoke-TestFile -Path pwsh/Base.Files/tests/Get-RepoStatus.Tests.ps1`)
-3. [ ] `pwsh/Base.Files/Test-GitPathChanged.ps1`: call `Assert-GitWorkTree`. (check:
-       `Invoke-TestFile -Path pwsh/Base.Files/tests/Test-GitPathChanged.Tests.ps1`)
-4. [ ] `pwsh/Base.Files/Get-GitChangedPath.ps1`: call `Assert-GitWorkTree`. (check:
-       `Invoke-TestFile -Path pwsh/Base.Files/tests/Get-GitChangedPath.Tests.ps1`)
-5. [ ] `pwsh/Base.Git/Sync-Topic.ps1`: call `Assert-GitWorkTree`. (check: `Invoke-TestFile -Path pwsh/Base.Git/tests/Sync-Topic.Tests.ps1`)
-6. [ ] `pwsh/Base.Git/Save-Topic.ps1`: call `Assert-GitWorkTree`. (check: `Invoke-TestFile -Path pwsh/Base.Git/tests/Save-Topic.Tests.ps1`)
-7. [ ] `pwsh/Base.Globs/Get-MarkerBlastRadius.ps1`: call `Assert-GitWorkTree`. (check:
-       `Invoke-TestFile -Path pwsh/Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1`)
-8. [ ] `pwsh/Base.VSCode/private/New-VsCodeExtensionFolder.ps1`: catzc's extension assets through `Get-CatzcModuleRoot`, not
-       `Get-RepositoryRoot` and the js track place. (check:
-       `Invoke-TestFile -Path pwsh/Base.VSCode/tests/New-VsCodeExtensionFolder.Tests.ps1`)
-9. [ ] `pwsh/Base.VSCode/private/New-VsCodeFileIconTheme.ps1`: the file-icons and track-lamps assets the same way. (check:
-       `Invoke-TestFile -Path pwsh/Base.VSCode/tests/New-VsCodeFileIconTheme.Tests.ps1`)
-10. [ ] `pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1`: a no-repository variant of the consumer; a git command stops with the named
-        message, the rest runs. (check: the file under `Invoke-TestFile`)
-11. [ ] `docs/drs/repository/repository-kinds.md`: name `Assert-GitWorkTree` under how ADR-REPO-REPOKIND-NOREPO is enforced. (check:
-        `Test-Links -Path docs/drs/repository/repository-kinds.md`)
-
 ### I: every language in the bundle
 
-1. [ ] `docs/drs/automation/test-artifact-languages.md`: a bundle ships the modules of every selected language track in that language's
-       packaged form; drop "no bundle holds a file of a test-artifact language". (check: `Test-DrsRegistry`,
-       `Test-Links -Path docs/drs/automation/test-artifact-languages.md`)
-2. [ ] `docs/drs/automation/platform-bundle.md`: the runtime payload names the per-language packaged forms, the `platforms` list, and the
-       content hash over all of it. (check: `Test-DrsRegistry`, `Test-Links -Path docs/drs/automation/platform-bundle.md`)
-3. [ ] `docs/drs/design/thin-platforms.md`: the bundle as the one distributable thin platform layer, carrying every language. (check:
-       `Test-Links -Path docs/drs/design/thin-platforms.md`)
-4. [ ] `pwsh/Base.Languages/types/LanguagesConfig.cs`: a `package` handler per language (command name and shipped form). (check:
-       `Invoke-TestFile -Path pwsh/Base.Languages/tests/types/LanguagesConfig.Tests.ps1`)
-5. [ ] `pwsh/Base.Languages/configs/languages.yml`: `package` entries for go, bash, python and javascript. (check: the same test file)
-6. [ ] `pwsh/Base.Exporter/types/ExporterBundle.cs`: a `platforms` list with the default set. (check:
-       `Invoke-TestFile -Path pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1`)
-7. [ ] `pwsh/.internal/assets/builder/Get-ModuleBuildPlan.ps1`: select the modules of every language track in the profile and hand each to
-       its language's `package` handler. (check: `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`)
-8. [ ] `pwsh/.internal/assets/builder/Get-BuildClosureViolation.ps1`: a pwsh call into a Go, Python, bash or JavaScript module must land in
-       a selected module and be declared in `dependencies.yml`. (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Get-BuildClosureViolation.Tests.ps1`)
-9. [ ] `pwsh/Base.Exporter/Assert-CatzcBundle.ps1`: every shipped non-pwsh module has its packaged form (a binary per platform, wheels for
-       every locked dependency, a `.vsix` per extension). (check:
-       `Invoke-TestFile -Path pwsh/Base.Exporter/tests/Assert-CatzcBundle.Tests.ps1`)
-10. [ ] `pwsh/Base.Languages/Export-GoModule.ps1` (new public, by staged burst): build a Go module's binaries for the bundle's platforms
-        with build paths stripped and the pinned toolchain, byte-identical on rebuild. (check:
-        `Invoke-TestFile -Path pwsh/Base.Languages/tests/Export-GoModule.Tests.ps1`)
-11. [ ] `pwsh/Base.Languages/Export-BashModule.ps1` (new public, by staged burst): copy a bash module as git stores it, executable bit kept.
-        (check: `Invoke-TestFile -Path pwsh/Base.Languages/tests/Export-BashModule.Tests.ps1`)
-12. [ ] `pwsh/Base.Languages/Export-PythonModule.ps1` (new public, by staged burst): the module's source plus wheels for its `uv.lock`,
-        taken from the managed local cache, never a feed. (check:
-        `Invoke-TestFile -Path pwsh/Base.Languages/tests/Export-PythonModule.Tests.ps1`)
-13. [ ] `pwsh/Base.Languages/Export-JavaScriptModule.ps1` (new public, by staged burst): a `.vsix` for an extension module, the source for
-        any other. (check: `Invoke-TestFile -Path pwsh/Base.Languages/tests/Export-JavaScriptModule.Tests.ps1`)
-14. [ ] `pwsh/Base.Repository/Get-CatzcModuleRoot.ps1`: resolve a module of any language track under the code root, so a shipped Go, Python,
-        bash or JavaScript module is found in a bundle. (check:
-        `Invoke-TestFile -Path pwsh/Base.Repository/tests/Get-CatzcModuleRoot.Tests.ps1`)
-15. [ ] `pwsh/Base.Execution` process runner (the command that starts a language tool): run a shipped module from its packaged form — the
-        platform's Go binary, bash with the bundle path, Python against the vendored wheels — and name the missing runtime's install command
-        when Python or node is absent. (check: the runner's test file under `Invoke-TestFile`)
-16. [ ] `pwsh/Base.Exporter/tests/Build-Modules.Languages.Tests.ps1` (new, L2 integrity, greedy, source-only): build a fixture with a Go, a
-        bash, a Python and a JavaScript module; assert the packaged forms, a byte-identical rebuild, and from a fresh install in a foreign
-        repo and in a folder with no repository, a pwsh call into each that returns its output. (check: the file under `Invoke-TestFile`)
-17. [ ] `pwsh/Base.Exporter/configs/exporter.yml`: re-measure each bundle's `max_files` and `max_bytes` with the binaries and wheels in.
-        (check: `Invoke-TestFile -Path pwsh/Base.Exporter/tests/types/ExporterConfig.Tests.ps1`)
+1. [ ] `pwsh/Base.Languages/New-JsConfig.ps1` and `pwsh/Base.QualityGates/Test-JavaScriptTypes.ps1`: on the consumer fixture of
+       `pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1` the gate reads
+       `tsc could not check the JavaScript of jsconfig.json (exit 2): error TS2688: Cannot find type definition file for 'node'`: the
+       rendered `jsconfig.json` points `typeRoots` at `.typescript/node_modules/@types`, a per-machine npm install (`Install-TypeScript`,
+       `tools.yml` `types_node`), which a consumer root never has; catzc vendors no copy today, so the step waits on the user's vendoring of
+       `@types/node` and `@types/vscode` under `pwsh/.vendor/TypeScriptTypes/@types/` (task-user-runs-and-commits, step 3). Then one
+       resolver answers the type root in both modes (the vendored folder, under the code root in build mode), `Catzc.Base.QualityGates`
+       carries it in `gate_internal_files`, `New-JsConfig` renders `typeRoots` from it, `Test-JavaScriptTypes` reads the same, `tools.yml`
+       drops the `types_node`/`types_vscode` installs (PDR-ONELIVE), and `Test-JavaScriptTypes` leaves the pending list of the consumer
+       test. (check: `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-JavaScriptTypes.Tests.ps1`,
+       `Invoke-TestFile -Path pwsh/Base.Languages/tests/New-JsConfig.Tests.ps1`, then the consumer test under `Invoke-TestFile -MaxLevel 3`)
 
 ## Open questions
 
@@ -345,7 +156,7 @@ gates, DRS) applied to that team's code. Verified against the tree on 2026-11-02
   ([module-config-loading](../../docs/drs/configuration/module-config-loading.md)), ADR-AUTO-MODULE
   ([module-model](../../docs/drs/automation/module-model.md)), ADR-AUTO-TESTLANG
   ([test-artifact-languages](../../docs/drs/automation/test-artifact-languages.md)), ADR-AUTO-GO
-  ([go-test-artifacts](../../docs/drs/automation/go/go-test-artifacts.md)), ADR-PWSH-TYPES
+  ([go-language](../../docs/drs/automation/go/go-language.md)), ADR-PWSH-TYPES
   ([hosting-csharp-types](../../docs/drs/automation/pwsh/hosting-csharp-types.md)), ADR-REPO-REPOKIND-NOREPO
   ([repository-kinds](../../docs/drs/repository/repository-kinds.md)).
 - The generic gates that keep `Assert-SourceTree` (no step, they change through it): `Test-Formatting`, `Format-Code`, `Format-FileMeta`,

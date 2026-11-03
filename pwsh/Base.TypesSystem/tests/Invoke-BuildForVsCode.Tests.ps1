@@ -1,7 +1,7 @@
 Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.
-        Mock Assert-SourceTree -ModuleName Catzc.Base.TypesSystem { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.TypesSystem { }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { $TestDrive }
         Mock Assert-PathExist -ModuleName Catzc.Base.TypesSystem { }
         Mock Test-Command -ModuleName Catzc.Base.Asserts { $true }
@@ -51,7 +51,7 @@ Describe 'Invoke-BuildForVsCode — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package, before launching dotnet' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem { }
-        { Invoke-BuildForVsCode } | Should -Throw '*Invoke-BuildForVsCode operates on the catzc source tree*'
+        { Invoke-BuildForVsCode } | Should -Throw '*Invoke-BuildForVsCode runs in catzc*s source tree only*'
         Should -Not -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem
     }
 }

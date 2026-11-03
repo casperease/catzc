@@ -26,7 +26,8 @@ module-level state with another.
 
 ### Rule DDR-RUNMODE-MODEISDERIVED
 
-The mode is derived, never stored: it is `source` when the code root is the repository's own code track, and `build` otherwise.
+The mode is derived, never stored: it is `source` when the code root is the repository's own code track, and `build` otherwise. It is
+derived from catzc's code root alone: a consumer's own modules, loaded from the working root's tracks, never change the mode.
 
 - [Deriving the mode](#deriving-the-mode)
 
@@ -34,7 +35,9 @@ The mode is derived, never stored: it is `source` when the code root is the repo
 
 The two modes never coexist in one session. Entering either mode first removes every module loaded from the other mode's root, then asserts
 that every loaded catzc module comes from the active root. Switching works in any order and any number of times; the one thing that cannot
-be swapped is the loaded C# types assembly, which is reused when both modes' type sources are identical.
+be swapped is the loaded C# types assembly, which is reused when both modes' type sources are identical. The exclusion is about catzc's own
+modules: a session never holds catzc modules from two roots, while a consumer's own modules, loaded from source from the working root's
+tracks after the bundle and its `.catzc/` overrides, always load beside the bundle and are neither evicted nor asserted.
 
 - [Switching modes in one session](#switching-modes-in-one-session)
 
@@ -124,6 +127,10 @@ entry of the same name never see each other's value, in either mode, and a scope
 The code root is set once per load by the entry point. A stored mode flag could disagree with the code actually loaded; a derived one
 cannot.
 
+The code root is catzc's: where the loaded catzc modules live. A consumer's own modules sit in the working root's tracks, which are not the
+code root, so a session with a bundle installed is in build mode however many consumer modules it loads, and a consumer module loaded from
+source does not make it a source-mode session.
+
 ### Switching modes in one session
 
 A developer moves between the modes in one shell — the repository's importer, then a build's entry, then the importer again, in any order
@@ -137,6 +144,9 @@ enforces mutual exclusion:
   roots, when any loaded catzc module lies outside the active code root.
 - **Caches reset by construction.** An evicted module takes its state with it, so a switched session never sees a cache from the other mode.
   Vendored modules are reloaded from the active mode's vendor folder.
+- **Consumer modules are outside the exclusion.** The eviction and the assertion name catzc modules only. A consumer's pwsh modules, named
+  `<Namespace>.<Folder>`, load from their folders through the same loader catzc's source modules use, after the bundle and its `.catzc/`
+  overrides, and always come from the working root's tracks, whichever root holds catzc's modules.
 - **Types are the exception.** A loaded assembly cannot be unloaded. Every build ships the full type set — the same type sources and the
   same hash-named assembly as the source tree, whatever its module selection — so when the sources are unchanged the type identities are the
   same and the loaded assembly is reused in any switch order. The types guard compares the per-file digests of the loaded type set with the

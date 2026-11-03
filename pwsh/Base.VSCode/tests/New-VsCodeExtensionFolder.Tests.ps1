@@ -90,7 +90,54 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+Describe 'New-VsCodeExtensionFolder — module root from the resolver' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:place = (Get-Track -Name js).places[0]
+        $script:entry = [Catzc.Base.VSCode.VscodeOwnExtension]::new('widget-ext', [ordered]@{
+                displayName      = 'Widget'
+                description      = 'A widget.'
+                activationEvents = @('onStartupFinished')
+            })
+    }
+
+    It 'reads the script from the resolved module root and names it relative to the repository root when under it' {
+        $repo = Join-Path $TestDrive 'repo'
+        $module = [System.IO.Path]::Combine($repo, $script:place, 'widget-ext')
+        $null = New-Item -ItemType Directory -Path $module -Force
+        Set-Content -LiteralPath (Join-Path $module 'extension.js') -Value 'module.exports = { resolved: true };'
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.VSCode -MockWith { $repo }.GetNewClosure()
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -MockWith { $module }.GetNewClosure()
+        $folder = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $script:entry; Out = (Join-Path $TestDrive 'source-out') } {
+            param($Entry, $Out)
+            New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out
+        }
+        Get-Content -LiteralPath (Join-Path $folder 'extension.js') -Raw | Should -Match 'resolved: true'
+        (Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json).catzc.source |
+            Should -BeExactly "$($script:place)/widget-ext"
+        $place = $script:place
+        Should -Invoke Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Place -eq '$place' -and `$Module -eq 'widget-ext'"))
+    }
+
+    It 'names the absolute module path in build mode, where the module lies under the code root outside the working root' {
+        $repo = Join-Path $TestDrive 'consumer'
+        $null = New-Item -ItemType Directory -Path $repo -Force
+        $module = [System.IO.Path]::Combine($TestDrive, 'code', $script:place, 'widget-ext')
+        $null = New-Item -ItemType Directory -Path $module -Force
+        Set-Content -LiteralPath (Join-Path $module 'extension.js') -Value 'module.exports = { built: true };'
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.VSCode -MockWith { 'build' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.VSCode -MockWith { $repo }.GetNewClosure()
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -MockWith { $module }.GetNewClosure()
+        $folder = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $script:entry; Out = (Join-Path $TestDrive 'build-out') } {
+            param($Entry, $Out)
+            New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out
+        }
+        Get-Content -LiteralPath (Join-Path $folder 'extension.js') -Raw | Should -Match 'built: true'
+        (Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json).catzc.source |
+            Should -BeExactly $module.Replace('\', '/')
+    }
+}
+
+Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml'-Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'renders every registry entry from its shipped script to a manifest the packer accepts' {
         $entries = @((Get-Config -Config vscode-extensions).extensions)
         $entries.Count | Should -BeGreaterThan 0

@@ -24,10 +24,14 @@ impossible.
 
 ### Rule ADR-BCL-TYPES-ONEASSEMBLY
 
-Every module's `types/*.cs` compile together into **one** assembly for the whole repository, so a type in any module can reference a type in
-any other — only cross-_namespace_ references inside a single assembly, never cross-_assembly_. The compiler-assigned assembly name is
-irrelevant because the assembly is a leaf in the reference graph: nothing references it by assembly identity, and every caller resolves a
-type by its fully-qualified name. One runtime compiler builds it, the host's own, with no separate build step.
+Every module's `types/*.cs` of one namespace compile together into **one** assembly, so a type in any module of that namespace can reference
+a type in any other — only cross-_namespace_ references inside a single assembly, never cross-_assembly_. Catzc's modules are one namespace
+and one assembly, `Catzc.Types.<hash>.dll`; a consumer's modules are their own namespace and their own assembly,
+`<Namespace>.Types.<hash>.dll`, whose one outward reference is catzc's assembly
+([ADR-AUTO-CONSUMER-OWNTYPES](../consumer-repository.md#rule-adr-auto-consumer-owntypes)). The compiler-assigned assembly name is irrelevant
+because each assembly is a leaf of its own reference graph: nothing but a consumer's assembly references catzc's, and that by the loaded
+assembly, not by a name baked in; every caller resolves a type by its fully-qualified name. One runtime compiler builds each, the host's
+own, with no separate build step.
 
 - [One assembly](#one-assembly)
 
@@ -109,8 +113,9 @@ types from each module's `types/` folder, compiling them once per machine into a
 without recompiling (see [caching](../caching.md#rule-adr-auto-cache-compiledtypeprebuild) for why this prebuild is the one sanctioned
 cross-session cache); git holds only each module's `types.json` contract.
 
-Compilation produces **one assembly for the whole repository**, so any module's types can reference any other's: a single shared base and
-records layered across modules. The cost is that the dependency checker, not the compiler, polices layering.
+Compilation produces **one assembly per namespace**, so any module's types can reference any other's in that namespace: a single shared base
+and records layered across modules. A consumer repository's modules form a namespace of their own, compiled into their own assembly beside
+catzc's, which the consumer's types reference but never join. The cost is that the dependency checker, not the compiler, polices layering.
 
 ### One assembly
 
@@ -130,13 +135,18 @@ One combined assembly dissolves the problem entirely rather than working around 
 A layer inversion (a base-module type referencing a leaf-module type) compiles in one assembly, so the linter catches it instead (Rule
 ADR-BCL-TYPES-REFERENCESFOLLOWDEPS).
 
+The same holds per namespace. A consumer's assembly is compiled after catzc's is loaded and references it, so the edge runs one way, from
+the consumer's types to catzc's, and no catzc type can name a consumer's. The consumer's assembly is a second leaf, named for its namespace
+and its source hash, so it never takes the name of catzc's; and a consumer's source cannot declare a `Catzc.` namespace, so its types never
+share a full name with catzc's.
+
 ## Decision
 
-Every module's `types/*.cs` are compiled together into **one** assembly, `Catzc.Types.<combinedHash8>.dll` in the per-user shadow root,
-autoloaded before any module's functions. Each file is named for the bare type it must produce and declares the file-scoped
-`namespace <module>;` of its folder; the loader compiles the sources **as authored**, one compilation unit per file, all landing in the
-single assembly — so the FQN is `<module>.<filename>`. Types may reference each other across modules (one assembly); the dependency graph,
-not the compiler, governs those edges.
+Every module's `types/*.cs` of one namespace are compiled together into **one** assembly: catzc's, `Catzc.Types.<combinedHash8>.dll` in the
+per-user shadow root, autoloaded before any module's functions, and each consumer's, `<Namespace>.Types.<hash>.dll`, referencing catzc's.
+Each file is named for the bare type it must produce and declares the file-scoped `namespace <module>;` of its folder; the loader compiles
+the sources **as authored**, one compilation unit per file, all landing in the single assembly — so the FQN is `<module>.<filename>`. Types
+may reference each other across modules (one assembly); the dependency graph, not the compiler, governs those edges.
 
 The mechanism is `Import-CSharpTypes` in `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`, run once as a pre-pass by `Import-AllModules`
 before the module loop.
@@ -392,7 +402,8 @@ The module-dependency graph that governs cross-module C# type edges (ADR-BCL-TYP
 
 ## Consequences
 
-- The whole repository's types compile together and reference each other freely.
+- Each namespace's types compile together and reference each other freely; a consumer's assembly references catzc's and nothing references
+  it back.
 
 - A type file's module identity lives in its folder; moving a `.cs` to another module is a safe refactor — re-run `Format-Types`.
 

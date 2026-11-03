@@ -20,7 +20,7 @@ so re-capturing an unchanged session is a no-op.
 ### parameter `Path`
 
 Target file. Defaults to the catzc source tree's pwsh/Tooling.KeyHandler/configs/key-handler-bindings.yml — the authored config that
-Import-PsReadLineKeyHandlerSet reads back once loaded. The default needs a session running the source tree (Assert-SourceTree), so a capture
+Import-PsReadLineKeyHandlerSet reads back once loaded. The default runs in catzc's source tree only (Assert-CatzcSourceTree), so a capture
 is never written into a built package.
 
 ### example 1

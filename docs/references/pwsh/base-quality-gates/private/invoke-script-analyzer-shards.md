@@ -20,7 +20,7 @@ shards each pass's files across background pwsh PROCESSES — the same approach,
 - Each shard imports the analyzer once and pipes its whole file list through a SINGLE Invoke-ScriptAnalyzer call, so the ~3s per-process
   setup is paid once per shard, not per file.
 - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
-- Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (record
+- Shards run from the repo root (Push-Location/Pop-Location), the CustomRulePath entries resolved against the code root (record
   working-directory-mechanics, rule
   [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
 - Each shard reads the settings file itself and applies its pass's rule selection (`IncludeRules`, or extra `ExcludeRules`): a job's
@@ -39,6 +39,10 @@ One entry per pass with files pending: its `Label`, `Files`, `SettingsPath`, `In
 
 The repository root the shards run from.
 
+### parameter `CodeRoot`
+
+The code root, `Get-CatzcModulesRoot` at the caller: the vendored analyzer and the custom rule modules resolve from it.
+
 ### outputs
 
 `[hashtable]` Each pass's label mapped to the diagnostic records its shards returned.
@@ -47,7 +51,11 @@ The repository root the shards run from.
 
 The vendored analyzer ships inside the code tree, so it resolves from the code root
 ([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
-The shards still run from the repository root, because the settings' `CustomRulePath` entries are relative to it.
+The shards run from the repository root, and each shard rewrites the settings' `CustomRulePath` entries after reading them: every entry
+becomes `<code root>/.scriptanalyzer/<leaf name>`, so the rules the bundle ships are the ones that run, in a consumer root as in catzc's
+source tree, where the code root's rule folder is the same folder the relative entries named
+([ADR-AUTO-CONSUMER-CATZCGATES](../../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-catzcgates),
+[ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).
 
 ## Shard budget
 

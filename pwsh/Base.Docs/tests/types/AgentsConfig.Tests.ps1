@@ -60,6 +60,15 @@ Describe 'AgentsConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
         $thrown.Exception.Message | Should -Match "contracts entry 'ADR-WI#1' must be a bare record code"
     }
 
+    It 'declares the agents folder once as a default and reads a declared folder with slashes normalised' -Tag 'ADR-REPO-AGENTS-BACKEDBYRULE' {
+        $default = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = @($widget) })
+        $default.folder | Should -Be '.claude/agents'
+        $set = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = @($widget); folder = 'widget\gadgets\' })
+        $set.folder | Should -Be 'widget/gadgets'
+        { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = @($widget); folder = '/' }) } |
+            Should -Throw '*folder must not be empty*'
+    }
+
     It 'rejects an empty agents list' {
         { [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{ agents = @() }) } |
             Should -Throw '*agents must be a non-empty list*'

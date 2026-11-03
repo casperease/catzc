@@ -35,6 +35,17 @@ function Get-Widget {
         & (Get-Module Catzc.Base.Widget) { Get-WidgetCore } | Should -Be 'core2'
     }
 
+    It 'applies an override of a bundled module in a built root, where the folder carries the namespace' {
+        & $useBuiltRoot
+        Set-OverlayFile 'Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param(`n        [Parameter(Mandatory)]`n        [string] `$Name,`n`n        [int] `$Count`n    )`n    'built'`n}"
+        Set-OverlayFile 'Base.Widget/configs/widget.yml' 'limit: 5'
+
+        $applied = @(Import-Overlay)
+
+        @($applied | ForEach-Object Target) | Should -Be @('Get-Widget')
+        Get-Widget -Name lever | Should -Be 'built'
+    }
+
     It 'applies nothing when the overlay breaks a rule' {
         Set-OverlayFile 'Base.Widget/Get-Widget.ps1' "function Get-Widget {`n    [OutputType([string])]`n    param()`n    'overridden'`n}"
         $before = (Get-Command Get-Widget).Definition
@@ -42,53 +53,12 @@ function Get-Widget {
         (Get-Command Get-Widget).Definition | Should -Be $before
     }
 
-    Context 'a local module' {
-        BeforeEach {
-            # Discovery reaches the fixture overlay only through its own seams, so the test never reads a real consumer's overlay.
-            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
-            Mock Get-OverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
-            & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
-        }
-        AfterEach {
-            Remove-Module Widget.Local -Force -ErrorAction Ignore
-            & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }
-        }
+    It 'loads nothing from a folder that names no bundled module and throws, pointing at the consumer''s tracks' {
+        Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'local'`n}"
 
-        It 'loads after the overrides, exporting its public functions only, with its config and folder found in the overlay' {
-            Set-OverlayFile 'Base.Widget/Get-Widget.ps1' @'
-function Get-Widget {
-    [OutputType([string])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $Name,
-
-        [int] $Count
-    )
-    'overridden'
-}
-'@
-            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    `"`$(Get-LocalCore):`$(Get-Widget -Name lever):`$((Get-Config -Config widget-local).limit)`"`n}"
-            Set-OverlayFile 'Widget.Local/private/Get-LocalCore.ps1' "function Get-LocalCore {`n    'local-core'`n}"
-            Set-OverlayFile 'Widget.Local/configs/widget-local.yml' 'limit: 7'
-
-            $applied = @(Import-Overlay)
-
-            @($applied | ForEach-Object Kind) | Should -Be @('FunctionOverride', 'LocalModule')
-            # Its private function, the bundle as overridden, and its own config.
-            Get-Local | Should -Be 'local-core:overridden:7'
-            @((Get-Module Widget.Local).ExportedFunctions.Keys) | Should -Be @('Get-Local')
-            Get-CatzcModuleRoot -Module Widget.Local | Should -Be ([System.IO.Path]::Combine($overlayRoot,
-                    'Widget.Local'))
-        }
-
-        It 'replaces the module a previous load built' {
-            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'first'`n}"
-            $null = Import-Overlay
-            Set-OverlayFile 'Widget.Local/Get-Local.ps1' "function Get-Local {`n    'second'`n}"
-            $null = Import-Overlay
-            Get-Local | Should -Be 'second'
-            @(Get-Module Widget.Local).Count | Should -Be 1
-        }
+        { Import-Overlay } | Should -Throw -ExpectedMessage '*names no bundled module*'
+        Get-Module Widget.Local | Should -BeNullOrEmpty
+        Get-Command Get-Local -ErrorAction Ignore | Should -BeNullOrEmpty
     }
 
     It 'does nothing without an overlay' {

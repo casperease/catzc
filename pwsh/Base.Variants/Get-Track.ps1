@@ -10,7 +10,7 @@ function Get-Track {
         [string] $Path
     )
 
-    $tracks = @(Get-Variant -Name tracks)
+    $tracks = @(Get-DeclaredTrack)
 
     if ($PSCmdlet.ParameterSetName -eq 'Name') {
         foreach ($trackName in $Name) {

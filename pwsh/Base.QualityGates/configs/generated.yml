@@ -4,6 +4,7 @@ writers:
   Build-TerminologyDictionary:
     class: untracked
     at_import: true
+    consumer: true
     inputs: [pwsh/Base.QualityGates/**]
     outputs: [".cspell/*.txt"]
   # It flattens the English tries of the installed cspell, read from the global node_modules outside the tree.
@@ -31,6 +32,7 @@ writers:
     class: snapshot
     check: none
     expands: comment-pages
+    expander: Get-CommentPageGeneratedTarget
     inputs: [pwsh/Base.CodeMeta/configs/comment-pages.yml, pwsh/Base.QualityGates/configs/comments.yml]
     outputs:
       - docs/references/pwsh/**

@@ -27,7 +27,8 @@ function Write-TypesAssemblyManifest {
         return $manifestPath
     }
 
-    $hash = [System.IO.Path]::GetFileNameWithoutExtension($Path) -replace '^Catzc\.Types\.', ''
+    # The assembly is <Namespace>.Types.<hash>; the hash is the last segment, whatever the namespace.
+    $hash = [System.IO.Path]::GetExtension([System.IO.Path]::GetFileNameWithoutExtension($Path)).TrimStart('.')
     $manifest = [ordered]@{ hash = $hash; types = @((Get-TypesAssemblyManifest -Path $Path).Types | ForEach-Object { [ordered]@{ name = $_.Name; aliases = @($_.Aliases); display = @($_.Display) } }) }
     $json = (ConvertTo-Json -InputObject $manifest -Depth 5) -replace "`r`n", "`n"
     $tmp = "$manifestPath.$PID.tmp"

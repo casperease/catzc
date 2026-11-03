@@ -63,12 +63,3 @@ a server password nobody holds, and running the rotation again sets a fresh one 
 its exit code, never the command). The vault write reads the password from a file deleted right after, so the password is never an argument
 there either. The password is drawn from the system's cryptographic generator, with every character class SQL requires and no character a
 command line would change.
-
-## comment:1
-
-Above `$slots = @((Get-BicepTemplate expedition).slots | Where-Object {`, written with `#`.
-
-```text
-Every expedition slot of the environment, narrowed to one customer when one is given; a slot with a break-glass password is one
-whose administratorLoginPassword is a Key Vault reference.
-```

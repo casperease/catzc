@@ -8,7 +8,7 @@ Describe 'Test-TrackMemberCommitted' -Tag 'L0', 'logic', 'DDR-TRACK-ISPLACEDCLUS
     }
 
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-GeneratedTarget -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         # The index tracks one file under every member unless a case says otherwise.

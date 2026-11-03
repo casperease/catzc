@@ -14,17 +14,19 @@ Gates the module C# types' use of System.Management.Automation against the host 
 A type that takes a PowerShell primitive from System.Management.Automation is a host binding and has its row in bcl.yml
 ([ADR-PWSH-TYPES-POWERSHELLPRIMITIVES](../../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-powershellprimitives));
 every other type stays in the BCL. The gate reads each `<module>/types/*.cs` under the modules root, skipping dot folders and vendored
-modules, and finds the ones with a `using` (or `using static`) of System.Management.Automation. It reports, each as one issue:
+modules (in a consumer root the working root's own module tracks, never the installed code root), and finds the ones with a `using` (or
+`using static`) of System.Management.Automation. It reports, each as one issue:
 
 1. a type source that uses System.Management.Automation with no host binding row in bcl.yml;
-2. a bcl.yml row whose type source does not use it, so the row is stale.
+2. a bcl.yml row whose type source is among the sources read and does not use it, so the row is stale; a row naming a source outside the
+   sources read belongs to the tree that owns it and is not checked.
 
 The report is written through Write-QualityGateReport under the subject `bcl-references`, with the facts `Sources` (type sources read),
 `HostBound` (sources that use the namespace) and `Rows` (host binding rows).
 
 ### parameter `ModulesRoot`
 
-The folder the modules live in. Default: the catzc modules root.
+The folder the modules live in. Default: the catzc modules root in the source tree, the working root's own module tracks in a consumer root.
 
 ### parameter `OutputFolder`
 

@@ -1,7 +1,7 @@
 # pwsh/Base.Overlay/Import-Overlay.ps1
 
 The step that applies a consumer overlay to a loaded bundle: it checks the overlay as a whole, replaces the overridden functions inside
-their modules, then loads the consumer's local modules.
+their modules, and loads nothing else.
 
 ## help
 
@@ -20,16 +20,15 @@ two steps:
 2. a public override is published to the session's command table, where the import had put the original; its script block stays bound to the
    module, so it keeps running in the module's scope, and every other module, which resolves through the session, reaches the override too.
 
-Then each local module loads, after the overrides so it calls the bundle as overridden: its private function files, then its public ones
-(each ordinal — the order a built module's merge uses), are dot-sourced into one new module of the folder's name, which exports the public
-ones. Nothing is written: the module is built in the session, and its configs and assets are found in its overlay folder (Get-Config,
-Get-CatzcModuleRoot).
+A folder under the overlay that names no bundled module loads nothing: it is a finding Assert-Overlay throws on, pointing at the consumer's
+tracks, where the consumer's own modules load from
+([ADR-AUTO-CONSUMER-SOURCEMODULES](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-sourcemodules)).
 
 Config fragments and asset overrides need no step here: Get-Config and Get-CatzcModuleRoot read them on demand.
 
 ### outputs
 
-`[pscustomobject]` The function overrides applied and the local modules loaded (Kind, Module, Target, Visibility, File, RelativePath).
+`[pscustomobject]` The function overrides applied (Kind, Module, Target, Visibility, File, RelativePath).
 
 ### example 1
 

@@ -15,8 +15,11 @@ public sealed class ConfigsConfig
 
     public IReadOnlyDictionary<string, string> configs { get; } = Empty;
 
-    // The configs a consumer overlay may not change (registered with overridable: false), in file order.
+    // The configs a consumer overlay may not change (registered with scope: engine), in file order.
     public IReadOnlyList<string> sealedConfigs { get; } = Array.Empty<string>();
+
+    // The configs that describe the repository and are read whole from the working root (registered with scope: working-root), in file order.
+    public IReadOnlyList<string> workingRootConfigs { get; } = Array.Empty<string>();
 
     // Per config, the top-level keys whose shipped value may differ from the type's default, each with its one-sentence reason.
     public IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>> differs { get; } =
@@ -39,6 +42,7 @@ public sealed class ConfigsConfig
         var entries = registry.Contains("configs") ? registry["configs"] as IDictionary : null;
         var types = new Dictionary<string, string>(StringComparer.Ordinal);
         var sealedNames = new List<string>();
+        var workingRootNames = new List<string>();
         var reasons = new Dictionary<string, IReadOnlyDictionary<string, string>>(StringComparer.Ordinal);
         if (entries == null)
         {
@@ -62,9 +66,9 @@ public sealed class ConfigsConfig
             foreach (var entryKey in entry.Keys)
             {
                 var keyName = entryKey == null ? string.Empty : entryKey.ToString();
-                if (keyName != "type" && keyName != "overridable" && keyName != "differs")
+                if (keyName != "type" && keyName != "scope" && keyName != "differs")
                 {
-                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type, overridable, differs)", name, keyName));
+                    errors.Add(string.Format("config '{0}': unknown key '{1}' (allowed: type, scope, differs)", name, keyName));
                 }
             }
             if (entry.Contains("differs") && entry["differs"] != null)
@@ -91,15 +95,20 @@ public sealed class ConfigsConfig
                 reasons[name] = new ReadOnlyDictionary<string, string>(keyReasons);
             }
             types[name] = entry["type"].ToString().Trim();
-            if (entry.Contains("overridable"))
+            if (entry.Contains("scope"))
             {
-                if (!(entry["overridable"] is bool))
-                {
-                    errors.Add(string.Format("config '{0}': overridable must be true or false", name));
-                }
-                else if (!(bool)entry["overridable"])
+                var scope = entry["scope"] == null ? string.Empty : entry["scope"].ToString().Trim();
+                if (scope == "engine")
                 {
                     sealedNames.Add(name);
+                }
+                else if (scope == "working-root")
+                {
+                    workingRootNames.Add(name);
+                }
+                else if (scope != "module")
+                {
+                    errors.Add(string.Format("config '{0}': scope '{1}' is not one of engine, module, working-root", name, scope));
                 }
             }
         }
@@ -111,6 +120,7 @@ public sealed class ConfigsConfig
 
         configs = new ReadOnlyDictionary<string, string>(types);
         sealedConfigs = sealedNames;
+        workingRootConfigs = workingRootNames;
         differs = new ReadOnlyDictionary<string, IReadOnlyDictionary<string, string>>(reasons);
     }
 

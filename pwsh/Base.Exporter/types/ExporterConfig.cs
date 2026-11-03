@@ -10,16 +10,19 @@ public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =
         { "direct_install_version", "bundles", "default_bundle", "module_guid", "package", "runtime_internal_files",
-          "full_internal_files" };
+          "gate_internal_files" };
 
+    // assets/Import-ModuleFiles.ps1 is the shared source loader: a consumer's modules load from source through it.
     private static readonly string[] DefaultRuntimeInternalFiles =
     {
         "Catzc.Internal.Bootstrap.psm1", "Catzc.Internal.Importer.psm1", "Catzc.Internal.Loader.psm1",
         "Catzc.Internal.Types.psm1", "Catzc.Internal.Vendor.psm1", "assets/ErrorView.format.ps1xml",
-        "assets/Wait-CatzcRunLock.ps1", "assets/types-load.yml", "assets/bootstrap/**", "assets/importer/**", "assets/types/**"
+        "assets/Import-ModuleFiles.ps1", "assets/Wait-CatzcRunLock.ps1", "assets/importer-commands.sh", "assets/types-load.yml",
+        "assets/bootstrap/**",
+        "assets/importer/**", "assets/types/**"
     };
 
-    private static readonly string[] DefaultFullInternalFiles =
+    private static readonly string[] DefaultGateInternalFiles =
         { "Catzc.Internal.TestKit.psm1", "assets/PSScriptAnalyzerSettings.psd1" };
 
     private static readonly Regex BundleName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
@@ -42,8 +45,8 @@ public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
     // The .internal files every bundle ships, as globs relative to .internal; a file ships only when a glob names it.
     public string[] runtime_internal_files { get; }
 
-    // The .internal files only a full-policy bundle adds, as globs relative to .internal.
-    public string[] full_internal_files { get; }
+    // The .internal files a bundle adds when its selection holds Catzc.Base.QualityGates, as globs relative to .internal.
+    public string[] gate_internal_files { get; }
 
     public ExporterConfig(IDictionary d)
     {
@@ -67,7 +70,7 @@ public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary rawBundles = Present(d, "bundles") ? d["bundles"] as IDictionary : null;
         if (rawBundles == null || rawBundles.Count == 0)
         {
-            errors.Add("bundles is required and must be a non-empty map of bundle name -> { profile, version, vendor_policy }");
+            errors.Add("bundles is required and must be a non-empty map of bundle name -> { profile, version }");
         }
         else
         {
@@ -108,7 +111,7 @@ public sealed class ExporterConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         runtime_internal_files = Globs(d, "runtime_internal_files", DefaultRuntimeInternalFiles, errors);
-        full_internal_files = Globs(d, "full_internal_files", DefaultFullInternalFiles, errors);
+        gate_internal_files = Globs(d, "gate_internal_files", DefaultGateInternalFiles, errors);
 
         if (errors.Count > 0)
         {

@@ -27,3 +27,32 @@ Describe 'Get-FileAspect' -Tag 'L0', 'logic' {
         (Get-FileAspect -Path @()).Count | Should -Be 0
     }
 }
+
+Describe 'Get-FileAspect in build mode' -Tag 'L0', 'logic' {
+    BeforeAll {
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.Globs { 'build' }
+        Mock Get-ModuleGlobSet -ModuleName Catzc.Base.Globs { throw 'the module glob sets are source-only' }
+        Mock Get-Track -ModuleName Catzc.Base.Globs {
+            param([string] $Path)
+            if ($Path.StartsWith('widgets/', [System.StringComparison]::Ordinal)) {
+                [pscustomobject]@{ name = 'widgets'; places = @('widgets') }
+            }
+        }
+        Mock Get-Aspect -ModuleName Catzc.Base.Globs {
+            [pscustomobject]@{ Name = 'live'; Patterns = @('*.ps1') }
+            [pscustomobject]@{ Name = 'tests'; Patterns = @('**') }
+        }
+    }
+
+    It 'finds the aspect from the aspect definitions of the track, never from the module glob sets' {
+        $aspects = Get-FileAspect -Path 'widgets/Widget/Get-Thing.ps1', 'widgets/Widget/tests/Get-Thing.Tests.ps1', 'docs/readme.md'
+        $aspects['widgets/Widget/Get-Thing.ps1'] | Should -Be 'live'
+        $aspects['widgets/Widget/tests/Get-Thing.Tests.ps1'] | Should -Be 'tests'
+        $aspects['docs/readme.md'] | Should -Be ''
+        Should -Invoke Get-ModuleGlobSet -ModuleName Catzc.Base.Globs -Times 0 -Exactly
+    }
+
+    It 'gives a file that sits in no module folder of its track no aspect' {
+        (Get-FileAspect -Path 'widgets/readme.md')['widgets/readme.md'] | Should -Be ''
+    }
+}

@@ -7,7 +7,7 @@ function Test-Glossary {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $sources = @(Get-GlossarySources)
     $entries = Get-Glossary

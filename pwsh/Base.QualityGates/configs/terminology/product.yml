@@ -19,6 +19,14 @@ terms:
       meaning: "GOTOOLCHAIN — which Go toolchain go runs; local forbids switching to a downloaded one"
     - term: goproxy
       meaning: "GOPROXY — where go fetches modules from; off keeps a test run on the module cache (ADR-AUTO-NET)"
+    - term: goos
+      meaning: "GOOS — the target operating system of a Go build, one half of a bundle platform"
+    - term: goarch
+      meaning: "GOARCH — the target architecture of a Go build, the other half of a bundle platform"
+    - term: trimpath
+      meaning: "go build -trimpath — strips the build paths so a binary is byte-identical on rebuild"
+    - term: ldflags
+      meaning: "go build -ldflags — the linker flags; -s -w -buildid= drop the symbols and the build id"
     - term: goflags
       meaning: "GOFLAGS — default flags every go command takes, such as -mod=mod"
     - term: gowork
@@ -223,6 +231,8 @@ terms:
       meaning: "a Python virtual environment (python -m venv; uv venv)"
     - term: venvs
       meaning: "plural of venv"
+    - term: pythonpath
+      meaning: "PYTHONPATH — the environment variable that adds folders to Python's module search path"
     - term: importlib
       meaning: "Python importlib.metadata (standard library) — reads an installed package's version without importing it"
     - term: yoke

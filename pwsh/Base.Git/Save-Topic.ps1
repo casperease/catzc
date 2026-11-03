@@ -9,6 +9,7 @@ function Save-Topic {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
+    Assert-GitWorkTree
     Assert-Command git
 
     if ([string]::IsNullOrWhiteSpace($Message)) {

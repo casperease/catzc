@@ -22,10 +22,11 @@ Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMIT
     }
 
     BeforeEach {
+        # Get-Track reads the variants config inside Variants; the check itself reads the rest inside Languages.
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:variants }
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'track-types' } { $script:trackTypes }
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'module-types' } { $script:moduleTypes }
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'languages' } { [pscustomobject]@{ naming_normal_form = 'snake' } }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'track-types' } { $script:trackTypes }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'module-types' } { $script:moduleTypes }
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } { [pscustomobject]@{ naming_normal_form = 'snake' } }
     }
 
     It 'names each track whose name is not in the normal form, and takes a dotted snake name' -Tag 'DDR-TRACKTYPE-NAMEFROMMEMBERS' {

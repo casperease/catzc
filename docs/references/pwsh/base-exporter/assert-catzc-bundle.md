@@ -17,7 +17,9 @@ The build's integrity guard
 
 - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the folder is named for
   build.json's version (a valid `Catzc/<version>/` module folder);
-- no tests/ surface anywhere outside .vendor/ (vendored modules are copied verbatim, by rule);
+- no tests/ surface anywhere outside .vendor/ (vendored modules are copied verbatim, by rule), the language places included;
+- language places: each module build.json's `languages` list names exists in the packaged form of its language (see
+  [Language places](#language-places));
 - types: exactly one `.compiled/Catzc.Types.<hash>.dll`, named for build.json typesHash. Every build ships the full type set: the selected
   modules' sources under `<Module>/types/`, every other module's under `.compiled/types/<Module>/`. build.json typeSources lists them all
   (build-relative paths); each must exist, no shipped source may be missing from the list, and the sources in the list must hash
@@ -53,8 +55,35 @@ No test folder ships: `tests/` is never live by the layout
 ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)). Vendored modules are
 verbatim copies and keep their own (powershell-yaml carries its own `Tests/`).
 
+## Language places
+
+The modules of the other language tracks ship in the packaged form of their language
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)), under the path
+build.json's `languages` list records for each (`<place>/<module>`, for example `python/diagrams`). The top folder of such a path is a
+language place, read from that list rather than from a name the check knows, so it is never taken for a pwsh module folder and no manifest
+or merged file is asked of it. A folder under a place that no entry names is an issue. Each recorded module must exist, by the form its
+entry records:
+
+| Form     | What the check requires                                                                        |
+| -------- | ---------------------------------------------------------------------------------------------- |
+| `source` | the handler's file count shipped, and `executables.json` when the handler recorded executables |
+| `vsix`   | exactly one `<publisher>.<name>-<version>.vsix`                                                |
+| `binary` | `binaries.json`, every binary it lists, and one per platform the handler built for             |
+| `wheels` | `wheels.json` and every wheel it lists under `wheels/`, when the module holds a `uv.lock`      |
+
+Every issue line names the module and what is missing. The tests/ rule above covers the places too.
+
 ## The types hash
 
 The sources `build.json` records are staged in the one layout `Get-CombinedTypeHash` reads (`<Module>/types/<File>.cs`), so the hash comes
 from that one implementation rather than a second copy of its recipe. The hash leaves each file's meta head out and reads the head's
 delimiters from the carriers config, so the build's own copy rides along, shipped beside the type sources and staged there too.
+
+## comment:1
+
+Above `$languageRoots = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+Language places: build.json's languages list names each module another language track packaged, by the path it landed at; the top
+folder of such a path is a language place, never a pwsh module folder (ADR-AUTO-BUNDLE-EVERYLANGUAGE).
+```

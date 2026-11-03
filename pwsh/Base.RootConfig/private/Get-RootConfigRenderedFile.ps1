@@ -29,7 +29,8 @@ function Get-RootConfigRenderedFile {
     }
     $files = @($files)
 
-    if (-not $isPattern -and $files.Count -ne 1) {
+    $isOptional = [bool] ($Entry.PSObject.Properties['optional'] -and $Entry.optional)
+    if (-not $isPattern -and -not ($isOptional -and $files.Count -eq 0) -and $files.Count -ne 1) {
         throw "Root-config entry '$pattern': generator $($Entry.generator) rendered $($files.Count) files for a literal target; it must render exactly one."
     }
     $files

@@ -12,7 +12,7 @@ Describe 'Format-Types' -Tag 'L0', 'logic' {
 
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         $script:widget = & $writeType $script:root 'Catzc.Widget' 'Widget' ('namespace Catzc.Widget;', '',
             'public sealed class Widget { }', '' -join "`n")

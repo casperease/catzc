@@ -63,3 +63,12 @@ Above `$script:contractFixtures = 0`, written with `#`.
 A repository whose modules track holds .internal/Catzc.Internal.Types.psm1 and whose contracts/catzc exists, so
 the import writes the types contract of its one Catzc.* module.
 ```
+
+## comment:2
+
+Above `function New-ConsumerFixture {`, written with `#`.
+
+```text
+One working root holding the consumer's variants config and its module widget/Local; the catzc assembly it references is a fixture build,
+imported from source and then shipped prebuilt.
+```

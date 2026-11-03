@@ -26,7 +26,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
 
     BeforeEach {
         Reset-EnforcerCache
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'analyzer-drs-map' } {
             @{ analyzers = @{ 'Measure-Widget' = @('ADR-WIDGET-GADGET-TAG', 'ADR-WIDGET-GADGET-RULE') } }
         }
@@ -62,7 +62,7 @@ Describe 'widget' -Tag 'L0', 'logic', '$tagged' {
 
 Describe 'Get-RuleEnforcers source-tree guard' -Tag 'L0', 'logic' {
     It 'refuses before reading anything when the session runs a built package' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'widget operates on the catzc source tree' }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { throw 'widget operates on the catzc source tree' }
         Mock Get-Config -ModuleName Catzc.Base.Docs { }
         { InModuleScope Catzc.Base.Docs { Get-RuleEnforcers } } | Should -Throw '*source tree*'
         Should -Invoke Get-Config -ModuleName Catzc.Base.Docs -Times 0

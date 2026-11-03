@@ -15,11 +15,11 @@ compares the three content hashes.
 ## Jobs
 
 - **test** — on each OS: pins Node to 24, installs `cspell` and `markdownlint-cli2` with `Install-Cspell` and `Install-Markdownlint` so the
-  L2 repository spelling and markdown integrity tests run instead of skipping themselves, then runs `Test-Automation -Level 2`. The Node pin
-  matches the major `tools.yml` expects (`Assert-Tool node_js` enforces it before the npm installs); GitHub is migrating the runners'
-  default Node from 20 to 24, and without the pin the version check fails intermittently depending on the runner image. Timings are reported
-  in the run's summary but not enforced here, since hard per-test wall-clock limits flake on shared runners that vary two to five times in
-  speed and run cold.
+  L2 repository spelling and markdown integrity tests run instead of skipping themselves, then runs `Test-QualityGates` and then
+  `Test-Automation -Level 2`. The Node pin matches the major `tools.yml` expects (`Assert-Tool node_js` enforces it before the npm
+  installs); GitHub is migrating the runners' default Node from 20 to 24, and without the pin the version check fails intermittently
+  depending on the runner image. Timings are reported in the run's summary but not enforced here, since hard per-test wall-clock limits
+  flake on shared runners that vary two to five times in speed and run cold.
 - **bundle-hash** — on each OS: checks out with `fetch-depth: 0`, because the calculated version counts first-parent commits, builds the
   full bundle with `Build-Modules -Bundle full`, and uploads the version and content hash as an artifact.
 - **bundle-hash-compare** — downloads the three records and fails unless there are three and all hashes are equal. The same commit builds

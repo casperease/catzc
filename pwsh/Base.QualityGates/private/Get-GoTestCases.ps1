@@ -7,7 +7,28 @@ function Get-GoTestCases {
     )
 
     Assert-PathExist $Folder -PathType Container
-    $modulePath = "$((Get-Config -Config go).module_root)/tests/$([System.IO.Path]::GetFileName($Folder.TrimEnd('\', '/')))"
+    # The package path is the module line of the go.mod (the holder's in the folder, a module's above its tests/) plus the path inside it.
+    $folderFull = [System.IO.Path]::GetFullPath($Folder).TrimEnd('\', '/')
+    $modFile = $null
+    foreach ($candidate in @($folderFull, [System.IO.Path]::GetDirectoryName($folderFull))) {
+        if (-not $modFile -and $candidate -and (Test-Path -LiteralPath (Join-Path $candidate 'go.mod') -PathType Leaf)) {
+            $modFile = Join-Path $candidate 'go.mod'
+        }
+    }
+    if (-not $modFile) {
+        throw "$Folder has no go.mod, in it or above it — it is generated; regenerate with: Build-RootConfig"
+    }
+    $moduleLine = [regex]::Match([System.IO.File]::ReadAllText($modFile), '(?m)^module\s+(\S+)\s*$')
+    if (-not $moduleLine.Success) {
+        throw "$modFile has no module line."
+    }
+    $inside = [System.IO.Path]::GetRelativePath([System.IO.Path]::GetDirectoryName($modFile), $folderFull).Replace('\', '/')
+    $modulePath = if ($inside -eq '.') {
+        $moduleLine.Groups[1].Value
+    }
+    else {
+        "$($moduleLine.Groups[1].Value)/$inside"
+    }
     $integrityPrefix = [Catzc.Base.Languages.GoTestResult]::IntegrityPrefix
     $declaration = [regex]::new('(?m)^func\s+(Test(?![a-z])\w*)\s*\(\s*\w+\s+\*testing\.T\s*\)')
 

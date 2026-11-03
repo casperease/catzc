@@ -15,6 +15,7 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     Context 'a declared registry' {
         BeforeEach {
             Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:fixture }
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Variants { 'source' }
         }
 
         It 'returns every track in declared order on the zero-argument call' {
@@ -60,6 +61,38 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
             Get-Track -Path 'out/widget/report.md' | Should -BeNullOrEmpty
             Get-Track -Path 'LICENSE' | Should -BeNullOrEmpty
             Get-Track -Path 'gimbal/gimbal.txt' | Should -BeNullOrEmpty
+        }
+    }
+
+    Context 'build mode' -Tag 'ADR-AUTO-CONSUMER-OWNTRACKS' {
+        BeforeEach {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Variants { 'build' }
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Variants { Join-Path ([System.IO.Path]::GetTempPath()) 'widget-root' }
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Variants { Join-Path ([System.IO.Path]::GetTempPath()) 'widget-root/.catzc/bundle/pwsh' }
+        }
+
+        It 'prepends the engine''s track, whose one member is the code root relative to the working root' {
+            Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:fixture }
+            $tracks = @(Get-Track)
+            $tracks.name | Should -Be @('pwsh', 'widget', 'gadget', '.gizmo', 'sprocket')
+            $engine = Get-Track -Name pwsh
+            $engine.members.path | Should -Be @('.catzc/bundle/pwsh')
+            $engine.type | Should -Be 'modules'
+            $engine.namespace | Should -Be 'Catzc'
+            $engine.execution_engines | Should -Be @('pwsh')
+            (Get-Track -Path '.catzc/bundle/pwsh/Base.Widget/Get-Widget.ps1').name | Should -Be 'pwsh'
+        }
+
+        It 'refuses a consumer file that names the pwsh track, naming the rule' {
+            $script:clash = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ pwsh = [ordered]@{ members = @('widget'); type = 'modules' } } })
+            Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:clash }
+            { Get-Track } | Should -Throw "*track 'pwsh'*ADR-AUTO-CONSUMER-OWNTRACKS*"
+        }
+
+        It 'refuses a consumer file that gives a track the namespace Catzc, naming the rule' {
+            $script:clash = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'modules'; namespace = 'Catzc' } } })
+            Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:clash }
+            { Get-Track } | Should -Throw "*namespace 'Catzc'*ADR-AUTO-CONSUMER-OWNTRACKS*"
         }
     }
 

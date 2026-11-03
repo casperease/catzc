@@ -20,8 +20,8 @@ to .claude/hooks/bin/ (gitignored), and records a hash of its sources beside it 
 and the program is present, it does nothing, so the importer can run it on every import.
 
 dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which this Base module must not
-depend on, so dotnet must be on PATH. The hooks' C# code lives in the source tree, so it stops with a named error in build mode
-(Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
+depend on, so dotnet must be on PATH. The hooks' C# code lives in the source tree, so it runs in catzc's source tree only
+(Assert-CatzcSourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `Name`
 

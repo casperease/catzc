@@ -1,0 +1,6 @@
+description: Returns the folder the code root holds for a bare module folder name, or the bare name of a code-root folder.
+parameters:
+  name: string! in folder
+  bare_name: string! in bare
+output: string
+default_set: folder

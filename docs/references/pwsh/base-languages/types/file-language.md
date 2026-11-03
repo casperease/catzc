@@ -14,3 +14,5 @@ properties are snake_case
   `formatter` and `no_formatter`.
 - **`checks`** — the quality gates that check a changed file of the language (for example `Test-ScriptAnalyzer`), in the order `Test-Change`
   runs them. Empty when the entry names none.
+- **`package`** — how the language's modules ship in a bundle, a `LanguagePackage` with the exporter `command` and the shipped `form`. Null
+  when the language ships no module of its own.

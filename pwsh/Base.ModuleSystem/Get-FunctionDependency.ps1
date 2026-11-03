@@ -5,7 +5,7 @@ function Get-FunctionDependency {
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # Filesystem-derived, so cached for the session on first use and keyed on the resolved modules root.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:functionDependencyCache')) {

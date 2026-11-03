@@ -1,6 +1,6 @@
 Describe 'Build-EnglishDictionary' -Tag 'L0', 'logic' {
-    It 'refuses to run outside the source tree before touching node (Assert-SourceTree)' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }
+    It 'refuses to run outside the source tree before touching node (Assert-CatzcSourceTree)' {
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { throw 'operates on the catzc source tree' }
         Mock Assert-Command -ModuleName Catzc.Base.QualityGates { }
 
         { Build-EnglishDictionary -DryRun } | Should -Throw '*operates on the catzc source tree*'

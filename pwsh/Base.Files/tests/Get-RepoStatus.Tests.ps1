@@ -60,6 +60,11 @@ Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
     It 'accepts a backslash path' {
         Get-RepoStatus 'widget\a.md' | Should -Be 'pushed'
     }
+
+    It 'throws the work-tree assertion when the root has no repository' {
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Files { throw 'widget root has no git work tree' }
+        { Get-RepoStatus 'widget/a.md' } | Should -Throw '*widget root has no git work tree*'
+    }
 }
 
 Describe 'Get-RepoStatus against real git' -Tag 'L2', 'logic' {

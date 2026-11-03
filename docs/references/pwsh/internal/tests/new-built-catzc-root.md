@@ -1,6 +1,6 @@
 # pwsh/.internal/tests/New-BuiltCatzcRoot.Tests.ps1
 
-The tests of `New-BuiltCatzcRoot` and of `Invoke-InBuiltCatzc` against it.
+The tests of `New-BuiltCatzcRoot`, of `New-ConsumerRoot` (with `Export-Catzc` mocked) and of `Invoke-InBuiltCatzc` against them.
 
 ## The stand-in build root
 

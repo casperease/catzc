@@ -12,6 +12,9 @@ mirrors a `rootconfig.yml` files entry (snake_case keys).
 - **`optIn`** — default false; activates the entry.
 - **`committed`** — default false; true keeps the managed target tracked in git instead of gitignored, for files needed before the importer
   runs (`importer.ps1`, the git files).
+- **`consumer`** — default false; true marks a root file a consumer root needs for its gates, so a build-mode session writes it too.
+- **`optional`** — default false; true lets a literal generator `target` render no file, and then none is written and none is expected (for
+  example `go.work` in a root with no go track). A non-optional literal target must render exactly one file.
 - **`carrier`** — names the file-carriers entry that says where the generated-file head goes (default: the carrier of the target's file
   language).
 - **`sources`** — lists the authored files a generator renders from, for its head.

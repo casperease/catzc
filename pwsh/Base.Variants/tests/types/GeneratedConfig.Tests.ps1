@@ -23,8 +23,10 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         $row.check | Should -Be ([Catzc.Base.Variants.GeneratedWriterRow]::DefaultCheck)
         $row.result_path | Should -Be ([Catzc.Base.Variants.GeneratedWriterRow]::DefaultResultPath)
         $row.at_import | Should -BeFalse
+        $row.consumer | Should -BeFalse
         @($row.inputs) | Should -HaveCount 0
         $row.expands | Should -BeNullOrEmpty
+        $row.expander | Should -BeNullOrEmpty
         $row.regenerate | Should -BeNullOrEmpty
     }
 
@@ -32,15 +34,17 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         $row = [Catzc.Base.Variants.GeneratedConfig]::new([ordered]@{
                 writers = [ordered]@{
                     'Build-Widget' = [ordered]@{
-                        class = 'import-critical'; check = 'file'; result_path = 'Widget'; at_import = $true; inputs = @('widgets/*.yml')
-                        outputs = @('widgets/x.md'); expands = 'widgets'; regenerate = 'Build-Widget'
+                        class = 'import-critical'; check = 'file'; result_path = 'Widget'; at_import = $true; consumer = $true; inputs = @('widgets/*.yml')
+                        outputs = @('widgets/x.md'); expands = 'widgets'; expander = 'Get-WidgetGeneratedTarget'; regenerate = 'Build-Widget'
                     }
                 }
             }).writers[0]
         $row.class | Should -Be 'import-critical'
         $row.result_path | Should -Be 'Widget'
         $row.at_import | Should -BeTrue
+        $row.consumer | Should -BeTrue
         $row.expands | Should -Be 'widgets'
+        $row.expander | Should -Be 'Get-WidgetGeneratedTarget'
         $row.regenerate | Should -Be 'Build-Widget'
     }
 
@@ -84,6 +88,10 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
         @{ Case = 'a result path on another check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'none'; result_path = 'Widget'; outputs = @('w') } } }; Message = '*sets result_path*' }
         @{ Case = 'the gate check without a gate'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'gate'; outputs = @('w') } } }; Message = '*names no gate*' }
         @{ Case = 'a gate on another check'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; check = 'none'; gate = 'Test-Widgets'; outputs = @('w') } } }; Message = '*sets gate*' }
+        @{ Case = 'a consumer writer the import does not run'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; consumer = $true; outputs = @('w') } } }; Message = '*sets consumer*' }
+        @{ Case = 'an expanded config without an expander'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; expands = 'widgets'; outputs = @('w') } } }; Message = '*names no expander*' }
+        @{ Case = 'an expander without an expanded config'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; expander = 'Get-WidgetGeneratedTarget'; outputs = @('w') } } }; Message = '*sets expander*' }
+        @{ Case = 'an expander that is no Verb-Noun name'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; expands = 'widgets'; expander = 'widgets'; outputs = @('w') } } }; Message = '*must be a Verb-Noun function name*' }
         @{ Case = 'no outputs'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable' } } }; Message = '*declares no outputs*' }
         @{ Case = 'empty outputs'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = @() } } }; Message = '*declares no outputs*' }
         @{ Case = 'outputs as one string'; Raw = [ordered]@{ writers = [ordered]@{ 'Build-Widget' = [ordered]@{ class = 'rollable'; outputs = 'w' } } }; Message = '*declares no outputs*' }

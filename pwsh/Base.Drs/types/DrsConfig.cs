@@ -148,10 +148,12 @@ public sealed class DrsConfig
         }
         Root = root;
 
-        IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;
-        if (domainsMap == null || domainsMap.Count == 0)
+        // A repository with no decision records declares no domains: an absent or empty map is a legal registry.
+        object domainsRaw = (raw != null && raw.Contains("domains")) ? raw["domains"] : null;
+        IDictionary domainsMap = domainsRaw == null ? new OrderedDictionary() : domainsRaw as IDictionary;
+        if (domainsMap == null)
         {
-            throw new ArgumentException("drs.yml requires a non-empty 'domains' map");
+            throw new ArgumentException("drs.yml 'domains' must be a map of domain -> { kind, code, role, ... }");
         }
 
         HashSet<string> domainNames = new HashSet<string>(StringComparer.Ordinal);

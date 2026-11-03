@@ -25,7 +25,7 @@ Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConf
 runs. A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends
 through Write-QualityGateReport, which writes out/test-glossary/, prints every issue, and throws once listing them all
 ([ADR-AUTO-FAILFAST](../../../drs/automation/fail-fast-with-asserts.md)). The checks read the source tree's decision records, tests, and
-tracked files, so it runs in source mode only.
+tracked files, so it runs in catzc's source tree only.
 
 ### parameter `OutputFolder`
 

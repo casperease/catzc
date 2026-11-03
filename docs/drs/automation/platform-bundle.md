@@ -5,10 +5,10 @@
 ### Rule ADR-AUTO-BUNDLE-ISBUILD
 
 A **bundle** is the toolset's build: one installable, versioned `Catzc` package of one **named bundle** — an `exporter.yml` `bundles` entry
-with its own profile, version line, and vendor policy — under `out/pwsh/built/<bundle>/Catzc/<version>/`, built by `Build-Modules` from the
-bundle's profile (or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that loads in
-a fresh session of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build
-mode's code root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
+with its own profile and version line — under `out/pwsh/built/<bundle>/Catzc/<version>/`, built by `Build-Modules` from the bundle's profile
+(or, for an experiment or a test, explicit names and/or a profile), closure-expanded over `dependencies.yml`, that loads in a fresh session
+of its engine **outside the mono repo** — with no git work tree, no compile at load, and no working-tree writes. It is build mode's code
+root ([run-modes](../design/run-modes.md)). `Catzc.Base.Exporter` owns its lifecycle: `Build-Modules` builds it (through the
 `Invoke-ModuleBuild` engine in `Catzc.Internal.Builder`), `Install-Catzc`/`Export-Catzc` place it, `Assert-CatzcBundle` verifies it. This is
 the platform-level form of a reproducible, content-addressed, self-service artifact ([self-service](../design/self-service.md)), built once.
 
@@ -65,6 +65,29 @@ hash refreshes only the root importer entry — and the source build is verified
 
 - [The two-part install](#the-two-part-install)
 
+### Rule ADR-AUTO-BUNDLE-GATETOOLINGFOLLOWSGATES
+
+A bundle carries the **gate tooling** — Pester, PSScriptAnalyzer, the analyzer settings and rules, and `Catzc.Internal.TestKit` — exactly
+when its closure-expanded selection holds `Catzc.Base.QualityGates`, and never otherwise; no flag or policy says so. The exporter key
+`gate_internal_files` names the internal files that tooling brings. Every declared combination of modules is buildable, and a gate that
+enters a built module's scope (`Test-BuildArtifact`, `Test-CatzcBuild`, the test kit's `New-BuiltCatzcRoot`) puts `Catzc.Base.QualityGates`
+in its build selection. The runtime-required vendored module ships in every bundle.
+
+- [The gate tooling](#the-gate-tooling)
+
+### Rule ADR-AUTO-BUNDLE-EVERYLANGUAGE
+
+A bundle carries the modules of **every language track** its closure-expanded selection holds, not only the pwsh modules, because it is the
+one distributable thin platform ([thin-platforms](../design/thin-platforms.md#rule-ddr-thinplat-thinplatform)). Each module ships in its
+language's **packaged form**, named by the language's `package` handler in the language registry so the builder never branches on a language
+([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](module-model.md#rule-adr-auto-module-checksbylanguage)): Go as reproducible binaries built with build
+paths stripped, one per entry of the bundle's `platforms` list; Bash as git stores it, with its executable bit; Python as source plus its
+locked dependencies as wheels from the managed cache; a JavaScript extension as a `.vsix`. A non-pwsh module stays a tool the engine runs as
+a process ([ADR-AUTO-ENGINE-THREEENGINES](execution-engines.md#rule-adr-auto-engine-threeengines)), found under the code root, and a
+black-box test of any language never ships. The content hash covers every packaged form.
+
+- [The runtime payload](#the-runtime-payload)
+
 ### Rule ADR-AUTO-BUNDLE-BUNDLEVERSION
 
 `Build-Modules -Version` defaults to `auto`, resolved by `Resolve-CatzcBuildVersion`. A devbox (source-mode) build is the fixed **`6.6.666`
@@ -73,9 +96,9 @@ the pipeline. A pipeline export gets a **calculated, reproducible version**: `MA
 `exporter.yml`, and `PATCH` the first-parent commit count of the built commit — so the same commit always gets the same version and versions
 rise along `main`. Each bundle has its own version line, and no bundle's version moves another's. An explicit `-Version` is honoured when it
 is `MAJOR.MINOR.PATCH`, and a pipeline build that names `6.6.666` is rejected. Every version is numeric so the `Catzc/<version>/` folder is
-a valid package version. Export options — the bundles, each with its profile, vendor policy, and version line, and the default bundle — are
-configuration read through `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a
-test can substitute a fixture config through the same seam.
+a valid package version. Export options — the bundles, each with its profile and version line, and the default bundle — are configuration
+read through `Get-Config` ([sensible-defaults](sensible-defaults.md)), so a build's shape is a reviewed edit to one file and a test can
+substitute a fixture config through the same seam.
 
 - [Versions](#versions)
 
@@ -154,8 +177,27 @@ The infrastructure is built or copied, never fetched. The combined-types DLL alw
 selection: the selected modules' `types/*.cs` travel in their folders and the rest under `.compiled/types/<Module>/`, so the load-time types
 guard re-verifies the same hash in every build, and a session that switches between modes always finds the same type identities loaded. The
 DLL is copied from the machine's shadow build when its hash matches, and compiled only when it is missing. The vendored dependencies are
-copied verbatim from `.vendor/` per `vendor_policy`, and are never re-downloaded or republished. Default-deny keeps the verification surface
-out: no `tests/` tree travels. The payload's exact form is the engine twin's to say.
+copied verbatim from `.vendor/`, the gate tooling only when the bundle holds the gates module (see below), and are never re-downloaded or
+republished. Default-deny keeps the verification surface out: no `tests/` tree travels. The payload's exact form is the engine twin's to
+say.
+
+The pwsh modules are not the whole payload (ADR-AUTO-BUNDLE-EVERYLANGUAGE). Each module of another language track in the selection ships in
+the packaged form its language's `package` handler names: a Go module as one binary per platform in the bundle's `platforms` list, a Bash
+module as git stores it with its executable bit, a Python module as source plus the wheels of its locked dependencies from the managed
+cache, so nothing contacts a feed at install, and a JavaScript extension as a `.vsix`. The `platforms` list is a bundle's own `exporter.yml`
+key; the exporter config carries one default set, windows/amd64, linux/amd64 and darwin/arm64, so a target needs no Go toolchain, and a
+bundle names a list only to ship another set. The content hash covers every one of these forms, so the same commit hashes the same whatever
+the languages it ships.
+
+### The gate tooling
+
+What a bundle ships for testing follows what it ships to test with. The gates module, `Catzc.Base.QualityGates`, is the code that runs the
+tests and the analyzer against a build, so a bundle whose closure-expanded selection holds it carries Pester, PSScriptAnalyzer, the analyzer
+settings and rules, and `Catzc.Internal.TestKit`, and a bundle without it carries none of them: tooling nothing in the bundle can call is
+weight with no use. The decision reads the selection after closure expansion, so a profile that brings the gates module in through a
+dependency carries the tooling too. A gate that runs inside a built module's scope puts the gates module in its own build selection, which
+is how a build run finds the tooling it needs. The one vendored module the runtime itself requires (`powershell-yaml`) travels in every
+bundle, whatever the selection. The internal files the tooling brings are listed under the exporter key `gate_internal_files`.
 
 ### The verified artifact
 
@@ -174,7 +216,10 @@ on every OS, which the CI pipeline proves by building on each and comparing.
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a
 call to a catzc function or a literal config read that lands in a module the bundle leaves out. The fix is to declare the dependency, so the
-closure brings the owner in, or to move what is read to where it belongs. The same pre-write pass checks every inventoried internal asset.
+closure brings the owner in, or to move what is read to where it belongs. A pwsh call into a language module, a literal `<track>/<Module>`
+path a selected module hands to a runner, is held to the same rule: the module's `dependencies.yml` row declares the path, and the
+declaration brings that language module into the bundle beside the pwsh modules that call it. The same pre-write pass checks every
+inventoried internal asset.
 
 The DLL's own name carries the `typesHash`, so which sources it was compiled from is proven by hash. The bundle, content hash, `typesHash`,
 type-source list, source commit, whether the tree differed from that commit, version, and module list travel in `build.json`, which is

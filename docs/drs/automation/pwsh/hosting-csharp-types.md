@@ -14,10 +14,11 @@ whole binding. No external packages, no NuGet.
 ### Rule ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
 
 A type publishes a PowerShell type-accelerator by carrying `[Catzc.Base.Objects.PSTypeAlias("Name")]`; `Import-CSharpTypes` registers each
-after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry a `Catzc.` prefix — a registration
-reclaims only a catzc accelerator — and the alias literal is authored in the source of the type it decorates, so a search for it lands on
-the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's cross-module edge is governed by
-the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) like any other.
+after loading the assembly, so `[Name]` resolves to that type (`[Catzc.Module.Depm]::Puml`). Names carry the prefix of the namespace the
+type is in, `Catzc.` for catzc's types and the consumer's own for a consumer's (ADR-PWSH-TYPES-LOADKEYEDONNAMESPACE) — a registration
+reclaims only an accelerator under its own namespace's prefix — and the alias literal is authored in the source of the type it decorates, so
+a search for it lands on the type. This is registration, not compilation: `Add-Type` stays the sole compiler, and the decoration's
+cross-module edge is governed by the dependency graph (ADR-BCL-TYPES-REFERENCESFOLLOWDEPS) like any other.
 
 - [Type-accelerator aliases](#type-accelerator-aliases)
 
@@ -40,6 +41,19 @@ concatenated into one unit, and it writes a missing committed build with `-Outpu
 runs at import.
 
 - [The compiler](#the-compiler)
+
+### Rule ADR-PWSH-TYPES-LOADKEYEDONNAMESPACE
+
+The types machinery keys on a namespace, never on the literal `Catzc.Types.`: for each namespace it loads, `Import-CSharpTypes` names the
+assembly `<Namespace>.Types.<hash>.dll`, keeps the hash, the stale-types record and the accelerator prefix of that namespace apart, and
+registers accelerators only under it. Catzc's own assembly, `Catzc.Types.<hash>.dll`, is prebuilt in a bundle and loaded by path, never
+compiled there. A consumer's `types/*.cs` compile in-process through the same `Add-Type` path that source mode uses
+(ADR-PWSH-TYPES-ADDTYPECOMPILES), no SDK, into one `<Namespace>.Types.<hash>.dll` under the working root's `out/`, referencing catzc's
+loaded assembly, and are reused while the hash holds
+([ADR-AUTO-CONSUMER-OWNTYPES](../consumer-repository.md#rule-adr-auto-consumer-owntypes)). A consumer's source declaring a `Catzc.`
+namespace is refused at load, so no assembly takes a name that belongs to another's.
+
+- [Load by namespace](#load-by-namespace)
 
 ### Rule ADR-PWSH-TYPES-POWERSHELLPRIMITIVES
 
@@ -172,6 +186,20 @@ topological compile order, no transitive references.
 
 The editor's `dotnet build` of the IDE project is a second compile of the same sources, for analysis and navigation only; the runtime never
 builds the project.
+
+### Load by namespace
+
+`One load per namespace, catzc's prebuilt, a consumer's compiled`
+
+The loader's every name derives from the namespace it loads, so a second namespace is a second pass of the same mechanism, not a second
+loader. Catzc's namespace is `Catzc.`: its assembly is built where catzc's sources live, ships prebuilt in a bundle, and a bundle never
+holds the sources to compile it. A consumer's namespace is its own: its module `types/*.cs` compile in-process on first need with the
+compiler catzc's source mode already uses, so the consumer's machine needs pwsh and nothing more, and the result sits under the working
+root's `out/`, keyed by the hash of those sources, so an unchanged consumer reuses it. The consumer's compile lists catzc's loaded assembly
+among its references, which is why a consumer's type may derive from `Catzc.Base.Objects.DictionaryRecord` or carry
+`[Catzc.Base.Objects.PSTypeAlias]`; its accelerators carry the consumer's prefix, so a re-import registers them without reclaiming one of
+catzc's. The refusal of a `Catzc.` namespace in a consumer's type source is what keeps the two sets of names apart: were one accepted, a
+full type name would resolve to whichever assembly loaded first (ADR-PWSH-TYPES-ACCELERATORSNOTFULLNAMES).
 
 ### The reference set
 
@@ -325,6 +353,9 @@ because that is the one pwsh's string conversion reads.
   registers each `[Catzc.Base.Objects.PSTypeAlias]` name as a type-accelerator (ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE), and registers each
   `[Catzc.Base.Objects.ConsoleDisplay]` property list as the type's default display (ADR-PWSH-TYPES-TOSTRINGOVERRIDE).
   `Import-CSharpTypes.Tests.ps1` asserts a decorated type's accelerator resolves after load.
+- **The namespace-keyed load** (`Import-CSharpTypes` and `Catzc.Internal.Types`) takes every assembly, record and accelerator name from the
+  namespace being loaded, loads catzc's prebuilt assembly in a bundle, compiles a consumer's sources in-process, and throws on a consumer's
+  type source that declares a `Catzc.` namespace (ADR-PWSH-TYPES-LOADKEYEDONNAMESPACE).
 - **`Catzc.Types.csproj`** carries the `System.Management.Automation` reference compile-time-only (ADR-PWSH-TYPES-POWERSHELLPRIMITIVES); a
   reference beyond the default set fails the runtime compile, because `Add-Type` cannot see it (ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES).
 - **`Invoke-BuildForVsCode`** (in `Catzc.Base.TypesSystem`) drives the editor-facing `dotnet build` of `Catzc.Types.csproj` through

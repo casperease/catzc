@@ -6,18 +6,28 @@ bundles:
   full:
     profile: full
     version: "0.1"
-    max_files: 480
-    max_bytes: 6800000
+    max_files: 960
+    max_bytes: 18200000
   azure:
     profile: azure
     version: "0.1"
-    max_files: 460
-    max_bytes: 6700000
+    max_files: 880
+    max_bytes: 18100000
   minimal:
     profile: minimal
     version: "0.1"
-    max_files: 290
-    max_bytes: 2950000
+    max_files: 520
+    max_bytes: 4550000
+  base:
+    profile: base
+    version: "0.1"
+    max_files: 800
+    max_bytes: 17100000
+  tooling:
+    profile: tooling
+    version: "0.1"
+    max_files: 840
+    max_bytes: 17700000
 default_bundle: full
 
 # Package identity, written into the build's top-level Catzc.psd1, the manifest Install-PSResource and the Gallery read.

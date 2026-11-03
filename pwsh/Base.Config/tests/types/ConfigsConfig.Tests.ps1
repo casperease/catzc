@@ -29,18 +29,33 @@ Describe 'ConfigsConfig' -Tag 'L0' {
                 Should -Throw -PassThru
             $thrown.Exception.Message | Should -BeLike "*config 'a': an entry must specify a 'type'*"
             $thrown.Exception.Message |
-                Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, overridable, differs)*"
+                Should -BeLike "*config 'b': unknown key 'pwsh' (allowed: type, scope, differs)*"
             $thrown.Exception.Message | Should -BeLike "*config 'c': an entry must specify a 'type'*"
         }
 
-        It 'lists the sealed configs (overridable: false); absent means overridable' {
+        It 'derives the sealed configs (scope: engine) and the working-root configs, in file order; absent means module' {
             $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{
-                        widget = @{ type = 'Tst.Widget' }
-                        gadget = @{ type = 'Tst.Gadget'; overridable = $false }
-                        gizmo  = @{ type = 'Tst.Gizmo'; overridable = $true }
+                        widget  = @{ type = 'Tst.Widget' }
+                        gadget  = @{ type = 'Tst.Gadget'; scope = 'engine' }
+                        gizmo   = @{ type = 'Tst.Gizmo'; scope = 'module' }
+                        bracket = @{ type = 'Tst.Bracket'; scope = 'working-root' }
+                        cog     = @{ type = 'Tst.Cog'; scope = 'engine' }
+                        lever   = @{ type = 'Tst.Lever'; scope = 'working-root' }
                     }
                 })
-            @($registry.sealedConfigs) | Should -Be @('gadget')
+            @($registry.sealedConfigs) | Should -Be @('gadget', 'cog')
+            @($registry.workingRootConfigs) | Should -Be @('bracket', 'lever')
+        }
+
+        It 'treats an entry with no scope as module, in neither derived list' {
+            $registry = [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget' } } })
+            @($registry.sealedConfigs).Count | Should -Be 0
+            @($registry.workingRootConfigs).Count | Should -Be 0
+        }
+
+        It 'rejects overridable as an unknown key, naming the allowed keys' {
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; overridable = $false } } }) } |
+                Should -Throw "*config 'widget': unknown key 'overridable' (allowed: type, scope, differs)*"
         }
 
         It 'reads each key a shipped value may differ on with its reason, and rejects a blank reason or a list' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
@@ -71,9 +86,9 @@ Describe 'ConfigsConfig' -Tag 'L0' {
             [Catzc.Base.Config.ConfigDefaultDifference]::Pascal('have_customers') | Should -BeExactly 'HaveCustomers'
         }
 
-        It 'rejects an overridable that is not true or false' {
-            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; overridable = 'no' } } }) } |
-                Should -Throw "*config 'widget': overridable must be true or false*"
+        It 'rejects a scope outside engine, module and working-root, naming the allowed values' {
+            { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ widget = @{ type = 'Tst.Widget'; scope = 'gadget' } } }) } |
+                Should -Throw "*config 'widget': scope 'gadget' is not one of engine, module, working-root*"
         }
 
         It 'the shipped registry seals the engine-intrinsic configs' -Tag 'integrity' {
@@ -82,6 +97,9 @@ Describe 'ConfigsConfig' -Tag 'L0' {
             $registry = [Catzc.Base.Config.ConfigsConfig]::new($raw)
             foreach ($name in 'configs', 'dependencies', 'profiles', 'exporter', 'glossary') {
                 @($registry.sealedConfigs) | Should -Contain $name
+            }
+            foreach ($name in 'variants', 'drs', 'plans', 'links', 'file-limits', 'go', 'python', 'javascript', 'analyzer-drs-map') {
+                @($registry.workingRootConfigs) | Should -Contain $name
             }
         }
     }

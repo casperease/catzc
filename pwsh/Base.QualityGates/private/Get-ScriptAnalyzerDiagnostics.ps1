@@ -57,7 +57,7 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
-    $diagnostics = Invoke-ScriptAnalyzerShards -Batch $batch.ToArray() -RepositoryRoot $fullRoot
+    $diagnostics = Invoke-ScriptAnalyzerShards -Batch $batch.ToArray() -RepositoryRoot $fullRoot -CodeRoot (Get-CatzcModulesRoot)
     $allDiagnostics = [System.Collections.Generic.List[object]]::new()
     foreach ($entry in $batch) {
         $found = @($diagnostics[$entry.Label])

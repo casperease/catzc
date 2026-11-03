@@ -71,7 +71,7 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
         @(& $script:write $moved).Written | Should -Be @($false, $false)
     }
 
-    Context 'argument-free, as Restore-Generated runs it' {
+    Context 'without a path, from the build the import recorded' {
         BeforeAll {
             $script:modulesRoot = [System.IO.Path]::GetFullPath((Get-CatzcModulesRoot))
             # The record is session-global and the session's own, so each case swaps in a fixture and puts the real one back.
@@ -102,13 +102,19 @@ Describe 'Write-TypesContract' -Tag 'L0', 'logic' {
                 } } | Should -Throw "*recorded no types assembly for '$($script:modulesRoot)'*"
         }
 
-        It 'writes under the folder holding the modules root' {
-            $expected = [System.IO.Path]::GetDirectoryName($script:modulesRoot)
+        It 'writes under the repository root it is given, never the folder holding the modules root' {
             { & $script:withRecords @{} {
                     Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = @([pscustomobject]@{ Name = 'Catzc.Widgets.Widget'; Aliases = @(); Display = @(); Members = @() }) } }
                     Mock Get-TypesContractPath { throw "root:$RepositoryRoot" }
-                    Write-TypesContract -Path 'C:/widget/Catzc.Types.feed.dll'
-                } } | Should -Throw "root:$expected"
+                    Write-TypesContract -Path 'C:/widget/Catzc.Types.feed.dll' -RepositoryRoot 'C:/gadget-root'
+                } } | Should -Throw 'root:C:/gadget-root'
+        }
+    }
+
+    It 'requires the repository root' {
+        InModuleScope Catzc.Internal.Types {
+            (Get-Command Write-TypesContract).Parameters['RepositoryRoot'].Attributes.Where({ $_ -is [System.Management.Automation.ParameterAttribute] }).Mandatory |
+                Should -BeTrue
         }
     }
 

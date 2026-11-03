@@ -9,6 +9,7 @@ function Get-MarkerBlastRadius {
         [string] $Ref
     )
 
+    Assert-GitWorkTree
     if ($PSCmdlet.ParameterSetName -eq 'Ref') {
         $diff = Invoke-Executable "git diff --name-only `"$Ref`"" -PassThru -Silent
         $ChangedFile = @($diff.Output -split "`n" | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })

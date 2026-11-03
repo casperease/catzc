@@ -3,7 +3,7 @@ function Get-GlossarySources {
     [OutputType([pscustomobject])]
     param()
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $owners = @(Get-Config -Config glossary -ListOwners)
     if ($owners.Count -eq 0) {

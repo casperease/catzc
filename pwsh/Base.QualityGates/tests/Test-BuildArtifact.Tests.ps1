@@ -31,7 +31,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         $script:observation = New-WidgetObservation -BuildRoot $script:buildRoot -RepositoryRoot $script:repositoryRoot
         $script:reportFolder = Join-Path $TestDrive 'build-artifact'
 
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repositoryRoot }
         Mock Import-InternalModule -ModuleName Catzc.Base.QualityGates { }
         Mock Get-CombinedTypeHash -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ CombinedHash = 'abcd1234' } }
@@ -51,12 +51,20 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
     }
 
-    It 'passes a build every facet accepts, building once with the full vendor policy' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'passes a build every facet accepts, building once' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-BuildArtifact -OutputFolder $script:reportFolder } | Should -Not -Throw
-        Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $VendorPolicy -eq 'full' }
+        Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { -not $DryRun -and $Destination }
         Should -Invoke Invoke-BuildArtifactProbe -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $ScopeModule -eq 'Catzc.Base.Config' }
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Language -eq 'powershell' -and $DryRun -and $PassThru -and @($Path).Count -eq 3
+        }
+    }
+
+    It 'adds the gates module to a selection that lacks it, so the build ships Pester' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        Test-BuildArtifact -Module 'Catzc.Gadget' -OutputFolder $script:reportFolder
+
+        Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            -not $DryRun -and ($Module -join ',') -eq 'Catzc.Base.Config,Catzc.Gadget,Catzc.Base.QualityGates'
         }
     }
 

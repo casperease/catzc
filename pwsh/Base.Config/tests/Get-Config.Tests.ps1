@@ -124,7 +124,7 @@ Describe 'Get-Config' -Tag 'L0' {
             }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
-                [ordered]@{ 'widget-sealed' = [ordered]@{ type = 'System.Collections.Hashtable'; overridable = $false } }
+                [ordered]@{ 'widget-sealed' = [ordered]@{ type = 'System.Collections.Hashtable'; scope = 'engine' } }
             }
             # The overlay folder is the bundled module's folder, without the namespace its full name carries.
             Mock Get-Module -ModuleName Catzc.Base.Config -ParameterFilter { $Name -eq 'Catzc.Base.Widget' } -MockWith {
@@ -142,6 +142,16 @@ Describe 'Get-Config' -Tag 'L0' {
             $configuration.limit | Should -Be 5
             $configuration.gadgets.lever | Should -Be 1
             $configuration.gadgets.Contains('sprung') | Should -BeFalse
+        }
+
+        It 'finds the fragment of a built root''s namespaced folder under the overlay''s bare folder' -Tag 'ADR-AUTO-OVERLAY' {
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
+                @{ Name = $Config; Module = 'Catzc.Base.Widget'; Folder = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }
+            }
+            Mock Resolve-CodeModuleFolder -ModuleName Catzc.Base.Config -ParameterFilter { $BareName -ceq 'Catzc.Base.Widget' } -MockWith { 'Base.Widget' }
+            Set-Content -Path (Join-Path $bundled 'widget-built.yml') -Value @('limit: 3')
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-built.yml') -Value 'limit: 5'
+            (Get-Config -Config widget-built).limit | Should -Be 5
         }
 
         It 'returns the bundled config unchanged when the overlay has no fragment of it' {
@@ -174,13 +184,92 @@ Describe 'Get-Config' -Tag 'L0' {
         }
     }
 
+    Context 'a working-root config' -Tag 'logic' {
+        # A bundled file, a working root and the registry, all fixtures behind their seams; the type keeps the dictionary it was given.
+        BeforeAll {
+            Add-Type -TypeDefinition @'
+namespace WidgetConfigTest {
+    public class FixtureConfig {
+        public System.Collections.IDictionary Raw;
+        public FixtureConfig(System.Collections.IDictionary d) { Raw = d; }
+    }
+}
+'@ -ErrorAction SilentlyContinue
+        }
+
+        BeforeEach {
+            $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            $script:workingRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $bundled | Out-Null
+            New-Item -ItemType Directory -Path (Join-Path $workingRoot '.catzc/configs') | Out-Null
+            Set-Content -Path (Join-Path $bundled 'widget-root.yml') -Value @('gadget: shipped', 'widget: shipped')
+            Set-Content -Path (Join-Path $bundled 'widget-module.yml') -Value @('gadget: shipped', 'widget: shipped')
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
+                @{ Name = $Config; Module = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }
+            }
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Config -MockWith { $workingRoot }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith {
+                [ordered]@{
+                    'widget-root'   = @{ type = 'WidgetConfigTest.FixtureConfig'; scope = 'working-root' }
+                    'widget-module' = @{ type = 'WidgetConfigTest.FixtureConfig'; scope = 'module' }
+                }
+            }
+        }
+
+        It 'reads the working root''s file whole in build mode, so a key only the bundled file holds is absent' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            Set-Content -Path (Join-Path $workingRoot '.catzc/configs/widget-root.yml') -Value 'gadget: consumer'
+            $raw = (Get-Config -Config widget-root).Raw
+            $raw['gadget'] | Should -Be 'consumer'
+            $raw.Contains('widget') | Should -BeFalse
+        }
+
+        It 'gives the type''s default in build mode when the working root has no file, leaking nothing from the bundled one' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            (Get-Config -Config widget-root).Raw.Count | Should -Be 0
+        }
+
+        It 'serves an edited working-root file, never a stale read' -Tag 'ADR-CONF-LOADING-CACHEBYPATH' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            $file = Join-Path $workingRoot '.catzc/configs/widget-root.yml'
+            Set-Content -Path $file -Value 'gadget: one'
+            (Get-Config -Config widget-root).Raw['gadget'] | Should -Be 'one'
+            Set-Content -Path $file -Value 'gadget: two'
+            [System.IO.File]::SetLastWriteTimeUtc($file, [datetime]::UtcNow.AddMinutes(1))
+            (Get-Config -Config widget-root).Raw['gadget'] | Should -Be 'two'
+        }
+
+        It 'reads the bundled file unchanged in source mode' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            Set-Content -Path (Join-Path $workingRoot '.catzc/configs/widget-root.yml') -Value 'gadget: consumer'
+            $raw = (Get-Config -Config widget-root).Raw
+            $raw['gadget'] | Should -Be 'shipped'
+            $raw['widget'] | Should -Be 'shipped'
+        }
+
+        It 'still merges a fragment onto a module-scope config in build mode' -Tag 'ADR-CONF-LOADING-THREESCOPES' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Base.Widget/configs') | Out-Null
+            Set-Content -Path (Join-Path $overlay 'Base.Widget/configs/widget-module.yml') -Value 'gadget: consumer'
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
+            Mock Get-Module -ModuleName Catzc.Base.Config -ParameterFilter { $Name -eq 'Catzc.Base.Widget' } -MockWith {
+                [pscustomobject]@{ Name = 'Catzc.Base.Widget'; ModuleBase = (Join-Path $TestDrive 'modules/Base.Widget') }
+            }
+            $raw = (Get-Config -Config widget-module).Raw
+            $raw['gadget'] | Should -Be 'consumer'
+            $raw['widget'] | Should -Be 'shipped'
+        }
+    }
+
     Context 'collision handling (Resolve-ConfigEntry)' -Tag 'logic' {
         It 'throws when a name exists in multiple modules, and -Module disambiguates' {
             InModuleScope Catzc.Base.Config {
                 $list = [System.Collections.Generic.List[hashtable]]::new()
                 $list.Add(@{ Name = 'dup'; Module = 'A'; Path = 'a.yml' })
                 $list.Add(@{ Name = 'dup'; Module = 'B'; Path = 'b.yml' })
-                $script:configIndex = @{ dup = $list }
+                $script:configIndex = @{ Catzc = @{ dup = $list } }
                 try {
                     { Resolve-ConfigEntry -Config dup } | Should -Throw '*multiple modules*'
                     (Resolve-ConfigEntry -Config dup -Module B).Module | Should -Be 'B'
@@ -197,7 +286,7 @@ Describe 'Get-Config' -Tag 'L0' {
                 $list.Add(@{ Name = 'widget'; Module = 'b'; Path = 'b.yml' })
                 $list.Add(@{ Name = 'widget'; Module = 'B'; Path = 'B.yml' })
                 $list.Add(@{ Name = 'widget'; Module = 'A'; Path = 'A.yml' })
-                $script:configIndex = @{ widget = $list }
+                $script:configIndex = @{ Catzc = @{ widget = $list } }
                 try {
                     (Get-Config -Config widget -ListOwners).Module | Should -Be @('A', 'B', 'b')
                     @(Get-Config -Config gadget -ListOwners).Count | Should -Be 0
@@ -230,7 +319,7 @@ Describe 'Get-Config' -Tag 'L0' {
             InModuleScope Catzc.Base.Config {
                 $list = [System.Collections.Generic.List[hashtable]]::new()
                 $list.Add(@{ Name = 'widget'; Module = 'A'; Path = 'TestDrive:/absent/widget.yml' })
-                $script:configIndex = @{ widget = $list }
+                $script:configIndex = @{ Catzc = @{ widget = $list } }
                 try {
                     $owners = @(Get-Config -Config widget -ListOwners)
                     $owners.Count | Should -Be 1
@@ -323,7 +412,258 @@ namespace WidgetConfigTest {
             }
             InModuleScope Catzc.Base.Config { $script:configIndex = $null }
             @($entries[0].Module, $entries[0].Folder) | Should -Be @('Catzc.Base.Widget', 'Base.Widget')
-            $entries[1].Module | Should -BeExactly 'Gadget' -Because 'a folder with no manifest, such as a local module, is its own name'
+            $entries[1].Module | Should -BeExactly 'Gadget' -Because 'a folder with no manifest is its own name'
+        }
+
+        It 'indexes a built root''s namespaced folder once, and the overlay''s bare folder of it as a fragment folder, not a second module' -Tag 'ADR-AUTO-OVERLAY' {
+            $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $root 'Catzc.Base.Widget/configs') | Out-Null
+            Set-Content -LiteralPath (Join-Path $root 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') -Value '@{}'
+            Set-Content -LiteralPath (Join-Path $root 'Catzc.Base.Widget/configs/sprocket.yml') -Value 'teeth: 12'
+            New-Item -ItemType Directory -Path (Join-Path $overlay 'Base.Widget/configs') | Out-Null
+            Set-Content -LiteralPath (Join-Path $overlay 'Base.Widget/configs/sprocket.yml') -Value 'teeth: 8'
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $root }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlay }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
+            $entry = InModuleScope Catzc.Base.Config {
+                $script:configIndex = $null
+                Resolve-ConfigEntry -Config sprocket
+            }
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            @($entry).Count | Should -Be 1
+            $entry.Module | Should -BeExactly 'Catzc.Base.Widget'
+            $entry.Folder | Should -BeExactly 'Catzc.Base.Widget'
+        }
+    }
+
+    Context 'the namespace a bare name resolves in' -Tag 'logic' {
+        # Calls from fixture modules named <Namespace>.<Folder>, with the discovery seam answering from a fixture table keyed (namespace, name).
+        BeforeAll {
+            Add-Type -TypeDefinition @'
+namespace WidgetConfigTest {
+    public class FixtureConfig {
+        public System.Collections.IDictionary Raw;
+        public FixtureConfig(System.Collections.IDictionary d) { Raw = d; }
+    }
+}
+'@ -ErrorAction SilentlyContinue
+        }
+
+        BeforeEach {
+            $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $dir | Out-Null
+            Set-Content -Path (Join-Path $dir 'catzc-gadget.yml') -Value 'owner: catzc'
+            Set-Content -Path (Join-Path $dir 'widget-gadget.yml') -Value 'owner: widget'
+            Set-Content -Path (Join-Path $dir 'catzc-sprocket.yml') -Value 'owner: catzc'
+            $script:table = @{
+                'Catzc/gadget'   = @{ Namespace = 'Catzc'; Name = 'gadget'; Module = 'Catzc.Base.Widget'; Path = (Join-Path $dir 'catzc-gadget.yml') }
+                'Widget/gadget'  = @{ Namespace = 'Widget'; Name = 'gadget'; Module = 'Widget.Local'; Path = (Join-Path $dir 'widget-gadget.yml') }
+                'Catzc/sprocket' = @{ Namespace = 'Catzc'; Name = 'sprocket'; Module = 'Catzc.Base.Widget'; Path = (Join-Path $dir 'catzc-sprocket.yml') }
+            }
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
+                $hit = $script:table["$Namespace/$Config"]
+                if (Get-Variable -Name All -ValueOnly -ErrorAction SilentlyContinue) {
+                    if ($hit) {
+                        $hit
+                    }
+                    return
+                }
+                if (-not $hit) {
+                    throw "No config '$Config' found in any module's configs/ folder of the namespace '$Namespace'."
+                }
+                $hit
+            }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            $widgetModule = New-Module -Name Widget.Fixture -ScriptBlock {
+                function Read-WidgetFixture {
+                    param([string] $Name)
+                    Get-Config -Config $Name
+                }
+                function Read-WidgetFixtureInBlock {
+                    param([string] $Name)
+                    'x' | ForEach-Object { Get-Config -Config $Name }
+                }
+            }
+            $catzcModule = New-Module -Name Catzc.Fixture -ScriptBlock {
+                function Read-CatzcFixture {
+                    param([string] $Name)
+                    Get-Config -Config $Name
+                }
+            }
+            $widgetModule | Import-Module -Force
+            $catzcModule | Import-Module -Force
+        }
+
+        AfterEach {
+            Remove-Module Widget.Fixture, Catzc.Fixture -Force -ErrorAction SilentlyContinue
+        }
+
+        It 'resolves a bare name in the namespace of a Widget module that calls' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            (Read-WidgetFixture -Name gadget)['owner'] | Should -Be 'widget'
+        }
+
+        It 'resolves a bare name in the namespace of the nearest module when a script block of it calls' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            (Read-WidgetFixtureInBlock -Name gadget)['owner'] | Should -Be 'widget'
+        }
+
+        It 'resolves a bare name in the Catzc namespace for a Catzc module and for a call from no module' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            (Read-CatzcFixture -Name gadget)['owner'] | Should -Be 'catzc'
+            (Get-Config -Config gadget)['owner'] | Should -Be 'catzc'
+        }
+
+        It 'reads a consumer''s config from a call outside it when -Namespace names it' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            (Get-Config -Config gadget -Namespace Widget)['owner'] | Should -Be 'widget'
+            (Read-CatzcFixture -Name sprocket)['owner'] | Should -Be 'catzc'
+        }
+
+        It 'builds the type the consumer registry names, and looks for no overlay fragment' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            $script:table['Widget/gadget'].Registry = @{ type = 'WidgetConfigTest.FixtureConfig' }
+            $result = Get-Config -Config gadget -Namespace Widget
+            $result -is [WidgetConfigTest.FixtureConfig] | Should -BeTrue
+            $result.Raw['owner'] | Should -Be 'widget'
+            Should -Invoke Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -Times 0 -Exactly
+        }
+
+        It 'throws for a name only Catzc has when a Widget module asks, naming both namespaces and the way to read it' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            { Read-WidgetFixture -Name sprocket } | Should -Throw "*namespace 'Widget'*namespace 'Catzc'*-Namespace Catzc*"
+        }
+
+        It 'throws the discovery error, with no hint, for a name no namespace has' {
+            { Read-WidgetFixture -Name cog } | Should -Throw "*No config 'cog'*namespace 'Widget'*"
+        }
+
+        It 'lists the owners of the namespace the call resolves in' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            (Get-Config -Config gadget -ListOwners -Namespace Widget).Module | Should -Be 'Widget.Local'
+            (Get-Config -Config gadget -ListOwners).Module | Should -Be 'Catzc.Base.Widget'
+        }
+    }
+
+    Context 'a config of a consumer namespace (Resolve-ConfigEntry)' -Tag 'logic' {
+        # A catzc code root and a consumer working root, both fixtures behind their seams; the consumer's track is declared as the variants config would.
+        BeforeEach {
+            $script:catzcRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            $script:workingRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path (Join-Path $catzcRoot 'Catzc.Base.Widget/configs') -Force | Out-Null
+            Set-Content -LiteralPath (Join-Path $catzcRoot 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') -Value '@{}'
+            Set-Content -LiteralPath (Join-Path $catzcRoot 'Catzc.Base.Widget/configs/gadget.yml') -Value 'teeth: 12'
+            foreach ($folder in 'widget/Local/configs', 'widget/Other/configs', 'widget/tests/configs', '.catzc/configs') {
+                New-Item -ItemType Directory -Path (Join-Path $workingRoot $folder) -Force | Out-Null
+            }
+            Set-Content -LiteralPath (Join-Path $workingRoot '.catzc/configs/variants.yml') -Value 'tracks: {}'
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/gadget.yml') -Value 'teeth: 8'
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Widget.GadgetConfig')
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Other/configs/sprocket.yml') -Value 'teeth: 4'
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/tests/configs/cog.yml') -Value 'teeth: 2'
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $catzcRoot }
+            Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
+            Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Config -MockWith { $workingRoot }
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
+            Mock Get-Config -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'variants' } -MockWith {
+                $member = [Catzc.Base.Variants.VariantMember]::new('widget')
+                $track = [Catzc.Base.Variants.VariantTrack]::new('widget', [Catzc.Base.Variants.VariantMember[]]@($member), 'modules', $null,
+                    [string[]]@('powershell'), $null, $null, $null, 'Widget')
+                [pscustomobject]@{ tracks = @($track) }
+            }
+            Mock Get-Config -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'module-types' } -MockWith {
+                $place = [pscustomobject]@{ name = 'folder'; except = @('tests') }
+                [pscustomobject]@{ types = @([pscustomobject]@{ places = @($place) }) }
+            }
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+        }
+
+        AfterEach {
+            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+        }
+
+        It 'indexes a consumer track module''s config under the track''s namespace, with the registry entry beside it' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            $entry = InModuleScope Catzc.Base.Config { Resolve-ConfigEntry -Name gadget -Namespace Widget }
+            $entry.Namespace | Should -BeExactly 'Widget'
+            $entry.Module | Should -BeExactly 'Widget.Local'
+            $entry.Folder | Should -BeExactly 'Local'
+            [System.IO.Path]::GetFullPath($entry.Path) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $workingRoot 'widget/Local/configs/gadget.yml')))
+            $entry.Registry['type'] | Should -BeExactly 'Widget.GadgetConfig'
+        }
+
+        It 'resolves one name in catzc and in a consumer namespace as two configs, without a throw' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            $entries = InModuleScope Catzc.Base.Config {
+                Resolve-ConfigEntry -Config gadget
+                Resolve-ConfigEntry -Config gadget -Namespace Widget
+            }
+            @($entries).Count | Should -Be 2
+            $entries[0].Module | Should -BeExactly 'Catzc.Base.Widget'
+            $entries[1].Module | Should -BeExactly 'Widget.Local'
+            $entries[0].Path | Should -Not -Be $entries[1].Path
+        }
+
+        It 'throws for a name two modules of one consumer namespace both ship, and -Module disambiguates' -Tag 'ADR-CONF-LOADING-EXISTENCEDISCOVERED' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Other/configs/gadget.yml') -Value 'teeth: 6'
+            InModuleScope Catzc.Base.Config {
+                { Resolve-ConfigEntry -Config gadget -Namespace Widget } | Should -Throw "*multiple modules of the namespace 'Widget' (Widget.Local, Widget.Other)*"
+                (Resolve-ConfigEntry -Config gadget -Namespace Widget -Module Widget.Other).Module | Should -BeExactly 'Widget.Other'
+                (Resolve-ConfigEntry -Config gadget).Module | Should -BeExactly 'Catzc.Base.Widget'
+            }
+        }
+
+        It 'refuses a consumer registry that names a type in the system''s namespace' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Catzc.Base.Widget.GadgetConfig')
+            InModuleScope Catzc.Base.Config {
+                { Resolve-ConfigEntry -Config gadget -Namespace Widget } | Should -Throw "*names the type 'Catzc.Base.Widget.GadgetConfig'*system's namespace*"
+            }
+        }
+
+        It 'accepts a consumer registry that names a type the system ships' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Catzc.Base.Config.ConfigsConfig')
+            $entry = InModuleScope Catzc.Base.Config { Resolve-ConfigEntry -Config gadget -Namespace Widget }
+            $entry.Registry['type'] | Should -BeExactly 'Catzc.Base.Config.ConfigsConfig'
+        }
+
+        It 'merges the registries of one namespace, and lists a registered type with no file under its registering module' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Other/configs/configs.yml') -Value @('configs:', '  sprocket-bare:', '    type: Widget.SprocketBareConfig')
+            $entries = InModuleScope Catzc.Base.Config {
+                Resolve-ConfigEntry -Config gadget -Namespace Widget
+                Resolve-ConfigEntry -Config sprocket-bare -Namespace Widget
+            }
+            $entries[0].Registry['type'] | Should -BeExactly 'Widget.GadgetConfig'
+            $entries[1].Module | Should -BeExactly 'Widget.Other'
+            $entries[1].Path | Should -BeNullOrEmpty
+            $entries[1].Registry['type'] | Should -BeExactly 'Widget.SprocketBareConfig'
+        }
+
+        It 'refuses a config two registries of one namespace both register' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Other/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Widget.OtherGadgetConfig')
+            InModuleScope Catzc.Base.Config {
+                { Resolve-ConfigEntry -Config gadget -Namespace Widget } | Should -Throw "*registered twice in the namespace 'Widget'*"
+            }
+        }
+
+        It 'keeps the registry out of the configs, and the track''s test holder and the other namespaces out of the default lookup' {
+            InModuleScope Catzc.Base.Config {
+                @(Resolve-ConfigEntry -Config configs -Namespace Widget -All).Count | Should -Be 0
+                @(Resolve-ConfigEntry -Config cog -Namespace Widget -All).Count | Should -Be 0
+                @(Resolve-ConfigEntry -Config sprocket -All).Count | Should -Be 0
+                @(Resolve-ConfigEntry -Config sprocket -Namespace Widget -All).Count | Should -Be 1
+                { Resolve-ConfigEntry -Config sprocket } | Should -Throw "*No config 'sprocket'*namespace 'Catzc'*"
+            }
+        }
+
+        It 'indexes no consumer namespace in a source run, and no catzc config changes' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
+            InModuleScope Catzc.Base.Config {
+                @(Resolve-ConfigEntry -Config gadget -Namespace Widget -All).Count | Should -Be 0
+                (Resolve-ConfigEntry -Config gadget).Module | Should -BeExactly 'Catzc.Base.Widget'
+            }
+        }
+
+        It 'fails the index whole when a read fails, so a later call reads a fresh one' {
+            Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Catzc.Base.Widget.GadgetConfig')
+            InModuleScope Catzc.Base.Config {
+                { Resolve-ConfigEntry -Config gadget } | Should -Throw '*system''s namespace*'
+                $script:configIndex | Should -BeNullOrEmpty
+            }
         }
     }
 }

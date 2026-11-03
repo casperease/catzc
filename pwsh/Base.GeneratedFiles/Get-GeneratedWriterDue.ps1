@@ -42,7 +42,7 @@ function Get-GeneratedWriterDue {
             }
         }
         if (-not $due) {
-            $due = $memo[$writer.name] -cne $stamps[$writer.name]
+            $due = -not $memo.ContainsKey($writer.name) -or $memo[$writer.name] -cne $stamps[$writer.name]
         }
         [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $due)
     }

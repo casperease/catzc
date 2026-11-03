@@ -11,7 +11,7 @@ function Format-Types {
     )
 
     # The .cs sources exist only in the source tree (a build ships the compiled assembly, not the sources).
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $root = Get-RepositoryRoot
     $files = [System.Collections.Generic.List[string]]::new()

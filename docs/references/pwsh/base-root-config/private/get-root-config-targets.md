@@ -27,6 +27,11 @@ The parsed rootconfig config (Get-Config -Config rootconfig): a `{ files }` obje
 Drop an engine's importer entry when none of its engines is in the mix. Only Build-RootConfig, which materialises the files, passes it; a
 committed generated file reads the mix-independent list, so its content never depends on a session's mix.
 
+### parameter `Consumer`
+
+Keep only the opted-in entries marked `consumer`, the root files a consumer root needs for its gates. Build-RootConfig passes it in build
+mode.
+
 ### outputs
 
 `[object[]]` The opted-in RootConfigFile entries, in registry order.

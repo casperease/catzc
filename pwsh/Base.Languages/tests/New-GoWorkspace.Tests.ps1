@@ -220,6 +220,18 @@ Describe 'New-GoWorkspace — no Go test folders' -Tag 'L0', 'logic' {
     }
 }
 
+Describe 'New-GoWorkspace — no declared Go track' -Tag 'L0', 'logic' {
+    BeforeAll {
+        Mock Get-Track -ModuleName Catzc.Base.Languages { [pscustomobject]@{ name = 'widget'; languages = @('gadget') } }
+        Mock Get-Config -ModuleName Catzc.Base.Languages { throw 'no go config is read without a go track' }
+    }
+
+    It 'renders nothing, not even go.work, and reads no go config' {
+        @(New-GoWorkspace) | Should -HaveCount 0
+        Should -Invoke Get-Config -ModuleName Catzc.Base.Languages -Times 0 -Exactly
+    }
+}
+
 Describe 'New-GoWorkspace — folder naming' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:badRoot = Join-Path $TestDrive 'bad'

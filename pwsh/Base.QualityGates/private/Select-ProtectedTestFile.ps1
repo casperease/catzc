@@ -21,7 +21,8 @@ function Select-ProtectedTestFile {
     $protectedModules = [System.Collections.Generic.List[string]]::new()
     $candidates = [System.Collections.Generic.List[string]]::new()
 
-    if (Test-IsRunningInPipeline) {
+    # The protection is a source-tree optimisation, and a built bundle is immutable and content-addressed, so build mode keeps no ledger.
+    if ((Test-IsRunningInPipeline) -or (Get-CatzcRunMode) -eq 'build') {
         return [pscustomobject]@{
             ParallelFiles    = $ParallelFiles
             GreedyFiles      = $GreedyFiles

@@ -25,7 +25,8 @@ changed; there is no list of overrides to keep in step with the files.
 Under `.catzc/pwsh/<Module>/`, where `<Module>` is a bundled module, the only entries are a public function override (a public function file
 at the folder's root, named for its function), a private function override (a private function file under `private/`), a config fragment
 (`configs/<config>.yml`), an asset override (`assets/<path>`), and local tests (`tests/<path>`). Anything else there is rejected. A folder
-that names no bundled module is a local module ([ADR-AUTO-OVERLAY-LOCALMODULE](#rule-adr-auto-overlay-localmodule)).
+under the overlay that names no bundled module is a finding that points at the consumer's tracks
+([ADR-AUTO-CONSUMER](consumer-repository.md)).
 
 - [Override points](#override-points)
 
@@ -35,7 +36,10 @@ A **config fragment** states only the keys that differ, and is merged onto the b
 result: a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's
 declared default applies. In build mode a setting therefore resolves the caller's explicit value, then the overlay fragment, then the config
 contributions gathered from Markdown files, then the bundled config, then the type's default
-([sensible-defaults](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A fragment merges only onto a config the module ships.
+([sensible-defaults](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A fragment merges only onto a config the module ships,
+and only onto one of the `module` config scope: the `engine` config scope is sealed
+([ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS](#rule-adr-auto-overlay-sealedengineconfigs)), and a `working-root` config is never merged onto,
+being read whole from `.catzc/configs/<name>.yml`.
 
 - [Config fragments](#config-fragments)
 
@@ -44,22 +48,24 @@ contributions gathered from Markdown files, then the bundled config, then the ty
 A function override is one function named for its file, under the shape rules every function file loaded away from its folder follows. It
 replaces a function the bundled module has, with the same visibility, inside that module: every caller — the session, the module itself,
 every other module, a test's module mock — reaches the override. It keeps the original's contract: every parameter the original declares,
-with the same type; no new mandatory parameter; the same declared output type. A new function belongs in a local module.
+with the same type; no new mandatory parameter; the same declared output type. A new function belongs in a module of the consumer's own
+tracks ([ADR-AUTO-CONSUMER](consumer-repository.md)).
 
 - [Function overrides](#function-overrides)
 
 ### Rule ADR-AUTO-OVERLAY-ASSETOVERRIDE
 
 An asset override replaces an asset the bundled module ships: the one lookup of a module's content returns the overlay's file for that asset
-path. A new asset belongs in a local module.
+path. A new asset belongs in a module of the consumer's own tracks.
 
 - [Asset overrides](#asset-overrides)
 
 ### Rule ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS
 
 The engine-intrinsic configs are sealed — the config registry, the dependency graph, the profiles, the export config, and the glossary
-sources — declared once in the config registry (`overridable: false`). A fragment of a sealed config is rejected. Sealing more is a reviewed
-edit to the registry, never code.
+sources — declared once in the config registry (`scope: engine`). A fragment of a sealed config is rejected, and so is a fragment of a
+`working-root` config, which describes the consumer's repository and is read whole instead. Sealing more is a reviewed edit to the registry,
+never code.
 
 - [Sealed configs](#sealed-configs)
 
@@ -71,16 +77,6 @@ mode the catzc tree is changed directly, and only the config fragments of `.catz
 the shipped configs.
 
 - [Checked as a whole](#checked-as-a-whole)
-
-### Rule ADR-AUTO-OVERLAY-LOCALMODULE
-
-A **local module** is a folder under `.catzc/pwsh/` that names no bundled module: the consumer's own module, following catzc's module
-conventions — folder = module, a public function per root function file, private function files under `private/`, `configs/` found by
-`Get-Config`, `assets/` found by the one content lookup. It never takes the reserved `Catzc.` prefix, carries no `types/`, and has no public
-function that takes the name of a command already loaded. It loads after the bundled modules and their overrides, so it calls the bundle as
-overridden, and nothing is written to load it.
-
-- [Local modules](#local-modules)
 
 ## Context
 
@@ -112,9 +108,9 @@ output goes to the working root's `out/`, like every other output.
 ### Override points
 
 The override points are a closed set, so an entry that is no override point — a stray file, a `types/` folder, a manifest — fails instead of
-silently doing nothing. Local tests sit beside the overrides they test. A folder that names no bundled module is a local module's place; the
-`Catzc.` prefix is reserved for bundled modules, so a `Catzc.*` folder the bundle lacks is a missing module or a typo, and a bundle compiles
-no C#, so a local module ships none.
+silently doing nothing. Local tests sit beside the overrides they test. The overlay names no local module: a folder under it that names no
+bundled module is a finding that points at the consumer's tracks ([ADR-AUTO-CONSUMER](consumer-repository.md)), where a consumer's own
+modules live.
 
 ### Config fragments
 
@@ -142,7 +138,9 @@ merge through `Get-Config`, and nothing else a module ships is replaced wholesal
 
 Some configs describe the engine rather than the consumer's environment: which configs exist, which modules may depend on which, which
 modules a profile holds, how the bundle exports itself, and the vocabulary. Changing one in a consumer would describe an engine that does
-not exist, so they are sealed in the one place every config is registered.
+not exist, so they are sealed in the one place every config is registered. The configs that describe the consumer's repository — its tracks
+and decision records among them — are not sealed but are not fragments either: they are read whole from `.catzc/configs/`, so a consumer
+replaces them rather than merging onto catzc's.
 
 ### Checked as a whole
 
@@ -150,27 +148,17 @@ not exist, so they are sealed in the one place every config is registered.
 anything, so an overlay applies whole or not at all, and a consumer's pipeline can run it alone to fail early. In source mode there is no
 bundle to change — the catzc tree is `pwsh/` itself — so only the overlay's config fragments are read, merged by `Get-Config`.
 
-### Local modules
-
-What a consumer adds rather than changes — a new function, a new config, a new asset — goes in a module of its own, written the way catzc's
-own modules are written, so a consumer learns no second convention. It loads last, after the bundle and the overrides, and calls the bundle
-like any module does. It is built in the session from its files — private functions, then public ones, the order a built module's merge uses
-— so nothing is written to load it; `Get-Config` finds its configs and `Get-CatzcModuleRoot` its folder, in the overlay. A local public
-function may not take a loaded command's name, because that would replace a bundled function behind the contract check's back; replacing one
-is what an override is for.
-
 ### How this is enforced
 
 - **`Catzc.Base.Repository`** derives the overlay root (`Get-OverlayRoot`, build mode only), returns an overlay asset from
-  `Get-CatzcModuleRoot`, and resolves a local module's folder in the overlay.
+  `Get-CatzcModuleRoot`.
 - **`Catzc.Base.Config`** merges a fragment in `Get-Config` (`Merge-ConfigFragment`), validates the result with the config's type, refuses a
-  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and discovers a local
-  module's configs.
+  fragment of a config the registry seals (read from `ConfigsConfig.sealedConfigs`, as `Assert-Overlay` reads it), and refuses a fragment of
+  a `working-root` config, which it reads whole.
 - **`Catzc.Base.Overlay`** inventories the overlay (`Get-Overlay`), checks it (`Assert-Overlay`, with the shared function-file check
-  `Get-FunctionFileViolation`, the contract check, and the local-module check), and applies function overrides and loads local modules
-  (`Import-Overlay`), which the importer runs at the end of a bundle load.
-- **Tests** prove the merge, the sealing, the asset lookup, every check, a function override reaching every caller, and a local module
-  loading with its configs, in a built bundle.
+  `Get-FunctionFileViolation` and the contract check), and applies function overrides (`Import-Overlay`), which the importer runs at the end
+  of a bundle load.
+- **Tests** prove the merge, the sealing, the asset lookup, every check, and a function override reaching every caller, in a built bundle.
 
 ## Consequences
 
@@ -183,6 +171,7 @@ is what an override is for.
 ## Related
 
 - [platform-bundle](platform-bundle.md) — the built bundle the overlay changes.
+- [consumer-repository](consumer-repository.md) — where a consumer's own modules, configs, types and records live.
 - [sensible-defaults](sensible-defaults.md) — the resolution order a config fragment extends.
 - [internal-asset-dependencies](internal-asset-dependencies.md) — the one lookup of a module's content an asset override goes through.
 - [one-living-version](../principles/one-living-version.md) — why a consumer overlays rather than forks.

@@ -6,6 +6,7 @@ function Test-GitPathChanged {
         [string[]] $Path
     )
 
+    Assert-GitWorkTree
     $quotedPaths = foreach ($item in $Path) {
         "`"$item`""
     }

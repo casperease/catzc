@@ -1,6 +1,6 @@
 Describe 'Test-TrackNamespace' -Tag 'L0', 'logic', 'DDR-TRACK-MODULENAMESPACE' {
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Track -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{
                     tracks = [ordered]@{

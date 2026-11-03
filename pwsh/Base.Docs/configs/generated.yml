@@ -24,6 +24,7 @@ writers:
     at_import: true
     result_path: Readme
     expands: readme
+    expander: Get-ReadmeGeneratedTarget
     inputs:
       - pwsh/Base.Docs/configs/readme.yml
       - pwsh/Base.CodeMeta/configs/comment-pages.yml

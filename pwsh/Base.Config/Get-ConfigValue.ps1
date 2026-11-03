@@ -5,7 +5,10 @@ function Get-ConfigValue {
         [ValidatePattern('(?-i)^global\.[a-z0-9]+(-[a-z0-9]+)*(\.[^.]+)*$')]
         [string] $Address,
 
-        [string] $Module
+        [string] $Module,
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Namespace
     )
 
     $parts = $Address -split '\.'
@@ -15,6 +18,12 @@ function Get-ConfigValue {
         $keyPath = $parts[2..($parts.Count - 1)]
     }
 
-    $config = Get-Config -Config $configName -Module $Module
+    $resolveIn = if ($Namespace) {
+        $Namespace
+    }
+    else {
+        Get-CallerNamespace
+    }
+    $config = Get-Config -Config $configName -Module $Module -Namespace $resolveIn
     Resolve-ConfigKeyPath -Node $config -Segment $keyPath -Address $Address
 }

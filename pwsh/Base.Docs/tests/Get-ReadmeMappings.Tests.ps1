@@ -1,6 +1,6 @@
 Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
     BeforeAll {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { }
         # A module folder's README is its module article, the page the comment-pages resolver derives.
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'comment-pages' } {
             [Catzc.Base.CodeMeta.CommentPagesConfig]::new([ordered]@{ pages = @([ordered]@{ source = 'widgets/*'; docs = 'docs/references/widgets' }) })
@@ -65,7 +65,7 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
 
 Describe 'Get-ReadmeMappings source-tree guard' -Tag 'L0', 'logic' {
     It 'refuses before expanding any glob when the session runs a built package' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'Get-ReadmeMappings operates on the catzc source tree' }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { throw 'Get-ReadmeMappings operates on the catzc source tree' }
         InModuleScope Catzc.Base.Docs {
             $config = [pscustomobject]@{ patterns = @([pscustomobject]@{ glob = 'widgets/*' }); mappings = @() }
             { Get-ReadmeMappings -Config $config -RepositoryRoot 'x' } | Should -Throw '*source tree*'

@@ -21,7 +21,7 @@ Doubles as the "committed binaries are available on the network" check. For ever
 
 A PR that strips vendored binaries (to slim the repo, leaning on the source) runs this to prove the set is reproducible before deleting.
 
-Deletes from the source tree's .vendor, so it stops with a named error in build mode (Assert-SourceTree,
+Deletes from the source tree's .vendor, so it runs in catzc's source tree only (Assert-CatzcSourceTree,
 [DDR-RUNMODE](../../../drs/design/run-modes.md)) — an installed package's vendored modules are never removed by it.
 
 ### parameter `Name`

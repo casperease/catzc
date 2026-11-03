@@ -15,7 +15,7 @@ Downloads with Save-PSResource from the vendor source (configs/vendor.yml — PS
 `pwsh/.vendor/<Name>/<Version>/`, then removes folders the toolset never loads (legacy .NET Framework builds, PSScriptAnalyzer's
 compatibility_profiles). The only supported way to add a vendor module
 ([ADR-PWSH-VENDOR](../../../drs/automation/pwsh/vendor-toolset-dependencies.md)); commit the result. Must be run in a fresh session — a
-loaded module may lock its files. Writes into the source tree's .vendor, so it stops with a named error in build mode (Assert-SourceTree,
+loaded module may lock its files. Writes into the source tree's .vendor, so it runs in catzc's source tree only (Assert-CatzcSourceTree,
 [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `Name`

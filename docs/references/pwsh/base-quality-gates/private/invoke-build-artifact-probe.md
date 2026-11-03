@@ -29,7 +29,7 @@ The working root the child passes to Import-Catzc.ps1.
 
 ### parameter `ScopeModule`
 
-A built module to enter with InModuleScope (the build ships Pester under the full vendor policy).
+A built module to enter with InModuleScope (the build ships Pester because its selection holds the gates module).
 
 ### outputs
 

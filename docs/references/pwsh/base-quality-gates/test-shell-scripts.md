@@ -19,7 +19,8 @@ POSIX engines require LF;
 script takes these checks). The scope is every tracked `*.sh`, `*.bats` and `*.zsh` file plus the root importer.sh (a committed root-config
 copy that is regenerated on import). The vendored bats-core runner (`<Bash root>/.vendor/bats-core/`, BashConfig.BatsFolder) is mostly Bash
 scripts without an extension; every tracked file in it takes the LF check only, since it is third-party code the repository runs but does
-not own (upstream ships its sourced `lib/*.bash` with a shebang and mode 100644). Four checks:
+not own (upstream ships its sourced `lib/*.bash` with a shebang and mode 100644). In a consumer root the installed code root is no track of
+the working root, so none of its files is scanned. Four checks:
 
 ```text
 LF          every file in scope: a carriage return anywhere is one issue (.gitattributes pins the shell scripts to

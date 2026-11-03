@@ -48,3 +48,12 @@ A dirty tree is not a stale output: a writer is due when an output is missing, o
 the one stored after its last run (`Save-GeneratedWriterStamp`). A missing or unreadable memo makes every writer due. The input files are
 walked once for all writers, and the index once for every wildcard output; an output glob is walked on disk only for a rollable writer whose
 tracked files under it are all gone, so a whole tree is never walked for a writer whose files are in place.
+
+## comment:1
+
+Above `$due = -not $memo.ContainsKey($writer.name) -or $memo[$writer.name] -cne...`, written with `#`.
+
+```text
+A writer the memo never saw ran in no earlier session of this root (a fresh clone, a consumer root whose inputs live in the
+bundle): it is due once, and its stored stamp decides from then on.
+```

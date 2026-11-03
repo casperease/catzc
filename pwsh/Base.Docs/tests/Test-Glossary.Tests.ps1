@@ -16,7 +16,7 @@ Describe 'Test-Glossary' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-GlossarySources -ModuleName Catzc.Base.Docs { [pscustomobject]@{ Owner = 'Catzc.Widget' } }
         $entries = $script:entries

@@ -18,7 +18,7 @@ disagree with. The members come from Get-TrackMember and the index from Get-GitT
 and the git readers.
 
 Ends with Write-QualityGateReport: the report lands in out/test-track-member-committed/, and the gate throws once listing every issue (or
-returns the result with -PassThru). Needs the source tree (Assert-SourceTree).
+returns the result with -PassThru). Runs in catzc's source tree only (Assert-CatzcSourceTree).
 
 ### parameter `OutputFolder`
 

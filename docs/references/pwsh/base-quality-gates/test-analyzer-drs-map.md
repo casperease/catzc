@@ -19,7 +19,8 @@ against the repository and collects an issue for:
 - every custom analyzer check — a `Measure-*` function in `pwsh/.scriptanalyzer/*.psm1`, except the entry rules the settings list
   (EntryRule.psm1, SpellingEntryRule.psm1), which only dispatch — the map does not list, so a new custom rule cannot ship unmapped.
 
-It reads the DRS tree and the .scriptanalyzer rule files, which exist only in the source tree (Assert-SourceTree).
+It reads the DRS tree and the .scriptanalyzer rule files, which exist only in catzc's source tree, so it runs there only
+(Assert-CatzcSourceTree).
 
 ### parameter `OutputFolder`
 

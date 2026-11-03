@@ -127,6 +127,21 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         ($config.Domains | Where-Object Name -EQ 'alpha').Description | Should -Be 'The widget axioms.'
     }
 
+    It 'accepts an absent or empty domains map as a registry of no decision records' {
+        foreach ($raw in @{}, @{ domains = @{} }) {
+            $config = [Catzc.Base.Drs.DrsConfig]::new($raw)
+            $config.Domains.Count | Should -Be 0
+            $config.RuleSets.Count | Should -Be 0
+            $config.Edges.Count | Should -Be 0
+        }
+    }
+
+    It 'throws on a domains value that is not a map' {
+        $raw = New-ValidRaw
+        $raw.domains = 'widget'
+        { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*'domains' must be a map*"
+    }
+
     It 'throws on a domain with no description' {
         $raw = New-ValidRaw
         $raw.domains.beta.Remove('description')

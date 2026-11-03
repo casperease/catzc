@@ -14,3 +14,13 @@ Describe 'Import-Catzc loads a reduced build' -Tag 'L2', 'integrity', 'greedy', 
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }
+
+Describe 'Import-Catzc publishes the modules folder' -Tag 'L1', 'integrity' {
+    It 'names the pwsh track''s first member and the module-types root place' {
+        $track = Get-Track -Name pwsh
+        $folder = $track.members[0].path
+        $place = (Get-Config -Config module-types).types.Where({ $_.id -ceq 'pwsh-folder' }).places[0]
+        $env:CatzcModulesFolder | Should -Be $folder
+        $env:CatzcModulesFolder | Should -Be $place.root
+    }
+}

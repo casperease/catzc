@@ -345,7 +345,7 @@ shared by every run on the machine, so the test passes or fails depending on wha
 
 ### Rule ADR-AUTO-TEST-LANGUAGETESTMODULES
 
-A Go test module ([go-test-artifacts](go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule)), a Python test folder
+A Go test module ([go-language](go/go-language.md#rule-adr-auto-go-gotestmodule)), a Python test folder
 ([python-test-artifacts](python/python-test-artifacts.md#rule-adr-auto-py-pytestfolder)) and a Bash test folder
 ([bash-test-artifacts](bash/bash-test-artifacts.md#rule-adr-auto-bash-bashtestfolder)) are the second kind of test file, beside a module's
 own test files, under the same tiers, categories, and run model. Discovery maps each to its catzc module, so module selection, test suites,
@@ -716,12 +716,12 @@ original ([one-living-version](../principles/one-living-version.md)). Running th
 is the same module — same name, same public and private functions, same module state — so every mock target and every module a test reaches
 into resolves the same way in both runs.
 
-`Test-CatzcBuild` builds the selected modules into a fresh temporary destination with the `full` vendor policy (so the test and analyzer
-tools ship with the build), then runs the parallel harness above unchanged in shape. The single seam is the entry script a shard worker
-loads: the repository's source entry for the source run, the build's own entry for the build run. Test files come from the source tree,
-limited to the built modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`, `Invoke-InBuiltCatzc`,
-`Remove-BuiltCatzcRoot`) give an individual test the same build in a child process — process isolation is mandatory, because loaded
-assemblies and environment variables are process-global.
+`Test-CatzcBuild` builds the selected modules into a fresh temporary destination with `Catzc.Base.QualityGates` in the selection (so the
+test and analyzer tools ship with the build), then runs the parallel harness above unchanged in shape. The single seam is the entry script a
+shard worker loads: the repository's source entry for the source run, the build's own entry for the build run. Test files come from the
+source tree, limited to the built modules' `tests/`. The `Catzc.Internal.TestKit` build helpers (`New-BuiltCatzcRoot`,
+`Invoke-InBuiltCatzc`, `Remove-BuiltCatzcRoot`) give an individual test the same build in a child process — process isolation is mandatory,
+because loaded assemblies and environment variables are process-global.
 
 Some tests give the same answer in both modes by construction: an integrity test that reads only the repository's files never touches the
 loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-waste.md)), so it carries `source-only` and the build run
@@ -736,12 +736,12 @@ same scope the pipelines that run it trigger on.
 `A second kind of test file, the same run`
 
 A module's own test file loads the modules and calls them; a Go test module starts the engine as a process and reads what it prints
-([go-test-artifacts](go/go-test-artifacts.md)). The two answer different questions, but they are tests of the same modules, so they run in
-the same test run rather than in a second harness with its own selection, report, and verdict. Discovery maps `<root>/tests/<module>/` to
-its catzc module by the kebab-case name, and from there every selection a test run makes — `-Modules`, `-Suite`, the tiers, the categories,
-the protected-glob skip — applies to the Go tests exactly as to that module's own tests. A shared bridge runs each mapped Go test module
-once and turns every top-level Go test into one test of the run, so the tag check, the timing check, `tests.csv`, and `run.json` read Go
-tests as rows like any other.
+([go-language](go/go-language.md)). The two answer different questions, but they are tests of the same modules, so they run in the same test
+run rather than in a second harness with its own selection, report, and verdict. Discovery maps `<root>/tests/<module>/` to its catzc module
+by the kebab-case name, and from there every selection a test run makes — `-Modules`, `-Suite`, the tiers, the categories, the
+protected-glob skip — applies to the Go tests exactly as to that module's own tests. A shared bridge runs each mapped Go test module once
+and turns every top-level Go test into one test of the run, so the tag check, the timing check, `tests.csv`, and `run.json` read Go tests as
+rows like any other.
 
 The tags follow from what a Go test is. It drives a real toolchain and a real engine, so its tier is `L2`
 (ADR-AUTO-TEST-NOCLOUDBELOWLTHREE), always. Its category comes from its name: `TestIntegrity*` reads the shipped artifacts and is

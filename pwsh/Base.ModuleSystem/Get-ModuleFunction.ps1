@@ -5,7 +5,7 @@ function Get-ModuleFunction {
     )
 
     if ($NotUsedInternally) {
-        Assert-SourceTree
+        Assert-CatzcSourceTree
     }
 
     $moduleNames = (Get-CatzcModule -EngineTrack).name

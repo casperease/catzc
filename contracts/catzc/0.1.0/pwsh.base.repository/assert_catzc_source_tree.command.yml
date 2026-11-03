@@ -1,0 +1,3 @@
+description: Throws unless the session runs catzc's own source tree.
+parameters:
+  command: string

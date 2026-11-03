@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"5317e783f91a\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: f159107e57cc",
   "types": [
     {
       "name": "Catzc.Base.RootConfig.RootConfigFile",
@@ -15,11 +15,19 @@
           "kind": "property"
         },
         {
+          "name": "consumer",
+          "kind": "property"
+        },
+        {
           "name": "generator",
           "kind": "property"
         },
         {
           "name": "optIn",
+          "kind": "property"
+        },
+        {
+          "name": "optional",
           "kind": "property"
         },
         {

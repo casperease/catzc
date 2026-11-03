@@ -24,8 +24,8 @@ folder's pages live. The scope is Get-CommentScope's: tracked files of those lan
 fixture and contract files and the file kinds comments.yml excludes.
 
 A page that exists already keeps its sections as written; new comments are appended after its highest number, and a number is never reused.
-A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. A source-tree
-tool: it throws in build mode (Assert-SourceTree).
+A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. It runs in
+catzc's source tree only (Assert-CatzcSourceTree).
 
 ### parameter `Path`
 

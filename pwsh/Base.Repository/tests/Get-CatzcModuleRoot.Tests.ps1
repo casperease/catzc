@@ -64,6 +64,76 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'a consumer overlay over a built root' -Tag 'ADR-AUTO-OVERLAY' {
+        BeforeAll {
+            # The built shape: the code root's module folder carries the namespace, the overlay's stays bare.
+            $script:builtRoot = Join-Path $TestDrive 'built'
+            $script:builtWidgetRoot = Join-Path $builtRoot 'Catzc.Base.Widget'
+            $script:builtOverlay = Join-Path $TestDrive 'gadget-consumer/.catzc/pwsh'
+            [System.IO.Directory]::CreateDirectory((Join-Path $builtWidgetRoot 'assets')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $builtOverlay 'Base.Widget/assets')) | Out-Null
+            Set-Content -Path (Join-Path $builtOverlay 'Base.Widget/assets/gadget.txt') -Value 'overridden'
+        }
+        BeforeEach {
+            $env:CatzcModulesRoot = $script:builtRoot
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'build' }
+            Mock Get-OverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $builtOverlay }
+            Mock Get-Module -ModuleName Catzc.Base.Repository -ParameterFilter { $Name -ceq 'Catzc.Base.Widget' } -MockWith {
+                [pscustomobject]@{ Name = 'Catzc.Base.Widget'; Path = (Join-Path $builtWidgetRoot 'Catzc.Base.Widget.psd1'); ModuleBase = $builtWidgetRoot }
+            }
+        }
+        AfterEach {
+            $env:CatzcModulesRoot = $script:modulesRoot
+        }
+
+        It 'returns the overlay''s bare-folder file for an asset it replaces' {
+            Get-CatzcModuleRoot 'assets/gadget.txt' -Module Catzc.Base.Widget |
+                Should -Be ([System.IO.Path]::Combine($builtOverlay, 'Base.Widget', 'assets/gadget.txt'))
+        }
+
+        It 'returns the namespaced bundled path for an asset the overlay does not replace' {
+            Get-CatzcModuleRoot 'assets/lever.txt' -Module Catzc.Base.Widget |
+                Should -Be (Join-Path $builtWidgetRoot 'assets/lever.txt')
+        }
+    }
+
+    Context 'a language module at its track place' {
+        BeforeAll {
+            $script:placeRepo = Join-Path $TestDrive 'place-repo'
+            $script:placeCode = Join-Path $TestDrive 'place-code'
+            foreach ($root in $script:placeRepo, $script:placeCode) {
+                [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($root, 'widgets', 'Widget')) | Out-Null
+            }
+        }
+        BeforeEach {
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository -MockWith { $placeRepo }
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Repository -MockWith { $placeCode }
+        }
+
+        It 'resolves under the repository root in source mode' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'source' }
+            Get-CatzcModuleRoot -Place widgets -Module Widget |
+                Should -Be ([System.IO.Path]::Combine($script:placeRepo, 'widgets', 'Widget'))
+        }
+
+        It 'resolves under the code root in build mode' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'build' }
+            Get-CatzcModuleRoot -Place widgets -Module Widget |
+                Should -Be ([System.IO.Path]::Combine($script:placeCode, 'widgets', 'Widget'))
+        }
+
+        It 'joins a child path below the folder' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'build' }
+            Get-CatzcModuleRoot 'assets/gadget.txt' -Place widgets -Module Widget |
+                Should -Be (Join-Path ([System.IO.Path]::Combine($script:placeCode, 'widgets', 'Widget')) 'assets/gadget.txt')
+        }
+
+        It 'throws naming the place, the module and the root when the folder is missing' {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'source' }
+            { Get-CatzcModuleRoot -Place widgets -Module Gadget } | Should -Throw "*'Gadget'*'widgets'*place-repo*"
+        }
+    }
+
     Context 'default -Module' {
         It 'resolves the calling module when called from module code' {
             $actual = InModuleScope Catzc.Base.Repository { Get-CatzcModuleRoot 'configs/x.yml' }

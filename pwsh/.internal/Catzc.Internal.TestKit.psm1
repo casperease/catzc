@@ -209,10 +209,19 @@ function New-BuiltCatzcRoot {
         $selection['ModuleProfile'] = $ModuleProfile
     }
 
+    # Invoke-InBuiltCatzc enters a built module's scope with Pester, which a build ships exactly when it holds the gates module.
+    $gatesModule = 'Catzc.Base.QualityGates'
+    if ($selection.Count -gt 0) {
+        $planned = @((Build-Modules @selection -DryRun -Silent).Modules)
+        if ($gatesModule -notin $planned) {
+            $selection = @{ Module = @($planned) + @($gatesModule) }
+        }
+    }
+
     $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
     $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-built-' + [guid]::NewGuid().ToString('N'))
     try {
-        $build = Build-Modules @selection -VendorPolicy full -Destination $destination -Silent
+        $build = Build-Modules @selection -Destination $destination -Silent
     }
     catch {
         if ([System.IO.Directory]::Exists($destination)) {
@@ -228,6 +237,78 @@ function New-BuiltCatzcRoot {
         Destination = $destination
         Modules     = @($build.Modules)
         Build       = $build
+    }
+}
+
+function New-ConsumerRoot {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Test fixture: installs into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param(
+        [string] $Bundle,
+
+        [string[]] $Module = @(),
+
+        [string] $ModuleProfile,
+
+        [hashtable] $File = @{}
+    )
+
+    if (-not (Get-Command Export-Catzc -ErrorAction Ignore)) {
+        throw 'New-ConsumerRoot needs Export-Catzc (Catzc.Base.Exporter), which is not loaded in this session.'
+    }
+    $root = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-consumer-' + [guid]::NewGuid().ToString('N'))
+    $fullRoot = [System.IO.Path]::GetFullPath($root)
+    $prefix = $fullRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+
+    # The tree is checked whole before anything is built or written, so a bad path leaves nothing behind.
+    $targets = @{}
+    foreach ($relative in $File.Keys) {
+        $target = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($fullRoot, $relative))
+        if ([System.IO.Path]::IsPathRooted($relative) -or -not $target.StartsWith($prefix, [System.StringComparison]::Ordinal)) {
+            throw "New-ConsumerRoot: the file path '$relative' is not relative to the consumer root."
+        }
+        $targets[$relative] = $target
+    }
+
+    $selection = @{}
+    if ($Bundle) {
+        $selection['Bundle'] = $Bundle
+    }
+    if ($Module.Count -gt 0) {
+        $selection['Module'] = $Module
+    }
+    if ($ModuleProfile) {
+        $selection['ModuleProfile'] = $ModuleProfile
+    }
+
+    $saved = @{ RepositoryRoot = $env:RepositoryRoot; CatzcModulesRoot = $env:CatzcModulesRoot }
+    try {
+        # A real consumer has its files before its install, so the first import of the root sees them.
+        $utf8 = [System.Text.UTF8Encoding]::new($false)
+        foreach ($relative in $File.Keys) {
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targets[$relative])) | Out-Null
+            [System.IO.File]::WriteAllText($targets[$relative], [string] $File[$relative], $utf8)
+        }
+        $install = Export-Catzc -Root $root @selection -Silent
+    }
+    catch {
+        if ([System.IO.Directory]::Exists($root)) {
+            [System.IO.Directory]::Delete($root, $true)
+        }
+        throw
+    }
+
+    # The handle carries the built-root keys too, so Invoke-InBuiltCatzc and Remove-BuiltCatzcRoot take it as it is.
+    @{
+        BuildRoot   = [string] $install.ModulePath
+        WorkingRoot = $root
+        Root        = $root
+        Importer    = [string] $install.Importer
+        Saved       = $saved
+        Destination = $root
+        Install     = $install
     }
 }
 
@@ -319,4 +400,4 @@ function Remove-BuiltCatzcRoot {
 }
 
 Export-ModuleMember -Function New-ModuleFolder, New-FakeRepositoryRoot, Remove-FakeRepositoryRoot, `
-    Set-GitTrackedPathMock, New-BuiltCatzcRoot, Invoke-InBuiltCatzc, Remove-BuiltCatzcRoot
+    Set-GitTrackedPathMock, New-BuiltCatzcRoot, New-ConsumerRoot, Invoke-InBuiltCatzc, Remove-BuiltCatzcRoot

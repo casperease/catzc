@@ -11,7 +11,7 @@ Runs a module's tests in one test language once and returns the Pester outcome o
 
 ### description
 
-The language bridge's run step (tests/Language.Bridge.ps1 calls it once per test folder, in its BeforeAll); each generated Pester test then
+The language bridge's run step (assets/Language.Bridge.ps1 calls it once per test folder, in its BeforeAll); each generated Pester test then
 reports its own outcome:
 
 - tool missing: when -Executable is empty (the run's source session found no managed tool at the tools.yml pin, Get-LanguageTestExecutable),

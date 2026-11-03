@@ -25,8 +25,8 @@ deterministic, expensive-to-regenerate artifact kept in the tree, not regenerate
 (`assets/english.stamp`) recording the cspell + dict package versions it was flattened from and the word count. The drift check
 (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell version against the tools.yml pin — cheaply, with no node round-trip — and
 fails when they diverge, so a cspell bump that leaves this artifact stale is caught in CI. Re-run this (and commit the gz + stamp) when
-bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the repository, so it needs the source mode
-and throws in build mode (Assert-SourceTree).
+bumping cspell; `-DryRun` reports whether either would change. It writes the source module in the repository, so it runs in catzc's source
+tree only and throws in build mode (Assert-CatzcSourceTree).
 
 SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every `.cspell/*.txt` term list into one set. English recognizes the
 spelled-out words (rule, collection, group); the term lists carry the product vocabulary and the conventional-abbreviation allow-list. See

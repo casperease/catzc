@@ -14,7 +14,7 @@ function Export-Comments {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $config = Get-Config -Config comments
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

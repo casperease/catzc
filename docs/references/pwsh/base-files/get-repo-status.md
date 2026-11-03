@@ -19,6 +19,9 @@ that touched it is on the upstream. `ready`: tracked and unchanged on a branch w
 The answer is git's alone, and no head stores a status: whether a file is generated, so its source is edited instead, is told by the writer
 registry and the file's `linguist-generated` attribute.
 
+A working root with no repository stops at [Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this
+command.
+
 Read-only: one `git status`, and for an unchanged tracked file one `git branch --show-current`, one `git for-each-ref` and one `git log`,
 each from the repository root.
 

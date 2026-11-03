@@ -7,7 +7,7 @@ namespace Catzc.Base.Docs;
 
 public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "agents", "roofs", "contracts" };
+    private static readonly string[] AllowedKeys = { "agents", "roofs", "contracts", "folder" };
     private static readonly string[] RequiredKeys = { "agents" };
     private static readonly string[] RoofKeys = { "agent_body_lines", "capability_lines" };
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
@@ -17,6 +17,9 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The registered agents, in file order.
     public IReadOnlyList<AgentEntry> agents { get; }
+
+    // The repository-relative folder the agent definitions live in.
+    public string folder { get; } = ".claude/agents";
 
     public int agent_body_lines { get; } = 20;
 
@@ -48,6 +51,12 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
         {
             contracts = AgentEntry.ReadList(d, "contracts", ContractRe, "a bare record code ADR-<CODE>", errors);
             if (contracts.Count == 0) { errors.Add("'contracts' must name at least one contract; leave the key out for the default"); }
+        }
+
+        if (d != null && d.Contains("folder") && d["folder"] != null)
+        {
+            folder = d["folder"].ToString().Replace('\\', '/').TrimEnd('/');
+            if (folder.Length == 0) { errors.Add("folder must not be empty; leave the key out for the default"); }
         }
 
         if (d != null && d.Contains("roofs"))

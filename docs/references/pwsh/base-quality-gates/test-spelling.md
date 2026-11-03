@@ -25,7 +25,8 @@ cspell must be on PATH — install it once with Install-Cspell (or: npm install 
 ### parameter `Path`
 
 Repository-relative paths or globs to check (cspell expands a glob). Defaults to the repository's known file types. cspell still applies the
-ignorePaths from cspell.yml.
+ignorePaths from cspell.yml. In build mode the default scope is the tracked-file list filtered to those file types, so the files catzc
+renders into a consumer root are never read.
 
 ### parameter `Exclude`
 

@@ -23,7 +23,8 @@ The rules are self-contained: no filesystem or other-config reads. The folder-to
 quality gate `Test-DrsRegistry` and to shipped-asset integrity tests, which mirrors the one-directional coupling of the customer model
 ([ADR-AZ-CUSTOMER-REFERENCEUNVALIDATED](../../../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referenceunvalidated)).
 
-- `domains` is a non-empty map. Each domain has a role, a description, a `depends_on` list and a non-empty `rulesets` map.
+- `domains` is a map, absent or empty for a repository with no decision records. Each domain has a role, a description, a `depends_on` list
+  and a non-empty `rulesets` map.
 - Every `depends_on` target resolves to a domain the file declares, there is no self-edge, and the graph of domains is acyclic.
 - Every `external` is unique and matches the code grammar. When the external has a domain segment, the effective code (the rule set's
   override, else the domain's code) is that segment. A one-segment external such as `ADR-REPO-AI` has none to match.

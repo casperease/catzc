@@ -7,7 +7,7 @@ function Remove-VendorModules {
         [switch] $Force
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $targets = @(Get-VendoredModule)
     if ($Name) {

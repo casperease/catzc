@@ -115,6 +115,7 @@ languages:
     shapes: ['^[A-Za-z_][\w.-]*: [^{].*$']
     formatter: prettier
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments, Test-AgentDefinitions]
+    check_scopes: { Test-AgentDefinitions: global.agents.folder }
     layout:
       - { folder: configs, role: config }
   accosted:
@@ -141,7 +142,7 @@ languages:
         Test-AgentDefinitions,
         Test-Plans,
       ]
-    check_scopes: { Test-Plans: global.plans.folder }
+    check_scopes: { Test-AgentDefinitions: global.agents.folder, Test-Plans: global.plans.folder }
     imprint: [plan-counts]
     layout:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
@@ -158,6 +159,7 @@ languages:
     formatter: ruff
     drs_folder: automation/python
     checks: [Test-PythonLint, Test-PythonTypes, Test-Formatting, Test-Spelling, Test-IdiomaticNames]
+    package: { command: Export-PythonModule, form: wheels }
     tests: { runner: Invoke-PythonTest, pattern: "test_*.py", tools: [uv, python], executable_parameter: UvExecutable }
     layout:
       - { folder: ".", role: script, extensions: [.py] }
@@ -176,6 +178,7 @@ languages:
     formatter: gofmt
     drs_folder: automation/go
     checks: [Test-Formatting, Test-Spelling, Test-IdiomaticNames]
+    package: { command: Export-GoModule, form: binary }
     tests: { runner: Invoke-GoTest, pattern: "*_test.go", tools: [go], executable_parameter: GoExecutable }
     layout:
       - { folder: ".", role: source, extensions: [.go] }
@@ -187,6 +190,7 @@ languages:
     no_formatter: no engine is configured for Bash yet
     drs_folder: automation/bash
     checks: [Test-ShellScripts, Test-IdiomaticNames]
+    package: { command: Export-BashModule, form: source }
     tests: { runner: Invoke-BashTest, pattern: "*.bats", engine: bash, executable_parameter: EngineExecutable }
     layout:
       - { folder: ".", role: script, extensions: [.sh] }
@@ -208,6 +212,7 @@ languages:
     naming: { folder: kebab, file: kebab, function: camel, type: pascal }
     formatter: prettier
     checks: [Test-JavaScriptTypes, Test-Formatting, Test-Spelling, Test-IdiomaticNames]
+    package: { command: Export-JavaScriptModule, form: vsix }
     tests: { runner: Invoke-JavaScriptTest, pattern: "*.test.js", tools: [node_js], executable_parameter: NodeExecutable }
     layout:
       - { folder: ".", role: source, extensions: [.js] }

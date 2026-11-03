@@ -1,6 +1,17 @@
-# Automation: Go modules and test artifacts — modules by layout, black-box tests of the engine, nothing shipped unpackaged
+# Automation: Go language — a module language by layout, black-box tests of the engine one use of it, nothing shipped unpackaged
 
 ## Rules: ADR-AUTO-GO
+
+### Rule ADR-AUTO-GO-MODULELANGUAGE
+
+Go is a module language, like python and javascript: its code is the modules of the `go` track, held by the layout of every language track
+(ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), run as a process by the engine, never a function of the engine and never in a bundle
+(ADR-AUTO-TESTLANG-MODULESBYLAYOUT). The engines stay pwsh, bash and zsh (ADR-AUTO-ENGINE-THREEENGINES), so Go is never an engine. A
+consumer's Go modules sit in the consumer's own `go` track and run through the handlers the bundle carries, configured by the consumer's
+working-root `go` config (ADR-AUTO-CONSUMER-OWNTRACKS). Black-box tests of the engine are one use of the language, held in the track's test
+holder (ADR-AUTO-GO-GOTESTMODULE).
+
+- [A module language](#a-module-language)
 
 ### Rule ADR-AUTO-GO-GOTESTMODULE
 
@@ -50,11 +61,21 @@ spelling check over `*.go`. The glossary checks read PowerShell and markdown, so
 
 ## Context
 
-Go is a test-artifact language: its modules exist by the layout, its tests prove the engine as a process from outside, and the test run
-reaches them through the one bridge ([test-artifact-languages](../test-artifact-languages.md)). This record holds Go's spellings of that
-shared decision and what is Go's own: the workspace, the version and the toolchain. Go suits the role: one static toolchain, a standard
-`testing` package with no framework to install, a machine-readable event stream (`go test -json`), and fast parallel test runs. Everything
-Go-specific but the code is generated, so a second language adds no committed module files to keep in step.
+Go is a module language: its modules exist by the layout, and its first use is tests that prove the engine as a process from outside,
+reached by the test run through the one bridge ([test-artifact-languages](../test-artifact-languages.md)). This record holds Go's spellings
+of that shared decision and what is Go's own: the workspace, the version and the toolchain. Go suits the role: one static toolchain, a
+standard `testing` package with no framework to install, a machine-readable event stream (`go test -json`), and fast parallel test runs.
+Everything Go-specific but the code is generated, so a second language adds no committed module files to keep in step.
+
+### A module language
+
+A module language is one whose code is the modules of its own track, run by the engine as a process. Python, JavaScript and Go are alike in
+this: the track's modules stand by placement ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)), the engine
+never calls them in-process, and the builder reads the engine's track only, so none reaches a bundle. Go is held as a module language by the
+layout and not by a branch in any command: its track, its root and its module type are registry entries, and its one config is `go.yml`. A
+consumer repository keeps its own Go modules in its own `go` track, with the handlers and the config the bundle carries
+([consumer-repository](../consumer-repository.md#rule-adr-auto-consumer-owntracks)). The engines are a separate axis: pwsh, bash and zsh run
+the engine, and a module language never joins them.
 
 ### The layout
 
@@ -129,12 +150,12 @@ so a Go comment is outside their reach.
 
 ## Decision
 
-Go is a language track whose modules exist by the layout and ship only what is packaged, and the repository's first black-box test language
-(ADR-AUTO-TESTLANG-MODULESBYLAYOUT). Its tests of the engine live in one Go test module per catzc module under the Go root
-(ADR-AUTO-TESTLANG-ONEROOT, ADR-AUTO-GO-GOTESTMODULE), start the engine from the entry the run names (ADR-AUTO-TESTLANG-BLACKBOX), build
-against a generated, gitignored workspace (ADR-AUTO-GO-GOWORKSPACE) at the one pinned Go version (ADR-AUTO-GO-ONEGOVERSION) with the managed
-toolchain (ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests through the one bridge (ADR-AUTO-TESTLANG-BRIDGE),
-under the checks that read Go (ADR-AUTO-GO-GOCHECKS).
+Go is a module language: a language track whose modules exist by the layout and ship only what is packaged (ADR-AUTO-GO-MODULELANGUAGE,
+ADR-AUTO-TESTLANG-MODULESBYLAYOUT), and the repository's first black-box test language. Its tests of the engine live in one Go test module
+per catzc module under the Go root (ADR-AUTO-TESTLANG-ONEROOT, ADR-AUTO-GO-GOTESTMODULE), start the engine from the entry the run names
+(ADR-AUTO-TESTLANG-BLACKBOX), build against a generated, gitignored workspace (ADR-AUTO-GO-GOWORKSPACE) at the one pinned Go version
+(ADR-AUTO-GO-ONEGOVERSION) with the managed toolchain (ADR-AUTO-GO-MANAGEDTOOLCHAIN), and run through `Test-Automation` as `L2` tests
+through the one bridge (ADR-AUTO-TESTLANG-BRIDGE), under the checks that read Go (ADR-AUTO-GO-GOCHECKS).
 
 ### How this is enforced
 
@@ -154,6 +175,7 @@ under the checks that read Go (ADR-AUTO-GO-GOCHECKS).
 - The engine is verified as a process, the way it is used, in both run modes, by tests that cannot depend on its internals.
 - Nothing Go-specific is committed but the tests, so a new Go test module is one folder with one `*_test.go` file: the next import renders
   its `go.mod` and adds it to `go.work`.
-- Go never reaches a user: no bundle holds a Go file, and no installed catzc needs a Go toolchain.
+- A Go module reaches a user as a binary per platform in the bundle, and an installed catzc needs no Go toolchain to run it; a test never
+  ships.
 - The cost is a second toolchain on every devbox and CI agent that runs the `L2` tests, installed by `Install-Go`; without it, the Go tests
   skip and the run says so.

@@ -34,7 +34,7 @@ Conflict handling is a fast pre-scan (fast / faster / fastest):
   tmp directory.
 - -Force skip the pre-scan and overwrite.
 
-The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error in build mode (Assert-SourceTree,
+The copy is of the source tree (per-function files, tests/, root packages), so it runs in catzc's source tree only (Assert-CatzcSourceTree,
 [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 See [ADR-CONF-LOADING](../../../drs/configuration/module-config-loading.md) (files.yml),

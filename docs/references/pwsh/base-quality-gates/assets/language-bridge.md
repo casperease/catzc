@@ -1,4 +1,4 @@
-# pwsh/Base.QualityGates/tests/Language.Bridge.ps1
+# pwsh/Base.QualityGates/assets/Language.Bridge.ps1
 
 The language bridge: one shared Pester file that the harness runs once per test folder of a test language beside PowerShell (Go, Python,
 Bash). It runs as a Pester container whose data names the language, the folder, the engine entry, and the tool the run's source session

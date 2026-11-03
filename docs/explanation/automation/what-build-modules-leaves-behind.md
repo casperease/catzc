@@ -3,7 +3,7 @@
 ```text
 What Build-Modules leaves behind.
 
-1  exporter.yml             the exporter's one config: versions, default profile, vendor policy
+1  exporter.yml             the exporter's one config: versions, default profile, bundles
 2  Build-Modules            settles the selection and version, loads the engine, calls it
 3  Invoke-ModuleBuild       asserts, closure-expands, plans, checks assets, then writes
 4  Assert-CatzcBundle       the integrity guard on the engine's output
@@ -85,7 +85,7 @@ layout:
 ## Walkthrough
 
 1. **exporter.yml.** The exporter's one config holds the devbox placeholder version `6.6.666`, the pipeline `MAJOR.MINOR` (`0.1`), the
-   default profile `full`, and the vendor policy `runtime`. `Build-Modules` reads it through `Get-Config -Config exporter`.
+   default profile `full`, and the bundles. `Build-Modules` reads it through `Get-Config -Config exporter`.
 2. **Build-Modules.** The selection comes from `-Module`, `-ModuleProfile`, or both, and from the default profile when neither is given.
    `Build-Modules` resolves the version with `Resolve-CatzcBuildVersion`, loads the engine on demand with `Import-InternalModule Builder`,
    and calls it by name.

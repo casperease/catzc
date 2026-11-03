@@ -6,11 +6,14 @@ can never produce an instance.
 
 ## Data model
 
-Under the top-level `configs` map, each entry is a map holding `type`, a non-blank C# type full name, and optionally `overridable`, a
-boolean where absent means true. `configs` is the only top-level key, and an absent or empty `configs` map is valid.
+Under the top-level `configs` map, each entry is a map holding `type`, a non-blank C# type full name, and optionally `scope`, one of
+`engine`, `module` or `working-root`, where absent means `module`. `configs` is the only top-level key, and an absent or empty `configs` map
+is valid.
 
 ## Properties
 
 - **`configs`** — the registry as config name to type full name, in file order.
-- **`sealedConfigs`** — the entries a consumer overlay may not change (`overridable: false`), the engine-intrinsic configs
+- **`sealedConfigs`** — the entries a consumer overlay may not change (`scope: engine`), the engine-intrinsic configs
   ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).
+- **`workingRootConfigs`** — the entries that describe the repository and are read whole from the working root (`scope: working-root`), in
+  file order.

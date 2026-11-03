@@ -7,7 +7,7 @@ function Test-TrackNamespace {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # A path under a track drops its track's namespace unless the track exempts it.
     $tracked = @(Get-GitTrackedPath '.')

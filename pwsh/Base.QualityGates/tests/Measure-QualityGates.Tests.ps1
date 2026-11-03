@@ -38,6 +38,7 @@ Describe 'Measure-QualityGates' -Tag 'L1', 'logic' {
     }
 
     It 'times every gate languages.yml names in a check by default' {
+        Mock Get-PresentLanguageName -ModuleName Catzc.Base.QualityGates { 'widget', 'gadget' }
         Mock Get-FileLanguage -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Languages.FileLanguage]::new('widget', @('.wdg'), $null, 'fixture', $null, $null,
                 @('Test-GadgetFast', 'Test-WidgetSlow'))

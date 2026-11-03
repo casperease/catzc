@@ -13,8 +13,8 @@ function New-VsCodeFileIconTheme {
 
         # The glyph folders, in order: the icon theme's own glyphs, then the lamp glyphs.
         [string[]] $GlyphDirectory = @(
-            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-file-icons'))/assets")
-            (Join-Path (Get-RepositoryRoot) "$(Get-TrackPlace -Track js -TrackKind extensions)/$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets")
+            (Get-CatzcModuleRoot 'assets' -Place ((Get-Track -Name js).places[0]) -Module ((Get-Track -Name js).FolderNameOf('catzc-file-icons')))
+            (Get-CatzcModuleRoot 'assets' -Place ((Get-Track -Name js).places[0]) -Module ((Get-Track -Name js).FolderNameOf('catzc-track-lamps')))
         ),
 
         # Each language's extensions come from the language system, never restated in file-icons.yml.

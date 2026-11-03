@@ -23,6 +23,21 @@ Describe 'Get-RootConfigTargets' -Tag 'L0', 'logic' {
         @($targets) | Should -HaveCount 0
     }
 
+    It '-Consumer returns only the opted-in entries marked for a consumer' {
+        $config = [pscustomobject]@{
+            files = @(
+                [pscustomobject]@{ target = 'a'; optIn = $true; consumer = $true }
+                [pscustomobject]@{ target = 'b'; optIn = $true; consumer = $false }
+                [pscustomobject]@{ target = 'c'; optIn = $false; consumer = $true }
+                [pscustomobject]@{ target = 'd'; optIn = $true; consumer = $true }
+            )
+        }
+        $targets = InModuleScope Catzc.Base.RootConfig -Parameters @{ Config = $config } {
+            param($Config) Get-RootConfigTargets -Config $Config -Consumer
+        }
+        @($targets.target) | Should -Be @('a', 'd')
+    }
+
     Context 'an engine''s importer entry follows the mix' {
         BeforeAll {
             $script:entryConfig = [pscustomobject]@{

@@ -13,8 +13,9 @@ Lists every file a generator of this repository writes, with the command that wr
 
 The targets come from the one writer registry, the rows of every module's generated.yml
 ([ADR-REPO-ROOTCFG-ONECLASSPERWRITER](../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-oneclassperwriter)). A row
-answers its own outputs, unless it expands its instances from a config, which then answers them: the opted-in root configs of
-rootconfig.yml, the READMEs readme.yml names. Each target carries the class of the row it answers from.
+answers its own outputs, unless it expands its instances from a config, which then answers them: the row's `expander` is a public function
+of the row's owning module, and it returns the instances (the opted-in root configs of rootconfig.yml, the READMEs readme.yml names). Each
+target carries the class of the row it answers from.
 
 ### outputs
 
@@ -23,12 +24,12 @@ rootconfig.yml, the READMEs readme.yml names. Each target carries the class of t
 ## Sources
 
 - **A writer row** — the outputs it declares, in its class.
-- **rootconfig** — each opted-in `rootconfig.yml` target, by its generator. A target copied from its source asset names no generator of its
-  own; `Build-RootConfig` is what writes it. A generator with a row of its own (`New-GitAttributes`) gives its target that row's class, and
-  the config still answers its path, once.
-- **readme** — the files `readme.yml` names, by the row that expands it.
-- **comment-pages** — no target, since a comment page is authored.
-- Any other `expands` value throws, naming the writer.
+- **rootconfig** — each opted-in `rootconfig.yml` target, by its generator, from `Get-RootConfigGeneratedTarget`. A target copied from its
+  source asset names no generator of its own; `Build-RootConfig` is what writes it. A generator with a row of its own (`New-GitAttributes`)
+  gives its target that row's class, and the config still answers its path, once.
+- **readme** — the files `readme.yml` names, by the row that expands it, from `Get-ReadmeGeneratedTarget`.
+- **comment-pages** — no target, since a comment page is authored; `Get-CommentPageGeneratedTarget` answers none.
+- An expander that no loaded module exports throws, naming the writer and the expander.
 
 ## comment:1
 
@@ -36,13 +37,4 @@ Above `$rows = @(foreach ($owner in @(Get-Config -Config generated -ListOwners))
 
 ```text
 Every writer row, each declared once in its module's generated.yml.
-```
-
-## comment:2
-
-Above `'comment-pages' {`, written with `#`.
-
-```text
-A comment page is authored
-([ADR-REPO-COMMENTS-PAGEISAUTHORED](/docs/drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the config that maps them answers no target.
 ```

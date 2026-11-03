@@ -150,7 +150,9 @@ $script:privateFunctionFolder = $null
 # The functions that outgrew this file live one per file beside it; they share its scope.
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Build-ConsumerTypes.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-CSharpTypes.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Get-BundleModuleDirectory.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-AllModules.ps1')
 
 # Writes only when the text differs, so parallel workers never race on an unchanged manifest.

@@ -14,7 +14,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "naming", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "drs_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "drs_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes", "package" };
     // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
     private const string DefaultNormalForm = "snake";
     // A settings entry is a repository-relative file, or `<file>#<key>` for one top-level key of a YAML file.
@@ -457,8 +457,10 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: shapes need a tag, the word a diagram prints for the language", name));
         }
 
+        LanguagePackage package = ReadPackage(name, entry.Contains("package") ? entry["package"] : null, errors);
+
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, drsFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, drsFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray(), package);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }

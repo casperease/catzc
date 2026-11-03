@@ -17,7 +17,7 @@ finds in the code track partitions into live/tests aspect sets ([DDR-ASPECT](../
 readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and 'catzc-base-globs-tests') — 'live' the module's
 shippable surface (functions, private helpers, types, configs), 'tests' its verification harness, plus its Go, Python and Bash test folders
 `<root>/tests/<kebab>/` of each language root when they exist
-([ADR-AUTO-GO-GOTESTMODULE](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule),
+([ADR-AUTO-GO-GOTESTMODULE](../../../drs/automation/go/go-language.md#rule-adr-auto-go-gotestmodule),
 [ADR-AUTO-PY-PYTESTFOLDER](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pytestfolder),
 [ADR-AUTO-BASH-BASHTESTFOLDER][r1]); the two are disjoint and cover the folder. The whole-module set is their union (a test-only change
 never re-keys live). Every internal shared module `pwsh/.internal/<Name>.psm1` derives a single-file set (no tests aspect) by the same kebab
@@ -26,8 +26,8 @@ test results also depend on: 'internal', 'vendor', 'compiled', 'scriptanalyzer'.
 ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). A
 declared globset may not shadow a derived name; the collision throws here, naming both sides.
 
-The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it stops with a named error in
-build mode (Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
+The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it runs in catzc's source tree
+only (Assert-CatzcSourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `Name`
 
@@ -58,7 +58,7 @@ Each module folder partitions into disjoint, exhaustive aspect sets, `live` and 
 one `tests`, isolated, so a test-only change never re-keys `live`. `AspectPartition` compiles them per unit root.
 
 A module's Go, Python and Bash test folders (`<root>/tests/<kebab>/` of each language root,
-[ADR-AUTO-GO-GOTESTMODULE](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule),
+[ADR-AUTO-GO-GOTESTMODULE](../../../drs/automation/go/go-language.md#rule-adr-auto-go-gotestmodule),
 [ADR-AUTO-PY-PYTESTFOLDER](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pytestfolder),
 [ADR-AUTO-BASH-BASHTESTFOLDER][r1]) are part of its `tests` aspect: a change to them re-keys the module they verify, never its `live`
 aspect. Each language's folder is named from the module's folder, which drops the namespace, in that language's folder case.

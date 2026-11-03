@@ -48,6 +48,22 @@ Reading a config is global access — never guarded by dependencies. Only `Get-C
 
 - [Decision](#decision)
 
+### Rule ADR-CONF-LOADING-THREESCOPES
+
+Every registered config has a `scope`, declared once in its `configs.yml` entry with `module` as the default: `engine` (sealed, no fragment
+reaches it), `module` (overridable by a `.catzc/` fragment merged key by key), or `working-root` (describes the repository rather than the
+engine). The registry is the only place a scope is declared.
+
+- [Declared scopes](#declared-scopes)
+
+### Rule ADR-CONF-LOADING-WORKINGROOTREADWHOLE
+
+In build mode a `working-root` config is read whole from the working root's `.catzc/configs/<name>.yml`, never merged onto the bundled file,
+and takes its type's default when that file is absent. In source mode catzc is its own working root, so the read is the module's own file,
+unchanged.
+
+- [The working-root read](#the-working-root-read)
+
 ## Context
 
 A module's internal config lives in `<module>/configs/<name>.yml`, the module's conventional configs folder. Reading one is always the same
@@ -101,6 +117,39 @@ The registry validates itself through its own type, `Catzc.Base.Config.ConfigsCo
 unregistered config — a test fixture, or a config checked through the PowerShell extension point — is returned **raw**, as the ordered dict.
 `Test-ShippedConfigs` keeps the registry and the shipped configs in step: a shipped config without a type, an entry without a shipped
 config, a type that does not resolve, and a shipped config that does not load are each an issue.
+
+### Declared scopes
+
+`Three scopes, declared once per entry`
+
+A registry entry reads `<name>: { type: <C# FQN>, scope: <scope> }`, and `scope` is optional: an entry without it is `module`. The three
+values say who may change a config and where its file comes from ([ADR-CONF-LOADING-THREESCOPES](#rule-adr-conf-loading-threescopes)):
+
+| `scope`        | What the config is                                           | What a consumer's `.catzc/` may do                        |
+| -------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
+| `engine`       | Intrinsic to the engine: the registry, the dependency graph  | Nothing; a fragment of it is rejected                     |
+| `module`       | A module's setting (the default)                             | A fragment states the keys that differ, merged key by key |
+| `working-root` | Describes the repository: its tracks, DRS, plans, links, ... | Replace the whole config with `.catzc/configs/<name>.yml` |
+
+Which entries are `engine` and which `working-root` is decided in the registry, entry by entry; code never branches on a config name. A
+config with the `working-root` value is `variants`, `drs`, `plans`, `links`, `file-limits`, `go` or `python`, for example: each describes
+the repository the tools run over, not the engine that runs them. Sealing more, or reading more from the working root, is a reviewed edit to
+the registry, never code ([consumer-overlay](../automation/consumer-overlay.md#rule-adr-auto-overlay-sealedengineconfigs)).
+
+### The working-root read
+
+`Whole file, or the type's default`
+
+A repository-describing config merged onto catzc's own would leave a consumer with catzc's tracks and DRS domains and only the power to add
+to them. In build mode `Get-Config` therefore reads a `working-root` config from `.catzc/configs/<name>.yml` of the working root alone
+([ADR-CONF-LOADING-WORKINGROOTREADWHOLE](#rule-adr-conf-loading-workingrootreadwhole)): the bundled file is not read and no key is merged.
+When the working root has no such file, the constructor receives an empty dict and the type's declared default applies
+([sensible-defaults](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so an absent file is a valid, default
+config, and a present file is validated by the same type as any other. The result is cached under the path actually read, as for every
+config ([ADR-CONF-LOADING-CACHEBYPATH](#rule-adr-conf-loading-cachebypath)).
+
+In source mode the working root is the repository the modules live in, so the config is read from the module's own `configs/` folder and
+nothing differs from a `module` config without a fragment.
 
 ### The PowerShell extension point
 

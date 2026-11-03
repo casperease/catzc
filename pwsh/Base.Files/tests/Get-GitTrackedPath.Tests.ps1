@@ -57,6 +57,13 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
         @(Get-GitTrackedPath '.').Count | Should -Be 0
     }
 
+    It 'returns nothing, and never reads an index, in a working root with no repository' -Tag 'ADR-REPO-REPOKIND-NOREPO' {
+        Mock Get-RepositoryRoot { Join-Path $TestDrive 'no-repo' } -ModuleName Catzc.Base.Files
+        New-Item -ItemType Directory -Path (Join-Path $TestDrive 'no-repo') | Out-Null
+        @(Get-GitTrackedPath '.').Count | Should -Be 0
+        Should -Invoke Get-GitIndexPath -ModuleName Catzc.Base.Files -Times 0
+    }
+
     It 'reflects the index as it is on disk now — a changed index re-keys the cache' {
         @(Get-GitTrackedPath 'docs').Count | Should -Be 1
         Set-GitIndexFile @('docs/gadget.md', 'docs/widget.md')
@@ -69,6 +76,58 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
         Get-GitTrackedPath 'docs' | Out-Null
         $second = InModuleScope Catzc.Base.Files { $script:gitIndexCache[(Get-GitIndexPath)] }
         [object]::ReferenceEquals($first, $second) | Should -BeTrue
+    }
+
+    Context 'the installed code root' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        BeforeEach {
+            $script:fixtureRoot = Join-Path $TestDrive 'repo'
+            # The fixture root is a checkout: a .git folder, with the index itself mocked above.
+            New-Item -ItemType Directory -Path (Join-Path $script:fixtureRoot '.git') -Force | Out-Null
+            Mock Get-RepositoryRoot { $script:fixtureRoot } -ModuleName Catzc.Base.Files
+            Mock Get-CatzcModulesRoot { Join-Path $script:fixtureRoot '.vendor/Catzc/1.0.0' } -ModuleName Catzc.Base.Files
+            Set-GitIndexFile @('.vendor/Catzc/1.0.0/widget/gadget.sh', 'widget/gadget.sh')
+        }
+
+        It 'is dropped from the listing in build mode' {
+            Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Files
+            Get-GitTrackedPath '.' | Should -Be @('widget/gadget.sh')
+        }
+
+        It 'is listed in source mode' {
+            Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Files
+            Get-GitTrackedPath '.' | Should -Be @('.vendor/Catzc/1.0.0/widget/gadget.sh', 'widget/gadget.sh')
+        }
+
+        It 'drops nothing in build mode when the code root lies outside the repository' {
+            Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Files
+            Mock Get-CatzcModulesRoot { Join-Path $TestDrive 'elsewhere' } -ModuleName Catzc.Base.Files
+            @(Get-GitTrackedPath '.').Count | Should -Be 2
+        }
+    }
+
+    Context 'the root files catzc renders' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        BeforeEach {
+            $script:fixtureRoot = Join-Path $TestDrive 'repo'
+            New-Item -ItemType Directory -Path (Join-Path $script:fixtureRoot '.git') -Force | Out-Null
+            Mock Get-RepositoryRoot { $script:fixtureRoot } -ModuleName Catzc.Base.Files
+            Mock Get-CatzcModulesRoot { Join-Path $script:fixtureRoot '.vendor/Catzc/1.0.0' } -ModuleName Catzc.Base.Files
+            Mock Get-GeneratedTarget {
+                [Catzc.Base.Variants.GeneratedTarget]::new('widget.yml', 'Build-Widget', 'widget')
+                [Catzc.Base.Variants.GeneratedTarget]::new('*/README.md', 'Build-Gadget', 'widget')
+            } -ModuleName Catzc.Base.Files
+            $importer = [Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry
+            Set-GitIndexFile @($importer, 'widget.yml', 'gadget.yml', 'widget/gadget.sh')
+        }
+
+        It 'are dropped from the listing in build mode, the engine importer and the exact generated target, and a file that is no generated target is kept' {
+            Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Files
+            Get-GitTrackedPath '.' | Should -Be @('gadget.yml', 'widget/gadget.sh')
+        }
+
+        It 'are listed in source mode' {
+            Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Files
+            @(Get-GitTrackedPath '.').Count | Should -Be 4
+        }
     }
 }
 

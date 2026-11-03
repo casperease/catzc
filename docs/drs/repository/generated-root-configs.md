@@ -149,12 +149,12 @@ target that is a link (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 `One entry, many files`
 
 Some generated files come in a set whose size the repository decides: the Go workspace has one `go.mod` per Go test module
-([go-test-artifacts](../automation/go/go-test-artifacts.md#rule-adr-auto-go-goworkspace)), and a new test folder adds one. A registry entry
-per file would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the
-generator, which discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every file
-then takes the same path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when
-stale, and `Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside the
-entry's pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
+([go-language](../automation/go/go-language.md#rule-adr-auto-go-goworkspace)), and a new test folder adds one. A registry entry per file
+would be a second list of those folders, kept by hand. A wildcard target states the set once — `*/tests/*/go.mod` — and the generator, which
+discovers the folders, renders one record per file (`Get-RootConfigRenderedFile` normalises the two shapes). Every file then takes the same
+path as a single-file target: one `Write-FileIfChanged` write, one result row under its own path, one drift issue when stale, and
+`Build-RootConfig <path>` selects either the whole entry by its pattern or one file the pattern matches. A record outside the entry's
+pattern, or a literal target rendering anything but one file, throws with the entry and the generator named.
 
 ### Writers and their classes
 

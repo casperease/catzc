@@ -12,7 +12,10 @@ function Get-ConfigOverlayRoot {
         }
         else {
             # A source run reads only this repository's own fragments, so a consumer's overlay never leaks into the source tree.
-            $fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) ".catzc/$(Split-Path -Leaf (Get-CatzcModulesRoot))"))
+            if (-not $env:CatzcModulesFolder) {
+                throw 'Get-ConfigOverlayRoot: $env:CatzcModulesFolder is not set; the importer (importer.ps1) publishes it on every import.'
+            }
+            $fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) ".catzc/$env:CatzcModulesFolder"))
             if ([System.IO.Directory]::Exists($fragmentRoot)) {
                 $fragmentRoot
             }

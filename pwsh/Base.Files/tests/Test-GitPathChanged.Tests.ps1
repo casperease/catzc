@@ -22,4 +22,9 @@ Describe 'Test-GitPathChanged' -Tag 'L0', 'logic' {
             $Command -eq 'git status --porcelain -- "widgets/.compiled" "out"'
         }
     }
+
+    It 'throws the work-tree assertion when the root has no repository' {
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Files { throw 'widget root has no git work tree' }
+        { Test-GitPathChanged 'widgets/.compiled' } | Should -Throw '*widget root has no git work tree*'
+    }
 }

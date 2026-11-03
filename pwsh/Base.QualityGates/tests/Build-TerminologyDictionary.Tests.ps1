@@ -39,6 +39,23 @@ Describe 'Build-TerminologyDictionary' -Tag 'L0', 'logic' {
         $after = $dicts | ForEach-Object { [System.IO.File]::ReadAllText($_) }
         $after | Should -Be $before
     }
+
+    It 'in the run mode build writes the lists into the working root''s .cspell/, reading no catzc source tree' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        $root = Join-Path $TestDrive 'consumer'
+        [void][System.IO.Directory]::CreateDirectory($root)
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'build' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $root }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
+
+        $results = Build-TerminologyDictionary -Silent -PassThru
+
+        @($results).Count | Should -Be 3
+        foreach ($category in 'product', 'abbreviation', 'fixture') {
+            Join-Path $root ".cspell/$category.txt" | Should -Exist
+        }
+        [System.IO.File]::ReadAllText((Join-Path $root '.cspell/product.txt')) | Should -Match '(?m)^alpha\r?\nzebra\r?\n'
+    }
 }
 
 Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity', 'source-only' {

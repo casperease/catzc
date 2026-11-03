@@ -4,12 +4,15 @@ function Test-TypesHeld {
         [Parameter(Mandatory)]
         [string] $Hash,
 
-        [string] $ShadowRoot = (Get-TypesShadowRoot)
+        [string] $ShadowRoot = (Get-TypesShadowRoot),
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Namespace = $ExecutionContext.SessionState.PSVariable.GetValue('script:typesDefaultNamespace')
     )
 
     # A hold is live while its process runs and started before the hold was written, so a reused process id never keeps a build.
     $held = $false
-    foreach ($hold in [System.IO.Directory]::EnumerateFiles($ShadowRoot, "Catzc.Types.$Hash.*.hold")) {
+    foreach ($hold in [System.IO.Directory]::EnumerateFiles($ShadowRoot, "$(Get-TypesAssemblyPrefix -Namespace $Namespace)$Hash.*.hold")) {
         $holder = 0
         if (-not [int]::TryParse([System.IO.Path]::GetFileNameWithoutExtension($hold).Split('.')[-1], [ref] $holder)) {
             continue

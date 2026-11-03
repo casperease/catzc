@@ -1,6 +1,6 @@
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-# The one bootstrap constant, read before any registry loads; later code reads it back through Get-CatzcModulesRoot.
+# The one bootstrap constant, read before any registry loads; later code reads it back through $env:CatzcModulesFolder.
 $script:modulesFolder = 'pwsh'
 
 # The functions that outgrew this file live one per file beside it; they share its scope.
@@ -8,6 +8,7 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Get-DueWriterRow.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Wait-ImportBurst.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Import-ConsumerModule.ps1')
 
 # The one living copy of the load sequence; New-Importer generates importer.ps1 from this parameter block.
 function Invoke-Importer {
@@ -30,7 +31,7 @@ function Invoke-Importer {
         # Opts in to a whitelisted deep clean first; the janitors after it regenerate what it removed.
         [switch] $CleanClone,
 
-        # An installed bundle: honours a pre-set CatzcModulesRoot and forces -SkipJanitors.
+        # An installed bundle: honours a pre-set CatzcModulesRoot and runs only the consumer writers of the janitor chain.
         [switch] $Bundle,
 
         [string[]] $Languages,
@@ -102,11 +103,8 @@ function Invoke-Importer {
         }
         $env:CatzcModulesRoot = $modulesRoot
         Write-Verbose "CatzcModulesRoot: $modulesRoot"
-
-        # A bundle is a read-only install with no git work tree: never run the tree/git-mutating janitors.
-        if ($Bundle) {
-            $SkipJanitors = $true
-        }
+        $env:CatzcModulesFolder = $script:modulesFolder
+        Write-Verbose "CatzcModulesFolder: $script:modulesFolder"
 
         # Bootstrap does the import-time discovery and is removed at the end; the loader, Types and Vendor stay loaded.
         Import-InternalModule Bootstrap -Force
@@ -128,7 +126,7 @@ function Invoke-Importer {
         if ($outputEncodingChanged) {
             Write-ImporterMessage 'Session: console output encoding UTF-8 (output is redirected)' -StateChange
         }
-        Write-ImporterMessage ("Roots: RepositoryRoot='$repoRoot', CatzcModulesRoot='$modulesRoot'; " +
+        Write-ImporterMessage ("Roots: RepositoryRoot='$repoRoot', CatzcModulesRoot='$modulesRoot', CatzcModulesFolder='$script:modulesFolder'; " +
             'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor') -StateChange
 
         if ($isConsoleSession) {
@@ -163,6 +161,8 @@ function Invoke-Importer {
 
         if ($Bundle) {
             Invoke-ConsumerOverlay -RepositoryRoot $repoRoot
+            # The consumer's own modules load last, from source, so the exclusivity assert above counted catzc's only.
+            [void] (Import-ConsumerModule -RepositoryRoot $repoRoot -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates)
         }
         if ($DiagnoseLoadTime) {
             Write-LoadTime 'All modules loaded'
@@ -195,12 +195,13 @@ function Invoke-Importer {
         if ($deferMix) {
             # A console import stays types-free: the mix needs the types, so it resolves after the first prompt.
             $show = $showStateChanges
+            $consumerOnly = [bool] $Bundle
             Enable-DeferredJanitors -Action {
                 [void] (Set-ImportMix)
                 if ($deferJanitors) {
                     Import-InternalModule Importer -Force
                     try {
-                        & (Get-Module Catzc.Internal.Importer) { param($showStateChanges) Invoke-ImporterJanitors -ShowStateChanges:$showStateChanges } $show
+                        & (Get-Module Catzc.Internal.Importer) { param($showStateChanges, $consumer) Invoke-ImporterJanitors -ShowStateChanges:$showStateChanges -Consumer:$consumer } $show $consumerOnly
                     }
                     finally {
                         Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
@@ -209,18 +210,32 @@ function Invoke-Importer {
             }.GetNewClosure()
             Write-Verbose 'Import mix deferred until the first prompt has shown'
         }
+        elseif ($deferJanitors -and $Bundle) {
+            # A bundle's console import defers only the consumer writers.
+            $show = $showStateChanges
+            Enable-DeferredJanitors -Action {
+                Import-InternalModule Importer -Force
+                try {
+                    & (Get-Module Catzc.Internal.Importer) { param($showStateChanges) Invoke-ImporterJanitors -ShowStateChanges:$showStateChanges -Consumer } $show
+                }
+                finally {
+                    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
+                }
+            }.GetNewClosure()
+            Write-Verbose 'Consumer writers deferred until the first prompt has shown'
+        }
         elseif ($deferJanitors) {
             # The janitors call catzc commands, so a console import runs them after the first prompt.
             Enable-DeferredJanitors -ShowStateChanges:$showStateChanges
             Write-Verbose 'Janitors deferred until the first prompt has shown'
         }
-        # The post-import janitors in their fixed order; an isolated copy and a bundle skip the whole chain.
+        # The post-import janitors in their fixed order; an isolated copy skips the whole chain, a bundle runs only its consumer writers.
         if (-not $SkipJanitors -and -not $deferJanitors) {
-            Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges
+            Invoke-ImporterJanitors -CleanClone:$CleanClone -ShowStateChanges:$showStateChanges -Consumer:$Bundle
         }
 
         # A network share in PSModulePath slows every load; the fix is in pwsh/Base.Environment/assets/README.md.
-        if (-not $SkipJanitors -and $IsWindows) {
+        if (-not $SkipJanitors -and -not $Bundle -and $IsWindows) {
             $hasUncModulePath = ($env:PSModulePath -split [IO.Path]::PathSeparator) -match '^\\\\' |
                 Select-Object -First 1
 
@@ -274,9 +289,8 @@ function Invoke-ConsumerOverlay {
     }
     $applied = @(Import-Overlay)
     $overrides = @($applied | Where-Object { $_.Kind -eq 'FunctionOverride' }).Count
-    $locals = @($applied | Where-Object { $_.Kind -eq 'LocalModule' }).Count
-    if ($applied.Count -gt 0) {
-        Write-ImporterMessage "Overlay: $overrides function override(s) applied, $locals local module(s) loaded from .catzc/$($script:modulesFolder)" -StateChange
+    if ($overrides -gt 0) {
+        Write-ImporterMessage "Overlay: $overrides function override(s) applied from .catzc/$($script:modulesFolder)" -StateChange
     }
 }
 

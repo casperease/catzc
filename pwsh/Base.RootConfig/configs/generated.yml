@@ -4,8 +4,10 @@ writers:
   Build-RootConfig:
     class: import-critical
     at_import: true
+    consumer: true
     check: root-config
     expands: rootconfig
+    expander: Get-RootConfigGeneratedTarget
     # Its targets are inputs too, so a target drifted by hand, ignored by git or not, makes the run that writes it back due.
     inputs:
       - pwsh/Base.Contracts/**
@@ -77,6 +79,7 @@ writers:
     class: import-critical
     check: none
     expands: rootconfig
+    expander: Get-RootConfigGeneratedTarget
     inputs:
       - pwsh/Base.RootConfig/New-GitAttributes.ps1
       - pwsh/Base.RootConfig/assets/root/.gitattributes-template

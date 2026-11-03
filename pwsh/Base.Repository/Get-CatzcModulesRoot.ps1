@@ -5,5 +5,8 @@ function Get-CatzcModulesRoot {
         return $env:CatzcModulesRoot
     }
 
-    Join-Path (Get-RepositoryRoot) 'pwsh'
+    if (-not $env:CatzcModulesFolder) {
+        throw 'Get-CatzcModulesRoot: $env:CatzcModulesFolder is not set; the importer (importer.ps1) publishes it on every import.'
+    }
+    Join-Path (Get-RepositoryRoot) $env:CatzcModulesFolder
 }

@@ -67,6 +67,27 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $formatters['gadget-pipelines'] | Should -Be 'widget.prettier'
         }
 
+        It 'reads a declared package and leaves an absent one null' -Tag 'ADR-AUTO-BUNDLE-EVERYLANGUAGE' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'widgets'; package = [ordered]@{ command = 'Export-WidgetModule'; form = 'binary' } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'gadgets' }
+                    }
+                })
+            $config.languages[0].package | Should -BeOfType [Catzc.Base.Languages.LanguagePackage]
+            $config.languages[0].package.command | Should -Be 'Export-WidgetModule'
+            $config.languages[0].package.form | Should -Be 'binary'
+            $config.languages[1].package | Should -BeNullOrEmpty
+        }
+
+        It 'refuses a package with a bad form, a bad command name or an unknown key' -Tag 'ADR-AUTO-BUNDLE-EVERYLANGUAGE' {
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); package = [ordered]@{ command = 'Export-WidgetModule'; form = 'tarball' } }) } |
+                Should -Throw "*package: invalid form 'tarball'*binary, source, wheels, vsix*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); package = [ordered]@{ command = 'export widget'; form = 'source' } }) } |
+                Should -Throw "*package: command 'export widget' is not a command name*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); package = [ordered]@{ command = 'Export-WidgetModule'; form = 'source'; extra = 1 } }) } |
+                Should -Throw "*package: unknown key 'extra'*"
+        }
+
         It 'reads a language''s tag and its shapes, and refuses a tag-less or invalid one' {
             $config = & $script:make ([ordered]@{
                     languages = [ordered]@{

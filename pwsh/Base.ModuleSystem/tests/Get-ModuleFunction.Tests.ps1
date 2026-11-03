@@ -35,6 +35,6 @@ Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         @(Get-ModuleFunction -ModulesRoot $TestDrive).Count | Should -Be 2
         { Get-ModuleFunction -NotUsedInternally -ModulesRoot $TestDrive } |
-            Should -Throw '*Get-ModuleFunction operates on the catzc source tree*'
+            Should -Throw '*Get-ModuleFunction runs in catzc*s source tree only*'
     }
 }

@@ -44,6 +44,8 @@ jobs:
           # spelling/markdown integrity tests run rather than self-skipping when the tool is absent.
           Install-Cspell -Force
           Install-Markdownlint -Force
+          # The quality gates (every language's checks over the working root) come before the tests.
+          Test-QualityGates
           # Timings are reported in the run's summary.md but NOT enforced here: hard per-test wall-clock limits
           # flake on shared CI runners that vary 2-5x in speed and run cold (pwsh startup / child-process import
           # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.

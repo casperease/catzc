@@ -6,7 +6,10 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRU
     }
 
     BeforeEach {
-        Mock Build-Modules -ModuleName Catzc.Internal.TestKit {
+        Mock Build-Modules -ModuleName Catzc.Internal.TestKit -ParameterFilter { $DryRun } {
+            [pscustomobject]@{ Modules = @('Catzc.Widget', 'Catzc.Gadget'); DryRun = $true }
+        }
+        Mock Build-Modules -ModuleName Catzc.Internal.TestKit -ParameterFilter { -not $DryRun } {
             $buildRoot = Join-Path $Destination 'Catzc/6.6.666'
             [void][System.IO.Directory]::CreateDirectory($buildRoot)
             [pscustomobject]@{ BuildRoot = $buildRoot; Version = '6.6.666'; Modules = @('Catzc.Widget',
@@ -15,11 +18,11 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRU
         }
     }
 
-    It 'builds the selection with the full vendor policy into a fresh temp folder and returns the handle' {
-        $handle = New-BuiltCatzcRoot -Module 'Catzc.Widget' -ModuleProfile 'gadgets'
+    It 'builds the selection plus the gates module into a fresh temp folder and returns the handle' {
+        $handle = New-BuiltCatzcRoot -Module 'Catzc.Widget'
         try {
             Should -Invoke Build-Modules -ModuleName Catzc.Internal.TestKit -Times 1 -ParameterFilter {
-                $VendorPolicy -eq 'full' -and $Module -contains 'Catzc.Widget' -and $ModuleProfile -eq 'gadgets' -and
+                -not $DryRun -and ($Module -join ',') -eq 'Catzc.Widget,Catzc.Gadget,Catzc.Base.QualityGates' -and
                 $Destination -like "$([System.IO.Path]::GetTempPath())catzc-built-*"
             }
             $handle.BuildRoot | Should -Be (Join-Path $handle.Destination 'Catzc/6.6.666')
@@ -64,13 +67,79 @@ Describe 'New-BuiltCatzcRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRU
 
     It 'removes a half-written build when Build-Modules throws' {
         $seen = [System.Collections.Generic.List[string]]::new()
-        Mock Build-Modules -ModuleName Catzc.Internal.TestKit {
+        Mock Build-Modules -ModuleName Catzc.Internal.TestKit -ParameterFilter { -not $DryRun } {
             $seen.Add($Destination)
             [void][System.IO.Directory]::CreateDirectory((Join-Path $Destination 'Catzc'))
             throw 'presence check failed'
         }
 
         { New-BuiltCatzcRoot } | Should -Throw '*presence check failed*'
+        $seen | Should -HaveCount 1
+        $seen[0] | Should -Not -Exist
+    }
+}
+
+Describe 'New-ConsumerRoot' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS' {
+    BeforeAll {
+        Import-InternalModule TestKit
+
+        # Export-Catzc (Catzc.Base.Exporter) is the boundary: mocked here, so no real build runs.
+    }
+
+    BeforeEach {
+        Mock Export-Catzc -ModuleName Catzc.Internal.TestKit {
+            $modulePath = Join-Path $Root '.vendor/Catzc/6.6.666'
+            [void][System.IO.Directory]::CreateDirectory($modulePath)
+            [pscustomobject]@{ ModulePath = $modulePath; Importer = (Join-Path $Root 'widget-importer.ps1'); Version = '6.6.666' }
+        }
+    }
+
+    It 'installs the selection into a fresh temp root and returns the handle the built-root helpers take' {
+        $handle = New-ConsumerRoot -Module 'Catzc.Widget'
+        try {
+            Should -Invoke Export-Catzc -ModuleName Catzc.Internal.TestKit -Times 1 -ParameterFilter {
+                ($Module -join ',') -eq 'Catzc.Widget' -and $Root -like "$([System.IO.Path]::GetTempPath())catzc-consumer-*"
+            }
+            $handle.Root | Should -Be $handle.WorkingRoot
+            $handle.Root | Should -Be $handle.Destination
+            $handle.BuildRoot | Should -Be (Join-Path $handle.Root '.vendor/Catzc/6.6.666')
+            $handle.Importer | Should -Be (Join-Path $handle.Root 'widget-importer.ps1')
+            $handle.Saved.RepositoryRoot | Should -Be $env:RepositoryRoot
+        }
+        finally {
+            Remove-BuiltCatzcRoot $handle
+        }
+        $handle.Root | Should -Not -Exist
+    }
+
+    It 'writes the given file tree under the root, creating its folders' {
+        $handle = New-ConsumerRoot -File @{
+            '.catzc/configs/widget.yml'         = 'limit: 3'
+            '.catzc/Base.Gadget/Get-Gadget.ps1' = 'function Get-Gadget { 1 }'
+        }
+        try {
+            Get-Content (Join-Path $handle.Root '.catzc/configs/widget.yml') -Raw | Should -Be 'limit: 3'
+            Join-Path $handle.Root '.catzc/Base.Gadget/Get-Gadget.ps1' | Should -Exist
+        }
+        finally {
+            Remove-BuiltCatzcRoot $handle
+        }
+    }
+
+    It 'refuses a file path that leaves the root, before it installs anything' {
+        { New-ConsumerRoot -File @{ '../widget.yml' = 'x' } } | Should -Throw '*not relative to the consumer root*'
+        Should -Invoke Export-Catzc -ModuleName Catzc.Internal.TestKit -Times 0
+    }
+
+    It 'removes the root when the install throws' {
+        $seen = [System.Collections.Generic.List[string]]::new()
+        Mock Export-Catzc -ModuleName Catzc.Internal.TestKit {
+            $seen.Add($Root)
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $Root '.vendor'))
+            throw 'install failed'
+        }
+
+        { New-ConsumerRoot } | Should -Throw '*install failed*'
         $seen | Should -HaveCount 1
         $seen[0] | Should -Not -Exist
     }

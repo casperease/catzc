@@ -6,15 +6,14 @@ function Get-AutoControlledGlobs {
     $ret = [System.Collections.Generic.List[string]]::new()
 
     # The managed, gitignored root-config targets — the registry names them (generated-root-configs).
-    $rootConfig = Get-Config -Config rootconfig
-    foreach ($entry in $rootConfig.files) {
-        if ($entry.optIn -and -not $entry.committed) {
-            $ret.Add($entry.target)
+    $targets = @(Get-GeneratedTarget)
+    foreach ($target in $targets) {
+        if (-not $target.committed -and $target.path.IndexOfAny([char[]] @('*', '?')) -lt 0) {
+            $ret.Add($target.path)
         }
     }
 
     # The gitignored members whose writer is a generator: a glob as written, a folder glob as its folder and its contents.
-    $targets = @(Get-GeneratedTarget)
     foreach ($member in @(Get-TrackMember -Committed $false)) {
         $written = $member.generated -or @($targets | Where-Object {
                 [Catzc.Base.Objects.GlobPattern]::MatchingPaths([string[]] @($_.path), [string[]] @($member.path)).Count -gt 0

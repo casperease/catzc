@@ -5,6 +5,11 @@ The sub-agent registry: one entry per sub-agent definition `.claude/agents/<name
 the `AgentsConfig` type, and checked by `Test-AgentDefinitions` against the agent files, the rule codes, the loaded commands and the
 `## Sub-agents` list in `.claude/CLAUDE.md`.
 
+## Top-level keys
+
+- **`folder`** — the repository-relative folder the agent definitions live in, default `.claude/agents`, declared once on `AgentsConfig`.
+  The language registry's `check_scopes` names it as `global.agents.folder`, so a root with no such folder runs no `Test-AgentDefinitions`.
+
 ## Entry keys
 
 Each entry of `agents:` carries (see `AgentEntry`):

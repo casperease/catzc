@@ -100,7 +100,7 @@ How the tests start the engine (`Get-EngineContract`) is an external contract wi
 ([ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../../../drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools)): set for these
 commands only, then restored. `GOTOOLCHAIN=local` keeps go on the managed binary just checked. Without it, go reads the `go` directive of
 `go.work` and silently downloads that toolchain instead
-([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
+([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../drs/automation/go/go-language.md#rule-adr-auto-go-managedtoolchain)).
 
 ## The test folder
 

@@ -30,11 +30,9 @@ function Import-CSharpTypes {
         [string]$HostKind = 'headless'
     )
 
-    # The enumeration, deterministic ordering, per-file EOL-insensitive digest, combined hash, and per-file
-    # snapshot all come from the ONE shared implementation (Get-CombinedTypeHash in the .internal shared module)
-    # that the janitor (Clear-ModuleTypeCache) also calls — so the built Catzc.Types.<hash>.dll key can never
-    # drift between loader and janitor. The importer loads Catzc.Internal.Types before this pre-pass; the
-    # Import-InternalModule call is a no-op guard that keeps this callable if the module was unloaded.
+    # The enumeration, ordering, per-file digest, combined hash and snapshot all come from the ONE shared Get-CombinedTypeHash
+    # (Catzc.Internal.Types) that the janitor (Clear-ModuleTypeCache) also calls, so the hash key can never drift between loader and janitor.
+    # The Import-InternalModule call is a no-op guard that keeps this callable if the module was unloaded.
     Import-InternalModule Types
     # The hash memo lives beside the shadow copies, machine-local like them; a bundle is read-only and hashes every
     # file.
@@ -87,14 +85,10 @@ function Import-CSharpTypes {
     $snapshot = $hashResult.Snapshot
     $combinedHash = $hashResult.CombinedHash
 
-    # A loaded assembly cannot be reloaded. Whether the types in this process are current for THIS ModulesRoot is
-    # measured in one place, Get-LoadedTypeDrift (Catzc.Internal.Types), which the public
-    # Test-LoadedTypesCurrent / Assert-LoadedTypesCurrent pair and the importer's restart read too. The session
-    # record is keyed by ModulesRoot, so loading a different tree (e.g. a test-fixture root) records its own
-    # hash/snapshot and never poisons the real tree's guard; a root with no record of its own is compared per file
-    # against the root that loaded the types (cross-root). The message names which files drifted and both hashes or
-    # roots, so the cause is diagnosable from the error text alone (a pure CRLF/LF flip never drifts — the digests
-    # strip CR).
+    # A loaded assembly cannot be reloaded. Whether this process's types are current for THIS ModulesRoot is measured in one place,
+    # Get-LoadedTypeDrift (Catzc.Internal.Types), which the public Test-LoadedTypesCurrent pair and the importer's restart read too. The
+    # session record is keyed by ModulesRoot, so a different tree records its own hash/snapshot; a root with no record is compared per file
+    # against the root that loaded the types. A pure CRLF/LF flip never drifts, since the digests strip CR.
     if (-not (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly -ErrorAction Ignore)) {
         $global:__CatzcTypes = @{}
     }
@@ -182,7 +176,7 @@ function Import-CSharpTypes {
     else {
         Get-TypesShadowRoot
     }
-    $dll = [System.IO.Path]::Combine($buildDir, ('Catzc.Types.{0}.dll' -f $combinedHash))
+    $dll = [System.IO.Path]::Combine($buildDir, ((Get-TypesAssemblyPrefix) + $combinedHash + '.dll'))
     # Hold the hash before the build is looked for, so another process's prune never removes it between that check and a deferred load.
     if (-not $PrebuiltOnly) {
         Register-TypesHold -Hash $combinedHash -ShadowRoot $buildDir | Out-Null
@@ -206,8 +200,7 @@ function Import-CSharpTypes {
         }
         $didCompile = $true
 
-        # Announce the real build — always, not only under -DiagnoseLoadTime. .internal (bootstrap) code only
-        # ever runs from the importer, so output goes through Write-ImporterMessage like the rest of bootstrap.
+        # Announce the real build — always, not only under -DiagnoseLoadTime.
         Write-ImporterMessage "Built $dll"
     }
 
@@ -311,5 +304,10 @@ function Import-CSharpTypes {
         if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
             $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = 'types (combined)'; Ms = $ms; ReadMs = 0; ImportMs = 0; FileCount = $arr.Count })
         }
+    }
+
+    # A bundle compiles a consumer's own types after catzc's load ([ADR-AUTO-CONSUMER-OWNTYPES](/docs/drs/automation/consumer-repository.md#rule-adr-auto-consumer-owntypes)); source mode compiles none.
+    if ($PrebuiltOnly) {
+        Build-ConsumerTypes -WorkingRoot $env:RepositoryRoot -CatzcHash $combinedHash
     }
 }

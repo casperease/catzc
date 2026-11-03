@@ -43,7 +43,7 @@ customers:
     BeforeEach {
         [System.IO.File]::WriteAllText((Join-Path $script:config 'azure.yml'), $script:azure)
         [System.IO.File]::WriteAllText((Join-Path $script:config 'customer.yml'), $script:customer)
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo/pwsh' }
     }

@@ -168,3 +168,74 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Exists($emptyOutput) | Should -BeFalse
     }
 }
+
+Describe 'Build-CombinedTypeAssembly namespace, sources and references' -Tag 'L1', 'logic' {
+    BeforeAll {
+        $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $script:widgetNamespace = "WidgetOwn$runId"
+        $script:sources = Join-Path $TestDrive 'widget-sources'
+        [System.IO.Directory]::CreateDirectory($sources) | Out-Null
+        $script:sprocket = Join-Path $sources 'Sprocket.cs'
+        $script:lever = Join-Path $sources 'Lever.cs'
+        [System.IO.File]::WriteAllText($sprocket, "namespace $widgetNamespace;`npublic class Sprocket { }")
+        [System.IO.File]::WriteAllText($lever, "namespace $widgetNamespace;`npublic class Lever { }")
+    }
+
+    It 'names the DLL and its manifest for a non-default namespace' {
+        $output = Join-Path $TestDrive 'widget-named'
+        $built = Build-CombinedTypeAssembly -Source $sprocket, $lever -Namespace 'Widget' -OutputDirectory $output
+        $built.Path | Should -Be (Join-Path $output "Widget.Types.$($built.Hash).dll")
+        $built.Manifest | Should -Be (Join-Path $output "Widget.Types.$($built.Hash).json")
+        ([System.IO.File]::ReadAllText($built.Manifest) | ConvertFrom-Json).hash | Should -Be $built.Hash
+    }
+
+    It 'compiles an explicit source set into the given output folder, naming the sources given' {
+        $output = Join-Path $TestDrive 'widget-explicit/out'
+        $built = Build-CombinedTypeAssembly -Source $sprocket, $lever -OutputDirectory $output
+        $built.Compiled | Should -BeTrue
+        [System.IO.Path]::GetDirectoryName($built.Path) | Should -Be $output
+        [System.IO.Path]::GetFileName($built.Path) | Should -Be "Catzc.Types.$($built.Hash).dll"
+        @($built.Files.Path) | Should -Be @($lever, $sprocket)
+        (Build-CombinedTypeAssembly -Source $sprocket, $lever -OutputDirectory $output).Compiled | Should -BeFalse
+    }
+
+    It 'returns nothing for an empty source set' {
+        Build-CombinedTypeAssembly -Source @() -OutputDirectory (Join-Path $TestDrive 'widget-none') | Should -BeNullOrEmpty
+    }
+
+    It 'refuses two sources of the same file name' {
+        $other = Join-Path $TestDrive 'widget-other'
+        [System.IO.Directory]::CreateDirectory($other) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $other 'Lever.cs'), "namespace $widgetNamespace;`npublic class Lever2 { }")
+        { Build-CombinedTypeAssembly -Source $lever, (Join-Path $other 'Lever.cs') -OutputDirectory (Join-Path $TestDrive 'widget-dup') } |
+            Should -Throw '*distinct file names*'
+    }
+
+    It 'passes the extra references to the compiler' {
+        $reference = [System.Text.RegularExpressions.Regex].Assembly.Location
+        Mock Add-Type -ModuleName Catzc.Internal.Types { Microsoft.PowerShell.Utility\Add-Type @PesterBoundParameters }
+        Build-CombinedTypeAssembly -Source $sprocket -Reference $reference -OutputDirectory (Join-Path $TestDrive 'widget-ref') | Out-Null
+        Should -Invoke Add-Type -ModuleName Catzc.Internal.Types -Times 1 -Exactly -ParameterFilter {
+            @($ReferencedAssemblies) -contains $reference
+        }
+    }
+
+    Context 'a Catzc. namespace in a source' {
+        BeforeAll {
+            $script:catzcSource = Join-Path $TestDrive 'widget-catzc/Gadget.cs'
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($catzcSource)) | Out-Null
+            [System.IO.File]::WriteAllText($catzcSource, "namespace Catzc.Widget$runId;`npublic class Gadget { }")
+        }
+
+        It 'is refused for another namespace, naming the source' {
+            { Build-CombinedTypeAssembly -Source $catzcSource -Namespace 'Widget' -OutputDirectory (Join-Path $TestDrive 'widget-refused') } |
+                Should -Throw "*$([WildcardPattern]::Escape($catzcSource))*"
+            [System.IO.Directory]::Exists((Join-Path $TestDrive 'widget-refused')) | Should -BeFalse
+        }
+
+        It 'is accepted for the Catzc namespace' {
+            $built = Build-CombinedTypeAssembly -Source $catzcSource -Namespace 'Catzc' -OutputDirectory (Join-Path $TestDrive 'widget-accepted')
+            [System.IO.File]::Exists($built.Path) | Should -BeTrue
+        }
+    }
+}

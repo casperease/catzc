@@ -13,7 +13,7 @@ function Get-FixtureIdentityTokens {
     }
 
     # Every tests/assets/config/ tree's identities, unioned; fixtures live only in the source tree.
-    Assert-SourceTree
+    Assert-CatzcSourceTree
     $registry = (Get-Config -Config configs).configs
     $modulesRoot = Get-CatzcModulesRoot
     # A fixture config sits five levels below pwsh/: module, tests, assets, config, file.

@@ -10,7 +10,7 @@ function Get-ReadmeMappings {
     )
 
     # The globs expand over the source tree's folders (pwsh/* and the like).
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # Explicit mappings first — they win over any pattern that also matches their folder.
     $byFolder = [ordered]@{}

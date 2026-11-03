@@ -1,7 +1,7 @@
 Describe 'Remove-VendorModules' -Tag 'L0', 'logic' {
     BeforeEach {
         # The run-mode guard is its own boundary (covered in the build-mode block below).
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Vendor { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Vendor { }
         Mock Write-Message -ModuleName Catzc.Base.Vendor { }
         Mock Remove-Item -ModuleName Catzc.Base.Vendor { }
         Mock Test-VendorModuleAvailable -ModuleName Catzc.Base.Vendor { $true }
@@ -44,7 +44,7 @@ Describe 'Remove-VendorModules — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package, before deleting' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         Mock Remove-Item -ModuleName Catzc.Base.Vendor { }
-        { Remove-VendorModules -Force } | Should -Throw '*Remove-VendorModules operates on the catzc source tree*'
+        { Remove-VendorModules -Force } | Should -Throw '*Remove-VendorModules runs in catzc*s source tree only*'
         Should -Invoke Remove-Item -ModuleName Catzc.Base.Vendor -Times 0
     }
 }

@@ -6,7 +6,7 @@ BeforeAll {
 
     $script:helpText = "<#`r`n.SYNOPSIS`r`n    Returns the widget.`r`n#>`r`nfunction Get-Widget {`r`n    Get-WidgetCore`r`n}`r`n`r`n"
     $script:fake = New-FakeRepositoryRoot -Modules @{
-        'Catzc.Base.Widget' = @{
+        'Catzc.Base.Widget'       = @{
             Public  = 'Set-Widget'
             Private = 'Get-WidgetCore'
             Files   = @{
@@ -18,14 +18,14 @@ BeforeAll {
                 'Catzc.Base.Widget.psd1'     = '@{ }'
             }
         }
-        'Catzc.Base.Gadget' = @{
+        'Catzc.Base.Gadget'       = @{
             Public = 'Get-Gadget'
             Files  = @{
                 'types/Lever.cs'       = "namespace Catzc.Base.Gadget;`npublic class Lever { }`n"
                 'Get-GadgetWidget.ps1' = "function Get-GadgetWidget {`n    Get-Widget`n    Get-Config -Config widget`n    Get-Config -Config widget -ListOwners`n}`n"
             }
         }
-        'Catzc.Base.Gizmo'  = @{
+        'Catzc.Base.Gizmo'        = @{
             Public = 'Get-Gizmo'
             Files  = @{
                 'types/Sprocket.cs'        = "namespace Catzc.Base.Gizmo;`npublic class Sprocket { }`n"
@@ -36,6 +36,9 @@ BeforeAll {
                 'private/Get-GizmoTop.ps1' = "`$script:cacheEntry = 1`nfunction Get-GizmoTop { }"
             }
         }
+        'Catzc.Base.QualityGates' = @{
+            Public = 'Test-Gate'
+        }
     } -Files @{
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Bootstrap.psm1"                = '# bootstrap'
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Importer.psm1"                 = '# importer'
@@ -43,7 +46,7 @@ BeforeAll {
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"                    = '# types'
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Vendor.psm1"                   = '# vendor'
         "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Builder.psm1"                  = '# builder (never ships)'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"                  = '# testkit (ships under full only)'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"                  = '# testkit (ships with the gates module only)'
         "$(Get-CatzcModulesFolder)/.internal/tests/Get-Loader.Tests.ps1"                   = '# test (never ships)'
         "$(Get-CatzcModulesFolder)/.internal/assets/Invoke-WidgetBurst.ps1"                = '# dev tool no glob names (never ships)'
         "$(Get-CatzcModulesFolder)/.internal/assets/ErrorView.format.ps1xml"               = '<Configuration />'
@@ -76,6 +79,7 @@ BeforeAll {
         "$(Get-CatzcModulesFolder)/.vendor/Pester/5.7.1/Pester.psd1"                       = '@{ }'
         "$(Get-CatzcModulesFolder)/.scriptanalyzer/WidgetRule.psm1"                        = '# rule'
         "$(Get-CatzcModulesFolder)/.scriptanalyzer/tests/WidgetRule.Tests.ps1"             = '# rule test (never ships)'
+        'bash/.vendor/bats-core/bin/bats'                                                  = '# widget runner'
     }
     $script:source = $fake.ModulesRoot
 
@@ -104,12 +108,11 @@ BeforeAll {
     }
     $script:buildArguments = @{
         Version         = '1.2.3'
-        VendorPolicy    = 'runtime'
         Bundle          = 'widgets'
         PackageMetadata = $metadata
     }
 
-    Mock Assert-SourceTree { } -ModuleName Catzc.Internal.Builder
+    Mock Assert-CatzcSourceTree { } -ModuleName Catzc.Internal.Builder
     Mock Get-GitCurrentCommit { 'f00df00df00df00df00df00df00df00df00df00d' } -ModuleName Catzc.Internal.Builder
     Mock Get-ModuleProfile -ModuleName Catzc.Internal.Builder -RemoveParameterValidation Name {
         if ($PesterBoundParameters.ContainsKey('Name')) {
@@ -331,7 +334,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             @($record.typeSources) | Should -Be @('Catzc.Base.Gadget/types/Lever.cs',
                 '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')
             $record.sourceCommit | Should -Be 'f00df00df00df00df00df00df00df00df00df00d'
-            $record.vendorPolicy | Should -Be 'runtime'
+            $record.PSObject.Properties.Name | Should -Not -Contain 'vendorPolicy'
             @($record.modules) | Should -Be @('Catzc.Base.Gadget', 'Catzc.Base.Widget')
             $record.contentHash | Should -Be $result.ContentHash
             $result.ContentHash | Should -Be (Get-ContentHash -Path $root -Exclude 'build.json')
@@ -393,14 +396,100 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
     }
 
-    Context 'the full vendor policy' {
-        It 'also ships the test tooling, the TestKit, the analyzer settings, and the analyzer rules without their tests' {
-            $built = Invoke-ModuleBuild @buildArguments -VendorPolicy full -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full')
+    Context 'the gates module' {
+        It 'ships none of the gate tooling without it' {
+            $built = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full-without-gates')
+            Test-Path (Join-Path $built.BuildRoot '.vendor/Pester/5.7.1/Pester.psd1') | Should -BeFalse
+            Test-Path (Join-Path $built.BuildRoot '.internal/Catzc.Internal.TestKit.psm1') | Should -BeFalse
+            Test-Path (Join-Path $built.BuildRoot '.internal/assets/PSScriptAnalyzerSettings.psd1') | Should -BeFalse
+            Test-Path (Join-Path $built.BuildRoot '.scriptanalyzer') | Should -BeFalse
+        }
+
+        It 'ships the test tooling, the TestKit, the analyzer settings, and the analyzer rules without their tests' {
+            $built = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget', 'Catzc.Base.QualityGates' -Destination (Join-Path $TestDrive 'runtime-gates')
             Test-Path (Join-Path $built.BuildRoot '.vendor/Pester/5.7.1/Pester.psd1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.internal/Catzc.Internal.TestKit.psm1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.internal/assets/PSScriptAnalyzerSettings.psd1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.scriptanalyzer/WidgetRule.psm1') | Should -BeTrue
             Test-Path (Join-Path $built.BuildRoot '.scriptanalyzer/tests') | Should -BeFalse
+        }
+
+        It 'ships the bats runner with the gates module and none without it' {
+            $withGates = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget', 'Catzc.Base.QualityGates' -Destination (Join-Path $TestDrive 'bats-gates')
+            $without = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'bats-without')
+            Test-Path (Join-Path $withGates.BuildRoot '.internal/bats-core/bin/bats') | Should -BeTrue
+            Test-Path (Join-Path $without.BuildRoot '.internal/bats-core') | Should -BeFalse
+        }
+    }
+
+    Context 'the modules of a language track' {
+        BeforeAll {
+            Mock Get-Track -ModuleName Catzc.Internal.Builder {
+                [pscustomobject]@{ name = 'widgets'; type = 'modules'; languages = @('bash'); places = @('widgets') }
+            }
+            Mock Get-CatzcModule -ModuleName Catzc.Internal.Builder {
+                [pscustomobject]@{ name = 'catzc-widget'; shape = 'folder'; root = 'widgets/Widget' }
+                [pscustomobject]@{ name = 'catzc-gadget'; shape = 'folder'; root = 'widgets/Gadget' }
+            }
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'profiles' -and -not $ListOwners } {
+                @{ profiles = @{ widgets = @() } }
+            }
+            Mock Export-BashModule -ModuleName Catzc.Internal.Builder {
+                [pscustomobject]@{ Module = $Module; Destination = $Destination; Files = 3; Executables = 1 }
+            }
+        }
+
+        It 'lists a row for each language module with its handler, form and destination, and calls no handler on a dry run' {
+            $plan = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lang-dry') -DryRun
+            @($plan.Languages | ForEach-Object Name) | Should -Be @('catzc-widget', 'catzc-gadget')
+            $plan.Languages[0].Command | Should -Be 'Export-BashModule'
+            $plan.Languages[0].Form | Should -Be 'source'
+            $plan.Languages[0].Source | Should -Be 'widgets/Widget'
+            $plan.Languages[0].Destination | Should -Be 'widgets/Widget'
+            Should -Invoke Export-BashModule -ModuleName Catzc.Internal.Builder -Times 0 -Exactly
+        }
+
+        It 'hands each module to its handler once, quietly, and records the results in the manifest' {
+            $built = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lang-build')
+            Should -Invoke Export-BashModule -ModuleName Catzc.Internal.Builder -Times 1 -Exactly -ParameterFilter {
+                $Module -eq 'widgets/Widget' -and $Silent -and $Destination -eq [System.IO.Path]::Combine($built.BuildRoot, 'widgets/Widget')
+            }
+            Should -Invoke Export-BashModule -ModuleName Catzc.Internal.Builder -Times 2 -Exactly
+            $record = Get-Content -LiteralPath (Join-Path $built.BuildRoot 'build.json') -Raw | ConvertFrom-Json
+            @($record.languages).Count | Should -Be 2
+            $record.languages[0].module | Should -Be 'catzc-widget'
+            $record.languages[0].path | Should -Be 'widgets/Widget'
+            $record.languages[0].record.Files | Should -Be 3
+        }
+
+        It 'adds no row to a profile that names modules' {
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'profiles' -and -not $ListOwners } {
+                @{ profiles = @{ widgets = @('Catzc.Base.Widget') } }
+            }
+            $plan = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lang-none') -DryRun
+            @($plan.Languages).Count | Should -Be 0
+        }
+
+        It 'adds the language module a selected module declares to a profile that names modules' {
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'profiles' -and -not $ListOwners } {
+                @{ profiles = @{ widgets = @('Catzc.Base.Widget') } }
+            }
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'dependencies' -and -not $ListOwners } {
+                @{ modules = [ordered]@{ 'Catzc.Base.Widget' = @('widgets/Gadget') } }
+            }
+            $plan = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lang-declared') -DryRun
+            @($plan.Languages | ForEach-Object Name) | Should -Be @('catzc-gadget')
+        }
+
+        It 'refuses a declared language module no track holds' {
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'profiles' -and -not $ListOwners } {
+                @{ profiles = @{ widgets = @('Catzc.Base.Widget') } }
+            }
+            Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -eq 'dependencies' -and -not $ListOwners } {
+                @{ modules = [ordered]@{ 'Catzc.Base.Widget' = @('widgets/Sprocket') } }
+            }
+            { Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lang-unknown') -DryRun } |
+                Should -Throw "*declares the language module 'widgets/Sprocket'*"
         }
     }
 
@@ -460,7 +549,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'rejects a version that is not MAJOR.MINOR.PATCH' {
-            { Invoke-ModuleBuild -ModuleProfile widgets -Version auto -VendorPolicy runtime -Bundle widgets -PackageMetadata $metadata -Destination $TestDrive -DryRun } |
+            { Invoke-ModuleBuild -ModuleProfile widgets -Version auto -Bundle widgets -PackageMetadata $metadata -Destination $TestDrive -DryRun } |
                 Should -Throw '*not MAJOR.MINOR.PATCH*'
         }
 
@@ -472,7 +561,7 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         It 'rejects package metadata without a GUID' {
             $noGuid = $metadata.Clone()
             $noGuid.Guid = 'widget'
-            { Invoke-ModuleBuild -ModuleProfile widgets -Version 1.2.3 -VendorPolicy runtime -Bundle widgets -PackageMetadata $noGuid -Destination $TestDrive -DryRun } |
+            { Invoke-ModuleBuild -ModuleProfile widgets -Version 1.2.3 -Bundle widgets -PackageMetadata $noGuid -Destination $TestDrive -DryRun } |
                 Should -Throw '*is not a GUID*'
         }
     }

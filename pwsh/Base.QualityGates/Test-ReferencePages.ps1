@@ -7,7 +7,7 @@ function Test-ReferencePages {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $tracked = [string[]] @(Get-GitTrackedPath '.')
     $config = Get-Config -Config comment-pages

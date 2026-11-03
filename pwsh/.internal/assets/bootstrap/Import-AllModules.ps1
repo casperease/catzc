@@ -32,8 +32,14 @@ function Import-AllModules {
 
     # One level, inline: this module loads before the walker exists
     # ([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
-    $moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories() |
-        Where-Object { $_.Name -notmatch '^\.' }
+    # A bundle loads exactly the modules its record names: a language place under the code root is no pwsh module.
+    $moduleDirs = if ($Bundle) {
+        Get-BundleModuleDirectory -ModulesRoot $ModulesRoot
+    }
+    else {
+        [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories() |
+            Where-Object { $_.Name -notmatch '^\.' }
+    }
 
     # Fail fast on duplicate exported function names BEFORE any module or C# type loads — a collision would
     # otherwise be silent (the module imported last shadows the others).

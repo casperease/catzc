@@ -83,8 +83,23 @@ Describe 'Invoke-BashTest' -Tag 'L0', 'logic' {
             $bare = Join-Path $TestDrive 'bare-repo'
             $null = New-Item -ItemType Directory -Path (Join-Path $bare 'bash/tests/widget') -Force
             Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bare-repo' }
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Languages { Join-Path $TestDrive 'bare-code' }
             { Invoke-BashTest Catzc.Widget } | Should -Throw '*bats-core runner is missing*Run Update-BatsVendor*'
             $script:seen.Count | Should -Be 0
+        }
+
+        It 'runs the code root''s shipped bats when the working root has none' {
+            $bare = Join-Path $TestDrive 'consumer-repo'
+            $null = New-Item -ItemType Directory -Path (Join-Path $bare 'bash/tests/widget') -Force
+            $null = New-Item -ItemType File -Path (Join-Path $bare 'importer.sh') -Force
+            $code = Join-Path $TestDrive 'shipped-code'
+            $null = New-Item -ItemType File -Path (Join-Path $code '.internal/bats-core/bin/bats') -Force
+            $script:consumer = $bare
+            $script:shipped = $code
+            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:consumer }
+            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Languages { $script:shipped }
+            $null = Invoke-BashTest Catzc.Widget
+            $script:seen[0].Command | Should -BeLike "`"C:\widget\engine\bash.exe`" $($code.Replace('\', '/'))/.internal/bats-core/bin/bats --recursive *"
         }
     }
 

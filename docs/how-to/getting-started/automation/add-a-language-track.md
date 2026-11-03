@@ -32,7 +32,7 @@ below, in order, with the `js` track as the worked example.
    (`ConvertFrom-NodeTestJunit`).
 2. **The case discovery** — `Get-<Language>TestCases` in `pwsh/Base.QualityGates/private/`, which lists a module's cases from its test files
    without running them, so `Test-Automation` can order, tier and filter them.
-3. **The bridge branch** — one branch per language in `pwsh/Base.QualityGates/tests/Language.Bridge.ps1`: the discovery call, and which
+3. **The bridge branch** — one branch per language in `pwsh/Base.QualityGates/assets/Language.Bridge.ps1`: the discovery call, and which
    engine the cases run under.
 
 Each of these pieces gets its own Pester test file, and the runner a test that runs a module named in the language's own case.

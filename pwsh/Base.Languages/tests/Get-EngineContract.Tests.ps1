@@ -73,6 +73,20 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
     }
 
+    It 'leaves the entry and the start empty for bash in a root without the shell entry, keeping the importer and the root' {
+        $bare = Join-Path $TestDrive 'gadget consumer'
+        $null = New-Item -ItemType Directory -Path $bare -Force
+        $script:bareRoot = $bare
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:bareRoot }
+        $contract = InModuleScope Catzc.Base.Languages -Parameters @{ Bash = $script:bash } { param($Bash) Get-EngineContract -Engine bash -EngineExecutable $Bash }
+        $contract['CATZC_ENGINE'] | Should -Be 'bash'
+        $contract['CATZC_ENGINE_EXECUTABLE'] | Should -Be $script:bash
+        $contract['CATZC_ENGINE_ENTRY'] | Should -BeExactly ''
+        $contract['CATZC_ENGINE_START'] | Should -BeExactly ''
+        $contract['CATZC_IMPORTER'] | Should -Be (Join-Path $bare ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry))
+        $contract['CATZC_REPOSITORY_ROOT'] | Should -Be $bare
+    }
+
     It 'throws when the build''s entry does not exist' {
         { InModuleScope Catzc.Base.Languages { Get-EngineContract -EntryScript 'C:\widget\absent\Import-Catzc.ps1' } } |
             Should -Throw

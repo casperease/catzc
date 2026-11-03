@@ -15,7 +15,8 @@ server HEAD, announced), and rebases the topic onto it, never merging main into 
 ([FDR-GIT-SYNCBYREBASE](../../../drs/flow/git-topic-flow.md#rule-fdr-git-syncbyrebase)). It runs git that changes the repository, so only
 the user invokes it ([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). It refuses a dirty tree
 (Save-Topic first), a detached HEAD and a main branch. A conflict stops it with the conflicting files and the git commands that continue or
-abort the rebase; it never resolves, skips or aborts on its own.
+abort the rebase; it never resolves, skips or aborts on its own. A working root with no repository stops at
+[Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
 
 ### parameter `Config`
 

@@ -47,7 +47,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
     // Per-track ordered aspect classifications: the declared ones over the built-in ones, a declared track replacing its built-in.
     public IReadOnlyDictionary<string, IReadOnlyList<VariantAspect>> aspects { get; }
 
-    // The repository's tracks, in declared order. Required: a repository with no tracks fails at construction.
+    // The repository's tracks, in declared order; absent, none: a repository with no tracks is a consumer root, and the engine supplies the bundle's own.
     public IReadOnlyList<VariantTrack> tracks { get; }
 
     public VariantsConfig(IDictionary d)
@@ -89,11 +89,8 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
         }
         aspects = mergedAspects;
 
+        tracks = new List<VariantTrack>();
         if (Present(d, "tracks")) { tracks = ReadTracks(d["tracks"], errors); }
-        else
-        {
-            errors.Add("this repository declares no tracks; add tracks: to variants.yml or the repository's fragment of it");
-        }
 
         if (errors.Count > 0)
         {

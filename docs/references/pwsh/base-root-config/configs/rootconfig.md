@@ -6,13 +6,17 @@ target from it on every import.
 
 ## Keys
 
-Two booleans, both defaulting to false:
+Four booleans, all defaulting to false:
 
 - **`optIn`** — is this file managed at all? Opt-out is the default: an entry with `optIn` false (or a root file with no entry) stays
   hand-authored and committed.
 - **`committed`** — is the managed target tracked in git? False means gitignored (reproduced on import, invisible churn); true means
   committed (for files git or the bootstrap reads before the importer runs, such as `importer.ps1` and the git files), where a source change
   surfaces as a reviewable diff.
+- **`consumer`** — does a consumer root need this file for its gates? True entries (the analyzer settings, the formatter and linter configs,
+  `cspell.yml`, `nuget.config`, `jsconfig.json`) are the only ones a build-mode session writes, from the code root into the working root.
+- **`optional`** — may a literal generator target render no file? True lets it: none is written and none is expected (`go.work` in a root
+  with no go track). False requires exactly one file.
 
 A `source` target is always a copy of its template under the generated-file head, never a link to it.
 

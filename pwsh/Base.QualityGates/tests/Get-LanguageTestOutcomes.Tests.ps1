@@ -21,6 +21,12 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
 
     BeforeEach {
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.QualityGates { throw 'the worker never locates a tool itself' }
+        $script:root = Join-Path $TestDrive 'widget-root'
+        [void][System.IO.Directory]::CreateDirectory($script:root)
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
+        foreach ($entry in @([Catzc.Base.Engines.ExecutionEngines]::All | ForEach-Object ImporterEntry | Select-Object -Unique)) {
+            Set-Content -LiteralPath (Join-Path $script:root $entry) -Value 'widget'
+        }
         Mock Invoke-GoTest -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetSpins', 'pass', 0.1, '')
             [Catzc.Base.Languages.GoTestResult]::new('catzc/go/tests/catzc-widget', 'TestWidgetJams', 'fail', 0.2,
@@ -134,6 +140,41 @@ Describe 'Get-LanguageTestOutcomes' -Tag 'L0', 'logic' {
         @($outcomes.Values.Outcome | Select-Object -Unique) | Should -Be @('skip')
         @($outcomes.Values.Reason | Select-Object -Unique) | Should -Be @("tool_$($Engine)_missing")
         Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+    }
+
+    It 'skips a go folder under the bash engine with entry_bash_missing, running nothing, when the root has no importer.sh' {
+        Remove-Item -LiteralPath (Join-Path $script:root 'importer.sh') -Force
+        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
+            param($Case, $Go)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash -EngineExecutable 'C:\widget\bash\bash.exe'
+        }
+        @($outcomes.Values.Outcome | Select-Object -Unique) | Should -Be @('skip')
+        @($outcomes.Values.Reason | Select-Object -Unique) | Should -Be @('entry_bash_missing')
+        $outcomes.Count | Should -Be 4
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+    }
+
+    It 'runs a go folder under the bash engine when the root has importer.sh' {
+        $null = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $script:cases; Go = $script:goPath } {
+            param($Case, $Go)
+            Get-LanguageTestOutcomes -Language go -Module 'Catzc.Widget' -Case $Case -Executable $Go -Engine bash -EngineExecutable 'C:\widget\bash\bash.exe'
+        }
+        Should -Invoke Invoke-GoTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Engine -eq 'bash' }
+    }
+
+    It 'runs a bash folder under the bash engine though the root has no importer.sh' {
+        Remove-Item -LiteralPath (Join-Path $script:root 'importer.sh') -Force
+        Mock Invoke-BashTest -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Languages.BashTestResult]::new('widget.bats', 'widget spins', 'pass', 0.1, '')
+        }
+        $cases = @(New-Case 'widget spins' 'widget.bats')
+        $outcomes = InModuleScope Catzc.Base.QualityGates -Parameters @{ Case = $cases } {
+            param($Case)
+            Get-LanguageTestOutcomes -Language bash -Module 'Catzc.Widget' -Case $Case -Executable 'C:\widget\bash\bash.exe' -Engine bash `
+                -EngineExecutable 'C:\widget\bash\bash.exe'
+        }
+        $outcomes['widget.bats widget spins'].Outcome | Should -Be 'pass'
+        Should -Invoke Invoke-BashTest -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 
     It 'skips every test with <Reason>, running nothing, when no <Language> tool was handed down' -ForEach @(

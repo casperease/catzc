@@ -32,16 +32,21 @@ function Get-EngineContract {
         $powerShellEntry
     }
     else {
+        # A root without the shell entry (a consumer root) runs the engine's own tests without cats: the entry and the start stay empty.
         $importer = Join-Path $root $model.ImporterEntry
-        Assert-PathExist $importer -PathType Leaf
-        $importer.Replace('\', '/')
+        if (Test-Path -LiteralPath $importer -PathType Leaf) {
+            $importer.Replace('\', '/')
+        }
+        else {
+            ''
+        }
     }
 
     $contract = [ordered]@{
         CATZC_ENGINE            = $model.Name
         CATZC_ENGINE_EXECUTABLE = $executable
         CATZC_ENGINE_ENTRY      = $entry
-        CATZC_ENGINE_START      = ConvertTo-Json -InputObject @($model.StartArguments($entry, '{command}')) -Compress
+        CATZC_ENGINE_START      = $entry ? (ConvertTo-Json -InputObject @($model.StartArguments($entry, '{command}')) -Compress) : ''
     }
     if ($model.Name -ne [Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) {
         $contract['CATZC_IMPORTER'] = $powerShellEntry

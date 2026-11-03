@@ -65,8 +65,8 @@ An idea is a candidate, judged by the record of the aspect it touches:
 - **Testing:** [ADR-AUTO-TEST](../automation/test-automation.md).
 - **Pipelines:** the flow domain's rules on the CD discipline and the pipeline runner.
 - **Tooling:** [ADR-AUTO-PKGMGR](../automation/use-proper-package-managers.md) and [ADR-AUTO-UVPY](../automation/uv-python-handler.md).
-- **Go:** [ADR-AUTO-GO](../automation/go/go-test-artifacts.md) — Go in catzc is test artifacts only, so a Go idea beyond that scope is a
-  question for the user.
+- **Go:** [ADR-AUTO-GO](../automation/go/go-language.md) — Go in catzc is a module language like python and javascript, held in a `go` track
+  by the module layout and never an engine, so a Go idea is weighed as a module, never as a precedent for the engine.
 
 Saying where an idea came from keeps the reasoning reviewable: a reviewer sees that the shape was weighed, not assumed.
 

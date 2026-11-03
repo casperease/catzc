@@ -2,14 +2,15 @@
 configs:
   configs:
     type: Catzc.Base.Config.ConfigsConfig
-    overridable: false
+    scope: engine
   folder-walk:
     type: Catzc.Base.Folders.FolderWalkConfig
   file-limits:
     type: Catzc.Base.FileLimits.FileLimitsConfig
+    scope: working-root
   generated:
     type: Catzc.Base.Variants.GeneratedConfig
-    overridable: false
+    scope: engine
   filters:
     type: Catzc.Base.Globs.FiltersConfig
   slides:
@@ -20,6 +21,7 @@ configs:
     type: Catzc.Base.Contracts.ContractsConfig
   links:
     type: Catzc.Base.QualityGates.LinksConfig
+    scope: working-root
   link-directions:
     type: Catzc.Base.QualityGates.LinkDirectionsConfig
   comments:
@@ -42,6 +44,7 @@ configs:
     type: Catzc.Base.QualityGates.ParameterConsistencyConfig
   plans:
     type: Catzc.Base.QualityGates.PlansConfig
+    scope: working-root
   bicep-api-versions:
     type: Catzc.Base.QualityGates.BicepApiVersionsConfig
   secret-patterns:
@@ -80,6 +83,7 @@ configs:
     type: Catzc.Base.Variants.TrackTypesConfig
   drs:
     type: Catzc.Base.Drs.DrsConfig
+    scope: working-root
   drs-checks:
     type: Catzc.Base.Drs.DrsChecksConfig
   drs-index:
@@ -94,7 +98,7 @@ configs:
     type: Catzc.Base.Docs.CapabilitiesConfig
   glossary:
     type: Catzc.Base.Docs.GlossaryConfig
-    overridable: false
+    scope: engine
   reports:
     type: Catzc.Base.Reports.ReportsConfig
   output-formats:
@@ -103,12 +107,12 @@ configs:
     type: Catzc.Base.Execution.ToolsConfig
   dependencies:
     type: Catzc.Base.ModuleSystem.DependenciesConfig
-    overridable: false
+    scope: engine
   files:
     type: Catzc.Base.ModuleSystem.FilesConfig
   profiles:
     type: Catzc.Base.ModuleSystem.ProfilesConfig
-    overridable: false
+    scope: engine
   importer:
     type: Catzc.Base.ModuleSystem.ImporterConfig
   rungs:
@@ -117,6 +121,7 @@ configs:
     type: Catzc.Base.Flow.TruthStoresConfig
   analyzer-drs-map:
     type: Catzc.Base.QualityGates.AnalyzerDrsMapConfig
+    scope: working-root
   vendor:
     type: Catzc.Base.Vendor.VendorConfig
   timeouts:
@@ -127,7 +132,7 @@ configs:
     type: Catzc.Base.QualityGates.GuidsConfig
   exporter:
     type: Catzc.Base.Exporter.ExporterConfig
-    overridable: false
+    scope: engine
   vscode-extensions:
     type: Catzc.Base.VSCode.VscodeExtensionsConfig
   ado:
@@ -161,6 +166,7 @@ configs:
       title: Its files are headed "Hindsight <sha>", since they hold what the tree already knew, not what a session learned.
   variants:
     type: Catzc.Base.Variants.VariantsConfig
+    scope: working-root
     differs:
       have_customers: This repository enables every customer, its own value; a consumer starts with none.
   customer:
@@ -187,14 +193,17 @@ configs:
     type: Catzc.Base.VSCode.FileIconsConfig
   go:
     type: Catzc.Base.Languages.GoConfig
+    scope: working-root
   bcl:
     type: Catzc.Base.Languages.BclConfig
   python:
     type: Catzc.Base.Languages.PythonConfig
+    scope: working-root
   bash:
     type: Catzc.Base.Languages.BashConfig
   javascript:
     type: Catzc.Base.Languages.JavaScriptConfig
+    scope: working-root
   languages:
     type: Catzc.Base.Languages.LanguagesConfig
   file-carriers:

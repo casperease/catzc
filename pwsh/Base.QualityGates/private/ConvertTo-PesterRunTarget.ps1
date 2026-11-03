@@ -17,8 +17,7 @@ function ConvertTo-PesterRunTarget {
 
     $paths = [System.Collections.Generic.List[string]]::new()
     $containers = [System.Collections.Generic.List[object]]::new()
-    $bridge = [System.IO.Path]::Combine((Get-CatzcModuleRoot -Module Catzc.Base.QualityGates),
-        (Get-Config -Config languages).FolderOf('test'), 'Language.Bridge.ps1')
+    $bridge = Get-CatzcModuleRoot 'assets/Language.Bridge.ps1' -Module Catzc.Base.QualityGates
     foreach ($item in $Path) {
         $full = [System.IO.Path]::GetFullPath($item).TrimEnd('\', '/')
         if ($languageByFolder.ContainsKey($full)) {

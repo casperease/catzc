@@ -6,11 +6,14 @@ function Register-TypesHold {
         [Parameter(Mandatory)]
         [string] $Hash,
 
-        [string] $ShadowRoot = (Get-TypesShadowRoot)
+        [string] $ShadowRoot = (Get-TypesShadowRoot),
+
+        [ValidateNotNullOrEmpty()]
+        [string] $Namespace = $ExecutionContext.SessionState.PSVariable.GetValue('script:typesDefaultNamespace')
     )
 
     [System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null
-    $hold = [System.IO.Path]::Combine($ShadowRoot, "Catzc.Types.$Hash.$PID.hold")
+    $hold = [System.IO.Path]::Combine($ShadowRoot, "$(Get-TypesAssemblyPrefix -Namespace $Namespace)$Hash.$PID.hold")
     if (-not [System.IO.File]::Exists($hold)) {
         [System.IO.File]::WriteAllBytes($hold, [byte[]] @())
     }

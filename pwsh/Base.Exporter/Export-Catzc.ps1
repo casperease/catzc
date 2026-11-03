@@ -11,8 +11,6 @@ function Export-Catzc {
         [string] $Bundle,
         [string[]] $Module,
         [string] $ModuleProfile,
-        [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy,
         [string] $Version = 'auto',
         [switch] $Force,
         [switch] $Silent
@@ -31,9 +29,6 @@ function Export-Catzc {
     }
     if ($ModuleProfile) {
         $buildArguments.ModuleProfile = $ModuleProfile
-    }
-    if ($VendorPolicy) {
-        $buildArguments.VendorPolicy = $VendorPolicy
     }
     $built = Build-Modules @buildArguments
 

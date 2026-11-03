@@ -11,20 +11,24 @@ const { folder } = require("./fixture.js");
 const extension = path.resolve(__dirname, "../extension.js").split(path.sep).join("/");
 // The extension's folder, repository-relative, as the build writes it into the installed package's catzc.source.
 const source = path.relative(path.resolve(__dirname, "../../.."), path.dirname(extension)).split(path.sep).join("/");
-const scenario = (/** @type {string} */ name, withEngine = false, files = ["code/a.ps1", "docs/x.md"]) => {
+const scenario = (/** @type {string} */ name, withEngine = false, files = ["code/a.ps1", "docs/x.md"], absoluteSource = false) => {
     // The repository in a folder of a short name, so the status line's words fit as they do for the real repository's.
     const root = `${folder(files.map((file) => `w/${file}`))}/w`;
     let driven = extension;
     if (withEngine) {
         // The workspace's engine at its source folder, and an installed package beside it whose shell loads that engine.
         const parts = fs.readdirSync(path.dirname(extension)).filter((file) => file.endsWith(".js"));
-        const engine = path.join(root, source);
+        // An absolute source is the engine's folder outside the workspace.
+        const engine = absoluteSource ? path.join(folder([]), "engine") : path.join(root, source);
         const installed = path.join(folder([]), "installed");
         for (const target of [engine, installed]) {
             fs.mkdirSync(target, { recursive: true });
             for (const part of parts) fs.copyFileSync(path.join(path.dirname(extension), part), path.join(target, part));
         }
-        fs.writeFileSync(path.join(installed, "package.json"), JSON.stringify({ catzc: { source } }));
+        fs.writeFileSync(
+            path.join(installed, "package.json"),
+            JSON.stringify({ catzc: { source: absoluteSource ? engine.split(path.sep).join("/") : source } }),
+        );
         driven = path.join(installed, "extension.js").split(path.sep).join("/");
     }
     const output = execFileSync(process.execPath, [path.join(__dirname, "stub-editor.js"), name, root, driven], {
@@ -105,4 +109,12 @@ test("swaps the repository's engine on a save, every old part disposed first, an
     assert.strictEqual(result.broken.light, true, "the package's own copy runs when the repository's does not load");
     assert.strictEqual(result.broken.fellBack, true);
     assert.deepStrictEqual(result.duplicates, [], "no command is ever registered twice at once");
+});
+
+test("swaps an engine whose source is an absolute folder outside the workspace, as it does a repository-relative one", () => {
+    const result = scenario("swap", true, undefined, true);
+    assert.strictEqual(result.first.light, true, "the shell runs the engine at the absolute folder");
+    assert.ok(result.swapped.registered > result.first.registered, "the saved engine registered its commands anew");
+    assert.strictEqual(result.broken.fellBack, true);
+    assert.deepStrictEqual(result.duplicates, []);
 });

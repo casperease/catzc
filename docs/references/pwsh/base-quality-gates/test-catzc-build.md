@@ -13,10 +13,10 @@ Runs a build run, the same tests as Test-Automation, against a fresh build of th
 The second of the two test runs over one body of tests
 ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
 [DDR-RUNMODE-SAMETESTSBOTHMODES](../../../drs/design/run-modes.md#rule-ddr-runmode-sametestsbothmodes)). It builds the selected modules with
-Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build) into a fresh temporary destination, then runs the
-Test-Automation harness unchanged in shape — discovery, the tier/category tag checks, sharding, rows, reports — with one seam swapped: each
-shard worker dot-sources the build's Import-Catzc.ps1 -RepositoryRoot `<repo>` instead of the repository importer, so every test runs
-against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
+Build-Modules (with the gates module in the selection, so Pester and PSScriptAnalyzer ship with the build) into a fresh temporary
+destination, then runs the Test-Automation harness unchanged in shape — discovery, the tier/category tag checks, sharding, rows, reports —
+with one seam swapped: each shard worker dot-sources the build's Import-Catzc.ps1 -RepositoryRoot `<repo>` instead of the repository
+importer, so every test runs against the merged, built modules while out/ and the test fixtures keep resolving in the repository.
 
 Test files come from the source tree, limited to the tests/ folders of the modules the selection resolves to (the dependency closure
 Build-Modules computes). Tests tagged 'source-only'
@@ -27,7 +27,8 @@ test runs' reports never overwrite each other. The build is deleted when the run
 The harness's own module is always built too (each worker reaches its configuration builder and row reducer through that module's scope),
 but its tests run only when the selection includes it.
 
-Test-CatzcBuild operates on the source tree — it builds from it and reads its tests — so it runs in source mode only (Assert-SourceTree).
+Test-CatzcBuild operates on the source tree — it builds from it and reads its tests — so it runs in catzc's source tree only
+(Assert-CatzcSourceTree).
 
 ### parameter `Module`
 

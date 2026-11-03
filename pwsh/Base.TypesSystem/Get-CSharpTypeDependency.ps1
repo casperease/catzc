@@ -3,7 +3,7 @@ function Get-CSharpTypeDependency {
         [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
     Assert-PathExist $ModulesRoot -PathType Container
 
     $modules = @((Get-CatzcModule -EngineTrack).name)

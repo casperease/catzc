@@ -24,9 +24,10 @@ Idempotent and fast by construction, so the importer runs it on every load (see 
 (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so a clean tree is a true no-op. See
 [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
-The managed root files are materialised from the source tree, so in build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) this is a
-no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a janitor
-never breaks the load.
+In build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) it writes only the entries marked `consumer`, the root files a consumer root
+needs for its gates: a `source` or a listed input file is read from the built package under the code root, and every target is written into
+the working root. A listed function source (`.ps1`) is merged into its module file there, so it is not checked, and the warm-run skip does
+not apply.
 
 ### parameter `Path`
 
@@ -88,3 +89,12 @@ reach the file it points at, so the link is deleted first and the copy is writte
 
 A whole run is skipped when nothing it declares as an input in its writer row of `generated.yml` (its generators, sources and targets)
 changed since its last run: the one writer memo every generated-file writer reads.
+
+## comment:1
+
+Above `$whole = -not $Path -and -not $DryRun -and -not $PassThru -and -not $isBuild`, written with `#`.
+
+```text
+Only a whole run may skip on the shared writer memo; a targeted, dry or passthru run always renders.
+The writer memo names source-tree inputs, so a built package, which has none, always renders.
+```

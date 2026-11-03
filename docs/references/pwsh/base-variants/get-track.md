@@ -14,7 +14,9 @@ Returns the repository's tracks — all of them, the named ones, or the track th
 The `tracks` repo-wide variant (configs/variants.yml, [DDR-TRACK](../../../drs/design/tracks.md)) declares each track: its places, its type
 ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../../../drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)), its vendor when it has one and
 the file languages of its tech-stack ([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). Each result is a
-VariantTrack, in declared order; the shape is validated by the VariantsConfig type.
+VariantTrack, in declared order; the shape is validated by the VariantsConfig type. In build mode the bundle's own `pwsh` track comes first,
+supplied by the engine, since the consumer's config declares only the consumer's tracks
+([ADR-AUTO-CONSUMER-OWNTRACKS](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-owntracks)).
 
 -Path answers "which track does this file belong to?"
 ([DDR-TRACK-ISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-isplacedcluster)): the track with the longest place that contains

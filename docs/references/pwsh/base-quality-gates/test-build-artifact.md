@@ -13,8 +13,8 @@ Builds the selected modules once into a temporary destination and verifies the b
 The built, immutable artifact is what ships, so it is verified as built
 ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate),
 [ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../../drs/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)). The gate runs
-Build-Modules (vendor policy 'full', so Pester ships and a build-mode session can enter a module's scope) into a fresh temporary
-destination, checks the build facet by facet, and deletes it. Every issue is prefixed with its facet:
+Build-Modules (with the gates module added to the selection, so Pester ships and a build-mode session can enter a module's scope) into a
+fresh temporary destination, checks the build facet by facet, and deletes it. Every issue is prefixed with its facet:
 
 ```text
 [build]     Build-Modules succeeds — it verifies its own output with Assert-CatzcBundle, the bundle's
@@ -37,7 +37,8 @@ destination, checks the build facet by facet, and deletes it. Every issue is pre
 ```
 
 Collects every issue and ends with Write-QualityGateReport: the report lands in out/test-build-artifact/, and the gate throws once listing
-every issue (or returns the result with -PassThru). It builds from the source tree, so it needs the source mode (Assert-SourceTree).
+every issue (or returns the result with -PassThru). It builds from the source tree, so it runs in catzc's source tree only
+(Assert-CatzcSourceTree).
 
 ### parameter `Module`
 

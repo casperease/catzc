@@ -14,8 +14,11 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    # The one settings file ships inside the code tree, so it resolves from the code root.
-    $settingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
+    $codeSettingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
+    $settingsPath = Join-Path $root ([System.IO.Path]::GetFileName($codeSettingsPath))
+    if (-not [System.IO.File]::Exists($settingsPath)) {
+        $settingsPath = $codeSettingsPath
+    }
     Assert-PathExist $settingsPath
 
     # The same coverage as the L2 analyzer test.

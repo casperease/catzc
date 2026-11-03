@@ -19,7 +19,7 @@ parameters can never drift from the overlay's. A drift test asserts the committe
 Scaffolds into ANY repository root that already carries the .internal overlay — the loader path in the shim is repository-root-relative, so
 nothing absolute is baked in.
 
-Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode (Assert-SourceTree,
+Writes the source tree's entry point from the source overlay, so it runs in catzc's source tree only (Assert-CatzcSourceTree,
 [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `RepositoryRoot`

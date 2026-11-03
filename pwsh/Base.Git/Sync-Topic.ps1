@@ -7,6 +7,7 @@ function Sync-Topic {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
+    Assert-GitWorkTree
     Assert-Command git
 
     $branch = "$((Invoke-Executable 'git rev-parse --abbrev-ref HEAD' -WorkingDirectory $RepositoryRoot -PassThru -Silent).Output)".Trim()

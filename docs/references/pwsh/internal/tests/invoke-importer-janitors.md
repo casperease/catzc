@@ -5,4 +5,5 @@ The tests of the build janitors the importer runs and of the writer rows they re
 ## The registry
 
 The registry the janitor reads holds the eight at-import writers in the order the import runs them, and one writer the import leaves alone
-(`at_import` false). The janitor considers only the writers marked at import, none of its own list.
+(`at_import` false). The janitor considers only the writers marked at import, none of its own list. With `-Consumer` it considers only the
+writers marked `consumer` among them and runs no other janitor.

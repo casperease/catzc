@@ -32,7 +32,7 @@ reference article yet simply gets no generated README — the importer runs Buil
 missing. An explicit mapping WINS over a pattern that targets the same folder.
 
 Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories of `<prefix>`. The globs expand
-over the catzc source tree, so it runs in source mode only (Assert-SourceTree). See
+over the catzc source tree, so it runs in catzc's source tree only (Assert-CatzcSourceTree). See
 [ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
 ### parameter `Config`

@@ -40,8 +40,8 @@ function Get-ScriptAnalyzerInputs {
         }
     }
     if ($Pass -eq 'spelling') {
-        # The repository's own QualityGates folder, its name resolved to the folder under the modules track.
-        $qualityGates = Join-Path $RepositoryRoot "$(Get-CatzcModulesFolder)/$((Get-Track -Name pwsh).FolderNameOf('Catzc.Base.QualityGates'))"
+        # The code root's QualityGates folder, its name resolved to the folder under the engine track: in source mode the repository's own, in build mode the bundle's.
+        $qualityGates = Join-Path $codeRoot (Get-Track -Name pwsh).FolderNameOf('Catzc.Base.QualityGates')
         $inputs.AddRange([string[]] [Catzc.Base.QualityGates.SpellingOracle]::Inputs($RepositoryRoot, $qualityGates))
     }
     , [string[]] $inputs.ToArray()

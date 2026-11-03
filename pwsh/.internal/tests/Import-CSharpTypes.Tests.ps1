@@ -186,6 +186,17 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             Should -Invoke Write-TypesContract -ModuleName Catzc.Internal.Types -Times 0 -Exactly
         }
 
+        It 'calls no Sync-TypesContract on a prebuilt-only import' {
+            $root = New-ContractFixtureRoot
+            Mock Test-IsRunningInPipeline { $false } -ModuleName Catzc.Internal.Bootstrap
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+            Copy-FixtureBundleBuild -Root $root | Out-Null
+
+            Mock Sync-TypesContract { } -ModuleName Catzc.Internal.Types
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly }
+            Should -Invoke Sync-TypesContract -ModuleName Catzc.Internal.Types -Times 0 -Exactly
+        }
+
         It 'throws for a bundle whose manifest is missing and never writes one' {
             $namespace = "WidgetTestBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
@@ -505,6 +516,117 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $root = New-FixtureRoot @{ $namespace = @{ 'Other.Widget' = 'public class Widget { }' } }
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
                 Should -Throw '*bare type only*'
+        }
+    }
+
+    Context 'a consumer''s own types in a bundle' -Tag 'logic', 'ADR-AUTO-CONSUMER-OWNTYPES', 'ADR-PWSH-TYPES-LOADKEYEDONNAMESPACE' {
+        BeforeAll {
+            $script:consumerCount = 0
+
+            function New-ConsumerFixture {
+                param([hashtable] $Sources = @{}, [switch] $NoTypes)
+                $script:consumerCount++
+                $namespace = "WidgetOwn$($script:consumerCount)$runId"
+                $working = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+                $configs = [System.IO.Directory]::CreateDirectory((Join-Path $working '.catzc/configs')).FullName
+                [System.IO.File]::WriteAllText((Join-Path $configs 'variants.yml'),
+                    "tracks:`n  widget:`n    members: [widget]`n    type: modules`n    namespace: $namespace`n")
+                $module = [System.IO.Directory]::CreateDirectory((Join-Path $working 'widget/Local')).FullName
+                if (-not $NoTypes) {
+                    $types = [System.IO.Directory]::CreateDirectory((Join-Path $module 'types')).FullName
+                    foreach ($name in $Sources.Keys) {
+                        [System.IO.File]::WriteAllText((Join-Path $types "$name.cs"), $Sources[$name].Replace('@NS@', $namespace))
+                    }
+                }
+                $catzc = New-FixtureRoot @{ "WidgetCatzc$($script:consumerCount)$runId" = @{ Base = 'public class Base { }' } }
+                Invoke-ConsumerImport -Working $working -ModulesRoot $catzc
+                Copy-FixtureBundleBuild -Root $catzc | Out-Null
+                [pscustomobject]@{ Namespace = $namespace; Working = $working; Catzc = $catzc; Out = (Join-Path $working 'out'); Source = (Join-Path $module 'types') }
+            }
+
+            function Invoke-ConsumerImport {
+                param([string] $Working, [string] $ModulesRoot, [switch] $Bundle)
+                $saved = $env:RepositoryRoot
+                $env:RepositoryRoot = $Working
+                try {
+                    InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $ModulesRoot; B = [bool] $Bundle } { param($R, $B) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly:$B }
+                }
+                finally {
+                    $env:RepositoryRoot = $saved
+                }
+            }
+
+            $script:gadgetSource = "namespace @NS@.Local;`npublic class Gadget { public int Size = 3; }"
+
+        }
+
+        It 'compiles the consumer''s types into a namespace-named DLL under the working root''s out/, loads them and registers their accelerator' {
+            $fixture = New-ConsumerFixture @{ Gadget = $script:gadgetSource }
+            # The alias attribute lives in catzc's own assembly, which a fixture build cannot carry, so the manifest's alias rows are mocked.
+            $row = [pscustomobject]@{ Name = "$($fixture.Namespace).Local.Gadget"; Aliases = @("$($fixture.Namespace).Gadget"); Display = @() }
+            Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = @($row) } }.GetNewClosure() -ModuleName Catzc.Internal.Types
+            Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+
+            @([System.IO.Directory]::GetFiles($fixture.Out, "$($fixture.Namespace).Types.*.dll")).Count | Should -Be 1
+            ([System.Management.Automation.PSTypeName]"$($fixture.Namespace).Local.Gadget").Type | Should -Not -BeNullOrEmpty
+            ("$($fixture.Namespace).Gadget" -as [type]).FullName | Should -Be "$($fixture.Namespace).Local.Gadget"
+        }
+
+        It 'refuses an accelerator outside the consumer''s own namespace' {
+            $fixture = New-ConsumerFixture @{ Gadget = $script:gadgetSource }
+            $row = [pscustomobject]@{ Name = "$($fixture.Namespace).Local.Gadget"; Aliases = @('Other.Gadget'); Display = @() }
+            Mock Get-TypesAssemblyManifest { [pscustomobject]@{ Types = @($row) } }.GetNewClosure() -ModuleName Catzc.Internal.Types
+            { Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle } | Should -Throw "*'Other.Gadget'*outside the namespace*"
+        }
+
+        It 'reuses the DLL on a second import of the same sources' {
+            $fixture = New-ConsumerFixture @{ Gadget = $script:gadgetSource }
+            Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+            $dll = [System.IO.Directory]::GetFiles($fixture.Out, "$($fixture.Namespace).Types.*.dll")
+            $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll[0])
+
+            Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+
+            @([System.IO.Directory]::GetFiles($fixture.Out, "$($fixture.Namespace).Types.*.dll")).Count | Should -Be 1
+            [System.IO.File]::GetLastWriteTimeUtc($dll[0]) | Should -Be $stamp
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -Times 1 -Exactly -ParameterFilter { $Message -like "Built out/$($fixture.Namespace).Types.*" }
+        }
+
+        It 'recompiles a changed source under a new hash' {
+            $savedTfBuild = $env:TF_BUILD
+            $savedGitHubActions = $env:GITHUB_ACTIONS
+            $env:TF_BUILD = ''
+            $env:GITHUB_ACTIONS = ''
+            try {
+                $fixture = New-ConsumerFixture @{ Gadget = $script:gadgetSource }
+                Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+                [System.IO.File]::WriteAllText((Join-Path $fixture.Source 'Gadget.cs'), $script:gadgetSource.Replace('@NS@', $fixture.Namespace).Replace('Size = 3', 'Size = 4'))
+
+                Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+
+                @([System.IO.Directory]::GetFiles($fixture.Out, "$($fixture.Namespace).Types.*.dll")).Count | Should -Be 2
+            }
+            finally {
+                $env:TF_BUILD = $savedTfBuild
+                $env:GITHUB_ACTIONS = $savedGitHubActions
+            }
+        }
+
+        It 'refuses a Catzc. C# namespace in a consumer source, naming the file' {
+            $fixture = New-ConsumerFixture @{ Gadget = "namespace Catzc.Gizmo;`npublic class Gadget { }" }
+            { Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle } | Should -Throw '*Gadget.cs*declares a Catzc. namespace*'
+            [System.IO.Directory]::Exists($fixture.Out) | Should -BeFalse
+        }
+
+        It 'compiles nothing for a consumer in source mode' {
+            $fixture = New-ConsumerFixture @{ Gadget = $script:gadgetSource }
+            [System.IO.Directory]::Exists($fixture.Out) | Should -BeFalse
+        }
+
+        It 'compiles nothing for a consumer with no types' {
+            $fixture = New-ConsumerFixture -NoTypes
+            Invoke-ConsumerImport -Working $fixture.Working -ModulesRoot $fixture.Catzc -Bundle
+            [System.IO.Directory]::Exists($fixture.Out) | Should -BeFalse
         }
     }
 }

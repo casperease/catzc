@@ -199,9 +199,10 @@ stay internal. The merged file keeps the `.ps1` extension, so the module's funct
 share a name.
 
 The side folders travel verbatim, including `assets/` (install scripts, hook starters, packaged data) and the `types/` sources the load-time
-types guard re-verifies. The vendored modules are copied verbatim from `.vendor/` per `vendor_policy` — `runtime` ships `powershell-yaml`
-only; `full` also ships Pester and PSScriptAnalyzer, which the build run needs — and are never re-downloaded or republished. Default-deny
-keeps the verification surface out: no `tests/` tree travels.
+types guard re-verifies. The vendored modules are copied verbatim from `.vendor/`: `powershell-yaml` always, and Pester and PSScriptAnalyzer
+only when the closure-expanded selection holds `Catzc.Base.QualityGates`
+([ADR-AUTO-BUNDLE-GATETOOLINGFOLLOWSGATES](../platform-bundle.md#rule-adr-auto-bundle-gatetoolingfollowsgates)). They are never
+re-downloaded or republished. Default-deny keeps the verification surface out: no `tests/` tree travels.
 
 ### The package module
 

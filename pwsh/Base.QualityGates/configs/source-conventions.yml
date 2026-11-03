@@ -56,6 +56,8 @@ track_root_literal:
     pwsh/Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1:
       it tests CommentPagesConfig.DefaultPages, which mirrors comment-pages.yml and is renamed with it in P4
     pwsh/Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1: it names the real globset key pwsh, the track's own name
+    pwsh/Base.QualityGates/tests/Invoke-ScriptAnalyzerShards.Tests.ps1:
+      its fixture settings file holds a relative rule path, which is what the test resolves against the working root
 
 test_file_name:
   exempt:

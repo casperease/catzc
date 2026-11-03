@@ -27,7 +27,7 @@ function Test-CatzcBuild {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     if ($MinLevel -gt $MaxLevel) {
         throw "MinLevel ($MinLevel) cannot exceed MaxLevel ($MaxLevel)."
@@ -42,7 +42,7 @@ function Test-CatzcBuild {
     }
 
     # The modules under test: the selection's closure, resolved without writing anything (-DryRun).
-    $plan = Build-Modules @selection -VendorPolicy full -DryRun -Silent
+    $plan = Build-Modules @selection -DryRun -Silent
     $testedModules = @($plan.Modules)
     if ($testedModules.Count -eq 0) {
         throw 'Build-Modules resolved the selection to no modules — nothing to build or test.'
@@ -58,7 +58,7 @@ function Test-CatzcBuild {
     $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-run-' + [guid]::NewGuid().ToString('N'))
     Write-Message "Building $($testedModules.Count) module(s) for the build run into '$destination'..."
     try {
-        $build = Build-Modules @buildSelection -VendorPolicy full -Destination $destination -Silent
+        $build = Build-Modules @buildSelection -Destination $destination -Silent
         $entryScript = Join-Path $build.BuildRoot 'Import-Catzc.ps1'
         Assert-PathExist $entryScript -PathType Leaf
         Write-Message "Built Catzc $($build.Version) ($(@($build.Modules).Count) module(s)) at '$($build.BuildRoot)'"

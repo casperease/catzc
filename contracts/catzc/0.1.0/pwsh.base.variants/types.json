@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: a6095aaffd75",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: f8f1ac64e1c3",
   "types": [
     {
       "name": "Catzc.Base.Variants.GeneratedConfig",
@@ -45,6 +45,10 @@
           "kind": "property"
         },
         {
+          "name": "committed",
+          "kind": "property"
+        },
+        {
           "name": "generator",
           "kind": "property"
         },
@@ -69,6 +73,14 @@
         },
         {
           "name": "class",
+          "kind": "property"
+        },
+        {
+          "name": "consumer",
+          "kind": "property"
+        },
+        {
+          "name": "expander",
           "kind": "property"
         },
         {

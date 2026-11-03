@@ -13,6 +13,9 @@ function Assert-Overlay {
             'Unknown' {
                 $violations.Add("$($item.RelativePath): not an override point; under a bundled module's folder the overlay holds <Function>.ps1, $privateFolderName/<Function>.ps1, configs/<config>.yml, assets/<path> and tests/<path>")
             }
+            'Finding' {
+                $violations.Add($item.Finding)
+            }
             'FunctionOverride' {
                 $shape = @(Get-FunctionFileViolation -Path $item.File -RelativePath $item.RelativePath)
                 foreach ($violation in $shape) {
@@ -26,7 +29,7 @@ function Assert-Overlay {
                     $module.Invoke({ param($name) Get-Command -Name $name -CommandType Function -ErrorAction Ignore }, $item.Target)
                 }
                 if ($null -eq $original -or $original.ModuleName -ne $item.Module) {
-                    $violations.Add("$($item.RelativePath): $($item.Module) has no function $($item.Target) to override; a new function belongs in a local module")
+                    $violations.Add("$($item.RelativePath): $($item.Module) has no function $($item.Target) to override; a new function belongs in a module of the consumer's own tracks")
                     break
                 }
                 $isExported = $module.ExportedFunctions.ContainsKey($item.Target)
@@ -44,28 +47,27 @@ function Assert-Overlay {
             }
             'ConfigFragment' {
                 if ($item.Target -in $sealed) {
-                    $violations.Add("$($item.RelativePath): config '$($item.Target)' is sealed (configs.yml overridable: false); the overlay may not change it")
+                    $violations.Add("$($item.RelativePath): config '$($item.Target)' is sealed (configs.yml scope: engine); the overlay may not change it")
                 }
-                elseif (-not [System.IO.File]::Exists([System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Folder,
+                elseif (-not [System.IO.File]::Exists([System.IO.Path]::Combine([string] (Resolve-CodeModuleFolder -Name $item.Folder),
                             'configs', "$($item.Target).yml"))) {
-                    $violations.Add("$($item.RelativePath): $($item.Module) ships no config '$($item.Target)' to merge onto; a new config belongs in a local module")
+                    $violations.Add("$($item.RelativePath): $($item.Module) ships no config '$($item.Target)' to merge onto; a new config belongs in a module of the consumer's own tracks")
                 }
             }
             'AssetOverride' {
                 $marker = "/$($item.Folder)/"
                 $relative = $item.RelativePath.Substring($item.RelativePath.IndexOf($marker,
                         [System.StringComparison]::Ordinal) + $marker.Length)
-                $bundled = [System.IO.Path]::Combine((Get-CatzcModulesRoot), $item.Folder, $relative)
+                $bundled = [System.IO.Path]::Combine([string] (Resolve-CodeModuleFolder -Name $item.Folder), $relative)
                 if (-not [System.IO.File]::Exists($bundled)) {
-                    $violations.Add("$($item.RelativePath): $($item.Module) ships no asset $relative to replace; a new asset belongs in a local module")
-                }
-            }
-            'LocalModule' {
-                foreach ($violation in @(Get-LocalModuleViolation -Path $item.File -RelativePath $item.RelativePath)) {
-                    $violations.Add($violation)
+                    $violations.Add("$($item.RelativePath): $($item.Module) ships no asset $relative to replace; a new asset belongs in a module of the consumer's own tracks")
                 }
             }
         }
+    }
+
+    foreach ($violation in @(Get-ConsumerModuleViolation)) {
+        $violations.Add($violation)
     }
 
     if ($violations.Count -gt 0) {

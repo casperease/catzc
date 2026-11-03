@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"56cbae927407\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: b30bb916fb16",
   "types": [
     {
       "name": "Catzc.Base.Docs.AgentEntry",
@@ -43,6 +43,10 @@
         },
         {
           "name": "contracts",
+          "kind": "property"
+        },
+        {
+          "name": "folder",
           "kind": "property"
         }
       ]

@@ -14,7 +14,8 @@ Describe 'Assert-LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-CONF-LOADING-POW
             Mock Get-Config -ParameterFilter { $Config -eq 'file-kinds' } { $kinds }.GetNewClosure()
             Mock Get-Config -ParameterFilter { $Config -eq 'track-types' } { $types }.GetNewClosure()
             Mock Get-Track { [pscustomobject] @{ name = 'mods' } }
-            Mock Get-AspectGlobSet { [ordered]@{ live = @(); tests = @() } }
+            Mock Get-Aspect { @([pscustomobject] @{ Name = 'live'; Patterns = @() }, [pscustomobject] @{ Name = 'tests'; Patterns = @() }) }
+            Mock Get-AspectGlobSet { throw 'the source tree is not reached' }
             Mock Get-DrsCitationMap { $map }.GetNewClosure()
         }
         $script:assert = {
@@ -31,6 +32,14 @@ Describe 'Assert-LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-CONF-LOADING-POW
             }; verdict = 'allow'; because = 'ADR-WIDGET-ONE'
         }
         { & $assert $row } | Should -Not -Throw
+    }
+
+    It 'reads the aspect names from the aspect definitions of every track, never the source tree''s glob sets' {
+        { & $assert @{ from = @{ aspects = @('tests') }; to = @{ classes = @('code') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' } } | Should -Not -Throw
+        InModuleScope Catzc.Base.QualityGates {
+            Should -Invoke Get-Aspect -Times 1 -ParameterFilter { $Track -eq 'mods' }
+            Should -Invoke Get-AspectGlobSet -Times 0
+        }
     }
 
     It 'names every undeclared value and an unknown because, row and side included' {

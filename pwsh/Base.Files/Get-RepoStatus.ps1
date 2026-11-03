@@ -6,6 +6,7 @@ function Get-RepoStatus {
         [string] $Path
     )
 
+    Assert-GitWorkTree
     $relative = $Path -replace '\\', '/'
     if (-not (@(Get-GitTrackedPath $relative) -contains $relative)) {
         return 'unset'

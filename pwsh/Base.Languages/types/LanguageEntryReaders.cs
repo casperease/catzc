@@ -12,6 +12,7 @@ public static class LanguageEntryReaders
 {
     private static readonly string[] AllowedNamingKeys = { "folder", "file", "function", "type", "exempt" };
     private static readonly string[] AllowedTestsKeys = { "runner", "tools", "executable_parameter", "engine", "pattern" };
+    private static readonly string[] AllowedPackageKeys = { "command", "form" };
     // A test-file pattern is one file glob, matched against file names under a test folder, never a path.
     private static readonly Regex TestPattern = new Regex("^[A-Za-z0-9_*.-]+$");
     private static readonly Regex CommandName = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
@@ -271,6 +272,38 @@ public static class LanguageEntryReaders
         }
         if (errors.Count > before) { return null; }
         return new LanguageTestRunner(runner, tools.ToArray(), executableParameter, engine, pattern);
+    }
+
+    // The optional package map: an exporter command by form and one of the shipped forms; null when the entry has none.
+    internal static LanguagePackage ReadPackage(string name, object value, List<string> errors)
+    {
+        if (value == null) { return null; }
+        IDictionary map = value as IDictionary;
+        string where = string.Format(CultureInfo.InvariantCulture, "languages['{0}'].package", name);
+        if (map == null)
+        {
+            errors.Add(where + ": must be a map of command and form");
+            return null;
+        }
+        int before = errors.Count;
+        foreach (object key in map.Keys)
+        {
+            if (Array.IndexOf(AllowedPackageKeys, Text(key)) < 0)
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: unknown key '{1}' (allowed: {2})", where, Text(key), string.Join(", ", AllowedPackageKeys)));
+            }
+        }
+        string command = map.Contains("command") ? Text(map["command"]) : "";
+        if (!CommandName.IsMatch(command))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: command '{1}' is not a command name (Verb-Noun)", where, command));
+        }
+        string form = map.Contains("form") ? Text(map["form"]) : "";
+        if (Array.IndexOf(LanguagePackage.Forms, form) < 0)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "{0}: invalid form '{1}' (one of: {2})", where, form, string.Join(", ", LanguagePackage.Forms)));
+        }
+        return errors.Count > before ? null : new LanguagePackage(command, form);
     }
 
     // The ordered regular expressions a diagram label is matched against (whole label) to name this language's snippets.

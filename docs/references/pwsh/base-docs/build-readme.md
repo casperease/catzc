@@ -25,7 +25,7 @@ The READMEs are derived artifacts: gitignored (like the generated .psd1 manifest
 authored source under docs/references/ is what is checked. Idempotent and fast by construction, so the importer runs it on every load (see
 importer.ps1): Write-FileIfChanged rewrites a README only when its composed content differs (EOL-insensitively), and a rewrite is
 delete-then-write, so a README that is a filesystem link is severed and never written through into its source. It writes into the catzc
-source tree, so it runs in source mode only (Assert-SourceTree); a session running a built package stops with a named error.
+source tree, so it runs in catzc's source tree only (Assert-CatzcSourceTree); a session running a built package stops with a named error.
 
 See [ADR-REPO-README](../../../drs/repository/generated-readmes.md) and
 [ADR-CONF-LOADING](../../../drs/configuration/module-config-loading.md).

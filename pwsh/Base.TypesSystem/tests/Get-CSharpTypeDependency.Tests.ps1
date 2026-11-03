@@ -1,4 +1,4 @@
-# Source-tree tooling (Assert-SourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
+# Source-tree tooling (Assert-CatzcSourceTree): its scans need the per-module types/*.cs, so this test file is source-only.
 Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -91,6 +91,6 @@ Describe 'Get-CSharpTypeDependency — build mode' -Tag 'L0', 'logic' {
     It 'stops with a named error when the session runs a built package' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         { Get-CSharpTypeDependency -ModulesRoot $TestDrive } |
-            Should -Throw '*Get-CSharpTypeDependency operates on the catzc source tree*'
+            Should -Throw '*Get-CSharpTypeDependency runs in catzc*s source tree only*'
     }
 }

@@ -12,16 +12,12 @@ function Build-RootConfig {
         [switch] $PassThru
     )
 
-    if ((Get-CatzcRunMode) -eq 'build') {
-        if (-not $Silent) {
-            Write-Message 'root configs: skipped — this session runs a built Catzc package; managed root files are materialised from the source tree (importer.ps1).'
-        }
-        return
-    }
+    # A built package writes only the consumer entries, read from the code root, into the working root.
+    $isBuild = (Get-CatzcRunMode) -eq 'build'
 
     $config = Get-Config -Config rootconfig
 
-    $entries = @(Get-RootConfigTargets -Config $config -FollowMix)
+    $entries = @(Get-RootConfigTargets -Config $config -FollowMix -Consumer:$isBuild)
     if ($Path) {
         # An entry is selected by its own target, or — for a wildcard entry — by one path its pattern matches.
         $entries = @($entries | Where-Object {
@@ -37,8 +33,7 @@ function Build-RootConfig {
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
-    # Only a whole run may skip on the shared writer memo; a targeted, dry or passthru run always renders.
-    $whole = -not $Path -and -not $DryRun -and -not $PassThru
+    $whole = -not $Path -and -not $DryRun -and -not $PassThru -and -not $isBuild
     if ($whole) {
         $row = @(Get-GeneratedWriterDue | Where-Object Name -ceq 'Build-RootConfig')
         if ($row.Count -eq 1 -and -not $row[0].Due) {
@@ -52,13 +47,17 @@ function Build-RootConfig {
     $ret = foreach ($entry in $entries) {
         if ($entry.source) {
             # Content from an authored source file, under the generated-file head.
-            $content = Get-RootConfigCopyContent -Entry $entry -SourcePath (Resolve-RepoPath $entry.source)
+            $content = Get-RootConfigCopyContent -Entry $entry -SourcePath (Resolve-RootConfigSource $entry.source)
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
         else {
             # A generator owns its whole output below the head: one file, or one record per wildcard match.
             foreach ($listed in $entry.sources) {
-                Assert-PathExist (Resolve-RepoPath $listed)
+                # A built package merges a function source into its module file, so only the data a generator reads is checked there.
+                if ($isBuild -and $listed.EndsWith('.ps1', [System.StringComparison]::Ordinal)) {
+                    continue
+                }
+                Assert-PathExist (Resolve-RootConfigSource $listed)
             }
             $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
                     $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier -Writer Build-RootConfig

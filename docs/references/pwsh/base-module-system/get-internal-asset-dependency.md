@@ -33,7 +33,7 @@ so must -Module when it is passed. A call whose value is computed — a variable
 the arguments — cannot be inventoried. Such a call site is a violation: by default the command throws, naming every violating site, so the
 inventory is never silently partial. -Violation returns the violating sites instead of the inventory, without throwing.
 
-Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
+Reads the per-function source files, which exist only in the source tree, so it runs in catzc's source tree only (Assert-CatzcSourceTree,
 [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `ModulesRoot`

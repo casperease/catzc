@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-DrsIndex -Path docs/drs/index.md"
-    with_body_sha: bc0e81059220
+    with_body_sha: "51575e3cbd16"
 ---
 
 # DRS index and rule-citation registry
@@ -172,13 +172,14 @@ github, and azure domains build on it.
 | `ADR-AUTO-GUIDS`    | [managed-guids](automation/managed-guids.md)                                     |
 | `ADR-AUTO-BUNDLE`   | [platform-bundle](automation/platform-bundle.md)                                 |
 | `ADR-AUTO-OVERLAY`  | [consumer-overlay](automation/consumer-overlay.md)                               |
+| `ADR-AUTO-CONSUMER` | [consumer-repository](automation/consumer-repository.md)                         |
 | `ADR-AUTO-ASSETDEP` | [internal-asset-dependencies](automation/internal-asset-dependencies.md)         |
 | `ADR-AUTO-CONSOLE`  | [console-output-matters](automation/console-output-matters.md)                   |
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
 | `ADR-AUTO-IDIOM`    | [idiomatic-names](automation/idiomatic-names.md)                                 |
 | `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
 | `ADR-AUTO-LIMIT`    | [file-limits](automation/file-limits.md)                                         |
-| `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
+| `ADR-AUTO-GO`       | [go-language](automation/go/go-language.md)                                      |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |
 | `ADR-AUTO-TESTLANG` | [test-artifact-languages](automation/test-artifact-languages.md)                 |

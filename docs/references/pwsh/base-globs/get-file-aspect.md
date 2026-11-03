@@ -2,7 +2,8 @@
 
 The file-to-aspect lookup: for each path it names the first aspect, in aspect order, one of whose globsets claims it
 ([DDR-ASPECT](../../../drs/design/module-aspects.md)). It asks `Get-AspectGlobSet` once per call and delegates the matching to
-`AspectPartition.AspectOf`.
+`AspectPartition.AspectOf`. In build mode there are no module glob sets, so it takes the aspect definitions of the path's track and matches
+the path against transient aspect sets of the module folder it sits in.
 
 ## help
 

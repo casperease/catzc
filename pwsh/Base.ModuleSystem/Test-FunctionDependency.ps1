@@ -9,7 +9,7 @@ function Test-FunctionDependency {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # Every source .ps1 is parsed once, through [System.IO]: Get-ChildItem -Recurse costs about 20 ms a call in the provider.
     $parsed = [System.Collections.Generic.List[object]]::new()

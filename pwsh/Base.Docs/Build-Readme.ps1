@@ -13,7 +13,7 @@ function Build-Readme {
     )
 
     # The READMEs live in the source tree's folders (pwsh/<Module>/README.md and the like).
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $config = Get-Config -Config readme
 

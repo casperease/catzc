@@ -41,6 +41,13 @@ function Get-LanguageTestOutcomes {
     elseif ($Engine -ne $pwsh -and -not $EngineExecutable) {
         "tool_$($Engine)_missing"
     }
+    elseif ($Engine -ne $pwsh -and -not $tests.engine) {
+        # A consumer root has no engine entry (importer.sh); catzc's own root has, and a cross-language run sources it.
+        $importerEntry = [Catzc.Base.Engines.ExecutionEngines]::Get($Engine).ImporterEntry
+        if (-not (Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) $importerEntry) -PathType Leaf)) {
+            "entry_$($Engine)_missing"
+        }
+    }
     if ($missing) {
         $outcomes = @{}
         foreach ($item in $Case) {

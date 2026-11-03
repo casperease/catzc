@@ -10,12 +10,32 @@ function New-VsCodeExtensionFolder {
         [Parameter(Mandatory)]
         [string] $OutputDirectory,
 
-        [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
+        [string] $AssetDirectory
     )
 
     # The source folder drops the js track's namespace; the installed folder keeps the name, the extension's id.
-    $sourceFolder = (Get-Track -Name js).FolderNameOf($Extension.name)
-    $script = Join-Path $AssetDirectory "$sourceFolder/extension.js"
+    $track = Get-Track -Name js
+    $place = $track.places[0]
+    $sourceFolder = $track.FolderNameOf($Extension.name)
+    # Without an asset directory the extension's module is located at the track's place, in the repository or the code root by run mode.
+    $moduleRoot = if ($PSBoundParameters.ContainsKey('AssetDirectory')) {
+        Join-Path $AssetDirectory $sourceFolder
+    }
+    else {
+        Get-CatzcModuleRoot -Place $place -Module $sourceFolder
+    }
+    # The shell joins the field to the workspace folder, so a module under it is named relative to it, any other by its absolute path.
+    $relative = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), $moduleRoot).Replace('\', '/')
+    $source = if ($PSBoundParameters.ContainsKey('AssetDirectory')) {
+        "$place/$sourceFolder"
+    }
+    elseif ($relative -eq '..' -or $relative.StartsWith('../', [System.StringComparison]::Ordinal) -or [System.IO.Path]::IsPathRooted($relative)) {
+        $moduleRoot.Replace('\', '/')
+    }
+    else {
+        $relative
+    }
+    $script = Join-Path $moduleRoot 'extension.js'
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
     $manifest = [ordered]@{
@@ -28,7 +48,7 @@ function New-VsCodeExtensionFolder {
         main             = './extension.js'
         activationEvents = @($Extension.activationEvents)
         # The source the installed shell loads from the workspace, so the shell spells no folder of its own.
-        catzc            = [ordered]@{ source = "$(Get-TrackPlace -Track js -TrackKind extensions)/$sourceFolder" }
+        catzc            = [ordered]@{ source = $source }
     }
     if ($Extension.contributes.Count -gt 0) {
         $manifest.contributes = Resolve-LampPaletteShade -InputObject (Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Extension.contributes))
@@ -52,7 +72,7 @@ function New-VsCodeExtensionFolder {
         }
         Copy-Item -LiteralPath $part -Destination (Join-Path $folder $name)
     }
-    $media = Join-Path $AssetDirectory "$sourceFolder/assets"
+    $media = Join-Path $moduleRoot 'assets'
     if (Test-Path -LiteralPath $media -PathType Container) {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
     }
@@ -60,8 +80,14 @@ function New-VsCodeExtensionFolder {
     $rendered = Join-Path $folder 'media'
     # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
     if ($Extension.contributes.Contains('iconThemes')) {
-        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$sourceFolder/assets"),
-            (Join-Path $AssetDirectory "$((Get-Track -Name js).FolderNameOf('catzc-track-lamps'))/assets"))
+        $lampFolder = $track.FolderNameOf('catzc-track-lamps')
+        $lampRoot = if ($PSBoundParameters.ContainsKey('AssetDirectory')) {
+            Join-Path $AssetDirectory $lampFolder
+        }
+        else {
+            Get-CatzcModuleRoot -Place $place -Module $lampFolder
+        }
+        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @($media, (Join-Path $lampRoot 'assets'))
     }
     # A repeat that names glyphs draws one label glyph per item, so its lamps need no hand-drawn icon.
     $repeats = if ($Extension.contributes.Contains('repeat')) {

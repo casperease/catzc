@@ -60,10 +60,13 @@ function activate(context) {
     const root = api.workspace.workspaceFolders?.[0]?.uri.fsPath;
     const engineFolder = SOURCE;
     // The engine's file, and the parts beside it, which the shell reloads with the engine.
-    const source = root && engineFolder ? path.join(root, engineFolder, "extension.js") : undefined;
+    // An absolute folder (a module outside the repository) is used as is, a relative one lies under the workspace folder.
+    const absolute = engineFolder ? path.isAbsolute(engineFolder) : false;
+    const source = root && engineFolder ? path.join(absolute ? engineFolder : path.join(root, engineFolder), "extension.js") : undefined;
     const same = (/** @type {string} */ a, /** @type {string} */ b) => key(path.resolve(a)) === key(path.resolve(b));
     if (!root || !engineFolder || !source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
-    const parts = `${engineFolder}/*.js`;
+    const parts = absolute ? "*.js" : `${engineFolder}/*.js`;
+    const partsBase = absolute && engineFolder ? engineFolder : root;
     const shellLog = api.window.createOutputChannel("Catzc track lamps (shell)");
     /** @type {import("./host.js").EngineContext | undefined} */
     let running;
@@ -105,7 +108,7 @@ function activate(context) {
     start();
     /** @type {ReturnType<typeof setTimeout> | undefined} */
     let swap;
-    const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(root, parts));
+    const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(partsBase, parts));
     const restart = () => {
         clearTimeout(swap);
         swap = setTimeout(() => (stop(), start()), 300);

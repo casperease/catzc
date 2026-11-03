@@ -15,6 +15,55 @@ Describe 'Get-TestAutomationTestPaths' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo' }
         Mock Get-ModuleOrder -ModuleName Catzc.Base.QualityGates { @('Catzc.Widget', 'Catzc.Gizmo', 'Catzc.Gadget') }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'source' }
+    }
+
+    Context 'in build mode' {
+        BeforeAll {
+            $script:bundleTests = Join-Path $TestDrive 'bundle/Base.Widget/tests'
+            $script:consumerTests = Join-Path $TestDrive 'repo/widget/Local/tests'
+            $script:overlayTests = Join-Path $TestDrive 'repo/.catzc/pwsh/Gizmo/tests'
+            foreach ($folder in $script:bundleTests, $script:consumerTests, $script:overlayTests, (Join-Path $TestDrive 'repo/widget/Bare')) {
+                [void][System.IO.Directory]::CreateDirectory($folder)
+            }
+        }
+
+        BeforeEach {
+            Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'build' }
+            Mock Get-Track -ModuleName Catzc.Base.QualityGates {
+                $engine = [pscustomobject]@{ name = 'pwsh'; type = 'modules'; places = @('bundle') }
+                $engine | Add-Member -MemberType ScriptMethod -Name FullNameOf -Value { param($Folder) "Catzc.$Folder" }
+                $engine
+                $consumer = [pscustomobject]@{ name = 'widget'; type = 'modules'; places = @('widget') }
+                $consumer | Add-Member -MemberType ScriptMethod -Name FullNameOf -Value { param($Folder) "Widget.$Folder" }
+                $consumer
+                [pscustomobject]@{ name = 'docs'; type = 'documentation'; places = @('widget') }
+            }
+            Mock Get-Track -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'pwsh' } {
+                $engine = [pscustomobject]@{ name = 'pwsh'; places = @('bundle') }
+                $engine | Add-Member -MemberType ScriptMethod -Name FullNameOf -Value { param($Folder) "Catzc.$Folder" }
+                $engine
+            }
+            Mock Get-OverlayRoot -ModuleName Catzc.Base.QualityGates { Join-Path $TestDrive 'repo/.catzc/pwsh' }
+        }
+
+        It 'lists the consumer tracks'' tests folders and the overlay tests, and never the bundle''s own' {
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+            $paths | Should -Be @($script:overlayTests, $script:consumerTests)
+            $paths | Should -Not -Contain $script:bundleTests
+            Should -Invoke Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+        }
+
+        It 'narrows to the named modules' {
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths -Modules 'Widget.Local' })
+            $paths | Should -Be @($script:consumerTests)
+        }
+
+        It 'lists no overlay tests when the root has no overlay' {
+            Mock Get-OverlayRoot -ModuleName Catzc.Base.QualityGates {}
+            $paths = @(InModuleScope Catzc.Base.QualityGates { Get-TestAutomationTestPaths })
+            $paths | Should -Be @($script:consumerTests)
+        }
     }
 
     Context 'with language test folders' {

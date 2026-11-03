@@ -1,4 +1,4 @@
-# pwsh/Base.Variants/Test-TrackDeclaration.ps1
+# pwsh/Base.Languages/Test-TrackDeclaration.ps1
 
 The consistency check across the track declarations: the tracks, the track types, the vendors and the module types are declared in separate
 places, and this is where they are read together.
@@ -27,6 +27,7 @@ Test-TrackDeclaration
 
 A track's name is its definitive name in the repository normal form
 ([DDR-TRACKTYPE-NAMEFROMMEMBERS](../../../drs/design/track-types.md#rule-ddr-tracktype-namefrommembers)). The form is declared once, in the
-languages config, and this check is where it is applied, so the VariantsConfig type holds no naming policy.
+languages config, which this module owns, and this check is where it is applied, so the VariantsConfig type holds no naming policy and
+[Catzc.Base.Variants](../base-variants/index.md) reads nothing of this module.
 
 [r1]: ../../../drs/design/track-types.md#rule-ddr-tracktype-typesdeclaredonce

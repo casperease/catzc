@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"63d7e1ab8906\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: c08302601f51",
   "types": [
     {
       "name": "Catzc.Base.Exporter.ExporterBundle",
@@ -19,11 +19,11 @@
           "kind": "property"
         },
         {
-          "name": "profile",
+          "name": "platforms",
           "kind": "property"
         },
         {
-          "name": "vendor_policy",
+          "name": "profile",
           "kind": "property"
         },
         {
@@ -50,7 +50,7 @@
           "kind": "property"
         },
         {
-          "name": "full_internal_files",
+          "name": "gate_internal_files",
           "kind": "property"
         },
         {

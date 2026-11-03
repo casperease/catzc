@@ -10,7 +10,7 @@ function Get-ModuleGlobSet {
         [string[]] $Name
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # The code track's place is the modules folder; its first place is the root every module sits under.
     $codeTrack = Get-Track -Path (Get-CatzcModulesFolder)

@@ -1,0 +1,5 @@
+description: Runs every check the language registry declares and fails on any issue.
+parameters:
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

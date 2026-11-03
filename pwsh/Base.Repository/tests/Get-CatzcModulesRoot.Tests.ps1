@@ -1,9 +1,11 @@
 Describe 'Get-CatzcModulesRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot
+        $script:originalModulesFolder = $env:CatzcModulesFolder
     }
     AfterAll {
         $env:CatzcModulesRoot = $script:originalModulesRoot
+        $env:CatzcModulesFolder = $script:originalModulesFolder
     }
 
     Context 'anchor is set' {
@@ -14,10 +16,17 @@ Describe 'Get-CatzcModulesRoot' -Tag 'L0', 'logic' {
     }
 
     Context 'anchor is not set' {
-        It 'falls back to pwsh/ under the repository root' {
+        It 'falls back to the modules folder under the repository root' {
             $env:CatzcModulesRoot = $null
-            $expected = Join-Path (Get-RepositoryRoot) 'pwsh'
+            $env:CatzcModulesFolder = 'gadgetry'
+            $expected = Join-Path (Get-RepositoryRoot) 'gadgetry'
             Get-CatzcModulesRoot | Should -Be $expected
+        }
+
+        It 'throws, naming the importer, when the modules folder variable is unset too' {
+            $env:CatzcModulesRoot = $null
+            $env:CatzcModulesFolder = $null
+            { Get-CatzcModulesRoot } | Should -Throw '*importer*'
         }
     }
 }

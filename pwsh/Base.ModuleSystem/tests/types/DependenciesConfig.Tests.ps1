@@ -37,6 +37,23 @@ Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
                 Should -BeLike '*not declared in configuration*'
         }
 
+        It 'accepts a language module path beside module names' {
+            $config = New-DependenciesConfig @{ modules = [ordered]@{ A = @('B', 'widgets/Widget'); B = @() } }
+            @($config.modules['A']) | Should -Be @('B', 'widgets/Widget')
+        }
+
+        It 'throws when a path is not two folder names joined by a slash' -ForEach @(
+            @{ Path = 'widgets/Widget/deep' }
+            @{ Path = '/Widget' }
+            @{ Path = 'widgets/' }
+            @{ Path = 'widgets/.hidden' }
+            @{ Path = 'widgets/Wid get' }
+            @{ Path = 'widgets\Widget/x' }
+        ) {
+            Get-ViolationMessage @{ modules = [ordered]@{ A = @($Path) } } |
+                Should -BeLike '*not a language module path*'
+        }
+
         It 'throws on a two-way cycle' {
             Get-ViolationMessage @{ modules = [ordered]@{ A = @('B'); B = @('A') } } |
                 Should -BeLike '*dependency cycle: A -> B -> A*'

@@ -5,7 +5,7 @@ function Invoke-BuildForVsCode {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     Assert-Command dotnet -ErrorText 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVsCode.'
 

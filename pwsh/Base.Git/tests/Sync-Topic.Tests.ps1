@@ -52,6 +52,12 @@ Describe 'Sync-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SYNCBYREBASE' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git rebase --abort*' -or $Command -like 'git rebase --skip*' }
     }
 
+    It 'throws the work-tree assertion when the root has no repository' {
+        Set-Git
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Git { throw 'widget root has no git work tree' }
+        { Sync-Topic -Config $script:config } | Should -Throw '*widget root has no git work tree*'
+    }
+
     It 'refuses <case>, and fetches nothing' -ForEach @(
         @{ case = 'a dirty tree'; Branch = 'widget'; Status = ' M widget.ps1'; expect = '*Run Save-Topic first*' }
         @{ case = 'a detached HEAD'; Branch = 'HEAD'; Status = ''; expect = '*needs a named branch*' }

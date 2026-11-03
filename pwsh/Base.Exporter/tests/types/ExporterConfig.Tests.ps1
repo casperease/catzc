@@ -6,7 +6,7 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
                 direct_install_version = '6.6.666'
                 bundles                = [ordered]@{
                     widgets = [ordered]@{ profile = 'widget-set'; version = '0.1' }
-                    gadgets = [ordered]@{ profile = 'gadget-set'; version = '2.3'; vendor_policy = 'full' }
+                    gadgets = [ordered]@{ profile = 'gadget-set'; version = '2.3' }
                 }
                 default_bundle         = 'widgets'
                 module_guid            = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
@@ -34,31 +34,35 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
         $config.package.license_uri | Should -Be 'https://forge.example/widget/license'
     }
 
-    It 'defaults the shipped .internal globs to the runtime loader folders and the full-policy test kit' {
+    It 'defaults the shipped .internal globs to the runtime loader folders and the gate test kit' {
         $config = & $script:make (& $script:newValidConfig)
         $config.runtime_internal_files | Should -Contain 'assets/types/**'
+        $config.runtime_internal_files | Should -Contain 'assets/Import-ModuleFiles.ps1'
         $config.runtime_internal_files | Should -Not -Contain 'assets/builder/**'
-        $config.full_internal_files | Should -Be @('Catzc.Internal.TestKit.psm1', 'assets/PSScriptAnalyzerSettings.psd1')
+        $config.gate_internal_files | Should -Be @('Catzc.Internal.TestKit.psm1', 'assets/PSScriptAnalyzerSettings.psd1')
+    }
+
+    It 'ships the generated command lookup of the shell entry by default' {
+        $config = & $script:make (& $script:newValidConfig)
+        $config.runtime_internal_files | Should -Contain 'assets/importer-commands.sh'
     }
 
     It 'maps authored .internal globs and rejects one that does not parse' {
         $raw = & $script:newValidConfig
         $raw.runtime_internal_files = @('assets/widget/**')
         (& $script:make $raw).runtime_internal_files | Should -Be @('assets/widget/**')
-        $raw.full_internal_files = @('/assets/gadget.ps1')
-        { & $script:make $raw } | Should -Throw "*invalid glob '/assets/gadget.ps1' in full_internal_files*"
+        $raw.gate_internal_files = @('/assets/gadget.ps1')
+        { & $script:make $raw } | Should -Throw "*invalid glob '/assets/gadget.ps1' in gate_internal_files*"
     }
 
-    It 'maps each bundle on its own version line, defaulting vendor_policy to runtime' {
+    It 'maps each bundle on its own version line' {
         $config = & $script:make (& $script:newValidConfig)
         @($config.bundles.Keys) | Should -Be @('widgets', 'gadgets')
         $config.bundles['widgets'] | Should -BeOfType [Catzc.Base.Exporter.ExporterBundle]
         $config.bundles['widgets'].name | Should -Be 'widgets'
         $config.bundles['widgets'].profile | Should -Be 'widget-set'
         $config.bundles['widgets'].version | Should -Be '0.1'
-        $config.bundles['widgets'].vendor_policy | Should -Be 'runtime'
         $config.bundles['gadgets'].version | Should -Be '2.3'
-        $config.bundles['gadgets'].vendor_policy | Should -Be 'full'
     }
 
     It 'maps footprint limits, absent meaning no limit' {
@@ -70,6 +74,24 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
         $config.bundles['gadgets'].max_bytes | Should -Be 4000000
         $config.bundles['widgets'].max_files | Should -BeNullOrEmpty
         $config.bundles['widgets'].max_bytes | Should -BeNullOrEmpty
+    }
+
+    It 'defaults a bundle''s platforms to the three shipped targets and maps a declared list' {
+        $raw = & $script:newValidConfig
+        $raw.bundles.gadgets['platforms'] = @('linux/arm64')
+        $config = & $script:make $raw
+        $config.bundles['widgets'].platforms | Should -Be @('windows/amd64', 'linux/amd64', 'darwin/arm64')
+        $config.bundles['gadgets'].platforms | Should -Be @('linux/arm64')
+    }
+
+    It 'rejects a platforms entry that is <Case>' -ForEach @(
+        @{ Case = 'not os/arch'; Value = @('linux'); Expected = "*bundles.widgets: invalid platforms entry 'linux'*" }
+        @{ Case = 'in upper case'; Value = @('Linux/AMD64'); Expected = "*bundles.widgets: invalid platforms entry 'Linux/AMD64'*" }
+        @{ Case = 'listed twice'; Value = @('linux/amd64', 'linux/amd64'); Expected = "*bundles.widgets: duplicate platforms entry 'linux/amd64'*" }
+    ) {
+        $raw = & $script:newValidConfig
+        $raw.bundles.widgets['platforms'] = $Value
+        { & $script:make $raw } | Should -Throw -ExpectedMessage $Expected
     }
 
     It 'rejects <Case>' -ForEach @(
@@ -86,7 +108,7 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
     It 'rejects a bundle with <Case>' -ForEach @(
         @{ Case = 'a MAJOR.MINOR.PATCH version (PATCH is calculated)'; Key = 'version'; Value = '0.1.0'; Expected = "*bundles.widgets: invalid version '0.1.0'*" }
         @{ Case = 'a non-numeric version'; Key = 'version'; Value = 'v1'; Expected = '*bundles.widgets: invalid version*' }
-        @{ Case = 'an invalid vendor_policy'; Key = 'vendor_policy'; Value = 'everything'; Expected = '*bundles.widgets: invalid vendor_policy*' }
+        @{ Case = 'a removed vendor_policy key'; Key = 'vendor_policy'; Value = 'runtime'; Expected = "*bundles.widgets: unknown key 'vendor_policy'*" }
         @{ Case = 'a non-token profile'; Key = 'profile'; Value = 'Widget Set'; Expected = '*bundles.widgets: invalid profile*' }
         @{ Case = 'an unknown key'; Key = 'carries_widgets'; Value = $true; Expected = "*bundles.widgets: unknown key 'carries_widgets'*" }
         @{ Case = 'a zero max_files'; Key = 'max_files'; Value = 0; Expected = "*bundles.widgets: invalid max_files '0'*" }
@@ -143,11 +165,11 @@ Describe 'ExporterConfig' -Tag 'L0', 'logic' {
     It 'reports every violation in one throw' {
         $config = & $script:newValidConfig
         $config.bundles.widgets.version = 'v1'
-        $config.bundles.gadgets.vendor_policy = 'everything'
+        $config.bundles.gadgets.max_files = 0
         $config.package.Remove('author')
         $err = { & $script:make $config } | Should -Throw -PassThru
         $err.Exception.Message | Should -BeLike '*bundles.widgets: invalid version*'
-        $err.Exception.Message | Should -BeLike '*bundles.gadgets: invalid vendor_policy*'
+        $err.Exception.Message | Should -BeLike '*bundles.gadgets: invalid max_files*'
         $err.Exception.Message | Should -BeLike '*package.author is required*'
     }
 }
@@ -162,6 +184,13 @@ Describe 'exporter.yml' -Tag 'L0', 'integrity' {
         foreach ($bundle in (Get-Config -Config exporter).bundles.Values) {
             $profiles.Keys |
                 Should -Contain $bundle.profile -Because "bundle '$($bundle.name)' builds profile '$($bundle.profile)'"
+        }
+    }
+
+    It 'every profile has a bundle' {
+        $built = @((Get-Config -Config exporter).bundles.Values | ForEach-Object profile)
+        foreach ($name in (Get-Config -Config profiles).profiles.Keys) {
+            $built | Should -Contain $name -Because "profile '$name' is declared, so it is buildable"
         }
     }
 }

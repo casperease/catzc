@@ -53,13 +53,17 @@ public sealed class FileLanguage
     // The ordered regular expressions that name a label as this language's snippet; first match wins across the languages in order.
     public IReadOnlyList<string> shapes { get; }
 
+    // How the language's modules ship in a bundle ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)); null for a language that ships no module of its own.
+    public LanguagePackage package { get; }
+
     // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
     public bool handled => executable && (layout.Count > 0 || tests != null);
 
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string drsFolder,
         string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false, LanguageNaming naming = null,
-        IDictionary<string, string> checkScopes = null, string tag = null, string[] shapes = null)
+        IDictionary<string, string> checkScopes = null, string tag = null, string[] shapes = null, LanguagePackage package = null)
     {
+        this.package = package;
         this.tag = tag;
         this.shapes = shapes == null ? Array.Empty<string>() : (string[])shapes.Clone();
         check_scopes = checkScopes == null

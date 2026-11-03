@@ -9,7 +9,7 @@ function New-Importer {
         [switch] $DryRun
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # Read back through the resolver, so this generator names no folder of its own and the shim spells it from the same place.
     $modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), (Get-CatzcModulesRoot)) -replace '\\', '/'

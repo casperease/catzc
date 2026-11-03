@@ -100,6 +100,46 @@ Describe 'The shadow-cache prune and the holds' -Tag 'L1', 'logic' {
     }
 }
 
+Describe 'Import-TypesAssembly for a non-default namespace' -Tag 'L1', 'logic' {
+    BeforeAll {
+        # A loaded build stays locked, so the shadow root lives outside the test drive, removed as far as the locks allow.
+        $script:runId = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
+        $script:shadowRoot = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-widget-ns-$runId"
+        [System.IO.Directory]::CreateDirectory($shadowRoot) | Out-Null
+        $script:source = Join-Path $TestDrive "Widget.Types.$runId.dll"
+        Add-Type -TypeDefinition "namespace WidgetNs$runId { public class Gadget { } }" -OutputAssembly $source -OutputType Library
+
+        # A stale build of each namespace (plain bytes — never loaded): only the loaded namespace's is pruned.
+        $script:staleWidget = Join-Path $shadowRoot 'Widget.Types.0000dead.dll'
+        $script:staleCatzc = Join-Path $shadowRoot 'Catzc.Types.0000dead.dll'
+        foreach ($sibling in $staleWidget, $staleCatzc) {
+            [System.IO.File]::WriteAllBytes($sibling, [byte[]] @(0x4d, 0x5a))
+            [System.IO.File]::SetLastWriteTimeUtc($sibling, [DateTime]::UtcNow.AddDays(-2))
+        }
+
+        $script:loaded = Import-TypesAssembly -Path $source -ShadowRoot $shadowRoot -Namespace 'Widget'
+    }
+    AfterAll {
+        Remove-Item -LiteralPath $script:shadowRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+
+    It 'loads the shadow copy named for the namespace' {
+        $loaded | Should -Be (Join-Path $shadowRoot "Widget.Types.$runId.dll")
+        ([System.Management.Automation.PSTypeName]"WidgetNs$runId.Gadget").Type.Assembly.Location | Should -Be $loaded
+    }
+
+    It 'prunes a stale build of its own namespace and leaves a stale build of another' {
+        [System.IO.File]::Exists($staleWidget) | Should -BeFalse
+        [System.IO.File]::Exists($staleCatzc) | Should -BeTrue
+    }
+
+    It 'holds the build under its namespace and under no other' {
+        [System.IO.File]::Exists((Join-Path $shadowRoot "Widget.Types.$runId.$PID.hold")) | Should -BeTrue
+        Test-TypesHeld -Hash $runId -ShadowRoot $shadowRoot -Namespace 'Widget' | Should -BeTrue
+        Test-TypesHeld -Hash $runId -ShadowRoot $shadowRoot | Should -BeFalse
+    }
+}
+
 Describe 'The shadow-cache prune across processes' -Tag 'L2', 'logic' {
     It 'lets two processes load a stale build while a third prunes, with no missing-assembly error' {
         # A loaded build stays locked, so the shared shadow root lives outside the test drive, removed as far as the locks allow.

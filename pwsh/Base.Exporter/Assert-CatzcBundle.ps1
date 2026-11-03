@@ -132,10 +132,23 @@ function Assert-CatzcBundle {
         }
     }
 
+    $languageRoots = [System.Collections.Generic.List[string]]::new()
+    if ($null -ne $build -and $build.ContainsKey('languages') -and $build['languages']) {
+        foreach ($entry in @($build['languages'])) {
+            $entryRoot = "$($entry['path'])".Replace('\', '/').Trim('/')
+            if ($entryRoot -eq '') {
+                $violations.Add("build.json languages entry for module '$($entry['module'])' records no path")
+                continue
+            }
+            $languageRoots.Add($entryRoot)
+        }
+    }
+    $languageTops = @($languageRoots | ForEach-Object { $_.Split('/')[0] } | Sort-Object -Unique)
+
     # Modules: the folders on disk are what the importer loads; build.json is what was built. They must agree.
     $onDisk = @(foreach ($directory in [System.IO.Directory]::EnumerateDirectories($root)) {
             $name = [System.IO.Path]::GetFileName($directory)
-            if (-not $name.StartsWith('.')) {
+            if (-not $name.StartsWith('.') -and $name -cnotin $languageTops) {
                 $name
             }
         })
@@ -146,6 +159,13 @@ function Assert-CatzcBundle {
         }
         foreach ($name in @($onDisk | Where-Object { $_ -notin $recorded })) {
             $violations.Add("module folder '$name' is not recorded in build.json")
+        }
+    }
+
+    # The language places hold exactly the modules the list records, each in the packaged form its handler recorded.
+    if ($null -ne $build -and $build.ContainsKey('languages') -and $build['languages']) {
+        foreach ($issue in @(Get-LanguageModuleIssue -BuildRoot $root -Languages @($build['languages']))) {
+            $violations.Add($issue)
         }
     }
 

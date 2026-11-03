@@ -5,12 +5,15 @@ function Get-RootConfigTargets {
         $Config,
 
         # Only where a file is materialised: a committed generated file reads the mix-independent list.
-        [switch] $FollowMix
+        [switch] $FollowMix,
+
+        # Only the entries a consumer root needs for its gates.
+        [switch] $Consumer
     )
 
     # An engine's importer entry is managed only when one of the engines it serves is in the session's mix.
     $mixEngines = $null
-    foreach ($entry in @($Config.files | Where-Object { $_.optIn })) {
+    foreach ($entry in @($Config.files | Where-Object { $_.optIn -and (-not $Consumer -or $_.consumer) })) {
         if (-not $FollowMix) {
             $entry
             continue

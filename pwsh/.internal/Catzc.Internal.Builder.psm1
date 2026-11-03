@@ -143,10 +143,6 @@ function Invoke-ModuleBuild {
         [string] $Version,
 
         [Parameter(Mandatory)]
-        [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy,
-
-        [Parameter(Mandatory)]
         [string] $Destination,
 
         [Parameter(Mandatory)]
@@ -158,7 +154,7 @@ function Invoke-ModuleBuild {
         [switch] $DryRun
     )
 
-    Assert-SourceTree -Command 'Invoke-ModuleBuild'
+    Assert-CatzcSourceTree -Command 'Invoke-ModuleBuild'
     if (-not $ModuleProfile -and @($Module | Where-Object { $_ }).Count -eq 0) {
         throw 'Invoke-ModuleBuild: name the modules to build with -Module, -ModuleProfile, or both.'
     }
@@ -187,14 +183,21 @@ function Invoke-ModuleBuild {
 
     Import-InternalModule Types
     $parsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
-    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -VendorPolicy $VendorPolicy -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts
+    # A profile with an empty seed is the whole repository, so it holds every language module; any other selection holds those it names.
+    $profiles = (Get-Config -Config profiles).profiles
+    $allLanguageModules = $ModuleProfile -and $ModuleProfile -in $profiles.Keys -and @(@($profiles[$ModuleProfile]) | Where-Object { $_ }).Count -eq 0
+    $bundles = (Get-Config -Config exporter).bundles
+    $platforms = [string[]] @(if ($bundles.ContainsKey($Bundle)) {
+            $bundles[$Bundle].platforms
+        })
+    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts -AllLanguageModule:([bool] $allLanguageModules) -Platform $platforms
     if ($plan.Violations.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS):`n  " +
             ($plan.Violations -join "`n  "))
     }
 
     # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
-    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts)
+    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts -Language $plan.Languages)
     if ($outside.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE-IMMUTABLEBUILD). " +
             "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
@@ -242,6 +245,7 @@ function Invoke-ModuleBuild {
             BuildRoot   = $buildRoot
             Version     = $Version
             Modules     = $modules
+            Languages   = $plan.Languages
             TypesHash   = $plan.TypesHash
             ContentHash = $null
             FileCount   = $fileCount
@@ -260,6 +264,27 @@ function Invoke-ModuleBuild {
         throw ("Invoke-ModuleBuild: the build's types surface is not the committed contract:`n  " + ($drift -join "`n  "))
     }
 
+    $languageRecords = @(foreach ($row in $plan.Languages) {
+            $handlerArguments = @{
+                Module      = $row.Source
+                Destination = [System.IO.Path]::Combine($buildRoot, $row.Destination)
+                Silent      = $true
+            }
+            if ($row.Platform.Count -gt 0 -and (Get-Command $row.Command).Parameters.ContainsKey('Platform')) {
+                $handlerArguments.Platform = $row.Platform
+            }
+            $handled = & $row.Command @handlerArguments
+            [ordered]@{
+                track    = $row.Track
+                module   = $row.Name
+                language = $row.Language
+                form     = $row.Form
+                command  = $row.Command
+                path     = $row.Destination
+                record   = $handled | Select-Object -Property * -ExcludeProperty Destination
+            }
+        })
+
     $contentHash = Get-ContentHash -Path $buildRoot -Exclude 'build.json'
     $record = [ordered]@{
         name         = 'Catzc'
@@ -270,8 +295,8 @@ function Invoke-ModuleBuild {
         typeSources  = [string[]] @($plan.TypeSources)
         sourceCommit = Get-BuildSourceCommit
         dirty        = $dirty
-        vendorPolicy = $VendorPolicy
         modules      = $modules
+        languages    = $languageRecords
     }
     [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
                 'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
@@ -280,6 +305,7 @@ function Invoke-ModuleBuild {
         BuildRoot   = $buildRoot
         Version     = $Version
         Modules     = $modules
+        Languages   = $plan.Languages
         TypesHash   = $plan.TypesHash
         ContentHash = $contentHash
         FileCount   = $fileCount

@@ -34,7 +34,7 @@ customers:
 
 Describe 'Test-ConfigIdentityHygiene — gate shape' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-FixtureIdentityTokens -ModuleName Catzc.Base.QualityGates { 'gizmo' }
         Mock Get-LiveIdentityTokens -ModuleName Catzc.Base.QualityGates {
             , @([pscustomobject]@{ Token = 'sprocket'; Kind = 'customer-key'; Source = 'customer.yml'; Suggest = ''; MatchMode = 'exact' })

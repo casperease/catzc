@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-commands.sh"
-#     with_body_sha: cde72e0b4537
+#     with_body_sha: "4e1e3767eac5"
 # ---
 
 # shellcheck shell=bash
@@ -13,7 +13,9 @@
 # the parameter in kebab case, as cats takes them, and in PowerShell's case, as pwsh binds them. Names are in the normal form; a
 # command with no parameter has one line with an empty parameter.
 _catzc_commands='
+assert_catzc_source_tree	command	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.repository/assert_catzc_source_tree.command.yml			assert-catzc-source-tree	command	Assert-CatzcSourceTree	Command
 assert_dev_box_tools_status			0	0	0	contracts/catzc/0.1.0/pwsh.tooling.provisioning/assert_dev_box_tools_status.command.yml			assert-dev-box-tools-status		Assert-DevBoxToolsStatus	
+assert_source_tree	command	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.repository/assert_source_tree.command.yml			assert-source-tree	command	Assert-SourceTree	Command
 build_contract_reference	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/build_contract_reference.command.yml			build-contract-reference	repository-root	Build-ContractReference	RepositoryRoot
 build_contract_reference	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/build_contract_reference.command.yml			build-contract-reference	dry-run	Build-ContractReference	DryRun
 build_contract_reference	silent	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.contracts/build_contract_reference.command.yml			build-contract-reference	silent	Build-ContractReference	Silent
@@ -151,6 +153,8 @@ remove_token_from_history	replace_with	string	0	0	0	contracts/catzc/0.1.0/pwsh.t
 remove_token_from_history	skip_messages	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	skip-messages	Remove-TokenFromHistory	SkipMessages
 remove_token_from_history	repository_path	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	repository-path	Remove-TokenFromHistory	RepositoryPath
 remove_token_from_history	dry_run	switch	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	dry-run	Remove-TokenFromHistory	DryRun
+resolve_code_module_folder	name	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.repository/resolve_code_module_folder.command.yml	folder	folder	resolve-code-module-folder	name	Resolve-CodeModuleFolder	Name
+resolve_code_module_folder	bare_name	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.repository/resolve_code_module_folder.command.yml	bare	folder	resolve-code-module-folder	bare-name	Resolve-CodeModuleFolder	BareName
 set_anomaly_alert_recipient_secret	environment	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	environment	Set-AnomalyAlertRecipientSecret	Environment
 set_anomaly_alert_recipient_secret	value	string	0	1	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	value	Set-AnomalyAlertRecipientSecret	Value
 set_anomaly_alert_recipient_secret	subscription_id_assert_is	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure.templates/set_anomaly_alert_recipient_secret.command.yml			set-anomaly-alert-recipient-secret	subscription-id-assert-is	Set-AnomalyAlertRecipientSecret	SubscriptionIdAssertIs
@@ -301,6 +305,8 @@ test_python_lint	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.qual
 test_python_lint	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_python_lint.command.yml			test-python-lint	pass-thru	Test-PythonLint	PassThru
 test_python_types	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_python_types.command.yml			test-python-types	output-folder	Test-PythonTypes	OutputFolder
 test_python_types	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_python_types.command.yml			test-python-types	pass-thru	Test-PythonTypes	PassThru
+test_quality_gates	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_quality_gates.command.yml			test-quality-gates	output-folder	Test-QualityGates	OutputFolder
+test_quality_gates	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_quality_gates.command.yml			test-quality-gates	pass-thru	Test-QualityGates	PassThru
 test_root_analyzer_settings	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.root_config/test_root_analyzer_settings.command.yml			test-root-analyzer-settings	output-folder	Test-RootAnalyzerSettings	OutputFolder
 test_root_analyzer_settings	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.root_config/test_root_analyzer_settings.command.yml			test-root-analyzer-settings	pass-thru	Test-RootAnalyzerSettings	PassThru
 test_root_config_files	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.root_config/test_root_config_files.command.yml			test-root-config-files	output-folder	Test-RootConfigFiles	OutputFolder

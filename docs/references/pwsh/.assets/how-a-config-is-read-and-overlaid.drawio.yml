@@ -17,7 +17,7 @@ content:
     - { id: g-resolve-entry, kind: private, label: Resolve-ConfigEntry, in: band-resolve }
     - { id: g-overlay-root, kind: private, label: Get-ConfigOverlayRoot, in: band-resolve }
     - { id: g-registry, kind: private, label: Get-ConfigRegistry, in: band-miss }
-    - { id: g-sealed, kind: gate, label: "overridable: false?", in: band-miss }
+    - { id: g-sealed, kind: gate, label: "scope: engine?", in: band-miss }
     - { id: f-sealed, kind: failure, label: "sealed: throw", in: band-miss }
     - { id: g-merge, kind: private, label: Merge-ConfigFragment, in: band-miss }
     - { id: t-new, kind: type, label: "$type::new($raw)", in: band-miss }

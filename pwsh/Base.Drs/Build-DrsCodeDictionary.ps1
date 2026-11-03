@@ -11,8 +11,14 @@ function Build-DrsCodeDictionary {
 
     $drs = Get-Config -Config drs
     $drsRoot = Resolve-RepoPath $drs.Root
-    $index = Get-DrsFileIndex @($drs.RuleSets) -DrsRoot $drsRoot
-    $files = [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
+    # A working root without a DRS folder has no record to read, so its list holds the rule-set codes alone.
+    $files = if (Test-Path -LiteralPath $drsRoot) {
+        $index = Get-DrsFileIndex @($drs.RuleSets) -DrsRoot $drsRoot
+        [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
+    }
+    else {
+        [string[]] @()
+    }
     $relative = '.cspell/drs-codes.txt'
     $path = Join-Path (Get-RepositoryRoot) $relative
 

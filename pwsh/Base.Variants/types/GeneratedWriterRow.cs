@@ -17,7 +17,9 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 
     public const string DefaultResultPath = "Path";
 
-    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "inputs", "outputs", "expands", "regenerate", "gate" };
+    private static readonly string[] AllowedKeys = { "class", "check", "result_path", "at_import", "consumer", "inputs", "outputs", "expands", "expander", "regenerate", "gate" };
+
+    private static readonly System.Text.RegularExpressions.Regex VerbNoun = new System.Text.RegularExpressions.Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$", System.Text.RegularExpressions.RegexOptions.CultureInvariant);
 
     // The writer's command or tool name.
     public string name { get; }
@@ -34,6 +36,9 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
     // Whether the import re-renders the writer when it is due. Default: false.
     public bool at_import { get; }
 
+    // Whether the import also renders the writer in a consumer root, an installed bundle's working root; needs at_import. Default: false.
+    public bool consumer { get; }
+
     // Repository-relative globs of what the writer reads. Default: none.
     public string[] inputs { get; }
 
@@ -42,6 +47,9 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
 
     // The config that expands the writer's instances (readme, rootconfig, comment-pages). Default: none, the outputs are the instances.
     public string expands { get; }
+
+    // The public function of the writer's owning module that answers the instances of the expanded config; required when expands is set.
+    public string expander { get; }
 
     // The command that renders a file again, where it differs from the generated-head.yml template. Default: the template.
     public string regenerate { get; }
@@ -100,8 +108,26 @@ public sealed class GeneratedWriterRow : Catzc.Base.Objects.DictionaryRecord
         }
 
         at_import = Flag(entry, "at_import");
+        consumer = Flag(entry, "consumer");
+        if (consumer && !at_import)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' sets consumer, which only a writer the import runs (at_import) reads", name));
+        }
         inputs = StrArr(entry, "inputs");
         expands = OptStr(entry, "expands");
+        expander = OptStr(entry, "expander");
+        if (expands != null && expander == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' expands '{1}' and names no expander; set 'expander' to the public function that answers its instances", name, expands));
+        }
+        if (expander != null && expands == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' sets expander, which only a writer that expands a config reads", name));
+        }
+        if (expander != null && !VerbNoun.IsMatch(expander))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "writer '{0}' has expander '{1}'; it must be a Verb-Noun function name", name, expander));
+        }
         regenerate = OptStr(entry, "regenerate");
 
         List<GeneratedOutput> list = new List<GeneratedOutput>();

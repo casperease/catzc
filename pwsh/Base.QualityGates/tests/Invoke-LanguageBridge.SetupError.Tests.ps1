@@ -1,7 +1,7 @@
 Describe 'Language.Bridge setup errors' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:root = Get-RepositoryRoot
-        $script:bridge = Join-Path $PSScriptRoot 'Language.Bridge.ps1'
+        $script:bridge = Get-CatzcModuleRoot 'assets/Language.Bridge.ps1' -Module Catzc.Base.QualityGates
         $script:folder = Join-Path $TestDrive 'python/tests/widget'
         $null = New-Item -ItemType Directory -Path $script:folder -Force
         # The child stubs the bridge's three module runners, so a run that fails before its cases is the only thing under test.

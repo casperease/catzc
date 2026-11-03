@@ -10,6 +10,10 @@ function New-PythonProject {
         [string] $Target = '*'
     )
 
+    # A root whose declared tracks hold no Python renders nothing and never reads the python config.
+    if (-not @((Get-Track).Where({ 'python' -in $_.languages })).Count) {
+        return
+    }
     $config = Get-Config -Config python
     # The one Python version: the python tool's tools.yml pin, read by address.
     $pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version')"

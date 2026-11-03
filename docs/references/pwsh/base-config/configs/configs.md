@@ -10,12 +10,14 @@ entry is:
 ```yaml
 <config-name>:
   type: <C# FQN>
-  overridable: false
+  scope: engine
 ```
 
 - **`type`** — the type `Get-Config` constructs as `[FQN]::new($dict)`, which maps and validates the parsed file.
-- **`overridable`** — optional; `false` seals the config against a consumer overlay (default `true`). Only the engine-intrinsic configs are
-  sealed ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)).
+- **`scope`** — optional, `module` when absent. `engine` seals the config against a consumer overlay; only the engine-intrinsic configs are
+  sealed ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)). `module` lets a `.catzc/` fragment merge key by key.
+  `working-root` marks a config that describes the repository, read whole from the working root's `.catzc/configs/<name>.yml` in build mode
+  and never merged onto the bundled file.
 
 ## Self-validation
 

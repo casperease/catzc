@@ -16,9 +16,9 @@ and the types project's build folders, the importer command list and the track-s
 ## Jobs
 
 - **UnitTests** — activates Node.js 22 and installs `cspell` and `markdownlint-cli2` with `Install-Cspell` and `Install-Markdownlint`, then
-  runs `Test-Automation -Level 2 -EnforceTimings`. The tools are installed here so the L2 repository spelling and markdown integrity tests
-  run as part of that run (they skip themselves when the tool is absent). These L2 integrity tests are the only check of spelling and
-  markdown.
+  runs `Test-QualityGates` and then `Test-Automation -Level 2 -EnforceTimings`. The tools are installed here so the L2 repository spelling
+  and markdown integrity tests run as part of that run (they skip themselves when the tool is absent). `Test-QualityGates` runs every
+  language's checks over the working root first and fails the job on any issue.
 - **FrameworkTests** — framework integration tests with no Azure authentication. Each step exercises a different edge of the framework
   through the step template: a multiline command through the YAML pipe operator, `Invoke-Executable` output capture, stderr separation and
   exit-code assertion, pipeline detection and the output root, `Set-AdoPipelineVariable`, `-DryRun` on the tool wrappers, the header and

@@ -7,7 +7,7 @@ function Test-AnalyzerDrsMap {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
     $map = Get-Config -Config analyzer-drs-map
     # A typed assignment keeps the comma-wrapped result intact, where @() would nest it.
     [string[]] $ruleIds = Get-DrsRuleIds

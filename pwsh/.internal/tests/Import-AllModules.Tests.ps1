@@ -185,6 +185,24 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
             { Invoke-Sandbox -Capture $moduleListExpr } | Should -Throw -ExpectedMessage '*ConvertFrom-Yaml*shadow*'
         }
     }
+
+    Context 'a source import with a consumer track in the working root' -Tag 'L1' {
+        BeforeAll {
+            # The consumer's declaration and a module under its track sit in the working root, which a source import never reads for modules.
+            $consumerConfigs = Join-Path $sandbox '.catzc/configs'
+            [System.IO.Directory]::CreateDirectory($consumerConfigs) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $consumerConfigs 'variants.yml'), "tracks:`n  widget:`n    members: [widget]`n    type: modules`n    namespace: Widget`n")
+            $consumerModule = Join-Path $sandbox 'widget/Alpha'
+            [System.IO.Directory]::CreateDirectory($consumerModule) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $consumerModule 'Get-WidgetAlpha.ps1'), "function Get-WidgetAlpha { 'alpha' }")
+        }
+
+        It 'loads no consumer module' -Tag 'ADR-AUTO-CONSUMER-SOURCEMODULES' {
+            $observed = Invoke-Sandbox -Capture "[pscustomobject]@{ Modules = @(Get-Module 'Widget.*').Count; Function = [bool](Get-Command Get-WidgetAlpha -ErrorAction Ignore) }"
+            $observed.Modules | Should -Be 0
+            $observed.Function | Should -BeFalse
+        }
+    }
 }
 
 Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greedy' {

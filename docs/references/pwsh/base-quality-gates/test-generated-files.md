@@ -42,8 +42,8 @@ checks alone (Get-GeneratedStampDrift): a changed file whose stamp is the hash o
 its writer. The full run renders every writer, so no cached verdict stands in for the render.
 
 Collects every stale file and ends with Write-QualityGateReport: the report lands in out/test-generated-files/, and the gate throws once
-listing every issue (or returns the result with -PassThru). The generators read and write the source tree, so the gate needs the source mode
-(Assert-SourceTree).
+listing every issue (or returns the result with -PassThru). The generators read and write the source tree, so the gate runs in catzc's
+source tree only (Assert-CatzcSourceTree).
 
 ### parameter `Generator`
 

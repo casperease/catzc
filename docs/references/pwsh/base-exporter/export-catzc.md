@@ -40,10 +40,6 @@ Module names to build (see Build-Modules).
 
 A profiles.yml key to build (see Build-Modules).
 
-### parameter `VendorPolicy`
-
-runtime | full (see Build-Modules).
-
 ### parameter `Version`
 
 'auto' (default) or an explicit MAJOR.MINOR.PATCH (see Resolve-CatzcBuildVersion).

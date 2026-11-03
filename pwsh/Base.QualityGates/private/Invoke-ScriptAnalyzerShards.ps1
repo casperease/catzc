@@ -8,20 +8,27 @@ function Invoke-ScriptAnalyzerShards {
         [object[]] $Batch,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [Parameter(Mandatory)]
+        [string] $CodeRoot
     )
 
     # The vendored analyzer ships inside the code tree, so it resolves from the code root.
-    $analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer'
+    $analyzerPath = Join-Path $CodeRoot '.vendor/PSScriptAnalyzer'
     $total = @($Batch | ForEach-Object { $_.Files.Count } | Measure-Object -Sum).Sum
     # Tracks the CPU, capped where process setup outweighs the work, never above the file count.
     $budget = [Math]::Min([Math]::Max(1, [Math]::Min([Environment]::ProcessorCount - 1, 10)), $total)
 
     $worker = {
-        param($shardFiles, $root, $analyzer, $settingsPath, $includeRule, $excludeRule)
+        param($shardFiles, $root, $analyzer, $settingsPath, $includeRule, $excludeRule, $codeRoot)
         Import-Module $analyzer -Force
         # Read here, not passed in: job arguments are serialized and the parser wants its own types.
         $settings = Import-PowerShellDataFile $settingsPath
+        # The rules the bundle ships are the ones that run: each entry resolves to the code root's rule folder by its leaf name.
+        $settings.CustomRulePath = [string[]] @($settings.CustomRulePath | ForEach-Object {
+                Join-Path $codeRoot ".scriptanalyzer/$([System.IO.Path]::GetFileName($_))"
+            })
         if ($includeRule) {
             $settings.IncludeRules = [string[]] $includeRule
         }
@@ -62,7 +69,7 @@ function Invoke-ScriptAnalyzerShards {
         }
         foreach ($shard in $shards) {
             $job = Start-Job -ScriptBlock $worker -ArgumentList @($shard, $RepositoryRoot, $analyzerPath,
-                $entry.SettingsPath, $entry.IncludeRule, $entry.ExcludeRule)
+                $entry.SettingsPath, $entry.IncludeRule, $entry.ExcludeRule, $CodeRoot)
             $jobs.Add([pscustomobject]@{ Label = $entry.Label; Job = $job })
         }
     }

@@ -17,6 +17,36 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         Mock Assert-CatzcBundle { } -ModuleName Catzc.Base.Exporter
         Mock Get-UserModulePath { $userModules } -ModuleName Catzc.Base.Exporter
         Mock Write-Message { } -ModuleName Catzc.Base.Exporter
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 0; Output = "widget.yml`ngadget.yml"; Full = '' }
+        } -ModuleName Catzc.Base.Exporter
+    }
+
+    It 'renders the root files through the root importer alone in one child process and reports the consumer targets on disk' {
+        Mock Invoke-Executable {
+            [System.IO.File]::WriteAllText((Join-Path $root 'widget.yml'), '')
+            [pscustomobject]@{ ExitCode = 0; Output = "widget.yml`ngadget.yml"; Full = '' }
+        } -ModuleName Catzc.Base.Exporter
+        $result = Install-Catzc -Root $root -Source $source -Silent
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
+            $Command -like 'pwsh -NoProfile -NonInteractive -Command *importer.ps1*Get-RootConfigTargets*-Consumer*' -and
+            $Command -notlike '*Build-RootConfig*' -and
+            $WorkingDirectory -eq $root
+        }
+        $result.RootConfigs | Should -Be @('widget.yml')
+    }
+
+    It 'throws with the child output when rendering the root files fails' {
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 1; Output = ''; Full = 'gadget asset missing' }
+        } -ModuleName Catzc.Base.Exporter
+        { Install-Catzc -Root $root -Source $source -Silent } | Should -Throw -ExpectedMessage '*gadget asset missing*'
+    }
+
+    It '-Scope CurrentUser and -DryRun render no root files' {
+        Install-Catzc -Scope CurrentUser -Source $source -Silent | Out-Null
+        Install-Catzc -Root $root -Source $source -DryRun -Silent | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Exporter -Times 0
     }
 
     It 'makes a shipped shell script with a shebang executable again on Unix, and leaves one without alone' -Skip:$IsWindows {
@@ -45,6 +75,20 @@ param([string] $RepositoryRoot, [switch] $AllowWarnings)
         $result.ModulePath | Should -Be (Join-Path $root '.vendor/Catzc/1.2.3')
         $result.Importer | Should -Be (Join-Path $root 'importer.ps1')
         Test-Path $result.Importer | Should -BeTrue
+    }
+
+    It 'a -Root install writes a shell importer that names the importer and the lookup and sources the shipped asset' {
+        Install-Catzc -Root $root -Source $source -Silent | Out-Null
+        $full = ([System.IO.Path]::GetFullPath($root) -replace '\\', '/')
+        $lines = @([System.IO.File]::ReadAllText((Join-Path $root 'importer.sh')) -split "`n")
+        $lines | Should -Contain "export CATZC_IMPORTER='$full/importer.ps1'"
+        $lines | Should -Contain "export CATZC_COMMAND_LOOKUP='$full/.vendor/Catzc/1.2.3/.internal/assets/importer-commands.sh'"
+        $lines | Should -Contain ". '$full/.vendor/Catzc/1.2.3/Catzc.Base.RootConfig/assets/root/importer.sh'"
+    }
+
+    It 'a -Scope CurrentUser install writes no shell importer' {
+        Install-Catzc -Scope CurrentUser -Source $source -Silent | Out-Null
+        Test-Path (Join-Path $root 'importer.sh') | Should -BeFalse
     }
 
     It 'the root importer enters the installed Import-Catzc.ps1 with the destination as the working root' {

@@ -24,7 +24,7 @@ Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { $Path }
         # The source-tree guard is its own unit; here the fixture stands in for the source tree in either run mode.
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { }
     }
 
     It 'returns nothing when no module ships a glossary' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
@@ -72,7 +72,7 @@ Describe 'Get-GlossarySources' -Tag 'L0', 'logic' {
     }
 
     It 'refuses to run outside the source tree' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'Get-GlossarySources operates on the catzc source tree' }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { throw 'Get-GlossarySources operates on the catzc source tree' }
         { InModuleScope Catzc.Base.Docs { Get-GlossarySources } } | Should -Throw '*source tree*'
     }
 }

@@ -1,7 +1,7 @@
 Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:repo = Join-Path $TestDrive 'repo'
-        $script:bridge = Join-Path $script:repo 'widget-modules/Base.QualityGates/tests/Language.Bridge.ps1'
+        $script:bridge = Join-Path $script:repo 'widget-modules/Base.QualityGates/assets/Language.Bridge.ps1'
         [void][System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($script:bridge))
         [System.IO.File]::WriteAllText($script:bridge, '# fixture bridge')
         $script:widgetGo = [System.IO.Path]::GetFullPath((Join-Path $script:repo 'go/tests/catzc-widget'))
@@ -20,7 +20,7 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
         Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Module -eq 'Catzc.Base.QualityGates' } {
-            Join-Path $script:repo 'widget-modules/Base.QualityGates'
+            Join-Path (Join-Path $script:repo 'widget-modules/Base.QualityGates') $ChildPath
         }
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Language = 'go'; Module = 'Catzc.Widget'; Folder = $script:widgetGo; Name = 'catzc-widget' }
@@ -64,9 +64,8 @@ Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'ConvertTo-PesterRunTarget — shipped tests/Language.Bridge.ps1' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+Describe 'ConvertTo-PesterRunTarget — shipped assets/Language.Bridge.ps1' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the language bridge in the loaded QualityGates module' {
-        Join-Path (Get-CatzcModuleRoot -Module Catzc.Base.QualityGates) "$((Get-Config -Config languages).FolderOf('test'))/Language.Bridge.ps1" |
-            Should -Exist
+        Get-CatzcModuleRoot 'assets/Language.Bridge.ps1' -Module Catzc.Base.QualityGates | Should -Exist
     }
 }

@@ -149,6 +149,14 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         & $script:due @(& $script:run) 'Build-Sprue' | Should -BeFalse
     }
 
+    It 'is due once when the memo never saw the writer, though its inputs match nothing, and not again after it ran' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        & $script:write 'widget/w.txt' 'w'
+        & $script:ran 'Build-Widget'
+        & $script:due @(& $script:run) 'Build-Sprue' | Should -BeTrue
+        & $script:ran 'Build-Sprue'
+        & $script:due @(& $script:run) 'Build-Sprue' | Should -BeFalse
+    }
+
     It 'emits one typed record per writer, in the render order of the registry' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         $rows = @(& $script:run)
         $rows | Should -HaveCount 6

@@ -82,16 +82,17 @@ same one-source-injection shape as [Catzc.Base.Git](../base-git/index.md)'s mana
 
 The module's public surface, sorted into the responsibilities above.
 
-| Responsibility                                   | Function                  |
-| ------------------------------------------------ | ------------------------- |
-| responsibility:1 — Editor-file rendering         | `New-VsCodeSettings`      |
-|                                                  | `New-VsCodeExtensions`    |
-|                                                  | `New-VsCodeLaunch`        |
-|                                                  | `New-VsCodeTasks`         |
-| responsibility:2 — The editor registries         | `vscode-settings.yml`     |
-|                                                  | `vscode-extensions.yml`   |
-|                                                  | `vscode-launch.yml`       |
-|                                                  | `vscode-tasks.yml`        |
-| responsibility:3 — The session's own binding     | `Get-VsCodeSession`       |
-| responsibility:4 — The cats extensions' packages | `Build-VsCodeExtension`   |
-|                                                  | `Install-VsCodeExtension` |
+| Responsibility                                   | Function                       |
+| ------------------------------------------------ | ------------------------------ |
+| responsibility:1 — Editor-file rendering         | `New-VsCodeSettings`           |
+|                                                  | `New-VsCodeExtensions`         |
+|                                                  | `New-VsCodeLaunch`             |
+|                                                  | `New-VsCodeTasks`              |
+| responsibility:2 — The editor registries         | `vscode-settings.yml`          |
+|                                                  | `vscode-extensions.yml`        |
+|                                                  | `vscode-launch.yml`            |
+|                                                  | `vscode-tasks.yml`             |
+| responsibility:3 — The session's own binding     | `Get-VsCodeSession`            |
+| responsibility:4 — The cats extensions' packages | `Build-VsCodeExtension`        |
+|                                                  | `Install-VsCodeExtension`      |
+|                                                  | `Export-VsCodeExtensionFolder` |

@@ -1,0 +1,3 @@
+description: Throws when the working root has no tracks to check.
+parameters:
+  command: string

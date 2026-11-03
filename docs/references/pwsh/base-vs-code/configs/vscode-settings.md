@@ -77,7 +77,7 @@ compared far more than edited.
 
 - **Go** (the golang.go extension and gopls): the tools run with `GOTOOLCHAIN=local`, so the editor never downloads the toolchain `go.work`
   asks for; it runs the managed go, which the generator injects as `go.goroot` on a machine where `Install-Go` has run
-  ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
+  ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-language.md#rule-adr-auto-go-managedtoolchain)).
 - **Python** (the ms-python extension): the generator injects `python.defaultInterpreterPath`, the Python test project's environment
   ([ADR-AUTO-PY-PYWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyworkspace)), so the editor
   resolves and runs the tests in it. A terminal is never activated into it: the integrated terminal stays the catzc pwsh session, and the

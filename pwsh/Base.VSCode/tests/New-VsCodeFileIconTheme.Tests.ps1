@@ -68,7 +68,53 @@ Describe 'New-VsCodeFileIconTheme' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'New-VsCodeFileIconTheme — real file-icons.yml' -Tag 'L1', 'integrity' {
+Describe 'New-VsCodeFileIconTheme — glyph folders from the resolver' -Tag 'L0', 'logic' {
+    BeforeAll {
+        $script:place = (Get-Track -Name js).places[0]
+        $script:config = [Catzc.Base.VSCode.FileIconsConfig]::new([ordered]@{ icons = [ordered]@{
+                    widget = [ordered]@{ glyph = 'gadget'; color = '#abcdef'; extensions = @('wdg') }
+                }
+            })
+    }
+
+    It 'reads the glyphs from the resolved module roots' {
+        $code = Join-Path $TestDrive 'resolved'
+        $glyphs = [System.IO.Path]::Combine($code, $script:place, 'file-icons', 'assets')
+        $null = New-Item -ItemType Directory -Path $glyphs -Force
+        Set-Content -LiteralPath (Join-Path $glyphs 'gadget.svg') -Value '<svg xmlns="http://www.w3.org/2000/svg" stroke="#000000"><path d="M1 1h4"/></svg>'
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Module -eq 'file-icons'")) -MockWith ([scriptblock]::Create("'$glyphs'"))
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Module -eq 'track-lamps'")) -MockWith ([scriptblock]::Create("'$code'"))
+        $media = Join-Path $TestDrive 'resolved-media'
+        $theme = InModuleScope Catzc.Base.VSCode -Parameters @{ Media = $media; Config = $script:config } {
+            param($Media, $Config)
+            New-VsCodeFileIconTheme -MediaDirectory $Media -Config $Config -Languages @()
+        }
+        $theme | Should -Exist
+        Get-Content -LiteralPath (Join-Path $media 'widget.svg') -Raw | Should -BeLike '*stroke="#abcdef"*'
+        $place = $script:place
+        Should -Invoke Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Place -eq '$place' -and `$Module -eq 'file-icons' -and `$ChildPath -eq 'assets'"))
+        Should -Invoke Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Place -eq '$place' -and `$Module -eq 'track-lamps' -and `$ChildPath -eq 'assets'"))
+    }
+
+    It 'reads the glyphs from under a code root in build mode' {
+        $code = Join-Path $TestDrive 'fake-code-root'
+        $glyphs = [System.IO.Path]::Combine($code, $script:place, 'track-lamps', 'assets')
+        $null = New-Item -ItemType Directory -Path $glyphs -Force
+        $null = New-Item -ItemType Directory -Path ([System.IO.Path]::Combine($code, $script:place, 'file-icons', 'assets')) -Force
+        Set-Content -LiteralPath (Join-Path $glyphs 'gadget-on.svg') -Value '<svg xmlns="http://www.w3.org/2000/svg" stroke="#000000"><path d="M1 1h4"/></svg>'
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.VSCode -MockWith { 'build' }
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Module -eq 'file-icons'")) -MockWith ([scriptblock]::Create("'$code'"))
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.VSCode -ParameterFilter ([scriptblock]::Create("`$Module -eq 'track-lamps'")) -MockWith ([scriptblock]::Create("'$glyphs'"))
+        $media = Join-Path $TestDrive 'build-media'
+        $null = InModuleScope Catzc.Base.VSCode -Parameters @{ Media = $media; Config = $script:config } {
+            param($Media, $Config)
+            New-VsCodeFileIconTheme -MediaDirectory $Media -Config $Config -Languages @()
+        }
+        Get-Content -LiteralPath (Join-Path $media 'widget.svg') -Raw | Should -BeLike '*stroke="#abcdef"*'
+    }
+}
+
+Describe 'New-VsCodeFileIconTheme — real file-icons.yml'-Tag 'L1', 'integrity' {
     It 'gives every file type tracked in the repository an icon' {
         $theme = InModuleScope Catzc.Base.VSCode -Parameters @{ Media = (Join-Path $TestDrive 'shipped') } {
             param($Media)

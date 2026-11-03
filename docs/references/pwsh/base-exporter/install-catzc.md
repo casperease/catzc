@@ -68,6 +68,14 @@ Install-Catzc -Root C:\work\project
 Install-Catzc -Scope CurrentUser
 ```
 
+## Root files
+
+A `-Root` install then renders the root files marked `consumer` in the root-config registry (`cspell.yml`, `.markdownlint.yml`,
+`nuget.config`, `PSScriptAnalyzerSettings.psd1`) through the import alone: one child process loads the root through its new importer, and
+the import renders every writer whose `generated.yml` row is marked `consumer` (the root files and the cSpell dictionaries). A failing child
+throws with its output, and `-DryRun` skips the step. The result's `RootConfigs` lists the `consumer` root-config targets the child found
+and that exist under the root afterwards.
+
 ## Dry run
 
 The command takes `-DryRun`, not `ShouldProcess` or `-WhatIf`, because the branch comes before any side effect

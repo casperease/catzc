@@ -11,10 +11,9 @@ function Write-TypesContract {
     # Write-FileIfChanged.
     # .PARAMETER Path
     #     The assembly (Catzc.Types.<hash>.dll) to describe. Default: the build this session's import recorded for the
-    # modules root, so Restore-Generated runs the writer with no argument.
+    # modules root.
     # .PARAMETER RepositoryRoot
-    #     The repository root the contracts sit under. Default: the folder holding the modules root, as the import
-    # derives it.
+    #     The repository root the contracts sit under. Mandatory: a bundle's code root is not the root it writes to.
     # .OUTPUTS
     #     [pscustomobject] per contract file, with Path and Written, whether the surface moved and the file was written
     # or deleted.
@@ -29,11 +28,12 @@ function Write-TypesContract {
     param(
         [string] $Path,
 
+        [Parameter(Mandatory)]
         [string] $RepositoryRoot
     )
 
-    # Argument-free for Restore-Generated: both defaults come from the modules root this file sits in, the key the import
-    # records its build under (Register-DeferredTypes) and the root whose parent it writes the contracts to.
+    # The default build is found from the modules root this file sits in, the key the import records its build under
+    # (Register-DeferredTypes).
     $modulesRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, '..', '..', '..'))
     if (-not $Path) {
         $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
@@ -42,9 +42,6 @@ function Write-TypesContract {
             throw "Write-TypesContract: this session recorded no types assembly for '$modulesRoot'; import it first (. ./importer.ps1) or pass -Path."
         }
         $Path = $records[$key].Path
-    }
-    if (-not $RepositoryRoot) {
-        $RepositoryRoot = [System.IO.Path]::GetDirectoryName($modulesRoot)
     }
 
     # The text is what Format-Code (Prettier, printWidth 140) leaves alone, so a regenerate and a format agree: every

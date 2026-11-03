@@ -11,7 +11,7 @@ function Test-ConfigIdentityHygiene {
     )
 
     # The forbidden set comes from the test fixtures, which exist only in the catzc source tree.
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $fixture = [System.Collections.Generic.HashSet[string]]::new(
         [string[]] (Get-FixtureIdentityTokens), [System.StringComparer]::OrdinalIgnoreCase)

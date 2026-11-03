@@ -111,6 +111,45 @@ namespace WidgetConfigValueTest {
         }
     }
 
+    Context 'the namespace the config name resolves in' -Tag 'logic' {
+        # Calls from fixture modules named <Namespace>.<Folder>, with the one reader mocked to record the namespace it is handed.
+        BeforeEach {
+            Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { [ordered]@{ owner = 'x' } }
+            $widgetModule = New-Module -Name Widget.Fixture -ScriptBlock {
+                function Read-WidgetValue {
+                    Get-ConfigValue -Address 'global.gadget.owner'
+                }
+            }
+            $catzcModule = New-Module -Name Catzc.Fixture -ScriptBlock {
+                function Read-CatzcValue {
+                    param([string] $Namespace)
+                    Get-ConfigValue -Address 'global.gadget.owner' -Namespace $Namespace
+                }
+            }
+            $widgetModule | Import-Module -Force
+            $catzcModule | Import-Module -Force
+        }
+
+        AfterEach {
+            Remove-Module Widget.Fixture, Catzc.Fixture -Force -ErrorAction SilentlyContinue
+        }
+
+        It 'resolves in the namespace of a Widget module that calls' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Read-WidgetValue | Should -Be 'x'
+            Should -Invoke Get-Config -ModuleName Catzc.Base.Config -Times 1 -Exactly -ParameterFilter { $Namespace -ceq 'Widget' }
+        }
+
+        It 'resolves in the namespace -Namespace names, from a Catzc module' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Read-CatzcValue -Namespace Widget | Should -Be 'x'
+            Should -Invoke Get-Config -ModuleName Catzc.Base.Config -Times 1 -Exactly -ParameterFilter { $Namespace -ceq 'Widget' }
+        }
+
+        It 'resolves in Catzc for a call from the console' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            Get-ConfigValue -Address 'global.gadget.owner' | Should -Be 'x'
+            Should -Invoke Get-Config -ModuleName Catzc.Base.Config -Times 1 -Exactly -ParameterFilter { $Namespace -ceq 'Catzc' }
+        }
+    }
+
     Context 'against a real shipped config' -Tag 'integrity' {
         It 'resolves a real config subtree through the live Get-Config' {
             # A real config through the live reader, so the wiring from address to typed model is proven end to end.

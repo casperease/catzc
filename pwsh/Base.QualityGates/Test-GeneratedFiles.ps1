@@ -15,7 +15,7 @@ function Test-GeneratedFiles {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $known = @(Get-GeneratedFileGenerator)
     foreach ($name in $Generator) {

@@ -17,14 +17,6 @@ function Build-Modules {
             }
         ),
 
-        [ValidateSet('runtime', 'full')]
-        [string] $VendorPolicy = $(
-            $bundles = (Get-Config -Config exporter).bundles
-            if ($bundles.ContainsKey($Bundle)) {
-                "$($bundles[$Bundle].vendor_policy)"
-            }
-        ),
-
         [string] $Version = 'auto',
 
         [string] $Destination = (Join-Path (Get-OutputRoot) "pwsh/built/$Bundle"),
@@ -41,7 +33,6 @@ function Build-Modules {
     $package = $config.package
     $engineArguments = @{
         Version         = $resolvedVersion
-        VendorPolicy    = $VendorPolicy
         Destination     = $Destination
         Bundle          = $Bundle
         PackageMetadata = @{
@@ -68,10 +59,9 @@ function Build-Modules {
     $result = & $engine @engineArguments
 
     if (-not $DryRun) {
-        # The footprint limits describe the bundle as declared; a build with an overridden selection or vendor policy is not it.
+        # The footprint limits describe the bundle as declared; a build with an overridden selection is not it.
         $isDeclaredBundle = -not ($PSBoundParameters.ContainsKey('Module') -or
-            $PSBoundParameters.ContainsKey('ModuleProfile') -or
-            $PSBoundParameters.ContainsKey('VendorPolicy'))
+            $PSBoundParameters.ContainsKey('ModuleProfile'))
         if ($isDeclaredBundle) {
             Assert-BundleFootprint -Path $result.BuildRoot -Bundle $config.bundles[$Bundle] | Out-Null
         }

@@ -15,7 +15,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The fixture root is not the loaded code root, which the run-mode guard reads as a built package; the guard is asserted apart below.
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
         Set-GitTrackedPathMock
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } {
@@ -113,7 +113,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
     }
 
     It 'refuses before touching anything when the session runs a built package' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { throw 'Build-Readme operates on the catzc source tree' }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Docs { throw 'Build-Readme operates on the catzc source tree' }
         { Build-Readme } | Should -Throw '*source tree*'
         Test-Path $script:readme | Should -BeFalse
         Should -Invoke Get-Config -ModuleName Catzc.Base.Docs -Times 0

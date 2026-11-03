@@ -13,7 +13,8 @@ Resolves a global config address to the value at that node (a leaf or a subtree)
 A global config address is a by-reference handle into a named config: `global.<config>.<key>[.<key>...]` (see ADR-CONF-ADDRESSING).
 Get-ConfigValue strips the 'global.' marker, reads the named config through Get-Config (the one reader and one cache,
 [ADR-CONF-LOADING-CONFIGONEREADER][r1]), and walks the remaining key segments with Resolve-ConfigKeyPath. It never opens a file or caches
-anything of its own — it is a view over what Get-Config already loaded and validated.
+anything of its own — it is a view over what Get-Config already loaded and validated. The name resolves in its own caller's namespace, or
+the one -Namespace names ([ADR-AUTO-CONSUMER-OWNCONFIGS](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-ownconfigs)).
 
 The first segment after 'global.' is the config's global lowercase name
 ([ADR-CONF-LOADING-EXISTENCEDISCOVERED](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered)); the
@@ -35,6 +36,11 @@ addresses the whole config as a subtree.
 ### parameter `Module`
 
 Passthrough to Get-Config to disambiguate the rare config name present in more than one module.
+
+### parameter `Namespace`
+
+The namespace the config name resolves in, passed to Get-Config. Without it, the namespace of the module that calls Get-ConfigValue, `Catzc`
+for a script or the console, found by Get-CallerNamespace.
 
 ### example 1
 

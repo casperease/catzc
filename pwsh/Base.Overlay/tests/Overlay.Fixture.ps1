@@ -7,6 +7,13 @@ foreach ($folder in 'Base.Widget/configs', 'Base.Widget/assets') {
 }
 Set-Content -Path (Join-Path $modulesRoot 'Base.Widget/configs/widget.yml') -Value 'limit: 3'
 Set-Content -Path (Join-Path $modulesRoot 'Base.Widget/assets/lever.txt') -Value 'bundled'
+# The built shape: a built root's module folder carries the namespace, while the overlay folder stays bare.
+$script:builtModulesRoot = Join-Path $fixtureRoot 'built'
+foreach ($folder in 'Catzc.Base.Widget/configs', 'Catzc.Base.Widget/assets') {
+    [System.IO.Directory]::CreateDirectory((Join-Path $builtModulesRoot $folder)) | Out-Null
+}
+Set-Content -Path (Join-Path $builtModulesRoot 'Catzc.Base.Widget/configs/widget.yml') -Value 'limit: 3'
+Set-Content -Path (Join-Path $builtModulesRoot 'Catzc.Base.Widget/assets/lever.txt') -Value 'bundled'
 
 function script:New-OverlayFixtureModule {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
@@ -62,9 +69,19 @@ function script:Remove-OverlayFixture {
 # The overlay functions find the fixture through the same seams they find a real overlay.
 $script:useFixtureRoots = {
     Mock Get-OverlayRoot -ModuleName Catzc.Base.Overlay -MockWith { $overlayRoot }
-    Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Overlay -MockWith { $modulesRoot }
+    Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Repository -MockWith { $modulesRoot }
+    Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'source' }
     Mock Write-Message -ModuleName Catzc.Base.Overlay -MockWith { }
+    # The engine's own track is the namespace the bundled modules are named in; the consumer declares none unless a case adds some.
+    Mock Get-CatzcRunMode -ModuleName Catzc.Base.Overlay -MockWith { 'source' }
+    Mock Get-Track -ModuleName Catzc.Base.Overlay -MockWith { [pscustomobject]@{ name = 'pwsh'; namespace = 'Catzc' } }
     Mock Get-Config -ModuleName Catzc.Base.Overlay -ParameterFilter { $Config -eq 'configs' } -MockWith {
         [pscustomobject]@{ sealedConfigs = @('gadget') }
     }
+}
+
+# The same seams over the built shape, applied after $useFixtureRoots.
+$script:useBuiltRoot = {
+    Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Repository -MockWith { $builtModulesRoot }
+    Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'build' }
 }

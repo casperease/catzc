@@ -114,13 +114,81 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'throws when -Path matches no opted-in entry' {
         { Build-RootConfig -Path 'opted-out.yml' } | Should -Throw '*No opted-in root-config entry*'
     }
+}
 
-    It 'is a reported no-op in build mode — nothing is read, composed, or written' {
+Describe 'Build-RootConfig — build mode' -Tag 'L0', 'logic' {
+    BeforeAll {
+        Import-InternalModule TestKit
+
+        # The working root is a fixture tree; the code root a folder of a built package, its module folder carrying the namespace.
+        $script:fake = New-FakeRepositoryRoot
+        $script:codeRoot = Join-Path $TestDrive 'code'
+        New-Item -ItemType Directory -Path (Join-Path $script:codeRoot 'Catzc.Widget/assets') -Force | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:codeRoot 'Catzc.Widget/assets/gadget.yml'), "alpha: 1`n")
+        $script:copyTarget = Join-Path $script:fake.Root 'gadget.yml'
+        $script:genTarget = Join-Path $script:fake.Root 'rendered.txt'
+        $script:otherTarget = Join-Path $script:fake.Root 'other.yml'
+
+        Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'build' }
-        Mock Write-FileIfChanged -ModuleName Catzc.Base.RootConfig { $true }
-        Build-RootConfig | Should -BeNullOrEmpty
-        Should -Invoke Write-FileIfChanged -ModuleName Catzc.Base.RootConfig -Times 0
-        Should -Invoke Write-Message -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Message -like '*built Catzc package*' }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.RootConfig { $script:codeRoot }
+        # The built package's module folder carries the namespace; the real resolver would read the unmocked run mode.
+        Mock Resolve-CodeModuleFolder -ModuleName Catzc.Base.RootConfig {
+            $folder = Join-Path $script:codeRoot "Catzc.$Name"
+            if (Test-Path $folder) {
+                $folder
+            }
+        }
+        Set-GitTrackedPathMock
+        Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig {
+            [pscustomobject]@{
+                files = @(
+                    [pscustomobject]@{ target = 'gadget.yml'; source = 'code/Widget/assets/gadget.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; consumer = $true }
+                    [pscustomobject]@{ target = 'rendered.txt'; source = $null; sources = @('code/Widget/assets/gadget.yml', 'code/Widget/New-Rendered.ps1'); generator = 'Fake-Generator'; carrier = 'dotfile'; optIn = $true; committed = $false; consumer = $true }
+                    [pscustomobject]@{ target = 'other.yml'; source = 'code/Widget/assets/gadget.yml'; sources = @(); generator = $null; carrier = $null; optIn = $true; committed = $false; consumer = $false }
+                )
+            }
+        }
+    }
+
+    AfterAll {
+        Remove-FakeRepositoryRoot $script:fake
+    }
+
+    BeforeEach {
+        Remove-Item $script:copyTarget, $script:genTarget, $script:otherTarget -Force -ErrorAction Ignore
+    }
+
+    It 'writes a consumer entry from the code root into the working root, under the generated head' {
+        Build-RootConfig | Out-Null
+        [System.IO.File]::ReadAllText($script:copyTarget) | Should -MatchExactly '# ---\n[\s\S]*# ---\n\nalpha: 1\n$'
+    }
+
+    It 'leaves an entry not marked for a consumer unwritten' {
+        $result = Build-RootConfig -PassThru
+        @($result.Target) | Should -Be @('gadget.yml', 'rendered.txt')
+        Test-Path $script:otherTarget | Should -BeFalse
+    }
+
+    It 'renders a consumer generator entry, its function source not required in the code root' {
+        Build-RootConfig | Out-Null
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -Match 'rendered output'
+    }
+
+    It 'is not skipped, and says nothing about skipping' {
+        Build-RootConfig | Out-Null
+        Should -Invoke Write-Message -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Message -like '*skipped*' } -Times 0 -Exactly
+    }
+
+    It 'throws when a listed data source is missing from the code root' {
+        Remove-Item (Join-Path $script:codeRoot 'Catzc.Widget/assets/gadget.yml')
+        try {
+            { Build-RootConfig -Path 'rendered.txt' } | Should -Throw
+        }
+        finally {
+            [System.IO.File]::WriteAllText((Join-Path $script:codeRoot 'Catzc.Widget/assets/gadget.yml'), "alpha: 1`n")
+        }
     }
 }
 
@@ -269,6 +337,7 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         # The fake root is no git checkout, so no file is tracked and none carries a stamp to check.
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @() }
         Set-GitTrackedPathMock

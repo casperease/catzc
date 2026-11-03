@@ -50,6 +50,12 @@ Describe 'Save-Topic' -Tag 'L0', 'logic', 'FDR-GIT-USERRUNSGIT' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git add*' -or $Command -like 'git commit*' }
     }
 
+    It 'throws the work-tree assertion when the root has no repository' {
+        Set-Git
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Git { throw 'widget root has no git work tree' }
+        { Save-Topic -Config $script:config } | Should -Throw '*widget root has no git work tree*'
+    }
+
     It 'refuses a detached HEAD' {
         Set-Git -Branch 'HEAD'
         { Save-Topic -Config $script:config } | Should -Throw '*needs a named branch*'

@@ -19,8 +19,8 @@ then records whether each source file is tracked: a source lives in the reposito
 ([ADR-REPO-VOCAB-SOURCESINREPOSITORY](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-sourcesinrepository)), and
 Get-GlossarySourceViolations reports one that is not.
 
-Reads the source tree's configs and git, so it runs in source mode only (Assert-SourceTree). Private helper for Get-Glossary and the
-glossary checks; not exported.
+Reads the source tree's configs and git, so it runs in catzc's source tree only (Assert-CatzcSourceTree). Private helper for Get-Glossary
+and the glossary checks; not exported.
 
 ### outputs
 

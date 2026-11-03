@@ -1,6 +1,6 @@
 Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/index.md'; Changed = $false; DryRun = $true } }
         Mock Build-Glossary -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget/glossary.md'; Changed = $false; DryRun = $true; ConceptCount = 2 } }
         Mock Build-Readme -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Folder = 'widget'; Source = 'docs/widget.md'; Readme = 'widget/README.md'; Changed = $false; DryRun = $true } }
@@ -282,7 +282,7 @@ Describe 'Test-GeneratedFiles — a widget writer over a fixture tree' -Tag 'L0'
     }
 
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:root }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { $script:tracked }
         Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.QualityGates {

@@ -24,3 +24,7 @@ allowed:
   Microsoft.OperationalInsights/queryPacks/queries: ["2023-09-01"]
   # Portal dashboards have no stable version newer than 2020; the newest preview is the one bicep's type index carries.
   Microsoft.Portal/dashboards: ["2025-04-01-preview"]
+  # Turned 36 months old on 2026-11-01; moves to a current stable version with the next infrastructure change.
+  Microsoft.Consumption/budgets: ["2023-11-01"]
+  Microsoft.CostManagement/exports: ["2023-11-01"]
+  Microsoft.CostManagement/scheduledActions: ["2023-11-01"]

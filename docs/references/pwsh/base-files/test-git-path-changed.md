@@ -15,7 +15,8 @@ paths, false when they match HEAD. This is the one "did these paths change?" que
 (Invoke-GitCommit's idempotent no-op) and its policy callers (which paths deserve a commit at all) ask, so it lives in one function instead
 of two porcelain parses.
 
-Runs through Invoke-Executable -Silent: read-only, no console output, throws on a git failure.
+Runs through Invoke-Executable -Silent: read-only, no console output, throws on a git failure. A working root with no repository stops at
+[Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
 
 ### parameter `Path`
 

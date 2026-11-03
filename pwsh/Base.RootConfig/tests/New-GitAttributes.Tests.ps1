@@ -48,7 +48,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         Mock Get-GeneratedWriterOrder -ModuleName Catzc.Base.RootConfig {
             [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Widget', [ordered]@{ class = 'rollable'; outputs = @('docs/widget.md', '**/GADGET.md') })
             [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Gadget', [ordered]@{ class = 'untracked'; outputs = @('out/gadget/**') })
-            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Cog', [ordered]@{ class = 'import-critical'; expands = 'cogs'; outputs = @('*') })
+            [Catzc.Base.Variants.GeneratedWriterRow]::new('Build-Cog', [ordered]@{ class = 'import-critical'; expands = 'cogs'; expander = 'Get-CogGeneratedTarget'; outputs = @('*') })
         }
         $script:roots = "{{generated-files}}`n"
         $script:generated = "/docs/widget.md linguist-generated`n**/GADGET.md linguist-generated`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"

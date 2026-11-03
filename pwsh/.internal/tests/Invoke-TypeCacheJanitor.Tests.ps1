@@ -37,4 +37,12 @@ Describe 'Invoke-TypeCacheJanitor' -Tag 'L0', 'logic' {
             $Message -like '*Catzc.Types.widget01.dll*' -and $ForegroundColor -eq 'Red'
         }
     }
+
+    It 'turns a failed delete of a build of another namespace into one red line naming it' {
+        Mock Clear-ModuleTypeCache { throw 'Could not remove Widget.Types.gadget01.dll' } -ModuleName Catzc.Internal.Importer
+        { InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor } } | Should -Not -Throw
+        Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter {
+            $Message -like '*Widget.Types.gadget01.dll*' -and $ForegroundColor -eq 'Red'
+        }
+    }
 }

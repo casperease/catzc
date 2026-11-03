@@ -23,6 +23,11 @@ Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
             $WorkingDirectory -eq 'C:\widget-repo'
         }
     }
+
+    It 'throws the work-tree assertion when the root has no repository' {
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Files { throw 'widget root has no git work tree' }
+        { Get-GitChangedPath } | Should -Throw '*widget root has no git work tree*'
+    }
 }
 
 Describe 'Get-GitChangedPath against real git' -Tag 'L2', 'logic' {

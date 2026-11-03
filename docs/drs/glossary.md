@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-Glossary -Path docs/drs/glossary.md"
-    with_body_sha: d90996c322d8
+    with_body_sha: f7080c9d95ff
 ---
 
 # docs/drs/glossary.md
@@ -833,7 +833,7 @@ System.Collections.Specialized.OrderedDictionary
 The folder `<root>/tests/<module>/` under the Go root — one Go module per catzc module, named for it as one lowercase word
 (`baserepository`), holding its black-box Go tests.
 
-- **Defined by:** [ADR-AUTO-GO-GOTESTMODULE](automation/go/go-test-artifacts.md#rule-adr-auto-go-gotestmodule)
+- **Defined by:** [ADR-AUTO-GO-GOTESTMODULE](automation/go/go-language.md#rule-adr-auto-go-gotestmodule)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Base.Languages/configs/glossary.yml`
 
@@ -1748,7 +1748,7 @@ scope (verify, scan, content).
   `global scope`, `process scope`, `Pester scope`, `default scope`, `install scope`, `markdown scope`, `repo scope`, `lint scope`,
   `child scope`, `environment scope`, `subscription scope`, `report scope`, `tag scope`, `declared scope`, `whole scope`, `top scope`,
   `strict scope`, `isolated scope`, `discovery scope`, `glossary scope`, `deployment scope`, `infra scope`, `radius scope`,
-  `production scope`, and the bare `scope`, with its verb forms
+  `production scope`, `config scope`, `engine scope`, and the bare `scope`, with its verb forms
 
 ### slide file
 

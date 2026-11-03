@@ -20,7 +20,7 @@ Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
         $script:modules = Get-CatzcModulesFolder
         Mock Write-Message -ModuleName Catzc.Base.ModuleSystem { }
         # The fake root is not the loaded code root, so the run mode reads 'build'; the guard is the seam.
-        Mock Assert-SourceTree -ModuleName Catzc.Base.ModuleSystem { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.ModuleSystem { }
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
             'Catzc.Base.Alpha', 'Catzc.Base.Repository' | ForEach-Object {
                 [Catzc.Base.Modules.Module]::new($_, 'widgets', 'widget-folder', $script:modules,
@@ -120,7 +120,7 @@ Describe 'Copy-CatzcModule — build mode' -Tag 'L0', 'logic' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         Mock Copy-Directory -ModuleName Catzc.Base.ModuleSystem { }
         { Copy-CatzcModule -Destination (Join-Path $TestDrive 'widget') -DryRun } |
-            Should -Throw '*Copy-CatzcModule operates on the catzc source tree*'
+            Should -Throw '*Copy-CatzcModule runs in catzc*s source tree only*'
         Should -Not -Invoke Copy-Directory -ModuleName Catzc.Base.ModuleSystem
     }
 }

@@ -1,11 +1,33 @@
 Describe 'Get-GeneratedTarget' -Tag 'L0', 'logic', 'ADR-REPO-ROOTCFG-ONECLASSPERWRITER' {
+    BeforeAll {
+        # Each owner's expander is a function of its own module; these stand in for them.
+        function global:Get-WidgetGeneratedTarget {
+            param([string] $Name, [string] $Class)
+            [Catzc.Base.Variants.GeneratedTarget]::new('widget.psd1', $Name, $Class)
+            [Catzc.Base.Variants.GeneratedTarget]::new('gadget.yml', 'New-Gadget', 'snapshot')
+        }
+        function global:Get-GadgetGeneratedTarget {
+            param([string] $Name, [string] $Class)
+            [Catzc.Base.Variants.GeneratedTarget]::new('gadget/README.md', $Name, $Class)
+        }
+        # The stand-in of an owner whose row expands to nothing: it takes the row's name and class and yields no target.
+        function global:Get-SprocketGeneratedTarget {
+            [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'the expander signature, with no target to build from it')]
+            param([string] $Name, [string] $Class)
+        }
+    }
+
+    AfterAll {
+        Remove-Item -Path Function:\Get-WidgetGeneratedTarget, Function:\Get-GadgetGeneratedTarget, Function:\Get-SprocketGeneratedTarget
+    }
+
     BeforeEach {
         $script:writers = [ordered]@{
             'Build-Widget'     = [ordered]@{ class = 'rollable'; outputs = @('widget/*.md') }
-            'Build-RootConfig' = [ordered]@{ class = 'import-critical'; expands = 'rootconfig'; outputs = @('*') }
-            'New-Gadget'       = [ordered]@{ class = 'snapshot'; check = 'none'; expands = 'rootconfig'; outputs = @('gadget.yml') }
-            'Build-Sprocket'   = [ordered]@{ class = 'untracked'; expands = 'readme'; outputs = @('*/README.md') }
-            'Export-Pages'     = [ordered]@{ class = 'snapshot'; expands = 'comment-pages'; outputs = @('docs/pages/**') }
+            'Build-RootConfig' = [ordered]@{ class = 'import-critical'; expands = 'rootconfig'; expander = 'Get-WidgetGeneratedTarget'; outputs = @('*') }
+            'New-Gadget'       = [ordered]@{ class = 'snapshot'; check = 'none'; expands = 'rootconfig'; expander = 'Get-WidgetGeneratedTarget'; outputs = @('gadget.yml') }
+            'Build-Sprocket'   = [ordered]@{ class = 'untracked'; expands = 'readme'; expander = 'Get-GadgetGeneratedTarget'; outputs = @('*/README.md') }
+            'Export-Pages'     = [ordered]@{ class = 'snapshot'; expands = 'comment-pages'; expander = 'Get-SprocketGeneratedTarget'; outputs = @('docs/pages/**') }
         }
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'generated' -and $ListOwners } {
             [pscustomobject]@{ Module = 'Catzc.Base.Widget' }
@@ -13,39 +35,25 @@ Describe 'Get-GeneratedTarget' -Tag 'L0', 'logic', 'ADR-REPO-ROOTCFG-ONECLASSPER
         Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'generated' -and -not $ListOwners } {
             [Catzc.Base.Variants.GeneratedConfig]::new([ordered]@{ writers = $script:writers })
         }
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'rootconfig' } {
-            [pscustomobject]@{ files = @(
-                    [pscustomobject]@{ target = 'widget.psd1'; generator = $null; optIn = $true }
-                    [pscustomobject]@{ target = 'gadget.yml'; generator = 'New-Gadget'; optIn = $true }
-                    [pscustomobject]@{ target = 'trinket.json'; generator = 'New-Trinket'; optIn = $true }
-                    [pscustomobject]@{ target = 'spare.txt'; generator = $null; optIn = $false }
-                )
-            }
-        }
-        Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'readme' } {
-            [pscustomobject]@{ patterns = @([pscustomobject]@{ glob = 'widget/*' }); mappings = @([pscustomobject]@{ folder = 'gadget' }) }
-        }
     }
 
-    It 'answers a row''s outputs in its class, and an expanding config''s instances once in place of the outputs of every row that points at it' {
+    It 'answers a row''s outputs in its class, and an expanding config''s instances once, from its expander, in place of the outputs of every row that points at it' {
         $rows = @(Get-GeneratedTarget | ForEach-Object { "$($_.path)|$($_.generator)|$($_.class)" })
         $rows | Should -Be @(
             'widget/*.md|Build-Widget|rollable'
             'widget.psd1|Build-RootConfig|import-critical'
             'gadget.yml|New-Gadget|snapshot'
-            'trinket.json|New-Trinket|import-critical'
-            'widget/*/README.md|Build-Sprocket|untracked'
             'gadget/README.md|Build-Sprocket|untracked'
-        ) -Because 'a generator with a row of its own keeps that class; one without takes the class of the row that expands its config'
+        ) -Because 'the first row that expands a config hands its name and class to the expander, which answers once'
     }
 
-    It 'answers no target for the comment pages, since a page is authored (ADR-REPO-COMMENTS-PAGEISAUTHORED)' {
+    It 'answers no target when the expander answers none, as for the comment pages (ADR-REPO-COMMENTS-PAGEISAUTHORED)' {
         @(Get-GeneratedTarget | Where-Object generator -CEQ 'Export-Pages') | Should -BeNullOrEmpty
     }
 
-    It 'throws naming the writer whose expanding config it does not know' {
-        $script:writers['Build-Gizmo'] = [ordered]@{ class = 'rollable'; expands = 'gizmos'; outputs = @('gizmo/**') }
-        { Get-GeneratedTarget } | Should -Throw "*writer 'Build-Gizmo' expands 'gizmos'*"
+    It 'throws naming the writer whose expander no loaded module exports' {
+        $script:writers['Build-Gizmo'] = [ordered]@{ class = 'rollable'; expands = 'gizmos'; expander = 'Get-GizmoGeneratedTarget'; outputs = @('gizmo/**') }
+        { Get-GeneratedTarget } | Should -Throw "*writer 'Build-Gizmo' names expander 'Get-GizmoGeneratedTarget', which no loaded module exports*"
     }
 }
 

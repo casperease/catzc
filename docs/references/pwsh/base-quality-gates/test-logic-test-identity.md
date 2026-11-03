@@ -30,8 +30,8 @@ It rests on [ADR-AUTO-TEST-DISTINCTFIXTURES](../../../drs/automation/test-automa
 
 ### parameter `Path`
 
-Test files to check. Defaults to every `*.Tests.ps1` under pwsh/ (excluding vendored modules) — the catzc source tree, so the default needs
-the source mode (Assert-SourceTree); an explicit -Path works in either.
+Test files to check. Defaults to every `*.Tests.ps1` under pwsh/ (excluding vendored modules) — the catzc source tree, so the default runs
+in catzc's source tree only (Assert-CatzcSourceTree); an explicit -Path works in either.
 
 ### parameter `OutputFolder`
 

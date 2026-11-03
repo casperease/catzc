@@ -31,7 +31,7 @@ function Assert-LinkDirectionsConfig {
     & $walk (Get-Config -Config file-kinds).kinds ''
     $trackTypes = @((Get-Config -Config track-types).types.ForEach({ $_.id }))
     $tracks = @(Get-Track | ForEach-Object name)
-    $aspects = @((Get-AspectGlobSet).Keys)
+    $aspects = @($tracks | ForEach-Object { Get-Aspect -Track $_ } | ForEach-Object Name | Select-Object -Unique)
     $modules = @(Get-Module -Name 'Catzc.*' | ForEach-Object Name)
     $map = Get-DrsCitationMap
 

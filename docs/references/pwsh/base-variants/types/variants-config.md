@@ -20,9 +20,10 @@ Every key is optional, and an unknown key throws, so a typo fails at load.
 - **`aspects`** — per track, an ordered list of single-key `{name: [patterns]}` entries
   ([DDR-ASPECT](../../../../drs/design/module-aspects.md)), each one a VariantAspect. Only the structure is checked here; glob syntax is the
   Globs aspect engine's check.
-- **`tracks`** — per track, in declared order, its `members`, `type`, `vendor`, `languages`, `execution_engines`,
-  `module_execution_engines`, `kinds`, `namespace`, `join` and `namespace_exempt` ([DDR-TRACK](../../../../drs/design/tracks.md)); each
-  entry becomes a VariantTrack. Whether each language is a registered file language is an integrity test in `Catzc.Base.Languages`.
+- **`tracks`** — absent, an empty list: a repository that declares none is a consumer root. Per track, in declared order, its `members`,
+  `type`, `vendor`, `languages`, `execution_engines`, `module_execution_engines`, `kinds`, `namespace`, `join` and `namespace_exempt`
+  ([DDR-TRACK](../../../../drs/design/tracks.md)); each entry becomes a VariantTrack. Whether each language is a registered file language is
+  an integrity test in `Catzc.Base.Languages`.
 
 ## Validation and defaults
 

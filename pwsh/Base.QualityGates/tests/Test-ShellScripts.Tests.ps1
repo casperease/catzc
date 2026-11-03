@@ -17,6 +17,7 @@ Describe 'Test-ShellScripts' -Tag 'L0', 'logic' {
         $script:checkExit = 0
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.QualityGates { 'source' }
         Mock Get-CatzcModulesFolder -ModuleName Catzc.Base.QualityGates { 'widget-modules' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { 'widget/run.sh'; 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh'; 'docs/widget.md' }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -ParameterFilter { $ExecutableOnly } { 'widget/run.sh'; 'widget-modules/Catzc.Widget/assets/scripts/dotnet-install.sh' }

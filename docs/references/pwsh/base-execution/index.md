@@ -27,7 +27,9 @@ run long, a companion function wraps it with a liveness indicator. The `-PassThr
 from stderr for callers that need to inspect output programmatically, and `-AsBytes` returns stdout as its exact bytes for a binary stream
 such as `git cat-file --batch`. Every run is bounded twice: a process that outlives its time limit is killed with its whole tree, and a
 process that exits while something it started still holds its output open fails at once with an error that names the cause, instead of
-hanging for that holder's lifetime.
+hanging for that holder's lifetime. A language module (a go, bash or javascript folder at its track's place) runs through the same wrapper:
+its manifest, or its source form when it has none, picks the binary, the bash entry or the node entry, and the managed runtime is found by
+its path, never by a bare name.
 
 ### responsibility:2 — Executable location
 
@@ -93,9 +95,11 @@ The module's public functions, sorted into the responsibilities above.
 | Responsibility                                | Function                   |
 | --------------------------------------------- | -------------------------- |
 | responsibility:1 — External process execution | `Invoke-Executable`        |
+|                                               | `Invoke-LanguageModule`    |
 |                                               | `Invoke-WithProgress`      |
 | responsibility:2 — Executable location        | `Find-Executable`          |
 |                                               | `Resolve-ToolExecutable`   |
 |                                               | `Resolve-EngineExecutable` |
+|                                               | `Get-HostPlatform`         |
 | config                                        | `tools.yml`                |
 | responsibility:3 — Exit-code lifecycle        | `Reset-LastExitCode`       |

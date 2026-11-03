@@ -256,8 +256,9 @@ const scenarios = {
     async swap() {
         // The engine's folder as the shell reads it: from the package installed beside the script.
         const source = JSON.parse(fs.readFileSync(path.join(path.dirname(script), "package.json"), "utf8")).catzc.source;
-        const engine = path.join(root, source, "extension.js");
-        const parts = `${source}/*.js`;
+        const absolute = path.isAbsolute(source);
+        const engine = path.join(absolute ? source : path.join(root, source), "extension.js");
+        const parts = absolute ? "*.js" : `${source}/*.js`;
         current = stub({ filters: filters(["code", "docs"]) });
         require(script).activate(current.context);
         await sleep(1200);

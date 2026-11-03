@@ -44,6 +44,8 @@ capabilities:
         Format-Code,
         Test-Links,
         Test-Glossary,
+        Test-Formatting,
+        Test-Terminology,
         Build-Readme,
         Build-Glossary,
         Build-DrsIndex,

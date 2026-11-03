@@ -16,7 +16,10 @@ function Get-BuildClosureViolation {
         [Parameter(Mandatory)]
         [System.Collections.Generic.Dictionary[string, bool]] $Index,
 
-        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
+        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new(),
+
+        # The language module rows the build plan ships.
+        [object[]] $Language = @()
     )
 
     $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
@@ -34,6 +37,22 @@ function Get-BuildClosureViolation {
         }
     }
 
+    # A language module is reached by its literal <track>/<Module> path, so the paths come from the tracks, never spelled here.
+    $languagePaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($track in @(Get-Track)) {
+        if ($track.type -cne 'modules') {
+            continue
+        }
+        foreach ($languageModule in @(Get-CatzcModule -Track $track.name)) {
+            if ($languageModule.shape -ceq 'folder') {
+                [void] $languagePaths.Add(([string] $languageModule.root).Replace('\', '/').TrimEnd('/'))
+            }
+        }
+    }
+    $shippedPaths = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Language | ForEach-Object { $_.Source }),
+        [System.StringComparer]::Ordinal)
+    $declaredModules = (Get-Config -Config dependencies).modules
+
     foreach ($name in $Module) {
         $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, (Resolve-ModuleName -FullName $name -Namespace (Get-ModuleNamespace -ModulesRoot $SourceRoot)))
         if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
@@ -48,6 +67,24 @@ function Get-BuildClosureViolation {
                 continue
             }
             $syntaxTree = $ParsedScripts.Get($file).Ast
+            $strings = $syntaxTree.FindAll({ param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }, $true)
+            foreach ($string in $strings) {
+                foreach ($path in $languagePaths) {
+                    if ($string.Value -cne $path -and -not $string.Value.StartsWith("$path/", [System.StringComparison]::Ordinal)) {
+                        continue
+                    }
+                    $where = "$sourceFolder/${relativePath}:$($string.Extent.StartLineNumber)"
+                    $declared = @(if ($declaredModules.Contains($name)) {
+                            $declaredModules[$name]
+                        })
+                    if ($path -cnotin $declared) {
+                        "${where}: $name reaches the language module '$path', which its dependencies.yml row does not declare; add '$path' to the $name row"
+                    }
+                    elseif (-not $shippedPaths.Contains($path)) {
+                        "${where}: $name reaches the language module '$path', which the build does not ship; select a module that declares it"
+                    }
+                }
+            }
             foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, 'Get-Config', $false)) {
                 $elements = $read.CommandElements
                 # -ListOwners / -Module read a config that many modules may ship, owner by owner: only the owners

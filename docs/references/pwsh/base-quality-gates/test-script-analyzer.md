@@ -70,8 +70,12 @@ Analyze just one module.
 
 ## Settings
 
-The one settings file ships inside the code tree, so it resolves from the code root
+The settings file is the working root's `PSScriptAnalyzerSettings.psd1` when it exists, the copy the root-config build materialises, which a
+consumer may edit ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)); otherwise the one that ships inside the code tree,
+resolved from the code root
 ([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+In catzc's source tree both are the same file. The custom rules always run from the code root
+([ADR-AUTO-CONSUMER-CATZCGATES](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-catzcgates)).
 
 ## The file set
 
@@ -93,3 +97,13 @@ the files.
 
 The analysis is sharded across background processes with live progress (Get-ScriptAnalyzerDiagnostics), because a serial pass is about 90
 seconds of silence and reads as a hang. The message up front confirms that work has started.
+
+## comment:1
+
+Above `$codeSettingsPath =...`, written with `#`.
+
+```text
+The working root's copy wins when it exists (a consumer may edit it,
+[ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)); else the code root's own, the same file in catzc's
+source tree.
+```

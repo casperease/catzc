@@ -6,7 +6,7 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS'
 
     BeforeEach {
         $script:destinations = [System.Collections.Generic.List[string]]::new()
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
         Mock Build-Modules -ModuleName Catzc.Base.QualityGates -ParameterFilter { $DryRun } {
             [pscustomobject]@{ Modules = @('Catzc.Widget', 'Catzc.Gadget'); DryRun = $true }
@@ -25,20 +25,20 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS'
     }
 
     It 'fails fast outside the source tree, before building anything' {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { throw 'not the source tree' }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { throw 'not the source tree' }
 
         { Test-CatzcBuild } | Should -Throw '*not the source tree*'
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 0
     }
 
-    It 'resolves the selection with a dry run, then builds it with the full vendor policy into a fresh temp folder' {
+    It 'resolves the selection with a dry run, then builds it into a fresh temp folder' {
         Test-CatzcBuild -Module 'Catzc.Widget'
 
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            $DryRun -and $VendorPolicy -eq 'full' -and $Module -contains 'Catzc.Widget'
+            $DryRun -and $Module -contains 'Catzc.Widget'
         }
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            -not $DryRun -and $VendorPolicy -eq 'full' -and $Destination -like "$([System.IO.Path]::GetTempPath())*"
+            -not $DryRun -and $Destination -like "$([System.IO.Path]::GetTempPath())*"
         }
     }
 

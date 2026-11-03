@@ -22,11 +22,13 @@ The merged function file of a built module is `<Module>.functions.ps1`, never `<
 so `<Module>.ps1` would load a second module named `<Module>` under the manifest's, and `Get-Module`, `Mock -ModuleName` and `InModuleScope`
 would each see two modules of that name.
 
-## Vendor policy
+## The gate tooling
 
-`testToolVendorModules` names the vendored modules that serve only the quality checks, the two the importer loads lazily (Pester and
-PSScriptAnalyzer). The `runtime` vendor policy leaves them out; every other vendored module is a runtime dependency and always ships. The
-`full` policy also ships the analyzer rules and settings, because the build run executes the tests.
+The gates module decides the gate tooling. `testToolVendorModules` names the vendored modules that serve only the quality checks, the two
+the importer loads lazily (Pester and PSScriptAnalyzer). A build whose closure-expanded module selection holds `Catzc.Base.QualityGates`
+ships them, the analyzer rules and settings (`.scriptanalyzer/`, tests excluded) and the `exporter.yml` `gate_internal_files` (the TestKit
+and the analyzer settings file), because that build runs the gates. A build without the gates module ships none of them; every other
+vendored module is a runtime dependency and always ships.
 
 ## The functions
 
@@ -49,11 +51,13 @@ The engine writes no console output; its caller reports the result. It takes exp
 at least one of the two. The version is the resolved `MAJOR.MINOR.PATCH`: the engine never resolves `auto`. The build goes to
 `<Destination>/Catzc/<Version>/`, records the named bundle (an `exporter.yml` bundles key) in `build.json`, and takes the `Catzc.psd1`
 metadata (Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri). A dry run still runs every check, since all checks run
-before anything is written. It returns BuildRoot, Version, Modules, TypesHash, ContentHash (`$null` under a dry run), FileCount, Dirty and
-DryRun.
+before anything is written. It returns BuildRoot, Version, Modules, Languages, TypesHash, ContentHash (`$null` under a dry run), FileCount,
+Dirty and DryRun. Languages holds one row for each module of a language track whose language has a `package` handler in the registry
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)); a build calls each handler
+after the stale sweep and before the content hash, and records the results under `languages` in `build.json`.
 
 ```powershell
-Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -VendorPolicy runtime -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata
+Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata
 ```
 
 Two checks come before any write. The presence check
@@ -61,3 +65,12 @@ Two checks come before any write. The presence check
 runs against the plan, so a missing asset fails before any write. The types surface a bundle carries must be the committed contract: a build
 checks it and never writes it
 ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../../../drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)).
+
+## comment:1
+
+Above `$languageRecords = @(foreach ($row in $plan.Languages) {`, written with `#`.
+
+```text
+Each language module is handed to its language's package handler, after the stale sweep, so its packaged form lands under
+the code root at <place>/<Module> and the content hash below covers it.
+```

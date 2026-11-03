@@ -10,7 +10,7 @@ function Build-CommentView {
         [switch] $DryRun
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $config = Get-Config -Config comments
     $written = [System.Collections.Generic.List[string]]::new()

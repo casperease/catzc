@@ -8,7 +8,7 @@ function Install-VendorModule {
         [string] $RequiredVersion
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # Warn if the module is currently loaded — Save-PSResource may fail on locked files.
     $loaded = Get-Module $Name -ErrorAction Ignore

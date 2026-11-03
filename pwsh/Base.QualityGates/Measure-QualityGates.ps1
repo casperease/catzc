@@ -3,7 +3,7 @@ function Measure-QualityGates {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Position = 0)]
-        [string[]] $Name = @(Get-FileLanguage | ForEach-Object { $_.checks } | Select-Object -Unique),
+        [string[]] $Name = @(Get-QualityGateCheckSet),
 
         [switch] $AnalyzerRules,
 

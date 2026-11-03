@@ -1,6 +1,7 @@
 Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalRepositoryRoot = $env:RepositoryRoot
+        $script:originalModulesFolder = $env:CatzcModulesFolder
         $script:run = { & (Get-Module Catzc.Base.Config) { Get-ConfigOverlayRoot } }
         foreach ($consumer in 'widget-consumer', 'gadget-consumer') {
             [System.IO.Directory]::CreateDirectory((Join-Path $TestDrive $consumer)) | Out-Null
@@ -8,6 +9,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     }
     AfterAll {
         $env:RepositoryRoot = $script:originalRepositoryRoot
+        $env:CatzcModulesFolder = $script:originalModulesFolder
         & (Get-Module Catzc.Base.Config) { $script:configOverlayAnchors = $null }
     }
 
@@ -20,7 +22,13 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
     Context 'source mode reads this repository''s own config fragments only' -Tag 'PDR-CATS-FOLDERSUSECATZC' {
         BeforeEach {
             Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
-            Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { Join-Path $env:RepositoryRoot 'widgetry' }
+            $env:CatzcModulesFolder = 'widgetry'
+        }
+
+        It 'throws, naming the importer, when the modules folder variable is unset' {
+            $env:RepositoryRoot = Join-Path $TestDrive 'widget-consumer'
+            $env:CatzcModulesFolder = $null
+            { & $run } | Should -Throw '*importer*'
         }
 
         It 'returns .catzc and the modules folder''s name when that folder exists, and never the consumer overlay' {

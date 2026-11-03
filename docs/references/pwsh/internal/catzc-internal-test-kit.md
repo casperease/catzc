@@ -44,6 +44,11 @@ real assets of the loaded code in either run mode.
   handle `{ BuildRoot; WorkingRoot; Saved; Destination; Modules; Build }`. It throws when `Build-Modules` (`Catzc.Base.Exporter`) is not
   loaded. The build is never loaded in the test's own process: assemblies and environment variables are process-global, so only a child
   `pwsh` reaches it.
+- `New-ConsumerRoot` installs a bundle into a fresh temp working root with `Export-Catzc -Root` (`-Bundle`, `-Module`, `-ModuleProfile`) and
+  writes the given `-File` tree under it (a hashtable of relative path to content, so a test declares its `.catzc/` fragment, override
+  function and consumer-track module in a few lines). The handle `{ BuildRoot; WorkingRoot; Root; Importer; Saved; Destination; Install }`
+  carries the built-root keys, so `Invoke-InBuiltCatzc` and `Remove-BuiltCatzcRoot` take it as it is. A path outside the root is refused
+  before anything installs, and a failed install removes the root. One install per test file, never per case.
 - `Invoke-InBuiltCatzc` runs a script block in a child `pwsh` that has entered build mode through the handle's `Import-Catzc.ps1`, and
   returns the block's output. Results return in a CliXml file, never stdout, so importer console lines cannot corrupt them.
 - `Remove-BuiltCatzcRoot` restores the two root variables and deletes the build.
@@ -56,8 +61,21 @@ real assets of the loaded code in either run mode.
 - `Remove-FakeRepositoryRoot` — restore the root variables and delete the temp tree.
 - `Set-GitTrackedPathMock` — mock `Get-GitTrackedPath` for the calling block.
 - `New-BuiltCatzcRoot` — build selected modules into a temp folder for a build-mode test.
+- `New-ConsumerRoot` — install a bundle into a temp working root and write a given file tree under it.
 - `Invoke-InBuiltCatzc` — run a script block in a child `pwsh` that has entered build mode.
 - `Remove-BuiltCatzcRoot` — restore the root variables and delete the build.
+
+## help
+
+### synopsis
+
+New-ConsumerRoot installs a bundle into a temp working root and writes a given file tree under it.
+
+### description
+
+The consumer fixture of the build-mode tests: the root a team would hold after installing a bundle, with its `.catzc/` overlay and local
+files in place. `-File` maps repository-root-relative paths to content. The returned handle runs against `Invoke-InBuiltCatzc` and is
+disposed by `Remove-BuiltCatzcRoot`.
 
 ## Related
 

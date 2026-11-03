@@ -5,6 +5,10 @@ function New-GoWorkspace {
         [string] $Target = '*'
     )
 
+    # A root whose declared tracks hold no Go renders nothing and never reads the go config.
+    if (-not @((Get-Track).Where({ 'go' -in $_.languages })).Count) {
+        return
+    }
     $config = Get-Config -Config go
     # The go tool's tools.yml pin, read by address; a major.minor pin is a valid go directive.
     $goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"

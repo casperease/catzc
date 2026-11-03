@@ -7,6 +7,16 @@ Describe 'RootConfigFile' -Tag 'L0', 'logic' {
         $f.carrier | Should -BeNullOrEmpty
         $f.optIn | Should -BeFalse
         $f.committed | Should -BeFalse
+        $f.consumer | Should -BeFalse
+    }
+
+    It 'reads consumer as declared' {
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; source = 's'; consumer = $true }).consumer | Should -BeTrue
+    }
+
+    It 'reads optional as false by default and true as declared' {
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g' }).optional | Should -BeFalse
+        [Catzc.Base.RootConfig.RootConfigFile]::new(@{ target = 't'; generator = 'g'; optional = $true }).optional | Should -BeTrue
     }
 
     It 'constructs a generator entry' {

@@ -4,9 +4,9 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         $script:stubbedEngine = $false
         if (-not (Get-Command Invoke-ModuleBuild -ErrorAction Ignore)) {
             $null = New-Item -Path Function:\global:Invoke-ModuleBuild -Value {
-                param([string[]] $Module, [string] $ModuleProfile, [string] $Version, [string] $VendorPolicy,
+                param([string[]] $Module, [string] $ModuleProfile, [string] $Version,
                     [string] $Destination, [string] $Bundle, [hashtable] $PackageMetadata, [switch] $DryRun)
-                throw "stub, mocked in tests: $Module $ModuleProfile $Version $VendorPolicy $Destination $Bundle $($PackageMetadata.Count) $DryRun"
+                throw "stub, mocked in tests: $Module $ModuleProfile $Version $Destination $Bundle $($PackageMetadata.Count) $DryRun"
             }
             $script:stubbedEngine = $true
         }
@@ -24,7 +24,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
                     direct_install_version = '6.6.666'
                     bundles                = [ordered]@{
                         widgets = [ordered]@{ profile = 'widget-set'; version = '0.1' }
-                        gadgets = [ordered]@{ profile = 'gadget-set'; version = '2.3'; vendor_policy = 'full' }
+                        gadgets = [ordered]@{ profile = 'gadget-set'; version = '2.3' }
                     }
                     default_bundle         = 'widgets'
                     module_guid            = '211b36c7-f7eb-4f3c-93f5-9132b535fa56'
@@ -62,7 +62,6 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
     It 'does not measure an overridden build against the bundle''s limits (<Case>)' -ForEach @(
         @{ Case = 'explicit modules'; Overrides = @{ Module = 'Catzc.Base.Widget' } }
         @{ Case = 'another profile'; Overrides = @{ ModuleProfile = 'gadget-set' } }
-        @{ Case = 'another vendor policy'; Overrides = @{ VendorPolicy = 'full' } }
     ) {
         Build-Modules @Overrides | Out-Null
         Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 0
@@ -75,22 +74,22 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 0
     }
 
-    It 'builds the default bundle: its profile, its vendor policy, its own output folder, the resolved version' {
+    It 'builds the default bundle: its profile, its own output folder, the resolved version' {
         $result = Build-Modules
         Should -Invoke Import-InternalModule -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Name -eq 'Builder' }
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'widgets' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $ModuleProfile -eq 'widget-set' -and -not $Module -and $VendorPolicy -eq 'runtime' -and $Bundle -eq 'widgets' -and
+            $ModuleProfile -eq 'widget-set' -and -not $Module -and $Bundle -eq 'widgets' -and
             $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets') -and $Version -eq '6.6.666' -and -not $DryRun
         }
         $result.BuildRoot | Should -Be "$(Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets')/Catzc/6.6.666"
     }
 
-    It 'builds a named bundle from its own profile, vendor policy, version line and folder' {
+    It 'builds a named bundle from its own profile, version line and folder' {
         Build-Modules -Bundle gadgets | Out-Null
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Bundle -eq 'gadgets' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $ModuleProfile -eq 'gadget-set' -and $VendorPolicy -eq 'full' -and $Bundle -eq 'gadgets' -and
+            $ModuleProfile -eq 'gadget-set' -and $Bundle -eq 'gadgets' -and
             $Destination -eq (Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/gadgets')
         }
     }
@@ -125,11 +124,11 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'honours explicit vendor policy, destination and version' {
-        Build-Modules -VendorPolicy full -Destination 'Y:/elsewhere' -Version 1.2.3 | Out-Null
+    It 'honours explicit destination and version' {
+        Build-Modules -Destination 'Y:/elsewhere' -Version 1.2.3 | Out-Null
         Should -Invoke Resolve-CatzcBuildVersion -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Version -eq '1.2.3' }
         Should -Invoke Invoke-ModuleBuild -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
-            $VendorPolicy -eq 'full' -and $Destination -eq 'Y:/elsewhere'
+            $Destination -eq 'Y:/elsewhere'
         }
     }
 

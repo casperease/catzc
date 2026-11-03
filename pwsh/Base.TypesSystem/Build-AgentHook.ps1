@@ -12,7 +12,7 @@ function Build-AgentHook {
         [switch] $ListStale
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $hooks = Join-Path (Get-RepositoryRoot) '.claude/hooks'
 

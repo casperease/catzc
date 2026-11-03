@@ -2,6 +2,7 @@ Describe 'Get-OverlayRoot' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot
         $script:originalRepositoryRoot = $env:RepositoryRoot
+        $script:originalModulesFolder = $env:CatzcModulesFolder
         # A consumer working root with an overlay, and a built bundle elsewhere.
         $script:consumer = Join-Path $TestDrive 'widget-consumer'
         $script:overlay = Join-Path $consumer '.catzc/pwsh'
@@ -12,6 +13,18 @@ Describe 'Get-OverlayRoot' -Tag 'L0', 'logic' {
     AfterAll {
         $env:CatzcModulesRoot = $script:originalModulesRoot
         $env:RepositoryRoot = $script:originalRepositoryRoot
+        $env:CatzcModulesFolder = $script:originalModulesFolder
+    }
+    BeforeEach {
+        $env:CatzcModulesFolder = 'pwsh'
+    }
+
+    It 'throws, naming the importer, when the modules folder variable is unset in build mode' {
+        $env:RepositoryRoot = $consumer
+        $env:CatzcModulesRoot = $bundle
+        Mock Get-CatzcRunMode -ModuleName Catzc.Base.Repository -MockWith { 'build' }
+        $env:CatzcModulesFolder = $null
+        { Get-OverlayRoot } | Should -Throw '*importer*'
     }
 
     It 'is the working root''s .catzc/pwsh in build mode' {

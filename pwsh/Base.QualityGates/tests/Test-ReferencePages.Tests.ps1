@@ -1,6 +1,6 @@
 Describe 'Test-ReferencePages' -Tag 'L0', 'logic', 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
     BeforeEach {
-        Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comment-pages' } {
             [Catzc.Base.CodeMeta.CommentPagesConfig]::new([ordered]@{
                     pages    = @([ordered]@{ source = 'widgets/*'; docs = 'docs/references/widgets' })

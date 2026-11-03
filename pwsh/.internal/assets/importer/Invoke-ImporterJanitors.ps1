@@ -7,30 +7,35 @@ function Invoke-ImporterJanitors {
     #     Run the whitelisted deep clean (Reset-GitCleanFxd) first, so the janitors below rematerialise what it removed.
     # .PARAMETER ShowStateChanges
     #     Show the type-cache janitor's end-state report (the importer passes its -Verbose).
+    # .PARAMETER Consumer
+    #     A bundle import in a consumer root: every janitor is skipped except the at-import writers whose row is marked consumer.
     [CmdletBinding()]
     param(
         [switch] $CleanClone,
-        [switch] $ShowStateChanges
+        [switch] $ShowStateChanges,
+        [switch] $Consumer
     )
 
     # Opt-in deep clean (-CleanClone): the whitelisted git clean -fxd (Reset-GitCleanFxd) deletes only the
     # auto-controlled generated artifacts and keeps — reported — any untracked file that is not the
     # automation's to delete. Deliberately the FIRST janitor, so the regenerating janitors below
     # rematerialise what it removed in the same run. Guarded: absent in the bootstrap sandbox.
-    if ($CleanClone -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
+    if ($CleanClone -and -not $Consumer -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
         Reset-GitCleanFxd
     }
 
     # Before the re-renders, so a hand edit is reported before a render overwrites it.
-    Invoke-GeneratedFilesJanitor
+    if (-not $Consumer) {
+        Invoke-GeneratedFilesJanitor
 
-    # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
-    Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
+        # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
+        Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
+    }
 
     # A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it
     # considers are the at_import rows of the modules' generated.yml, in the render order their graph derives.
     $atImport = @(if (Get-Command Get-GeneratedWriterOrder -ErrorAction Ignore) {
-            Get-GeneratedWriterOrder | Where-Object { $_.at_import } | ForEach-Object { $_.name }
+            Get-GeneratedWriterOrder | Where-Object { $_.at_import -and (-not $Consumer -or $_.consumer) } | ForEach-Object { $_.name }
         })
     $due = Get-DueWriterRow -Name $atImport
     $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
@@ -68,6 +73,11 @@ function Invoke-ImporterJanitors {
                 & $saveStamp -Name $writer
             }
         }
+    }
+
+    # A consumer root runs the writers above only.
+    if ($Consumer) {
+        return
     }
 
     # Reconcile the session PATH to whatever tools are actually present — including tools installed outside the

@@ -7,7 +7,7 @@ function Test-TrackMemberCommitted {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # A member's declared committed fact must agree with the git index.
     $root = Get-RepositoryRoot

@@ -114,6 +114,17 @@ Describe 'Assert-CatzcRunModeExclusive' -Tag 'L0', 'logic' {
         $message | Should -BeLike '*Catzc.Gadget (C:/other/pwsh/Catzc.Gadget)*'
     }
 
+    It 'counts only catzc''s modules: a consumer module of another namespace loaded from outside the active root is no offender' -Tag 'ADR-AUTO-CONSUMER-SOURCEMODULES' {
+        $consumer = Import-FixtureModule -Folder (Join-Path $TestDrive "consumer/Widget.Stray$runId") -Name "Widget.Stray$runId"
+        try {
+            { InModuleScope Catzc.Internal.Importer -Parameters @{ R = (Get-CatzcModulesRoot) } { param($R) Assert-CatzcRunModeExclusive -ModulesRoot $R } } |
+                Should -Not -Throw
+        }
+        finally {
+            Remove-Module -ModuleInfo $consumer -Force
+        }
+    }
+
     It 'throws on a real catzc module loaded from outside the active root (no mock)' {
         $stray = Import-FixtureModule -Folder (Join-Path $TestDrive "stray/Catzc.Stray$runId") -Name "Catzc.Stray$runId"
         try {

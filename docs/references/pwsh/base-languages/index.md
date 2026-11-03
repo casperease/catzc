@@ -12,16 +12,20 @@ generator wrote a generated file.
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                               |
-| ---------------- | -------- | ------------------------------------------------------------------ |
-| responsibility:1 | run      | [Go test runs](#responsibility1--go-test-runs)                     |
-| responsibility:2 | render   | [Go test workspace](#responsibility2--go-test-workspace)           |
-| responsibility:3 | run      | [Python test runs](#responsibility3--python-test-runs)             |
-| responsibility:4 | render   | [Python test workspace](#responsibility4--python-test-workspace)   |
-| responsibility:5 | run      | [Bash test runs](#responsibility5--bash-test-runs)                 |
-| responsibility:6 | registry | [File-language registry](#responsibility6--file-language-registry) |
-| responsibility:7 | names    | [Names across languages](#responsibility7--names-across-languages) |
-| responsibility:8 | head     | [Generated-file heads](#responsibility8--generated-file-heads)     |
+| Responsibility    | Area     | Name                                                                          |
+| ----------------- | -------- | ----------------------------------------------------------------------------- |
+| responsibility:1  | run      | [Go test runs](#responsibility1--go-test-runs)                                |
+| responsibility:2  | render   | [Go test workspace](#responsibility2--go-test-workspace)                      |
+| responsibility:3  | run      | [Python test runs](#responsibility3--python-test-runs)                        |
+| responsibility:4  | render   | [Python test workspace](#responsibility4--python-test-workspace)              |
+| responsibility:5  | run      | [Bash test runs](#responsibility5--bash-test-runs)                            |
+| responsibility:6  | registry | [File-language registry](#responsibility6--file-language-registry)            |
+| responsibility:7  | names    | [Names across languages](#responsibility7--names-across-languages)            |
+| responsibility:8  | head     | [Generated-file heads](#responsibility8--generated-file-heads)                |
+| responsibility:9  | package  | [Bash module packaging](#responsibility9--bash-module-packaging)              |
+| responsibility:10 | package  | [JavaScript module packaging](#responsibility10--javascript-module-packaging) |
+| responsibility:11 | package  | [Go module packaging](#responsibility11--go-module-packaging)                 |
+| responsibility:12 | package  | [Python module packaging](#responsibility12--python-module-packaging)         |
 
 ### responsibility:1 — Go test runs
 
@@ -113,12 +117,52 @@ build configuration and platform, and the type sources that bind to a host, each
 
 One name, written in each language's idiom. A name in a language's own case converts to the repository's one normal form, the configured
 `naming_normal_form`, and back out into any language's case, so a module, a folder and a test folder are the same name in every language.
+The same form is applied to the tracks' names, where the check across the track declarations also finds a track or module type that names an
+undeclared type or vendor.
 
 ### responsibility:8 — Generated-file heads
 
 The stamp of a generated file, saying not to edit it, how it is rendered again and taken off, and what it comes from, in the one form every
 writer stamps, a writer outside PowerShell through the one command that exposes the renderer. Its keys, their order and the command
 templates are declared in `generated-head.yml`, and a png, an svg and an xml file each carry it in a carrier of their own.
+
+### responsibility:9 — Bash module packaging
+
+The packaged form of a Bash module, the handler `languages.yml` names as the Bash `package` command
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)). A Bash module ships as git
+stores it: every file git tracks, copied byte for byte into the destination with its relative layout, and never an untracked file. The files
+git holds as executable are listed, sorted, in `executables.json` beside them, which the installer restores the executable bit from on a
+POSIX host, and the copies carry the bit themselves when the build runs on one. The output is sorted and carries no timestamp, so a rebuild
+writes the same bytes ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+
+### responsibility:10 — JavaScript module packaging
+
+The packaged form of a JavaScript module, the handler `languages.yml` names as the JavaScript `package` command
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)). A module whose
+`package.json` declares an editor engine ships as one `.vsix` named `<publisher>.<name>-<version>.vsix`: a zip of the extension manifest,
+the content types and every tracked file of the module under `extension/`, built from the base class library with no packaging tool, no node
+and no feed. Entries are sorted and carry a fixed timestamp, so two exports are byte-identical
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). Any other JavaScript
+module ships as its tracked files in their relative layout.
+
+### responsibility:11 — Go module packaging
+
+The packaged form of a Go module, the handler `languages.yml` names as the Go `package` command
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)). A Go module ships as one
+binary per platform the bundle declares, built by the pinned toolchain with the build paths stripped, the symbols and the build id dropped
+and no cgo, so a rebuild writes the same bytes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)); `binaries.json` beside
+them lists each binary with its hash. The build reads no feed: a vendored module builds from its vendor folder, any other from the module
+cache with the proxy off.
+
+### responsibility:12 — Python module packaging
+
+The packaged form of a Python module, the handler `languages.yml` names as the Python `package` command
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)). A Python module ships as
+its tracked files plus, when it holds a tracked `uv.lock`, the wheels that lock pins, taken offline from the managed cache through the
+pinned uv and never from a feed; `wheels.json` beside them lists each wheel with its hash, sorted, so a rebuild writes the same bytes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A wheel the cache lacks
+stops the export and names the command that warms the cache.
 
 ## What the module does
 
@@ -144,23 +188,28 @@ helper over the execution engine model, so the Go and Python tests run under eit
 
 The module's public functions and configuration files, sorted into the responsibilities above.
 
-| Responsibility                            | Function                   |
-| ----------------------------------------- | -------------------------- |
-| responsibility:1 — Go test runs           | `Invoke-GoTest`            |
-| responsibility:2 — Go test workspace      | `New-GoWorkspace`          |
-| config                                    | `go.yml`                   |
-| responsibility:3 — Python test runs       | `Invoke-PythonTest`        |
-| responsibility:4 — Python test workspace  | `New-PythonProject`        |
-| config                                    | `python.yml`               |
-| responsibility:5 — Bash test runs         | `Invoke-BashTest`          |
-| config                                    | `bash.yml`                 |
-| responsibility:6 — File-language registry | `Get-FileLanguage`         |
-|                                           | `Get-PathFileType`         |
-| config                                    | `languages.yml`            |
-|                                           | `file-carriers.yml`        |
-|                                           | `bcl.yml`                  |
-| responsibility:7 — Names across languages | `ConvertTo-NormalName`     |
-|                                           | `ConvertFrom-NormalName`   |
-| responsibility:8 — Generated-file heads   | `Format-GeneratedFileHead` |
-|                                           | `Set-GeneratedFileHead`    |
-| config                                    | `generated-head.yml`       |
+| Responsibility                                  | Function                   |
+| ----------------------------------------------- | -------------------------- |
+| responsibility:1 — Go test runs                 | `Invoke-GoTest`            |
+| responsibility:2 — Go test workspace            | `New-GoWorkspace`          |
+| config                                          | `go.yml`                   |
+| responsibility:3 — Python test runs             | `Invoke-PythonTest`        |
+| responsibility:4 — Python test workspace        | `New-PythonProject`        |
+| config                                          | `python.yml`               |
+| responsibility:5 — Bash test runs               | `Invoke-BashTest`          |
+| config                                          | `bash.yml`                 |
+| responsibility:6 — File-language registry       | `Get-FileLanguage`         |
+|                                                 | `Get-PathFileType`         |
+| config                                          | `languages.yml`            |
+|                                                 | `file-carriers.yml`        |
+|                                                 | `bcl.yml`                  |
+| responsibility:7 — Names across languages       | `ConvertTo-NormalName`     |
+|                                                 | `ConvertFrom-NormalName`   |
+|                                                 | `Test-TrackDeclaration`    |
+| responsibility:8 — Generated-file heads         | `Format-GeneratedFileHead` |
+|                                                 | `Set-GeneratedFileHead`    |
+| config                                          | `generated-head.yml`       |
+| responsibility:9 — Bash module packaging        | `Export-BashModule`        |
+| responsibility:10 — JavaScript module packaging | `Export-JavaScriptModule`  |
+| responsibility:11 — Go module packaging         | `Export-GoModule`          |
+| responsibility:12 — Python module packaging     | `Export-PythonModule`      |

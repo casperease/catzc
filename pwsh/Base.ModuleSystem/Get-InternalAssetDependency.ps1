@@ -11,7 +11,7 @@ function Get-InternalAssetDependency {
         [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
     Assert-PathExist $ModulesRoot -PathType Container
     # The repository-relative labels name the modules folder by the root's own name, never a literal.
     $modulesFolder = [System.IO.Path]::GetFileName($ModulesRoot.TrimEnd('\', '/'))
@@ -78,6 +78,7 @@ function Get-InternalAssetDependency {
                 # Bind the arguments: named -ChildPath / -Module (space or colon form), else the first positional.
                 $childPathValue = $null
                 $moduleValue = $null
+                $isPlace = $false
                 $reasons = [System.Collections.Generic.List[string]]::new()
                 $positional = [System.Collections.Generic.List[object]]::new()
                 $elements = $call.CommandElements
@@ -91,7 +92,10 @@ function Get-InternalAssetDependency {
                             $i++
                             $value = $elements[$i]
                         }
-                        if ($parameter -and $parameter.Name -eq 'ChildPath') {
+                        if ($parameter -and $parameter.Name -eq 'Place') {
+                            $isPlace = $true
+                        }
+                        elseif ($parameter -and $parameter.Name -eq 'ChildPath') {
                             $childPathValue = $value
                         }
                         elseif ($parameter -and $parameter.Name -eq 'Module') {
@@ -105,6 +109,10 @@ function Get-InternalAssetDependency {
                         continue
                     }
                     $positional.Add($element)
+                }
+                # A -Place call resolves another module under the code root, not an asset of a module: nothing to inventory.
+                if ($isPlace) {
+                    continue
                 }
                 if (-not $childPathValue -and $positional.Count -gt 0) {
                     $childPathValue = $positional[0]

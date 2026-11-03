@@ -18,6 +18,19 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 . (Join-Path $PSScriptRoot 'assets/types/Register-TypesHold.ps1')
 . (Join-Path $PSScriptRoot 'assets/types/Test-TypesHeld.ps1')
 
+# The one place a types assembly is named: <Namespace>.Types.<hash>.dll; its holds and manifest take the same prefix.
+$script:typesDefaultNamespace = 'Catzc'
+
+function Get-TypesAssemblyPrefix {
+    [OutputType([string])]
+    param(
+        [ValidateNotNullOrEmpty()]
+        [string] $Namespace = $script:typesDefaultNamespace
+    )
+
+    "$Namespace.Types."
+}
+
 function Get-TypesStampPath {
     [OutputType([string])]
     param(
@@ -46,7 +59,11 @@ function Import-TypesAssembly {
         [TimeSpan] $PruneAfter = (Get-TypesPruneAfter),
 
         # False loads the file in place: a system that does not lock a loaded file needs no copy.
-        [bool] $ShadowCopy = $true
+        [bool] $ShadowCopy = $true,
+
+        # The namespace the assembly is named for: the holds and the prune work on this namespace's builds only.
+        [ValidateNotNullOrEmpty()]
+        [string] $Namespace = $script:typesDefaultNamespace
     )
 
     if (-not [System.IO.File]::Exists($Path)) {
@@ -62,8 +79,9 @@ function Import-TypesAssembly {
     # A build made in the shadow root is its own shadow copy.
     $shadow = [System.IO.Path]::Combine($ShadowRoot, [System.IO.Path]::GetFileName($Path))
     $name = [System.IO.Path]::GetFileNameWithoutExtension($shadow)
-    if ($name.StartsWith('Catzc.Types.')) {
-        Register-TypesHold -Hash $name.Substring('Catzc.Types.'.Length) -ShadowRoot $ShadowRoot | Out-Null
+    $prefix = Get-TypesAssemblyPrefix -Namespace $Namespace
+    if ($name.StartsWith($prefix)) {
+        Register-TypesHold -Hash $name.Substring($prefix.Length) -ShadowRoot $ShadowRoot -Namespace $Namespace | Out-Null
     }
     if (-not [System.IO.File]::Exists($shadow)) {
         $tmp = "$shadow.$PID.tmp"
@@ -94,11 +112,11 @@ function Import-TypesAssembly {
 
     # The prune leaves a build that a live process holds: one it loaded, or one it found on disk and is about to load (Register-TypesHold).
     $staleBefore = [DateTime]::UtcNow - $PruneAfter
-    foreach ($other in [System.IO.Directory]::EnumerateFiles($ShadowRoot, 'Catzc.Types.*.dll')) {
+    foreach ($other in [System.IO.Directory]::EnumerateFiles($ShadowRoot, "$prefix*.dll")) {
         if ($other -eq $shadow -or [System.IO.File]::GetLastWriteTimeUtc($other) -ge $staleBefore) {
             continue
         }
-        if (Test-TypesHeld -Hash ([System.IO.Path]::GetFileNameWithoutExtension($other).Substring('Catzc.Types.'.Length)) -ShadowRoot $ShadowRoot) {
+        if (Test-TypesHeld -Hash ([System.IO.Path]::GetFileNameWithoutExtension($other).Substring($prefix.Length)) -ShadowRoot $ShadowRoot -Namespace $Namespace) {
             Write-Verbose "Skipped a shadow copy a live process holds: $other"
             continue
         }
@@ -392,4 +410,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Sync-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypesAssemblyPrefix, Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Sync-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

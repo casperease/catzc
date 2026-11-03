@@ -16,7 +16,8 @@ each once. A rename counts as both of its paths (--no-renames), like a committed
 changes both. A deleted path is listed too; a caller that reads files skips what no longer exists.
 
 One read-only `git status --porcelain=v1 -z --untracked-files=all --no-renames` from the repository root (never $PWD); -z keeps every path
-literal (no quoting, any character). Runs through Invoke-Executable -Silent, so a git failure throws.
+literal (no quoting, any character). Runs through Invoke-Executable -Silent, so a git failure throws. A working root with no repository
+stops at [Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
 
 ### parameter `Path`
 

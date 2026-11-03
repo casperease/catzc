@@ -10,6 +10,8 @@ function Resolve-CatzcBuildVersion {
         [switch] $Silent
     )
 
+    Assert-CatzcSourceTree
+
     $config = Get-Config -Config exporter
     Assert-True ($config.bundles.ContainsKey($Bundle)) -ErrorText "Unknown bundle '$Bundle': exporter.yml declares $(@($config.bundles.Keys) -join ', ')."
     $placeholder = "$($config.direct_install_version)"

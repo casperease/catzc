@@ -27,7 +27,7 @@ which would false-match a citation-shaped string in a fixture or an assertion. T
 read; owned by the QualityGates module but reachable from anywhere —
 [ADR-CONF-LOADING-READINGISGLOBAL](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-readingisglobal) — so no
 module dependency on it is taken). A pure function of the files on disk, memoized for the session (re-run the importer to refresh). It reads
-the source tree's tests, so it runs in source mode only (Assert-SourceTree).
+the source tree's tests, so it runs in catzc's source tree only (Assert-CatzcSourceTree).
 
 Private helper for Show-Catzc; not exported.
 

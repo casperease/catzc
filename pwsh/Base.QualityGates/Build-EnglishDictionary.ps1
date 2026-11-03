@@ -8,7 +8,7 @@ function Build-EnglishDictionary {
     )
 
     # An authoring step: it writes the committed artifact into the SOURCE module, never into an installed build.
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     Assert-Command node
     Assert-Command npm

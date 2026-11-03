@@ -137,6 +137,12 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
         @(New-PythonProject -LineLength 140) | Should -HaveCount 0
     }
 
+    It 'renders nothing and reads no python config when no declared track holds Python' {
+        Mock Get-Track -ModuleName Catzc.Base.Languages { [pscustomobject]@{ name = 'widget'; languages = @('gadget') } }
+        @(New-PythonProject -LineLength 140) | Should -HaveCount 0
+        Should -Invoke Get-Config -ModuleName Catzc.Base.Languages -Times 0 -Exactly -ParameterFilter { $Config -eq 'python' }
+    }
+
     It 'throws when the python pin is not a 3.N minor version' {
         $script:pin = '3.13.1'
         { New-PythonProject -LineLength 140 } | Should -Throw "*'3.13.1' is not a Python minor version*"

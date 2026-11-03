@@ -157,13 +157,14 @@ domains:
       managed-guids: { external: ADR-AUTO-GUIDS }
       platform-bundle: { external: ADR-AUTO-BUNDLE, concern: [build, release], layer: importer }
       consumer-overlay: { external: ADR-AUTO-OVERLAY, concern: [build, release], layer: importer }
+      consumer-repository: { external: ADR-AUTO-CONSUMER, concern: [automation, build], layer: importer }
       internal-asset-dependencies: { external: ADR-AUTO-ASSETDEP, concern: [automation, build], layer: importer }
       console-output-matters: { external: ADR-AUTO-CONSOLE }
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
       idiomatic-names: { external: ADR-AUTO-IDIOM, concern: [quality-control], layer: language }
       dry-run: { external: ADR-AUTO-DRYRUN }
       file-limits: { external: ADR-AUTO-LIMIT, concern: [quality-control] }
-      go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
+      go-language: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control], layer: language }
       bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control], layer: language }
       test-artifact-languages: { external: ADR-AUTO-TESTLANG, concern: [quality-control], layer: language }

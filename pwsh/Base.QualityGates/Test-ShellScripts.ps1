@@ -2,7 +2,9 @@ function Test-ShellScripts {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
-        [string[]] $ShellCheckExclude = @("$(Get-CatzcModulesFolder)/*/assets/scripts/dotnet-install.sh"),
+        [string[]] $ShellCheckExclude = @(if ((Get-CatzcRunMode) -eq 'source') {
+                "$(Get-CatzcModulesFolder)/*/assets/scripts/dotnet-install.sh"
+            }),
 
         [string] $OutputFolder,
 
@@ -12,8 +14,9 @@ function Test-ShellScripts {
     Assert-SourceTree
 
     $repositoryRoot = Get-RepositoryRoot
+    $workingTracked = @(Get-GitTrackedPath '.')
     $scripts = [System.Collections.Generic.List[string]]::new()
-    foreach ($tracked in @(Get-GitTrackedPath '.')) {
+    foreach ($tracked in $workingTracked) {
         foreach ($extension in '.sh', '.bats', '.zsh') {
             if ($tracked.EndsWith($extension, [System.StringComparison]::Ordinal)) {
                 $scripts.Add($tracked)
@@ -29,7 +32,7 @@ function Test-ShellScripts {
 
     $executable = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.' -ExecutableOnly),
         [System.StringComparer]::Ordinal)
-    $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]]@(Get-GitTrackedPath '.'),
+    $tracked = [System.Collections.Generic.HashSet[string]]::new([string[]]$workingTracked,
         [System.StringComparer]::Ordinal)
     $issues = [System.Collections.Generic.List[string]]::new()
     foreach ($script in $scripts) {

@@ -28,8 +28,8 @@ another's. A build lands in `out/automation/built/<bundle>/Catzc/<version>/`.
 - **`profile`** — the module set (a `profiles.yml` key), closure-expanded by the build.
 - **`version`** — the numeric MAJOR.MINOR of a pipeline build of this bundle; its PATCH is the first-parent commit count of the built
   commit, so the same commit always gets the same version.
-- **`vendor_policy`** — `runtime` (the default) ships only the runtime-required vendored module (powershell-yaml); `full` also ships Pester
-  and PSScriptAnalyzer for a bundle that runs tests.
 - **`max_files`** and **`max_bytes`** — optional footprint limits: `Build-Modules` fails a build that holds more files or bytes. A bundle is
   an engine carried to other environments, so its size is checked, not hoped for. The shipped limits leave headroom over the current builds;
   raise one in a reviewed edit when a bundle legitimately grows.
+- **`platforms`** — optional `<os>/<arch>` list the bundle's packaged binaries are built for. A bundle that states none builds the default
+  set `windows/amd64`, `linux/amd64`, `darwin/arm64`, declared once on `ExporterBundle`, so the shipped file declares nothing.

@@ -99,7 +99,8 @@ reviewable, and what lets the layer stay thin without becoming lossy.
 `Owned as a product, over a swappable substrate`
 
 A product, not a one-off scaffold: its value compounds because the same CLI backs every developer box and every CD pipeline. Azure is the
-first covered vendor, not a hardwired assumption.
+first covered vendor, not a hardwired assumption. The product reaches an organisation as one distributable artifact, the bundle, which
+carries the modules of every language track it selects, so a team installs one thin platform and not one tool per language.
 
 ## Decision
 

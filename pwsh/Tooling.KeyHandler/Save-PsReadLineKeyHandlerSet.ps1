@@ -6,7 +6,7 @@ function Save-PsReadLineKeyHandlerSet {
 
     if (-not $Path) {
         # The capture is an authoring step: it writes the committed source config, never the loaded copy.
-        Assert-SourceTree
+        Assert-CatzcSourceTree
         $Path = [Catzc.Tooling.KeyHandler.KeyHandlerBindingsConfig]::SourcePath((Join-Path (Get-CatzcModulesRoot) (Get-Track -Name pwsh).FolderNameOf('Catzc.Tooling.KeyHandler')))
     }
 

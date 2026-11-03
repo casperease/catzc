@@ -6,9 +6,10 @@
 
 Code in a test-artifact language is either a module of that language's track, a folder under the language's root that exists by the layout
 (ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE), or a black-box test under the track's test holder,
-`<root>/tests/<module>/`. Such a module ships only what `files.yml` packages, and a test file never ships: the builder's input is the
-engine's track, so no bundle holds a file of a test-artifact language by construction. No function of the engine is written in a
-test-artifact language; a module of one is a tool of the repository that the engine runs as a process.
+`<root>/tests/<module>/`. Such a module ships only what `files.yml` packages, in the language's packaged form, and a test file never ships:
+a bundle holds the modules of every language track its profile selects ([platform-bundle](platform-bundle.md)), and never a black-box test
+of any language. No function of the engine is written in a test-artifact language; a module of one is a tool the engine runs as a process,
+from its packaged form.
 
 - [Outside the engine](#outside-the-engine)
 
@@ -55,18 +56,19 @@ the bridge skips with a `tool_<name>_missing` reason, and without an execution e
 The engine's own tests load its modules in-process and call functions directly. That suits the engine's logic and misses the question a user
 asks: does the engine, started as a process the way a user or a pipeline starts it, do what it says? A test in a second language cannot
 reach into the engine's session, so it can only ask that question. Go, Python and Bash each answer it from a different side, and JavaScript
-tests the editor extensions, the modules of its own track, under the same root and through the same bridge. The twins
-[go test artifacts](go/go-test-artifacts.md), [python test artifacts](python/python-test-artifacts.md),
-[bash test artifacts](bash/bash-test-artifacts.md) and [javascript track](javascript/javascript-track.md) hold each language's spellings,
-and this record holds the decision they share.
+tests the editor extensions, the modules of its own track, under the same root and through the same bridge. Go, Python and JavaScript are
+module languages, each holding modules of its own track beside its tests. The twins [go language](go/go-language.md),
+[python test artifacts](python/python-test-artifacts.md), [bash test artifacts](bash/bash-test-artifacts.md) and
+[javascript track](javascript/javascript-track.md) hold each language's spellings, and this record holds the decision they share.
 
 ### Outside the engine
 
 The risk of a second language is a second tech stack spreading through the repository: helpers beside the engine's functions, a second build
-in the bundle, a second set of committed module files to keep in step. A test-artifact language is a language track like any other
-([module-model](module-model.md#rule-adr-auto-module-everylanguagetrackalike)), and the engine stays one stack
-([tracks](../design/tracks.md#rule-ddr-track-onetechstack)); a test verifies the engine from outside, and nothing in the engine calls it.
-The builder reads the engine's track, so the layout is the guarantee that no test reaches a bundle ([platform-bundle](platform-bundle.md)).
+inside the engine's own build, a second set of committed module files to keep in step. A test-artifact language is a language track like any
+other ([module-model](module-model.md#rule-adr-auto-module-everylanguagetrackalike)), and the engine stays one stack
+([tracks](../design/tracks.md#rule-ddr-track-onetechstack)); a test verifies the engine from outside, and nothing in the engine calls it. A
+bundle carries the modules of every language track it selects, each in its packaged form, and the test holder is the guarantee that no test
+reaches it ([platform-bundle](platform-bundle.md)).
 
 ### One root
 
@@ -106,6 +108,6 @@ bridge. Each language's twin record spells its root, its start contract, its too
 
 - Adding a test-artifact language is a twin record, a config with a root, and a discovery for the bridge; the shared decision is not
   restated.
-- No bundle holds a test of any language, by construction.
+- A bundle holds the modules of every selected language track in their packaged forms, and no test of any language.
 - A test in any language proves the engine as a process, in both run modes.
 - Without its tool, a language's tests skip and the run says so.

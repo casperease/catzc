@@ -52,7 +52,7 @@ The entry's target: a repository-relative path, or a wildcard pattern over a mul
 
 - The managed Go toolchain, when found at the pin: the Go extension and gopls otherwise run whichever `go` comes first on PATH, and on
   Windows a machine-wide Go precedes the user-scope managed one
-  ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-managedtoolchain)).
+  ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](../../../../drs/automation/go/go-language.md#rule-adr-auto-go-managedtoolchain)).
 - The Python test workspace's one environment
   ([ADR-AUTO-PY-PYWORKSPACE](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-pyworkspace)), under the resolved
   Python root and in this platform's layout: the Python extension resolves the tests' imports and runs them in it. Pylance runs pyright in

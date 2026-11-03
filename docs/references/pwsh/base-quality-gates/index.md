@@ -32,7 +32,7 @@ when the console cannot reach its target or the target's `test-policy.yml` mode 
 tests, in the Go test module and the Python and Bash test folders named for it, count as that module's tests: one shared Pester bridge, the
 language bridge, runs them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and
 the tier definitions are the subject of [test-automation](../../../drs/automation/test-automation.md); the Go, Python and Bash tests are the
-subject of [go-test-artifacts](../../../drs/automation/go/go-test-artifacts.md),
+subject of [go-language](../../../drs/automation/go/go-language.md),
 [python-test-artifacts](../../../drs/automation/python/python-test-artifacts.md) and
 [bash-test-artifacts](../../../drs/automation/bash/bash-test-artifacts.md).
 
@@ -154,6 +154,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-NetworkCalls`           |
 |                                                 | `New-Plan`                    |
 |                                                 | `Get-DrsUsage`                |
+|                                                 | `Test-QualityGates`           |
 |                                                 | `Measure-QualityGates`        |
 | config                                          | `analyzer-drs-map.yml`        |
 |                                                 | `source-conventions.yml`      |

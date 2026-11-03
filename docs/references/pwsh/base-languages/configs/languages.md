@@ -50,6 +50,10 @@ YAML is two file languages: executable pipeline YAML is `.yaml`, configuration d
   ([ADR-AUTO-ACCOSTED](../../../../drs/automation/accosted-language.md)). Its compound extension wins over `.yml`.
 - **`tag`** — what a diagram prints on a glyph whose label is a snippet of the language: the tag, and the shapes that name a label as one (a
   command `Verb-Noun`, a `$variable`, a `-Flag`, a module name `Catzc.X.Y`). A label that matches no shape prints no tag.
+- **`package`** — how the language's modules ship in a bundle
+  ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)): `command` is the
+  `Verb-Noun` exporter of one module, checked by form only, since the command may not exist yet; `form` is the shipped form, one of
+  `binary`, `source`, `wheels` or `vsix`. A language without `package` ships no module of its own.
 
 ## How it is read
 

@@ -6,12 +6,28 @@ function Get-ModuleSourceFile {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
+    $isBuild = (Get-CatzcRunMode) -eq 'build'
     $files = [System.Collections.Generic.List[string]]::new()
     $testFolderName = (Get-Config -Config languages).FolderOf('test')
 
-    $modules = Get-ChildPath $modulesRoot -Directory -Depth 1 |
-        Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
+    # Build mode reads the working root's own modules tracks by layout.
+    $modules = if ($isBuild) {
+        $engineTrack = Get-Track -Name pwsh
+        foreach ($track in @(Get-Track).Where({ $_.type -ceq 'modules' -and $_.name -cne $engineTrack.name })) {
+            foreach ($place in $track.places) {
+                $placeDirectory = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $place))
+                if ([System.IO.Directory]::Exists($placeDirectory)) {
+                    Get-ChildPath $placeDirectory -Directory -Depth 1 |
+                        Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
+                }
+            }
+        }
+    }
+    else {
+        $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
+        Get-ChildPath $modulesRoot -Directory -Depth 1 |
+            Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
+    }
     foreach ($moduleDir in $modules) {
         foreach ($script in Get-ChildPath $moduleDir -File -Filter '*.ps1' -Depth 1) {
             if (-not [System.IO.Path]::GetFileName($script).EndsWith('.Tests.ps1',
@@ -34,6 +50,11 @@ function Get-ModuleSourceFile {
                 $files.Add($script)
             }
         }
+    }
+
+    # The analyzer rules, the internal modules and the importer belong to the engine's own tree.
+    if ($isBuild) {
+        return $files.ToArray()
     }
 
     # Dot folders are no modules, but their authored PowerShell meets the same bar.

@@ -4,7 +4,7 @@ function Get-RuleEnforcers {
     param()
 
     # The test citations are read from the source tree's *.Tests.ps1 files, which a built package does not ship.
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:ruleEnforcersCache')
     if ($null -ne $cached) {

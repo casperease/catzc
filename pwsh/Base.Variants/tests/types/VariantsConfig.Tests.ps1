@@ -1,6 +1,6 @@
 Describe 'VariantsConfig' -Tag 'L0' {
     BeforeAll {
-        # tracks is required, so a fixture about another key gets one neutral track.
+        # A fixture about another key gets one neutral track.
         $script:make = {
             param([System.Collections.IDictionary] $raw)
             $full = [ordered]@{}
@@ -47,11 +47,11 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $nulls.aspects.Keys | Should -Be $omitted.aspects.Keys
         }
 
-        It 'throws when tracks is omitted or null, naming the key and where to add it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } |
-                Should -Throw '*declares no tracks; add tracks: to variants.yml*'
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null }) } |
-                Should -Throw '*declares no tracks*'
+        It 'reads tracks omitted or null as an empty map' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            $omitted = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{})
+            $nulled = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = $null })
+            @($omitted.tracks).Count | Should -Be 0
+            @($nulled.tracks).Count | Should -Be 0
         }
 
         It 'lays a declared convention over the built-in one, a declared track replacing its built-in' {

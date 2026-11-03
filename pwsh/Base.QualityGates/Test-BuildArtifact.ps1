@@ -15,7 +15,7 @@ function Test-BuildArtifact {
         [switch] $PassThru
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     # @() around the whole if: a one-facet selection must stay an array.
     $selected = @(if ($Facet) {
@@ -44,11 +44,20 @@ function Test-BuildArtifact {
             $selection['ModuleProfile'] = $ModuleProfile
         }
 
+        # A build ships Pester and the TestKit exactly when its closure holds the gates module, which the probe's InModuleScope needs.
+        if ($selection.Count -gt 0) {
+            $gatesModule = $MyInvocation.MyCommand.Module.Name
+            $planned = @((Build-Modules @selection -DryRun -Silent).Modules)
+            if ($gatesModule -notin $planned) {
+                $selection = @{ Module = @($planned) + @($gatesModule) }
+            }
+        }
+
         $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-artifact-' + [guid]::NewGuid().ToString('N'))
         try {
             $build = $null
             try {
-                $build = Build-Modules @selection -VendorPolicy full -Destination $destination -Silent
+                $build = Build-Modules @selection -Destination $destination -Silent
             }
             catch {
                 # Build-Modules collects every violation (its merge preconditions, Assert-CatzcBundle) into one throw.

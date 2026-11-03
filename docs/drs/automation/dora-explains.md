@@ -464,11 +464,31 @@ decisions live in the records themselves; this file carries only their DORA rati
 - [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — a consumer adapts the platform through declared
   override points, never by editing or forking it.
 - [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a consuming team changes configs, functions, and
-  assets, and adds its own modules, without a change to the bundle.
+  assets, without a change to the bundle.
 - [Version control](../../references/dora/capabilities.md#version-control) — every change a consumer makes lives in its own repository as a
   reviewed diff.
 - [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the installed bundle is never edited, so a
   reinstall keeps its content hash and loses nothing.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Consumer repository
+
+`Consumer repository — a working root with a bundle installed is a catzc-shaped repository of its own`
+
+[ADR-AUTO-CONSUMER](consumer-repository.md)
+
+> DORA's research links platform engineering, loosely coupled teams and a shared pipeline to delivery performance: a team builds its own
+> software on a platform it does not own, and the platform's checks run on the team's code. A consumer repository carries its own tracks,
+> modules, configs, types and decision records, built with the mechanisms the platform's own repository uses, and runs the platform's gates
+> as its continuous integration, so the team ships on the platform without forking it.
+
+- [Platform engineering](../../references/dora/capabilities.md#platform-engineering) — the platform's tracks, module loader and gates are
+  the consumer's own tooling.
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — a consumer's namespace keeps its modules, configs
+  and types apart from the platform's.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — the consumer's CI is the platform's quality gates
+  then its tests.
+- [Version control](../../references/dora/capabilities.md#version-control) — the consumer's code and records live in its own repository.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## Internal asset dependencies
@@ -573,7 +593,7 @@ decisions live in the records themselves; this file carries only their DORA rati
 
 `Go test artifacts — black-box tests of the engine, never shipped`
 
-[ADR-AUTO-GO](go/go-test-artifacts.md)
+[ADR-AUTO-GO](go/go-language.md)
 
 > DORA research ties delivery performance to automated tests that run on every change and that developers trust. Black-box Go tests start
 > the engine as a process, the way a user or a pipeline starts it, and run in the same test run as every other test, in both run modes, so

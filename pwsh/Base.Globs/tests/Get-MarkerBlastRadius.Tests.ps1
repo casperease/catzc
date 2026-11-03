@@ -39,6 +39,11 @@ Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
         @(Get-MarkerBlastRadius -ChangedFile 'docs/readme.md') | Should -HaveCount 0
     }
 
+    It 'throws the work-tree assertion when the root has no repository' {
+        Mock Assert-GitWorkTree -ModuleName Catzc.Base.Globs { throw 'widget root has no git work tree' }
+        { Get-MarkerBlastRadius -ChangedFile 'docs/readme.md' } | Should -Throw '*widget root has no git work tree*'
+    }
+
     It 'derives the changed files from a git ref with -Ref' {
         Mock Invoke-Executable {
             [pscustomobject]@{ Output = "infrastructure/cfg/unit/a.yml`n"; ExitCode = 0 }

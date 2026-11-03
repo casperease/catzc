@@ -26,17 +26,26 @@ one.
 
 In build mode a consumer overlay may replace a module's asset: when `<overlay root>/<Module>/<ChildPath>` is a file under assets/, that path
 is returned instead of the bundled one ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). Only assets/ is looked up there —
-configs merge through Get-Config, and the registry and other module files are never replaced wholesale. A consumer's local module — an
-overlay folder that names no bundled module — resolves to its overlay folder.
+configs merge through Get-Config, and the registry and other module files are never replaced wholesale.
 
 ### parameter `ChildPath`
 
 A path below the module folder, '/'-separated (e.g. 'assets/gitkeep', 'configs/configs.yml'). Omit for the module folder itself.
 
+A module of another language track (a Go, Python, bash or JavaScript module) is a plain folder, not a loaded module, so a second parameter
+set resolves it by its track's place: `<repository root>/<Place>/<Module>` in source mode, and `<code root>/<Place>/<Module>` in build mode,
+where the builder ships the module at the same place under the code root. The caller passes the place, since Catzc.Base.Repository does not
+read the tracks. A missing folder throws, naming the module, the place and the root looked in.
+
 ### parameter `Module`
 
 The module whose folder to resolve. Defaults to the module of the calling function; required when called from outside a module (a script or
-the console).
+the console). With -Place it is the module's folder name under the place, and required.
+
+### parameter `Place`
+
+The track's place, '/'-separated, relative to the repository root in source mode and to the code root in build mode. Selects the language
+module set; required there.
 
 ### example 1
 
@@ -48,6 +57,12 @@ Get-CatzcModuleRoot 'assets/gitkeep'
 
 ```powershell
 Get-CatzcModuleRoot 'configs/configs.yml' -Module Catzc.Base.Config
+```
+
+### example 3
+
+```powershell
+Get-CatzcModuleRoot 'package.json' -Place widgets -Module Widget
 ```
 
 ## Why the folder comes from the loaded module

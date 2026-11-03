@@ -94,6 +94,29 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
             $SettingsPath -match 'PSScriptAnalyzerSettings\.psd1'
         }
     }
+
+    It 'analyzes with the working root''s own settings copy when it exists, the consumer''s to edit' -Tag 'ADR-AUTO-OVERLAY', 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        $workRoot = Join-Path $TestDrive 'consumer'
+        [void][System.IO.Directory]::CreateDirectory($workRoot)
+        $copy = Join-Path $workRoot ([System.IO.Path]::GetFileName([Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))))
+        Set-Content -Path $copy -Value '@{ }' -Encoding utf8
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $workRoot }
+        Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $SettingsPath -eq $copy
+        }
+    }
+
+    It 'falls back to the code root''s settings when the working root holds no copy' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
+        $emptyRoot = Join-Path $TestDrive 'empty'
+        [void][System.IO.Directory]::CreateDirectory($emptyRoot)
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $emptyRoot }
+        Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase | Out-Null
+        $expected = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
+        Should -Invoke Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            [System.IO.Path]::GetFullPath($SettingsPath) -eq [System.IO.Path]::GetFullPath($expected)
+        }
+    }
 }
 
 Describe 'Test-ScriptAnalyzer (real analyzer)' -Tag 'L2', 'integrity', 'greedy', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {

@@ -35,15 +35,19 @@ type-system reference (`docs/references/BCL/types-system.md`).
   copy from the per-user folder `Get-TypesShadowRoot` names, shared by every session and clone: a copy is named by its source hash, so equal
   names mean equal types. `Get-TypesPruneAfter` bounds pruning by age, so a copy another process just wrote but not yet loaded is not pruned
   under it. `-ShadowCopy $false` loads the file in place, for a system that does not lock a loaded file (`types-load.yml` `shadowCopy`).
-  `Get-TypesStampPath` names the memo per modules root, beside the shadow copies.
+  `Get-TypesStampPath` names the memo per modules root, beside the shadow copies. The load, its holds and its prune take a `-Namespace`
+  (default `Catzc`) and work only on the `<Namespace>.Types.<hash>.dll` builds of that namespace, the prefix named once by
+  `Get-TypesAssemblyPrefix`, which is exported so the bootstrap names catzc's and a consumer's assembly file through it too.
 - **Content check** — `Test-TypesAssemblyContent` reads the assembly into memory and parses it with `System.Reflection.Metadata`, so the
   assembly is never loaded into the process and the file is never locked. A missing expected type throws; a complete assembly returns
   nothing. `Get-TypesAssemblyManifest` reads the same metadata for each public type: its full name, its `PSTypeAlias` names and its
   `ConsoleDisplay` properties (its own, else the nearest base type's in the same assembly); `Write-TypesAssemblyManifest` writes that as
   `Catzc.Types.<hash>.json` beside the assembly, named by the same hash, unless it is already there.
 - **Build and drift** — `Build-CombinedTypeAssembly` compiles a frozen copy of the sources into the hash-named assembly without loading it,
-  so a save mid-compile cannot make the DLL name differ from its bytes. `Get-LoadedTypeDrift` compares the types loaded in the process with
-  a code root's sources: a loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
+  so a save mid-compile cannot make the DLL name differ from its bytes; it takes a namespace (default `Catzc`, naming the file through
+  `Get-TypesAssemblyPrefix`), a modules root or a type source list, the output folder and extra references, and refuses a source declaring a
+  `Catzc.` C# namespace when the namespace is not `Catzc`. `Get-LoadedTypeDrift` compares the types loaded in the process with a code root's
+  sources: a loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
 - **Contract** — `Write-TypesContract` writes the types surface (each public type's name, aliases, display and public members) to each
   module group's provided contract, `types.json`, only where the surface moved, each file stamped with the generated head in its json `"//"`
   property (built in place, since the head function is not loaded yet; the schema allows the property, and the drift check reads only

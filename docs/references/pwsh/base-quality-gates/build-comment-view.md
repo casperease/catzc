@@ -18,8 +18,8 @@ copy a reader or an agent opens to see a file with its comments inline. It is wr
 the file's own repository path, so `out/annotated/<path>` is the annotated `<path>`. Only files whose view differs from the file get one; a
 section whose code line is gone is left out (Test-Comments reports it).
 
-Idempotent: a view whose content is current is not rewritten (Write-FileIfChanged), so a second run is a fast no-op. A source-tree tool: it
-throws in build mode (Assert-SourceTree).
+Idempotent: a view whose content is current is not rewritten (Write-FileIfChanged), so a second run is a fast no-op. It runs in catzc's
+source tree only (Assert-CatzcSourceTree).
 
 ### parameter `Path`
 

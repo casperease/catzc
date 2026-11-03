@@ -26,6 +26,8 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 | 17  | L1   | [Get-CatzcModule on the repository][c17]                             |
 | 18  | L1   | [Get-ModuleOrder on the repository][c18]                             |
 | 19  | L1   | [Get-PrivateFunctionFolder][c19]                                     |
+| 20  | L2   | [Every declared bundle builds and loads][c20]                        |
+| 21  | L1   | [Import-Catzc publishes the modules folder][c21]                     |
 
 [c1]: #1-integrity-shipped-config--dependenciesconfig
 [c2]: #2-get-functiondependency
@@ -46,6 +48,8 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 [c17]: #17-get-catzcmodule-on-the-repository
 [c18]: #18-get-moduleorder-on-the-repository
 [c19]: #19-get-privatefunctionfolder
+[c20]: #20-every-declared-bundle-builds-and-loads
+[c21]: #21-import-catzc-publishes-the-modules-folder
 
 ## Checks
 
@@ -218,3 +222,17 @@ reads.
 - It reads the same private-function folder as `LanguagesConfig.FolderOf`.
 - It throws naming `languages.yml` when the modules root has none, and names the missing row when the powershell layout has no
   private-function role.
+
+### 20. Every declared bundle builds and loads
+
+**Test file:** `pwsh/Base.Exporter/tests/Build-Modules.Bundles.Tests.ps1` (L2), block `Every declared bundle builds and loads: <bundle>`.
+
+**Guards:** every bundle `exporter.yml` declares builds within its footprint limits, passes Assert-CatzcBundle, and loads in a fresh pwsh
+with every module it ships loaded and one public function of each callable or logged as skipped (ADR-AUTO-BUNDLE-GATETOOLINGFOLLOWSGATES).
+
+### 21. Import-Catzc publishes the modules folder
+
+**Test file:** `pwsh/.internal/tests/Import-Catzc.Tests.ps1` (L1), block `Import-Catzc publishes the modules folder`.
+
+**Guards:** after an import `$env:CatzcModulesFolder` equals the `pwsh` track's first member and the module-types folder place root, so the
+importer's one constant and the two declarations never drift (DDR-RUNMODE-MODEISDERIVED).

@@ -64,6 +64,19 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $result.Facts['Capabilities'] | Should -Be 1
     }
 
+    It 'reads the agent files from the folder the config declares and names them under it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        Write-AgentFixture 'widget-agents/widget.md' $script:widgetFile
+        Write-AgentFixture 'widget-agents/gadget.md' ($script:gadgetFile -replace 'model: haiku', 'model: inherit')
+        $script:fixture = [Catzc.Base.Docs.AgentsConfig]::new([ordered]@{
+                agents = @($script:widgetEntry, $script:gadgetEntry); contracts = @('ADR-WI'); folder = 'widget-agents'
+            })
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'widget-agents' } { Join-Path $TestDrive 'claude/widget-agents' }
+        $result = Test-AgentDefinitions -OutputFolder $out -PassThru
+        $result.Facts['Files'] | Should -Be 2
+        $result.Issues |
+            Should -Contain 'widget-agents/gadget.md: front matter must name a model (haiku, sonnet, opus or fable), never inherit'
+    }
+
     It 'reports a body over the roof, a key outside the robot set, and a key out of the fixed order' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
         $long = @('---', 'name: gadget', 'description: The gadget agent. Do NOT use it for widget work.', 'tools: Read',
             'model: haiku', '---') + @(1..21 | ForEach-Object { "$_. step" })

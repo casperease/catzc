@@ -28,7 +28,25 @@ function Test-Spelling {
 
     $groups = [System.Collections.Generic.List[string[]]]::new()
     $defaultScope = -not $PSBoundParameters.ContainsKey('Path')
-    if ($defaultScope) {
+    $trackedScope = $defaultScope -and (Get-CatzcRunMode) -eq 'build'
+    $nothingToSpell = $false
+    if ($trackedScope) {
+        # Build mode: the tracked list is the scope, so files the lister drops (code root, engine importer, root-config targets) stay unread.
+        $extensions = @(foreach ($glob in $Path) {
+                $glob -replace '^\*\*/\*', ''
+            })
+        $spellable = @(foreach ($file in (Get-GitTrackedPath '.')) {
+                if (@($extensions | Where-Object { $file.EndsWith($_, [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0) {
+                    $file
+                }
+            })
+        $nothingToSpell = $spellable.Count -eq 0
+        $batchSize = 50
+        for ($start = 0; $start -lt $spellable.Count; $start += $batchSize) {
+            $groups.Add([string[]] @($spellable[$start..([Math]::Min($start + $batchSize, $spellable.Count) - 1)]))
+        }
+    }
+    elseif ($defaultScope) {
         # One shard per extension glob, run side by side; a longer extension ending with a listed one (.accosted.yml) joins its shard.
         $extensions = @(foreach ($glob in $Path) {
                 $glob -replace '^\*\*/\*', ''
@@ -83,7 +101,10 @@ function Test-Spelling {
     $noSummary = $false
     $outputs = [System.Collections.Generic.List[string]]::new()
     # -Silent: capture cspell's output instead of streaming it to the console; the report prints the issues.
-    foreach ($result in @(Invoke-ExecutableParallel -Command $commands -NoAssert -Silent)) {
+    $results = @(if ($commands.Count -gt 0) {
+            Invoke-ExecutableParallel -Command $commands -NoAssert -Silent
+        })
+    foreach ($result in $results) {
 
         # cspell exit codes: 0 = clean, 1 = spelling issues found, >1 = tool error.
         if ($result.ExitCode -gt 1) {
@@ -113,7 +134,7 @@ function Test-Spelling {
         # An uncounted run proves nothing: the wording changed, or cspell stopped before its summary.
         $issues = @($issues) + "Test-Spelling could not count the files checked: cspell printed no 'Files checked' summary, so the run proves nothing."
     }
-    elseif ($checked -eq 0) {
+    elseif ($checked -eq 0 -and -not $nothingToSpell) {
         # A run that spelled nothing proves nothing: a folder or a glob that matched no file is a finding, never a pass.
         $issues = @($issues) + "Test-Spelling checked no file: the paths matched no files to spell: $($Path -join ', ')."
     }

@@ -17,5 +17,6 @@ writers:
   Build-DrsCodeDictionary:
     class: untracked
     at_import: true
+    consumer: true
     inputs: [docs/drs/**, pwsh/Base.Drs/**]
     outputs: [.cspell/drs-codes.txt]

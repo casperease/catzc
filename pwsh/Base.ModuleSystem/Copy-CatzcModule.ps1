@@ -26,7 +26,7 @@ function Copy-CatzcModule {
         [switch] $DryRun
     )
 
-    Assert-SourceTree
+    Assert-CatzcSourceTree
 
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 

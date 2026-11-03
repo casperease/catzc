@@ -38,3 +38,9 @@ The analyzer pass: `rules` (every rule but the spelling entry rule) or `spelling
 ## Where the inputs sit
 
 The rule files sit directly in `.scriptanalyzer`. The manifest sits one version folder into the vendored module.
+
+The rules, the vendored analyzer and the spelling oracle's own source and word list are read from the code root (Get-CatzcModulesRoot): the
+repository's modules folder in source mode, the bundle in build mode, where the bundle carries them whenever its selection holds the gates
+module ([ADR-AUTO-CONSUMER-CATZCGATES](../../../../drs/automation/consumer-repository.md)). The settings file is the caller's
+`SettingsPath`, and the generated term lists (`.cspell/*.txt`) sit under the `RepositoryRoot` argument, the working root, so a consumer's
+own terms and settings key its cache, never the bundle's.
