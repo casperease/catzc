@@ -153,9 +153,9 @@ function Invoke-TestAutomationWorkers {
     # One bicep build cache per run, so each template compiles once for all the files that build it (Build-Bicep).
     $WorkerEnvironment['CATZC_BICEP_BUILD_CACHE'] = Join-Path $RunDirectory 'bicep-build-cache'
 
-    # The prewarm counts in the run's time: it fills the caches the pool's files would otherwise fill side by side.
+    # The prewarm runs beside the pool's first files and counts in the run's time: a test that arrives before its cache entry builds it itself.
     $stopwatch.Start()
-    $null = Invoke-TestRunPrewarm -TestFile (@($ParallelFiles) + @($GreedyFiles) + @($SerialFiles)) -RunDirectory $RunDirectory `
+    $prewarm = Start-TestRunPrewarm -TestFile (@($ParallelFiles) + @($GreedyFiles) + @($SerialFiles)) -RunDirectory $RunDirectory `
         -WorkerEnvironment $WorkerEnvironment -TimeoutSeconds $TimeoutSeconds -EntryScript $shardArguments['EntryScript'] -EntryParameter $shardArguments['EntryParameter']
 
     # Announced before the pool blocks: each worker's imports would otherwise read as a hang.
@@ -188,7 +188,7 @@ function Invoke-TestAutomationWorkers {
         $allShards.AddRange([object[]] $pooled)
         $poolEndMs = $stopwatch.ElapsedMilliseconds
     }
-
+    $null = Invoke-TestRunPrewarm -Prewarm $prewarm
     # The serial phase runs last and alone: its files mutate shared state.
     if ($serialShard) {
         Write-Message "Serial phase: $($SerialFiles.Count) serial-tagged file(s) in one worker..." -NoHeader

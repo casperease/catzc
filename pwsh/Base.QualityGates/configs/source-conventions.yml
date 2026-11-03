@@ -66,6 +66,8 @@ test_file_name:
       it tests the track-lamps feature end to end across several functions, which is no one function
     pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1:
       it tests a consumer repository end to end through an installed bundle, across many functions, which is no one function
+    pwsh/Base.Overlay/tests/Consumer.NoRepository.L2.Tests.ps1:
+      it tests a consumer root with no repository end to end through an installed bundle, across many functions, which is no one function
     pwsh/Azure.Templates/tests/Alerts.Tests.ps1: it tests the alert templates under infrastructure/, which are no function
     pwsh/Azure.Templates/tests/Discovery.Budget.Tests.ps1: it tests the discovery template's budget, which is no function
     pwsh/Azure.Templates/tests/Discovery.FlowLog.Tests.ps1: it tests the discovery template's flow log, which is no function

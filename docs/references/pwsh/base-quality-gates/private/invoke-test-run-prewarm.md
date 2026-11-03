@@ -1,43 +1,23 @@
 # pwsh/Base.QualityGates/private/Invoke-TestRunPrewarm.ps1
 
-Runs the `*.Prewarm.ps1` scripts of the tests folders a run selects, once, before the worker pool starts.
+Waits for the prewarm that Start-TestRunPrewarm started beside the worker pool's first files, and reports it.
 
 ## help
 
 ### synopsis
 
-Runs the prewarm scripts of the selected tests folders and returns the seconds they took.
+Waits for the started prewarm, reports each prewarm that failed, and returns the seconds it took.
 
 ### description
 
-Each tests folder that holds a selected test file may bring `*.Prewarm.ps1` scripts that build what its tests would otherwise each build.
-They run once, in parallel, as worker scripts that load the engine through Get-TestRunEntryLine, before the pool starts. A run that blocks
-every real process runs no test a prewarm could feed, so it prewarms nothing. A prewarm that exits non-zero only costs speed: its exit code
-and error text are said and the run goes on.
+The prewarm scripts run beside the pool's first files, not before them: a test that arrives before its cache entry is published builds the
+template itself. This is the waiting half. It waits for the runner of the handle Start-TestRunPrewarm returned, so the prewarm's seconds
+count in the run's time. A prewarm that exits non-zero only costs speed: its exit code and error text are said and the run goes on. A
+`$null` handle, from a run with no prewarm script or one that blocks every real process, waits for nothing.
 
-### parameter `TestFile`
+### parameter `Prewarm`
 
-The test files the run selects; their folders are searched for prewarm scripts.
-
-### parameter `RunDirectory`
-
-The run's folder, where the generated prewarm scripts are written.
-
-### parameter `WorkerEnvironment`
-
-The environment the worker processes start with.
-
-### parameter `TimeoutSeconds`
-
-The roof for the prewarm processes.
-
-### parameter `EntryScript`
-
-The engine entry of a build run; empty for the source run.
-
-### parameter `EntryParameter`
-
-The parameters handed to the entry script.
+The handle Start-TestRunPrewarm returned: the runner, the prewarm script paths and the started stopwatch; `$null` when nothing was started.
 
 ### outputs
 
@@ -46,5 +26,6 @@ The parameters handed to the entry script.
 ### example 1
 
 ```powershell
-$prewarmSeconds = Invoke-TestRunPrewarm -TestFile $files -RunDirectory $runDirectory -WorkerEnvironment $environment -TimeoutSeconds 600
+$prewarm = Start-TestRunPrewarm -TestFile $files -RunDirectory $runDirectory -WorkerEnvironment $environment -TimeoutSeconds 600
+$prewarmSeconds = Invoke-TestRunPrewarm -Prewarm $prewarm
 ```

@@ -139,6 +139,9 @@ The run announces itself before the pool blocks. Each worker pays its own import
 silence would read as a hang
 ([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 
+The prewarm scripts start before the pool and run beside its first files; the run waits for them after the pool and before the serial phase,
+so their seconds count in the run's time and the serial phase runs alone.
+
 ## Aggregation
 
 The rows sidecars are aggregated in shard order. A worker that exited outside 0 and 1, or never wrote its artifacts (the rows sidecar and
