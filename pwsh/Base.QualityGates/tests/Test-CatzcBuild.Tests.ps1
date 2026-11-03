@@ -71,6 +71,7 @@ Describe 'Test-CatzcBuild' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS'
             $OptOutTag -contains 'source-only' -and
             $EntryScript -like '*Catzc*6.6.666*Import-Catzc.ps1' -and
             $EntryParameter['RepositoryRoot'] -eq (Get-RepositoryRoot) -and
+            $EntryParameter['SkipJanitors'] -eq $true -and
             $MinLevel -eq 1 -and $MaxLevel -eq 1 -and $Category -eq 'Logic'
         }
     }

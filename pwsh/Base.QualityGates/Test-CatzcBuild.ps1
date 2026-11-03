@@ -66,7 +66,7 @@ function Test-CatzcBuild {
         $summary = Invoke-TestRun -EntryPoint 'Test-CatzcBuild' -Title 'Catzc Build Run' `
             -MinLevel $MinLevel -MaxLevel $MaxLevel -Modules $testedModules -Category $Category -Workers $Workers `
             -Output $Output -PassThru:$PassThru -OptOutTag 'source-only' -TimeoutSeconds (Get-TimeoutSeconds -Command 'Test-CatzcBuild') `
-            -EntryScript $entryScript -EntryParameter @{ RepositoryRoot = (Get-RepositoryRoot) }
+            -EntryScript $entryScript -EntryParameter @{ RepositoryRoot = (Get-RepositoryRoot); SkipJanitors = $true }
 
         if ($PassThru) {
             $summary | Add-Member -NotePropertyName Build -NotePropertyValue $build -PassThru
