@@ -90,6 +90,7 @@ The module's public surface, indexed by responsibility.
 | responsibility:2 — Membership and durable identity    | `Get-TrackedFile`                |
 |                                                       | `Get-GlobSetFile`                |
 |                                                       | `Get-GlobSetHash`                |
+|                                                       | `Get-FileDigest`                 |
 |                                                       | `Get-FileKind`                   |
 | config                                                | `file-kinds.yml`                 |
 | responsibility:3 — Native triggers and git reflection | `Get-GlobSetTrigger`             |

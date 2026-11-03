@@ -42,7 +42,7 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
             [pscustomobject]@{
                 BuildRoot = "$Destination/Catzc/$Version"; Version = $Version; Modules = @('Catzc.Base.Widget',
                     'Catzc.Base.Gadget')
-                TypesHash = 'abc12345'; ContentHash = ('0' * 64); FileCount = 12; DryRun = [bool] $DryRun
+                TypesHash = 'abc12345'; ContentHash = ('0' * 64); FileCount = 12; DryRun = [bool] $DryRun; Reused = $false
             }
         } -ModuleName Catzc.Base.Exporter
         Mock Assert-CatzcBundle { } -ModuleName Catzc.Base.Exporter
@@ -137,6 +137,20 @@ Describe 'Build-Modules' -Tag 'L0', 'logic' {
         Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter {
             $Path -eq "$(Join-Path (Join-Path $TestDrive 'out') 'pwsh/built/widgets')/Catzc/6.6.666"
         }
+    }
+
+    It 'does not assert a reused build in full, and says it reused it' {
+        Mock Invoke-ModuleBuild {
+            [pscustomobject]@{
+                BuildRoot = "$Destination/Catzc/$Version"; Version = $Version; Modules = @('Catzc.Base.Widget')
+                TypesHash = 'abc12345'; ContentHash = ('0' * 64); FileCount = 12; DryRun = $false; Reused = $true
+            }
+        } -ModuleName Catzc.Base.Exporter
+        $result = Build-Modules
+        $result.Reused | Should -BeTrue
+        Should -Invoke Assert-CatzcBundle -ModuleName Catzc.Base.Exporter -Times 0
+        Should -Invoke Assert-BundleFootprint -ModuleName Catzc.Base.Exporter -Times 1
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Exporter -Times 1 -ParameterFilter { $Message -like 'Reused Catzc widgets 6.6.666*' }
     }
 
     It 'fails when the self-check fails' {

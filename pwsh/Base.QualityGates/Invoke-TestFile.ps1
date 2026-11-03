@@ -48,7 +48,7 @@ function Invoke-TestFile {
     New-Item -ItemType Directory -Path $runDirectory -Force | Out-Null
 
     # In place, or in a snapshot when another run holds the working folder.
-    $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+    $location = Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -RunDirectory $runDirectory -TestPath $resolved -Isolated:$Isolated -KeepSandbox:$KeepSandbox
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
     $workerRun = $null

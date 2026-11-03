@@ -211,14 +211,13 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
             }
         }
 
-        # The consumer syncs its python workspace once, as catzc does, so the python quality gates and the python test run read its environment offline.
-        $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { Install-PythonWorkspace }
-
-        # It installs the JavaScript type packages once from the configured registry, so the rendered jsconfig.json's type root is filled and the JavaScript types quality gate reads it offline.
-        $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { Install-TypeScript }
-
         # One fresh session through the root's importer answers every case below.
         $script:session = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+            # The consumer syncs its python workspace once, as catzc does, so the python quality gates and the python test run read its environment offline.
+            $null = Install-PythonWorkspace
+            # It installs the JavaScript type packages once from the configured registry, so the rendered jsconfig.json's type root is filled and the JavaScript types quality gate reads it offline.
+            $null = Install-TypeScript
+
             [pscustomobject]@{
                 RunMode        = Get-CatzcRunMode
                 PruneVendor    = (Get-Config -Config folder-walk).prune_vendor_in_searches
@@ -254,12 +253,24 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
                     $indexRows = Get-DrsIndex
                     @($indexRows | ForEach-Object Code)
                 )
-                BareFromHere   = try {
-                    Get-Config gadget
-                }
-                catch {
-                    $_.Exception.Message
-                }
+                BareFromHere   = $(
+                    try {
+                        Get-Config gadget
+                    }
+                    catch {
+                        $_.Exception.Message
+                    }
+                )
+                OwnRun         = $(
+                    $result = Test-Automation -Output Minimal -PassThru
+                    [pscustomobject]@{
+                        Passed     = $result.PassedCount
+                        Failed     = $result.FailedCount
+                        FailedRows = @($result.Rows | Where-Object { $_.Result -eq 'Failed' } | ForEach-Object { ConvertTo-Json -InputObject $_ -Compress -Depth 2 })
+                        Files      = @($result.Rows | ForEach-Object { "$($_.File)" })
+                        CodeRoot   = Get-CatzcModulesRoot
+                    }
+                )
             }
         }
     }
@@ -322,16 +333,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'runs the consumer''s own tests, the widget test and the four language tests, through the bundle''s handlers and none of catzc''s' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES', 'ADR-AUTO-CONSUMER-OWNTRACKS' {
-        $run = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
-            $result = Test-Automation -Output Minimal -PassThru
-            [pscustomobject]@{
-                Passed     = $result.PassedCount
-                Failed     = $result.FailedCount
-                FailedRows = @($result.Rows | Where-Object { $_.Result -eq 'Failed' } | ForEach-Object { ConvertTo-Json -InputObject $_ -Compress -Depth 2 })
-                Files      = @($result.Rows | ForEach-Object { "$($_.File)" })
-                CodeRoot   = Get-CatzcModulesRoot
-            }
-        }
+        $run = $script:session.OwnRun
         $run.Failed | Should -Be 0 -Because "every failed row is named: $($run.FailedRows -join ' | ')"
         $run.Passed | Should -BeGreaterOrEqual 5
         $codeRoot = $run.CodeRoot.Replace('\', '/')
@@ -406,30 +408,29 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'renders the npm registry and the uv index from the consumer''s own package sources' -Tag 'ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE', 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
-        $configs = Join-Path $script:handle.WorkingRoot '.catzc/configs'
-        $javascript = Join-Path $configs 'javascript.yml'
-        $python = Join-Path $configs 'python.yml'
-        $pythonPins = [System.IO.File]::ReadAllText($python)
-        # A working-root config is read whole, so the python override keeps the fixture's pins beside the widget package source.
-        [System.IO.File]::WriteAllText($javascript, "package_source: { name: widget, url: 'https://feeds.widget.example/npm/' }`n")
-        [System.IO.File]::WriteAllText($python, $pythonPins + "package_source: { name: widget, url: 'https://feeds.widget.example/pypi/simple/' }`n")
-        try {
-            $rendered = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+        # One child does the render and the restore, so the case pays one import.
+        $rendered = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+            $root = Get-RepositoryRoot
+            $javascript = Join-Path $root '.catzc/configs/javascript.yml'
+            $python = Join-Path $root '.catzc/configs/python.yml'
+            $pythonPins = [System.IO.File]::ReadAllText($python)
+            try {
+                # A working-root config is read whole, so the python override keeps the fixture's pins beside the widget package source.
+                [System.IO.File]::WriteAllText($javascript, "package_source: { name: widget, url: 'https://feeds.widget.example/npm/' }`n")
+                [System.IO.File]::WriteAllText($python, $pythonPins + "package_source: { name: widget, url: 'https://feeds.widget.example/pypi/simple/' }`n")
                 $null = Build-RootConfig -Path .npmrc
                 $null = Build-RootConfig -Path python/pyproject.toml
                 [pscustomobject]@{
-                    Npmrc     = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) '.npmrc'))
-                    Pyproject = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'python/pyproject.toml'))
+                    Npmrc     = [System.IO.File]::ReadAllText((Join-Path $root '.npmrc'))
+                    Pyproject = [System.IO.File]::ReadAllText((Join-Path $root 'python/pyproject.toml'))
                 }
             }
-        }
-        finally {
-            # The later cases read the public sources again: the python file returns to its pins, the javascript file is removed, and both render anew.
-            [System.IO.File]::WriteAllText($python, $pythonPins)
-            [System.IO.File]::Delete($javascript)
-            $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
-                Build-RootConfig -Path .npmrc
-                Build-RootConfig -Path python/pyproject.toml
+            finally {
+                # The later cases read the public sources again: the python file returns to its pins, the javascript file is removed, and both render anew.
+                [System.IO.File]::WriteAllText($python, $pythonPins)
+                [System.IO.File]::Delete($javascript)
+                $null = Build-RootConfig -Path .npmrc
+                $null = Build-RootConfig -Path python/pyproject.toml
             }
         }
         $rendered.Npmrc | Should -BeLike '*registry=https://feeds.widget.example/npm/*'

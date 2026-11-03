@@ -1,14 +1,17 @@
 // The glob half of the lamp language: path tests for globs, filter sets and written exclude entries (see extension.js for the whole).
 // On Windows paths compare without case, as the file system does.
 
-const path = require("path");
-
 /** @typedef {{ include?: string[], exclude?: string[] }} FilterSet one set of a lamp: what it includes, less what it excludes */
 /** @typedef {(place: string, parts?: string[]) => boolean} Matcher a path test, given the path and, when the caller has them, its segments */
 
 const FOLD = process.platform === "win32";
 const key = (/** @type {string} */ text) => (FOLD ? text.toLowerCase() : text);
 const isGlob = (/** @type {string} */ entry) => /[*?]/.test(entry);
+// A '/'-separated relative path's folder ('.' for none), what path.posix.dirname answers for these, without its normalising.
+const dirOf = (/** @type {string} */ place) => {
+    const at = place.lastIndexOf("/");
+    return at < 0 ? "." : place.slice(0, at);
+};
 
 // A path test for a glob, read the way the repository's GlobPattern reads one: '/'-separated segments, '**' a whole segment standing for
 // any depth, '*' and '?' inside one segment only. The glob's literal leading segments reject a path before any wildcard is tried, and a
@@ -107,15 +110,15 @@ function entryClaimer(entries) {
         const known = folders.get(at);
         if (known !== undefined) return known;
         const parts = at.split("/");
-        const claimed = places.has(key(at)) || matchers.some((matches) => matches(at, parts)) || claims(path.posix.dirname(at));
+        const claimed = places.has(key(at)) || matchers.some((matches) => matches(at, parts)) || claims(dirOf(at));
         folders.set(at, claimed);
         return claimed;
     };
     return (place) => {
         if (place === ".") return false;
         const parts = place.split("/");
-        return places.has(key(place)) || matchers.some((matches) => matches(place, parts)) || claims(path.posix.dirname(place));
+        return places.has(key(place)) || matchers.some((matches) => matches(place, parts)) || claims(dirOf(place));
     };
 }
 
-module.exports = { FOLD, key, isGlob, globMatcher, claimer, entryClaimer };
+module.exports = { FOLD, key, isGlob, dirOf, globMatcher, claimer, entryClaimer };

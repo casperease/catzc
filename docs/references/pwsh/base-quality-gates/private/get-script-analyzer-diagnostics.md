@@ -43,7 +43,9 @@ The PSScriptAnalyzer diagnostic records of both passes (empty when there are no 
 
 A file the analyzer last found clean, whose bytes and analyzer inputs (Get-ScriptAnalyzerInputs) are unchanged since, is not analyzed again.
 It has no diagnostics by construction, and only files with no diagnostics are ever recorded
-([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)).
+([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). The cache is saved as
+each shard ends (Invoke-ScriptAnalyzerShards `-OnShardComplete`), not once after the last, so a run killed at its roof keeps the files the
+finished shards found clean and the next run starts warm; one rule edit cools the whole cache, and a cold full pass takes minutes.
 
 ## Two passes
 

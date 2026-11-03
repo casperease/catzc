@@ -29,10 +29,12 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
                     @($script:ruleInput)
                 }
             }
+            # The seam reports each shard as it ends, as the real one does; here one shard per pass, every file clean.
             Mock Invoke-ScriptAnalyzerShards -ModuleName Catzc.Base.QualityGates {
                 $ret = @{}
                 foreach ($entry in $Batch) {
                     $script:passesRun.Add($entry.Label)
+                    & $OnShardComplete -Label $entry.Label -File $entry.Files -Diagnostic @()
                     $ret[$entry.Label] = @()
                 }
                 $ret
@@ -59,6 +61,17 @@ Describe 'Get-ScriptAnalyzerDiagnostics' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($script:dictionary, "widget`ngadget`n")
             $null = & $script:analyze
             @($script:passesRun) | Should -Be @('spelling')
+        }
+
+        It 'keeps the files a finished shard found clean when a later shard fails, so a run killed at its roof still warms the cache' -Tag 'ADR-AUTO-CACHE-CROSSSESSIONFILES' {
+            Mock Invoke-ScriptAnalyzerShards -ModuleName Catzc.Base.QualityGates {
+                & $OnShardComplete -Label $Batch[0].Label -File $Batch[0].Files -Diagnostic @()
+                throw 'shard killed'
+            }
+            { & $script:analyze } | Should -Throw '*shard killed*'
+            $cache = Get-Content -LiteralPath (Join-Path $script:root 'out/cache/script-analyzer.json') -Raw | ConvertFrom-Json -AsHashtable
+            @($cache.Keys) | Should -Be @('Get-Widget.ps1')
+            Test-Path -LiteralPath (Join-Path $script:root 'out/cache/script-analyzer-spelling.json') | Should -BeFalse
         }
 
         It 're-runs both passes when an input they share changes' {

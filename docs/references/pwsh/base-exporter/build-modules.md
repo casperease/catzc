@@ -29,10 +29,13 @@ package       exporter.yml module_guid + package.* -> the engine's PackageMetada
 ```
 
 -DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's result (BuildRoot, Version,
-Modules, Languages, TypesHash, ContentHash, FileCount, Dirty, DryRun). Languages holds one row for each module of another language track
-that the selection holds (a profile with an empty seed holds them all), with the track's package handler, its form and the destination
-`<place>/<Module>` under the code root; a build calls each handler and records its result under `languages` in build.json, and a dry run
-only lists the rows.
+Modules, Languages, TypesHash, ContentHash, FileCount, Dirty, DryRun, Reused). The build store is keyed by source stamp,
+`<Get-OutputRoot>/pwsh/built/<bundle>/<first 12 hex of the stamp>/Catzc/<version>`, and a stamp folder is complete or absent. When it holds
+a build of the same selection whose source stamp equals the current tree's, the engine returns a destination that already holds that build
+untouched, or else copies the build to the destination through a staging sibling and a swap instead of building (Reused is true), and only a
+fresh build is checked with Assert-CatzcBundle. Languages holds one row for each module of another language track that the selection holds
+(a profile with an empty seed holds them all), with the track's package handler, its form and the destination `<place>/<Module>` under the
+code root; a build calls each handler and records its result under `languages` in build.json, and a dry run only lists the rows.
 
 The engine ships a file only when its path, case included, is one git lists (Test-BuildSourceShippable over `git ls-files`), so a case-only
 rename on disk that git does not track drops the renamed module's files from that check, and the build ships none of them.

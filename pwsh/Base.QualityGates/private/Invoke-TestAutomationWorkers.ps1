@@ -53,6 +53,8 @@ function Invoke-TestAutomationWorkers {
     $shardFileCounts = @{}
     $greedyShardFile = @{}
     $serialPhaseOffsetMs = 0
+    $phaseSeconds = [ordered]@{}
+    $phaseWatch = [System.Diagnostics.Stopwatch]::StartNew()
 
     # Measured per-file durations deal the shards longest first, so they finish together.
     $repositoryRoot = Get-RepositoryRoot
@@ -60,6 +62,8 @@ function Invoke-TestAutomationWorkers {
     $history = Get-TestDurationHistory -Path $historyPath
     $policy = Get-Config -Config test-policy
     $GreedyFiles = @(Select-GreedyFileOrder -File $GreedyFiles -DurationMs $history -RepositoryRoot $repositoryRoot -Policy $policy)
+    $phaseSeconds['history and greedy order'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
 
     # The test files and the entry script, as seen from the root the run executes in (a no-op in place).
     $sourceParallelFiles = @($ParallelFiles)
@@ -94,6 +98,9 @@ function Invoke-TestAutomationWorkers {
             $shardFiles[$shardIndex].Add((Convert-TestRunLocationPath -Location $Location -Path $sourceFile))
         }
     }
+
+    $phaseSeconds['schedule'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
 
     $shards = [System.Collections.Generic.List[object]]::new()
     for ($shardIndex = 0; $shardIndex -lt $workerCount; $shardIndex++) {
@@ -132,6 +139,8 @@ function Invoke-TestAutomationWorkers {
         $serialShard = New-TestAutomationShardScript -ShardIndex $nextShardIndex -TestPath $SerialFiles @shardArguments
         $shardFileCounts[$serialShard.Label] = $SerialFiles.Count
     }
+    $phaseSeconds['shard scripts'] = $phaseWatch.Elapsed.TotalSeconds
+    Write-Message "Scheduled in $([Math]::Round(($phaseSeconds.Values | Measure-Object -Sum).Sum, 1)) s: $(($phaseSeconds.GetEnumerator() | ForEach-Object { "$($_.Key) $([Math]::Round($_.Value, 1)) s" }) -join ', ')." -NoHeader
 
     # Workers inherit the held location, so a nested Invoke-TestFile runs in this run's root.
     $WorkerEnvironment = if ($WorkerEnvironment) {

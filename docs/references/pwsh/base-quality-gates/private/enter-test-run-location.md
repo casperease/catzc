@@ -46,6 +46,11 @@ The entry point claiming the location ('Test-Automation', 'Invoke-TestFile', …
 
 The run's report folder — written to the lock record so a concurrent run can name it.
 
+### parameter `TestPath`
+
+The test files the run selects, as full paths in the working folder. A snapshot syncs its Python environment only when none are named or one
+sits under the Python root; a run that names only files elsewhere (PowerShell tests) skips the sync.
+
 ### parameter `Isolated`
 
 Run in a snapshot even when the working folder is free.
@@ -74,6 +79,10 @@ entry is keyed on a file's content and the stamps of the check's inputs
 copy of the same tree, and a file the snapshot changed is simply a new key. Without the copy every snapshot run would format and analyse
 every file from cold. The snapshot's own updates stay in the snapshot until Exit-TestRunLocation hands them home.
 
+The one exception is `generated-writers.json`, the generated-file writers' input-stamp memo. It is a statement about the working folder's
+outputs, not a result cache: the snapshot holds the tracked files only, so a copied memo would mark every writer with an unchanged stamp not
+due and the priming import would write none of the untracked outputs. The copy removes it, so every `at_import` writer is due.
+
 ## the snapshot's agent hooks
 
 The snapshot also starts with the working folder's published agent hooks (`.claude/hooks/bin`). Each published hook carries a stamp of its
@@ -84,13 +93,13 @@ priming against 15.3 s with it (2026-10-29).
 ## the snapshot's Python environment
 
 The Python environment (`python/.venv`) and its uv lock are gitignored, so a snapshot carries neither. When the working folder has a synced
-environment, the primed snapshot gets the working folder's lock and syncs its own environment from it, as Install-PythonWorkspace does
-(`uv sync --all-packages`), but offline (`--offline`, `UV_OFFLINE`), with `UV_PROJECT_ENVIRONMENT` naming the snapshot's own `.venv`. The
-sync installs from uv's cache in a few seconds and never reaches the network. A strict editable install registers a finder that maps its
-package to the build copy of the tree it was installed from, ahead of anything on the search path, so only the snapshot's own install makes
-its Python tests read the snapshot's files. A sync that misses the cache fails the run and names the fix: run Install-PythonWorkspace once
-online. The run itself never syncs: `UV_NO_SYNC` holds for this process and its workers until Exit-TestRunLocation puts the saved value
-back.
+environment and the run selects a Python test (`TestPath` names none, or one under the Python root), the primed snapshot gets the working
+folder's lock and syncs its own environment from it, as Install-PythonWorkspace does (`uv sync --all-packages`), but offline (`--offline`,
+`UV_OFFLINE`), with `UV_PROJECT_ENVIRONMENT` naming the snapshot's own `.venv`. The sync installs from uv's cache in a few seconds and never
+reaches the network. A strict editable install registers a finder that maps its package to the build copy of the tree it was installed from,
+ahead of anything on the search path, so only the snapshot's own install makes its Python tests read the snapshot's files. A sync that
+misses the cache fails the run and names the fix: run Install-PythonWorkspace once online. The run itself never syncs: `UV_NO_SYNC` holds
+for this process and its workers until Exit-TestRunLocation puts the saved value back.
 
 ## priming the snapshot
 

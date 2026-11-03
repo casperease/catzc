@@ -17,6 +17,10 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
 
     BeforeEach {
         Mock Get-Config { $script:config } -ModuleName Catzc.Base.Globs
+        # git cannot answer, so every member is hashed from its bytes and no digest cache is read or written
+        Mock Invoke-Executable {
+            [pscustomobject] @{ ExitCode = 128; Output = ''; Errors = 'fatal: not a git repository' }
+        } -ModuleName Catzc.Base.Globs
     }
 
     It 'returns 64 lowercase hex chars and is deterministic' {
@@ -76,6 +80,27 @@ Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {
         $empty = Get-GlobSetHash -Name unit
         $empty | Should -MatchExactly '^[0-9a-f]{64}$'
         Get-GlobSetHash -Name unit | Should -Be $empty
+    }
+
+    Context '-Digest (a prefetched map)' {
+        It 'uses the given digest of a member instead of reading the file' {
+            Set-Content (Join-Path $script:data 'd1.txt') 'widget' -NoNewline
+            Mock Get-TrackedFile { @('data/d1.txt') } -ModuleName Catzc.Base.Globs
+            Mock Get-FileDigest { throw 'must not be called' } -ModuleName Catzc.Base.Globs
+            $own = Get-GlobSetHash -Name unit -Digest @{}
+            $sentinel = Get-GlobSetHash -Name unit -Digest @{ 'data/d1.txt' = ('a' * 64) }
+
+            $sentinel | Should -MatchExactly '^[0-9a-f]{64}$'
+            $sentinel | Should -Not -Be $own
+            Should -Invoke Get-FileDigest -ModuleName Catzc.Base.Globs -Times 0 -Exactly
+        }
+
+        It 'hashes a member the map lacks from its bytes' {
+            Set-Content (Join-Path $script:data 'd2.txt') 'gadget' -NoNewline
+            Mock Get-TrackedFile { @('data/d2.txt') } -ModuleName Catzc.Base.Globs
+            $alone = Get-GlobSetHash -Name unit
+            Get-GlobSetHash -Name unit -Digest @{ 'data/other.txt' = ('b' * 64) } | Should -Be $alone
+        }
     }
 
     Context '-GlobSet (a derived set, not in the declared registry)' {

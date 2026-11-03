@@ -60,13 +60,21 @@ function Invoke-TestRun {
     # The entry point's key: its default report folder under out/ and its protection-key prefix.
     $entryPointKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$EntryPoint]
 
+    # Seconds of each phase before the pool, said once under the banner.
+    $phaseSeconds = [ordered]@{}
+    $phaseWatch = [System.Diagnostics.Stopwatch]::StartNew()
+
     # The parent needs Pester only for the discovery pass; each worker imports its own copy for the actual run.
     Import-VendoredPester
+    $phaseSeconds['pester'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
     # Discovery runs before the banner and takes a while, so each stage prints a liveness dot.
     Write-Message '.' -NoHeader -NoNewline
 
     # Foundation first: module dependency order, dot-prefixed infrastructure last.
     $testPaths = @(Get-TestAutomationTestPaths -Modules $Modules)
+    $phaseSeconds['listing'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
     Write-Message '.' -NoHeader -NoNewline
 
     if (-not $testPaths) {
@@ -78,6 +86,8 @@ function Invoke-TestRun {
 
     # One discovery pass feeds the tag check and the phase split.
     $discovery = Get-TestDiscovery -TestPath $testPaths
+    $phaseSeconds['discovery'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
     Write-Message '.' -NoHeader -NoNewline
 
     # Enforce the two mandatory tag axes on every test, regardless of -Level (Assert-TestTagGate).
@@ -87,6 +97,8 @@ function Invoke-TestRun {
     if ($Rule.Count -eq 0) {
         Remove-OrphanTestResult | Out-Null
     }
+    $phaseSeconds['tags and sweep'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
 
     # A timestamped run folder under the report base keeps each run's artifacts.
     if (-not $OutputFolder) {
@@ -96,9 +108,13 @@ function Invoke-TestRun {
     $abandonedRuns = @(Set-AbandonedTestRun -OutputFolder $OutputFolder)
     Save-AbandonedRunDurationHistory -RunDirectory $abandonedRuns -Path (Join-Path $OutputFolder 'durations.json')
     $runDir = New-TestAutomationRunDirectory -OutputFolder $OutputFolder
+    $phaseSeconds['run folder'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
 
     # The location is claimed before anything is filtered; the finally releases it.
     $location = Enter-TestRunLocation -EntryPoint $EntryPoint -RunDirectory $runDir -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+    $phaseSeconds['location'] = $phaseWatch.Elapsed.TotalSeconds
+    $phaseWatch.Restart()
     $runStartedAt = [DateTimeOffset]::UtcNow.ToString('o')
     $manifestStatus = 'crashed'
     $failedCount = 0
@@ -132,6 +148,9 @@ function Invoke-TestRun {
                 context    = $context
             }) | Out-Null
 
+        $phaseSeconds['context'] = $phaseWatch.Elapsed.TotalSeconds
+        $phaseWatch.Restart()
+
         # Files dropped for scope come back as NotRun rows, reported once after protection.
         $selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery -Rule $Rule -ExcludeTag $excludeTags `
             -OptOutTag $OptOutTag -RunDirectory $runDir -EntryPoint $EntryPoint
@@ -139,11 +158,17 @@ function Invoke-TestRun {
         $excludeTags = @($selection.ExcludeTag)
         $optOutExcludedTests = @($selection.OptOutExcludedTests)
 
+        $phaseSeconds['selection'] = $phaseWatch.Elapsed.TotalSeconds
+        $phaseWatch.Restart()
+
         # Three phases: parallel shards, greedy single-file shards, strict serial.
         $phases = Split-TestAutomationFiles -Discovery $discovery -TestFiles $testFiles
         $parallelFiles = @($phases.Parallel)
         $greedyFiles = @($phases.Greedy)
         $serialFiles = @($phases.Serial)
+
+        $phaseSeconds['split'] = $phaseWatch.Elapsed.TotalSeconds
+        $phaseWatch.Restart()
 
         # A unit whose identity is unchanged since its last green run this session is skipped.
         $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
@@ -153,6 +178,7 @@ function Invoke-TestRun {
         $greedyFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.GreedyFiles)
         $serialFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.SerialFiles)
         $protectedModules = @($protectionPlan.ProtectedModules)
+        $phaseSeconds['protection'] = $phaseWatch.Elapsed.TotalSeconds
         Write-Message '.' -NoHeader -NoNewline
 
         # The L0/L1 tripwire rides each worker's own environment: a real process there means a missed Mock.
@@ -168,6 +194,7 @@ function Invoke-TestRun {
         Write-Message '' -NoHeader   # ends the dot line
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
         Write-TestRunContext -Context $context
+        Write-Message "Prepared in $([Math]::Round(($phaseSeconds.Values | Measure-Object -Sum).Sum, 1)) s: $(($phaseSeconds.GetEnumerator() | ForEach-Object { "$($_.Key) $([Math]::Round($_.Value, 1)) s" }) -join ', ')." -NoHeader
 
         # A work-list protection drained is vacuously green.
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {

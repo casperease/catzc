@@ -10,13 +10,14 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Alpha.psm1') = 'function Test-InternalAlpha {}'
             ((Get-CatzcModulesFolder) + '/.internal/Catzc.Internal.Beta.psm1')  = 'function Test-InternalBeta {}'
         }
-        # A neutral declared set, there only so the shadow check has a registry to compare against.
+        InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
                 globsets = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('src/**') } }
             })
     }
 
     AfterAll {
+        InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }
         Remove-FakeRepositoryRoot $script:fake
     }
 
@@ -140,7 +141,35 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
                 globsets = @{ 'catzc-base-alpha' = @{ description = 'd'; layer = 'loose-fileset'; include = @('docs/**') } }
             })
         Mock Get-Config { $shadowing } -ModuleName Catzc.Base.Globs
+        InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }
         { Get-ModuleGlobSet } | Should -Throw '*shadows the derived*'
+        InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }
+    }
+
+    It 'derives the table once per session: a second call returns the same sets without walking the modules again' {
+        $real = InModuleScope Catzc.Base.Globs {
+            $script:moduleGlobSetCache = $null
+            Get-Command Get-CatzcModule
+        }
+        Mock Get-CatzcModule { & $real @PSBoundParameters }.GetNewClosure() -ModuleName Catzc.Base.Globs
+        $first = @(Get-ModuleGlobSet)
+        $second = @(Get-ModuleGlobSet)
+        $second.Name | Should -Be $first.Name
+        [object]::ReferenceEquals($second[0], $first[0]) | Should -BeTrue
+        # the code track is the one walk that includes the internal modules; a second derivation would make it two
+        Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.Globs -ParameterFilter { $IncludeInternal } -Times 1 -Exactly
+    }
+
+    It 'derives again after the cache entry is dropped' {
+        $real = InModuleScope Catzc.Base.Globs {
+            $script:moduleGlobSetCache = $null
+            Get-Command Get-CatzcModule
+        }
+        Mock Get-CatzcModule { & $real @PSBoundParameters }.GetNewClosure() -ModuleName Catzc.Base.Globs
+        $null = Get-ModuleGlobSet
+        InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }
+        $null = Get-ModuleGlobSet
+        Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.Globs -ParameterFilter { $IncludeInternal } -Times 2 -Exactly
     }
 }
 

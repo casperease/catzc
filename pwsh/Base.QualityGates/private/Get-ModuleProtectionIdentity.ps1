@@ -23,15 +23,25 @@ function Get-ModuleProtectionIdentity {
                 $HashCache['<tracked>'] = [string[]] @(Get-TrackedFile)
             }
             $tracked = $HashCache['<tracked>']
+            # The digests of every tracked file are fetched once per run, beside the tracked list, and handed to every set.
+            if (-not $HashCache.ContainsKey('<digests>')) {
+                $fetched = Get-FileDigest -RepositoryRoot (Get-RepositoryRoot) -Path $tracked
+                $map = @{}
+                for ($position = 0; $position -lt $tracked.Count; $position++) {
+                    $map[$tracked[$position]] = $fetched[$position]
+                }
+                $HashCache['<digests>'] = $map
+            }
+            $digests = $HashCache['<digests>']
             $HashCache[$setName] = if ($setName -eq 'repository') {
-                Get-GlobSetHash -Name repository -TrackedFile $tracked
+                Get-GlobSetHash -Name repository -TrackedFile $tracked -Digest $digests
             }
             else {
                 # A module folds its aspect sets' hashes, ordinal by name.
                 $sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name
                 $fold = [System.Text.StringBuilder]::new()
                 foreach ($set in $sets) {
-                    [void]$fold.Append($set.Name).Append('|').Append((Get-GlobSetHash -GlobSet $set -TrackedFile $tracked)).Append("`n")
+                    [void]$fold.Append($set.Name).Append('|').Append((Get-GlobSetHash -GlobSet $set -TrackedFile $tracked -Digest $digests)).Append("`n")
                 }
                 [Catzc.Base.Globs.DurableHash]::HashFold($fold.ToString())
             }

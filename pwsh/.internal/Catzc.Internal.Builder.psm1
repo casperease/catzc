@@ -14,6 +14,9 @@ $script:mergedFileSuffix = '.functions.ps1'
 . (Join-Path $PSScriptRoot 'assets/builder/Write-ModuleBuildOutput.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Clear-StaleBuildFile.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceIndex.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceStamp.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Get-ReusableBuild.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Save-BuildToStore.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceDirty.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceLfOnly.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceShippable.ps1')
@@ -190,6 +193,34 @@ function Invoke-ModuleBuild {
     $platforms = [string[]] @(if ($bundles.ContainsKey($Bundle)) {
             $bundles[$Bundle].platforms
         })
+    # The build store holds one folder per source stamp; a build there whose stamp equals this tree's stamp is the build this call would write.
+    $selection = @(
+        "bundle=$Bundle", "version=$Version", "modules=$($modules -join ',')", "platforms=$($platforms -join ',')"
+        "allLanguages=$([bool] $allLanguageModules)"
+        foreach ($key in ($PackageMetadata.Keys | Sort-Object)) {
+            "$key=$(@($PackageMetadata[$key]) -join ',')"
+        }
+    ) -join "`n"
+    $stamp = $null
+    if (-not $DryRun) {
+        $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection
+        $storeBuildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-OutputRoot), (Get-CatzcModulesFolder), 'built', $Bundle, $stamp.Substring(0, 12), 'Catzc', $Version))
+        $reused = Get-ReusableBuild -StoreBuildRoot $storeBuildRoot -BuildRoot $buildRoot -Stamp $stamp
+        if ($null -ne $reused) {
+            return [pscustomobject]@{
+                BuildRoot   = $buildRoot
+                Version     = $Version
+                Modules     = $modules
+                Languages   = @($reused['languages'])
+                TypesHash   = "$($reused['typesHash'])"
+                ContentHash = "$($reused['contentHash'])"
+                FileCount   = [int] $reused['fileCount']
+                Dirty       = [bool] $reused['dirty']
+                DryRun      = $false
+                Reused      = $true
+            }
+        }
+    }
     $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts -AllLanguageModule:([bool] $allLanguageModules) -Platform $platforms
     if ($plan.Violations.Count -gt 0) {
         throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS):`n  " +
@@ -251,6 +282,7 @@ function Invoke-ModuleBuild {
             FileCount   = $fileCount
             Dirty       = $dirty
             DryRun      = $true
+            Reused      = $false
         }
     }
 
@@ -295,11 +327,19 @@ function Invoke-ModuleBuild {
         typeSources  = [string[]] @($plan.TypeSources)
         sourceCommit = Get-BuildSourceCommit
         dirty        = $dirty
+        sourceStamp  = $stamp
+        fileCount    = $fileCount
         modules      = $modules
         languages    = $languageRecords
     }
     [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
                 'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
+
+    # A profile build into any destination fills the store, so the next build of this tree reuses it wherever it lands.
+    $profileOnly = @($Module | Where-Object { $_ }).Count -eq 0
+    if ($profileOnly) {
+        Save-BuildToStore -BuildRoot $buildRoot -StoreBuildRoot $storeBuildRoot
+    }
 
     [pscustomobject]@{
         BuildRoot   = $buildRoot
@@ -311,6 +351,7 @@ function Invoke-ModuleBuild {
         FileCount   = $fileCount
         Dirty       = $dirty
         DryRun      = $false
+        Reused      = $false
     }
 }
 

@@ -38,7 +38,7 @@ Export-ModuleMember -Function Measure-*
     }
 
     It 'resolves each relative rule path to the code root''s rule folder, so the shipped rule runs and the working root holds none' {
-        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ W = $script:work; C = $script:code; S = $script:settings; T = $script:target } {
+        $run = InModuleScope Catzc.Base.QualityGates -Parameters @{ W = $script:work; C = $script:code; S = $script:settings; T = $script:target } {
             param($W, $C, $S, $T)
             Mock Write-Message { }
             $batch = [pscustomobject]@{
@@ -48,10 +48,20 @@ Export-ModuleMember -Function Measure-*
                 IncludeRule  = @()
                 ExcludeRule  = @()
             }
-            (Invoke-ScriptAnalyzerShards -Batch @($batch) -RepositoryRoot $W -CodeRoot $C)['rules']
+            $ended = [System.Collections.Generic.List[object]]::new()
+            $found = (Invoke-ScriptAnalyzerShards -Batch @($batch) -RepositoryRoot $W -CodeRoot $C -OnShardComplete {
+                    param($Label, $File, $Diagnostic)
+                    $ended.Add([pscustomobject]@{ Label = $Label; Files = @($File); Count = @($Diagnostic).Count })
+                }.GetNewClosure())['rules']
+            [pscustomobject]@{ Found = @($found); Ended = @($ended) }
         }
         Test-Path -LiteralPath (Join-Path $script:work 'pwsh/.scriptanalyzer/WidgetRule.psm1') | Should -BeFalse
-        @($found).Count | Should -BeGreaterThan 0
-        @($found).RuleName | Should -Contain 'Measure-WidgetRule'
+        @($run.Found).Count | Should -BeGreaterThan 0
+        @($run.Found).RuleName | Should -Contain 'Measure-WidgetRule'
+        # The shard reported its end with its files and its diagnostics, before the call returned them.
+        @($run.Ended) | Should -HaveCount 1
+        $run.Ended[0].Label | Should -Be 'rules'
+        @($run.Ended[0].Files) | Should -Be @($script:target)
+        $run.Ended[0].Count | Should -Be @($run.Found).Count
     }
 }

@@ -126,9 +126,8 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Command -like 'pwsh -NoProfile -NonInteractive -File *catzc-run-*importer.ps1"'
         }
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
-            $Command -like 'pwsh -NoProfile -NonInteractive -Command ". *catzc-run-*importer.ps1'' -SkipJanitors; Build-Readme -Silent*'
-        }
+        # The priming import is the only process the set-up runs.
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
             $Message -like "The repository is busy: Test-Automation (pid $PID, started *, run 20261013-174616) holds the test-run lock."
         }
@@ -138,6 +137,7 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         $cache = Join-Path $script:outRoot 'cache'
         [System.IO.Directory]::CreateDirectory($cache) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json'), '{"widget.ps1":"key"}')
+        [System.IO.File]::WriteAllText((Join-Path $cache 'generated-writers.json'), '{"gadget":"stamp"}')
         $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
         Mock New-RepositorySnapshot {
             [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
@@ -147,6 +147,21 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
 
         [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'out/cache/format-code.json')) |
             Should -Be '{"widget.ps1":"key"}'
+    }
+
+    It 'leaves the writers'' stamp memo out of the snapshot, so every at_import writer is due in the priming import' {
+        $cache = Join-Path $script:outRoot 'cache'
+        [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json'), '{"widget.ps1":"key"}')
+        [System.IO.File]::WriteAllText((Join-Path $cache 'generated-writers.json'), '{"gadget":"stamp"}')
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        [System.IO.File]::Exists((Join-Path $snapshotPath 'out/cache/generated-writers.json')) | Should -BeFalse
     }
 
     It 'starts the snapshot without caches when the working folder has none' {
@@ -255,6 +270,64 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Command -like '*sync --all-packages*' }
         Test-Path -LiteralPath (Join-Path $snapshotPath 'python/.venv') | Should -BeFalse
         $script:location.PythonEnvironment | Should -BeNullOrEmpty
+    }
+
+    It 'syncs no Python environment when the selected test files hold no Python test, and still enters the snapshot' {
+        $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
+        $venv = Join-Path $widgetRoot 'python/.venv'
+        [System.IO.Directory]::CreateDirectory($venv) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $venv 'pyvenv.cfg'), 'prompt = widget')
+        Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $snapshotPath 'python/pyproject.toml'), '[tool.uv.workspace]')
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\gadget\uv.exe' } } -ModuleName Catzc.Base.QualityGates
+        $gadgetTest = Join-Path $widgetRoot 'Widget/tests/Gadget.Tests.ps1'
+
+        $script:location = InModuleScope Catzc.Base.QualityGates -Parameters @{ T = $gadgetTest } {
+            param($T) Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -TestPath $T -Isolated
+        }
+
+        $script:location.Mode | Should -Be 'snapshot'
+        $script:location.Root | Should -Be $snapshotPath
+        $script:location.PythonEnvironment | Should -BeNullOrEmpty
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 0 -ParameterFilter { $Command -like '*sync --all-packages*' }
+    }
+
+    It 'syncs the Python environment when a selected test file sits under the Python root' {
+        $widgetRoot = Join-Path $TestDrive ('widget-' + [guid]::NewGuid().ToString('N'))
+        $venv = Join-Path $widgetRoot 'python/.venv'
+        [System.IO.Directory]::CreateDirectory($venv) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $venv 'pyvenv.cfg'), 'prompt = widget')
+        Mock Get-RepositoryRoot { $widgetRoot } -ModuleName Catzc.Base.QualityGates
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [System.IO.Directory]::CreateDirectory((Join-Path $snapshotPath 'python')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $snapshotPath 'python/pyproject.toml'), '[tool.uv.workspace]')
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+        Mock Resolve-ToolExecutable { [pscustomobject]@{ Found = $true; VersionOk = $true; Path = 'C:\gadget\uv.exe' } } -ModuleName Catzc.Base.QualityGates
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 0; Output = ''; Full = '' }
+        } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '*sync --all-packages*' }
+        $gadgetTests = @((Join-Path $widgetRoot 'Widget/tests/Gadget.Tests.ps1'), (Join-Path $widgetRoot 'python/tests/widget/test_gadget.py'))
+        $savedNoSync = $env:UV_NO_SYNC
+        $env:UV_NO_SYNC = $null
+        try {
+            $script:location = InModuleScope Catzc.Base.QualityGates -Parameters @{ T = $gadgetTests } {
+                param($T) Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -TestPath $T -Isolated
+            }
+
+            Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Command -like '*sync --all-packages*' }
+        }
+        finally {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ L = $script:location } { param($L) Exit-TestRunLocation -Location $L }
+            $script:location = $null
+            $env:UV_NO_SYNC = $savedNoSync
+        }
     }
 
     It 'fails the isolated run, naming the online Install-PythonWorkspace, when the offline sync misses the cache' {

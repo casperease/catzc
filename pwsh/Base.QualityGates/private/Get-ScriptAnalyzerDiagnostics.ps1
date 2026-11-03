@@ -57,15 +57,23 @@ function Get-ScriptAnalyzerDiagnostics {
         return @()
     }
 
-    $diagnostics = Invoke-ScriptAnalyzerShards -Batch $batch.ToArray() -RepositoryRoot $fullRoot -CodeRoot (Get-CatzcModulesRoot)
+    # Each shard's clean files reach the cache as the shard ends, so a run killed before the last shard keeps what it found.
+    $passOf = @{}
+    foreach ($entry in $batch) {
+        $passOf[$entry.Label] = $entry
+    }
+    $saveShard = {
+        param([string] $Label, [string[]] $File, [object[]] $Diagnostic)
+        $pass = $passOf[$Label]
+        # Record every analyzed file without a diagnostic as clean; a file with one is checked again next time.
+        $flagged = @($Diagnostic | Where-Object { $_.ScriptPath } | ForEach-Object { $_.ScriptPath })
+        Update-ResultCache -Cache $pass.Cache -Key $pass.Key -Checked $File -Flagged $flagged
+        Save-ResultCache -Path $pass.CachePath -Cache $pass.Cache
+    }
+    $diagnostics = Invoke-ScriptAnalyzerShards -Batch $batch.ToArray() -RepositoryRoot $fullRoot -CodeRoot (Get-CatzcModulesRoot) -OnShardComplete $saveShard
     $allDiagnostics = [System.Collections.Generic.List[object]]::new()
     foreach ($entry in $batch) {
-        $found = @($diagnostics[$entry.Label])
-        # Record every analyzed file without a diagnostic as clean; a file with one is checked again next time.
-        $flagged = @($found | Where-Object { $_.ScriptPath } | ForEach-Object { $_.ScriptPath })
-        Update-ResultCache -Cache $entry.Cache -Key $entry.Key -Checked $entry.Files -Flagged $flagged
-        Save-ResultCache -Path $entry.CachePath -Cache $entry.Cache
-        foreach ($diagnostic in $found) {
+        foreach ($diagnostic in @($diagnostics[$entry.Label])) {
             $allDiagnostics.Add($diagnostic)
         }
     }

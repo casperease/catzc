@@ -56,6 +56,14 @@ read-only ([ADR-AUTO-CACHE-READONLYVALUES](../../../drs/automation/caching.md#ru
 probed strict-clean
 ([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)).
 
+## Cross-session file
+
+Behind the session cache sits a per-machine result file, `out/cache/function-dependency.json`, holding the edge rows and a stamp: the
+SHA-256 fold of every listed script's path below the modules root and content hash, in listing order. A call lists the scripts, computes the
+stamp and returns the stored rows without parsing when the stamp matches; otherwise it parses, then writes the file through a `.tmp` beside
+it and a move ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)). A missing or
+unreadable file costs one parse, and a pipeline starts without it. The returned rows have the same shape either way.
+
 ## One parse per file
 
 Every source `.ps1` is listed and parsed once, and both the definition map and the call walk reuse those parses, capturing each file's

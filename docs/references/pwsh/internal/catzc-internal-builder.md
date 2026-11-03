@@ -52,9 +52,29 @@ at least one of the two. The version is the resolved `MAJOR.MINOR.PATCH`: the en
 `<Destination>/Catzc/<Version>/`, records the named bundle (an `exporter.yml` bundles key) in `build.json`, and takes the `Catzc.psd1`
 metadata (Guid, Author, CompanyName, Description, Tags, ProjectUri, LicenseUri). A dry run still runs every check, since all checks run
 before anything is written. It returns BuildRoot, Version, Modules, Languages, TypesHash, ContentHash (`$null` under a dry run), FileCount,
-Dirty and DryRun. Languages holds one row for each module of a language track whose language has a `package` handler in the registry
+Dirty, DryRun and Reused. Languages holds one row for each module of a language track whose language has a `package` handler in the registry
 ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)); a build calls each handler
 after the stale sweep and before the content hash, and records the results under `languages` in `build.json`.
+
+A build is immutable and content-addressed
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)), so the engine reuses
+one. `Get-BuildSourceStamp` hashes the selection (bundle, version, modules, platforms, package metadata) with the object id of every file
+git lists in the repository, except `docs/`, `.claude/`, `.unordered/` and any `tests/` path, and the build records it as `sourceStamp` in
+`build.json` beside `fileCount`. The machine's build store is keyed by that stamp and never changed in place: the store build root is
+`<Get-OutputRoot>/pwsh/built/<Bundle>/<first 12 hex of the stamp>/Catzc/<Version>`, and a stamp folder is complete or absent. When the stamp
+folder of the current tree exists, `Get-ReusableBuild` first checks whether the requested build root already holds this stamp (its
+`build.json` records it and `Get-ContentHash` equals the recorded hash) and, if so, returns that record and writes nothing, so parallel
+callers sharing a destination never rewrite a good build under each other. Otherwise it copies the store build into a staging sibling of the
+build root (`<parent>/.staging-<guid>/Catzc/<Version>`), checks the copy with `Get-ContentHash` against `build.json`, moves the existing
+build root aside to `<parent>/.old-<guid>`, moves the staging into place and deletes the old folder best-effort. A copy that fails the hash
+is deleted and the build runs; when the existing build root cannot be moved because a reader holds it, the staging is deleted and nothing is
+reused, so the engine builds as before. The engine returns the result with `Reused` true and the recorded `languages` rows; a dry run never
+reuses. A profile build into any destination fills the store (`Save-BuildToStore`): the copy lands in a staging sibling
+`<Bundle>/.staging-<guid>/Catzc/<Version>` and the staging folder moves in as the stamp folder with one `Directory.Move`; a stamp folder
+that exists, or that appears while the copy runs, stands and the staging is deleted. After a successful move the other stamp folders of the
+bundle and any `.staging-*` folder older than ten minutes are deleted best-effort, each failure ignored, since a reader mid-copy blocks a
+delete on Windows and the next writer retries. A build that names its modules leaves the store alone, so the next build of this tree reuses
+the store wherever it lands ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)).
 
 ```powershell
 Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata

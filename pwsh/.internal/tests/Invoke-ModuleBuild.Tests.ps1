@@ -396,6 +396,134 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
     }
 
+    Context 'a build in the store' {
+        BeforeAll {
+            Mock Get-OutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Internal.Builder
+            $script:store = Join-Path $TestDrive 'out/pwsh/built/widgets'
+            $script:assetFile = Join-Path $fake.ModulesRoot 'Catzc.Base.Widget/assets/widget.txt'
+            $script:stored = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $store
+        }
+
+        It 'records the source stamp and the file count, and a build into the store is a build' {
+            $stored.Reused | Should -BeFalse
+            $record = Get-Content -Raw (Join-Path $stored.BuildRoot 'build.json') | ConvertFrom-Json
+            $record.sourceStamp | Should -Match '^[0-9a-f]{16,}$'
+            $record.fileCount | Should -Be $stored.FileCount
+        }
+
+        It 'copies an unchanged tree''s build to another destination, reports it reused and keeps the content hash' {
+            $copy = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'reused')
+            $copy.Reused | Should -BeTrue
+            $copy.ContentHash | Should -Be $stored.ContentHash
+            $copy.TypesHash | Should -Be $stored.TypesHash
+            $copy.FileCount | Should -Be $stored.FileCount
+            $copy.BuildRoot | Should -Not -Be $stored.BuildRoot
+            Get-ContentHash -Path $copy.BuildRoot -Exclude 'build.json' | Should -Be $stored.ContentHash
+            Test-Path (Join-Path $copy.BuildRoot 'build.json') | Should -BeTrue
+        }
+
+        It 'returns a destination that already holds the stamp untouched' {
+            $recordFile = Join-Path $stored.BuildRoot 'build.json'
+            $before = [System.IO.File]::GetLastWriteTimeUtc($recordFile)
+            $rootBefore = [System.IO.Directory]::GetCreationTimeUtc($stored.BuildRoot)
+            $again = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $store
+            $again.Reused | Should -BeTrue
+            $again.BuildRoot | Should -Be $stored.BuildRoot
+            [System.IO.File]::GetLastWriteTimeUtc($recordFile) | Should -Be $before
+            [System.IO.Directory]::GetCreationTimeUtc($stored.BuildRoot) | Should -Be $rootBefore
+            @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' -or [System.IO.Path]::GetFileName($_) -like '.old-*' }).Count | Should -Be 0
+        }
+
+        It 'keys the store by the first 12 hex of the stamp, one folder per bundle' {
+            $record = Get-Content -Raw (Join-Path $stored.BuildRoot 'build.json') | ConvertFrom-Json
+            $stampFolders = @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' })
+            $stampFolders.Count | Should -Be 1
+            [System.IO.Path]::GetFileName($stampFolders[0]) | Should -Be $record.sourceStamp.Substring(0, 12)
+            Test-Path (Join-Path $stampFolders[0] "Catzc/$($stored.Version)/build.json") | Should -BeTrue
+        }
+
+        It 'does not reuse for a dry run' {
+            (Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'reuse-dry') -DryRun).Reused | Should -BeFalse
+        }
+
+        It 'ignores a change under a tests folder, which never ships' {
+            $testFile = Join-Path $fake.ModulesRoot 'Catzc.Base.Widget/tests/stamp.Tests.ps1'
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($testFile)) | Out-Null
+            [System.IO.File]::WriteAllText($testFile, '# a test')
+            try {
+                (Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'reuse-tests')).Reused | Should -BeTrue
+            }
+            finally {
+                [System.IO.File]::Delete($testFile)
+            }
+        }
+
+        It 'builds again when one shipped file changed, and again when a bundle selection differs' {
+            $original = [System.IO.File]::ReadAllBytes($assetFile)
+            try {
+                [System.IO.File]::WriteAllText($assetFile, 'changed after the stored build')
+                $changed = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'reuse-changed')
+            }
+            finally {
+                [System.IO.File]::WriteAllBytes($assetFile, $original)
+            }
+            $changed.Reused | Should -BeFalse
+            $changed.ContentHash | Should -Not -Be $stored.ContentHash
+            $other = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget', 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'reuse-other')
+            $other.Reused | Should -BeFalse
+        }
+
+        It 'builds again when the store copy no longer hashes to its record' {
+            # The change test above left a changed tree's stamp in the store; a build of this tree puts its own stamp back first.
+            $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'corrupt-seed')
+            $stampFolder = @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' })
+            $stampFolder.Count | Should -Be 1
+            $corrupt = Join-Path $stampFolder[0] "Catzc/$($stored.Version)/Catzc.Base.Widget/assets/widget.txt"
+            [System.IO.File]::AppendAllText($corrupt, 'tampered')
+            $rebuilt = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'reuse-corrupt')
+            $rebuilt.Reused | Should -BeFalse
+            $rebuilt.ContentHash | Should -Be $stored.ContentHash
+        }
+
+        It 'fills an empty store from a profile build into another destination, so a third destination reuses it' {
+            [System.IO.Directory]::Delete($store, $true)
+            $first = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'fill-first')
+            $first.Reused | Should -BeFalse
+            $stampFolder = @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' })
+            $stampFolder.Count | Should -Be 1
+            $record = Get-Content -Raw (Join-Path $stampFolder[0] "Catzc/$($stored.Version)/build.json") | ConvertFrom-Json
+            $record.contentHash | Should -Be $first.ContentHash
+            $second = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'fill-second')
+            $second.Reused | Should -BeTrue
+            $second.ContentHash | Should -Be $first.ContentHash
+        }
+
+        It 'leaves the staging deleted and the store intact when the stamp folder appears during the fill' {
+            $bundle = Join-Path $TestDrive 'race/widgets'
+            $source = Join-Path $TestDrive 'race/source'
+            [System.IO.Directory]::CreateDirectory($source) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $source 'build.json'), '{}')
+            $racing = Join-Path $bundle "$('a' * 12)/Catzc/6.6.666"
+            InModuleScope Catzc.Internal.Builder -Parameters @{ Source = $source; Racing = $racing } {
+                # The other writer's stamp folder lands while this one is still copying.
+                Mock Get-ChildPath {
+                    [System.IO.Directory]::CreateDirectory($Racing) | Out-Null
+                    [System.IO.File]::WriteAllText((Join-Path $Racing 'build.json'), 'other writer')
+                    Join-Path $Source 'build.json'
+                }
+                Save-BuildToStore -BuildRoot $Source -StoreBuildRoot $Racing
+            }
+            [System.IO.File]::ReadAllText((Join-Path $racing 'build.json')) | Should -Be 'other writer'
+            @([System.IO.Directory]::GetDirectories($bundle) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' }).Count | Should -Be 0
+        }
+
+        It 'leaves the store alone for a build that names its modules' {
+            [System.IO.Directory]::Delete($store, $true)
+            $null = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'fill-named')
+            Test-Path -LiteralPath $store | Should -BeFalse
+        }
+    }
+
     Context 'the gates module' {
         It 'ships none of the gate tooling without it' {
             $built = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full-without-gates')

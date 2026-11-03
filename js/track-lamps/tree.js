@@ -3,7 +3,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { key, claimer, entryClaimer } = require("./glob.js");
+const { key, dirOf, claimer, entryClaimer } = require("./glob.js");
 const { OUTPUT, lampSets, evaluate } = require("./language.js");
 
 // The size of files.exclude, in characters (each entry costs its glob and a flag on the command line), past which the editor cannot spawn
@@ -47,7 +47,7 @@ async function walkDisk(root) {
 
 // A file's extension as written ('.ps1'), empty for none, a dotfile, or one a glob would read as a pattern.
 const extensionOf = (/** @type {string} */ place) => {
-    const name = path.posix.basename(place);
+    const name = place.slice(place.lastIndexOf("/") + 1);
     const at = name.lastIndexOf(".");
     const extension = at > 0 ? name.slice(at) : "";
     return /[*?[\]{}!,]/.test(extension) ? "" : extension;
@@ -65,11 +65,12 @@ const extensionOf = (/** @type {string} */ place) => {
  * @returns {string[]}
  */
 function hiddenEntries(files, folders, shown) {
+    // Every file shown (shown keeps the order of files, so equal lengths are equal sets) leaves every folder live and nothing to hide.
+    if (shown.length === files.length) return [];
     /** @type {Set<string>} */
     const live = new Set();
     // Every walk up stops at a folder already added, since the walk that added it went on to the root; the same holds below.
-    for (const place of shown)
-        for (let at = path.posix.dirname(place); at !== "." && !live.has(at); at = path.posix.dirname(at)) live.add(at);
+    for (const place of shown) for (let at = dirOf(place); at !== "." && !live.has(at); at = dirOf(at)) live.add(at);
     const showing = new Set(shown);
     // A folder's topmost dead folder, itself included, kept per folder, since every file under it asks again.
     /** @type {Map<string, string | undefined>} */
@@ -78,12 +79,12 @@ function hiddenEntries(files, folders, shown) {
     const deadOf = (folder) => {
         if (folder === ".") return undefined;
         if (deadAt.has(folder)) return deadAt.get(folder);
-        const dead = deadOf(path.posix.dirname(folder)) ?? (live.has(folder) ? undefined : folder);
+        const dead = deadOf(dirOf(folder)) ?? (live.has(folder) ? undefined : folder);
         deadAt.set(folder, dead);
         return dead;
     };
     /** @type {(place: string) => string | undefined} */
-    const topmostDead = (place) => deadOf(path.posix.dirname(place));
+    const topmostDead = (place) => deadOf(dirOf(place));
     // Each extension's folders that hold a shown file or a live folder of it (a glob hides a folder whose name it matches), at any depth,
     // the root as '.'.
     const shownUnder = new Set();
@@ -91,7 +92,7 @@ function hiddenEntries(files, folders, shown) {
         const extension = key(extensionOf(place));
         if (!extension) continue;
         shownUnder.add(`${extension}|.`);
-        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) {
+        for (let at = dirOf(place); at !== "."; at = dirOf(at)) {
             const entry = `${extension}|${key(at)}`;
             if (shownUnder.has(entry)) break;
             shownUnder.add(entry);
@@ -102,7 +103,7 @@ function hiddenEntries(files, folders, shown) {
     const shownDirectly = new Set();
     for (const place of shown) {
         const extension = key(extensionOf(place));
-        if (extension) shownDirectly.add(`${extension}|${key(path.posix.dirname(place))}`);
+        if (extension) shownDirectly.add(`${extension}|${key(dirOf(place))}`);
     }
     const rollUp = (/** @type {string} */ place) => {
         const extension = extensionOf(place);
@@ -113,7 +114,7 @@ function hiddenEntries(files, folders, shown) {
             const folder = parts.slice(0, depth).join("/");
             if (!shownUnder.has(`${key(extension)}|${key(folder)}`)) return `${folder}/**/*${extension}`;
         }
-        const folder = path.posix.dirname(place);
+        const folder = dirOf(place);
         if (folder !== "." && !shownDirectly.has(`${key(extension)}|${key(folder)}`) && !/[*?[\]{}!,]/.test(folder))
             return `${folder}/*${extension}`;
         return place;
@@ -122,16 +123,16 @@ function hiddenEntries(files, folders, shown) {
     // '<folder>/**/<name>' for its topmost folder holding none; otherwise it is written itself.
     const namedUnder = new Set();
     for (const place of [...shown, ...live]) {
-        const name = key(path.posix.basename(place));
+        const name = key(place.slice(place.lastIndexOf("/") + 1));
         namedUnder.add(`${name}|.`);
-        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) {
+        for (let at = dirOf(place); at !== "."; at = dirOf(at)) {
             const entry = `${name}|${key(at)}`;
             if (namedUnder.has(entry)) break;
             namedUnder.add(entry);
         }
     }
     const deadEntry = (/** @type {string} */ folder) => {
-        const name = path.posix.basename(folder);
+        const name = folder.slice(folder.lastIndexOf("/") + 1);
         if (!folder.includes("/") || /[*?[\]{}!,]/.test(name)) return folder;
         if (!namedUnder.has(`${key(name)}|.`)) return `**/${name}`;
         const parts = folder.split("/");
@@ -150,8 +151,7 @@ function hiddenEntries(files, folders, shown) {
     // A folder with no file below it at all stays in the tree: no lamp claims it, so nothing hides it (DDR-FILTER-EVERYFILECLAIMED), and
     // writing it would cost an entry in every state. A folder the lamps emptied holds files, so it still leaves the tree.
     const populated = new Set();
-    for (const place of files)
-        for (let at = path.posix.dirname(place); at !== "." && !populated.has(at); at = path.posix.dirname(at)) populated.add(at);
+    for (const place of files) for (let at = dirOf(place); at !== "." && !populated.has(at); at = dirOf(at)) populated.add(at);
     for (const place of folders) if (!live.has(place) && populated.has(place)) entries.add(deadEntry(topmostDead(place) ?? place));
     return [...entries].sort();
 }

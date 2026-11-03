@@ -1,7 +1,7 @@
 # pwsh/Base.QualityGates/private/Get-TestDiscovery.ps1
 
-Runs one discovery-only Pester pass over the given test paths and returns the result. Test-Automation shares that single pass between its
-pre-run inspections, so the files are loaded once.
+Discovers the tests of the given test paths and returns them as rows. Test-Automation shares that single result between its pre-run
+inspections, and a file whose content has not changed since an earlier run is read back from a cross-session file, not discovered again.
 
 ## help
 
@@ -13,9 +13,13 @@ Runs a discovery-only Pester pass over the given test paths and returns the resu
 
 The single discovery pass Test-Automation shares between its pre-run inspections: Get-TestTagViolations (the mandatory tier/category check)
 and Split-TestAutomationFiles (the phase split) both consume the one result, so the tree is discovered once per run, not once per question.
-Run.SkipRun makes it inspect every test regardless of tag filters — nothing executes. A Go test folder is discovered through the Go bridge
-(ConvertTo-PesterRunTarget), which reads its Go tests from the source without running go. Pester must already be loaded (Test-Automation
-lazy-loads it before calling this).
+Run.SkipRun makes it inspect every test regardless of tag filters — nothing executes. Each test file is keyed on its repository-relative
+path and content digest (DurableHash) in out/cache/test-discovery.json (ADR-AUTO-CACHE-CROSSSESSIONFILES); one Pester pass runs over the
+files without a hit, and an empty miss set runs none. The file is written once when it gained entries, through a temporary file moved over
+it; an older digest of the same path is dropped, other paths stay, and an unreadable file is rebuilt. A row carries Tag, Block (Tag, IsRoot,
+Parent, and the container data of a Go bridge test), ScriptBlock (File, StartPosition.StartLine), ExpandedName, ExpandedPath, Result,
+Duration and ErrorRecord, the members the readers use. A Go test folder is discovered through the Go bridge (ConvertTo-PesterRunTarget)
+every call, as it has no file digest. Pester must already be loaded (Test-Automation lazy-loads it before calling this).
 
 ### parameter `TestPath`
 
@@ -23,4 +27,4 @@ One or more 'tests' folders, or Go test folders, to discover.
 
 ### outputs
 
-The Pester run object of the discovery pass (every discovered test, none run).
+An object whose Tests property holds one row per discovered test, none run, in the order of the test paths.

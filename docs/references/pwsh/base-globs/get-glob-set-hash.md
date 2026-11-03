@@ -32,6 +32,12 @@ derived sets are not in the declared registry.
 
 The tracked-file universe (Get-TrackedFile), fetched once by a caller hashing many sets and passed in. Omitted, it is fetched for this call.
 
+### parameter `Digest`
+
+A prefetched map of repository-relative path to `DurableHash` digest (null for a file missing on disk), built once by a caller hashing many
+sets (`Get-FileDigest` over the tracked list). A member in the map takes its digest from it; a member the map lacks is hashed from its
+bytes. Omitted, the digests of this set's members are fetched for this call.
+
 ### example 1
 
 ```powershell

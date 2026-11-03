@@ -47,6 +47,16 @@ Get-ModuleGlobSet -Name Catzc.Base.Globs
 (Get-ModuleGlobSet -Name compiled).Matches('pwsh/.compiled/Catzc.Types.abc12345.dll')
 ```
 
+## Session cache
+
+The derived table, every module's sets plus the reserved sets, is built on the first call and held in the module's `$script:` cache entry
+`moduleGlobSetCache`, keyed on the repository root and the code root
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](../../../drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe)). The `-Name`
+filter reads the cached table, and the shadowing checks run when the table is built, so a declared set that shadows a derived name throws on
+the build and leaves nothing cached. The next import drops the cache and nothing else does
+([ADR-AUTO-CACHE-IMPORTERINVALIDATES](../../../drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)); a test that changes a
+config between calls resets the entry itself.
+
 ## The code track
 
 The code track is the one whose place is the catzc modules folder. Its first place is the root every module and infra folder sits under.
@@ -99,3 +109,12 @@ The excludes are sorted ordinally, so the scan program (the marker body) is byte
 directory-enumeration and hashtable order.
 
 [r1]: ../../../drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-bashtestfolder
+
+## comment:1
+
+Above `if ($null -eq...`, written with `#`.
+
+```text
+The derived table is built once per session and root pair; the next import drops it
+([ADR-AUTO-CACHE-IMPORTERINVALIDATES](/docs/drs/automation/caching.md#rule-adr-auto-cache-importerinvalidates)).
+```

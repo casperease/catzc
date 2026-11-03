@@ -7,6 +7,8 @@ function Enter-TestRunLocation {
 
         [string] $RunDirectory,
 
+        [string[]] $TestPath,
+
         [switch] $Isolated,
 
         [switch] $KeepSandbox
@@ -78,9 +80,12 @@ function Enter-TestRunLocation {
     $location.Snapshot = New-RepositorySnapshot -SourceRoot $sourceRoot -Destination $destination
 
     # The snapshot starts with the working folder's result caches, keyed on content and input stamps.
+    $clock = [System.Diagnostics.Stopwatch]::StartNew()
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
         Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
+        # The writers' stamp memo states the working folder's outputs, which the snapshot lacks, so without it every at_import writer is due.
+        [System.IO.File]::Delete((Join-Path $location.Snapshot.Path 'out/cache/generated-writers.json'))
     }
     # It starts with the published agent hooks too: each carries its sources' hash, so the import republishes only a hook whose sources differ.
     $sourceHooks = Join-Path $sourceRoot '.claude/hooks/bin'
@@ -88,8 +93,11 @@ function Enter-TestRunLocation {
         Copy-Directory $sourceHooks (Join-Path $location.Snapshot.Path '.claude/hooks/bin')
     }
 
+    Write-Message "Copied the result caches and agent hooks into the snapshot in $([math]::Round($clock.Elapsed.TotalSeconds, 1)) s."
+
     # One full import, as a fresh clone's, materialises the gitignored generated files.
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
+    $clock.Restart()
     $pwshEngine = [Catzc.Base.Engines.ExecutionEngines]::Pwsh
     $start = $pwshEngine.NonInteractiveArguments -join ' '
     $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path $pwshEngine.ImporterEntry)`"" `
@@ -104,14 +112,19 @@ function Enter-TestRunLocation {
         throw ("The working folder was held, so this run went to a snapshot, but priming the snapshot failed (exit $($priming.ExitCode)); " +
             "the import's output is in $log and the snapshot is kept at $($location.Snapshot.Path). Last lines:`n$tail")
     }
-    Build-SnapshotReadme -SnapshotRoot $location.Snapshot.Path
+    Write-Message "Primed the snapshot's import in $([math]::Round($clock.Elapsed.TotalSeconds, 1)) s."
 
     # The snapshot syncs its own Python environment offline, from the working folder's lock, so its editable installs name its own files.
     $pythonRelative = (Get-Config -Config python).ResolveRoot($sourceRoot)
     $sourcePython = Join-Path $sourceRoot $pythonRelative
     $snapshotPython = Join-Path $location.Snapshot.Path $pythonRelative
     $pythonEnvironment = $null
-    if ([System.IO.File]::Exists((Join-Path $sourcePython '.venv/pyvenv.cfg')) -and
+    # A run that names its test files and selects none under the Python root has no Python test to sync for; a run that names none selects all.
+    $pythonRootPrefix = [System.IO.Path]::GetFullPath($sourcePython).TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+    $selectsPython = -not $TestPath -or
+    @($TestPath | Where-Object { [System.IO.Path]::GetFullPath($_).StartsWith($pythonRootPrefix, [System.StringComparison]::OrdinalIgnoreCase) }).Count -gt 0
+    if ($selectsPython -and
+        [System.IO.File]::Exists((Join-Path $sourcePython '.venv/pyvenv.cfg')) -and
         [System.IO.File]::Exists((Join-Path $snapshotPython 'pyproject.toml'))) {
         $sourceLock = Join-Path $sourcePython 'uv.lock'
         if ([System.IO.File]::Exists($sourceLock)) {
@@ -131,7 +144,7 @@ function Enter-TestRunLocation {
             $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
             [System.Environment]::SetEnvironmentVariable($name, $syncEnvironment[$name])
         }
-        $clock = [System.Diagnostics.Stopwatch]::StartNew()
+        $clock.Restart()
         try {
             $sync = Invoke-Executable "`"$($uv.Path)`" sync --all-packages --quiet --offline" -WorkingDirectory $snapshotPython -PassThru -Silent -NoAssert
         }

@@ -10,7 +10,7 @@ Describe 'Export-Catzc installs a real base build into a working root' -Tag 'L2'
                 if ($ExcludeOut -and $relative.StartsWith('out/')) {
                     continue
                 }
-                "$relative $((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash)"
+                "$relative $([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($file))))"
             }
             @($rows | Sort-Object)
         }
@@ -51,7 +51,8 @@ Describe 'Export-Catzc installs a real base build into a working root' -Tag 'L2'
             $afterFirst = Get-RootSnapshot -Path $root
             $second = Install-Catzc -Root $root -Bundle base -Silent
             $afterSecond = Get-RootSnapshot -Path $root
-            $before = Get-RootSnapshot -Path $root -ExcludeOut
+            # No process ran since the second snapshot, so the pre-load state is that snapshot without out/.
+            $before = @($afterSecond | Where-Object { -not $_.StartsWith('out/') })
             $load = Invoke-RootLoad -Path $root -Importer $first.Importer
             $after = Get-RootSnapshot -Path $root -ExcludeOut
             $script:roots[$kind] = @{

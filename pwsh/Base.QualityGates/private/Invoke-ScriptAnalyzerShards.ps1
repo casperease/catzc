@@ -11,7 +11,10 @@ function Invoke-ScriptAnalyzerShards {
         [string] $RepositoryRoot,
 
         [Parameter(Mandatory)]
-        [string] $CodeRoot
+        [string] $CodeRoot,
+
+        # Called as each shard ends with -Label, -File and -Diagnostic, so a caller records a shard's result before the last shard is in.
+        [scriptblock] $OnShardComplete
     )
 
     # The vendored analyzer ships inside the code tree, so it resolves from the code root.
@@ -70,15 +73,37 @@ function Invoke-ScriptAnalyzerShards {
         foreach ($shard in $shards) {
             $job = Start-Job -ScriptBlock $worker -ArgumentList @($shard, $RepositoryRoot, $analyzerPath,
                 $entry.SettingsPath, $entry.IncludeRule, $entry.ExcludeRule, $CodeRoot)
-            $jobs.Add([pscustomobject]@{ Label = $entry.Label; Job = $job })
+            $jobs.Add([pscustomobject]@{ Label = $entry.Label; Job = $job; Files = [string[]] $shard.ToArray(); Diagnostics = $null; Done = $false })
         }
     }
 
     # A dot per interval while shards run, never a progress bar.
     $dotted = $false
     try {
-        # Poll for shard completion so the user sees the run is alive rather than a silent wait.
-        while (@($jobs | Where-Object { $_.Job.State -notin 'Completed', 'Failed', 'Stopped' }).Count -gt 0) {
+        # Each shard is received as it ends, so its result reaches the caller before the last shard is in.
+        while ($true) {
+            $pending = $false
+            foreach ($item in $jobs) {
+                if ($item.Done) {
+                    continue
+                }
+                if ($item.Job.State -eq 'Completed') {
+                    $item.Diagnostics = @(Receive-Job -Job $item.Job -ErrorAction Stop)
+                    $item.Done = $true
+                    if ($OnShardComplete) {
+                        & $OnShardComplete -Label $item.Label -File $item.Files -Diagnostic $item.Diagnostics
+                    }
+                }
+                elseif ($item.Job.State -in 'Failed', 'Stopped') {
+                    $item.Done = $true
+                }
+                else {
+                    $pending = $true
+                }
+            }
+            if (-not $pending) {
+                break
+            }
             Write-Message '.' -NoHeader -NoNewline
             $dotted = $true
             Start-Sleep -Seconds 1
@@ -94,7 +119,7 @@ function Invoke-ScriptAnalyzerShards {
                 $reason = ($item.Job.ChildJobs.JobStateInfo.Reason.Message) -join '; '
                 throw "PSScriptAnalyzer shard job $($item.Job.Id) ($($item.Label) pass) ended in state '$($item.Job.State)': $reason"
             }
-            foreach ($diagnostic in @(Receive-Job -Job $item.Job -ErrorAction Stop)) {
+            foreach ($diagnostic in @($item.Diagnostics)) {
                 $ret[$item.Label].Add($diagnostic)
             }
         }

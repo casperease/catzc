@@ -65,12 +65,18 @@ function Build-Modules {
         if ($isDeclaredBundle) {
             Assert-BundleFootprint -Path $result.BuildRoot -Bundle $config.bundles[$Bundle] | Out-Null
         }
-        Assert-CatzcBundle -Path $result.BuildRoot
+        # A reused build was asserted when it was built and its copy is verified by content hash, so only a fresh build is asserted.
+        if (-not $result.Reused) {
+            Assert-CatzcBundle -Path $result.BuildRoot
+        }
     }
 
     if (-not $Silent) {
         $verb = if ($DryRun) {
             'Would build'
+        }
+        elseif ($result.Reused) {
+            'Reused'
         }
         else {
             'Built'

@@ -15,10 +15,8 @@ function Get-FunctionDependency {
         return $script:functionDependencyCache[$ModulesRoot]
     }
 
-    # Every source .ps1 is listed once, through the bounded Get-ChildPath walker, and parsed once.
-    $parsed = [System.Collections.Generic.List[object]]::new()
-    $definitions = @{}
-
+    # Every source .ps1 is listed once, through the bounded Get-ChildPath walker.
+    $scripts = [System.Collections.Generic.List[object]]::new()
     foreach ($moduleDir in (Get-ChildPath $ModulesRoot -Depth 1 -Directory)) {
         if ([System.IO.Path]::GetFileName($moduleDir) -match '^\.') {
             continue
@@ -33,14 +31,29 @@ function Get-FunctionDependency {
             if ($name -like '*.Tests.ps1' -or $path -match '[/\\]assets[/\\]') {
                 continue
             }
+            $scripts.Add([pscustomobject]@{ Module = $module; FileName = $name; Path = $path })
+        }
+    }
 
-            $ast = $ParsedScripts.Get($path).Ast
-            $fns = @([Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions($ast))
+    # The graph is a pure function of those scripts, so a file under out/ holds it across sessions, keyed on their content.
+    $cachePath = Get-FunctionDependencyCachePath
+    $stamp = Get-FunctionDependencyStamp -File @($scripts.Path) -ModulesRoot $ModulesRoot
+    $stored = Get-FunctionDependencyFile -Path $cachePath -Stamp $stamp
+    if ($null -ne $stored) {
+        $script:functionDependencyCache[$ModulesRoot] = $stored
+        return $stored
+    }
 
-            $parsed.Add([pscustomobject]@{ Module = $module; FileName = $name; Functions = $fns })
-            foreach ($fn in $fns) {
-                $definitions[$fn.Name] = @{ Module = $module; File = $name; Line = $fn.Extent.StartLineNumber }
-            }
+    # Each script is parsed once.
+    $parsed = [System.Collections.Generic.List[object]]::new()
+    $definitions = @{}
+    foreach ($entry in $scripts) {
+        $ast = $ParsedScripts.Get($entry.Path).Ast
+        $fns = @([Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions($ast))
+
+        $parsed.Add([pscustomobject]@{ Module = $entry.Module; FileName = $entry.FileName; Functions = $fns })
+        foreach ($fn in $fns) {
+            $definitions[$fn.Name] = @{ Module = $entry.Module; File = $entry.FileName; Line = $fn.Extent.StartLineNumber }
         }
     }
 
@@ -68,6 +81,7 @@ function Get-FunctionDependency {
         }
     }
 
+    Save-FunctionDependencyFile -Path $cachePath -Stamp $stamp -Edge $ret
     $script:functionDependencyCache[$ModulesRoot] = $ret
     $ret
 }

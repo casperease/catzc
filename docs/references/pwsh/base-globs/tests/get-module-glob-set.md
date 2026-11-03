@@ -19,3 +19,12 @@ needs to exist so that the shadow check has a registry to compare the derived na
 
 The reserved-name guard lives in the registry type itself
 ([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)).
+
+## comment:1
+
+Above `InModuleScope Catzc.Base.Globs { $script:moduleGlobSetCache = $null }`, written with `#`.
+
+```text
+A neutral declared set, there only so the shadow check has a registry to compare against.
+The session cache starts cold for this file.
+```

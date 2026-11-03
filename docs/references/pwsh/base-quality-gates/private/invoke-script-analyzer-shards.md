@@ -43,6 +43,12 @@ The repository root the shards run from.
 
 The code root, `Get-CatzcModulesRoot` at the caller: the vendored analyzer and the custom rule modules resolve from it.
 
+### parameter `OnShardComplete`
+
+A script block called as each shard ends, with `-Label` (the pass), `-File` (the shard's files) and `-Diagnostic` (its records), so a caller
+records a shard's result before the last shard is in; the result cache is saved this way, so a run killed at its roof keeps the files the
+finished shards found clean.
+
 ### outputs
 
 `[hashtable]` Each pass's label mapped to the diagnostic records its shards returned.
