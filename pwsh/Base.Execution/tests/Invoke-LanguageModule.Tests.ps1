@@ -92,6 +92,8 @@ Describe 'Invoke-LanguageModule' -Tag 'L0', 'logic' {
             $script:calls[2].Command | Should -BeLike '*python*" -m widget one "two words"'
             $script:calls[2].WorkingDirectory | Should -Be $script:folder
             Get-Content -LiteralPath (Join-Path $script:venv 'catzc-wheels.sha256') -Raw | Should -Match '^[0-9a-f]{64}'
+            Test-Path -LiteralPath Env:UV_PYTHON_DOWNLOADS |
+                Should -BeFalse -Because 'the variable is set for the environment''s creation only, and an empty value would still reach uv'
         }
 
         It 'skips the creation when wheels.json is unchanged' {

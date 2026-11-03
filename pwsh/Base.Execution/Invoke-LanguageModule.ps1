@@ -61,7 +61,8 @@ function Invoke-LanguageModule {
                 }
             }
             finally {
-                [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', $saved)
+                # A $null reaches the setter as an empty string, which leaves the variable set; the null string removes it.
+                [System.Environment]::SetEnvironmentVariable('UV_PYTHON_DOWNLOADS', $saved ?? [NullString]::Value)
             }
             $null = New-Item -ItemType Directory -Path $venv -Force
             [System.IO.File]::WriteAllText($stamp, $manifestHash)
@@ -152,7 +153,7 @@ function Invoke-LanguageModule {
     }
     finally {
         if ($pythonPath) {
-            [System.Environment]::SetEnvironmentVariable('PYTHONPATH', $savedPythonPath)
+            [System.Environment]::SetEnvironmentVariable('PYTHONPATH', $savedPythonPath ?? [NullString]::Value)
         }
     }
 }
