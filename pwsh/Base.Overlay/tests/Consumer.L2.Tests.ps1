@@ -404,7 +404,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         $red | Should -HaveCount 0 -Because "red quality gates: $($red -join ', ')"
     }
 
-    It 'renders the npm registry and the uv index from the consumer''s own package sources' -Tag 'ADR-AUTO-PKGSRC', 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+    It 'renders the npm registry and the uv index from the consumer''s own package sources' -Tag 'ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE', 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
         $configs = Join-Path $script:handle.WorkingRoot '.catzc/configs'
         $javascript = Join-Path $configs 'javascript.yml'
         $python = Join-Path $configs 'python.yml'

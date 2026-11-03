@@ -1,4 +1,4 @@
-Describe 'Get-GoEnvironment' {
+Describe 'Get-GoEnvironment' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:publicUrl = [Catzc.Base.Languages.PackageSource]::GoProxy.url
     }
