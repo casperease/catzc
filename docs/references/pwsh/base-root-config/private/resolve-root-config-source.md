@@ -1,6 +1,6 @@
 # pwsh/Base.RootConfig/private/Resolve-RootConfigSource.ps1
 
-The resolver of a root-config source path: it maps a repository-relative source to the file that holds it in the running mode.
+The resolver of the path a root config is rendered from: it maps a repository-relative path to the file that holds it in the running mode.
 
 ## help
 

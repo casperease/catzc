@@ -15,9 +15,9 @@ The bash module's script carries its executable bit in the index, as git stores 
 
 ## comment:2
 
-Above `'Test-JavaScriptTypes'`, written with `#`.
+Above `'.gitignore'                                    =...`, written with `#`.
 
 ```text
-The rendered jsconfig.json names the node types under .typescript/node_modules, a per-machine install a consumer root lacks:
-the vendored type packages (task-user-runs-and-commits, step 3) take their place.
+A repository ignores its output folder: the install's first import writes the writers' memo under it before the fixture adds its files.
+A consumer keeps its generated banner files out of git (a banner carries no body hash), as catzc's own .gitignore does.
 ```

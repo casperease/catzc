@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-Glossary -Path docs/drs/glossary.md"
-    with_body_sha: f7080c9d95ff
+    with_body_sha: "4b2fae66ffbf"
 ---
 
 # docs/drs/glossary.md
@@ -1765,7 +1765,8 @@ heading a field, and its head names the pattern, the deck and the order.
 
 ### source
 
-Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source.
+Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot source; a
+package source is the configured registry or feed a language's package manager resolves from.
 
 - **Defined by:** [ADR-REPO-VOCAB-FAMILYFORMS](repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1774,7 +1775,7 @@ Where something comes from, always qualified — a source mode, run, or tree; a 
   `combined source`, `committed source`, `shipped source`, `tracked source`, `fixture source`, `comparison source`, `primary source`,
   `raw source`, `install source`, `rule source`, `docs source`, `derived source`, `current source`, `real source`, `configured source`,
   `public source`, `single source`, `token source`, `relative source`, `repo source`, `authoritative source`, `cross source`,
-  `vendored source`, `input source`, `text source`, and the bare `source`, with its verb forms
+  `vendored source`, `input source`, `text source`, `package source`, and the bare `source`, with its verb forms
 - **Contrasts:**
   - [source of truth](#source-of-truth): The source of truth is the one store that decides what is true about the delivered system, the
     repository; a source, always qualified, names where one thing comes from.

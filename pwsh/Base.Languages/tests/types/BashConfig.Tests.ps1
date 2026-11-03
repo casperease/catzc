@@ -24,6 +24,14 @@ Describe 'BashConfig' -Tag 'L0' {
             $config.ResolveRoot($without) | Should -Be '.bash'
         }
 
+        It 'takes the public release host when package_source is absent and reads a declared one' {
+            ([Catzc.Base.Languages.BashConfig]::new($script:pin)).package_source | Should -Be ([Catzc.Base.Languages.PackageSource]::GitHubReleases)
+            $raw = [ordered]@{ package_source = [ordered]@{ url = 'https://mirror.widget.test' } } + $script:pin
+            $config = [Catzc.Base.Languages.BashConfig]::new($raw)
+            $config.package_source.url | Should -Be 'https://mirror.widget.test'
+            $config.package_source.name | Should -Be 'github'
+        }
+
         It 'resolves to the declared root whatever is on disk' {
             $raw = [ordered]@{ root = 'test/sh'; bats_version = '1.2.3'; bats_sha256 = ('a' * 64) }
             $config = [Catzc.Base.Languages.BashConfig]::new($raw)

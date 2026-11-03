@@ -4,6 +4,7 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
         Mock Assert-CatzcSourceTree -ModuleName Catzc.Base.Vendor { }
         Mock Write-Message -ModuleName Catzc.Base.Vendor { }
         Mock Resolve-VendorRepository -ModuleName Catzc.Base.Vendor { 'PSGallery' }
+        Mock Get-Config -ModuleName Catzc.Base.Vendor { [Catzc.Base.Vendor.VendorConfig]::new(@{}) }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Vendor { 'TestDrive:' }
         Mock Test-Path -ModuleName Catzc.Base.Vendor { $true }
         Mock Save-PSResource -ModuleName Catzc.Base.Vendor { }
@@ -26,6 +27,37 @@ Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
     It 'passes the required version through as -Version' {
         Install-VendorModule X -RequiredVersion '5.5.0'
         Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -ParameterFilter { $Version -eq '5.5.0' }
+    }
+
+    It 'passes no credential when the source names no variable' {
+        Install-VendorModule X
+        Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -ParameterFilter { -not $Credential }
+    }
+
+    Context 'a source with a credential variable' {
+        BeforeEach {
+            $env:WIDGET_TOKEN = 'widget-secret'
+            Mock Get-Config -ModuleName Catzc.Base.Vendor {
+                [Catzc.Base.Vendor.VendorConfig]::new(@{ package_source = @{ name = 'widget'; url = 'https://feed.widget.test/v3/index.json'; credential_env = 'WIDGET_TOKEN' } })
+            }
+        }
+
+        AfterEach {
+            Remove-Item Env:WIDGET_TOKEN -ErrorAction Ignore
+        }
+
+        It 'passes the token as a credential named token' {
+            Install-VendorModule X
+            Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -ParameterFilter {
+                $Credential.UserName -eq 'token' -and $Credential.GetNetworkCredential().Password -eq 'widget-secret'
+            }
+        }
+
+        It 'throws naming the variable and the source when the variable is unset, before any download' {
+            Remove-Item Env:WIDGET_TOKEN
+            { Install-VendorModule X } | Should -Throw "*'widget'*'WIDGET_TOKEN'*"
+            Should -Invoke Save-PSResource -ModuleName Catzc.Base.Vendor -Times 0
+        }
     }
 
     It 'prunes the folders the toolset never loads and keeps the rest' {

@@ -1,19 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Catzc.Base.Languages;
 
 namespace Catzc.Base.Vendor;
 
 // Every violation is reported at once on construction, so a typo in vendor.yml fails at load, not at download.
 public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "source", "sourceUrl" };
+    private static readonly string[] AllowedKeys = { PackageSource.Key };
 
-    // The registered PSResourceRepository to download from and validate against (PSGallery by default).
-    public string source { get; }
-
-    // Null for a built-in repository; a url names a private feed registered under the source name.
-    public string sourceUrl { get; }
+    // The PSResource repository to download from and validate against: its name is the registered repository, its url the feed (PSGallery by default).
+    public PackageSource package_source { get; }
 
     public VendorConfig(IDictionary d)
     {
@@ -30,21 +28,7 @@ public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        source = OptStr(d, "source");
-        if (source == null)
-        {
-            errors.Add("missing required key 'source' (the PSResourceRepository name, e.g. PSGallery)");
-        }
-
-        if (d != null && d.Contains("sourceUrl"))
-        {
-            string url = d["sourceUrl"] == null ? "" : d["sourceUrl"].ToString();
-            if (string.IsNullOrWhiteSpace(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
-            {
-                errors.Add(string.Format("invalid sourceUrl '{0}' (must be an absolute URI)", url));
-            }
-            else { sourceUrl = url; }
-        }
+        package_source = PackageSource.Read(d != null && d.Contains(PackageSource.Key) ? d[PackageSource.Key] : null, PackageSource.PSGallery, errors);
 
         if (errors.Count > 0)
         {

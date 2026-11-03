@@ -62,3 +62,13 @@ $contract = Get-EngineContract -Engine bash -EntryScript $buildEntry
 
 The entry is the one the engine itself loads: for pwsh the PowerShell entry, for any other engine its own importer in the repository,
 forward-slashed so a POSIX shell on Windows reads the path.
+
+## comment:1
+
+Above `$goSource = (Get-Config -Config go).package_source`, written with `#`.
+
+```text
+The go module source is environment, so every engine's contract carries it, decided here once. The public proxy keeps go's own
+checksum database; a private proxy serves none, so its host is private and the database is off. go reads a proxy credential from
+~/.netrc, never from an environment variable, so credential_env is not wired here.
+```

@@ -176,8 +176,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
 '@
         # One install per file: the full bundle, the only declared one whose closure carries Catzc.Base.Overlay, plus the consumer's overlay entries.
         $script:handle = New-ConsumerRoot -Bundle 'full' -File @{
-            # A repository ignores its output folder: the install's first import writes the writers' memo under it before the fixture adds its files.
-            '.gitignore'                                    = "out/`n"
+            '.gitignore'                                    = "out/`ngo.work`n*/*/go.mod`n*/tests/*/go.mod`n"
             'widget/Local/Get-LocalWidget.ps1'              = $widget
             'widget/Local/tests/Get-LocalWidget.Tests.ps1'  = $widgetTest
             'go/gadget/go.mod'                              = $goMod
@@ -211,8 +210,11 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
             }
         }
 
-        # The consumer syncs its python workspace once, as catzc does, so the python gates and the python test run read its environment offline.
+        # The consumer syncs its python workspace once, as catzc does, so the python quality gates and the python test run read its environment offline.
         $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { Install-PythonWorkspace }
+
+        # It installs the JavaScript type packages once from the configured registry, so the rendered jsconfig.json's type root is filled and the JavaScript types quality gate reads it offline.
+        $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { Install-TypeScript }
 
         # One fresh session through the root's importer answers every case below.
         $script:session = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
@@ -335,7 +337,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         @($run.Files | Where-Object { $_.Replace('\', '/').StartsWith($codeRoot, [System.StringComparison]::OrdinalIgnoreCase) }) | Should -HaveCount 0
     }
 
-    It 'defines cats in a bash session through the installed shell entry' -Tag 'ADR-AUTO-ENGINE' {
+    It 'defines cats in a bash session through the installed shell entry' -Tag 'ADR-AUTO-ENGINE-IMPORTERENTRY' {
         $bash = $null
         try {
             $bash = Resolve-EngineExecutable -Engine bash
@@ -352,7 +354,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         "$($shell.Output)".Trim() | Should -Be 'build'
     }
 
-    It 'runs catzc''s analyzer rules over the consumer module''s public function and finds it clean, the rules resolved from the bundle''s code root' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES', 'ADR-AUTO-OVERLAY' {
+    It 'runs catzc''s analyzer rules over the consumer module''s public function and finds it clean, the rules resolved from the bundle''s code root' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES', 'ADR-AUTO-OVERLAY-ASSETOVERRIDE' {
         $script:session.AnalyzerIssues | Should -Be 0
     }
 
@@ -387,7 +389,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         $rows = Get-GateRow -GateSet $script:session.GateSet -Issue $script:session.GateReport.Issues
         $rows.Gate | Should -HaveCount @($script:session.GateSet).Count
         @($script:session.GateReport.Issues | Where-Object { $_ -notmatch '^Test-[A-Za-z]+: ' }) | Should -HaveCount 0
-        @($rows | Where-Object { $_.Issues -eq 0 } | ForEach-Object Gate | Sort-Object) | Should -Be @('Test-BclReferences', 'Test-Comments', 'Test-Formatting', 'Test-IdiomaticNames', 'Test-LinkDirections', 'Test-Links', 'Test-Markdownlint', 'Test-MarkdownTitle', 'Test-PythonLint', 'Test-PythonTypes', 'Test-ScriptAnalyzer', 'Test-ShellScripts', 'Test-Spelling')
+        @($rows | Where-Object { $_.Issues -eq 0 } | ForEach-Object Gate | Sort-Object) | Should -Be @('Test-BclReferences', 'Test-Comments', 'Test-Formatting', 'Test-IdiomaticNames', 'Test-JavaScriptTypes', 'Test-LinkDirections', 'Test-Links', 'Test-Markdownlint', 'Test-MarkdownTitle', 'Test-PythonLint', 'Test-PythonTypes', 'Test-ScriptAnalyzer', 'Test-ShellScripts', 'Test-Spelling')
     }
 
     It 'runs no gate of a language the consumer has no tracked file of, nor of a folder it lacks: the bicep gates, and the plans and agents folders gates, are not in the set, and the gates of the python, bash and javascript modules it holds are' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES', 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -395,13 +397,42 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         @($script:session.GateSet | Where-Object { $_ -in 'Test-PythonLint', 'Test-PythonTypes', 'Test-ShellScripts', 'Test-JavaScriptTypes' } | Sort-Object) | Should -Be @('Test-JavaScriptTypes', 'Test-PythonLint', 'Test-PythonTypes', 'Test-ShellScripts')
     }
 
-    # A gate red on the clean consumer is listed here with its cause until a step takes it off.
+    # Every gate of the language registry is green on the clean consumer; a gate red here is listed with its cause until a step takes it off.
     It 'is red on the clean consumer exactly in the gates whose pending step is named here' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES' {
-        $pending = @(
-            'Test-JavaScriptTypes'
-        )
         $rows = Get-GateRow -GateSet $script:session.GateSet -Issue $script:session.GateReport.Issues
-        @($rows | Where-Object { $_.Issues -gt 0 } | ForEach-Object Gate | Sort-Object) | Should -Be @($pending | Sort-Object)
+        $red = @($rows | Where-Object { $_.Issues -gt 0 } | ForEach-Object Gate | Sort-Object)
+        $red | Should -HaveCount 0 -Because "red quality gates: $($red -join ', ')"
+    }
+
+    It 'renders the npm registry and the uv index from the consumer''s own package sources' -Tag 'ADR-AUTO-PKGSRC', 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+        $configs = Join-Path $script:handle.WorkingRoot '.catzc/configs'
+        $javascript = Join-Path $configs 'javascript.yml'
+        $python = Join-Path $configs 'python.yml'
+        $pythonPins = [System.IO.File]::ReadAllText($python)
+        # A working-root config is read whole, so the python override keeps the fixture's pins beside the widget package source.
+        [System.IO.File]::WriteAllText($javascript, "package_source: { name: widget, url: 'https://feeds.widget.example/npm/' }`n")
+        [System.IO.File]::WriteAllText($python, $pythonPins + "package_source: { name: widget, url: 'https://feeds.widget.example/pypi/simple/' }`n")
+        try {
+            $rendered = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+                $null = Build-RootConfig -Path .npmrc
+                $null = Build-RootConfig -Path python/pyproject.toml
+                [pscustomobject]@{
+                    Npmrc     = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) '.npmrc'))
+                    Pyproject = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'python/pyproject.toml'))
+                }
+            }
+        }
+        finally {
+            # The later cases read the public sources again: the python file returns to its pins, the javascript file is removed, and both render anew.
+            [System.IO.File]::WriteAllText($python, $pythonPins)
+            [System.IO.File]::Delete($javascript)
+            $null = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+                Build-RootConfig -Path .npmrc
+                Build-RootConfig -Path python/pyproject.toml
+            }
+        }
+        $rendered.Npmrc | Should -BeLike '*registry=https://feeds.widget.example/npm/*'
+        $rendered.Pyproject | Should -BeLike '*[[]tool.uv.index]]*name = "widget"*url = "https://feeds.widget.example/pypi/simple/"*'
     }
 
     It 'reads the consumer''s own drs.yml whole from the working root: the registry finds no issue, the domain is the consumer''s only, and the index lists its record code' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {

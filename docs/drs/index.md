@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-DrsIndex -Path docs/drs/index.md"
-    with_body_sha: "51575e3cbd16"
+    with_body_sha: bba7ce0812ea
 ---
 
 # DRS index and rule-citation registry
@@ -190,6 +190,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
 | `ADR-AUTO-ACCOSTED` | [accosted-language](automation/accosted-language.md)                             |
 | `ADR-AUTO-NET`      | [network-calls](automation/network-calls.md)                                     |
+| `ADR-AUTO-PKGSRC`   | [package-sources](automation/package-sources.md)                                 |
 
 ### automation/BCL/
 

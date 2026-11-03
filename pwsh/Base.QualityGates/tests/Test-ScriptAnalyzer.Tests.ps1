@@ -95,7 +95,7 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'analyzes with the working root''s own settings copy when it exists, the consumer''s to edit' -Tag 'ADR-AUTO-OVERLAY', 'ADR-AUTO-CONSUMER-CATZCGATES' {
+    It 'analyzes with the working root''s own settings copy when it exists, the consumer''s to edit' -Tag 'ADR-AUTO-OVERLAY-ASSETOVERRIDE', 'ADR-AUTO-CONSUMER-CATZCGATES' {
         $workRoot = Join-Path $TestDrive 'consumer'
         [void][System.IO.Directory]::CreateDirectory($workRoot)
         $copy = Join-Path $workRoot ([System.IO.Path]::GetFileName([Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))))

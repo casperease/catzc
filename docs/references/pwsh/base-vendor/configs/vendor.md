@@ -14,3 +14,12 @@ The vendor registry: the one place that says where vendored PowerShell modules c
 
 `Get-Config -Config vendor` loads the file into the typed `Catzc.Base.Vendor.VendorConfig` record, which rejects unknown keys at load
 (`VendorConfig.cs`). Only the module's own functions read it.
+
+## comment:1
+
+At the end of the file, written with `#`.
+
+```text
+The PSResource repository vendored modules come from and are checked against is package_source (the public PowerShell Gallery when it
+is left out); a private feed is registered under its name on first use.
+```

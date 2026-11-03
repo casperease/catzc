@@ -47,6 +47,8 @@ terms:
       meaning: "PowerShell Core (pscore)"
     - term: pscustomobject
       meaning: "PowerShell [pscustomobject]"
+    - term: pscredential
+      meaning: "PowerShell [pscredential], a user name with a secure-string password"
     - term: psd1
       meaning: "PowerShell data/manifest file extension (.psd1)"
     - term: psgallery

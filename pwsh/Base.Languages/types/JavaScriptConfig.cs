@@ -19,7 +19,7 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultTypesFolder = ".typescript";
 
     private const string Failed = "javascript config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "strict", "types_folder" };
+    private static readonly string[] AllowedKeys = { "root", "strict", "types_folder", PackageSource.Key };
     private static readonly Regex Module = new Regex(@"^[a-z0-9]+(-[a-z0-9]+)*$");
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
 
@@ -31,6 +31,9 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The modules the types gate checks strictly, each a kebab module folder under the root; none by default, so every module starts lenient.
     public IReadOnlyList<string> strict { get; }
+
+    // The registry npm installs the type packages from; the public registry unless declared.
+    public PackageSource package_source { get; }
 
     public JavaScriptConfig(IDictionary raw)
     {
@@ -87,6 +90,8 @@ public sealed class JavaScriptConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
         }
+
+        package_source = PackageSource.Read(raw != null && raw.Contains(PackageSource.Key) ? raw[PackageSource.Key] : null, PackageSource.Npm, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         strict = strictModules;

@@ -31,9 +31,9 @@ Lazy-load expensive modules (Pester, PSScriptAnalyzer) via the `Lazy` parameter 
 
 ### Rule ADR-PWSH-VENDOR-CONFIGURABLESOURCE
 
-The vendor source is configurable in `vendor.yml` (`source`, default `PSGallery`; optional `sourceUrl` for a custom feed). Remove vendored
-modules only with `Remove-VendorModules`, which refuses to delete anything the source cannot restore — so the committed set stays
-reproducible.
+The vendor source is the `package_source` of `vendor.yml` (`name`, `url`, `credential_env`; the PowerShell Gallery by default), the one
+shape every language's package source takes (ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE). Remove vendored modules only with `Remove-VendorModules`,
+which refuses to delete anything the source cannot restore — so the committed set stays reproducible.
 
 - [How this is enforced](#how-this-is-enforced)
 

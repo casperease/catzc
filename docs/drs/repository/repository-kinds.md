@@ -55,9 +55,8 @@ only where the consumer pins the bundle, at its repository boundary.
 
 A bundle can run where nothing is under version control, for a one-off command or a build on a clean machine. It writes its output under the
 working root as it does anywhere. What needs git — the tracked files, the history behind a globset, a commit to stamp — has no source there,
-so those commands say so instead of guessing. A command that needs git calls
-[Assert-GitWorkTree](../../references/pwsh/base-repository/assert-git-work-tree.md) first, which throws a message naming the command, and
-the tracked-file lister lists nothing in such a root.
+so those commands say so instead of guessing. A command that needs git calls `Assert-GitWorkTree` first, which throws a message naming the
+command, and the tracked-file lister lists nothing in such a root.
 
 ## Consequences
 

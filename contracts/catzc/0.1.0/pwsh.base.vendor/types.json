@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"70fdb0519475\"",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"3c5c29d72a9f\"",
   "types": [
     {
       "name": "Catzc.Base.Vendor.VendorConfig",
@@ -7,11 +7,7 @@
       "display": [],
       "members": [
         {
-          "name": "sourceUrl",
-          "kind": "property"
-        },
-        {
-          "name": "source",
+          "name": "package_source",
           "kind": "property"
         }
       ]

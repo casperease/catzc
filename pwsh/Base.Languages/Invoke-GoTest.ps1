@@ -55,8 +55,11 @@ function Invoke-GoTest {
     $goCommand = "`"$goPath`""
 
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
+    $offline = Get-GoEnvironment -Offline
+    foreach ($name in $offline.Keys) {
+        $environment[$name] = $offline[$name]
+    }
     $environment['GOTOOLCHAIN'] = 'local'
-    $environment['GOPROXY'] = 'off'
     $environment['GOFLAGS'] = '-mod=mod'
     $environment['GOWORK'] = 'off'
     $saved = @{}

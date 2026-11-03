@@ -98,6 +98,20 @@ Describe 'NetworkCallsConfig' -Tag 'L0' {
             { & $script:make $entry } | Should -Throw "*$Key is required*"
         }
 
+        It 'reads host_from on a package-install site and defaults it to empty' {
+            $sites = (& $script:make (& $script:site @{ host_from = 'widget' })).sites.Values
+            @($sites | ForEach-Object host_from) | Should -Be @('widget')
+            (& $script:make (& $script:site)).sites.Values | ForEach-Object host_from | Should -BeNullOrEmpty
+        }
+
+        It 'rejects a host_from that is not a config name' {
+            { & $script:make (& $script:site @{ host_from = 'Widget Feed' }) } | Should -Throw '*host_from*must be a config name*'
+        }
+
+        It 'rejects host_from on a site that is not package-install' {
+            { & $script:make (& $script:site @{ class = 'git-remote'; host_from = 'widget' }) } | Should -Throw '*host_from is only for a package-install site*'
+        }
+
         It 'defaults to no patterns and the declared skip paths' {
             $config = [Catzc.Base.Execution.NetworkCallsConfig]::new($null)
             $config.patterns.Count | Should -Be 0

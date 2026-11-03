@@ -53,5 +53,10 @@ function Get-EngineContract {
     }
     $contract['CATZC_REPOSITORY_ROOT'] = $root
     $contract['CATZC_ENGINE_TIMEOUT_SECONDS'] = [string] (Get-Config -Config timeouts).tests.engine_start_seconds
+
+    $goEnvironment = Get-GoEnvironment
+    foreach ($name in $goEnvironment.Keys) {
+        $contract[$name] = $goEnvironment[$name]
+    }
     $contract
 }

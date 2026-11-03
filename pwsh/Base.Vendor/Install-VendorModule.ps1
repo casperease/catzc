@@ -23,6 +23,8 @@ function Install-VendorModule {
         New-Item -Path $vendorRoot -ItemType Directory -Force | Out-Null
     }
 
+    # The credential is built before any gallery call, so an unset variable stops the run first.
+    $credential = Get-VendorCredential
     $saveParams = @{
         Name            = $Name
         Repository      = (Resolve-VendorRepository)
@@ -31,6 +33,9 @@ function Install-VendorModule {
     }
     if ($RequiredVersion) {
         $saveParams.Version = $RequiredVersion
+    }
+    if ($credential) {
+        $saveParams.Credential = $credential
     }
 
     Write-Verbose "Downloading $Name from the vendor source$(if ($RequiredVersion) { " (v$RequiredVersion)" })"

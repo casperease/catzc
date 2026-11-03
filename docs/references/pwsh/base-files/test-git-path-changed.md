@@ -16,7 +16,7 @@ paths, false when they match HEAD. This is the one "did these paths change?" que
 of two porcelain parses.
 
 Runs through Invoke-Executable -Silent: read-only, no console output, throws on a git failure. A working root with no repository stops at
-[Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
+`Assert-GitWorkTree` first, with an error naming this command.
 
 ### parameter `Path`
 

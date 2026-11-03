@@ -67,15 +67,14 @@ function Export-GoModule {
         $output = [System.IO.Path]::Combine($Destination, "$os-$arch", $leaf)
         $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($output))
 
-        $environment = @{
-            GOOS        = $os
-            GOARCH      = $arch
-            CGO_ENABLED = '0'
-            GOFLAGS     = $modFlag
-            GOPROXY     = 'off'
-            GOTOOLCHAIN = 'local'
-            GOWORK      = 'off'
-        }
+        # The go environment with the proxy off: a build compiles from the cache and never fetches.
+        $environment = Get-GoEnvironment -Offline
+        $environment['GOOS'] = $os
+        $environment['GOARCH'] = $arch
+        $environment['CGO_ENABLED'] = '0'
+        $environment['GOFLAGS'] = $modFlag
+        $environment['GOTOOLCHAIN'] = 'local'
+        $environment['GOWORK'] = 'off'
         $saved = @{}
         foreach ($variable in $environment.Keys) {
             $saved[$variable] = [System.Environment]::GetEnvironmentVariable($variable)
@@ -86,7 +85,12 @@ function Export-GoModule {
         }
         finally {
             foreach ($variable in $environment.Keys) {
-                [System.Environment]::SetEnvironmentVariable($variable, $saved[$variable])
+                if ($null -eq $saved[$variable]) {
+                    Remove-Item -LiteralPath "Env:$variable" -ErrorAction Ignore
+                }
+                else {
+                    [System.Environment]::SetEnvironmentVariable($variable, $saved[$variable])
+                }
             }
         }
         if ($build.ExitCode -ne 0) {

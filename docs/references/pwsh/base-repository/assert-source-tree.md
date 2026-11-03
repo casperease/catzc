@@ -20,7 +20,7 @@ that says what a consumer declares
 
 The variants file is read directly rather than through `Get-Track`: the Variants module depends on Config, and Config on this module, so
 this module cannot call it. The check is the one `Resolve-ConfigEntry` makes for the consumer's tracks, a track entry in that file. A tool
-that only catzc's own repository can run is guarded by [Assert-CatzcSourceTree](assert-catzc-source-tree.md).
+that only catzc's own repository can run is guarded by `Assert-CatzcSourceTree`.
 
 ### parameter `Command`
 

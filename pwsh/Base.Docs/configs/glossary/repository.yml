@@ -111,7 +111,7 @@ concepts:
     defined_by: ADR-REPO-VOCAB-FAMILYFORMS
     short:
       Where something comes from, always qualified — a source mode, run, or tree; a glossary source; a type, authored, vendor, or dot
-      source.
+      source; a package source is the configured registry or feed a language's package manager resolves from.
     realized_by: { kind: prose-only }
     forms:
       [
@@ -147,6 +147,7 @@ concepts:
         vendored,
         input,
         text,
+        package,
       ]
     verbs: true
     contrasts:

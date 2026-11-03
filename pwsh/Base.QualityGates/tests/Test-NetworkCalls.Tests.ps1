@@ -18,8 +18,12 @@ Describe 'Test-NetworkCalls' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 })
         }
         function New-WidgetSite {
-            param([string] $Trigger = 'on-request')
-            [ordered]@{ class = 'package-install'; trigger = $Trigger; gated_by = 'an explicit widget command' }
+            param([string] $Trigger = 'on-request', [string] $HostFrom)
+            $site = [ordered]@{ class = 'package-install'; trigger = $Trigger; gated_by = 'an explicit widget command' }
+            if ($HostFrom) {
+                $site['host_from'] = $HostFrom
+            }
+            $site
         }
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
@@ -76,6 +80,50 @@ Describe 'Test-NetworkCalls' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Gizmo.ps1#Get-Gizmo' = (New-WidgetSite) })
         $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
         $result.Issues | Should -Be @('widgets/Get-Gizmo.ps1#Get-Gizmo: the file is not tracked — remove the entry or correct its path')
+    }
+
+    It 'records the default package source host of a site that names host_from' {
+        Set-WidgetFile 'widgets/Get-Widget.ps1' "function Get-Widget {`n    Invoke-WidgetFetch`n}`n"
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ package_source = [Catzc.Base.Languages.PackageSource]::PyPI } }
+        $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite -HostFrom 'widget') })
+        $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.Facts['Hosts'] | Should -Be 'pypi.org'
+    }
+
+    It 'records the host of an overridden package source, with its port and path dropped' {
+        Set-WidgetFile 'widgets/Get-Widget.ps1' "function Get-Widget {`n    Invoke-WidgetFetch`n}`n"
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ package_source = [Catzc.Base.Languages.PackageSource]::new('widget', 'https://Feed.Widget.test:8443/simple', '') }
+        }
+        $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite -HostFrom 'widget') })
+        $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
+        $result.Facts['Hosts'] | Should -Be 'feed.widget.test'
+    }
+
+    It 'records the host of a registry-form source that names no scheme' {
+        Set-WidgetFile 'widgets/Get-Widget.ps1' "function Get-Widget {`n    Invoke-WidgetFetch`n}`n"
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ package_source = [Catzc.Base.Languages.PackageSource]::BicepRegistry } }
+        $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite -HostFrom 'widget') })
+        (Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru).Facts['Hosts'] | Should -Be 'mcr.microsoft.com'
+    }
+
+    It 'leaves a site with no host_from unchanged and records no host' {
+        Set-WidgetFile 'widgets/Get-Widget.ps1' "function Get-Widget {`n    Invoke-WidgetFetch`n}`n"
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates { throw 'no config is read for a site without host_from' }
+        $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite) })
+        $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 0
+        $result.Facts['Hosts'] | Should -Be ''
+    }
+
+    It 'reports a host_from whose config resolves no package source' {
+        Set-WidgetFile 'widgets/Get-Widget.ps1' "function Get-Widget {`n    Invoke-WidgetFetch`n}`n"
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates { throw 'No config gadget' }
+        $config = New-WidgetConfig ([ordered]@{ 'widgets/Get-Widget.ps1#Get-Widget' = (New-WidgetSite -HostFrom 'gadget') })
+        $result = Test-NetworkCalls -Config $config -OutputFolder $script:out -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike "widgets/Get-Widget.ps1#Get-Widget: host_from 'gadget' resolves no package_source host*"
     }
 
     It 'reports every default-path site as an open violation' {

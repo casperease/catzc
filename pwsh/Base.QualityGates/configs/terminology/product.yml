@@ -233,6 +233,16 @@ terms:
       meaning: "plural of venv"
     - term: pythonpath
       meaning: "PYTHONPATH — the environment variable that adds folders to Python's module search path"
+    - term: goprivate
+      meaning: "GOPRIVATE — the Go environment variable naming module paths the proxy and checksum database never see"
+    - term: gosumdb
+      meaning: "GOSUMDB — the Go environment variable naming the checksum database, or off for a private proxy that serves none"
+    - term: npmjs
+      meaning: "npmjs — the public npm registry host, registry.npmjs.org"
+    - term: npmrc
+      meaning: ".npmrc — the npm settings file a root renders from its javascript package source"
+    - term: netrc
+      meaning: ".netrc — the per-user credentials file go and curl read for a host's user name and password"
     - term: importlib
       meaning: "Python importlib.metadata (standard library) — reads an installed package's version without importing it"
     - term: yoke

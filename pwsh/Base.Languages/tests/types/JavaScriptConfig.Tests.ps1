@@ -29,6 +29,13 @@ Describe 'JavaScriptConfig' -Tag 'L0', 'logic' {
             Should -Throw "*lists 'gadget' twice*"
     }
 
+    It 'takes the public registry when package_source is absent and reads a declared one' {
+        ([Catzc.Base.Languages.JavaScriptConfig]::new($null)).package_source | Should -Be ([Catzc.Base.Languages.PackageSource]::Npm)
+        $config = [Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ package_source = [ordered]@{ url = 'https://npm.widget.test/'; credential_env = 'WIDGET_NPM_TOKEN' } })
+        $config.package_source.url | Should -Be 'https://npm.widget.test/'
+        $config.package_source.credential_env | Should -Be 'WIDGET_NPM_TOKEN'
+    }
+
     It 'installs the declarations into .typescript unless a types_folder is declared, and refuses one that is no relative folder' {
         ([Catzc.Base.Languages.JavaScriptConfig]::new($null)).types_folder | Should -Be '.typescript'
         ([Catzc.Base.Languages.JavaScriptConfig]::new([ordered]@{ types_folder = 'tools/types' })).types_folder | Should -Be 'tools/types'

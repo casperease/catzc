@@ -11,3 +11,8 @@
 # ADO pipeline. Prettier auto-discovers .prettierrc.yml.
 printWidth: $width.md
 proseWrap: always
+# Bicep reads its config as JSON with comments, so the generated head of bicepconfig.json survives the formatter as it does in jsconfig.json.
+overrides:
+  - files: "**/bicepconfig.json"
+    options:
+      parser: jsonc

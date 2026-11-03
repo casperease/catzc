@@ -125,19 +125,8 @@ gates, DRS) applied to that team's code. Verified against the tree on 2026-11-02
 
 ## Open steps
 
-### I: every language in the bundle
-
-1. [ ] `pwsh/Base.Languages/New-JsConfig.ps1` and `pwsh/Base.QualityGates/Test-JavaScriptTypes.ps1`: on the consumer fixture of
-       `pwsh/Base.Overlay/tests/Consumer.L2.Tests.ps1` the gate reads
-       `tsc could not check the JavaScript of jsconfig.json (exit 2): error TS2688: Cannot find type definition file for 'node'`: the
-       rendered `jsconfig.json` points `typeRoots` at `.typescript/node_modules/@types`, a per-machine npm install (`Install-TypeScript`,
-       `tools.yml` `types_node`), which a consumer root never has; catzc vendors no copy today, so the step waits on the user's vendoring of
-       `@types/node` and `@types/vscode` under `pwsh/.vendor/TypeScriptTypes/@types/` (task-user-runs-and-commits, step 3). Then one
-       resolver answers the type root in both modes (the vendored folder, under the code root in build mode), `Catzc.Base.QualityGates`
-       carries it in `gate_internal_files`, `New-JsConfig` renders `typeRoots` from it, `Test-JavaScriptTypes` reads the same, `tools.yml`
-       drops the `types_node`/`types_vscode` installs (PDR-ONELIVE), and `Test-JavaScriptTypes` leaves the pending list of the consumer
-       test. (check: `Invoke-TestFile -Path pwsh/Base.QualityGates/tests/Test-JavaScriptTypes.Tests.ps1`,
-       `Invoke-TestFile -Path pwsh/Base.Languages/tests/New-JsConfig.Tests.ps1`, then the consumer test under `Invoke-TestFile -MaxLevel 3`)
+Every step landed on 2026-11-03; the last one, the JavaScript type packages in a consumer root, moved to plan-package-sources (chunk C),
+where the source they install from is configured. The open question below keeps this plan.
 
 ## Open questions
 

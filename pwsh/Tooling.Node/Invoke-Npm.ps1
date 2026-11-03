@@ -15,5 +15,6 @@ function Invoke-Npm {
         Assert-Tool 'node_js'
     }
 
-    Invoke-Executable "npm $Arguments" -PassThru:$PassThru -NoAssert:$NoAssert -Silent:$Silent -DryRun:$DryRun
+    # npm reads the rendered root .npmrc from its working directory upward, so every call runs at the repository root.
+    Invoke-Executable "npm $Arguments" -WorkingDirectory (Get-RepositoryRoot) -PassThru:$PassThru -NoAssert:$NoAssert -Silent:$Silent -DryRun:$DryRun
 }

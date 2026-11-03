@@ -30,9 +30,9 @@ function Invoke-BashTest {
     # bats runs from the Bash root, so the folder is named relative to it.
     $inBashRoot = [System.IO.Path]::GetRelativePath($bashRoot, (Join-Path $root $relative)).Replace('\', '/')
     $bats = "$([Catzc.Base.Languages.BashConfig]::BatsFolder)/bin/bats"
-    # The working root's vendored runner, else the code root's copy (a build ships it under .vendor/); one place resolves it.
+    # The working root's vendored runner, else the code root's copy; one place resolves it.
     if (-not (Test-Path -LiteralPath (Join-Path $bashRoot $bats) -PathType Leaf)) {
-        # The bundle ships the runner as an internal gate asset, .internal/bats-core under the code root.
+        # The bundle ships the runner with the gates module's internal files, at .internal/bats-core under the code root.
         $shipped = Join-Path (Get-CatzcModulesRoot) '.internal/bats-core/bin/bats'
         if (-not (Test-Path -LiteralPath $shipped -PathType Leaf)) {
             throw "The bats-core runner is missing: $bashRelative/$bats does not exist. Run Update-BatsVendor."

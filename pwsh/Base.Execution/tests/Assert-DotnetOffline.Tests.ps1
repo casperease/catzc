@@ -5,6 +5,7 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
 <configuration>
   <packageSources>
     <clear />
+    <add key="widget" value="https://widget.example/v3/index.json" />
   </packageSources>
   <auditSources>
     <clear />
@@ -25,7 +26,7 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'passes a project under a root config that clears every source' {
+    It 'passes a project under a root config that names only the configured source' {
         $repo = New-WidgetRepository
         { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } | Should -Not -Throw
         { Assert-DotnetOffline 'gadgets/widget' -RepositoryRoot $repo.Root } |
@@ -42,14 +43,18 @@ Describe 'Assert-DotnetOffline' -Tag 'L0', 'logic' {
         { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } | Should -Throw '*is not readable XML*'
     }
 
-    It 'stops the call when a package source is visible (<section>)' -ForEach @(
-        @{ section = 'packageSources' }
-        @{ section = 'auditSources' }
-    ) {
-        $config = $script:cleared -replace "(<$section>\s*<clear />)", "`$1`n    <add key=`"gizmo`" value=`"https://gizmo.example/v3/index.json`" />"
+    It 'stops the call when a second package source is added' {
+        $config = $script:cleared -replace '(<packageSources>\s*<clear />)', "`$1`n    <add key=`"gizmo`" value=`"https://gizmo.example/v3/index.json`" />"
         $repo = New-WidgetRepository -Config $config
         { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } |
-            Should -Throw "*does not clear its $section*"
+            Should -Throw '*exactly one package source after its clear*'
+    }
+
+    It 'stops the call when an audit source is added' {
+        $config = $script:cleared -replace '(<auditSources>\s*<clear />)', "`$1`n    <add key=`"gizmo`" value=`"https://gizmo.example/v3/index.json`" />"
+        $repo = New-WidgetRepository -Config $config
+        { Assert-DotnetOffline $repo.Project -RepositoryRoot $repo.Root } |
+            Should -Throw '*does not clear its auditSources*'
     }
 
     It 'stops the call when a section does not open with clear' {

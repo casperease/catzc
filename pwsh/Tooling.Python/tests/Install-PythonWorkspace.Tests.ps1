@@ -19,7 +19,9 @@ Describe 'Install-PythonWorkspace' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Found = $true; VersionOk = $true; Path = $script:uvPath; Version = '0.11.26'; Required = '0.11' }
         }
         Mock Invoke-Executable -ModuleName Catzc.Tooling.Python {
-            $script:seen.Add([pscustomobject]@{ Command = $Command; Directory = $WorkingDirectory; Downloads = $env:UV_PYTHON_DOWNLOADS })
+            $script:seen.Add([pscustomobject]@{ Command = $Command; Directory = $WorkingDirectory; Downloads = $env:UV_PYTHON_DOWNLOADS
+                    Username = $env:UV_INDEX_WIDGET_FEED_USERNAME; Password = $env:UV_INDEX_WIDGET_FEED_PASSWORD
+                })
             $exit = ($Command -like '* sync *') ? $script:syncExit : $script:firstRunExit
             [Catzc.Base.Execution.CliResult]::new('', 'No interpreter found', $exit)
         }
@@ -44,6 +46,41 @@ Describe 'Install-PythonWorkspace' -Tag 'L0', 'logic' {
         Install-PythonWorkspace
         @($script:seen.Downloads | Select-Object -Unique) | Should -Be @('never')
         Test-Path Env:UV_PYTHON_DOWNLOADS | Should -BeFalse
+    }
+
+    It 'exports no index credential variable for a source without a credential' {
+        Install-PythonWorkspace
+        @($script:seen | Where-Object { $_.Username -or $_.Password }) | Should -HaveCount 0
+        @(Get-ChildItem Env: | Where-Object Name -like 'UV_INDEX_*') | Should -HaveCount 0
+    }
+
+    Context 'a source that names a credential variable' {
+        BeforeEach {
+            Mock Get-Config -ModuleName Catzc.Tooling.Python -ParameterFilter { $Config -eq 'python' } {
+                [Catzc.Base.Languages.PythonConfig]::new(@{ root = 'python'
+                        dependencies                             = @{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }
+                        package_source                           = @{ name = 'widget-feed'; url = 'https://widget.example/simple'; credential_env = 'WIDGET_FEED_TOKEN' }
+                    })
+            }
+        }
+
+        AfterEach {
+            Remove-Item -LiteralPath Env:WIDGET_FEED_TOKEN -ErrorAction Ignore
+        }
+
+        It 'exports the username and password pair during the sync and removes both after' {
+            $env:WIDGET_FEED_TOKEN = 'widget-secret'
+            Install-PythonWorkspace
+            $script:seen[0].Username | Should -Be '__token__'
+            $script:seen[0].Password | Should -Be 'widget-secret'
+            Test-Path Env:UV_INDEX_WIDGET_FEED_USERNAME | Should -BeFalse
+            Test-Path Env:UV_INDEX_WIDGET_FEED_PASSWORD | Should -BeFalse
+        }
+
+        It 'throws naming the variable and the source when the variable is unset, running nothing' {
+            { Install-PythonWorkspace } | Should -Throw "*'widget-feed'*WIDGET_FEED_TOKEN*not set*"
+            $script:seen.Count | Should -Be 0
+        }
     }
 
     It 'throws with the remedy when the sync fails, running nothing more' {

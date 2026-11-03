@@ -1,8 +1,24 @@
+// ---
+// catzc:
+//   immutable:
+//     warning: "Do Not Edit, this file is generated"
+//     regenerate: "Build-RootConfig -Path infrastructure/bicepconfig.json"
+//     with_body_sha: "1ecde5389796"
+// ---
+
 {
   "analyzers": {
     "core": {
       "enabled": true,
       "verbose": false
+    }
+  },
+  "moduleAliases": {
+    "br": {
+      "mcr": {
+        "registry": "mcr.microsoft.com",
+        "modulePath": "bicep"
+      }
     }
   }
 }

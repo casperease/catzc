@@ -24,10 +24,12 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: runs only from the Install-* tooling commands
+    host_from: python
   pwsh/Tooling.Core/Install-UvVenvTool.ps1#Install-UvVenvTool:
     class: package-install
     trigger: on-request
     gated_by: runs only from the Install-* tooling commands
+    host_from: python
   pwsh/Tooling.Core/Save-VerifiedDownload.ps1#Save-VerifiedDownload:
     class: package-install
     trigger: on-request
@@ -52,10 +54,12 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: runs only from the Install-* tooling commands
+    host_from: python
   pwsh/Tooling.Python/Install-PythonWorkspace.ps1#Install-PythonWorkspace:
     class: package-install
     trigger: on-request
     gated_by: the one online sync of the Python test workspace (uv sync, pyright's first run), an explicit tooling command
+    host_from: python
   pwsh/Tooling.Python/Install-Python.ps1#Install-Python:
     class: package-install
     trigger: on-request
@@ -68,6 +72,7 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: called only by the Install-*/Uninstall-* node tool commands
+    host_from: javascript
   pwsh/Tooling.Toolchain/Install-Terraform.ps1#Install-Terraform:
     class: package-install
     trigger: on-request
@@ -100,14 +105,17 @@ sites:
     class: package-install
     trigger: on-request
     gated_by: explicit command (uv lock against PyPI, osv-scanner against the advisory database); tests mock both
+    host_from: python
   pwsh/Base.Vendor/Install-VendorModule.ps1#Install-VendorModule:
     class: package-install
     trigger: on-request
     gated_by: explicit vendoring command (Save-PSResource from the gallery), source tree only
+    host_from: vendor
   pwsh/Base.Vendor/Test-VendorModuleAvailable.ps1#Test-VendorModuleAvailable:
     class: package-install
     trigger: on-request
     gated_by: Find-PSResource asks the gallery; called only by Assert-VendorModuleAvailable and Remove-VendorModules, source tree only
+    host_from: vendor
   pwsh/Base.QualityGates/private/Invoke-DotnetFormat.ps1#Invoke-DotnetFormat:
     class: package-install
     trigger: offline-guarded
@@ -124,6 +132,18 @@ sites:
     class: package-install
     trigger: offline-guarded
     gated_by: uv run --no-sync with UV_OFFLINE=1 and UV_PYTHON_DOWNLOADS=never; a missing environment throws naming Install-PythonWorkspace
+  pwsh/Base.Languages/Export-PythonModule.ps1#Export-PythonModule:
+    class: package-install
+    trigger: offline-guarded
+    gated_by:
+      uv export --offline and pip download --no-index from the managed cache with UV_OFFLINE=1; a wheel not in the cache throws naming
+      Install-PythonWorkspace
+  pwsh/Base.Execution/Invoke-LanguageModule.ps1#Invoke-LanguageModule:
+    class: package-install
+    trigger: offline-guarded
+    gated_by:
+      uv venv --offline and uv pip install --offline --no-index --find-links from the module's shipped wheels, with
+      UV_PYTHON_DOWNLOADS=never
   pwsh/Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1#Invoke-PythonWorkspaceTool:
     class: package-install
     trigger: offline-guarded

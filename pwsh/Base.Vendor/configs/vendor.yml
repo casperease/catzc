@@ -1,3 +1,1 @@
-# The registered repository vendored modules come from and are checked against; PSGallery needs no url.
-source: PSGallery
-# Set sourceUrl to a private feed to vendor from it; the feed is registered under the source name on first use.
+# The vendor source is package_source (the PowerShell Gallery when it is left out): name, url, and the credential variable a private feed needs.

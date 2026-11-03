@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: c7179f188fed",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"26bd2d2c5dd8\"",
   "types": [
     {
       "name": "Catzc.Base.Languages.BashConfig",
@@ -16,6 +16,10 @@
         },
         {
           "name": "bats_version",
+          "kind": "property"
+        },
+        {
+          "name": "package_source",
           "kind": "property"
         },
         {
@@ -85,6 +89,10 @@
           "kind": "property"
         },
         {
+          "name": "package_source",
+          "kind": "property"
+        },
+        {
           "name": "platform",
           "kind": "property"
         }
@@ -109,6 +117,21 @@
         },
         {
           "name": "reason",
+          "kind": "property"
+        }
+      ]
+    },
+    {
+      "name": "Catzc.Base.Languages.BicepConfig",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "analyzers",
+          "kind": "property"
+        },
+        {
+          "name": "package_source",
           "kind": "property"
         }
       ]
@@ -359,6 +382,10 @@
           "kind": "property"
         },
         {
+          "name": "package_source",
+          "kind": "property"
+        },
+        {
           "name": "root",
           "kind": "property"
         }
@@ -445,6 +472,10 @@
         {
           "name": "ResolveRoot",
           "kind": "method"
+        },
+        {
+          "name": "package_source",
+          "kind": "property"
         },
         {
           "name": "root",
@@ -767,6 +798,33 @@
       ]
     },
     {
+      "name": "Catzc.Base.Languages.PackageSource",
+      "aliases": [],
+      "display": [],
+      "members": [
+        {
+          "name": "Read",
+          "kind": "method"
+        },
+        {
+          "name": "ToString",
+          "kind": "method"
+        },
+        {
+          "name": "credential_env",
+          "kind": "property"
+        },
+        {
+          "name": "name",
+          "kind": "property"
+        },
+        {
+          "name": "url",
+          "kind": "property"
+        }
+      ]
+    },
+    {
       "name": "Catzc.Base.Languages.PathParts",
       "aliases": [],
       "display": [],
@@ -894,6 +952,10 @@
         },
         {
           "name": "dependencies",
+          "kind": "property"
+        },
+        {
+          "name": "package_source",
           "kind": "property"
         },
         {

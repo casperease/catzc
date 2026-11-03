@@ -102,6 +102,13 @@ function Invoke-RootConfigGenerator {
         'New-NuGetConfig' {
             New-NuGetConfig
         }
+        'New-Npmrc' {
+            New-Npmrc
+        }
+        'New-BicepConfig' {
+            # One record per file; the entry's target picks the bicep track's folder.
+            New-BicepConfig -Target $Target
+        }
         'New-DotnetBuildProps' {
             New-DotnetBuildProps
         }

@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path .gitignore"
-#     with_body_sha: "9f58ee1bb1c3"
+#     with_body_sha: db8854c7e1ed
 # ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────
@@ -72,6 +72,8 @@ pwsh/**/*.psd1
 /.markdownlint.yml
 /.markdownlintignore
 /.prettierrc.yml
+/.npmrc
+/*/bicepconfig.json
 /.prettierignore
 /.cspell/.gitignore
 /cspell.yml

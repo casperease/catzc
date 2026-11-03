@@ -64,7 +64,7 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'a consumer overlay over a built root' -Tag 'ADR-AUTO-OVERLAY' {
+    Context 'a consumer overlay over a built root' -Tag 'ADR-AUTO-OVERLAY-ASSETOVERRIDE' {
         BeforeAll {
             # The built shape: the code root's module folder carries the namespace, the overlay's stays bare.
             $script:builtRoot = Join-Path $TestDrive 'built'

@@ -14,7 +14,7 @@ The commit step of the git topic flow ([git-topic-flow](../../../drs/flow/git-to
 the message, `...` when none is given. It runs git that changes the repository, so only the user invokes it
 ([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). It refuses a detached HEAD, and in a main-via-pr
 workspace a main branch, since a change reaches main through a pull request there. A clean tree is left as it is. A working root with no
-repository stops at [Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
+repository stops at `Assert-GitWorkTree` first, with an error naming this command.
 
 ### parameter `Message`
 

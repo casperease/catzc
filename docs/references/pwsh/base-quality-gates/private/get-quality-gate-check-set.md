@@ -12,8 +12,8 @@ Lists the union of the `checks:` of the languages a tracked file of the working 
 
 The one definition of the check set, shared by Test-QualityGates (which runs every gate) and Measure-QualityGates (whose `-Name` defaults to
 it), so the two never hold a second copy of the union ([PDR-ONELIVE](../../../../drs/principles/one-living-version.md)). A language that
-declares no checks adds nothing, and a language no tracked file resolves to (Get-PresentLanguageName) adds nothing. A check its language
-scopes with `check_scopes` is kept only when the folder the scope's config address names exists.
+declares no checks adds nothing, and a language no tracked file resolves to (Get-PresentLanguageName) adds nothing. A check that
+`check_scopes` ties to a folder is kept only when the folder the scope's config address names exists.
 
 ### outputs
 

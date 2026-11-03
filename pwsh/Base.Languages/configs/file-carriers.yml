@@ -34,7 +34,12 @@ carriers:
   json: { carrier: property, property: "//" }
 
   # The generated editor files are JSON with comments, so a line-comment head fits where a property would show as an unknown setting.
-  jsonc: { files: [".vscode/settings.json", ".vscode/extensions.json", ".vscode/launch.json"], carrier: comment-head, line: "//" }
+  jsonc:
+    {
+      files: [".vscode/settings.json", ".vscode/extensions.json", ".vscode/launch.json", "**/bicepconfig.json"],
+      carrier: comment-head,
+      line: "//",
+    }
 
   jsonl: { carrier: none, reason: "one record per line by definition, so a head would be a record" }
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
@@ -47,7 +52,7 @@ carriers:
   svg: { files: ["**/*.svg"], carrier: metadata }
   dotfile:
     {
-      files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore"],
+      files: ["**/.editorconfig", "**/.gitignore", "**/.gitattributes", "**/.prettierignore", "**/.markdownlintignore", "**/.npmrc"],
       carrier: comment-head,
       line: "#",
     }

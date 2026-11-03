@@ -18,7 +18,7 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultModuleRoot = "catzc/go";
 
     private const string Failed = "go config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "module_root", "dependencies" };
+    private static readonly string[] AllowedKeys = { "root", "module_root", "dependencies", PackageSource.Key };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex ModuleRoot = new Regex(@"^[a-z0-9][a-z0-9._-]*(/[a-z0-9][a-z0-9._-]*)*$");
     private static readonly Regex DependencyPath = new Regex(@"^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+(/[A-Za-z0-9._~-]+)*$");
@@ -32,6 +32,9 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
 
     // Module path to version, in ordinal path order, so rendering never depends on key order.
     public IReadOnlyDictionary<string, string> dependencies { get; }
+
+    // The module proxy a download goes through; the public proxy unless declared.
+    public PackageSource package_source { get; }
 
     public GoConfig(IDictionary raw)
     {
@@ -104,6 +107,8 @@ public sealed class GoConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
         }
+
+        package_source = PackageSource.Read(raw != null && raw.Contains(PackageSource.Key) ? raw[PackageSource.Key] : null, PackageSource.GoProxy, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         dependencies = requires;

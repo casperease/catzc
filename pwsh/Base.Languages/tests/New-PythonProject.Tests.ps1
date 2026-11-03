@@ -57,7 +57,31 @@ Describe 'New-PythonProject' -Tag 'L0', 'logic' {
                     ''
                     '[tool.uv.config-settings-package]'
                     "catzc-widget-kit = { editable_mode = `"$([Catzc.Base.Languages.PythonConfig]::DefaultEditableMode)`" }"
+                    ''
+                    '[[tool.uv.index]]'
+                    'name = "pypi"'
+                    'url = "https://pypi.org/simple"'
+                    'default = true'
                 ) -join "`n") + "`n")
+    }
+
+    It 'renders the configured package source as the root project''s default index' {
+        $script:python['package_source'] = @{ name = 'widget-feed'; url = 'https://widget.example/simple'; credential_env = 'WIDGET_TOKEN' }
+        $content = (New-PythonProject -LineLength 140 -Target 'python/pyproject.toml').Content
+        $content | Should -Match ('(?m)^' + [regex]::Escape((@(
+                        '[[tool.uv.index]]'
+                        'name = "widget-feed"'
+                        'url = "https://widget.example/simple"'
+                        'default = true'
+                    ) -join "`n")) + '$')
+        $content | Should -Not -Match 'WIDGET_TOKEN'
+        (New-PythonProject -LineLength 140 -Target 'python/widget_kit/pyproject.toml').Content | Should -Not -Match 'tool\.uv\.index'
+    }
+
+    It 'renders the public pypi index when the config declares no package source' {
+        $content = (New-PythonProject -LineLength 140 -Target 'python/pyproject.toml').Content
+        $content | Should -Match '(?m)^name = "pypi"$'
+        $content | Should -Match '(?m)^url = "https://pypi\.org/simple"$'
     }
 
     It 'renders the line length its caller passes as the ruff line-length' {

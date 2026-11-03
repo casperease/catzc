@@ -30,6 +30,13 @@ Describe 'GoConfig' -Tag 'L0' {
             $config.dependencies['example.com/widget'] | Should -Be 'v1.2.3-rc.1'
         }
 
+        It 'takes the public proxy when package_source is absent and reads a declared one' {
+            [Catzc.Base.Languages.GoConfig]::new([ordered]@{}).package_source | Should -Be ([Catzc.Base.Languages.PackageSource]::GoProxy)
+            $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{ package_source = [ordered]@{ url = 'https://proxy.widget.test' } })
+            $config.package_source.url | Should -Be 'https://proxy.widget.test'
+            $config.package_source.name | Should -Be 'goproxy'
+        }
+
         It 'keeps the dependencies in ordinal path order, whatever the file order' {
             $config = [Catzc.Base.Languages.GoConfig]::new([ordered]@{
                     dependencies = [ordered]@{ 'example.com/widget' = 'v1.0.0'; 'example.com/Gadget' = 'v2.0.0'; 'example.com/assert' = 'v0.1.0' }

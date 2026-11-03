@@ -22,7 +22,7 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
     public const string IntegrityPrefix = "integrity:";
 
     private const string Failed = "bash config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "bats_version", "bats_sha256" };
+    private static readonly string[] AllowedKeys = { "root", "bats_version", "bats_sha256", PackageSource.Key };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex Version = new Regex(@"^[0-9]+\.[0-9]+\.[0-9]+$");
     private static readonly Regex Sha256 = new Regex(@"^[0-9a-f]{64}$");
@@ -35,6 +35,9 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The SHA-256 of that release's source archive, lowercase hex.
     public string bats_sha256 { get; }
+
+    // The host the bats-core release is downloaded from; the public release host unless declared.
+    public PackageSource package_source { get; }
 
     public BashConfig(IDictionary raw)
     {
@@ -75,6 +78,8 @@ public sealed class BashConfig : Catzc.Base.Objects.DictionaryRecord
         {
             errors.Add("bats_sha256 must be the SHA-256 of that release's source archive, 64 lowercase hex digits");
         }
+
+        package_source = PackageSource.Read(raw != null && raw.Contains(PackageSource.Key) ? raw[PackageSource.Key] : null, PackageSource.GitHubReleases, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }

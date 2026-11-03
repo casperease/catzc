@@ -49,6 +49,8 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
                     Proxy      = $env:GOPROXY
                     Flags      = $env:GOFLAGS
                     Work       = $env:GOWORK
+                    Private    = $env:GOPRIVATE
+                    Sum        = $env:GOSUMDB
                 })
             switch -Wildcard ($Command) {
                 '* mod download' {
@@ -182,6 +184,23 @@ Describe 'Invoke-GoTest' -Tag 'L0', 'logic' {
             }
             Test-Path Env:GOPROXY | Should -BeFalse
             Test-Path Env:GOFLAGS | Should -BeFalse
+        }
+
+        It 'keeps the proxy off over a private configured proxy and carries its private host and checksum switch' {
+            Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'go' } {
+                [Catzc.Base.Languages.GoConfig]::new([ordered]@{
+                        package_source = [ordered]@{ name = 'widget'; url = 'https://goproxy.widget.example' }
+                    })
+            }
+            $null = Invoke-GoTest Catzc.Widget
+            $script:seen.Count | Should -Be 3
+            foreach ($call in $script:seen) {
+                $call.Proxy | Should -Be 'off'
+                $call.Private | Should -Be 'goproxy.widget.example'
+                $call.Sum | Should -Be 'off'
+            }
+            Test-Path Env:GOPRIVATE | Should -BeFalse
+            Test-Path Env:GOSUMDB | Should -BeFalse
         }
 
         It 'runs every go command outside the generated go.work, since workspace mode refuses -mod=mod' {

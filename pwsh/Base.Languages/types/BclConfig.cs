@@ -14,7 +14,7 @@ public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultPlatform = "Any CPU";
 
     private const string Failed = "bcl config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "configuration", "platform", "host_bindings" };
+    private static readonly string[] AllowedKeys = { "configuration", "platform", "host_bindings", PackageSource.Key };
     private static readonly Regex Name = new Regex(@"^[A-Za-z][A-Za-z0-9]*( [A-Za-z0-9]+)*$");
 
     public string configuration { get; }
@@ -23,6 +23,9 @@ public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The type sources that bind to a host, in ordinal file order; every other type source stays in the BCL reference set.
     public IReadOnlyList<BclHostBinding> host_bindings { get; }
+
+    // The NuGet feed a build restores from; the public feed unless declared.
+    public PackageSource package_source { get; }
 
     public BclConfig(IDictionary raw)
     {
@@ -80,6 +83,8 @@ public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord
                 }
             }
         }
+
+        package_source = PackageSource.Read(raw != null && raw.Contains(PackageSource.Key) ? raw[PackageSource.Key] : null, PackageSource.NuGet, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         bindings.Sort((a, b) => string.CompareOrdinal(a.file, b.file));

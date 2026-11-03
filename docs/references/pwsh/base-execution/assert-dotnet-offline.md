@@ -42,3 +42,12 @@ NuGet reads its config from the project's folder up to the drive root, in every 
 `NuGet.Config`), and then the user's and the machine's configs. The repository's generated root `nuget.config` clears every feed, which is
 why one cleared root is enough to shut out what the user's and machine's configs add. A stray config between the project and the root could
 add a feed back, so the guard checks each folder on that path and ignores configs off it.
+
+## comment:1
+
+Above `$packages = @(& $sectionElements 'packageSources')`, written with `#`.
+
+```text
+The rendered file carries the one configured source after its clear (New-NuGetConfig renders it from bcl.yml); this guard reads the
+file's shape only, so a hand-added second feed fails without this module reading a language config.
+```

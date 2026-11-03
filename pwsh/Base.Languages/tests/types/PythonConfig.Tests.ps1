@@ -39,6 +39,14 @@ Describe 'PythonConfig' -Tag 'L0' {
             $config.ResolveRoot($TestDrive) | Should -Be 'test/py'
         }
 
+        It 'takes the public index when package_source is absent and reads a declared one' {
+            ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })).package_source |
+                Should -Be ([Catzc.Base.Languages.PackageSource]::PyPI)
+            $config = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; package_source = [ordered]@{ url = 'https://index.widget.test/simple'; credential_env = 'WIDGET_TOKEN' } })
+            $config.package_source.url | Should -Be 'https://index.widget.test/simple'
+            $config.package_source.credential_env | Should -Be 'WIDGET_TOKEN'
+        }
+
         It 'type-checks in standard mode unless the file names another' {
             ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })).type_checking |
                 Should -Be 'standard'

@@ -83,7 +83,7 @@ Get-Config is the one reader of every config ([ADR-CONF-LOADING-CONFIGONEREADER]
 
 ## Caller's namespace
 
-The caller is found by Get-CallerNamespace (see its [page](private/get-caller-namespace.md)), which walks `Get-PSCallStack` from the frame
+The caller is found by Get-CallerNamespace (see its page `private/get-caller-namespace.md`), which walks `Get-PSCallStack` from the frame
 above `Get-Config` to the first frame whose command has a module name, so a script block inside a module function counts as that module. The
 first segment before the dot is the namespace; no dot reads `Catzc`. A function that wraps `Get-Config` in a catzc module resolves its own
 caller's namespace through Get-CallerNamespace and passes it as -Namespace, as `Get-ConfigValue` does.

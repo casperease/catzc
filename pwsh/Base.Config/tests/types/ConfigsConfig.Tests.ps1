@@ -98,7 +98,7 @@ Describe 'ConfigsConfig' -Tag 'L0' {
             foreach ($name in 'configs', 'dependencies', 'profiles', 'exporter', 'glossary') {
                 @($registry.sealedConfigs) | Should -Contain $name
             }
-            foreach ($name in 'variants', 'drs', 'plans', 'links', 'file-limits', 'go', 'python', 'javascript', 'analyzer-drs-map') {
+            foreach ($name in 'variants', 'drs', 'plans', 'links', 'file-limits', 'go', 'python', 'javascript', 'bicep', 'analyzer-drs-map') {
                 @($registry.workingRootConfigs) | Should -Contain $name
             }
         }

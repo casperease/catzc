@@ -121,6 +121,12 @@ function New-PythonProject {
             $workspace.Add("$($entry.Name) = { editable_mode = `"$($config.build_editable_mode)`" }")
         }
     }
+    # The configured package source is the workspace's one index; the credential is never rendered, uv reads it from the environment.
+    $workspace.Add('')
+    $workspace.Add('[[tool.uv.index]]')
+    $workspace.Add("name = `"$($config.package_source.name)`"")
+    $workspace.Add("url = `"$($config.package_source.url)`"")
+    $workspace.Add('default = true')
     $files.Add([Catzc.Base.Languages.PythonWorkspaceFile]::new("$pythonRoot/pyproject.toml",
             ($workspace -join "`n") + "`n"))
     foreach ($entry in $members) {

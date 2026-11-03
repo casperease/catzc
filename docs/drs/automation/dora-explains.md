@@ -773,3 +773,19 @@ decisions live in the records themselves; this file carries only their DORA rati
 - [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — every outbound call is a registered, classified site, so
   the supply paths are known and reviewed.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Package sources
+
+`One configured package source per language`
+
+[ADR-AUTO-PKGSRC](package-sources.md)
+
+> DORA ties deployment automation and pervasive security to repeatable builds from known supply paths. One configured source per language,
+> rendered into the files the package managers read, keeps a build the same on a devbox, in a pipeline and behind a proxy, and keeps a
+> credential out of the repository.
+
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the same settings render everywhere, so the build
+  resolves the same packages in every environment.
+- [Pervasive security](../../references/dora/capabilities.md#pervasive-security) — a source names its credential variable, never a value,
+  and the configured host is the one sanctioned site.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

@@ -16,6 +16,8 @@ writers:
       - pwsh/Base.Languages/New-GoWorkspace.ps1
       - pwsh/Base.Languages/New-PythonProject.ps1
       - pwsh/Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Base.Languages/New-BicepConfig.ps1
+      - pwsh/Base.Languages/configs/bicep.yml
       - pwsh/Base.FileLimits/configs/file-limits.yml
       - pwsh/Base.FileLimits/Build-WidthConfigs.ps1
       - pwsh/Base.Languages/configs/generated-head.yml
@@ -49,6 +51,7 @@ writers:
       - "*/pyproject.toml"
       - "*/tests/*/pyproject.toml"
       - "*/*/pyproject.toml"
+      - "*/bicepconfig.json"
       - .editorconfig
       - .markdownlint.yml
       - .markdownlintignore
@@ -75,6 +78,7 @@ writers:
       - "*/pyproject.toml"
       - "*/*/pyproject.toml"
       - "*/tests/*/pyproject.toml"
+      - "*/bicepconfig.json"
   New-GitAttributes:
     class: import-critical
     check: none

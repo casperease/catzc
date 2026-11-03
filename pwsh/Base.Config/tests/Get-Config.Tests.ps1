@@ -144,7 +144,7 @@ Describe 'Get-Config' -Tag 'L0' {
             $configuration.gadgets.Contains('sprung') | Should -BeFalse
         }
 
-        It 'finds the fragment of a built root''s namespaced folder under the overlay''s bare folder' -Tag 'ADR-AUTO-OVERLAY' {
+        It 'finds the fragment of a built root''s namespaced folder under the overlay''s bare folder' -Tag 'ADR-AUTO-OVERLAY-CONFIGFRAGMENT' {
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Folder = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }
             }
@@ -415,7 +415,7 @@ namespace WidgetConfigTest {
             $entries[1].Module | Should -BeExactly 'Gadget' -Because 'a folder with no manifest is its own name'
         }
 
-        It 'indexes a built root''s namespaced folder once, and the overlay''s bare folder of it as a fragment folder, not a second module' -Tag 'ADR-AUTO-OVERLAY' {
+        It 'indexes a built root''s namespaced folder once, and the overlay''s bare folder of it as a fragment folder, not a second module' -Tag 'ADR-AUTO-OVERLAY-CONFIGFRAGMENT' {
             $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path (Join-Path $root 'Catzc.Base.Widget/configs') | Out-Null

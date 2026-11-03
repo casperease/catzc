@@ -182,6 +182,23 @@ The domain keeps a `docs/drs/widget/dora-explains.md` with one entry per record,
 with its code. Run `Test-DrsRegistry`; it reads the registry and the records and reports the issues. The index lists only the consumer's
 codes, never catzc's.
 
+## Point the package managers at your feed
+
+A consumer behind a proxy, or on a private feed, resolves every language's packages from one `package_source` per language config
+([ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE](../drs/automation/package-sources.md#rule-adr-auto-pkgsrc-sourceperlanguage)). Write it in the working
+root's `.catzc/configs/<language>.yml`, for example `.catzc/configs/javascript.yml`:
+
+```yaml
+package_source:
+  name: widget-feed
+  url: https://feeds.example/api/widget/npm
+  credential_env: WIDGET_FEED_TOKEN
+```
+
+Run `Build-RootConfig`, and the root's `.npmrc`, `nuget.config` and python `pyproject.toml` carry the source. The tooling commands then
+fetch from it. [Point cats at your feed](pwsh/point-cats-at-your-feed.md) has the override, the fetching command and the check for each
+language, and the credential variable.
+
 ## Run the gates and the tests as CI
 
 A consumer's pipeline is two calls, in this order

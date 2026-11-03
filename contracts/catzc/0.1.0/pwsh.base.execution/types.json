@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: f365db55463d",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"5c8fbb2baeb6\"",
   "types": [
     {
       "name": "Catzc.Base.Execution.CliResult",
@@ -176,6 +176,10 @@
         },
         {
           "name": "gated_by",
+          "kind": "property"
+        },
+        {
+          "name": "host_from",
           "kind": "property"
         },
         {

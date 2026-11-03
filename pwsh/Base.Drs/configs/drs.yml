@@ -175,6 +175,7 @@ domains:
       importer: { external: ADR-AUTO-IMPORTER, layer: importer }
       accosted-language: { external: ADR-AUTO-ACCOSTED, concern: [quality-control], layer: contract }
       network-calls: { external: ADR-AUTO-NET }
+      package-sources: { external: ADR-AUTO-PKGSRC }
 
   bcl:
     code: BCL

@@ -74,6 +74,13 @@ Describe 'BclConfig' -Tag 'L0' {
             [Catzc.Base.Languages.BclConfig]::DefaultPlatform | Should -BeExactly 'Any CPU'
         }
 
+        It 'takes the public feed when package_source is absent and reads a declared one' {
+            ([Catzc.Base.Languages.BclConfig]::new($null)).package_source | Should -Be ([Catzc.Base.Languages.PackageSource]::NuGet)
+            $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{ package_source = [ordered]@{ url = 'https://nuget.widget.test/v3/index.json' } })
+            $config.package_source.url | Should -Be 'https://nuget.widget.test/v3/index.json'
+            $config.package_source.name | Should -Be 'nuget'
+        }
+
         It 'treats a key set to null like an omitted key' {
             $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{ configuration = $null; platform = $null })
             $config.SolutionPair() | Should -BeExactly 'Debug|Any CPU'

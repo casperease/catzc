@@ -15,6 +15,9 @@ Describe 'Export-GoModule' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $script:root }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Languages { $script:probe }
         Mock Write-Message -ModuleName Catzc.Base.Languages { }
+        Mock Get-GoEnvironment -ModuleName Catzc.Base.Languages -ParameterFilter { $Offline } {
+            [ordered]@{ GOPROXY = 'off'; GOPRIVATE = 'goproxy.widget.example'; GOSUMDB = 'off' }
+        }
         Mock Invoke-Executable -ModuleName Catzc.Base.Languages {
             $output = [regex]::Match($Command, '-o "([^"]+)"').Groups[1].Value
             $script:seen.Add([pscustomobject]@{
@@ -26,6 +29,8 @@ Describe 'Export-GoModule' -Tag 'L0', 'logic' {
                     Cgo       = $env:CGO_ENABLED
                     Flags     = $env:GOFLAGS
                     Proxy     = $env:GOPROXY
+                    Private   = $env:GOPRIVATE
+                    Sum       = $env:GOSUMDB
                 })
             if ($script:buildExit -eq 0) {
                 [System.IO.File]::WriteAllBytes($output, [System.Text.Encoding]::UTF8.GetBytes("binary $env:GOOS $env:GOARCH"))
@@ -82,6 +87,14 @@ Describe 'Export-GoModule' -Tag 'L0', 'logic' {
         $script:seen[0].Flags | Should -BeExactly '-mod=mod'
         $script:seen[0].Proxy | Should -BeExactly 'off'
     }
+
+    It 'builds with the offline go environment: the proxy off and the rest of the configured go variables' {
+        $null = Export-GoModule -Module 'go/widget' -Destination $script:out -Platform 'linux/amd64' -Silent
+        $script:seen[0].Proxy | Should -BeExactly 'off'
+        $script:seen[0].Private | Should -BeExactly 'goproxy.widget.example'
+        $script:seen[0].Sum | Should -BeExactly 'off'
+        Test-Path Env:GOPROXY | Should -BeFalse
+        Test-Path Env:GOPRIVATE | Should -BeFalse }
 
     It 'leaves the session environment as it found it' {
         $before = $env:GOOS

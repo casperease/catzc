@@ -14,8 +14,8 @@ function Update-BatsVendor {
     New-Item -Path $staging -ItemType Directory -Force | Out-Null
     try {
         $fileName = "v$($config.bats_version).tar.gz"
-        $uri = "https://github.com/bats-core/bats-core/archive/refs/tags/$fileName"
-        $null = Save-VerifiedDownload -Uri $uri -OutFile (Join-Path $staging $fileName) -Sha256 $config.bats_sha256
+        $uri = "$($config.package_source.url.TrimEnd('/'))/bats-core/bats-core/archive/refs/tags/$fileName"
+        $null = Save-VerifiedDownload -Uri $uri -OutFile (Join-Path $staging $fileName) -Sha256 $config.bats_sha256 -CredentialVariable $config.package_source.credential_env
         # A relative name inside staging keeps a drive letter's colon out of the path, which GNU tar reads as a remote host.
         Invoke-Executable "tar -xzf `"$fileName`"" -WorkingDirectory $staging -Silent
         $extracted = Join-Path $staging "bats-core-$($config.bats_version)"

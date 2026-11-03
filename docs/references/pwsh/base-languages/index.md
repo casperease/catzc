@@ -191,6 +191,7 @@ The module's public functions and configuration files, sorted into the responsib
 | Responsibility                                  | Function                   |
 | ----------------------------------------------- | -------------------------- |
 | responsibility:1 — Go test runs                 | `Invoke-GoTest`            |
+|                                                 | `Get-GoEnvironment`        |
 | responsibility:2 — Go test workspace            | `New-GoWorkspace`          |
 | config                                          | `go.yml`                   |
 | responsibility:3 — Python test runs             | `Invoke-PythonTest`        |
@@ -200,6 +201,7 @@ The module's public functions and configuration files, sorted into the responsib
 | config                                          | `bash.yml`                 |
 | responsibility:6 — File-language registry       | `Get-FileLanguage`         |
 |                                                 | `Get-PathFileType`         |
+|                                                 | `New-BicepConfig`          |
 | config                                          | `languages.yml`            |
 |                                                 | `file-carriers.yml`        |
 |                                                 | `bcl.yml`                  |
@@ -211,5 +213,6 @@ The module's public functions and configuration files, sorted into the responsib
 | config                                          | `generated-head.yml`       |
 | responsibility:9 — Bash module packaging        | `Export-BashModule`        |
 | responsibility:10 — JavaScript module packaging | `Export-JavaScriptModule`  |
+|                                                 | `New-Npmrc`                |
 | responsibility:11 — Go module packaging         | `Export-GoModule`          |
 | responsibility:12 — Python module packaging     | `Export-PythonModule`      |

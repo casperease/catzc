@@ -18,7 +18,7 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
     It 'names pwsh, its start arguments loading the repository importer, and the root for a source run' {
         $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
         @($contract.Keys) | Should -Be @('CATZC_ENGINE', 'CATZC_ENGINE_EXECUTABLE', 'CATZC_ENGINE_ENTRY',
-            'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS')
+            'CATZC_ENGINE_START', 'CATZC_REPOSITORY_ROOT', 'CATZC_ENGINE_TIMEOUT_SECONDS', 'GOPROXY')
         $importer = Join-Path $script:root ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry)
         $contract['CATZC_ENGINE_ENTRY'] | Should -Be $importer
         $contract['CATZC_ENGINE'] | Should -Be 'pwsh'
@@ -85,6 +85,28 @@ Describe 'Get-EngineContract' -Tag 'L0', 'logic' {
         $contract['CATZC_ENGINE_START'] | Should -BeExactly ''
         $contract['CATZC_IMPORTER'] | Should -Be (Join-Path $bare ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.ImporterEntry))
         $contract['CATZC_REPOSITORY_ROOT'] | Should -Be $bare
+    }
+
+    It 'carries the public go proxy and no private host or checksum switch by default' {
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'go' } {
+            [Catzc.Base.Languages.GoConfig]::new([ordered]@{})
+        }
+        $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
+        $contract['GOPROXY'] | Should -BeExactly 'https://proxy.golang.org'
+        $contract.Contains('GOPRIVATE') | Should -BeFalse
+        $contract.Contains('GOSUMDB') | Should -BeFalse
+    }
+
+    It 'carries a private go proxy with its host as GOPRIVATE and the checksum database off' {
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'go' } {
+            [Catzc.Base.Languages.GoConfig]::new([ordered]@{
+                    package_source = [ordered]@{ name = 'widget'; url = 'https://goproxy.widget.example/go' }
+                })
+        }
+        $contract = InModuleScope Catzc.Base.Languages { Get-EngineContract }
+        $contract['GOPROXY'] | Should -BeExactly 'https://goproxy.widget.example/go'
+        $contract['GOPRIVATE'] | Should -BeExactly 'goproxy.widget.example'
+        $contract['GOSUMDB'] | Should -BeExactly 'off'
     }
 
     It 'throws when the build''s entry does not exist' {

@@ -28,6 +28,28 @@ Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'downloads from the configured package source url' {
+        $script:config = [Catzc.Base.Languages.BashConfig]::new([ordered]@{
+                bats_version = '1.2.3'; bats_sha256 = ('a' * 64)
+                package_source = [ordered]@{ name = 'widget'; url = 'https://widget.example/mirror' }
+            })
+        Update-BatsVendor
+        Should -Invoke Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
+            $Uri -eq 'https://widget.example/mirror/bats-core/bats-core/archive/refs/tags/v1.2.3.tar.gz'
+        }
+    }
+
+    It 'passes the source credential variable to the download' {
+        $script:config = [Catzc.Base.Languages.BashConfig]::new([ordered]@{
+                bats_version = '1.2.3'; bats_sha256 = ('a' * 64)
+                package_source = [ordered]@{ name = 'widget'; url = 'https://widget.example/mirror'; credential_env = 'WIDGET_TOKEN' }
+            })
+        Update-BatsVendor
+        Should -Invoke Save-VerifiedDownload -ModuleName Catzc.Tooling.Toolchain -Times 1 -Exactly -ParameterFilter {
+            $CredentialVariable -eq 'WIDGET_TOKEN'
+        }
+    }
+
     It 'replaces the vendored folder with the runner''s files only, and removes the staging folder' {
         Update-BatsVendor
         # The vendored runner is compared file for file, so the walk prunes nothing.

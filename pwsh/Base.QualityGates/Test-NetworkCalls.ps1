@@ -45,8 +45,17 @@ function Test-NetworkCalls {
         }
     }
 
+    $hosts = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($key in $Config.sites.Keys) {
         $site = $Config.sites[$key]
+        if ($site.host_from) {
+            try {
+                [void]$hosts.Add((Resolve-NetworkCallHost -ConfigName $site.host_from))
+            }
+            catch {
+                $issues.Add("${key}: host_from '$($site.host_from)' resolves no package_source host — $($_.Exception.Message)")
+            }
+        }
         if ($site.IsViolation) {
             $issues.Add("${key}: trigger default-path — a network call on a default path (ADR-AUTO-NET-NODEFAULTPATH); fix it and move the entry to its guarded trigger")
         }
@@ -66,6 +75,6 @@ function Test-NetworkCalls {
     }
 
     Write-QualityGateReport -Subject network-calls -Title Test-NetworkCalls -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ Files = $tracked.Count; Scanned = $scanned; Sites = $Config.sites.Count; Patterns = $Config.patterns.Count }) `
+        -Facts ([ordered]@{ Files = $tracked.Count; Scanned = $scanned; Sites = $Config.sites.Count; Hosts = ($hosts -join ', '); Patterns = $Config.patterns.Count }) `
         -OutputFolder $OutputFolder -PassThru:$PassThru
 }

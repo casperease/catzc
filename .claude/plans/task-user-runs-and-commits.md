@@ -38,12 +38,10 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
      new home, which clears the registry's coverage and the seven dead `policy_*` entries the uncommitted tree shows.
 2. `.claude/CLAUDE.md`: point the ADR-AUTO-GO link at `docs/drs/automation/go/go-language.md` (the Go record was renamed from
    `go-test-artifacts.md` on 2026-11-03; agents never edit this file). Check: `Test-Links -Path .claude/CLAUDE.md` reads 0 issues.
-3. Vendor the JavaScript type packages, a decision on repository content (agents vendor no third-party package): run `Install-TypeScript`,
-   then copy `.typescript/node_modules/@types/node` and `.typescript/node_modules/@types/vscode` with their license files into
-   `pwsh/.vendor/TypeScriptTypes/@types/`, at the versions `tools.yml` pins. Check: the folder is tracked, and the agents' step that points
-   `New-JsConfig` and `Test-JavaScriptTypes` at it can land (plan-build-mode, chunk I, the `Test-JavaScriptTypes` step). Recommendation:
-   yes, it is the one path that needs no feed and no per-consumer npm install; the alternative keeps `Test-JavaScriptTypes` red in a
-   consumer root.
+3. `git rm --cached infrastructure/bicepconfig.json`, in the same commit: the file is generated now (`New-BicepConfig`, from `bicep.yml`)
+   and the generated `.gitignore` ignores `/*/bicepconfig.json`, so it leaves the index like the other generated root files; until it does,
+   the file-meta step of `Format-Code` treats it as authored and strips its head, and `Test-Formatting` flags it. Check:
+   `git ls-files infrastructure/bicepconfig.json` prints nothing, then `Test-Formatting -PassThru` reads 0 issues.
 4. One ci-pwsh pipeline run, now that `.ado/pipelines/steps/cache-types.yaml` is committed (the types cache). Check: the second run of a job
    restores the types cache (Cache@2 "Cache restored") and skips the DLL build. The same run, on each system (the GitHub workflow and the
    ADO pipeline), executes `Test-QualityGates` before `Test-Automation` (added 2026-11-03); on a branch with a planted gate issue (a

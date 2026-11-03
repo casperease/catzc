@@ -204,6 +204,9 @@ configs:
   javascript:
     type: Catzc.Base.Languages.JavaScriptConfig
     scope: working-root
+  bicep:
+    type: Catzc.Base.Languages.BicepConfig
+    scope: working-root
   languages:
     type: Catzc.Base.Languages.LanguagesConfig
   file-carriers:

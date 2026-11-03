@@ -31,6 +31,12 @@ Destination path.
 
 Expected SHA-256, hex (a leading 'sha256:' is stripped).
 
+### parameter `CredentialVariable`
+
+The name of an environment variable whose value is sent as `Authorization: Bearer <value>` on the one request, read at call time and never
+logged or written. Empty (the default) sends no header. A named variable that is unset or empty throws before the request, naming the
+variable and the uri's host.
+
 ### example 1
 
 ```powershell

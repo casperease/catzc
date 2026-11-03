@@ -11,14 +11,12 @@ function Resolve-VendorRepository {
     }
 
     $config = Get-Config -Config vendor
-    $source = $config.source
+    $source = $config.package_source.name
+    $url = $config.package_source.url
 
-    if ($config.sourceUrl) {
-        $url = $config.sourceUrl
-        if (-not (Get-PSResourceRepository -Name $source -ErrorAction SilentlyContinue)) {
-            Register-PSResourceRepository -Name $source -Uri $url -Trusted -ErrorAction Stop | Out-Null
-            Write-Message "Registered vendor repository '$source' -> $url"
-        }
+    if (-not (Get-PSResourceRepository -Name $source -ErrorAction SilentlyContinue)) {
+        Register-PSResourceRepository -Name $source -Uri $url -Trusted -ErrorAction Stop | Out-Null
+        Write-Message "Registered vendor repository '$source' -> $url"
     }
 
     $source

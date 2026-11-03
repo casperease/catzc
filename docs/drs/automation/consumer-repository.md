@@ -48,8 +48,9 @@ working root, so its kinds, domains and records are its own, and catzc's records
 
 ### Rule ADR-AUTO-CONSUMER-CATZCGATES
 
-Catzc's quality gates are the consumer's CI: `Test-QualityGates`, then `Test-Automation`. The generic gates scan the working root's tracks,
-in a consumer exactly as in the catzc repository; only the tools that exist to build catzc itself stay catzc-source tools.
+Catzc's quality gates are the consumer's CI: `Test-QualityGates`, then `Test-Automation`. The gates that need nothing of catzc's tree scan
+the working root's tracks, in a consumer exactly as in the catzc repository; only the tools that exist to build catzc itself stay
+catzc-source tools.
 
 - [Gates as CI](#gates-as-ci)
 
@@ -104,8 +105,8 @@ whole ([ADR-AUTO-OVERLAY-SEALEDENGINECONFIGS](consumer-overlay.md#rule-adr-auto-
 
 ### Own types
 
-The compile is the in-process path source mode already uses, so it needs no SDK on the consumer's machine. The assembly name carries the
-consumer's namespace, and its type accelerators carry the consumer's prefix, so they cannot meet catzc's. The `Catzc.` refusal keeps one
+The compile is the in-process compile that source mode already uses, so it needs no SDK on the consumer's machine. The assembly name carries
+the consumer's namespace, and its type accelerators carry the consumer's prefix, so they cannot meet catzc's. The `Catzc.` refusal keeps one
 assembly's names from being taken by another's.
 
 ### Own decision records

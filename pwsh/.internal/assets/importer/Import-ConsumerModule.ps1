@@ -31,7 +31,7 @@ function Import-ConsumerModule {
     $privateFolder = & $bootstrap { param($root) Get-PrivateFunctionFolder -ModulesRoot $root } $ModulesRoot
     $loader = [System.IO.Path]::Combine($ModulesRoot, '.internal', 'assets', 'Import-ModuleFiles.ps1')
     if ($tracks.Count -gt 0 -and -not [System.IO.File]::Exists($loader)) {
-        throw "The working root '$RepositoryRoot' declares tracks with modules, but this bundle does not carry the shared source loader '$loader', which loads them."
+        throw "The working root '$RepositoryRoot' declares tracks with modules, but this bundle does not carry the shared module-file loader '$loader', which loads them."
     }
 
     # The modules of each namespace in folder order, found by layout: a folder holding function files at its root or under private/.

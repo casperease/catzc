@@ -13,7 +13,7 @@ Runs every check the language registry declares and fails on any issue.
 A consumer's pipeline is this gate, then Test-Automation
 ([ADR-AUTO-CONSUMER-CATZCGATES](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-catzcgates)). It keeps no list of
 gates of its own: the set is the union of the `checks` of every file language in languages.yml that a tracked file of the working root
-resolves to (a check a language scopes by `check_scopes` needs its folder to exist), the same set Measure-QualityGates times
+resolves to (a check that `check_scopes` ties to a folder needs that folder to exist), the same set Measure-QualityGates times
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)). Each
 gate runs once with -PassThru, and writes its own report as it does when called alone.
 

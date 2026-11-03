@@ -154,6 +154,21 @@ files:
       - pwsh/Base.FileLimits/configs/file-limits.yml
     optIn: true
     consumer: true
+  - target: .npmrc
+    generator: New-Npmrc
+    sources:
+      - pwsh/Base.Languages/configs/javascript.yml
+    carrier: dotfile
+    optIn: true
+    consumer: true
+  # The Bicep compiler reads the nearest bicepconfig.json: one in the folder of each track that holds Bicep.
+  - target: "*/bicepconfig.json"
+    generator: New-BicepConfig
+    sources:
+      - pwsh/Base.Languages/configs/bicep.yml
+    carrier: jsonc
+    optIn: true
+    consumer: true
   - target: .prettierignore
     source: pwsh/Base.RootConfig/assets/root/.prettierignore
     carrier: dotfile
@@ -181,11 +196,12 @@ files:
     carrier: msbuild-project
     committed: true
     optIn: true
-  # Committed, since the C# Dev Kit restores the solution as the folder opens, before any import: no dotnet run reaches a package source.
+  # Committed, since the C# Dev Kit restores the solution as the folder opens, before any import: the one configured source is the only feed.
   - target: nuget.config
     generator: New-NuGetConfig
     sources:
       - pwsh/Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Base.Languages/configs/bcl.yml
     carrier: nuget-config
     committed: true
     optIn: true

@@ -36,14 +36,18 @@ function Assert-DotnetOffline {
     catch {
         throw "Assert-DotnetOffline: $config is not readable XML ($($_.Exception.Message)), so it clears no package feed. Run Build-RootConfig, which generates it."
     }
-    foreach ($section in 'packageSources', 'auditSources') {
-        $node = $document.SelectSingleNode("/configuration/$section")
-        $elements = @(if ($node) {
+    $sectionElements = {
+        param([string] $Section)
+        $node = $document.SelectSingleNode("/configuration/$Section")
+        @(if ($node) {
                 $node.ChildNodes | Where-Object { $_.NodeType -eq 'Element' }
             })
-        $cleared = $elements.Count -eq 1 -and $elements[0].LocalName -eq 'clear'
-        Assert-True $cleared -ErrorText "Assert-DotnetOffline: $config does not clear its $section, so a package feed stays visible to dotnet."
     }
+    $packages = @(& $sectionElements 'packageSources')
+    $oneSource = $packages.Count -eq 2 -and $packages[0].LocalName -eq 'clear' -and $packages[1].LocalName -eq 'add'
+    Assert-True $oneSource -ErrorText "Assert-DotnetOffline: $config does not name exactly one package source after its clear, so another package feed stays visible to dotnet. Run Build-RootConfig, which generates it."
+    $audit = @(& $sectionElements 'auditSources')
+    Assert-True ($audit.Count -eq 1 -and $audit[0].LocalName -eq 'clear') -ErrorText "Assert-DotnetOffline: $config does not clear its auditSources, so a package feed stays visible to dotnet."
 
     $current = $folder
     while ($current -ne $root) {

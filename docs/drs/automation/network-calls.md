@@ -92,14 +92,19 @@ Every call site that can reach the network is one entry in one config registry, 
 key, `<file>#<function or pipeline job>` so one file holds sites of different classes, its class, its trigger and the guard, parameter or
 config that keeps it off a default path. A trigger is `on-request`, `pipeline-only`, `offline-guarded` (on a default path with the tool held
 offline by a generated guard) or `default-path`, which marks a site that breaks ADR-AUTO-NET-NODEFAULTPATH and stays registered as it is
-until its fix lands. The registry is the inventory; this page carries only a summary of it.
+until its fix lands. The registry is the inventory; this page carries only a summary of it. A `package-install` site may name
+`host_from: <config name>`, the config whose `package_source.url` host that site reaches: the host is read from the live config at check
+time (a working-root override replaces the default) and is never copied into the registry, and a `host_from` that resolves no source is a
+finding (ADR-AUTO-PKGSRC-BUILDRESOLVESTESTOFFLINE).
 
 - [The registry](#the-registry)
 
 ### Rule ADR-AUTO-NET-REGISTRYGATE
 
 A gate checks the registry against the code: every call that matches a network pattern sits in a registered function, and every registered
-function still makes the call it is registered for. A new call site lands with its registry entry in the same change.
+function still makes the call it is registered for. A new call site lands with its registry entry in the same change. The gate records the
+hosts the registered sites' configured sources resolve to in its report; a call to a host that no registered site's source names stays a
+finding, as a call in an unregistered file.
 
 - [The registry](#the-registry)
 

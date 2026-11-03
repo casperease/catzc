@@ -21,11 +21,11 @@ With `-Name`, the command returns the full path of the code-root folder for that
 code root holds none or the name is a dot folder (`.internal`, `.vendor`), which is no module. With `-BareName`, it returns the bare name of
 a code-root folder: the namespace is stripped in a built root, and a source folder or a dot folder comes back as it is.
 
-### parameter name
+### parameter `Name`
 
 The bare module folder name to look up in the code root, such as `Base.Widget`.
 
-### parameter bareName
+### parameter `BareName`
 
 A folder name as the code root holds it, to turn into the bare name an overlay folder carries.
 

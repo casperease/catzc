@@ -40,7 +40,7 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     public static readonly string[] DefaultPackageData = { "configs/**/*", "assets/**/*" };
 
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend" };
+    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend", PackageSource.Key };
     private static readonly string[] BuildBackendKeys = { "distribution", "version", "module", "editable_mode", "package_data" };
     private static readonly Regex ModuleName = new Regex(@"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$");
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
@@ -78,6 +78,9 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The package-data globs of every package member, relative to its folder.
     public IReadOnlyList<string> build_package_data { get; } = DefaultPackageData;
+
+    // The index uv resolves the workspace's dependencies from; the public PyPI index unless declared.
+    public PackageSource package_source { get; }
 
     public PythonConfig(IDictionary raw)
     {
@@ -222,6 +225,8 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                     "dependencies must pin '{0}' (the Python checks and the test bridge run it)", required));
             }
         }
+
+        package_source = PackageSource.Read(raw != null && raw.Contains(PackageSource.Key) ? raw[PackageSource.Key] : null, PackageSource.PyPI, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         dependencies = requires;

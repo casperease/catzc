@@ -16,7 +16,7 @@ effective membership matches at least one of them — the declared registry (tra
 module sets ([ADR-REPO-PROTGLOB](../../../drs/repository/protected-globs.md)), so the answer covers both "which pipelines/units this fires"
 (Pipeline) and "which tests verify it" (the derived module rows name the modules for Test-Automation -Modules; a declared row's
 VerifyModules/VerifyLevel carry its configured verify scope — its test suite, run by name with Test-Automation -Suite). A working root with
-no repository stops at [Assert-GitWorkTree](../base-repository/assert-git-work-tree.md) first, with an error naming this command.
+no repository stops at `Assert-GitWorkTree` first, with an error naming this command.
 
 ### parameter `ChangedFile`
 
