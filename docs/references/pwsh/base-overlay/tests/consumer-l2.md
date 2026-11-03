@@ -21,3 +21,12 @@ Above `'.gitignore'                                    =...`, written with `#`.
 A repository ignores its output folder: the install's first import writes the writers' memo under it before the fixture adds its files.
 A consumer keeps its generated banner files out of git (a banner carries no body hash), as catzc's own .gitignore does.
 ```
+
+## comment:3
+
+Above `$widgetTest = @'`, written with `#`.
+
+```text
+The consumer module's own test, a file in its tests folder, tagged as the consumer's test run requires
+([ADR-AUTO-TEST-TWOMANDATORYTAGS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
+```

@@ -119,6 +119,7 @@ groups:
         Catzc.Base.Folders,
         Catzc.Base.Variants,
         Catzc.Base.Files,
+        Catzc.Base.Writers,
       ]
     Catzc.Base.Modules:
       [

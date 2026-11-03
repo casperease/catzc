@@ -165,8 +165,6 @@ The rationale for the records in the `widget/` domain.
 | `ADR-WIDGET` | [widget-naming](widget/widget-naming.md) |
 
 '@
-        # The consumer module's own test, a file in its tests folder, tagged as the consumer's test run requires
-        # ([ADR-AUTO-TEST-TWOMANDATORYTAGS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
         $widgetTest = @'
 Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     It 'returns the widget' {

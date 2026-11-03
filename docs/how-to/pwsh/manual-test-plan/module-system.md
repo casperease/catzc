@@ -251,6 +251,7 @@ repository as the binary and the script their manifests list.
 **Checks:**
 
 - The full bundle builds and installs into a git root and a plain root.
-- Every JavaScript module ships in the form the build plan records; `python/diagrams` ships as source, with wheels only when it holds a lock.
+- Every JavaScript module ships in the form the build plan records; `python/diagrams` ships as source, with wheels only when it holds a
+  lock.
 - A second packaging of each JavaScript module and of `python/diagrams` is byte-identical to the bundle's.
 - The Go gadget exports one host binary listed in `binaries.json`; the bash gadget exports its script listed in `executables.json`.

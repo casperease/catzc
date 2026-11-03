@@ -5,47 +5,47 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 
 ## Index
 
-| #   | Tier | Check                                                                         |
-| --- | ---- | ----------------------------------------------------------------------------- |
-| 1   | L0   | [Config conventions][c1]                                                      |
-| 2   | L0   | [discovery + raw default][c2]                                                 |
-| 3   | L0   | [Config validator coverage][c3]                                               |
-| 4   | L0   | [integrity (shipped variants.yml)][c4]                                        |
-| 5   | L0   | [against a real shipped config][c5]                                           |
-| 6   | L0   | [integrity (shipped vendor.yml)][c6]                                          |
-| 7   | L0   | [exporter.yml][c7]                                                            |
-| 8   | L1   | [registry self-validation (shipped configs.yml)][c8]                          |
-| 9   | L1   | [LinksConfig (shipped links.yml)][c9]                                         |
-| 10  | L0   | [integrity (shipped timeouts.yml)][c10]                                       |
-| 11  | L0   | [integrity (shipped go.yml)][c11]                                             |
-| 12  | L0   | [integrity (shipped timeout-exemptions.yml)][c12]                             |
-| 13  | L1   | [Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds][c13]    |
-| 14  | L0   | [integrity (shipped languages.yml)][c14]                                      |
-| 15  | L0   | [integrity (shipped python.yml)][c15]                                         |
-| 16  | L0   | [integrity (shipped bash.yml)][c16]                                           |
-| 17  | L1   | [integrity (shipped maps.yml)][c17]                                           |
-| 18  | L0   | [integrity (shipped parameter-consistency.yml)][c18]                          |
-| 19  | L0   | [the shipped registry seals the engine-intrinsic configs][c19]                |
-| 20  | L1   | [integrity (shipped source-conventions.yml)][c20]                             |
-| 21  | L1   | [CommentsConfig (shipped comments.yml)][c21]                                  |
-| 22  | L0   | [integrity (shipped file-carriers.yml)][c22]                                  |
-| 23  | L0   | [resolves with the shipped registries, every language file to its entry][c23] |
-| 24  | L0   | [names the steps it may list, each with an adapter in Format-Code][c24]       |
-| 25  | L1   | [FolderWalkConfig (shipped folder-walk.yml)][c25]                             |
-| 26  | L0   | [integrity (shipped languages.yml layout)][c26]                               |
-| 27  | L1   | [SlidesConfig (shipped slides.yml)][c27]                                      |
-| 28  | L1   | [RungsConfig (shipped rungs.yml)][c28]                                        |
-| 29  | L1   | [ImporterConfig (shipped importer.yml)][c29]                                  |
-| 30  | L1   | [RungsConfig declared ladder][c30]                                            |
-| 31  | L1   | [Get-AccostedFile over the shipped contracts.accosted.yml][c31]               |
-| 32  | L0   | [integrity (shipped markdownlint.yml)][c32]                                   |
+| #   | Tier | Check                                                                            |
+| --- | ---- | -------------------------------------------------------------------------------- |
+| 1   | L0   | [Config conventions][c1]                                                         |
+| 2   | L0   | [discovery + raw default][c2]                                                    |
+| 3   | L0   | [Config validator coverage][c3]                                                  |
+| 4   | L0   | [integrity (shipped variants.yml)][c4]                                           |
+| 5   | L0   | [against a real shipped config][c5]                                              |
+| 6   | L0   | [integrity (shipped vendor.yml)][c6]                                             |
+| 7   | L0   | [exporter.yml][c7]                                                               |
+| 8   | L1   | [registry self-validation (shipped configs.yml)][c8]                             |
+| 9   | L1   | [LinksConfig (shipped links.yml)][c9]                                            |
+| 10  | L0   | [integrity (shipped timeouts.yml)][c10]                                          |
+| 11  | L0   | [integrity (shipped go.yml)][c11]                                                |
+| 12  | L0   | [integrity (shipped timeout-exemptions.yml)][c12]                                |
+| 13  | L1   | [Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds][c13]       |
+| 14  | L0   | [integrity (shipped languages.yml)][c14]                                         |
+| 15  | L0   | [integrity (shipped python.yml)][c15]                                            |
+| 16  | L0   | [integrity (shipped bash.yml)][c16]                                              |
+| 17  | L1   | [integrity (shipped maps.yml)][c17]                                              |
+| 18  | L0   | [integrity (shipped parameter-consistency.yml)][c18]                             |
+| 19  | L0   | [the shipped registry seals the engine-intrinsic configs][c19]                   |
+| 20  | L1   | [integrity (shipped source-conventions.yml)][c20]                                |
+| 21  | L1   | [CommentsConfig (shipped comments.yml)][c21]                                     |
+| 22  | L0   | [integrity (shipped file-carriers.yml)][c22]                                     |
+| 23  | L0   | [resolves with the shipped registries, every language file to its entry][c23]    |
+| 24  | L0   | [names the steps it may list, each with an adapter in Format-Code][c24]          |
+| 25  | L1   | [FolderWalkConfig (shipped folder-walk.yml)][c25]                                |
+| 26  | L0   | [integrity (shipped languages.yml layout)][c26]                                  |
+| 27  | L1   | [SlidesConfig (shipped slides.yml)][c27]                                         |
+| 28  | L1   | [RungsConfig (shipped rungs.yml)][c28]                                           |
+| 29  | L1   | [ImporterConfig (shipped importer.yml)][c29]                                     |
+| 30  | L1   | [RungsConfig declared ladder][c30]                                               |
+| 31  | L1   | [Get-AccostedFile over the shipped contracts.accosted.yml][c31]                  |
+| 32  | L0   | [integrity (shipped markdownlint.yml)][c32]                                      |
 | 33  | L2   | [Build-AgentHook — only the configured package source reaches a hook build][c33] |
-| 34  | L1   | [Get-ChangeCheckPlan — the shipped languages.yml and plans.yml][c34]          |
-| 35  | L1   | [Get-FileLimit (shipped registry)][c35]                                       |
-| 36  | L1   | [FileLimitsConfig (shipped file-limits.yml)][c36]                             |
-| 37  | L1   | [TrackTypesConfig — the shipped track types][c37]                             |
-| 38  | L0   | [integrity (shipped network-calls.yml)][c38]                                  |
-| 39  | L0   | [integrity (shipped bicep.yml)][c39]                                          |
+| 34  | L1   | [Get-ChangeCheckPlan — the shipped languages.yml and plans.yml][c34]             |
+| 35  | L1   | [Get-FileLimit (shipped registry)][c35]                                          |
+| 36  | L1   | [FileLimitsConfig (shipped file-limits.yml)][c36]                                |
+| 37  | L1   | [TrackTypesConfig — the shipped track types][c37]                                |
+| 38  | L0   | [integrity (shipped network-calls.yml)][c38]                                     |
+| 39  | L0   | [integrity (shipped bicep.yml)][c39]                                             |
 
 [c1]: #1-config-conventions
 [c2]: #2-discovery--raw-default
@@ -79,7 +79,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 [c30]: #30-rungsconfig-declared-ladder
 [c31]: #31-get-accostedfile-over-the-shipped-contractsaccostedyml
 [c32]: #32-integrity-shipped-markdownlintyml
-[c33]: #33-build-agenthook--no-package-feed-reaches-a-hook-build
+[c33]: #33-build-agenthook--only-the-configured-package-source-reaches-a-hook-build
 [c34]: #34-get-changecheckplan--the-shipped-languagesyml-and-plansyml
 [c35]: #35-get-filelimit-shipped-registry
 [c36]: #36-filelimitsconfig-shipped-file-limitsyml

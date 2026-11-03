@@ -48,7 +48,7 @@ came from it. If it is absent, carry on without it.
 
 The domain rules in [`docs/drs/index.md`](../docs/drs/index.md) decide each aspect you might take an idea for. Two need saying here:
 
-- **Go itself:** [ADR-AUTO-GO](../docs/drs/automation/go/go-test-artifacts.md): Go is a module language in catzc, like python and
+- **Go itself:** [ADR-AUTO-GO](../docs/drs/automation/go/go-language.md): Go is a module language in catzc, like python and
   javascript, held in a `go` track by the module layout. eac's Go code is still an idea to weigh, never a precedent.
 - **Copying anything across:** [PDR-ONELIVE](../docs/drs/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
