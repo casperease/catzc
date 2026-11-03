@@ -11,8 +11,8 @@ Returns the target path and content of each bicepconfig.json for the folders of 
 ### description
 
 Builds one settings document from the bicep config: its analyzers and a `br` module alias named after the package source, whose registry is
-the first segment of the source url and whose module path is the rest. The same content is returned for each existing folder of a track
-that lists bicep, so the compiler finds the nearest `bicepconfig.json`. Only targets that match `-Target` are returned.
+the first segment of the source url and whose module path is the rest. The same content is returned for each existing folder of a track that
+lists bicep, so the compiler finds the nearest `bicepconfig.json`. Only targets that match `-Target` are returned.
 
 ### parameter `Target`
 

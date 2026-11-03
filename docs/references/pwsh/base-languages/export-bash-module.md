@@ -31,3 +31,21 @@ Suppresses the message that names the packaged module.
 ```powershell
 Export-BashModule -Module 'bash/widget' -Destination $buildRoot/bash/widget
 ```
+
+## comment:1
+
+Above `$files = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+Only what git tracks ships, and no test
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
+```
+
+## comment:2
+
+Above `$files.Sort([System.StringComparer]::Ordinal)`, written with `#`.
+
+```text
+Sorted ordinally, so a rebuild writes the same bytes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```

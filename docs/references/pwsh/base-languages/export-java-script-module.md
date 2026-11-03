@@ -43,3 +43,30 @@ Above `$rendered = $null`, written with `#`.
 An extension the repository registers carries no tracked package.json; its folder is rendered from the registry, the one
 living version of the manifest, packed from memory, and the temporary render is removed at once.
 ```
+
+## comment:2
+
+Above `$files = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+Only what git tracks ships, and no test
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
+```
+
+## comment:3
+
+Above `$files.Sort([System.StringComparer]::Ordinal)`, written with `#`.
+
+```text
+Sorted ordinally, so a rebuild writes the same bytes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```
+
+## comment:4
+
+Above `$stamp = [System.DateTimeOffset]::new(1980, 1, 1, 0, 0, 0,...`, written with `#`.
+
+```text
+A fixed timestamp and sorted entries make two exports byte-identical
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```

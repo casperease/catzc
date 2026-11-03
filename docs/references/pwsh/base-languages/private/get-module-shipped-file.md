@@ -31,3 +31,12 @@ Lists only the tracked files with the executable mode.
 ```powershell
 Get-ModuleShippedFile 'bash/widget' -ExecutableOnly
 ```
+
+## comment:1
+
+Above `$testPrefix = "$((Get-Config -Config languages).FolderOf('test'))/"`, written with `#`.
+
+```text
+The module's test folder is the one the layout names by role; no test of any language ships
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
+```

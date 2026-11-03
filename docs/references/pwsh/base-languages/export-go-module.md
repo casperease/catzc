@@ -36,3 +36,21 @@ Suppresses the message that names the packaged module and the build output.
 ```powershell
 Export-GoModule -Module 'go/widget' -Destination $buildRoot/go/widget -Platform 'linux/amd64', 'windows/amd64'
 ```
+
+## comment:1
+
+Above `$go = Resolve-ToolExecutable -Tool go`, written with `#`.
+
+```text
+The managed go by its path, never a bare go off PATH
+([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/drs/automation/go/go-language.md#rule-adr-auto-go-managedtoolchain)).
+```
+
+## comment:2
+
+Above `$sorted = @($records | Sort-Object -Property { $_.path } -CaseSensitive)`, written with `#`.
+
+```text
+Sorted ordinally, so a rebuild compares byte for byte
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```

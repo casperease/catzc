@@ -34,8 +34,6 @@ function Export-GoModule {
     }
     $targets = @($targets)
 
-    # The managed go by its path, never a bare go off PATH
-    # ([ADR-AUTO-GO-MANAGEDTOOLCHAIN](/docs/drs/automation/go/go-language.md#rule-adr-auto-go-managedtoolchain)).
     $go = Resolve-ToolExecutable -Tool go
     if (-not $go.Found) {
         throw 'go is not installed (no managed go found). Run Install-Go.'
@@ -101,8 +99,6 @@ function Export-GoModule {
         $records.Add([pscustomobject]@{ path = $relative; sha256 = $hash })
     }
 
-    # Sorted ordinally, so a rebuild compares byte for byte
-    # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
     $sorted = @($records | Sort-Object -Property { $_.path } -CaseSensitive)
     $lines = foreach ($record in $sorted) {
         '  ' + (ConvertTo-Json -InputObject ([ordered]@{ path = $record.path; sha256 = $record.sha256 }) -Compress)

@@ -32,3 +32,39 @@ Suppresses the message that names the packaged module.
 ```powershell
 Export-PythonModule -Module 'python/widget' -Destination $buildRoot/python/widget
 ```
+
+## comment:1
+
+Above `$files = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+Only what git tracks ships, and no test
+([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
+```
+
+## comment:2
+
+Above `$files.Sort([System.StringComparer]::Ordinal)`, written with `#`.
+
+```text
+Sorted ordinally, so a rebuild writes the same bytes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```
+
+## comment:3
+
+Above `$saved = [System.Environment]::GetEnvironmentVariable('UV_OFFLINE')`, written with `#`.
+
+```text
+Every call is offline: the wheels come from the managed cache, never from a feed
+([ADR-AUTO-NET](/docs/drs/automation/network-calls.md)).
+```
+
+## comment:4
+
+Above `$wheels = [System.Collections.Generic.List[string]]::new()`, written with `#`.
+
+```text
+The sorted names with their SHA-256, so a rebuild compares byte for byte
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
+```

@@ -26,3 +26,12 @@ The writer row's class, which this expander does not use.
 ```powershell
 Get-CommentPageGeneratedTarget -Name Export-Comments -Class docs
 ```
+
+## comment:1
+
+Above `}`, written with `#`.
+
+```text
+A comment page is authored
+([ADR-REPO-COMMENTS-PAGEISAUTHORED](/docs/drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the writer that moves comments onto it leaves no generated target.
+```

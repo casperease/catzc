@@ -40,8 +40,6 @@ Describe 'The full bundle packages the language modules, rebuilds them identical
                     }
                 })
 
-            # A foreign git repository and a folder with no repository each take a fresh install of the bundle
-            # ([ADR-REPO-REPOKIND-NOREPO](/docs/drs/repository/repository-kinds.md#rule-adr-repo-repokind-norepo)).
             $script:installs = @{}
             foreach ($kind in 'git', 'plain') {
                 $root = Join-Path $TestDrive "install-$kind"

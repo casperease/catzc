@@ -20,12 +20,8 @@ function Export-JavaScriptModule {
     }
     $moduleRelative = $moduleRelative.Replace('\', '/').TrimEnd('/')
 
-    # Only what git tracks ships, and no test
-    # ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
     $files = [System.Collections.Generic.List[string]]::new()
     $files.AddRange([string[]]@(Get-ModuleShippedFile $moduleRelative))
-    # Sorted ordinally, so a rebuild writes the same bytes
-    # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
     $files.Sort([System.StringComparer]::Ordinal)
     $moduleFolder = [System.IO.Path]::Combine($repositoryRoot, $moduleRelative)
     $null = [System.IO.Directory]::CreateDirectory($Destination)
@@ -151,8 +147,6 @@ function Export-JavaScriptModule {
         '</Types>'
     ) -join "`n"
 
-    # A fixed timestamp and sorted entries make two exports byte-identical
-    # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
     $stamp = [System.DateTimeOffset]::new(1980, 1, 1, 0, 0, 0, [System.TimeSpan]::Zero)
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     $entries = [System.Collections.Generic.SortedDictionary[string, byte[]]]::new([System.StringComparer]::Ordinal)
