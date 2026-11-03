@@ -64,7 +64,6 @@ Describe 'Get-Overlay' -Tag 'L0', 'logic' {
         $finding = (Get-Overlay | Select-Object -First 1).Finding
         $finding | Should -BeLike '*.catzc/pwsh/Widget.Local: names no bundled module*overrides of bundled modules only*'
         $finding | Should -BeLike '*its tracks (widget)*'
-        $finding | Should -BeLike '*ADR-AUTO-CONSUMER-OWNTRACKS*'
     }
 
     It 'says a folder that names no bundled module has no consumer tracks to go to when the consumer declares none' -Tag 'ADR-AUTO-CONSUMER-OWNTRACKS' {

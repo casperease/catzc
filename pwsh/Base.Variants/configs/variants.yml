@@ -75,7 +75,13 @@ tracks:
   vendor_typescript.types: { members: [{ path: .typescript, committed: false }], type: vendored-code, vendor: typescript }
   js:
     {
-      members: [js, { path: jsconfig.json, committed: false }, { path: jsconfig.lenient.json, committed: false }],
+      members:
+        [
+          js,
+          { path: jsconfig.json, committed: false },
+          { path: jsconfig.lenient.json, committed: false },
+          { path: .npmrc, committed: false },
+        ],
       type: modules,
       languages: [javascript, json, asset],
       kinds: { extensions: js },

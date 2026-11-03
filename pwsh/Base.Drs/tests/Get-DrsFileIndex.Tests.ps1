@@ -30,6 +30,14 @@ Describe 'Get-DrsFileIndex' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'indexes a root with no rule set at all, listing its files and mapping none' {
+        $empty = InModuleScope Catzc.Base.Drs -Parameters @{ Root = $root } {
+            Get-DrsFileIndex @() -DrsRoot $Root
+        }
+        @($empty.Relative) | Should -Contain 'index.md'
+        @($empty.FileOf.Keys) | Should -HaveCount 0
+    }
+
     It 'lists every file relative to docs/drs/ with forward slashes' {
         $index.Relative | Sort-Object | Should -Be @('gadget/widget-one.md', 'index.md', 'widget/sub/widget-two.md',
             'widget/widget-one.md', 'widget/widget-two.md')

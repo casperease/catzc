@@ -12,10 +12,10 @@ Describe 'Get-RootConfigGeneratedTarget' -Tag 'L0', 'logic', 'ADR-REPO-ROOTCFG-O
         }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } {
             [pscustomobject]@{ files = @(
-                    [pscustomobject]@{ target = 'widget.psd1'; generator = $null; optIn = $true }
-                    [pscustomobject]@{ target = 'gadget.yml'; generator = 'New-Gadget'; optIn = $true }
-                    [pscustomobject]@{ target = 'trinket.json'; generator = 'New-Trinket'; optIn = $true }
-                    [pscustomobject]@{ target = 'spare.txt'; generator = $null; optIn = $false }
+                    [pscustomobject]@{ target = 'widget.psd1'; generator = $null; optIn = $true; committed = $false }
+                    [pscustomobject]@{ target = 'gadget.yml'; generator = 'New-Gadget'; optIn = $true; committed = $true }
+                    [pscustomobject]@{ target = 'trinket.json'; generator = 'New-Trinket'; optIn = $true; committed = $false }
+                    [pscustomobject]@{ target = 'spare.txt'; generator = $null; optIn = $false; committed = $false }
                 )
             }
         }

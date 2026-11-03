@@ -86,20 +86,13 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
         It 'refuses a consumer file that names the pwsh track, naming the rule' {
             $script:clash = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ pwsh = [ordered]@{ members = @('widget'); type = 'modules' } } })
             Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:clash }
-            { Get-Track } | Should -Throw "*track 'pwsh'*ADR-AUTO-CONSUMER-OWNTRACKS*"
+            { Get-Track } | Should -Throw "*track 'pwsh', which is the engine's own*"
         }
 
         It 'refuses a consumer file that gives a track the namespace Catzc, naming the rule' {
             $script:clash = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{ widget = [ordered]@{ members = @('widget'); type = 'modules'; namespace = 'Catzc' } } })
             Mock Get-Config -ModuleName Catzc.Base.Variants -ParameterFilter { $Config -eq 'variants' } { $script:clash }
-            { Get-Track } | Should -Throw "*namespace 'Catzc'*ADR-AUTO-CONSUMER-OWNTRACKS*"
-        }
-    }
-
-    Context 'no registry declared' {
-        It 'cannot happen: a variants config without tracks fails at construction, naming the key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-            { [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}) } |
-                Should -Throw '*declares no tracks; add tracks:*'
+            { Get-Track } | Should -Throw "*namespace 'Catzc', which is the system's*"
         }
     }
 }

@@ -38,7 +38,7 @@ Get-CatzcRunMode
 The answer is `build`; a consumer's own modules never change it
 ([DDR-RUNMODE-MODEISDERIVED](../drs/design/run-modes.md#rule-ddr-runmode-modeisderived)).
 
-The install also writes `importer.sh` beside `importer.ps1`: a short generated stub for a bash or zsh session
+The install also writes `importer.sh` beside `importer.ps1`: a short generated stub for a shell session
 ([ADR-AUTO-ENGINE](../drs/automation/execution-engines.md)). It points `CATZC_IMPORTER` at the root's `importer.ps1` and
 `CATZC_COMMAND_LOOKUP` at the bundle's command lookup, then sources the bundle's shipped shell entry. Source it and run any command through
 `cats`:

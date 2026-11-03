@@ -28,6 +28,7 @@ a check.
 | 19  | L1   | [Test-SecretScan (real tree)][c19]                           |
 | 20  | L1   | [SourceConventionScan over the repository][c20]              |
 | 21  | L1   | [Test-NetworkCalls (real tree)][c21]                         |
+| 22  | L2   | [Invoke-ScriptAnalyzerShards (real vendored analyzer)][c22]  |
 
 [c1]: #1-analyzer-drs-map-integrity
 [c2]: #2-psscriptanalyzer
@@ -50,6 +51,7 @@ a check.
 [c19]: #19-test-secretscan-real-tree
 [c20]: #20-sourceconventionscan-over-the-repository
 [c21]: #21-test-networkcalls-real-tree
+[c22]: #22-invoke-scriptanalyzershards-real-vendored-analyzer
 
 ## Checks
 
@@ -228,3 +230,16 @@ The files that name the product keep it, each declared once in the track's `name
 
 **Guards:** every network call in the tree is one entry of the network-calls registry, and none sits on a default path
 (ADR-AUTO-NET-REGISTRYGATE).
+
+### 22. Invoke-ScriptAnalyzerShards (real vendored analyzer)
+
+**Test file:** `pwsh/Base.QualityGates/tests/Invoke-ScriptAnalyzerShards.Tests.ps1` (L2), block
+`Invoke-ScriptAnalyzerShards (real vendored analyzer)`.
+
+**Guards:** a shard resolves each relative rule path of the analyzer settings to the code root's rule folder, so the shipped custom rule
+runs against a working root that holds none (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST, ADR-AUTO-CONSUMER-CATZCGATES).
+
+**Checks:**
+
+- With a fixture settings file naming a relative rule path and a working root without a rule folder, the shards run the vendored analyzer
+  and the shipped custom rule reports its finding.

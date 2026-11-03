@@ -165,7 +165,8 @@ The rationale for the records in the `widget/` domain.
 | `ADR-WIDGET` | [widget-naming](widget/widget-naming.md) |
 
 '@
-        # The consumer module's own test, a file in its tests folder, tagged as the consumer's test run requires (ADR-AUTO-TEST-TWOMANDATORYTAGS).
+        # The consumer module's own test, a file in its tests folder, tagged as the consumer's test run requires
+        # ([ADR-AUTO-TEST-TWOMANDATORYTAGS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)).
         $widgetTest = @'
 Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     It 'returns the widget' {
@@ -285,7 +286,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'reads the repository''s tracks whole from the working root and adds the engine''s own, so the consumer''s tracks, its language tracks among them, and pwsh are there and catzc''s others are not' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE', 'ADR-AUTO-CONSUMER-OWNTRACKS' {
-        $script:session.Tracks | Should -Be @('pwsh', 'widget', 'docs', 'go', 'python', 'bash', 'js')
+        $script:session.Tracks | Should -Be (@([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name) + @('widget', 'docs', 'go', 'python', 'bash', 'js'))
         $script:session.Tracks | Should -Not -Contain 'vendor_azure.bicep'
         $script:session.Tracks | Should -Not -Contain 'contracts'
     }

@@ -12,8 +12,7 @@ function Get-DrsFileIndex {
 
     Assert-PathExist $DrsRoot
 
-    # A page belongs to the domain with the longest folder that holds it, so a folder inside another keeps its own pages.
-    $folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
+    $folders = @($RuleSets | ForEach-Object Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}
     # A decision record sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.

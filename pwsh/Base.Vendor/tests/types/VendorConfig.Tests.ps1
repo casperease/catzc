@@ -14,8 +14,8 @@ Describe 'VendorConfig' -Tag 'L0' {
         }
 
         It 'reads a declared package_source' {
-            $config = [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ package_source = [ordered]@{ name = 'widgetfeed'; url = 'https://feed.widget.test/v3/index.json' } })
-            $config.package_source.name | Should -Be 'widgetfeed'
+            $config = [Catzc.Base.Vendor.VendorConfig]::new([ordered]@{ package_source = [ordered]@{ name = 'widget'; url = 'https://feed.widget.test/v3/index.json' } })
+            $config.package_source.name | Should -Be 'widget'
             $config.package_source.url | Should -Be 'https://feed.widget.test/v3/index.json'
             $config.Contains('package_source') | Should -BeTrue
         }

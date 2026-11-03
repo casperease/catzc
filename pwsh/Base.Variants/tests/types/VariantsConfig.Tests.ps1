@@ -38,6 +38,10 @@ Describe 'VariantsConfig' -Tag 'L0' {
             $config.aspects['vendor_azure.bicep'].Name | Should -Be @('tests', 'live')
         }
 
+        It 'declares no track when the tracks key is absent, the shape of a consumer root' -Tag 'ADR-AUTO-CONSUMER-OWNTRACKS' {
+            [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{}).tracks | Should -HaveCount 0
+        }
+
         It 'reads a null key as an omitted one: both take the default' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
             $nulls = & $script:make ([ordered]@{ naming = $null; git_workspace = $null; have_customers = $null; aspects = $null })
             $omitted = & $script:make ([ordered]@{})

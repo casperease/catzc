@@ -20,10 +20,12 @@ function Export-PythonModule {
     }
     $moduleRelative = $moduleRelative.Replace('\', '/').TrimEnd('/')
 
-    # Only what git tracks ships, and no test (ADR-AUTO-BUNDLE-EVERYLANGUAGE).
+    # Only what git tracks ships, and no test
+    # ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
     $files = [System.Collections.Generic.List[string]]::new()
     $files.AddRange([string[]]@(Get-ModuleShippedFile $moduleRelative))
-    # Sorted ordinally, so a rebuild writes the same bytes (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
+    # Sorted ordinally, so a rebuild writes the same bytes
+    # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
     $files.Sort([System.StringComparer]::Ordinal)
     $moduleFolder = [System.IO.Path]::Combine($repositoryRoot, $moduleRelative)
     $null = [System.IO.Directory]::CreateDirectory($Destination)
@@ -51,7 +53,8 @@ function Export-PythonModule {
         $null = [System.IO.Directory]::CreateDirectory($wheelFolder)
         $requirements = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "catzc-wheels-$([guid]::NewGuid().ToString('N')).txt")
 
-        # Every call is offline: the wheels come from the managed cache, never from a feed (ADR-AUTO-NET).
+        # Every call is offline: the wheels come from the managed cache, never from a feed
+        # ([ADR-AUTO-NET](/docs/drs/automation/network-calls.md)).
         $saved = [System.Environment]::GetEnvironmentVariable('UV_OFFLINE')
         [System.Environment]::SetEnvironmentVariable('UV_OFFLINE', '1')
         try {
@@ -79,7 +82,8 @@ function Export-PythonModule {
             Remove-Item -LiteralPath $requirements -Force -ErrorAction Ignore
         }
 
-        # The sorted names with their SHA-256, so a rebuild compares byte for byte (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
+        # The sorted names with their SHA-256, so a rebuild compares byte for byte
+        # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
         $wheels = [System.Collections.Generic.List[string]]::new()
         foreach ($wheel in @(Get-ChildPath $wheelFolder -File -Filter '*.whl' -Depth 1 -Exclude @() -PruneVendor $false)) {
             $wheels.Add([System.IO.Path]::GetFileName($wheel))

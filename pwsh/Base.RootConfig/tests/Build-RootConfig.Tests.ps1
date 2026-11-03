@@ -329,11 +329,13 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ "$($script:goRoot)/tests/widget/widget_test.go" = "package widget`n" }
         $script:registry = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{
                 files = @(
-                    @{ target = 'go.work'; generator = 'New-GoWorkspace'; carrier = 'go-workspace'; optIn = $true }
+                    @{ target = 'go.work'; generator = 'New-GoWorkspace'; carrier = 'go-workspace'; optIn = $true; optional = $true }
                     @{ target = '*/tests/*/go.mod'; generator = 'New-GoWorkspace'; carrier = 'go-workspace'; optIn = $true }
                 )
             })
         Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } { $script:registry }
+        # The fake working root declares no tracks; the generator renders only for a root whose tracks hold Go.
+        Mock Get-Track -ModuleName Catzc.Base.Languages { [pscustomobject]@{ name = 'go'; languages = @('go') } }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Get-ConfigValue -ModuleName Catzc.Base.Languages -ParameterFilter { $Address -eq 'global.tools.go.version' } { '1.27' }
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }

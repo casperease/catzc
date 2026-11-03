@@ -20,12 +20,14 @@ function Export-BashModule {
     }
     $moduleRelative = $moduleRelative.Replace('\', '/').TrimEnd('/')
 
-    # Only what git tracks ships, and no test (ADR-AUTO-BUNDLE-EVERYLANGUAGE).
+    # Only what git tracks ships, and no test
+    # ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)).
     $files = [System.Collections.Generic.List[string]]::new()
     $files.AddRange([string[]]@(Get-ModuleShippedFile $moduleRelative))
     $executables = [System.Collections.Generic.List[string]]::new()
     $executables.AddRange([string[]]@(Get-ModuleShippedFile $moduleRelative -ExecutableOnly))
-    # Sorted ordinally, so a rebuild writes the same bytes (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
+    # Sorted ordinally, so a rebuild writes the same bytes
+    # ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)).
     $files.Sort([System.StringComparer]::Ordinal)
     $executables.Sort([System.StringComparer]::Ordinal)
 

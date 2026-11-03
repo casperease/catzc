@@ -35,3 +35,12 @@ to its list of relative paths, and FileOf maps an External code to its one relat
 
 A page belongs to the domain with the longest folder that holds it, so a domain folder nested in another domain's folder keeps its own
 pages.
+
+## comment:1
+
+Above `$folders = @($RuleSets | ForEach-Object Folder | Sort-Object -Unique |...`, written with `#`.
+
+```text
+A page belongs to the domain with the longest folder that holds it, so a folder inside another keeps its own pages.
+Piped, not member-accessed: a root with no record (a consumer's, a bundle's fixture) hands an empty set, which strict mode cannot dot.
+```

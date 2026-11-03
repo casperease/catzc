@@ -39,12 +39,13 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 30  | L1   | [RungsConfig declared ladder][c30]                                            |
 | 31  | L1   | [Get-AccostedFile over the shipped contracts.accosted.yml][c31]               |
 | 32  | L0   | [integrity (shipped markdownlint.yml)][c32]                                   |
-| 33  | L2   | [Build-AgentHook — no package feed reaches a hook build][c33]                 |
+| 33  | L2   | [Build-AgentHook — only the configured package source reaches a hook build][c33] |
 | 34  | L1   | [Get-ChangeCheckPlan — the shipped languages.yml and plans.yml][c34]          |
 | 35  | L1   | [Get-FileLimit (shipped registry)][c35]                                       |
 | 36  | L1   | [FileLimitsConfig (shipped file-limits.yml)][c36]                             |
 | 37  | L1   | [TrackTypesConfig — the shipped track types][c37]                             |
 | 38  | L0   | [integrity (shipped network-calls.yml)][c38]                                  |
+| 39  | L0   | [integrity (shipped bicep.yml)][c39]                                          |
 
 [c1]: #1-config-conventions
 [c2]: #2-discovery--raw-default
@@ -84,6 +85,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 [c36]: #36-filelimitsconfig-shipped-file-limitsyml
 [c37]: #37-tracktypesconfig--the-shipped-track-types
 [c38]: #38-integrity-shipped-network-callsyml
+[c39]: #39-integrity-shipped-bicepyml
 
 ## Checks
 
@@ -328,17 +330,18 @@ live (ADR-AUTO-MODULE-EXISTSBYLAYOUT).
 
 - `Get-Config -Config markdownlint` returns a `MarkdownlintConfig` whose `batch_size` is the type's `DefaultBatchSize`.
 
-### 33. Build-AgentHook — no package feed reaches a hook build
+### 33. Build-AgentHook — only the configured package source reaches a hook build
 
-**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block `Build-AgentHook — no package feed reaches a hook build`.
+**Test file:** `pwsh/Base.TypesSystem/tests/Build-AgentHook.Tests.ps1` (L2), block
+`Build-AgentHook — only the configured package source reaches a hook build`.
 
-**Guards:** a hook build contacts no package feed, because NuGet reads its config from the project's folder up and finds the generated root
-config's cleared feeds alone.
+**Guards:** a hook build reaches the one package source `bcl.yml` configures and no other, because NuGet reads its config from the project's
+folder up and finds the generated root config alone, which clears every other feed (ADR-AUTO-PKGSRC-GENERATEDNATIVESETTINGS).
 
 **Checks:**
 
-- For each folder under `.claude/hooks` that holds a `.csproj`, `dotnet nuget list source` exits 0, lists no `[Enabled]` or `[Disabled]`
-  source, and says "No sources found". The check skips when `dotnet` is absent.
+- For each folder under `.claude/hooks` that holds a `.csproj`, `dotnet nuget list source` exits 0 and lists exactly one source, whose url
+  is the configured `package_source.url`. The check skips when `dotnet` is absent.
 
 ### 34. Get-ChangeCheckPlan — the shipped languages.yml and plans.yml
 
@@ -393,3 +396,14 @@ config's cleared feeds alone.
 **Checks:**
 
 - The shipped `network-calls.yml` loads as a `NetworkCallsConfig` without throwing.
+
+### 39. integrity (shipped bicep.yml)
+
+**Test file:** `pwsh/Base.Languages/tests/types/BicepConfig.Tests.ps1` (L0), block `integrity (shipped bicep.yml)`.
+
+**Guards:** the shipped bicep.yml loads through `BicepConfig`, with the public registry as its package source when none is declared
+(ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE).
+
+**Checks:**
+
+- `Get-Config -Config bicep` returns a `BicepConfig` without throwing.

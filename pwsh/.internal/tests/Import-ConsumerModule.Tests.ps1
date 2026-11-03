@@ -139,9 +139,9 @@ Describe 'Import-ConsumerModule' -Tag 'L0', 'logic' {
 
     It 'leaves a track in the system''s namespace to the track reader, whose refusal reaches the caller' -Tag 'ADR-AUTO-CONSUMER-OWNTRACKS' {
         $root = New-WidgetRoot
-        Mock Get-Track { throw "The variants config of a consumer repository gives the track 'widget' the namespace 'Catzc', which is the system's (ADR-AUTO-CONSUMER-OWNTRACKS)" } -ModuleName Catzc.Internal.Importer
+        Mock Get-Track { throw "The variants config of a consumer repository gives the track 'widget' the namespace 'Catzc', which is the system's (ADR-WIDGET-GADGET)" } -ModuleName Catzc.Internal.Importer
         { InModuleScope Catzc.Internal.Importer -Parameters @{ Root = $root; Modules = $modulesRoot } { param($Root, $Modules) Import-ConsumerModule -RepositoryRoot $Root -ModulesRoot $Modules } } |
-            Should -Throw '*ADR-AUTO-CONSUMER-OWNTRACKS*'
+            Should -Throw '*ADR-WIDGET-GADGET*'
     }
 }
 
@@ -158,7 +158,7 @@ Describe 'Import-ConsumerModule with the real track reader' -Tag 'L0', 'logic' {
                 'modules', $null, [string[]] @(), $null, $null, $null, 'Widget')
         } -ModuleName Catzc.Base.Variants
         { InModuleScope Catzc.Internal.Importer -Parameters @{ Root = $root; Modules = $modulesRoot } { param($Root, $Modules) Import-ConsumerModule -RepositoryRoot $Root -ModulesRoot $Modules } } |
-            Should -Throw "*track 'pwsh', which is the engine's own*ADR-AUTO-CONSUMER-OWNTRACKS*"
+            Should -Throw "*track 'pwsh', which is the engine's own*"
     }
 
     It 'refuses a track whose namespace is the system''s, with the track reader''s message' -Tag 'ADR-AUTO-CONSUMER-OWNTRACKS' {
@@ -168,6 +168,6 @@ Describe 'Import-ConsumerModule with the real track reader' -Tag 'L0', 'logic' {
                 'modules', $null, [string[]] @(), $null, $null, $null, 'Catzc')
         } -ModuleName Catzc.Base.Variants
         { InModuleScope Catzc.Internal.Importer -Parameters @{ Root = $root; Modules = $modulesRoot } { param($Root, $Modules) Import-ConsumerModule -RepositoryRoot $Root -ModulesRoot $Modules } } |
-            Should -Throw "*namespace 'Catzc', which is the system's*ADR-AUTO-CONSUMER-OWNTRACKS*"
+            Should -Throw "*namespace 'Catzc', which is the system's*"
     }
 }

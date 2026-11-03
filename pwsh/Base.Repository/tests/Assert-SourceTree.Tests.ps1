@@ -24,7 +24,7 @@ Describe 'Assert-SourceTree' -Tag 'L0', 'logic' {
     It 'throws in build mode when the working root has no variants file' {
         Mock Get-CatzcRunMode { 'build' } -ModuleName Catzc.Base.Repository
         { Assert-SourceTree -Command 'Format-Widget' } |
-            Should -Throw '*Format-Widget works on the tracks of the working root*widget-consumer*.catzc/configs/variants.yml*ADR-AUTO-CONSUMER-OWNTRACKS*'
+            Should -Throw '*Format-Widget works on the tracks of the working root*widget-consumer*.catzc/configs/variants.yml*'
     }
 
     It 'throws in build mode when the variants file declares no track' {

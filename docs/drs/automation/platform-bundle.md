@@ -67,7 +67,7 @@ hash refreshes only the root importer entry — and the source build is verified
 
 ### Rule ADR-AUTO-BUNDLE-GATETOOLINGFOLLOWSGATES
 
-A bundle carries the **gate tooling** — Pester, PSScriptAnalyzer, the analyzer settings and rules, and `Catzc.Internal.TestKit` — exactly
+A bundle carries the **gate tooling** — the vendored test framework and analyzer, the analyzer settings and rules, and `Catzc.Internal.TestKit` — exactly
 when its closure-expanded selection holds `Catzc.Base.QualityGates`, and never otherwise; no flag or policy says so. The exporter key
 `gate_internal_files` names the internal files that tooling brings. Every declared combination of modules is buildable, and a gate that
 enters a built module's scope (`Test-BuildArtifact`, `Test-CatzcBuild`, the test kit's `New-BuiltCatzcRoot`) puts `Catzc.Base.QualityGates`

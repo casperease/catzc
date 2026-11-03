@@ -193,7 +193,9 @@ function Get-ModuleBuildPlan {
         $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.json"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
     }
 
-    # The modules of every other language track the selection holds (ADR-AUTO-BUNDLE-EVERYLANGUAGE): a track's primary language,
+    # The modules of every other language track the selection holds
+    # ([ADR-AUTO-BUNDLE-EVERYLANGUAGE](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-everylanguage)): a
+    # track's primary language,
     # the first it declares, names the package handler; the builder runs it, never branching on a language.
     $languageConfig = Get-Config -Config languages
     $languageRows = [System.Collections.Generic.List[object]]::new()

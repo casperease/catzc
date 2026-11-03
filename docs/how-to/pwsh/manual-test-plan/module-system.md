@@ -28,6 +28,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 | 19  | L1   | [Get-PrivateFunctionFolder][c19]                                     |
 | 20  | L2   | [Every declared bundle builds and loads][c20]                        |
 | 21  | L1   | [Import-Catzc publishes the modules folder][c21]                     |
+| 22  | L2   | [The full bundle packages the language modules][c22]                 |
 
 [c1]: #1-integrity-shipped-config--dependenciesconfig
 [c2]: #2-get-functiondependency
@@ -50,6 +51,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 [c19]: #19-get-privatefunctionfolder
 [c20]: #20-every-declared-bundle-builds-and-loads
 [c21]: #21-import-catzc-publishes-the-modules-folder
+[c22]: #22-the-full-bundle-packages-the-language-modules
 
 ## Checks
 
@@ -236,3 +238,19 @@ with every module it ships loaded and one public function of each callable or lo
 
 **Guards:** after an import `$env:CatzcModulesFolder` equals the `pwsh` track's first member and the module-types folder place root, so the
 importer's one constant and the two declarations never drift (DDR-RUNMODE-MODEISDERIVED).
+
+### 22. The full bundle packages the language modules
+
+**Test file:** `pwsh/Base.Exporter/tests/Build-Modules.Languages.Tests.ps1` (L2), block
+`The full bundle packages the language modules, rebuilds them identically and runs them`.
+
+**Guards:** the full bundle builds and installs into a git root and a plain root, ships every JavaScript module and the python module in the
+form the build plan records, packages each of them byte-identically on a second run, and exports a Go and a bash gadget module of a fixture
+repository as the binary and the script their manifests list.
+
+**Checks:**
+
+- The full bundle builds and installs into a git root and a plain root.
+- Every JavaScript module ships in the form the build plan records; `python/diagrams` ships as source, with wheels only when it holds a lock.
+- A second packaging of each JavaScript module and of `python/diagrams` is byte-identical to the bundle's.
+- The Go gadget exports one host binary listed in `binaries.json`; the bash gadget exports its script listed in `executables.json`.

@@ -13,18 +13,18 @@ Describe 'Resolve-VendorRepository' -Tag 'L0', 'logic' {
     }
 
     It 'registers a custom source url under its name when not already registered' {
-        Mock Get-Config -ModuleName Catzc.Base.Vendor { [Catzc.Base.Vendor.VendorConfig]::new(@{ package_source = @{ name = 'widgetfeed'; url = 'https://feed.widget.test/v3/index.json' } }) }
+        Mock Get-Config -ModuleName Catzc.Base.Vendor { [Catzc.Base.Vendor.VendorConfig]::new(@{ package_source = @{ name = 'widget'; url = 'https://feed.widget.test/v3/index.json' } }) }
         Mock Get-PSResourceRepository -ModuleName Catzc.Base.Vendor { }
         $result = & (Get-Module Catzc.Base.Vendor) { Resolve-VendorRepository }
-        $result | Should -Be 'widgetfeed'
+        $result | Should -Be 'widget'
         Should -Invoke Register-PSResourceRepository -ModuleName Catzc.Base.Vendor -ParameterFilter {
-            $Name -eq 'widgetfeed' -and $Uri -eq 'https://feed.widget.test/v3/index.json'
+            $Name -eq 'widget' -and $Uri -eq 'https://feed.widget.test/v3/index.json'
         }
     }
 
     It 'does not re-register a custom source that already exists' {
-        Mock Get-Config -ModuleName Catzc.Base.Vendor { [Catzc.Base.Vendor.VendorConfig]::new(@{ package_source = @{ name = 'widgetfeed'; url = 'https://feed.widget.test/v3/index.json' } }) }
-        Mock Get-PSResourceRepository -ModuleName Catzc.Base.Vendor { [pscustomobject]@{ Name = 'widgetfeed' } }
+        Mock Get-Config -ModuleName Catzc.Base.Vendor { [Catzc.Base.Vendor.VendorConfig]::new(@{ package_source = @{ name = 'widget'; url = 'https://feed.widget.test/v3/index.json' } }) }
+        Mock Get-PSResourceRepository -ModuleName Catzc.Base.Vendor { [pscustomobject]@{ Name = 'widget' } }
         & (Get-Module Catzc.Base.Vendor) { Resolve-VendorRepository } | Out-Null
         Should -Invoke Register-PSResourceRepository -ModuleName Catzc.Base.Vendor -Times 0
     }

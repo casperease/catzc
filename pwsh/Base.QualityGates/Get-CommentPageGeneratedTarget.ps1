@@ -10,5 +10,6 @@ function Get-CommentPageGeneratedTarget {
         [string] $Class
     )
 
-    # A comment page is authored (ADR-REPO-COMMENTS-PAGEISAUTHORED), so the writer that moves comments onto it leaves no generated target.
+    # A comment page is authored
+    # ([ADR-REPO-COMMENTS-PAGEISAUTHORED](/docs/drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so the writer that moves comments onto it leaves no generated target.
 }
