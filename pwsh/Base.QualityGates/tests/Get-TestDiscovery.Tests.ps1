@@ -103,3 +103,118 @@ Describe 'GadgetFixture' -Tag 'L1', 'integrity' {
         { Get-Content -LiteralPath $script:cachePath -Raw | ConvertFrom-Json -AsHashtable } | Should -Not -Throw
     }
 }
+
+Describe 'Get-TestDiscovery of a language test folder' -Tag 'L1', 'logic' {
+    BeforeAll {
+        $script:drive = $TestDrive
+        $script:cachePath = [System.IO.Path]::Combine($TestDrive, 'out', 'cache', 'test-discovery.json')
+        $script:folder = [System.IO.Path]::Combine($TestDrive, 'widgets', 'tests', 'python')
+        $script:caseFile = [System.IO.Path]::Combine($script:folder, 'test_widget.py')
+        [void][System.IO.Directory]::CreateDirectory($script:folder)
+        [System.IO.File]::WriteAllText($script:caseFile, "def test_one():`n    pass`n`ndef test_two():`n    pass`n")
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { [System.IO.Path]::Combine($script:drive, 'out') }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:drive }
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Language = 'python'; Folder = $script:folder; Module = 'Widget' }
+        }
+        # The bridge cannot discover here (its lister needs the mapped folder), so the discovery answers with bridge-shaped tests.
+        Mock Invoke-Pester -ModuleName Catzc.Base.QualityGates {
+            $root = [pscustomobject]@{ Tag = [string[]]@(); IsRoot = $true; Parent = $null }
+            $block = [pscustomobject]@{
+                Tag = [string[]]@('L2'); IsRoot = $false; Parent = $root; ExpandedPath = 'python tests of Widget'
+                BlockContainer = [pscustomobject]@{ Data = @{ TestFolder = $script:folder } }
+            }
+            $tests = foreach ($name in 'test_one [pwsh]', 'test_two [pwsh]') {
+                [pscustomobject]@{
+                    Tag = [string[]]@('logic'); Block = $block; ExpandedName = $name; ExpandedPath = "python tests of Widget.$name"
+                    ScriptBlock = [pscustomobject]@{ File = 'Language.Bridge.ps1'; StartPosition = [pscustomobject]@{ StartLine = 80 } }
+                }
+            }
+            [pscustomobject]@{ Tests = @($tests) }
+        }
+        $script:discover = {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $script:folder } {
+                param($Path)
+                Get-TestDiscovery -TestPath $Path
+            }
+        }
+    }
+
+    It 'discovers the folder once and keeps the container folder on its rows' {
+        $discovery = & $script:discover
+
+        Should -Invoke Invoke-Pester -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -Scope It
+        @($discovery.Tests).Count | Should -BeGreaterThan 0
+        foreach ($test in $discovery.Tests) {
+            $test.Block.BlockContainer.Data['TestFolder'] | Should -Be $script:folder
+        }
+        $keys = @((Get-Content -LiteralPath $script:cachePath -Raw | ConvertFrom-Json -AsHashtable).Keys)
+        $keys | Should -HaveCount 1
+        $keys[0] | Should -BeLike 'widgets/tests/python|*'
+    }
+
+    It 'reads the folder back from the cache and runs no Pester' {
+        $first = & $script:discover
+        $second = & $script:discover
+
+        Should -Invoke Invoke-Pester -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly -Scope It
+        @($second.Tests.ExpandedName) | Should -Be @($first.Tests.ExpandedName)
+        foreach ($test in $second.Tests) {
+            $test.Block.BlockContainer.Data['TestFolder'] | Should -Be $script:folder
+        }
+    }
+
+    It 'discovers the folder again when one of its test files changed' {
+        $before = @((& $script:discover).Tests).Count
+        [System.IO.File]::AppendAllText($script:caseFile, "`ndef test_three():`n    pass`n")
+
+        $discovery = & $script:discover
+
+        Should -Invoke Invoke-Pester -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -Scope It
+        @($discovery.Tests).Count | Should -Be $before
+        @((Get-Content -LiteralPath $script:cachePath -Raw | ConvertFrom-Json -AsHashtable).Keys) | Should -HaveCount 1
+    }
+}
+
+Describe 'Get-TestDiscovery — shipped assets/Language.Bridge.ps1' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
+    BeforeAll {
+        $script:drive = $TestDrive
+        $script:cachePath = [System.IO.Path]::Combine($TestDrive, 'out', 'cache', 'test-discovery.json')
+        $script:folder = [System.IO.Path]::Combine($TestDrive, 'widgets', 'tests', 'python')
+        [void][System.IO.Directory]::CreateDirectory($script:folder)
+        [System.IO.File]::WriteAllText([System.IO.Path]::Combine($script:folder, 'test_widget.py'), "def test_one():`n    pass`n")
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { [System.IO.Path]::Combine($script:drive, 'out') }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:drive }
+        Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Language = 'python'; Folder = $script:folder; Module = 'Widget' }
+        }
+        Mock Invoke-Pester -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Tests = @() } }
+        $script:discover = {
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Path = $script:folder } {
+                param($Path)
+                [void](Get-TestDiscovery -TestPath $Path)
+            }
+        }
+        $script:folderKey = {
+            (Get-Content -LiteralPath $script:cachePath -Raw | ConvertFrom-Json -AsHashtable).Keys | Select-Object -First 1
+        }
+    }
+
+    It 'folds the digest of the shipped bridge into a language folder key' {
+        $bridge = Get-CatzcModuleRoot 'assets/Language.Bridge.ps1' -Module Catzc.Base.QualityGates
+        $bridge | Should -Exist
+        $changed = [System.IO.Path]::Combine($TestDrive, 'Language.Bridge.changed.ps1')
+        [System.IO.File]::WriteAllText($changed, [System.IO.File]::ReadAllText($bridge) + ' ')
+
+        & $script:discover
+        $realKey = & $script:folderKey
+
+        Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.QualityGates { $changed } -ParameterFilter { $ChildPath -eq 'assets/Language.Bridge.ps1' }
+        & $script:discover
+        $changedKey = & $script:folderKey
+
+        $realKey | Should -BeLike 'widgets/tests/python|*'
+        $changedKey | Should -BeLike 'widgets/tests/python|*'
+        $changedKey | Should -Not -Be $realKey
+    }
+}

@@ -14,6 +14,8 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 | 5   | L1   | [Test-InIsolation (vendored Pester)][c5]                |
 | 6   | L2   | [Invoke-TestFile (real worker)][c6]                     |
 | 7   | L2   | [worker execution (real pwsh through PesterRunner)][c7] |
+| 8   | L1   | [ConvertTo-PesterRunTarget — shipped bridge][c8]        |
+| 9   | L1   | [Get-TestDiscovery — shipped bridge][c9]                |
 
 [c1]: #1-manual-test-plan-covers-every-integrity-check
 [c2]: #2-test-logictestidentity
@@ -22,6 +24,8 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 [c5]: #5-test-inisolation-vendored-pester
 [c6]: #6-invoke-testfile-real-worker
 [c7]: #7-worker-execution-real-pwsh-through-pesterrunner
+[c8]: #8-convertto-pesterruntarget--shipped-assetslanguagebridgeps1
+[c9]: #9-get-testdiscovery--shipped-assetslanguagebridgeps1
 
 ## Checks
 
@@ -82,3 +86,15 @@ The test runner, its vendored Pester, fixture-identity hygiene, and this plan's 
 `ConvertTo-PesterRunTarget — shipped assets/Language.Bridge.ps1`.
 
 **Guards:** `ConvertTo-PesterRunTarget` finds the language bridge in the loaded QualityGates module (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+### 9. Get-TestDiscovery — shipped assets/Language.Bridge.ps1
+
+**Test file:** `pwsh/Base.QualityGates/tests/Get-TestDiscovery.Tests.ps1` (L1), block
+`Get-TestDiscovery — shipped assets/Language.Bridge.ps1`.
+
+**Guards:** the discovery cache key of a language test folder folds the digest of the bridge script the loaded QualityGates module ships
+(ADR-AUTO-ASSETDEP-COVEREDBYREALTEST).
+
+**Checks:**
+
+- The key written for a language folder differs between the shipped bridge and a copy of it with one byte changed.

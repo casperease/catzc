@@ -80,6 +80,34 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'flags an L3 test tagged logic, and passes an L3 test tagged integrity' -Tag 'ADR-AUTO-TEST-TWOMANDATORYTAGS' {
+        InModuleScope Catzc.Base.QualityGates {
+            $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
+            function New-FakeTest {
+                param([string] $Name, [string[]] $Tags)
+                [pscustomobject]@{
+                    Tag          = @()
+                    Block        = [pscustomobject]@{ IsRoot = $false; Tag = @($Tags); Parent = $root }
+                    ExpandedName = $Name
+                    ScriptBlock  = [pscustomobject]@{ File = 'fixture.Tests.ps1' }
+                }
+            }
+
+            $discovered = [pscustomobject]@{
+                Tests = @(
+                    (New-FakeTest 'systemLogic' @('L3', 'logic'))
+                    (New-FakeTest 'systemIntegrity' @('L3', 'integrity'))
+                )
+            }
+
+            $violations = Get-TestTagViolations -Discovery $discovered
+
+            $violations | Should -HaveCount 1
+            $violations[0].Test | Should -Be 'systemLogic'
+            $violations[0].Reason | Should -BeLike '*L3 system test takes the category integrity, not logic*'
+        }
+    }
+
     It 'returns an empty array when every test is fully tagged' {
         InModuleScope Catzc.Base.QualityGates {
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

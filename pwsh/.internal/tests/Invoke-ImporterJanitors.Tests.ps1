@@ -168,6 +168,79 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }
 
+    Context 'with another importer of the same root holding the writers lock' {
+        BeforeAll {
+            $script:savedRoot = $env:RepositoryRoot
+            $script:holdScript = {
+                param($Name, $Flag, $HoldMilliseconds)
+                $mutex = [System.Threading.Mutex]::new($false, $Name)
+                [void] $mutex.WaitOne()
+                [System.IO.File]::WriteAllText($Flag, 'held')
+                Start-Sleep -Milliseconds $HoldMilliseconds
+                $mutex.ReleaseMutex()
+                $mutex.Dispose()
+            }
+            # Starts the other importer's hold in a runspace and returns once it holds the mutex.
+            $script:startHolder = {
+                param([int] $HoldMilliseconds)
+                $shell = [powershell]::Create().AddScript($script:holdScript).AddArgument($script:mutexName).AddArgument($script:flag).AddArgument($HoldMilliseconds)
+                $async = $shell.BeginInvoke()
+                $deadline = [datetime]::UtcNow.AddSeconds(10)
+                while (-not (Test-Path -LiteralPath $script:flag) -and [datetime]::UtcNow -lt $deadline) {
+                    Start-Sleep -Milliseconds 50
+                }
+                [pscustomobject]@{ Shell = $shell; Async = $async }
+            }
+        }
+
+        AfterAll {
+            $env:RepositoryRoot = $script:savedRoot
+        }
+
+        BeforeEach {
+            $env:RepositoryRoot = Join-Path $TestDrive 'widget-root'
+            $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes([System.IO.Path]::GetFullPath($env:RepositoryRoot)))
+            $script:mutexName = "Local\catzc-importer-janitors-$([System.Convert]::ToHexString($hash).ToLowerInvariant().Substring(0, 16))"
+            $script:flag = Join-Path $TestDrive "held-$([guid]::NewGuid()).txt"
+            Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Importer
+            Mock Get-GeneratedWriterDue { $script:rows | ForEach-Object { [pscustomobject]@{ Name = $_.Name; Due = $true } } } -ModuleName Catzc.Internal.Importer
+        }
+
+        It 'waits for the release and then runs the writers' {
+            Mock Get-TimeoutSeconds { 30 } -ModuleName Catzc.Internal.Importer
+            $holder = & $script:startHolder 1500
+            try {
+                $watch = [System.Diagnostics.Stopwatch]::StartNew()
+                InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors -Consumer }
+                $watch.Elapsed.TotalMilliseconds | Should -BeGreaterThan 800
+            }
+            finally {
+                $holder.Shell.EndInvoke($holder.Async)
+                $holder.Shell.Dispose()
+            }
+
+            Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        }
+
+        It 'runs the writers anyway after one message when the wait ends' {
+            Mock Get-TimeoutSeconds { 1 } -ModuleName Catzc.Internal.Importer
+            $holder = & $script:startHolder 4000
+            try {
+                $watch = [System.Diagnostics.Stopwatch]::StartNew()
+                InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors -Consumer }
+                $watch.Elapsed.TotalMilliseconds | Should -BeLessThan 3500
+            }
+            finally {
+                $holder.Shell.EndInvoke($holder.Async)
+                $holder.Shell.Dispose()
+            }
+
+            Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+            Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Message -like '*holds the writers* lock after 1 s*' }
+        }
+    }
+
     It 'runs every build janitor when the due rows cannot be read' {
         Mock Get-GeneratedWriterDue { throw 'git is not available' } -ModuleName Catzc.Internal.Importer
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Importer

@@ -5,21 +5,22 @@ check.
 
 ## Index
 
-| #   | Tier | Check                                                       |
-| --- | ---- | ----------------------------------------------------------- |
-| 1   | L0   | [integrity (shipped tools.yml) — ToolsConfig][c1]           |
-| 2   | L0   | [shipped tools.yml (generic invariant)][c2]                 |
-| 3   | L0   | [asset dependencies][c3]                                    |
-| 4   | L0   | [structural validation][c4]                                 |
-| 5   | L0   | [Install/Uninstall function coverage][c5]                   |
-| 6   | L1   | [Asset dependencies (Toolchain)][c6]                        |
-| 7   | L0   | [Resolve-ToolExecutable on the shipped bash entry][c7]      |
-| 8   | L1   | [Get-EngineCaseTable — every shipped engine case table][c8] |
-| 9   | L1   | [Get-Inspiration over the shipped inspiration.yml][c9]      |
-| 10  | L1   | [Catzc.Tooling.Listen over the shipped configs][c10]        |
-| 11  | L1   | [Invoke-ExecutableParallel — the shipped throttle][c11]     |
-| 12  | L2   | [Get-GitCommitTree — the real repository][c12]              |
-| 13  | L2   | [Get-GitBlobText — the real repository][c13]                |
+| #   | Tier | Check                                                           |
+| --- | ---- | --------------------------------------------------------------- |
+| 1   | L0   | [integrity (shipped tools.yml) — ToolsConfig][c1]               |
+| 2   | L0   | [shipped tools.yml (generic invariant)][c2]                     |
+| 3   | L0   | [asset dependencies][c3]                                        |
+| 4   | L0   | [structural validation][c4]                                     |
+| 5   | L0   | [Install/Uninstall function coverage][c5]                       |
+| 6   | L1   | [Asset dependencies (Toolchain)][c6]                            |
+| 7   | L0   | [Resolve-ToolExecutable on the shipped bash entry][c7]          |
+| 8   | L1   | [Get-EngineCaseTable — every shipped engine case table][c8]     |
+| 9   | L1   | [Get-Inspiration over the shipped inspiration.yml][c9]          |
+| 10  | L1   | [Catzc.Tooling.Listen over the shipped configs][c10]            |
+| 11  | L1   | [Invoke-ExecutableParallel — the shipped throttle][c11]         |
+| 12  | L2   | [Get-GitCommitTree — the real repository][c12]                  |
+| 13  | L2   | [Get-GitBlobText — the real repository][c13]                    |
+| 14  | L3   | [Set-PermanentEnvironmentVariable — real user environment][c14] |
 
 [c1]: #1-integrity-shipped-toolsyml--toolsconfig
 [c2]: #2-shipped-toolsyml-generic-invariant
@@ -34,6 +35,7 @@ check.
 [c11]: #11-invoke-executableparallel--the-shipped-throttle
 [c12]: #12-get-gitcommittree--the-real-repository
 [c13]: #13-get-gitblobtext--the-real-repository
+[c14]: #14-set-permanentenvironmentvariable--get-permanentenvironmentvariable-real-user-environment
 
 ## Checks
 
@@ -163,3 +165,19 @@ WindowsApps bash.exe).
 - The text of the committed `importer.ps1` blob, end of line trimmed, equals the output of `git cat-file blob`.
 
 **Prerequisite:** git.
+
+### 14. Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)
+
+**Test file:** `pwsh/Base.Environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1` (L3), block
+`Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)`.
+
+**Guards:** a persistent user variable set through the module is read back, and removing it deletes the value from the user environment key.
+
+**Checks:**
+
+- `Set-PermanentEnvironmentVariable` with a scratch name and the value `gadget`, then `Get-PermanentEnvironmentVariable` with the same name,
+  returns `gadget`.
+- Setting it to `$null` makes the read return nothing, and `HKCU\Environment` no longer lists the name (the value is deleted, not emptied).
+- Setting the value it already holds, or removing one already gone, announces and writes nothing.
+
+**Prerequisite:** Windows; the scratch name is removed at the end of the run.

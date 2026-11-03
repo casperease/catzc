@@ -147,7 +147,7 @@ Describe 'Probe' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText('$probe', (ConvertTo-Json -InputObject `$observation))
     }
 }
-Describe 'SystemProbe' -Tag 'L3', 'logic' {
+Describe 'SystemProbe' -Tag 'L3', 'integrity' {
     It 'would change state outside the repository' {
         [System.IO.File]::WriteAllText('$systemProbe', 'ran')
     }

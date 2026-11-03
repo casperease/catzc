@@ -37,41 +37,76 @@ function Invoke-ImporterJanitors {
     $atImport = @(if (Get-Command Get-GeneratedWriterOrder -ErrorAction Ignore) {
             Get-GeneratedWriterOrder | Where-Object { $_.at_import -and (-not $Consumer -or $_.consumer) } | ForEach-Object { $_.name }
         })
-    $due = Get-DueWriterRow -Name $atImport
-    $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
-    # Keep the generated DRS pages current (Catzc.Base.Docs): `docs/drs/index.md` from drs.yml and
-    # `docs/drs/glossary.md` from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-    # Build-Readme (the docs/drs README is generated from the index). See
-    # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-    #
-    # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
-    # contract assets' header comments — committed so GitHub has them. See
-    # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-    #
-    # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
-    # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
-    # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
-    #
-    # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
-    # one shared template, pointing at its folder's generated README — reproduced here so a template change
-    # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-    #
-    # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
-    # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
-    # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
-    #
-    # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
-    # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
-    # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
-    # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
-    # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
-    foreach ($writer in $atImport) {
-        if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
-            & $writer -Silent | Out-Null
-            # The writer ran: its input stamp is stored, so it is not due again until one of its inputs changes.
-            if ($saveStamp) {
-                & $saveStamp -Name $writer
+    # Two importers of one root run the writers one after the other: the second finds them no longer due once the first stored
+    # its stamps. The wait is bounded by this function's commands row in timeouts.yml and never fails the import.
+    $mutex = $null
+    $held = $false
+    if ($atImport.Count -gt 0 -and (Get-Command Get-TimeoutSeconds -ErrorAction Ignore)) {
+        $root = if ($env:RepositoryRoot) {
+            $env:RepositoryRoot
+        }
+        else {
+            (Get-Location).ProviderPath
+        }
+        $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes([System.IO.Path]::GetFullPath($root)))
+        $mutex = [System.Threading.Mutex]::new($false, "Local\catzc-importer-janitors-$([System.Convert]::ToHexString($hash).ToLowerInvariant().Substring(0, 16))")
+        $seconds = Get-TimeoutSeconds -Command 'Invoke-ImporterJanitors'
+        try {
+            $held = $mutex.WaitOne([timespan]::FromSeconds($seconds))
+            if (-not $held) {
+                Write-ImporterMessage "Build janitors: another import of this root holds the writers' lock after $seconds s, the writers run anyway" -ForegroundColor Yellow
             }
+        }
+        catch [System.Threading.AbandonedMutexException] {
+            $held = $true
+            Write-ImporterMessage 'Build janitors: the import holding the writers'' lock ended without releasing it, the lock is taken over' -ForegroundColor Yellow
+        }
+    }
+    try {
+        $due = Get-DueWriterRow -Name $atImport
+        $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
+        # Keep the generated DRS pages current (Catzc.Base.Docs): `docs/drs/index.md` from drs.yml and
+        # `docs/drs/glossary.md` from the glossary sources — committed so GitHub has them, rebuilt BEFORE
+        # Build-Readme (the docs/drs README is generated from the index). See
+        # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
+        #
+        # Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
+        # contract assets' header comments — committed so GitHub has them. See
+        # [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
+        #
+        # Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
+        # rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
+        # only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
+        #
+        # Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
+        # one shared template, pointing at its folder's generated README — reproduced here so a template change
+        # propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
+        #
+        # Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
+        # configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
+        # cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
+        #
+        # Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
+        # reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
+        # header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
+        # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
+        # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
+        foreach ($writer in $atImport) {
+            if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
+                & $writer -Silent | Out-Null
+                # The writer ran: its input stamp is stored, so it is not due again until one of its inputs changes.
+                if ($saveStamp) {
+                    & $saveStamp -Name $writer
+                }
+            }
+        }
+    }
+    finally {
+        if ($held) {
+            $mutex.ReleaseMutex()
+        }
+        if ($mutex) {
+            $mutex.Dispose()
         }
     }
 

@@ -77,7 +77,9 @@ exactly one **tier** `L0|L1|L2|L3|L4` and exactly one category `logic|integrity`
 or to two of the same axis, is a violation. Put both on the outermost group for a uniform test file; override on an inner group where the
 file mixes tiers or categories — never two tags of the same axis on one group. On the category axis, `logic` verifies a function's logic on
 mocks and/or its own fixtures, independent of shipped config; `integrity` verifies the actual repository contents (shipped
-`azure.yml`/`network.yml`/`tools.yml`/…, real templates, the module/type/function graph, checked-in binaries, file/folder conventions).
+`azure.yml`/`network.yml`/`tools.yml`/…, real templates, the module/type/function graph, checked-in binaries, file/folder conventions). An
+`L3` test always takes `integrity`, never `logic`: a system test changes state outside the repository, so it is an integration proof by
+nature (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).
 
 - [Two mandatory tag axes](#mandatory-tag-axes)
 

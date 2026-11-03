@@ -174,6 +174,9 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
 
 '@
         # One install per file: the full bundle, the only declared one whose closure carries Catzc.Base.Overlay, plus the consumer's overlay entries.
+        $startedAt = [datetime]::UtcNow.ToString('o')
+        $total = [System.Diagnostics.Stopwatch]::StartNew()
+        $phaseTimes = @(0, 0, 0)
         $script:handle = New-ConsumerRoot -Bundle 'full' -File @{
             '.gitignore'                                    = "out/`ngo.work`n*/*/go.mod`n*/tests/*/go.mod`n"
             'widget/Local/Get-LocalWidget.ps1'              = $widget
@@ -203,7 +206,9 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         }
 
         $script:builtSource = [string] $script:handle.Install.Source
+        $phaseTimes[0] = [math]::Round($total.Elapsed.TotalSeconds, 1)
 
+        $total.Restart()
         foreach ($step in @(@('init', '-q'), @('add', '-A'), @('update-index', '--chmod=+x', 'bash/gadget/gadget.sh'))) {
             $gitOutput = & git -C $script:handle.WorkingRoot @step 2>&1
             if ($LASTEXITCODE -ne 0) {
@@ -211,14 +216,23 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
             }
         }
 
+        $phaseTimes[1] = [math]::Round($total.Elapsed.TotalSeconds, 1)
+
         # One fresh session through the root's importer answers every case below.
+        $total.Restart()
         $script:session = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
             # The consumer syncs its python workspace once, as catzc does, so the python quality gates and the python test run read its environment offline.
+            $phases = [ordered]@{}
+            $watch = [System.Diagnostics.Stopwatch]::StartNew()
             $null = Install-PythonWorkspace
+            $phases['PythonWorkspace'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
             # It installs the JavaScript type packages once from the configured registry, so the rendered jsconfig.json's type root is filled and the JavaScript types quality gate reads it offline.
+            $watch.Restart()
             $null = Install-TypeScript
+            $phases['TypeScript'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
 
-            [pscustomobject]@{
+            $watch.Restart()
+            $probe = [pscustomobject]@{
                 RunMode        = Get-CatzcRunMode
                 PruneVendor    = (Get-Config -Config folder-walk).prune_vendor_in_searches
                 Tracks         = @(Get-Track | ForEach-Object name)
@@ -246,13 +260,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
                 GadgetType     = [Widget.Local.Gadget].FullName
                 GadgetIsOwn    = (Get-Config gadget -Namespace Widget) -is [Widget.Local.Gadget]
                 GateSet        = @(& (Get-Module Catzc.Base.QualityGates) { Get-QualityGateCheckSet })
-                GateReport     = Test-QualityGates -PassThru
-                DrsRegistry    = Test-DrsRegistry -PassThru
                 DrsDomains     = @((Get-Config -Config drs).Domains | ForEach-Object Name)
-                DrsIndexCodes  = $(
-                    $indexRows = Get-DrsIndex
-                    @($indexRows | ForEach-Object Code)
-                )
                 BareFromHere   = $(
                     try {
                         Get-Config gadget
@@ -261,19 +269,53 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
                         $_.Exception.Message
                     }
                 )
-                OwnRun         = $(
-                    # Two workers and a greedy group of two: the consumer's six small files, run inside a full run of the repository, must not spawn a pool of their own.
-                    $result = Test-Automation -Output Minimal -PassThru -Workers 2 -GreedyGroupSize 2
-                    [pscustomobject]@{
-                        Passed     = $result.PassedCount
-                        Failed     = $result.FailedCount
-                        FailedRows = @($result.Rows | Where-Object { $_.Result -eq 'Failed' } | ForEach-Object { ConvertTo-Json -InputObject $_ -Compress -Depth 2 })
-                        Files      = @($result.Rows | ForEach-Object { "$($_.File)" })
-                        CodeRoot   = Get-CatzcModulesRoot
-                    }
-                )
             }
+            $phases['Probe'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
+
+            $watch.Restart()
+            $gateReport = Test-QualityGates -PassThru
+            $phases['Gates'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
+
+            $watch.Restart()
+            $drsRegistry = Test-DrsRegistry -PassThru
+            $indexRows = Get-DrsIndex
+            $drsIndexCodes = @($indexRows | ForEach-Object Code)
+            $phases['Drs'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
+
+            $watch.Restart()
+            # Two workers and a greedy group of two: the consumer's six small files, run inside a full run of the repository, must not spawn a pool of their own.
+            $result = Test-Automation -Output Minimal -PassThru -Workers 2 -GreedyGroupSize 2
+            $ownRun = [pscustomobject]@{
+                Passed     = $result.PassedCount
+                Failed     = $result.FailedCount
+                FailedRows = @($result.Rows | Where-Object { $_.Result -eq 'Failed' } | ForEach-Object { ConvertTo-Json -InputObject $_ -Compress -Depth 2 })
+                Files      = @($result.Rows | ForEach-Object { "$($_.File)" })
+                CodeRoot   = Get-CatzcModulesRoot
+            }
+            $phases['OwnRun'] = [math]::Round($watch.Elapsed.TotalSeconds, 1)
+
+            $probe | Add-Member -NotePropertyMembers @{ GateReport = $gateReport; DrsRegistry = $drsRegistry; DrsIndexCodes = $drsIndexCodes; OwnRun = $ownRun; Phases = $phases }
+            $probe
         }
+        $phaseTimes[2] = [math]::Round($total.Elapsed.TotalSeconds, 1)
+        Write-Message ("Consumer.L2 phases (s): NewConsumerRoot=$($phaseTimes[0]) Git=$($phaseTimes[1]) Child=$($phaseTimes[2]) " + (($script:session.Phases.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))
+
+        # Under a test worker the phases also land in the run folder (the parent of the worker's bicep build cache), where a worker's log keeps no message; elsewhere they land in the output root.
+        $phaseFolder = if ($env:CATZC_BICEP_BUILD_CACHE) {
+            Split-Path -Path $env:CATZC_BICEP_BUILD_CACHE -Parent
+        }
+        else {
+            Get-OutputRoot
+        }
+        $phaseRecord = [ordered]@{
+            Started = $startedAt
+            File    = $PSCommandPath
+            Seconds = [ordered]@{ NewConsumerRoot = $phaseTimes[0]; Git = $phaseTimes[1]; Child = $phaseTimes[2] }
+        }
+        foreach ($phase in $script:session.Phases.GetEnumerator()) {
+            $phaseRecord.Seconds[$phase.Key] = $phase.Value
+        }
+        [System.IO.File]::WriteAllText((Join-Path $phaseFolder 'consumer-l2-phases.json'), (ConvertTo-Json -InputObject $phaseRecord -Depth 3), [System.Text.UTF8Encoding]::new($false))
     }
 
     AfterAll {

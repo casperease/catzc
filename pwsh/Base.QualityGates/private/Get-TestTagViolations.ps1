@@ -36,6 +36,10 @@ function Get-TestTagViolations {
             $reasons += "category resolves to $($categoryTags.Count) (need exactly one of logic|integrity)$detail"
         }
 
+        if ($tierTags -ceq 'L3' -and $categoryTags -ceq 'logic') {
+            $reasons += 'an L3 system test takes the category integrity, not logic'
+        }
+
         # Provenance axis: every tag with the reserved 'ADR-' marker across the block chain, then classified.
         $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {
