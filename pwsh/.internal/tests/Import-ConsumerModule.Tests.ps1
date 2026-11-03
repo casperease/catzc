@@ -25,6 +25,11 @@ AfterAll {
     foreach ($module in @(Get-Module -Name 'Widget.*')) {
         Remove-Module -ModuleInfo $module -Force -ErrorAction SilentlyContinue
     }
+    # The imports registered the fixture modules with the session's config index; the session reads its own index again.
+    & (Get-Module Catzc.Base.Config) {
+        $script:consumerConfigModules = $null
+        $script:configIndex = $null
+    }
     Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
     Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
 }
@@ -49,6 +54,17 @@ Describe 'Import-ConsumerModule' -Tag 'L0', 'logic' {
         $loaded = InModuleScope Catzc.Internal.Importer -Parameters @{ Root = $root; Modules = $modulesRoot } { param($Root, $Modules) Import-ConsumerModule -RepositoryRoot $Root -ModulesRoot $Modules }
         @($loaded).Count | Should -Be 0
         Should -Invoke Get-Track -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'registers each module with the config index under its namespace before it loads, so the module''s own config resolves' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+        $root = New-WidgetRoot
+        Add-WidgetModule -Root $root -Folder 'Alpha' -Function 'Get-WidgetAlpha' -Marker 'alpha'
+        [System.IO.Directory]::CreateDirectory((Join-Path $root 'widget/Alpha/configs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $root 'widget/Alpha/configs/gadget.yml'), "teeth: 8`n")
+        $null = InModuleScope Catzc.Internal.Importer -Parameters @{ Root = $root; Modules = $modulesRoot } { param($Root, $Modules) Import-ConsumerModule -RepositoryRoot $Root -ModulesRoot $Modules }
+        $entry = & (Get-Module Catzc.Base.Config) { Resolve-ConfigEntry -Config gadget -Namespace Widget }
+        $entry.Module | Should -BeExactly 'Widget.Alpha'
+        [System.IO.Path]::GetFullPath($entry.Path) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'widget/Alpha/configs/gadget.yml')))
     }
 
     It 'loads each module of a consumer track named by its namespace and folder, with its public function exported' -Tag 'ADR-AUTO-CONSUMER-SOURCEMODULES' {

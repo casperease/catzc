@@ -77,11 +77,26 @@ function Import-ConsumerModule {
                     $byNamespace[$track.namespace] = [System.Collections.Generic.List[object]]::new()
                 }
                 $byNamespace[$track.namespace].Add([pscustomobject]@{
-                        Name    = $name
-                        Files   = [string[]] @($privateSorted + $publicSorted)
-                        Exports = $exports
+                        Name      = $name
+                        Directory = $moduleDirectory
+                        Files     = [string[]] @($privateSorted + $publicSorted)
+                        Exports   = $exports
                     })
             }
+        }
+    }
+
+    # Each module's configs join the config index under its namespace before anything reads a consumer config, its dependencies first.
+    $configModule = Get-Module Catzc.Base.Config
+    if ($byNamespace.Count -gt 0 -and -not $configModule) {
+        throw "The working root '$RepositoryRoot' declares tracks with modules, but this bundle does not carry Catzc.Base.Config, which indexes their configs."
+    }
+    foreach ($consumerNamespace in $byNamespace.Keys) {
+        foreach ($module in $byNamespace[$consumerNamespace]) {
+            & $configModule {
+                param($namespace, $name, $directory)
+                Register-ConsumerConfigModule -Namespace $namespace -Module $name -Directory $directory
+            } $consumerNamespace $module.Name $module.Directory
         }
     }
 

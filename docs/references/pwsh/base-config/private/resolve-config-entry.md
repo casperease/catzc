@@ -47,11 +47,12 @@ A config is one file, or a folder of disjoint parts (`configs/<name>/*.yml`) whe
 
 ## Consumer namespaces
 
-In build mode, once the `Catzc` index is whole, the working root's `variants` config (read through `Get-Config`, which the resolver can
-reach because reading a config is global) names the consumer tracks. A `modules` track with a namespace is walked: every non-dot folder
-directly under one of its places, except the folders a folder place of `module-types` excludes (a track's test holder), is a module named
-`<namespace><join><folder>`, and its `configs/` index under the track's namespace. A track naming the `Catzc` namespace is refused
-([ADR-AUTO-CONSUMER-OWNTRACKS](../../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-owntracks)).
+Once the `Catzc` index is whole, the consumer modules the importer registered (`Register-ConsumerConfigModule`, one call per module the
+importer found by layout in a consumer track) are walked: each module's `configs/` indexes under its namespace, with the module's name and
+folder on each entry. The resolver reads no track itself: the tracks are `Catzc.Base.Variants`'s, which depends on this module, so a build
+that leaves it out still closes
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A source run
+registers no module, so it indexes no consumer namespace.
 
 A consumer module's `configs/configs.yml` is its registry, not a config: the registries of one namespace merge key by key, a name two of
 them register is refused, and a type in the `Catzc.` namespace that catzc does not ship is refused (a consumer may register a type catzc

@@ -542,17 +542,16 @@ namespace WidgetConfigTest {
     }
 
     Context 'a config of a consumer namespace (Resolve-ConfigEntry)' -Tag 'logic' {
-        # A catzc code root and a consumer working root, both fixtures behind their seams; the consumer's track is declared as the variants config would.
+        # A catzc code root and a consumer working root, both fixtures behind their seams; the consumer's modules are registered as the importer would.
         BeforeEach {
             $script:catzcRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:workingRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path (Join-Path $catzcRoot 'Catzc.Base.Widget/configs') -Force | Out-Null
             Set-Content -LiteralPath (Join-Path $catzcRoot 'Catzc.Base.Widget/Catzc.Base.Widget.psd1') -Value '@{}'
             Set-Content -LiteralPath (Join-Path $catzcRoot 'Catzc.Base.Widget/configs/gadget.yml') -Value 'teeth: 12'
-            foreach ($folder in 'widget/Local/configs', 'widget/Other/configs', 'widget/tests/configs', '.catzc/configs') {
+            foreach ($folder in 'widget/Local/configs', 'widget/Other/configs', 'widget/tests/configs') {
                 New-Item -ItemType Directory -Path (Join-Path $workingRoot $folder) -Force | Out-Null
             }
-            Set-Content -LiteralPath (Join-Path $workingRoot '.catzc/configs/variants.yml') -Value 'tracks: {}'
             Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/gadget.yml') -Value 'teeth: 8'
             Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Local/configs/configs.yml') -Value @('configs:', '  gadget:', '    type: Widget.GadgetConfig')
             Set-Content -LiteralPath (Join-Path $workingRoot 'widget/Other/configs/sprocket.yml') -Value 'teeth: 4'
@@ -560,23 +559,36 @@ namespace WidgetConfigTest {
             Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { $catzcRoot }
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { }
             Mock Get-ConfigRegistry -ModuleName Catzc.Base.Config -MockWith { [ordered]@{} }
-            Mock Get-RepositoryRoot -ModuleName Catzc.Base.Config -MockWith { $workingRoot }
-            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
-            Mock Get-Config -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'variants' } -MockWith {
-                $member = [Catzc.Base.Variants.VariantMember]::new('widget')
-                $track = [Catzc.Base.Variants.VariantTrack]::new('widget', [Catzc.Base.Variants.VariantMember[]]@($member), 'modules', $null,
-                    [string[]]@('powershell'), $null, $null, $null, 'Widget')
-                [pscustomobject]@{ tracks = @($track) }
+            InModuleScope Catzc.Base.Config -Parameters @{ Root = $workingRoot } {
+                $script:consumerConfigModules = $null
+                $script:configIndex = $null
+                Register-ConsumerConfigModule -Namespace Widget -Module Widget.Local -Directory (Join-Path $Root 'widget/Local')
+                Register-ConsumerConfigModule -Namespace Widget -Module Widget.Other -Directory (Join-Path $Root 'widget/Other')
             }
-            Mock Get-Config -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'module-types' } -MockWith {
-                $place = [pscustomobject]@{ name = 'folder'; except = @('tests') }
-                [pscustomobject]@{ types = @([pscustomobject]@{ places = @($place) }) }
-            }
-            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
         }
 
         AfterEach {
-            InModuleScope Catzc.Base.Config { $script:configIndex = $null }
+            InModuleScope Catzc.Base.Config {
+                $script:consumerConfigModules = $null
+                $script:configIndex = $null
+            }
+        }
+
+        It 'refuses a registration in the system''s namespace' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
+            InModuleScope Catzc.Base.Config -Parameters @{ Root = $workingRoot } {
+                { Register-ConsumerConfigModule -Namespace Catzc -Module Catzc.Local -Directory (Join-Path $Root 'widget/Local') } |
+                    Should -Throw "*namespace 'Catzc', which is the system's*"
+            }
+        }
+
+        It 'replaces an earlier registration of the same module and drops the built index' {
+            InModuleScope Catzc.Base.Config -Parameters @{ Root = $workingRoot } {
+                $null = Resolve-ConfigEntry -Config gadget -Namespace Widget
+                Register-ConsumerConfigModule -Namespace Widget -Module Widget.Local -Directory (Join-Path $Root 'widget/Other')
+                $script:configIndex | Should -BeNullOrEmpty
+                @($script:consumerConfigModules | Where-Object { $_.Module -ceq 'Widget.Local' }) | Should -HaveCount 1
+                @(Resolve-ConfigEntry -Config gadget -Namespace Widget -All).Count | Should -Be 0
+            }
         }
 
         It 'indexes a consumer track module''s config under the track''s namespace, with the registry entry beside it' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
@@ -640,7 +652,7 @@ namespace WidgetConfigTest {
             }
         }
 
-        It 'keeps the registry out of the configs, and the track''s test holder and the other namespaces out of the default lookup' {
+        It 'keeps the registry out of the configs, and an unregistered folder and the other namespaces out of the default lookup' {
             InModuleScope Catzc.Base.Config {
                 @(Resolve-ConfigEntry -Config configs -Namespace Widget -All).Count | Should -Be 0
                 @(Resolve-ConfigEntry -Config cog -Namespace Widget -All).Count | Should -Be 0
@@ -650,9 +662,10 @@ namespace WidgetConfigTest {
             }
         }
 
-        It 'indexes no consumer namespace in a source run, and no catzc config changes' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
-            Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
+        It 'indexes no consumer namespace while the importer registered no module, and no catzc config changes' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
             InModuleScope Catzc.Base.Config {
+                $script:consumerConfigModules = $null
+                $script:configIndex = $null
                 @(Resolve-ConfigEntry -Config gadget -Namespace Widget -All).Count | Should -Be 0
                 (Resolve-ConfigEntry -Config gadget).Module | Should -BeExactly 'Catzc.Base.Widget'
             }

@@ -16,7 +16,8 @@ function Invoke-BuildArtifactProbe {
 param([string] $BuildRoot, [string] $RepositoryRoot, [string] $ObservationPath, [string] $ScopeModule)
 # The output becomes an issue text, and a test report is XML, which cannot carry an ANSI escape.
 $PSStyle.OutputRendering = 'PlainText'
-. (Join-Path $BuildRoot 'Import-Catzc.ps1') -RepositoryRoot $RepositoryRoot 6>$null
+# The probe observes the load; the consumer writers would render the source checkout's root files in their build-mode form.
+. (Join-Path $BuildRoot 'Import-Catzc.ps1') -RepositoryRoot $RepositoryRoot -SkipJanitors 6>$null
 
 $hasConfig = [bool] (Get-Command Get-Config -ErrorAction Ignore)
 $configFailures = [System.Collections.Generic.List[string]]::new()

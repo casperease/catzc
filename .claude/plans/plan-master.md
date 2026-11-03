@@ -47,6 +47,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - build-mode -> plan-build-mode.md: finish the builder for any module combination, and prove every function in build mode installed in
   another repository and in a folder with no repository.
+- test-run-roof -> plan-test-run-roof.md: the full run back under its 360 s roof, one measured test file faster per step and a killed run
+  recording the durations of the shards it finished.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

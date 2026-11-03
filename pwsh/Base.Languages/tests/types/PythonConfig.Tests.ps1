@@ -15,6 +15,14 @@ Describe 'PythonConfig' -Tag 'L0' {
             $script:pins = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }
         }
 
+        It 'pins the three tools by default when the file is absent or names no dependencies, the shape of a root without a python file' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+            foreach ($raw in $null, [ordered]@{}, [ordered]@{ dependencies = $null }) {
+                $config = [Catzc.Base.Languages.PythonConfig]::new($raw)
+                @($config.dependencies.Keys) | Should -Be @('pyright', 'pytest', 'ruff')
+                $config.dependencies['pytest'] | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultDependencies['pytest'])
+            }
+        }
+
         It 'keeps the dependencies in ordinal name order, whatever the file order' {
             $config = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{
                     dependencies = [ordered]@{ ruff = '0.17.0'; 'widget-kit' = '1.2'; pytest = '9.1.1'; pyright = '1.1.414' }
@@ -96,7 +104,7 @@ Describe 'PythonConfig' -Tag 'L0' {
             @{ Case = 'an unknown key'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }; gadget = 1 }; Message = "*unknown key 'gadget'*" }
             @{ Case = 'a missing pytest pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; ruff = '0.17.0' } }; Message = "*must pin 'pytest'*" }
             @{ Case = 'a missing pyright pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*must pin 'pyright'*" }
-            @{ Case = 'an empty file'; Raw = $null; Message = "*must pin 'pyright'*must pin 'pytest'*must pin 'ruff'*" }
+            @{ Case = 'a declared map that pins none of the tools'; Raw = [ordered]@{ dependencies = [ordered]@{ 'widget-kit' = '1.2' } }; Message = "*must pin 'pyright'*must pin 'pytest'*must pin 'ruff'*" }
             @{ Case = 'a version range'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '>=9'; ruff = '0.17.0' } }; Message = "*dependencies.pytest '>=9'*exact version*" }
             @{ Case = 'a name that is not normalised'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0'; Widget_Kit = '1.0' } }; Message = "*'Widget_Kit'*normalised distribution name*" }
             @{ Case = 'dependencies that are not a map'; Raw = [ordered]@{ dependencies = 'pytest' }; Message = '*invalid dependencies*' }

@@ -43,7 +43,13 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache", "build_backend", PackageSource.Key };
     private static readonly string[] BuildBackendKeys = { "distribution", "version", "module", "editable_mode", "package_data" };
     private static readonly Regex ModuleName = new Regex(@"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$");
-    private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
+    // The three tools the Python checks and the test bridge run, pinned by default; a declared dependencies map pins them itself.
+    public static readonly IReadOnlyDictionary<string, string> DefaultDependencies = new SortedDictionary<string, string>(StringComparer.Ordinal)
+    {
+        { "pyright", "1.1.414" },
+        { "pytest", "9.1.1" },
+        { "ruff", "0.17.0" },
+    };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
     private static readonly Regex DistributionName = new Regex(@"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$");
@@ -217,12 +223,20 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        foreach (string required in RequiredDependencies)
+        // An absent key takes the default pins, so a root without a python file still loads; a declared map pins the tools itself.
+        if (raw == null || !raw.Contains("dependencies") || raw["dependencies"] == null)
         {
-            if (!requires.ContainsKey(required))
+            foreach (KeyValuePair<string, string> pin in DefaultDependencies) { requires[pin.Key] = pin.Value; }
+        }
+        else
+        {
+            foreach (string required in DefaultDependencies.Keys)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture,
-                    "dependencies must pin '{0}' (the Python checks and the test bridge run it)", required));
+                if (!requires.ContainsKey(required))
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture,
+                        "dependencies must pin '{0}' (the Python checks and the test bridge run it)", required));
+                }
             }
         }
 

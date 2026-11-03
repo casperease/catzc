@@ -23,8 +23,14 @@ Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR
         @($config.analyzers['Measure-FakeRule2']) | Should -Be @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-TURN')
     }
 
-    It 'throws when the analyzers key is missing' {
-        Get-ViolationMessage ([ordered]@{ }) | Should -BeLike '*Missing required top-level key*'
+    It 'maps no analyzer when the key is absent, null or empty, the shape of a working root that ships no custom rule' -Tag 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
+        foreach ($raw in [ordered]@{ }, [ordered]@{ analyzers = $null }, [ordered]@{ analyzers = [ordered]@{ } }) {
+            @([Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::new($raw).analyzers.Keys) | Should -HaveCount 0
+        }
+    }
+
+    It 'throws when analyzers is no map' {
+        Get-ViolationMessage ([ordered]@{ analyzers = 'Measure-X' }) | Should -BeLike "*'analyzers' must be a map*"
     }
 
     It 'throws when an analyzer maps to no rule' {

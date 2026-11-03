@@ -3,7 +3,10 @@
 param(
     [string] $RepositoryRoot,
 
-    [switch] $AllowWarnings
+    [switch] $AllowWarnings,
+
+    # A load that only observes the build: no consumer writer touches the working root.
+    [switch] $SkipJanitors
 )
 
 Set-StrictMode -Version Latest
@@ -24,7 +27,7 @@ $env:CatzcModulesRoot = $PSScriptRoot
 Import-Module (Join-Path $PSScriptRoot '.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force
 Import-InternalModule Importer -Force
 try {
-    Invoke-Importer -Bundle -AllowWarnings:$AllowWarnings
+    Invoke-Importer -Bundle -AllowWarnings:$AllowWarnings -SkipJanitors:$SkipJanitors
 }
 finally {
     Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue

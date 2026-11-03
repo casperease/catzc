@@ -40,12 +40,9 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
             if (key != "analyzers") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: analyzers)", key)); }
         }
 
+        // An absent or empty key maps no analyzer: the shape of a working root that ships no custom rule.
         OrderedDictionary map = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
-        if (!raw.Contains("analyzers"))
-        {
-            errors.Add("Missing required top-level key: 'analyzers'");
-        }
-        else
+        if (raw.Contains("analyzers"))
         {
             object analyzersRaw = raw["analyzers"];
             IDictionary source = analyzersRaw as IDictionary;
@@ -53,11 +50,7 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
             {
                 errors.Add("'analyzers' must be a map of <analyzer rule>: [ <rule code>, ... ], e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR");
             }
-            else if (source == null || source.Count == 0)
-            {
-                errors.Add("analyzers is empty");
-            }
-            else
+            else if (source != null)
             {
                 foreach (object k in source.Keys)
                 {

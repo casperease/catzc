@@ -129,10 +129,13 @@ function Save-ConfigState {
     # Shallow copies: a read under the fake root adds keys to the live tables, never changes a key already there.
     & $config {
         $state = @{}
-        foreach ($name in 'configCache', 'configRegistryCache', 'configIndex') {
+        foreach ($name in 'configCache', 'configRegistryCache', 'configIndex', 'consumerConfigModules') {
             $value = $ExecutionContext.SessionState.PSVariable.GetValue("script:$name")
             $state[$name] = if ($value -is [hashtable]) {
                 $value.Clone()
+            }
+            elseif ($value -is [System.Collections.Generic.List[hashtable]]) {
+                [System.Collections.Generic.List[hashtable]]::new($value)
             }
             elseif ($value -is [System.Collections.Specialized.OrderedDictionary]) {
                 $copy = [ordered]@{}
@@ -168,6 +171,7 @@ function Restore-ConfigState {
             $script:configCache = $saved['configCache']
             $script:configRegistryCache = $saved['configRegistryCache']
             $script:configIndex = $saved['configIndex']
+            $script:consumerConfigModules = $saved['consumerConfigModules']
         } $State
     }
 }
@@ -341,13 +345,19 @@ function Invoke-InBuiltCatzc {
         # Wrapped in a table: a bare top-level array round-trips through CliXml as one object, not its elements.
         Export-Clixml -InputObject @{ Arguments = @($ArgumentList) } -LiteralPath $argumentsPath -Depth 5
 
+        # A build loaded against the session's own working root observes it; a consumer root gets the consumer writers, as an install does.
+        $skipJanitors = $Handle.ContainsKey('Saved') -and $Handle.WorkingRoot -eq $Handle.Saved.RepositoryRoot
         $runner = @'
 param([string] $CatzcChildImportScript, [string] $CatzcChildWorkingRoot, [string] $CatzcChildBlockPath,
-    [string] $CatzcChildArgumentsPath, [string] $CatzcChildResultPath)
+    [string] $CatzcChildArgumentsPath, [string] $CatzcChildResultPath, [bool] $CatzcChildSkipJanitors)
 $ErrorActionPreference = 'Stop'
 $catzcChildOutcome = @{ Output = @(); Error = $null }
 try {
-    . $CatzcChildImportScript -RepositoryRoot $CatzcChildWorkingRoot
+    $catzcChildEntryArguments = @{ RepositoryRoot = $CatzcChildWorkingRoot }
+    if ($CatzcChildSkipJanitors) {
+        $catzcChildEntryArguments['SkipJanitors'] = $true
+    }
+    . $CatzcChildImportScript @catzcChildEntryArguments
     $catzcChildBlock = [scriptblock]::Create([System.IO.File]::ReadAllText($CatzcChildBlockPath))
     $catzcChildArguments = @((Import-Clixml -LiteralPath $CatzcChildArgumentsPath).Arguments)
     $catzcChildOutcome.Output = @(& $catzcChildBlock @catzcChildArguments)
@@ -363,7 +373,7 @@ exit ([int][bool]$catzcChildOutcome.Error)
         $pwsh = [System.Environment]::ProcessPath
         $childOutput = & $pwsh -NoProfile -NonInteractive -File $runnerPath -CatzcChildImportScript $importScript `
             -CatzcChildWorkingRoot $Handle.WorkingRoot -CatzcChildBlockPath $blockPath `
-            -CatzcChildArgumentsPath $argumentsPath -CatzcChildResultPath $resultPath 2>&1
+            -CatzcChildArgumentsPath $argumentsPath -CatzcChildResultPath $resultPath -CatzcChildSkipJanitors:$skipJanitors 2>&1
         $exitCode = $LASTEXITCODE
         $outputTail = (@($childOutput | Select-Object -Last 20) | ForEach-Object { "$_" }) -join "`n"
 
