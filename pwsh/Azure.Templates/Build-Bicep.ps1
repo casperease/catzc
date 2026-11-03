@@ -118,6 +118,7 @@ function Build-Bicep {
 
     $cacheEntry = $null
     $cacheLock = $null
+    $cachedOutputs = @()
     if ($env:CATZC_BICEP_BUILD_CACHE) {
         $keyHash = [System.Security.Cryptography.IncrementalHash]::CreateHash([System.Security.Cryptography.HashAlgorithmName]::SHA256)
         $binaryStamp = [System.IO.File]::GetLastWriteTimeUtc($bicep.Path).Ticks
@@ -130,23 +131,30 @@ function Build-Bicep {
         }
         $key = [System.Convert]::ToHexString($keyHash.GetHashAndReset())
         $cacheEntry = Join-Path $env:CATZC_BICEP_BUILD_CACHE $key
-        # One builder per key at a time: a second file wanting the same template waits for the first compile instead of racing it.
-        $cacheLock = [System.Threading.Mutex]::new($false, "Local\catzc-bicep-build-$key")
-        try {
-            if (-not $cacheLock.WaitOne([TimeSpan]::FromSeconds((Get-TimeoutSeconds -Command Build-Bicep)))) {
-                $cacheLock.Dispose()
-                $cacheLock = $null
-                throw "Template '$Template': another worker of this test run held the bicep build cache key $key past Build-Bicep's time limit."
+        # A published entry is one atomic move, so a reader of an existing entry needs no lock and never queues behind a builder.
+        $cachedOutputs = @(if ([System.IO.Directory]::Exists($cacheEntry)) {
+                [System.IO.Directory]::GetFiles($cacheEntry, '*.json')
+            })
+        if ($cachedOutputs.Count -eq 0) {
+            # One builder per key at a time: a second file wanting the same template waits for the first compile instead of racing it.
+            $cacheLock = [System.Threading.Mutex]::new($false, "Local\catzc-bicep-build-$key")
+            try {
+                if (-not $cacheLock.WaitOne([TimeSpan]::FromSeconds((Get-TimeoutSeconds -Command Build-Bicep)))) {
+                    $cacheLock.Dispose()
+                    $cacheLock = $null
+                    throw "Template '$Template': another worker of this test run held the bicep build cache key $key past Build-Bicep's time limit."
+                }
             }
-        }
-        catch [System.Threading.AbandonedMutexException] {
-            Write-Message "Template '$Template': a worker died holding the bicep build cache key $key; building it here."
+            catch [System.Threading.AbandonedMutexException] {
+                Write-Message "Template '$Template': a worker died holding the bicep build cache key $key; building it here."
+            }
+            # Another worker may have published the entry while this one waited.
+            $cachedOutputs = @(if ([System.IO.Directory]::Exists($cacheEntry)) {
+                    [System.IO.Directory]::GetFiles($cacheEntry, '*.json')
+                })
         }
     }
     try {
-        $cachedOutputs = @(if ($cacheEntry -and [System.IO.Directory]::Exists($cacheEntry)) {
-                [System.IO.Directory]::GetFiles($cacheEntry, '*.json')
-            })
         if ($cachedOutputs.Count -gt 0) {
             Write-Message "Restoring $main and $($compiles.Count - 1) slot(s) to $outputFolder from the run's build cache"
             foreach ($cachedOutput in $cachedOutputs) {

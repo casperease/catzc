@@ -95,6 +95,57 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         $script:outputRoot | Should -Not -Exist -Because 'a run-scoped build never touches the default output folder'
     }
 
+    It 'restores a published build cache entry without taking the key''s mutex, even while another worker holds it' {
+        $cacheRoot = Join-Path $TestDrive 'bicep-build-cache'
+        $previousCache = $env:CATZC_BICEP_BUILD_CACHE
+        $holder = $null
+        $release = [System.Threading.ManualResetEventSlim]::new($false)
+        try {
+            $env:CATZC_BICEP_BUILD_CACHE = $cacheRoot
+            # A stand-in whose main.json carries bicep's generator stamp, so the first build publishes its entry.
+            Mock Invoke-ExecutableParallel {
+                foreach ($line in $Command) {
+                    if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                        [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{ "name": "bicep" }')
+                    }
+                    [Catzc.Base.Execution.CliResult]::new('', '', 0)
+                }
+            } -ModuleName Catzc.Azure.Templates
+            Build-Bicep sample -Environments alpha -OutputFolder (Join-Path $TestDrive 'first') | Out-Null
+            $key = [System.IO.Path]::GetFileName([string] ([System.IO.Directory]::GetDirectories($cacheRoot) | Select-Object -First 1))
+
+            # Another thread owns the key's mutex for the whole second call: a caller that locked would wait out Build-Bicep's time limit.
+            $held = [System.Threading.ManualResetEventSlim]::new($false)
+            $holder = [powershell]::Create().AddScript({
+                    param($name, $held, $release)
+                    $mutex = [System.Threading.Mutex]::new($false, $name)
+                    [void]$mutex.WaitOne()
+                    $held.Set()
+                    [void]$release.Wait([TimeSpan]::FromSeconds(60))
+                    $mutex.ReleaseMutex()
+                    $mutex.Dispose()
+                }).AddArgument("Local\catzc-bicep-build-$key").AddArgument($held).AddArgument($release)
+            $pending = $holder.BeginInvoke()
+            $held.Wait([TimeSpan]::FromSeconds(30)) | Should -BeTrue
+
+            Mock Invoke-ExecutableParallel { throw 'a cache hit must not compile' } -ModuleName Catzc.Azure.Templates
+            $second = Join-Path $TestDrive 'second'
+            $elapsed = [System.Diagnostics.Stopwatch]::StartNew()
+            Build-Bicep sample -Environments alpha -OutputFolder $second | Should -Be $second
+            $elapsed.Elapsed.TotalSeconds | Should -BeLessThan 20 -Because 'a held mutex would stall a caller that locked'
+            Join-Path $second 'main.json' | Should -Exist
+            Join-Path $second 'parameters.alpha.json' | Should -Exist
+        }
+        finally {
+            $release.Set()
+            if ($holder) {
+                $holder.EndInvoke($pending)
+                $holder.Dispose()
+            }
+            $env:CATZC_BICEP_BUILD_CACHE = $previousCache
+        }
+    }
+
     It 'throws on an unknown template via ValidateScript' {
         { Build-Bicep nonexistent } | Should -Throw
     }

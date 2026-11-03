@@ -19,6 +19,12 @@ function Get-FunctionDependencyFile {
         Write-Message "Ignoring an unreadable function dependency file at '$Path': $($_.Exception.Message)"
         return $null
     }
+    # A file of another shape (a stamp without its edges, an array, a scalar) is as unusable as an unreadable one.
+    if ($content -isnot [System.Management.Automation.PSCustomObject] -or
+        $null -eq $content.PSObject.Properties['Stamp'] -or $null -eq $content.PSObject.Properties['Edges']) {
+        Write-Message "Ignoring a function dependency file of another shape at '$Path'."
+        return $null
+    }
     if ($content.Stamp -ne $Stamp) {
         return $null
     }

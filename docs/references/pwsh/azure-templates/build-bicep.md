@@ -137,5 +137,7 @@ Above `$cacheEntry = $null`, written with `#`.
 
 ```text
 A test run names a build cache (CATZC_BICEP_BUILD_CACHE, in its run folder): the prepared folder's bytes and the bicep version key
-each compile, so a template every slot test builds compiles once per run instead of once per test file under the run's load.
+each compile, so a template every slot test builds compiles once per run instead of once per test file under the run's load. A published
+entry is one atomic move, so a caller that finds it restores without any lock; only a caller that finds none takes the key's mutex, looks
+again once it holds it, and builds and publishes when the entry is still missing.
 ```
