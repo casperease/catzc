@@ -47,10 +47,7 @@ function Test-BuildArtifact {
         # A build ships Pester and the TestKit exactly when its closure holds the gates module, which the probe's InModuleScope needs.
         if ($selection.Count -gt 0) {
             $gatesModule = $MyInvocation.MyCommand.Module.Name
-            $planned = @((Build-Modules @selection -DryRun -Silent).Modules)
-            if ($gatesModule -notin $planned) {
-                $selection = @{ Module = @($planned) + @($gatesModule) }
-            }
+            $selection['Module'] = @(@($Module) + @($gatesModule) | Select-Object -Unique)
         }
 
         $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-build-artifact-' + [guid]::NewGuid().ToString('N'))

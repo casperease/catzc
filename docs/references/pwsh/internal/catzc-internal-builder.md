@@ -69,12 +69,14 @@ build root (`<parent>/.staging-<guid>/Catzc/<Version>`), checks the copy with `G
 build root aside to `<parent>/.old-<guid>`, moves the staging into place and deletes the old folder best-effort. A copy that fails the hash
 is deleted and the build runs; when the existing build root cannot be moved because a reader holds it, the staging is deleted and nothing is
 reused, so the engine builds as before. The engine returns the result with `Reused` true and the recorded `languages` rows; a dry run never
-reuses. A profile build into any destination fills the store (`Save-BuildToStore`): the copy lands in a staging sibling
+reuses. A build into any destination fills the store (`Save-BuildToStore`): the copy lands in a staging sibling
 `<Bundle>/.staging-<guid>/Catzc/<Version>` and the staging folder moves in as the stamp folder with one `Directory.Move`; a stamp folder
 that exists, or that appears while the copy runs, stands and the staging is deleted. After a successful move the other stamp folders of the
-bundle and any `.staging-*` folder older than ten minutes are deleted best-effort, each failure ignored, since a reader mid-copy blocks a
-delete on Windows and the next writer retries. A build that names its modules leaves the store alone, so the next build of this tree reuses
-the store wherever it lands ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)).
+same selection (the same `bundle`, `version` and ordinal-sorted module names in their `build.json`; a folder whose record is unreadable or
+lacks those keys stays) and any `.staging-*` folder older than ten minutes are deleted best-effort, each failure ignored, since a reader
+mid-copy blocks a delete on Windows and the next writer retries. The source stamp hashes the selection, so a build that names its modules
+fills its own stamp folder, which another selection of the bundle never evicts, and the next build of the same tree and selection reuses the
+store wherever it lands ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)).
 
 ```powershell
 Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata

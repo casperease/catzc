@@ -199,9 +199,11 @@ so one tagged test moves its whole file (serial wins over greedy):
   measured; then the rest, heaviest measured duration first. The measured durations live in `durations.json` beside the runs; a run that
   ends saves its files' durations there, a run killed at its roof saves the shards it finished before it fails, and the next run saves them
   for one whose owner died (`Save-AbandonedRunDurationHistory`), so every run teaches the dealing. At most `greedy_group_size` greedy files
-  run at once, and of the files `greedy_apart` names (the ones that run real builds) one at a time, both in `test-policy.yml` with their
-  defaults on `TestPolicyConfig`. A greedy file can overlap the last parallel shards and inflate their L0/L1 timings, so over-limit timings
-  stay report-only in a full run.
+  run at once, and of the files `greedy_apart` names one at a time, both in `test-policy.yml` with their defaults on `TestPolicyConfig`. The
+  default of `greedy_apart` is empty: every build lands in its own folder, and the build store and the bicep cache are published by one
+  rename, so nothing a slot must serialise remains; `greedy_apart` in `test-policy.yml` is where a repository declares files that do share a
+  resource. A greedy file can overlap the last parallel shards and inflate their L0/L1 timings, so over-limit timings stay report-only in a
+  full run.
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and the run's location decides
 whether it runs (ADR-AUTO-TEST-SYSTEMTESTSATLTHREE).

@@ -15,3 +15,12 @@ tech-stack.
 - A tracked file is live when its track's live aspect holds it. Its unit is the track root's first folder (a module, a template folder); a
   file directly under the track root is its own unit. A track without an aspects entry is live throughout.
 - A track's places may sit below its root folder (`infrastructure/templates`), so the folders are checked, not the root folders.
+
+## comment:1
+
+Above `$trackOfFolder = @{}`, written with `#`.
+
+```text
+Set-up is computed once per folder and once per track, never per file
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+```

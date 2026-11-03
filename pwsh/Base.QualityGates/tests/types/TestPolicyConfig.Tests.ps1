@@ -14,10 +14,10 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
         $config.Allows('widget', 'synthetic') | Should -BeFalse
     }
 
-    It 'keeps the build files apart by the declared list unless the config names its own' {
+    It 'keeps no file apart unless the config names its own' {
         $default = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{})
-        $default.greedy_apart | Should -Be ([Catzc.Base.QualityGates.TestPolicyConfig]::DefaultGreedyApart)
-        $default.IsApart('C:\widget\pwsh\Catzc.Widget\tests\Import-Catzc.Tests.ps1') | Should -BeTrue
+        @($default.greedy_apart) | Should -HaveCount 0
+        $default.IsApart('C:\widget\pwsh\Catzc.Widget\tests\Import-Catzc.Tests.ps1') | Should -BeFalse
         $default.IsApart('C:\widget\pwsh\Catzc.Widget\tests\Get-Widget.Tests.ps1') | Should -BeFalse
         $own = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_apart = @('Get-Gadget') })
         $own.IsApart('C:\widget\tests\get-gadget.Tests.ps1') | Should -BeTrue

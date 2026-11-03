@@ -262,7 +262,8 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
                     }
                 )
                 OwnRun         = $(
-                    $result = Test-Automation -Output Minimal -PassThru
+                    # Two workers and a greedy group of two: the consumer's six small files, run inside a full run of the repository, must not spawn a pool of their own.
+                    $result = Test-Automation -Output Minimal -PassThru -Workers 2 -GreedyGroupSize 2
                     [pscustomobject]@{
                         Passed     = $result.PassedCount
                         Failed     = $result.FailedCount

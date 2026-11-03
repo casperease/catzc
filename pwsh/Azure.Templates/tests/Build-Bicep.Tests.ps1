@@ -146,6 +146,61 @@ Describe 'Build-Bicep' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'builds without the cache instead of failing when another worker holds an unpublished key past the time limit' {
+        $cacheRoot = Join-Path $TestDrive 'bicep-build-cache-held'
+        $previousCache = $env:CATZC_BICEP_BUILD_CACHE
+        $holder = $null
+        $release = [System.Threading.ManualResetEventSlim]::new($false)
+        try {
+            $env:CATZC_BICEP_BUILD_CACHE = $cacheRoot
+            [void][System.IO.Directory]::CreateDirectory($cacheRoot)
+            Mock Get-TimeoutSeconds { 2 } -ModuleName Catzc.Azure.Templates -ParameterFilter { $Command -eq 'Build-Bicep' }
+            # A stand-in whose main.json carries bicep's generator stamp, so a build that published would leave an entry.
+            Mock Invoke-ExecutableParallel {
+                foreach ($line in $Command) {
+                    if (-not (& $script:compileBicepParams $line) -and $line -match ' build "' -and $line -match '--outdir "([^"]+)"') {
+                        [System.IO.File]::WriteAllText((Join-Path $Matches[1] 'main.json'), '{ "name": "bicep" }')
+                    }
+                    [Catzc.Base.Execution.CliResult]::new('', '', 0)
+                }
+            } -ModuleName Catzc.Azure.Templates
+            # The first call with a throwaway cache learns the key, then its entry is removed so the key is unpublished.
+            Build-Bicep sample -Environments alpha -OutputFolder (Join-Path $TestDrive 'learn') | Out-Null
+            $entry = [string] ([System.IO.Directory]::GetDirectories($cacheRoot) | Select-Object -First 1)
+            $key = [System.IO.Path]::GetFileName($entry)
+            [System.IO.Directory]::Delete($entry, $true)
+
+            $held = [System.Threading.ManualResetEventSlim]::new($false)
+            $holder = [powershell]::Create().AddScript({
+                    param($name, $held, $release)
+                    $mutex = [System.Threading.Mutex]::new($false, $name)
+                    [void]$mutex.WaitOne()
+                    $held.Set()
+                    [void]$release.Wait([TimeSpan]::FromSeconds(60))
+                    $mutex.ReleaseMutex()
+                    $mutex.Dispose()
+                }).AddArgument("Local\catzc-bicep-build-$key").AddArgument($held).AddArgument($release)
+            $pending = $holder.BeginInvoke()
+            $held.Wait([TimeSpan]::FromSeconds(30)) | Should -BeTrue
+
+            $second = Join-Path $TestDrive 'second-held'
+            $elapsed = [System.Diagnostics.Stopwatch]::StartNew()
+            Build-Bicep sample -Environments alpha -OutputFolder $second | Should -Be $second
+            $elapsed.Elapsed.TotalSeconds | Should -BeLessThan 15 -Because 'the wait ends at the 2 s limit and the build goes on'
+            Join-Path $second 'main.json' | Should -Exist
+            Join-Path $second 'parameters.alpha.json' | Should -Exist
+            Join-Path $cacheRoot $key | Should -Not -Exist -Because 'a build without the lock publishes nothing'
+        }
+        finally {
+            $release.Set()
+            if ($holder) {
+                $holder.EndInvoke($pending)
+                $holder.Dispose()
+            }
+            $env:CATZC_BICEP_BUILD_CACHE = $previousCache
+        }
+    }
+
     It 'throws on an unknown template via ValidateScript' {
         { Build-Bicep nonexistent } | Should -Throw
     }

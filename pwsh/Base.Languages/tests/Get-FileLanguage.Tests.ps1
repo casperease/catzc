@@ -97,28 +97,6 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
             $builder.ToString()
         }
 
-        # The unit is the track root's first folder; a file directly under the root is its own unit.
-        $script:isLive = {
-            param([string] $File, $Track)
-            if ($Track.type -eq 'vendored-code') {
-                return $false
-            }
-            $relative = $File.Substring($Track.PlaceLengthOf($File) + 1)
-            if (-not (Get-Config -Config languages).IsLaidOut($Track.languages) -and
-                -not (Test-AspectDeclaration -Track $Track.name)) {
-                return $true
-            }
-            $slash = $relative.IndexOf('/')
-            $unitRelative = $slash -lt 0 ? $relative : $relative.Substring($slash + 1)
-            foreach ($aspect in Get-Aspect -Track $Track.name) {
-                foreach ($pattern in $aspect.Patterns) {
-                    if ($unitRelative -match (& $script:globRegex $pattern)) {
-                        return $aspect.Name -eq 'live'
-                    }
-                }
-            }
-            $false
-        }
     }
 
     It 'places every folder git tracks a file in inside a track, except out/' {
@@ -154,20 +132,62 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
 
     It "keeps every live file of a track in the track's declared file languages" {
         $violations = [System.Collections.Generic.SortedDictionary[string, System.Collections.Generic.List[string]]]::new([System.StringComparer]::Ordinal)
+        $trackOfFolder = @{}
+        $perTrack = @{}
+        $languageOfExtension = @{}
         foreach ($file in $script:tracked) {
             $slash = $file.IndexOf('/')
             if ($slash -lt 0) {
                 continue
             }
-            $track = Get-Track -Path $file
-            if ($null -eq $track -or -not (& $script:isLive $file $track)) {
+            $folder = $file.Substring(0, $file.LastIndexOf('/'))
+            if (-not $trackOfFolder.ContainsKey($folder)) {
+                $trackOfFolder[$folder] = Get-Track -Path $folder
+            }
+            $track = $trackOfFolder[$folder]
+            if ($null -eq $track) {
                 continue
+            }
+            if (-not $perTrack.ContainsKey($track.name)) {
+                $perTrack[$track.name] = @{
+                    laidOut  = (Get-Config -Config languages).IsLaidOut($track.languages)
+                    declared = Test-AspectDeclaration -Track $track.name
+                    aspects  = @(Get-Aspect -Track $track.name | ForEach-Object {
+                            $aspectName = $_.Name
+                            foreach ($pattern in $_.Patterns) {
+                                @{ name = $aspectName; regex = [regex]::new((& $script:globRegex $pattern)) }
+                            }
+                        })
+                }
+            }
+            $setup = $perTrack[$track.name]
+            if ($track.type -eq 'vendored-code') {
+                continue
+            }
+            # The unit is the track root's first folder; a file directly under the root is its own unit.
+            if ($setup.laidOut -or $setup.declared) {
+                $relative = $file.Substring($track.PlaceLengthOf($file) + 1)
+                $slashInRelative = $relative.IndexOf('/')
+                $unitRelative = $slashInRelative -lt 0 ? $relative : $relative.Substring($slashInRelative + 1)
+                $live = $false
+                foreach ($aspect in $setup.aspects) {
+                    if ($aspect.regex.IsMatch($unitRelative)) {
+                        $live = $aspect.name -eq 'live'
+                        break
+                    }
+                }
+                if (-not $live) {
+                    continue
+                }
             }
             $extension = [Catzc.Base.Languages.LanguagesConfig]::ExtensionOf($file)
             if ($null -eq $extension) {
                 continue
             }
-            $language = Get-FileLanguage -Path $file
+            if (-not $languageOfExtension.ContainsKey($extension)) {
+                $languageOfExtension[$extension] = Get-FileLanguage -Path $file
+            }
+            $language = $languageOfExtension[$extension]
             if ($null -ne $language -and $language.name -in $track.languages) {
                 continue
             }

@@ -142,14 +142,16 @@ function Build-Bicep {
                 if (-not $cacheLock.WaitOne([TimeSpan]::FromSeconds((Get-TimeoutSeconds -Command Build-Bicep)))) {
                     $cacheLock.Dispose()
                     $cacheLock = $null
-                    throw "Template '$Template': another worker of this test run held the bicep build cache key $key past Build-Bicep's time limit."
+                    # A cache miss never fails a build: this one compiles into its own folder and publishes nothing.
+                    Write-Message "Template '$Template': another worker of this test run held the bicep build cache key $key past Build-Bicep's time limit; building it here without the cache."
+                    $cacheEntry = $null
                 }
             }
             catch [System.Threading.AbandonedMutexException] {
                 Write-Message "Template '$Template': a worker died holding the bicep build cache key $key; building it here."
             }
             # Another worker may have published the entry while this one waited.
-            $cachedOutputs = @(if ([System.IO.Directory]::Exists($cacheEntry)) {
+            $cachedOutputs = @(if ($cacheEntry -and [System.IO.Directory]::Exists($cacheEntry)) {
                     [System.IO.Directory]::GetFiles($cacheEntry, '*.json')
                 })
         }

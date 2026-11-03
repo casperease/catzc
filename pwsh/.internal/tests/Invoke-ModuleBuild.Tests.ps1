@@ -133,6 +133,8 @@ BeforeAll {
     Mock Get-Config -ModuleName Catzc.Internal.Builder -ParameterFilter { $Config -in 'languages', 'exporter' -and -not $ListOwners } {
         $script:configSnapshot[$Config]
     }
+    # Every build fills the store, so the store of these builds lives in the test drive, never in the real output root.
+    Mock Get-OutputRoot { Join-Path $TestDrive 'out' } -ModuleName Catzc.Internal.Builder
     # The fake repository carries no types contract; the surface check has its own tests, and one case below makes it fail.
     Mock Get-TypesContractDrift { } -ModuleName Catzc.Internal.Builder
     Mock Get-InternalAssetDependency -ModuleName Catzc.Internal.Builder {
@@ -474,7 +476,8 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
 
         It 'builds again when the store copy no longer hashes to its record' {
-            # The change test above left a changed tree's stamp in the store; a build of this tree puts its own stamp back first.
+            # The tests above left other trees' and other selections' stamps in the store; an emptied store holds only this tree's stamp.
+            [System.IO.Directory]::Delete($store, $true)
             $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'corrupt-seed')
             $stampFolder = @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' })
             $stampFolder.Count | Should -Be 1
@@ -517,10 +520,38 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             @([System.IO.Directory]::GetDirectories($bundle) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' }).Count | Should -Be 0
         }
 
-        It 'leaves the store alone for a build that names its modules' {
+        It 'fills the store for a build that names its modules, under its own stamp folder' {
             [System.IO.Directory]::Delete($store, $true)
-            $null = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'fill-named')
-            Test-Path -LiteralPath $store | Should -BeFalse
+            $first = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'fill-named')
+            $first.Reused | Should -BeFalse
+            @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' }).Count | Should -Be 1
+            $second = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'fill-named-again')
+            $second.Reused | Should -BeTrue
+            $second.ContentHash | Should -Be $first.ContentHash
+        }
+
+        It 'keeps the stamp folder of another selection of the bundle and replaces only an older stamp of the same selection' {
+            [System.IO.Directory]::Delete($store, $true)
+            $stampFolders = { @([System.IO.Directory]::GetDirectories($store) | Where-Object { [System.IO.Path]::GetFileName($_) -match '^[0-9a-f]{12}$' } | ForEach-Object { [System.IO.Path]::GetFileName($_) }) }
+            $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'keep-profile')
+            $null = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget', 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'keep-named')
+            $before = @(& $stampFolders)
+            $before.Count | Should -Be 2
+            $original = [System.IO.File]::ReadAllBytes($assetFile)
+            try {
+                [System.IO.File]::WriteAllText($assetFile, 'changed for the keep test')
+                $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'keep-profile-again')
+                $afterProfile = @(& $stampFolders)
+                $null = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget', 'Catzc.Base.Gadget' -Destination (Join-Path $TestDrive 'keep-named-again')
+                $afterNamed = @(& $stampFolders)
+            }
+            finally {
+                [System.IO.File]::WriteAllBytes($assetFile, $original)
+            }
+            $afterProfile.Count | Should -Be 2
+            @($afterProfile | Where-Object { $_ -in $before }).Count | Should -Be 1
+            $afterNamed.Count | Should -Be 2
+            @($afterNamed | Where-Object { $_ -in $before }).Count | Should -Be 0
         }
     }
 

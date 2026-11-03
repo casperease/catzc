@@ -20,10 +20,7 @@ public sealed class TestPolicyConfig
     public const int DefaultGreedyGroupSize = 4;
     public const int MaxGreedyGroupSize = 64;
 
-    public static readonly string[] DefaultGreedyApart =
-    {
-        "Import-Catzc", "Test-CatzcBuild.Parity", "Test-CatzcBuild.ScopeIsolation", "Build-Bicep.L2", "Get-BicepParameterModel.Shipped"
-    };
+    public static readonly string[] DefaultGreedyApart = Array.Empty<string>();
 
     public IReadOnlyList<string> greedy_apart { get; }
 

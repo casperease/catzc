@@ -37,12 +37,52 @@ function Save-BuildToStore {
         return
     }
 
-    # Other stamps and stale staging folders of this bundle go best-effort: a reader mid-copy blocks a delete on Windows, and the next writer retries.
+    # A selection is the bundle, the version and the ordinal-sorted module names of a build.json; $null when the record is missing, unreadable or lacks one.
+    $readSelection = {
+        param([string] $Folder)
+        $recordFile = [System.IO.Path]::Combine($Folder, 'build.json')
+        if (-not [System.IO.File]::Exists($recordFile)) {
+            return $null
+        }
+        try {
+            $parsed = [System.IO.File]::ReadAllText($recordFile) | ConvertFrom-Json -AsHashtable
+        }
+        catch {
+            return $null
+        }
+        if ($parsed -isnot [System.Collections.IDictionary]) {
+            return $null
+        }
+        foreach ($field in 'bundle', 'version', 'modules') {
+            if (-not $parsed.Contains($field) -or $null -eq $parsed[$field]) {
+                return $null
+            }
+        }
+        $names = [string[]] @(foreach ($row in @($parsed['modules'])) {
+                if ($row -is [System.Collections.IDictionary]) {
+                    if (-not $row.Contains('name')) {
+                        return $null
+                    }
+                    "$($row['name'])"
+                }
+                else {
+                    "$row"
+                }
+            })
+        [System.Array]::Sort($names, [System.StringComparer]::Ordinal)
+        "$($parsed['bundle'])|$($parsed['version'])|$($names -join ',')"
+    }
+    $selection = & $readSelection $BuildRoot
+
+    # Other stamps of this selection and stale staging folders of this bundle go best-effort: a reader mid-copy blocks a delete on Windows, and the next writer retries.
     $stampName = [System.IO.Path]::GetFileName($stampFolder)
     foreach ($entry in [System.IO.Directory]::GetDirectories($bundleFolder)) {
         $name = [System.IO.Path]::GetFileName($entry)
         $stale = if ($name -match '^[0-9a-f]{12}$') {
-            $name -cne $stampName
+            $candidate = if ($null -ne $selection -and $name -cne $stampName) {
+                & $readSelection ([System.IO.Path]::Combine($entry, 'Catzc', [System.IO.Path]::GetFileName($storeRoot)))
+            }
+            $null -ne $candidate -and $candidate -ceq $selection
         }
         elseif ($name -like '.staging-*') {
             # A staging folder under ten minutes old belongs to a copy still running.

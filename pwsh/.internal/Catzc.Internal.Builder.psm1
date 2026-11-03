@@ -335,11 +335,8 @@ function Invoke-ModuleBuild {
     [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
                 'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
 
-    # A profile build into any destination fills the store, so the next build of this tree reuses it wherever it lands.
-    $profileOnly = @($Module | Where-Object { $_ }).Count -eq 0
-    if ($profileOnly) {
-        Save-BuildToStore -BuildRoot $buildRoot -StoreBuildRoot $storeBuildRoot
-    }
+    # Every build into any destination fills the store, so the next build of this tree reuses it wherever it lands.
+    Save-BuildToStore -BuildRoot $buildRoot -StoreBuildRoot $storeBuildRoot
 
     [pscustomobject]@{
         BuildRoot   = $buildRoot

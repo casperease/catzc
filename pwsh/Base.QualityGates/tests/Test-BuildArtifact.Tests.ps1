@@ -64,7 +64,7 @@ Describe 'Test-BuildArtifact' -Tag 'L0', 'logic' {
         Test-BuildArtifact -Module 'Catzc.Gadget' -OutputFolder $script:reportFolder
 
         Should -Invoke Build-Modules -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
-            -not $DryRun -and ($Module -join ',') -eq 'Catzc.Base.Config,Catzc.Gadget,Catzc.Base.QualityGates'
+            -not $DryRun -and ($Module -join ',') -eq 'Catzc.Gadget,Catzc.Base.QualityGates'
         }
     }
 
