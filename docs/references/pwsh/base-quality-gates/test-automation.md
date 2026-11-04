@@ -119,6 +119,15 @@ two halves). The report lands in the working folder's out/ either way, and run.j
 
 Keep the snapshot (when the run used one) after the run instead of deleting it, for a post-mortem.
 
+### parameter `PostBuild`
+
+Run the post-build tests instead of the source run's: the tests that carry the `post-build` tag, in source mode against the build store
+([ADR-AUTO-TEST-POSTBUILDTAG](../../../drs/automation/test-automation.md#rule-adr-auto-test-postbuildtag)). Before discovery it checks that
+the store holds a build of every bundle exporter.yml declares at this tree's source stamp, and throws naming the build event
+(`Build-Modules -Bundle <name>`) to run when one is missing. The run takes `tests.post_build_seconds` of timeouts.yml as its budget and
+records `postBuild: true` in the context of run.json. Without the switch the run leaves the tagged tests out, counts them and lists them.
+Composes with -Modules, -Suite, -MaxLevel and -Category; it does not combine with -Rule.
+
 ### example 1
 
 ```powershell
@@ -207,6 +216,18 @@ Test-Automation -OutputFolder C:\reports\catzc   # write the run report under a 
 
 `-Suite` runs a test suite: the named globset's declared verify scope resolves to the module list and the tier
 ([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite), resolved by Resolve-TestSuite).
+
+## The three kinds of run
+
+A test that consumes a built bundle carries the `post-build` tag
+([ADR-AUTO-TEST-POSTBUILDTAG](../../../drs/automation/test-automation.md#rule-adr-auto-test-postbuildtag)), and the work of a push splits
+into three kinds of run, in this order on the devbox:
+
+1. The source run is `Test-Automation`: every test that needs no built bundle, in source mode.
+2. The build event is `Build-Modules -Bundle <name>` for each bundle exporter.yml declares. It writes the build store under `out/`; it is a
+   command of its own, never a test.
+3. The post-build run is `Test-Automation -PostBuild`: the tagged tests, in source mode, against the builds in the store. A tagged test that
+   calls the builder reuses the stored build, so the bundle is built once.
 
 ## The shared core
 

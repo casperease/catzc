@@ -21,6 +21,8 @@ function Get-TestAutomationVerdict {
 
         [int] $RunBudgetSeconds,
 
+        [string] $BudgetKey = 'tests.run_seconds',
+
         [int] $PassedCount,
 
         [int] $SkippedCount,
@@ -48,7 +50,7 @@ function Get-TestAutomationVerdict {
         "worker(s) $($FailedShardLabels -join ', ') reported a failed run with no failed tests (a container/discovery error — see the output above)"
     }
     elseif ($BudgetFailure) {
-        "the run took ${seconds}s, over its ${RunBudgetSeconds}s budget (tests.run_seconds in timeouts.yml) — make the slowest files faster (out/test-automation/durations.json records each file's time)"
+        "the run took ${seconds}s, over its ${RunBudgetSeconds}s budget ($BudgetKey in timeouts.yml) — make the slowest files faster (out/test-automation/durations.json records each file's time)"
     }
     else {
         $timingViolationCount = @(Get-TestTimingViolation -Rows $Rows -Limits $Limits).Count

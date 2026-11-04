@@ -5,7 +5,8 @@ function Get-TestTimeLimits {
 
     $config = Get-Config -Config timeouts
     [pscustomobject]@{
-        LevelMs    = $config.TestLevelLimitsMs()
-        RunSeconds = $config.TestRunSeconds()
+        LevelMs          = $config.TestLevelLimitsMs()
+        RunSeconds       = $config.TestRunSeconds()
+        PostBuildSeconds = $config.PostBuildSeconds()
     }
 }

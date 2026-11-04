@@ -3,7 +3,7 @@ plan:
   status: blocked
   value: high
   reviewed: 2026-11-04
-  waits_on: the warm full run in task-user-runs-and-commits, whose run.json wall clock is this plan's exit
+  waits_on: the user's warm source run under 240 s (task-user-runs-and-commits), now that the post-build split has landed
   class: feature
   targets:
     [
@@ -34,6 +34,12 @@ plan:
   bridge of `Base.Repository` 161 and of `catzc_diagrams` 141, `Invoke-TestFile` 162 (80 alone), `Export-Catzc.Install` 122 (52 alone),
   `Build-Modules.Bundles` 109 (65 alone), the go bridge of `Base.Repository` 89. A file runs 1.7 to 2.4 times slower pooled than alone, the
   14 workers and their children sharing 20 processors.
+- The user's run of 19:19 (`20261104-191938`, 75 s after the commit of 19:18, so cold again) read 305.5 s, 0 failed: 4202 slot-seconds (1960
+  parallel, 2242 greedy), packed at 300 s; the top bridge 116 pooled (161 before the cut), but every other top file 10 to 15 percent above
+  16:23 (`Consumer.L2` 255, `Invoke-TestFile` 193, `Export-Catzc.Install` 143, `Build-Modules.Bundles` 124). Across five cold runs the
+  slot-seconds read 4820, 4019, 4383, 4202: the band between cold runs is wider than any one cut, and no warm run exists yet.
+- `Invoke-ModuleBuild` takes its build lock on the store build root, one per selection and source stamp (landed 2026-11-04): a second
+  builder of the same selection waits and reuses the first's stored build, whatever its destination.
 - The user's run of 17:21 (`20261104-172142`, one minute after the commit of 17:20, the engine cut in) read 317.7 s with two red cases fixed
   since (the plan's own engine wording, the lock-wait race in `Invoke-CatzcCommand.Tests.ps1`): 10729 tests, 709 fewer, the costliest bridge
   down to 84 pooled; but the cold rebuilds and the load took `Build-Modules.Bundles` to 238 pooled (109 the run before), `Consumer.L2` to
@@ -91,10 +97,10 @@ plan:
 
 ## Open steps
 
-No open step: the engine cut landed on 2026-11-04 (the type, the shipped value, the bridge, the two records, the page and the setup-error
-test; `Test-Automation -Modules Catzc.Base.Repository` read 143 passed, 0 failed, the go cases under three engines and the python cases
-under pwsh), and the plan waits on the warm full run (task-user-runs-and-commits). Under 240 s closes it; over it, the run's shard table and
-`consumer-l2-phases.json` name the next duplicate proof, written here as a step.
+No open step. The budget question is answered (the user, 2026-11-04 evening): the tests split into a source group and a post-build group and
+the builds become events of their own, plan-post-build-tests. `tests.run_seconds` stays 240 s and is the source run's; this plan closes when
+the user's source run, after that plan lands, reads under 240 s in its `run.json`; over it, the next cut inside the source group is named
+here from that run.
 
 ## Refs
 

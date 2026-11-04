@@ -107,6 +107,11 @@ Run in a snapshot of the working folder even when it is free (Enter-TestRunLocat
 
 Keep the snapshot (when the run used one) after the run, for a post-mortem.
 
+### parameter `PostBuild`
+
+The post-build run (Test-Automation -PostBuild): only the tests tagged `post-build` are selected, and the run's budget is
+`tests.post_build_seconds` instead of `tests.run_seconds`. The store check runs in the entry point, before this function.
+
 ## Discovery
 
 Discovery runs before the banner and takes a while, so each stage prints a liveness dot

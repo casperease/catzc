@@ -169,6 +169,13 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             $plan.BuildRoot | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $destination 'Catzc/1.2.3')))
             [System.IO.Directory]::Exists($destination) | Should -BeFalse
         }
+
+        It 'reports the source stamp and the store build root the build would fill' {
+            $plan = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'dry-stamp') -DryRun
+            $plan.SourceStamp | Should -Not -BeNullOrEmpty
+            $plan.StoreRoot.Replace('\', '/') | Should -BeLike "*/built/widgets/$($plan.SourceStamp.Substring(0, 12))/Catzc/1.2.3"
+            [System.IO.Directory]::Exists($plan.StoreRoot) | Should -BeFalse
+        }
     }
 
     Context 'a build of a profile plus an explicit module' {
@@ -555,17 +562,28 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
     }
 
-    Context 'the build lock of a destination' {
+    Context 'the build lock of a selection' {
         BeforeAll {
             Mock Get-OutputRoot { Join-Path $TestDrive 'lock-out' } -ModuleName Catzc.Internal.Builder
+            # The lock is named by the store build root of the selection and stamp, which a first build into a seed destination fills.
+            $script:lockStoreOf = {
+                $stampFolders = @([System.IO.Directory]::GetDirectories((Join-Path $TestDrive 'lock-out/pwsh/built/widgets')))
+                [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($stampFolders[0], 'Catzc', '1.2.3'))
+            }
+            $script:lockNameOf = {
+                param([string] $Root)
+                $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($Root.ToLowerInvariant()))
+                'Local\catzc-build-' + [System.Convert]::ToHexString($hash).Substring(0, 16).ToLowerInvariant()
+            }
         }
 
         It 'builds anyway when another runspace holds the lock past the bounded wait' {
             Mock Get-TimeoutSeconds { 2 } -ModuleName Catzc.Internal.Builder
             $destination = Join-Path $TestDrive 'locked'
-            $buildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($destination, 'Catzc', '1.2.3'))
-            $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($buildRoot.ToLowerInvariant()))
-            $name = 'Local\catzc-build-' + [System.Convert]::ToHexString($hash).Substring(0, 16).ToLowerInvariant()
+            $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'lock-seed')
+            $storeBuildRoot = & $lockStoreOf
+            [System.IO.Directory]::Delete((Split-Path (Split-Path $storeBuildRoot)), $true)
+            $name = & $lockNameOf $storeBuildRoot
             $sync = [hashtable]::Synchronized(@{ Held = $false; Release = $false })
             $holder = [powershell]::Create()
             [void] $holder.AddScript({
@@ -592,6 +610,40 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             }
             finally {
                 $sync.Release = $true
+                $holder.EndInvoke($pending)
+                $holder.Dispose()
+            }
+        }
+
+        It 'makes a build into a second destination wait for the holder of the selection''s lock, then reuse the stored build' {
+            $null = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'wait-first')
+            $name = & $lockNameOf (& $lockStoreOf)
+            $sync = [hashtable]::Synchronized(@{ Held = $false })
+            # The holder stands for a builder into another destination: it holds the lock for 1.5 s, then lets go.
+            $holder = [powershell]::Create()
+            [void] $holder.AddScript({
+                    param($Name, $Sync)
+                    $mutex = [System.Threading.Mutex]::new($false, $Name)
+                    [void] $mutex.WaitOne()
+                    $Sync.Held = $true
+                    Start-Sleep -Milliseconds 1500
+                    $mutex.ReleaseMutex()
+                    $mutex.Dispose()
+                }).AddArgument($name).AddArgument($sync)
+            $pending = $holder.BeginInvoke()
+            try {
+                $deadline = [datetime]::UtcNow.AddSeconds(10)
+                while (-not $sync.Held -and [datetime]::UtcNow -lt $deadline) {
+                    Start-Sleep -Milliseconds 20
+                }
+                $sync.Held | Should -BeTrue
+                $watch = [System.Diagnostics.Stopwatch]::StartNew()
+                $second = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination (Join-Path $TestDrive 'wait-second')
+                $watch.Stop()
+                $second.Reused | Should -BeTrue
+                $watch.Elapsed.TotalSeconds | Should -BeGreaterThan 1 -Because 'the second builder waits for the lock of the selection, not of its destination'
+            }
+            finally {
                 $holder.EndInvoke($pending)
                 $holder.Dispose()
             }

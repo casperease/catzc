@@ -47,6 +47,15 @@ Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
             Should -BeLike 'the run took 201.3s, over its 180s budget (tests.run_seconds in timeouts.yml)*'
     }
 
+    It 'names the budget key it is given in a budget-only failure' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Passed' -FailedCount 0 `
+                -BudgetFailure -RunBudgetSeconds 60 -BudgetKey 'tests.widget_seconds' -DurationSeconds 90
+        }
+        $verdict.Result | Should -Be 'Failed'
+        $verdict.Summary | Should -BeLike 'the run took 90s, over its 60s budget (tests.widget_seconds in timeouts.yml)*'
+    }
+
     It 'names failed tests before the budget when both failed the run' {
         $verdict = InModuleScope Catzc.Base.QualityGates {
             Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Failed' -FailedCount 2 `

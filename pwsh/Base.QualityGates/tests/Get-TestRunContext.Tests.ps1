@@ -51,6 +51,13 @@ Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {
             Should -Be 'L3 skipped: system-test lock held by Test-CatzcBuild, pid 7'
     }
 
+    It 'marks a post-build run and joins it to the selection' {
+        $context = Get-Context @{ EntryPoint = 'Test-Automation'; Location = (New-FixtureLocation); PostBuild = $true }
+        $context.postBuild | Should -BeTrue
+        $context.selection | Should -Be 'post-build tests'
+        (Get-Context @{ EntryPoint = 'Test-Automation'; Location = (New-FixtureLocation) }).Contains('postBuild') | Should -BeFalse
+    }
+
     It 'describes a build run by its entry script and joins the selection' {
         $context = Get-Context @{
             EntryPoint = 'Test-CatzcBuild'; EntryScript = 'C:\gadget\Import-Catzc.ps1'; Location = (New-FixtureLocation)

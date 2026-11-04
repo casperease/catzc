@@ -1,4 +1,4 @@
-Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOPE' {
+Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOPE', 'post-build' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 

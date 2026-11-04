@@ -202,14 +202,12 @@ function Invoke-ModuleBuild {
             "$key=$(@($PackageMetadata[$key]) -join ',')"
         }
     ) -join "`n"
-    $stamp = $null
-    if (-not $DryRun) {
-        $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection
-        $storeBuildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-OutputRoot), (Get-CatzcModulesFolder), 'built', $Bundle, $stamp.Substring(0, 12), 'Catzc', $Version))
-    }
-    # One builder per build root at a time: a second one waits, then finds the held build through Get-ReusableBuild and writes nothing.
+    # The stamp and the store location are read-only, so a dry run reports them too: the post-build run locates a bundle's stored build by them.
+    $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection
+    $storeBuildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-OutputRoot), (Get-CatzcModulesFolder), 'built', $Bundle, $stamp.Substring(0, 12), 'Catzc', $Version))
+    # One builder per selection and source stamp at a time, whatever its destination: a second one waits, then reuses the stored build.
     $buildLock = if (-not $DryRun) {
-        Enter-BuildLock -BuildRoot $buildRoot
+        Enter-BuildLock -BuildRoot $storeBuildRoot
     }
     try {
         if (-not $DryRun) {
@@ -226,6 +224,8 @@ function Invoke-ModuleBuild {
                     Dirty       = [bool] $reused['dirty']
                     DryRun      = $false
                     Reused      = $true
+                    SourceStamp = $stamp
+                    StoreRoot   = $storeBuildRoot
                 }
             }
         }
@@ -291,6 +291,8 @@ function Invoke-ModuleBuild {
                 Dirty       = $dirty
                 DryRun      = $true
                 Reused      = $false
+                SourceStamp = $stamp
+                StoreRoot   = $storeBuildRoot
             }
         }
 
@@ -357,6 +359,8 @@ function Invoke-ModuleBuild {
             Dirty       = $dirty
             DryRun      = $false
             Reused      = $false
+            SourceStamp = $stamp
+            StoreRoot   = $storeBuildRoot
         }
     }
     finally {

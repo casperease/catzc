@@ -6,12 +6,14 @@ function Test-TestRunOverBudget {
         [double] $DurationSeconds,
 
         [Parameter(Mandatory)]
-        [int] $BudgetSeconds
+        [int] $BudgetSeconds,
+
+        [string] $BudgetKey = 'tests.run_seconds'
     )
 
     if ((Test-IsRunningInPipeline) -or $DurationSeconds -le $BudgetSeconds) {
         return $false
     }
-    Write-Message ('Run took {0:N1}s, over its {1}s budget (tests.run_seconds in timeouts.yml) — the run fails.' -f $DurationSeconds, $BudgetSeconds) -ForegroundColor Red
+    Write-Message ('Run took {0:N1}s, over its {1}s budget ({2} in timeouts.yml) — the run fails.' -f $DurationSeconds, $BudgetSeconds, $BudgetKey) -ForegroundColor Red
     $true
 }

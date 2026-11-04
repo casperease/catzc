@@ -36,10 +36,13 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
      at `pwsh/Tooling.Toolchain/private/Install-UvStandalone.ps1:57` (`Get-ChildPath $extractDirectory`);
    - `Test-ManagedGuids` reads 0 issues: the commit tracks `pwsh/Azure/configs/roles.yml` (the role-id registry) and the moved policy GUIDs'
      new home, which clears the registry's coverage and the seven dead `policy_*` entries the uncommitted tree shows.
-2. The warm full run plan-test-run-budget closes on, once its greedy-file steps have landed and are committed: in a fresh session,
-   dot-source `importer.ps1` and run `Test-Automation` twice, the second run the warm one (nothing committed between the two). Check: the
-   second run's `run.json` under `out/test-automation/` reads `durationSeconds` under 240; over it, its folder's `consumer-l2-phases.json`
-   and the shard table name the plan's next cut.
+2. The BVT by hand, once the post-build split is committed: in a fresh session, dot-source `importer.ps1`, then the source run
+   `Test-Automation` (it leaves the `post-build` files out and lists them), then the build event, `Build-Modules -Bundle <name> -Silent` for
+   full, azure, tooling, base and minimal, then `Test-Automation -PostBuild`; a second source run after `Clear-GlobSetProtection` is the
+   warm one. Check: the warm source run's `run.json` under `out/test-automation/` reads `durationSeconds` under 240, which closes
+   plan-test-run-budget (over it, its shard table names the next cut inside the source group); the post-build run's `run.json` reads
+   `durationSeconds` under `tests.post_build_seconds` (190, set from the first measured run of 150.4 s on 2026-11-04), else that roof is
+   re-measured from this run the same way.
 3. One ci-pwsh pipeline run, now that `.ado/pipelines/steps/cache-types.yaml` is committed (the types cache). Check: the second run of a job
    restores the types cache (Cache@2 "Cache restored") and skips the DLL build. The same run, on each system (the GitHub workflow and the
    ADO pipeline), executes `Test-QualityGates` before `Test-Automation` (added 2026-11-03); on a branch with a planted gate issue (a

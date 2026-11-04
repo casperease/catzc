@@ -39,6 +39,7 @@ tests:
   run_seconds: 240 # a full run to L2: 206-233 s on 20 processors at 8 workers, its test time alone about 182 s over 9 slots (2026-10-30)
   engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360
   run_list_seconds: 300 # one run of a run list under one engine: an engine start and its few commands, under pwsh's 360
+  post_build_seconds: 190 # the post-build run (Test-Automation -PostBuild): its first measured run, 58 tests in 150.4 s on 2026-11-04 with the store filled, plus a fifth, rounded up to ten seconds
 # The machine's run lock (Wait-CatzcRunLock.ps1), read before any import; the defaults on TimeoutsConfig, shown here.
 run_lock:
   wait_seconds: 120 # how long a run waits past a live holder's deadline, or the end of a burst, before it says run lock busy

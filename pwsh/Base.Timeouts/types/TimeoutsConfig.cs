@@ -13,7 +13,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     {
         "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors", "parallel",
     };
-    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
+    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds", "post_build_seconds" };
     // The default Watch-Blocking wait and its drain.
     internal static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
     public const int WaitDefaultSeconds = 1;
@@ -45,6 +45,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private const int EngineStartDefaultSeconds = 150;
     // One run of a run list under one engine: an engine start and its few commands, under the pwsh limit.
     private const int RunListDefaultSeconds = 300;
+    // The post-build run's own roof: the tests that consume a built bundle, apart from the source run's budget.
+    private const int PostBuildDefaultSeconds = 300;
     private static readonly string[] Environments = { "devbox", "pipeline" };
     // The shells a limit is keyed by: the execution engines, declared once.
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
@@ -76,7 +78,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // Per-command limits in seconds, keyed by the function name (case-insensitive). Empty when the file declares none.
     public IReadOnlyDictionary<string, int> commands { get; }
 
-    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds], tests[engine_start_seconds].
+    // The resolved test-run limits, defaults filled in: tests[level_ms][L0..L4] in milliseconds, tests[run_seconds], tests[engine_start_seconds], tests[post_build_seconds].
     public IDictionary tests { get; }
 
     // The wait defaults, filled in: wait[seconds], wait[milliseconds], wait[drain_seconds].
@@ -97,6 +99,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private int testRunSeconds = TestRunDefaultSeconds;
     private int engineStartSeconds = EngineStartDefaultSeconds;
     private int runListSeconds = RunListDefaultSeconds;
+    private int postBuildSeconds = PostBuildDefaultSeconds;
     private int waitSeconds = WaitDefaultSeconds;
     private int waitMilliseconds = WaitDefaultMilliseconds;
     private int waitDrainSeconds = WaitDefaultDrainSeconds;
@@ -254,6 +257,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             { "run_seconds", testRunSeconds },
             { "engine_start_seconds", engineStartSeconds },
             { "run_list_seconds", runListSeconds },
+            { "post_build_seconds", postBuildSeconds },
         };
 
         wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
@@ -304,12 +308,18 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return runListSeconds;
     }
 
+    // The most seconds the post-build run may take, the tests that consume a built bundle.
+    public int PostBuildSeconds()
+    {
+        return postBuildSeconds;
+    }
+
     private void ReadTests(object value, List<string> errors)
     {
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds, run_list_seconds)");
+            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds, run_list_seconds, post_build_seconds)");
             return;
         }
         CheckKeys(map, TestKeys, "tests.", errors);
@@ -366,6 +376,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invalid tests.run_list_seconds '{0}' (must be a positive whole number)", map["run_list_seconds"]));
             }
             else { runListSeconds = seconds.Value; }
+        }
+
+        if (map.Contains("post_build_seconds") && map["post_build_seconds"] != null)
+        {
+            int? seconds = PositiveSeconds(map["post_build_seconds"]);
+            if (seconds == null)
+            {
+                errors.Add(string.Format("invalid tests.post_build_seconds '{0}' (must be a positive whole number)", map["post_build_seconds"]));
+            }
+            else { postBuildSeconds = seconds.Value; }
         }
     }
 

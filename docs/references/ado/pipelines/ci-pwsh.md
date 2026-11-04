@@ -37,3 +37,23 @@ and the types project's build folders, the importer command list and the track-s
 - **BuildArtifact** — the BVT: the post-merge run on `main` checks the built artifact with `Test-BuildArtifact`
   ([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](../../../drs/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)). Pull request
   runs skip it.
+
+## comment:1
+
+Above `- job: Build`, written with `#`.
+
+```text
+The BVT is three runs (FDR-TYPE-BVTISTHREERUNS): UnitTests (the pre-build tests), Build (the builds) and PostBuildTests (the post-build
+tests). The file has no stages, and jobs and stages cannot mix at the top level, so the BVT is named in the displayNames of the three.
+The store is a test input handed between jobs, never a deployable artifact. In a pipeline the output root is
+$(Build.ArtifactStagingDirectory), so the store sits at <that>/pwsh/built in both jobs.
+```
+
+## comment:2
+
+Above `- template: /.ado/pipelines/steps/invoke-automation.yaml` (occurrence 38), written with `#`.
+
+```text
+One thin step per declared bundle (ADR-ADO-RUNNER-THINSTEPTEMPLATES); each command pastes into a local terminal after
+.\importer.ps1 (ADR-ADO-RUNNER-DEVELOPERREPRODUCIBLE).
+```

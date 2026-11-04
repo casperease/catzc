@@ -48,6 +48,10 @@ Whether a devbox run outlasted its whole-run budget (tests.run_seconds), which f
 
 The whole-run budget, for the budget-failure wording.
 
+### parameter `BudgetKey`
+
+The timeouts.yml key the budget came from, for the budget-failure wording. Defaults to tests.run_seconds.
+
 ### parameter `PassedCount`
 
 Passed-test count, for the pass summary wording.

@@ -63,6 +63,10 @@ Whether -EnforceTimings was set (annotates the over-limit section).
 
 Where the run executed — 'in-place', or the snapshot's provenance — recorded in the header when given.
 
+### parameter `BudgetKey`
+
+The timeouts.yml key the budget came from, named on the header's budget line. Defaults to tests.run_seconds.
+
 ## tests.csv
 
 The file holds one row per test, slowest first, in the report's columns. Failure detail stays in `summary.md`. The Rules column carries the

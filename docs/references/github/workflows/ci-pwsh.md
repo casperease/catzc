@@ -27,3 +27,13 @@ compares the three content hashes.
   ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A Windows runner
   checks out with `core.autocrlf=true` and the others with LF, so equal hashes prove that the build ships the bytes git stores, not the
   bytes a checkout wrote.
+
+## comment:1
+
+Above `build:`, written with `#`.
+
+```text
+The BVT is three runs (FDR-TYPE-BVTISTHREERUNS): the test job (pre-build tests), this build job (the build event) and the post-build
+job. The build event builds every declared bundle once per operating system and publishes the store as a test input, not a deployable.
+Equal hashes across OSes prove the build ships the bytes git stores, not the bytes a CRLF checkout wrote.
+```

@@ -24,7 +24,9 @@ function Get-TestRunContext {
         [string] $Suite,
 
         [AllowEmptyCollection()]
-        [string[]] $Rule = @()
+        [string[]] $Rule = @(),
+
+        [switch] $PostBuild
     )
 
     $codeRoot = if ($EntryScript) {
@@ -75,11 +77,14 @@ function Get-TestRunContext {
     if ($Rule.Count -gt 0) {
         $selection.Add("rules: $($Rule -join ', ')")
     }
+    if ($PostBuild) {
+        $selection.Add('post-build tests')
+    }
     if ($selection.Count -eq 0) {
         $selection.Add('all tests')
     }
 
-    [ordered]@{
+    $context = [ordered]@{
         entryPoint     = $EntryPoint
         run            = if ($EntryScript) {
             'build'
@@ -97,4 +102,8 @@ function Get-TestRunContext {
         tools          = $tools
         selection      = $selection -join '; '
     }
+    if ($PostBuild) {
+        $context['postBuild'] = $true
+    }
+    $context
 }

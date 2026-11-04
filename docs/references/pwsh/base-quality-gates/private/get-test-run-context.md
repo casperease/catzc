@@ -62,6 +62,10 @@ A test suite's name, when the modules were resolved from one; otherwise empty.
 
 The -Rule filter.
 
+### parameter `PostBuild`
+
+The post-build run: the selection reads 'post-build tests' and the context records `postBuild: true`.
+
 ### outputs
 
 `[System.Collections.Specialized.OrderedDictionary]` the context, keyed as run.json records it.

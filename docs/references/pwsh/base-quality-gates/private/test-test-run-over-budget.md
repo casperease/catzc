@@ -26,6 +26,11 @@ The run's wall clock — its workers' run, as the run reports it.
 
 The whole-run budget (Get-TestTimeLimits RunSeconds, tests.run_seconds in timeouts.yml).
 
+### parameter `BudgetKey`
+
+The timeouts.yml key the budget came from, named in the failure line. Defaults to tests.run_seconds; the post-build run passes
+tests.post_build_seconds.
+
 ### outputs
 
 `[bool]` True when the run fails on its budget.

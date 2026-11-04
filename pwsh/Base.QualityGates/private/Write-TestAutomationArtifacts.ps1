@@ -30,13 +30,18 @@ function Write-TestAutomationArtifacts {
         [Parameter(Mandatory)]
         [string] $Category,
 
-        [string] $Location
+        [string] $Location,
+
+        [int] $RunBudgetSeconds = (Get-TestTimeLimits).RunSeconds,
+
+        [string] $BudgetKey = 'tests.run_seconds'
     )
 
     # Written before any throw, so a failing run still has its report.
     try {
         Write-TestAutomationReport -Rows $Rows -OutputFolder $RunDirectory -Level $MaxLevel -Limits $Limits `
-            -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location
+            -RunResult $RunResult -DurationSeconds $DurationSeconds -TimingsEnforced:$EnforceTimings -Location $Location `
+            -RunBudgetSeconds $RunBudgetSeconds -BudgetKey $BudgetKey
         Set-Content -Path (Join-Path $OutputFolder 'latest.txt') -Value (Split-Path $RunDirectory -Leaf) -Encoding utf8
     }
     catch {

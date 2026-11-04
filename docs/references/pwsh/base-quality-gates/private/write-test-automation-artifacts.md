@@ -60,6 +60,14 @@ The run's category (skip-report scope).
 
 Where the run executed (report metadata) — 'in-place', or the snapshot's provenance.
 
+### parameter `RunBudgetSeconds`
+
+The run's whole-run budget, handed to the report. Defaults to tests.run_seconds; the post-build run passes tests.post_build_seconds.
+
+### parameter `BudgetKey`
+
+The timeouts.yml key the budget came from, handed to the report. Defaults to tests.run_seconds.
+
 ## Report
 
 The run report, `summary.md` and `tests.csv`, is written beside the per-shard results. It is written before any throw, so a failing run

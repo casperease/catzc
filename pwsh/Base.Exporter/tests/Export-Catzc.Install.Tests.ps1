@@ -1,4 +1,4 @@
-Describe 'Export-Catzc installs a real base build into a working root' -Tag 'L2', 'logic', 'greedy', 'source-only' {
+Describe 'Export-Catzc installs a real base build into a working root' -Tag 'L2', 'logic', 'greedy', 'source-only', 'post-build' {
     BeforeAll {
         # Lists every file under a root as relative path plus content hash, so two snapshots compare by value.
         function script:Get-RootSnapshot {

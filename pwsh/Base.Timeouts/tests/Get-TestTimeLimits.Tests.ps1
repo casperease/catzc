@@ -7,6 +7,14 @@ Describe 'Get-TestTimeLimits' -Tag 'L0', 'logic' {
         $limits.LevelMs['L2'] | Should -Be 45000
         $limits.LevelMs['L0'] | Should -Be 400
         $limits.RunSeconds | Should -Be 240
+        $limits.PostBuildSeconds | Should -Be 300
+    }
+
+    It 'returns the configured post-build roof' {
+        Mock Get-Config -ModuleName Catzc.Base.Timeouts {
+            [Catzc.Base.Timeouts.TimeoutsConfig]::new([ordered]@{ tests = @{ post_build_seconds = 420 } })
+        }
+        (Get-TestTimeLimits).PostBuildSeconds | Should -Be 420
     }
 
     It 'returns the sensible defaults when the config sets none' {

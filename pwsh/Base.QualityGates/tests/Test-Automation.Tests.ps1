@@ -40,6 +40,34 @@ Describe 'Module dependencies' -Tag 'L0', 'integrity', 'source-only' {
     }
 }
 
+Describe 'Test-Automation post-build switch' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-POSTBUILDTAG' {
+    BeforeEach {
+        Mock Invoke-TestRun -ModuleName Catzc.Base.QualityGates { }
+        Mock Assert-BuiltBundleStore -ModuleName Catzc.Base.QualityGates { }
+    }
+
+    It 'opts the source run out of the post-build tests and never checks the built store' {
+        Test-Automation
+        Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $OptOutTag -contains 'post-build' -and -not $PostBuild
+        }
+        Should -Invoke Assert-BuiltBundleStore -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+
+    It 'checks the built store first and passes the post-build run on without the opt-out' {
+        Test-Automation -PostBuild
+        Should -Invoke Assert-BuiltBundleStore -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $PostBuild -and @($OptOutTag).Count -eq 0
+        }
+    }
+
+    It 'refuses -Rule with -PostBuild before it runs anything' {
+        { Test-Automation -PostBuild -Rule 'ADR-WIDGET-GADGET-SPROCKET' } | Should -Throw '*-PostBuild or -Rule*'
+        Should -Invoke Invoke-TestRun -ModuleName Catzc.Base.QualityGates -Times 0
+    }
+}
+
 Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     BeforeAll {
         Mock Get-Module -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Name -eq 'Pester' } { }

@@ -54,8 +54,15 @@ function Invoke-TestRun {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox
+        [switch] $KeepSandbox,
+
+        [switch] $PostBuild
     )
+
+    # The post-build run selects only the tests that carry the tag and takes its own roof (ADR-AUTO-TEST-POSTBUILDTAG).
+    $includeTag = @(if ($PostBuild) {
+            'post-build'
+        })
 
     # The entry point's key: its default report folder under out/ and its protection-key prefix.
     $entryPointKey = @{ 'Test-Automation' = 'test-automation'; 'Test-CatzcBuild' = 'test-catzc-build' }[$EntryPoint]
@@ -94,7 +101,7 @@ function Invoke-TestRun {
     Assert-TestTagGate -Discovery $discovery
 
     # An unfiltered run sweeps the results whose test file is gone, and any other file the result folder holds.
-    if ($Rule.Count -eq 0) {
+    if ($Rule.Count -eq 0 -and $includeTag.Count -eq 0) {
         Remove-OrphanTestResult | Out-Null
     }
     $phaseSeconds['tags and sweep'] = $phaseWatch.Elapsed.TotalSeconds
@@ -130,7 +137,7 @@ function Invoke-TestRun {
 
         # What the run is and where it runs: printed under the banner, recorded in run.json.
         $context = Get-TestRunContext -EntryPoint $EntryPoint -EntryScript $EntryScript -Location $location -MinLevel $MinLevel `
-            -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule
+            -RequestedMaxLevel $requestedMaxLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Suite $Suite -Rule $Rule -PostBuild:$PostBuild
 
         # Tiers outside the range and the other category are excluded.
         $excludeTags = Get-TestExcludeTag -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category
@@ -152,7 +159,7 @@ function Invoke-TestRun {
         $phaseWatch.Restart()
 
         # Files dropped for scope come back as NotRun rows, reported once after protection.
-        $selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery -Rule $Rule -ExcludeTag $excludeTags `
+        $selection = Select-TestRunFiles -TestPath $testPaths -Discovery $discovery -Rule $Rule -IncludeTag $includeTag -ExcludeTag $excludeTags `
             -OptOutTag $OptOutTag -RunDirectory $runDir -EntryPoint $EntryPoint
         $testFiles = @($selection.Files)
         $excludeTags = @($selection.ExcludeTag)
@@ -171,7 +178,7 @@ function Invoke-TestRun {
         $phaseWatch.Restart()
 
         # A unit whose identity is unchanged since its last green run this session is skipped.
-        $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')"
+        $protectionKey = "$entryPointKey|L$MinLevel-L$MaxLevel|$Category|$($Rule -join ',')|$($includeTag -join ',')"
         $protectionPlan = Select-ProtectedTestFile -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
             -SerialFiles @($serialFiles) -Discovery $discovery -ProtectionKey $protectionKey
         $parallelFiles = [System.Collections.Generic.List[string]]::new([string[]]$protectionPlan.ParallelFiles)
@@ -181,15 +188,7 @@ function Invoke-TestRun {
         $phaseSeconds['protection'] = $phaseWatch.Elapsed.TotalSeconds
         Write-Message '.' -NoHeader -NoNewline
 
-        # The L0/L1 tripwire rides each worker's own environment: a real process there means a missed Mock.
-        $workerEnvironment = @{
-            CATZC_BLOCK_REAL_PROCESS = if ($MaxLevel -lt [Catzc.Base.Timeouts.TestTiers]::FirstRealProcessTier) {
-                [Catzc.Base.Timeouts.TestTiers]::BlockEveryLaunch
-            }
-            else {
-                [Catzc.Base.Timeouts.TestTiers]::BlockByTier
-            }
-        }
+        $workerEnvironment = Get-TestRunWorkerEnvironment -MaxLevel $MaxLevel
 
         Write-Message '' -NoHeader   # ends the dot line
         Write-TestAutomationHeader -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Modules $Modules -Title $Title
@@ -198,19 +197,13 @@ function Invoke-TestRun {
 
         # A work-list protection drained is vacuously green.
         $workerRun = if (($parallelFiles.Count + $greedyFiles.Count + $serialFiles.Count) -eq 0) {
-            $nothingToRun = if ($testFiles.Count -eq 0) {
-                "No test in scope at L$MinLevel-L$MaxLevel — nothing to run."
-            }
-            else {
-                'Every module in scope is protected — nothing to run.'
-            }
-            Write-Message $nothingToRun -ForegroundColor Yellow
+            Write-Message (Get-TestRunNothingToRunMessage -TestFileCount $testFiles.Count -MinLevel $MinLevel -MaxLevel $MaxLevel) -ForegroundColor Yellow
             [pscustomobject]@{ Rows = @(); Files = @(); FailedShardLabels = @(); DurationSeconds = 0.0; Shards = @(); WorkerSummaries = @(); Location = $null }
         }
         else {
             Invoke-TestAutomationWorkers -ParallelFiles @($parallelFiles) -GreedyFiles @($greedyFiles) `
                 -SerialFiles @($serialFiles) -Location $location `
-                -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag $Rule -Verbosity $Output -Workers $Workers -GreedyGroupSize $GreedyGroupSize `
+                -RunDirectory $runDir -ExcludeTag $excludeTags -IncludeTag (@($Rule) + @($includeTag)) -Verbosity $Output -Workers $Workers -GreedyGroupSize $GreedyGroupSize `
                 -TimeoutSeconds $TimeoutSeconds -WorkerEnvironment $workerEnvironment `
                 -EntryScript $EntryScript -EntryParameter $EntryParameter
         }
@@ -226,7 +219,7 @@ function Invoke-TestRun {
         $outcome = @(Get-TestRunOutcome -Row $rows -File @($workerRun.Files) -Shard @($workerRun.Shards) `
                 -FailedShardLabel $failedShardLabels -Location $location)
         Write-TestResultMarker -Outcome $outcome -RunDirectory $runDir -Runner $EntryPoint -StartedAt $runStartedAt `
-            -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Rule $Rule -Filtered:($Rule.Count -gt 0) `
+            -MinLevel $MinLevel -MaxLevel $MaxLevel -Category $Category -Rule $Rule -Filtered:($Rule.Count -gt 0 -or $includeTag.Count -gt 0) `
             -Isolated:($location.Mode -eq 'snapshot') | Out-Null
 
         # Out-of-scope rows join after protection, so every report reads the same rows.
@@ -247,7 +240,10 @@ function Invoke-TestRun {
         $limits = $testTimeLimits.LevelMs
         $timingFailure = Write-TestAutomationTimingReport -Rows $rows -Limits $limits -EnforceTimings:$EnforceTimings
         # A devbox run past its whole-run budget fails.
-        $budgetFailure = Test-TestRunOverBudget -DurationSeconds $workerRun.DurationSeconds -BudgetSeconds $testTimeLimits.RunSeconds
+        $budget = Get-TestRunBudget -TimeLimits $testTimeLimits -PostBuild:$PostBuild
+        $runBudgetSeconds = $budget.Seconds
+        $budgetKey = $budget.Key
+        $budgetFailure = Test-TestRunOverBudget -DurationSeconds $workerRun.DurationSeconds -BudgetSeconds $runBudgetSeconds -BudgetKey $budgetKey
         if ($timingFailure -or $budgetFailure) {
             $manifestStatus = 'failed'
         }
@@ -255,6 +251,7 @@ function Invoke-TestRun {
         # Best-effort artifacts, never masking the run's outcome.
         Write-TestAutomationArtifacts -Rows $rows -RunDirectory $runDir -OutputFolder $OutputFolder `
             -MaxLevel $MaxLevel -Limits $limits -RunResult $runResult -DurationSeconds $workerRun.DurationSeconds `
+            -RunBudgetSeconds $runBudgetSeconds -BudgetKey $budgetKey `
             -EnforceTimings:$EnforceTimings -MinLevel $MinLevel -Category $Category `
             -Location (Get-TestRunLocationSummary -Location $workerRun.Location).Text
 
@@ -264,7 +261,7 @@ function Invoke-TestRun {
         # One verdict feeds the banner and the throw, so the reason is worded once.
         $verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult $runResult `
             -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
-            -BudgetFailure:$budgetFailure -RunBudgetSeconds $testTimeLimits.RunSeconds `
+            -BudgetFailure:$budgetFailure -RunBudgetSeconds $runBudgetSeconds -BudgetKey $budgetKey `
             -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds
 
         # Every failed test's and failed file's message, right before the verdict (nothing on a green run).

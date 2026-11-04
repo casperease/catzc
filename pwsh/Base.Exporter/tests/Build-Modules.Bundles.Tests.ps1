@@ -118,7 +118,7 @@ AfterAll {
     }
 }
 
-Describe 'Every declared bundle builds and loads: <bundle>' -ForEach $bundleCases -Tag 'L2', 'integrity', 'greedy', 'source-only' {
+Describe 'Every declared bundle builds and loads: <bundle>' -ForEach $bundleCases -Tag 'L2', 'integrity', 'greedy', 'source-only', 'post-build' {
     BeforeAll {
         $built = $script:built[$bundle]
     }

@@ -43,7 +43,9 @@ function Test-Automation {
 
         [switch] $Isolated,
 
-        [switch] $KeepSandbox
+        [switch] $KeepSandbox,
+
+        [switch] $PostBuild
     )
 
     if ($MinLevel -gt $MaxLevel) {
@@ -60,9 +62,21 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
+    # The post-build run tests the built bundles and selects its tests by the tag; the source run leaves them out and lists them (ADR-AUTO-TEST-POSTBUILDTAG).
+    $optOutTag = @()
+    if ($PostBuild) {
+        if ($Rule.Count -gt 0) {
+            throw 'Pass -PostBuild or -Rule, not both — the post-build run selects its tests by their tag.'
+        }
+        Assert-BuiltBundleStore
+    }
+    else {
+        $optOutTag = @('post-build')
+    }
+
     # The harness both runs share: discovery, tag checks, sharding, workers, rows and reports.
     Invoke-TestRun -EntryPoint 'Test-Automation' -Title 'Test Automation' -MinLevel $MinLevel -MaxLevel $MaxLevel `
         -Modules $Modules -Category $Category -Workers $Workers -GreedyGroupSize $GreedyGroupSize -TimeoutSeconds $TimeoutSeconds -Output $Output `
         -PassThru:$PassThru -EnforceTimings:$EnforceTimings -Rule $Rule -Suite $Suite -OutputFolder $OutputFolder `
-        -Isolated:$Isolated -KeepSandbox:$KeepSandbox
+        -OptOutTag $optOutTag -Isolated:$Isolated -KeepSandbox:$KeepSandbox -PostBuild:$PostBuild
 }

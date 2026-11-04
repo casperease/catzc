@@ -12,6 +12,9 @@ function Select-TestRunFiles {
         [string[]] $Rule = @(),
 
         [AllowEmptyCollection()]
+        [string[]] $IncludeTag = @(),
+
+        [AllowEmptyCollection()]
         [string[]] $ExcludeTag = @(),
 
         [AllowEmptyCollection()]
@@ -36,6 +39,12 @@ function Select-TestRunFiles {
 
     $scope = Select-InScopeTestFiles -Discovery $Discovery -ExcludeTag $ExcludeTag -TestFiles $testFiles
     $testFiles = @($scope.Files)
+    if ($IncludeTag.Count -gt 0) {
+        $testFiles = @(Select-IncludeTagFiles -TestFile $testFiles -Discovery $Discovery -Tag $IncludeTag -ExcludeTag $ExcludeTag)
+        if ($testFiles.Count -eq 0) {
+            throw "No test in scope carries $($IncludeTag -join ', ') — nothing to run in $EntryPoint."
+        }
+    }
     $outOfScopeRows = @(ConvertTo-TestAutomationRowSet -Result ([pscustomobject]@{ Tests = @($scope.OutOfScopeTests) }))
 
     $optOutExcludedTests = @()

@@ -80,6 +80,26 @@ Describe 'Get-TestTagViolations' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'accepts the post-build tag on an outer block, resolved along the chain of groups' {
+        InModuleScope Catzc.Base.QualityGates {
+            $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }
+            $outer = [pscustomobject]@{ IsRoot = $false; Tag = @('post-build'); Parent = $root }
+            $discovered = [pscustomobject]@{
+                Tests = @(
+                    [pscustomobject]@{
+                        Tag          = @()
+                        Block        = [pscustomobject]@{ IsRoot = $false; Tag = @('L2', 'integrity'); Parent = $outer }
+                        ExpandedName = 'taggedPostBuild'
+                        ScriptBlock  = [pscustomobject]@{ File = 'fixture.Tests.ps1' }
+                    }
+                )
+            }
+
+            $violations = Get-TestTagViolations -Discovery $discovered
+            $violations | Should -HaveCount 0
+        }
+    }
+
     It 'flags an L3 test tagged logic, and passes an L3 test tagged integrity' -Tag 'ADR-AUTO-TEST-TWOMANDATORYTAGS' {
         InModuleScope Catzc.Base.QualityGates {
             $root = [pscustomobject]@{ IsRoot = $true; Tag = @(); Parent = $null }

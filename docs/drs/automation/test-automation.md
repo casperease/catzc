@@ -259,6 +259,16 @@ types and accelerators load, an internal asset is read
 
 - [Source and build runs](#source-and-build-runs)
 
+### Rule ADR-AUTO-TEST-POSTBUILDTAG
+
+**`post-build`** is the one tag that marks a test whose subject is a built bundle, its load, its install, its consumer root, or a session
+inside it. It is optional and resolved along the chain of groups like `source-only`. The source run opts the tag out by default and lists
+what it left out, as the build run does with `source-only`. A post-build run selects only the tagged tests, in source mode against the build
+store, and fails fast before discovery when the stored build of a declared bundle at the tree's source stamp is missing, naming the build
+event to run. Its roof is `tests.post_build_seconds`. A test whose subject is the builder's own logic stays in the source run.
+
+- [Source and build runs](#source-and-build-runs)
+
 ### Rule ADR-AUTO-TEST-RUNSNEVERWAIT
 
 A test run never waits for another. The first run owns the working folder and runs in place; a run that starts while another holds it runs
@@ -290,9 +300,11 @@ mockable seam, and an L1 test mocks that seam.
 A **test run** is one invocation of a test entry point — `Test-Automation`, `Test-CatzcBuild`, or `Invoke-TestFile` — over one selection of
 test files (by module, tier, and category): it claims one location (ADR-AUTO-TEST-RUNSNEVERWAIT), runs the selection once, and records it in
 one report under `out/`. A test run in source mode is a **source run** (`Test-Automation`, `Invoke-TestFile`); one in build mode is a
-**build run** (`Test-CatzcBuild`). The test files at rest are not a run: a run is the act of executing them. A run states its **context** —
-entry point and code root, location and why, the tiers asked for and running (and why they differ), the actor, which local tools are
-present, and the selection — in a block under its banner and under `context` in `run.json`, so neither a reader nor a later run infers it.
+**build run** (`Test-CatzcBuild`); a source run over the `post-build` tagged selection, against the build store, is a **post-build run**
+(`Test-Automation -PostBuild`, ADR-AUTO-TEST-POSTBUILDTAG). The test files at rest are not a run: a run is the act of executing them. A run
+states its **context** — entry point and code root, location and why, the tiers asked for and running (and why they differ), the actor,
+which local tools are present, and the selection — in a block under its banner and under `context` in `run.json`, so neither a reader nor a
+later run infers it.
 
 - [Source and build runs](#source-and-build-runs)
 
@@ -314,8 +326,9 @@ quality gate: its `Test-*` answers a bool and its `Assert-*` throws.
 ### Rule ADR-AUTO-TEST-ALLTESTS
 
 **All tests** means every test in the repository: every test file of every module, at every tier and category. It is what a test run selects
-at its defaults (a source run, less only the tiers its location cannot run, ADR-AUTO-TEST-SYSTEMTESTSATLTHREE), and what "every test passes"
-claims; a narrower selection — some modules, some tiers, one test file — is named by what it selects, never called all tests.
+at its defaults: the source run (less only the tiers its location cannot run, ADR-AUTO-TEST-SYSTEMTESTSATLTHREE) and the post-build run
+(ADR-AUTO-TEST-POSTBUILDTAG) together, and "every test passes" claims both; a narrower selection — some modules, some tiers, one test file —
+is named by what it selects, never called all tests.
 
 - [Source and build runs](#source-and-build-runs)
 
@@ -393,9 +406,11 @@ language decides its name and form.
 
 ### Rule ADR-AUTO-TEST-DEVBOXRUNBUDGET
 
-A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than `tests.run_seconds` in
-`timeouts.yml`, and names the run's time and the budget. The budget is a roof, never raised to make a run pass; a run over it is fixed by
-making its slowest test files faster (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own limit instead.
+A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than its roof in `timeouts.yml` —
+`tests.run_seconds` for the source run, `tests.post_build_seconds` for the post-build run — and names the run's time and the budget. The
+build event has no run roof: each build is bounded by the `Build-Modules` limit. A budget is a roof, never raised to make a run pass; a run
+over it is fixed by making its slowest test files faster (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own
+limit instead.
 
 - [The whole-run budget](#the-whole-run-budget)
 
@@ -734,6 +749,15 @@ loaded modules. Running it twice is waste ([reduce-waste](../principles/reduce-w
 skips it — and lists it, so a reader sees exactly what the build run does not execute. Everything that exercises loaded code runs in both. A
 pipeline runs `Test-QualityGates` and then the source `Test-Automation`; the build run, `Test-CatzcBuild`, is a command a person runs.
 
+There are three kinds of run, not two. The builds used to sit inside the tests: the bundles test built every declared bundle, the install
+and consumer tests each built another, and `Test-CatzcBuild` built again, so one run built the same bundles several times and every CI job
+built its own because each started cold. Now the **source run** is `Test-Automation` over the tests that need no built bundle; the **build
+event** is `Build-Modules` for every declared bundle into the build store, followed by `Test-BuildArtifact` — a command on the devbox and a
+job of its own in CI, never a test; the **post-build run** is `Test-Automation -PostBuild`, the tests tagged `post-build`
+(ADR-AUTO-TEST-POSTBUILDTAG) run in source mode against the store's builds. A post-build test that still calls the builder reuses the stored
+build, so no test changes to consume the artifact, and in CI the store is the downloaded artifact of the build job. Each run has its own
+roof (ADR-AUTO-TEST-DEVBOXRUNBUDGET), so a new product proof on a built bundle no longer pushes the source run's budget up.
+
 A test suite (ADR-AUTO-TEST-TESTSUITE) is the `verify:` scope a globset declares: the test blast-radius of a change to that globset, the
 same scope the pipelines that run it trigger on.
 
@@ -841,7 +865,8 @@ spelled in its test framework, and the language's gotchas.
   never to a named template (ADR-AUTO-TEST-GENERICTEMPLATETESTS). The fixtures under `tests/assets/` are the patterns new logic tests copy.
 - **Two test runs** — `Test-Automation` and `Test-CatzcBuild` share the harness; `Get-TestTagViolations` accepts and validates `source-only`
   (ADR-AUTO-TEST-SOURCEONLYTAG), and the build run reports the excluded count and list. Each run claims one location and writes one report
-  (ADR-AUTO-TEST-TESTRUN).
+  (ADR-AUTO-TEST-TESTRUN). It accepts `post-build` too (ADR-AUTO-TEST-POSTBUILDTAG): the source run lists the tests it left out, and the
+  post-build run checks the build store before discovery.
 - **Code review** decides whether a new test verifies _pure logic_ (seam-isolated, hermetic) or _shipped templates_ (binds to assets, only
   external tools mocked), and checks it mocks the right boundaries — not too few, not too many (testing the mock).
 

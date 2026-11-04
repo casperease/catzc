@@ -79,4 +79,22 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
         @($result.OutOfScopeRows).Count | Should -Be 2
         $result.ExcludeTag | Should -Contain 'source-only'
     }
+
+    It 'keeps only the files with a test carrying the include tag' {
+        $tagged = [pscustomobject]@{
+            Tests = @(
+                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic'))
+                (New-FakeTest -File $script:gadget -Name 'Gadget.bundle' -BlockTags @('L2', 'integrity', 'post-build'))
+            )
+        }
+        $script:arguments.Discovery = $tagged
+        $script:arguments.IncludeTag = @('post-build')
+        $result = Select-Run $script:arguments
+        $result.Files | Should -Be @($script:gadget)
+    }
+
+    It 'throws when no test in scope carries the include tag' {
+        $script:arguments.IncludeTag = @('post-build')
+        { Select-Run $script:arguments } | Should -Throw '*No test in scope carries post-build*Test-Widget*'
+    }
 }

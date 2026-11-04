@@ -15,4 +15,5 @@ parameters:
   output_folder: string
   isolated: switch
   keep_sandbox: switch
+  post_build: switch
 output: catzc.base.reports.test_run_result

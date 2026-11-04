@@ -271,6 +271,74 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
         }
     }
 
+    Context 'the post-build run (only the post-build tag, its own roof)' -Tag 'ADR-AUTO-TEST-POSTBUILDTAG' {
+        BeforeEach {
+            # Widget holds one post-build test beside a plain one; gadget holds none.
+            $script:postBuildDiscovery = [pscustomobject]@{
+                Tests = @(
+                    (& $newTest $script:widgetFile 'Widget.loads the bundle' @('L0', 'logic', 'post-build'))
+                    (& $newTest $script:widgetFile 'Widget.runs code' @('L0', 'logic'))
+                    (& $newTest $script:gadgetFile 'Gadget.runs code' @('L0', 'logic'))
+                )
+            }
+            Mock Get-TestDiscovery -ModuleName Catzc.Base.QualityGates { $script:postBuildDiscovery }
+            Mock Get-TestTimeLimits -ModuleName Catzc.Base.QualityGates {
+                [pscustomobject]@{ LevelMs = @{}; RunSeconds = 180; PostBuildSeconds = 300 }
+            }
+        }
+
+        It 'sends only the files holding a tagged test to the workers, and includes only the tag there' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; PostBuild = $true } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $IncludeTag -contains 'post-build' -and (@($ParallelFiles) -join ',') -eq $script:widgetFile
+            }
+        }
+
+        It 'takes tests.post_build_seconds as its roof and names that key when it fails' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; PostBuild = $true } | Out-Null
+
+            Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $RunBudgetSeconds -eq 300 -and $BudgetKey -eq 'tests.post_build_seconds'
+            }
+            Should -Invoke Write-TestAutomationArtifacts -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $RunBudgetSeconds -eq 300 -and $BudgetKey -eq 'tests.post_build_seconds'
+            }
+        }
+
+        It 'records postBuild in the context of run.json and keys protection apart from the source run' {
+            $summary = Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; PostBuild = $true }
+
+            $manifest = Get-Content -LiteralPath (Join-Path $summary.RunDirectory 'run.json') -Raw | ConvertFrom-Json
+            $manifest.context.postBuild | Should -BeTrue
+            $manifest.context.selection | Should -Be 'post-build tests'
+            Should -Invoke Select-ProtectedTestFile -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $ProtectionKey -like '*|post-build'
+            }
+        }
+
+        It 'throws, running no worker, when no test in scope carries the tag' {
+            $script:untaggedDiscovery = [pscustomobject]@{ Tests = @((& $newTest $script:widgetFile 'Widget.runs code' @('L0', 'logic'))) }
+            Mock Get-TestDiscovery -ModuleName Catzc.Base.QualityGates { $script:untaggedDiscovery }
+
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PostBuild = $true } } |
+                Should -Throw '*No test in scope carries post-build — nothing to run in Test-Automation.*'
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 0
+        }
+
+        It 'leaves the source run on its own roof, with no tag included' {
+            Mock Get-TestTimeLimits -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ LevelMs = @{}; RunSeconds = 180 } }
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                @($IncludeTag).Count -eq 0 -and @($ParallelFiles).Count -eq 2
+            }
+            Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $RunBudgetSeconds -eq 180 -and $BudgetKey -eq 'tests.run_seconds'
+            }
+        }
+    }
+
     Context 'the build run (source-only opt-out, build entry script)' -Tag 'ADR-AUTO-TEST-SAMETESTSBOTHRUNS', 'ADR-AUTO-TEST-SOURCEONLYTAG' {
         BeforeAll {
             $script:buildArguments = @{

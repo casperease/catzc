@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-commands.sh"
-#     with_body_sha: "4e1e3767eac5"
+#     with_body_sha: a5d3349c160d
 # ---
 
 # shellcheck shell=bash
@@ -194,6 +194,7 @@ test_automation	suite	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates
 test_automation	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_automation.command.yml			test-automation	output-folder	Test-Automation	OutputFolder
 test_automation	isolated	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_automation.command.yml			test-automation	isolated	Test-Automation	Isolated
 test_automation	keep_sandbox	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_automation.command.yml			test-automation	keep-sandbox	Test-Automation	KeepSandbox
+test_automation	post_build	switch	0	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_automation.command.yml			test-automation	post-build	Test-Automation	PostBuild
 test_azure_network_plan	output_folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.azure/test_azure_network_plan.command.yml			test-azure-network-plan	output-folder	Test-AzureNetworkPlan	OutputFolder
 test_azure_network_plan	pass_thru	switch	0	0	0	contracts/catzc/0.1.0/pwsh.azure/test_azure_network_plan.command.yml			test-azure-network-plan	pass-thru	Test-AzureNetworkPlan	PassThru
 test_build_artifact	module	string	1	0	0	contracts/catzc/0.1.0/pwsh.base.quality_gates/test_build_artifact.command.yml			test-build-artifact	module	Test-BuildArtifact	Module

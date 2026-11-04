@@ -12,6 +12,15 @@ Describe 'Test-TestRunOverBudget' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-DEVBOXRUNBU
         }
     }
 
+    It 'names the budget key it is given' {
+        InModuleScope Catzc.Base.QualityGates {
+            Test-TestRunOverBudget -DurationSeconds 90 -BudgetSeconds 60 -BudgetKey 'tests.widget_seconds'
+        } | Should -BeTrue
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            $Message -like '*over its 60s budget (tests.widget_seconds in timeouts.yml)*'
+        }
+    }
+
     It 'passes a devbox run at or under its budget, silently' {
         InModuleScope Catzc.Base.QualityGates { Test-TestRunOverBudget -DurationSeconds 180 -BudgetSeconds 180 } |
             Should -BeFalse

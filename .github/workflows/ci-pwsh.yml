@@ -51,8 +51,7 @@ jobs:
           # / cold-JIT push near-limit tests over). The report stays as the signal; the gate does not fail CI.
           Test-Automation -Level 2
 
-  # Equal hashes across OSes prove the build ships the bytes git stores, not the bytes a CRLF checkout wrote.
-  bundle-hash:
+  build:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -62,11 +61,16 @@ jobs:
         with:
           fetch-depth: 0 # the calculated version counts first-parent commits
 
-      - name: Build the full bundle and record its content hash
+      - name: Build every bundle, check the build and record the full bundle's content hash
         shell: pwsh
         run: |
           . ./importer.ps1
           $built = Build-Modules -Bundle full
+          Build-Modules -Bundle azure -Silent
+          Build-Modules -Bundle tooling -Silent
+          Build-Modules -Bundle base -Silent
+          Build-Modules -Bundle minimal -Silent
+          Test-BuildArtifact
           New-Item -ItemType Directory -Force out/bundle-hash | Out-Null
           Set-Content -Path "out/bundle-hash/${{ matrix.os }}.txt" -Value "$($built.Version) $($built.ContentHash)" -NoNewline
           Write-Host "Catzc $($built.Version) on ${{ matrix.os }}: $($built.ContentHash)"
@@ -77,8 +81,38 @@ jobs:
           path: out/bundle-hash/${{ matrix.os }}.txt
           if-no-files-found: error
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: catzc-build-${{ matrix.os }}
+          path: out/pwsh/built
+          if-no-files-found: error
+
+  # The post-build tests consume the store the build job published, never rebuild it.
+  post-build:
+    needs: build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the calculated version names the store folder
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: catzc-build-${{ matrix.os }}
+          path: out/pwsh/built
+
+      - name: Run the post-build tests
+        shell: pwsh
+        run: |
+          . ./importer.ps1
+          Test-Automation -PostBuild
+          Test-CatzcBuild
+
   bundle-hash-compare:
-    needs: bundle-hash
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4

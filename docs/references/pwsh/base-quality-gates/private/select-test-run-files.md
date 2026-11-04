@@ -40,6 +40,11 @@ The run's discovery-only Pester result (Get-TestDiscovery).
 
 The wanted rule citations ('`ADR-<CODE>#<n>`'); empty for no rule filter.
 
+### parameter `IncludeTag`
+
+The tags that select the run's tests (Test-Automation -PostBuild passes `post-build`); empty for none. Files without an in-scope test
+carrying one are dropped, and none left is an error (Select-IncludeTagFiles).
+
 ### parameter `ExcludeTag`
 
 The run's tier/category exclude tags (Get-TestExcludeTag).

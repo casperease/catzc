@@ -24,6 +24,10 @@ Build-Modules computes). Tests tagged 'source-only'
 listed — on the console and in excluded-tests.csv in the run directory — never silently. Reports go to `<out>/test-catzc-build/`, so the two
 test runs' reports never overwrite each other. The build is deleted when the run ends.
 
+The build goes through Build-Modules like any other, so it passes through the build store: after the build event
+([ADR-AUTO-TEST-POSTBUILDTAG](../../../drs/automation/test-automation.md#rule-adr-auto-test-postbuildtag)) built the same selection of this
+tree, the build here is a copy of the stored one, not a second build.
+
 The harness's own module is always built too (each worker reaches its configuration builder and row reducer through that module's scope),
 but its tests run only when the selection includes it.
 

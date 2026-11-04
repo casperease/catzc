@@ -1,4 +1,4 @@
-Describe 'A consumer root with a bundle installed and a .catzc/ overlay' -Tag 'L2', 'logic', 'greedy', 'source-only' {
+Describe 'A consumer root with a bundle installed and a .catzc/ overlay' -Tag 'L2', 'logic', 'greedy', 'source-only', 'post-build' {
     BeforeAll {
         Import-InternalModule TestKit
 

@@ -128,6 +128,19 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.tests.engine_start_seconds | Should -Be 150
             $config.RunListSeconds() | Should -Be 300
             $config.tests.run_list_seconds | Should -Be 300
+            $config.PostBuildSeconds() | Should -Be 300
+            $config.tests.post_build_seconds | Should -Be 300
+        }
+
+        It 'overrides the post-build roof alone, keeping the source run budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+            $config = New-TimeoutsConfig ([ordered]@{ tests = @{ post_build_seconds = 420 } })
+            $config.PostBuildSeconds() | Should -Be 420
+            $config.tests.post_build_seconds | Should -Be 420
+            $config.TestRunSeconds() | Should -Be 180
+        }
+
+        It 'resolves the shipped post-build roof from timeouts.yml' -Tag 'integrity' {
+            (Get-Config -Config timeouts).PostBuildSeconds() | Should -Be 300
         }
 
         It 'overrides the run-list bound alone' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
@@ -157,7 +170,9 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             @{ case = 'a zero tier limit'; data = @{ tests = @{ level_ms = @{ L0 = 0 } } }; expected = "*invalid tests.level_ms.L0 '0'*" }
             @{ case = 'a quoted run budget'; data = @{ tests = @{ run_seconds = '180' } }; expected = "*invalid tests.run_seconds '180'*" }
             @{ case = 'a zero engine start bound'; data = @{ tests = @{ engine_start_seconds = 0 } }; expected = "*invalid tests.engine_start_seconds '0'*" }
-            @{ case = 'a zero run-list bound'; data = @{ tests = @{ run_list_seconds = 0 } }; expected = "*invalid tests.run_list_seconds '0'*" }        ) {
+            @{ case = 'a zero run-list bound'; data = @{ tests = @{ run_list_seconds = 0 } }; expected = "*invalid tests.run_list_seconds '0'*" }
+            @{ case = 'a quoted post-build roof'; data = @{ tests = @{ post_build_seconds = '300' } }; expected = "*invalid tests.post_build_seconds '300'*" }
+        ) {
             { New-TimeoutsConfig $data } | Should -Throw $expected
         }
 

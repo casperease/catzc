@@ -24,7 +24,7 @@ pr:
 
 jobs:
   - job: UnitTests
-    displayName: "Unit Tests"
+    displayName: "BVT: pre-build tests (Unit Tests)"
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -483,13 +483,14 @@ jobs:
             }
             $config | ConvertTo-FlatSettingSet | Write-Object -Name 'FlatSettings'
 
-  - job: BuildArtifact
-    displayName: "Build artifact (BVT)"
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  - job: Build
+    displayName: "BVT: build (every bundle, once)"
     pool:
       vmImage: ubuntu-latest
     steps:
+      # The calculated version counts first-parent commits, so the checkout is full (the version names the store folder).
       - checkout: self
+        fetchDepth: 0
 
       - template: /.ado/pipelines/steps/cache-types.yaml
 
@@ -500,4 +501,60 @@ jobs:
 
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
+          RunCommand: "Build-Modules -Bundle full -Silent"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Build-Modules -Bundle azure -Silent"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Build-Modules -Bundle tooling -Silent"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Build-Modules -Bundle base -Silent"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Build-Modules -Bundle minimal -Silent"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
           RunCommand: "Test-BuildArtifact"
+
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish the build store (catzc-build)"
+        inputs:
+          targetPath: $(Build.ArtifactStagingDirectory)/pwsh/built
+          artifact: catzc-build
+
+  - job: PostBuildTests
+    displayName: "BVT: post-build tests"
+    dependsOn: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - checkout: self
+        fetchDepth: 0
+
+      - template: /.ado/pipelines/steps/cache-types.yaml
+
+      - task: UseDotNet@2
+        inputs:
+          version: "10.x"
+        displayName: "Activate .NET 10"
+
+      - task: DownloadPipelineArtifact@2
+        displayName: "Download the build store (catzc-build)"
+        inputs:
+          artifact: catzc-build
+          path: $(Build.ArtifactStagingDirectory)/pwsh/built
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Test-Automation -PostBuild"
+
+      - template: /.ado/pipelines/steps/invoke-automation.yaml
+        parameters:
+          RunCommand: "Test-CatzcBuild"

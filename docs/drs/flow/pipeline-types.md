@@ -30,6 +30,13 @@ The pre-commit budget is 5–10 minutes; anything slower belongs post-commit, in
 
 - [CI](#ci)
 
+### Rule FDR-TYPE-BVTISTHREERUNS
+
+The BVT is three runs in order: the pre-build tests (the source run), the builds, and the post-build tests. The artifact is built once, in a
+job of its own, and consumed — never rebuilt — by the post-build tests; on the devbox the same three run in the same order before a push.
+
+- [CI](#ci)
+
 ### Rule FDR-TYPE-CRONISSCHEDULER
 
 CRON is a scheduler, not a pipeline — a schedule plus a `RunCommand` invoking an idempotent automation function; no build, artifact, or
@@ -180,6 +187,13 @@ plus the same build-and-verify post-commit on master. It produces a pass/fail si
 deployable unit downstream of it.
 
 This is "the CI pipeline" and, identically, "the CI part of the CD pipeline."
+
+The CI engine's verification is the BVT, and the BVT is three runs (FDR-TYPE-BVTISTHREERUNS): the source run, which needs no built bundle;
+the build event, which builds every declared bundle into the build store and checks it; and the post-build run, the tests that consume a
+built bundle. Each is a job of its own: the source-run job is unchanged and runs beside the build job, and the post-build job depends on the
+build job, downloads the store it published and runs against it, so the artifact is built once per pipeline run and never again. The store
+is a test input handed from job to job, not a deployable artifact, so a CI pipeline still never publishes one. On the devbox the same three
+commands run in the same order before a push.
 
 - **Trigger:** build validation on the PR branch (pre-commit) and a master trigger (post-commit), registered on the native path-filter
   projection of the unit it verifies ([durable-sha-globs](durable-sha-globs.md#rule-fdr-globs-nativepathfilter)) — generated from
