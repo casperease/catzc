@@ -130,9 +130,9 @@ A Go or Python test starts the engine as a process. A test that builds that star
 `pwsh -NoProfile -Command ". '<entry>' *> $null; <command>"`, with PowerShell's quoting rule copied into Go and Python — runs under one
 engine only. So the runner hands it the start: the executable, and the arguments from the model with the entry quoted in the engine's own
 rule and `{command}` where the test's command goes. The test fills in its command and runs the process. The same test therefore runs under
-any engine the runner names, with no change to the test, which is what running each black-box test under all three engines needs. The runner
-names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for the POSIX engines it also
-sets `CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
+any engine the runner names, with no change to the test, which is what running the engine-proof folder of black-box tests under all three
+engines needs. The runner names the engine through `CATZC_ENGINE` and the file that loads catzc into it through `CATZC_ENGINE_ENTRY`; for
+the POSIX engines it also sets `CATZC_IMPORTER`, the PowerShell entry `cats` loads, which is the build's entry in a build run.
 
 ### Fixture tables per engine
 
@@ -192,7 +192,8 @@ and its `cats` dispatcher (ADR-AUTO-ENGINE-IMPORTERENTRY).
 ## Consequences
 
 - A new place that needs an engine difference reads it from the model; a fix to a quote rule or a start flag is one edit.
-- The black-box tests are engine-neutral: they run under all three engines, unchanged, so a Go or Python test costs three runs.
+- The black-box tests are engine-neutral: the test policy's engine-proof folder runs under all three engines, unchanged, and every other Go
+  or Python folder under the default engine, since the dispatcher is one mechanism that one folder proves.
 - A user of a POSIX engine gets every catzc command through one dispatcher, at the cost of a pwsh start and an import per call.
 - zsh needs its own install on Windows and its own syntax check in place of ShellCheck; in return its column mostly repeats bash's.
 - The model is a dependency of the modules below `Catzc.Base.Execution` that key settings per shell, so it sits in its own foundation

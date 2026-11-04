@@ -44,15 +44,21 @@ BeforeDiscovery {
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
         Folder      = $TestFolder
-        # A Bash test is Bash, so it runs under the bash engine only.
+        # A Bash test is Bash, so it runs under the bash engine only. The POSIX dispatcher is one mechanism, so the one Go or
+        # Python folder the test policy names as its engine proof runs under every engine, and each other folder under pwsh.
         Engines     = if ($Language -eq 'bash') {
             @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
         }
         elseif ($Language -eq 'javascript') {
             @([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name)
         }
-        else {
+        elseif (@((Get-Config -Config test-policy).engine_proof | ForEach-Object {
+                    [System.IO.Path]::GetFullPath($_, (Get-RepositoryRoot))
+                }) -contains [System.IO.Path]::GetFullPath($TestFolder)) {
             @([Catzc.Base.Engines.ExecutionEngines]::Names)
+        }
+        else {
+            @([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name)
         }
         EngineTools = $EngineExecutable
     }) {

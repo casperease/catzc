@@ -32,8 +32,8 @@ is either the engine's executable with start arguments that load the run's entry
 which the test loads the way a user of that language does; the test never builds a command line of its own. The entry is the repository's in
 a source run and the build's in a build run, and the contract names the repository root. The runner sets the contract for its own processes
 only and restores the session's values afterwards, so the same test proves both run modes unchanged (ADR-AUTO-TEST-SAMETESTSBOTHRUNS). A
-test that starts the engine runs once per execution engine; a test that loads its language's own entry runs under that language's engine
-only.
+test that starts the engine runs under the default engine, and under every execution engine when its folder is the test policy's engine
+proof; a test that loads its language's own entry runs under that language's engine only.
 
 - [A black box](#a-black-box)
 
@@ -83,6 +83,10 @@ start comes from the execution engine model ([execution-engines](execution-engin
 engine's quoting rule and runs unchanged under every engine. A language whose users load an entry of their own tests that path, the way its
 user takes it. The variables are an external contract between the run and the processes it starts
 ([environment-variables](environment-variables.md#rule-adr-auto-envvar-setonlyfortools)).
+
+Because the start comes from the model, any engine can run any such test, but running all of them under every engine proves one thing many
+times: the dispatcher the POSIX engines go through is one mechanism, and one folder run under every engine proves it. The test policy names
+that folder as its engine proof, and every other folder of tests that start the engine runs under the default engine alone.
 
 The entry is the only difference between the two runs ([run-modes](../design/run-modes.md)), and the tests are the same files in both, so
 "works in both modes" holds for the engine as a process too.

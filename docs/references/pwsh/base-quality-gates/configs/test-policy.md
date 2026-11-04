@@ -14,3 +14,10 @@ Every key is optional. An omitted key takes the sensible default declared once o
 - `synthetic`: transactions the system is built to accept and clean up.
 
 An environment not listed is read-only. Example: `{ pre-prod: synthetic }`.
+
+`engine_proof` lists the Go or Python test folders, as paths relative to the repository root, that run under every execution engine
+([ADR-AUTO-TESTLANG-BLACKBOX](../../../../drs/automation/test-artifact-languages.md#rule-adr-auto-testlang-blackbox)). The POSIX dispatcher
+is one mechanism, so one folder run under every engine proves it; every other Go or Python folder runs under pwsh only, bash folders stay
+under bash and JavaScript folders under pwsh. The default is the empty list. Example: `[go/tests/baserepository]`.
+
+The comment above `engine_proof` in the config names the folder's reason in one line.

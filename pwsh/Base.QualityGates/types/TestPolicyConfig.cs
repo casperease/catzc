@@ -24,6 +24,11 @@ public sealed class TestPolicyConfig
 
     public IReadOnlyList<string> greedy_apart { get; }
 
+    // The Go or Python test folders that run under every engine; the dispatcher is one mechanism, so none by default and the rest run under pwsh.
+    public static readonly string[] DefaultEngineProof = Array.Empty<string>();
+
+    public IReadOnlyList<string> engine_proof { get; }
+
     public IReadOnlyDictionary<string, string> l4_mutation { get; }
 
     // The share of a file's stored duration a faster run keeps, so a cold-cache spike fades over about twenty runs; 0 trusts the last run.
@@ -39,15 +44,34 @@ public sealed class TestPolicyConfig
         int groupSize = DefaultGreedyGroupSize;
         double decay = DefaultDurationDecay;
         var apart = new List<string>(DefaultGreedyApart);
+        var proof = new List<string>(DefaultEngineProof);
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "l4_mutation" && name != "greedy_group_size" && name != "greedy_apart" && name != "duration_decay")
+                if (name != "l4_mutation" && name != "greedy_group_size" && name != "greedy_apart" && name != "duration_decay" && name != "engine_proof")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay)", name));
+                        "test-policy config: unknown key '{0}' (allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay, engine_proof)", name));
+                }
+            }
+
+            if (raw.Contains("engine_proof") && raw["engine_proof"] != null)
+            {
+                if (!(raw["engine_proof"] is IEnumerable folders) || raw["engine_proof"] is string || raw["engine_proof"] is IDictionary)
+                {
+                    throw new ArgumentException("test-policy config: engine_proof must be a list of test folder paths relative to the repository root");
+                }
+                proof.Clear();
+                foreach (object item in folders)
+                {
+                    string folder = Convert.ToString(item, CultureInfo.InvariantCulture);
+                    if (string.IsNullOrWhiteSpace(folder))
+                    {
+                        throw new ArgumentException("test-policy config: engine_proof entry must name a test folder relative to the repository root");
+                    }
+                    proof.Add(folder);
                 }
             }
 
@@ -111,6 +135,7 @@ public sealed class TestPolicyConfig
         l4_mutation = mutation;
         greedy_group_size = groupSize;
         greedy_apart = apart.AsReadOnly();
+        engine_proof = proof.AsReadOnly();
         duration_decay = decay;
     }
 

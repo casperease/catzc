@@ -7,7 +7,7 @@ Describe 'Language.Bridge setup errors' -Tag 'L2', 'logic' {
         # The child stubs the bridge's three module runners, so a run that fails before its cases is the only thing under test.
         $script:child = Join-Path $TestDrive 'run-bridge.ps1'
         Set-Content -LiteralPath $script:child -Value @'
-param([string] $Root, [string] $Bridge, [string] $Folder)
+param([string] $Root, [string] $Bridge, [string] $Folder, [switch] $Proof)
 Set-Location -LiteralPath $Root
 . ./importer.ps1 *> $null
 & (Get-Module Catzc.Base.QualityGates) {
@@ -19,6 +19,10 @@ Set-Location -LiteralPath $Root
     }
     function script:Get-LanguageTestOutcomes { throw 'ruff check failed in python/tests/widget/ (exit 1): F401 `os` imported but unused' }
 } $Folder
+if ($Proof) {
+    $global:proofFolder = $Folder
+    function global:Get-Config { [pscustomobject]@{ engine_proof = @($global:proofFolder) } }
+}
 $container = New-PesterContainer -Path $Bridge -Data @{ Language = 'python'; TestFolder = $Folder }
 $configuration = New-PesterConfiguration
 $configuration.Run.Container = $container
@@ -31,11 +35,14 @@ foreach ($test in $result.Tests) {
 '@
     }
 
-    It 'fails every case of every engine with the engine run message, never as a parent-block failure' {
-        $run = Invoke-Executable "pwsh -NoProfile -File `"$script:child`" -Root `"$script:root`" -Bridge `"$script:bridge`" -Folder `"$script:folder`"" `
+    It 'fails every case of <scope> with the engine run message, never as a parent-block failure' -ForEach @(
+        @{ scope = 'the engine'; extra = ''; engines = 1 }
+        @{ scope = 'every engine of the engine proof'; extra = ' -Proof'; engines = [Catzc.Base.Engines.ExecutionEngines]::Names.Count }
+    ) {
+        $run = Invoke-Executable "pwsh -NoProfile -File `"$script:child`" -Root `"$script:root`" -Bridge `"$script:bridge`" -Folder `"$script:folder`"$extra" `
             -WorkingDirectory $script:root -PassThru -NoAssert -Silent -TimeoutSeconds 120
         $rows = @($run.Output -split "`r?`n" | Where-Object { $_ -match '^(Passed|Failed|Skipped|NotRun)\|' })
-        $rows.Count | Should -Be (2 * [Catzc.Base.Engines.ExecutionEngines]::Names.Count) -Because $run.Full
+        $rows.Count | Should -Be (2 * $engines) -Because $run.Full
         foreach ($row in $rows) {
             $result, $name, $message = $row -split '\|', 3
             $result | Should -BeExactly 'Failed' -Because $name

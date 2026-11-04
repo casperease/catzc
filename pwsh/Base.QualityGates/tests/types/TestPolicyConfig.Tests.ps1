@@ -24,6 +24,23 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
         $own.IsApart('C:\widget\tests\Import-Catzc.Tests.ps1') | Should -BeFalse
     }
 
+    It 'proves no folder under every engine unless the config names its own' {
+        @([Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{}).engine_proof) | Should -HaveCount 0
+    }
+
+    It 'lists the folders a shipped engine_proof names' {
+        $config = [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ engine_proof = @('go/tests/widget', 'python/tests/gadget') })
+        @($config.engine_proof) | Should -Be @('go/tests/widget', 'python/tests/gadget')
+    }
+
+    It 'throws on an engine_proof that is <case>' -ForEach @(
+        @{ case = 'a scalar'; value = 'go/tests/widget' }
+        @{ case = 'a map'; value = @{ widget = 'go/tests/widget' } }
+    ) {
+        { [Catzc.Base.QualityGates.TestPolicyConfig]::new(@{ engine_proof = $value }) } |
+            Should -Throw '*engine_proof must be a list of test folder paths*'
+    }
+
     It 'throws on a greedy_apart entry that names the file with its suffix' {
         { [Catzc.Base.QualityGates.TestPolicyConfig]::new([ordered]@{ greedy_apart = @('Get-Gadget.Tests.ps1') }) } |
             Should -Throw "*greedy_apart entry 'Get-Gadget.Tests.ps1'*"
@@ -63,7 +80,7 @@ Describe 'TestPolicyConfig' -Tag 'L0', 'logic' {
     }
 
     It 'throws on <case>' -ForEach @(
-        @{ case = 'an unknown key'; data = @{ l5_mutation = @{} }; expected = "*unknown key 'l5_mutation'*(allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay)*" }
+        @{ case = 'an unknown key'; data = @{ l5_mutation = @{} }; expected = "*unknown key 'l5_mutation'*(allowed: l4_mutation, greedy_group_size, greedy_apart, duration_decay, engine_proof)*" }
         @{ case = 'a mode that is not one'; data = @{ l4_mutation = @{ widget = 'destructive' } }; expected = "*l4_mutation.widget 'destructive' is not one of: read-only, synthetic*" }
         @{ case = 'a list instead of a map'; data = @{ l4_mutation = @('widget') }; expected = '*l4_mutation must be a map*' }
     ) {
