@@ -555,6 +555,58 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
         }
     }
 
+    Context 'the build lock of a destination' {
+        BeforeAll {
+            Mock Get-OutputRoot { Join-Path $TestDrive 'lock-out' } -ModuleName Catzc.Internal.Builder
+        }
+
+        It 'builds anyway when another runspace holds the lock past the bounded wait' {
+            Mock Get-TimeoutSeconds { 2 } -ModuleName Catzc.Internal.Builder
+            $destination = Join-Path $TestDrive 'locked'
+            $buildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($destination, 'Catzc', '1.2.3'))
+            $hash = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($buildRoot.ToLowerInvariant()))
+            $name = 'Local\catzc-build-' + [System.Convert]::ToHexString($hash).Substring(0, 16).ToLowerInvariant()
+            $sync = [hashtable]::Synchronized(@{ Held = $false; Release = $false })
+            $holder = [powershell]::Create()
+            [void] $holder.AddScript({
+                    param($Name, $Sync)
+                    $mutex = [System.Threading.Mutex]::new($false, $Name)
+                    [void] $mutex.WaitOne()
+                    $Sync.Held = $true
+                    while (-not $Sync.Release) {
+                        Start-Sleep -Milliseconds 50
+                    }
+                    $mutex.ReleaseMutex()
+                    $mutex.Dispose()
+                }).AddArgument($name).AddArgument($sync)
+            $pending = $holder.BeginInvoke()
+            try {
+                $deadline = [datetime]::UtcNow.AddSeconds(10)
+                while (-not $sync.Held -and [datetime]::UtcNow -lt $deadline) {
+                    Start-Sleep -Milliseconds 50
+                }
+                $sync.Held | Should -BeTrue
+                $built = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination
+                $built.Reused | Should -BeFalse
+                Test-Path (Join-Path $built.BuildRoot 'build.json') | Should -BeTrue
+            }
+            finally {
+                $sync.Release = $true
+                $holder.EndInvoke($pending)
+                $holder.Dispose()
+            }
+        }
+
+        It 'leaves one build when two builds run one after the other into one destination' {
+            $destination = Join-Path $TestDrive 'sequential'
+            $first = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination
+            $second = Invoke-ModuleBuild @buildArguments -ModuleProfile widgets -Destination $destination
+            $second.Reused | Should -BeTrue
+            $second.ContentHash | Should -Be $first.ContentHash
+            @([System.IO.Directory]::GetDirectories((Join-Path $destination 'Catzc'))).Count | Should -Be 1
+        }
+    }
+
     Context 'the gates module' {
         It 'ships none of the gate tooling without it' {
             $built = Invoke-ModuleBuild @buildArguments -Module 'Catzc.Base.Widget' -Destination (Join-Path $TestDrive 'full-without-gates')

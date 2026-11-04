@@ -33,6 +33,7 @@ commands:
   Format-Links: 30 # -MoveMap over 4186 files for 1937 moved pages: 4.3 s (2026-10-26, reference-normal-form 4b)
   Build-Bicep: 45 # one template with eight slots, the test run's prewarm budget and key-lock wait: 8.5 s and 7.2 s alone for expedition (2026-11-03), killed at the 3 s default under start-up load
   Invoke-ImporterJanitors: 35 # the wait for another import's writers lock on one root: the nine at-import writers took 6.7 s together, the slowest 2.1 s (2026-11-03, forced due, no stamps stored)
+  Build-Modules: 60 # the wait for another builder of one build root: a full-profile build alone into a fresh folder took 12.1 s and 7.4 s (2026-11-04), the limit is five times the slower, as for the neighbouring rows
   Update-AzurePriceTable: 120 # one read-only Retail Prices API GET per cost-model meter, each bounded by this limit
 tests:
   run_seconds: 240 # a full run to L2: 206-233 s on 20 processors at 8 workers, its test time alone about 182 s over 9 slots (2026-10-30)

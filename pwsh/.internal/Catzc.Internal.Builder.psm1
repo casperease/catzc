@@ -15,6 +15,7 @@ $script:mergedFileSuffix = '.functions.ps1'
 . (Join-Path $PSScriptRoot 'assets/builder/Clear-StaleBuildFile.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceIndex.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceStamp.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Enter-BuildLock.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-ReusableBuild.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Save-BuildToStore.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceDirty.ps1')
@@ -205,150 +206,164 @@ function Invoke-ModuleBuild {
     if (-not $DryRun) {
         $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection
         $storeBuildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-OutputRoot), (Get-CatzcModulesFolder), 'built', $Bundle, $stamp.Substring(0, 12), 'Catzc', $Version))
-        $reused = Get-ReusableBuild -StoreBuildRoot $storeBuildRoot -BuildRoot $buildRoot -Stamp $stamp
-        if ($null -ne $reused) {
+    }
+    # One builder per build root at a time: a second one waits, then finds the held build through Get-ReusableBuild and writes nothing.
+    $buildLock = if (-not $DryRun) {
+        Enter-BuildLock -BuildRoot $buildRoot
+    }
+    try {
+        if (-not $DryRun) {
+            $reused = Get-ReusableBuild -StoreBuildRoot $storeBuildRoot -BuildRoot $buildRoot -Stamp $stamp
+            if ($null -ne $reused) {
+                return [pscustomobject]@{
+                    BuildRoot   = $buildRoot
+                    Version     = $Version
+                    Modules     = $modules
+                    Languages   = @($reused['languages'])
+                    TypesHash   = "$($reused['typesHash'])"
+                    ContentHash = "$($reused['contentHash'])"
+                    FileCount   = [int] $reused['fileCount']
+                    Dirty       = [bool] $reused['dirty']
+                    DryRun      = $false
+                    Reused      = $true
+                }
+            }
+        }
+        $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts -AllLanguageModule:([bool] $allLanguageModules) -Platform $platforms
+        if ($plan.Violations.Count -gt 0) {
+            throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS):`n  " +
+                ($plan.Violations -join "`n  "))
+        }
+
+        # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
+        $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts -Language $plan.Languages)
+        if ($outside.Count -gt 0) {
+            throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE-IMMUTABLEBUILD). " +
+                "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
+        }
+
+        $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($entry in $plan.Entries) {
+            [void] $plannedPaths.Add($entry.Path)
+        }
+        $missing = [System.Collections.Generic.List[string]]::new()
+        $dependencies = @(if ($modules.Count -gt 0) {
+                Get-InternalAssetDependency -ModulesRoot $sourceRoot -Module $modules -ParsedScripts $parsedScripts
+            })
+        foreach ($dependency in $dependencies) {
+            $childPath = ([string] $dependency.ChildPath).Replace('\', '/').TrimEnd('/')
+            while ($childPath.StartsWith('./')) {
+                $childPath = $childPath.Substring(2)
+            }
+            $target = if ($childPath) {
+                "$($dependency.Module)/$childPath"
+            }
+            else {
+                [string] $dependency.Module
+            }
+            $prefix = "$target/"
+            $present = $plannedPaths.Contains($target)
+            foreach ($plannedPath in $plannedPaths) {
+                if ($present) {
+                    break
+                }
+                $present = $plannedPath.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)
+            }
+            if (-not $present) {
+                $missing.Add("$target (read by $($dependency.Function), $($dependency.File):$($dependency.Line))")
+            }
+        }
+        if ($missing.Count -gt 0) {
+            throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependency path(s) would be missing from the build (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY). " +
+                "Ship the asset in the module's configs/ or assets/, or add the owning module to the build:`n  " + ($missing -join "`n  "))
+        }
+
+        $fileCount = $plan.Entries.Count + 1
+        if ($DryRun) {
             return [pscustomobject]@{
                 BuildRoot   = $buildRoot
                 Version     = $Version
                 Modules     = $modules
-                Languages   = @($reused['languages'])
-                TypesHash   = "$($reused['typesHash'])"
-                ContentHash = "$($reused['contentHash'])"
-                FileCount   = [int] $reused['fileCount']
-                Dirty       = [bool] $reused['dirty']
-                DryRun      = $false
-                Reused      = $true
+                Languages   = $plan.Languages
+                TypesHash   = $plan.TypesHash
+                ContentHash = $null
+                FileCount   = $fileCount
+                Dirty       = $dirty
+                DryRun      = $true
+                Reused      = $false
             }
         }
-    }
-    $plan = Get-ModuleBuildPlan -SourceRoot $sourceRoot -Module $modules -Version $Version -PackageMetadata $PackageMetadata -Index $index -ParsedScripts $parsedScripts -AllLanguageModule:([bool] $allLanguageModules) -Platform $platforms
-    if ($plan.Violations.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($plan.Violations.Count) problem(s) in the source tree prevent the build (merge preconditions, ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS):`n  " +
-            ($plan.Violations -join "`n  "))
-    }
 
-    # The closure check: the code itself, not only dependencies.yml, must be satisfied by the selection.
-    $outside = @(Get-BuildClosureViolation -SourceRoot $sourceRoot -Module $modules -Index $index -ParsedScripts $parsedScripts -Language $plan.Languages)
-    if ($outside.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($outside.Count) call(s) or config read(s) of the selected modules land outside the build (ADR-AUTO-BUNDLE-IMMUTABLEBUILD). " +
-            "Declare the dependency in dependencies.yml so the closure brings the owner in, or add the owning module to the build:`n  " + ($outside -join "`n  "))
-    }
+        $built = Write-ModuleBuildOutput -SourceRoot $sourceRoot -BuildRoot $buildRoot -Entries $plan.Entries
+        if ($null -ne $built -and $built.Hash -ne $plan.TypesHash) {
+            throw "Invoke-ModuleBuild: C# type sources changed during the build ($($plan.TypesHash) -> $($built.Hash)). Rebuild."
+        }
+        $typesDll = [System.IO.Path]::Combine((Get-TypesShadowRoot), "Catzc.Types.$($plan.TypesHash).dll")
+        $drift = @(Get-TypesContractDrift -Path $typesDll -RepositoryRoot (Get-RepositoryRoot))
+        if ($drift.Count -gt 0) {
+            throw ("Invoke-ModuleBuild: the build's types surface is not the committed contract:`n  " + ($drift -join "`n  "))
+        }
 
-    $plannedPaths = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($entry in $plan.Entries) {
-        [void] $plannedPaths.Add($entry.Path)
-    }
-    $missing = [System.Collections.Generic.List[string]]::new()
-    $dependencies = @(if ($modules.Count -gt 0) {
-            Get-InternalAssetDependency -ModulesRoot $sourceRoot -Module $modules -ParsedScripts $parsedScripts
-        })
-    foreach ($dependency in $dependencies) {
-        $childPath = ([string] $dependency.ChildPath).Replace('\', '/').TrimEnd('/')
-        while ($childPath.StartsWith('./')) {
-            $childPath = $childPath.Substring(2)
-        }
-        $target = if ($childPath) {
-            "$($dependency.Module)/$childPath"
-        }
-        else {
-            [string] $dependency.Module
-        }
-        $prefix = "$target/"
-        $present = $plannedPaths.Contains($target)
-        foreach ($plannedPath in $plannedPaths) {
-            if ($present) {
-                break
-            }
-            $present = $plannedPath.StartsWith($prefix, [System.StringComparison]::OrdinalIgnoreCase)
-        }
-        if (-not $present) {
-            $missing.Add("$target (read by $($dependency.Function), $($dependency.File):$($dependency.Line))")
-        }
-    }
-    if ($missing.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: $($missing.Count) internal asset dependency path(s) would be missing from the build (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY). " +
-            "Ship the asset in the module's configs/ or assets/, or add the owning module to the build:`n  " + ($missing -join "`n  "))
-    }
+        $languageRecords = @(foreach ($row in $plan.Languages) {
+                $handlerArguments = @{
+                    Module      = $row.Source
+                    Destination = [System.IO.Path]::Combine($buildRoot, $row.Destination)
+                    Silent      = $true
+                }
+                if ($row.Platform.Count -gt 0 -and (Get-Command $row.Command).Parameters.ContainsKey('Platform')) {
+                    $handlerArguments.Platform = $row.Platform
+                }
+                $handled = & $row.Command @handlerArguments
+                [ordered]@{
+                    track    = $row.Track
+                    module   = $row.Name
+                    language = $row.Language
+                    form     = $row.Form
+                    command  = $row.Command
+                    path     = $row.Destination
+                    record   = $handled | Select-Object -Property * -ExcludeProperty Destination
+                }
+            })
 
-    $fileCount = $plan.Entries.Count + 1
-    if ($DryRun) {
-        return [pscustomobject]@{
+        $contentHash = Get-ContentHash -Path $buildRoot -Exclude 'build.json'
+        $record = [ordered]@{
+            name         = 'Catzc'
+            bundle       = $Bundle
+            version      = $Version
+            contentHash  = $contentHash
+            typesHash    = $plan.TypesHash
+            typeSources  = [string[]] @($plan.TypeSources)
+            sourceCommit = Get-BuildSourceCommit
+            dirty        = $dirty
+            sourceStamp  = $stamp
+            fileCount    = $fileCount
+            modules      = $modules
+            languages    = $languageRecords
+        }
+        [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
+                    'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
+
+        # Every build into any destination fills the store, so the next build of this tree reuses it wherever it lands.
+        Save-BuildToStore -BuildRoot $buildRoot -StoreBuildRoot $storeBuildRoot
+
+        [pscustomobject]@{
             BuildRoot   = $buildRoot
             Version     = $Version
             Modules     = $modules
             Languages   = $plan.Languages
             TypesHash   = $plan.TypesHash
-            ContentHash = $null
+            ContentHash = $contentHash
             FileCount   = $fileCount
             Dirty       = $dirty
-            DryRun      = $true
+            DryRun      = $false
             Reused      = $false
         }
     }
-
-    $built = Write-ModuleBuildOutput -SourceRoot $sourceRoot -BuildRoot $buildRoot -Entries $plan.Entries
-    if ($null -ne $built -and $built.Hash -ne $plan.TypesHash) {
-        throw "Invoke-ModuleBuild: C# type sources changed during the build ($($plan.TypesHash) -> $($built.Hash)). Rebuild."
-    }
-    $typesDll = [System.IO.Path]::Combine((Get-TypesShadowRoot), "Catzc.Types.$($plan.TypesHash).dll")
-    $drift = @(Get-TypesContractDrift -Path $typesDll -RepositoryRoot (Get-RepositoryRoot))
-    if ($drift.Count -gt 0) {
-        throw ("Invoke-ModuleBuild: the build's types surface is not the committed contract:`n  " + ($drift -join "`n  "))
-    }
-
-    $languageRecords = @(foreach ($row in $plan.Languages) {
-            $handlerArguments = @{
-                Module      = $row.Source
-                Destination = [System.IO.Path]::Combine($buildRoot, $row.Destination)
-                Silent      = $true
-            }
-            if ($row.Platform.Count -gt 0 -and (Get-Command $row.Command).Parameters.ContainsKey('Platform')) {
-                $handlerArguments.Platform = $row.Platform
-            }
-            $handled = & $row.Command @handlerArguments
-            [ordered]@{
-                track    = $row.Track
-                module   = $row.Name
-                language = $row.Language
-                form     = $row.Form
-                command  = $row.Command
-                path     = $row.Destination
-                record   = $handled | Select-Object -Property * -ExcludeProperty Destination
-            }
-        })
-
-    $contentHash = Get-ContentHash -Path $buildRoot -Exclude 'build.json'
-    $record = [ordered]@{
-        name         = 'Catzc'
-        bundle       = $Bundle
-        version      = $Version
-        contentHash  = $contentHash
-        typesHash    = $plan.TypesHash
-        typeSources  = [string[]] @($plan.TypeSources)
-        sourceCommit = Get-BuildSourceCommit
-        dirty        = $dirty
-        sourceStamp  = $stamp
-        fileCount    = $fileCount
-        modules      = $modules
-        languages    = $languageRecords
-    }
-    [void] (Write-FileIfChanged -Path ([System.IO.Path]::Combine($buildRoot,
-                'build.json')) -Content ($record | ConvertTo-Json -Depth 5))
-
-    # Every build into any destination fills the store, so the next build of this tree reuses it wherever it lands.
-    Save-BuildToStore -BuildRoot $buildRoot -StoreBuildRoot $storeBuildRoot
-
-    [pscustomobject]@{
-        BuildRoot   = $buildRoot
-        Version     = $Version
-        Modules     = $modules
-        Languages   = $plan.Languages
-        TypesHash   = $plan.TypesHash
-        ContentHash = $contentHash
-        FileCount   = $fileCount
-        Dirty       = $dirty
-        DryRun      = $false
-        Reused      = $false
+    finally {
+        if ($null -ne $buildLock) {
+            $buildLock.ReleaseMutex()
+            $buildLock.Dispose()
+        }
     }
 }
 

@@ -78,6 +78,11 @@ mid-copy blocks a delete on Windows and the next writer retries. The source stam
 fills its own stamp folder, which another selection of the bundle never evicts, and the next build of the same tree and selection reuses the
 store wherever it lands ([ADR-AUTO-CACHE-CROSSSESSIONFILES](../../../drs/automation/caching.md#rule-adr-auto-cache-crosssessionfiles)).
 
+A real build holds the named mutex `Local\catzc-build-<first 16 hex of the lower-case SHA-256 of the build root's full path>` from before
+`Get-ReusableBuild` until after the store save, so a second builder of one build root waits (bounded by
+`Get-TimeoutSeconds -Command Build-Modules`), then finds the held build and writes nothing; a wait that ends without the lock builds anyway
+after one verbose line, an abandoned mutex is taken over, and a dry run takes none.
+
 ```powershell
 Invoke-ModuleBuild -ModuleProfile full -Version 6.6.666 -Destination (Join-Path (Get-OutputRoot) 'automation/built/full') -Bundle full -PackageMetadata $metadata
 ```
