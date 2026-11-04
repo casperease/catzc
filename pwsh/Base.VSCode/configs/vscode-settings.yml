@@ -129,6 +129,13 @@ settings:
     "**/python/.venv/**": true
     "**/node_modules/**": true
 
+  # Pylance analyses the tracked tree only: a test run fills out/ with snapshots, consumer roots and their workspaces, each a python tree.
+  python.analysis.exclude:
+    - out/**
+    - "**/.venv/**"
+    - "**/node_modules/**"
+    - pwsh/.vendor/**
+
   # Each language's formatter is injected from languages.yml, so Format Document runs the engine Format-Code runs; no format-on-save.
   "[markdown]":
     editor.quickSuggestions:
