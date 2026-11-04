@@ -43,3 +43,30 @@ Started 2026-10-30T12:08:26.6530558+01:00.
   steps; the plan was rewritten four times.
 - 2026-11-02 Cats: Token tip: Next time, save tokens by: giving verify agents numbered claims to mark TRUE/FALSE with file:line, which found
   every blocker in one round.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: a command without a commands row in timeouts.yml waits or is killed at the devbox
+  default of 3 s; Build-Bicep, Build-Modules and Invoke-ImporterJanitors have rows since 2026-11-03.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: a BeforeAll Write-Message never reaches a worker log; a test that reports numbers
+  writes a file beside its results, the run folder being the parent of CATZC_BICEP_BUILD_CACHE.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: the run lock refuses a call whose wait would exceed its budget instead of queuing
+  it, so two concurrent proofs through Invoke-CatzcCommand are impossible; chain commands into one call.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: the build store is immutable per source stamp and selection under
+  out/pwsh/built/\<bundle>/\<stamp>/, and the default destination out/pwsh/built/\<bundle>/Catzc/\<version> is shared by every Export-Catzc
+  caller and guarded by Enter-BuildLock.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: tests/ paths are outside the build stamp, so a test edit keeps every build warm and
+  a module edit makes the next run rebuild each selection, about 35 s each.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: the protection skip lives in a script-scoped variable of Base.Globs, so a second
+  full run in one session runs nothing; Clear-GlobSetProtection or a fresh import runs everything.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: language test folders are Pester containers discovered by Language.Bridge.ps1
+  BeforeDiscovery; the discovery cache keys them on the folder test files and the bridge digest.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: Consumer.L2 alone is 130-140 s and 2.3 times that under the 14-worker pool; it is
+  the full run critical path and the 240 s budget predates it.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: a session cache in a script-scoped variable dies with the next import;
+  Get-ModuleGlobSet and Get-GlobSet keep their derived tables that way.
+- 2026-11-04 Cats: In hindsight I wish I knew this fact: the manual test plan matches integrity blocks on file and block name, so re-tagging
+  a Describe to integrity or moving it to a new file needs its check in a category page.
+- 2026-11-04 Cats: Token tip: Next time, save tokens by: briefing a drone to add phase seconds first and cut second, with a stop at 40
+  calls; three step premises were wrong until measured.
+- 2026-11-04 Cats: Token tip: Next time, save tokens by: reading a run with one grep for its verdict lines and one results XML total, never
+  a drone transcript.
+- 2026-11-04 Cats: Token tip: Next time, save tokens by: never queuing a second Invoke-CatzcCommand behind one of mine that holds the lock
+  over 120 s; it is refused and the call is wasted.

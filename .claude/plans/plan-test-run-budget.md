@@ -32,6 +32,12 @@ plan:
 
 - The budget stays at 240 s; the next full run's wall clock in its `run.json` is the plan's exit, read from a fresh session (the protection
   skip is per session: `Clear-GlobSetProtection` or a new import runs everything).
+- Open question for the user: the budget of 240 s was measured on 2026-10-30 before `Consumer.L2`, `Build-Modules.Languages` and
+  `Build-Modules.Bundles` existed, and `Consumer.L2` alone is 130-140 s stretched 2.3 times under the pool's load; when the warm run still
+  reads over 240 s, the choice is between re-measuring the budget from that run and thinning what `Consumer.L2` proves per import.
+- Open question for the user, from the session of 2026-11-03: the `catzc-run` skill could carry two lines the drones re-learned all day,
+  "the run lock refuses a call whose wait exceeds its budget, so chain commands into one call" and "a `BeforeAll`'s `Write-Message` never
+  reaches a worker log, so a test that reports numbers writes a file beside its results".
 
 ## Open steps
 
