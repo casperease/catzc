@@ -34,11 +34,16 @@ plan:
   bridge of `Base.Repository` 161 and of `catzc_diagrams` 141, `Invoke-TestFile` 162 (80 alone), `Export-Catzc.Install` 122 (52 alone),
   `Build-Modules.Bundles` 109 (65 alone), the go bridge of `Base.Repository` 89. A file runs 1.7 to 2.4 times slower pooled than alone, the
   14 workers and their children sharing 20 processors.
+- The user's run of 17:21 (`20261104-172142`, one minute after the commit of 17:20, the engine cut in) read 317.7 s with two red cases fixed
+  since (the plan's own engine wording, the lock-wait race in `Invoke-CatzcCommand.Tests.ps1`): 10729 tests, 709 fewer, the costliest bridge
+  down to 84 pooled; but the cold rebuilds and the load took `Build-Modules.Bundles` to 238 pooled (109 the run before), `Consumer.L2` to
+  295 (233) and `Export-Catzc.Install` to 158 (122), and the greedy slot-seconds rose to 2383 (2114). Run-to-run noise between cold runs is
+  of the same size as a cut, so only the warm second run measures one.
 - `consumer-l2-phases.json` of 16:23, pooled: the consumer root 53.3, git 2.9, the session child 105.5 (the python workspace 9.9, TypeScript
   6.3, the probe 4.2, the gates 19.5, the DRS 0.2, the consumer's own `Test-Automation` 51.6), the second child 31.8.
-- The language bridge runs 12 shards for about 620 pooled slot-seconds: each Go and Python test folder under all three engines (pwsh, bash,
-  zsh), each bash folder under bash, each JavaScript folder under pwsh. The bash and zsh runs of a folder re-run the same tests through the
-  POSIX dispatcher, one pwsh start and one import per command, which is why they cost more than the pwsh run.
+- The language bridge ran 12 shards for about 620 pooled slot-seconds: each Go and Python test folder under every engine, each bash folder
+  under bash, each JavaScript folder under pwsh. The POSIX engines' runs of a folder re-run the same tests through the dispatcher, one pwsh
+  start and one import per command, which is why they cost more than the pwsh run.
 - Fresh cats sessions are spawned at 58 call sites in 22 test files, about 10 s each alone; the per-file collapse to one import per input is
   done, the repetition across files is structural.
 
@@ -49,7 +54,7 @@ plan:
   2026-11-04: "look at things to cut that have no verification value"), under ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS and
   ADR-AUTO-TEST-FEWINTEGRATIONTESTS, never a test that proves something nothing else proves.
 - **The engine runs of the black-box tests collapse to one proof** (the user, 2026-11-04). The POSIX dispatcher is one mechanism, so one
-  test folder run under every engine proves it, and every other folder's bash and zsh runs prove it again. The test policy names that
+  test folder run under every engine proves it, and every other folder's POSIX-engine runs prove it again. The test policy names that
   folder, `engine_proof` in `test-policy.yml`, shipped as `go/tests/baserepository` (the smallest three-engine folder, 89 s pooled for three
   engines); a Go or Python folder not named runs under pwsh only; bash folders stay under bash and JavaScript under pwsh. The default on the
   type is the empty list; the shipped value's reason is the comment above the key and the config page, not a registry `differs` entry, since

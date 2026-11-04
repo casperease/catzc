@@ -154,15 +154,39 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'says it waits for a held run lock, then runs once the lock is free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 300
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 30000
+        $seen = Join-Path $TestDrive 'waiting-line.txt'
+        [System.IO.File]::WriteAllText($seen, '')
+        $watch = [powershell]::Create().AddScript({
+                param($Seen, $Release)
+                $deadline = [datetime]::UtcNow.AddSeconds(30)
+                while ([datetime]::UtcNow -lt $deadline) {
+                    $text = try {
+                        [System.IO.File]::ReadAllText($Seen)
+                    }
+                    catch {
+                        ''
+                    }
+                    if ($text -like '*waiting for the run lock*') {
+                        break
+                    }
+                    Start-Sleep -Milliseconds 10
+                }
+                $Release.Set()
+            }).AddArgument($seen).AddArgument($holder.Release)
+        $watched = $watch.BeginInvoke()
         try {
-            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null)
+            $holder.Taken | Should -BeTrue
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1 6>$null | ForEach-Object { $_ | Tee-Object -FilePath $seen -Append })
             $LASTEXITCODE | Should -Be 0
             $lines[0] |
                 Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
             $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
         }
         finally {
+            $holder.Release.Set()
+            $watch.EndInvoke($watched)
+            $watch.Dispose()
             $holder.Shell.EndInvoke($holder.Handle)
             $holder.Shell.Dispose()
         }
