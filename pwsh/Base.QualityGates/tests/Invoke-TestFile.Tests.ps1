@@ -90,10 +90,15 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($script:setup,
             "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
 
-        # One worker spawn serves both failing fixtures; each It reads its own file's rows.
+        # A file that throws while Pester discovers it holds no test, so it yields no row.
+        $script:broken = Join-Path $TestDrive 'Broken.Tests.ps1'
+        [System.IO.File]::WriteAllText($script:broken,
+            "Describe 'Broken' -Tag 'L0', 'logic' {`n    throw 'widget discovery broke'`n    It 'never runs' { }`n}`n")
+
+        # One worker spawn serves all three failing fixtures; each It reads its own file's rows.
         $script:runError = $null
         try {
-            $script:run = Invoke-TestFile $script:fixture, $script:setup -Output Minimal -PassThru
+            $script:run = Invoke-TestFile $script:fixture, $script:setup, $script:broken -Output Minimal -PassThru
         }
         catch {
             $script:runError = $_
@@ -112,15 +117,12 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
             Should -Be 'Passed'
     }
 
-    # A file that throws while Pester discovers it holds no test, so it yields no row; the run must still fail.
+    # The run must fail on a discovery throw, though the broken file yields no row.
     It 'fails the run when a test file throws during discovery, though it yields no row' {
-        $broken = Join-Path $TestDrive 'Broken.Tests.ps1'
-        [System.IO.File]::WriteAllText($broken,
-            "Describe 'Broken' -Tag 'L0', 'logic' {`n    throw 'widget discovery broke'`n    It 'never runs' { }`n}`n")
-        $run = Invoke-TestFile $broken -Output Minimal -PassThru
+        $run = $script:run
         $run.Result | Should -Be 'Failed'
         $run.ExitCode | Should -Be 1
-        @($run.Rows) | Should -HaveCount 0
+        @($run.Rows | Where-Object File -EQ $script:broken) | Should -HaveCount 0
         ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status |
             Should -Be 'failed'
     }

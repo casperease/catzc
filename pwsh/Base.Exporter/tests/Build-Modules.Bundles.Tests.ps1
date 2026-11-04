@@ -19,7 +19,7 @@ BeforeAll {
             $result = $null
             $firstError = $null
             $tried = 0
-            foreach ($name in @((Get-Module $module).ExportedFunctions.Keys | Sort-Object)) {
+            $candidates = foreach ($name in @((Get-Module $module).ExportedFunctions.Keys | Sort-Object)) {
                 if ($name -notlike 'Get-*') {
                     continue
                 }
@@ -30,6 +30,13 @@ BeforeAll {
                 if ($mandatory.Count -gt 0) {
                     continue
                 }
+                [pscustomobject]@{
+                    Name       = $name
+                    Parameters = @($command.Parameters.Keys | Where-Object { $_ -notin [System.Management.Automation.Cmdlet]::CommonParameters }).Count
+                }
+            }
+            foreach ($candidate in @($candidates | Sort-Object Parameters, Name)) {
+                $name = $candidate.Name
                 $tried++
                 try {
                     & $name | Out-Null
@@ -68,7 +75,9 @@ BeforeAll {
 
     $script:built = @{}
     $jobs = @{}
-    foreach ($name in @((Get-Config -Config exporter).bundles.Keys)) {
+    # The largest bundle builds first, so its load, the longest, starts first and the last load to start is the smallest's.
+    $registry = (Get-Config -Config exporter).bundles
+    foreach ($name in @($registry.Keys | Sort-Object { - [int] $registry[$_].max_files })) {
         $destination = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-bundles-' + [guid]::NewGuid().ToString('N'))
         $state = @{ Error = $null; Handle = $null; Rows = @(); Plan = $null; Modules = @(); Destination = $destination }
         $script:built["$name"] = $state

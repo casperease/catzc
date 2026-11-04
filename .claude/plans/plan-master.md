@@ -2,7 +2,7 @@
 plan:
   status: active
   value: highest
-  reviewed: 2026-10-29
+  reviewed: 2026-11-04
   role: master
   targets: [.claude/plans]
 ---
@@ -45,10 +45,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- build-mode -> plan-build-mode.md: finish the builder for any module combination, and prove every function in build mode installed in
-  another repository and in a folder with no repository.
-- test-run-budget -> plan-test-run-budget.md: the full run back under its 240 s budget, Consumer.L2's set-up and the warm discovery cut by
-  measurement.
+- test-run-budget -> plan-test-run-budget.md: the full run back under its 240 s budget; this round's cuts landed, the plan waits on the
+  user's warm full run and reopens with the next cut if that run reads over 240 s.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

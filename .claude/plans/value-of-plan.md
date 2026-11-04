@@ -30,23 +30,28 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value   | Plan                 | Needed docs                                            | Needed tests                                 | State         |
-| ------- | -------------------- | ------------------------------------------------------ | -------------------------------------------- | ------------- |
-| highest | plan-build-mode      |                                                        |                                              | new           |
-| high    | plan-test-run-budget | ADR-AUTO-TEST speed rules (the test-automation record) | the next full run's wall clock in `run.json` | new, one step |
+| Value | Plan                 | Needed docs                                            | Needed tests                                 | State                 |
+| ----- | -------------------- | ------------------------------------------------------ | -------------------------------------------- | --------------------- |
+| high  | plan-test-run-budget | ADR-AUTO-TEST speed rules (the test-automation record) | the next full run's wall clock in `run.json` | waits on the warm run |
 
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. Deleted 2026-11-02, every step landed: plan-drone-closing-gates: the `catzc-verify` end-of-task checks name `Test-Formatting` and
-`Test-Terminology` and the comment page a new function needs, `catzc-core` splits a chunk of more than four steps across two drones, and the
-capability registry lists the two gates. Deleted 2026-10-29, every step landed: plan-slide-poc-retirement (it replaced plan-diagram-review):
-feeds edges gone from the diagram language, every diagram retitled and renamed to the system part it shows, the side panels and edge markers
-fixed, the diagram and slide commands proven, the 13 proof-of-concept decks harvested into docs/references/slides/slide-style-and-ideas.md
-and deleted with the diagram-review skill. Deleted 2026-10-29, closed by its own rule (no hang in VS Code for a week, the user):
-plan-vscode-session-binding: its decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION, `Get-VsCodeSession` stays the first instrument for
-a recurrence. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
-explanation of how the tool behaves when a team uses it; that belongs in the docs.
+deletion. Deleted 2026-11-04, every step landed on 2026-11-03 and its two open questions decided: plan-build-mode: build mode for another
+team's repository, the three config scopes, a consumer's own modules, types, tracks and DRS, the gate tooling following the gates,
+`Test-QualityGates` as the one CI entry, every declared bundle buildable, every language shipped; the package sources a consumer root
+renders are proven in `Consumer.L2` (the npm registry and the uv index case) under ADR-AUTO-PKGSRC, so no plan-package-sources follows; the
+tier and CI claims of the test-automation record moved to plan-test-run-budget as a step; the proposed explanation page of a consumer's
+three roots is dropped, since consumer-repository.md names them once and a second telling is a second living version (PDR-ONELIVE), and a
+diagram needs an ask (ADR-REPO-AI-OUTISOUTPUT). Deleted 2026-11-02, every step landed: plan-drone-closing-gates: the `catzc-verify`
+end-of-task checks name `Test-Formatting` and `Test-Terminology` and the comment page a new function needs, `catzc-core` splits a chunk of
+more than four steps across two drones, and the capability registry lists the two gates. Deleted 2026-10-29, every step landed:
+plan-slide-poc-retirement (it replaced plan-diagram-review): feeds edges gone from the diagram language, every diagram retitled and renamed
+to the system part it shows, the side panels and edge markers fixed, the diagram and slide commands proven, the 13 proof-of-concept decks
+harvested into docs/references/slides/slide-style-and-ideas.md and deleted with the diagram-review skill. Deleted 2026-10-29, closed by its
+own rule (no hang in VS Code for a week, the user): plan-vscode-session-binding: its decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION,
+`Get-VsCodeSession` stays the first instrument for a recurrence. A plan holds only planned work that is not yet implemented (the user,
+2026-10-20): no Done section, no proof of built work, no explanation of how the tool behaves when a team uses it; that belongs in the docs.
 
 Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 

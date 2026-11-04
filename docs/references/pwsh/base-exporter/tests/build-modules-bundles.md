@@ -24,3 +24,12 @@ Above `$bundleRegistry = (Get-Config -Config exporter).bundles`, written with `#
 The registry is read at discovery, so a bundle added to exporter.yml is covered without an edit here.
 Every bundle is built, self-checked and loaded in a fresh session for real.
 ```
+
+## comment:3
+
+Above `$candidates = foreach ($name in @((Get-Module $module).ExportedFunctions.Keys...`, written with `#`.
+
+```text
+The cheapest candidates go first, the fewest parameters then the name: a function that takes none reads the least, so the
+probe does not run a repository-wide scan where a one-line getter of the same module proves the module just as loaded.
+```

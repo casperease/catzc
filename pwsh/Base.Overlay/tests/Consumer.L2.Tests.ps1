@@ -176,7 +176,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         # One install per file: the full bundle, the only declared one whose closure carries Catzc.Base.Overlay, plus the consumer's overlay entries.
         $startedAt = [datetime]::UtcNow.ToString('o')
         $total = [System.Diagnostics.Stopwatch]::StartNew()
-        $phaseTimes = @(0, 0, 0)
+        $phaseTimes = @(0, 0, 0, 0)
         $script:handle = New-ConsumerRoot -Bundle 'full' -File @{
             '.gitignore'                                    = "out/`ngo.work`n*/*/go.mod`n*/tests/*/go.mod`n"
             'widget/Local/Get-LocalWidget.ps1'              = $widget
@@ -297,7 +297,43 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
             $probe
         }
         $phaseTimes[2] = [math]::Round($total.Elapsed.TotalSeconds, 1)
-        Write-Message ("Consumer.L2 phases (s): NewConsumerRoot=$($phaseTimes[0]) Git=$($phaseTimes[1]) Child=$($phaseTimes[2]) " + (($script:session.Phases.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))
+
+        # One second fresh session answers the cases that need a session after an edit of the consumer's tree: the edited module file, the rendered package sources and the gate run over the planted file.
+        $total.Restart()
+        $editedFile = Join-Path $script:handle.WorkingRoot 'widget/Local/Get-LocalWidget.ps1'
+        [System.IO.File]::WriteAllText($editedFile, ([System.IO.File]::ReadAllText($editedFile)).Replace('widget-v1', 'widget-v2'))
+        # A tracked file of the consumer's module whose name is no verb-noun form, which Test-IdiomaticNames flags for a PowerShell file.
+        [System.IO.File]::WriteAllText((Join-Path $script:handle.WorkingRoot 'widget/Local/planted_widget.ps1'), "function Get-PlantedWidget {`n    [CmdletBinding()]`n    param()`n`n    'planted'`n}`n")
+        # Only the planted file joins the index: the first gate run left its cache under out/, which is no source of the consumer's.
+        git -C $script:handle.WorkingRoot add widget/Local/planted_widget.ps1
+        $script:second = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
+            $edited = Get-LocalWidget
+            $root = Get-RepositoryRoot
+            $javascript = Join-Path $root '.catzc/configs/javascript.yml'
+            $python = Join-Path $root '.catzc/configs/python.yml'
+            $pythonPins = [System.IO.File]::ReadAllText($python)
+            try {
+                # A working-root config is read whole, so the python override keeps the fixture's pins beside the widget package source.
+                [System.IO.File]::WriteAllText($javascript, "package_source: { name: widget, url: 'https://feeds.widget.example/npm/' }`n")
+                [System.IO.File]::WriteAllText($python, $pythonPins + "package_source: { name: widget, url: 'https://feeds.widget.example/pypi/simple/' }`n")
+                $null = Build-RootConfig -Path .npmrc
+                $null = Build-RootConfig -Path python/pyproject.toml
+                $rendered = [pscustomobject]@{
+                    Npmrc     = [System.IO.File]::ReadAllText((Join-Path $root '.npmrc'))
+                    Pyproject = [System.IO.File]::ReadAllText((Join-Path $root 'python/pyproject.toml'))
+                }
+            }
+            finally {
+                # The gate run below reads the public sources again: the python file returns to its pins, the javascript file is removed, and both render anew.
+                [System.IO.File]::WriteAllText($python, $pythonPins)
+                [System.IO.File]::Delete($javascript)
+                $null = Build-RootConfig -Path .npmrc
+                $null = Build-RootConfig -Path python/pyproject.toml
+            }
+            [pscustomobject]@{ Edited = $edited; Rendered = $rendered; Issues = (Test-QualityGates -PassThru).Issues }
+        }
+        $phaseTimes[3] = [math]::Round($total.Elapsed.TotalSeconds, 1)
+        Write-Message ("Consumer.L2 phases (s): NewConsumerRoot=$($phaseTimes[0]) Git=$($phaseTimes[1]) Child=$($phaseTimes[2]) SecondChild=$($phaseTimes[3]) " + (($script:session.Phases.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ' '))
 
         # Under a test worker the phases also land in the run folder (the parent of the worker's bicep build cache), where a worker's log keeps no message; elsewhere they land in the output root.
         $phaseFolder = if ($env:CATZC_BICEP_BUILD_CACHE) {
@@ -309,7 +345,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
         $phaseRecord = [ordered]@{
             Started = $startedAt
             File    = $PSCommandPath
-            Seconds = [ordered]@{ NewConsumerRoot = $phaseTimes[0]; Git = $phaseTimes[1]; Child = $phaseTimes[2] }
+            Seconds = [ordered]@{ NewConsumerRoot = $phaseTimes[0]; Git = $phaseTimes[1]; Child = $phaseTimes[2]; SecondChild = $phaseTimes[3] }
         }
         foreach ($phase in $script:session.Phases.GetEnumerator()) {
             $phaseRecord.Seconds[$phase.Key] = $phase.Value
@@ -404,10 +440,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'shows an edit of the consumer module''s file in the next fresh session, with nothing built in between' -Tag 'ADR-AUTO-CONSUMER-SOURCEMODULES' {
-        $file = Join-Path $script:handle.WorkingRoot 'widget/Local/Get-LocalWidget.ps1'
-        [System.IO.File]::WriteAllText($file, ([System.IO.File]::ReadAllText($file)).Replace('widget-v1', 'widget-v2'))
-        $second = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { Get-LocalWidget }
-        $second | Should -Be 'widget-v2'
+        $script:second.Edited | Should -Be 'widget-v2'
     }
 
     It 'indexes the consumer module''s config under the consumer''s namespace, and finds nothing of it in catzc''s' -Tag 'ADR-AUTO-CONSUMER-OWNCONFIGS' {
@@ -450,31 +483,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'renders the npm registry and the uv index from the consumer''s own package sources' -Tag 'ADR-AUTO-PKGSRC-SOURCEPERLANGUAGE', 'ADR-CONF-LOADING-WORKINGROOTREADWHOLE' {
-        # One child does the render and the restore, so the case pays one import.
-        $rendered = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock {
-            $root = Get-RepositoryRoot
-            $javascript = Join-Path $root '.catzc/configs/javascript.yml'
-            $python = Join-Path $root '.catzc/configs/python.yml'
-            $pythonPins = [System.IO.File]::ReadAllText($python)
-            try {
-                # A working-root config is read whole, so the python override keeps the fixture's pins beside the widget package source.
-                [System.IO.File]::WriteAllText($javascript, "package_source: { name: widget, url: 'https://feeds.widget.example/npm/' }`n")
-                [System.IO.File]::WriteAllText($python, $pythonPins + "package_source: { name: widget, url: 'https://feeds.widget.example/pypi/simple/' }`n")
-                $null = Build-RootConfig -Path .npmrc
-                $null = Build-RootConfig -Path python/pyproject.toml
-                [pscustomobject]@{
-                    Npmrc     = [System.IO.File]::ReadAllText((Join-Path $root '.npmrc'))
-                    Pyproject = [System.IO.File]::ReadAllText((Join-Path $root 'python/pyproject.toml'))
-                }
-            }
-            finally {
-                # The later cases read the public sources again: the python file returns to its pins, the javascript file is removed, and both render anew.
-                [System.IO.File]::WriteAllText($python, $pythonPins)
-                [System.IO.File]::Delete($javascript)
-                $null = Build-RootConfig -Path .npmrc
-                $null = Build-RootConfig -Path python/pyproject.toml
-            }
-        }
+        $rendered = $script:second.Rendered
         $rendered.Npmrc | Should -BeLike '*registry=https://feeds.widget.example/npm/*'
         $rendered.Pyproject | Should -BeLike '*[[]tool.uv.index]]*name = "widget"*url = "https://feeds.widget.example/pypi/simple/"*'
     }
@@ -486,11 +495,7 @@ Describe 'Get-LocalWidget' -Tag 'L0', 'logic' {
     }
 
     It 'turns a green gate red when the consumer''s own source carries its defect' -Tag 'ADR-AUTO-CONSUMER-CATZCGATES', 'ADR-AUTO-TEST-QUALITYGATE' {
-        # A tracked file of the consumer's module whose name is no verb-noun form, which Test-IdiomaticNames flags for a PowerShell file.
-        [System.IO.File]::WriteAllText((Join-Path $script:handle.WorkingRoot 'widget/Local/planted_widget.ps1'), "function Get-PlantedWidget {`n    [CmdletBinding()]`n    param()`n`n    'planted'`n}`n")
-        # Only the planted file joins the index: the first gate run left its cache under out/, which is no source of the consumer's.
-        git -C $script:handle.WorkingRoot add widget/Local/planted_widget.ps1
-        $second = Invoke-InBuiltCatzc -Handle $script:handle -ScriptBlock { (Test-QualityGates -PassThru).Issues }
+        $second = $script:second.Issues
         $before = Get-GateRow -GateSet $script:session.GateSet -Issue $script:session.GateReport.Issues
         $after = Get-GateRow -GateSet $script:session.GateSet -Issue $second
         ($after | Where-Object Gate -EQ 'Test-IdiomaticNames').Issues | Should -BeGreaterThan 0

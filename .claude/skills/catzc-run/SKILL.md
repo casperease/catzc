@@ -24,13 +24,16 @@ metadata:
    `Enter-CatzcBurst.ps1` after its named arguments, each step its own argument, and run in the burst's own process.
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
    to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call that
-   may wait on the run lock takes the 340 s background roof, and a re-imprint runs one folder per call; a burst ends with "burst done" sent
+   may wait on the run lock takes the 340 s background roof, and the lock refuses a call whose wait exceeds its budget, so the commands of
+   one proof chain into one call; a re-imprint runs one folder per call; a burst ends with "burst done" sent
    at once after `Exit-CatzcBurst`; a burst step is an `Invoke-TestFile` call or a quality gate the brief names, its files staged with
    `-Stage`, its verdict read from the results XML; a bicep module whose params change lands in the same burst as its callers.
 4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
    is waited on by a second background call, never by polling its output, and its result is read with one grep for its
-   `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run; a tree sweep is answered by the Grep
-   and Glob tools, never a shell loop or recursive grep, and a wide markdown table is searched with only-matching output or a count. Editing
+   `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run, since a `BeforeAll`'s
+   `Write-Message` never reaches a worker log, so a test that reports numbers writes a file beside its results; a tree sweep is answered
+   by the Grep and Glob tools, never a shell loop or recursive grep, and a wide markdown table is searched with only-matching output or a
+   count. Editing
    a code line whose long comment moved to a `docs/references/` comment page edits that page's "Above `…`" line too. A shared config
    (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its code in one
    pass and is parked in `out/` during a peer's burst, as is a `pwsh/*/types/*.cs` edit (every import compiles it), and a gate after a
