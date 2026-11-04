@@ -25,6 +25,9 @@ before (`20261103-223037`):
 - The wall clock is 348.3 s (293.5 s the night before). The pool is 14 slots: 8 parallel shards (ending 249-301 s) and 6 greedy slots that
   46 greedy files take as they free; the last greedy file starts at 333 s. The slot-seconds are 4820 (2179 parallel, 2641 greedy), 3746 the
   night before; 4820 over 14 slots is 344 s, so the pool is packed and no order of the same files wins.
+- The user's full run of 14:51 (`out/test-automation/20261104-145159`), on the dirty tree with this round's four cuts in, read 289.0 s wall
+  clock with two red cases that are fixed since (the record's type literal, the skill file's formatting); the warm run after the commit is
+  still the exit.
 - The costliest greedy files, pooled seconds (the night before in brackets): `Consumer.L2` 309 (260), `Build-Modules.Bundles` 220 (170),
   `Invoke-TestFile` 213 (132), the language bridge 201 and 177 (158 and 108), `Export-Catzc.Install` 151 (138), `Import-Catzc` 94 (81),
   `Build-Modules.Languages` 70 (66), `Consumer.NoRepository.L2` 66. Every file stretched about 1.3 times between the two cold runs, the
@@ -61,9 +64,10 @@ before (`20261103-223037`):
 - The `catzc-run` skill carries the two lines the drones re-learned on 2026-11-03 (decided 2026-11-04): the run lock refuses a call whose
   wait exceeds its budget, so commands chain into one call; a `BeforeAll`'s `Write-Message` never reaches a worker log, so a test that
   reports numbers writes a file beside its results.
-- The test-automation record states the default top tier once, from `[TestTiers]::DefaultTop`, and drops the claim that both runs execute in
-  CI on every push, which no pipeline does: a CI is `Test-QualityGates` then the source `Test-Automation` until a pipeline runs
-  `Test-CatzcBuild` (moved here from plan-build-mode, decided 2026-11-04).
+- The test-automation record states the default top tier once, as the `DefaultTop` constant of the `TestTiers` type (an automation record is
+  engine-neutral, so no pwsh type literal: `Test-DrsEngineNeutrality`), and drops the claim that both runs execute in CI on every push,
+  which no pipeline does: a CI is `Test-QualityGates` then the source `Test-Automation` until a pipeline runs `Test-CatzcBuild` (moved here
+  from plan-build-mode, decided 2026-11-04).
 
 ## Open steps
 
