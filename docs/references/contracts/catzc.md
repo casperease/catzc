@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-ContractReference -Path docs/references/contracts/catzc.md"
-    with_body_sha: cf7ebf6903fe
+    with_body_sha: "6a9ca1bee068"
 ---
 
 # docs/references/contracts/catzc.md
@@ -175,6 +175,7 @@ The current version: edited in place
 | `pwsh.base.maps`                      | `test_world_map.command.yml`                     | `pwsh/Base.Maps/Test-WorldMap.ps1`                                     | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                                    |
 | `pwsh.base.maps`                      | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                                    |
 | `pwsh.base.markdown_meta`             | `types.json`                                     | none                                                                   | provided  | types surface    | none                                                                                                                                                                                                                                                                                                                                                                                    |
+| `pwsh.base.module_system`             | `new_importer_core.command.yml`                  | `pwsh/Base.ModuleSystem/New-ImporterCore.ps1`                          | provided  | command contract | `repository_root: string -> string`                                                                                                                                                                                                                                                                                                                                                     |
 | `pwsh.base.module_system`             | `test_checked_in_binaries.command.yml`           | `pwsh/Base.ModuleSystem/Test-CheckedInBinaries.ps1`                    | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                                    |
 | `pwsh.base.module_system`             | `test_folder_conventions.command.yml`            | `pwsh/Base.ModuleSystem/Test-FolderConventions.ps1`                    | provided  | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                                    |
 | `pwsh.base.module_system`             | `test_function_dependency.command.yml`           | `pwsh/Base.ModuleSystem/Test-FunctionDependency.ps1`                   | provided  | command contract | `modules_root: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                              |
@@ -515,6 +516,8 @@ Notes:
   label the value-chain map prints is a glossary term.
 - `pwsh.base.maps/test_world_map.command.yml`: Checks that every tracked file sits in a declared track and its tech-stack, and that every
   label the world map prints is a glossary term.
+- `pwsh.base.module_system/new_importer_core.command.yml`: Returns the module folders of the importer core, the closure of
+  Catzc.Base.ModuleSystem over the declared dependency graph.
 - `pwsh.base.module_system/test_checked_in_binaries.command.yml`: Checks that every checked-in binary in the repository is stored
   byte-exact.
 - `pwsh.base.module_system/test_folder_conventions.command.yml`: Checks that every module folder of the modules track follows the folder and

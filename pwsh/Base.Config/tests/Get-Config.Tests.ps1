@@ -144,6 +144,13 @@ Describe 'Get-Config' -Tag 'L0' {
             $configuration.gadgets.Contains('sprung') | Should -BeFalse
         }
 
+        It 'loads the owning module before it reads the module of a config' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+            Mock Import-DeferredModule -ModuleName Catzc.Base.Config -MockWith { }
+            Set-Content -Path (Join-Path $bundled 'widget-owned.yml') -Value 'limit: 3'
+            (Get-Config -Config widget-owned).limit | Should -Be 3
+            Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.Config -Times 1 -Exactly -ParameterFilter { $Name -eq 'Catzc.Base.Widget' }
+        }
+
         It 'finds the fragment of a built root''s namespaced folder under the overlay''s bare folder' -Tag 'ADR-AUTO-OVERLAY-CONFIGFRAGMENT' {
             Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -MockWith {
                 @{ Name = $Config; Module = 'Catzc.Base.Widget'; Folder = 'Catzc.Base.Widget'; Path = (Join-Path $bundled "$Config.yml") }

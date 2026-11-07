@@ -83,7 +83,29 @@ function Enter-TestRunLocation {
     $clock = [System.Diagnostics.Stopwatch]::StartNew()
     $sourceCache = Join-Path (Get-OutputRoot) 'cache'
     if ([System.IO.Directory]::Exists($sourceCache)) {
-        Copy-Directory $sourceCache (Join-Path $location.Snapshot.Path 'out/cache')
+        # Another process's atomic writer may have a temp file in flight: it is skipped, and a file that vanishes or is held between the listing and its copy is skipped too.
+        $cacheTarget = Join-Path $location.Snapshot.Path 'out/cache'
+        $cacheRoot = [System.IO.Path]::GetFullPath($sourceCache)
+        [void] [System.IO.Directory]::CreateDirectory($cacheTarget)
+        $cacheFiles = try {
+            @(Get-ChildPath $cacheRoot -File -Depth 64 -Exclude @() -PruneVendor $false)
+        }
+        catch [System.IO.IOException] {
+            @()
+        }
+        foreach ($cacheFile in $cacheFiles) {
+            if ($cacheFile.EndsWith('.tmp', [System.StringComparison]::OrdinalIgnoreCase)) {
+                continue
+            }
+            $copyTarget = Join-Path $cacheTarget ([System.IO.Path]::GetRelativePath($cacheRoot, $cacheFile))
+            try {
+                [void] [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($copyTarget))
+                [System.IO.File]::Copy($cacheFile, $copyTarget, $true)
+            }
+            catch [System.IO.IOException], [System.UnauthorizedAccessException] {
+                Write-Verbose "Skipped the cache file '$cacheFile' while copying the snapshot's caches: $($_.Exception.Message)"
+            }
+        }
         # The writers' stamp memo states the working folder's outputs, which the snapshot lacks, so without it every at_import writer is due.
         [System.IO.File]::Delete((Join-Path $location.Snapshot.Path 'out/cache/generated-writers.json'))
     }

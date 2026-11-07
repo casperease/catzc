@@ -9,6 +9,8 @@ function Test-ConfigValidators {
 
     $issues = [System.Collections.Generic.List[string]]::new()
     $validatorCount = 0
+    # The sweep reads every loaded module's validators, so no module may still be deferred.
+    Import-DeferredModule -All
     $modulesRoot = Get-CatzcModulesRoot
     foreach ($moduleDirectory in (Get-ChildPath $modulesRoot -Directory -Depth 1 | Sort-Object)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)

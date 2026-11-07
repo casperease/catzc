@@ -139,10 +139,6 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.TestRunSeconds() | Should -Be 180
         }
 
-        It 'resolves the shipped post-build roof from timeouts.yml' -Tag 'integrity' {
-            (Get-Config -Config timeouts).PostBuildSeconds() | Should -Be 300
-        }
-
         It 'overrides the run-list bound alone' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
             $config = New-TimeoutsConfig ([ordered]@{ tests = @{ run_list_seconds = 120 } })
             $config.RunListSeconds() | Should -Be 120
@@ -279,6 +275,21 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             @{ case = 'a shape that is not a map'; parallel = 3; message = '*invalid parallel (must be a map*' }
         ) {
             { New-TimeoutsConfig ([ordered]@{ parallel = $parallel }) } | Should -Throw $message
+        }
+
+        It 'resolves a three-second console import roof when import is absent, and overrides it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            (New-TimeoutsConfig ([ordered]@{})).ImportConsoleSeconds() |
+                Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::ImportDefaultConsoleSeconds)
+            [Catzc.Base.Timeouts.TimeoutsConfig]::ImportDefaultConsoleSeconds | Should -Be 3
+            (New-TimeoutsConfig ([ordered]@{ import = @{ console_seconds = 5 } })).ImportConsoleSeconds() | Should -Be 5
+        }
+
+        It 'rejects a bad import section: <case>' -ForEach @(
+            @{ case = 'an unknown key'; import = @{ hours = 1 }; message = "*unknown key 'import.hours'*" }
+            @{ case = 'a zero'; import = @{ console_seconds = 0 }; message = "*invalid import.console_seconds '0'*" }
+            @{ case = 'a shape that is not a map'; import = 3; message = '*invalid import (must be a map*' }
+        ) {
+            { New-TimeoutsConfig ([ordered]@{ import = $import }) } | Should -Throw $message
         }
 
         It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {

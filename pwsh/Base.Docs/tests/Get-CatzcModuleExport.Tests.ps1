@@ -45,6 +45,15 @@ Describe 'Get-CatzcModuleExport' -Tag 'L0', 'logic' {
         $script:modules.Module | Should -Not -Contain '.widget'
         $script:modules.Module | Should -Not -Contain 'Catzc.Gadget.Outside'
     }
+
+    It 'completes the deferred load before it enumerates the loaded modules' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        $script:order = [System.Collections.Generic.List[string]]::new()
+        Mock Import-DeferredModule -ModuleName Catzc.Base.Docs { $script:order.Add('import') }
+        Mock Get-Module -ModuleName Catzc.Base.Docs { $script:order.Add('enumerate'); @() }
+        & (Get-Module Catzc.Base.Docs) { param($root) Get-CatzcModuleExport -ModulesRoot $root } $script:modulesRoot | Out-Null
+        Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.Docs -Times 1 -Exactly -ParameterFilter { $All }
+        $script:order | Should -Be @('import', 'enumerate')
+    }
 }
 
 Describe 'Get-CatzcModuleExport — loaded catzc modules' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {

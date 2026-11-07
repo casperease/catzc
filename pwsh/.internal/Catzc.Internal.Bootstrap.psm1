@@ -151,6 +151,7 @@ $script:privateFunctionFolder = $null
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Resolve-ModuleName.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Get-ModuleNamespace.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Build-ConsumerTypes.ps1')
+. (Join-Path $PSScriptRoot 'assets/bootstrap/Get-TypeSourceRecord.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-CSharpTypes.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Get-BundleModuleDirectory.ps1')
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-AllModules.ps1')
@@ -245,6 +246,7 @@ function Get-DynamicManifestContent {
 # PowerShell lets the last import shadow a command silently, so a name collision fails the import instead.
 function Assert-UniqueModuleFunctionName {
     [CmdletBinding()]
+    [OutputType([hashtable])]
     param(
         [Parameter(Mandatory)]
         [AllowNull()]
@@ -256,6 +258,8 @@ function Assert-UniqueModuleFunctionName {
 
     # function name -> list of '<Module>/<relative path>' files that export it
     $sources = @{}
+    # function name -> the module folder that owns it; the map the importer registers deferred modules from
+    $owners = @{}
 
     foreach ($dir in $ModuleDirs) {
         $files = [System.Collections.Generic.List[string]]::new()
@@ -285,6 +289,7 @@ function Assert-UniqueModuleFunctionName {
                 $sources[$name] = [System.Collections.Generic.List[string]]::new()
             }
             $sources[$name].Add("$($dir.Name)/$relative")
+            $owners[$name] = $dir.Name
         }
     }
 
@@ -327,6 +332,8 @@ function Assert-UniqueModuleFunctionName {
         ) + $sorted
         throw ($lines -join "`n")
     }
+
+    $owners
 }
 
 # The package module belongs to a root whose parent is its ModuleBase, since its code root is pwsh/.

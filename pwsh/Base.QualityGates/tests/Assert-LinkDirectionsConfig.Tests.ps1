@@ -42,6 +42,16 @@ Describe 'Assert-LinkDirectionsConfig' -Tag 'L0', 'logic', 'ADR-CONF-LOADING-POW
         }
     }
 
+    It 'loads every deferred module before it reads the loaded modules' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        InModuleScope Catzc.Base.QualityGates {
+            Mock Import-DeferredModule { }
+        }
+        { & $assert @{ from = @{ aspects = @('tests') }; to = @{ classes = @('code') }; verdict = 'allow'; because = 'ADR-WIDGET-ONE' } } | Should -Not -Throw
+        InModuleScope Catzc.Base.QualityGates {
+            Should -Invoke Import-DeferredModule -Times 1 -Exactly -ParameterFilter { $All }
+        }
+    }
+
     It 'names every undeclared value and an unknown because, row and side included' {
         $row = @{ from = @{ classes = @('gizmo'); aspects = @('docs') }; to = @{ track_types = @('gadgets'); modules = @('Catzc.Gadget') }; verdict = 'deny'; because = 'ADR-WIDGET-TWO' }
         { & $assert $row } |

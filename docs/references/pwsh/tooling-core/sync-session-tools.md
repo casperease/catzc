@@ -60,3 +60,12 @@ state, so a plain import shows just the names and `Sync-SessionTools -Verbose` a
 The pass probes every tool on disk, so its outcome is remembered per machine in `out/cache/session-tools.json` under the key of what it
 read: the tool registry and the session's PATH as it stood. The same key gets the same outcome, the PATH the pass left, re-applied without a
 probe. The memo answers to the PATH the pass started from and to the PATH it left, so a second pass in the same session hits too.
+
+## comment:1
+
+Above `$staging = "$memoPath.$PID.tmp"`, written with `#`.
+
+```text
+The memo is written whole to a process-named temp file and moved in one step, so a reader never meets half of it; a process that
+loses the race to another holding or replacing the file skips its write, since both state the same answer for the same inputs.
+```

@@ -59,7 +59,6 @@ function Invoke-TestRun {
         [switch] $PostBuild
     )
 
-    # The post-build run selects only the tests that carry the tag and takes its own roof (ADR-AUTO-TEST-POSTBUILDTAG).
     $includeTag = @(if ($PostBuild) {
             'post-build'
         })

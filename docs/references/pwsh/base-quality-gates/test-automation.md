@@ -234,3 +234,13 @@ into three kinds of run, in this order on the devbox:
 The harness itself, which is discovery, tag checks, sharding, workers, rows and reports, is the core both runs share (Invoke-TestRun,
 [ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns)). The source run loads
 each worker through the repository importer, the core's default.
+
+## comment:1
+
+Above `$optOutTag = @()`, written with `#`.
+
+```text
+The post-build run tests the built bundles and selects its tests by the tag; the source run leaves them out and
+lists them
+([ADR-AUTO-TEST-POSTBUILDTAG](/docs/drs/automation/test-automation.md#rule-adr-auto-test-postbuildtag)).
+```

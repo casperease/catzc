@@ -92,7 +92,8 @@ function Invoke-ImporterJanitors {
         # output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
         # Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
         foreach ($writer in $atImport) {
-            if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
+            # Due first: looking a writer up loads its module in a console session, and a writer that is not due needs no load.
+            if ((Test-WriterDue -Name $writer -Row $due) -and (Get-Command $writer -ErrorAction Ignore)) {
                 & $writer -Silent | Out-Null
                 # The writer ran: its input stamp is stored, so it is not due again until one of its inputs changes.
                 if ($saveStamp) {

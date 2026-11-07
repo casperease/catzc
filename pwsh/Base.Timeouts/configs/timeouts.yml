@@ -46,3 +46,6 @@ run_lock:
   stale_seconds: 720 # a queue ticket older than the longest run is dropped
   # A run's whole budget under its 300 s call: it waits out a holder or a burst until the budget is spent, then says when to retry.
   budget_seconds: 280
+# A console import's roof, read by the importer after the load to name the CPU time of a slow import.
+import:
+  console_seconds: 3 # the user's roof for a console import (2026-11-06)

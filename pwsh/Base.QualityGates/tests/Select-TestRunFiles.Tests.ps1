@@ -43,6 +43,15 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
             TestPath = @('C:\repo\automation\Widget\tests'); Discovery = $script:discovery
             RunDirectory = $TestDrive; EntryPoint = 'Test-Widget'
         }
+        $script:taggedArguments = @{
+            TestPath = @('C:\repo\automation\Widget\tests'); Discovery = [pscustomobject]@{
+                Tests = @(
+                    (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic'))
+                    (New-FakeTest -File $script:gadget -Name 'Gadget.bundle' -BlockTags @('L2', 'integrity', 'post-build'))
+                )
+            }
+            RunDirectory = $TestDrive; EntryPoint = 'Test-Widget'; IncludeTag = @('post-build')
+        }
     }
 
     It 'keeps every file and reports nothing out of scope when nothing narrows the run' {
@@ -81,15 +90,7 @@ Describe 'Select-TestRunFiles' -Tag 'L0', 'logic' {
     }
 
     It 'keeps only the files with a test carrying the include tag' {
-        $tagged = [pscustomobject]@{
-            Tests = @(
-                (New-FakeTest -File $script:widget -Name 'Widget.logic' -BlockTags @('L0', 'logic'))
-                (New-FakeTest -File $script:gadget -Name 'Gadget.bundle' -BlockTags @('L2', 'integrity', 'post-build'))
-            )
-        }
-        $script:arguments.Discovery = $tagged
-        $script:arguments.IncludeTag = @('post-build')
-        $result = Select-Run $script:arguments
+        $result = Select-Run $script:taggedArguments
         $result.Files | Should -Be @($script:gadget)
     }
 

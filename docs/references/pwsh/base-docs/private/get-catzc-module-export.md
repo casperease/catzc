@@ -38,3 +38,12 @@ fixture modules.
 ### outputs
 
 `[object[]]` One { Module; Functions } per module, sorted by module name, each Functions list sorted.
+
+## comment:1
+
+Above `Import-DeferredModule -All`, written with `#`.
+
+```text
+A module folder drops its namespace, so a loaded module is matched to its folder by where it loaded from, never by name.
+A command that enumerates the loaded modules completes the load first (ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE).
+```

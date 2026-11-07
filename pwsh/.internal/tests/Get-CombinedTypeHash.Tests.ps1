@@ -55,6 +55,21 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         $after.CombinedHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
     }
 
+    It 'rehashes a file whose length is the same but whose last write changed, and moves the hash when the body differs' {
+        $root = New-TypesRoot
+        $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"
+        $before = Get-CombinedTypeHash $root -StampPath $stamp
+        $alpha = Join-Path $root 'Widget/types/Alpha.cs'
+        $length = [System.IO.FileInfo]::new($alpha).Length
+        [System.IO.File]::WriteAllText($alpha, "namespace Widget;`npublic class Alpha { }`n".Replace('Alpha', 'Alphb'))
+        [System.IO.FileInfo]::new($alpha).Length | Should -Be $length
+        [System.IO.File]::SetLastWriteTimeUtc($alpha, [DateTime]::UtcNow.AddHours(1))
+
+        $after = Get-CombinedTypeHash $root -StampPath $stamp
+        $after.Rehashed | Should -Be 1
+        $after.CombinedHash | Should -Not -Be $before.CombinedHash
+    }
+
     It 'rewrites the memo when a file is added or removed' {
         $root = New-TypesRoot
         $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"

@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-commands.sh"
-#     with_body_sha: a5d3349c160d
+#     with_body_sha: a2f18b406b5f
 # ---
 
 # shellcheck shell=bash
@@ -120,6 +120,7 @@ invoke_python_test	folder	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages
 lock_shared_config	name	string	0	1	0	contracts/catzc/0.1.0/pwsh.tooling.claude/lock_shared_config.command.yml			lock-shared-config	name	Lock-SharedConfig	Name
 lock_shared_config	session	string	0	0	0	contracts/catzc/0.1.0/pwsh.tooling.claude/lock_shared_config.command.yml			lock-shared-config	session	Lock-SharedConfig	Session
 new_go_workspace	target	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/new_go_workspace.command.yml			new-go-workspace	target	New-GoWorkspace	Target
+new_importer_core	repository_root	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.module_system/new_importer_core.command.yml			new-importer-core	repository-root	New-ImporterCore	RepositoryRoot
 new_python_project	line_length	int	0	1	0	contracts/catzc/0.1.0/pwsh.base.languages/new_python_project.command.yml			new-python-project	line-length	New-PythonProject	LineLength
 new_python_project	target	string	0	0	0	contracts/catzc/0.1.0/pwsh.base.languages/new_python_project.command.yml			new-python-project	target	New-PythonProject	Target
 publish_contract_release	root	string	0	1	0	contracts/catzc/0.1.0/pwsh.base.contracts/publish_contract_release.command.yml			publish-contract-release	root	Publish-ContractRelease	Root

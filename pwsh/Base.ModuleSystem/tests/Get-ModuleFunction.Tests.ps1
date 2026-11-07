@@ -21,6 +21,15 @@ Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
         $functions.Module | Should -Not -Contain 'Foreign.Module'
     }
 
+    It 'completes the deferred load before it enumerates the loaded modules' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        $script:order = [System.Collections.Generic.List[string]]::new()
+        Mock Import-DeferredModule -ModuleName Catzc.Base.ModuleSystem { $script:order.Add('import') }
+        Mock Get-Module -ModuleName Catzc.Base.ModuleSystem { $script:order.Add('enumerate'); @() }
+        Get-ModuleFunction | Out-Null
+        Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $All }
+        $script:order | Should -Be @('import', 'enumerate')
+    }
+
     It 'takes the module list from the resolver, for the code track' {
         Get-ModuleFunction | Out-Null
         Should -Invoke Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem -ParameterFilter { $EngineTrack }

@@ -27,7 +27,10 @@ function Import-AllModules {
         # The importer passes console for an interactive dot-source; the types-load policy decides lazy or eager from
         # it.
         [ValidateSet('console', 'headless')]
-        [string]$HostKind = 'headless'
+        [string]$HostKind = 'headless',
+
+        # The importer's always-on accumulator: this fills TypesMs and ParseCompileMs, one timestamp pair per step, diagnosis or not.
+        [hashtable]$LoadTimings
     )
 
     # One level, inline: this module loads before the walker exists
@@ -43,7 +46,8 @@ function Import-AllModules {
 
     # Fail fast on duplicate exported function names BEFORE any module or C# type loads — a collision would
     # otherwise be silent (the module imported last shadows the others).
-    Assert-UniqueModuleFunctionName -ModuleDirs $moduleDirs -ExportPrivates:$ExportPrivates
+    # The map the check builds is kept: a deferred module registers the names it owns from it.
+    $functionOwner = Assert-UniqueModuleFunctionName -ModuleDirs $moduleDirs -ExportPrivates:$ExportPrivates
 
     $sw = if ($DiagnoseLoadTime) {
         [Diagnostics.Stopwatch]::StartNew()
@@ -104,9 +108,45 @@ function Import-AllModules {
     # Native C# types (every module's types/*.cs) compile/load ONCE, before any module's functions, into a
     # single combined assembly — so a function (or a module's load-time code) can reference any type, and a
     # type in one module can reference a type in another. Module import order below is therefore irrelevant.
-    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle -HostKind $HostKind
+    # The load policy is read once, here, and handed to the types load. A lazy cell imports the core modules now and registers every
+    # other module, which loads when one of its commands is first looked up; no core list defers every module.
+    $policy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode $(if ($Bundle) {
+            'build'
+        }
+        else {
+            'source'
+        })
+    $typesStart = [Diagnostics.Stopwatch]::GetTimestamp()
+    Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle -HostKind $HostKind -Policy $policy
+    $parseTicks = 0L
+    if ($null -ne $LoadTimings) {
+        $LoadTimings['TypesMs'] = [Diagnostics.Stopwatch]::GetElapsedTime($typesStart).TotalMilliseconds
+    }
+
+    $lazy = $policy.ModuleLoad -eq 'lazy'
+    $core = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $namesOf = @{}
+    if ($lazy) {
+        $coreFile = [System.IO.Path]::Combine($ModulesRoot, '.internal', 'assets', 'importer-core.txt')
+        if ([System.IO.File]::Exists($coreFile)) {
+            foreach ($line in [System.IO.File]::ReadAllLines($coreFile)) {
+                $entry = $line.Trim()
+                if ($entry -and -not $entry.StartsWith('#')) {
+                    [void]$core.Add($entry)
+                }
+            }
+        }
+        foreach ($function in $functionOwner.Keys) {
+            $owner = $functionOwner[$function]
+            if (-not $namesOf.ContainsKey($owner)) {
+                $namesOf[$owner] = [System.Collections.Generic.List[string]]::new()
+            }
+            $namesOf[$owner].Add($function)
+        }
+    }
 
     $imported = [System.Collections.Generic.List[string]]::new()
+    $deferred = [System.Collections.Generic.List[string]]::new()
     $commandNames = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in $moduleDirs) {
         if ($DiagnoseLoadTime) {
@@ -120,7 +160,26 @@ function Import-AllModules {
             0
         }
 
-        if ($manifestPath) {
+        if ($manifestPath -and $lazy -and -not $core.Contains($dir.Name)) {
+            $deferredName = [System.IO.Path]::GetFileNameWithoutExtension($manifestPath)
+            Write-Verbose "Deferring module to first use: $($dir.Name)"
+            $deferredCommands = if ($namesOf.ContainsKey($dir.Name)) {
+                $namesOf[$dir.Name].ToArray()
+            }
+            else {
+                [string[]]@()
+            }
+            Register-DeferredModule -Name $deferredName -ManifestPath $manifestPath -CommandName $deferredCommands
+            $deferred.Add($deferredName)
+            if ($DiagnoseLoadTime) {
+                Write-ImporterMessage ('    {0,6}ms  {1} (manifest {2}ms, deferred to first use)' -f $manifestMs,
+                    $dir.Name, $manifestMs) -ForegroundColor DarkGray
+                if ($null -ne (Get-Variable -Name '__CatzcLoadTimings' -Scope Global -ValueOnly -ErrorAction Ignore)) {
+                    $global:__CatzcLoadTimings.Add([pscustomobject]@{ Stage = $dir.Name; Ms = $manifestMs; ReadMs = 0; ImportMs = 0; FileCount = 0 })
+                }
+            }
+        }
+        elseif ($manifestPath) {
             Write-Verbose "Importing module: $($dir.Name)"
 
             # Diagnostic probe: read every .ps1 this module imports, raw, BEFORE Import-Module. This pays
@@ -152,11 +211,12 @@ function Import-AllModules {
             if ($DiagnoseLoadTime) {
                 $sw.Restart()
             }
-            $importedModule = Import-Module $manifestPath -Scope Global -Force -PassThru | Select-Object -First 1
-            # A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
-            # script scope, which every function in the module inherits
-            # ([ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)).
-            . $importedModule { Set-StrictMode -Version Latest }
+            $parseStart = [Diagnostics.Stopwatch]::GetTimestamp()
+            $importedModule = Import-ModuleManifest -Path $manifestPath
+            $parseTicks += [Diagnostics.Stopwatch]::GetTimestamp() - $parseStart
+            if ($lazy) {
+                Remove-DeferredModule -Name $importedModule.Name
+            }
             $imported.Add($importedModule.Name)
             $commandNames.AddRange([string[]]@($importedModule.ExportedCommands.Keys))
             if ($DiagnoseLoadTime) {
@@ -178,8 +238,13 @@ function Import-AllModules {
         }
     }
 
-    # Installed last, once every command name is known: the first lookup of one of them loads the types still pending.
-    Enable-DeferredTypesLoad -CommandName $commandNames
+    if ($null -ne $LoadTimings) {
+        $LoadTimings['ParseCompileMs'] = [int] ([timespan]::FromTicks($parseTicks * [timespan]::TicksPerSecond / [Diagnostics.Stopwatch]::Frequency)).TotalMilliseconds
+    }
+
+    # Installed last, once every command name is known: the first lookup of one of them loads the types still pending, and a
+    # deferred module's command loads its module.
+    Enable-FirstUseHook -TypesCommandName $commandNames
 
     # Loading and unloading modules changes the session, so it is announced
     # ([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
@@ -190,11 +255,14 @@ function Import-AllModules {
     # the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
     # A re-import's remove-then-reload of the same modules is not a departure and is not listed.
     $summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"
+    if ($deferred.Count) {
+        $summary += "; $($deferred.Count) deferred to first use"
+    }
     if ($evicted.Count) {
         $summary += "; evicted from another root: $($evicted -join ', ')"
     }
     $gone = @(foreach ($module in $stale) {
-            if ($module.Name -notin $imported) {
+            if ($module.Name -notin $imported -and $module.Name -notin $deferred) {
                 $module.Name
             }
         })

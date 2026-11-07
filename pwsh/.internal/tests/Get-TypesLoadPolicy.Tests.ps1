@@ -110,6 +110,28 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
             { Get-ModePolicy 'console.unix.build' @{ ConfigPath = $bad } } | Should -Throw '*none*eager*'
         }
 
+        It 'defaults moduleLoad to eager in every shipped-free row' {
+            $empty = New-PolicyConfig "cells: {}`n"
+            foreach ($mode in $modes) {
+                (Get-ModePolicy $mode @{ ConfigPath = $empty }).ModuleLoad | Should -Be 'eager'
+            }
+        }
+
+        It 'accepts moduleLoad lazy with the lookup-hook trigger' {
+            $row = New-PolicyConfig "cells:`n  console.windows.source:`n    moduleLoad: lazy`n    trigger: lookup-hook`n"
+            (Get-ModePolicy 'console.windows.source' @{ ConfigPath = $row }).ModuleLoad | Should -Be 'lazy'
+        }
+
+        It 'throws for moduleLoad lazy with trigger none' {
+            $bad = New-PolicyConfig "cells:`n  headless.unix.build:`n    load: eager`n    trigger: none`n    moduleLoad: lazy`n"
+            { Get-ModePolicy 'headless.unix.build' @{ ConfigPath = $bad } } | Should -Throw '*moduleLoad*lazy*lookup-hook*'
+        }
+
+        It 'throws for an unknown moduleLoad value' {
+            $bad = New-PolicyConfig "cells:`n  console.windows.source:`n    moduleLoad: sometimes`n"
+            { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $bad } } | Should -Throw '*sometimes*'
+        }
+
         It 'throws for a row that is no mode' {
             $bad = New-PolicyConfig "cells:`n  console.windows.nightly:`n    load: lazy`n"
             { Get-ModePolicy 'console.windows.source' @{ ConfigPath = $bad } } |

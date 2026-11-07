@@ -37,8 +37,12 @@ function Get-BuildSourceStamp {
     $changed = Invoke-Executable 'git --no-optional-locks -c core.quotepath=off ls-files -m' -WorkingDirectory $RepositoryRoot -PassThru -Silent -NoAssert
     $untracked = Invoke-Executable 'git --no-optional-locks -c core.quotepath=off ls-files --others --exclude-standard' -WorkingDirectory $RepositoryRoot -PassThru -Silent -NoAssert
     $working = [System.Collections.Generic.List[string]]::new()
-    foreach ($listing in @($changed, $untracked)) {
-        foreach ($line in ([string] $listing.Output).Split("`n")) {
+    foreach ($listing in @(@('modified', $changed), @('untracked', $untracked))) {
+        # A failed listing is an empty list that stamps a different tree, so it stops the build like the tracked one.
+        if ($listing[1].ExitCode -ne 0) {
+            throw "Invoke-ModuleBuild: a build is stamped from the files git lists, but git cannot list the $($listing[0]) files under '$RepositoryRoot' ($($listing[1].Errors))."
+        }
+        foreach ($line in ([string] $listing[1].Output).Split("`n")) {
             $path = $line.TrimEnd("`r")
             if (-not $path -or -not (& $isCounted $path)) {
                 continue

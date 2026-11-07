@@ -28,13 +28,17 @@ function Save-BuildToStore {
     try {
         [System.IO.Directory]::Move($stagingFolder, $stampFolder)
     }
-    catch [System.IO.IOException] {
-        # Another build filled this stamp between the check and the move; its copy stands and this one goes.
-        Write-Verbose "The store stamp folder $stampFolder was filled by another build ($($_.Exception.Message))."
+    catch [System.IO.IOException], [System.UnauthorizedAccessException] {
+        $moveError = $_.Exception.Message
         if ([System.IO.Directory]::Exists($stagingFolder)) {
             [System.IO.Directory]::Delete($stagingFolder, $true)
         }
-        return
+        # Only a complete stamp folder of another build excuses the failed move; any other failure leaves the store empty and says so (ADR-AUTO-FAILFAST, ADR-PWSH-ERROR).
+        if ([System.IO.File]::Exists([System.IO.Path]::Combine($storeRoot, 'build.json'))) {
+            Write-Verbose "The store stamp folder $stampFolder was filled by another build ($moveError)."
+            return
+        }
+        throw "Save-BuildToStore: the build could not be moved into the store stamp folder '$stampFolder' and no other build holds it ($moveError)."
     }
 
     # A selection is the bundle, the version and the ordinal-sorted module names of a build.json; $null when the record is missing, unreadable or lacks one.

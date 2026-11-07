@@ -40,6 +40,12 @@ Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {
             Should -Throw '*mode must be on*'
     }
 
+    It 'loads the owning module before it enters the module scope' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        Mock Import-DeferredModule -ModuleName Catzc.Base.ConfigExtensions -MockWith { }
+        Invoke-ConfigValidator -Config ([ordered]@{ size = 3 }) -Name widget-parts -Module TstWidget | Should -Be 'Assert-WidgetPartsConfig'
+        Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.ConfigExtensions -Times 1 -Exactly -ParameterFilter { $Name -eq 'TstWidget' }
+    }
+
     It 'returns nothing when no conventional validator exists' {
         Invoke-ConfigValidator -Config ([ordered]@{}) -Name sprocket -Module TstWidget | Should -BeNullOrEmpty
     }

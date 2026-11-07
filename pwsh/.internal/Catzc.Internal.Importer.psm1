@@ -9,6 +9,11 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Wait-ImportBurst.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Import-ConsumerModule.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/ConvertTo-ImportLedgerLine.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Add-ImportLedgerLine.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Get-ImportCpuSuffix.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Measure-ImportFileProbe.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Write-ImportLedger.ps1')
 
 # The one living copy of the load sequence; New-Importer generates importer.ps1 from this parameter block.
 function Invoke-Importer {
@@ -62,6 +67,10 @@ function Invoke-Importer {
 
     if ($isConsoleSession) {
         $sw = [Diagnostics.Stopwatch]::StartNew()
+        # The ledger's marks: the wall time, and the process's CPU time, at the start of the import.
+        $importProcess = [Diagnostics.Process]::GetCurrentProcess()
+        $startedAt = [datetime]::UtcNow
+        $cpuStart = $importProcess.TotalProcessorTime
     }
     if ($DiagnoseLoadTime) {
         $script:diagSw = [Diagnostics.Stopwatch]::StartNew()
@@ -135,6 +144,9 @@ function Invoke-Importer {
         $vendorRoot = Join-Path $modulesRoot $vendorFolder
         Write-Verbose "Loading vendor modules from: $vendorRoot"
         Import-VendorModules -VendorRoot $vendorRoot -Lazy 'Pester', 'PSScriptAnalyzer' -DiagnoseLoadTime:$DiagnoseLoadTime
+        if ($isConsoleSession) {
+            $vendorEnd = $sw.Elapsed
+        }
         if ($DiagnoseLoadTime) {
             Write-LoadTime 'Vendor modules loaded'
         }
@@ -152,7 +164,13 @@ function Invoke-Importer {
         else {
             'headless'
         }
-        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind
+        # The file probe and the parse and types timers are the ledger's, always on: a slow import tells a file scan from a parse scan.
+        $fileProbeMs = $null
+        $loadTimings = @{}
+        if ($isConsoleSession) {
+            $fileProbeMs = Measure-ImportFileProbe -ModulesRoot $modulesRoot
+        }
+        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind -LoadTimings $loadTimings
         if ($isConsoleSession) {
             $finalizerStart = $sw.Elapsed
         }
@@ -255,15 +273,37 @@ function Invoke-Importer {
         Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue -Verbose:$false
 
         if ($isConsoleSession) {
+            $totalElapsed = $sw.Elapsed
+            $totalSeconds = [math]::Round($totalElapsed.TotalSeconds, 1)
+            # The three parts sum to the total: initializer before the vendor import, module import, then the finalizer.
+            $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
+            $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
+            $finalizerSeconds = [math]::Round(($totalElapsed - $finalizerStart).TotalSeconds, 1)
+            $cpuSeconds = [math]::Round(($importProcess.TotalProcessorTime - $cpuStart).TotalSeconds, 1)
+
+            # The file-read sum exists only under -DiagnoseLoadTime, since only it reads the files twice.
+            $fileReadMs = $null
+            if ($DiagnoseLoadTime) {
+                $fileReadMs = [int](($global:__CatzcLoadTimings | Measure-Object ReadMs -Sum).Sum)
+            }
+            $typesMs = $null
+            $parseCompileMs = $null
+            if ($loadTimings.ContainsKey('TypesMs')) {
+                $typesMs = $loadTimings['TypesMs']
+            }
+            if ($loadTimings.ContainsKey('ParseCompileMs')) {
+                $parseCompileMs = $loadTimings['ParseCompileMs']
+            }
+            $cpuSuffix = Write-ImportLedger -RepositoryRoot $repoRoot -ModulesRoot $modulesRoot -Started $startedAt -TotalSeconds $totalSeconds `
+                -InitializerSeconds $initializerSeconds -VendorSeconds ([math]::Round(($vendorEnd - $initializerEnd).TotalSeconds, 1)) `
+                -LoopSeconds ([math]::Round(($finalizerStart - $vendorEnd).TotalSeconds, 1)) -FinalizerSeconds $finalizerSeconds `
+                -CpuSeconds $cpuSeconds -SinceProcessStartSeconds ([math]::Round(([datetime]::Now - $importProcess.StartTime).TotalSeconds, 1)) `
+                -HostKind $hostKind -TypesMs $typesMs -ParseCompileMs $parseCompileMs -FileReadMs $fileReadMs -FileProbeMs $fileProbeMs
+
             $writeMessage = Get-Command Write-Message -ErrorAction Ignore
             if ($writeMessage) {
-                $totalSeconds = [math]::Round($sw.Elapsed.TotalSeconds, 1)
-                # The three parts sum to the total: initializer before the vendor import, module import, then the finalizer.
-                $initializerSeconds = [math]::Round($initializerEnd.TotalSeconds, 1)
-                $importSeconds = [math]::Round(($finalizerStart - $initializerEnd).TotalSeconds, 1)
-                $finalizerSeconds = [math]::Round(($sw.Elapsed - $finalizerStart).TotalSeconds, 1)
                 # Called through its command info: a lookup by name is a first use and would load the pending types.
-                & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s)"
+                & $writeMessage "Loaded in $totalSeconds seconds (session initializer ${initializerSeconds}s, module import ${importSeconds}s, session finalizer ${finalizerSeconds}s$cpuSuffix)"
             }
         }
     }

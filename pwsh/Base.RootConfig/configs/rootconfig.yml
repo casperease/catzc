@@ -22,6 +22,14 @@ files:
       - contracts/catzc/0.1.0
     committed: true
     optIn: true
+  # The module folders a console import loads at once; the importer reads the list before any module is loaded.
+  - target: pwsh/.internal/assets/importer-core.txt
+    generator: New-ImporterCore
+    sources:
+      - pwsh/Base.ModuleSystem/configs/dependencies.yml
+    carrier: dotfile
+    committed: true
+    optIn: true
   # Widths filled from file-limits.yml; it renders before .vscode/settings.json, whose generator reads it from disk.
   - target: .editorconfig
     generator: Build-WidthConfigs

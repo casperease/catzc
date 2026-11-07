@@ -34,6 +34,12 @@ plan:
   bridge of `Base.Repository` 161 and of `catzc_diagrams` 141, `Invoke-TestFile` 162 (80 alone), `Export-Catzc.Install` 122 (52 alone),
   `Build-Modules.Bundles` 109 (65 alone), the go bridge of `Base.Repository` 89. A file runs 1.7 to 2.4 times slower pooled than alone, the
   14 workers and their children sharing 20 processors.
+- The user's BVT by hand of 2026-11-06 (`20261106-000236`, `20261106-001114`), the post-build split in: the warm source run read 217.6 s,
+  under the roof for the first time, with one red case; the first source run 283.5 s with four; the build event 101.6 s; the post-build run
+  refused to start, rightly, since `base` had no stored build at the tree's stamp. The red cases were three faults of concurrent writers and
+  one of load: the import janitor's tool sync writing `out/cache/session-tools.json` in place (three python cases), the snapshot copying
+  another writer's in-flight `.tmp` file from `out/cache` (the snapshot case), and a git listing killed at 3 s in the spelling test under
+  the cold pool (one occurrence, left).
 - The user's run of 19:19 (`20261104-191938`, 75 s after the commit of 19:18, so cold again) read 305.5 s, 0 failed: 4202 slot-seconds (1960
   parallel, 2242 greedy), packed at 300 s; the top bridge 116 pooled (161 before the cut), but every other top file 10 to 15 percent above
   16:23 (`Consumer.L2` 255, `Invoke-TestFile` 193, `Export-Catzc.Install` 143, `Build-Modules.Bundles` 124). Across five cold runs the
@@ -85,6 +91,12 @@ plan:
 - `Consumer.L2`'s edit, render and planted-gate cases share one second fresh session built in `BeforeAll`, the `SecondChild` phase (landed
   2026-11-04: 157 s to 140 s alone, 22 cases unchanged); the orphan and shell cases keep their own children, since one must fail the import
   and the other proves the bash entry.
+- Fixed on 2026-11-06, each with its test: `Sync-SessionTools` writes its cache file through a temp file and one move and skips a lost race;
+  `Enter-TestRunLocation` copies the cache file by file, skipping `.tmp` files and a file that goes away; `Save-BuildToStore` throws when
+  its move into the store fails and no other build holds the stamp, where it returned in silence before; `Get-BuildSourceStamp` throws when
+  a git listing fails, where it stamped a different tree before. No retry on the store move (ADR-AUTO-RETRY-LASTRESORT): the throw reports
+  first, and a retry wrapper follows only on evidence of a transient handle. A dry run, a build and a dry run of `base` read one stamp with
+  the record present.
 - The warm full run that closes this plan is the user's: a full run exceeds every call roof an agent has (340 s in the background), and
   ADR-REPO-AI-SMALLTESTSDIRECTLY names `Test-Automation` the user's. Its `run.json` wall clock, read from a fresh session, is the exit; its
   step is in task-user-runs-and-commits.

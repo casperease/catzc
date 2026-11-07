@@ -54,21 +54,29 @@ function Get-CombinedTypeHash {
     # ~20ms/call provider overhead the raw enumeration avoids
     # ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
     $files = [System.Collections.Generic.List[object]]::new()
+    # Each file's length and write time arrive with its listing entry, so the stamp compare below reads no file again.
+    $infos = [System.Collections.Generic.Dictionary[string, System.IO.FileInfo]]::new([System.StringComparer]::Ordinal)
     foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($ModulesRoot)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-        if ($moduleName.StartsWith('.') -or ($null -ne $selected -and -not $selected.Contains((Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)))) {
+        if ($moduleName.StartsWith('.')) {
+            continue
+        }
+        $fullName = Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace
+        if ($null -ne $selected -and -not $selected.Contains($fullName)) {
             continue
         }
         $typesDir = [System.IO.Path]::Combine($moduleDir, 'types')
         if (-not [System.IO.Directory]::Exists($typesDir)) {
             continue
         }
-        foreach ($sourcePath in [System.IO.Directory]::EnumerateFiles($typesDir, '*.cs')) {
-            $base = [System.IO.Path]::GetFileNameWithoutExtension($sourcePath)
+        foreach ($info in [System.IO.DirectoryInfo]::new($typesDir).EnumerateFiles('*.cs')) {
+            $base = [System.IO.Path]::GetFileNameWithoutExtension($info.Name)
+            $sourcePath = [System.IO.Path]::Combine($typesDir, $info.Name)
+            $infos[$sourcePath] = $info
             $files.Add([pscustomobject]@{
                     Module = $moduleName
                     Base   = $base
-                    Key    = "$(Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)/$base"
+                    Key    = "$fullName/$base"
                     Path   = $sourcePath
                 })
         }
@@ -82,12 +90,15 @@ function Get-CombinedTypeHash {
     if ($null -eq $selected -and [System.IO.Directory]::Exists($compiledTypesDir)) {
         foreach ($moduleDir in [System.IO.Directory]::EnumerateDirectories($compiledTypesDir)) {
             $moduleName = [System.IO.Path]::GetFileName($moduleDir)
-            foreach ($sourcePath in [System.IO.Directory]::EnumerateFiles($moduleDir, '*.cs')) {
-                $base = [System.IO.Path]::GetFileNameWithoutExtension($sourcePath)
+            $fullName = Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace
+            foreach ($info in [System.IO.DirectoryInfo]::new($moduleDir).EnumerateFiles('*.cs')) {
+                $base = [System.IO.Path]::GetFileNameWithoutExtension($info.Name)
+                $sourcePath = [System.IO.Path]::Combine($moduleDir, $info.Name)
+                $infos[$sourcePath] = $info
                 $files.Add([pscustomobject]@{
                         Module = $moduleName
                         Base   = $base
-                        Key    = "$(Resolve-ModuleName -Folder $moduleName -Namespace $ModuleNamespace)/$base"
+                        Key    = "$fullName/$base"
                         Path   = $sourcePath
                     })
             }
@@ -148,7 +159,7 @@ function Get-CombinedTypeHash {
     try {
         $stringBuilder = [System.Text.StringBuilder]::new()
         foreach ($file in $sortedFiles) {
-            $info = [System.IO.FileInfo]::new($file.Path)
+            $info = $infos[$file.Path]
             $known = $stamped[$file.Key]
             if ($known -is [hashtable] -and $known['length'] -eq $info.Length -and
                 $known['ticks'] -eq $info.LastWriteTimeUtc.Ticks -and $known['hash'] -is [string]) {

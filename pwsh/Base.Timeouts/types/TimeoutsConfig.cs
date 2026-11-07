@@ -11,8 +11,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys =
     {
-        "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors", "parallel",
+        "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors", "parallel", "import",
     };
+    private static readonly string[] ImportKeys = { "console_seconds" };
+    // A console import's roof: the user's wait at the prompt; a slower import adds its CPU seconds to its line and never fails.
+    public const int ImportDefaultConsoleSeconds = 3;
     private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds", "post_build_seconds" };
     // The default Watch-Blocking wait and its drain.
     internal static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
@@ -93,6 +96,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The parallel run settings, filled in: parallel[processes].
     public IDictionary parallel { get; }
 
+    private int importConsoleSeconds = ImportDefaultConsoleSeconds;
     private int janitorGeneratedFilesSeconds = JanitorDefaultGeneratedFilesSeconds;
     private int parallelProcesses = ParallelDefaultProcesses;
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
@@ -228,6 +232,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadParallel(d["parallel"], errors, ref parallelProcesses);
         }
 
+        if (d != null && d.Contains("import") && d["import"] != null)
+        {
+            ReadImport(d["import"], errors);
+        }
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
@@ -312,6 +321,31 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     public int PostBuildSeconds()
     {
         return postBuildSeconds;
+    }
+
+    // The most seconds a console import may take before its line names the CPU time it used.
+    public int ImportConsoleSeconds()
+    {
+        return importConsoleSeconds;
+    }
+
+    private void ReadImport(object value, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid import (must be a map of console_seconds)");
+            return;
+        }
+        CheckKeys(map, ImportKeys, "import.", errors);
+        if (!map.Contains("console_seconds") || map["console_seconds"] == null) { return; }
+        int? seconds = PositiveSeconds(map["console_seconds"]);
+        if (seconds == null)
+        {
+            errors.Add(string.Format("invalid import.console_seconds '{0}' (must be a positive whole number)", map["console_seconds"]));
+            return;
+        }
+        importConsoleSeconds = seconds.Value;
     }
 
     private void ReadTests(object value, List<string> errors)

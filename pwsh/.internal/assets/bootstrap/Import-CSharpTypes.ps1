@@ -27,7 +27,10 @@ function Import-CSharpTypes {
 
         # Only an interactive dot-source is console; a caller that says nothing gets the eager load (types-load.yml).
         [ValidateSet('console', 'headless')]
-        [string]$HostKind = 'headless'
+        [string]$HostKind = 'headless',
+
+        # The types-load policy of this host and run mode, when the caller already read it; absent, this reads its own.
+        [object]$Policy
     )
 
     # The enumeration, ordering, per-file digest, combined hash and snapshot all come from the ONE shared Get-CombinedTypeHash
@@ -45,43 +48,8 @@ function Import-CSharpTypes {
         return
     }
 
-    # Validate each source and derive its FQN (<module>.<filename>). These two poka-yokes are the loader's job,
-    # deliberately NOT in the shared enumerator (the janitor must never throw on a source that is wrong): a
-    # dotted filename (the old fully-qualified style) is rejected, and a file whose declared file-scoped namespace
-    # does not match its module folder (or is missing/block-scoped) is rejected — the same invariant
-    # Test-Formatting enforces, checked here at load; Format-Types repairs all of them. The source list is already
-    # ordinally sorted.
-    $moduleNamespace = Get-ModuleNamespace -ModulesRoot $ModulesRoot
-    $arr = [object[]]@(foreach ($file in $hashResult.Files) {
-            # The namespace a type declares is its module's full name, resolved from the folder
-            # ([DDR-TRACK-MODULENAMESPACE](/docs/drs/design/tracks.md#rule-ddr-track-modulenamespace)).
-            $folderName = $file.Module
-            $moduleName = Resolve-ModuleName -Folder $folderName -Namespace $moduleNamespace
-            $base = $file.Base
-            if ($base.Contains('.')) {
-                throw "C# type file 'types/$base.cs' in module '$moduleName' must be named for the bare type only (e.g. 'CliResult.cs'); the namespace is derived from the module. Remove the dotted prefix."
-            }
-            $content = [System.IO.File]::ReadAllText($file.Path)
-            if ($content -match '(?m)^\s*namespace\s+(\S+?)\s*;\s*$') {
-                if ($Matches[1] -ne $moduleName) {
-                    throw "C# type file 'types/$base.cs' in module '$moduleName' declares namespace '$($Matches[1])' but must declare 'namespace $moduleName;' (its module full name). Run Format-Types."
-                }
-            }
-            elseif ($content -match '(?m)^\s*namespace\s+(\S+?)\s*\{') {
-                throw "C# type file 'types/$base.cs' in module '$moduleName' uses a block-scoped namespace '$($Matches[1])'; it must declare a file-scoped 'namespace $moduleName;'. Run Format-Types."
-            }
-            else {
-                throw "C# type file 'types/$base.cs' in module '$moduleName' declares no namespace; it must declare 'namespace $moduleName;' (its module full name). Run Format-Types."
-            }
-            [pscustomobject]@{
-                Module = $moduleName
-                Base   = $base
-                Type   = "$moduleName.$base"
-                Key    = $file.Key
-                File   = "$folderName/types/$base.cs"
-                Path   = $file.Path
-            }
-        })
+    # Each source is validated and its FQN derived (<module>.<filename>) by Get-TypeSourceRecord.
+    $arr = [object[]]@(Get-TypeSourceRecord -File $hashResult.Files -ModuleNamespace (Get-ModuleNamespace -ModulesRoot $ModulesRoot))
     $snapshot = $hashResult.Snapshot
     $combinedHash = $hashResult.CombinedHash
 
@@ -126,7 +94,12 @@ function Import-CSharpTypes {
             else {
                 1
             }
-            $stackPolicy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode source
+            $stackPolicy = if ($Policy) {
+                $Policy
+            }
+            else {
+                Get-TypesLoadPolicy -HostKind $HostKind -RunMode source
+            }
             if ($stackPolicy.Generations -gt $generation) {
                 $stackGeneration = $generation + 1
             }
@@ -237,12 +210,17 @@ function Import-CSharpTypes {
     $deferred = $false
     if (-not $loaded) {
         Test-TypesAssemblyContent -Path $dll -Expected $arr
-        $policy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode $(if ($PrebuiltOnly) {
-                'build'
-            }
-            else {
-                'source'
-            })
+        $policy = if ($Policy) {
+            $Policy
+        }
+        else {
+            Get-TypesLoadPolicy -HostKind $HostKind -RunMode $(if ($PrebuiltOnly) {
+                    'build'
+                }
+                else {
+                    'source'
+                })
+        }
         foreach ($eagerType in $policy.EagerTypes) {
             if ($eagerType -notin $arr.Type) {
                 throw "The types-load config names eager type '$eagerType' for $($policy.Cell), but no module declares it."

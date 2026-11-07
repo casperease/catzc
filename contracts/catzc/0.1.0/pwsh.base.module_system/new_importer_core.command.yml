@@ -1,0 +1,4 @@
+description: Returns the module folders of the importer core, the closure of Catzc.Base.ModuleSystem over the declared dependency graph.
+parameters:
+  repository_root: string
+output: string

@@ -279,6 +279,18 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             ([System.Management.Automation.PSTypeName]"$namespace.Nu").Type | Should -Not -BeNullOrEmpty
         }
 
+        It 'uses the policy its caller hands over and reads none of its own' {
+            $namespace = "WidgetTestPolicy$runId"
+            $root = New-FixtureRoot @{ $namespace = @{ Pi = 'public class Pi { }' } }
+            Mock Get-TypesLoadPolicy { throw 'the policy is read by the caller' } -ModuleName Catzc.Internal.Bootstrap
+            $policy = [pscustomobject]@{ Cell = 'console.windows.source'; Engine = 'pwsh'; Load = 'eager'; Trigger = 'none'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
+
+            InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root; P = $policy } { param($R, $P) Import-CSharpTypes -ModulesRoot $R -HostKind console -Policy $P }
+
+            ([System.Management.Automation.PSTypeName]"$namespace.Pi").Type | Should -Not -BeNullOrEmpty
+            Should -Invoke Get-TypesLoadPolicy -ModuleName Catzc.Internal.Bootstrap -Times 0 -Exactly
+        }
+
         It 'is a no-op when the types are already loaded with unchanged sources' {
             $namespace = "WidgetTestDelta$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Delta = 'public class Delta { }' } }

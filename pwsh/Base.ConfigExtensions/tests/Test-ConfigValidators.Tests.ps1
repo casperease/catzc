@@ -37,6 +37,12 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
         $thrown.Exception.Message | Should -Match 'Assert-SprocketConfig in TstGadget has no matching configs/\*\.yml'
     }
 
+    It 'loads every deferred module once before the sweep' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        Mock Import-DeferredModule -ModuleName Catzc.Base.ConfigExtensions -MockWith { }
+        Test-ConfigValidators -OutputFolder $out -PassThru | Out-Null
+        Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.ConfigExtensions -Times 1 -Exactly -ParameterFilter { $All }
+    }
+
     It 'returns the result and counts every validator under -PassThru' {
         $result = Test-ConfigValidators -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'config-validators'

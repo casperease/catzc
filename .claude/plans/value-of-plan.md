@@ -30,9 +30,10 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan                 | Needed docs                                            | Needed tests                                 | State                          |
-| ----- | -------------------- | ------------------------------------------------------ | -------------------------------------------- | ------------------------------ |
-| high  | plan-test-run-budget | ADR-AUTO-TEST speed rules (the test-automation record) | the next full run's wall clock in `run.json` | waits on the user's source run |
+| Value | Plan                 | Needed docs                                                                     | Needed tests                                       | State                                         |
+| ----- | -------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------- |
+| high  | plan-test-run-budget | ADR-AUTO-TEST speed rules (the test-automation record)                          | the next full run's wall clock in `run.json`       | waits on the user's source run                |
+| high  | plan-importer-roof   | ADR-AUTO-IMPORTER: the console roof and the import ledger (the importer record) | the ledger line of a warm console import under 3 s | landed at 1.8 s; waits on the antivirus proof |
 
 ## Pending deletion
 

@@ -1,5 +1,5 @@
 {
-  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: be86b0d3cb44",
+  "//": "catzc:\n  immutable:\n    warning: \"Do Not Edit, this file is generated\"\n    regenerate: \". ./importer.ps1\"\n    with_body_sha: \"40de3028aad9\"",
   "types": [
     {
       "name": "Catzc.Base.Timeouts.BashSafeguard",
@@ -121,6 +121,10 @@
       "members": [
         {
           "name": "EngineStartSeconds",
+          "kind": "method"
+        },
+        {
+          "name": "ImportConsoleSeconds",
           "kind": "method"
         },
         {

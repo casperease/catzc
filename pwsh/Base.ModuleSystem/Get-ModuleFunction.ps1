@@ -10,6 +10,8 @@ function Get-ModuleFunction {
 
     $moduleNames = (Get-CatzcModule -EngineTrack).name
 
+    # A command that enumerates the loaded modules completes the load first (ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE).
+    Import-DeferredModule -All
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }
 
     $functions = foreach ($mod in $modules) {

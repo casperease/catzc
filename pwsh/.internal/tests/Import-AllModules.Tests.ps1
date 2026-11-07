@@ -110,6 +110,12 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
             $observed.Strict | Should -Be 'strict'
         }
 
+        It 'loads every module at import when the cell is eager' {
+            foreach ($name in 'Acme', 'Alpha', 'Beta', 'PrivA', 'PrivB') {
+                $modules.Name | Should -Contain $name
+            }
+        }
+
         It 'loads multiple modules independently' {
             ($modules | Where-Object { $_.Name -eq 'Alpha' }).Exported | Should -Contain 'Get-Alpha'
             ($modules | Where-Object { $_.Name -eq 'Beta' }).Exported | Should -Contain 'Get-Beta'
@@ -201,6 +207,77 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
             $observed = Invoke-Sandbox -Capture "[pscustomobject]@{ Modules = @(Get-Module 'Widget.*').Count; Function = [bool](Get-Command Get-WidgetAlpha -ErrorAction Ignore) }"
             $observed.Modules | Should -Be 0
             $observed.Function | Should -BeFalse
+        }
+    }
+
+    Context 'a lazy cell with a core list' -Tag 'L1' {
+        BeforeAll {
+            # The child runs headless, so its cell is this system's headless row for the source run mode.
+            $script:rowsPath = Join-Path $sandboxAuto '.internal/assets/types-load.yml'
+            $script:coreListPath = Join-Path $sandboxAuto '.internal/assets/importer-core.txt'
+            $script:rowsBefore = [System.IO.File]::ReadAllText($rowsPath)
+            $system = if ($IsWindows) {
+                'windows'
+            }
+            else {
+                'unix'
+            }
+            [System.IO.File]::WriteAllText($rowsPath, "cells:`n  headless.$system.source:`n    moduleLoad: lazy`n    trigger: lookup-hook`n")
+            [System.IO.File]::WriteAllText($coreListPath, "# the core`n`nCoreWidget`n")
+            Add-SandboxFunction -Module 'CoreWidget' -Function 'Get-CoreWidget' -Body '"core"'
+            Add-SandboxFunction -Module 'LazyGadget' -Function 'Get-LazyGadget' -Body 'Get-LazyGadgetSecret'
+            Add-SandboxFunction -Module 'LazyGadget' -Function 'Get-LazyGadgetSecret' -Body '"gadget secret"' -Private
+
+            $script:lazyCapture = '[pscustomobject][ordered]@{ ' +
+            'CoreLoaded = @(Get-Module CoreWidget).Count; GadgetBefore = @(Get-Module LazyGadget).Count; ' +
+            'Value = (Get-LazyGadget); GadgetAfter = @(Get-Module LazyGadget).Count; ' +
+            'Secret = [bool](Get-Command Get-LazyGadgetSecret -ErrorAction Ignore) }'
+            $script:observed = Invoke-Sandbox -Capture $lazyCapture
+        }
+
+        AfterAll {
+            [System.IO.File]::WriteAllText($rowsPath, $rowsBefore)
+            Remove-Item -Path $coreListPath -Force -ErrorAction SilentlyContinue
+            Remove-SandboxModule -Module 'CoreWidget'
+            Remove-SandboxModule -Module 'LazyGadget'
+        }
+
+        It 'imports a core module and leaves the other out of the session' {
+            $observed.CoreLoaded | Should -Be 1
+            $observed.GadgetBefore | Should -Be 0
+        }
+
+        It 'loads a deferred module when one of its commands is called, and returns its value' {
+            $observed.Value | Should -Be 'gadget secret'
+            $observed.GadgetAfter | Should -Be 1
+        }
+
+        It 'reaches a private function of the deferred module through its public one' {
+            $observed.Value | Should -Be 'gadget secret'
+            $observed.Secret | Should -BeFalse
+        }
+
+        It 'defers every module when the core list is missing' {
+            Remove-Item -Path $coreListPath -Force
+            try {
+                $absent = Invoke-Sandbox -Capture '[pscustomobject]@{ Core = @(Get-Module CoreWidget).Count; Value = (Get-CoreWidget); CoreAfter = @(Get-Module CoreWidget).Count }'
+                $absent.Core | Should -Be 0
+                $absent.Value | Should -Be 'core'
+                $absent.CoreAfter | Should -Be 1
+            }
+            finally {
+                [System.IO.File]::WriteAllText($coreListPath, "# the core`n`nCoreWidget`n")
+            }
+        }
+
+        It 'fails the import for a name shared by a core and a deferred module' {
+            Add-SandboxFunction -Module 'LazyDupe' -Function 'Get-CoreWidget' -Body '"dupe"'
+            try {
+                { Invoke-Sandbox -Capture $lazyCapture } | Should -Throw -ExpectedMessage '*collision*Get-CoreWidget: defined by*'
+            }
+            finally {
+                Remove-SandboxModule -Module 'LazyDupe'
+            }
         }
     }
 }

@@ -39,8 +39,9 @@ session. It is a generated shim (`New-Importer`) that carries only the importer'
 `Invoke-Importer` in `Catzc.Internal.Importer`, the one living copy, which it removes once the load returns. The state it leaves is fixed:
 `$env:RepositoryRoot` (the shim's own folder) and `$env:CatzcModulesRoot`; the preferences and error view of
 ADR-PWSH-ENGINE-GLOBALPREFERENCESONCE; UTF-8 console output when output is redirected; the `.internal` modules that stay loaded
-(`Catzc.Internal.Loader`, `Catzc.Internal.Types`, `Catzc.Internal.Vendor`); the vendored modules and every catzc module; the session's
-record of loaded C# types; and the session `PATH` reconciled to the tools present. Each lasting change is announced
+(`Catzc.Internal.Loader`, `Catzc.Internal.Types`, `Catzc.Internal.Vendor`); the vendored modules; the catzc modules the session's load row
+loads at import, and the session's command-lookup hook that loads each other catzc module at the first use of one of its commands; the
+session's record of loaded C# types; and the session `PATH` reconciled to the tools present. Each lasting change is announced
 ([console-output-matters](../console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 
 - [The dot-sourced importer](#the-dot-sourced-importer)

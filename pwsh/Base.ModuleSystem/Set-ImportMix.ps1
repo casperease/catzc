@@ -26,6 +26,8 @@ function Set-ImportMix {
     # The session record: the importer sets it once, and the test runner and the builder read it through Get-ImportMix.
     $script:importMix = $mix
     foreach ($name in $mix.skipped_modules) {
+        # A module still deferred is struck from the deferred set, never loaded to be removed (ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE).
+        Remove-DeferredModule -Name $name
         if (Get-Module -Name $name) {
             Remove-Module -Name $name -Force
             Write-Message "Removed module $name (outside the mix; languages: $($mix.languages -join ', '))"

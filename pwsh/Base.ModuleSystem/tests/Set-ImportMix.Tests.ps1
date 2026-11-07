@@ -30,6 +30,13 @@ Describe 'Set-ImportMix' -Tag 'L0', 'logic' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Message -like 'Removed module Widget.Beta *' }
     }
 
+    It 'strikes a still-deferred module outside the mix without loading or removing it' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+        Mock Remove-DeferredModule -ModuleName Catzc.Base.ModuleSystem {}
+        [void] (Set-ImportMix -LanguageNames widget)
+        Should -Invoke Remove-DeferredModule -ModuleName Catzc.Base.ModuleSystem -Times 1 -Exactly -ParameterFilter { $Name -eq 'Widget.Gamma' }
+        Should -Invoke Remove-Module -ModuleName Catzc.Base.ModuleSystem -Times 0 -ParameterFilter { $Name -contains 'Widget.Gamma' }
+    }
+
     It 'keeps the mix as the session record Get-ImportMix returns' -Tag 'ADR-AUTO-IMPORTER-ONEMIXRECORD' {
         $mix = Set-ImportMix
         Get-ImportMix | Should -Be $mix

@@ -102,14 +102,14 @@ files and both hashes, so the cause is diagnosable from the error text alone.
 ### Rule ADR-PWSH-TYPES-CONSOLEVERIFIESONLY
 
 In a console session the importer verifies the types assembly and loads nothing: `Import-CSharpTypes` registers the assembly as deferred,
-and the first lookup of a catzc command loads it (`Enable-DeferredTypesLoad`, `Initialize-Types`), so an import that runs no command pays no
-load. A headless session loads at import, so a pipeline or a test worker fails on stale or missing types where it starts
-(ADR-PWSH-TYPES-ONEDRIFTMEASURE). Which cell loads how is the `types-load.yml` table, host by operating system by run mode, with its default
-row declared once in the `TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so
-it cannot sit on a config type, the one exception to
-[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder). The combined hash of the sources is
-memoised per machine beside the shadow copies, by each file's length and last write (`Get-CombinedTypeHash -StampPath`); only the importer
-reads the memo, and the builder, the janitor and the gates hash every byte.
+and the first lookup of a catzc command loads it through the session's one lookup hook, which loads the types before it loads a deferred
+module (ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE), so an import that runs no command pays no load. A headless session loads at import, so a
+pipeline or a test worker fails on stale or missing types where it starts (ADR-PWSH-TYPES-ONEDRIFTMEASURE). Which cell loads how, types and
+modules alike, is the `types-load.yml` table, host by operating system by run mode, with its default row declared once in the
+`TypesLoadDefault` variable of `Catzc.Internal.Types`: the policy is read while the types assembly is unloaded, so it cannot sit on a config
+type, the one exception to [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder). The
+combined hash of the sources is memoised per machine beside the shadow copies, by each file's length and last write
+(`Get-CombinedTypeHash -StampPath`); only the importer reads the memo, and the builder, the janitor and the gates hash every byte.
 
 - [Loaded by the first use](#loaded-by-the-first-use)
 - [How this is enforced](#how-this-is-enforced)

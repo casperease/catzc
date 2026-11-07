@@ -78,5 +78,17 @@ function Sync-SessionTools {
     $json = [ordered]@{ keys = @($key,
             $keyAfter | Select-Object -Unique); path = $env:PATH; foreign = @($foreignNames); locations = @($foreignLocations)
     } | ConvertTo-Json -Compress
-    [System.IO.File]::WriteAllText($memoPath, $json)
+    $staging = "$memoPath.$PID.tmp"
+    try {
+        [System.IO.File]::WriteAllText($staging, $json)
+        [System.IO.File]::Move($staging, $memoPath, $true)
+    }
+    catch [System.IO.IOException], [System.UnauthorizedAccessException] {
+        Write-Verbose "Skipped writing the session-tools memo '$memoPath': $($_.Exception.Message)"
+    }
+    finally {
+        if ([System.IO.File]::Exists($staging)) {
+            [System.IO.File]::Delete($staging)
+        }
+    }
 }

@@ -73,3 +73,30 @@ A console session's janitors run once the first prompt has shown. `Enable-Deferr
 - Decision record: [caching](../../../drs/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
 - Decision record: [pipeline-detection](../../../drs/automation/pwsh/pipeline-detection.md) — the one detection function the loader carries.
 - Reference: the internal area overview and the shared modules it loads — `Types`, `Vendor`, `Bootstrap`, `TestKit`.
+
+## comment:1
+
+Above `$script:deferredModules = @{}`, written with `#`.
+
+```text
+The first-use state: the registry of modules not yet loaded, and the one case-insensitive index of command name to owning module
+(an empty owner marks a command that only waits on the pending types). The index is never replaced, since the compiled hook holds it.
+```
+
+## comment:2
+
+Above `. $module { Set-StrictMode -Version Latest }`, written with `#`.
+
+```text
+A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own script scope, which every
+function in the module inherits.
+```
+
+## comment:3
+
+Above `if ($script:deferredModules.Count -eq 0) {`, written with `#`.
+
+```text
+Only the types are pending: the plain script hook, since building and compiling the expression filter costs about 90 ms of
+cold JIT that a few hundred lookups never repay.
+```

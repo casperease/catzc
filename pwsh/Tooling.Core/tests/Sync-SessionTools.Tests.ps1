@@ -142,5 +142,30 @@ Describe 'Sync-SessionTools' -Tag 'L0', 'logic' {
             Sync-SessionTools
             Should -Invoke Resolve-SessionToolHost -ModuleName Catzc.Tooling.Core -Times 8 -Exactly
         }
+
+        It 'writes the memo whole, as JSON that parses, and leaves no temp file behind' {
+            Sync-SessionTools
+            $cache = Join-Path $memoRoot 'cache'
+            $memo = [System.IO.File]::ReadAllText((Join-Path $cache 'session-tools.json')) | ConvertFrom-Json -AsHashtable
+            @($memo['keys']).Count | Should -BeGreaterThan 0
+            $memo['path'] | Should -Be $env:PATH
+            [System.IO.Directory]::GetFiles($cache, '*.tmp') | Should -HaveCount 0
+        }
+
+        It 'returns without throwing when another process holds the memo open, and leaves no temp file behind' {
+            $cache = Join-Path $memoRoot 'cache'
+            [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+            $memoFile = Join-Path $cache 'session-tools.json'
+            [System.IO.File]::WriteAllText($memoFile, 'held')
+            $held = [System.IO.FileStream]::new($memoFile, [System.IO.FileMode]::Open, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+            try {
+                { Sync-SessionTools } | Should -Not -Throw
+            }
+            finally {
+                $held.Dispose()
+            }
+            [System.IO.File]::ReadAllText($memoFile) | Should -Be 'held'
+            [System.IO.Directory]::GetFiles($cache, '*.tmp') | Should -HaveCount 0
+        }
     }
 }

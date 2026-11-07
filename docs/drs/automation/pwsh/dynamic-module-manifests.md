@@ -73,10 +73,11 @@ file, module folder, or vendored module is discovered by them; none of them is e
 
 ### Rule ADR-PWSH-MANIFEST-NOMODULEIMPORTS
 
-No catzc module imports another. Dot-sourcing `importer.ps1` (ADR-PWSH-ENGINE-IMPORTERDOTSOURCED) imports every module into one global
-function namespace, so a function calls any catzc function by name — no `Import-Module`, no `using module`, no `RequiredModules`, no
-hand-written export list. This is zero ceremony (ADR-AUTO-ZERO-CEREMONYAUTOMATION) in PowerShell; which module may call which is the
-declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an import statement.
+No catzc module imports another. Dot-sourcing `importer.ps1` (ADR-PWSH-ENGINE-IMPORTERDOTSOURCED) puts every module's functions into one
+global function namespace, loaded at import or at the first use of one of them, so a function calls any catzc function by name — no
+`Import-Module`, no `using module`, no `RequiredModules`, no hand-written export list. This is zero ceremony
+(ADR-AUTO-ZERO-CEREMONYAUTOMATION) in PowerShell; which module may call which is the declared graph (ADR-AUTO-DEPM-CODEBUILTFROM), never an
+import statement.
 
 - [Conventions in PowerShell](#conventions-in-powershell)
 - [One function namespace](#one-function-namespace)
@@ -134,16 +135,16 @@ write by habit has no place here, so the module graph cannot be read from import
 `Manifests are a regenerated, gitignored artifact`
 
 A module's `.psd1` is not source — it is a projection of the module's `.ps1` files, recomputed every time the importer runs.
-`Import-AllModules` calls `New-DynamicManifest` for each module directory immediately before `Import-Module`, deriving
-`<Module>/<Module>.psd1` directly from the current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function,
-every `private/*.ps1` a non-exported one. The files are listed, `private/` first and then the root, each group ordinal, in the manifest's
-`PrivateData.CatzcFiles`; its one `NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses
-each listed file in memory and dot-sources it into the module's session state. Loading each file as its own nested script would cost about 3
-ms per file on top of its parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`,
-errors and stack traces. The file is written only when the recomputed content differs — a clean tree costs a read per module and no write,
-which is also what lets Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost
-all its `.ps1` files has its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the
-filesystem of `.ps1` files is the single source of truth, and the manifest is its output.
+`Import-AllModules` calls `New-DynamicManifest` at every import, for every module, deriving `<Module>/<Module>.psd1` directly from the
+current filesystem: every root `*.ps1` (excluding `*.Tests.ps1`) becomes an exported function, every `private/*.ps1` a non-exported one. The
+files are listed, `private/` first and then the root, each group ordinal, in the manifest's `PrivateData.CatzcFiles`; its one
+`NestedModules` entry is the shared loader `pwsh/.internal/assets/Import-ModuleFiles.ps1`, which parses each listed file in memory and
+dot-sources it into the module's session state. Loading each file as its own nested script would cost about 3 ms per file on top of its
+parse — most of the import — while the parsed script block keeps the source file and line for `Get-Command`, errors and stack traces. The
+file is written only when the recomputed content differs — a clean tree costs a read per module and no write, which is also what lets
+Test-Automation's parallel workers import concurrently without racing the manifest files. A directory that has lost all its `.ps1` files has
+its stale manifest deleted in the same loop. The manifest is never read as an input and never hand-edited; the filesystem of `.ps1` files is
+the single source of truth, and the manifest is its output.
 
 Because the manifest is regenerated from scratch on every import, committing it would be committing a build output. It would drift from the
 `.ps1` files on any branch that adds, renames, or moves a function, and produce noisy, conflict-prone diffs that say nothing the directory

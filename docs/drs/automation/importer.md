@@ -42,9 +42,20 @@ again what the importer decided ([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](platform-bu
 
 ### Rule ADR-AUTO-IMPORTER-RESOLVEDAFTERLOAD
 
-The importer loads every module of the code root, resolves the mix once from the loaded toolset, keeps it as the session's record, and then
-removes the modules outside the mix. The decision reads the same module model, languages configuration and engine locator as every other
-command, so there is no second, pre-load copy of them.
+The importer resolves the mix once, after the modules that decide it are loaded, from the loaded toolset, and keeps it as the session's
+record. A headless session loads every module of the code root at import and then removes the modules outside the mix. A console session
+loads the core at import and each other module at the first use of one of its commands; a module outside the mix is never loaded by a first
+use. The decision reads the same module model, languages configuration and engine locator as every other command, so there is no second,
+pre-load copy of them.
+
+- [Deciding after the load](#deciding-after-the-load)
+
+### Rule ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE
+
+The core is the module that decides the mix and every module it is declared to need, derived from the declared graph and never listed by
+hand. A module loads the same files in the same order at import or at first use, through one load function. The function-name collision
+check and the generated manifests cover every module at import. A command that enumerates the loaded modules completes the load first. A
+session's result never depends on when a module loads.
 
 - [Deciding after the load](#deciding-after-the-load)
 
@@ -69,11 +80,19 @@ entry, never a branch ([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE](open-closed-archite
 
 ### Rule ADR-AUTO-IMPORTER-MODEANDHOSTORTHOGONAL
 
-The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from and
-how the native types load ([DDR-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-ddr-runmode-modeisderived)), the mix chooses which
-modules, languages and engines.
+The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from,
+how the native types load and when the modules load ([DDR-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-ddr-runmode-modeisderived)),
+the mix chooses which modules, languages and engines.
 
 - [The mix](#the-mix)
+
+### Rule ADR-AUTO-IMPORTER-CONSOLEROOF
+
+A console import has a roof, `import.console_seconds` in the timeouts configuration (3 s). Every console import appends one line to the
+import ledger under the output folder with its phases, its CPU seconds and the antivirus signature version; an import over the roof names
+its CPU seconds on its closing line. A slow import warns and never fails.
+
+- [The console roof and the ledger](#the-console-roof-and-the-ledger)
 
 ## Context
 
@@ -100,10 +119,30 @@ session and read, never recomputed: a test runner that re-decided the engines co
 ### Deciding after the load
 
 Deciding the mix needs the module model, the languages configuration and the engine locator, and those are modules themselves. Deciding
-after the load uses them as they are. A two-phase load, with the deciding modules first and the rest filtered, carries a second load path. A
-file-extension map inside the importer is a second living version of the languages configuration
-([one-living-version](../principles/one-living-version.md)). Loading a module and then removing it costs time only when the mix leaves
-modules out. Counting a module's asset or test files would let an explicit mix drop a module for a script it only ships.
+after the load uses them as they are: the importer loads the core, the module that decides and every module it is declared to need, and
+resolves the mix from what is loaded. A headless session then loads the rest at import and removes the modules outside the mix, which costs
+time only when the mix leaves modules out. A console session leaves the rest unloaded: each module loads at the first lookup of one of its
+commands, and a module outside the mix is struck from the lookup, so a first use never loads it.
+
+One load function serves both moments. A module loads the same files in the same order whether it loads at import or at first use, so a
+session's result does not depend on when a module loads, and a parse error in a deferred module fails where the module is first used, not at
+import. The collision check and the generated manifests read every module at import, so a deferred module is still checked and still has its
+manifest. The core is derived from the declared module graph, never listed by hand, so the list has no second living version
+([one-living-version](../principles/one-living-version.md)). A command that enumerates the loaded modules completes the load first, since a
+partial list would be a wrong answer.
+
+A two-phase load by a hand-written list of deciding modules carries a second load path. A file-extension map inside the importer is a second
+living version of the languages configuration. Counting a module's asset or test files would let an explicit mix drop a module for a script
+it only ships.
+
+### The console roof and the ledger
+
+The importer is the entry to every session, so a slow import is felt by every command after it. A console import has a roof,
+`import.console_seconds`, declared once on the timeouts configuration; the importer reads it after the load for its own closing line, and an
+import over it warns and never fails, since an import must not throw for being slow. A slow import must also say whether it computed or
+waited: each console import appends one line to the import ledger under the output folder with the seconds of each phase, the process's CPU
+seconds over the same span, and the antivirus signature version, and an import over the roof names its CPU seconds at the prompt. CPU
+seconds near the wall seconds mean the import computed; CPU seconds far below them mean it waited on another process, such as a scan.
 
 ### Growth by entry
 

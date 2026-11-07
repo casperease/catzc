@@ -119,6 +119,10 @@ function Invoke-RootConfigGenerator {
             # The lookup cats checks a call against, from the command contracts (Catzc.Base.Contracts).
             New-CommandLookup
         }
+        'New-ImporterCore' {
+            # The module folders a console import loads at once, from the declared graph (Catzc.Base.ModuleSystem).
+            New-ImporterCore
+        }
         default {
             throw "Unknown root-config generator '$Name'. Register its invocation in Invoke-RootConfigGenerator (Catzc.Base.RootConfig)."
         }

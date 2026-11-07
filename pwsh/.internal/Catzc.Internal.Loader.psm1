@@ -197,4 +197,231 @@ function Set-ImporterVerbosity {
     $script:importerVerbose = $Enabled
 }
 
-Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsRunningInVsCode, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt, Write-ImporterMessage, Set-ImporterVerbosity
+$script:deferredModules = @{}
+$script:firstUseIndex = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+$script:firstUseBusy = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+$script:firstUseCompletionOriginal = $null
+. (Join-Path $PSScriptRoot 'assets/importer/Enable-FirstUseCompletion.ps1')
+
+# The one global import of a module manifest, used at import and at first use, so both load the same files in the same order.
+function Import-ModuleManifest {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Loads a module into the session; the importer announces the load')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The importer announces the modules it loads (its Loaded line); a first-use load is the same import')]
+    [CmdletBinding()]
+    [OutputType([System.Management.Automation.PSModuleInfo])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    $module = Import-Module $Path -Scope Global -Force -PassThru | Select-Object -First 1
+    . $module { Set-StrictMode -Version Latest }
+    $module
+}
+
+function Register-DeferredModule {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Records in-memory session state only; the importer announces the deferral')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Records session state the importer announces in its load record')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Name,
+
+        [Parameter(Mandatory)]
+        [string] $ManifestPath,
+
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
+        [string[]] $CommandName
+    )
+
+    Remove-DeferredModule -Name $Name
+    $script:deferredModules[$Name] = @{ ManifestPath = $ManifestPath; CommandName = $CommandName }
+    foreach ($command in $CommandName) {
+        $script:firstUseIndex[$command] = $Name
+    }
+}
+
+# Strikes a module's names from the index, but only those it still owns.
+function Remove-DeferredModule {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Edits in-memory session state only')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'Edits session state the importer announces in its load record')]
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Name
+    )
+
+    if (-not $script:deferredModules.ContainsKey($Name)) {
+        return
+    }
+    foreach ($command in $script:deferredModules[$Name].CommandName) {
+        $owner = $null
+        if ($script:firstUseIndex.TryGetValue($command, [ref] $owner) -and $owner -ieq $Name) {
+            [void] $script:firstUseIndex.Remove($command)
+        }
+    }
+    $script:deferredModules.Remove($Name)
+}
+
+function Import-DeferredModule {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Loads a module the importer registered; the load is the first use the importer announced')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The importer announces the deferral; the load is that deferral resolving')]
+    [CmdletBinding(DefaultParameterSetName = 'Name')]
+    [OutputType([void])]
+    param(
+        [Parameter(Mandatory, ParameterSetName = 'Name')]
+        [string] $Name,
+
+        [Parameter(Mandatory, ParameterSetName = 'All')]
+        [switch] $All
+    )
+
+    $names = @(if ($All) {
+            $script:deferredModules.Keys
+        }
+        else {
+            $Name
+        })
+    foreach ($moduleName in $names) {
+        if (-not $script:deferredModules.ContainsKey($moduleName)) {
+            continue
+        }
+        # Taken out first, so a lookup from inside this module's own load finds nothing to load again.
+        $entry = $script:deferredModules[$moduleName]
+        $script:deferredModules.Remove($moduleName)
+        try {
+            [void] (Import-ModuleManifest -Path $entry.ManifestPath)
+        }
+        catch {
+            $script:deferredModules[$moduleName] = $entry
+            throw
+        }
+        foreach ($command in $entry.CommandName) {
+            $owner = $null
+            if ($script:firstUseIndex.TryGetValue($command, [ref] $owner) -and $owner -ieq $moduleName) {
+                [void] $script:firstUseIndex.Remove($command)
+            }
+        }
+    }
+}
+
+function Test-DeferredTypesPending {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param()
+
+    $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
+    if ($records) {
+        foreach ($entry in $records.Values) {
+            if (-not $entry.Loaded) {
+                return $true
+            }
+        }
+    }
+    $false
+}
+
+# What a hit does: the pending types first (a typed parameter resolves before a body runs), then the owning module.
+function Invoke-FirstUseLoad {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Loads what the importer deferred; session state only')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The importer announced the deferral; this is it resolving')]
+    [CmdletBinding()]
+    [OutputType([void])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $CommandName
+    )
+
+    # A lookup from inside the load of the same name must not loop.
+    if (-not $script:firstUseBusy.Add($CommandName)) {
+        return
+    }
+    try {
+        if (Test-DeferredTypesPending) {
+            Initialize-Types | Out-Null
+        }
+        $owner = $null
+        if ($script:firstUseIndex.TryGetValue($CommandName, [ref] $owner) -and $owner) {
+            Import-DeferredModule -Name $owner
+        }
+        if (-not (Test-DeferredTypesPending)) {
+            foreach ($command in @($script:firstUseIndex.Keys)) {
+                if ($script:firstUseIndex[$command] -eq '') {
+                    [void] $script:firstUseIndex.Remove($command)
+                }
+            }
+        }
+        if ($script:firstUseIndex.Count -eq 0) {
+            $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+            Enable-FirstUseCompletion -Remove
+        }
+    }
+    finally {
+        [void] $script:firstUseBusy.Remove($CommandName)
+    }
+}
+
+# Installed last: with a deferred module registered, a compiled filter, since a script hook costs 12 to 14 microseconds on every command lookup of the session.
+function Enable-FirstUseHook {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '',
+        Justification = 'The hook is session state the importer records in its load record')]
+    [CmdletBinding()]
+    [OutputType([void])]
+    param(
+        # Commands that wait only on the pending types: they load the types and no module.
+        [AllowEmptyCollection()]
+        [string[]] $TypesCommandName = @()
+    )
+
+    if (Test-DeferredTypesPending) {
+        foreach ($command in $TypesCommandName) {
+            if (-not $script:firstUseIndex.ContainsKey($command)) {
+                $script:firstUseIndex[$command] = ''
+            }
+        }
+    }
+    if ($script:firstUseIndex.Count -eq 0) {
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
+        Enable-FirstUseCompletion -Remove
+        return
+    }
+
+    if ($script:deferredModules.Count -eq 0) {
+        Enable-FirstUseCompletion -Remove
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction = {
+            param($lookedUp)
+            if ($script:firstUseIndex.ContainsKey($lookedUp)) {
+                Invoke-FirstUseLoad -CommandName $lookedUp
+            }
+        }
+        return
+    }
+
+    Enable-FirstUseCompletion
+    $action = [System.Action[string]] { param($lookedUp) Invoke-FirstUseLoad -CommandName $lookedUp }
+    $expression = [System.Linq.Expressions.Expression]
+    $handlerType = [System.EventHandler[System.Management.Automation.CommandLookupEventArgs]]
+    $indexType = $script:firstUseIndex.GetType()
+    $origin = $expression::Parameter([object], 'origin')
+    $lookup = $expression::Parameter([System.Management.Automation.CommandLookupEventArgs], 'lookup')
+    $name = $expression::Property($lookup, 'CommandName')
+    $hit = $expression::Call($expression::Constant($script:firstUseIndex, $indexType), $indexType.GetMethod('ContainsKey'), $name)
+    $load = $expression::Call($expression::Constant($action, [System.Action[string]]), [System.Action[string]].GetMethod('Invoke'), $name)
+    $filter = $expression::Lambda($handlerType, $expression::IfThen($hit, $load), [System.Linq.Expressions.ParameterExpression[]] @($origin, $lookup)).Compile()
+    $ExecutionContext.InvokeCommand.PreCommandLookupAction = $filter
+}
+
+Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsRunningInVsCode, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt, Write-ImporterMessage, Set-ImporterVerbosity, Import-ModuleManifest, Register-DeferredModule, Import-DeferredModule, Remove-DeferredModule, Enable-FirstUseHook, Enable-FirstUseCompletion

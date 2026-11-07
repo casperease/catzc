@@ -3,7 +3,7 @@
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
 #     regenerate: "Build-RootConfig -Path .gitattributes"
-#     with_body_sha: "8f6efdc86322"
+#     with_body_sha: "6a0c1b6cb28f"
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
@@ -88,6 +88,7 @@ pwsh/.compiled/** linguist-generated
 /importer.ps1 linguist-generated
 /importer.sh linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated
+/pwsh/.internal/assets/importer-core.txt linguist-generated
 /pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
 /nuget.config linguist-generated
 /Directory.Build.props linguist-generated

@@ -132,6 +132,35 @@ function Import-TypesAssembly {
     $shadow
 }
 
+function Get-TypesAssemblyTypeName {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Generic.HashSet[string]])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Path
+    )
+
+    $names = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $stream = [System.IO.MemoryStream]::new([System.IO.File]::ReadAllBytes($Path))
+    $peReader = [System.Reflection.PortableExecutable.PEReader]::new($stream)
+    try {
+        $reader = [System.Reflection.Metadata.PEReaderExtensions]::GetMetadataReader($peReader)
+        $public = [System.Reflection.TypeAttributes]::Public
+        $mask = [System.Reflection.TypeAttributes]::VisibilityMask
+        foreach ($handle in $reader.TypeDefinitions) {
+            $definition = $reader.GetTypeDefinition($handle)
+            if (($definition.Attributes -band $mask) -eq $public) {
+                [void] $names.Add($reader.GetString($definition.Namespace) + '.' + $reader.GetString($definition.Name))
+            }
+        }
+    }
+    finally {
+        $peReader.Dispose()
+        $stream.Dispose()
+    }
+    , $names
+}
+
 function Test-TypesAssemblyContent {
     [CmdletBinding()]
     [OutputType([void])]
@@ -147,7 +176,7 @@ function Test-TypesAssemblyContent {
         throw "Cannot verify the types assembly: '$Path' does not exist."
     }
 
-    $declared = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-TypesAssemblyManifest -Path $Path).Types.Name), [System.StringComparer]::Ordinal)
+    $declared = Get-TypesAssemblyTypeName -Path $Path
     foreach ($source in $Expected) {
         if (-not $declared.Contains("$($source.Module).$($source.Base)")) {
             throw "Compiled C# types but '$($source.Module).$($source.Base)' was not produced. $($source.Module)/types/$($source.Base).cs must declare a public class named '$($source.Base)' (the module namespace '$($source.Module)' is added automatically)."
@@ -156,13 +185,13 @@ function Test-TypesAssemblyContent {
 }
 
 
-$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
+$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; ModuleLoad = 'eager'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
 $script:typesLoadRunModes = 'source', 'build'
 $script:typesLoadLoads = 'lazy', 'eager'
 $script:typesLoadTriggers = 'lookup-hook', 'none'
-$script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes', 'generations'
+$script:typesLoadKeys = 'load', 'trigger', 'moduleLoad', 'shadowCopy', 'eagerTypes', 'generations'
 
 function Get-TypesLoadPolicy {
     [CmdletBinding()]
@@ -195,6 +224,9 @@ function Get-TypesLoadPolicy {
         [ValidateSet('lookup-hook', 'none')]
         [string] $Trigger,
 
+        [ValidateSet('lazy', 'eager')]
+        [string] $ModuleLoad,
+
         [bool] $ShadowCopy,
 
         [string[]] $EagerType,
@@ -203,7 +235,7 @@ function Get-TypesLoadPolicy {
     )
 
     if ($Engine -ne 'pwsh') {
-        return [pscustomobject]@{ Cell = $null; Engine = $Engine; Load = 'never'; Trigger = 'none'; EagerTypes = @(); ShadowCopy = $false }
+        return [pscustomobject]@{ Cell = $null; Engine = $Engine; Load = 'never'; Trigger = 'none'; ModuleLoad = 'eager'; EagerTypes = @(); ShadowCopy = $false }
     }
 
     if (-not [System.IO.File]::Exists($ConfigPath)) {
@@ -241,7 +273,7 @@ function Get-TypesLoadPolicy {
     }
     # Filled in here, not as defaults: each is relative to the -ConfigPath row, and -ConfigPath is declared after them.
     $policy = [ordered]@{ Cell = $cell; Engine = $Engine }
-    foreach ($name in 'Load', 'Trigger', 'ShadowCopy', 'Generations') {
+    foreach ($name in 'Load', 'Trigger', 'ModuleLoad', 'ShadowCopy', 'Generations') {
         $fromConfig = $name.Substring(0, 1).ToLowerInvariant() + $name.Substring(1)
         $policy[$name] = if ($PSBoundParameters.ContainsKey($name)) {
             $PSBoundParameters[$name]
@@ -270,6 +302,12 @@ function Get-TypesLoadPolicy {
     }
     if ($policy.Trigger -cnotin $script:typesLoadTriggers) {
         throw "Row '$cell' has trigger '$($policy.Trigger)'; the values are: $($script:typesLoadTriggers -join ', ')."
+    }
+    if ($policy.ModuleLoad -cnotin $script:typesLoadLoads) {
+        throw "Row '$cell' has moduleLoad '$($policy.ModuleLoad)'; the values are: $($script:typesLoadLoads -join ', ')."
+    }
+    if ($policy.ModuleLoad -eq 'lazy' -and $policy.Trigger -ne 'lookup-hook') {
+        throw "Row '$cell' has moduleLoad 'lazy' with trigger '$($policy.Trigger)'; nothing would ever load a module. 'lazy' needs trigger lookup-hook."
     }
     if ($policy.ShadowCopy -isnot [bool]) {
         throw "Row '$cell' has shadowCopy '$($policy.ShadowCopy)'; it is true or false."
@@ -325,7 +363,6 @@ function Initialize-Types {
     [OutputType([pscustomobject])]
     param()
 
-    $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
     $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
     if (-not $records) {
         return
@@ -372,42 +409,4 @@ function Initialize-Types {
     }
 }
 
-$script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new()
-
-# A guard in the body is too late: a typed parameter resolves before it runs, so the hook fires before binding.
-function Enable-DeferredTypesLoad {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',
-        Justification = 'Reads $global:__CatzcDeferredTypes, the session-global pending record')]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
-        Justification = 'Installs an in-memory lookup hook for this session only; the importer announces the deferral')]
-    [CmdletBinding()]
-    param(
-        [AllowEmptyCollection()]
-        [string[]] $CommandName = @()
-    )
-
-    $records = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
-    $pending = $false
-    if ($records) {
-        foreach ($entry in $records.Values) {
-            if (-not $entry.Loaded) {
-                $pending = $true
-            }
-        }
-    }
-    if (-not $pending) {
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
-        return
-    }
-
-    $script:deferredTypesCommands = [System.Collections.Generic.HashSet[string]]::new([string[]]$CommandName,
-        [System.StringComparer]::OrdinalIgnoreCase)
-    $ExecutionContext.InvokeCommand.PreCommandLookupAction = {
-        param($commandName)
-        if ($script:deferredTypesCommands.Contains($commandName)) {
-            Initialize-Types | Out-Null
-        }
-    }
-}
-
-Export-ModuleMember -Function Get-TypesAssemblyPrefix, Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Sync-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypesAssemblyPrefix, Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesPruneAfter, Register-TypesHold, Test-TypesHeld, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesContractPath, Write-TypesContract, Sync-TypesContract, Save-BurstJournalWrite, Get-TypesContractDrift, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types

@@ -62,7 +62,6 @@ function Test-Automation {
         $MaxLevel = $suiteScope.Level
     }
 
-    # The post-build run tests the built bundles and selects its tests by the tag; the source run leaves them out and lists them (ADR-AUTO-TEST-POSTBUILDTAG).
     $optOutTag = @()
     if ($PostBuild) {
         if ($Rule.Count -gt 0) {

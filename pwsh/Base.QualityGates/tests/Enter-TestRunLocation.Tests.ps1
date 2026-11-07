@@ -149,6 +149,47 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
             Should -Be '{"widget.ps1":"key"}'
     }
 
+    It 'leaves another process''s in-flight temp files out of the snapshot''s caches' {
+        $cache = Join-Path $script:outRoot 'cache'
+        [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json'), '{"widget.ps1":"key"}')
+        [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json.4242.tmp'), 'half-written')
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated }
+
+        [System.IO.File]::Exists((Join-Path $snapshotPath 'out/cache/format-code.json')) | Should -BeTrue
+        [System.IO.File]::Exists((Join-Path $snapshotPath 'out/cache/format-code.json.4242.tmp')) | Should -BeFalse
+    }
+
+    It 'skips a cache file that cannot be copied when its copy comes, and copies the rest' {
+        $cache = Join-Path $script:outRoot 'cache'
+        [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $cache 'format-code.json'), '{"widget.ps1":"key"}')
+        $gone = Join-Path $cache 'gadget.json'
+        [System.IO.File]::WriteAllText($gone, 'gadget')
+        $snapshotPath = Join-Path $TestDrive ('catzc-run-' + [guid]::NewGuid().ToString('N'))
+        Mock New-RepositorySnapshot {
+            [pscustomobject]@{ Path = $snapshotPath; SourceRoot = $SourceRoot; Commit = 'abc1234def'; Modified = 0; Untracked = 0; Deleted = 0 }
+        } -ModuleName Catzc.Base.QualityGates
+
+        # A file held exclusively fails its copy after the listing, as one deleted in between does.
+        $held = [System.IO.FileStream]::new($gone, [System.IO.FileMode]::Open, [System.IO.FileAccess]::ReadWrite, [System.IO.FileShare]::None)
+        try {
+            { $script:location = InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Invoke-TestFile' -Isolated } } |
+                Should -Not -Throw
+        }
+        finally {
+            $held.Dispose()
+        }
+
+        [System.IO.File]::ReadAllText((Join-Path $snapshotPath 'out/cache/format-code.json')) | Should -Be '{"widget.ps1":"key"}'
+        [System.IO.File]::Exists((Join-Path $snapshotPath 'out/cache/gadget.json')) | Should -BeFalse
+    }
+
     It 'leaves the writers'' stamp memo out of the snapshot, so every at_import writer is due in the priming import' {
         $cache = Join-Path $script:outRoot 'cache'
         [System.IO.Directory]::CreateDirectory($cache) | Out-Null

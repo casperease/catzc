@@ -34,6 +34,18 @@ Describe 'Get-CatzcModuleRoot' -Tag 'L0', 'logic' {
         It 'throws when no module of that name is loaded' {
             { Get-CatzcModuleRoot -Module Catzc.Base.Gadget } | Should -Throw '*Catzc.Base.Gadget*'
         }
+
+        It 'loads the named module first when it is still deferred' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+            Mock Import-DeferredModule -ModuleName Catzc.Base.Repository {}
+            Get-CatzcModuleRoot -Module Catzc.Base.Widget | Should -Be $script:widgetRoot
+            Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.Repository -Times 1 -Exactly -ParameterFilter { $Name -ceq 'Catzc.Base.Widget' }
+        }
+
+        It 'still throws for a missing module after the deferred load found nothing' -Tag 'ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE' {
+            Mock Import-DeferredModule -ModuleName Catzc.Base.Repository {}
+            { Get-CatzcModuleRoot -Module Catzc.Base.Gadget } | Should -Throw '*Catzc.Base.Gadget*'
+            Should -Invoke Import-DeferredModule -ModuleName Catzc.Base.Repository -Times 1 -Exactly -ParameterFilter { $Name -ceq 'Catzc.Base.Gadget' }
+        }
     }
 
     Context 'a consumer overlay' {

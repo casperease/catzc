@@ -120,6 +120,27 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }
 
+    It 'looks a writer''s command up only when the writer is due' {
+        ($script:rows | Where-Object Name -eq 'Build-DrsIndex').Due = $true
+        Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
+        $script:asked = [System.Collections.Generic.List[string]]::new()
+        Mock Test-WriterDue {
+            $script:asked.Add("$Name")
+            $Name -eq 'Build-DrsIndex'
+        } -ModuleName Catzc.Internal.Importer
+        # Only the two writer names are intercepted; every other lookup stays real. The due writer answers truthy.
+        Mock Get-Command { [pscustomobject] @{ Name = "$Name" } } -ModuleName Catzc.Internal.Importer -ParameterFilter { "$Name" -in 'Build-DrsIndex', 'Build-Glossary' }
+
+        InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors }
+
+        $script:asked | Should -Contain 'Build-DrsIndex'
+        $script:asked | Should -Contain 'Build-Glossary'
+        Should -Invoke Get-Command -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { "$Name" -eq 'Build-DrsIndex' }
+        Should -Invoke Get-Command -ModuleName Catzc.Internal.Importer -Times 0 -Exactly -ParameterFilter { "$Name" -eq 'Build-Glossary' }
+        Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+        Should -Invoke Build-Glossary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
     It 'runs a writer the due rows do not name' {
         Mock Get-GeneratedWriterDue { $script:rows | Where-Object Name -ne 'Build-RootConfig' } -ModuleName Catzc.Internal.Importer
 

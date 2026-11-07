@@ -198,3 +198,12 @@ The verdict, a result and a one-line reason, is derived once. The closing banner
 wording lives in exactly one place. The closing bracket prints on every exit path, `-PassThru` included, so a run is always visually closed.
 Console output is orthogonal to the `-PassThru` data return, with the banner on the information stream and the object on the output stream,
 and orthogonal to the throw that still fires last on a fail.
+
+## comment:1
+
+Above `$includeTag = @(if ($PostBuild) {`, written with `#`.
+
+```text
+The post-build run selects only the tests that carry the tag and takes its own roof
+([ADR-AUTO-TEST-POSTBUILDTAG](/docs/drs/automation/test-automation.md#rule-adr-auto-test-postbuildtag)).
+```

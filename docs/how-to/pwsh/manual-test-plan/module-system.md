@@ -29,6 +29,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 | 20  | L2   | [Every declared bundle builds and loads][c20]                        |
 | 21  | L1   | [Import-Catzc publishes the modules folder][c21]                     |
 | 22  | L2   | [The full bundle packages the language modules][c22]                 |
+| 23  | L1   | [New-ImporterCore on the real dependencies][c23]                     |
 
 [c1]: #1-integrity-shipped-config--dependenciesconfig
 [c2]: #2-get-functiondependency
@@ -52,6 +53,7 @@ of the [manual test plan](../manual-test-plan.md), which says how to run a check
 [c20]: #20-every-declared-bundle-builds-and-loads
 [c21]: #21-import-catzc-publishes-the-modules-folder
 [c22]: #22-the-full-bundle-packages-the-language-modules
+[c23]: #23-new-importercore-on-the-real-dependencies
 
 ## Checks
 
@@ -255,3 +257,15 @@ repository as the binary and the script their manifests list.
   lock.
 - A second packaging of each JavaScript module and of `python/diagrams` is byte-identical to the bundle's.
 - The Go gadget exports one host binary listed in `binaries.json`; the bash gadget exports its script listed in `executables.json`.
+
+### 23. New-ImporterCore on the real dependencies
+
+**Test file:** `pwsh/Base.ModuleSystem/tests/New-ImporterCore.Tests.ps1` (L1), block `New-ImporterCore - real dependencies.yml`.
+
+**Guards:** the importer's core list, the modules a console session loads at import, is the declared closure of `Catzc.Base.ModuleSystem`
+and nothing listed by hand.
+
+**Checks:**
+
+- `New-ImporterCore` over the shipped `dependencies.yml` writes one folder name per line, equal to `Get-ModuleDependencyClosure` of the
+  module, in ordinal order.

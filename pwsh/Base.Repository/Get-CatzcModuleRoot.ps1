@@ -34,6 +34,7 @@ function Get-CatzcModuleRoot {
 
     # The folder comes from the loaded module, never its name, which carries the namespace the folder drops.
     $loaded = if ($Module) {
+        Import-DeferredModule -Name $Module
         Get-Module -Name $Module | Select-Object -First 1
     }
     else {

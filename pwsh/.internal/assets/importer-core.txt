@@ -1,0 +1,27 @@
+# ---
+# catzc:
+#   immutable:
+#     warning: "Do Not Edit, this file is generated"
+# ---
+
+Base.Asserts
+Base.CodeMeta
+Base.Config
+Base.Engines
+Base.Execution
+Base.Files
+Base.Folders
+Base.GeneratedFiles
+Base.Git
+Base.Globs
+Base.Languages
+Base.MarkdownMeta
+Base.ModuleSystem
+Base.Modules
+Base.Objects
+Base.Reports
+Base.Repository
+Base.Timeouts
+Base.TypesSystem
+Base.Variants
+Base.Writers

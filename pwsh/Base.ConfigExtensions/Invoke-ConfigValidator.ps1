@@ -16,6 +16,7 @@ function Invoke-ConfigValidator {
         [string] $Validator
     )
 
+    Import-DeferredModule -Name $Module
     $owner = Get-Module $Module
     if (-not $owner) {
         throw "Config '$Name': owning module '$Module' is not loaded."

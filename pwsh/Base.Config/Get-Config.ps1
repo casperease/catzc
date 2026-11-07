@@ -84,6 +84,7 @@ function Get-Config {
             $entry['Folder']
         }
         else {
+            Import-DeferredModule -Name $entry.Module
             $loaded = Get-Module -Name $entry.Module | Select-Object -First 1
             Assert-NotNull $loaded -ErrorText "Get-Config: config '$($entry.Name)' belongs to module '$($entry.Module)', which is not loaded."
             [System.IO.Path]::GetFileName($loaded.ModuleBase)

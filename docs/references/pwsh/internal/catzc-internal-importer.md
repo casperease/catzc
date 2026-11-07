@@ -157,3 +157,12 @@ Above `function Invoke-GeneratedFilesJanitor {`, written with `#`.
 The stamp of every changed generated file is the fast path: a match passes, a miss renders its writer, and one line names each file
 that render finds stale, or one line when the roof stops it.
 ```
+
+## comment:2
+
+Above `$roofSeconds = $null`, written with `#`.
+
+```text
+The roof: the type's own value when its assembly is already loaded, else the shipped file's line, which a pending-types
+console reads without loading the types; no line means no roof, and no CPU text.
+```

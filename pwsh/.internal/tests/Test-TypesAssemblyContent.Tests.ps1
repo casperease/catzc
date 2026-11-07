@@ -23,6 +23,13 @@ namespace $($script:space) {
         }
     }
 
+    It 'reads the same type names the manifest lists, public top-level types only' {
+        $names = & (Get-Module Catzc.Internal.Types) { param($Path) Get-TypesAssemblyTypeName -Path $Path } $dll
+        $manifest = @((Get-TypesAssemblyManifest -Path $dll).Types.Name)
+        @($names | Sort-Object) | Should -Be @($manifest | Sort-Object)
+        @($names).Count | Should -Be 2
+    }
+
     It 'returns nothing when every expected type is declared' {
         Test-TypesAssemblyContent -Path $dll -Expected (New-Expected 'Widget', 'Gadget') | Should -BeNullOrEmpty
     }

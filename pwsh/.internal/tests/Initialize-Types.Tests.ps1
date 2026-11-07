@@ -110,78 +110,11 @@ Describe 'Initialize-Types'-Tag 'L1', 'logic' {
         $global:__CatzcDeferredTypes['root-a'].Loaded | Should -BeFalse
     }
 
-    It 'clears the lookup hook when it loads' {
+    It 'leaves the lookup hook installed' {
         $fx = New-FixtureAssembly
         Register-DeferredTypes -RootKey 'root-a' -Path $fx.Dll -ShadowCopy $false
-        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -Not -BeNullOrEmpty
-        Initialize-Types | Out-Null
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
-    }
-}
-
-Describe 'Enable-DeferredTypesLoad' -Tag 'L1', 'logic' {
-    BeforeAll {
-        $script:fixtureRoot = Join-Path ([System.IO.Path]::GetTempPath()) "enabletypes-$([guid]::NewGuid().ToString('N'))"
-        [System.IO.Directory]::CreateDirectory($script:fixtureRoot) | Out-Null
-        $script:savedRecord = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore
-        $script:savedHook = $ExecutionContext.InvokeCommand.PreCommandLookupAction
-
-        function script:New-PendingFixture {
-            $run = 'r' + [guid]::NewGuid().ToString('N').Substring(0, 8)
-            $space = "CatzcEnableWidget$run"
-            $dll = Join-Path $script:fixtureRoot "Catzc.Types.$run.dll"
-            Add-Type -TypeDefinition "namespace $space { public class Widget { } }" -OutputAssembly $dll -OutputType Library
-            [System.IO.File]::WriteAllText([System.IO.Path]::ChangeExtension($dll, 'json'),
-                (@{ hash = $run; types = @(@{ name = "$space.Widget"; aliases = @(); display = @() }) } |
-                    ConvertTo-Json -Depth 5))
-            $global:__CatzcDeferredTypes = @{}
-            Register-DeferredTypes -RootKey 'root-a' -Path $dll -ShadowCopy $false
-            $space
-        }
-        function script:Test-WidgetLoaded {
-            param([string] $Space)
-            [bool] ([System.Management.Automation.PSTypeName]"$Space.Widget").Type
-        }
-        function script:Invoke-FixtureWidget {
-            'widget'
-        }
-        function script:Invoke-FixtureOther {
-            'other'
-        }
-    }
-    AfterAll {
-        $global:__CatzcDeferredTypes = $script:savedRecord
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $script:savedHook
-        Remove-Item -Path $script:fixtureRoot -Recurse -Force -ErrorAction SilentlyContinue
-    }
-    BeforeEach {
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction = $null
-    }
-
-    It 'leaves the types unloaded when an unlisted command runs, and loads them before a listed one runs' {
-        $space = New-PendingFixture
-        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
-
-        Invoke-FixtureOther | Should -Be 'other'
-        Test-WidgetLoaded $space | Should -BeFalse
-
-        Invoke-FixtureWidget | Should -Be 'widget'
-        Test-WidgetLoaded $space | Should -BeTrue
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
-    }
-
-    It 'matches command names case-insensitively' {
-        $space = New-PendingFixture
-        Enable-DeferredTypesLoad -CommandName 'INVOKE-FIXTUREWIDGET'
-        Invoke-FixtureWidget | Should -Be 'widget'
-        Test-WidgetLoaded $space | Should -BeTrue
-    }
-
-    It 'installs no hook, and clears an old one, when nothing is pending' {
-        $global:__CatzcDeferredTypes = @{ 'root-a' = @{ Path = 'not-used.dll'; ShadowCopy = $false; Loaded = $true } }
         $ExecutionContext.InvokeCommand.PreCommandLookupAction = { $null = $args }
-        Enable-DeferredTypesLoad -CommandName 'Invoke-FixtureWidget'
-        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -BeNullOrEmpty
+        Initialize-Types | Out-Null
+        $ExecutionContext.InvokeCommand.PreCommandLookupAction | Should -Not -BeNullOrEmpty
     }
 }
