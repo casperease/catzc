@@ -36,7 +36,7 @@ tracks:
           { path: pwsh/.internal/assets/obj/**, committed: false },
         ],
       type: modules,
-      languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
+      languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, text, asset],
       execution_engines: [pwsh],
       namespace: Catzc,
       namespace_exempt:

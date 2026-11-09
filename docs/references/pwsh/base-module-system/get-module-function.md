@@ -37,3 +37,12 @@ Get-ModuleFunction
 ```powershell
 Get-ModuleFunction -NotUsedInternally
 ```
+
+## comment:1
+
+Above `Import-DeferredModule -All`, written with `#`.
+
+```text
+A command that enumerates the loaded modules completes the load first
+([ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE](/docs/drs/automation/importer.md#rule-adr-auto-importer-loadedbyfirstuse)).
+```

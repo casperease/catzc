@@ -47,6 +47,17 @@ Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'DDR-RUNMODE-MODEISDERIVED
         $env:CatzcModulesRoot | Should -Be $script:before.CatzcModulesRoot
     }
 
+    It 'builds the system config index before the swap, so a config read under the fake root resolves to the real file' {
+        & (Get-Module Catzc.Base.Config) { $script:configIndex = $null }
+        $fake = New-FakeRepositoryRoot -Modules @{ 'Catzc.Fixture' = @{} }
+        try {
+            (Get-Config -Config languages).languages.Count | Should -BeGreaterThan 1
+        }
+        finally {
+            Remove-FakeRepositoryRoot $fake
+        }
+    }
+
     It 'restores an unset code root as unset' {
         $env:CatzcModulesRoot = $null
         $fake = New-FakeRepositoryRoot

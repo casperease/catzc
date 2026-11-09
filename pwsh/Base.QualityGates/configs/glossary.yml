@@ -118,7 +118,9 @@ concepts:
     key: bvt
     domain: automation
     defined_by: ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-    short: The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
+    short:
+      The BVT — the quick (about five minutes) L0–L2 verification that a commit is safe to share and ready for further testing (L3+); never
+      includes L3.
     realized_by: { kind: prose-only }
   all tests:
     key: all_tests

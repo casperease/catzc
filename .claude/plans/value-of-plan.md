@@ -30,18 +30,20 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan                 | Needed docs                                                                     | Needed tests                                       | State                                         |
-| ----- | -------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------- |
-| high  | plan-test-run-budget | ADR-AUTO-TEST speed rules (the test-automation record)                          | the next full run's wall clock in `run.json`       | waits on the user's source run                |
-| high  | plan-importer-roof   | ADR-AUTO-IMPORTER: the console roof and the import ledger (the importer record) | the ledger line of a warm console import under 3 s | landed at 1.8 s; waits on the antivirus proof |
+| Value | Plan               | Needed docs                                                                     | Needed tests                                       | State                                         |
+| ----- | ------------------ | ------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------- |
+| high  | plan-importer-roof | ADR-AUTO-IMPORTER: the console roof and the import ledger (the importer record) | the ledger line of a warm console import under 3 s | landed at 1.8 s; waits on the antivirus proof |
 
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. Deleted 2026-11-04, every step landed the same day: plan-post-build-tests: the tests split into a source run and a post-build run
-(`post-build` on six test files, `Test-Automation -PostBuild`, `Assert-BuiltBundleStore`, the roof `tests.post_build_seconds` at 190 s from
-its first run of 150.4 s), the builds as their own event through the store, the BVT as the three in both pipelines, and the rules
-ADR-AUTO-TEST-POSTBUILDTAG and FDR-TYPE-BVTISTHREERUNS. Deleted 2026-11-04, every step landed on 2026-11-03 and its two open questions
+deletion. Deleted 2026-11-09, closed on its own exit: plan-test-run-budget: the user's warm source run `20261109-032142` read 227.6 s under
+the 240 s roof with 0 failed (10783 passed), after the engine-proof cut, the post-build split, the per-file cuts and the red cases of the
+runs before it (the `text` file language for the generated core list, the file-limits class, the fake-root fixture building the config index
+before its swap). Deleted 2026-11-04, every step landed the same day: plan-post-build-tests: the tests split into a source run and a
+post-build run (`post-build` on six test files, `Test-Automation -PostBuild`, `Assert-BuiltBundleStore`, the roof `tests.post_build_seconds`
+at 190 s from its first run of 150.4 s), the builds as their own event through the store, the BVT as the three in both pipelines, and the
+rules ADR-AUTO-TEST-POSTBUILDTAG and FDR-TYPE-BVTISTHREERUNS. Deleted 2026-11-04, every step landed on 2026-11-03 and its two open questions
 decided: plan-build-mode: build mode for another team's repository, the three config scopes, a consumer's own modules, types, tracks and
 DRS, the gate tooling following the gates, `Test-QualityGates` as the one CI entry, every declared bundle buildable, every language shipped;
 the package sources a consumer root renders are proven in `Consumer.L2` (the npm registry and the uv index case) under ADR-AUTO-PKGSRC, so

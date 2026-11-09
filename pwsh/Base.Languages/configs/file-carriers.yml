@@ -43,6 +43,7 @@ carriers:
 
   jsonl: { carrier: none, reason: "one record per line by definition, so a head would be a record" }
   stamp: { carrier: none, reason: "a stamp is written whole by the generator that records it, and its value is the file" }
+  text: { carrier: comment-head, line: "#" }
   # The png and svg entries below take those files, so the asset language keeps the binaries no format of ours can stamp.
   asset: { carrier: none, reason: "a pdf or an archive, so the description beside it carries what a reader needs" }
 

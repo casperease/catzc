@@ -45,8 +45,6 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- test-run-budget -> plan-test-run-budget.md: the full run back under its 240 s budget by removing duplicate proof; the engine-proof cut
-  landed, the plan waits on the user's warm full run and reopens with the next cut if that run reads over 240 s.
 - importer-roof -> plan-importer-roof.md: a console import stays under 3 s, and an import over it says whether it computed or waited
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full

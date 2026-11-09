@@ -33,7 +33,9 @@ function Save-BuildToStore {
         if ([System.IO.Directory]::Exists($stagingFolder)) {
             [System.IO.Directory]::Delete($stagingFolder, $true)
         }
-        # Only a complete stamp folder of another build excuses the failed move; any other failure leaves the store empty and says so (ADR-AUTO-FAILFAST, ADR-PWSH-ERROR).
+        # Only a complete stamp folder of another build excuses the failed move; any other failure leaves the store
+        # empty and says so ([ADR-AUTO-FAILFAST](/docs/drs/automation/fail-fast-with-asserts.md),
+        # [ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)).
         if ([System.IO.File]::Exists([System.IO.Path]::Combine($storeRoot, 'build.json'))) {
             Write-Verbose "The store stamp folder $stampFolder was filled by another build ($moveError)."
             return

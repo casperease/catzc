@@ -159,10 +159,11 @@ redundant copy; collapse them.
 
 ### Rule ADR-AUTO-TEST-BUILDVERIFICATIONTEST
 
-The **Build Verification Test** (BVT) is the verification that precedes every promotion and every creation of release artifacts, and the
-verification the commit gate runs, with one aggregate verdict: it runs every selected test up to the target level together with the
-built-artifact checks of `Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets. A commit reaches
-master only when its BVT is green, and the canonical module-manifest artifact a passing build produces is the BVT's gold output.
+The **Build Verification Test** (BVT) is the quick verification, about five minutes, that a commit is safe to share and ready for further
+testing (L3 and up). It gives one aggregate verdict: it runs every selected L0–L2 test together with the built-artifact checks of
+`Test-BuildArtifact` — the build itself plus its `Types`, `Load`, `Parity`, and `Manifest` facets — and never includes L3. It precedes every
+promotion and every creation of release artifacts, and the commit gate runs it. A commit reaches master only when its BVT is green, and the
+canonical module-manifest artifact a passing build produces is the BVT's gold output.
 
 - [Build Verification Test](#build-verification-test)
 
@@ -802,15 +803,16 @@ the two, a test language may group tests inside a file, and the tags resolve alo
 
 ### Build Verification Test
 
-The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit shippable at all". It
-aggregates every selected test up to the target level, plus the built-artifact checks, into one verdict on the-state-of-this-commit.
-`Test-BuildArtifact` builds the selected modules once — the build succeeds and passes its own bundle check — and verifies the build facet by
-facet (`-Facet` selects): **`Types`** (the committed types contract matches the current build's surface), **`Load`** (the build loads cold
-in a fresh process — every module, the types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly
-its source folder's public functions and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so
-a published manifest never churns). The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a
-static, hermetic property of the committed artifacts (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS), that verdict is reproducible: the same commit
-yields the same result on a devbox and in CI.
+The tiers above answer "what does one test integrate with"; the Build Verification Test (BVT) answers "is this commit safe to share". It
+aggregates every selected L0–L2 test, plus the built-artifact checks, into one verdict on the-state-of-this-commit within about five
+minutes; it never includes L3, which is the further testing a BVT-verified commit is ready for. `Test-BuildArtifact` builds the selected
+modules once — the build succeeds and passes its own bundle check — and verifies the build facet by facet (`-Facet` selects): **`Types`**
+(the committed types contract matches the current build's surface), **`Load`** (the build loads cold in a fresh process — every module, the
+types and their accelerators, every shipped config), **`Parity`** (every built module exports exactly its source folder's public functions
+and defines exactly its private ones), and **`Manifest`** (every built manifest is formatter-stable, so a published manifest never churns).
+The L2 integrity tests run it one facet each, so the BVT includes every facet. Because everything is a static, hermetic property of the
+committed artifacts (ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS), that verdict is reproducible: the same commit yields the same result on a devbox
+and in CI.
 
 Each check the BVT includes is a quality gate (ADR-AUTO-TEST-QUALITYGATE): a gate in the delivery flow's sense that a machine decides.
 

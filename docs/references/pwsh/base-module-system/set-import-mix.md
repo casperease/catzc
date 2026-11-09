@@ -39,3 +39,12 @@ Resolve and return the mix without keeping it or removing a module.
 ```powershell
 Set-ImportMix -LanguageNames powershell, csharp -DryRun
 ```
+
+## comment:1
+
+Above `Remove-DeferredModule -Name $name`, written with `#`.
+
+```text
+A module still deferred is struck from the deferred set, never loaded to be removed
+([ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE](/docs/drs/automation/importer.md#rule-adr-auto-importer-loadedbyfirstuse)).
+```

@@ -61,7 +61,7 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         $before = Get-CombinedTypeHash $root -StampPath $stamp
         $alpha = Join-Path $root 'Widget/types/Alpha.cs'
         $length = [System.IO.FileInfo]::new($alpha).Length
-        [System.IO.File]::WriteAllText($alpha, "namespace Widget;`npublic class Alpha { }`n".Replace('Alpha', 'Alphb'))
+        [System.IO.File]::WriteAllText($alpha, "namespace Widget;`npublic class Gamma { }`n")
         [System.IO.FileInfo]::new($alpha).Length | Should -Be $length
         [System.IO.File]::SetLastWriteTimeUtc($alpha, [DateTime]::UtcNow.AddHours(1))
 

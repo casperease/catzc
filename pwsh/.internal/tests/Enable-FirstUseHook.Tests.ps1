@@ -1,3 +1,4 @@
+# cspell:ignore fixturewidgetvalue  -- the lower-cased fixture command name of the case-insensitive lookup, data
 Describe 'Enable-FirstUseHook' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:loaderModule = Get-Module Catzc.Internal.Loader

@@ -128,6 +128,10 @@ function Save-ConfigState {
     }
     # Shallow copies: a read under the fake root adds keys to the live tables, never changes a key already there.
     & $config {
+        # The system index is built from the real roots before the swap: a test that dropped it would otherwise have the first read under the fake root index the fake tree, and a registered config resolve to its empty default.
+        if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
+            $null = Resolve-ConfigEntry -Config configs -All
+        }
         $state = @{}
         foreach ($name in 'configCache', 'configRegistryCache', 'configIndex', 'consumerConfigModules') {
             $value = $ExecutionContext.SessionState.PSVariable.GetValue("script:$name")

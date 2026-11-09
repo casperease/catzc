@@ -222,6 +222,9 @@ languages:
   stamp:
     extensions: [.stamp]
     no_formatter: a build stamp is written whole by the generator that records it
+  text:
+    extensions: [.txt]
+    no_formatter: a plain list, one entry per line, written whole by the generator that renders it
   asset:
     extensions: [.png, .svg, .pdf, .gz]
     no_formatter: binary files

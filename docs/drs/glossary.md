@@ -3,7 +3,7 @@ catzc:
   immutable:
     warning: "Do Not Edit, this file is generated"
     regenerate: "Build-Glossary -Path docs/drs/glossary.md"
-    with_body_sha: "4b2fae66ffbf"
+    with_body_sha: "462826aa0f00"
 ---
 
 # docs/drs/glossary.md
@@ -746,7 +746,8 @@ tests, which call catzc through `importer.sh` and `cats`.
 
 ### build verification test
 
-The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
+The BVT — the quick (about five minutes) L0–L2 verification that a commit is safe to share and ready for further testing (L3+); never
+includes L3.
 
 - **Defined by:** [ADR-AUTO-TEST-BUILDVERIFICATIONTEST](automation/test-automation.md#rule-adr-auto-test-buildverificationtest)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce

@@ -2,6 +2,8 @@
 # catzc:
 #   immutable:
 #     warning: "Do Not Edit, this file is generated"
+#     regenerate: "Build-RootConfig -Path pwsh/.internal/assets/importer-core.txt"
+#     with_body_sha: b2d5ec678063
 # ---
 
 Base.Asserts

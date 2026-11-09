@@ -77,6 +77,7 @@ public sealed class FileLimitsConfig
         ["solution"] = "config",
         ["markdown"] = "prose",
         ["stamp"] = Unmeasured,
+        ["text"] = Unmeasured,
         ["asset"] = Unmeasured,
     };
 
