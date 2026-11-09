@@ -9,11 +9,18 @@ function Get-ImportCpuSuffix {
         [Nullable[int]] $RoofSeconds,
 
         [Parameter(Mandatory)]
-        [double] $CpuSeconds
+        [double] $CpuSeconds,
+
+        # True when the antivirus signature differs from the ledger's last line: the first import after an update waits on the scan of every script it reads.
+        [switch] $AntivirusSignatureChanged
     )
 
     if ($null -eq $RoofSeconds -or $TotalSeconds -le $RoofSeconds) {
         return ''
     }
-    ", $([math]::Round($CpuSeconds, 1)) s of CPU"
+    $suffix = ", $([math]::Round($CpuSeconds, 1)) s of CPU"
+    if ($AntivirusSignatureChanged) {
+        $suffix += ', the first import since an antivirus signature update'
+    }
+    $suffix
 }

@@ -11,6 +11,7 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/Import-ConsumerModule.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/ConvertTo-ImportLedgerLine.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Add-ImportLedgerLine.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Get-ImportLedgerLastSignature.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Get-ImportCpuSuffix.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Measure-ImportFileProbe.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Write-ImportLedger.ps1')

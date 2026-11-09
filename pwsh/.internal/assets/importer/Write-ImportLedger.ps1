@@ -48,8 +48,24 @@ function Write-ImportLedger {
     )
 
     # The whole record is best effort: an import never fails or slows for its own ledger, and a miss names no CPU time.
+    $ledgerPath = [System.IO.Path]::Combine($RepositoryRoot, 'out', 'import-times.jsonl')
+    $signature = $null
+    if ($IsWindows) {
+        try {
+            $signatureKey = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey('SOFTWARE\Microsoft\Windows Defender\Signature Updates')
+            if ($signatureKey) {
+                $signature = [string] $signatureKey.GetValue('AVSignatureVersion')
+                $signatureKey.Dispose()
+            }
+        }
+        catch {
+            $signature = $null
+        }
+    }
     $suffix = ''
     try {
+        $previousSignature = Get-ImportLedgerLastSignature -Path $ledgerPath
+        $signatureChanged = [bool] $signature -and [bool] $previousSignature -and $signature -ne $previousSignature
         $roofSeconds = $null
         if ('Catzc.Base.Timeouts.TimeoutsConfig' -as [type]) {
             $roofSeconds = (Get-Config -Config timeouts).ImportConsoleSeconds()
@@ -62,7 +78,7 @@ function Write-ImportLedger {
                 $roofSeconds = [int] $roofLine.Groups[1].Value
             }
         }
-        $suffix = Get-ImportCpuSuffix -TotalSeconds $TotalSeconds -RoofSeconds $roofSeconds -CpuSeconds $CpuSeconds
+        $suffix = Get-ImportCpuSuffix -TotalSeconds $TotalSeconds -RoofSeconds $roofSeconds -CpuSeconds $CpuSeconds -AntivirusSignatureChanged:$signatureChanged
     }
     catch {
         $suffix = ''
@@ -75,24 +91,11 @@ function Write-ImportLedger {
             $typesSeconds = [math]::Round($TypesMs / 1000, 1)
             $modulesSeconds = [math]::Round($LoopSeconds - $typesSeconds, 1)
         }
-        $signature = $null
-        if ($IsWindows) {
-            try {
-                $signatureKey = [Microsoft.Win32.Registry]::LocalMachine.OpenSubKey('SOFTWARE\Microsoft\Windows Defender\Signature Updates')
-                if ($signatureKey) {
-                    $signature = [string] $signatureKey.GetValue('AVSignatureVersion')
-                    $signatureKey.Dispose()
-                }
-            }
-            catch {
-                $signature = $null
-            }
-        }
         $line = ConvertTo-ImportLedgerLine -Started $Started -TotalSeconds $TotalSeconds -InitializerSeconds $InitializerSeconds `
             -VendorSeconds $VendorSeconds -TypesSeconds $typesSeconds -ModulesSeconds $modulesSeconds -FinalizerSeconds $FinalizerSeconds `
             -FileReadMs $FileReadMs -ParseCompileMs $ParseCompileMs -FileProbeMs $FileProbeMs -CpuSeconds $CpuSeconds `
             -SinceProcessStartSeconds $SinceProcessStartSeconds -HostKind $HostKind -AntivirusSignature $signature
-        Add-ImportLedgerLine -Path ([System.IO.Path]::Combine($RepositoryRoot, 'out', 'import-times.jsonl')) -Line $line
+        Add-ImportLedgerLine -Path $ledgerPath -Line $line
     }
     catch {
         $null = $_

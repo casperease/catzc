@@ -24,41 +24,43 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
-| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                     |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ----------------------------------------- |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | two chunks; the user's and the sweep last |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value | Plan               | Needed docs                                                                     | Needed tests                                       | State                                         |
-| ----- | ------------------ | ------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------- |
-| high  | plan-importer-roof | ADR-AUTO-IMPORTER: the console roof and the import ledger (the importer record) | the ledger line of a warm console import under 3 s | landed at 1.8 s; waits on the antivirus proof |
+No feature plan is open; the next one adds its row here with its needed docs and tests.
 
 ## Pending deletion
 
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
-deletion. Deleted 2026-11-09, closed on its own exit: plan-test-run-budget: the user's warm source run `20261109-032142` read 227.6 s under
-the 240 s roof with 0 failed (10783 passed), after the engine-proof cut, the post-build split, the per-file cuts and the red cases of the
-runs before it (the `text` file language for the generated core list, the file-limits class, the fake-root fixture building the config index
-before its swap). Deleted 2026-11-04, every step landed the same day: plan-post-build-tests: the tests split into a source run and a
-post-build run (`post-build` on six test files, `Test-Automation -PostBuild`, `Assert-BuiltBundleStore`, the roof `tests.post_build_seconds`
-at 190 s from its first run of 150.4 s), the builds as their own event through the store, the BVT as the three in both pipelines, and the
-rules ADR-AUTO-TEST-POSTBUILDTAG and FDR-TYPE-BVTISTHREERUNS. Deleted 2026-11-04, every step landed on 2026-11-03 and its two open questions
-decided: plan-build-mode: build mode for another team's repository, the three config scopes, a consumer's own modules, types, tracks and
-DRS, the gate tooling following the gates, `Test-QualityGates` as the one CI entry, every declared bundle buildable, every language shipped;
-the package sources a consumer root renders are proven in `Consumer.L2` (the npm registry and the uv index case) under ADR-AUTO-PKGSRC, so
-no plan-package-sources follows; the tier and CI claims of the test-automation record moved to plan-test-run-budget as a step; the proposed
-explanation page of a consumer's three roots is dropped, since consumer-repository.md names them once and a second telling is a second
-living version (PDR-ONELIVE), and a diagram needs an ask (ADR-REPO-AI-OUTISOUTPUT). Deleted 2026-11-02, every step landed:
-plan-drone-closing-gates: the `catzc-verify` end-of-task checks name `Test-Formatting` and `Test-Terminology` and the comment page a new
-function needs, `catzc-core` splits a chunk of more than four steps across two drones, and the capability registry lists the two gates.
-Deleted 2026-10-29, every step landed: plan-slide-poc-retirement (it replaced plan-diagram-review): feeds edges gone from the diagram
-language, every diagram retitled and renamed to the system part it shows, the side panels and edge markers fixed, the diagram and slide
-commands proven, the 13 proof-of-concept decks harvested into docs/references/slides/slide-style-and-ideas.md and deleted with the
-diagram-review skill. Deleted 2026-10-29, closed by its own rule (no hang in VS Code for a week, the user): plan-vscode-session-binding: its
-decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION, `Get-VsCodeSession` stays the first instrument for a recurrence. A plan holds only
-planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no explanation of how the tool
-behaves when a team uses it; that belongs in the docs.
+deletion. Deleted 2026-11-09, closed on its own exit: plan-importer-roof: a plain console import reads 1.8 s under the 3 s roof since the
+lazy-module switch, and the ledger showed the slow first import it waited for (14.0 s of wall for 6.5 s of CPU on 2026-11-07, 5.0 s for 3.1
+s on 2026-11-08, each the first console import after a Defender signature change, file reads sixteen times slower): the on-access rescan,
+recorded in ADR-AUTO-IMPORTER-CONSOLEROOF with the decision not to exclude the tree, and an import over the roof now names the first import
+since a signature update on its closing line. Deleted 2026-11-09, closed on its own exit: plan-test-run-budget: the user's warm source run
+`20261109-032142` read 227.6 s under the 240 s roof with 0 failed (10783 passed), after the engine-proof cut, the post-build split, the
+per-file cuts and the red cases of the runs before it (the `text` file language for the generated core list, the file-limits class, the
+fake-root fixture building the config index before its swap). Deleted 2026-11-04, every step landed the same day: plan-post-build-tests: the
+tests split into a source run and a post-build run (`post-build` on six test files, `Test-Automation -PostBuild`, `Assert-BuiltBundleStore`,
+the roof `tests.post_build_seconds` at 190 s from its first run of 150.4 s), the builds as their own event through the store, the BVT as the
+three in both pipelines, and the rules ADR-AUTO-TEST-POSTBUILDTAG and FDR-TYPE-BVTISTHREERUNS. Deleted 2026-11-04, every step landed on
+2026-11-03 and its two open questions decided: plan-build-mode: build mode for another team's repository, the three config scopes, a
+consumer's own modules, types, tracks and DRS, the gate tooling following the gates, `Test-QualityGates` as the one CI entry, every declared
+bundle buildable, every language shipped; the package sources a consumer root renders are proven in `Consumer.L2` (the npm registry and the
+uv index case) under ADR-AUTO-PKGSRC, so no plan-package-sources follows; the tier and CI claims of the test-automation record moved to
+plan-test-run-budget as a step; the proposed explanation page of a consumer's three roots is dropped, since consumer-repository.md names
+them once and a second telling is a second living version (PDR-ONELIVE), and a diagram needs an ask (ADR-REPO-AI-OUTISOUTPUT). Deleted
+2026-11-02, every step landed: plan-drone-closing-gates: the `catzc-verify` end-of-task checks name `Test-Formatting` and `Test-Terminology`
+and the comment page a new function needs, `catzc-core` splits a chunk of more than four steps across two drones, and the capability
+registry lists the two gates. Deleted 2026-10-29, every step landed: plan-slide-poc-retirement (it replaced plan-diagram-review): feeds
+edges gone from the diagram language, every diagram retitled and renamed to the system part it shows, the side panels and edge markers
+fixed, the diagram and slide commands proven, the 13 proof-of-concept decks harvested into docs/references/slides/slide-style-and-ideas.md
+and deleted with the diagram-review skill. Deleted 2026-10-29, closed by its own rule (no hang in VS Code for a week, the user):
+plan-vscode-session-binding: its decisions live in ADR-PWSH-TYPES-ONEINSTANCEPERSESSION, `Get-VsCodeSession` stays the first instrument for
+a recurrence. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
+explanation of how the tool behaves when a team uses it; that belongs in the docs.
 
 Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 

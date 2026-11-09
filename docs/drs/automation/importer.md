@@ -90,7 +90,7 @@ the mix chooses which modules, languages and engines.
 
 A console import has a roof, `import.console_seconds` in the timeouts configuration (3 s). Every console import appends one line to the
 import ledger under the output folder with its phases, its CPU seconds and the antivirus signature version; an import over the roof names
-its CPU seconds on its closing line. A slow import warns and never fails.
+its CPU seconds on its closing line, and says when it is the first import since that signature changed. A slow import warns and never fails.
 
 - [The console roof and the ledger](#the-console-roof-and-the-ledger)
 
@@ -142,7 +142,11 @@ The importer is the entry to every session, so a slow import is felt by every co
 import over it warns and never fails, since an import must not throw for being slow. A slow import must also say whether it computed or
 waited: each console import appends one line to the import ledger under the output folder with the seconds of each phase, the process's CPU
 seconds over the same span, and the antivirus signature version, and an import over the roof names its CPU seconds at the prompt. CPU
-seconds near the wall seconds mean the import computed; CPU seconds far below them mean it waited on another process, such as a scan.
+seconds near the wall seconds mean the import computed; CPU seconds far below them mean it waited on another process, such as a scan. The
+scan is the measured cause of a slow first import: the on-access scanner rescans every script the import reads after a signature update, so
+the first console import after one read 14.0 s of wall for 6.5 s of CPU with file reads sixteen times slower (2026-11-07), and 5.0 s for 3.1
+s once modules load on first use (2026-11-08). An import over the roof whose signature differs from the ledger's last line says so on its
+closing line; the tree is not excluded from the scanner, since the exclusion is a security control of the machine, not of the repository.
 
 ### Growth by entry
 

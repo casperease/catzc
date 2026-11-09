@@ -3,6 +3,7 @@ Describe 'import ledger' -Tag 'L0', 'logic' {
         $assets = Join-Path $PSScriptRoot '../assets/importer'
         . (Join-Path $assets 'ConvertTo-ImportLedgerLine.ps1')
         . (Join-Path $assets 'Add-ImportLedgerLine.ps1')
+        . (Join-Path $assets 'Get-ImportLedgerLastSignature.ps1')
         . (Join-Path $assets 'Get-ImportCpuSuffix.ps1')
         . (Join-Path $assets 'Measure-ImportFileProbe.ps1')
         . (Join-Path $assets 'Write-ImportLedger.ps1')
@@ -39,6 +40,17 @@ Describe 'import ledger' -Tag 'L0', 'logic' {
             Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU'
         }
 
+        It 'names the first import since an antivirus signature update over the roof, read against the ledger''s last line' -Skip:(-not $IsWindows) {
+            $root = Join-Path $TestDrive 'ledger-signature'
+            New-Item -ItemType Directory -Path (Join-Path $root 'widget-modules/Base.Timeouts/configs') -Force | Out-Null
+            Copy-Item -LiteralPath (Join-Path $TestDrive 'ledger/widget-modules/Base.Timeouts/configs/timeouts.yml') -Destination (Join-Path $root 'widget-modules/Base.Timeouts/configs/timeouts.yml')
+            Add-ImportLedgerLine -Path (Join-Path $root 'out/import-times.jsonl') -Line '{"totalSeconds":2.1,"antivirusSignature":"0.0.0.0"}'
+            $splat = & $script:ledgerArgs $root 14.0
+            Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU, the first import since an antivirus signature update'
+            # The same signature again on the next line names no update.
+            Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU'
+        }
+
         It 'does not throw when the ledger cannot be written' {
             $root = Join-Path $TestDrive 'ledger-blocked'
             New-Item -ItemType Directory -Path $root | Out-Null
@@ -72,6 +84,24 @@ Describe 'import ledger' -Tag 'L0', 'logic' {
 
         It 'adds no CPU text when the roof is unknown' {
             Get-ImportCpuSuffix -TotalSeconds 34.9 -RoofSeconds $null -CpuSeconds 11 | Should -Be ''
+        }
+
+        It 'names the signature update after the CPU text, over the roof only' {
+            Get-ImportCpuSuffix -TotalSeconds 14.0 -RoofSeconds 3 -CpuSeconds 6.5 -AntivirusSignatureChanged |
+                Should -Be ', 6.5 s of CPU, the first import since an antivirus signature update'
+            Get-ImportCpuSuffix -TotalSeconds 1.8 -RoofSeconds 3 -CpuSeconds 1.9 -AntivirusSignatureChanged | Should -Be ''
+        }
+    }
+
+    Context 'Get-ImportLedgerLastSignature' {
+        It 'reads the last line''s signature, and null for a line without one or a missing ledger' {
+            $path = Join-Path $TestDrive 'out/signature.jsonl'
+            Add-ImportLedgerLine -Path $path -Line '{"totalSeconds":2.1,"antivirusSignature":"1.463.160.0"}'
+            Add-ImportLedgerLine -Path $path -Line '{"totalSeconds":2.2,"antivirusSignature":"1.463.176.0"}'
+            Get-ImportLedgerLastSignature -Path $path | Should -Be '1.463.176.0'
+            Add-ImportLedgerLine -Path $path -Line '{"totalSeconds":2.3,"antivirusSignature":null}'
+            Get-ImportLedgerLastSignature -Path $path | Should -BeNullOrEmpty
+            Get-ImportLedgerLastSignature -Path (Join-Path $TestDrive 'out/nowhere.jsonl') | Should -BeNullOrEmpty
         }
     }
 
