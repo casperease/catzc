@@ -40,16 +40,41 @@ Describe 'Save-BuildToStore' -Tag 'L0', 'logic' {
         @([System.IO.Directory]::GetDirectories($case.Bundle) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' }).Count | Should -Be 0
     }
 
+    It 'lands the build on the second attempt when the first move is denied for a moment' -Tag 'ADR-AUTO-RETRY-LASTRESORT' {
+        $case = & $newCase 'transient'
+        $stampFolder = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($case.Store))
+        InModuleScope Catzc.Internal.Builder -Parameters @{ Case = $case; StampFolder = $stampFolder } {
+            # A file where the stamp folder belongs denies the first move; the wait between attempts is where it goes away.
+            Mock Get-ChildPath {
+                [System.IO.File]::WriteAllText($StampFolder, 'not a folder yet')
+                Join-Path $Case.Source 'build.json'
+            }
+            Mock Start-Sleep { [System.IO.File]::Delete($StampFolder) }
+            Mock Write-Message { }
+            Save-BuildToStore -BuildRoot $Case.Source -StoreBuildRoot $Case.Store
+            Should -Invoke Start-Sleep -Times 1 -Exactly
+            Should -Invoke Write-Message -Times 1 -Exactly -ParameterFilter {
+                $Warning -and $Message -like "Save-BuildToStore: the move of the build into '$StampFolder' failed on attempt 1 of 8 (*); retrying in 250 ms."
+            }
+        }
+        [System.IO.File]::Exists((Join-Path $case.Store 'build.json')) | Should -BeTrue
+        @([System.IO.Directory]::GetDirectories($case.Bundle) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' }).Count | Should -Be 0
+    }
+
     It 'throws naming the stamp folder when the move fails and no other build holds it' {
         $case = & $newCase 'blocked'
         $stampFolder = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($case.Store))
         InModuleScope Catzc.Internal.Builder -Parameters @{ Case = $case; StampFolder = $stampFolder } {
-            # A file where the stamp folder belongs fails the move without leaving a build record.
+            # A file where the stamp folder belongs fails the move without leaving a build record; the retries' waits are skipped.
             Mock Get-ChildPath {
                 [System.IO.File]::WriteAllText($StampFolder, 'not a folder')
                 Join-Path $Case.Source 'build.json'
             }
+            Mock Start-Sleep { }
+            Mock Write-Message { }
             { Save-BuildToStore -BuildRoot $Case.Source -StoreBuildRoot $Case.Store } | Should -Throw "*the store stamp folder '$StampFolder'*"
+            Should -Invoke Start-Sleep -Times 7 -Exactly
+            Should -Invoke Write-Message -Times 7 -Exactly
         }
         @([System.IO.Directory]::GetDirectories($case.Bundle) | Where-Object { [System.IO.Path]::GetFileName($_) -like '.staging-*' }).Count | Should -Be 0
     }

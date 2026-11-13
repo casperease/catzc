@@ -17,6 +17,7 @@ $script:mergedFileSuffix = '.functions.ps1'
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceStamp.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Enter-BuildLock.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-ReusableBuild.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Invoke-WithRetry.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Save-BuildToStore.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceDirty.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Test-BuildSourceLfOnly.ps1')

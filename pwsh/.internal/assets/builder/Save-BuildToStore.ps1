@@ -26,7 +26,10 @@ function Save-BuildToStore {
         [System.IO.File]::Copy($file, $target, $true)
     }
     try {
-        [System.IO.Directory]::Move($stagingFolder, $stampFolder)
+        # The on-access scanner holds a handle on a freshly copied file for a moment, and Windows denies the rename of its folder meanwhile (one bundle of five on 2026-11-09), so the one rename is retried, bounded and warned.
+        Invoke-WithRetry -Name "Save-BuildToStore: the move of the build into '$stampFolder'" -Operation {
+            [System.IO.Directory]::Move($stagingFolder, $stampFolder)
+        }
     }
     catch [System.IO.IOException], [System.UnauthorizedAccessException] {
         $moveError = $_.Exception.Message
