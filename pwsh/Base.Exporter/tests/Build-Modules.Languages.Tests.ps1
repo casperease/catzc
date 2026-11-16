@@ -1,4 +1,4 @@
-Describe 'The full bundle packages the language modules, rebuilds them identically and runs them' -Tag 'L2', 'integrity', 'greedy', 'source-only' {
+Describe 'The full bundle packages the language modules, rebuilds them identically and runs them' -Tag 'L2', 'integrity', 'greedy', 'source-only', 'post-build' {
     BeforeAll {
         # Lists a folder as relative path plus bytes hash, so two folders compare by value.
         function script:Get-FolderBytes {

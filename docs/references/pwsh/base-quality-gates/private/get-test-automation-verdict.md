@@ -64,6 +64,11 @@ Skipped-test count, for the pass summary wording.
 
 Wall-clock duration, for the pass summary wording.
 
+### parameter `Growth`
+
+The run's growth against the last run of its kind under the budget (Get-TestRunGrowth), for the budget-failure wording: spread growth reads
+as a cold run to run again, concentrated growth names the file to make faster. Without it the budget failure points at the slowest files.
+
 ### outputs
 
 `[hashtable]` @{ Result = 'Passed'|'Failed'; Summary = '`<one-line reason>`' }
@@ -73,3 +78,12 @@ Wall-clock duration, for the pass summary wording.
 The duration is formatted with the invariant culture, so it reads the same on any devbox
 ([ADR-AUTO-XPLAT-INVARIANTCULTURE](../../../../drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)). A da-DK box would
 otherwise render `42,3s` and diverge from CI's `42.3s`.
+
+## comment:1
+
+Above `$invariant = [System.Globalization.CultureInfo]::InvariantCulture`, written with `#`.
+
+```text
+Spread growth is the mark of a cold run, concentrated growth of one slow file
+([ADR-AUTO-TEST-DEVBOXRUNBUDGET](/docs/drs/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)).
+```

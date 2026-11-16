@@ -410,8 +410,9 @@ language decides its name and form.
 A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than its roof in `timeouts.yml` —
 `tests.run_seconds` for the source run, `tests.post_build_seconds` for the post-build run — and names the run's time and the budget. The
 build event has no run roof: each build is bounded by the `Build-Modules` limit. A budget is a roof, never raised to make a run pass; a run
-over it is fixed by making its slowest test files faster (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own
-limit instead.
+over it compares each test file's time with the last run of its kind that fit the budget and says where the growth lies: spread over the
+files, the mark of a cold run, which is run again before anything is cut, or concentrated in one file, which is made faster
+(ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own limit instead.
 
 - [The whole-run budget](#the-whole-run-budget)
 
@@ -830,6 +831,13 @@ a trend to watch (ADR-AUTO-TEST-DEVBOXRUNBUDGET). The budget is `tests.run_secon
 wall clock the run reports. A devbox run that takes longer fails like any other gate, naming its time and the budget, and the fix is the
 same as for a slow test: measure where the time goes, make the slowest files faster without weakening what they prove, and keep the roof
 where it is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
+
+A run can also be slow without any test getting slower. The first run after an antivirus signature update reads every file rescanned, so its
+time grows a little in every file at once. The failing run therefore compares each file's time with the last run of the same kind (the same
+budget, selection and tiers) that fit the budget, and says where the growth lies. Growth spread over the files, the top file holding less
+than a third of it, is the mark of such a cold run: the run is repeated before anything is cut. Growth concentrated in one file names that
+file and its growth, and that file is made faster. With no earlier run of the kind to compare with, the verdict points at the slowest files
+as above.
 
 A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline stops a stage that outlives
 its timeout.

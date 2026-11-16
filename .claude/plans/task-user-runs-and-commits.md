@@ -18,6 +18,12 @@ under `Invoke-TestFile`, one gate on named paths, a grep or a file read. The one
 
 ## Steps
 
+0. The BVT after plan-cold-run-budget's tags landed, in a fresh session: `.\importer.ps1`, then
+   `.\out\user\Invoke-UserBvt.ps1 -SkipFirstSourceRun` (the build event, the post-build run, the source run); then the source run again,
+   `.\out\user\Invoke-UserWarmRun.ps1`, and once more after the next Defender signature update (the import line says "the first import since
+   an antivirus signature update"). Check: the post-build `run.json` reads `durationSeconds` under 190 with `Build-Modules.Languages` and
+   `Import-Catzc` in its rows; the warm source run under 240; the cold one under 240 too, else its summary is pasted and the growth names
+   the next duplicate proof.
 1. Commit the working tree, one commit, when the orchestrator says the workers are at rest:
    `pwsh -NoProfile -File out/user/Invoke-UserCommit.ps1 -WhatIf`, then without `-WhatIf`. Before it, `git status --short` lists only paths
    the plans name, with no `??` under `out/` and no `pwsh/.compiled`. After it:

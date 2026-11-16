@@ -56,6 +56,43 @@ Describe 'Get-TestAutomationVerdict' -Tag 'L0', 'logic' {
         $verdict.Summary | Should -BeLike 'the run took 90s, over its 60s budget (tests.widget_seconds in timeouts.yml)*'
     }
 
+    It 'reads a budget failure whose growth is spread over the files as a cold run to run again' -Tag 'ADR-AUTO-TEST-DEVBOXRUNBUDGET' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            $growth = [pscustomobject]@{
+                Run = '20990101-000000'; Seconds = 204.83; GrowthSeconds = 318.04; TopFile = 'Get-Widget.Tests.ps1'; TopGrowthSeconds = 49.71; Spread = $true
+            }
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Passed' -FailedCount 0 `
+                -BudgetFailure -RunBudgetSeconds 240 -DurationSeconds 242.43 -Growth $growth
+        }
+        $verdict.Result | Should -Be 'Failed'
+        $verdict.Summary | Should -Be ('the run took 242.4s, over its 240s budget (tests.run_seconds in timeouts.yml); against the last run under the budget ' +
+            '(204.8s, 20990101-000000) the growth of 318 file-seconds is spread over the files (top: Get-Widget.Tests.ps1 +49.7s), the mark of a cold run ' +
+            'after an antivirus signature update: run it again before cutting anything')
+    }
+
+    It 'reads a budget failure whose growth is concentrated in one file as that file to make faster' -Tag 'ADR-AUTO-TEST-DEVBOXRUNBUDGET' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            $growth = [pscustomobject]@{
+                Run = '20990101-000000'; Seconds = 204.8; GrowthSeconds = 70.12; TopFile = 'Get-Gadget.Tests.ps1'; TopGrowthSeconds = 61.2; Spread = $false
+            }
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Passed' -FailedCount 0 `
+                -BudgetFailure -RunBudgetSeconds 240 -DurationSeconds 251 -Growth $growth
+        }
+        $verdict.Result | Should -Be 'Failed'
+        $verdict.Summary | Should -Be ('the run took 251s, over its 240s budget (tests.run_seconds in timeouts.yml); against the last run under the budget ' +
+            '(204.8s, 20990101-000000) the growth of 70.1 file-seconds is concentrated: Get-Gadget.Tests.ps1 +61.2s — make it faster ' +
+            "(out/test-automation/durations.json records each file's time)")
+    }
+
+    It 'keeps the slowest-files sentence when there is no earlier run to compare with' -Tag 'ADR-AUTO-TEST-DEVBOXRUNBUDGET' {
+        $verdict = InModuleScope Catzc.Base.QualityGates {
+            Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Passed' -FailedCount 0 `
+                -BudgetFailure -RunBudgetSeconds 240 -DurationSeconds 242.43 -Growth $null
+        }
+        $verdict.Summary | Should -Be ('the run took 242.4s, over its 240s budget (tests.run_seconds in timeouts.yml) — make the slowest files faster ' +
+            "(out/test-automation/durations.json records each file's time)")
+    }
+
     It 'names failed tests before the budget when both failed the run' {
         $verdict = InModuleScope Catzc.Base.QualityGates {
             Get-TestAutomationVerdict -Rows @() -Limits @{} -RunResult 'Failed' -FailedCount 2 `

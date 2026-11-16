@@ -27,7 +27,9 @@ function Get-TestAutomationVerdict {
 
         [int] $SkippedCount,
 
-        [double] $DurationSeconds
+        [double] $DurationSeconds,
+
+        [object] $Growth
     )
 
     # A timing-only or budget-only failure fails the run without changing $RunResult, so the verdict folds it in.
@@ -50,7 +52,23 @@ function Get-TestAutomationVerdict {
         "worker(s) $($FailedShardLabels -join ', ') reported a failed run with no failed tests (a container/discovery error — see the output above)"
     }
     elseif ($BudgetFailure) {
-        "the run took ${seconds}s, over its ${RunBudgetSeconds}s budget ($BudgetKey in timeouts.yml) — make the slowest files faster (out/test-automation/durations.json records each file's time)"
+        $overBudget = "the run took ${seconds}s, over its ${RunBudgetSeconds}s budget ($BudgetKey in timeouts.yml)"
+        $makeFaster = "make the slowest files faster (out/test-automation/durations.json records each file's time)"
+        if ($null -eq $Growth) {
+            "$overBudget — $makeFaster"
+        }
+        else {
+            $invariant = [System.Globalization.CultureInfo]::InvariantCulture
+            $earlier = "against the last run under the budget ($([math]::Round($Growth.Seconds, 1).ToString($invariant))s, $($Growth.Run))"
+            $grown = "the growth of $([math]::Round($Growth.GrowthSeconds, 1).ToString($invariant)) file-seconds"
+            $top = "$($Growth.TopFile) +$([math]::Round($Growth.TopGrowthSeconds, 1).ToString($invariant))s"
+            if ($Growth.Spread) {
+                "$overBudget; $earlier $grown is spread over the files (top: $top), the mark of a cold run after an antivirus signature update: run it again before cutting anything"
+            }
+            else {
+                "$overBudget; $earlier $grown is concentrated: $top — make it faster (out/test-automation/durations.json records each file's time)"
+            }
+        }
     }
     else {
         $timingViolationCount = @(Get-TestTimingViolation -Rows $Rows -Limits $Limits).Count

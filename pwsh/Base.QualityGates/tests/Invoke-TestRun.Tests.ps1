@@ -115,6 +115,21 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Message -like 'Run took 200*over its 180s budget*the run fails.' }
         }
 
+        It 'hands the verdict the growth against the last run under the budget, and reads none for a run inside it' {
+            Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $false }
+            Mock Get-TestRunGrowth -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Run = '20990101-000000'; Spread = $true } }
+
+            { Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $false } } | Should -Throw '*budget failure: True*'
+            Should -Invoke Get-TestRunGrowth -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+                $OutputFolder -eq $script:outputFolder -and $Context['run'] -eq 'source'
+            }
+            Should -Invoke Get-TestAutomationVerdict -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Growth.Run -eq '20990101-000000' }
+
+            $script:runSeconds = 150
+            Invoke-Run @{ OutputFolder = (Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))); PassThru = $false }
+            Should -Invoke Get-TestRunGrowth -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        }
+
         It 'leaves a pipeline run to its stage''s own limit' {
             Mock Test-IsRunningInPipeline -ModuleName Catzc.Base.QualityGates { $true }
 

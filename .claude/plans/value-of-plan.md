@@ -24,13 +24,15 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Meta plans by value (how the repository describes and governs itself)
 
-| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                     |
-| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ----------------------------------------- |
-| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | two chunks; the user's and the sweep last |
+| Value   | Plan        | Why                                                                                                     | Needed docs                                            | Needed tests                                  | State                                       |
+| ------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| highest | plan-master | The one executable order over every open step of every plan; task files are its disposable executables. | ADR-REPO-PLANS names the task files (the plans record) | Test-Plans over the folder (the plans record) | three chunks; the user's and the sweep last |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-No feature plan is open; the next one adds its row here with its needed docs and tests.
+| Value | Plan                 | Needed docs                                              | Needed tests                                                                 | State                                            |
+| ----- | -------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------ |
+| high  | plan-cold-run-budget | ADR-AUTO-TEST: the post-build tag and the budget verdict | the user's cold source run under 240 s and the post-build run under its roof | every code step landed; waits on the user's runs |
 
 ## Pending deletion
 

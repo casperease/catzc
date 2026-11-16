@@ -189,7 +189,8 @@ Either signal fails the aggregate verdict.
 Test durations are validated against the per-level limits and the over-limit section is rendered (Write-TestAutomationTimingReport). It is
 report-only by default and run-failing under `-EnforceTimings`. The limits and the whole-run budget come from the time safeguard's config
 (Get-TestTimeLimits), never a literal here. A devbox run that outlasts its whole-run budget fails
-([ADR-AUTO-TEST-DEVBOXRUNBUDGET](../../../../drs/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)).
+([ADR-AUTO-TEST-DEVBOXRUNBUDGET](../../../../drs/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)), and its verdict says
+where the file seconds grew against the last run of its kind under the budget (Get-TestRunGrowth).
 
 The report files `summary.md`, `tests.csv` and `latest.txt` and the skip report are written best-effort and never mask the run's outcome;
 Write-TestAutomationArtifacts owns the guards.

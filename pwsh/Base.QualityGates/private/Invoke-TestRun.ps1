@@ -257,11 +257,15 @@ function Invoke-TestRun {
         $passedCount = @($rows | Where-Object { $_.Result -eq 'Passed' }).Count
         $skippedCount = @($rows | Where-Object { $_.Result -eq 'Skipped' }).Count
 
+        # Over the budget, the verdict says where the file seconds grew against the last run under it.
+        $growth = if ($budgetFailure) {
+            Get-TestRunGrowth -OutputFolder $OutputFolder -RunDirectory $runDir -File @($workerRun.Files) -Context $context
+        }
         # One verdict feeds the banner and the throw, so the reason is worded once.
         $verdict = Get-TestAutomationVerdict -Rows $rows -Limits $limits -RunResult $runResult `
             -FailedCount $failedCount -FailedShardLabels $failedShardLabels -TimingFailure:$timingFailure `
             -BudgetFailure:$budgetFailure -RunBudgetSeconds $runBudgetSeconds -BudgetKey $budgetKey `
-            -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds
+            -PassedCount $passedCount -SkippedCount $skippedCount -DurationSeconds $workerRun.DurationSeconds -Growth $growth
 
         # Every failed test's and failed file's message, right before the verdict (nothing on a green run).
         Write-TestRunFailures -Rows $rows -Files @($workerRun.Files)
