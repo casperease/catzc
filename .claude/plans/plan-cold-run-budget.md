@@ -32,7 +32,7 @@ diagnosis each time and hides a real regression behind a known one.
   the collapse ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS asks for, and the proof stays: the plain folder yields two rows, the proof folder two per
   engine.
 - Left as they are: the snapshot case of `Invoke-TestFile.Tests.ps1` (the one proof of a snapshot run, kept by the decision of 2026-11-03)
-  and the two lamp sweeps of `TrackLamps.Tests.ps1` (two engines, a stub editor and the module, each measured once).
+  and the two lamp sweeps of `TrackLamps.Tests.ps1` (two drivers, a stub editor and the module, each measured once).
 - A run over the budget names a cold run as the import line does: when the antivirus signature of the ledger's last line before the run
   differs from the one at the run's end, the budget verdict says it is the first run since a signature update, so the reader looks at the
   second run, not at the slowest files.
