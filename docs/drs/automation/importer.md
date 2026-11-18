@@ -55,9 +55,11 @@ pre-load copy of them.
 The core is the module that decides the mix and every module it is declared to need, derived from the declared graph and never listed by
 hand. A module loads the same files in the same order at import or at first use, through one load function. The function-name collision
 check and the generated manifests cover every module at import. A command that enumerates the loaded modules completes the load first. A
-session's result never depends on when a module loads.
+session's result never depends on when a module loads. An import may name its own load with `-ModuleLoad`, which overrides the load row for
+that import alone, so a child session that runs one command loads the core and the rest on first use.
 
 - [Deciding after the load](#deciding-after-the-load)
+- [An import names its own load](#an-import-names-its-own-load)
 
 ### Rule ADR-AUTO-IMPORTER-LANGUAGESSELECTMODULES
 
@@ -82,7 +84,8 @@ entry, never a branch ([ADR-AUTO-EXTEND-CONTENTAGNOSTICCORE](open-closed-archite
 
 The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from,
 how the native types load and when the modules load ([DDR-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-ddr-runmode-modeisderived)),
-the mix chooses which modules, languages and engines.
+the mix chooses which modules, languages and engines. The load row of the host and mode is the default for when the modules load; an import
+that names its own load overrides it for that import alone.
 
 - [The mix](#the-mix)
 
@@ -90,7 +93,8 @@ the mix chooses which modules, languages and engines.
 
 A console import has a roof, `import.console_seconds` in the timeouts configuration (3 s). Every console import appends one line to the
 import ledger under the output folder with its phases, its CPU seconds and the antivirus signature version; an import over the roof names
-its CPU seconds on its closing line, and says when it is the first import since that signature changed. A slow import warns and never fails.
+its CPU seconds on its closing line, and says when it is the first import since that signature changed; that first console import also warms
+the scanner's cache in the background. A slow import warns and never fails.
 
 - [The console roof and the ledger](#the-console-roof-and-the-ledger)
 
@@ -135,6 +139,16 @@ A two-phase load by a hand-written list of deciding modules carries a second loa
 living version of the languages configuration. Counting a module's asset or test files would let an explicit mix drop a module for a script
 it only ships.
 
+### An import names its own load
+
+The load row decides by host and mode, and a test's child session is headless, so by the row it loads every module at import, 13 to 16 s
+pooled, where a console import loads the core and the rest on first use in under 2 s. A child that runs one command or script needs no more
+than a console does, while a child that proves the load itself needs every module. Only the caller knows which child it starts, so the
+caller names the exception: `-ModuleLoad lazy` or `-ModuleLoad eager` replaces the row's value where the load policy is resolved, once. The
+lookup hook is installed whenever a module is deferred, so the override holds under every row; a row's trigger concerns only the types. The
+choice is a parameter, never an environment variable: a variable would pass to every child of that child, and a grandchild that proves the
+load would inherit a choice its own test did not make.
+
 ### The console roof and the ledger
 
 The importer is the entry to every session, so a slow import is felt by every command after it. A console import has a roof,
@@ -147,6 +161,15 @@ scan is the measured cause of a slow first import: the on-access scanner rescans
 the first console import after one read 14.0 s of wall for 6.5 s of CPU with file reads sixteen times slower (2026-11-07), and 5.0 s for 3.1
 s once modules load on first use (2026-11-08). An import over the roof whose signature differs from the ledger's last line says so on its
 closing line; the tree is not excluded from the scanner, since the exclusion is a security control of the machine, not of the repository.
+
+The same rescan slows the first test run after a signature update: it read 235 to 248 s against 205 to 237 s warm, over its 240 s roof
+(2026-11-16 and 2026-11-17). The first console import after the update knows of it, so it warms the scanner's cache: it starts one detached
+process at idle priority that reads every file of the repository once, the output folder, the git folder, the environments and the build
+products left out, and stops at a fixed roof of seconds however many files remain. A marker under the output folder, keyed by the signature,
+makes the warmup run once per signature on the machine, whichever console imports first, and holds the file count once the read ends. The
+closing line says the scanner's cache is warming in the background, under the roof too, so a busy disk has its reason at the prompt. Only a
+console import warms: a test worker or a child imports through a script file and writes no ledger line. The import never waits on the warmup
+and never fails for it, and reading the tree changes no control of the machine.
 
 ### Growth by entry
 

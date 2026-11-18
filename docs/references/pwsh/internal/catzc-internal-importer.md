@@ -50,6 +50,9 @@ diverge. The switches are the toolset's load surface:
   ([ADR-AUTO-CONSUMER-SOURCEMODULES](../../../drs/automation/consumer-repository.md#rule-adr-auto-consumer-sourcemodules)).
 - `-Languages` and `-Engines` select the import mix, which `Set-ImportMix` resolves once the modules are loaded; the modules outside it are
   removed. Without `Catzc.Base.ModuleSystem` the importer throws when either is given.
+- `-ModuleLoad eager|lazy` overrides the load row's `moduleLoad` for this import alone, such as a test's child that runs one command; the
+  lookup hook is installed whenever a module is deferred, so it holds under every row
+  ([ADR-AUTO-IMPORTER-LOADEDBYFIRSTUSE](../../../drs/automation/importer.md#rule-adr-auto-importer-loadedbyfirstuse)).
 
 `-Verbose` shows the importer's state-change record
 ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).

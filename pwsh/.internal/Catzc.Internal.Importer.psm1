@@ -12,6 +12,7 @@ $script:modulesFolder = 'pwsh'
 . (Join-Path $PSScriptRoot 'assets/importer/ConvertTo-ImportLedgerLine.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Add-ImportLedgerLine.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Get-ImportLedgerLastSignature.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Start-ScanWarmup.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Get-ImportCpuSuffix.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Measure-ImportFileProbe.ps1')
 . (Join-Path $PSScriptRoot 'assets/importer/Write-ImportLedger.ps1')
@@ -42,7 +43,11 @@ function Invoke-Importer {
 
         [string[]] $Languages,
 
-        [string[]] $Engines
+        [string[]] $Engines,
+
+        # Overrides the load row's moduleLoad for this import alone, such as a test's child that runs one command.
+        [ValidateSet('eager', 'lazy')]
+        [string] $ModuleLoad
     )
 
     # 7.4 is the floor: the vendor functions use the PSResourceGet it first shipped.
@@ -171,7 +176,8 @@ function Invoke-Importer {
         if ($isConsoleSession) {
             $fileProbeMs = Measure-ImportFileProbe -ModulesRoot $modulesRoot
         }
-        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind -LoadTimings $loadTimings
+        $moduleLoadArgs = $PSBoundParameters.ContainsKey('ModuleLoad') ? @{ ModuleLoad = $ModuleLoad } : @{}
+        Import-AllModules -ModulesRoot $modulesRoot -ExportPrivates:$ExportPrivates -DiagnoseLoadTime:$DiagnoseLoadTime -Bundle:$Bundle -HostKind $hostKind -LoadTimings $loadTimings @moduleLoadArgs
         if ($isConsoleSession) {
             $finalizerStart = $sw.Elapsed
         }

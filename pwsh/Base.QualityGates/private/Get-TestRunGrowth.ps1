@@ -13,19 +13,29 @@ function Get-TestRunGrowth {
         [object[]] $File,
 
         [Parameter(Mandatory)]
-        [System.Collections.IDictionary] $Context
+        [System.Collections.IDictionary] $Context,
+
+        [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    # A file is keyed by its module folder, tests folder and name, so a snapshot run's paths match an in-place run's.
+    # The growth is concentrated when the top file holds at least this share of it; a file counts as grown from this many seconds.
+    $concentratedShare = 0.5
+    $grownFileSeconds = 2.0
+    $root = $RepositoryRoot
+
     $addSeconds = {
         param([System.Collections.Generic.Dictionary[string, double]] $Seconds, [object[]] $Entries)
         foreach ($entry in $Entries) {
-            $segments = @("$($entry.File)" -split '[\\/]' | Where-Object { $_ })
-            if ($segments.Count -eq 0) {
+            $file = "$($entry.File)"
+            $key = if ($entry.PSObject.Properties['Key'] -and $entry.Key) {
+                "$($entry.Key)"
+            }
+            elseif ($file.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+                [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
+            }
+            if (-not $key) {
                 continue
             }
-            $key = ($segments | Select-Object -Last 3) -join '/'
-            # A bridged test reports one shared script for several rows, so a key's seconds add up.
             $previous = 0.0
             [void] $Seconds.TryGetValue($key, [ref] $previous)
             $Seconds[$key] = $previous + ([double] $entry.DurationMs / 1000)
@@ -53,7 +63,9 @@ function Get-TestRunGrowth {
     $candidates.Sort([System.StringComparer]::Ordinal)
     $candidates.Reverse()
 
+    # The baseline is the newest earlier run of the kind that ran to completion: passed or failed on its tests, every shard's rows on disk.
     $earlier = $null
+    $before = $null
     foreach ($directory in $candidates) {
         $manifestPath = [System.IO.Path]::Combine($directory, 'run.json')
         if ([System.IO.Path]::GetFileName($directory) -eq $currentName -or -not [System.IO.File]::Exists($manifestPath)) {
@@ -61,30 +73,36 @@ function Get-TestRunGrowth {
         }
         try {
             $manifest = [System.IO.File]::ReadAllText($manifestPath) | ConvertFrom-Json -AsHashtable
+            if ($manifest -isnot [System.Collections.IDictionary] -or $manifest['status'] -notin 'passed', 'failed' -or
+                $manifest['context'] -isnot [System.Collections.IDictionary] -or (& $kindOf $manifest['context']) -ne $kind) {
+                continue
+            }
+            $shards = @($manifest['shards'] | Where-Object { $_ -is [System.Collections.IDictionary] })
+            $seconds = [System.Collections.Generic.Dictionary[string, double]]::new([System.StringComparer]::OrdinalIgnoreCase)
+            $complete = $shards.Count -gt 0
+            foreach ($shard in $shards) {
+                $sidecar = [System.IO.Path]::Combine($directory, "files-$($shard['label']).json")
+                $rows = @(if ([System.IO.File]::Exists($sidecar)) {
+                        [System.IO.File]::ReadAllText($sidecar) | ConvertFrom-Json
+                    })
+                if ($rows.Count -ne [int] $shard['files']) {
+                    $complete = $false
+                    break
+                }
+                & $addSeconds $seconds $rows
+            }
         }
         catch {
-            Write-Verbose "Skipped unreadable run manifest: $manifestPath — $($_.Exception.Message)"
+            Write-Verbose "Skipped unreadable run: $directory — $($_.Exception.Message)"
             continue
         }
-        if ($manifest -isnot [System.Collections.IDictionary] -or $manifest['status'] -ne 'passed' -or
-            $manifest['context'] -isnot [System.Collections.IDictionary] -or (& $kindOf $manifest['context']) -ne $kind) {
-            continue
+        if ($complete) {
+            $earlier = [pscustomobject]@{ Directory = $directory; Seconds = [double] $manifest['durationSeconds'] }
+            $before = $seconds
+            break
         }
-        $earlier = [pscustomobject]@{ Directory = $directory; Seconds = [double] $manifest['durationSeconds'] }
-        break
     }
     if ($null -eq $earlier) {
-        return
-    }
-
-    $before = [System.Collections.Generic.Dictionary[string, double]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    try {
-        foreach ($sidecar in [System.IO.Directory]::EnumerateFiles($earlier.Directory, 'files-shard-*.json')) {
-            & $addSeconds $before @([System.IO.File]::ReadAllText($sidecar) | ConvertFrom-Json)
-        }
-    }
-    catch {
-        Write-Verbose "No comparison with $($earlier.Directory): $($_.Exception.Message)"
         return
     }
     $now = [System.Collections.Generic.Dictionary[string, double]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -92,6 +110,7 @@ function Get-TestRunGrowth {
 
     # The growth is summed over the files both runs ran, so a file added or removed since never reads as growth.
     $growth = 0.0
+    $grownFiles = 0
     $topKey = $null
     $topGrowth = 0.0
     foreach ($key in $now.Keys) {
@@ -100,6 +119,9 @@ function Get-TestRunGrowth {
         }
         $delta = $now[$key] - $before[$key]
         $growth += $delta
+        if ($delta -ge $grownFileSeconds) {
+            $grownFiles++
+        }
         if ($null -eq $topKey -or $delta -gt $topGrowth) {
             $topKey = $key
             $topGrowth = $delta
@@ -113,8 +135,14 @@ function Get-TestRunGrowth {
         Run              = [System.IO.Path]::GetFileName($earlier.Directory)
         Seconds          = $earlier.Seconds
         GrowthSeconds    = $growth
-        TopFile          = [System.IO.Path]::GetFileName($topKey)
+        GrownFiles       = $grownFiles
+        TopFile          = if ($topKey.EndsWith('.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {
+            [System.IO.Path]::GetFileName($topKey)
+        }
+        else {
+            $topKey
+        }
         TopGrowthSeconds = $topGrowth
-        Spread           = $topGrowth -lt ($growth / 3)
+        Spread           = $topGrowth -lt ($growth * $concentratedShare)
     }
 }

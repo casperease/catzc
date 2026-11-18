@@ -410,8 +410,8 @@ language decides its name and form.
 A devbox run must fit its whole-run budget: `Test-Automation` fails a devbox run whose workers take longer than its roof in `timeouts.yml` —
 `tests.run_seconds` for the source run, `tests.post_build_seconds` for the post-build run — and names the run's time and the budget. The
 build event has no run roof: each build is bounded by the `Build-Modules` limit. A budget is a roof, never raised to make a run pass; a run
-over it compares each test file's time with the last run of its kind that fit the budget and says where the growth lies: spread over the
-files, the mark of a cold run, which is run again before anything is cut, or concentrated in one file, which is made faster
+over it compares each test file's time with the last complete run of its kind and says where the growth lies: spread over the files, the
+mark of a cold run, which is run again before anything is cut, or concentrated in one file, which is made faster
 (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). A pipeline run is bounded by its stage's own limit instead.
 
 - [The whole-run budget](#the-whole-run-budget)
@@ -833,11 +833,13 @@ same as for a slow test: measure where the time goes, make the slowest files fas
 where it is. The duration history the scheduler keeps (`out/test-automation/durations.json`) names the files to look at first.
 
 A run can also be slow without any test getting slower. The first run after an antivirus signature update reads every file rescanned, so its
-time grows a little in every file at once. The failing run therefore compares each file's time with the last run of the same kind (the same
-budget, selection and tiers) that fit the budget, and says where the growth lies. Growth spread over the files, the top file holding less
-than a third of it, is the mark of such a cold run: the run is repeated before anything is cut. Growth concentrated in one file names that
-file and its growth, and that file is made faster. With no earlier run of the kind to compare with, the verdict points at the slowest files
-as above.
+time grows a little in every file at once. The failing run therefore compares each file's time with the last complete run of the same kind
+(the same budget, selection and tiers), and says where the growth lies. A complete run is one whose every shard reported its files, whether
+its tests passed or failed, since red tests leave the timing sound while an abandoned or stopped run does not. A language test folder that
+one shared bridge script runs is compared as its own folder, as the duration history keys it, never summed into the bridge. Growth spread
+over the files, the top file holding less than half of it, is the mark of such a cold run, and the verdict counts the files that grew by a
+few seconds or more: the run is repeated before anything is cut. Growth concentrated in one file, half of it or more, names that file and
+its growth, and that file is made faster. With no earlier run of the kind to compare with, the verdict points at the slowest files as above.
 
 A pipeline run is left to its stage's own limit: a hosted agent's speed is not the devbox's, and the pipeline stops a stage that outlives
 its timeout.

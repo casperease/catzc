@@ -12,7 +12,9 @@ Reads every shard's file sidecar, saves the measured durations to the duration h
 
 For each shard whose files sidecar exists, reads its entries, maps each file back to its source path, and keys its duration by the file (and
 by the greedy file it ran alone for, when the shard held one file). Saves the measured durations to the history file when any were measured,
-and returns every file entry with its source path. A shard without its sidecar adds nothing.
+and returns every file entry with its source path and its duration key as `Key`. The sidecar is written back with the same `Key` on each
+row, so a later run's budget comparison (Get-TestRunGrowth) matches a bridged test folder with itself rather than with the shared bridge
+script every language folder reports. A shard without its sidecar adds nothing.
 
 ### parameter `Shard`
 

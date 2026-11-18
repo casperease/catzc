@@ -122,9 +122,18 @@ Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
             (Get-ModePolicy 'console.windows.source' @{ ConfigPath = $row }).ModuleLoad | Should -Be 'lazy'
         }
 
-        It 'throws for moduleLoad lazy with trigger none' {
-            $bad = New-PolicyConfig "cells:`n  headless.unix.build:`n    load: eager`n    trigger: none`n    moduleLoad: lazy`n"
-            { Get-ModePolicy 'headless.unix.build' @{ ConfigPath = $bad } } | Should -Throw '*moduleLoad*lazy*lookup-hook*'
+        It 'accepts moduleLoad lazy under a row whose trigger is none, from the row or named explicitly' {
+            $fromRow = New-PolicyConfig "cells:`n  headless.unix.build:`n    load: eager`n    trigger: none`n    moduleLoad: lazy`n"
+            (Get-ModePolicy 'headless.unix.build' @{ ConfigPath = $fromRow }).ModuleLoad | Should -Be 'lazy'
+            $noHook = New-PolicyConfig "cells:`n  headless.windows.source:`n    load: eager`n    trigger: none`n"
+            (Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $noHook; ModuleLoad = 'lazy' }).ModuleLoad | Should -Be 'lazy'
+        }
+
+        It 'lets an explicit moduleLoad outrank the row either way' {
+            $eagerRow = New-PolicyConfig "cells:`n  headless.windows.source:`n    trigger: lookup-hook`n"
+            (Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $eagerRow; ModuleLoad = 'lazy' }).ModuleLoad | Should -Be 'lazy'
+            $lazyRow = New-PolicyConfig "cells:`n  headless.windows.source:`n    moduleLoad: lazy`n    trigger: lookup-hook`n"
+            (Get-ModePolicy 'headless.windows.source' @{ ConfigPath = $lazyRow; ModuleLoad = 'eager' }).ModuleLoad | Should -Be 'eager'
         }
 
         It 'throws for an unknown moduleLoad value' {

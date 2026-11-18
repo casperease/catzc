@@ -306,9 +306,6 @@ function Get-TypesLoadPolicy {
     if ($policy.ModuleLoad -cnotin $script:typesLoadLoads) {
         throw "Row '$cell' has moduleLoad '$($policy.ModuleLoad)'; the values are: $($script:typesLoadLoads -join ', ')."
     }
-    if ($policy.ModuleLoad -eq 'lazy' -and $policy.Trigger -ne 'lookup-hook') {
-        throw "Row '$cell' has moduleLoad 'lazy' with trigger '$($policy.Trigger)'; nothing would ever load a module. 'lazy' needs trigger lookup-hook."
-    }
     if ($policy.ShadowCopy -isnot [bool]) {
         throw "Row '$cell' has shadowCopy '$($policy.ShadowCopy)'; it is true or false."
     }

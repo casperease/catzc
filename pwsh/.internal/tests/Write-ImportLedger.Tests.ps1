@@ -6,11 +6,23 @@ Describe 'import ledger' -Tag 'L0', 'logic' {
         . (Join-Path $assets 'Get-ImportLedgerLastSignature.ps1')
         . (Join-Path $assets 'Get-ImportCpuSuffix.ps1')
         . (Join-Path $assets 'Measure-ImportFileProbe.ps1')
+        . (Join-Path $assets 'Start-ScanWarmup.ps1')
         . (Join-Path $assets 'Write-ImportLedger.ps1')
     }
 
     Context 'Write-ImportLedger' {
         BeforeAll {
+            # The warmup's own test starts the child; the ledger's cases spawn nothing.
+            Mock Start-ScanWarmup { [pscustomobject]@{ Started = $true; Marker = 'widget' } }
+            $script:warmupText = ', warming the scanner''s cache in the background'
+            $script:signatureLedger = {
+                param($name)
+                $root = Join-Path $TestDrive $name
+                New-Item -ItemType Directory -Path (Join-Path $root 'widget-modules/Base.Timeouts/configs') -Force | Out-Null
+                Copy-Item -LiteralPath (Join-Path $TestDrive 'ledger/widget-modules/Base.Timeouts/configs/timeouts.yml') -Destination (Join-Path $root 'widget-modules/Base.Timeouts/configs/timeouts.yml')
+                Add-ImportLedgerLine -Path (Join-Path $root 'out/import-times.jsonl') -Line '{"totalSeconds":2.1,"antivirusSignature":"0.0.0.0"}'
+                $root
+            }
             $script:ledgerArgs = {
                 param($root, $total)
                 @{
@@ -40,15 +52,38 @@ Describe 'import ledger' -Tag 'L0', 'logic' {
             Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU'
         }
 
-        It 'names the first import since an antivirus signature update over the roof, read against the ledger''s last line' -Skip:(-not $IsWindows) {
-            $root = Join-Path $TestDrive 'ledger-signature'
-            New-Item -ItemType Directory -Path (Join-Path $root 'widget-modules/Base.Timeouts/configs') -Force | Out-Null
-            Copy-Item -LiteralPath (Join-Path $TestDrive 'ledger/widget-modules/Base.Timeouts/configs/timeouts.yml') -Destination (Join-Path $root 'widget-modules/Base.Timeouts/configs/timeouts.yml')
-            Add-ImportLedgerLine -Path (Join-Path $root 'out/import-times.jsonl') -Line '{"totalSeconds":2.1,"antivirusSignature":"0.0.0.0"}'
+        It 'names the first import since an antivirus signature update over the roof and warms once, read against the ledger''s last line' -Skip:(-not $IsWindows) {
+            $root = & $script:signatureLedger 'ledger-signature'
             $splat = & $script:ledgerArgs $root 14.0
-            Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU, the first import since an antivirus signature update'
-            # The same signature again on the next line names no update.
+            Write-ImportLedger @splat | Should -Be ", 2.2 s of CPU, the first import since an antivirus signature update$script:warmupText"
+            Should -Invoke Start-ScanWarmup -Times 1 -Exactly -ParameterFilter { $Signature -ne '0.0.0.0' -and $OutputRoot -eq [System.IO.Path]::Combine($root, 'out') }
+            # The same signature again on the next line names no update and starts nothing.
             Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU'
+            Should -Invoke Start-ScanWarmup -Times 1 -Exactly
+        }
+
+        It 'names the warmup under the roof too, so the line explains the busy disk' -Skip:(-not $IsWindows) {
+            $splat = & $script:ledgerArgs (& $script:signatureLedger 'ledger-warmup-under-roof') 2.4
+            Write-ImportLedger @splat | Should -Be $script:warmupText
+            Should -Invoke Start-ScanWarmup -Times 1 -Exactly
+        }
+
+        It 'names no warmup when its marker already holds the signature' -Skip:(-not $IsWindows) {
+            Mock Start-ScanWarmup { $null }
+            $splat = & $script:ledgerArgs (& $script:signatureLedger 'ledger-warmup-marked') 14.0
+            Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU, the first import since an antivirus signature update'
+        }
+
+        It 'keeps the CPU text when the warmup throws' -Skip:(-not $IsWindows) {
+            Mock Start-ScanWarmup { throw 'gadget' }
+            $splat = & $script:ledgerArgs (& $script:signatureLedger 'ledger-warmup-throws') 14.0
+            Write-ImportLedger @splat | Should -Be ', 2.2 s of CPU, the first import since an antivirus signature update'
+        }
+
+        It 'starts no warmup without a previous signature in the ledger' {
+            $splat = & $script:ledgerArgs (Join-Path $TestDrive 'ledger-new') 14.0
+            Write-ImportLedger @splat | Should -Not -BeLike '*warming*'
+            Should -Invoke Start-ScanWarmup -Times 0 -Exactly
         }
 
         It 'does not throw when the ledger cannot be written' {

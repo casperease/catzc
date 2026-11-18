@@ -59,11 +59,11 @@ function Get-TestAutomationVerdict {
         }
         else {
             $invariant = [System.Globalization.CultureInfo]::InvariantCulture
-            $earlier = "against the last run under the budget ($([math]::Round($Growth.Seconds, 1).ToString($invariant))s, $($Growth.Run))"
+            $earlier = "against the last complete run of this kind ($([math]::Round($Growth.Seconds, 1).ToString($invariant))s, $($Growth.Run))"
             $grown = "the growth of $([math]::Round($Growth.GrowthSeconds, 1).ToString($invariant)) file-seconds"
             $top = "$($Growth.TopFile) +$([math]::Round($Growth.TopGrowthSeconds, 1).ToString($invariant))s"
             if ($Growth.Spread) {
-                "$overBudget; $earlier $grown is spread over the files (top: $top), the mark of a cold run after an antivirus signature update: run it again before cutting anything"
+                "$overBudget; $earlier $grown is spread over $($Growth.GrownFiles) files (top: $top), the mark of a cold run after an antivirus signature update: run it again before cutting anything"
             }
             else {
                 "$overBudget; $earlier $grown is concentrated: $top — make it faster (out/test-automation/durations.json records each file's time)"

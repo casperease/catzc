@@ -33,6 +33,12 @@ ignores module-scoped privates.
 The populated tree is mutated every way an author can, then re-imported. One cold import must reflect a changed body, an added function, a
 deleted function and a deleted module.
 
+## An import that names its own load
+
+Under the lazy row, an import with `-ModuleLoad eager` holds every module after it; under an eager row, an import with `-ModuleLoad lazy`
+holds the core only. The eager row has the shipped headless shape, `trigger: none`, since the lookup hook is installed whenever a module is
+deferred.
+
 ## Eviction across code roots
 
 This case is greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the machine beyond

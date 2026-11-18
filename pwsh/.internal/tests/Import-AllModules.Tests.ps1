@@ -17,8 +17,8 @@ BeforeAll {
     "ForEach-Object { [pscustomobject]@{ Name = `$_.Name; Exported = @(`$_.ExportedFunctions.Keys | Sort-Object) } })"
 
     function Invoke-Sandbox {
-        param([Parameter(Mandatory)][string]$Capture)
-        $script = ". '$sandbox/importer.ps1' 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"
+        param([Parameter(Mandatory)][string]$Capture, [string]$ImportArgs = '')
+        $script = ". '$sandbox/importer.ps1' $ImportArgs 6>`$null`n$Capture | ConvertTo-Json -Depth 6 -Compress"
         $raw = pwsh -NoProfile -Command $script 2>&1
         if ($LASTEXITCODE -ne 0) {
             throw "Importer failed: $raw"
@@ -267,6 +267,32 @@ Describe 'Bootstrap' -Tag 'L0', 'logic' {
             }
             finally {
                 [System.IO.File]::WriteAllText($coreListPath, "# the core`n`nCoreWidget`n")
+            }
+        }
+
+        It 'loads every module at import when the import names -ModuleLoad eager under the lazy row' {
+            $eager = Invoke-Sandbox -Capture '[pscustomobject]@{ Core = @(Get-Module CoreWidget).Count; Gadget = @(Get-Module LazyGadget).Count }' -ImportArgs '-ModuleLoad eager'
+            $eager.Core | Should -Be 1
+            $eager.Gadget | Should -Be 1
+        }
+
+        It 'loads only the core at import, and the rest on first use, when the import names -ModuleLoad lazy under the shipped headless row' {
+            $system = if ($IsWindows) {
+                'windows'
+            }
+            else {
+                'unix'
+            }
+            [System.IO.File]::WriteAllText($rowsPath, "cells:`n  headless.$system.source:`n    load: eager`n    trigger: none`n")
+            try {
+                $lazy = Invoke-Sandbox -Capture $lazyCapture -ImportArgs '-ModuleLoad lazy'
+                $lazy.CoreLoaded | Should -Be 1
+                $lazy.GadgetBefore | Should -Be 0
+                $lazy.Value | Should -Be 'gadget secret'
+                $lazy.GadgetAfter | Should -Be 1
+            }
+            finally {
+                [System.IO.File]::WriteAllText($rowsPath, "cells:`n  headless.$system.source:`n    moduleLoad: lazy`n    trigger: lookup-hook`n")
             }
         }
 

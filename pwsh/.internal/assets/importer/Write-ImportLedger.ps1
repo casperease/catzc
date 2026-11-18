@@ -79,6 +79,18 @@ function Write-ImportLedger {
             }
         }
         $suffix = Get-ImportCpuSuffix -TotalSeconds $TotalSeconds -RoofSeconds $roofSeconds -CpuSeconds $CpuSeconds -AntivirusSignatureChanged:$signatureChanged
+        if ($signatureChanged) {
+            try {
+                # Only a console-shaped import reaches this ledger, so a test worker or a child importing through a script file never warms.
+                $warmup = Start-ScanWarmup -RepositoryRoot $RepositoryRoot -Signature $signature -OutputRoot ([System.IO.Path]::Combine($RepositoryRoot, 'out'))
+                if ($warmup) {
+                    $suffix += ", warming the scanner's cache in the background"
+                }
+            }
+            catch {
+                $null = $_
+            }
+        }
     }
     catch {
         $suffix = ''

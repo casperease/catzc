@@ -30,7 +30,11 @@ function Import-AllModules {
         [string]$HostKind = 'headless',
 
         # The importer's always-on accumulator: this fills TypesMs and ParseCompileMs, one timestamp pair per step, diagnosis or not.
-        [hashtable]$LoadTimings
+        [hashtable]$LoadTimings,
+
+        # The importer's -ModuleLoad: when given, it replaces the row's moduleLoad for this import, under the row's own checks.
+        [ValidateSet('eager', 'lazy')]
+        [string]$ModuleLoad
     )
 
     # One level, inline: this module loads before the walker exists
@@ -110,12 +114,17 @@ function Import-AllModules {
     # type in one module can reference a type in another. Module import order below is therefore irrelevant.
     # The load policy is read once, here, and handed to the types load. A lazy cell imports the core modules now and registers every
     # other module, which loads when one of its commands is first looked up; no core list defers every module.
-    $policy = Get-TypesLoadPolicy -HostKind $HostKind -RunMode $(if ($Bundle) {
-            'build'
-        }
-        else {
-            'source'
-        })
+    $policyArgs = @{ HostKind = $HostKind; RunMode = $(if ($Bundle) {
+                'build'
+            }
+            else {
+                'source'
+            })
+    }
+    if ($PSBoundParameters.ContainsKey('ModuleLoad')) {
+        $policyArgs['ModuleLoad'] = $ModuleLoad
+    }
+    $policy = Get-TypesLoadPolicy @policyArgs
     $typesStart = [Diagnostics.Stopwatch]::GetTimestamp()
     Import-CSharpTypes -ModulesRoot $ModulesRoot -DiagnoseLoadTime:$DiagnoseLoadTime -PrebuiltOnly:$Bundle -HostKind $HostKind -Policy $policy
     $parseTicks = 0L

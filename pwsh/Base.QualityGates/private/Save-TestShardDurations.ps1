@@ -33,10 +33,14 @@ function Save-TestShardDurations {
             }
             foreach ($entry in $shardEntries) {
                 $source = Convert-TestRunLocationPath -Location $Location -Path $entry.File -ToSource
-                $measured[(Get-TestDurationKey -File $source -ShardFile $shardSource -RepositoryRoot $RepositoryRoot)] = $entry.DurationMs
+                $key = Get-TestDurationKey -File $source -ShardFile $shardSource -RepositoryRoot $RepositoryRoot
+                $measured[$key] = $entry.DurationMs
                 $entry.File = $source
+                $entry | Add-Member -NotePropertyName Key -NotePropertyValue $key -Force
                 $fileEntries.Add($entry)
             }
+            # The sidecar keeps each row's key, so a later run compares a bridged folder with itself, never with the shared bridge script.
+            [System.IO.File]::WriteAllText($item.FilesPath, (ConvertTo-Json -InputObject @($shardEntries) -Depth 2))
         }
     }
     if ($measured.Count -gt 0) {

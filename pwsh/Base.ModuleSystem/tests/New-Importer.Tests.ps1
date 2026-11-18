@@ -42,6 +42,14 @@ Describe 'New-Importer' -Tag 'L0', 'logic', 'source-only' {
         $content | Should -Match 'Invoke-Importer @PSBoundParameters'
     }
 
+    It 'renders the overlay''s -ModuleLoad into the shim as a string parameter' {
+        $content = New-Importer -RepositoryRoot $script:sandbox -DryRun
+        $ast = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref] $null, [ref] $null)
+        $moduleLoad = @($ast.ParamBlock.Parameters | Where-Object { $_.Name.VariablePath.UserPath -eq 'ModuleLoad' })
+        $moduleLoad.Count | Should -Be 1
+        $moduleLoad[0].StaticType | Should -Be ([string])
+    }
+
     It 'generates an advanced shim, so -Verbose binds and is forwarded to Invoke-Importer' {
         $content = New-Importer -RepositoryRoot $script:sandbox -DryRun
         $ast = [System.Management.Automation.Language.Parser]::ParseInput($content, [ref] $null, [ref] $null)

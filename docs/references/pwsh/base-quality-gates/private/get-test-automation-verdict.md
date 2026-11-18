@@ -66,8 +66,9 @@ Wall-clock duration, for the pass summary wording.
 
 ### parameter `Growth`
 
-The run's growth against the last run of its kind under the budget (Get-TestRunGrowth), for the budget-failure wording: spread growth reads
-as a cold run to run again, concentrated growth names the file to make faster. Without it the budget failure points at the slowest files.
+The run's growth against the last complete run of its kind (Get-TestRunGrowth), for the budget-failure wording: spread growth reads as a
+cold run to run again and names how many files grew, concentrated growth names the file to make faster. Without it the budget failure points
+at the slowest files.
 
 ### outputs
 
