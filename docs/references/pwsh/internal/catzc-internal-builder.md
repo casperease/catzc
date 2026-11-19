@@ -58,18 +58,21 @@ after the stale sweep and before the content hash, and records the results under
 
 A build is immutable and content-addressed
 ([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)), so the engine reuses
-one. `Get-BuildSourceStamp` hashes the selection (bundle, version, modules, platforms, package metadata) with the object id of every file
-git lists in the repository, except `docs/`, `.claude/`, `.unordered/` and any `tests/` path, and the build records it as `sourceStamp` in
-`build.json` beside `fileCount`. The machine's build store is keyed by that stamp and never changed in place: the store build root is
-`<Get-OutputRoot>/pwsh/built/<Bundle>/<first 12 hex of the stamp>/Catzc/<Version>`, and a stamp folder is complete or absent. When the stamp
-folder of the current tree exists, `Get-ReusableBuild` first checks whether the requested build root already holds this stamp (its
-`build.json` records it and `Get-ContentHash` equals the recorded hash) and, if so, returns that record and writes nothing, so parallel
-callers sharing a destination never rewrite a good build under each other. Otherwise it copies the store build into a staging sibling of the
-build root (`<parent>/.staging-<guid>/Catzc/<Version>`), checks the copy with `Get-ContentHash` against `build.json`, moves the existing
-build root aside to `<parent>/.old-<guid>`, moves the staging into place and deletes the old folder best-effort. A copy that fails the hash
-is deleted and the build runs; when the existing build root cannot be moved because a reader holds it, the staging is deleted and nothing is
-reused, so the engine builds as before. The engine returns the result with `Reused` true and the recorded `languages` rows; a dry run never
-reuses. A build into any destination fills the store (`Save-BuildToStore`): the copy lands in a staging sibling
+one. `Get-BuildSourceInput` lists the input roots of the selection: the selected module folders, the internal and vendor folders, the
+analyzer folder and the bats runner when the gates module is selected, every module's types folder, the engine modules whose configs and
+commands decide a build, the tools pin file, the repository's config overlay fragments and the language modules the selection packages.
+`Get-BuildSourceStamp` hashes the selection (bundle, version, modules, platforms, package metadata) with the object id of every file git
+lists under those roots, except `docs/`, `.claude/`, `.unordered/` and any `tests/` path, throws when no input root is named, and the build
+records it as `sourceStamp` in `build.json` beside `fileCount`. The machine's build store is keyed by that stamp and never changed in place:
+the store build root is `<Get-OutputRoot>/pwsh/built/<Bundle>/<first 12 hex of the stamp>/Catzc/<Version>`, and a stamp folder is complete
+or absent. When the stamp folder of the current tree exists, `Get-ReusableBuild` first checks whether the requested build root already holds
+this stamp (its `build.json` records it and `Get-ContentHash` equals the recorded hash) and, if so, returns that record and writes nothing,
+so parallel callers sharing a destination never rewrite a good build under each other. Otherwise it copies the store build into a staging
+sibling of the build root (`<parent>/.staging-<guid>/Catzc/<Version>`), checks the copy with `Get-ContentHash` against `build.json`, moves
+the existing build root aside to `<parent>/.old-<guid>`, moves the staging into place and deletes the old folder best-effort. A copy that
+fails the hash is deleted and the build runs; when the existing build root cannot be moved because a reader holds it, the staging is deleted
+and nothing is reused, so the engine builds as before. The engine returns the result with `Reused` true and the recorded `languages` rows; a
+dry run never reuses. A build into any destination fills the store (`Save-BuildToStore`): the copy lands in a staging sibling
 `<Bundle>/.staging-<guid>/Catzc/<Version>` and the staging folder moves in as the stamp folder with one `Directory.Move`; a stamp folder
 that exists, or that appears while the copy runs, stands and the staging is deleted. After a successful move the other stamp folders of the
 same selection (the same `bundle`, `version` and ordinal-sorted module names in their `build.json`; a folder whose record is unreadable or
@@ -100,4 +103,13 @@ Above `$languageRecords = @(foreach ($row in $plan.Languages) {`, written with `
 ```text
 Each language module is handed to its language's package handler, after the stale sweep, so its packaged form lands under
 the code root at <place>/<Module> and the content hash below covers it.
+```
+
+## comment:2
+
+Above `$inputs = Get-BuildSourceInput -RepositoryRoot (Get-RepositoryRoot)...`, written with `#`.
+
+```text
+The stamp and the store location are read-only, so a dry run reports them too: the post-build run locates a bundle's stored build by them.
+Only the files the build reads count, so a commit outside them keeps the stored build.
 ```

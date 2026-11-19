@@ -47,7 +47,8 @@ against `dependencies.yml`: every call a selected module makes to a catzc functi
 selected module (an owner-scoped read, which reads only the owners present, is exempt), and every inventoried internal asset is present
 ([internal-asset-dependencies](internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)). Each bundle carries a
 `build.json` provenance record (bundle, version, content hash, `typesHash`, the type-source list, source commit, whether the tree differed
-from that commit, modules); a pipeline refuses to build a tree that differs from its commit. `Assert-CatzcBundle` is the integrity guard: it
+from that commit, modules); a pipeline refuses to build a tree that differs from its commit. A build is stamped from the files it reads, not
+from every tracked file, and a build whose stamp the build store holds is reused. `Assert-CatzcBundle` is the integrity guard: it
 re-verifies the recorded hash, that no `tests/` leaked in, that exactly one types DLL is present and its name matches `typesHash`, that
 every module has its manifest and its one merged function file, and that every manifest export resolves to a function in its merged file —
 collecting every violation. `Build-Modules` runs it as a self-check on its own output.
@@ -212,6 +213,13 @@ DLL's name proves, which on a clean tree is the commit's. `Build-Modules` writes
 one trailing newline, through `Write-FileIfChanged` — so rebuilding a commit rewrites nothing, the DLL included, because it is the same
 copied file — and computes a durable SHA over the whole payload with the recipe the globsets use. The same commit therefore hashes the same
 on every OS, which the CI pipeline proves by building on each and comparing.
+
+A build is stamped from the files it reads, so it is reused while they stand. The stamp hashes the selection with the folders of the
+selected modules, the engine that builds the bundle and ships inside it, the type sources of every module, the configs and tool pins that
+decide the build's shape, and the language modules it packages; the machine's build store keeps one build per stamp. A commit outside a
+bundle's inputs, such as a docs page, a test, or a module the bundle leaves out, keeps that bundle's stamp, so its next build reuses the
+stored one instead of building again. The post-build parity check keeps the narrow stamp honest: a reused build whose modules differ from
+the source tree fails it.
 
 A partial bundle is only as good as its closure. `dependencies.yml` leaves a module it does not list unconstrained, so the build does not
 take the declared closure on trust: before it writes anything it walks the code of the selected modules and fails, with the full list, on a

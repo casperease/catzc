@@ -70,6 +70,14 @@ diagnosis each time and hides a real regression behind a known one.
   (addressed by the warmup) and the store's (every commit to code empties it). The measure of both is the second run on the unchanged tree;
   a narrower stamp, counting only a selection's inputs, is the candidate if that run reads warm and the first-after-commit run stays over.
 
+- **The second run on the unchanged tree read 222.3 s** (`20261118-031946`, 0 failed), 33 s under the first after the commit, with the same
+  signature and the warmup's marker in place: the scanner's part is covered, and what is left of the cold band is the build store emptying
+  at every commit to code. **A build is stamped from the files it reads**, not from every tracked code file: the module folders of its
+  selection, the engine under the internal folder, the root files the build copies, and the language tracks it packages (all of them when
+  the profile is the whole repository, else the named ones); docs, plans, tests and the modules outside the selection no longer move the
+  stamp, so a commit to a test or to one module keeps every other bundle's stored build. The post-build parity test keeps the net: a build
+  reused against a changed input of its own would fail it.
+
 ## Open steps
 
 The two tags, the one-child collapse and the budget verdict's growth comparison (`Get-TestRunGrowth`, spread against concentrated, the
@@ -89,9 +97,22 @@ the marker when the child ends, so the import line says only ", warming the scan
 and the section paragraph in the importer record; eighteen ledger cases and the warmup's own case pass. No real warmup has run yet: the next
 signature update is its first.
 
+The stamp landed on 2026-11-18: `Get-BuildSourceInput` names what a build reads (the selected modules' folders, the internal, vendor and
+analyzer folders, every module's `types/`, the engine modules whose configs and commands decide the bytes, the tools pins, the config
+overlay, the packaged language modules; contracts and unselected modules are no input), `Get-BuildSourceStamp -InputPath` counts those files
+only and throws without a list, ADR-AUTO-BUNDLE-IMMUTABLEBUILD says so; the base bundle's dry-run stamp at landing is `c169e6fa018603e6`.
+The commit that lands it touches the internal folder, so every bundle rebuilds once more; the proof is the first run after a later commit
+outside the bundles' inputs, read from its build tests' seconds.
+
 - [ ] The user's runs, in task-user-runs-and-commits: the warm source run after each landing, and a cold source run after the next signature
       update under 240 s, the first one with the warmup in. Check: the `run.json` records; a cold run over the roof names the next cut here
       from its growth.
+
+## Open questions
+
+- Whether the `catzc-run` skill gains one line naming the gates that take no `-Path` (`Test-Glossary`, `Test-Terminology`,
+  `Test-DrsEngineNeutrality` run whole), since two drones and the meister each lost a call to it this round (proposed at the checkpoint of
+  2026-11-18, unanswered).
 
 ## Refs
 

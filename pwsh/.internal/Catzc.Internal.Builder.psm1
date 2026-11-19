@@ -14,6 +14,7 @@ $script:mergedFileSuffix = '.functions.ps1'
 . (Join-Path $PSScriptRoot 'assets/builder/Write-ModuleBuildOutput.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Clear-StaleBuildFile.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceIndex.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceInput.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-BuildSourceStamp.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Enter-BuildLock.ps1')
 . (Join-Path $PSScriptRoot 'assets/builder/Get-ReusableBuild.ps1')
@@ -203,8 +204,8 @@ function Invoke-ModuleBuild {
             "$key=$(@($PackageMetadata[$key]) -join ',')"
         }
     ) -join "`n"
-    # The stamp and the store location are read-only, so a dry run reports them too: the post-build run locates a bundle's stored build by them.
-    $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection
+    $inputs = Get-BuildSourceInput -RepositoryRoot (Get-RepositoryRoot) -SourceRoot $sourceRoot -Module $modules -AllLanguageModule:([bool] $allLanguageModules)
+    $stamp = Get-BuildSourceStamp -RepositoryRoot (Get-RepositoryRoot) -Selection $selection -InputPath $inputs
     $storeBuildRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine((Get-OutputRoot), (Get-CatzcModulesFolder), 'built', $Bundle, $stamp.Substring(0, 12), 'Catzc', $Version))
     # One builder per selection and source stamp at a time, whatever its destination: a second one waits, then reuses the stored build.
     $buildLock = if (-not $DryRun) {

@@ -6,16 +6,34 @@ function Get-BuildSourceStamp {
         [string] $RepositoryRoot,
 
         [Parameter(Mandatory)]
-        [string] $Selection
+        [string] $Selection,
+
+        [string[]] $InputPath
     )
 
+    $named = [string[]] @($InputPath | Where-Object { $_ })
+    Assert-True ($named.Count -gt 0) -ErrorText 'Get-BuildSourceStamp: a build is stamped from the files it reads, so -InputPath names them (Get-BuildSourceInput); none was given.'
+    $inputFolders = [string[]] @($named | Where-Object { $_.EndsWith('/') })
+    $inputFiles = [System.Collections.Generic.HashSet[string]]::new([string[]] @($named | Where-Object { -not $_.EndsWith('/') }),
+        [System.StringComparer]::OrdinalIgnoreCase)
     $tokens = [System.Collections.Generic.SortedDictionary[string, string]]::new([System.StringComparer]::Ordinal)
     $isCounted = {
         param([string] $Path)
-        -not ($Path.StartsWith('docs/', [System.StringComparison]::Ordinal) -or
+        if ($Path.StartsWith('docs/', [System.StringComparison]::Ordinal) -or
             $Path.StartsWith('.claude/', [System.StringComparison]::Ordinal) -or
             $Path.StartsWith('.unordered/', [System.StringComparison]::Ordinal) -or
-            "/$Path".Contains('/tests/'))
+            "/$Path".Contains('/tests/')) {
+            return $false
+        }
+        if ($inputFiles.Contains($Path)) {
+            return $true
+        }
+        foreach ($folder in $inputFolders) {
+            if ($Path.StartsWith($folder, [System.StringComparison]::OrdinalIgnoreCase)) {
+                return $true
+            }
+        }
+        $false
     }
 
     $tracked = Invoke-Executable 'git --no-optional-locks -c core.quotepath=off ls-files -s' -WorkingDirectory $RepositoryRoot -PassThru -Silent -NoAssert

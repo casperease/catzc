@@ -70,3 +70,23 @@ Started 2026-10-30T12:08:26.6530558+01:00.
   a drone transcript.
 - 2026-11-04 Cats: Token tip: Next time, save tokens by: never queuing a second Invoke-CatzcCommand behind one of mine that holds the lock
   over 120 s; it is refused and the call is wasted.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: Test-Glossary, Test-Terminology and Test-DrsEngineNeutrality take no -Path; they
+  run whole.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: Invoke-TestFile reads configs before each file, so a chain of calls never
+  reproduces a shard order; a dropped config index re-indexes under whatever root is active, which New-FakeRepositoryRoot now primes first.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: the import ledger stamps UTC while run folders are local time, and only a
+  console-shaped import (an empty caller script name) writes a ledger line.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: the test session runs with WarningPreference Stop and the analyzer forbids
+  Write-Warning, so a retry breadcrumb is Write-Message -Warning.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: the build stamp counted every tracked code file, so the first full run after any
+  commit rebuilt every stored bundle; warm means the second run on an unchanged tree.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: the first import after a Defender signature update reads files seven to sixteen
+  times slower; the importer now warms the tree once per signature and says so on its line.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: a new file language needs languages.yml, file-carriers.yml, the track languages
+  list and a FileLimitsConfig class, else four gates fire.
+- 2026-11-18 Cats: In hindsight I wish I knew this fact: files-shard rows carry a Key for bridge rows since 2026-11-17, and runs before it
+  compare only by file name.
+- 2026-11-18 Cats: Token tip: read failed rows from rows-shard-*.json with one python call before touching anything the paste names.
+- 2026-11-18 Cats: Token tip: chain every check of a step into one Invoke-CatzcCommand call and read its verdicts with one grep.
+- 2026-11-18 Cats: Token tip: brief a drone with the exact file list, the gates that take no -Path, and the staged-burst clause when the
+  files are import-path.
